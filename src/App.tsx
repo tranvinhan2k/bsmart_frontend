@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import { Typography } from '@mui/material'
+import Main from '@/features/Main'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/*" element={<Typography>Bsmart</Typography>} />
+      <Route path="/*" element={<Main />} />
     </Routes>
   )
 }

@@ -16,3 +16,8 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: local('Roboto-Regular'), url(./assets/fonts/Roboto/Roboto-Regular.ttf) format('truetype');
+}
