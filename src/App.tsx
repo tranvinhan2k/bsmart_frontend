@@ -1,5 +1,8 @@
+//React
 import { Route, Routes } from 'react-router-dom'
-import Main from '@/features/Main'
+
+//features
+import { Main } from '@/routes'
 
 export default function App() {
   return (

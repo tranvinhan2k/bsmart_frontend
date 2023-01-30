@@ -6,7 +6,6 @@
 import App from '@/App'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
-import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
@@ -18,7 +17,7 @@ import * as serviceWorker from './serviceWorker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { store } from './app/store'
+import store from '@/store/store'
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -16,7 +16,7 @@ module.exports = (env, agrv) => {
     new Dotenv(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
-      favicon: './src/assets/images/favicon.ico',
+      favicon: './assets/images/favicon.ico',
       hash: true,
     }),
     new MiniCssExtractPlugin({
