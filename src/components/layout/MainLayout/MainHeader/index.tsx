@@ -4,7 +4,7 @@ import { StyledHeaderContainer } from './styles'
 export default function MainHeader() {
   return (
     <StyledHeaderContainer>
-      <Typography>Header</Typography>
+      <Typography>Header2</Typography>
     </StyledHeaderContainer>
   )
 }
