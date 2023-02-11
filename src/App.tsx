@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import MainRoute from '~/routes/MainRoute';
-import store from '~/store/store';
+import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import './App.css';
 

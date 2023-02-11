@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { changeUserStatus } from '~/store/user/slice';
-import { selectUserStatus } from '~/store/user/selector';
+import { changeUserStatus } from '~/redux/user/slice';
+import { selectUserStatus } from '~/redux/user/selector';
 import accountApi from '~/api/users';
 import { UserPayload } from '~/models/user';
 import { MetricSize } from '~/assets/variables';
