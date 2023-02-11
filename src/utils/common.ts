@@ -1,5 +1,13 @@
-export const scrollToTop = () => {
+export function scrollToTop() {
   window.scrollTo(0, 0);
-};
+}
 
-export default { scrollToTop };
+export function delay(time?: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('');
+    }, time);
+  });
+}
+
+export default {};

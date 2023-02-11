@@ -28,6 +28,8 @@ export const MetricSize = {
   medium: '15px',
   large: '20px',
   extraLarge: '100px',
+  fullHeight: '100vh',
+  fullWidth: '100vh',
 };
 export const IconSize = {
   small: '25px',
