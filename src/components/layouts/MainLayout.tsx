@@ -20,8 +20,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <Stack
         sx={{
           minHeight: '100vh',
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
         {children}

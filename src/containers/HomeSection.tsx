@@ -8,6 +8,7 @@ import { selectUserStatus } from '~/redux/user/selector';
 import accountApi from '~/api/users';
 import { UserPayload } from '~/models/user';
 import { MetricSize } from '~/assets/variables';
+import { delay } from '~/utils/common';
 
 export default function HomeSection() {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ export default function HomeSection() {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
   });
-
   const [users, setUsers] = useState<UserPayload[]>();
   const handleClick = () => {
     dispatch(changeUserStatus(!isUser));
