@@ -1,9 +1,9 @@
 import { Stack } from '@mui/material';
-import { Colors } from '~/assets/variables';
 
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
+import { NavigationActionData } from '~/constants';
 
 interface MainLayoutProps {
   children: any;
@@ -15,7 +15,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <Header />
       </Stack>
       <Stack sx={{ height: '95px' }}>
-        <Navigation />
+        <Navigation pages={NavigationActionData} />
       </Stack>
       <Stack
         sx={{

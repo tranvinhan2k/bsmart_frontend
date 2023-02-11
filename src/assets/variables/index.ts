@@ -4,10 +4,13 @@ export const Colors = {
   orange: '#ff630e',
   grey: '#999',
   black: '#000',
+  semiTransparent: '#ffffff22',
+  transparent: '#00000000',
 };
 
 export const Common = {
   borderRadius: '10px',
+  inputFieldHeight: '40px',
 };
 export const FontFamilies = {
   regular: 'Roboto-Regular',
@@ -29,10 +32,11 @@ export const MetricSize = {
   large: '20px',
   extraLarge: '100px',
   fullHeight: '100vh',
-  fullWidth: '100vh',
+  fullWidth: '100vw',
+  halfWidth: '50vw',
 };
 export const IconSize = {
-  small: '25px',
+  small: '15px',
   medium: '30px',
   large: '35px',
 };
