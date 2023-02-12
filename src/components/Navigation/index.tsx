@@ -5,13 +5,23 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/material/Menu';
 import { useState } from 'react';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { NavLink } from 'react-router-dom';
+import {
+  Colors,
+  FontFamilies,
+  FontSize,
+  IconSize,
+  MetricSize,
+} from '~/assets/variables';
+import { NavigationActionData } from '~/constants';
 import { ActionPayload } from '~/models';
+import cart from '~/assets/images/icons8_shopping_cart_52px_2.png';
 
 const APP_NAME = import.meta.env.VITE_WEBSITE_NAME;
 
@@ -32,56 +42,54 @@ export default function Navigation({ pages }: NavigationProps) {
   };
 
   return (
-    <AppBar sx={{ flex: 1 }} position="static">
-      <Container sx={{ background: Colors.white, flex: 1 }} maxWidth="xl">
-        <Toolbar sx={{ flex: 1 }} disableGutters>
-          <Typography
-            sx={{
-              fontFamily: FontFamilies.bold,
-              fontSize: FontSize.large,
-              color: Colors.navy,
-            }}
+    <Stack
+      sx={{
+        flexDirection: 'row',
+        paddingX: MetricSize.extraLarge,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Stack>
+        <Typography
+          sx={{
+            fontSize: FontSize.large,
+            fontFamily: FontFamilies.bold,
+            color: Colors.navy,
+          }}
+        >
+          {APP_NAME}
+        </Typography>
+      </Stack>
+      <Stack flexDirection="row">
+        {NavigationActionData.map((item) => (
+          <NavLink
+            style={{ textDecoration: 'none', padding: MetricSize.medium }}
+            key={item.link}
+            to={item.link}
           >
-            {APP_NAME.toUpperCase()}
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
+            <Typography
+              style={{
+                fontFamily: FontFamilies.bold,
+                fontSize: FontSize.small,
+                color: Colors.navy,
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              {item.name}
+            </Typography>
+          </NavLink>
+        ))}
+      </Stack>
+      <Stack>
+        <IconButton>
+          <img
+            style={{ width: IconSize.medium, height: IconSize.medium }}
+            src={cart}
+            alt="cart"
+          />
+        </IconButton>
+      </Stack>
+    </Stack>
   );
 }

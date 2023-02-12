@@ -11,7 +11,6 @@ function SocialBar({ socials }: SocialBarProps) {
     <Stack
       sx={{
         flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
       }}
     >

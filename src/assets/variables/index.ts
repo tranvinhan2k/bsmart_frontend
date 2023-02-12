@@ -6,6 +6,7 @@ export const Colors = {
   black: '#000',
   semiTransparent: '#ffffff22',
   transparent: '#00000000',
+  blue: '#0d6efd',
 };
 
 export const Common = {

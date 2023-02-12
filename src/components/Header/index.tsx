@@ -1,18 +1,16 @@
 import { Stack } from '@mui/material';
 import { useState } from 'react';
 
-import {
-  AuthorizationActionData,
-  ContractDataList,
-  SocialDataList,
-} from '~/constants';
+import { AuthorizationActionData } from '~/constants';
 
-import { Colors } from '~/assets/variables';
+import { Colors, MetricSize } from '~/assets/variables';
 
 import AuthorizationBar from './AuthorizationBar';
-import ContractBar from './ContractBar';
-import SocialBar from './SocialBar';
+import ContractBar from '../common/ContractBar';
+import SocialBar from '../common/SocialBar';
 import SearchBar from './SearchBar';
+import { HeaderSocialDataList } from '~/constants/socials';
+import { HeaderContractDataList } from '~/constants/contract';
 
 const SEARCH_BAR_LABEL = 'Tìm kiếm khóa học';
 
@@ -36,10 +34,11 @@ export default function Header() {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
+        paddingX: MetricSize.extraLarge,
       }}
     >
-      <SocialBar socials={SocialDataList} />
-      <ContractBar contracts={ContractDataList} />
+      <SocialBar socials={HeaderSocialDataList} />
+      <ContractBar contracts={HeaderContractDataList} />
       <SearchBar
         label={SEARCH_BAR_LABEL}
         value={searchValue}
