@@ -7,10 +7,13 @@ export const Colors = {
   semiTransparent: '#ffffff22',
   transparent: '#00000000',
   blue: '#0d6efd',
+  red: '#e74033',
+  neutral: '#ccc',
+  blueTransparent: 'rgba(5, 1, 51, 0.7)',
 };
 
 export const Common = {
-  borderRadius: '10px',
+  borderRadius: '5px',
   inputFieldHeight: '40px',
 };
 export const FontFamilies = {
@@ -29,6 +32,7 @@ export const FontSize = {
 };
 export const MetricSize = {
   small: '5px',
+  sm_medium: '10px',
   medium: '15px',
   large: '20px',
   extraLarge: '100px',

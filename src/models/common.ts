@@ -11,6 +11,7 @@ export interface ContractPayload {
 }
 
 export interface ActionPayload {
+  isHide?: boolean;
   name: string;
   link: string;
 }

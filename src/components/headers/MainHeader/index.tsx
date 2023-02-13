@@ -16,6 +16,8 @@ interface MainHeaderProps {
   authenticationData: ActionPayload[];
   onChangeText: (changeText: string) => void;
   onSearchText: () => void;
+  onLoginClick: () => void;
+  onRegisterClick: () => void;
 }
 
 export default function MainHeader({
@@ -26,6 +28,8 @@ export default function MainHeader({
   authenticationData,
   onChangeText,
   onSearchText,
+  onLoginClick,
+  onRegisterClick,
 }: MainHeaderProps) {
   return (
     <Stack
@@ -51,6 +55,8 @@ export default function MainHeader({
       <AuthorizationBar
         loginData={authenticationData[0]}
         registerData={authenticationData[1]}
+        onLoginClick={onLoginClick}
+        onRegisterClick={onRegisterClick}
       />
     </Stack>
   );

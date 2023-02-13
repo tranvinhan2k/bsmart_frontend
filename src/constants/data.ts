@@ -37,6 +37,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Tuyển dụng',
     link: '/recuitment',
   },
+  {
+    isHide: true,
+    name: 'Đăng ký',
+    link: '/register',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [

@@ -1,5 +1,5 @@
 import { IconButton, Stack, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   Colors,
   FontFamilies,
@@ -13,10 +13,11 @@ import { ActionPayload } from '~/models';
 const APP_NAME = import.meta.env.VITE_WEBSITE_NAME;
 
 interface NavigationProps {
+  pathName: string;
   pages: ActionPayload[];
 }
 
-export default function MainNavigation({ pages }: NavigationProps) {
+export default function MainNavigation({ pathName, pages }: NavigationProps) {
   return (
     <Stack
       sx={{
@@ -37,27 +38,30 @@ export default function MainNavigation({ pages }: NavigationProps) {
             color: Colors.navy,
           }}
         >
-          {APP_NAME}
+          {APP_NAME.toUpperCase()}
         </Typography>
       </Stack>
       <Stack flexDirection="row">
-        {pages.map((item) => (
-          <NavLink
-            style={{ textDecoration: 'none', padding: MetricSize.medium }}
-            key={item.link}
-            to={item.link}
-          >
-            <Typography
-              style={{
-                fontFamily: FontFamilies.bold,
-                fontSize: FontSize.small,
-                color: Colors.navy,
-              }}
-            >
-              {item.name}
-            </Typography>
-          </NavLink>
-        ))}
+        {pages.map(
+          (item) =>
+            !item.isHide && (
+              <NavLink
+                style={{ textDecoration: 'none', padding: MetricSize.medium }}
+                key={item.link}
+                to={item.link}
+              >
+                <Typography
+                  style={{
+                    fontFamily: FontFamilies.bold,
+                    fontSize: FontSize.small,
+                    color: pathName === item.link ? Colors.orange : Colors.navy,
+                  }}
+                >
+                  {item.name}
+                </Typography>
+              </NavLink>
+            )
+        )}
       </Stack>
       <Stack>
         <IconButton>
