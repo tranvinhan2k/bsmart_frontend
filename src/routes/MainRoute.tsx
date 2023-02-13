@@ -2,14 +2,14 @@ import { lazy, Suspense } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import MainLayout from '~/components/layouts/MainLayout';
-import LoadingScreen from '~/components/LoadingScreen';
+import LazyLoadingScreen from '~/components/loading/LazyLoadingScreen';
+import MainLayout from '~/layouts/MainLayout';
 
 const HomePage = lazy(() => import('~/pages/HomePage'));
 
 export default function MainRoute() {
   return (
-    <Suspense fallback={<LoadingScreen />}>
+    <Suspense fallback={<LazyLoadingScreen />}>
       <MainLayout>
         <Routes>
           <Route index element={<Navigate to="homepage" />} />

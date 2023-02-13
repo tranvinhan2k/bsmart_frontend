@@ -11,10 +11,9 @@ import { NavLink } from 'react-router-dom';
 import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
 import ContractBar from '~/components/common/ContractBar';
 import SocialBar from '~/components/common/SocialBar';
-import { AddressData } from '~/constants';
-import { NavigationActionData } from '~/constants/actions';
-import { FooterContractDataList } from '~/constants/contract';
 import { FooterSocialDataList } from '~/constants/socials';
+import { ActionPayload, ContractPayload } from '~/models';
+import { AddressDataPayload } from '~/models/address';
 import {
   SX_LARGE_TITLE,
   SX_MEDIUM_BOLD_TEXT,
@@ -23,7 +22,17 @@ import {
   SX_SMALL_TEXT,
 } from '~/styles';
 
-export default function Footer() {
+interface MainFooterProps {
+  addresses: AddressDataPayload[];
+  navigateList: ActionPayload[];
+  contracts: ContractPayload[];
+}
+
+export default function MainFooter({
+  addresses,
+  navigateList,
+  contracts,
+}: MainFooterProps) {
   return (
     <Stack
       sx={{
@@ -34,7 +43,7 @@ export default function Footer() {
       }}
     >
       <Stack paddingY={MetricSize.large}>
-        {AddressData.map((item) => (
+        {addresses.map((item) => (
           <Stack key={item.id}>
             <Typography sx={SX_MEDIUM_BOLD_TEXT}>{item.city}</Typography>
             <Stack flexDirection="row" justifyContent="space-between">
@@ -87,7 +96,7 @@ export default function Footer() {
         <Grid xl={2} sx={{ paddingX: MetricSize.medium }}>
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>Menu</Typography>
           <Stack sx={{ paddingTop: MetricSize.medium }}>
-            {NavigationActionData.map((item) => (
+            {navigateList.map((item) => (
               <Tooltip key={item.link} title={item.name}>
                 <NavLink
                   style={{
@@ -104,7 +113,7 @@ export default function Footer() {
             ))}
           </Stack>
         </Grid>
-        <Grid xl={4}>
+        <Grid xl={5}>
           <Stack
             sx={{
               justifyContent: 'center',
@@ -131,7 +140,7 @@ export default function Footer() {
           </Typography>
 
           <Box sx={{ paddingTop: MetricSize.medium }}>
-            <ContractBar contracts={FooterContractDataList} />
+            <ContractBar contracts={contracts} />
           </Box>
         </Grid>
       </Grid>

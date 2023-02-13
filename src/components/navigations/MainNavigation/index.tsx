@@ -1,16 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import MenuIcon from '@mui/material/Menu';
-import { useState } from 'react';
+import { IconButton, Stack, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import {
   Colors,
@@ -19,9 +7,8 @@ import {
   IconSize,
   MetricSize,
 } from '~/assets/variables';
-import { NavigationActionData } from '~/constants';
-import { ActionPayload } from '~/models';
 import cart from '~/assets/images/icons8_shopping_cart_52px_2.png';
+import { ActionPayload } from '~/models';
 
 const APP_NAME = import.meta.env.VITE_WEBSITE_NAME;
 
@@ -29,26 +16,17 @@ interface NavigationProps {
   pages: ActionPayload[];
 }
 
-export default function Navigation({ pages }: NavigationProps) {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
+export default function MainNavigation({ pages }: NavigationProps) {
   return (
     <Stack
       sx={{
+        background: Colors.white,
         flexDirection: 'row',
         paddingX: MetricSize.extraLarge,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
+        boxShadow: 4,
       }}
     >
       <Stack>
@@ -63,7 +41,7 @@ export default function Navigation({ pages }: NavigationProps) {
         </Typography>
       </Stack>
       <Stack flexDirection="row">
-        {NavigationActionData.map((item) => (
+        {pages.map((item) => (
           <NavLink
             style={{ textDecoration: 'none', padding: MetricSize.medium }}
             key={item.link}

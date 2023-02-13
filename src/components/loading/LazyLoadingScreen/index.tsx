@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { Colors, MetricSize } from '~/assets/variables';
 import loadingIcon from '~/assets/gifs/loading.gif';
 
-function LoadingScreen() {
+function LazyLoadingScreen() {
   return (
     <Stack
       style={{
@@ -21,4 +21,4 @@ function LoadingScreen() {
     </Stack>
   );
 }
-export default LoadingScreen;
+export default LazyLoadingScreen;

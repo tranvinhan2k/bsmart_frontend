@@ -1,10 +1,9 @@
 import { Stack } from '@mui/material';
 import { MetricSize } from '~/assets/variables';
 
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
-import Navigation from '~/components/Navigation';
-import { NavigationActionData } from '~/constants';
+import MainFooterSection from '~/containers/MainLayout/MainFooterSection';
+import MainHeaderSection from '~/containers/MainLayout/MainHeaderSection';
+import MainNavigationSection from '~/containers/MainLayout/MainNavigationSection';
 
 interface MainLayoutProps {
   children: any;
@@ -13,10 +12,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <Stack>
       <Stack sx={{ height: '80px' }}>
-        <Header />
+        <MainHeaderSection />
       </Stack>
-      <Stack sx={{ height: '95px' }}>
-        <Navigation pages={NavigationActionData} />
+      <Stack sx={{ height: '95px', position: 'sticky', top: 0, zIndex: 10 }}>
+        <MainNavigationSection />
       </Stack>
       <Stack
         sx={{
@@ -31,7 +30,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           minHeight: '20vh',
         }}
       >
-        <Footer />
+        <MainFooterSection />
       </Stack>
     </Stack>
   );

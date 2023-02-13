@@ -1,19 +1,17 @@
 import { ContractPayload, SocialPayload, ActionPayload } from '~/models';
 import { AddressDataPayload } from '~/models/address';
 
-export const AuthorizationActionData: {
-  login: ActionPayload;
-  register: ActionPayload;
-} = {
-  login: {
+export const AuthorizationActionData: ActionPayload[] = [
+  {
     name: 'Đăng nhập',
     link: '/login',
   },
-  register: {
+  {
     name: 'Đăng kí',
     link: '/register',
   },
-};
+];
+
 export const NavigationActionData: ActionPayload[] = [
   {
     name: 'Trang Chủ',

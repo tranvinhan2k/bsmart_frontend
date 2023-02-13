@@ -14,4 +14,3 @@ export interface ActionPayload {
   name: string;
   link: string;
 }
-
