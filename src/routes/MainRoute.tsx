@@ -7,6 +7,7 @@ import LoadingScreen from '~/components/LoadingScreen';
 
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const IndexPage = lazy(() => import('~/pages/IndexPage'));
+const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 
 export default function MainRoute() {
   return (
@@ -16,6 +17,7 @@ export default function MainRoute() {
           <Route index element={<Navigate to="homepage" />} />
           <Route path="homepage/*" element={<HomePage />} />
           <Route path="index/*" element={<IndexPage />} />
+          <Route path="aboutus/*" element={<AboutUsPage />} />
         </Routes>
       </MainLayout>
     </Suspense>
