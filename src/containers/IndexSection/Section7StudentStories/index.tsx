@@ -7,14 +7,14 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import { stories } from './mockData';
-import { SX_BOX, SX_TYPOGRAPHY_H2 } from './style';
+import { stories } from '~/constants/mockData/stories';
+import { SX } from './style';
 
 export default function Section7StudentStories() {
   return (
-    <Box sx={SX_BOX}>
-      <Box sx={{ position: 'relative', textAlign: 'center' }} px={16}>
-        <Typography component="h2" sx={SX_TYPOGRAPHY_H2}>
+    <Box sx={SX.BOX}>
+      <Box sx={SX.CONTAINER} px={16}>
+        <Typography component="h2" sx={SX.H2}>
           Câu chuyện của học sinh
         </Typography>
         <Grid container spacing={2}>

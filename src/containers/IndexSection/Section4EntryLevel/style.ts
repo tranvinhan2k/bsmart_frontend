@@ -1,7 +1,9 @@
+import { SxProps } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import img_banner_sub_entryLevel_1 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_1.jpg';
 import img_banner_sub_entryLevel_2 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_2.jpg';
 
-export const SX_IMG_LEFT = {
+const IMG_LEFT: SxProps<Theme> = {
   backgroundImage: `url(${img_banner_sub_entryLevel_1})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
@@ -31,7 +33,7 @@ export const SX_IMG_LEFT = {
   },
 };
 
-export const SX_IMG_RIGHT = {
+const IMG_RIGHT: SxProps<Theme> = {
   backgroundImage: `url(${img_banner_sub_entryLevel_2})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
@@ -61,15 +63,29 @@ export const SX_IMG_RIGHT = {
   },
 };
 
-export const SX_TEXT_BEFORE_IMG_H2 = {
+const CONTAINER: SxProps<Theme> = {
+  position: 'relative',
+  textAlign: 'center',
+};
+
+const TEXT_BEFORE_IMG_H2: SxProps<Theme> = {
   color: '#fff',
   fontSize: '42px',
   lineHeight: '56px',
   fontWeight: 700,
   textTransform: 'uppercase',
 };
-export const SX_TEXT_BEFORE_IMG_P = {
+
+const TEXT_BEFORE_IMG_P: SxProps<Theme> = {
   color: '#fff',
   fontSize: '22px',
   lineHeight: '26px',
+};
+
+export const SX = {
+  IMG_LEFT,
+  IMG_RIGHT,
+  CONTAINER,
+  TEXT_BEFORE_IMG_H2,
+  TEXT_BEFORE_IMG_P,
 };

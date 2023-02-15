@@ -1,4 +1,6 @@
-export const advantages = [
+import { Advantage } from '~/models/mockData/advantage';
+
+export const advantages: Advantage[] = [
   {
     title: 'Học theo lộ trình, có định hướng',
     content:

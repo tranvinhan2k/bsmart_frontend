@@ -1,4 +1,6 @@
-export const reasons = [
+import { Reason } from '~/models/mockData/reason';
+
+export const reasons: Reason[] = [
   {
     id: 1,
     title: 'High Quality Courses',

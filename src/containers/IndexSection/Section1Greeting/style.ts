@@ -1,6 +1,8 @@
+import { SxProps } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import img_img_banner_1 from '~/assets/images/IndexSection/img_banner_1.jpg';
 
-export const SX_BANNER = {
+const BANNER: SxProps<Theme> = {
   backgroundImage: `url(${img_img_banner_1})`,
   padding: '180px',
   backgroundRepeat: 'no-repeat',
@@ -18,7 +20,12 @@ export const SX_BANNER = {
   },
 };
 
-export const SX_TYPOGRAPHY_H4 = {
+const CONTAINER: SxProps<Theme> = {
+  position: 'relative',
+  textAlign: 'center',
+};
+
+const H4: SxProps<Theme> = {
   color: '#ff630e',
   textTransform: 'uppercase',
   fontSize: { xs: '18px', md: '20px' },
@@ -28,7 +35,7 @@ export const SX_TYPOGRAPHY_H4 = {
   marginBottom: '20px',
 };
 
-export const SX_TYPOGRAPHY_H2 = {
+const H2: SxProps<Theme> = {
   fontSize: '70px',
   lineHeight: '77px',
   color: '#fff',
@@ -36,9 +43,17 @@ export const SX_TYPOGRAPHY_H2 = {
   marginBottom: '20px',
 };
 
-export const SX_TYPOGRAPHY_P = {
+const P: SxProps<Theme> = {
   color: '#fff',
   padding: '0 200px',
   fontSize: '16px',
   lineHeight: '26px',
+};
+
+export const SX = {
+  BANNER,
+  CONTAINER,
+  H4,
+  H2,
+  P,
 };

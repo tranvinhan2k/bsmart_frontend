@@ -9,19 +9,14 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import { courses } from './mockData';
-import {
-  SX_BOX,
-  SX_FIFTH_LAYER_TYPOGRAPHY_H2,
-  SX_COURSE_IMG_CONTAINER,
-  SX_COURSE_IMG,
-} from './style';
+import { SX } from './style';
+import { courses } from '~/constants/mockData/courses';
 
 export default function Section5StandoutCourses() {
   return (
-    <Box sx={SX_BOX}>
-      <Box sx={{ position: 'relative', textAlign: 'center' }} px={16}>
-        <Typography component="h2" sx={SX_FIFTH_LAYER_TYPOGRAPHY_H2}>
+    <Box sx={SX.BOX}>
+      <Box sx={SX.CONTAINER} px={16}>
+        <Typography component="h2" sx={SX.H2}>
           Khoá học tiêu biểu
         </Typography>
         <Grid container spacing={2}>
@@ -35,10 +30,10 @@ export default function Section5StandoutCourses() {
                   image={course.img_course}
                 />
                 <Box sx={{ position: 'relative' }}>
-                  <Box sx={SX_COURSE_IMG_CONTAINER}>
+                  <Box sx={SX.COURSE_IMG_CONTAINER}>
                     <Box
                       component="img"
-                      sx={SX_COURSE_IMG}
+                      sx={SX.COURSE_IMG}
                       alt="img"
                       src={course.img_teacher}
                     />

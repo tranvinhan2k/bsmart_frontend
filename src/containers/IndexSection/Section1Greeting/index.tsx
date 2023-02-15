@@ -3,24 +3,19 @@ import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
 } from '~/containers/IndexSection/style';
-import {
-  SX_BANNER,
-  SX_TYPOGRAPHY_H4,
-  SX_TYPOGRAPHY_H2,
-  SX_TYPOGRAPHY_P,
-} from './style';
+import { SX } from './style';
 
 export default function Section1Greeting() {
   return (
-    <Box sx={SX_BANNER}>
-      <Box sx={{ position: 'relative', textAlign: 'center' }}>
-        <Typography component="h4" sx={SX_TYPOGRAPHY_H4}>
+    <Box sx={SX.BANNER}>
+      <Box sx={SX.CONTAINER}>
+        <Typography component="h4" sx={SX.H4}>
           KHỞI ĐẦU SỰ NGHIỆP CỦA BẠN
         </Typography>
-        <Typography component="h2" sx={SX_TYPOGRAPHY_H2}>
+        <Typography component="h2" sx={SX.H2}>
           Trở thành lập trình viên chuyên nghiệp tại BSmart
         </Typography>
-        <Typography component="p" sx={SX_TYPOGRAPHY_P}>
+        <Typography component="p" sx={SX.P}>
           Chúng tôi cung cấp các khoá học chất lượng cao để cải thiện các kỹ
           năng lập trình của bạn. Tất cả các giảng viên của chúng tôi đều có
           nhiều kinh nghiệm trong thực tế và giảng dạy.

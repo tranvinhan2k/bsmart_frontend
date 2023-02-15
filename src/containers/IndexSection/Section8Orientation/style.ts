@@ -1,6 +1,8 @@
+import { SxProps } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import img_bg_1_funFact from '~/assets/images/IndexSection/img_bg_1_funFact.jpg';
 
-export const SX_BOX = {
+const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',
   backgroundImage: `url(${img_bg_1_funFact})`,
   backgroundPosition: 'center center',
@@ -19,7 +21,12 @@ export const SX_BOX = {
   },
 };
 
-export const SX_TYPOGRAPHY_H2 = {
+const CONTAINER: SxProps<Theme> = {
+  position: 'relative',
+  textAlign: 'center',
+};
+
+const H2: SxProps<Theme> = {
   fontSize: '24px',
   lineHeight: '30px',
   fontWeight: 600,
@@ -28,11 +35,18 @@ export const SX_TYPOGRAPHY_H2 = {
   marginBottom: '20px',
 };
 
-export const SX_TYPOGRAPHY_H2_SUB = {
+const H2_SUB: SxProps<Theme> = {
   fontSize: '30px',
   lineHeight: '30px',
   fontWeight: 600,
   fontStyle: 'normal',
   color: '#0e0a38',
   marginBottom: '20px',
+};
+
+export const SX = {
+  BOX,
+  CONTAINER,
+  H2,
+  H2_SUB,
 };

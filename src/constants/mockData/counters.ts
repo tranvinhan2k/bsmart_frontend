@@ -1,4 +1,6 @@
-export const counters = [
+import { Counter } from '~/models/mockData/counter';
+
+export const counters: Counter[] = [
   {
     id: 1,
     title: '35,535+',

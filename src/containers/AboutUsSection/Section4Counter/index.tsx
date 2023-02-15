@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import { SX } from './style';
-import { counters } from './mockData';
+import { counters } from '~/constants/mockData/counters';
 
 export default function Section4Counter() {
   return (

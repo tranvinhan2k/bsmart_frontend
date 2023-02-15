@@ -1,6 +1,6 @@
 import { Box, Typography, Grid } from '@mui/material';
 import { SX_WHY_BSMART } from './style';
-import { reasons } from './mockData';
+import { reasons } from '~/constants/mockData/reasons';
 
 export default function Section5WhyBsmart() {
   return (

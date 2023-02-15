@@ -4,23 +4,18 @@ import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
 } from '~/containers/IndexSection/style';
-import {
-  SX_SECOND_LAYER_TYPOGRAPHY_H2,
-  SX_SECOND_LAYER_TYPOGRAPHY_P,
-  SX_SECOND_LAYER_BOX_IMG,
-  SX_SECOND_LAYER_BOX_BANNER,
-} from './style';
+import { SX } from './style';
 
 export default function Section2AboutUs() {
   return (
-    <Box sx={SX_SECOND_LAYER_BOX_BANNER}>
-      <Box sx={{ position: 'relative', textAlign: 'center' }} px={16}>
-        <Typography component="h2" sx={SX_SECOND_LAYER_TYPOGRAPHY_H2}>
+    <Box sx={SX.BOX_BANNER}>
+      <Box sx={SX.CONTAINER} px={16}>
+        <Typography component="h2" sx={SX.H2}>
           Về chúng tôi
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <Typography component="p" sx={SX_SECOND_LAYER_TYPOGRAPHY_P}>
+            <Typography component="p" sx={SX.P}>
               BSmart khai thác nhu cầu tuyển dụng lập trình, kết nối việc làm
               tới doanh nghiệp và tích hợp các dự án với công nghệ mới nhất vào
               phương pháp đào tạo tích cực cho các học viên học xong có việc làm
@@ -48,7 +43,7 @@ export default function Section2AboutUs() {
           <Grid item xs={12} md={6}>
             <Box
               component="img"
-              sx={SX_SECOND_LAYER_BOX_IMG}
+              sx={SX.BOX_IMG}
               alt="img"
               src={img_banner_sub_typing_1}
             />

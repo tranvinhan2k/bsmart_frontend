@@ -1,24 +1,24 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import img_banner_sub_typing_2 from '~/assets/images/IndexSection/img_banner_sub_typing_2.jpg';
+import { SX } from './style';
 import { SX_BUTTON_PRIMARY } from '~/containers/IndexSection/style';
-import { SX_BOX, SX_BOX_IMG, SX_FORM, SX_FORM_TITLE } from './style';
 
 export default function Section9ContactUs() {
   return (
-    <Box sx={SX_BOX}>
-      <Box sx={{ position: 'relative', textAlign: 'center' }} px={16}>
+    <Box sx={SX.BOX}>
+      <Box sx={SX.CONTAINER} px={16}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Box
               component="img"
-              sx={SX_BOX_IMG}
+              sx={SX.BOX_IMG}
               alt="img"
               src={img_banner_sub_typing_2}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box sx={SX_FORM}>
-              <Typography component="h2" sx={SX_FORM_TITLE}>
+            <Box sx={SX.FORM}>
+              <Typography component="h2" sx={SX.FORM_TITLE}>
                 Liên hệ tư vấn
               </Typography>
               <Grid container spacing={2}>

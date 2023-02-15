@@ -3,16 +3,16 @@ import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
 } from '~/containers/IndexSection/style';
-import { SX_BOX, SX_TYPOGRAPHY_H2, SX_TYPOGRAPHY_H2_SUB } from './style';
+import { SX } from './style';
 
 export default function Section8Orientation() {
   return (
-    <Box sx={SX_BOX}>
-      <Box sx={{ position: 'relative', textAlign: 'center' }} px={16}>
-        <Typography component="h2" sx={SX_TYPOGRAPHY_H2}>
+    <Box sx={SX.BOX}>
+      <Box sx={SX.CONTAINER} px={16}>
+        <Typography component="h2" sx={SX.H2}>
           Định hướng và Chuẩn hoá lộ trình học tập
         </Typography>
-        <Typography component="h2" sx={SX_TYPOGRAPHY_H2_SUB}>
+        <Typography component="h2" sx={SX.H2_SUB}>
           Học Thật, Dự Án Thật, Giảng Viên Tận Tâm
         </Typography>
         <Stack
