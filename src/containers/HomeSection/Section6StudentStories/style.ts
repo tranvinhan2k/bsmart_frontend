@@ -1,5 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
+import { Colors, FontWeight } from '~/assets/variables';
 
 const BOX = {
   padding: '95px 0 150px',
@@ -13,8 +14,8 @@ const CONTAINER: SxProps<Theme> = {
 const H2 = {
   fontSize: '45px',
   lineHeight: '55px',
-  fontWeight: 700,
-  color: '#0e0a38',
+  fontWeight: FontWeight.bold,
+  color: Colors.navy,
   marginBottom: '30px',
 };
 

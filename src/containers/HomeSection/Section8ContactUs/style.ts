@@ -1,9 +1,10 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
+import { Colors, FontWeight } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',
-  backgroundColor: '#f5f5f5',
+  backgroundColor: Colors.whiteSmoke,
 };
 
 const BOX_IMG: SxProps<Theme> = {
@@ -20,14 +21,14 @@ const CONTAINER: SxProps<Theme> = {
 
 const FORM: SxProps<Theme> = {
   padding: '25px 30px',
-  backgroundColor: '#fff',
+  backgroundColor: Colors.white,
   borderRadius: '10px',
 };
 
 const FORM_TITLE: SxProps<Theme> = {
   fontSize: '30px',
-  fontWeight: 700,
-  color: '#0e0a38',
+  fontWeight: FontWeight.semiBold,
+  color: Colors.navy,
   textTransform: 'uppercase',
 };
 

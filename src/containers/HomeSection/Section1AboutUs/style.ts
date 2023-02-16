@@ -1,5 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
+import { Colors, FontWeight } from '~/assets/variables';
 import img_img_banner_2 from '~/assets/images/IndexSection/img_banner_2.jpg';
 
 const BOX_BANNER: SxProps<Theme> = {
@@ -29,15 +30,15 @@ const CONTAINER: SxProps<Theme> = {
 const H2: SxProps<Theme> = {
   fontSize: '45px',
   lineHeight: '55px',
-  fontWeight: 700,
-  color: '#0e0a38',
+  fontWeight: FontWeight.bold,
+  color: Colors.navy,
   marginBottom: '30px',
 };
 
 const P: SxProps<Theme> = {
   fontSize: '20px',
-  fontWeight: 500,
-  color: '#0e0a38',
+  fontWeight: FontWeight.medium,
+  color: Colors.navy,
   textAlign: 'justify',
   lineHeight: '30px',
 };
