@@ -28,14 +28,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <Stack sx={{ maxHeight: '750px' }}>
         <BreadcrumbNavigationSection />
       </Stack>
-      <Stack
-        sx={{
-          minHeight: '100vh',
-          paddingX: MetricSize.extraLarge,
-        }}
-      >
-        {children}
-      </Stack>
+      {children}
       <Stack
         sx={{
           minHeight: '20vh',
