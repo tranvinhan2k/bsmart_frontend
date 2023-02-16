@@ -42,8 +42,8 @@ export const FontWeight = {
   medium: 500,
 };
 export const MetricSize = {
-  small: '5px',
-  sm_medium: '10px',
+  small_5: '5px',
+  small_10: '10px',
   medium: '15px',
   large: '20px',
   extraLarge: '100px',

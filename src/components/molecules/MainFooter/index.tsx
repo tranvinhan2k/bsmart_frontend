@@ -72,7 +72,7 @@ export default function MainFooter({
           }}
         >
           <Typography sx={SX_LARGE_TITLE}>BSMART</Typography>
-          <Box sx={{ paddingY: MetricSize.small }}>
+          <Box sx={{ paddingY: MetricSize.small_5 }}>
             <Typography sx={SX_SMALL_TEXT}>
               Chúng tôi cung cấp các khoá học chất lượng cao để cải thiện các kỹ
               năng lập trình của bạn. Tất cả các giảng viên của chúng tôi đều có

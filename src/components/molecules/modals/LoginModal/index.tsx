@@ -112,11 +112,11 @@ export default function LoginModal({
 
                 <Link to="/forgot_password">Quên mật khẩu ?</Link>
               </Stack>
-              <Button marginTop="sm_medium" customVariant="form" type="submit">
+              <Button marginTop="small_10" customVariant="form" type="submit">
                 Đăng nhập
               </Button>
               <Button
-                marginTop="sm_medium"
+                marginTop="small_10"
                 customVariant="google"
                 onClick={handleGoogle}
               >
@@ -138,7 +138,7 @@ export default function LoginModal({
                 >
                   Bạn chưa có tài khoản ?
                 </Typography>
-                <Box sx={{ paddingLeft: MetricSize.small }}>
+                <Box sx={{ paddingLeft: MetricSize.small_5 }}>
                   <Link to="/register">Đăng ký ngay</Link>
                 </Box>
               </Stack>

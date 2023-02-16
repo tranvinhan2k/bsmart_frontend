@@ -10,7 +10,7 @@ export const SX_CHECKBOX: SxProps<Theme> = {
 export const SX_INPUT_LABEL: SxProps<Theme> = {};
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
   '& .MuiInputBase-input': {
-    borderRadius: MetricSize.small,
+    borderRadius: MetricSize.small_5,
     position: 'relative',
     border: '1px solid #ced4da',
     fontSize: FontSize.small_16,

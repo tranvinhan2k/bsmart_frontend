@@ -19,7 +19,7 @@ function AuthorizationBar({
   return (
     <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
       <Button
-        style={{ padding: MetricSize.small, textDecoration: 'none' }}
+        style={{ padding: MetricSize.small_5, textDecoration: 'none' }}
         onClick={onLoginClick}
       >
         <Typography
@@ -41,7 +41,7 @@ function AuthorizationBar({
       <Button
         onClick={onRegisterClick}
         key={registerData.name}
-        style={{ padding: MetricSize.small, textDecoration: 'none' }}
+        style={{ padding: MetricSize.small_5, textDecoration: 'none' }}
       >
         <Typography
           sx={{

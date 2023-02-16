@@ -16,7 +16,7 @@ function ContractBar({ contracts }: ContractBarProps) {
         contracts.map((contract) => (
           <Tooltip key={contract.name} title={contract.name}>
             <Stack sx={SX_CONTRACT_STACK}>
-              <Stack paddingRight={MetricSize.small}>
+              <Stack paddingRight={MetricSize.small_5}>
                 <img
                   style={{ width: IconSize.small, height: IconSize.small }}
                   src={contract.image}
