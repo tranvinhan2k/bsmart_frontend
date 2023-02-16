@@ -1,5 +1,5 @@
 import { IconButton, Stack, Typography } from '@mui/material';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   Colors,
   FontFamilies,
@@ -9,7 +9,7 @@ import {
 } from '~/assets/variables';
 import cart from '~/assets/images/icons8_shopping_cart_52px_2.png';
 import { ActionPayload } from '~/models';
-import { SX_NAVIGATION_STACK } from '~/components/molecules/navigations/BreadcrumbNavigation/styles';
+import { SX_NAVIGATION_STACK } from './styles';
 
 const APP_NAME = import.meta.env.VITE_WEBSITE_NAME;
 
