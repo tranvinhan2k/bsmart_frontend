@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import HomeSection from '~/containers/HomeSection';
+import TestSection from '~/containers/Test/TestSection';
 import { scrollToTop } from '~/utils/common';
 
-function HomePage() {
+function TestPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
-  return <HomeSection />;
+  return <TestSection />;
 }
-export default HomePage;
+export default TestPage;

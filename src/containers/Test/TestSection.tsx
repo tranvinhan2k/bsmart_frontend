@@ -8,9 +8,8 @@ import { selectUserStatus } from '~/redux/user/selector';
 import accountApi from '~/api/users';
 import { UserPayload } from '~/models/user';
 import { MetricSize } from '~/assets/variables';
-import { delay } from '~/utils/common';
 
-export default function HomeSection() {
+export default function TestSection() {
   const dispatch = useDispatch();
   const isUser = useSelector(selectUserStatus);
   // Access the client
