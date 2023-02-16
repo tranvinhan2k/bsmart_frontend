@@ -11,6 +11,12 @@ export interface ContractPayload {
 }
 
 export interface ActionPayload {
+  isHide?: boolean;
   name: string;
   link: string;
+}
+
+export interface TabPayload {
+  index: number;
+  label: string;
 }
