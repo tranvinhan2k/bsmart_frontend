@@ -1,0 +1,38 @@
+import { SxProps } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+
+const BOX = {
+  width: '80%',
+  margin: 'auto',
+  textAlign: 'center',
+  marginTop: '10px',
+};
+
+const H2: SxProps<Theme> = {
+  fontSize: '45px',
+  lineHeight: '55px',
+  fontWeight: 700,
+};
+
+const H5: SxProps<Theme> = {
+  fontSize: '16px',
+  lineHeight: '26px',
+  fontWeight: 600,
+  textTransform: 'uppercase',
+  color: '#ff630e',
+  letterSpacing: 1,
+};
+
+const P: SxProps<Theme> = {
+  color: 'grey',
+  margin: '20px 0 40px',
+  letterSpacing: 1,
+  lineHeight: '25px',
+};
+
+export const SX = {
+  BOX,
+  H2,
+  H5,
+  P,
+};
