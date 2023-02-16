@@ -96,7 +96,7 @@ export default function MainFooter({
                   style={{
                     textDecoration: 'none',
                     fontFamily: FontFamilies.regular,
-                    fontSize: FontSize.small,
+                    fontSize: FontSize.small_16,
                     color: Colors.white,
                   }}
                   to={item.link}
@@ -120,7 +120,7 @@ export default function MainFooter({
               style={{
                 background: Colors.orange,
                 fontFamily: FontFamilies.bold,
-                fontSize: FontSize.small,
+                fontSize: FontSize.small_16,
                 color: Colors.white,
               }}
             >
@@ -151,7 +151,7 @@ export default function MainFooter({
         <Typography
           style={{
             fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
+            fontSize: FontSize.small_16,
             color: Colors.white,
             textAlign: 'center',
             paddingTop: MetricSize.large,

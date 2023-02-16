@@ -9,7 +9,7 @@ import {
 
 export const SX_FORM_BUTTON: SxProps<Theme> = {
   fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
   color: Colors.white,
   background: Colors.orange,
   width: '100%',
@@ -26,7 +26,7 @@ export const SX_GOOGLE_BUTTON: SxProps<Theme> = {
   borderColor: Colors.black,
   borderWidth: 1,
   fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
   color: Colors.black,
   background: Colors.white,
   boxShadow: 3,
@@ -36,14 +36,14 @@ export const SX_GOOGLE_STACK: SxProps<Theme> = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
   fontFamily: FontFamilies.regular,
   width: '100%',
 };
 
 export const SX_NORMAL_BUTTON: SxProps<Theme> = {
   fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
   color: Colors.white,
   background: Colors.orange,
   width: '100%',

@@ -7,7 +7,7 @@ export const SX_NOT_FOUND_STACK: SxProps<Theme> = {
   alignItems: 'center',
 };
 export const SX_NOT_FOUND_TEXT: SxProps<Theme> = {
-  fontSize: FontSize.extraLarge,
+  fontSize: FontSize.extraLarge_70,
   fontFamily: FontFamilies.light,
   color: Colors.black,
 };

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 
 const BOX = {
   width: '80%',
@@ -10,13 +10,13 @@ const BOX = {
 };
 
 const H2: SxProps<Theme> = {
-  fontSize: '45px',
+  fontSize: FontSize.large_45,
   lineHeight: '55px',
   fontWeight: FontWeight.bold,
 };
 
 const H5: SxProps<Theme> = {
-  fontSize: '16px',
+  fontSize: FontSize.small_16,
   lineHeight: '26px',
   fontWeight: FontWeight.semiBold,
   textTransform: 'uppercase',

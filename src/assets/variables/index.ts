@@ -27,17 +27,19 @@ export const FontFamilies = {
   medium: 'Roboto-Medium',
   thin: 'Roboto-Thin',
 };
+
+export const FontSize = {
+  small_16: 16,
+  small_18: 18,
+  medium_24: 24,
+  medium_28: 28,
+  large_45: 45,
+  extraLarge_70: 70,
+};
 export const FontWeight = {
   bold: 700,
   semiBold: 600,
   medium: 500,
-};
-
-export const FontSize = {
-  small: '16px',
-  medium: '24px',
-  large: '42px',
-  extraLarge: '70px',
 };
 export const MetricSize = {
   small: '5px',

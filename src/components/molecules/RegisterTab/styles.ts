@@ -15,7 +15,7 @@ export const SX_TAB: SxProps<Theme> = {
   background: '#eee',
   borderColor: Colors.orange,
   fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
   '&:hover': {
     color: Colors.white,
     background: Colors.orange,

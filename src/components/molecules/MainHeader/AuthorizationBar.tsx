@@ -25,7 +25,7 @@ function AuthorizationBar({
         <Typography
           sx={{
             fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
+            fontSize: FontSize.small_16,
             color: Colors.white,
             transitionDelay: '100ms',
             transitionProperty: 'color',
@@ -46,7 +46,7 @@ function AuthorizationBar({
         <Typography
           sx={{
             fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
+            fontSize: FontSize.small_16,
             color: Colors.white,
             transitionDelay: '100ms',
             transitionProperty: 'color',

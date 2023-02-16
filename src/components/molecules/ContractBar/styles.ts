@@ -7,7 +7,7 @@ export const SX_CONTRACT_STACK: SxProps<Theme> = {
 };
 export const SX_CONTRACT_TEXT: SxProps<Theme> = {
   fontFamily: FontFamilies.regular,
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
   color: Colors.white,
 };
 export default {};

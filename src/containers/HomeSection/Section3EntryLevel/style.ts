@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 import img_banner_sub_entryLevel_1 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_1.jpg';
 import img_banner_sub_entryLevel_2 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_2.jpg';
 
@@ -71,7 +71,7 @@ const CONTAINER: SxProps<Theme> = {
 
 const TEXT_BEFORE_IMG_H2: SxProps<Theme> = {
   color: Colors.white,
-  fontSize: '42px',
+  fontSize: FontSize.large_45,
   lineHeight: '56px',
   fontWeight: FontWeight.bold,
   textTransform: 'uppercase',
@@ -79,7 +79,7 @@ const TEXT_BEFORE_IMG_H2: SxProps<Theme> = {
 
 const TEXT_BEFORE_IMG_P: SxProps<Theme> = {
   color: Colors.white,
-  fontSize: '22px',
+  fontSize: FontSize.medium_24,
   lineHeight: '26px',
 };
 

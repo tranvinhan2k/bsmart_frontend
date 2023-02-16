@@ -69,7 +69,7 @@ export default function LoginModal({
           <Typography
             sx={{
               fontFamily: FontFamilies.bold,
-              fontSize: FontSize.medium,
+              fontSize: FontSize.medium_24,
               textAlign: 'center',
             }}
           >
@@ -132,7 +132,7 @@ export default function LoginModal({
                 <Typography
                   sx={{
                     fontFamily: FontFamilies.regular,
-                    fontSize: FontSize.small,
+                    fontSize: FontSize.small_16,
                     color: Colors.black,
                   }}
                 >

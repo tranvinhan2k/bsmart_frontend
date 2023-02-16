@@ -1,4 +1,4 @@
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 
 export const SX_BUTTON_PRIMARY = {
   display: 'block',
@@ -6,7 +6,7 @@ export const SX_BUTTON_PRIMARY = {
   color: Colors.white,
   padding: '15px 30px',
   borderRadius: '5px',
-  fontSize: '16px',
+  fontSize: FontSize.small_16,
   fontWeight: FontWeight.semiBold,
   textTransform: 'uppercase',
   letterSpacing: '1px',
@@ -23,7 +23,7 @@ export const SX_BUTTON_SECONDARY = {
   backgroundColor: Colors.white,
   padding: '15px 30px',
   borderRadius: '5px',
-  fontSize: '16px',
+  fontSize: FontSize.small_16,
   fontWeight: FontWeight.semiBold,
   textTransform: 'uppercase',
   letterSpacing: '1px',

@@ -24,7 +24,7 @@ export default function MainNavigation({ pathName, pages }: NavigationProps) {
       <Stack>
         <Typography
           sx={{
-            fontSize: FontSize.large,
+            fontSize: FontSize.large_45,
             fontFamily: FontFamilies.bold,
             color: Colors.navy,
           }}
@@ -44,7 +44,7 @@ export default function MainNavigation({ pathName, pages }: NavigationProps) {
                 <Typography
                   style={{
                     fontFamily: FontFamilies.bold,
-                    fontSize: FontSize.small,
+                    fontSize: FontSize.small_16,
                     color: pathName === item.link ? Colors.orange : Colors.navy,
                   }}
                 >

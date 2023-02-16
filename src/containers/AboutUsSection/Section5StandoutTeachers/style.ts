@@ -1,11 +1,11 @@
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 
 export const BOX = {
   padding: '95px 0 150px',
 };
 
 export const H2 = {
-  fontSize: '45px',
+  fontSize: FontSize.large_45,
   fontWeight: FontWeight.bold,
   lineHeight: '55px',
   color: Colors.navy,

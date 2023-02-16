@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',
@@ -26,7 +26,7 @@ const FORM: SxProps<Theme> = {
 };
 
 const FORM_TITLE: SxProps<Theme> = {
-  fontSize: '30px',
+  fontSize: FontSize.medium_28,
   fontWeight: FontWeight.semiBold,
   color: Colors.navy,
   textTransform: 'uppercase',

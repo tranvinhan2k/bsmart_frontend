@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 import img_bg_1_funFact from '~/assets/images/IndexSection/img_bg_1_funFact.jpg';
 
 const BOX: SxProps<Theme> = {
@@ -28,7 +28,7 @@ const CONTAINER: SxProps<Theme> = {
 };
 
 const H2: SxProps<Theme> = {
-  fontSize: '24px',
+  fontSize: FontSize.medium_24,
   lineHeight: '30px',
   fontWeight: FontWeight.semiBold,
   fontStyle: 'normal',
@@ -37,7 +37,7 @@ const H2: SxProps<Theme> = {
 };
 
 const H2_SUB: SxProps<Theme> = {
-  fontSize: '30px',
+  fontSize: FontSize.medium_28,
   lineHeight: '30px',
   fontWeight: FontWeight.semiBold,
   fontStyle: 'normal',

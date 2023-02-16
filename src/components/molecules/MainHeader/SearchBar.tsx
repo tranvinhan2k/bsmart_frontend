@@ -44,7 +44,7 @@ export default function SearchBar({
         placeholder={label}
         style={{
           fontFamily: FontFamilies.regular,
-          fontSize: FontSize.small,
+          fontSize: FontSize.small_16,
           padding: MetricSize.medium,
           border: 'none',
           background: Colors.transparent,

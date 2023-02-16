@@ -1,5 +1,5 @@
 import { alpha, SxProps, Theme } from '@mui/material';
-import { Colors, MetricSize } from '~/assets/variables';
+import { Colors, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_CHECKBOX: SxProps<Theme> = {
   '&.Mui-checked': {
@@ -13,7 +13,7 @@ export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
     borderRadius: MetricSize.small,
     position: 'relative',
     border: '1px solid #ced4da',
-    fontSize: 16,
+    fontSize: FontSize.small_16,
     width: '100%',
     padding: '10px 12px',
     // Use the system font instead of the default Roboto font.

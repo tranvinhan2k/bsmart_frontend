@@ -15,7 +15,7 @@ export const SX_CHECKBOX: SxProps<Theme> = {
 export const SX_CHECKBOX_TYPOGRAPHY: SxProps<Theme> = {
   color: Colors.grey,
   fontFamily: FontFamilies.regular,
-  fontSize: FontSize.small,
+  fontSize: FontSize.small_16,
 };
 
 export default {};

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   width: '100%',
@@ -10,7 +10,7 @@ const BOX: SxProps<Theme> = {
 };
 
 const H4: SxProps<Theme> = {
-  fontSize: '16px',
+  fontSize: FontSize.small_16,
   lineHeight: '26px',
   fontWeight: FontWeight.semiBold,
   textTransform: 'uppercase',
@@ -21,7 +21,7 @@ const H4: SxProps<Theme> = {
 };
 
 const H2: SxProps<Theme> = {
-  fontSize: { xs: '20px', sm: '45px' },
+  fontSize: { xs: FontSize.small_16, sm: FontSize.large_45 },
   fontWeight: FontWeight.bold,
   lineHeight: { xs: '25px', sm: '55px' },
   textAlign: 'center',
@@ -43,13 +43,13 @@ const SINGLE_BOX: SxProps<Theme> = {
 const SINGLE_BOX_H3: SxProps<Theme> = {
   fontWeight: FontWeight.bold,
   marginBottom: '10px',
-  fontSize: '24px',
+  fontSize: FontSize.medium_24,
   lineHeight: '34px',
   color: '#130f40',
 };
 
 const SINGLE_BOX_P: SxProps<Theme> = {
-  fontSize: '16px',
+  fontSize: FontSize.small_16,
   lineHeight: '26px',
   color: Colors.grey2,
 };
