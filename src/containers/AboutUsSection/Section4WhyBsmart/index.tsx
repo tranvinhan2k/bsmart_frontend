@@ -2,7 +2,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import { SX_WHY_BSMART } from './style';
 import { reasons } from '~/constants/mockData/reasons';
 
-export default function Section5WhyBsmart() {
+export default function Section4WhyBsmart() {
   return (
     <Box sx={SX_WHY_BSMART.BOX}>
       <Box sx={{ position: 'relative', textAlign: 'center' }}>

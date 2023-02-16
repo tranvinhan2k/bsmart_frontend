@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { SX } from './style';
 
-export default function Section3WhoWeAre() {
+export default function Section2WhoWeAre() {
   return (
     <Box sx={SX.BOX}>
       <Typography component="h5" sx={SX.H5}>

@@ -3,7 +3,7 @@ import img_banner_sub_typing_1 from '~/assets/images/IndexSection/img_banner_sub
 import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
-} from '~/containers/IndexSection/style';
+} from '~/containers/HomeSection/style';
 import { SX } from './style';
 
 export default function Section2AboutUs() {

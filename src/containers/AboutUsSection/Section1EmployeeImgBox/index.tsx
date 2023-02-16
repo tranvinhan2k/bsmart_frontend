@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import { SX } from './style';
 import img_bg_2_employee from '~/assets/images/AboutUsSection/img_bg_2_employee.jpg';
 
-export default function Section2EmployeeImgBox() {
+export default function Section1EmployeeImgBox() {
   return (
     <Grid container sx={SX.WRAPPER}>
       <Grid item xs={12}>

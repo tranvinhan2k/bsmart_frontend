@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import { SX } from './style';
 import { counters } from '~/constants/mockData/counters';
 
-export default function Section4Counter() {
+export default function Section3Counter() {
   return (
     <Grid container sx={SX.CONTAINER}>
       {counters.map((counter) => (
