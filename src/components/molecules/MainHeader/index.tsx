@@ -5,7 +5,7 @@ import ContractBar from '../ContractBar';
 import SocialBar from '../SocialBar';
 import SearchBar from './SearchBar';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
-import { SX_HEADER_CONTAINER } from '~/components/molecules/MainHeader/styles';
+import { SX_HEADER_CONTAINER } from './styles';
 
 interface MainHeaderProps {
   searchValue: string;
