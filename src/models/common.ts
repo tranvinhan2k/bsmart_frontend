@@ -15,3 +15,8 @@ export interface ActionPayload {
   name: string;
   link: string;
 }
+
+export interface TabPayload {
+  index: number;
+  label: string;
+}

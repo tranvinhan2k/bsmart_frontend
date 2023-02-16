@@ -39,6 +39,7 @@ export const MetricSize = {
   fullHeight: '100vh',
   fullWidth: '100vw',
   halfWidth: '50vw',
+  none: '0',
 };
 export const IconSize = {
   small: '15px',

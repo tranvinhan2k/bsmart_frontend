@@ -1,6 +1,9 @@
-import MainFooter from '~/components/footers/MainFooter';
-import { AddressData, NavigationActionData } from '~/constants';
-import { FooterContractDataList } from '~/constants/contract';
+import MainFooter from '~/components/molecules/MainFooter';
+import {
+  AddressData,
+  FooterContractDataList,
+  NavigationActionData,
+} from '~/constants';
 
 export default function MainFooterSection() {
   return (

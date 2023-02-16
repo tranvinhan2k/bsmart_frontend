@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { MetricSize } from '~/assets/variables';
-import BreadcrumbNavigationSection from '~/containers/MainLayout/BreadcrumbNavigationSection';
 
+import BreadcrumbNavigationSection from '~/containers/MainLayout/BreadcrumbNavigationSection';
 import MainFooterSection from '~/containers/MainLayout/MainFooterSection';
 import MainHeaderSection from '~/containers/MainLayout/MainHeaderSection';
 import MainNavigationSection from '~/containers/MainLayout/MainNavigationSection';

@@ -1,7 +1,5 @@
-import { Link, Typography } from '@mui/material';
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import BreadcrumbNavigation from '~/components/navigations/BreadcrumbNavigation';
+import BreadcrumbNavigation from '~/components/molecules/navigations/BreadcrumbNavigation';
 import { NavigationActionData } from '~/constants';
 import { ActionPayload } from '~/models';
 

@@ -1,12 +1,13 @@
-import { Modal } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import MainHeader from '~/components/headers/MainHeader';
-import LoginModal from '~/components/modals/LoginModal';
-import { AuthorizationActionData } from '~/constants';
-import { HeaderContractDataList } from '~/constants/contract';
-import { HeaderSocialDataList } from '~/constants/socials';
+import MainHeader from '~/components/molecules/MainHeader';
+import LoginModal from '~/components/molecules/modals/LoginModal';
+import {
+  AuthorizationActionData,
+  HeaderContractDataList,
+  HeaderSocialDataList,
+} from '~/constants';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';

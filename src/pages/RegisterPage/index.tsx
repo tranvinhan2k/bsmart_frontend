@@ -1,25 +1,20 @@
+import { useEffect } from 'react';
+
 import { Stack } from '@mui/material';
-import { MetricSize } from '~/assets/variables';
+
+import RegisterSection from '~/containers/Register/RegisterSection';
+
+import { scrollToTop } from '~/utils/common';
+
+import { SX_REGISTER_LAYOUT_STACK } from './styles';
 
 export default function RegisterPage() {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
-    <Stack
-      sx={{
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Stack
-        sx={{
-          borderRadius: MetricSize.small,
-          boxShadow: 5,
-          padding: MetricSize.medium,
-          margin: MetricSize.medium,
-          width: MetricSize.halfWidth,
-        }}
-      >
-        Hello
-      </Stack>
+    <Stack sx={SX_REGISTER_LAYOUT_STACK}>
+      <RegisterSection />
     </Stack>
   );
 }

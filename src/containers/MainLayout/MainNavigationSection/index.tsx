@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import MainNavigation from '~/components/navigations/MainNavigation';
+import MainNavigation from '~/components/molecules/navigations/MainNavigation';
 import { NavigationActionData } from '~/constants';
 
 export default function MainNavigationSection() {
