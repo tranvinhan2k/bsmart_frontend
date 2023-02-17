@@ -16,46 +16,19 @@ import phone from '~/assets/images/icons8_phone_52px.png';
 import location from '~/assets/images/icons8_location_52px.png';
 
 export const AuthorizationActionData: ActionPayload[] = [
-  {
-    name: 'Đăng nhập',
-    link: '/login',
-  },
-  {
-    name: 'Đăng kí',
-    link: '/register',
-  },
+  { name: 'Đăng nhập', link: '/login' },
+  { name: 'Đăng kí', link: '/register' },
 ];
 
 export const NavigationActionData: ActionPayload[] = [
-  {
-    name: 'Trang Chủ',
-    link: '/homepage',
-  },
-  {
-    name: 'Về Chúng Tôi',
-    link: '/about_us',
-  },
-  {
-    name: 'Khóa Học',
-    link: '/course',
-  },
-  {
-    name: 'Giảng viên',
-    link: '/teacher',
-  },
-  {
-    name: 'Blog',
-    link: '/blog',
-  },
-  {
-    name: 'Tuyển dụng',
-    link: '/recuitment',
-  },
-  {
-    isHide: true,
-    name: 'Đăng ký',
-    link: '/register',
-  },
+  { name: 'Trang Chủ', link: '/homepage' },
+  { name: 'Về Chúng Tôi', link: '/about_us' },
+  { name: 'Khóa Học', link: '/course' },
+  { name: 'Giảng viên', link: '/teacher' },
+  { name: 'Blog', link: '/blog' },
+  { name: 'Tuyển dụng', link: '/recruitment' },
+  { name: 'Đăng ký', link: '/register' },
+  { name: 'NỀN TẢNG LMS', link: '/lms' },
 ];
 
 export const AddressData: AddressDataPayload[] = [
@@ -66,17 +39,17 @@ export const AddressData: AddressDataPayload[] = [
       {
         id: 0,
         phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TPHCM',
+        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
       },
       {
         id: 1,
         phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TPHCM',
+        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
       },
       {
         id: 2,
         phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TPHCM',
+        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
       },
     ],
   },
@@ -94,21 +67,9 @@ export const RegisterTabPayload: TabPayload[] = [
 ];
 
 export const HeaderSocialDataList: SocialPayload[] = [
-  {
-    name: 'Twitter',
-    link: 'https://twitter.com',
-    image: twitter,
-  },
-  {
-    name: 'LinkedIn',
-    link: 'https://www.linkedin.com/',
-    image: linkedin,
-  },
-  {
-    name: 'Dribbble',
-    link: 'https://dribbble.com/',
-    image: dribbble,
-  },
+  { name: 'Twitter', link: 'https://twitter.com', image: twitter },
+  { name: 'LinkedIn', link: 'https://www.linkedin.com', image: linkedin },
+  { name: 'Dribbble', link: 'https://dribbble.com', image: dribbble },
 ];
 export const FooterSocialDataList: SocialPayload[] = [
   {

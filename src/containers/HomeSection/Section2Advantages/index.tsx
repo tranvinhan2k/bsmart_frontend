@@ -1,7 +1,7 @@
 import { Box, Typography, Grid } from '@mui/material';
 import React from 'react';
 import { SX } from './style';
-import { advantages } from '~/constants/mockData/advantages';
+import { advantagesOfBsmart } from '~/constants/mockData/advantages';
 
 export default function Section3Advantages() {
   return (
@@ -11,8 +11,8 @@ export default function Section3Advantages() {
           Điểm ưu việt tại BSmart
         </Typography>
         <Grid container spacing={2}>
-          {advantages.map((advantage) => (
-            <React.Fragment key={advantage.title}>
+          {advantagesOfBsmart.map((advantage) => (
+            <React.Fragment key={advantage.id}>
               <Grid item xs={12} md={4}>
                 <Typography component="h4" sx={SX.H4}>
                   {advantage.title}

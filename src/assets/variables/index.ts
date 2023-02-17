@@ -40,6 +40,7 @@ export const FontWeight = {
   bold: 700,
   semiBold: 600,
   medium: 500,
+  normal: 400,
 };
 export const MetricSize = {
   small_5: '5px',
