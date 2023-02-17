@@ -24,13 +24,13 @@ const IMG: SxProps<Theme> = {
 };
 
 const P: SxProps<Theme> = {
-  color: '#0e0a38',
+  color: Colors.navy,
   lineHeight: '30px',
   /*  */
-  fontWeight: '400',
-  marginBottom: '20px',
-  fontSize: '20px',
-  paddingTop: '20px',
+  fontWeight: FontWeight.normal,
+  paddingTop: MetricSize.large,
+  marginBottom: MetricSize.large,
+  fontSize: FontSize.small_18,
   textAlign: 'justify',
 };
 

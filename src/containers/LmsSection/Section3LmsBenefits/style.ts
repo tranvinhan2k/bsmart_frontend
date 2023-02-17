@@ -1,31 +1,32 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
+import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
-  marginBottom: '20px',
-  padding: '20px 20px',
-  borderRadius: '8px',
+  padding: MetricSize.large,
+  marginBottom: MetricSize.large,
+  borderRadius: MetricSize.small_10,
   textAlign: 'center',
   boxShadow: '0 0 15px rgb(51 51 51 / 10%)',
 };
 
 const H3: SxProps<Theme> = {
-  color: '#0e0a38',
+  color: Colors.navy,
   lineHeight: '50px',
   letterSpacing: '2px',
-  fontWeight: 700,
-  marginBottom: '20px',
+  fontWeight: FontWeight.bold,
+  marginBottom: MetricSize.large,
   textTransform: 'uppercase',
-  fontSize: '49px',
+  fontSize: FontSize.large_45,
 };
 
 const H4: SxProps<Theme> = {
-  paddingTop: '20px',
-  color: '#ff630e',
+  paddingTop: MetricSize.large,
+  marginBottom: MetricSize.large,
+  color: Colors.orange,
   lineHeight: '30px',
   letterSpacing: '2px',
-  fontWeight: 700,
-  marginBottom: '20px',
+  fontWeight: FontWeight.bold,
   fontSize: '36px',
 };
 
@@ -37,21 +38,21 @@ const IMG: SxProps<Theme> = {
 };
 
 const H3_BENEFIT: SxProps<Theme> = {
-  paddingTop: '20px',
-  fontSize: '22px',
-  color: '#ff630e',
+  paddingTop: MetricSize.large,
+  fontSize: FontSize.medium_24,
+  color: Colors.orange,
   lineHeight: '30px',
-  fontWeight: 500,
+  fontWeight: FontWeight.medium,
 };
 
 const P_BENEFIT: SxProps<Theme> = {
   height: '100%',
-  paddingTop: '20px',
-  fontSize: '20px',
-  color: '#0e0a38',
+  paddingTop: MetricSize.large,
+  fontSize: FontSize.small_18,
+  color: Colors.navy,
   textAlign: 'justify',
   lineHeight: '30px',
-  fontWeight: 400,
+  fontWeight: FontWeight.normal,
 };
 
 export const SX = {

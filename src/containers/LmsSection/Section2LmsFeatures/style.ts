@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   mx: 'auto',
@@ -31,7 +31,7 @@ const QUOTE_CONTENT: SxProps<Theme> = {
   lineHeight: '30px',
   fontSize: FontSize.small_18,
   textAlign: 'justify',
-  padding: '10px 0',
+  padding: `${MetricSize.small_10} 0`,
 };
 
 export const SX = {
