@@ -25,13 +25,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
       >
         <MainNavigationSection />
       </Stack>
-      <Stack sx={{ maxHeight: '750px' }}>
+      <Stack>
         <BreadcrumbNavigationSection />
       </Stack>
       <Stack
         sx={{
           minHeight: '100vh',
-          paddingX: MetricSize.extraLarge,
+          paddingX: { xs: MetricSize.medium, md: MetricSize.extraLarge },
         }}
       >
         {children}

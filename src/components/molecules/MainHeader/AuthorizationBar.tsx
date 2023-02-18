@@ -4,6 +4,7 @@ import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
 import { ActionPayload } from '~/models';
 
 interface AuthorizationBarProps {
+  color: 'white' | 'black';
   loginData: ActionPayload;
   registerData: ActionPayload;
   onLoginClick: () => void;
@@ -11,6 +12,7 @@ interface AuthorizationBarProps {
 }
 
 function AuthorizationBar({
+  color = 'black',
   loginData,
   registerData,
   onLoginClick,
@@ -26,7 +28,7 @@ function AuthorizationBar({
           sx={{
             fontFamily: FontFamilies.regular,
             fontSize: FontSize.small,
-            color: Colors.white,
+            color: Colors[color],
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
@@ -47,7 +49,7 @@ function AuthorizationBar({
           sx={{
             fontFamily: FontFamilies.regular,
             fontSize: FontSize.small,
-            color: Colors.white,
+            color: Colors[color],
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {

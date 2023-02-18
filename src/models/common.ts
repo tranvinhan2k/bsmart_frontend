@@ -1,13 +1,15 @@
+import { IconName } from '~/models/icon';
+
 export interface SocialPayload {
   name: string;
   link: string;
-  image: string;
+  image: IconName;
 }
 
 export interface ContractPayload {
   name: string;
   value: string;
-  image: string;
+  image: IconName;
 }
 
 export interface ActionPayload {

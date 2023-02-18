@@ -6,12 +6,6 @@ import {
   CheckBoxPayload,
 } from '~/models';
 import { AddressDataPayload } from '~/models/address';
-import twitter from '~/assets/images/icons8_twitter_26px.png';
-import linkedin from '~/assets/images/icons8_linkedin_26px.png';
-import dribbble from '~/assets/images/icons8_dribbble_26px.png';
-import facebook from '~/assets/images/icons8_facebook_52px.png';
-import instagram from '~/assets/images/icons8_instagram_52px.png';
-import pinterest from '~/assets/images/icons8_pinterest_52px.png';
 import mail from '~/assets/images/icons8_mail_52px.png';
 import phone from '~/assets/images/icons8_phone_52px.png';
 import location from '~/assets/images/icons8_location_52px.png';
@@ -59,6 +53,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Đăng ký',
     link: '/register',
   },
+  {
+    isHide: true,
+    name: 'Đăng nhập',
+    link: '/login',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [
@@ -100,56 +99,56 @@ export const HeaderSocialDataList: SocialPayload[] = [
   {
     name: 'Twitter',
     link: 'https://twitter.com',
-    image: twitter,
+    image: 'twitter',
   },
   {
     name: 'LinkedIn',
     link: 'https://www.linkedin.com/',
-    image: linkedin,
+    image: 'linkedin',
   },
   {
     name: 'Dribbble',
     link: 'https://dribbble.com/',
-    image: dribbble,
+    image: 'dribbble',
   },
 ];
 export const FooterSocialDataList: SocialPayload[] = [
   {
     name: 'Facebook',
     link: 'https://facebook.com/',
-    image: facebook,
+    image: 'facebook',
   },
   {
     name: 'Twitter',
     link: 'https://twitter.com',
-    image: twitter,
+    image: 'twitter',
   },
   {
     name: 'LinkedIn',
     link: 'https://www.linkedin.com/',
-    image: linkedin,
+    image: 'linkedin',
   },
   {
     name: 'Pinterest',
     link: 'https://pinterest.com/',
-    image: pinterest,
+    image: 'pinterest',
   },
 
   {
     name: 'Instagram',
     link: 'https://instagram.com/',
-    image: instagram,
+    image: 'instagram',
   },
 ];
 
 export const HeaderContractDataList: ContractPayload[] = [
-  { name: 'Email', image: mail, value: 'bsmart@gmail.com' },
-  { name: 'Số Điện Thoại', image: phone, value: '+98 946005077' },
+  { name: 'Email', image: 'mail', value: 'bsmart@gmail.com' },
+  { name: 'Số Điện Thoại', image: 'phone', value: '+98 946005077' },
 ];
 export const FooterContractDataList: ContractPayload[] = [
-  { name: 'Địa chỉ', image: location, value: '260/19 Tân Binh, Hồ Chí Minh' },
-  { name: 'Email', image: mail, value: 'bsmart@gmail.com' },
-  { name: 'Số điện thoại', image: phone, value: '+98 946005077' },
+  { name: 'Địa chỉ', image: 'location', value: '260/19 Tân Binh, Hồ Chí Minh' },
+  { name: 'Email', image: 'mail', value: 'bsmart@gmail.com' },
+  { name: 'Số điện thoại', image: 'phone', value: '+98 946005077' },
 ];
 
 export const FieldCheckBoxPayload: CheckBoxPayload[] = [

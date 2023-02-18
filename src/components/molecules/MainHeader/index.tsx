@@ -3,45 +3,41 @@ import { Stack } from '@mui/material';
 import AuthorizationBar from './AuthorizationBar';
 import ContractBar from '../ContractBar';
 import SocialBar from '../SocialBar';
-import SearchBar from './SearchBar';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { SX_HEADER_CONTAINER } from './styles';
+import SearchBar from '~/components/atoms/SearchBar';
 
 interface MainHeaderProps {
-  searchValue: string;
   searchLabel: string;
   socials: SocialPayload[];
   contracts: ContractPayload[];
   authenticationData: ActionPayload[];
-  onChangeText: (changeText: string) => void;
-  onSearchText: () => void;
+  onSearchText: (searchValue: string) => void;
   onLoginClick: () => void;
   onRegisterClick: () => void;
 }
 
 export default function MainHeader({
-  searchValue,
   searchLabel,
   contracts,
   socials,
   authenticationData,
-  onChangeText,
   onSearchText,
   onLoginClick,
   onRegisterClick,
 }: MainHeaderProps) {
   return (
     <Stack sx={SX_HEADER_CONTAINER}>
-      <SocialBar socials={socials} />
-      <ContractBar contracts={contracts} />
+      <SocialBar color="white" socials={socials} />
+      <ContractBar color="white" contracts={contracts} />
       <SearchBar
-        label={searchLabel}
-        value={searchValue}
-        onChange={onChangeText}
+        color="white"
+        placeholder={searchLabel}
         onSubmit={onSearchText}
       />
 
       <AuthorizationBar
+        color="white"
         loginData={authenticationData[0]}
         registerData={authenticationData[1]}
         onLoginClick={onLoginClick}

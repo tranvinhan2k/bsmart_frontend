@@ -9,9 +9,14 @@ import {
 } from '~/constants';
 
 export default function CourseFilterSection() {
+  const handleSubmitSearchValue = () => {};
   return (
     <Stack>
-      <SearchBar />
+      <SearchBar
+        color="black"
+        placeholder="Tìm kiếm ..."
+        onSubmit={handleSubmitSearchValue}
+      />
       <FilterCheckboxList
         fields={FieldCheckBoxPayload}
         subjects={SubjectCheckBoxPayload}
