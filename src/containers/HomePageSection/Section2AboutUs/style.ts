@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import img_img_banner_2 from '~/assets/images/IndexSection/img_banner_2.jpg';
+import img_img_banner_2 from '~/assets/images/HomePageSection/img_banner_2.jpg';
 
 const BOX_BANNER: SxProps<Theme> = {
   backgroundImage: `url(${img_img_banner_2})`,

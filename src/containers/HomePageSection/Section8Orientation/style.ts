@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import img_bg_1_funFact from '~/assets/images/IndexSection/img_bg_1_funFact.jpg';
+import img_bg_1_funFact from '~/assets/images/HomePageSection/img_bg_1_funFact.jpg';
 
 const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',

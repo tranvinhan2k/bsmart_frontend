@@ -1,4 +1,4 @@
-import Section1AboutUs from './Section1AboutUs';
+// import Section1AboutUs from './Section1AboutUs';
 import Section2EmployeeImgBox from './Section2EmployeeImgBox';
 import Section3WhoWeAre from './Section3WhoWeAre';
 import Section4Counter from './Section4Counter';
@@ -8,7 +8,7 @@ import Section6StandoutTeachers from './Section6StandoutTeachers';
 export default function AboutUsSection() {
   return (
     <>
-      <Section1AboutUs />
+      {/* <Section1AboutUs /> */}
       <Section2EmployeeImgBox />
       <Section3WhoWeAre />
       <Section4Counter />

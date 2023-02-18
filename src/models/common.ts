@@ -20,3 +20,9 @@ export interface TabPayload {
   index: number;
   label: string;
 }
+
+export interface CheckBoxPayload {
+  id: number;
+  label: string;
+  value: string;
+}

@@ -1,4 +1,14 @@
-import { IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import {
   Colors,
@@ -10,6 +20,7 @@ import {
 import cart from '~/assets/images/icons8_shopping_cart_52px_2.png';
 import { ActionPayload } from '~/models';
 import { SX_NAVIGATION_STACK } from './styles';
+import { useState } from 'react';
 
 const APP_NAME = import.meta.env.VITE_WEBSITE_NAME;
 
@@ -19,12 +30,35 @@ interface NavigationProps {
 }
 
 export default function MainNavigation({ pathName, pages }: NavigationProps) {
+  const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
+  const handleDrawerToggle = () => {
+    setOpenDrawer(!isOpenDrawer);
+  };
+
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <Typography variant="h6" sx={{ my: 2 }}>
+        MUI
+      </Typography>
+      <Divider />
+      <List>
+        {pages.map((item) => (
+          <ListItem key={item.name} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={item.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
   return (
     <Stack sx={SX_NAVIGATION_STACK}>
       <Stack>
         <Typography
           sx={{
-            fontSize: FontSize.large,
+            fontSize: { xs: FontSize.medium, md: FontSize.large },
             fontFamily: FontFamilies.bold,
             color: Colors.navy,
           }}

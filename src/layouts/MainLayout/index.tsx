@@ -12,7 +12,7 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <Stack>
-      <Stack sx={{ height: '80px' }}>
+      <Stack sx={{ height: { xs: 0, md: '80px' } }}>
         <MainHeaderSection />
       </Stack>
       <Stack

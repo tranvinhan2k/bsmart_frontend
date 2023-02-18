@@ -6,10 +6,13 @@ import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import { NavigationActionData } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
+import CoursesPage from '~/pages/CoursesPage';
 
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
+const HomePage = lazy(() => import('~/pages/HomePage'));
+const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -24,7 +27,7 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[0].link}`,
     main: () => (
       <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add homepage */}
+        <HomePage />
       </Suspense>
     ),
   },
@@ -32,15 +35,7 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[1].link}`,
     main: () => (
       <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add about us */}
-      </Suspense>
-    ),
-  },
-  {
-    path: `/${NavigationActionData[1].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add about us */}
+        <AboutUsPage />
       </Suspense>
     ),
   },
@@ -48,7 +43,7 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[2].link}`,
     main: () => (
       <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add course */}
+        <CoursesPage />
       </Suspense>
     ),
   },
