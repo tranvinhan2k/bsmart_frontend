@@ -7,15 +7,20 @@ import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { defaultValueStudentRegister } from '~/form/defaultValues';
 import { validationSchemaRegisterStudent } from '~/form/validation';
 import { REGISTER_STUDENT_FIELDS } from '~/form/schema';
+import { RegisterStudentDataPayload } from '~/models/form';
 
 export default function StudentRegisterForm() {
-  const resolverSinIn = useYupValidationResolver(
+  const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterStudent
   );
   const studentSignUpForm = useForm({
     defaultValues: defaultValueStudentRegister,
-    resolver: resolverSinIn,
+    resolver: resolverSignUp,
   });
+
+  const handleRegisterSubmitData = (data: RegisterStudentDataPayload) => {
+    // TODO: handle submit student data
+  };
   return (
     <Stack>
       <FormInput
@@ -45,7 +50,12 @@ export default function StudentRegisterForm() {
         />
       </Stack>
       <Stack marginTop={2}>
-        <Button customVariant="form">Đăng kí</Button>
+        <Button
+          onClick={studentSignUpForm.handleSubmit(handleRegisterSubmitData)}
+          customVariant="form"
+        >
+          Đăng kí
+        </Button>
       </Stack>
       <Stack marginTop={2}>
         <Button customVariant="google">Đăng nhập với Google</Button>

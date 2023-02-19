@@ -7,15 +7,19 @@ import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { validationSchemaRegisterMentor } from '~/form/validation';
 import { defaultValueMentorRegister } from '~/form/defaultValues';
 import { REGISTER_MENTOR_FIELDS } from '~/form/schema';
+import { RegisterMentorDataPayload } from '~/models/form';
 
 export default function MentorRegisterForm() {
-  const resolverSinIn = useYupValidationResolver(
+  const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterMentor
   );
   const mentorSignUpForm = useForm({
     defaultValues: defaultValueMentorRegister,
-    resolver: resolverSinIn,
+    resolver: resolverSignUp,
   });
+  const handleRegisterSubmit = (data: RegisterMentorDataPayload) => {
+    // TODO: register mentor
+  };
   return (
     <Stack>
       <FormInput
@@ -59,7 +63,12 @@ export default function MentorRegisterForm() {
         />
       </Stack>
       <Stack marginTop={2}>
-        <Button customVariant="form">Đăng kí</Button>
+        <Button
+          onClick={mentorSignUpForm.handleSubmit(handleRegisterSubmit)}
+          customVariant="form"
+        >
+          Đăng kí
+        </Button>
       </Stack>
       <Stack marginTop={2}>
         <Button customVariant="google">Đăng nhập với Google</Button>
