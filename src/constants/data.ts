@@ -28,7 +28,8 @@ export const NavigationActionData: ActionPayload[] = [
   { name: 'Blog', link: '/blog' },
   { name: 'Tuyển dụng', link: '/recruitment' },
   { name: 'Đăng ký', link: '/register' },
-  { name: 'NỀN TẢNG LMS', link: '/lms' },
+  { name: 'Nền tảng LMS', link: '/lms' },
+  { name: 'Thông báo', link: '/annotation' },
 ];
 
 export const AddressData: AddressDataPayload[] = [

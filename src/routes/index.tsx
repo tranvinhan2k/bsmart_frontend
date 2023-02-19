@@ -10,6 +10,7 @@ import { RoutePayload } from '~/models/routes';
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 const LmsPage = lazy(() => import('~/pages/LmsPage'));
+const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
@@ -84,6 +85,14 @@ const routes: RoutePayload[] = [
     main: () => (
       <Suspense fallback={<LazyLoadingScreen />}>
         <LmsPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: `/${NavigationActionData[8].link}`,
+    main: () => (
+      <Suspense fallback={<LazyLoadingScreen />}>
+        <AnnotationPage />
       </Suspense>
     ),
   },
