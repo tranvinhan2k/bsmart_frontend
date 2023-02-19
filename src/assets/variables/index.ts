@@ -1,4 +1,5 @@
 export const Colors = {
+  aquamarine: '#7fffd4',
   white: '#ffffff',
   whiteSmoke: '#f5f5f5',
   navy: '#0e0a38',
@@ -9,6 +10,7 @@ export const Colors = {
   semiTransparent: '#ffffff22',
   transparent: '#00000000',
   blue: '#0d6efd',
+  blue2: '#f0f8ff',
   red: '#e74033',
   neutral: '#ccc',
   blueTransparent: '#050133b3',

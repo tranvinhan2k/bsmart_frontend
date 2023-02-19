@@ -1,83 +1,123 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight } from '~/assets/variables';
+import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 export const ANNOTATION_H3: SxProps<Theme> = {
+  /* Positioning */
+  /* Display & Box Model */
+  marginBottom: '10px',
   padding: '10px 20px',
-  color: '#ff630e',
+  /* Color */
+  color: Colors.orange,
+  /* Text */
+  fontSize: FontSize.medium_24,
+  fontWeight: FontWeight.bold,
   lineHeight: '30px',
   letterSpacing: '2px',
-  fontWeight: FontWeight.bold,
-  marginBottom: '10px',
   textTransform: 'uppercase',
-  fontSize: '24px',
+  /* Other */
 };
 export const ANNOTATION_BOX: SxProps<Theme> = {
-  borderRadius: '8px',
+  /* Positioning */
+  /* Display & Box Model */
+  borderRadius: MetricSize.small_10,
   padding: '20px 20px',
+  /* Color */
   boxShadow: '0 0 15px rgb(51 51 51 / 10%)',
+  /* Text */
+  /* Other */
 };
 
 export const ANNOTATION_BUTTON: SxProps<Theme> = {
-  height: '25px',
-  padding: '15px',
-  marginRight: '10px',
-  borderRadius: '8px',
-  marginBottom: '10px',
-  backgroundColor: '#ff630e',
-  color: 'aliceblue',
+  /* Positioning */
+  /* Display & Box Model */
   border: '0px solid',
+  borderRadius: '8px',
+  height: '25px',
+  marginRight: MetricSize.small_10,
+  marginBottom: MetricSize.small_10,
+  padding: MetricSize.medium,
+  /* Color */
+  backgroundColor: Colors.orange,
+  color: Colors.blue2,
+  /* Text */
+  /* Other */
   '&:hover': {
-    backgroundColor: '#ff630e',
-    color: 'aliceblue',
+    backgroundColor: Colors.orange,
+    color: Colors.blue2,
   },
 };
 
 export const ANNOTATION_CONTENT: SxProps<Theme> = {
-  marginTop: '10px',
-  marginBottom: '5px',
-  boxShadow: '0 0 15px rgb(51 51 51 / 10%)',
+  /* Positioning */
+  /* Display & Box Model */
   borderRadius: '8px',
+  marginTop: MetricSize.small_10,
+  marginBottom: MetricSize.small_5,
+  /* Color */
+  boxShadow: '0 0 15px rgb(51 51 51 / 10%)',
+  /* Text */
+  /* Other */
   '&:hover': {
     borderRadius: '8px',
-    backgroundColor: '#0e0a38',
+    backgroundColor: Colors.navy,
     transition: 'all 2s',
     '& p': {
-      color: '#f5f5f5',
+      color: Colors.whiteSmoke,
       transition: 'all 2s',
     },
   },
 };
 
 export const ANNOTATION_CONTENT_IMG: SxProps<Theme> = {
+  /* Positioning */
   float: 'left',
-  backgroundColor: 'aquamarine',
+  /* Display & Box Model */
+  borderRadius: '50%',
   width: '56px',
   height: '56px',
-  borderRadius: '50%',
+  /* Color */
+  backgroundColor: Colors.aquamarine,
+  /* Text */
+  /* Other */
 };
 
 export const ANNOTATION_CONTENT_TITLE: SxProps<Theme> = {
-  paddingLeft: '20px',
+  /* Positioning */
+  /* Display & Box Model */
+  paddingLeft: MetricSize.large,
+  /* Color */
+  color: Colors.orange,
+  /* Text */
+  fontSize: FontSize.small_16,
+  fontWeight: FontWeight.semiBold,
   lineHeight: '15px',
-  color: '#ff630e',
-  fontWeight: 600,
   letterSpacing: '2px',
   textTransform: 'uppercase',
-  fontSize: '16px',
+  /* Other */
 };
 
 export const ANNOTATION_CONTENT_CONTENT: SxProps<Theme> = {
-  paddingTop: '10px',
+  /* Positioning */
+  /* Display & Box Model */
   paddingLeft: '20px',
-  lineHeight: '15px',
+  paddingTop: '10px',
+  /* Color */
   color: 'black',
-  fontSize: '16px',
+  /* Text */
+  fontSize: FontSize.small_16,
+  lineHeight: '15px',
+  /* Other */
 };
 
 export const ANNOTATION_CONTENT_DATE: SxProps<Theme> = {
-  paddingLeft: '20px',
-  paddingTop: '10px',
+  /* Positioning */
+  /* Display & Box Model */
+  paddingLeft: MetricSize.large,
+  paddingTop: MetricSize.small_10,
+  /* Color */
   color: 'gray',
+  /* Text */
   fontSize: '14px',
+  /* Other */
 };
