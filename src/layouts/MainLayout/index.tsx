@@ -12,7 +12,7 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <Stack>
-      <Stack sx={{ height: '80px' }}>
+      <Stack sx={{ height: { xs: 0, md: '80px' } }}>
         <MainHeaderSection />
       </Stack>
       <Stack
@@ -25,13 +25,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
       >
         <MainNavigationSection />
       </Stack>
-      <Stack sx={{ maxHeight: '750px' }}>
+      <Stack>
         <BreadcrumbNavigationSection />
       </Stack>
       <Stack
         sx={{
           minHeight: '100vh',
-          paddingX: MetricSize.extraLarge,
+          paddingX: { xs: MetricSize.medium, md: MetricSize.extraLarge },
         }}
       >
         {children}

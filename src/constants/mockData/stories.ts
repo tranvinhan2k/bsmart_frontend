@@ -1,5 +1,5 @@
 import { Story } from '~/models/mockData/story';
-import img_item_story_1 from '~/assets/images/IndexSection/img_item_story_1.jpg';
+import img_item_story_1 from '~/assets/images/HomePageSection/img_item_story_1.jpg';
 
 export const stories: Story[] = [
   {

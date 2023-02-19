@@ -1,13 +1,12 @@
 import { Breadcrumbs, Stack, Typography } from '@mui/material';
 import breadcrumbBackground from '~/assets/images/banner.jpg';
 import breadcrumbBackground2 from '~/assets/images/banner-2.jpg';
-import { Colors } from '~/assets/variables';
+import { Colors, FontFamilies, FontSize } from '~/assets/variables';
 import { ActionPayload } from '~/models';
 import {
   SX_BREADCRUMB_TITLE,
   SX_CONTENT_TITLE,
   SX_HOMEPAGE_STACK,
-  SX_MAIN_TITLE,
   SX_NAVIGATION_CONTAINER,
   SX_NAVIGATION_COVER_STACK,
   SX_NAVIGATION_STACK,
@@ -16,6 +15,7 @@ import {
   SX_SUB_TITLE,
 } from './styles';
 import Button from '~/components/atoms/Button';
+import Icon from '~/components/atoms/Icon';
 
 interface BreadcrumbNavigationProps {
   isHomePage: boolean;
@@ -44,15 +44,28 @@ export default function BreadcrumbNavigation({
       <Stack
         sx={{
           ...SX_NAVIGATION_COVER_STACK,
-          height: isHomePage ? '750px' : '420px',
         }}
       >
         {isHomePage ? (
           <Stack sx={SX_HOMEPAGE_STACK}>
-            <Typography textAlign="center" sx={SX_MAIN_TITLE}>
+            <Typography
+              textAlign="center"
+              sx={{
+                color: Colors.orange,
+                fontSize: FontSize.medium,
+                fontFamily: FontFamilies.bold,
+              }}
+            >
               KHỞI ĐẦU SỰ NGHIỆP CỦA BẠN
             </Typography>
-            <Typography textAlign="center" sx={SX_SUB_TITLE}>
+            <Typography
+              textAlign="center"
+              sx={{
+                color: Colors.white,
+                fontSize: { xs: FontSize.large, md: FontSize.extraLarge },
+                fontFamily: FontFamilies.bold,
+              }}
+            >
               Trở thành lập trình viên chuyên nghiệp tại BSmart
             </Typography>
             <Stack sx={SX_SUB_HOMEPAGE_STACK}>
@@ -76,7 +89,7 @@ export default function BreadcrumbNavigation({
             <Stack paddingTop={1}>
               <Breadcrumbs
                 sx={{ color: Colors.white }}
-                separator=">"
+                separator={<Icon name="next" size="small" color="white" />}
                 aria-label="breadcrumb"
               >
                 {breadcrumbs.map((item) => (

@@ -1,16 +1,8 @@
-import {
-  FormControl,
-  InputLabel,
-  Stack,
-  TextField,
-  TextFieldProps,
-} from '@mui/material';
+import { InputLabel, Stack, TextField, TextFieldProps } from '@mui/material';
 import { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
-import {
-  SX_INPUT_LABEL,
-  SX_TEXT_INPUT_FORM,
-} from '~/components/atoms/FormInput/styles';
+import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
+import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   control: Control<any>;

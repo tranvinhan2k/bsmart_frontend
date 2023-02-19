@@ -1,8 +1,5 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
-import {
-  SX_BUTTON_PRIMARY,
-  SX_BUTTON_SECONDARY,
-} from '~/containers/IndexSection/style';
+import { SX_BUTTON_PRIMARY, SX_BUTTON_SECONDARY } from '../style';
 import { SX } from './style';
 
 export default function Section1Greeting() {

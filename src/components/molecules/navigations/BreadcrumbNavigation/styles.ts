@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
   flex: 1,
@@ -33,10 +33,10 @@ export const SX_HOMEPAGE_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingX: '160px',
+  padding: { xs: MetricSize.medium, md: '160px' },
 };
 export const SX_SUB_HOMEPAGE_STACK: SxProps<Theme> = {
-  paddingX: '160px',
+  paddingX: { xs: MetricSize.medium, md: '160px' },
 };
 export const SX_CONTENT_TITLE: SxProps<Theme> = {
   color: Colors.white,
@@ -48,6 +48,7 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
+  paddingY: { xs: MetricSize.medium, md: '60px' },
 };
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
   fontSize: FontSize.extraLarge,
