@@ -1,14 +1,20 @@
-export const SIGN_IN_FIELDS = {
+import {
+  LoginFormDataPayload,
+  RegisterMentorDataPayload,
+  RegisterStudentDataPayload,
+} from '~/models/form';
+
+export const SIGN_IN_FIELDS: LoginFormDataPayload = {
   email: 'email',
   password: 'password',
 };
-export const REGISTER_STUDENT_FIELDS = {
+export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   name: 'name',
   email: 'email',
   password: 'password',
   confirm: 'confirm',
 };
-export const REGISTER_MENTOR_FIELDS = {
+export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   name: 'name',
   phone: 'phone',
   email: 'email',

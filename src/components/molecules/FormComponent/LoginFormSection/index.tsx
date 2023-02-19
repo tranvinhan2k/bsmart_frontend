@@ -10,14 +10,27 @@ import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
 import FormInput from '~/components/atoms/FormInput';
+import { LoginFormDataPayload } from '~/models/form';
+
+const LoginTexts = {
+  LOGIN_TITLE: 'Đăng Nhập',
+  EMAIL_PLACEHOLDER: 'Email',
+  PASSWORD_PLACEHOLDER: 'Mật Khẩu',
+  REMEMBER_PASSWORD: 'Nhớ mật khẩu.',
+  FORGOT_PASSWORD: 'Quên mật khẩu',
+  LOGIN_BUTTON: 'Đăng Nhập',
+  GOOGLE_LOGIN_BUTTON: 'Đăng nhập bằng tài khoản Google',
+  REGISTER_LINK: 'Bạn chưa có tài khoản ?',
+  REGISTER_BUTTON: 'Đăng kí ngay',
+};
 
 export default function LoginForm() {
-  const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
   const resolverSinIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
     resolver: resolverSinIn,
   });
+  const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
 
   const handleRememberPassword = () => {
     setRememberPassword(!isRememberPassword);
@@ -26,6 +39,10 @@ export default function LoginForm() {
 
   const handleGoogle = () => {
     // TODO: handle google
+  };
+
+  const handleLoginDataSubmitSuccess = (data: LoginFormDataPayload) => {
+    // TODO: handle submit login
   };
 
   return (
@@ -37,19 +54,17 @@ export default function LoginForm() {
           textAlign: 'center',
         }}
       >
-        Đăng nhập
+        {LoginTexts.LOGIN_TITLE}
       </Typography>
       <Stack sx={{ padding: MetricSize.medium }}>
         <form
-          onSubmit={signInHookForm.handleSubmit((data) => {
-            console.log(data);
-          })}
+          onSubmit={signInHookForm.handleSubmit(handleLoginDataSubmitSuccess)}
         >
           <Stack>
             <FormInput
               control={signInHookForm.control}
               name={SIGN_IN_FIELDS.email}
-              placeholder="Email"
+              placeholder={LoginTexts.EMAIL_PLACEHOLDER}
             />
           </Stack>
 
@@ -58,7 +73,7 @@ export default function LoginForm() {
               control={signInHookForm.control}
               name={SIGN_IN_FIELDS.password}
               type="password"
-              placeholder="Mật khẩu"
+              placeholder={LoginTexts.PASSWORD_PLACEHOLDER}
             />
           </Stack>
           <Stack
@@ -71,20 +86,20 @@ export default function LoginForm() {
               isChecked={isRememberPassword}
               onCheck={handleRememberPassword}
             >
-              Nhớ mật khẩu
+              {LoginTexts.REMEMBER_PASSWORD}
             </Checkbox>
 
-            <Link to="/forgot_password">Quên mật khẩu ?</Link>
+            <Link to="/forgot_password">{LoginTexts.FORGOT_PASSWORD}</Link>
           </Stack>
           <Button marginTop="sm_medium" customVariant="form" type="submit">
-            Đăng nhập
+            {LoginTexts.LOGIN_BUTTON}
           </Button>
           <Button
             marginTop="sm_medium"
             customVariant="google"
             onClick={handleGoogle}
           >
-            Đăng nhập bằng tài khoản Google
+            {LoginTexts.GOOGLE_LOGIN_BUTTON}
           </Button>
           <Stack
             sx={{
@@ -100,10 +115,10 @@ export default function LoginForm() {
                 color: Colors.black,
               }}
             >
-              Bạn chưa có tài khoản ?
+              {LoginTexts.REGISTER_LINK}
             </Typography>
             <Box sx={{ paddingLeft: MetricSize.small }}>
-              <Link to="/register">Đăng ký ngay</Link>
+              <Link to="/register">{LoginTexts.REGISTER_BUTTON}</Link>
             </Box>
           </Stack>
         </form>
