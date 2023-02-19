@@ -89,7 +89,7 @@ export default function BreadcrumbNavigation({
         ) : (
           <Stack sx={SX_NAVIGATION_STACK}>
             <Typography sx={SX_NAVIGATION_TITLE}>
-              {breadcrumbs[1].name}
+              {breadcrumbs[breadcrumbs.length - 1].name}
             </Typography>
             <Stack paddingTop={1}>
               <Breadcrumbs

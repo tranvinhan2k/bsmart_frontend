@@ -6,15 +6,21 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Pagination from '@mui/material/Pagination';
+import { useNavigate } from 'react-router-dom';
 import { FontFamilies, FontSize, MetricSize } from '~/assets/variables';
 import { CourseList } from '~/constants';
 import CourseItem from '~/components/molecules/CourseItem';
 
 export default function CourseMenuSection() {
+  const navigation = useNavigate();
   const [dropDownValue, setDropDownValue] = useState('');
 
   const handleChange = (event: any) => {
     setDropDownValue(event.target.value);
+  };
+
+  const handleNavigateCourseDetail = (id: string) => {
+    navigation(`course-detail/${id}`);
   };
 
   return (
@@ -67,7 +73,11 @@ export default function CourseMenuSection() {
         alignItems="center"
       >
         {CourseList.map((item) => (
-          <CourseItem key={item.id} item={item} />
+          <CourseItem
+            key={item.id}
+            item={item}
+            onClick={() => handleNavigateCourseDetail(`${item.id}`)}
+          />
         ))}
       </Stack>
       <Stack justifyContent="center" alignItems="center" padding={2}>

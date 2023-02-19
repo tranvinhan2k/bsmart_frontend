@@ -6,7 +6,6 @@ import { Navigate } from 'react-router-dom';
 import { NavigationActionData } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
-import CoursesPage from '~/pages/CoursesPage';
 
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
@@ -14,6 +13,8 @@ const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 const LoginPage = lazy(() => import('~/pages/LoginPages'));
+const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
+const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -57,6 +58,10 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[7].link}`,
     main: () => <LoginPage />,
+  },
+  {
+    path: `/${NavigationActionData[8].link}`,
+    main: () => <CourseDetailPage />,
   },
   {
     path: '*',

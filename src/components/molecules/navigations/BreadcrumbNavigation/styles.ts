@@ -48,10 +48,11 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingY: { xs: MetricSize.medium, md: '60px' },
+  paddingY: '60px',
 };
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
-  fontSize: FontSize.extraLarge,
+  textAlign: 'center',
+  fontSize: { xs: FontSize.large, md: FontSize.extraLarge },
   fontFamily: FontFamilies.medium,
   color: Colors.orange,
 };

@@ -13,8 +13,9 @@ import {
   BsFacebook,
 } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
+import { FaShare } from 'react-icons/fa';
 import { CiMail, CiPhone, CiLocationOn } from 'react-icons/ci';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
 import { Colors, IconSize } from '~/assets/variables';
 import { IconName } from '~/models/icon';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -110,6 +111,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <FcNext />
+        </Typography>
+      );
+    case 'share':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <FaShare />
+        </Typography>
+      );
+    case 'star':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiOutlineStar />
         </Typography>
       );
     default:

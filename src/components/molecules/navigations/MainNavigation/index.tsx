@@ -1,5 +1,5 @@
 import { IconButton, Stack, Typography, SwipeableDrawer } from '@mui/material';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
   Colors,

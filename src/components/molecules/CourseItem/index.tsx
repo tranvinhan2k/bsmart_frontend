@@ -8,10 +8,16 @@ import { CoursePayload } from '~/models/courses';
 
 interface CourseItemProps {
   item: CoursePayload;
+  onClick: () => void;
 }
 
-export default function CourseItem({ item }: CourseItemProps) {
+export default function CourseItem({ item, onClick }: CourseItemProps) {
   const { content, feedback, image, mentor, title } = item;
+
+  const handleNavigateCourseDetail = () => {
+    onClick();
+  };
+
   return (
     <Stack
       sx={{
@@ -32,7 +38,9 @@ export default function CourseItem({ item }: CourseItemProps) {
       <Stack padding={2}>
         <Divider />
         <Stack marginTop={2}>
-          <Button customVariant="normal">Đăng ký</Button>
+          <Button onClick={handleNavigateCourseDetail} customVariant="normal">
+            Đăng ký
+          </Button>
         </Stack>
       </Stack>
     </Stack>

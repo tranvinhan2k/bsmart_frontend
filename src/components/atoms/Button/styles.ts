@@ -48,11 +48,28 @@ export const SX_NORMAL_BUTTON: SxProps<Theme> = {
   background: Colors.orange,
   width: '100%',
   boxShadow: 3,
+  borderStyle: 'solid',
+  borderColor: Colors.orange,
+  borderWidth: 1,
   '&:hover': {
-    borderColor: Colors.orange,
-    borderWidth: 1,
     color: Colors.orange,
     background: Colors.white,
+  },
+  padding: MetricSize.medium,
+};
+export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
+  fontFamily: FontFamilies.bold,
+  fontSize: FontSize.small,
+  color: Colors.orange,
+  background: Colors.white,
+  borderColor: Colors.orange,
+  borderWidth: 1,
+  borderStyle: 'solid',
+  width: '100%',
+  boxShadow: 3,
+  '&:hover': {
+    color: Colors.white,
+    background: Colors.orange,
   },
   padding: MetricSize.medium,
 };

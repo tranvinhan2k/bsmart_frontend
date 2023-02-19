@@ -14,6 +14,8 @@ export type IconName =
   | 'close'
   | 'facebook'
   | 'next'
+  | 'share'
+  | 'star'
   | 'pinterest';
 
 export default {};
