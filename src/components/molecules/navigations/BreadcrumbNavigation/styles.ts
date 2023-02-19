@@ -59,6 +59,9 @@ export const SX_BREADCRUMB_TITLE: SxProps<Theme> = {
   fontFamily: FontFamilies.regular,
   fontSize: FontSize.small,
   color: Colors.white,
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 };
 
 export default {};
