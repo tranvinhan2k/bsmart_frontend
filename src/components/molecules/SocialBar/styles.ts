@@ -1,10 +1,6 @@
 import { SxProps, Theme } from '@mui/material';
-import { IconSize, MetricSize } from '~/assets/variables';
+import { MetricSize } from '~/assets/variables';
 
-export const SX_IMAGE: SxProps<Theme> = {
-  height: IconSize.small,
-  width: IconSize.small,
-};
 export const SX_ICON_SOCIAL_STACK: SxProps<Theme> = {
   height: MetricSize.large_20,
   width: MetricSize.large_20,

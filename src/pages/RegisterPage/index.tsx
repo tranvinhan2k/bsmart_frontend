@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 
 import { Stack } from '@mui/material';
 
-import RegisterSection from '~/containers/Register/RegisterSection';
-
 import { scrollToTop } from '~/utils/common';
 
 import { SX_REGISTER_LAYOUT_STACK } from './styles';
+
+import RegisterSection from '~/containers/RegisterSection';
 
 export default function RegisterPage() {
   useEffect(() => {

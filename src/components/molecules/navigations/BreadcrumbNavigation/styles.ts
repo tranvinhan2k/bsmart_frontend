@@ -33,10 +33,10 @@ export const SX_HOMEPAGE_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingX: '160px',
+  padding: { xs: MetricSize.medium, md: '160px' },
 };
 export const SX_SUB_HOMEPAGE_STACK: SxProps<Theme> = {
-  paddingX: '160px',
+  paddingX: { xs: MetricSize.medium, md: '160px' },
 };
 export const SX_CONTENT_TITLE: SxProps<Theme> = {
   color: Color.white,
@@ -48,6 +48,7 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
+  paddingY: '60px',
 };
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
   fontSize: FontSize.extraLarge_70,
@@ -58,6 +59,9 @@ export const SX_BREADCRUMB_TITLE: SxProps<Theme> = {
   fontFamily: FontFamily.regular,
   fontSize: FontSize.small_16,
   color: Color.white,
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 };
 
 export default {};

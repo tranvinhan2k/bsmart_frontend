@@ -2,12 +2,14 @@ import { ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Suspense } from 'react';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import './App.css';
 import MainLayout from '~/layouts/MainLayout';
 import routes from '~/routes';
 import { RoutePayload } from '~/models/routes';
+import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 
 const showRoutes = () => {
   let result = null;
@@ -25,9 +27,11 @@ const showRoutes = () => {
 
 function App() {
   return (
-    <MainLayout>
-      <Routes>{showRoutes()}</Routes>
-    </MainLayout>
+    <Suspense fallback={<LazyLoadingScreen />}>
+      <MainLayout>
+        <Routes>{showRoutes()}</Routes>
+      </MainLayout>
+    </Suspense>
   );
 }
 

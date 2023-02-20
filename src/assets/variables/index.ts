@@ -21,6 +21,7 @@ export const Color = {
 export const Common = {
   borderRadius: '5px',
   inputFieldHeight: '40px',
+  borderCircle: '1000px',
 };
 
 export const FontFamily = {

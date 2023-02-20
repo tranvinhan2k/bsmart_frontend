@@ -1,8 +1,8 @@
-import { lazy, Suspense } from 'react';
+import Stack from '@mui/material/Stack';
+import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import { NavigationActionData } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
@@ -14,103 +14,74 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
+const HomePage = lazy(() => import('~/pages/HomePage'));
+const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
+const LoginPage = lazy(() => import('~/pages/LoginPages'));
+const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
+const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
 
 const routes: RoutePayload[] = [
   {
     path: '/',
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <Navigate to={NavigationActionData[0].link} />
-      </Suspense>
-    ),
+    main: () => <Navigate to={NavigationActionData[0].link} />,
   },
   {
     path: `/${NavigationActionData[0].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <HomePage />
-      </Suspense>
-    ),
+    main: () => <HomePage />,
   },
   {
     path: `/${NavigationActionData[1].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <AboutUsPage />
-      </Suspense>
-    ),
+    main: () => <AboutUsPage />,
   },
   {
     path: `/${NavigationActionData[2].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add course */}
-      </Suspense>
-    ),
+    main: () => <CoursesPage />,
   },
   {
     path: `/${NavigationActionData[3].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add teacher */}
-      </Suspense>
-    ),
+    main: () => <Stack>Hello</Stack>,
+
+    /* // TODO: add teacher */
   },
   {
     path: `/${NavigationActionData[4].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add teacher */}
-      </Suspense>
-    ),
+    main: () => <Stack>Hello</Stack>,
+
+    /* // TODO: add teacher */
   },
   {
     path: `/${NavigationActionData[5].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        {/* // TODO: add teacher */}
-      </Suspense>
-    ),
+    main: () => <Stack>Hello</Stack>,
+
+    /* // TODO: add teacher */
   },
   {
     path: `/${NavigationActionData[6].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <RegisterPage />
-      </Suspense>
-    ),
+    main: () => <RegisterPage />,
   },
   {
     path: `/${NavigationActionData[7].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <LmsPage />
-      </Suspense>
-    ),
+    main: () => <LoginPage />,
   },
   {
     path: `/${NavigationActionData[8].link}`,
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <AnnotationPage />
-      </Suspense>
-    ),
+    main: () => <CourseDetailPage />,
+  },
+  {
+    path: `/${NavigationActionData[7].link}`,
+    main: () => <LmsPage />,
+  },
+  {
+    path: `/${NavigationActionData[8].link}`,
+    main: () => <AnnotationPage />,
   },
   {
     path: '*',
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <NotFoundPage />
-      </Suspense>
-    ),
+    main: () => <NotFoundPage />,
   },
   {
     path: '/test_page',
-    main: () => (
-      <Suspense fallback={<LazyLoadingScreen />}>
-        <TestPage />
-      </Suspense>
-    ),
+    main: () => <TestPage />,
   },
 ];
 

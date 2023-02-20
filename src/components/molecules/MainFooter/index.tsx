@@ -40,9 +40,22 @@ export default function MainFooter({
         {addresses.map((item) => (
           <Stack key={item.id}>
             <Typography sx={SX_MEDIUM_BOLD_TEXT}>{item.city}</Typography>
-            <Stack flexDirection="row" justifyContent="space-between">
+            <Stack
+              flexDirection="row"
+              flexWrap="wrap"
+              justifyContent="space-between"
+            >
               {item.addresses.map((subAddress) => (
-                <Stack key={subAddress.id}>
+                <Stack
+                  sx={{
+                    width: {
+                      xs: '100%',
+                      md: '33%',
+                      marginTop: MetricSize.sm_medium,
+                    },
+                  }}
+                  key={subAddress.id}
+                >
                   <Typography sx={SX_SMALL_BOLD_TEXT}>
                     {`Trụ sở ${subAddress.id + 1}: ${subAddress.address}`}
                   </Typography>
@@ -65,7 +78,8 @@ export default function MainFooter({
       >
         <Grid
           item
-          xl={3}
+          xs={12}
+          md={3}
           sx={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -84,10 +98,14 @@ export default function MainFooter({
             <Typography sx={SX_SMALL_BOLD_TEXT}>
               Theo dõi chúng tôi tại:
             </Typography>
-            <SocialBar socials={FooterSocialDataList} />
+            <SocialBar color="white" socials={FooterSocialDataList} />
           </Box>
         </Grid>
-        <Grid xl={2} sx={{ paddingX: MetricSize.medium_15 }}>
+        <Grid
+          xs={12}
+          md={2}
+          sx={{ paddingX: { xs: '0', md: MetricSize.medium } }}
+        >
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>Menu</Typography>
           <Stack sx={{ paddingTop: MetricSize.medium_15 }}>
             {navigateList.map((item) => (
@@ -107,34 +125,34 @@ export default function MainFooter({
             ))}
           </Stack>
         </Grid>
-        <Grid xl={5}>
+        <Grid xs={12} md={5}>
           <Stack
             sx={{
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: { xs: 'flex-start', md: 'center' },
               flex: 1,
               height: '100%',
             }}
           >
             <Button
               style={{
-                background: Color.orange,
-                fontFamily: FontFamily.bold,
-                fontSize: FontSize.small_16,
-                color: Color.white,
+                background: Colors.orange,
+                fontFamily: FontFamilies.bold,
+                fontSize: FontSize.small,
+                color: Colors.white,
               }}
             >
               Đăng kí khóa học
             </Button>
           </Stack>
         </Grid>
-        <Grid xl={2}>
+        <Grid xs={12} md={2}>
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>
             Liện hệ với chúng tôi
           </Typography>
 
-          <Box sx={{ paddingTop: MetricSize.medium_15 }}>
-            <ContractBar contracts={contracts} />
+          <Box sx={{ paddingTop: MetricSize.medium }}>
+            <ContractBar color="white" contracts={contracts} />
           </Box>
         </Grid>
       </Grid>
