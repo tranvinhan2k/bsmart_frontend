@@ -2,11 +2,11 @@ import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Color, FontSize, FontWeight } from '~/assets/variables';
 
-const BOX = {
-  width: '80%',
-  margin: 'auto',
+const WRAPPER = {
+  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  marginX: 'auto',
+  marginTop: '40px',
   textAlign: 'center',
-  marginTop: '10px',
 };
 
 const H2: SxProps<Theme> = {
@@ -32,7 +32,7 @@ const P: SxProps<Theme> = {
 };
 
 export const SX = {
-  BOX,
+  WRAPPER,
   H2,
   H5,
   P,

@@ -4,7 +4,7 @@ import { counters } from '~/constants/mockData/counters';
 
 export default function Section3Counter() {
   return (
-    <Grid container sx={SX.CONTAINER}>
+    <Grid container sx={SX.WRAPPER}>
       {counters.map((counter) => (
         <Grid item xs={12} md={4} key={counter.id}>
           <Typography component="h2" sx={SX.H2}>

@@ -3,7 +3,7 @@ import { SX } from './style';
 
 export default function Section2WhoWeAre() {
   return (
-    <Box sx={SX.BOX}>
+    <Box sx={SX.WRAPPER}>
       <Typography component="h5" sx={SX.H5}>
         CHÚNG TÔI LÀ AI?
       </Typography>

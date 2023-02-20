@@ -2,10 +2,9 @@ import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 
 const WRAPPER: SxProps<Theme> = {
+  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  marginX: 'auto',
   marginTop: '130px',
-  width: '100%',
-  padding: '30px 200px',
-  boxSizing: 'border-box',
 };
 
 const IMG: SxProps<Theme> = {

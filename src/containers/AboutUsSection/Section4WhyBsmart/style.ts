@@ -2,11 +2,18 @@ import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Color, FontSize, FontWeight } from '~/assets/variables';
 
-const BOX: SxProps<Theme> = {
-  width: '100%',
+const WRAPPER: SxProps<Theme> = {
   backgroundColor: '#f7f7f7',
+  width: '100%',
   marginTop: '80px',
   padding: '70px 20px',
+  boxSizing: 'border-box',
+};
+
+const CONTAINER: SxProps<Theme> = {
+  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  marginX: 'auto',
+  textAlign: 'center',
 };
 
 const H4: SxProps<Theme> = {
@@ -37,7 +44,7 @@ const SINGLE_BOX: SxProps<Theme> = {
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  width: '100%',
+  // width: '100%',
 };
 
 const SINGLE_BOX_H3: SxProps<Theme> = {
@@ -55,7 +62,8 @@ const SINGLE_BOX_P: SxProps<Theme> = {
 };
 
 export const SX_WHY_BSMART = {
-  BOX,
+  WRAPPER,
+  CONTAINER,
   H4,
   H2,
   SINGLE_BOX,
