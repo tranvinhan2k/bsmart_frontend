@@ -1,11 +1,8 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Colors, FontFamilies, FontSize } from '~/assets/variables';
 
 export const SX_REGISTER_TAB: SxProps<Theme> = {
-  boxShadow: { xs: 0, md: 5 },
   borderColor: Colors.grey,
-  borderRadius: MetricSize.small,
-  width: { xs: '90vw', md: MetricSize.halfWidth },
 };
 export const SX_TABS: SxProps<Theme> = {
   width: '100%',

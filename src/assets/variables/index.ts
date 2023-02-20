@@ -15,6 +15,7 @@ export const Colors = {
 export const Common = {
   borderRadius: '5px',
   inputFieldHeight: '40px',
+  borderCircle: '1000px',
 };
 export const FontFamilies = {
   regular: 'Roboto-Regular',

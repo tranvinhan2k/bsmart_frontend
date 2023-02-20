@@ -5,7 +5,7 @@ import { useState } from 'react';
 import close from '~/assets/images/icons8_multiply_52px.png';
 
 import { SX_MODAL_CONTAINER } from './styles';
-import LoginForm from '~/components/molecules/FormComponent/LoginForm';
+import LoginForm from '~/components/molecules/FormComponent/LoginFormSection';
 import { IconSize } from '~/assets/variables';
 
 interface LoginModalProps {

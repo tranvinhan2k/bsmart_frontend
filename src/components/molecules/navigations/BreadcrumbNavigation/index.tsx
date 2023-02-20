@@ -1,4 +1,5 @@
 import { Breadcrumbs, Stack, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import breadcrumbBackground from '~/assets/images/banner.jpg';
 import breadcrumbBackground2 from '~/assets/images/banner-2.jpg';
 import { Colors, FontFamilies, FontSize } from '~/assets/variables';
@@ -12,7 +13,6 @@ import {
   SX_NAVIGATION_STACK,
   SX_NAVIGATION_TITLE,
   SX_SUB_HOMEPAGE_STACK,
-  SX_SUB_TITLE,
 } from './styles';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
@@ -28,6 +28,11 @@ export default function BreadcrumbNavigation({
   breadcrumbs,
   onViewCourse,
 }: BreadcrumbNavigationProps) {
+  const navigation = useNavigate();
+  const handleRedirectLink = (link: string) => {
+    navigation(link);
+  };
+
   if (breadcrumbs.length === 1) {
     return null;
   }
@@ -84,7 +89,7 @@ export default function BreadcrumbNavigation({
         ) : (
           <Stack sx={SX_NAVIGATION_STACK}>
             <Typography sx={SX_NAVIGATION_TITLE}>
-              {breadcrumbs[1].name}
+              {breadcrumbs[breadcrumbs.length - 1].name}
             </Typography>
             <Stack paddingTop={1}>
               <Breadcrumbs
@@ -93,9 +98,14 @@ export default function BreadcrumbNavigation({
                 aria-label="breadcrumb"
               >
                 {breadcrumbs.map((item) => (
-                  <Typography key={item.link} sx={SX_BREADCRUMB_TITLE}>
+                  <Button
+                    variant="text"
+                    onClick={() => handleRedirectLink(item.link)}
+                    key={item.link}
+                    sx={SX_BREADCRUMB_TITLE}
+                  >
                     {item.name}
-                  </Typography>
+                  </Button>
                 ))}
               </Breadcrumbs>
             </Stack>
