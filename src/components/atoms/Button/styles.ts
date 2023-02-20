@@ -1,34 +1,34 @@
 import { SxProps, Theme } from '@mui/material';
 import {
-  Colors,
+  Color,
   Common,
-  FontFamilies,
+  FontFamily,
   FontSize,
   MetricSize,
 } from '~/assets/variables';
 
 export const SX_FORM_BUTTON: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
-  color: Colors.white,
-  background: Colors.orange,
+  color: Color.white,
+  background: Color.orange,
   width: '100%',
   boxShadow: 3,
   '&:hover': {
-    borderColor: Colors.orange,
+    borderColor: Color.orange,
     borderWidth: 1,
-    color: Colors.orange,
+    color: Color.orange,
   },
   height: Common.inputFieldHeight,
 };
 export const SX_GOOGLE_BUTTON: SxProps<Theme> = {
   width: '100%',
-  borderColor: Colors.black,
+  borderColor: Color.black,
   borderWidth: 1,
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
-  color: Colors.black,
-  background: Colors.white,
+  color: Color.black,
+  background: Color.white,
   boxShadow: 3,
   height: Common.inputFieldHeight,
 };
@@ -37,24 +37,24 @@ export const SX_GOOGLE_STACK: SxProps<Theme> = {
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: FontSize.small_16,
-  fontFamily: FontFamilies.regular,
+  fontFamily: FontFamily.regular,
   width: '100%',
 };
 
 export const SX_NORMAL_BUTTON: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
-  color: Colors.white,
-  background: Colors.orange,
+  color: Color.white,
+  background: Color.orange,
   width: '100%',
   boxShadow: 3,
   '&:hover': {
-    borderColor: Colors.orange,
+    borderColor: Color.orange,
     borderWidth: 1,
-    color: Colors.orange,
-    background: Colors.white,
+    color: Color.orange,
+    background: Color.white,
   },
-  padding: MetricSize.medium,
+  padding: MetricSize.medium_15,
 };
 
 export default {};

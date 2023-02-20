@@ -1,7 +1,7 @@
 import { Breadcrumbs, Stack, Typography } from '@mui/material';
 import breadcrumbBackground from '~/assets/images/banner.jpg';
 import breadcrumbBackground2 from '~/assets/images/banner-2.jpg';
-import { Colors } from '~/assets/variables';
+import { Color } from '~/assets/variables';
 import { ActionPayload } from '~/models';
 import {
   SX_BREADCRUMB_TITLE,
@@ -75,7 +75,7 @@ export default function BreadcrumbNavigation({
             </Typography>
             <Stack paddingTop={1}>
               <Breadcrumbs
-                sx={{ color: Colors.white }}
+                sx={{ color: Color.white }}
                 separator=">"
                 aria-label="breadcrumb"
               >

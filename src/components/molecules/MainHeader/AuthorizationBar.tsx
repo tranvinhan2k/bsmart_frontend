@@ -1,6 +1,6 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ActionPayload } from '~/models';
 
 interface AuthorizationBarProps {
@@ -24,13 +24,13 @@ function AuthorizationBar({
       >
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
+            fontFamily: FontFamily.regular,
             fontSize: FontSize.small_16,
-            color: Colors.white,
+            color: Color.white,
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
-              color: Colors.orange,
+              color: Color.orange,
             },
           }}
         >
@@ -45,13 +45,13 @@ function AuthorizationBar({
       >
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
+            fontFamily: FontFamily.regular,
             fontSize: FontSize.small_16,
-            color: Colors.white,
+            color: Color.white,
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
-              color: Colors.orange,
+              color: Color.orange,
             },
           }}
         >

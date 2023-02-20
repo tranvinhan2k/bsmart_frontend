@@ -11,8 +11,8 @@ import { UseFormReturn } from 'react-hook-form/dist/types';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import {
-  Colors,
-  FontFamilies,
+  Color,
+  FontFamily,
   FontSize,
   IconSize,
   MetricSize,
@@ -68,14 +68,14 @@ export default function LoginModal({
         <Stack>
           <Typography
             sx={{
-              fontFamily: FontFamilies.bold,
+              fontFamily: FontFamily.bold,
               fontSize: FontSize.medium_24,
               textAlign: 'center',
             }}
           >
             Đăng nhập
           </Typography>
-          <Stack sx={{ padding: MetricSize.medium }}>
+          <Stack sx={{ padding: MetricSize.medium_15 }}>
             <form
               onSubmit={hookForm.handleSubmit((data) => {
                 console.log(data);
@@ -126,14 +126,14 @@ export default function LoginModal({
                 sx={{
                   flexDirection: 'row',
                   justifyContent: 'center',
-                  paddingY: MetricSize.medium,
+                  paddingY: MetricSize.medium_15,
                 }}
               >
                 <Typography
                   sx={{
-                    fontFamily: FontFamilies.regular,
+                    fontFamily: FontFamily.regular,
                     fontSize: FontSize.small_16,
-                    color: Colors.black,
+                    color: Color.black,
                   }}
                 >
                   Bạn chưa có tài khoản ?

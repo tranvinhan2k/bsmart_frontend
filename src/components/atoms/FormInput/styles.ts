@@ -1,9 +1,9 @@
 import { alpha, SxProps, Theme } from '@mui/material';
-import { Colors, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_CHECKBOX: SxProps<Theme> = {
   '&.Mui-checked': {
-    color: Colors.orange,
+    color: Color.orange,
   },
 };
 
@@ -30,8 +30,8 @@ export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
       '"Segoe UI Symbol"',
     ].join(','),
     '&:focus': {
-      boxShadow: `${alpha(Colors.blue, 0.25)} 0 0 0 0.2rem`,
-      borderColor: Colors.blue,
+      boxShadow: `${alpha(Color.blue, 0.25)} 0 0 0 0.2rem`,
+      borderColor: Color.blue,
     },
   },
 };

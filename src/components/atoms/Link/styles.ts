@@ -1,9 +1,9 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 export const SX_TEXT_LINK: SxProps<Theme> = {
-  color: Colors.orange,
-  fontFamily: FontFamilies.regular,
+  color: Color.orange,
+  fontFamily: FontFamily.regular,
   fontSize: FontSize.small_16,
   '&:hover': {
     textDecoration: 'underline',

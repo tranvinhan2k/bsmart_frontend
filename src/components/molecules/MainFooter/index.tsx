@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import ContractBar from '~/components/molecules/ContractBar';
 import { SX_FOOTER_STACK } from '~/components/molecules/MainFooter/styles';
 import SocialBar from '~/components/molecules/SocialBar';
@@ -36,7 +36,7 @@ export default function MainFooter({
 }: MainFooterProps) {
   return (
     <Stack sx={SX_FOOTER_STACK}>
-      <Stack paddingY={MetricSize.large}>
+      <Stack paddingY={MetricSize.large_20}>
         {addresses.map((item) => (
           <Stack key={item.id}>
             <Typography sx={SX_MEDIUM_BOLD_TEXT}>{item.city}</Typography>
@@ -58,10 +58,10 @@ export default function MainFooter({
           </Stack>
         ))}
       </Stack>
-      <Divider color={Colors.grey} />
+      <Divider color={Color.grey} />
       <Grid
         container
-        sx={{ flex: 1, flexDirection: 'row', paddingY: MetricSize.medium }}
+        sx={{ flex: 1, flexDirection: 'row', paddingY: MetricSize.medium_15 }}
       >
         <Grid
           item
@@ -80,24 +80,24 @@ export default function MainFooter({
             </Typography>
           </Box>
 
-          <Box sx={{ paddingTop: MetricSize.medium }}>
+          <Box sx={{ paddingTop: MetricSize.medium_15 }}>
             <Typography sx={SX_SMALL_BOLD_TEXT}>
               Theo dõi chúng tôi tại:
             </Typography>
             <SocialBar socials={FooterSocialDataList} />
           </Box>
         </Grid>
-        <Grid xl={2} sx={{ paddingX: MetricSize.medium }}>
+        <Grid xl={2} sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>Menu</Typography>
-          <Stack sx={{ paddingTop: MetricSize.medium }}>
+          <Stack sx={{ paddingTop: MetricSize.medium_15 }}>
             {navigateList.map((item) => (
               <Tooltip key={item.link} title={item.name}>
                 <NavLink
                   style={{
                     textDecoration: 'none',
-                    fontFamily: FontFamilies.regular,
+                    fontFamily: FontFamily.regular,
                     fontSize: FontSize.small_16,
-                    color: Colors.white,
+                    color: Color.white,
                   }}
                   to={item.link}
                 >
@@ -118,10 +118,10 @@ export default function MainFooter({
           >
             <Button
               style={{
-                background: Colors.orange,
-                fontFamily: FontFamilies.bold,
+                background: Color.orange,
+                fontFamily: FontFamily.bold,
                 fontSize: FontSize.small_16,
-                color: Colors.white,
+                color: Color.white,
               }}
             >
               Đăng kí khóa học
@@ -133,34 +133,34 @@ export default function MainFooter({
             Liện hệ với chúng tôi
           </Typography>
 
-          <Box sx={{ paddingTop: MetricSize.medium }}>
+          <Box sx={{ paddingTop: MetricSize.medium_15 }}>
             <ContractBar contracts={contracts} />
           </Box>
         </Grid>
       </Grid>
-      <Divider color={Colors.grey} />
+      <Divider color={Color.grey} />
       <Stack
         sx={{
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          borderColor: Colors.grey,
+          borderColor: Color.grey,
           borderTopWidth: 1,
         }}
       >
         <Typography
           style={{
-            fontFamily: FontFamilies.regular,
+            fontFamily: FontFamily.regular,
             fontSize: FontSize.small_16,
-            color: Colors.white,
+            color: Color.white,
             textAlign: 'center',
-            paddingTop: MetricSize.large,
-            paddingBottom: MetricSize.large,
+            paddingTop: MetricSize.large_20,
+            paddingBottom: MetricSize.large_20,
           }}
         >
           © Bản quyền BSmart 2022 - Empowered by{' '}
           <a
-            style={{ textDecoration: 'none', color: Colors.blue }}
+            style={{ textDecoration: 'none', color: Color.blue }}
             href="https://google.com"
           >
             BSmart

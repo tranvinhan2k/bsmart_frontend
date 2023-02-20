@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',
@@ -15,7 +15,7 @@ const H2: SxProps<Theme> = {
   fontSize: FontSize.large_45,
   lineHeight: '55px',
   fontWeight: FontWeight.bold,
-  color: Colors.navy,
+  color: Color.navy,
   marginBottom: '30px',
 };
 
@@ -23,11 +23,11 @@ const COURSE_IMG_CONTAINER: SxProps<Theme> = {
   position: 'absolute',
   width: '80px',
   height: '80px',
-  border: `2px solid ${Colors.grey}`,
+  border: `2px solid ${Color.grey}`,
   padding: 0,
-  backgroundColor: Colors.white,
+  backgroundColor: Color.white,
   bottom: '-20%',
-  left: MetricSize.large,
+  left: MetricSize.large_20,
   borderRadius: MetricSize.small_10,
 };
 

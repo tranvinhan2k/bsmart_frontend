@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
   flex: 1,
@@ -10,7 +10,7 @@ export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
   alignItems: 'center',
 };
 export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
-  background: Colors.blueTransparent,
+  background: Color.blueTransparent,
   position: 'position',
   content: '""',
   top: 0,
@@ -20,14 +20,14 @@ export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
   width: '100%',
 };
 export const SX_MAIN_TITLE: SxProps<Theme> = {
-  color: Colors.orange,
+  color: Color.orange,
   fontSize: FontSize.medium_24,
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
 };
 export const SX_SUB_TITLE: SxProps<Theme> = {
-  color: Colors.white,
+  color: Color.white,
   fontSize: FontSize.extraLarge_70,
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
 };
 export const SX_HOMEPAGE_STACK: SxProps<Theme> = {
   height: '100%',
@@ -39,9 +39,9 @@ export const SX_SUB_HOMEPAGE_STACK: SxProps<Theme> = {
   paddingX: '160px',
 };
 export const SX_CONTENT_TITLE: SxProps<Theme> = {
-  color: Colors.white,
+  color: Color.white,
   fontSize: FontSize.small_16,
-  fontFamily: FontFamilies.regular,
+  fontFamily: FontFamily.regular,
 };
 export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   width: '100%',
@@ -51,13 +51,13 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
 };
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
   fontSize: FontSize.extraLarge_70,
-  fontFamily: FontFamilies.medium,
-  color: Colors.orange,
+  fontFamily: FontFamily.medium,
+  color: Color.orange,
 };
 export const SX_BREADCRUMB_TITLE: SxProps<Theme> = {
-  fontFamily: FontFamilies.regular,
+  fontFamily: FontFamily.regular,
   fontSize: FontSize.small_16,
-  color: Colors.white,
+  color: Color.white,
 };
 
 export default {};

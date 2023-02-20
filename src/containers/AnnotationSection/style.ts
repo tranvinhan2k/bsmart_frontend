@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 export const ANNOTATION_H3: SxProps<Theme> = {
   /* Positioning */
@@ -8,7 +8,7 @@ export const ANNOTATION_H3: SxProps<Theme> = {
   marginBottom: '10px',
   padding: '10px 20px',
   /* Color */
-  color: Colors.orange,
+  color: Color.orange,
   /* Text */
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.bold,
@@ -36,15 +36,15 @@ export const ANNOTATION_BUTTON: SxProps<Theme> = {
   height: '25px',
   marginRight: MetricSize.small_10,
   marginBottom: MetricSize.small_10,
-  padding: MetricSize.medium,
+  padding: MetricSize.medium_15,
   /* Color */
-  backgroundColor: Colors.orange,
-  color: Colors.blue2,
+  backgroundColor: Color.orange,
+  color: Color.blue2,
   /* Text */
   /* Other */
   '&:hover': {
-    backgroundColor: Colors.orange,
-    color: Colors.blue2,
+    backgroundColor: Color.orange,
+    color: Color.blue2,
   },
 };
 
@@ -60,10 +60,10 @@ export const ANNOTATION_CONTENT: SxProps<Theme> = {
   /* Other */
   '&:hover': {
     borderRadius: '8px',
-    backgroundColor: Colors.navy,
+    backgroundColor: Color.navy,
     transition: 'all 2s',
     '& p': {
-      color: Colors.whiteSmoke,
+      color: Color.whiteSmoke,
       transition: 'all 2s',
     },
   },
@@ -77,7 +77,7 @@ export const ANNOTATION_CONTENT_IMG: SxProps<Theme> = {
   width: '56px',
   height: '56px',
   /* Color */
-  backgroundColor: Colors.aquamarine,
+  backgroundColor: Color.aquamarine,
   /* Text */
   /* Other */
 };
@@ -85,9 +85,9 @@ export const ANNOTATION_CONTENT_IMG: SxProps<Theme> = {
 export const ANNOTATION_CONTENT_TITLE: SxProps<Theme> = {
   /* Positioning */
   /* Display & Box Model */
-  paddingLeft: MetricSize.large,
+  paddingLeft: MetricSize.large_20,
   /* Color */
-  color: Colors.orange,
+  color: Color.orange,
   /* Text */
   fontSize: FontSize.small_16,
   fontWeight: FontWeight.semiBold,
@@ -113,7 +113,7 @@ export const ANNOTATION_CONTENT_CONTENT: SxProps<Theme> = {
 export const ANNOTATION_CONTENT_DATE: SxProps<Theme> = {
   /* Positioning */
   /* Display & Box Model */
-  paddingLeft: MetricSize.large,
+  paddingLeft: MetricSize.large_20,
   paddingTop: MetricSize.small_10,
   /* Color */
   color: 'gray',

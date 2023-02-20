@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, SxProps, Theme } from '@mui/material';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
-import { Colors, IconSize, MetricSize } from '~/assets/variables';
+import { Color, IconSize, MetricSize } from '~/assets/variables';
 import { IconName } from '~/models/icon';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
@@ -29,5 +29,5 @@ export default function Icon({ color, name, size }: IconProps) {
 }
 
 Icon.defaultProps = {
-  color: Colors.black,
+  color: Color.black,
 };

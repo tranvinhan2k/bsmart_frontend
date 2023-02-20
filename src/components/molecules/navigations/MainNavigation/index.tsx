@@ -1,8 +1,8 @@
 import { IconButton, Stack, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import {
-  Colors,
-  FontFamilies,
+  Color,
+  FontFamily,
   FontSize,
   IconSize,
   MetricSize,
@@ -25,8 +25,8 @@ export default function MainNavigation({ pathName, pages }: NavigationProps) {
         <Typography
           sx={{
             fontSize: FontSize.large_45,
-            fontFamily: FontFamilies.bold,
-            color: Colors.navy,
+            fontFamily: FontFamily.bold,
+            color: Color.navy,
           }}
         >
           {APP_NAME.toUpperCase()}
@@ -37,15 +37,15 @@ export default function MainNavigation({ pathName, pages }: NavigationProps) {
           (item) =>
             !item.isHide && (
               <NavLink
-                style={{ textDecoration: 'none', padding: MetricSize.medium }}
+                style={{ textDecoration: 'none', padding: MetricSize.medium_15 }}
                 key={item.link}
                 to={item.link}
               >
                 <Typography
                   style={{
-                    fontFamily: FontFamilies.bold,
+                    fontFamily: FontFamily.bold,
                     fontSize: FontSize.small_16,
-                    color: pathName === item.link ? Colors.orange : Colors.navy,
+                    color: pathName === item.link ? Color.orange : Color.navy,
                   }}
                 >
                   {item.name}

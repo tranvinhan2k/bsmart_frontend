@@ -1,10 +1,10 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 
 export const SX_NAVIGATION_STACK: SxProps<Theme> = {
-  background: Colors.white,
+  background: Color.white,
   flexDirection: 'row',
-  paddingX: MetricSize.extraLarge,
+  paddingX: MetricSize.extraLarge_100,
   flex: 1,
   alignItems: 'center',
   justifyContent: 'space-between',

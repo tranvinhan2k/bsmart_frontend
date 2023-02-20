@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const WRAPPER: SxProps<Theme> = {
   width: '100%',
@@ -9,11 +9,11 @@ const WRAPPER: SxProps<Theme> = {
 };
 
 const H3: SxProps<Theme> = {
-  color: Colors.navy,
+  color: Color.navy,
   lineHeight: '30px',
   letterSpacing: '2px',
   fontWeight: FontWeight.bold,
-  marginBottom: MetricSize.large,
+  marginBottom: MetricSize.large_20,
   textTransform: 'uppercase',
   fontSize: FontSize.large_45,
 };
@@ -24,12 +24,12 @@ const IMG: SxProps<Theme> = {
 };
 
 const P: SxProps<Theme> = {
-  color: Colors.navy,
+  color: Color.navy,
   lineHeight: '30px',
   /*  */
   fontWeight: FontWeight.normal,
-  paddingTop: MetricSize.large,
-  marginBottom: MetricSize.large,
+  paddingTop: MetricSize.large_20,
+  marginBottom: MetricSize.large_20,
   fontSize: FontSize.small_18,
   textAlign: 'justify',
 };

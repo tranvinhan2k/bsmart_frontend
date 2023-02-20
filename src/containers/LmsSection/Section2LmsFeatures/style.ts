@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight, MetricSize } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   mx: 'auto',
@@ -12,14 +12,14 @@ const H2: SxProps<Theme> = {
   fontSize: FontSize.large_45,
   lineHeight: '55px',
   fontWeight: FontWeight.bold,
-  color: Colors.navy,
+  color: Color.navy,
   marginBottom: '30px',
 
   textAlign: 'right',
 };
 
 const H4: SxProps<Theme> = {
-  color: Colors.orange,
+  color: Color.orange,
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.semiBold,
   lineHeight: 1.3,
@@ -27,7 +27,7 @@ const H4: SxProps<Theme> = {
 };
 
 const QUOTE_CONTENT: SxProps<Theme> = {
-  color: Colors.navy,
+  color: Color.navy,
   lineHeight: '30px',
   fontSize: FontSize.small_18,
   textAlign: 'justify',

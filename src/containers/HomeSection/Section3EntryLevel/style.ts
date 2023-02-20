@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontSize, FontWeight } from '~/assets/variables';
 import img_banner_sub_entryLevel_1 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_1.jpg';
 import img_banner_sub_entryLevel_2 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_2.jpg';
 
@@ -14,9 +14,9 @@ const IMG_LEFT: SxProps<Theme> = {
   overflow: 'hidden',
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: Colors.blackTransparent,
+    backgroundColor: Color.blackTransparent,
     '&:before': {
-      backgroundColor: Colors.blackTransparent,
+      backgroundColor: Color.blackTransparent,
       cursor: 'pointer',
       transition: '0.3s',
     },
@@ -30,7 +30,7 @@ const IMG_LEFT: SxProps<Theme> = {
     bottom: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: Colors.blackTransparent2,
+    backgroundColor: Color.blackTransparent2,
   },
 };
 
@@ -44,9 +44,9 @@ const IMG_RIGHT: SxProps<Theme> = {
   overflow: 'hidden',
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: Colors.blackTransparent,
+    backgroundColor: Color.blackTransparent,
     '&:before': {
-      backgroundColor: Colors.blackTransparent,
+      backgroundColor: Color.blackTransparent,
       cursor: 'pointer',
       transition: '0.3s',
     },
@@ -60,7 +60,7 @@ const IMG_RIGHT: SxProps<Theme> = {
     bottom: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: Colors.blackTransparent2,
+    backgroundColor: Color.blackTransparent2,
   },
 };
 
@@ -70,7 +70,7 @@ const CONTAINER: SxProps<Theme> = {
 };
 
 const TEXT_BEFORE_IMG_H2: SxProps<Theme> = {
-  color: Colors.white,
+  color: Color.white,
   fontSize: FontSize.large_45,
   lineHeight: '56px',
   fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ const TEXT_BEFORE_IMG_H2: SxProps<Theme> = {
 };
 
 const TEXT_BEFORE_IMG_P: SxProps<Theme> = {
-  color: Colors.white,
+  color: Color.white,
   fontSize: FontSize.medium_24,
   lineHeight: '26px',
 };

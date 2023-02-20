@@ -1,36 +1,36 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 export const SX_LARGE_TITLE: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.medium_24,
-  color: Colors.white,
+  color: Color.white,
 };
 export const SX_SMALL_TEXT: SxProps<Theme> = {
-  fontFamily: FontFamilies.regular,
+  fontFamily: FontFamily.regular,
   fontSize: FontSize.small_16,
-  color: Colors.white,
+  color: Color.white,
 };
 export const SX_SMALL_GREY_TEXT: SxProps<Theme> = {
-  fontFamily: FontFamilies.regular,
+  fontFamily: FontFamily.regular,
   fontSize: FontSize.small_16,
-  color: Colors.grey,
+  color: Color.grey,
 };
 export const SX_SMALL_BOLD_TEXT: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
-  color: Colors.white,
+  color: Color.white,
 };
 export const SX_MEDIUM_BOLD_TEXT: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.medium_24,
-  color: Colors.white,
+  color: Color.white,
 };
 export const SX_SMALL_RED_TEXT: SxProps<Theme> = {
-  fontFamily: FontFamilies.regular,
+  fontFamily: FontFamily.regular,
   fontSize: FontSize.medium_24,
-  color: Colors.red,
+  color: Color.red,
 };
 export const SX_SHADOW: SxProps<Theme> = {
   shadowColor: '#000000',

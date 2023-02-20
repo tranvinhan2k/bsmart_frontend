@@ -13,7 +13,7 @@ import {
   SX_NORMAL_BUTTON,
 } from '~/components/atoms/Button/styles';
 import { MetricSizeKeys } from '~/models/variables';
-import { FontFamilies, MetricSize } from '~/assets/variables';
+import { FontFamily, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 
 interface ButtonProps extends MUIButtonProps {
@@ -59,7 +59,7 @@ export default function Button({
                 paddingLeft={2}
               >
                 <Typography
-                  sx={{ fontSize: '12px', fontFamily: FontFamilies.bold }}
+                  sx={{ fontSize: '12px', fontFamily: FontFamily.bold }}
                 >
                   {children}
                 </Typography>

@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_REGISTER_TAB: SxProps<Theme> = {
   boxShadow: 5,
@@ -8,22 +8,22 @@ export const SX_REGISTER_TAB: SxProps<Theme> = {
 };
 export const SX_TABS: SxProps<Theme> = {
   width: '100%',
-  borderBottomColor: Colors.orange,
+  borderBottomColor: Color.orange,
 };
 export const SX_TAB: SxProps<Theme> = {
-  color: Colors.orange,
+  color: Color.orange,
   background: '#eee',
-  borderColor: Colors.orange,
-  fontFamily: FontFamilies.bold,
+  borderColor: Color.orange,
+  fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   '&:hover': {
-    color: Colors.white,
-    background: Colors.orange,
+    color: Color.white,
+    background: Color.orange,
     opacity: 0.5,
   },
   '&.Mui-selected': {
-    color: Colors.white,
-    background: Colors.orange,
+    color: Color.white,
+    background: Color.orange,
   },
   '&.Mui-focusVisible': {
     backgroundColor: '#d1eaff',

@@ -1,8 +1,8 @@
 import { Stack } from '@mui/material';
 import {
-  Colors,
+  Color,
   Common,
-  FontFamilies,
+  FontFamily,
   FontSize,
   IconSize,
   MetricSize,
@@ -28,9 +28,9 @@ export default function SearchBar({
     <Stack
       sx={{
         borderRadius: Common.borderRadius,
-        background: Colors.semiTransparent,
-        marginTop: MetricSize.large,
-        marginBottom: MetricSize.large,
+        background: Color.semiTransparent,
+        marginTop: MetricSize.large_20,
+        marginBottom: MetricSize.large_20,
         flexDirection: 'row',
         height: Common.inputFieldHeight,
         width: MetricSize.halfWidth,
@@ -43,14 +43,14 @@ export default function SearchBar({
         onChange={handleChangeText}
         placeholder={label}
         style={{
-          fontFamily: FontFamilies.regular,
+          fontFamily: FontFamily.regular,
           fontSize: FontSize.small_16,
-          padding: MetricSize.medium,
+          padding: MetricSize.medium_15,
           border: 'none',
-          background: Colors.transparent,
+          background: Color.transparent,
           overflow: 'hidden',
           borderRadius: Common.borderRadius,
-          color: Colors.white,
+          color: Color.white,
           width: '100%',
         }}
         onSubmit={onSubmit}
@@ -59,8 +59,8 @@ export default function SearchBar({
         style={{
           height: IconSize.small,
           width: IconSize.small,
-          paddingLeft: MetricSize.medium,
-          paddingRight: MetricSize.medium,
+          paddingLeft: MetricSize.medium_15,
+          paddingRight: MetricSize.medium_15,
         }}
         src={searchIcon}
         alt="search icon"
