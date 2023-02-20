@@ -54,7 +54,7 @@ export const MetricSize = {
   medium_15: '15px',
   large_20: '20px',
   extraLarge_100: '100px',
-  fullHeight_100vh: '100vh',
+  fullHeight: '100vh',
   fullWidth: '100vw',
   halfWidth: '50vw',
   none: 0,

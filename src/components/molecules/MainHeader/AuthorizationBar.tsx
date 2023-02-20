@@ -28,7 +28,7 @@ function AuthorizationBar({
           sx={{
             fontFamily: FontFamily.regular,
             fontSize: FontSize.small_16,
-            color: Colors[color],
+            color: Color[color],
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
@@ -49,7 +49,7 @@ function AuthorizationBar({
           sx={{
             fontFamily: FontFamily.regular,
             fontSize: FontSize.small_16,
-            color: Colors[color],
+            color: Color[color],
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {

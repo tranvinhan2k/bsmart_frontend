@@ -8,7 +8,7 @@ export default function RegisterSection() {
   return (
     <Stack
       sx={{
-        borderRadius: MetricSize.small,
+        borderRadius: MetricSize.small_5,
         boxShadow: { xs: 0, md: 5 },
         width: { xs: '90vw', md: MetricSize.halfWidth },
       }}

@@ -14,8 +14,6 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
-const HomePage = lazy(() => import('~/pages/HomePage'));
-const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 const LoginPage = lazy(() => import('~/pages/LoginPages'));
 const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
 const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
@@ -68,11 +66,11 @@ const routes: RoutePayload[] = [
     main: () => <CourseDetailPage />,
   },
   {
-    path: `/${NavigationActionData[7].link}`,
+    path: `/${NavigationActionData[9].link}`,
     main: () => <LmsPage />,
   },
   {
-    path: `/${NavigationActionData[8].link}`,
+    path: `/${NavigationActionData[10].link}`,
     main: () => <AnnotationPage />,
   },
   {

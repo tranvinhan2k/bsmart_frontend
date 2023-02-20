@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Pagination from '@mui/material/Pagination';
 import { useNavigate } from 'react-router-dom';
-import { FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { CourseList } from '~/constants';
 import CourseItem from '~/components/molecules/CourseItem';
 
@@ -34,15 +34,15 @@ export default function CourseMenuSection() {
         <Stack flexDirection="row">
           <Typography
             sx={{
-              fontFamily: FontFamilies.bold,
-              fontSize: FontSize.small,
-              paddingRight: MetricSize.small,
+              fontFamily: FontFamily.bold,
+              fontSize: FontSize.small_16,
+              paddingRight: MetricSize.small_5,
             }}
           >
             0
           </Typography>
           <Typography
-            sx={{ fontFamily: FontFamilies.regular, fontSize: FontSize.small }}
+            sx={{ fontFamily: FontFamily.regular, fontSize: FontSize.small_16 }}
           >
             Khóa học
           </Typography>
@@ -64,7 +64,7 @@ export default function CourseMenuSection() {
       </Stack>
       <Stack
         sx={{
-          paddingY: MetricSize.medium,
+          paddingY: MetricSize.medium_15,
         }}
         flexDirection="row"
         flexWrap="wrap"

@@ -14,7 +14,7 @@ export default function LoginPages() {
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        margin: MetricSize.large,
+        margin: MetricSize.large_20,
       }}
     >
       <LoginSection />

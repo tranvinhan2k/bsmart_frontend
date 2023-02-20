@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import img_banner_sub_typing_1 from '~/assets/images/IndexSection/img_banner_sub_typing_1.jpg';
+import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
 
 import {
   ANNOTATION_H3,

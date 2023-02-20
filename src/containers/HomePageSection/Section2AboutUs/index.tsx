@@ -3,11 +3,7 @@ import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_
 import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
-<<<<<<<< HEAD:src/containers/HomeSection/Section1AboutUs/index.tsx
-} from '~/containers/HomeSection/style';
-========
 } from '~/containers/HomePageSection/style';
->>>>>>>> main:src/containers/HomePageSection/Section2AboutUs/index.tsx
 import { SX } from './style';
 
 export default function Section2AboutUs() {

@@ -1,11 +1,7 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-<<<<<<<< HEAD:src/containers/HomeSection/Section1AboutUs/style.ts
 import { Color, FontSize, FontWeight } from '~/assets/variables';
-import img_img_banner_2 from '~/assets/images/IndexSection/img_banner_2.jpg';
-========
 import img_img_banner_2 from '~/assets/images/HomePageSection/img_banner_2.jpg';
->>>>>>>> main:src/containers/HomePageSection/Section2AboutUs/style.ts
 
 const BOX_BANNER: SxProps<Theme> = {
   backgroundImage: `url(${img_img_banner_2})`,

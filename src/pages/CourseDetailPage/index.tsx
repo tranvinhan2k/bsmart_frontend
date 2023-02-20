@@ -16,7 +16,7 @@ export default function CourseDetailPage() {
   return (
     <Stack>
       <Grid container sx={{ gridAutoFlow: 'dense', padding: '70px' }}>
-        <Grid item xs={12} md={8} sx={{ padding: MetricSize.medium }}>
+        <Grid item xs={12} md={8} sx={{ padding: MetricSize.medium_15 }}>
           <CourseDetailBasicInformationSection
             mentorData={data.mentorData}
             percentOfFeedback={data.feedbackData.percentOfFeedback}

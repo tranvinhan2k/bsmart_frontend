@@ -1,5 +1,5 @@
 import { LmsBenefit } from '~/models/mockData/lmsBenefit';
-import img_item_course_1 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_1.jpg';
+import img_item_course_1 from '~/assets/images/HomePageSection/img_banner_sub_entryLevel_1.jpg';
 
 export const lmsTeacherBenefits: LmsBenefit[] = [
   {

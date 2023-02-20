@@ -51,7 +51,7 @@ export default function MainFooter({
                     width: {
                       xs: '100%',
                       md: '33%',
-                      marginTop: MetricSize.sm_medium,
+                      marginTop: MetricSize.small_10,
                     },
                   }}
                   key={subAddress.id}
@@ -102,9 +102,10 @@ export default function MainFooter({
           </Box>
         </Grid>
         <Grid
+          item
           xs={12}
           md={2}
-          sx={{ paddingX: { xs: '0', md: MetricSize.medium } }}
+          sx={{ paddingX: { xs: '0', md: MetricSize.medium_15 } }}
         >
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>Menu</Typography>
           <Stack sx={{ paddingTop: MetricSize.medium_15 }}>
@@ -125,7 +126,7 @@ export default function MainFooter({
             ))}
           </Stack>
         </Grid>
-        <Grid xs={12} md={5}>
+        <Grid item xs={12} md={5}>
           <Stack
             sx={{
               justifyContent: 'center',
@@ -136,22 +137,22 @@ export default function MainFooter({
           >
             <Button
               style={{
-                background: Colors.orange,
-                fontFamily: FontFamilies.bold,
-                fontSize: FontSize.small,
-                color: Colors.white,
+                background: Color.orange,
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.small_16,
+                color: Color.white,
               }}
             >
               Đăng kí khóa học
             </Button>
           </Stack>
         </Grid>
-        <Grid xs={12} md={2}>
+        <Grid item xs={12} md={2}>
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>
             Liện hệ với chúng tôi
           </Typography>
 
-          <Box sx={{ paddingTop: MetricSize.medium }}>
+          <Box sx={{ paddingTop: MetricSize.medium_15 }}>
             <ContractBar color="white" contracts={contracts} />
           </Box>
         </Grid>

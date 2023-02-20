@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { useState } from 'react';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 
 interface SearchBarProps {
@@ -30,7 +30,7 @@ export default function SearchBar({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        margin: MetricSize.medium,
+        margin: MetricSize.medium_15,
         flex: 1,
       }}
     >
@@ -38,14 +38,14 @@ export default function SearchBar({
         variant="outlined"
         sx={{
           flex: 1,
-          fontFamily: FontFamilies.regular,
-          fontSize: FontSize.small,
-          background: Colors.semiTransparent,
+          fontFamily: FontFamily.regular,
+          fontSize: FontSize.small_16,
+          background: Color.semiTransparent,
           input: {
-            color: Colors[color],
+            color: Color[color],
           },
           '&:placeholder': {
-            color: Colors[color],
+            color: Color[color],
           },
         }}
         value={searchValue}

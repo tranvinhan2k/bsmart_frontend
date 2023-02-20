@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { formatMoney } from '~/utils/money';
 import Button from '~/components/atoms/Button';
 
@@ -25,13 +25,13 @@ export default function CourseDetailSidebarSection({
         />
         <Stack
           sx={{
-            marginTop: MetricSize.large,
-            paddingX: MetricSize.medium,
-            paddingBottom: MetricSize.medium,
+            marginTop: MetricSize.large_20,
+            paddingX: MetricSize.medium_15,
+            paddingBottom: MetricSize.medium_15,
           }}
         >
           <Typography
-            sx={{ fontFamily: FontFamilies.bold, fontSize: FontSize.large }}
+            sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.large_45 }}
           >
             {formatMoney(unitPrice)}
           </Typography>

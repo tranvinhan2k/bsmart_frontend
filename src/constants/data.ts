@@ -55,6 +55,16 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Chi Tiết Khóa Học',
     link: '/course/course-detail/:id',
   },
+  {
+    isHide: true,
+    name: 'Nền tảng Lms',
+    link: '/lms',
+  },
+  {
+    isHide: true,
+    name: 'Thông báo',
+    link: '/annotation',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [
@@ -93,9 +103,9 @@ export const RegisterTabPayload: TabPayload[] = [
 ];
 
 export const HeaderSocialDataList: SocialPayload[] = [
-  { name: 'Twitter', link: 'https://twitter.com', image: twitter },
-  { name: 'LinkedIn', link: 'https://www.linkedin.com', image: linkedin },
-  { name: 'Dribbble', link: 'https://dribbble.com', image: dribbble },
+  { name: 'Twitter', link: 'https://twitter.com', image: 'twitter' },
+  { name: 'LinkedIn', link: 'https://www.linkedin.com', image: 'linkedin' },
+  { name: 'Dribbble', link: 'https://dribbble.com', image: 'dribbble' },
 ];
 export const FooterSocialDataList: SocialPayload[] = [
   {

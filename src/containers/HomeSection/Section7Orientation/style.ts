@@ -1,11 +1,7 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-<<<<<<<< HEAD:src/containers/HomeSection/Section7Orientation/style.ts
 import { Color, FontSize, FontWeight } from '~/assets/variables';
-import img_bg_1_funFact from '~/assets/images/IndexSection/img_bg_1_funFact.jpg';
-========
 import img_bg_1_funFact from '~/assets/images/HomePageSection/img_bg_1_funFact.jpg';
->>>>>>>> main:src/containers/HomePageSection/Section8Orientation/style.ts
 
 const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',

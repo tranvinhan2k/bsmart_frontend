@@ -1,11 +1,7 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import img_banner_sub_typing_2 from '~/assets/images/HomePageSection/img_banner_sub_typing_2.jpg';
 import { SX } from './style';
-<<<<<<<< HEAD:src/containers/HomeSection/Section8ContactUs/index.tsx
-import { SX_BUTTON_PRIMARY } from '~/containers/HomeSection/style';
-========
 import { SX_BUTTON_PRIMARY } from '~/containers/HomePageSection/style';
->>>>>>>> main:src/containers/HomePageSection/Section9ContactUs/index.tsx
 
 export default function Section9ContactUs() {
   return (

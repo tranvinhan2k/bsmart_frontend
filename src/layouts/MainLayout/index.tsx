@@ -31,7 +31,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <Stack
         sx={{
           minHeight: '100vh',
-          paddingX: { xs: MetricSize.medium, md: MetricSize.extraLarge },
+          paddingX: { xs: MetricSize.medium_15, md: MetricSize.extraLarge_100 },
         }}
       >
         {children}

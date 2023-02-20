@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import FilterCheckbox from './FilterCheckbox';
 import { CheckBoxPayload } from '~/models';
-import { FontFamilies, FontSize } from '~/assets/variables';
+import { FontFamily, FontSize } from '~/assets/variables';
 
 interface FilterCheckboxListProps {
   fields: CheckBoxPayload[];
@@ -19,25 +19,25 @@ export default function FilterCheckboxList({
   return (
     <Stack padding={2}>
       <Typography
-        sx={{ fontSize: FontSize.small, fontFamily: FontFamilies.bold }}
+        sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.bold }}
       >
         LĨNH VỰC
       </Typography>
       <FilterCheckbox data={fields} />
       <Typography
-        sx={{ fontSize: FontSize.small, fontFamily: FontFamilies.bold }}
+        sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.bold }}
       >
         MÔN HỌC
       </Typography>
       <FilterCheckbox data={subjects} />
       <Typography
-        sx={{ fontSize: FontSize.small, fontFamily: FontFamilies.bold }}
+        sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.bold }}
       >
         HÌNH THỨC
       </Typography>
       <FilterCheckbox data={types} />
       <Typography
-        sx={{ fontSize: FontSize.small, fontFamily: FontFamilies.bold }}
+        sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.bold }}
       >
         KHU VỰC
       </Typography>

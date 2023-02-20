@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Icon from '~/components/atoms/Icon';
@@ -53,9 +53,9 @@ export default function FilterCheckbox({ data }: FilterCheckboxProps) {
                 <Icon size="small" name="down" />
                 <Typography
                   sx={{
-                    paddingLeft: MetricSize.small,
-                    fontSize: FontSize.small,
-                    fontFamily: FontFamilies.regular,
+                    paddingLeft: MetricSize.small_5,
+                    fontSize: FontSize.small_16,
+                    fontFamily: FontFamily.regular,
                   }}
                 >
                   Xem thêm
@@ -66,9 +66,9 @@ export default function FilterCheckbox({ data }: FilterCheckboxProps) {
                 <Icon size="small" name="up" />
                 <Typography
                   sx={{
-                    paddingLeft: MetricSize.small,
-                    fontSize: FontSize.small,
-                    fontFamily: FontFamilies.regular,
+                    paddingLeft: MetricSize.small_5,
+                    fontSize: FontSize.small_16,
+                    fontFamily: FontFamily.regular,
                   }}
                 >
                   Thu Gọn

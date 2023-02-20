@@ -1,5 +1,11 @@
 import { Stack, Tooltip, Typography } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import {
+  Color,
+  IconSize,
+  FontFamily,
+  FontSize,
+  MetricSize,
+} from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { SX_CONTRACT_STACK } from '~/components/molecules/ContractBar/styles';
 import { ContractPayload } from '~/models';
@@ -25,9 +31,9 @@ function ContractBar({ color, contracts }: ContractBarProps) {
               <Stack>
                 <Typography
                   sx={{
-                    fontFamily: FontFamilies.regular,
-                    fontSize: FontSize.small,
-                    color: Colors[color],
+                    fontFamily: FontFamily.regular,
+                    fontSize: FontSize.small_16,
+                    color: Color[color],
                   }}
                 >
                   {contract.value}

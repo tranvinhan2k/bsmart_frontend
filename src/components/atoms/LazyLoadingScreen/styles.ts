@@ -6,7 +6,7 @@ export const SX_LOADING_STACK: SxProps<Theme> = {
   alignItems: 'center',
   flex: 1,
   background: Color.navy,
-  height: MetricSize.fullHeight_100vh,
+  height: MetricSize.fullHeight,
 };
 export const SX_LOADING_IMG: SxProps<Theme> = {
   width: MetricSize.extraLarge_100,

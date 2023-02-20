@@ -2,11 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
-<<<<<<<< HEAD:src/containers/HomeSection/Section7Orientation/index.tsx
-} from '~/containers/HomeSection/style';
-========
 } from '~/containers/HomePageSection/style';
->>>>>>>> main:src/containers/HomePageSection/Section8Orientation/index.tsx
 import { SX } from './style';
 
 export default function Section8Orientation() {

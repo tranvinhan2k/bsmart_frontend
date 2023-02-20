@@ -1,13 +1,8 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-<<<<<<<< HEAD:src/containers/HomeSection/Section3EntryLevel/style.ts
 import { Color, FontSize, FontWeight } from '~/assets/variables';
-import img_banner_sub_entryLevel_1 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_1.jpg';
-import img_banner_sub_entryLevel_2 from '~/assets/images/IndexSection/img_banner_sub_entryLevel_2.jpg';
-========
 import img_banner_sub_entryLevel_1 from '~/assets/images/HomePageSection/img_banner_sub_entryLevel_1.jpg';
 import img_banner_sub_entryLevel_2 from '~/assets/images/HomePageSection/img_banner_sub_entryLevel_2.jpg';
->>>>>>>> main:src/containers/HomePageSection/Section4EntryLevel/style.ts
 
 const IMG_LEFT: SxProps<Theme> = {
   backgroundImage: `url(${img_banner_sub_entryLevel_1})`,
