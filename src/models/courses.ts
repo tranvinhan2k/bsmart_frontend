@@ -6,6 +6,7 @@ export interface CoursePayload {
   image: string;
   title: string;
   mentor: string;
+  mentorImage?: string;
   content: string;
   feedback: number;
 }

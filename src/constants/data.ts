@@ -449,3 +449,96 @@ export const CourseDetailData: CourseDetailPayload = {
     ],
   },
 };
+
+export const CommonCourse: CoursePayload[] = [
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+];

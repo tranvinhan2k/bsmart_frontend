@@ -16,6 +16,8 @@ import { FcNext } from 'react-icons/fc';
 import { FaShare } from 'react-icons/fa';
 import { CiMail, CiPhone, CiLocationOn } from 'react-icons/ci';
 import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
+import { GoPrimitiveDot } from 'react-icons/go';
+import { GrNext, GrPrevious } from 'react-icons/gr';
 import { Colors, IconSize } from '~/assets/variables';
 import { IconName } from '~/models/icon';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -123,6 +125,24 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <AiOutlineStar />
+        </Typography>
+      );
+    case 'next2':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GrNext />
+        </Typography>
+      );
+    case 'previous':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GrPrevious />
+        </Typography>
+      );
+    case 'dot':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GoPrimitiveDot />
         </Typography>
       );
     default:

@@ -6,7 +6,9 @@ import {
   LinearProgress,
   Box,
   IconButton,
+  TextField,
 } from '@mui/material';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Colors,
@@ -16,6 +18,7 @@ import {
   IconSize,
   MetricSize,
 } from '~/assets/variables';
+import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
 import { FeedbackPayload } from '~/models/feedback';
 import { formatNumberFixedTwoDigit } from '~/utils/number';
@@ -52,9 +55,15 @@ export default function CourseDetailFeedbackSection({
 }: CourseDetailFeedbackSectionProps) {
   const { commentData, numOfRating, percentOfFeedback, starData } =
     feedbackData;
-  const navigation = useNavigate();
+  const [ratingValue, setRatingValue] = useState<number>(0);
   const handleClickCommentUserAvatar = (id: string) => {
     // TODO: navigation to the user link
+  };
+  const handleChangeRatingValue = (event: any) => {
+    setRatingValue(event.target.value);
+  };
+  const handleRatingForCourse = () => {
+    // TODO: handle Rating Course Here
   };
   return (
     <Stack>
@@ -204,6 +213,31 @@ export default function CourseDetailFeedbackSection({
             </Stack>
           </Stack>
         ))}
+      </Stack>
+      <Box sx={{ marginTop: MetricSize.medium }}>
+        <Box>
+          <Button customVariant="outlined">Xem Thêm</Button>
+        </Box>
+      </Box>
+      <Stack sx={{ marginTop: MetricSize.medium }}>
+        <TextField
+          multiline
+          rows={4}
+          placeholder="Hãy cho tôi nhận xét về khóa học"
+        />
+        <Stack
+          sx={{
+            marginTop: MetricSize.medium,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Rating value={ratingValue} onChange={handleChangeRatingValue} />
+          <Button onClick={handleRatingForCourse} customVariant="normal">
+            Đánh giá
+          </Button>
+        </Stack>
       </Stack>
     </Stack>
   );
