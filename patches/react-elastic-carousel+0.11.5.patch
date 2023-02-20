@@ -1,0 +1,20 @@
+diff --git a/node_modules/react-elastic-carousel/dist/index.d.ts b/node_modules/react-elastic-carousel/dist/index.d.ts
+index 74de6eb..bb2d444 100644
+--- a/node_modules/react-elastic-carousel/dist/index.d.ts
++++ b/node_modules/react-elastic-carousel/dist/index.d.ts
+@@ -28,13 +28,14 @@ export type Breakpoint = {
+ };
+ 
+ export interface ReactElasticCarouselProps {
++  children:any;
+   className?: string;
+   // Defaults to 1
+   itemsToShow?: number;
+   // Defaults to false
+   verticalMode?: boolean;
+   // Defaults to false
+-  isRTL: boolean;
++  isRTL?: boolean;
+   // Defaults to true
+   pagination?: boolean;
+   // Defaults to 500
