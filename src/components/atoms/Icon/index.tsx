@@ -3,7 +3,9 @@ import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from '@mui/icons-material/Person';
 import {
   BsDribbble,
   BsInstagram,
@@ -47,8 +49,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ArrowDownwardIcon sx={STYLED_ICON} />;
     case 'up':
       return <ArrowUpwardIcon sx={STYLED_ICON} />;
+    case 'calendarMonth':
+      return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'menu':
       return <MenuIcon sx={STYLED_ICON} />;
+    case 'person':
+      return <PersonIcon sx={STYLED_ICON} />;
     case 'twitter':
       return (
         <Typography sx={STYLED_ICON}>
