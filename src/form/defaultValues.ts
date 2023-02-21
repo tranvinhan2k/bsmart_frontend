@@ -1,4 +1,5 @@
 import {
+  BuyCourseDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -21,6 +22,13 @@ export const defaultValueMentorRegister: RegisterMentorDataPayload = {
   introduction: '',
   name: '',
   phone: '',
+};
+export const defaultValueBuyCourse: BuyCourseDataPayload = {
+  email: '',
+  name: '',
+  paymentMethod: '',
+  phone: '',
+  voucher: '',
 };
 
 export default {};

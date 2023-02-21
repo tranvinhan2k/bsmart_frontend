@@ -16,3 +16,11 @@ export interface RegisterMentorDataPayload {
   confirm: string;
   introduction: string;
 }
+
+export interface BuyCourseDataPayload {
+  name: string;
+  phone: string;
+  email: string;
+  voucher: string;
+  paymentMethod: string;
+}

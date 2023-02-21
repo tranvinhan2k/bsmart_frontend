@@ -65,6 +65,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Thông báo',
     link: '/annotation',
   },
+  {
+    isHide: true,
+    name: 'Đăng kí khóa học',
+    link: '/buy-course',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [

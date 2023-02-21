@@ -17,6 +17,7 @@ const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
 const LoginPage = lazy(() => import('~/pages/LoginPages'));
 const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
 const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
+const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
 
 const routes: RoutePayload[] = [
   {
@@ -72,6 +73,10 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[10].link}`,
     main: () => <AnnotationPage />,
+  },
+  {
+    path: `/${NavigationActionData[11].link}`,
+    main: () => <BuyCoursePage />,
   },
   {
     path: '*',

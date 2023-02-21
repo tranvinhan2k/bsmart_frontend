@@ -25,5 +25,9 @@ export const validationSchemaRegisterMentor = object({
   confirm: string().required(PASSWORD_REQUIRED),
   introduction: string().required(PASSWORD_REQUIRED),
 });
-
-export default {};
+export const validationSchemaBuyCourse = object({
+  name: string().required(USERNAME_REQUIRED),
+  phone: string().required(USERNAME_REQUIRED),
+  email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
+  voucher: string().required(PASSWORD_REQUIRED),
+});
