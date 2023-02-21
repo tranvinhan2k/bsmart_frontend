@@ -3,6 +3,7 @@ export type IconName =
   | 'search'
   | 'down'
   | 'up'
+  | 'keyboardArrowRight'
   | 'calendarMonth'
   | 'menu'
   | 'person'

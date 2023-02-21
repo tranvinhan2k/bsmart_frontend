@@ -9,16 +9,16 @@ export default function BlogSection() {
       <Box sx={SX_CONTAINER}>
         <Grid
           container
-          direction={{ xs: 'column', md: 'row' }}
+          direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
           rowSpacing={{ xs: 10, md: 0 }}
           columnSpacing={{ xs: 0, md: 10 }}
         >
-          <Grid item xs={8}>
+          <Grid item xs={12} md={8}>
             <BlogsSection />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <BlogSearchSection />
           </Grid>
         </Grid>

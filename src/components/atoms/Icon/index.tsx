@@ -3,6 +3,7 @@ import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
@@ -49,6 +50,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ArrowDownwardIcon sx={STYLED_ICON} />;
     case 'up':
       return <ArrowUpwardIcon sx={STYLED_ICON} />;
+    case 'keyboardArrowRight':
+      return <KeyboardArrowRightIcon sx={STYLED_ICON} />;
     case 'calendarMonth':
       return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'menu':

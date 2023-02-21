@@ -1,43 +1,63 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 export const SX_CARD_WRAPPER: SxProps<Theme> = {
-  paddingBottom: '1rem',
+  /* Positioning */
+  /* Display & Box Model */
+  borderBottom: '1px solid #0000001f',
   marginBottom: '1rem',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+  paddingBottom: '1rem',
+  /* Color */
+  /* Text */
+  /* Other */
 };
 
 export const SX_CARD_LIST_TEXT: SxProps<Theme> = {
-  color: '#696969',
+  /* Positioning */
+  /* Display & Box Model */
+  marginRight: MetricSize.medium_15,
+  /* Color */
+  color: Color.grey2,
+  /* Text */
+  fontSize: FontSize.small_16,
   fontWeight: FontWeight.bold,
-  textTransform: 'uppercase',
   letterSpacing: 1,
-  fontSize: '15px',
-  marginRight: '15px',
+  textTransform: 'uppercase',
+  /* Other */
 };
 
 export const SX_CARD_LIST_WRAPPER: SxProps<Theme> = {
-  paddingBottom: '10px',
+  /* Positioning */
+  /* Display & Box Model */
   marginTop: '1rem',
+  paddingBottom: MetricSize.small_10,
+  /* Color */
+  /* Text */
+  /* Other */
 };
 
 export const SX_BLOG_TITTLE: SxProps<Theme> = {
-  color: '#0e0a38',
-  fontWeight: 700,
-  fontSize: '30px',
+  /* Positioning */
+  /* Display & Box Model */
+  /* Color */
+  color: Color.navy,
+  /* Text */
+  fontSize: FontSize.medium_28,
+  fontWeight: FontWeight.bold,
   lineHeight: '46px',
+  /* Other */
 };
 
 export const SX_BLOG_CONTENT: SxProps<Theme> = {
-  // font-size: 16px;
-  // line-height: 1.5;
-  // margin-bottom: 1rem;
-  // color: #999;
-  // text-align: justify;
-  fontSize: '16px',
-  lineHeight: 1.5,
+  /* Positioning */
+  /* Display & Box Model */
   marginBottom: '1rem',
-  color: '#999',
+  /* Color */
+  color: Color.grey,
+  /* Text */
+  fontSize: FontSize.small_16,
+  lineHeight: 1.5,
   textAlign: 'justify',
+  /* Other */
 };

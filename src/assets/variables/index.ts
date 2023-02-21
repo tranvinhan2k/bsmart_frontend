@@ -9,6 +9,7 @@ export const Color = {
   grey: '#999',
   grey2: '#696969',
   navy: '#0e0a38',
+  navy2: '#130f40',
   neutral: '#ccc',
   orange: '#ff630e',
   red: '#e74033',
@@ -65,3 +66,9 @@ export const IconSize = {
   medium: '30px',
   large: '35px',
 };
+
+/* Positioning */
+/* Display & Box Model */
+/* Color */
+/* Text */
+/* Other */

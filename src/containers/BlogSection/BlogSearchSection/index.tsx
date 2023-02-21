@@ -4,10 +4,17 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Stack,
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Link from '~/components/atoms/Link';
+import Icon from '~/components/atoms/Icon';
+import {
+  blogSearchCategories,
+  blogSearchTimelines,
+  blogSearchStorages,
+} from '~/constants/blog';
 import {
   SX_WRAPPER,
   SX_CONTAINER,
@@ -15,6 +22,8 @@ import {
   SX_OUTSTANDING_TITLE,
   SX_OUTSTANDING_POST_TITLE,
   SX_OUTSTANDING_POST_DATE,
+  SX_FORM_SEARCH_INPUT_ICON_BUTTON,
+  SX_FORM_SEARCH_INPUT_ICON,
 } from './style';
 
 export default function BlogSearchSection() {
@@ -30,8 +39,8 @@ export default function BlogSearchSection() {
               sx: { padding: 0 },
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton style={{ borderRadius: 0 }}>
-                    <SearchIcon />
+                  <IconButton sx={SX_FORM_SEARCH_INPUT_ICON_BUTTON}>
+                    <SearchIcon sx={SX_FORM_SEARCH_INPUT_ICON} />
                   </IconButton>
                 </InputAdornment>
               ),
@@ -54,29 +63,49 @@ export default function BlogSearchSection() {
         <Typography component="h4" sx={SX_OUTSTANDING_TITLE}>
           Thể loại
         </Typography>
-        <Link to="/blog">Kinh doanh</Link>
-        <Link to="/blog">Khoa học</Link>
-        <Link to="/blog">Giáo dục</Link>
-        <Link to="/blog">Thiết kế đồ hoạ</Link>
-        <Link to="/blog">Lập trình</Link>
-        <Link to="/blog">Thiết kế web</Link>
+        {blogSearchCategories.map((blogSearchCategory) => (
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            key={blogSearchCategory.id}
+          >
+            <Icon name="keyboardArrowRight" size="medium" color="orange" />
+            <Link to="/blog">{blogSearchCategory.name}</Link>
+          </Stack>
+        ))}
       </Box>
       <Box sx={SX_CONTAINER}>
         <Typography component="h4" sx={SX_OUTSTANDING_TITLE}>
           Dòng thời gian
         </Typography>
-        <Link to="/blog">Tháng 5, 2023</Link>
-        <Link to="/blog">Tháng 6, 2023</Link>
-        <Link to="/blog">Tháng 7, 2023</Link>
+        {blogSearchTimelines.map((blogSearchTimeline) => (
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            key={blogSearchTimeline.id}
+          >
+            <Icon name="keyboardArrowRight" size="medium" color="orange" />
+            <Link to="/blog">{blogSearchTimeline.name}</Link>
+          </Stack>
+        ))}
       </Box>
       <Box sx={SX_CONTAINER}>
         <Typography component="h4" sx={SX_OUTSTANDING_TITLE}>
           Lưu trữ
         </Typography>
-        <Link to="/blog">Đăng ký</Link>
-        <Link to="/blog">Đăng nhập</Link>
-        <Link to="/blog">Entries feed</Link>
-        <Link to="/blog">WordPress.org</Link>
+        {blogSearchStorages.map((blogSearchStorage) => (
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            key={blogSearchStorage.id}
+          >
+            <Icon name="keyboardArrowRight" size="medium" color="orange" />
+            <Link to="/blog">{blogSearchStorage.name}</Link>
+          </Stack>
+        ))}
       </Box>
     </Box>
   );

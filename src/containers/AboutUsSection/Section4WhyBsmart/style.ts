@@ -52,7 +52,7 @@ const SINGLE_BOX_H3: SxProps<Theme> = {
   marginBottom: '10px',
   fontSize: FontSize.medium_24,
   lineHeight: '34px',
-  color: '#130f40',
+  color: Color.navy2,
 };
 
 const SINGLE_BOX_P: SxProps<Theme> = {
