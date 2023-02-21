@@ -37,6 +37,7 @@ export const NavigationActionData: ActionPayload[] = [
     link: '/blog',
   },
   {
+    isHide: true,
     name: 'Tuyển dụng',
     link: '/recuitment',
   },
@@ -56,8 +57,7 @@ export const NavigationActionData: ActionPayload[] = [
     link: '/course/course-detail/:id',
   },
   {
-    isHide: true,
-    name: 'Nền tảng Lms',
+    name: 'Nền tảng LMS',
     link: '/lms',
   },
   {

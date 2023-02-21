@@ -50,7 +50,10 @@ export default function TestSection() {
           </Button>
         </Stack>
       </Stack>
-      <Grid container sx={{ minHeight: '200vh', padding: MetricSize.medium_15 }}>
+      <Grid
+        container
+        sx={{ minHeight: '200vh', padding: MetricSize.medium_15 }}
+      >
         <Grid item xl={6}>
           <>
             {isLoading && <p>Is Loading ..</p>}
