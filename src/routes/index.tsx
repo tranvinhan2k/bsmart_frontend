@@ -12,6 +12,7 @@ const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 const LmsPage = lazy(() => import('~/pages/LmsPage'));
 const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
+const BlogDetailPage = lazy(() => import('~/pages/BlogDetailPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
@@ -76,6 +77,10 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[11].link}`,
     main: () => <BuyCoursePage />,
+  },
+  {
+    path: `/${NavigationActionData[12].link}`,
+    main: () => <BlogDetailPage />,
   },
   {
     path: '*',

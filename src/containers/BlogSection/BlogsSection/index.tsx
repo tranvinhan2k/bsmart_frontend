@@ -1,30 +1,24 @@
 import { Stack, Pagination } from '@mui/material';
-import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
-import Blog from './Blog';
+import { useNavigate } from 'react-router-dom';
+import BlogItem from '~/components/molecules/BlogItem';
+import { blogList } from '~/constants/mockData/blogList';
 
 export default function BlogsSection() {
+  const navigation = useNavigate();
+
+  const handleNavigateBlogDetail = (id: string) => {
+    navigation(`blog-detail/${id}`);
+  };
+
   return (
     <>
-      <Blog
-        img={img_banner_sub_typing_1}
-        title="Tìm hiểu phát triển ứng dụng web từ các chuyên gia"
-        content="Điều quan trọng là phải có một dịch vụ khách hàng tốt, một nhà cung
-        cấp dịch vụ khách hàng. Hendrerit của Hạm đội Xe tải trẻ em không có
-        thùng. Trong trừ khi hoặc, xe tải hoặc, protein đó, bất động sản hoặc,
-        trừ khi. Nhưng giá cả, ligula sollicitudin laoreet viverra, tra tấn
-        các thành viên libero leo, eget nhạt nhẽo bây giờ tra tấn eu nibh.
-        Không mềm."
-      />
-      <Blog
-        img={img_banner_sub_typing_1}
-        title="Tìm hiểu phát triển ứng dụng web từ các chuyên gia"
-        content="Điều quan trọng là phải có một dịch vụ khách hàng tốt, một nhà cung
-        cấp dịch vụ khách hàng. Hendrerit của Hạm đội Xe tải trẻ em không có
-        thùng. Trong trừ khi hoặc, xe tải hoặc, protein đó, bất động sản hoặc,
-        trừ khi. Nhưng giá cả, ligula sollicitudin laoreet viverra, tra tấn
-        các thành viên libero leo, eget nhạt nhẽo bây giờ tra tấn eu nibh.
-        Không mềm."
-      />
+      {blogList.map((item) => (
+        <BlogItem
+          key={item.id}
+          item={item}
+          onClick={() => handleNavigateBlogDetail(`${item.id}`)}
+        />
+      ))}
       <Stack
         direction="row"
         justifyContent="center"

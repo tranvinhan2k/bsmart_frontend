@@ -70,6 +70,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Đăng kí khóa học',
     link: '/buy-course',
   },
+  {
+    isHide: true,
+    name: 'Chi Tiết Blog',
+    link: '/blog/blog-detail/:id',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [

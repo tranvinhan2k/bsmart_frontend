@@ -1,7 +1,11 @@
-export interface BlogPostProps {
+export interface BlogPayload {
+  id: number;
   img: string;
   title: string;
-  content: string;
+  contentShort: string;
+  tagAuthorName: string;
+  tagDate: string;
+  tagSummary: string;
 }
 
 export interface BlogSearchIndicator {
