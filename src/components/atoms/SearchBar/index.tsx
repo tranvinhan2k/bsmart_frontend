@@ -30,7 +30,6 @@ export default function SearchBar({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        margin: MetricSize.medium_15,
         flex: 1,
       }}
     >
