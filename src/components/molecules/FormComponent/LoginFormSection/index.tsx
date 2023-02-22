@@ -91,11 +91,11 @@ export default function LoginForm() {
 
             <Link to="/forgot_password">{LoginTexts.FORGOT_PASSWORD}</Link>
           </Stack>
-          <Button marginTop="sm_medium" customVariant="form" type="submit">
+          <Button marginTop="small_10" customVariant="form" type="submit">
             {LoginTexts.LOGIN_BUTTON}
           </Button>
           <Button
-            marginTop="sm_medium"
+            marginTop="small_10"
             customVariant="google"
             onClick={handleGoogle}
           >
