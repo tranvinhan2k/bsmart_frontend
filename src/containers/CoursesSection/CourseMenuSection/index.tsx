@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Pagination from '@mui/material/Pagination';
 import { useNavigate } from 'react-router-dom';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { CourseList } from '~/constants';
 import CourseItem from '~/components/molecules/CourseItem';
 

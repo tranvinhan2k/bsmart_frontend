@@ -54,6 +54,7 @@ export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
   fontSize: FontSize.extraLarge_70,
   fontFamily: FontFamily.medium,
   color: Color.orange,
+  textAlign: 'center',
 };
 export const SX_BREADCRUMB_TITLE: SxProps<Theme> = {
   fontFamily: FontFamily.regular,

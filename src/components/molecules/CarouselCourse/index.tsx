@@ -52,7 +52,7 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
     pages,
   }: RenderPaginationProps) => {
     return (
-      <Stack flexDirection="row">
+      <Stack flexDirection="row" marginY={1}>
         {pages.map((page) => (
           <Box key={page}>
             <IconButton onClick={() => onClick(`${page}`)}>

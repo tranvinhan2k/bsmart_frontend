@@ -44,6 +44,7 @@ export default function CourseDetailBasicInformationSection({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
         }}
       >
         <Stack
@@ -142,6 +143,7 @@ export default function CourseDetailBasicInformationSection({
           justifyContent: 'space-between',
           alignItems: 'center',
           marginTop: MetricSize.medium_15,
+          flexWrap: 'wrap',
         }}
       >
         <Typography
