@@ -1,6 +1,12 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
+import {
+  BorderRadius,
+  Color,
+  FontSize,
+  FontWeight,
+  MetricSize,
+} from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {};
 
@@ -8,8 +14,8 @@ export const SX_CONTAINER: SxProps<Theme> = {
   /* Positioning */
   position: 'relative',
   /* Display & Box Model */
-  borderRadius: '10px',
-  marginBottom: '30px',
+  borderRadius: BorderRadius.small_10,
+  marginBottom: MetricSize.large_30,
   padding: '30px 40px 40px',
   /* Color */
   boxShadow: '0 0 15px rgb(51 51 51 / 10%)',

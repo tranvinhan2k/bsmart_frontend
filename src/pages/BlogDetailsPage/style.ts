@@ -1,11 +1,11 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
   /* Positioning */
   /* Display & Box Model */
-  padding: '90px 0 100px',
+  padding: `${MetricSize.extraLarge_90} ${MetricSize.none} ${MetricSize.extraLarge_100}`,
   /* Color */
   backgroundColor: Color.white,
   /* Text */
@@ -15,7 +15,7 @@ export const SX_WRAPPER: SxProps<Theme> = {
 export const SX_CONTAINER: SxProps<Theme> = {
   /* Positioning */
   /* Display & Box Model */
-  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  width: MetricSize.centeredContainer1,
   marginX: 'auto',
   /* Color */
   /* Text */

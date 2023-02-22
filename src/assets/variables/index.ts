@@ -8,6 +8,7 @@ export const Color = {
   blueTransparent: '#050133b3',
   grey: '#999',
   grey2: '#696969',
+  grey3: '#0000001f',
   navy: '#0e0a38',
   navy2: '#130f40',
   neutral: '#ccc',
@@ -19,8 +20,14 @@ export const Color = {
   whiteSmoke: '#f5f5f5',
 };
 
+export const BorderRadius = {
+  small_5: '5px',
+  small_10: '10px',
+  medium_25: '25px',
+  large_50: '50px',
+};
+
 export const Common = {
-  borderRadius: '5px',
   inputFieldHeight: '40px',
   borderCircle: '1000px',
 };
@@ -49,22 +56,25 @@ export const FontWeight = {
   normal: 400,
 };
 
+export const IconSize = {
+  small: '15px',
+  medium: '30px',
+  large: '35px',
+};
+
 export const MetricSize = {
+  centeredContainer1: 'clamp(0rem, 70vw + 10rem, 100rem)',
   small_5: '5px',
   small_10: '10px',
   medium_15: '15px',
   large_20: '20px',
+  large_30: '30px',
+  extraLarge_90: '90px',
   extraLarge_100: '100px',
   fullHeight: '100vh',
   fullWidth: '100vw',
   halfWidth: '50vw',
   none: 0,
-};
-
-export const IconSize = {
-  small: '15px',
-  medium: '30px',
-  large: '35px',
 };
 
 /* Positioning */

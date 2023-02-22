@@ -5,7 +5,7 @@ import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 export const SX_CARD_WRAPPER: SxProps<Theme> = {
   /* Positioning */
   /* Display & Box Model */
-  borderBottom: '1px solid #0000001f',
+  borderBottom: `1px solid ${Color.grey3}`,
   marginBottom: '1rem',
   paddingBottom: '1rem',
   /* Color */
@@ -68,9 +68,9 @@ export const SX_BLOG_COMMENT_TITLE: SxProps<Theme> = {
   /* Display & Box Model */
   marginBottom: '1rem',
   /* Color */
-  color: '#130f40',
+  color: Color.navy2,
   /* Text */
-  fontSize: '24px',
+  fontSize: FontSize.medium_24,
   fontWeight: FontWeight.bold,
   /* Other */
 };

@@ -1,10 +1,11 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
+import { MetricSize } from '~/assets/variables';
 
 const WRAPPER: SxProps<Theme> = {
-  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  width: MetricSize.centeredContainer1,
   marginX: 'auto',
-  marginTop: '130px',
+  marginTop: MetricSize.extraLarge_100,
 };
 
 const IMG: SxProps<Theme> = {

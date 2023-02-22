@@ -5,7 +5,7 @@ import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 export const SX_CARD_WRAPPER: SxProps<Theme> = {
   /* Positioning */
   /* Display & Box Model */
-  borderBottom: '1px solid #0000001f',
+  borderBottom: `1px solid ${Color.grey3}`,
   marginBottom: '1rem',
   paddingBottom: '1rem',
   /* Color */
