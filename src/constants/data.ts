@@ -73,7 +73,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     isHide: true,
     name: 'Chi Tiết Blog',
-    link: '/blog/blog-detail/:id',
+    link: '/blog/blog-details/:id',
   },
 ];
 

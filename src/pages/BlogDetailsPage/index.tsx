@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
-import BlogsSection from './BlogsSection/index';
-import BlogSearchSection from './BlogSearchSection';
+import { scrollToTop } from '~/utils/common';
+import BlogDetailsSection from '~/containers/BlogDetailsSection';
+import BlogSearchSection from '~/containers/BlogSearchSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
-export default function BlogSection() {
+export default function BlogDetailsPage() {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   return (
     <Box sx={SX_WRAPPER}>
       <Box sx={SX_CONTAINER}>
@@ -16,7 +22,7 @@ export default function BlogSection() {
           columnSpacing={{ xs: 0, md: 10 }}
         >
           <Grid item xs={12} md={8}>
-            <BlogsSection />
+            <BlogDetailsSection />
           </Grid>
           <Grid item xs={12} md={4}>
             <BlogSearchSection />

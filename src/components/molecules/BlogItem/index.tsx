@@ -1,4 +1,9 @@
 import { Box, CardMedia, Stack, Grid, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { BlogPayload, BlogTagProps } from '~/models/blog';
+import { formatDate } from '~/utils/date';
+import Button from '~/components/atoms/Button';
+import Icon from '~/components/atoms/Icon';
 import {
   SX_CARD_WRAPPER,
   SX_CARD_LIST_WRAPPER,
@@ -6,32 +11,32 @@ import {
   SX_BLOG_TITTLE,
   SX_BLOG_CONTENT,
 } from './style';
-import Button from '~/components/atoms/Button';
-import Icon from '~/components/atoms/Icon';
-import { BlogPayload } from '~/models/blog';
-import { formatDate } from '~/utils/date';
-import { IconName } from '~/models/icon';
 
 interface BlogItemProps {
   item: BlogPayload;
-  onClick: () => void;
-}
-interface BlogTagProps {
-  id: number;
-  icon: IconName;
-  tittle: string;
 }
 
-export default function BlogItem({ item, onClick }: BlogItemProps) {
-  const { img, title, contentShort, tagAuthorName, tagDate, tagSummary } = item;
+export default function BlogItem({ item }: BlogItemProps) {
+  const {
+    id,
+    img,
+    tagAuthorName,
+    tagDate,
+    tagSummary,
+    title,
+    contentShort,
+    // content,
+  } = item;
+
   const blogTags: BlogTagProps[] = [
     { id: 0, icon: 'person', tittle: tagAuthorName },
     { id: 1, icon: 'calendarMonth', tittle: formatDate(tagDate) },
     { id: 2, icon: 'search', tittle: tagSummary },
   ];
 
-  const handleNavigateBlogDetail = () => {
-    onClick();
+  const navigation = useNavigate();
+  const handleNavigateBlogDetails = () => {
+    navigation(`blog-details/${id}`);
   };
 
   return (
@@ -68,7 +73,7 @@ export default function BlogItem({ item, onClick }: BlogItemProps) {
       <Button
         customVariant="normal"
         fullWidth
-        onClick={handleNavigateBlogDetail}
+        onClick={handleNavigateBlogDetails}
       >
         Đọc thêm
       </Button>
