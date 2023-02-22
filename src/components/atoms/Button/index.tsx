@@ -11,9 +11,10 @@ import {
   SX_GOOGLE_BUTTON,
   SX_GOOGLE_STACK,
   SX_NORMAL_BUTTON,
+  SX_OUTLINED_BUTTON,
 } from '~/components/atoms/Button/styles';
 import { MetricSizeKeys } from '~/models/variables';
-import { FontFamilies, MetricSize } from '~/assets/variables';
+import { FontFamily, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 
 interface ButtonProps extends MUIButtonProps {
@@ -45,6 +46,14 @@ export default function Button({
           </MUIButton>
         </Stack>
       );
+    case 'outlined':
+      return (
+        <Stack marginTop={MetricSize[marginTop]}>
+          <MUIButton sx={SX_OUTLINED_BUTTON} {...rest}>
+            {children}
+          </MUIButton>
+        </Stack>
+      );
     case 'google':
       return (
         <Stack marginTop={MetricSize[marginTop]}>
@@ -59,7 +68,7 @@ export default function Button({
                 paddingLeft={2}
               >
                 <Typography
-                  sx={{ fontSize: '12px', fontFamily: FontFamilies.bold }}
+                  sx={{ fontSize: '12px', fontFamily: FontFamily.bold }}
                 >
                   {children}
                 </Typography>

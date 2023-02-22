@@ -1,8 +1,9 @@
 import { Stack, Tooltip, Typography } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { SX_CONTRACT_STACK } from '~/components/molecules/ContractBar/styles';
 import { ContractPayload } from '~/models';
+import { IconName } from '~/models/icon';
 
 interface ContractBarProps {
   color: 'white' | 'black';
@@ -15,15 +16,19 @@ function ContractBar({ color, contracts }: ContractBarProps) {
         contracts.map((contract) => (
           <Tooltip key={contract.name} title={contract.name}>
             <Stack sx={SX_CONTRACT_STACK}>
-              <Stack paddingRight={MetricSize.small}>
-                <Icon color={color} size="small" name={contract.image} />
+              <Stack paddingRight={MetricSize.small_5}>
+                <Icon
+                  name={contract.image as IconName}
+                  size="small"
+                  color={color}
+                />
               </Stack>
               <Stack>
                 <Typography
                   sx={{
-                    fontFamily: FontFamilies.regular,
-                    fontSize: FontSize.small,
-                    color: Colors[color],
+                    fontFamily: FontFamily.regular,
+                    fontSize: FontSize.small_16,
+                    color: Color[color],
                   }}
                 >
                   {contract.value}

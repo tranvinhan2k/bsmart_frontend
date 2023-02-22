@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
 
 import { Stack } from '@mui/material';
-import LoginForm from '~/components/molecules/FormComponent/LoginForm';
-import { SX_LOGIN_LAYOUT_STACK } from './styles';
 import { scrollToTop } from '~/utils/common';
+import LoginSection from '~/containers/LoginSection';
+import { MetricSize } from '~/assets/variables';
 
 export default function LoginPages() {
   useEffect(() => {
     scrollToTop();
   }, []);
   return (
-    <Stack sx={SX_LOGIN_LAYOUT_STACK}>
-      <LoginForm />
+    <Stack
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: MetricSize.large_20,
+      }}
+    >
+      <LoginSection />
     </Stack>
   );
 }

@@ -13,9 +13,13 @@ import {
   BsFacebook,
 } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
-import { CiMail, CiPhone, CiLocationOn } from 'react-icons/ci';
-import { AiOutlineClose } from 'react-icons/ai';
-import { Colors, IconSize } from '~/assets/variables';
+import { FaShare } from 'react-icons/fa';
+import { CiMail, CiPhone } from 'react-icons/ci';
+import { HiLocationMarker } from 'react-icons/hi';
+import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
+import { GoPrimitiveDot } from 'react-icons/go';
+import { GrNext, GrPrevious } from 'react-icons/gr';
+import { Color, IconSize } from '~/assets/variables';
 import { IconName } from '~/models/icon';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
@@ -31,7 +35,7 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     fontSize: IconSize[size],
     width: IconSize[size],
     height: IconSize[size],
-    color: Colors[color],
+    color: Color[color],
   };
   switch (name) {
     case 'google':
@@ -91,7 +95,7 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     case 'location':
       return (
         <Typography sx={STYLED_ICON}>
-          <CiLocationOn />
+          <HiLocationMarker />
         </Typography>
       );
     case 'facebook':
@@ -112,11 +116,41 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <FcNext />
         </Typography>
       );
+    case 'share':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <FaShare />
+        </Typography>
+      );
+    case 'star':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiOutlineStar />
+        </Typography>
+      );
+    case 'next2':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GrNext />
+        </Typography>
+      );
+    case 'previous':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GrPrevious />
+        </Typography>
+      );
+    case 'dot':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GoPrimitiveDot />
+        </Typography>
+      );
     default:
       return <ImageNotSupportedIcon />;
   }
 }
 
 Icon.defaultProps = {
-  color: Colors.black,
+  color: Color.black,
 };

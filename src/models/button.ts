@@ -1,3 +1,3 @@
-export type ButtonVariant = 'form' | 'normal' | 'google';
+export type ButtonVariant = 'form' | 'normal' | 'google' | 'outlined';
 
 export default {};

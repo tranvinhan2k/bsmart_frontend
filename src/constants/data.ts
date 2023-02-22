@@ -6,21 +6,13 @@ import {
   CheckBoxPayload,
 } from '~/models';
 import { AddressDataPayload } from '~/models/address';
-import mail from '~/assets/images/icons8_mail_52px.png';
-import phone from '~/assets/images/icons8_phone_52px.png';
-import location from '~/assets/images/icons8_location_52px.png';
+import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import cousreImage from '~/assets/images/front-end-course.png';
-import { CoursePayload } from '~/models/courses';
+import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 
 export const AuthorizationActionData: ActionPayload[] = [
-  {
-    name: 'Đăng nhập',
-    link: '/login',
-  },
-  {
-    name: 'Đăng kí',
-    link: '/register',
-  },
+  { name: 'Đăng nhập', link: '/login' },
+  { name: 'Đăng kí', link: '/register' },
 ];
 
 export const NavigationActionData: ActionPayload[] = [
@@ -45,6 +37,7 @@ export const NavigationActionData: ActionPayload[] = [
     link: '/blog',
   },
   {
+    isHide: true,
     name: 'Tuyển dụng',
     link: '/recuitment',
   },
@@ -58,6 +51,25 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Đăng nhập',
     link: '/login',
   },
+  {
+    isHide: true,
+    name: 'Chi Tiết Khóa Học',
+    link: '/course/course-detail/:id',
+  },
+  {
+    name: 'Nền tảng LMS',
+    link: '/lms',
+  },
+  {
+    isHide: true,
+    name: 'Thông báo',
+    link: '/annotation',
+  },
+  {
+    isHide: true,
+    name: 'Đăng kí khóa học',
+    link: '/buy-course',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [
@@ -68,17 +80,17 @@ export const AddressData: AddressDataPayload[] = [
       {
         id: 0,
         phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TPHCM',
+        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
       },
       {
         id: 1,
         phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TPHCM',
+        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
       },
       {
         id: 2,
         phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TPHCM',
+        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
       },
     ],
   },
@@ -96,21 +108,9 @@ export const RegisterTabPayload: TabPayload[] = [
 ];
 
 export const HeaderSocialDataList: SocialPayload[] = [
-  {
-    name: 'Twitter',
-    link: 'https://twitter.com',
-    image: 'twitter',
-  },
-  {
-    name: 'LinkedIn',
-    link: 'https://www.linkedin.com/',
-    image: 'linkedin',
-  },
-  {
-    name: 'Dribbble',
-    link: 'https://dribbble.com/',
-    image: 'dribbble',
-  },
+  { name: 'Twitter', link: 'https://twitter.com', image: 'twitter' },
+  { name: 'LinkedIn', link: 'https://www.linkedin.com', image: 'linkedin' },
+  { name: 'Dribbble', link: 'https://dribbble.com', image: 'dribbble' },
 ];
 export const FooterSocialDataList: SocialPayload[] = [
   {
@@ -298,11 +298,6 @@ export const ProvinceCheckBoxPayload: CheckBoxPayload[] = [
     label: 'Bình Chánh',
     value: 'Bình Chánh',
   },
-  {
-    id: 0,
-    label: 'Quận 1',
-    value: 'Quận 1',
-  },
 ];
 
 export const CourseList: CoursePayload[] = [
@@ -386,5 +381,159 @@ export const CourseList: CoursePayload[] = [
     image: cousreImage,
     mentor: 'Cuong',
     title: 'Front End Basic',
+  },
+];
+export const CourseDetailData: CourseDetailPayload = {
+  title: 'Front End Basic',
+  content:
+    'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+  field: 'Front End',
+  id: 0,
+  image: cousreImage,
+  numOfOpenClass: 1,
+  numOfRegisterStudent: 50,
+  openDate: new Date().toISOString(),
+  unitPrice: 1200000,
+  mentorData: {
+    avatar: mentor,
+    name: 'Mentor Cuong',
+  },
+  feedbackData: {
+    percentOfFeedback: 5,
+    numOfRating: 8,
+    starData: [
+      {
+        starNumber: 5,
+        starRating: 8,
+      },
+    ],
+    commentData: [
+      {
+        id: 0,
+        userData: {
+          avatar: mentor,
+          name: 'Nikola',
+        },
+        dateUpdate: new Date().toISOString(),
+        commentContent:
+          'After 1st section I just want to comment that program code in some parts are old and should be changed to new versions. It should be more examples before project section.',
+        ratingStar: 5,
+      },
+      {
+        id: 1,
+        userData: {
+          avatar: mentor,
+          name: 'Nikola',
+        },
+        dateUpdate: new Date().toISOString(),
+        commentContent:
+          'After 1st section I just want to comment that program code in some parts are old and should be changed to new versions. It should be more examples before project section.',
+        ratingStar: 5,
+      },
+      {
+        id: 2,
+        userData: {
+          avatar: mentor,
+          name: 'Nikola',
+        },
+        dateUpdate: new Date().toISOString(),
+        commentContent:
+          'After 1st section I just want to comment that program code in some parts are old and should be changed to new versions. It should be more examples before project section.',
+        ratingStar: 5,
+      },
+    ],
+  },
+};
+
+export const CommonCourse: CoursePayload[] = [
+  {
+    id: 0,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 1,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 2,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 3,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 4,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 5,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 6,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 7,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
+  },
+  {
+    id: 8,
+    image: cousreImage,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+    feedback: 5,
+    mentor: 'Mentor Cuong',
+    title: 'Khóa học Devops',
+    mentorImage: mentor,
   },
 ];

@@ -1,6 +1,6 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ActionPayload } from '~/models';
 
 interface AuthorizationBarProps {
@@ -21,18 +21,18 @@ function AuthorizationBar({
   return (
     <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
       <Button
-        style={{ padding: MetricSize.small, textDecoration: 'none' }}
+        style={{ padding: MetricSize.small_5, textDecoration: 'none' }}
         onClick={onLoginClick}
       >
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            color: Colors[color],
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            color: Color[color],
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
-              color: Colors.orange,
+              color: Color.orange,
             },
           }}
         >
@@ -43,17 +43,17 @@ function AuthorizationBar({
       <Button
         onClick={onRegisterClick}
         key={registerData.name}
-        style={{ padding: MetricSize.small, textDecoration: 'none' }}
+        style={{ padding: MetricSize.small_5, textDecoration: 'none' }}
       >
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            color: Colors[color],
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            color: Color[color],
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
-              color: Colors.orange,
+              color: Color.orange,
             },
           }}
         >

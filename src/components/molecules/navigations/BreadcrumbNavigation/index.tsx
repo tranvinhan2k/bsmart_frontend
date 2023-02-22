@@ -1,7 +1,8 @@
 import { Breadcrumbs, Stack, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import breadcrumbBackground from '~/assets/images/banner.jpg';
 import breadcrumbBackground2 from '~/assets/images/banner-2.jpg';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { ActionPayload } from '~/models';
 import {
   SX_BREADCRUMB_TITLE,
@@ -12,7 +13,6 @@ import {
   SX_NAVIGATION_STACK,
   SX_NAVIGATION_TITLE,
   SX_SUB_HOMEPAGE_STACK,
-  SX_SUB_TITLE,
 } from './styles';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
@@ -28,6 +28,11 @@ export default function BreadcrumbNavigation({
   breadcrumbs,
   onViewCourse,
 }: BreadcrumbNavigationProps) {
+  const navigation = useNavigate();
+  const handleRedirectLink = (link: string) => {
+    navigation(link);
+  };
+
   if (breadcrumbs.length === 1) {
     return null;
   }
@@ -51,9 +56,9 @@ export default function BreadcrumbNavigation({
             <Typography
               textAlign="center"
               sx={{
-                color: Colors.orange,
-                fontSize: FontSize.medium,
-                fontFamily: FontFamilies.bold,
+                color: Color.orange,
+                fontSize: FontSize.medium_24,
+                fontFamily: FontFamily.bold,
               }}
             >
               KHỞI ĐẦU SỰ NGHIỆP CỦA BẠN
@@ -61,9 +66,9 @@ export default function BreadcrumbNavigation({
             <Typography
               textAlign="center"
               sx={{
-                color: Colors.white,
-                fontSize: { xs: FontSize.large, md: FontSize.extraLarge },
-                fontFamily: FontFamilies.bold,
+                color: Color.white,
+                fontSize: { xs: FontSize.large_45, md: FontSize.extraLarge_70 },
+                fontFamily: FontFamily.bold,
               }}
             >
               Trở thành lập trình viên chuyên nghiệp tại BSmart
@@ -84,18 +89,23 @@ export default function BreadcrumbNavigation({
         ) : (
           <Stack sx={SX_NAVIGATION_STACK}>
             <Typography sx={SX_NAVIGATION_TITLE}>
-              {breadcrumbs[1].name}
+              {breadcrumbs[breadcrumbs.length - 1].name}
             </Typography>
             <Stack paddingTop={1}>
               <Breadcrumbs
-                sx={{ color: Colors.white }}
+                sx={{ color: Color.white }}
                 separator={<Icon name="next" size="small" color="white" />}
                 aria-label="breadcrumb"
               >
                 {breadcrumbs.map((item) => (
-                  <Typography key={item.link} sx={SX_BREADCRUMB_TITLE}>
+                  <Button
+                    variant="text"
+                    onClick={() => handleRedirectLink(item.link)}
+                    key={item.link}
+                    sx={SX_BREADCRUMB_TITLE}
+                  >
                     {item.name}
-                  </Typography>
+                  </Button>
                 ))}
               </Breadcrumbs>
             </Stack>

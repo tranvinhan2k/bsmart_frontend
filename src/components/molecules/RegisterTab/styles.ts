@@ -1,30 +1,29 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_REGISTER_TAB: SxProps<Theme> = {
-  boxShadow: { xs: 0, md: 5 },
-  borderColor: Colors.grey,
-  borderRadius: MetricSize.small,
-  width: { xs: '90vw', md: MetricSize.halfWidth },
+  boxShadow: 5,
+  borderRadius: MetricSize.small_5,
+  width: { xs: '100%', md: MetricSize.halfWidth },
 };
 export const SX_TABS: SxProps<Theme> = {
   width: '100%',
-  borderBottomColor: Colors.orange,
+  borderBottomColor: Color.orange,
 };
 export const SX_TAB: SxProps<Theme> = {
-  color: Colors.orange,
+  color: Color.orange,
   background: '#eee',
-  borderColor: Colors.orange,
-  fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
+  borderColor: Color.orange,
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
   '&:hover': {
-    color: Colors.white,
-    background: Colors.orange,
+    color: Color.white,
+    background: Color.orange,
     opacity: 0.5,
   },
   '&.Mui-selected': {
-    color: Colors.white,
-    background: Colors.orange,
+    color: Color.white,
+    background: Color.orange,
   },
   '&.Mui-focusVisible': {
     backgroundColor: '#d1eaff',
