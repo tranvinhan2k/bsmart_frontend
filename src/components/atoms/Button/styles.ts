@@ -48,9 +48,10 @@ export const SX_NORMAL_BUTTON: SxProps<Theme> = {
   background: Color.orange,
   width: '100%',
   boxShadow: 3,
+  borderStyle: 'solid',
+  borderWidth: 1,
+  borderColor: Color.orange,
   '&:hover': {
-    borderColor: Color.orange,
-    borderWidth: 1,
     color: Color.orange,
     background: Color.white,
   },

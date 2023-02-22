@@ -11,7 +11,7 @@ import {
 export default function CourseFilterSection() {
   const handleSubmitSearchValue = () => {};
   return (
-    <Stack>
+    <Stack marginX={2}>
       <SearchBar
         color="black"
         placeholder="Tìm kiếm ..."

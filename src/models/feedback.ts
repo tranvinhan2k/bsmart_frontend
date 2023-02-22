@@ -13,6 +13,7 @@ export interface StarPayload {
 }
 
 export interface CommentPayload {
+  id: number;
   userData: {
     avatar: string;
     name: string;

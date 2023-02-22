@@ -30,13 +30,15 @@ export default function SearchBar({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        margin: MetricSize.medium_15,
-        flex: 1,
+        flexGrow: 1,
+        paddingX: MetricSize.medium_15,
       }}
     >
       <TextField
         variant="outlined"
         sx={{
+          borderRadius: MetricSize.small_10,
+          borderColor: Color.white,
           flex: 1,
           fontFamily: FontFamily.regular,
           fontSize: FontSize.small_16,

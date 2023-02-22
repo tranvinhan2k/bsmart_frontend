@@ -14,7 +14,8 @@ import {
 } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
 import { FaShare } from 'react-icons/fa';
-import { CiMail, CiPhone, CiLocationOn } from 'react-icons/ci';
+import { CiMail, CiPhone } from 'react-icons/ci';
+import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
@@ -94,7 +95,7 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     case 'location':
       return (
         <Typography sx={STYLED_ICON}>
-          <CiLocationOn />
+          <HiLocationMarker />
         </Typography>
       );
     case 'facebook':

@@ -4,7 +4,7 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 export const SX_REGISTER_TAB: SxProps<Theme> = {
   boxShadow: 5,
   borderRadius: MetricSize.small_5,
-  width: MetricSize.halfWidth,
+  width: { xs: '100%', md: MetricSize.halfWidth },
 };
 export const SX_TABS: SxProps<Theme> = {
   width: '100%',
