@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import ContractBar from '~/components/molecules/ContractBar';
 import { SX_FOOTER_STACK } from '~/components/molecules/MainFooter/styles';
 import SocialBar from '~/components/molecules/SocialBar';
@@ -36,7 +36,7 @@ export default function MainFooter({
 }: MainFooterProps) {
   return (
     <Stack sx={SX_FOOTER_STACK}>
-      <Stack paddingY={MetricSize.large}>
+      <Stack paddingY={MetricSize.large_20}>
         {addresses.map((item) => (
           <Stack key={item.id}>
             <Typography sx={SX_MEDIUM_BOLD_TEXT}>{item.city}</Typography>
@@ -51,7 +51,7 @@ export default function MainFooter({
                     width: {
                       xs: '100%',
                       md: '33%',
-                      marginTop: MetricSize.sm_medium,
+                      marginTop: MetricSize.small_10,
                     },
                   }}
                   key={subAddress.id}
@@ -71,10 +71,10 @@ export default function MainFooter({
           </Stack>
         ))}
       </Stack>
-      <Divider color={Colors.grey} />
+      <Divider color={Color.grey} />
       <Grid
         container
-        sx={{ flex: 1, flexDirection: 'row', paddingY: MetricSize.medium }}
+        sx={{ flex: 1, flexDirection: 'row', paddingY: MetricSize.medium_15 }}
       >
         <Grid
           item
@@ -86,7 +86,7 @@ export default function MainFooter({
           }}
         >
           <Typography sx={SX_LARGE_TITLE}>BSMART</Typography>
-          <Box sx={{ paddingY: MetricSize.small }}>
+          <Box sx={{ paddingY: MetricSize.small_5 }}>
             <Typography sx={SX_SMALL_TEXT}>
               Chúng tôi cung cấp các khoá học chất lượng cao để cải thiện các kỹ
               năng lập trình của bạn. Tất cả các giảng viên của chúng tôi đều có
@@ -94,7 +94,7 @@ export default function MainFooter({
             </Typography>
           </Box>
 
-          <Box sx={{ paddingTop: MetricSize.medium }}>
+          <Box sx={{ paddingTop: MetricSize.medium_15 }}>
             <Typography sx={SX_SMALL_BOLD_TEXT}>
               Theo dõi chúng tôi tại:
             </Typography>
@@ -102,20 +102,21 @@ export default function MainFooter({
           </Box>
         </Grid>
         <Grid
+          item
           xs={12}
           md={2}
-          sx={{ paddingX: { xs: '0', md: MetricSize.medium } }}
+          sx={{ paddingX: { xs: '0', md: MetricSize.medium_15 } }}
         >
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>Menu</Typography>
-          <Stack sx={{ paddingTop: MetricSize.medium }}>
+          <Stack sx={{ paddingTop: MetricSize.medium_15 }}>
             {navigateList.map((item) => (
               <Tooltip key={item.link} title={item.name}>
                 <NavLink
                   style={{
                     textDecoration: 'none',
-                    fontFamily: FontFamilies.regular,
-                    fontSize: FontSize.small,
-                    color: Colors.white,
+                    fontFamily: FontFamily.regular,
+                    fontSize: FontSize.small_16,
+                    color: Color.white,
                   }}
                   to={item.link}
                 >
@@ -125,7 +126,7 @@ export default function MainFooter({
             ))}
           </Stack>
         </Grid>
-        <Grid xs={12} md={5}>
+        <Grid item xs={12} md={5}>
           <Stack
             sx={{
               justifyContent: 'center',
@@ -136,49 +137,49 @@ export default function MainFooter({
           >
             <Button
               style={{
-                background: Colors.orange,
-                fontFamily: FontFamilies.bold,
-                fontSize: FontSize.small,
-                color: Colors.white,
+                background: Color.orange,
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.small_16,
+                color: Color.white,
               }}
             >
               Đăng kí khóa học
             </Button>
           </Stack>
         </Grid>
-        <Grid xs={12} md={2}>
+        <Grid item xs={12} md={2}>
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>
             Liện hệ với chúng tôi
           </Typography>
 
-          <Box sx={{ paddingTop: MetricSize.medium }}>
+          <Box sx={{ paddingTop: MetricSize.medium_15 }}>
             <ContractBar color="white" contracts={contracts} />
           </Box>
         </Grid>
       </Grid>
-      <Divider color={Colors.grey} />
+      <Divider color={Color.grey} />
       <Stack
         sx={{
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          borderColor: Colors.grey,
+          borderColor: Color.grey,
           borderTopWidth: 1,
         }}
       >
         <Typography
           style={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            color: Colors.white,
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            color: Color.white,
             textAlign: 'center',
-            paddingTop: MetricSize.large,
-            paddingBottom: MetricSize.large,
+            paddingTop: MetricSize.large_20,
+            paddingBottom: MetricSize.large_20,
           }}
         >
           © Bản quyền BSmart 2022 - Empowered by{' '}
           <a
-            style={{ textDecoration: 'none', color: Colors.blue }}
+            style={{ textDecoration: 'none', color: Color.blue }}
             href="https://google.com"
           >
             BSmart

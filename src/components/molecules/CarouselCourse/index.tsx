@@ -1,17 +1,19 @@
-import React from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {
   IconButton,
   Stack,
   Typography,
   Button as MUIButton,
 } from '@mui/material';
+
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 import Carousel, {
   RenderArrowProps,
   RenderPaginationProps,
 } from 'react-elastic-carousel';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { CoursePayload } from '~/models/courses';
 import Button from '~/components/atoms/Button';
@@ -52,7 +54,7 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
     pages,
   }: RenderPaginationProps) => {
     return (
-      <Stack flexDirection="row">
+      <Stack flexDirection="row" marginY={1}>
         {pages.map((page) => (
           <Box key={page}>
             <IconButton onClick={() => onClick(`${page}`)}>
@@ -73,10 +75,10 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
       <Stack
         sx={{
           borderRadius: '5px',
-          borderColor: Colors.grey,
+          borderColor: Color.grey,
           borderWidth: 1,
           borderStyle: 'solid',
-          marginX: MetricSize.small,
+          marginX: MetricSize.small_5,
         }}
       >
         <Box
@@ -85,17 +87,17 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
           src={item.image}
           alt="image background"
         />
-        <Stack sx={{ paddingX: MetricSize.medium }}>
+        <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Box
             sx={{
               position: 'relative',
               top: '-40px',
-              background: Colors.white,
+              background: Color.white,
               width: '65px',
               objectFit: '65px',
               padding: '3px',
               borderRadius: '5px',
-              borderColor: Colors.grey,
+              borderColor: Color.grey,
               borderStyle: 'solid',
             }}
             component="img"
@@ -103,15 +105,15 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
             alt="image mentor"
           />
           <Typography
-            sx={{ fontSize: FontSize.medium, fontFamily: FontFamilies.bold }}
+            sx={{ fontSize: FontSize.medium_24, fontFamily: FontFamily.bold }}
           >
             {item.title}
           </Typography>
           <Typography
             sx={{
-              fontSize: FontSize.small,
-              fontFamily: FontFamilies.regular,
-              color: Colors.grey,
+              fontSize: FontSize.small_16,
+              fontFamily: FontFamily.regular,
+              color: Color.grey,
             }}
           >
             {item.mentor}
@@ -122,14 +124,14 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
               overflow: 'hidden',
               WebkitBoxOrient: 'vertical',
               WebkitLineClamp: 3,
-              fontSize: FontSize.small,
-              fontFamily: FontFamilies.regular,
+              fontSize: FontSize.small_16,
+              fontFamily: FontFamily.regular,
             }}
           >
             {item.content}
           </Typography>
           <Rating value={item.feedback} readOnly />
-          <Box sx={{ padding: MetricSize.medium }}>
+          <Box sx={{ padding: MetricSize.medium_15 }}>
             <Button
               customVariant="normal"
               onClick={() => handleNavigateCourse(item.id)}
@@ -144,11 +146,11 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   return (
     <Stack>
       <Typography
-        sx={{ fontFamily: FontFamilies.bold, fontSize: FontSize.medium }}
+        sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.medium_24 }}
       >
         {label}
       </Typography>
-      <Stack sx={{ marginTop: MetricSize.medium }}>
+      <Stack sx={{ marginTop: MetricSize.medium_15 }}>
         <Carousel
           breakPoints={breakPoints}
           renderArrow={renderArrow}

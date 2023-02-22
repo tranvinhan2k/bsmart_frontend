@@ -11,9 +11,9 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Colors,
+  Color,
   Common,
-  FontFamilies,
+  FontFamily,
   FontSize,
   IconSize,
   MetricSize,
@@ -69,9 +69,9 @@ export default function CourseDetailFeedbackSection({
     <Stack>
       <Typography
         sx={{
-          fontSize: FontSize.small,
-          fontFamily: FontFamilies.bold,
-          marginTop: MetricSize.medium,
+          fontSize: FontSize.small_16,
+          fontFamily: FontFamily.bold,
+          marginTop: MetricSize.medium_15,
         }}
       >
         Đánh giá khóa học
@@ -81,57 +81,57 @@ export default function CourseDetailFeedbackSection({
         sx={{
           padding: '40px',
           borderStyle: 'solid',
-          borderColor: Colors.grey,
+          borderColor: Color.grey,
           borderWidth: 1,
           borderRadius: '10px',
-          marginTop: MetricSize.medium,
+          marginTop: MetricSize.medium_15,
         }}
       >
         <Grid item md={3}>
           <Typography
             sx={{
-              fontFamily: FontFamilies.bold,
-              fontSize: FontSize.extraLarge,
+              fontFamily: FontFamily.bold,
+              fontSize: FontSize.extraLarge_70,
             }}
           >
             {formatNumberFixedTwoDigit(percentOfFeedback)}
           </Typography>
           <Rating value={percentOfFeedback} />
           <Typography
-            sx={{ marginTop: MetricSize.medium, color: Colors.grey }}
+            sx={{ marginTop: MetricSize.medium_15, color: Color.grey }}
           >{`${numOfRating} Ratings`}</Typography>
         </Grid>
-        <Grid item md={9} sx={{ marginTop: MetricSize.medium }}>
+        <Grid item md={9} sx={{ marginTop: MetricSize.medium_15 }}>
           {StarData.map((star) => (
             <Stack
               sx={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingY: MetricSize.small,
+                paddingY: MetricSize.small_5,
               }}
               key={star.id}
             >
               <Icon size="small" color="orange" name="star" />
               <Typography
                 sx={{
-                  fontSize: FontSize.small,
-                  fontFamily: FontFamilies.regular,
-                  paddingLeft: MetricSize.small,
+                  fontSize: FontSize.small_16,
+                  fontFamily: FontFamily.regular,
+                  paddingLeft: MetricSize.small_5,
                 }}
               >
                 {star.id}
               </Typography>
-              <Stack sx={{ flexGrow: 1, paddingX: MetricSize.medium }}>
+              <Stack sx={{ flexGrow: 1, paddingX: MetricSize.medium_15 }}>
                 <LinearProgress
                   variant="determinate"
                   sx={{
-                    color: Colors.orange,
+                    color: Color.orange,
                     borderRadius: '5px',
-                    height: MetricSize.sm_medium,
+                    height: MetricSize.small_10,
                     background: '#ddd',
                     '&>.MuiLinearProgress-bar': {
-                      background: Colors.orange,
+                      background: Color.orange,
                     },
                   }}
                   value={(star.numOfRating / numOfRating) * 100}
@@ -139,8 +139,8 @@ export default function CourseDetailFeedbackSection({
               </Stack>
               <Typography
                 sx={{
-                  fontSize: FontSize.small,
-                  fontFamily: FontFamilies.regular,
+                  fontSize: FontSize.small_16,
+                  fontFamily: FontFamily.regular,
                 }}
               >
                 {`${star.numOfRating} ratings`}
@@ -150,17 +150,14 @@ export default function CourseDetailFeedbackSection({
         </Grid>
       </Grid>
 
-      <Stack sx={{ marginTop: MetricSize.medium }}>
+      <Stack sx={{ marginTop: MetricSize.medium_15 }}>
         <Typography
-          sx={{ fontFamily: FontFamilies.bold, fontSize: FontSize.small }}
+          sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.small_16 }}
         >
           Nhận xét
         </Typography>
         {commentData.map((comment) => (
-          <Stack
-            sx={{ marginTop: MetricSize.medium }}
-            key={comment.commentContent}
-          >
+          <Stack sx={{ marginTop: MetricSize.medium_15 }} key={comment.id}>
             <Stack flexDirection="row" alignItems="center">
               <IconButton
                 onClick={() =>
@@ -178,11 +175,11 @@ export default function CourseDetailFeedbackSection({
                   alt="comment avatar"
                 />
               </IconButton>
-              <Stack sx={{ paddingX: MetricSize.medium }}>
+              <Stack sx={{ paddingX: MetricSize.medium_15 }}>
                 <Typography
                   sx={{
-                    fontFamily: FontFamilies.bold,
-                    fontSize: FontSize.small,
+                    fontFamily: FontFamily.bold,
+                    fontSize: FontSize.small_16,
                   }}
                 >
                   {comment.userData.name}
@@ -191,8 +188,8 @@ export default function CourseDetailFeedbackSection({
                   <Rating value={comment.ratingStar} />
                   <Typography
                     sx={{
-                      fontFamily: FontFamilies.bold,
-                      fontSize: FontSize.small,
+                      fontFamily: FontFamily.bold,
+                      fontSize: FontSize.small_16,
                     }}
                   >
                     1 tháng trước
@@ -200,12 +197,12 @@ export default function CourseDetailFeedbackSection({
                 </Stack>
               </Stack>
             </Stack>
-            <Stack sx={{ marginTop: MetricSize.medium }}>
+            <Stack sx={{ marginTop: MetricSize.medium_15 }}>
               <Typography
                 sx={{
-                  fontFamily: FontFamilies.thin,
-                  fontSize: FontSize.small,
-                  color: Colors.grey,
+                  fontFamily: FontFamily.thin,
+                  fontSize: FontSize.small_16,
+                  color: Color.grey,
                 }}
               >
                 {comment.commentContent}
@@ -214,12 +211,12 @@ export default function CourseDetailFeedbackSection({
           </Stack>
         ))}
       </Stack>
-      <Box sx={{ marginTop: MetricSize.medium }}>
+      <Box sx={{ marginTop: MetricSize.medium_15 }}>
         <Box>
           <Button customVariant="outlined">Xem Thêm</Button>
         </Box>
       </Box>
-      <Stack sx={{ marginTop: MetricSize.medium }}>
+      <Stack sx={{ marginTop: MetricSize.medium_15 }}>
         <TextField
           multiline
           rows={4}
@@ -227,7 +224,7 @@ export default function CourseDetailFeedbackSection({
         />
         <Stack
           sx={{
-            marginTop: MetricSize.medium,
+            marginTop: MetricSize.medium_15,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',

@@ -44,13 +44,16 @@ export default function TestSection() {
       <Stack>
         <Typography>Update redux </Typography>
         <Typography>{`${isUser}`}</Typography>
-        <Stack padding={MetricSize.medium}>
+        <Stack padding={MetricSize.medium_15}>
           <Button onClick={handleClick} variant="contained">
             Update User Status
           </Button>
         </Stack>
       </Stack>
-      <Grid container sx={{ minHeight: '200vh', padding: MetricSize.medium }}>
+      <Grid
+        container
+        sx={{ minHeight: '200vh', padding: MetricSize.medium_15 }}
+      >
         <Grid item xl={6}>
           <>
             {isLoading && <p>Is Loading ..</p>}
@@ -95,7 +98,7 @@ export default function TestSection() {
                   </Stack>
                 ))}
             </Stack>
-            <Stack padding={MetricSize.medium}>
+            <Stack padding={MetricSize.medium_15}>
               <Button onClick={handleClickMutation} variant="contained">
                 Update User Status
               </Button>

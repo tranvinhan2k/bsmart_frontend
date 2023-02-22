@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
   flex: 1,
@@ -10,7 +10,7 @@ export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
   alignItems: 'center',
 };
 export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
-  background: Colors.blueTransparent,
+  background: Color.blueTransparent,
   position: 'position',
   content: '""',
   top: 0,
@@ -20,28 +20,28 @@ export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
   width: '100%',
 };
 export const SX_MAIN_TITLE: SxProps<Theme> = {
-  color: Colors.orange,
-  fontSize: FontSize.medium,
-  fontFamily: FontFamilies.bold,
+  color: Color.orange,
+  fontSize: FontSize.medium_24,
+  fontFamily: FontFamily.bold,
 };
 export const SX_SUB_TITLE: SxProps<Theme> = {
-  color: Colors.white,
-  fontSize: FontSize.extraLarge,
-  fontFamily: FontFamilies.bold,
+  color: Color.white,
+  fontSize: FontSize.extraLarge_70,
+  fontFamily: FontFamily.bold,
 };
 export const SX_HOMEPAGE_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: { xs: MetricSize.medium, md: '160px' },
+  padding: { xs: MetricSize.medium_15, md: '160px' },
 };
 export const SX_SUB_HOMEPAGE_STACK: SxProps<Theme> = {
-  paddingX: { xs: MetricSize.medium, md: '160px' },
+  paddingX: { xs: MetricSize.medium_15, md: '160px' },
 };
 export const SX_CONTENT_TITLE: SxProps<Theme> = {
-  color: Colors.white,
-  fontSize: FontSize.small,
-  fontFamily: FontFamilies.regular,
+  color: Color.white,
+  fontSize: FontSize.small_16,
+  fontFamily: FontFamily.regular,
 };
 export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   width: '100%',
@@ -51,15 +51,15 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   paddingY: '60px',
 };
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
+  fontSize: FontSize.extraLarge_70,
+  fontFamily: FontFamily.medium,
+  color: Color.orange,
   textAlign: 'center',
-  fontSize: { xs: FontSize.large, md: FontSize.extraLarge },
-  fontFamily: FontFamilies.medium,
-  color: Colors.orange,
 };
 export const SX_BREADCRUMB_TITLE: SxProps<Theme> = {
-  fontFamily: FontFamilies.regular,
-  fontSize: FontSize.small,
-  color: Colors.white,
+  fontFamily: FontFamily.regular,
+  fontSize: FontSize.small_16,
+  color: Color.white,
   '&:hover': {
     textDecoration: 'underline',
   },

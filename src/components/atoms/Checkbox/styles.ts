@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
-import { Colors, FontFamilies, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 export const SX_CHECKBOX_STACK: SxProps<Theme> = {
   flexDirection: 'row',
@@ -9,13 +9,13 @@ export const SX_CHECKBOX_STACK: SxProps<Theme> = {
 };
 export const SX_CHECKBOX: SxProps<Theme> = {
   '&.Mui-checked': {
-    color: Colors.orange,
+    color: Color.orange,
   },
 };
 export const SX_CHECKBOX_TYPOGRAPHY: SxProps<Theme> = {
-  color: Colors.grey,
-  fontFamily: FontFamilies.regular,
-  fontSize: FontSize.small,
+  color: Color.grey,
+  fontFamily: FontFamily.regular,
+  fontSize: FontSize.small_16,
 };
 
 export default {};

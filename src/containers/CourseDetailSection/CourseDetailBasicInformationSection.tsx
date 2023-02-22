@@ -3,9 +3,9 @@ import { Stack, Box, Typography, Rating, Chip } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { MentorPayload } from '~/models/mentor';
 import {
-  Colors,
+  Color,
   Common,
-  FontFamilies,
+  FontFamily,
   FontSize,
   IconSize,
   MetricSize,
@@ -44,6 +44,7 @@ export default function CourseDetailBasicInformationSection({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
         }}
       >
         <Stack
@@ -66,19 +67,19 @@ export default function CourseDetailBasicInformationSection({
           <Stack
             sx={{
               flexDirection: 'row',
-              paddingLeft: MetricSize.medium,
-              fontSize: FontSize.small,
-              fontFamily: FontFamilies.regular,
-              color: Colors.grey,
+              paddingLeft: MetricSize.medium_15,
+              fontSize: FontSize.small_16,
+              fontFamily: FontFamily.regular,
+              color: Color.grey,
             }}
           >
             <Typography>by</Typography>
             <Typography
               sx={{
-                fontSize: FontSize.small,
-                fontFamily: FontFamilies.bold,
-                color: Colors.black,
-                paddingLeft: MetricSize.small,
+                fontSize: FontSize.small_16,
+                fontFamily: FontFamily.bold,
+                color: Color.black,
+                paddingLeft: MetricSize.small_5,
               }}
             >
               {mentorData.name}
@@ -86,9 +87,9 @@ export default function CourseDetailBasicInformationSection({
           </Stack>
         </Stack>
         <Stack sx={{ flexDirection: 'row' }}>
-          <Rating color={Colors.orange} readOnly value={percentOfFeedback} />
+          <Rating color={Color.orange} readOnly value={percentOfFeedback} />
           <Typography
-            sx={{ fontSize: FontSize.small, fontFamily: FontFamilies.regular }}
+            sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.regular }}
           >{`(${numOfRating} Ratings)`}</Typography>
         </Stack>
         <Stack>
@@ -103,9 +104,9 @@ export default function CourseDetailBasicInformationSection({
               <Icon name="share" size="small" color="navy" />
               <Typography
                 sx={{
-                  fontFamily: FontFamilies.regular,
-                  fontSize: FontSize.small,
-                  paddingX: MetricSize.small,
+                  fontFamily: FontFamily.regular,
+                  fontSize: FontSize.small_16,
+                  paddingX: MetricSize.small_5,
                 }}
               >
                 Chia sẻ
@@ -118,20 +119,20 @@ export default function CourseDetailBasicInformationSection({
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
-          marginTop: MetricSize.medium,
+          marginTop: MetricSize.medium_15,
         }}
       >
         <Typography
-          sx={{ fontSize: FontSize.small, fontFamily: FontFamilies.regular }}
+          sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.regular }}
         >
           Lĩnh vực:
         </Typography>
         <Chip
           sx={{
-            marginLeft: MetricSize.medium,
-            fontSize: FontSize.small,
-            fontFamily: FontFamilies.regular,
-            color: Colors.grey,
+            marginLeft: MetricSize.medium_15,
+            fontSize: FontSize.small_16,
+            fontFamily: FontFamily.regular,
+            color: Color.grey,
           }}
           label={field}
         />
@@ -141,54 +142,55 @@ export default function CourseDetailBasicInformationSection({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: MetricSize.medium,
+          marginTop: MetricSize.medium_15,
+          flexWrap: 'wrap',
         }}
       >
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            color: Colors.orange,
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            color: Color.orange,
           }}
         >
           {`Số lượng học viên đăng ký : ${numOfRegisterStudent}`}
         </Typography>
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            color: Colors.orange,
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            color: Color.orange,
           }}
         >
           {`Số lượng lớp đang mở : ${numOfOpenClass}`}
         </Typography>
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            color: Colors.orange,
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            color: Color.orange,
           }}
         >
           {`Ngày khai giảng lớp học mới: ${formatDate(openDate)}`}
         </Typography>
       </Stack>
-      <Divider sx={{ marginTop: MetricSize.large }} />
+      <Divider sx={{ marginTop: MetricSize.large_20 }} />
       <Stack>
         <Typography
           sx={{
-            fontFamily: FontFamilies.bold,
-            fontSize: FontSize.small,
-            marginTop: MetricSize.medium,
+            fontFamily: FontFamily.bold,
+            fontSize: FontSize.small_16,
+            marginTop: MetricSize.medium_15,
           }}
         >
           Miêu tả khóa học
         </Typography>
         <Typography
           sx={{
-            fontFamily: FontFamilies.regular,
-            fontSize: FontSize.small,
-            marginTop: MetricSize.medium,
-            color: Colors.grey,
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_16,
+            marginTop: MetricSize.medium_15,
+            color: Color.grey,
           }}
         >
           {description}

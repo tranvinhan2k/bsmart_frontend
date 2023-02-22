@@ -5,7 +5,7 @@ import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SIGN_IN_FIELDS } from '~/form/schema';
-import { Colors, FontFamilies, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
@@ -49,14 +49,14 @@ export default function LoginForm() {
     <Stack>
       <Typography
         sx={{
-          fontFamily: FontFamilies.bold,
-          fontSize: FontSize.medium,
+          fontFamily: FontFamily.bold,
+          fontSize: FontSize.medium_24,
           textAlign: 'center',
         }}
       >
         {LoginTexts.LOGIN_TITLE}
       </Typography>
-      <Stack sx={{ padding: MetricSize.medium }}>
+      <Stack sx={{ padding: MetricSize.medium_15 }}>
         <form
           onSubmit={signInHookForm.handleSubmit(handleLoginDataSubmitSuccess)}
         >
@@ -91,11 +91,11 @@ export default function LoginForm() {
 
             <Link to="/forgot_password">{LoginTexts.FORGOT_PASSWORD}</Link>
           </Stack>
-          <Button marginTop="sm_medium" customVariant="form" type="submit">
+          <Button marginTop="small_10" customVariant="form" type="submit">
             {LoginTexts.LOGIN_BUTTON}
           </Button>
           <Button
-            marginTop="sm_medium"
+            marginTop="small_10"
             customVariant="google"
             onClick={handleGoogle}
           >
@@ -105,19 +105,19 @@ export default function LoginForm() {
             sx={{
               flexDirection: 'row',
               justifyContent: 'center',
-              paddingY: MetricSize.medium,
+              paddingY: MetricSize.medium_15,
             }}
           >
             <Typography
               sx={{
-                fontFamily: FontFamilies.regular,
-                fontSize: FontSize.small,
-                color: Colors.black,
+                fontFamily: FontFamily.regular,
+                fontSize: FontSize.small_16,
+                color: Color.black,
               }}
             >
               {LoginTexts.REGISTER_LINK}
             </Typography>
-            <Box sx={{ paddingLeft: MetricSize.small }}>
+            <Box sx={{ paddingLeft: MetricSize.small_5 }}>
               <Link to="/register">{LoginTexts.REGISTER_BUTTON}</Link>
             </Box>
           </Stack>

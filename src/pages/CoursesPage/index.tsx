@@ -10,7 +10,10 @@ export default function CoursesPage() {
     scrollToTop();
   }, []);
   return (
-    <Grid container sx={{ flexDirection: 'row', paddingTop: MetricSize.large }}>
+    <Grid
+      container
+      sx={{ flexDirection: 'row', paddingTop: MetricSize.large_20 }}
+    >
       <Grid item xs={12} md={3}>
         <CourseFilterSection />
       </Grid>

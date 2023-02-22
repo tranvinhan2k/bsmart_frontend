@@ -2,8 +2,8 @@ import { IconButton, Stack, Typography, SwipeableDrawer } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
-  Colors,
-  FontFamilies,
+  Color,
+  FontFamily,
   FontSize,
   IconSize,
   MetricSize,
@@ -53,7 +53,7 @@ export default function MainNavigation({
         (item) =>
           !item.isHide && (
             <NavLink
-              style={{ textDecoration: 'none', padding: MetricSize.medium }}
+              style={{ textDecoration: 'none', padding: MetricSize.medium_15 }}
               key={item.link}
               to={item.link}
               onClick={() => {
@@ -62,9 +62,9 @@ export default function MainNavigation({
             >
               <Typography
                 style={{
-                  fontFamily: FontFamilies.bold,
-                  fontSize: FontSize.small,
-                  color: pathName === item.link ? Colors.orange : Colors.navy,
+                  fontFamily: FontFamily.bold,
+                  fontSize: FontSize.small_16,
+                  color: pathName === item.link ? Color.orange : Color.navy,
                 }}
               >
                 {item.name}
@@ -80,9 +80,9 @@ export default function MainNavigation({
       <Stack>
         <Typography
           sx={{
-            fontSize: { xs: FontSize.medium, md: FontSize.large },
-            fontFamily: FontFamilies.bold,
-            color: Colors.navy,
+            fontSize: { xs: FontSize.medium_24, md: FontSize.large_45 },
+            fontFamily: FontFamily.bold,
+            color: Color.navy,
           }}
         >
           {APP_NAME.toUpperCase()}
@@ -125,7 +125,7 @@ export default function MainNavigation({
         onClose={handleDrawerToggle}
         onOpen={handleDrawerToggle}
       >
-        <Stack sx={{ padding: MetricSize.medium }}>
+        <Stack sx={{ padding: MetricSize.medium_15 }}>
           <Stack
             sx={{
               justifyContent: 'space-between',
@@ -135,9 +135,9 @@ export default function MainNavigation({
           >
             <Typography
               sx={{
-                fontFamily: FontFamilies.bold,
-                fontSize: FontSize.medium,
-                color: Colors.navy,
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.medium_24,
+                color: Color.navy,
               }}
             >
               {APP_NAME.toUpperCase()}

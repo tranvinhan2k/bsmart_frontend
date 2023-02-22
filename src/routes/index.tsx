@@ -7,14 +7,17 @@ import { NavigationActionData } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
 
+const HomePage = lazy(() => import('~/pages/HomePage'));
+const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
+const LmsPage = lazy(() => import('~/pages/LmsPage'));
+const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
-const HomePage = lazy(() => import('~/pages/HomePage'));
-const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 const LoginPage = lazy(() => import('~/pages/LoginPages'));
 const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
 const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
+const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
 
 const routes: RoutePayload[] = [
   {
@@ -62,6 +65,18 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[8].link}`,
     main: () => <CourseDetailPage />,
+  },
+  {
+    path: `/${NavigationActionData[9].link}`,
+    main: () => <LmsPage />,
+  },
+  {
+    path: `/${NavigationActionData[10].link}`,
+    main: () => <AnnotationPage />,
+  },
+  {
+    path: `/${NavigationActionData[11].link}`,
+    main: () => <BuyCoursePage />,
   },
   {
     path: '*',

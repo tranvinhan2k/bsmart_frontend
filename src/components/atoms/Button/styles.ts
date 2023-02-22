@@ -1,34 +1,34 @@
 import { SxProps, Theme } from '@mui/material';
 import {
-  Colors,
+  Color,
   Common,
-  FontFamilies,
+  FontFamily,
   FontSize,
   MetricSize,
 } from '~/assets/variables';
 
 export const SX_FORM_BUTTON: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
-  color: Colors.white,
-  background: Colors.orange,
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
+  color: Color.white,
+  background: Color.orange,
   width: '100%',
   boxShadow: 3,
   '&:hover': {
-    borderColor: Colors.orange,
+    borderColor: Color.orange,
     borderWidth: 1,
-    color: Colors.orange,
+    color: Color.orange,
   },
   height: Common.inputFieldHeight,
 };
 export const SX_GOOGLE_BUTTON: SxProps<Theme> = {
   width: '100%',
-  borderColor: Colors.black,
+  borderColor: Color.black,
   borderWidth: 1,
-  fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
-  color: Colors.black,
-  background: Colors.white,
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
+  color: Color.black,
+  background: Color.white,
   boxShadow: 3,
   height: Common.inputFieldHeight,
 };
@@ -36,42 +36,43 @@ export const SX_GOOGLE_STACK: SxProps<Theme> = {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  fontSize: FontSize.small,
-  fontFamily: FontFamilies.regular,
+  fontSize: FontSize.small_16,
+  fontFamily: FontFamily.regular,
   width: '100%',
 };
 
 export const SX_NORMAL_BUTTON: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
-  color: Colors.white,
-  background: Colors.orange,
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
+  color: Color.white,
+  background: Color.orange,
   width: '100%',
   boxShadow: 3,
   borderStyle: 'solid',
-  borderColor: Colors.orange,
   borderWidth: 1,
+  borderColor: Color.orange,
   '&:hover': {
-    color: Colors.orange,
-    background: Colors.white,
+    color: Color.orange,
+    background: Color.white,
   },
-  padding: MetricSize.medium,
+  padding: MetricSize.medium_15,
 };
+
 export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
-  fontFamily: FontFamilies.bold,
-  fontSize: FontSize.small,
-  color: Colors.orange,
-  background: Colors.white,
-  borderColor: Colors.orange,
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
+  color: Color.orange,
+  background: Color.white,
+  borderColor: Color.orange,
   borderWidth: 1,
   borderStyle: 'solid',
   width: '100%',
   boxShadow: 3,
   '&:hover': {
-    color: Colors.white,
-    background: Colors.orange,
+    color: Color.white,
+    background: Color.orange,
   },
-  padding: MetricSize.medium,
+  padding: MetricSize.medium_15,
 };
 
 export default {};
