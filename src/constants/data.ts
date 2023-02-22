@@ -409,6 +409,7 @@ export const CourseDetailData: CourseDetailPayload = {
     ],
     commentData: [
       {
+        id: 0,
         userData: {
           avatar: mentor,
           name: 'Nikola',
@@ -419,6 +420,7 @@ export const CourseDetailData: CourseDetailPayload = {
         ratingStar: 5,
       },
       {
+        id: 1,
         userData: {
           avatar: mentor,
           name: 'Nikola',
@@ -429,6 +431,7 @@ export const CourseDetailData: CourseDetailPayload = {
         ratingStar: 5,
       },
       {
+        id: 2,
         userData: {
           avatar: mentor,
           name: 'Nikola',

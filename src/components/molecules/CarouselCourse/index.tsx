@@ -1,20 +1,20 @@
-import React from 'react';
 import {
   IconButton,
   Stack,
   Typography,
   Button as MUIButton,
 } from '@mui/material';
-import Carousel, {
-  RenderArrowProps,
-  RenderPaginationProps,
-} from 'react-elastic-carousel';
+
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { CoursePayload } from '~/models/courses';
 import Button from '~/components/atoms/Button';
+import Carousel, {
+  RenderArrowProps,
+  RenderPaginationProps,
+} from '~/components/customLibrary/react-elastic-carousel';
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },

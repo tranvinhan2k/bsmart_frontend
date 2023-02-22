@@ -157,10 +157,7 @@ export default function CourseDetailFeedbackSection({
           Nhận xét
         </Typography>
         {commentData.map((comment) => (
-          <Stack
-            sx={{ marginTop: MetricSize.medium_15 }}
-            key={comment.commentContent}
-          >
+          <Stack sx={{ marginTop: MetricSize.medium_15 }} key={comment.id}>
             <Stack flexDirection="row" alignItems="center">
               <IconButton
                 onClick={() =>
