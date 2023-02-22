@@ -128,7 +128,7 @@ export default function CourseDetailFeedbackSection({
                   sx={{
                     color: Color.orange,
                     borderRadius: '5px',
-                    height: MetricSize.sm_medium,
+                    height: MetricSize.small_10,
                     background: '#ddd',
                     '&>.MuiLinearProgress-bar': {
                       background: Color.orange,
@@ -157,10 +157,7 @@ export default function CourseDetailFeedbackSection({
           Nhận xét
         </Typography>
         {commentData.map((comment) => (
-          <Stack
-            sx={{ marginTop: MetricSize.medium_15 }}
-            key={comment.commentContent}
-          >
+          <Stack sx={{ marginTop: MetricSize.medium_15 }} key={comment.id}>
             <Stack flexDirection="row" alignItems="center">
               <IconButton
                 onClick={() =>

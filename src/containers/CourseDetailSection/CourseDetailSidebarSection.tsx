@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stack, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { formatMoney } from '~/utils/money';
 import Button from '~/components/atoms/Button';
@@ -14,6 +15,12 @@ export default function CourseDetailSidebarSection({
   image,
   unitPrice,
 }: CourseDetailSidebarSectionProps) {
+  const navigate = useNavigate();
+
+  const handleNavigateBuyCousePage = () => {
+    navigate('/buy-course');
+  };
+
   return (
     <Stack>
       <Stack sx={{ borderRadius: '5px', boxShadow: 5 }}>
@@ -35,10 +42,14 @@ export default function CourseDetailSidebarSection({
           >
             {formatMoney(unitPrice)}
           </Typography>
-          <Button marginTop="medium" customVariant="normal">
+          <Button
+            onClick={handleNavigateBuyCousePage}
+            marginTop="medium_15"
+            customVariant="normal"
+          >
             Đăng kí khóa học
           </Button>
-          <Button marginTop="medium" customVariant="outlined">
+          <Button marginTop="medium_15" customVariant="outlined">
             Link Giới Thiệu
           </Button>
         </Stack>

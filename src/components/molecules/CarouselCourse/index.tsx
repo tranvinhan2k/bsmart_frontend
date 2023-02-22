@@ -1,16 +1,18 @@
-import React from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {
   IconButton,
   Stack,
   Typography,
   Button as MUIButton,
 } from '@mui/material';
+
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 import Carousel, {
   RenderArrowProps,
   RenderPaginationProps,
 } from 'react-elastic-carousel';
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { CoursePayload } from '~/models/courses';
@@ -52,7 +54,7 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
     pages,
   }: RenderPaginationProps) => {
     return (
-      <Stack flexDirection="row">
+      <Stack flexDirection="row" marginY={1}>
         {pages.map((page) => (
           <Box key={page}>
             <IconButton onClick={() => onClick(`${page}`)}>
