@@ -75,6 +75,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Chi Tiết Blog',
     link: '/blog/blog-details/:id',
   },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/member-details',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [

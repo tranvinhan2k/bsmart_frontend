@@ -6,6 +6,7 @@ export type IconName =
   | 'keyboardArrowRight'
   | 'calendarMonth'
   | 'menu'
+  | 'nearMe'
   | 'person'
   | 'twitter'
   | 'instagram'
