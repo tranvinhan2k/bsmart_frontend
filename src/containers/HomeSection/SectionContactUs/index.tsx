@@ -1,7 +1,7 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Grid, TextField, Typography } from '@mui/material';
+import Button from '~/components/atoms/Button';
 import img_banner_sub_typing_2 from '~/assets/images/HomePageSection/img_banner_sub_typing_2.jpg';
 import { SX } from './style';
-import { SX_BUTTON_PRIMARY } from '~/containers/HomeSection/style';
 
 export default function SectionContactUs() {
   return (
@@ -57,9 +57,7 @@ export default function SectionContactUs() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button component="a" sx={SX_BUTTON_PRIMARY}>
-                    Đăng kí tư vấn
-                  </Button>
+                  <Button customVariant="normal">Đăng ký tư vấn</Button>
                 </Grid>
               </Grid>
             </Box>

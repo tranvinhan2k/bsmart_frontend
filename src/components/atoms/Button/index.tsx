@@ -79,7 +79,7 @@ export default function Button({
       );
       // TODO: config Google Button
 
-      return <MUIButton>Goole</MUIButton>;
+      return <MUIButton>Google</MUIButton>;
     default:
       return <MUIButton {...rest}>{children}</MUIButton>;
   }

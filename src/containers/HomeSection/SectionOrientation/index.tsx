@@ -1,8 +1,5 @@
-import { Box, Button, Stack, Typography } from '@mui/material';
-import {
-  SX_BUTTON_PRIMARY,
-  SX_BUTTON_SECONDARY,
-} from '~/containers/HomeSection/style';
+import { Box, Stack, Typography } from '@mui/material';
+import Button from '~/components/atoms/Button';
 import { SX } from './style';
 
 export default function SectionOrientation() {
@@ -23,12 +20,8 @@ export default function SectionOrientation() {
           /*  */
           mt={6}
         >
-          <Button component="a" sx={SX_BUTTON_PRIMARY}>
-            Xem khoá học
-          </Button>
-          <Button component="a" sx={SX_BUTTON_SECONDARY}>
-            Hỗ trợ tư vấn
-          </Button>
+          <Button customVariant="normal">Xem khoá học</Button>
+          <Button customVariant="outlined">Hỗ trợ tư vấn</Button>
         </Stack>
       </Box>
     </Box>

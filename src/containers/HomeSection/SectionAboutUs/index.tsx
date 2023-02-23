@@ -1,9 +1,6 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
+import Button from '~/components/atoms/Button';
 import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
-import {
-  SX_BUTTON_PRIMARY,
-  SX_BUTTON_SECONDARY,
-} from '~/containers/HomeSection/style';
 import { SX } from './style';
 
 export default function SectionAboutUs() {
@@ -32,12 +29,8 @@ export default function SectionAboutUs() {
               /*  */
               mt={6}
             >
-              <Button component="a" sx={SX_BUTTON_PRIMARY}>
-                Xem khoá học
-              </Button>
-              <Button component="a" sx={SX_BUTTON_SECONDARY}>
-                Hỗ trợ tư vấn
-              </Button>
+              <Button customVariant="normal">Xem khoá học</Button>
+              <Button customVariant="outlined">Hỗ trợ tư vấn</Button>
             </Stack>
           </Grid>
           <Grid item xs={12} md={6}>
