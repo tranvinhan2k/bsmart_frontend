@@ -1,9 +1,9 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import img_banner_sub_typing_2 from '~/assets/images/HomePageSection/img_banner_sub_typing_2.jpg';
-import { SX_BUTTON_PRIMARY } from '~/containers/HomePageSection/style';
 import { SX } from './style';
+import { SX_BUTTON_PRIMARY } from '~/containers/HomeSection/style';
 
-export default function Section9ContactUs() {
+export default function SectionContactUs() {
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>

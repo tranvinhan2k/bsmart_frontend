@@ -12,7 +12,7 @@ import {
 import { SX } from './style';
 import { courses } from '~/constants/mockData/courses';
 
-export default function Section5StandoutCourses() {
+export default function SectionStandoutCourses() {
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>

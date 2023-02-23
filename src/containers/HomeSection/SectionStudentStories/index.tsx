@@ -10,7 +10,7 @@ import {
 import { stories } from '~/constants/mockData/stories';
 import { SX } from './style';
 
-export default function Section7StudentStories() {
+export default function SectionStudentStories() {
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>

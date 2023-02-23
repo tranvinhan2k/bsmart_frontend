@@ -1,23 +1,23 @@
-import Section1AboutUs from './Section1AboutUs';
-import Section2Advantages from './Section2Advantages';
-import Section3EntryLevel from './Section3EntryLevel';
-import Section4StandoutCourses from './Section4StandoutCourses';
-import Section5StandoutTeachers from './Section5StandoutTeachers';
-import Section6StudentStories from './Section6StudentStories';
-import Section7Orientation from './Section7Orientation';
-import Section8ContactUs from './Section8ContactUs';
+import SectionAboutUs from './SectionAboutUs';
+import SectionAdvantages from './SectionAdvantages';
+import SectionEntryLevel from './SectionEntryLevel';
+import SectionStandoutCourses from './SectionStandoutCourses';
+import SectionStandoutTeachers from './SectionStandoutTeachers';
+import SectionStudentStories from './SectionStudentStories';
+import SectionOrientation from './SectionOrientation';
+import SectionContactUs from './SectionContactUs';
 
-export default function HomeSection() {
+export default function HomePageSection() {
   return (
     <>
-      <Section1AboutUs />
-      <Section2Advantages />
-      <Section3EntryLevel />
-      <Section4StandoutCourses />
-      <Section5StandoutTeachers />
-      <Section6StudentStories />
-      <Section7Orientation />
-      <Section8ContactUs />
+      <SectionAboutUs />
+      <SectionAdvantages />
+      <SectionEntryLevel />
+      <SectionStandoutCourses />
+      <SectionStandoutTeachers />
+      <SectionStudentStories />
+      <SectionOrientation />
+      <SectionContactUs />
     </>
   );
 }

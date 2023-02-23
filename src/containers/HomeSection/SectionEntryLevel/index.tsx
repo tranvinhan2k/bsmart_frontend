@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { SX } from './style';
 
-export default function Section4EntryLevel() {
+export default function SectionEntryLevel() {
   return (
     <Grid container>
       <Grid item xs={6}>

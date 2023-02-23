@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { SX } from './style';
 
-export default function Section6StandoutTeachers() {
+export default function SectionStandoutTeachers() {
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>

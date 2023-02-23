@@ -2,10 +2,10 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import {
   SX_BUTTON_PRIMARY,
   SX_BUTTON_SECONDARY,
-} from '~/containers/HomePageSection/style';
+} from '~/containers/HomeSection/style';
 import { SX } from './style';
 
-export default function Section8Orientation() {
+export default function SectionOrientation() {
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>

@@ -3,7 +3,7 @@ import React from 'react';
 import { SX } from './style';
 import { advantagesOfBsmart } from '~/constants/mockData/advantages';
 
-export default function Section3Advantages() {
+export default function SectionAdvantages() {
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>
