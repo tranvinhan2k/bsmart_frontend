@@ -7,7 +7,7 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import { stories } from '~/constants/mockData/stories';
+import { storyOfStudentList } from '~/constants/dataMocked';
 import { SX } from './style';
 
 export default function SectionStudentStories() {
@@ -18,7 +18,7 @@ export default function SectionStudentStories() {
           Câu chuyện của học sinh
         </Typography>
         <Grid container spacing={2}>
-          {stories.map((story) => (
+          {storyOfStudentList.map((story) => (
             <Grid item xs={12} sm={6} md={3} key={story.id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia

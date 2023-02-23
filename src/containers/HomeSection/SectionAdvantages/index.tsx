@@ -1,7 +1,7 @@
 import { Box, Typography, Grid } from '@mui/material';
 import React from 'react';
+import { advantagesOfBsmart } from '~/constants/dataMocked';
 import { SX } from './style';
-import { advantagesOfBsmart } from '~/constants/mockData/advantages';
 
 export default function SectionAdvantages() {
   return (

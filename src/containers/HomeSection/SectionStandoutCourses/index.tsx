@@ -9,8 +9,8 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
+import { courseStandoutList } from '~/constants/dataMocked';
 import { SX } from './style';
-import { courses } from '~/constants/mockData/courses';
 
 export default function SectionStandoutCourses() {
   return (
@@ -20,7 +20,7 @@ export default function SectionStandoutCourses() {
           Khoá học tiêu biểu
         </Typography>
         <Grid container spacing={2}>
-          {courses.map((course) => (
+          {courseStandoutList.map((course) => (
             <Grid item xs={12} sm={6} md={3} key={course.id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia

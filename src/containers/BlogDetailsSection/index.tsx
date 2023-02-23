@@ -1,4 +1,4 @@
-import { blogList } from '~/constants/mockData/blogList';
+import { blogList } from '~/constants/dataMocked';
 import BlogDetailsBasicInfoSection from '~/containers/BlogDetailsSection/BlogDetailsBasicInfoSection';
 
 export default function BlogDetailsPage() {

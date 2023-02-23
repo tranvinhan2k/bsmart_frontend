@@ -1,5 +1,5 @@
 import { Stack, Pagination } from '@mui/material';
-import { blogList } from '~/constants/mockData/blogList';
+import { blogList } from '~/constants/dataMocked';
 import BlogItem from '~/components/molecules/BlogItem';
 
 export default function BlogListSection() {

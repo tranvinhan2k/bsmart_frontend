@@ -1,6 +1,6 @@
 import { Box, Typography, Grid } from '@mui/material';
+import { reasonWhyBsmartList } from '~/constants/dataMocked';
 import { SX_WHY_BSMART } from './style';
-import { reasons } from '~/constants/mockData/reasons';
 
 export default function Section4WhyBsmart() {
   return (
@@ -21,7 +21,7 @@ export default function Section4WhyBsmart() {
           rowSpacing={{ xs: 3, md: 0 }}
           columnSpacing={{ xs: 0, md: 3 }}
         >
-          {reasons.map((reason) => (
+          {reasonWhyBsmartList.map((reason) => (
             <Grid item xs={12} md={4} key={reason.id}>
               <Box sx={SX_WHY_BSMART.SINGLE_BOX}>
                 <Typography component="h3" sx={SX_WHY_BSMART.SINGLE_BOX_H3}>
