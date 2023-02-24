@@ -1,14 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import {
+  Box,
+  Button as MUIButton,
   IconButton,
+  Rating,
   Stack,
   Typography,
-  Button as MUIButton,
 } from '@mui/material';
-
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
 import Carousel, {
   RenderArrowProps,
   RenderPaginationProps,

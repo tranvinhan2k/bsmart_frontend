@@ -1,7 +1,4 @@
-import { Stack, Box } from '@mui/material';
-import Divider from '@mui/material/Divider/Divider';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
+import { Box, Divider, Typography, Rating, Stack } from '@mui/material';
 import { Color, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { CoursePayload } from '~/models/courses';
