@@ -87,8 +87,13 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     isHide: true,
-    name: 'WalletManagementPage',
+    name: 'Thông tin member',
     link: '/wallet-management',
+  },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/withdraw',
   },
 ];
 

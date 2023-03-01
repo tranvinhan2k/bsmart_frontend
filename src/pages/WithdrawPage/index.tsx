@@ -3,7 +3,7 @@ import { Box, Grid, Stack } from '@mui/material';
 import { scrollToTop } from '~/utils/common';
 import MainProfile from '~/containers/MemberDetailsProfile/MainProfile';
 import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
-import WalletManagementSection from '~/containers/WalletManagementSection';
+import WithdrawSection from '~/containers/WithdrawSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
 export default function WalletManagementPage() {
@@ -35,7 +35,7 @@ export default function WalletManagementPage() {
             </Stack>
           </Grid>
           <Grid item xs={12} sm={7}>
-            <WalletManagementSection />
+            <WithdrawSection />
           </Grid>
         </Grid>
       </Box>
