@@ -14,6 +14,8 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
+const EditProfilePage = lazy(() => import('~/pages/EditProfilePage'));
+const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
@@ -86,6 +88,14 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[13].link}`,
     main: () => <MemberDetailsPage />,
+  },
+  {
+    path: `/${NavigationActionData[14].link}`,
+    main: () => <EditProfilePage />,
+  },
+  {
+    path: `/${NavigationActionData[15].link}`,
+    main: () => <WalletManagementPage />,
   },
   {
     path: '*',

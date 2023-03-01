@@ -1,4 +1,5 @@
 import { Box, Typography, Stack } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import {
   SX_WRAPPER,
   SX_CONTAINER,
@@ -25,6 +26,10 @@ export default function MainProfile() {
     { id: 3, icon: 'mail', text: 'tangbaotrann@gmail.com' },
     { id: 4, icon: 'phone', text: '0946005077' },
   ];
+  const navigation = useNavigate();
+  const handleNavigateEditProfilePage = () => {
+    navigation('/edit-profile');
+  };
 
   return (
     <Box sx={SX_WRAPPER}>
@@ -35,51 +40,52 @@ export default function MainProfile() {
           sx={SX_PROFILE_IMG}
           src={avatar_member}
         />
-        <>
-          <Typography component="h4" sx={SX_PROFILE_NAME}>
-            Adam
-          </Typography>
-          <Typography component="p" sx={SX_PROFILE_DETAILS}>
-            Member
-          </Typography>
-        </>
+      </Box>
+      <>
+        <Typography component="h4" sx={SX_PROFILE_NAME}>
+          Adam
+        </Typography>
+        <Typography component="p" sx={SX_PROFILE_DETAILS}>
+          Member
+        </Typography>
+      </>
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        spacing={2}
+        mt={2}
+      >
+        {profileData.map((item) => (
+          <Stack
+            direction={{ md: 'column', lg: 'row' }}
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}
+            key={item.id}
+          >
+            <Icon color="orange" name={item.icon} size="small" />
+            <Typography component="p" sx={SX_PROFILE_DETAILS}>
+              {item.text}
+            </Typography>
+          </Stack>
+        ))}
         <Stack
-          direction="column"
-          justifyContent="flex-start"
+          direction="row"
+          justifyContent="space-between"
           alignItems="center"
           spacing={2}
           mt={2}
         >
-          {profileData.map((item) => (
-            <Stack
-              direction={{ md: 'column', lg: 'row' }}
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={2}
-              key={item.id}
-            >
-              <Icon color="orange" name={item.icon} size="small" />
-              <Typography component="p" sx={SX_PROFILE_DETAILS}>
-                {item.text}
-              </Typography>
-            </Stack>
-          ))}
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-            mt={2}
-          >
-            <Typography component="p" sx={SX_PROFILE_DETAILS}>
-              Số dư hiện tại:
-            </Typography>
-            <Typography sx={SX_PROFILE_DETAILS_HIGHLIGHTED}>
-              300,000 vnđ
-            </Typography>
-          </Stack>
+          <Typography component="p" sx={SX_PROFILE_DETAILS}>
+            Số dư hiện tại:
+          </Typography>
+          <Typography sx={SX_PROFILE_DETAILS_HIGHLIGHTED}>
+            300,000 vnđ
+          </Typography>
         </Stack>
-      </Box>
+      </Stack>
+
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -87,7 +93,9 @@ export default function MainProfile() {
         spacing={2}
         mt={2}
       >
-        <Button customVariant="normal">Chỉnh sửa thông tin</Button>
+        <Button customVariant="normal" onClick={handleNavigateEditProfilePage}>
+          Chỉnh sửa thông tin
+        </Button>
         <Button customVariant="normal">Quản lý ví tiền</Button>
         <Button customVariant="normal">Rút tiền</Button>
       </Stack>

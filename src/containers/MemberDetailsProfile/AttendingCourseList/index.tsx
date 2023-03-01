@@ -1,8 +1,7 @@
-import { Box, Grid, Typography, Stack } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SX_WRAPPER, SX_TITLE } from './style';
 import { CourseList } from '~/constants';
-import CourseItem from '~/components/molecules/CourseItem';
 import CourseLearningItem from '~/components/molecules/CourseLearningItem/index';
 
 export default function AttendingCourseList() {

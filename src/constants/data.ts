@@ -80,6 +80,16 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Thông tin member',
     link: '/member-details',
   },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/edit-profile',
+  },
+  {
+    isHide: true,
+    name: 'WalletManagementPage',
+    link: '/wallet-management',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [
