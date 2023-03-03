@@ -7,11 +7,11 @@ import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Icon from '~/components/atoms/Icon';
 import Link from '~/components/atoms/Link';
-import { CheckBoxPayload } from '~/models';
+import { OptionPayload } from '~/models';
 
 interface FilterCheckboxProps {
   label: string;
-  data: CheckBoxPayload[];
+  data: OptionPayload[];
 }
 
 export default function FilterCheckbox({ label, data }: FilterCheckboxProps) {

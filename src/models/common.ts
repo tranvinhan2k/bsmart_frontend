@@ -23,7 +23,7 @@ export interface TabPayload {
   label: string;
 }
 
-export interface CheckBoxPayload {
+export interface OptionPayload {
   id: number;
   label: string;
   value: string;
