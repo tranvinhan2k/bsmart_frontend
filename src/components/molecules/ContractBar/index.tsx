@@ -1,9 +1,8 @@
 import { Stack, Tooltip, Typography } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Icon from '~/components/atoms/Icon';
+import Icon, { IconName } from '~/components/atoms/Icon';
 import { SX_CONTRACT_STACK } from '~/components/molecules/ContractBar/styles';
 import { ContractPayload } from '~/models';
-import { IconName } from '~/models/icon';
 
 interface ContractBarProps {
   color: 'white' | 'black';

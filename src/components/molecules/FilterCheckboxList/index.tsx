@@ -1,12 +1,12 @@
 import { Stack } from '@mui/material';
 import FilterCheckbox from './FilterCheckbox';
-import { CheckBoxPayload } from '~/models';
+import { OptionPayload } from '~/models';
 
 interface FilterCheckboxListProps {
-  fields: CheckBoxPayload[];
-  subjects: CheckBoxPayload[];
-  types: CheckBoxPayload[];
-  provinces: CheckBoxPayload[];
+  fields: OptionPayload[];
+  subjects: OptionPayload[];
+  types: OptionPayload[];
+  provinces: OptionPayload[];
 }
 
 export default function FilterCheckboxList({

@@ -72,7 +72,7 @@ export default function LoginForm() {
             <FormInput
               control={signInHookForm.control}
               name={SIGN_IN_FIELDS.password}
-              type="password"
+              variant="password"
               placeholder={LoginTexts.PASSWORD_PLACEHOLDER}
             />
           </Stack>

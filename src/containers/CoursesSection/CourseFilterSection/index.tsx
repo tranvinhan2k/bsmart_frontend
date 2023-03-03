@@ -2,10 +2,10 @@ import { Stack } from '@mui/material';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import {
-  FieldCheckBoxPayload,
-  ProvinceCheckBoxPayload,
-  SubjectCheckBoxPayload,
-  TypeCheckBoxPayload,
+  FieldOptionPayload,
+  ProvinceOptionPayload,
+  SubjectOptionPayload,
+  TypeOptionPayload,
 } from '~/constants';
 
 export default function CourseFilterSection() {
@@ -18,10 +18,10 @@ export default function CourseFilterSection() {
         onSubmit={handleSubmitSearchValue}
       />
       <FilterCheckboxList
-        fields={FieldCheckBoxPayload}
-        subjects={SubjectCheckBoxPayload}
-        types={TypeCheckBoxPayload}
-        provinces={ProvinceCheckBoxPayload}
+        fields={FieldOptionPayload}
+        subjects={SubjectOptionPayload}
+        types={TypeOptionPayload}
+        provinces={ProvinceOptionPayload}
       />
     </Stack>
   );

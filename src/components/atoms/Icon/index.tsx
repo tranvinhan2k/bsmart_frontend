@@ -22,11 +22,43 @@ import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Color, IconSize } from '~/assets/variables';
-import { IconName } from '~/models/icon';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
 
+export type IconName =
+  | 'google'
+  | 'search'
+  | 'down'
+  | 'up'
+  | 'keyboardArrowRight'
+  | 'calendarMonth'
+  | 'menu'
+  | 'person'
+  | 'twitter'
+  | 'instagram'
+  | 'linkedin'
+  | 'dribbble'
+  | 'mail'
+  | 'phone'
+  | 'location'
+  | 'delete'
+  | 'close'
+  | 'facebook'
+  | 'next'
+  | 'next2'
+  | 'dot'
+  | 'previous'
+  | 'share'
+  | 'eye'
+  | 'eye-off'
+  | 'add-icon'
+  | 'star'
+  | 'pinterest';
 interface IconProps {
   color?: ColorKeys;
   size: IconSizeKeys;
@@ -47,6 +79,14 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'eye':
+      return <RemoveRedEyeIcon sx={STYLED_ICON} />;
+    case 'delete':
+      return <DeleteIcon sx={STYLED_ICON} />;
+    case 'eye-off':
+      return <VisibilityOffIcon sx={STYLED_ICON} />;
+    case 'add-icon':
+      return <AddPhotoAlternateIcon sx={STYLED_ICON} />;
     case 'down':
       return <ArrowDownwardIcon sx={STYLED_ICON} />;
     case 'up':

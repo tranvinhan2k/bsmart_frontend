@@ -3,7 +3,7 @@ import {
   TabPayload,
   ContractPayload,
   ActionPayload,
-  CheckBoxPayload,
+  OptionPayload,
 } from '~/models';
 import { AddressDataPayload } from '~/models/address';
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
@@ -156,7 +156,7 @@ export const FooterContractDataList: ContractPayload[] = [
   { name: 'Số điện thoại', image: 'phone', value: '+98 946005077' },
 ];
 
-export const FieldCheckBoxPayload: CheckBoxPayload[] = [
+export const FieldOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Front End',
@@ -178,7 +178,7 @@ export const FieldCheckBoxPayload: CheckBoxPayload[] = [
     value: 'db',
   },
 ];
-export const SubjectCheckBoxPayload: CheckBoxPayload[] = [
+export const SubjectOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Ngôn ngữ C/C++',
@@ -220,7 +220,7 @@ export const SubjectCheckBoxPayload: CheckBoxPayload[] = [
     value: 'Database MongoDB',
   },
 ];
-export const TypeCheckBoxPayload: CheckBoxPayload[] = [
+export const TypeOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Online',
@@ -232,7 +232,7 @@ export const TypeCheckBoxPayload: CheckBoxPayload[] = [
     value: 'Offline',
   },
 ];
-export const ProvinceCheckBoxPayload: CheckBoxPayload[] = [
+export const ProvinceOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Quận 1',
