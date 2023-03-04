@@ -1,5 +1,6 @@
 import {
   BuyCourseDataPayload,
+  FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -29,4 +30,13 @@ export const BUY_COURSE_FIELDS: BuyCourseDataPayload = {
   email: 'email',
   voucher: 'voucher',
   paymentMethod: 'paymentMethod',
+};
+
+export const FEEDBACK_MENTOR_FIELDS = {
+  enthusiasmLevel: 'enthusiasmLevel',
+  feelingOfTeacher: 'feelingOfTeacher',
+  mentorId: 'mentorId',
+  subjectId: 'subjectId',
+  supportAnswerQuestion: 'supportAnswerQuestion',
+  supportHomeWork: 'supportHomeWork',
 };

@@ -2,13 +2,14 @@ import { TextField } from '@mui/material';
 import { UseControllerReturn } from 'react-hook-form';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { TimePicker } from '@mui/x-date-pickers';
 
-interface DatePickerInputProps {
+interface HourPickerInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
 }
-function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
+function HourPickerInput({ controller, placeholder }: HourPickerInputProps) {
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error },
@@ -16,7 +17,7 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
+      <TimePicker
         value={value}
         onChange={(newValue) => onChange(newValue)}
         renderInput={(params) => (
@@ -33,4 +34,4 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
     </LocalizationProvider>
   );
 }
-export default DatePickerInput;
+export default HourPickerInput;

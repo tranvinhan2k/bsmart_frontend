@@ -18,62 +18,117 @@ export const AuthorizationActionData: ActionPayload[] = [
 export const NavigationActionData: ActionPayload[] = [
   {
     name: 'Trang Chủ',
-    link: '/homepage',
+    link: 'homepage',
   },
   {
     name: 'Về Chúng Tôi',
-    link: '/about_us',
+    link: 'about_us',
   },
   {
     name: 'Khóa Học',
-    link: '/course',
+    link: 'course',
   },
   {
     name: 'Giảng viên',
-    link: '/teacher',
+    link: 'mentor-profile/*',
   },
   {
     name: 'Blog',
-    link: '/blog',
+    link: 'blog',
   },
   {
     isHide: true,
     name: 'Tuyển dụng',
-    link: '/recuitment',
+    link: 'recuitment',
   },
   {
     isHide: true,
     name: 'Đăng ký',
-    link: '/register',
+    link: 'register',
   },
   {
     isHide: true,
     name: 'Đăng nhập',
-    link: '/login',
+    link: 'login',
   },
   {
     isHide: true,
     name: 'Chi Tiết Khóa Học',
-    link: '/course/course-detail/:id',
+    link: 'course/course-detail/:id',
   },
   {
     name: 'Nền tảng LMS',
-    link: '/lms',
+    link: 'lms',
   },
   {
     isHide: true,
     name: 'Thông báo',
-    link: '/annotation',
+    link: 'annotation',
   },
   {
     isHide: true,
     name: 'Đăng kí khóa học',
-    link: '/buy-course',
+    link: 'buy-course',
   },
   {
     isHide: true,
     name: 'Chi Tiết Blog',
-    link: '/blog/blog-details/:id',
+    link: 'blog/blog-details/:id',
+  },
+  {
+    isHide: true,
+    name: '',
+    link: '',
+  },
+  {
+    isHide: true,
+    name: '',
+    link: '',
+  },
+  {
+    isHide: true,
+    name: '',
+    link: '',
+  },
+  {
+    isHide: true,
+    name: '',
+    link: '',
+  },
+  {
+    isHide: true,
+    name: 'Feedback',
+    link: 'feedback',
+  },
+];
+export const MentorNavigationActionData: ActionPayload[] = [
+  {
+    name: 'Chỉnh sửa thông tin',
+    link: 'edit-profile',
+  },
+  {
+    name: 'Quản lí ví tiền',
+    link: 'wallet-management',
+  },
+  {
+    name: 'Rút tiền',
+    link: 'withdraw',
+  },
+  {
+    name: 'Danh sách khóa học',
+    link: 'mentor-course-list',
+  },
+  {
+    name: 'Tạo khóa học',
+    link: 'create-course',
+  },
+  {
+    name: 'Giới thiệu giáo viên',
+    link: 'mentor-introduce',
+  },
+  {
+    name: 'Liên hệ',
+    link: 'contract',
   },
 ];
 
@@ -302,6 +357,36 @@ export const ProvinceOptionPayload: OptionPayload[] = [
     id: 13,
     label: 'Bình Chánh',
     value: 'Bình Chánh',
+  },
+];
+
+export const MentorCourses: CoursePayload[] = [
+  {
+    id: 0,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
+    feedback: 5,
+    image: cousreImage,
+    mentor: 'Cuong',
+    title: 'Front End Basic',
+  },
+  {
+    id: 1,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
+    feedback: 5,
+    image: cousreImage,
+    mentor: 'Cuong',
+    title: 'Front End Basic',
+  },
+  {
+    id: 1,
+    content:
+      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
+    feedback: 5,
+    image: cousreImage,
+    mentor: 'Cuong',
+    title: 'Front End Basic',
   },
 ];
 
@@ -540,5 +625,43 @@ export const CommonCourse: CoursePayload[] = [
     mentor: 'Mentor Cuong',
     title: 'Khóa học Devops',
     mentorImage: mentor,
+  },
+];
+export const mockMentorDetailInformationData = {
+  imageLink: mentor,
+  name: 'Mentor Cuong',
+  role: 'Mentor',
+  socials: [
+    {
+      image: 'facebook',
+      link: '',
+    },
+    {
+      image: 'twitter',
+      link: '',
+    },
+    {
+      image: 'linkedin',
+      link: '',
+    },
+  ],
+  gender: 'male',
+  dateofBirth: new Date().toISOString(),
+  address: 'Tân Bình, Tp. Hồ Chí Minh',
+  mail: 'mentor@gmail.com',
+  phone: '0946005077',
+  walletMoney: 300000,
+};
+
+export const mockMentorLatestActivities = [
+  {
+    id: 0,
+    message: 'Đã đăng ký khoá học ReactJS Basic',
+    updateDate: new Date().toISOString(),
+  },
+  {
+    id: 1,
+    message: 'Đã nhận được 100 BS từ việc chia sẻ khoá học',
+    updateDate: new Date().toISOString(),
   },
 ];

@@ -5,3 +5,5 @@ export const NAME_REQUIRED = 'Họ và tên không được để trống.';
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const PHONE_REQURIED = 'Số điện thoại không được để trống.';
 export const PHONE_INVALID = 'Số điện thoại không hợp lệ.';
+export const MENTOR_REQUIRED = 'Giáo viên cần đánh giá không được để trống.';
+export const SUBJECT_REQUIRED = 'Môn học không được để trống.';

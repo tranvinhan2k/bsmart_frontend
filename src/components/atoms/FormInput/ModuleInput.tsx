@@ -2,11 +2,11 @@ import { UseControllerReturn } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import { SX_TEXT_INPUT_FORM } from './styles';
 
-interface TextInputProps {
+interface ModuleInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
 }
-function TextInput({ controller, placeholder }: TextInputProps) {
+function ModuleInput({ controller, placeholder }: ModuleInputProps) {
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
     fieldState: { invalid, error },
@@ -31,4 +31,4 @@ function TextInput({ controller, placeholder }: TextInputProps) {
     />
   );
 }
-export default TextInput;
+export default ModuleInput;

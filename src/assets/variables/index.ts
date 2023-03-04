@@ -60,6 +60,7 @@ export const IconSize = {
   small: '15px',
   medium: '30px',
   large: '35px',
+  ex_large: '45px',
 };
 
 export const MetricSize = {
