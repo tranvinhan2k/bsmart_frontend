@@ -11,17 +11,7 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
-
-export type FormInputVariant =
-  | 'text'
-  | 'number'
-  | 'multiline'
-  | 'dropdown'
-  | 'radioGroup'
-  | 'image'
-  | 'tags'
-  | 'password'
-  | 'date';
+import { FormInputVariant } from '~/models/form';
 
 interface FormInputProps {
   control: Control<any>;
@@ -70,7 +60,6 @@ const generateFormInput = (
           data={data}
         />
       );
-
     default:
       return null;
   }
@@ -89,10 +78,8 @@ export default function FormInput({
 
   return (
     <Stack marginBottom={1}>
-      <>
-        <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
-        {generateFormInput(variant, controller, placeholder, data)}
-      </>
+      <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
+      {generateFormInput(variant, controller, placeholder, data)}
     </Stack>
   );
 }

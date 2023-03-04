@@ -14,7 +14,9 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
-const EditProfilePage = lazy(() => import('~/pages/EditProfilePage'));
+const EditMemberProfilePage = lazy(
+  () => import('~/pages/EditMemberProfilePage')
+);
 const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
 const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
@@ -92,7 +94,7 @@ const routes: RoutePayload[] = [
   },
   {
     path: `/${NavigationActionData[14].link}`,
-    main: () => <EditProfilePage />,
+    main: () => <EditMemberProfilePage />,
   },
   {
     path: `/${NavigationActionData[15].link}`,

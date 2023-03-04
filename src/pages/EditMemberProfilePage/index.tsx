@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
 import { Box, Grid, Stack } from '@mui/material';
+import { useEffect } from 'react';
 import { scrollToTop } from '~/utils/common';
+import CourseSuggestList from '~/containers/MemberDetailsProfile/CourseSuggestList';
+import EditPersonalProfileForm from '~/components/molecules/FormComponent/EditMemberProfileForm/EditPersonalProfileForm';
+import EditAccountProfileForm from '~/components/molecules/FormComponent/EditMemberProfileForm/EditAccountProfileForm';
+import EditSocialProfileForm from '~/components/molecules/FormComponent/EditMemberProfileForm/EditSocialProfileForm';
 import MainProfile from '~/containers/MemberDetailsProfile/MainProfile';
 import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
-import CourseSuggestList from '~/containers/MemberDetailsProfile/CourseSuggestList';
-import EditProfileSection from '~/containers/EditProfileSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
-export default function EditProfilePage() {
+export default function EditMemberProfilePage() {
   useEffect(() => {
     scrollToTop();
   }, []);
-
-  const SPACING_2 = 2;
 
   return (
     <Box sx={SX_WRAPPER}>
@@ -22,22 +22,23 @@ export default function EditProfilePage() {
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
-          rowSpacing={{ xs: SPACING_2, md: 0 }}
-          columnSpacing={{ xs: 0, md: 5 }}
+          spacing={5}
         >
           <Grid item xs={12} sm={4} md={5} lg={4}>
             <Stack
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
-              spacing={SPACING_2}
+              spacing={2}
             >
               <MainProfile />
               <RecentActivityList />
             </Stack>
           </Grid>
           <Grid item xs={12} sm={8} md={7} lg={8}>
-            <EditProfileSection />
+            <EditPersonalProfileForm />
+            <EditAccountProfileForm />
+            <EditSocialProfileForm />
           </Grid>
         </Grid>
         <CourseSuggestList />

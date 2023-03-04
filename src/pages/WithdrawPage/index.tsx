@@ -11,8 +11,6 @@ export default function WalletManagementPage() {
     scrollToTop();
   }, []);
 
-  const SPACING_2 = 2;
-
   return (
     <Box sx={SX_WRAPPER}>
       <Box sx={SX_CONTAINER}>
@@ -28,7 +26,7 @@ export default function WalletManagementPage() {
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
-              spacing={SPACING_2}
+              spacing={2}
             >
               <MainProfile />
               <RecentActivityList />

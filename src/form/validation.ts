@@ -31,3 +31,24 @@ export const validationSchemaBuyCourse = object({
   email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
   voucher: string().required(PASSWORD_REQUIRED),
 });
+
+export const validationSchemaEditPersonalProfile = object({
+  avatar: string().required(),
+  name: string().required(),
+  birthday: string().required(),
+  address: string().required(),
+  phone: string().required(),
+  identity: string().required(),
+});
+
+export const validationSchemaEditAccountProfile = object({
+  email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
+  password: string().required(PASSWORD_REQUIRED),
+  confirm: string().required(PASSWORD_REQUIRED),
+});
+
+export const validationSchemaEditSocialProfile = object({
+  facebook: string(),
+  twitter: string(),
+  instagram: string(),
+});

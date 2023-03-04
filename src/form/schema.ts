@@ -1,5 +1,8 @@
 import {
   BuyCourseDataPayload,
+  EditPersonalProfileFormDataPayload,
+  EditProfileFormDataPayload,
+  EditSocialProfileFormDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -29,4 +32,27 @@ export const BUY_COURSE_FIELDS: BuyCourseDataPayload = {
   email: 'email',
   voucher: 'voucher',
   paymentMethod: 'paymentMethod',
+};
+
+export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
+  {
+    avatar: 'avatar',
+    name: 'name',
+    birthday: 'birthday',
+    address: 'address',
+    phone: 'phone',
+    identityFront: 'identityFront',
+    identityBack: 'identityBack',
+  };
+
+export const EDIT_PROFILE_FIELDS: EditProfileFormDataPayload = {
+  email: 'email',
+  password: 'password',
+  confirm: 'confirm',
+};
+
+export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
+  facebook: 'email',
+  twitter: 'password',
+  instagram: 'confirm',
 };
