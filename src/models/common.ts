@@ -1,4 +1,4 @@
-import { IconName } from '~/models/icon';
+import { IconName } from '~/components/atoms/Icon';
 
 export interface SocialPayload {
   name: string;
@@ -23,7 +23,7 @@ export interface TabPayload {
   label: string;
 }
 
-export interface CheckBoxPayload {
+export interface OptionPayload {
   id: number;
   label: string;
   value: string;

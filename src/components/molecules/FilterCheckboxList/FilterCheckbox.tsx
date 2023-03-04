@@ -5,10 +5,12 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Icon from '~/components/atoms/Icon';
+import Link from '~/components/atoms/Link';
+import { OptionPayload } from '~/models';
 
 interface FilterCheckboxProps {
   label: string;
-  data: CheckBoxPayload[];
+  data: OptionPayload[];
 }
 
 export default function FilterCheckbox({ label, data }: FilterCheckboxProps) {

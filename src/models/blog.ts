@@ -1,4 +1,4 @@
-import { IconName } from '~/models/icon';
+import { IconName } from '~/components/atoms/Icon';
 
 export interface BlogPayload {
   id: number;
