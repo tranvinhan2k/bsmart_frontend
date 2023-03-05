@@ -24,3 +24,11 @@ export interface BuyCourseDataPayload {
   voucher: string;
   paymentMethod: string;
 }
+export interface FeedbackMentorDataPayload {
+  mentorId: string;
+  subjectId: string;
+  enthusiasmLevel: number;
+  supportAnswerQuestion: string;
+  supportHomeWork: string;
+  feelingOfTeacher: string;
+}

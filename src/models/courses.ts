@@ -23,3 +23,9 @@ export interface CourseDetailPayload {
   numOfOpenClass: number;
   openDate: string;
 }
+
+export interface CourseModulePayload {
+  id: number;
+  label: string;
+  topic: { id: number; label: string }[];
+}

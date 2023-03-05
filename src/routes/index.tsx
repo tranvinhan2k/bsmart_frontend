@@ -3,7 +3,7 @@ import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import { NavigationActionData } from '~/constants';
+import { MentorNavigationActionData, NavigationActionData } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
 
@@ -24,6 +24,19 @@ const LoginPage = lazy(() => import('~/pages/LoginPages'));
 const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
 const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
 const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
+const FeedbackPage = lazy(() => import('~/pages/FeedbackPage'));
+const MentorProfilePage = lazy(() => import('~/pages/MentorProfilePage'));
+const MentorEditProfilePage = lazy(
+  () => import('~/pages/MentorEditProfilePage')
+);
+const MentorIntroduceProfilePage = lazy(
+  () => import('~/pages/MentorIntroduceProfilePage')
+);
+const MentorCourseListPage = lazy(() => import('~/pages/MentorCourseListPage'));
+const MentorCreateCoursePage = lazy(
+  () => import('~/pages/MentorCreateCoursePage')
+);
+const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -44,9 +57,7 @@ const routes: RoutePayload[] = [
   },
   {
     path: `/${NavigationActionData[3].link}`,
-    main: () => <Stack>Hello</Stack>,
-
-    /* // TODO: add teacher */
+    main: () => <MentorProfilePage />,
   },
   {
     path: `/${NavigationActionData[4].link}`,
@@ -103,12 +114,54 @@ const routes: RoutePayload[] = [
     main: () => <WithdrawPage />,
   },
   {
+    path: `/${NavigationActionData[17].link}`,
+    main: () => <FeedbackPage />,
+  },
+  {
     path: '*',
     main: () => <NotFoundPage />,
   },
   {
     path: '/test_page',
     main: () => <TestPage />,
+  },
+];
+export const mentorRoutes: RoutePayload[] = [
+  {
+    path: '/',
+    main: () => (
+      <Navigate
+        to={`/${NavigationActionData[3].link}/${MentorNavigationActionData[0].link}`}
+      />
+    ),
+  },
+  {
+    path: `/${MentorNavigationActionData[0].link}`,
+    main: () => <MentorEditProfilePage />,
+  },
+  {
+    path: `/${MentorNavigationActionData[1].link}`,
+    main: () => <Stack>Wallet</Stack>,
+  },
+  {
+    path: `/${MentorNavigationActionData[2].link}`,
+    main: () => <Stack>Withdraw</Stack>,
+  },
+  {
+    path: `/${MentorNavigationActionData[3].link}`,
+    main: () => <MentorCourseListPage />,
+  },
+  {
+    path: `/${MentorNavigationActionData[4].link}`,
+    main: () => <MentorCreateCoursePage />,
+  },
+  {
+    path: `/${MentorNavigationActionData[5].link}`,
+    main: () => <MentorIntroduceProfilePage />,
+  },
+  {
+    path: `/${MentorNavigationActionData[6].link}`,
+    main: () => <MentorContractPage />,
   },
 ];
 

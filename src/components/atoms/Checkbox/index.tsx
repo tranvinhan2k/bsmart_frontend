@@ -1,6 +1,4 @@
 import { Stack, Checkbox as MUICheckbox, Typography } from '@mui/material';
-import React from 'react';
-import { MetricSize } from '~/assets/variables';
 import {
   SX_CHECKBOX,
   SX_CHECKBOX_STACK,

@@ -1,5 +1,6 @@
 import {
   BuyCourseDataPayload,
+  FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -30,5 +31,11 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
   phone: '',
   voucher: '',
 };
-
-export default {};
+export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
+  enthusiasmLevel: 5,
+  feelingOfTeacher: '',
+  mentorId: '',
+  subjectId: '',
+  supportAnswerQuestion: 'yes',
+  supportHomeWork: 'yes',
+};

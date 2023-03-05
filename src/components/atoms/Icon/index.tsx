@@ -27,6 +27,9 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ManIcon from '@mui/icons-material/Man';
+import WomanIcon from '@mui/icons-material/Woman';
+import AddIcon from '@mui/icons-material/Add';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
@@ -47,6 +50,7 @@ export type IconName =
   | 'dribbble'
   | 'mail'
   | 'phone'
+  | 'add'
   | 'location'
   | 'delete'
   | 'close'
@@ -54,6 +58,8 @@ export type IconName =
   | 'next'
   | 'next2'
   | 'dot'
+  | 'male'
+  | 'female'
   | 'previous'
   | 'share'
   | 'eye'
@@ -81,6 +87,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'add':
+      return <AddIcon sx={STYLED_ICON} />;
     case 'eye':
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
     case 'delete':
@@ -95,6 +103,10 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ArrowUpwardIcon sx={STYLED_ICON} />;
     case 'keyboardArrowRight':
       return <KeyboardArrowRightIcon sx={STYLED_ICON} />;
+    case 'male':
+      return <ManIcon sx={STYLED_ICON} />;
+    case 'female':
+      return <WomanIcon sx={STYLED_ICON} />;
     case 'calendarMonth':
       return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'menu':

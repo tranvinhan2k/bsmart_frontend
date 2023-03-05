@@ -4,8 +4,12 @@ import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import { OptionPayload } from '~/models';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
+import FileInput from './FileInput';
+import HourPickerInput from './HourPickerInput';
 import ImageInput from './ImageInput';
+import ModuleInput from './ModuleInput';
 import MultilineInput from './MultilineInput';
+import MultiSelectInput from './MultiSelectInput';
 import NumberInput from './NumberInput';
 import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
@@ -19,7 +23,11 @@ export type FormInputVariant =
   | 'dropdown'
   | 'radioGroup'
   | 'image'
+  | 'multiSelect'
+  | 'time'
+  | 'file'
   | 'tags'
+  | 'modules'
   | 'password'
   | 'date';
 
@@ -54,13 +62,23 @@ const generateFormInput = (
       return <NumberInput controller={controller} placeholder={placeholder} />;
     case variant === 'image':
       return <ImageInput controller={controller} placeholder={placeholder} />;
+    case variant === 'file':
+      return <FileInput controller={controller} placeholder={placeholder} />;
     case variant === 'radioGroup':
       return <RadioGroupInput controller={controller} data={data} />;
+    case variant === 'multiSelect':
+      return <MultiSelectInput controller={controller} data={data} />;
     case variant === 'tags':
       return <TagsInput controller={controller} placeholder={placeholder} />;
+    case variant === 'modules':
+      return <ModuleInput controller={controller} placeholder={placeholder} />;
     case variant === 'date':
       return (
         <DatePickerInput controller={controller} placeholder={placeholder} />
+      );
+    case variant === 'time':
+      return (
+        <HourPickerInput controller={controller} placeholder={placeholder} />
       );
     case variant === 'dropdown':
       return (
@@ -88,7 +106,7 @@ export default function FormInput({
   const controller = useController({ name, defaultValue, control });
 
   return (
-    <Stack marginBottom={1}>
+    <Stack flexGrow={1} marginBottom={1}>
       <>
         <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
         {generateFormInput(variant, controller, placeholder, data)}
