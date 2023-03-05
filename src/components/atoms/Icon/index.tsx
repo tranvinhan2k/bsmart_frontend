@@ -6,6 +6,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
+import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
 import {
   BsDribbble,
@@ -41,6 +42,7 @@ export type IconName =
   | 'keyboardArrowRight'
   | 'calendarMonth'
   | 'menu'
+  | 'nearMe'
   | 'person'
   | 'twitter'
   | 'instagram'
@@ -109,6 +111,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'menu':
       return <MenuIcon sx={STYLED_ICON} />;
+    case 'nearMe':
+      return <NearMeIcon sx={STYLED_ICON} />;
     case 'person':
       return <PersonIcon sx={STYLED_ICON} />;
     case 'twitter':

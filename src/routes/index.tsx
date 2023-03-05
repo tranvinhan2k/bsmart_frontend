@@ -13,6 +13,10 @@ const LmsPage = lazy(() => import('~/pages/LmsPage'));
 const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
+const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
+const EditProfilePage = lazy(() => import('~/pages/EditProfilePage'));
+const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
+const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
@@ -94,14 +98,25 @@ const routes: RoutePayload[] = [
     main: () => <BlogDetailsPage />,
   },
   {
-    path: `/${NavigationActionData[12].link}`,
-    main: () => <BlogDetailsPage />,
+    path: `/${NavigationActionData[13].link}`,
+    main: () => <MemberDetailsPage />,
+  },
+  {
+    path: `/${NavigationActionData[14].link}`,
+    main: () => <EditProfilePage />,
+  },
+  {
+    path: `/${NavigationActionData[15].link}`,
+    main: () => <WalletManagementPage />,
+  },
+  {
+    path: `/${NavigationActionData[16].link}`,
+    main: () => <WithdrawPage />,
   },
   {
     path: `/${NavigationActionData[17].link}`,
     main: () => <FeedbackPage />,
   },
-
   {
     path: '*',
     main: () => <NotFoundPage />,

@@ -1,7 +1,5 @@
-import React from 'react';
-import { Stack, Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import { Box, Stack, Typography } from '@mui/material';
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { formatMoney } from '~/utils/money';
 import Button from '~/components/atoms/Button';

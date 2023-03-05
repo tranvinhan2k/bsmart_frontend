@@ -130,6 +130,26 @@ export const MentorNavigationActionData: ActionPayload[] = [
     name: 'Liên hệ',
     link: 'contract',
   },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/member-details',
+  },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/edit-profile',
+  },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/wallet-management',
+  },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/withdraw',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [

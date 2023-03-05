@@ -1,6 +1,4 @@
-import React from 'react';
-import { Stack, Box, Typography, Rating, Chip } from '@mui/material';
-import Divider from '@mui/material/Divider';
+import { Box, Chip, Divider, Rating, Stack, Typography } from '@mui/material';
 import { MentorPayload } from '~/models/mentor';
 import {
   Color,
@@ -10,9 +8,9 @@ import {
   IconSize,
   MetricSize,
 } from '~/assets/variables';
-import Icon from '~/components/atoms/Icon';
-import Button from '~/components/atoms/Button';
 import { formatDate } from '~/utils/date';
+import Button from '~/components/atoms/Button';
+import Icon from '~/components/atoms/Icon';
 
 interface CourseDetailBasicInformationSectionProps {
   mentorData: MentorPayload;

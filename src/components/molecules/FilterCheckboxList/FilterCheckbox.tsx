@@ -1,7 +1,6 @@
-import { Stack } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
+import { Box, Typography, Stack } from '@mui/material';
+import { CheckBoxPayload } from '~/models';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';

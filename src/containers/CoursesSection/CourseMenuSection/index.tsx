@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Pagination from '@mui/material/Pagination';
 import { useNavigate } from 'react-router-dom';
-import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { CourseList } from '~/constants';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CourseItem from '~/components/molecules/CourseItem';
 
 export default function CourseMenuSection() {

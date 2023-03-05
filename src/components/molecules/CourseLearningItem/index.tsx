@@ -1,4 +1,11 @@
-import { Box, Divider, Typography, Rating, Stack } from '@mui/material';
+import {
+  Box,
+  Divider,
+  LinearProgress,
+  Rating,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { Color, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { CoursePayload } from '~/models/courses';
@@ -8,7 +15,7 @@ interface CourseItemProps {
   onClick: () => void;
 }
 
-export default function CourseItem({ item, onClick }: CourseItemProps) {
+export default function CourseLearningItem({ item, onClick }: CourseItemProps) {
   const { content, feedback, image, mentor, title } = item;
 
   const handleNavigateCourseDetail = () => {
@@ -21,7 +28,7 @@ export default function CourseItem({ item, onClick }: CourseItemProps) {
         marginTop: MetricSize.medium_15,
         border: '1px solid',
         borderColor: Color.grey,
-        width: { xs: '100%', md: '32%' },
+        // width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
       }}
     >
@@ -29,14 +36,35 @@ export default function CourseItem({ item, onClick }: CourseItemProps) {
       <Stack sx={{ padding: MetricSize.medium_15 }}>
         <Typography>{title}</Typography>
         <Typography>{`Mentor ${mentor}`}</Typography>
-        <Typography>{content}</Typography>
         <Rating name="size-small" defaultValue={feedback} size="small" />
       </Stack>
       <Stack padding={2}>
         <Divider />
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="flex-end"
+          spacing={2}
+          mt={2}
+        >
+          <Typography>Tiến độ</Typography>
+          <Typography>90%</Typography>
+        </Stack>
+        <Box mt={2}>
+          <LinearProgress
+            variant="determinate"
+            color="inherit"
+            value={90}
+            sx={{
+              color: Color.orange,
+              height: '1rem',
+              borderRadius: MetricSize.small_5,
+            }}
+          />
+        </Box>
         <Stack marginTop={2}>
-          <Button onClick={handleNavigateCourseDetail} customVariant="normal">
-            Đăng ký
+          <Button onClick={handleNavigateCourseDetail} customVariant="outlined">
+            Link liên kết
           </Button>
         </Stack>
       </Stack>
