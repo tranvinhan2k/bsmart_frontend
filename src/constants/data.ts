@@ -18,82 +18,80 @@ export const AuthorizationActionData: ActionPayload[] = [
 export const NavigationActionData: ActionPayload[] = [
   {
     name: 'Trang Chủ',
-    link: '/homepage',
+    link: 'homepage',
   },
   {
     name: 'Về Chúng Tôi',
-    link: '/about_us',
+    link: 'about_us',
   },
   {
     name: 'Khóa Học',
-    link: '/course',
+    link: 'course',
   },
   {
     name: 'Giảng viên',
-    link: '/teacher',
+    link: 'mentor-profile/*',
   },
   {
     name: 'Blog',
-    link: '/blog',
+    link: 'blog',
   },
   {
     isHide: true,
     name: 'Tuyển dụng',
-    link: '/recuitment',
+    link: 'recruitment',
   },
   {
     isHide: true,
     name: 'Đăng ký',
-    link: '/register',
+    link: 'register',
   },
   {
     isHide: true,
     name: 'Đăng nhập',
-    link: '/login',
+    link: 'login',
   },
   {
     isHide: true,
     name: 'Chi Tiết Khóa Học',
-    link: '/course/course-detail/:id',
+    link: 'course/course-detail/:id',
   },
   {
     name: 'Nền tảng LMS',
-    link: '/lms',
+    link: 'lms',
   },
   {
     isHide: true,
     name: 'Thông báo',
-    link: '/annotation',
+    link: 'annotation',
   },
   {
     isHide: true,
     name: 'Đăng kí khóa học',
-    link: '/buy-course',
+    link: 'buy-course',
   },
   {
     isHide: true,
     name: 'Chi Tiết Blog',
-    link: '/blog/blog-details/:id',
+    link: 'blog/blog-details/:id',
   },
   {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/member-details',
+    name: 'Học viên',
+    link: 'member-details',
+  },
+];
+export const MemberNavigationActionData: ActionPayload[] = [
+  {
+    name: 'Chỉnh sửa thông tin',
+    link: 'edit-profile',
   },
   {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/edit-profile',
+    name: 'Quản lý ví tiền',
+    link: 'wallet-management',
   },
   {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/wallet-management',
-  },
-  {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/withdraw',
+    name: 'Rút tiền',
+    link: 'withdraw',
   },
 ];
 

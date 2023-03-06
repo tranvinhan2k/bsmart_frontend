@@ -3,7 +3,7 @@ import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import { NavigationActionData } from '~/constants';
+import { MemberNavigationActionData, NavigationActionData } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
 
@@ -17,8 +17,10 @@ const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
 const EditMemberProfilePage = lazy(
   () => import('~/pages/EditMemberProfilePage')
 );
-const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
-const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
+const MemberWalletManagementPage = lazy(
+  () => import('~/pages/MemberWalletManagementPage')
+);
+const MemberWithdrawPage = lazy(() => import('~/pages/MemberWithdrawPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
@@ -26,6 +28,7 @@ const LoginPage = lazy(() => import('~/pages/LoginPages'));
 const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
 const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
 const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
+const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 
 const routes: RoutePayload[] = [
   {
@@ -89,20 +92,8 @@ const routes: RoutePayload[] = [
     main: () => <BlogDetailsPage />,
   },
   {
-    path: `/${NavigationActionData[13].link}`,
-    main: () => <MemberDetailsPage />,
-  },
-  {
-    path: `/${NavigationActionData[14].link}`,
-    main: () => <EditMemberProfilePage />,
-  },
-  {
-    path: `/${NavigationActionData[15].link}`,
-    main: () => <WalletManagementPage />,
-  },
-  {
-    path: `/${NavigationActionData[16].link}`,
-    main: () => <WithdrawPage />,
+    path: `/${NavigationActionData[13].link}/*`,
+    main: () => <MemberProfilePage />,
   },
   {
     path: '*',
@@ -111,6 +102,24 @@ const routes: RoutePayload[] = [
   {
     path: '/test_page',
     main: () => <TestPage />,
+  },
+];
+export const memberRoutes: RoutePayload[] = [
+  {
+    path: '/',
+    main: () => <MemberDetailsPage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[0].link}`,
+    main: () => <EditMemberProfilePage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[1].link}`,
+    main: () => <MemberWalletManagementPage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[2].link}`,
+    main: () => <MemberWithdrawPage />,
   },
 ];
 
