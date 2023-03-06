@@ -21,10 +21,8 @@ const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
 const EditMemberProfilePage = lazy(
   () => import('~/pages/EditMemberProfilePage')
 );
-const MemberWalletManagementPage = lazy(
-  () => import('~/pages/MemberWalletManagementPage')
-);
-const MemberWithdrawPage = lazy(() => import('~/pages/MemberWithdrawPage'));
+const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
+const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
 const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
@@ -134,11 +132,11 @@ export const memberRoutes: RoutePayload[] = [
   },
   {
     path: `/${MemberNavigationActionData[1].link}`,
-    main: () => <MemberWalletManagementPage />,
+    main: () => <WalletManagementPage />,
   },
   {
     path: `/${MemberNavigationActionData[2].link}`,
-    main: () => <MemberWithdrawPage />,
+    main: () => <WithdrawPage />,
   },
 ];
 export const mentorRoutes: RoutePayload[] = [
@@ -156,11 +154,11 @@ export const mentorRoutes: RoutePayload[] = [
   },
   {
     path: `/${MentorNavigationActionData[1].link}`,
-    main: () => <Stack>Wallet</Stack>,
+    main: () => <WalletManagementPage />,
   },
   {
     path: `/${MentorNavigationActionData[2].link}`,
-    main: () => <Stack>Withdraw</Stack>,
+    main: () => <WithdrawPage />,
   },
   {
     path: `/${MentorNavigationActionData[3].link}`,

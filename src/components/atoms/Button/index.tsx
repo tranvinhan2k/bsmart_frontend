@@ -13,8 +13,8 @@ import {
   SX_NORMAL_BUTTON,
   SX_OUTLINED_BUTTON,
 } from '~/components/atoms/Button/styles';
-import { MetricSizeKeys } from '~/models/variables';
 import { FontFamily, MetricSize } from '~/assets/variables';
+import { MetricSizeKeys } from '~/models/variables';
 import Icon from '~/components/atoms/Icon';
 
 interface ButtonProps extends MUIButtonProps {

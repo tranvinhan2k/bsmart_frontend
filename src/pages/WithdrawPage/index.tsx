@@ -1,5 +1,5 @@
 import WithdrawSection from '~/containers/WithdrawSection';
 
-export default function WalletManagementPage() {
+export default function WithdrawPage() {
   return <WithdrawSection />;
 }

@@ -56,7 +56,6 @@ export const SX_NORMAL_BUTTON: SxProps<Theme> = {
     background: Color.white,
   },
   padding: MetricSize.medium_15,
-  height: Common.inputFieldHeight,
 };
 
 export const SX_OUTLINED_BUTTON: SxProps<Theme> = {

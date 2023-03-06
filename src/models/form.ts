@@ -54,3 +54,18 @@ export interface EditSocialProfileFormDataPayload {
   twitter: string;
   instagram: string;
 }
+
+export type FormInputVariant =
+  | 'text'
+  | 'number'
+  | 'multiline'
+  | 'dropdown'
+  | 'radioGroup'
+  | 'image'
+  | 'multiSelect'
+  | 'time'
+  | 'file'
+  | 'tags'
+  | 'modules'
+  | 'password'
+  | 'date';
