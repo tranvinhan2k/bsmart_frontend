@@ -1,17 +1,22 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { TextField, Stack, IconButton, InputAdornment } from '@mui/material';
+import {
+  TextField,
+  Stack,
+  IconButton,
+  InputAdornment,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import Button from '../Button';
 
-interface ImageInputProps {
+interface FileInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
 }
-function ImageInput({ controller, placeholder }: ImageInputProps) {
-  const [file, setFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('');
+function FileInput({ controller, placeholder }: FileInputProps) {
+  const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const {
     field: { value, onChange, onBlur },
@@ -19,21 +24,19 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
   } = controller;
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type.includes('image')) {
+    if (selectedFile && selectedFile.type.includes('application')) {
       setFile(selectedFile);
       setError(null);
-      setPreviewUrl(URL.createObjectURL(selectedFile));
       onChange(selectedFile);
     } else {
       setFile(null);
-      setError('Please select a valid image file (JPEG, PNG, or GIF)');
+      setError('Please select a valid file type (PDF, Word, or Excel)');
       onChange(null);
     }
   };
 
   const handleDeleteClick = () => {
     setFile(null);
-    setPreviewUrl('');
     setError(null);
     onChange(null);
   };
@@ -63,9 +66,18 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
         helperText={fieldError?.message || error}
       />
 
-      {previewUrl && (
+      {file && (
         <Stack marginTop={1}>
-          <img src={previewUrl} alt="Preview" />
+          <Typography
+            sx={{
+              boxShadow: 3,
+              background: Color.whiteSmoke,
+              padding: 1,
+              marginY: 1,
+            }}
+          >
+            {file.name}
+          </Typography>
           <Stack marginTop={1}>
             <Button
               customVariant="normal"
@@ -80,4 +92,4 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
     </Stack>
   );
 }
-export default ImageInput;
+export default FileInput;

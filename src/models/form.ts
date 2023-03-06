@@ -1,14 +1,3 @@
-export type FormInputVariant =
-  | 'text'
-  | 'number'
-  | 'multiline'
-  | 'dropdown'
-  | 'radioGroup'
-  | 'image'
-  | 'tags'
-  | 'password'
-  | 'date';
-
 export interface LoginFormDataPayload {
   email: string;
   password: string;
@@ -34,6 +23,14 @@ export interface BuyCourseDataPayload {
   email: string;
   voucher: string;
   paymentMethod: string;
+}
+export interface FeedbackMentorDataPayload {
+  mentorId: string;
+  subjectId: string;
+  enthusiasmLevel: number;
+  supportAnswerQuestion: string;
+  supportHomeWork: string;
+  feelingOfTeacher: string;
 }
 
 export interface EditPersonalProfileFormDataPayload {

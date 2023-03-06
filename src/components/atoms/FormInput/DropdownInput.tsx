@@ -26,7 +26,10 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
       id="combo-box-demo"
       fullWidth
       size="small"
-      value={value}
+      isOptionEqualToValue={(option, optionValue) =>
+        option.id === optionValue.id
+      }
+      value={value !== '' ? value : null}
       onChange={onChange}
       onBlur={onBlur}
       renderInput={(params) => (

@@ -3,6 +3,7 @@ import {
   EditPersonalProfileFormDataPayload,
   EditProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
+  FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -55,4 +56,13 @@ export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
   facebook: 'email',
   twitter: 'password',
   instagram: 'confirm',
+};
+
+export const FEEDBACK_MENTOR_FIELDS = {
+  enthusiasmLevel: 'enthusiasmLevel',
+  feelingOfTeacher: 'feelingOfTeacher',
+  mentorId: 'mentorId',
+  subjectId: 'subjectId',
+  supportAnswerQuestion: 'supportAnswerQuestion',
+  supportHomeWork: 'supportHomeWork',
 };

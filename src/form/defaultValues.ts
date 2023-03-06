@@ -3,6 +3,7 @@ import {
   EditAccountProfileFormDataPayload,
   EditPersonalProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
+  FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -33,7 +34,6 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
   phone: '',
   voucher: '',
 };
-
 export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload =
   {
     avatar: '',
@@ -58,4 +58,11 @@ export const defaultValueEditSocialProfile: EditSocialProfileFormDataPayload = {
   instagram: '',
 };
 
-export default {};
+export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
+  enthusiasmLevel: 5,
+  feelingOfTeacher: '',
+  mentorId: '',
+  subjectId: '',
+  supportAnswerQuestion: 'yes',
+  supportHomeWork: 'yes',
+};

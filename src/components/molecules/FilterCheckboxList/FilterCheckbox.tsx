@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { Box, Typography, Stack } from '@mui/material';
-import { CheckBoxPayload } from '~/models';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Icon from '~/components/atoms/Icon';
-import Link from '~/components/atoms/Link';
 import { OptionPayload } from '~/models';
 
 interface FilterCheckboxProps {

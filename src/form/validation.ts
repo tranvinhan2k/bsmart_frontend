@@ -1,7 +1,9 @@
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 import {
   EMAIL_INVALID,
+  MENTOR_REQUIRED,
   PASSWORD_REQUIRED,
+  SUBJECT_REQUIRED,
   USERNAME_REQUIRED,
 } from '~/form/message';
 
@@ -51,4 +53,13 @@ export const validationSchemaEditSocialProfile = object({
   facebook: string(),
   twitter: string(),
   instagram: string(),
+});
+
+export const validationSchemaFeedbackMentor = object({
+  enthusiasmLevel: string().required(),
+  feelingOfTeacher: string(),
+  // mentorId: object().required(MENTOR_REQUIRED),
+  // subjectId: object().required(SUBJECT_REQUIRED),
+  supportAnswerQuestion: string(),
+  supportHomeWork: string(),
 });
