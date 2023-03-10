@@ -30,7 +30,7 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     name: 'Giảng viên',
-    link: 'mentor-profile/*',
+    link: 'mentor-profile',
   },
   {
     name: 'Blog',
@@ -77,23 +77,23 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     isHide: true,
-    name: '',
-    link: '',
+    name: '1',
+    link: '1',
   },
   {
     isHide: true,
-    name: '',
-    link: '',
+    name: '2',
+    link: '2',
   },
   {
     isHide: true,
-    name: '',
-    link: '',
+    name: '3',
+    link: '3',
   },
   {
     isHide: true,
-    name: '',
-    link: '',
+    name: '4',
+    link: '4',
   },
   {
     isHide: true,

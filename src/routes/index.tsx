@@ -56,7 +56,7 @@ const routes: RoutePayload[] = [
     main: () => <CoursesPage />,
   },
   {
-    path: `/${NavigationActionData[3].link}`,
+    path: `/${NavigationActionData[3].link}/*`,
     main: () => <MentorProfilePage />,
   },
   {

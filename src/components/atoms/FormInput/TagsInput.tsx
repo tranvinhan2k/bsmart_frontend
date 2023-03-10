@@ -11,7 +11,6 @@ function TagsInput({ controller, placeholder }: TagsInputProps) {
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error },
-    formState: { defaultValues },
   } = controller;
 
   const handleTagAdd = (e: any) => {

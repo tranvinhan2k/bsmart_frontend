@@ -107,10 +107,8 @@ export default function FormInput({
 
   return (
     <Stack flexGrow={1} marginBottom={1}>
-      <>
-        <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
-        {generateFormInput(variant, controller, placeholder, data)}
-      </>
+      <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
+      {generateFormInput(variant, controller, placeholder, data)}
     </Stack>
   );
 }

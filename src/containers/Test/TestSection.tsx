@@ -11,12 +11,12 @@ const optionData: OptionPayload[] = [
     value: '',
   },
   {
-    id: 0,
+    id: 1,
     label: 'Option 1',
     value: 'OPTION_1',
   },
   {
-    id: 1,
+    id: 2,
     label: 'Option 2',
     value: 'OPTION_2',
   },

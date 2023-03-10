@@ -10,14 +10,12 @@ function TextInput({ controller, placeholder }: TextInputProps) {
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
     fieldState: { invalid, error },
-    formState: { defaultValues },
   } = controller;
   const onChange = (e: any) => {
     controllerOnChange(e.target.value);
   };
   return (
     <TextField
-      defaultValue={defaultValues}
       sx={SX_TEXT_INPUT_FORM}
       placeholder={placeholder}
       fullWidth
