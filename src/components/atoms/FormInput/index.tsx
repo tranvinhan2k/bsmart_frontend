@@ -1,7 +1,8 @@
 import { InputLabel, Stack } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
-import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
+import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
+import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
 import FileInput from './FileInput';
@@ -15,21 +16,6 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
-
-export type FormInputVariant =
-  | 'text'
-  | 'number'
-  | 'multiline'
-  | 'dropdown'
-  | 'radioGroup'
-  | 'image'
-  | 'multiSelect'
-  | 'time'
-  | 'file'
-  | 'tags'
-  | 'modules'
-  | 'password'
-  | 'date';
 
 interface FormInputProps {
   control: Control<any>;
@@ -88,7 +74,6 @@ const generateFormInput = (
           data={data}
         />
       );
-
     default:
       return null;
   }
@@ -107,10 +92,8 @@ export default function FormInput({
 
   return (
     <Stack flexGrow={1} marginBottom={1}>
-      <>
-        <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
-        {generateFormInput(variant, controller, placeholder, data)}
-      </>
+      <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
+      {generateFormInput(variant, controller, placeholder, data)}
     </Stack>
   );
 }

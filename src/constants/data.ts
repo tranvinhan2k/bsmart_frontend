@@ -39,7 +39,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     isHide: true,
     name: 'Tuyển dụng',
-    link: 'recuitment',
+    link: 'recruitment',
   },
   {
     isHide: true,
@@ -73,27 +73,12 @@ export const NavigationActionData: ActionPayload[] = [
   {
     isHide: true,
     name: 'Chi Tiết Blog',
-    link: 'blog/blog-details/:id',
+    link: '/blog/blog-details/:id',
   },
   {
     isHide: true,
-    name: '',
-    link: '',
-  },
-  {
-    isHide: true,
-    name: '',
-    link: '',
-  },
-  {
-    isHide: true,
-    name: '',
-    link: '',
-  },
-  {
-    isHide: true,
-    name: '',
-    link: '',
+    name: 'Thông tin member',
+    link: '/member-details',
   },
   {
     isHide: true,
@@ -101,6 +86,7 @@ export const NavigationActionData: ActionPayload[] = [
     link: 'feedback',
   },
 ];
+
 export const MentorNavigationActionData: ActionPayload[] = [
   {
     name: 'Chỉnh sửa thông tin',
@@ -130,25 +116,20 @@ export const MentorNavigationActionData: ActionPayload[] = [
     name: 'Liên hệ',
     link: 'contract',
   },
+];
+
+export const MemberNavigationActionData: ActionPayload[] = [
   {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/member-details',
+    name: 'Chỉnh sửa thông tin',
+    link: 'edit-profile',
   },
   {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/edit-profile',
+    name: 'Quản lý ví tiền',
+    link: 'wallet-management',
   },
   {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/wallet-management',
-  },
-  {
-    isHide: true,
-    name: 'Thông tin member',
-    link: '/withdraw',
+    name: 'Rút tiền',
+    link: 'withdraw',
   },
 ];
 

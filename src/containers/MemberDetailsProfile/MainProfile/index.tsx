@@ -11,6 +11,7 @@ import {
 import avatar_member from '~/assets/images/MemberDetailSection/avatar_member.jpg';
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
+import { MemberNavigationActionData } from '~/constants';
 import { IconName } from '~/models/icon';
 
 interface ProfileDataProps {
@@ -26,10 +27,14 @@ export default function MainProfile() {
     { id: 3, icon: 'mail', text: 'tangbaotrann@gmail.com' },
     { id: 4, icon: 'phone', text: '0946005077' },
   ];
-  const navigation = useNavigate();
-  const handleNavigateEditProfilePage = () => {
-    navigation('/edit-profile');
-  };
+  const navigate = useNavigate();
+  // const handleNavigateEditProfilePage = () => {
+  //   navigation('/edit-profile');
+  // };
+
+  function handleNavigateLink(link: string) {
+    navigate(link);
+  }
 
   return (
     <Box sx={SX_WRAPPER}>
@@ -93,11 +98,15 @@ export default function MainProfile() {
         spacing={2}
         mt={2}
       >
-        <Button customVariant="normal" onClick={handleNavigateEditProfilePage}>
-          Chỉnh sửa thông tin
-        </Button>
-        <Button customVariant="normal">Quản lý ví tiền</Button>
-        <Button customVariant="normal">Rút tiền</Button>
+        {MemberNavigationActionData.map((item) => (
+          <Button
+            customVariant="normal"
+            key={item.name}
+            onClick={() => handleNavigateLink(item.link)}
+          >
+            {item.name}
+          </Button>
+        ))}
       </Stack>
     </Box>
   );

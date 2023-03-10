@@ -3,7 +3,11 @@ import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import { MentorNavigationActionData, NavigationActionData } from '~/constants';
+import {
+  MemberNavigationActionData,
+  MentorNavigationActionData,
+  NavigationActionData,
+} from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
 
@@ -14,7 +18,9 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
-const EditProfilePage = lazy(() => import('~/pages/EditProfilePage'));
+const EditMemberProfilePage = lazy(
+  () => import('~/pages/EditMemberProfilePage')
+);
 const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
 const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
@@ -37,6 +43,7 @@ const MentorCreateCoursePage = lazy(
   () => import('~/pages/MentorCreateCoursePage')
 );
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
+const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 
 const routes: RoutePayload[] = [
   {
@@ -98,23 +105,11 @@ const routes: RoutePayload[] = [
     main: () => <BlogDetailsPage />,
   },
   {
-    path: `/${NavigationActionData[13].link}`,
-    main: () => <MemberDetailsPage />,
+    path: `/${NavigationActionData[13].link}/*`,
+    main: () => <MemberProfilePage />,
   },
   {
     path: `/${NavigationActionData[14].link}`,
-    main: () => <EditProfilePage />,
-  },
-  {
-    path: `/${NavigationActionData[15].link}`,
-    main: () => <WalletManagementPage />,
-  },
-  {
-    path: `/${NavigationActionData[16].link}`,
-    main: () => <WithdrawPage />,
-  },
-  {
-    path: `/${NavigationActionData[17].link}`,
     main: () => <FeedbackPage />,
   },
   {
@@ -124,6 +119,24 @@ const routes: RoutePayload[] = [
   {
     path: '/test_page',
     main: () => <TestPage />,
+  },
+];
+export const memberRoutes: RoutePayload[] = [
+  {
+    path: '/',
+    main: () => <MemberDetailsPage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[0].link}`,
+    main: () => <EditMemberProfilePage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[1].link}`,
+    main: () => <WalletManagementPage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[2].link}`,
+    main: () => <WithdrawPage />,
   },
 ];
 export const mentorRoutes: RoutePayload[] = [
@@ -141,11 +154,11 @@ export const mentorRoutes: RoutePayload[] = [
   },
   {
     path: `/${MentorNavigationActionData[1].link}`,
-    main: () => <Stack>Wallet</Stack>,
+    main: () => <WalletManagementPage />,
   },
   {
     path: `/${MentorNavigationActionData[2].link}`,
-    main: () => <Stack>Withdraw</Stack>,
+    main: () => <WithdrawPage />,
   },
   {
     path: `/${MentorNavigationActionData[3].link}`,

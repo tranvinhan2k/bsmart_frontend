@@ -25,6 +25,7 @@ function PasswordInput({ controller, placeholder }: PasswordInputProps) {
 
   return (
     <TextField
+      sx={SX_TEXT_INPUT_FORM}
       placeholder={placeholder}
       fullWidth
       type={showPassword ? 'text' : 'password'}
