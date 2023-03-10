@@ -32,3 +32,40 @@ export interface FeedbackMentorDataPayload {
   supportHomeWork: string;
   feelingOfTeacher: string;
 }
+
+export interface EditPersonalProfileFormDataPayload {
+  avatar: string;
+  name: string;
+  birthday: string;
+  address: string;
+  phone: string;
+  identityFront: string;
+  identityBack: string;
+}
+
+export interface EditAccountProfileFormDataPayload {
+  email: string;
+  password: string;
+  confirm: string;
+}
+
+export interface EditSocialProfileFormDataPayload {
+  facebook: string;
+  twitter: string;
+  instagram: string;
+}
+
+export type FormInputVariant =
+  | 'text'
+  | 'number'
+  | 'multiline'
+  | 'dropdown'
+  | 'radioGroup'
+  | 'image'
+  | 'multiSelect'
+  | 'time'
+  | 'file'
+  | 'tags'
+  | 'modules'
+  | 'password'
+  | 'date';

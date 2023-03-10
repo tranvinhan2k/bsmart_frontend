@@ -1,5 +1,8 @@
 import {
   BuyCourseDataPayload,
+  EditPersonalProfileFormDataPayload,
+  EditAccountProfileFormDataPayload,
+  EditSocialProfileFormDataPayload,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
@@ -30,6 +33,37 @@ export const BUY_COURSE_FIELDS: BuyCourseDataPayload = {
   email: 'email',
   voucher: 'voucher',
   paymentMethod: 'paymentMethod',
+};
+export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
+  enthusiasmLevel: 5,
+  feelingOfTeacher: '',
+  mentorId: '',
+  subjectId: '',
+  supportAnswerQuestion: 'yes',
+  supportHomeWork: 'yes',
+};
+
+export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
+  {
+    avatar: 'avatar',
+    name: 'name',
+    birthday: 'birthday',
+    address: 'address',
+    phone: 'phone',
+    identityFront: 'identityFront',
+    identityBack: 'identityBack',
+  };
+
+export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
+  email: 'email',
+  password: 'password',
+  confirm: 'confirm',
+};
+
+export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
+  facebook: 'email',
+  twitter: 'password',
+  instagram: 'confirm',
 };
 
 export const FEEDBACK_MENTOR_FIELDS = {

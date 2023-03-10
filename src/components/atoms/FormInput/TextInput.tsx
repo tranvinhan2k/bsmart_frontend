@@ -14,6 +14,7 @@ function TextInput({ controller, placeholder }: TextInputProps) {
   const onChange = (e: any) => {
     controllerOnChange(e.target.value);
   };
+
   return (
     <TextField
       sx={SX_TEXT_INPUT_FORM}
