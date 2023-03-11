@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormHelperText, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useGoogleLogin } from '@react-oauth/google';
 import FormInput from '~/components/atoms/FormInput';
 import Button from '~/components/atoms/Button';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
@@ -9,10 +11,9 @@ import { validationSchemaRegisterStudent } from '~/form/validation';
 import { REGISTER_STUDENT_FIELDS } from '~/form/schema';
 import { RegisterStudentDataPayload } from '~/models/form';
 import { PASSWORD_MATCHED } from '~/form/message';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import accountApi, { RequestRegisterPayload } from '~/api/users';
-import toast from '~/utils/toast'
-import { useGoogleLogin } from '@react-oauth/google';
+import toast from '~/utils/toast';
+
 export default function StudentRegisterForm() {
   const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterStudent
@@ -32,8 +33,8 @@ export default function StudentRegisterForm() {
   });
 
   const handleGoogle = useGoogleLogin({
-    onSuccess: tokenResponse => console.log(tokenResponse),
-    onError: error => console.log(error)
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onError: (error) => console.log(error),
   });
 
   const handleRegisterSubmitData = async (data: RegisterStudentDataPayload) => {
@@ -44,28 +45,27 @@ export default function StudentRegisterForm() {
       password: data.password,
       phone: data.phone,
       role: 'STUDENT',
-    }
-    const id = toast.loadToast('Đang đăng kí khoá học ...')
+    };
+    const id = toast.loadToast('Đang đăng kí khoá học ...');
     try {
       const response = await mutation.mutateAsync(params);
       toast.updateSuccessToast(id, 'Đăng kí thành công!');
     } catch (error) {
       toast.updateFailedToast(id, 'Đăng kí không thành công');
-
     }
   };
   return (
     <Stack>
       <FormInput
         label="Họ và tên"
-        placeholder='Nguyen Van A'
+        placeholder="Nguyen Van A"
         control={studentSignUpForm.control}
         name={REGISTER_STUDENT_FIELDS.name}
       />
       <Stack marginTop={2}>
         <FormInput
           label="E-Mail"
-          placeholder='example@gmail.com'
+          placeholder="example@gmail.com"
           control={studentSignUpForm.control}
           name={REGISTER_STUDENT_FIELDS.email}
         />
@@ -73,14 +73,14 @@ export default function StudentRegisterForm() {
       <Stack marginTop={2}>
         <FormInput
           label="Số điện thoại"
-          placeholder='+843456789'
+          placeholder="+843456789"
           control={studentSignUpForm.control}
           name={REGISTER_STUDENT_FIELDS.phone}
         />
       </Stack>
       <Stack marginTop={2}>
         <FormInput
-          variant='password'
+          variant="password"
           label="Mật Khẩu"
           control={studentSignUpForm.control}
           name={REGISTER_STUDENT_FIELDS.password}
@@ -89,7 +89,7 @@ export default function StudentRegisterForm() {
       </Stack>
       <Stack marginTop={2}>
         <FormInput
-          variant='password'
+          variant="password"
           label="Xác Nhận Mật Khẩu"
           control={studentSignUpForm.control}
           name={REGISTER_STUDENT_FIELDS.confirm}
@@ -104,7 +104,9 @@ export default function StudentRegisterForm() {
         </Button>
       </Stack>
       <Stack marginTop={2}>
-        <Button onClick={() => handleGoogle()} customVariant="google">Đăng nhập với Google</Button>
+        <Button onClick={() => handleGoogle()} customVariant="google">
+          Đăng nhập với Google
+        </Button>
       </Stack>
     </Stack>
   );
