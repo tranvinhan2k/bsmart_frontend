@@ -1,4 +1,4 @@
-import { InputLabel, Stack } from '@mui/material';
+import { InputLabel, Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
@@ -25,13 +25,15 @@ interface FormInputProps {
   defaultValue?: any;
   variant?: FormInputVariant;
   data?: OptionPayload[];
+  helperText?: string;
 }
 
 const generateFormInput = (
   variant: FormInputVariant,
   controller: UseControllerReturn<any, string>,
   placeholder: string,
-  data: OptionPayload[]
+  data: OptionPayload[],
+  helperText: string,
 ) => {
   switch (true) {
     case variant === 'text':
@@ -42,7 +44,7 @@ const generateFormInput = (
       );
     case variant === 'password':
       return (
-        <PasswordInput controller={controller} placeholder={placeholder} />
+        <PasswordInput controller={controller} placeholder={placeholder} helperText={helperText} />
       );
     case variant === 'number':
       return <NumberInput controller={controller} placeholder={placeholder} />;
@@ -87,13 +89,14 @@ export default function FormInput({
   variant = 'text',
   placeholder = '',
   data = [],
+  helperText = ''
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });
 
   return (
     <Stack flexGrow={1} marginBottom={1}>
-      <InputLabel sx={SX_INPUT_LABEL}>{label}</InputLabel>
-      {generateFormInput(variant, controller, placeholder, data)}
+      <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
+      {generateFormInput(variant, controller, placeholder, data, helperText)}
     </Stack>
   );
 }

@@ -17,7 +17,6 @@ function ModuleInput({ controller, placeholder }: ModuleInputProps) {
   };
   return (
     <TextField
-      defaultValue={defaultValues}
       sx={SX_TEXT_INPUT_FORM}
       placeholder={placeholder}
       fullWidth

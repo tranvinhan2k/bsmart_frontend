@@ -10,7 +10,9 @@ import MainLayout from '~/layouts/MainLayout';
 import routes from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 const showRoutes = () => {
   let result = null;
 
@@ -28,6 +30,18 @@ const showRoutes = () => {
 function App() {
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <MainLayout>
         <Routes>{showRoutes()}</Routes>
       </MainLayout>
@@ -39,15 +53,17 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <ThemeProvider theme={defaultTheme}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
-      </Provider>
-    </QueryClientProvider>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_KEY}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <ThemeProvider theme={defaultTheme}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ThemeProvider>
+        </Provider>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   );
 }
 

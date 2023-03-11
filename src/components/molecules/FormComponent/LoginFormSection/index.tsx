@@ -11,6 +11,7 @@ import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -32,13 +33,14 @@ export default function LoginForm() {
   });
   const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
 
+  const handleGoogle = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+    onError: error => console.log(error)
+  });
+
   const handleRememberPassword = () => {
     setRememberPassword(!isRememberPassword);
     // TODO: handle remember password
-  };
-
-  const handleGoogle = () => {
-    // TODO: handle google
   };
 
   const handleLoginDataSubmitSuccess = (data: LoginFormDataPayload) => {
@@ -97,7 +99,7 @@ export default function LoginForm() {
           <Button
             marginTop="small_10"
             customVariant="google"
-            onClick={handleGoogle}
+            onClick={() => handleGoogle()}
           >
             {LoginTexts.GOOGLE_LOGIN_BUTTON}
           </Button>

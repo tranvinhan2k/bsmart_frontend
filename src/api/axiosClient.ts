@@ -4,6 +4,7 @@ export const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   },
 });
 
@@ -23,7 +24,7 @@ axiosClient.interceptors.response.use(
     return data || response.data;
   },
   function (error) {
-    if (error.response.status === 401) {
+    if (error?.response?.status === 401) {
       localStorage.removeItem('token');
     }
 
