@@ -14,7 +14,7 @@ export interface RequestRegisterPayload {
 
 const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
-    return axiosClient.post(`${url}/register`, { data });
+    return axiosClient.post(`${url}/register`, data);
   },
 };
 
