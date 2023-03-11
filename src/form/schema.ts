@@ -18,6 +18,7 @@ export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   email: 'email',
   password: 'password',
   confirm: 'confirm',
+  phone: 'phone',
 };
 export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   name: 'name',
@@ -44,15 +45,15 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
 };
 
 export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
-  {
-    avatar: 'avatar',
-    name: 'name',
-    birthday: 'birthday',
-    address: 'address',
-    phone: 'phone',
-    identityFront: 'identityFront',
-    identityBack: 'identityBack',
-  };
+{
+  avatar: 'avatar',
+  name: 'name',
+  birthday: 'birthday',
+  address: 'address',
+  phone: 'phone',
+  identityFront: 'identityFront',
+  identityBack: 'identityBack',
+};
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
   email: 'email',

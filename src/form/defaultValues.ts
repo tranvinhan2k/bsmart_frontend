@@ -17,6 +17,7 @@ export const defaultValueStudentRegister: RegisterStudentDataPayload = {
   email: '',
   password: '',
   name: '',
+  phone: '',
   confirm: '',
 };
 export const defaultValueMentorRegister: RegisterMentorDataPayload = {

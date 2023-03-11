@@ -7,6 +7,7 @@ export interface RegisterStudentDataPayload {
   email: string;
   password: string;
   confirm: string;
+  phone: string;
 }
 export interface RegisterMentorDataPayload {
   name: string;
