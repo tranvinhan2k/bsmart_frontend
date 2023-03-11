@@ -5,11 +5,11 @@ import { UserPayload } from '~/models/user';
 const url = `/users`;
 
 export interface RequestRegisterPayload {
-  fullName: string,
-  email: string,
-  phone: string,
-  password: string,
-  role: Role
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  role: Role;
 }
 
 const accountApi = {
