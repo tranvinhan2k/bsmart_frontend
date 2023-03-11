@@ -13,7 +13,7 @@ function ContractBar({ color, contracts }: ContractBarProps) {
     <Stack>
       {contracts &&
         contracts.map((contract) => (
-          <Tooltip key={contract.name} title={contract.name}>
+          <Tooltip key={contract.value} title={contract.name}>
             <Stack sx={SX_CONTRACT_STACK}>
               <Stack paddingRight={MetricSize.small_5}>
                 <Icon

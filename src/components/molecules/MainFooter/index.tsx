@@ -110,7 +110,7 @@ export default function MainFooter({
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>Menu</Typography>
           <Stack sx={{ paddingTop: MetricSize.medium_15 }}>
             {navigateList.map((item) => (
-              <Tooltip key={item.link} title={item.name}>
+              <Tooltip key={item.name} title={item.name}>
                 <NavLink
                   style={{
                     textDecoration: 'none',

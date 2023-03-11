@@ -30,7 +30,7 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     name: 'Giảng viên',
-    link: 'mentor-profile/*',
+    link: 'mentor-profile',
   },
   {
     name: 'Blog',
