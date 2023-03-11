@@ -37,6 +37,7 @@ export default function TestSection() {
           name="text"
           label="Text Input"
           placeholder="Text"
+          defaultValue="Hello"
         />
         <FormInput
           variant="password"
@@ -44,6 +45,7 @@ export default function TestSection() {
           name="password"
           label="Password Input"
           placeholder="Text"
+          defaultValue="Hello"
         />
         <FormInput
           variant="dropdown"
@@ -52,6 +54,11 @@ export default function TestSection() {
           label="Dropdown Input"
           placeholder="Dropdown"
           data={optionData}
+          defaultValue={{
+            id: 0,
+            label: 'Option 1',
+            value: 'OPTION_1',
+          }}
         />
         <FormInput
           variant="number"
@@ -59,6 +66,7 @@ export default function TestSection() {
           name="number"
           label="Number Input"
           placeholder="Number"
+          defaultValue={1}
         />
         <FormInput
           variant="multiline"
@@ -66,6 +74,7 @@ export default function TestSection() {
           name="multiline"
           label="Multiline Input"
           placeholder="Multiline"
+          defaultValue="Hello"
         />
         <FormInput
           variant="image"
@@ -73,6 +82,7 @@ export default function TestSection() {
           name="image"
           label="Image Input"
           placeholder="Image"
+          defaultValue="Hello"
         />
         <FormInput
           variant="radioGroup"
@@ -81,6 +91,11 @@ export default function TestSection() {
           label="Radio Input"
           placeholder="Radio"
           data={optionData}
+          defaultValue={{
+            id: 0,
+            label: 'Option 1',
+            value: 'OPTION_1',
+          }}
         />
         <FormInput
           variant="date"
@@ -89,6 +104,7 @@ export default function TestSection() {
           label="Date Input"
           placeholder="Date"
           data={optionData}
+          defaultValue="Hello"
         />
         <FormInput
           variant="tags"
@@ -97,6 +113,11 @@ export default function TestSection() {
           label="Tag Input"
           placeholder="Tags"
           data={optionData}
+          defaultValue={{
+            id: 0,
+            label: 'Option 1',
+            value: 'OPTION_1',
+          }}
         />
         <Button customVariant="form" type="submit">
           Submit

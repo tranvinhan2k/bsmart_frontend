@@ -22,7 +22,7 @@ interface FormInputProps {
   name: string;
   label?: string;
   placeholder?: string;
-  defaultValue?: string;
+  defaultValue?: any;
   variant?: FormInputVariant;
   data?: OptionPayload[];
 }

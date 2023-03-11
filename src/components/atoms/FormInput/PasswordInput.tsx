@@ -1,8 +1,8 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import { useState } from 'react';
-import { SX_TEXT_INPUT_FORM } from './styles';
 import Icon from '../Icon';
+import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface PasswordInputProps {
   controller: UseControllerReturn<any, string>;

@@ -1,6 +1,6 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { TextField } from '@mui/material';
-import { SX_TEXT_INPUT_FORM } from './styles';
+import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface TextInputProps {
   controller: UseControllerReturn<any, string>;

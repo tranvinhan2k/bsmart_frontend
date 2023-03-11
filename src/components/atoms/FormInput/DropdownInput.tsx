@@ -1,6 +1,7 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { TextField, Autocomplete } from '@mui/material';
 import { OptionPayload } from '~/models';
+import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface DropdownInputProps {
   controller: UseControllerReturn<any, string>;
@@ -34,6 +35,7 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
       onBlur={onBlur}
       renderInput={(params) => (
         <TextField
+          sx={SX_TEXT_INPUT_FORM}
           inputRef={ref}
           error={invalid}
           placeholder={placeholder}

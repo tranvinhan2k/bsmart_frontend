@@ -4,6 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers';
+import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface HourPickerInputProps {
   controller: UseControllerReturn<any, string>;
@@ -22,6 +23,7 @@ function HourPickerInput({ controller, placeholder }: HourPickerInputProps) {
         onChange={(newValue) => onChange(newValue)}
         renderInput={(params) => (
           <TextField
+            sx={SX_TEXT_INPUT_FORM}
             {...params}
             variant="outlined"
             placeholder={placeholder}
