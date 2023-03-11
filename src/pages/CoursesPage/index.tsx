@@ -12,7 +12,11 @@ export default function CoursesPage() {
   return (
     <Grid
       container
-      sx={{ flexDirection: 'row', paddingTop: MetricSize.large_20 }}
+      sx={{
+        flexDirection: 'row',
+        paddingTop: MetricSize.large_20,
+        paddingX: { xs: 0, md: '95px' },
+      }}
     >
       <Grid item xs={12} md={3}>
         <CourseFilterSection />

@@ -33,7 +33,7 @@ const generateFormInput = (
   controller: UseControllerReturn<any, string>,
   placeholder: string,
   data: OptionPayload[],
-  helperText: string,
+  helperText: string
 ) => {
   switch (true) {
     case variant === 'text':
@@ -44,7 +44,11 @@ const generateFormInput = (
       );
     case variant === 'password':
       return (
-        <PasswordInput controller={controller} placeholder={placeholder} helperText={helperText} />
+        <PasswordInput
+          controller={controller}
+          placeholder={placeholder}
+          helperText={helperText}
+        />
       );
     case variant === 'number':
       return <NumberInput controller={controller} placeholder={placeholder} />;
@@ -89,7 +93,7 @@ export default function FormInput({
   variant = 'text',
   placeholder = '',
   data = [],
-  helperText = ''
+  helperText = '',
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });
 
@@ -107,4 +111,5 @@ FormInput.defaultProps = {
   placeholder: '',
   variant: 'text',
   data: [],
+  helperText: '',
 };

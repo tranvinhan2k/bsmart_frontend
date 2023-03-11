@@ -7,6 +7,10 @@ import FormInput from '~/components/atoms/FormInput';
 import { OptionPayload } from '~/models';
 import { CourseModulePayload } from '~/models/courses';
 import Icon from '~/components/atoms/Icon';
+import { CREATE_COURSE_FIELDS } from '~/form/schema';
+import useYupValidationResolver from '~/hooks/useYupValidationResolver';
+import { validationSchemaCreateCourse } from '~/form/validation';
+import { defaultValueCreateCourse } from '~/form/defaultValues';
 // TODO : Not implement useHookForm yet !! waiting for API to start
 const mockLevelData: OptionPayload[] = [
   {
@@ -68,68 +72,13 @@ const mockDayOfWeek: OptionPayload[] = [
 ];
 
 export default function CreateCourseForm() {
-  const [modules, setModules] = useState<CourseModulePayload[]>([]);
-  const [moduleName, setModuleName] = useState<string>('');
-  const [topicName, setTopicName] = useState<string>('');
-  const createCourseHookForm = useForm();
-
-  const handleCreateNewModule = () => {
-    if (moduleName !== '') {
-      setModules([
-        ...modules,
-        {
-          id: modules?.[modules.length - 1]?.id
-            ? modules[modules.length - 1].id + 1
-            : 0,
-          label: moduleName,
-          topic: [],
-        },
-      ]);
-      setModuleName('');
-    }
-  };
-
-  const handleDeleteModule = (id: number) => {
-    setModules(modules.filter((item) => item.id !== id));
-  };
-  const handleCreateNewTopic = (moduleId: number) => {
-    const updateModule = modules.map((item) => {
-      if (item.id === moduleId) {
-        return {
-          id: item.id,
-          label: item.label,
-          topic: [
-            ...item.topic,
-            {
-              id: item?.topic?.[item.topic.length - 1]?.id
-                ? item.topic[item.topic.length - 1].id
-                : 0,
-              label: topicName,
-            },
-          ],
-        };
-      }
-      return item;
-    });
-    if (topicName !== '') {
-      setModules(updateModule);
-      setTopicName('');
-    }
-  };
-
-  const handleDeleteTopic = (moduleId: number, topicModule: number) => {
-    const updateModule = modules.map((item) => {
-      if (item.id === moduleId) {
-        return {
-          id: item.id,
-          label: item.label,
-          topic: item.topic.filter((topic) => topic.id !== topicModule),
-        };
-      }
-      return item;
-    });
-    setModules(updateModule);
-  };
+  const resolverCreateCourse = useYupValidationResolver(
+    validationSchemaCreateCourse
+  );
+  const createCourseHookForm = useForm({
+    defaultValues: defaultValueCreateCourse,
+    resolver: resolverCreateCourse,
+  });
 
   function onSubmitSuccess(data: any) {
     console.log(data);
@@ -141,79 +90,47 @@ export default function CreateCourseForm() {
         <CollapseStack label="Thông tin khóa học">
           <Stack padding={1}>
             <FormInput
-              name=""
+              name={CREATE_COURSE_FIELDS.name}
               control={createCourseHookForm.control}
               label="Tên Khóa Học"
             />
             <FormInput
               data={mockLevelData}
               variant="radioGroup"
-              name=""
+              name={CREATE_COURSE_FIELDS.level}
               control={createCourseHookForm.control}
               label="Trình độ"
             />
             <FormInput
               data={mockSubjectTypeData}
               variant="image"
-              name=""
+              name={CREATE_COURSE_FIELDS.image}
               control={createCourseHookForm.control}
               label="Hình ảnh"
             />
             <FormInput
               data={mockSubjectTypeData}
               variant="dropdown"
-              name=""
+              name={CREATE_COURSE_FIELDS.category}
               control={createCourseHookForm.control}
               label="Lĩnh Vực"
             />
             <FormInput
               data={mockSubjectTypeData}
               variant="dropdown"
-              name=""
+              name={CREATE_COURSE_FIELDS.programmingLanguage}
               control={createCourseHookForm.control}
               label="Ngôn ngữ lập trình"
             />
             <FormInput
               data={mockSubjectTypeData}
               variant="dropdown"
-              name=""
+              name={CREATE_COURSE_FIELDS.type}
               control={createCourseHookForm.control}
               label="Hình thức khóa học"
             />
             <FormInput
-              data={mockSubjectTypeData}
-              name=""
-              control={createCourseHookForm.control}
-              label="Link Google Meet"
-            />
-            <Stack
-              sx={{ flexDirection: 'row', justifyContent: 'space-between' }}
-            >
-              <FormInput
-                data={mockSubjectTypeData}
-                name=""
-                variant="number"
-                control={createCourseHookForm.control}
-                label="Số lượng học viên tối thiểu"
-              />
-              <Stack marginLeft={1} />
-              <FormInput
-                data={mockSubjectTypeData}
-                name=""
-                variant="number"
-                control={createCourseHookForm.control}
-                label="Số lượng học viên tối đa"
-              />
-            </Stack>
-            <FormInput
-              data={mockSubjectTypeData}
-              name=""
-              variant="tags"
-              control={createCourseHookForm.control}
-              label="Tags"
-            />
-            <FormInput
-              name=""
+              name={CREATE_COURSE_FIELDS.courseDescription}
               variant="multiline"
               control={createCourseHookForm.control}
               label="Mô tả khóa học"
@@ -221,132 +138,12 @@ export default function CreateCourseForm() {
           </Stack>
         </CollapseStack>
         <Stack marginTop={2}>
-          <CollapseStack label="Lộ Trình khóa học">
-            {modules.length > 0 && (
-              <Stack>
-                {modules.map((item) => (
-                  <Stack marginTop={1} key={item.id} flexDirection="row">
-                    <CollapseStack label={item.label}>
-                      <Stack>
-                        {item.topic.map((topic) => (
-                          <Stack key={topic.id} flexDirection="row">
-                            <Stack
-                              sx={{
-                                border: '1px solid black',
-                                padding: 1,
-                                flexGrow: 1,
-                                marginY: 1,
-                              }}
-                            >
-                              {topic.label}
-                            </Stack>
-                            <Stack
-                              paddingX={1}
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <IconButton
-                                onClick={() =>
-                                  handleDeleteTopic(item.id, topic.id)
-                                }
-                              >
-                                <Icon name="close" size="small" color="red" />
-                              </IconButton>
-                            </Stack>
-                          </Stack>
-                        ))}
-                        <Stack flexDirection="row">
-                          <Stack flexGrow={1}>
-                            <TextField
-                              value={topicName}
-                              onChange={(e) => {
-                                setTopicName(e.target.value);
-                              }}
-                            />
-                          </Stack>
-                          <Stack padding={1}>
-                            <IconButton
-                              onClick={() => handleCreateNewTopic(item.id)}
-                            >
-                              <Icon name="add" size="small" />
-                            </IconButton>
-                          </Stack>
-                        </Stack>
-                      </Stack>
-                    </CollapseStack>
-                    <Stack
-                      paddingX={1}
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <IconButton onClick={() => handleDeleteModule(item.id)}>
-                        <Icon name="close" size="small" color="red" />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                ))}
-              </Stack>
-            )}
-            <Stack marginTop={1} flexDirection="row" alignItems="center">
-              <Stack flexGrow={1} marginRight={2}>
-                <TextField
-                  placeholder="Nhập tên module"
-                  value={moduleName}
-                  onChange={(e) => {
-                    setModuleName(e.target.value);
-                  }}
-                />
-              </Stack>
-              <Button onClick={handleCreateNewModule} customVariant="outlined">
-                <Stack sx={{ alignItems: 'center', flexDirection: 'row' }}>
-                  <Icon name="add" size="medium" />
-                  <Typography>Thêm Module</Typography>
-                </Stack>
-              </Button>
-            </Stack>
-          </CollapseStack>
-        </Stack>
-        <Stack marginTop={2}>
-          <CollapseStack label="Thời Gian Lớp Học">
-            <FormInput
-              control={createCourseHookForm.control}
-              name=""
-              variant="time"
-              label="Giờ bắt đầu"
-            />
-            <Stack marginLeft={1} />
-            <FormInput
-              control={createCourseHookForm.control}
-              name=""
-              variant="time"
-              label="Giờ kết thúc"
-            />
-            <FormInput
-              data={mockSlotNumber}
-              control={createCourseHookForm.control}
-              name=""
-              variant="dropdown"
-              label="Slot học"
-            />
-            <Stack marginLeft={1} />
-            <FormInput
-              control={createCourseHookForm.control}
-              name=""
-              variant="date"
-              label="Ngày dự kiến"
-            />
-            <FormInput
-              data={mockDayOfWeek}
-              control={createCourseHookForm.control}
-              name="multiSelect"
-              label="Chọn thứ cho lớp học"
-              variant="multiSelect"
-            />
-            <Button customVariant="normal">Tạo lớp học</Button>
-          </CollapseStack>
-        </Stack>
-        <Stack marginTop={2}>
-          <Button customVariant="form">TẠO KHÓA HỌC</Button>
+          <Button
+            onClick={createCourseHookForm.handleSubmit(onSubmitSuccess)}
+            customVariant="form"
+          >
+            TẠO KHÓA HỌC
+          </Button>
         </Stack>
       </form>
     </Stack>
