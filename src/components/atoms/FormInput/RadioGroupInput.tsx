@@ -1,5 +1,10 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import {
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  FormHelperText,
+} from '@mui/material';
 import { OptionPayload } from '~/models';
 
 interface RadioGroupInputProps {
@@ -17,22 +22,27 @@ function RadioGroupInput({ controller, data }: RadioGroupInputProps) {
   } = controller;
 
   return (
-    <RadioGroup
-      row
-      value={value}
-      onChange={controllerOnChange}
-      aria-labelledby="demo-row-radio-buttons-group-label"
-      name="row-radio-buttons-group"
-    >
-      {data.map((item) => (
-        <FormControlLabel
-          key={item.id}
-          value={item.value}
-          control={<Radio />}
-          label={item.label}
-        />
-      ))}
-    </RadioGroup>
+    <>
+      <RadioGroup
+        row
+        value={value}
+        onChange={controllerOnChange}
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        {data.map((item) => (
+          <FormControlLabel
+            key={item.id}
+            value={item.value}
+            control={<Radio />}
+            label={item.label}
+          />
+        ))}
+      </RadioGroup>
+      {invalid && (
+        <FormHelperText error={invalid}>{error?.message}</FormHelperText>
+      )}
+    </>
   );
 }
 export default RadioGroupInput;

@@ -1,4 +1,4 @@
-import { number, object, string, ref } from 'yup';
+import { object, string, ref } from 'yup';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -97,8 +97,8 @@ export const validationSchemaCreateCourse = object({
   name: string().required(COURSE_NAME_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
   image: string().required(COURSE_IMAGE_REQUIRED),
-  category: string().required(COURSE_CATEGORY_REQUIRED),
-  programmingLanguage: string().required(COURSE_LANGUAGE_REQUIRED),
-  type: string().required(COURSE_TYPE),
+  category: object().required(COURSE_CATEGORY_REQUIRED),
+  programmingLanguage: object().required(COURSE_LANGUAGE_REQUIRED),
+  type: object().required(COURSE_TYPE),
   courseDescription: string().required(COURSE_DESCRIPTION),
 });

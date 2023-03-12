@@ -28,7 +28,7 @@ export default function StudentRegisterForm() {
     mutationFn: accountApi.signUp,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      queryClient.invalidateQueries({ queryKey: ['registerStudent'] });
     },
   });
 
@@ -48,10 +48,10 @@ export default function StudentRegisterForm() {
     };
     const id = toast.loadToast('Đang đăng kí khoá học ...');
     try {
-      const response = await mutation.mutateAsync(params);
+      await mutation.mutateAsync(params);
       toast.updateSuccessToast(id, 'Đăng kí thành công!');
-    } catch (error) {
-      toast.updateFailedToast(id, 'Đăng kí không thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
     }
   };
   return (

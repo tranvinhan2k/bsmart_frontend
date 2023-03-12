@@ -7,9 +7,13 @@ import { SX_TEXT_INPUT_FORM } from '~/styles';
 interface PasswordInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
-  helperText: string
+  helperText: string;
 }
-function PasswordInput({ controller, placeholder, helperText }: PasswordInputProps) {
+function PasswordInput({
+  controller,
+  placeholder,
+  helperText,
+}: PasswordInputProps) {
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
     fieldState: { invalid, error },

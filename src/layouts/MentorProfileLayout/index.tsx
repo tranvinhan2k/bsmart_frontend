@@ -9,7 +9,7 @@ export default function MentorProfileLayout({
   children,
 }: MentorProfileLayoutProps) {
   return (
-    <Grid container>
+    <Grid container sx={{ paddingX: { xs: 0, md: '95px' } }}>
       <Grid item xs={12} md={4}>
         <Stack marginX={1} marginY={2}>
           <MentorDetailSection />

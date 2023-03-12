@@ -67,3 +67,13 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
   supportAnswerQuestion: 'yes',
   supportHomeWork: 'yes',
 };
+
+export const defaultValueCreateCourse = {
+  name: '',
+  level: '',
+  image: '',
+  category: null,
+  programmingLanguage: null,
+  type: null,
+  courseDescription: '',
+};
