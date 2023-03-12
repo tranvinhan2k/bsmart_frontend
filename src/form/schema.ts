@@ -45,15 +45,15 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
 };
 
 export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
-{
-  avatar: 'avatar',
-  name: 'name',
-  birthday: 'birthday',
-  address: 'address',
-  phone: 'phone',
-  identityFront: 'identityFront',
-  identityBack: 'identityBack',
-};
+  {
+    avatar: 'avatar',
+    name: 'name',
+    birthday: 'birthday',
+    address: 'address',
+    phone: 'phone',
+    identityFront: 'identityFront',
+    identityBack: 'identityBack',
+  };
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
   email: 'email',
@@ -74,4 +74,13 @@ export const FEEDBACK_MENTOR_FIELDS = {
   subjectId: 'subjectId',
   supportAnswerQuestion: 'supportAnswerQuestion',
   supportHomeWork: 'supportHomeWork',
+};
+export const CREATE_COURSE_FIELDS = {
+  name: 'name',
+  level: 'level',
+  image: 'image',
+  category: 'category',
+  programmingLanguage: 'programmingLanguage',
+  type: 'type',
+  courseDescription: 'courseDescription',
 };

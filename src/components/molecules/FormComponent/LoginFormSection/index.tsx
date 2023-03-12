@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
+import { useGoogleLogin } from '@react-oauth/google';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
@@ -11,7 +12,6 @@ import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
-import { useGoogleLogin } from '@react-oauth/google';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -34,8 +34,8 @@ export default function LoginForm() {
   const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
 
   const handleGoogle = useGoogleLogin({
-    onSuccess: tokenResponse => console.log(tokenResponse),
-    onError: error => console.log(error)
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onError: (error) => console.log(error),
   });
 
   const handleRememberPassword = () => {
