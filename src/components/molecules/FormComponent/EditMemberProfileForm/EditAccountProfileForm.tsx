@@ -1,6 +1,7 @@
 import { Box, Divider, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
 import { Fragment } from 'react';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditAccountProfile } from '~/form/defaultValues';
 import { EDIT_PROFILE_FIELDS } from '~/form/schema';
 import {
@@ -8,8 +9,10 @@ import {
   FormInputVariant,
 } from '~/models/form';
 import { validationSchemaEditAccountProfile } from '~/form/validation';
+import accountApi, { EditPersonalProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
+import toast from '~/utils/toast';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
@@ -22,8 +25,25 @@ export default function EditAccountProfileForm() {
     resolver: resolverEditAccountProfile,
   });
 
-  const handleSubmitSuccess = (data: EditAccountProfileFormDataPayload) => {
-    // TODO: handle submit form
+  // const queryClient = useQueryClient();
+  const { mutateAsync: mutateEditPersonalProfile } = useMutation({
+    mutationFn: accountApi.editPersonalProfile,
+  });
+
+  const handleSubmitSuccess = async (
+    data: EditAccountProfileFormDataPayload
+  ) => {
+    const params: EditPersonalProfilePayload = {
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+    };
+    const id = toast.loadToast('Đang cập nhật ...');
+    try {
+      await mutateEditPersonalProfile(params);
+      toast.updateSuccessToast(id, 'Cập nhật thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+    }
   };
 
   interface FormFieldsPersonalProps {
@@ -35,38 +55,50 @@ export default function EditAccountProfileForm() {
 
   const EDIT_ACCOUNT_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin tài khoản',
-    EMAIL: {
-      LABEL: 'Email',
-      PLACEHOLDER: 'Nhập Email',
-    },
-    PASSWORD: {
+    OLD_PASSWORD: {
       LABEL: 'Mật khẩu',
-      PLACEHOLDER: 'Nhập Mật khẩu',
+      PLACEHOLDER: 'Mật khẩu',
     },
-    CONFIRM: {
-      LABEL: 'Nhập lại mật khẩu',
-      PLACEHOLDER: 'Nhập lại mật khẩu',
+    OLD_PASSWORD_CONFIRM: {
+      LABEL: 'Xác nhận mật khẩu',
+      PLACEHOLDER: 'Nhập xác nhận mật khẩu',
+    },
+    NEW_PASSWORD: {
+      LABEL: 'Mật khẩu mới',
+      PLACEHOLDER: 'Mật khẩu mới',
+    },
+    NEW_PASSWORD_CONFIRM: {
+      LABEL: 'Xác nhận mật khẩu mới',
+      PLACEHOLDER: 'Nhập mật khẩu mới',
     },
     BUTTON_TEXT: 'Cập nhật',
   };
 
   const formFieldsPersonal: FormFieldsPersonalProps[] = [
     {
-      name: EDIT_PROFILE_FIELDS.email,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.EMAIL.LABEL,
-      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.EMAIL.PLACEHOLDER,
-      variant: 'text',
-    },
-    {
-      name: EDIT_PROFILE_FIELDS.password,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.PASSWORD.LABEL,
-      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.PASSWORD.PLACEHOLDER,
+      name: EDIT_PROFILE_FIELDS.oldPassword,
+      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD.LABEL,
+      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD.PLACEHOLDER,
       variant: 'password',
     },
     {
-      name: EDIT_PROFILE_FIELDS.confirm,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.PASSWORD.LABEL,
-      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.CONFIRM.PLACEHOLDER,
+      name: EDIT_PROFILE_FIELDS.oldPasswordConfirm,
+      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD_CONFIRM.LABEL,
+      placeholder:
+        EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD_CONFIRM.PLACEHOLDER,
+      variant: 'password',
+    },
+    {
+      name: EDIT_PROFILE_FIELDS.newPassword,
+      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD.LABEL,
+      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD.PLACEHOLDER,
+      variant: 'password',
+    },
+    {
+      name: EDIT_PROFILE_FIELDS.newPasswordConfirm,
+      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD_CONFIRM.LABEL,
+      placeholder:
+        EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD_CONFIRM.PLACEHOLDER,
       variant: 'password',
     },
   ];
@@ -91,9 +123,11 @@ export default function EditAccountProfileForm() {
             />
           </Fragment>
         ))}
-        <Button customVariant="normal" type="submit">
-          {EDIT_ACCOUNT_PROFILE_FORM_TEXT.BUTTON_TEXT}
-        </Button>
+        <Box mt={4}>
+          <Button customVariant="normal" type="submit">
+            {EDIT_ACCOUNT_PROFILE_FORM_TEXT.BUTTON_TEXT}
+          </Button>
+        </Box>
       </form>
     </Box>
   );

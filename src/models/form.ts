@@ -45,9 +45,10 @@ export interface EditPersonalProfileFormDataPayload {
 }
 
 export interface EditAccountProfileFormDataPayload {
-  email: string;
-  password: string;
-  confirm: string;
+  oldPassword: string;
+  oldPasswordConfirm: string;
+  newPassword: string;
+  newPasswordConfirm: string;
 }
 
 export interface EditSocialProfileFormDataPayload {

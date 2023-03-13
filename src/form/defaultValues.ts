@@ -48,9 +48,10 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
 
 export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =
   {
-    email: '',
-    password: '',
-    confirm: '',
+    oldPassword: '',
+    oldPasswordConfirm: '',
+    newPassword: '',
+    newPasswordConfirm: '',
   };
 
 export const defaultValueEditSocialProfile: EditSocialProfileFormDataPayload = {

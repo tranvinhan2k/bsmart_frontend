@@ -18,6 +18,10 @@ import {
   USERNAME_REQUIRED,
 } from '~/form/message';
 
+const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
+const PASSWORD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
   password: string().required(PASSWORD_REQUIRED),
@@ -28,16 +32,11 @@ export const validationSchemaRegisterStudent = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
     .required(PASSWORD_REQUIRED)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      PASSWORD_MATCHED
-    ),
-  phone: string()
-    .required(PHONE_REQUIRED)
-    .matches(/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/, PHONE_INVALID),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
+  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
 });
 
 export const validationSchemaRegisterMentor = object({
@@ -45,13 +44,8 @@ export const validationSchemaRegisterMentor = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
     .required(PASSWORD_REQUIRED)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      PASSWORD_MATCHED
-    ),
-  phone: string()
-    .required(PHONE_REQUIRED)
-    .matches(/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/, PHONE_INVALID),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
@@ -73,9 +67,18 @@ export const validationSchemaEditPersonalProfile = object({
 });
 
 export const validationSchemaEditAccountProfile = object({
-  email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
-  password: string().required(PASSWORD_REQUIRED),
-  confirm: string().required(PASSWORD_REQUIRED),
+  oldPassword: string()
+    .required(PASSWORD_REQUIRED)
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+  oldPasswordConfirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('oldPassword')], CONFIRM_PASSWORD_NOT_MATCH),
+  newPassword: string()
+    .required(PASSWORD_REQUIRED)
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+  newPasswordConfirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),
 });
 
 export const validationSchemaEditSocialProfile = object({

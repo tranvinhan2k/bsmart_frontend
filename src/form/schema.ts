@@ -56,9 +56,10 @@ export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
   };
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
-  email: 'email',
-  password: 'password',
-  confirm: 'confirm',
+  oldPassword: 'oldPassword',
+  oldPasswordConfirm: 'oldPasswordConfirm',
+  newPassword: 'newPassword',
+  newPasswordConfirm: 'newPasswordConfirm',
 };
 
 export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
