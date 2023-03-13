@@ -1,6 +1,6 @@
-import EditPersonalProfileForm from '~/components/molecules/FormComponent/EditMemberProfileForm/EditPersonalProfileForm';
-import EditAccountProfileForm from '~/components/molecules/FormComponent/EditMemberProfileForm/EditAccountProfileForm';
-import EditSocialProfileForm from '~/components/molecules/FormComponent/EditMemberProfileForm/EditSocialProfileForm';
+import EditPersonalProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditPersonalProfileForm';
+import EditAccountProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditAccountProfileForm';
+import EditSocialProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditSocialProfileForm';
 
 export default function EditMemberProfilePage() {
   return (

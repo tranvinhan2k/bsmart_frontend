@@ -628,7 +628,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
 ];
-export const mockMentorDetailInformationData = {
+export const mockMentorDetailsInformationData = {
   imageLink: mentor,
   name: 'Mentor Cuong',
   role: 'Mentor',
@@ -647,7 +647,33 @@ export const mockMentorDetailInformationData = {
     },
   ],
   gender: 'male',
-  dateofBirth: new Date().toISOString(),
+  dateOfBirth: new Date().toISOString(),
+  address: 'Tân Bình, Tp. Hồ Chí Minh',
+  mail: 'mentor@gmail.com',
+  phone: '0946005077',
+  walletMoney: 300000,
+};
+
+export const mockMemberDetailsInformationData = {
+  imageLink: mentor,
+  name: 'Adam',
+  role: 'Member',
+  socials: [
+    {
+      image: 'facebook',
+      link: '',
+    },
+    {
+      image: 'twitter',
+      link: '',
+    },
+    {
+      image: 'linkedin',
+      link: '',
+    },
+  ],
+  gender: 'male',
+  dateOfBirth: new Date().toISOString(),
   address: 'Tân Bình, Tp. Hồ Chí Minh',
   mail: 'mentor@gmail.com',
   phone: '0946005077',

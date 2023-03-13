@@ -1,5 +1,6 @@
-import { Grid, Stack } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
+import { SX_WRAPPER, SX_CONTAINER } from './style';
 
 interface MentorProfileLayoutProps {
   children: any;
@@ -9,18 +10,30 @@ export default function MentorProfileLayout({
   children,
 }: MentorProfileLayoutProps) {
   return (
-    <Grid container sx={{ paddingX: { xs: 0, md: '95px' } }}>
-      <Grid item xs={12} md={4}>
-        <Stack marginX={1} marginY={2}>
-          <MentorDetailSection />
-        </Stack>
-      </Grid>
-
-      <Grid item xs={12} md={8}>
-        <Stack marginX={1} marginY={2}>
-          {children}
-        </Stack>
-      </Grid>
-    </Grid>
+    <Box sx={SX_WRAPPER}>
+      <Box sx={SX_CONTAINER}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={5}
+        >
+          <Grid item xs={12} sm={4} md={5} lg={4}>
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={2}
+            >
+              <MentorDetailSection />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={8} md={7} lg={8}>
+            {children}
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 }
