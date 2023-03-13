@@ -14,15 +14,17 @@ export default function SearchBar({
   placeholder,
   onSubmit,
 }: SearchBarProps) {
-  const [searchValue, setSearchValue] = useState<string>();
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const handleChangeSearchValue = (event: any) => {
     setSearchValue(event.target.value);
   };
 
-  const handleSubmitSearchValue = () => {
-    if (!searchValue) return;
-    onSubmit(searchValue);
+  const handleTextFieldKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onSubmit(searchValue);
+    }
   };
   return (
     <Stack
@@ -51,7 +53,7 @@ export default function SearchBar({
         }}
         value={searchValue}
         onChange={handleChangeSearchValue}
-        onSubmit={handleSubmitSearchValue}
+        onKeyDown={handleTextFieldKeyDown}
         placeholder={placeholder}
         InputProps={{
           endAdornment: <Icon name="search" size="medium" color={color} />,

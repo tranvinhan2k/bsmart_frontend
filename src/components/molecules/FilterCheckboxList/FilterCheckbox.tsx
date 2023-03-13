@@ -8,20 +8,31 @@ import { OptionPayload } from '~/models';
 
 interface FilterCheckboxProps {
   label: string;
-  data: OptionPayload[];
+  data: OptionPayload[] | undefined;
+  onChange: (data: number[]) => void;
 }
 
-export default function FilterCheckbox({ label, data }: FilterCheckboxProps) {
-  const [checkedList, setCheckedList] = useState<string[]>([]);
+export default function FilterCheckbox({
+  label,
+  data,
+  onChange,
+}: FilterCheckboxProps) {
+  const [checkedList, setCheckedList] = useState<number[]>([]);
   const [isViewMore, setViewMore] = useState<boolean>(true);
   const [isViewMoreMobile, setViewMoreMobile] = useState<boolean>(false);
 
-  const handleClickedCheckBox = (value: string) => {
-    if (checkedList.includes(value)) {
-      setCheckedList(checkedList.filter((checkbox) => checkbox !== value));
+  const handleClickedCheckBox = (id: number) => {
+    if (checkedList.includes(id)) {
+      const resultCheckedList = checkedList.filter(
+        (checkbox) => checkbox !== id
+      );
+      setCheckedList(resultCheckedList);
+      onChange(resultCheckedList);
       return;
     }
-    setCheckedList([...checkedList, value]);
+    const resultSelectedCheckbox = [...checkedList, id];
+    setCheckedList(resultSelectedCheckbox);
+    onChange(resultSelectedCheckbox);
   };
 
   const handleTriggerViewMore = () => {
@@ -82,8 +93,8 @@ export default function FilterCheckbox({ label, data }: FilterCheckboxProps) {
               key={checkbox.id}
             >
               <Checkbox
-                isChecked={checkedList.includes(checkbox.value)}
-                onCheck={() => handleClickedCheckBox(checkbox.value)}
+                isChecked={checkedList.includes(checkbox.id)}
+                onCheck={() => handleClickedCheckBox(checkbox.id)}
               >
                 {checkbox.label}
               </Checkbox>

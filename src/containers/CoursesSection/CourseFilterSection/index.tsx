@@ -1,15 +1,46 @@
 import { Stack } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+import categoriesApi, { handleResponseGetCategories } from '~/api/categories';
+import { RequestGetCoursePayload } from '~/api/courses';
+import subjectsApi, { handleResponseGetSubjects } from '~/api/subjects';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
-import {
-  FieldOptionPayload,
-  ProvinceOptionPayload,
-  SubjectOptionPayload,
-  TypeOptionPayload,
-} from '~/constants';
+import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
 
-export default function CourseFilterSection() {
-  const handleSubmitSearchValue = () => {};
+interface CourseFilterSectionProps {
+  filter: RequestGetCoursePayload;
+  onFilter: (params: RequestGetCoursePayload) => void;
+}
+
+export default function CourseFFilterSection(props: CourseFilterSectionProps) {
+  const { data: categories } = useQuery({
+    queryFn: () => categoriesApi.getAllCategories(),
+    queryKey: ['categories'],
+  });
+  const { data: subjects } = useQuery({
+    queryFn: () => subjectsApi.getAllSubjects(),
+    queryKey: ['subjects'],
+  });
+
+  const { filter, onFilter } = props;
+
+  const handleSubmitSearchValue = (searchValue: string) => {
+    onFilter({ ...filter, q: searchValue });
+  };
+
+  const handleFilterFields = (categoryId: number[]) => {
+    onFilter({ ...filter, categoryId });
+  };
+  const handleFilterSubjects = (subjectId: number[]) => {
+    onFilter({ ...filter, subjectId });
+  };
+  const handleFilterTypes = (types: number[]) => {
+    onFilter({ ...filter, types });
+  };
+  const handleFilterProvinces = (provinces: number[]) => {
+    onFilter({ ...filter, provinces });
+  };
+
   return (
     <Stack marginX={2}>
       <SearchBar
@@ -18,10 +49,14 @@ export default function CourseFilterSection() {
         onSubmit={handleSubmitSearchValue}
       />
       <FilterCheckboxList
-        fields={FieldOptionPayload}
-        subjects={SubjectOptionPayload}
+        fields={handleResponseGetCategories(categories)}
+        subjects={handleResponseGetSubjects(subjects)}
         types={TypeOptionPayload}
         provinces={ProvinceOptionPayload}
+        onFields={handleFilterFields}
+        onSubjects={handleFilterSubjects}
+        onTypes={handleFilterTypes}
+        onProvinces={handleFilterProvinces}
       />
     </Stack>
   );

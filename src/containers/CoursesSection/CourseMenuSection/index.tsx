@@ -10,12 +10,23 @@ import {
   Typography,
 } from '@mui/material';
 import { CourseList } from '~/constants';
-import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CourseItem from '~/components/molecules/CourseItem';
+import { CoursePayload } from '~/models/courses';
+import { PagingFilterPayload } from '~/models';
 
-export default function CourseMenuSection() {
+interface CourseMenuSectionProps {
+  error: any;
+  data: PagingFilterPayload<CoursePayload> | null;
+  isLoading: any;
+}
+
+export default function CourseMenuSection(props: CourseMenuSectionProps) {
+  const { data, error, isLoading } = props;
   const navigation = useNavigate();
   const [dropDownValue, setDropDownValue] = useState('');
+
+  console.log(data);
 
   const handleChange = (event: any) => {
     setDropDownValue(event.target.value);
@@ -24,6 +35,41 @@ export default function CourseMenuSection() {
   const handleNavigateCourseDetail = (id: string) => {
     navigation(`course-detail/${id}`);
   };
+
+  let courseData = null;
+
+  switch (true) {
+    case Boolean(error):
+      courseData = error.message;
+      break;
+    case isLoading:
+      courseData = <Typography>Is Loading ...</Typography>;
+      break;
+    case data?.items.length === 0:
+      courseData = <Typography>No Items</Typography>;
+      break;
+    default:
+      courseData = (
+        <Stack
+          sx={{
+            paddingY: MetricSize.medium_15,
+          }}
+          flexDirection="row"
+          flexWrap="wrap"
+          alignContent="space-around"
+          alignItems="stretch"
+        >
+          {data?.items.map((item) => (
+            <CourseItem
+              key={item.id}
+              item={item}
+              onClick={() => handleNavigateCourseDetail(`${item.id}`)}
+            />
+          ))}
+        </Stack>
+      );
+      break;
+  }
 
   return (
     <Stack sx={{ width: '100%' }}>
@@ -41,7 +87,7 @@ export default function CourseMenuSection() {
               paddingRight: MetricSize.small_5,
             }}
           >
-            {CourseList.length}
+            {data?.items?.length || 0}
           </Typography>
           <Typography
             sx={{ fontFamily: FontFamily.regular, fontSize: FontSize.small_16 }}
@@ -66,27 +112,21 @@ export default function CourseMenuSection() {
           </Select>
         </FormControl>
       </Stack>
-      <Stack
-        sx={{
-          paddingY: MetricSize.medium_15,
-        }}
-        flexDirection="row"
-        flexWrap="wrap"
-        justifyContent="space-between"
-        alignContent="space-around"
-        alignItems="center"
-      >
-        {CourseList.map((item) => (
-          <CourseItem
-            key={item.id}
-            item={item}
-            onClick={() => handleNavigateCourseDetail(`${item.id}`)}
+      {courseData}
+      {data && data.items.length > 0 && (
+        <Stack justifyContent="center" alignItems="center" padding={2}>
+          <Pagination
+            sx={{
+              fontSize: FontSize.small_18,
+              color: Color.white,
+              fontFamily: FontFamily.bold,
+            }}
+            color="secondary"
+            size="large"
+            count={data?.totalPages}
           />
-        ))}
-      </Stack>
-      <Stack justifyContent="center" alignItems="center" padding={2}>
-        <Pagination size="large" count={10} />
-      </Stack>
+        </Stack>
+      )}
     </Stack>
   );
 }
