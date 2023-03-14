@@ -36,8 +36,8 @@ export interface FeedbackMentorDataPayload {
 
 export interface EditPersonalProfileFormDataPayload {
   avatar: string;
-  name: string;
-  birthday: string;
+  fullName: string;
+  birthday: Date | '';
   address: string;
   phone: string;
   identityFront: string;
@@ -52,9 +52,9 @@ export interface EditAccountProfileFormDataPayload {
 }
 
 export interface EditSocialProfileFormDataPayload {
-  facebook: string;
-  twitter: string;
-  instagram: string;
+  facebookLink: string;
+  twitterLink: string;
+  instagramLink: string;
 }
 
 export type FormInputVariant =

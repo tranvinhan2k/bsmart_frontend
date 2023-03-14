@@ -44,16 +44,15 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
   supportHomeWork: 'yes',
 };
 
-export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
-  {
-    avatar: 'avatar',
-    name: 'name',
-    birthday: 'birthday',
-    address: 'address',
-    phone: 'phone',
-    identityFront: 'identityFront',
-    identityBack: 'identityBack',
-  };
+export const EDIT_PERSONAL_PROFILE_FIELDS = {
+  avatar: 'avatar',
+  fullName: 'fullName',
+  birthday: 'birthday',
+  address: 'address',
+  phone: 'phone',
+  identityFront: 'identityFront',
+  identityBack: 'identityBack',
+};
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
   oldPassword: 'oldPassword',
@@ -63,9 +62,9 @@ export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
 };
 
 export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
-  facebook: 'email',
-  twitter: 'password',
-  instagram: 'confirm',
+  facebookLink: 'facebookLink',
+  twitterLink: 'twitterLink',
+  instagramLink: 'instagramLink',
 };
 
 export const FEEDBACK_MENTOR_FIELDS = {

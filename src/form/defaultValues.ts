@@ -38,7 +38,7 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
 export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload =
   {
     avatar: '',
-    name: '',
+    fullName: '',
     birthday: '',
     address: '',
     phone: '',
@@ -55,9 +55,9 @@ export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =
   };
 
 export const defaultValueEditSocialProfile: EditSocialProfileFormDataPayload = {
-  facebook: '',
-  twitter: '',
-  instagram: '',
+  facebookLink: '',
+  twitterLink: '',
+  instagramLink: '',
 };
 
 export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {

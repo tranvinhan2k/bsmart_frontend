@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
 import { Fragment } from 'react';
-
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditSocialProfile } from '~/form/defaultValues';
 import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
 import {
@@ -9,8 +9,10 @@ import {
   FormInputVariant,
 } from '~/models/form';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
+import accountApi, { EditSocialProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
+import toast from '~/utils/toast';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
@@ -23,8 +25,25 @@ export default function EditSocialProfileForm() {
     resolver: resolverEditSocialProfile,
   });
 
-  const handleSubmitSuccess = (data: EditSocialProfileFormDataPayload) => {
-    // TODO: handle submit form
+  const { mutateAsync: mutateEditSocialProfile } = useMutation({
+    mutationFn: accountApi.editSocialProfile,
+  });
+
+  const handleSubmitSuccess = async (
+    data: EditSocialProfileFormDataPayload
+  ) => {
+    const params: EditSocialProfilePayload = {
+      facebookLink: data.facebookLink,
+      twitterLink: data.twitterLink,
+      instagramLink: data.instagramLink,
+    };
+    const id = toast.loadToast('Đang cập nhật ...');
+    try {
+      await mutateEditSocialProfile(params);
+      toast.updateSuccessToast(id, 'Cập nhật thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+    }
   };
 
   interface FormFieldsSocialProps {
@@ -36,15 +55,15 @@ export default function EditSocialProfileForm() {
 
   const EDIT_SOCIAL_PROFILE_FORM_TEXT = {
     TITLE: 'Liên kết mạng xã hội',
-    EMAIL: {
+    FACEBOOK_LINK: {
       LABEL: 'Facebook',
       PLACEHOLDER: 'Nhập link Facebook',
     },
-    PASSWORD: {
+    TWITTER_LINK: {
       LABEL: 'Twitter',
       PLACEHOLDER: 'Nhập link Twitter',
     },
-    CONFIRM: {
+    INSTAGRAM_LINK: {
       LABEL: 'Instagram',
       PLACEHOLDER: 'Nhập link Instagram',
     },
@@ -53,21 +72,21 @@ export default function EditSocialProfileForm() {
 
   const formFieldsSocial: FormFieldsSocialProps[] = [
     {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.facebook,
-      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.EMAIL.LABEL,
-      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.EMAIL.PLACEHOLDER,
+      name: EDIT_SOCIAL_PROFILE_FIELDS.facebookLink,
+      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.FACEBOOK_LINK.LABEL,
+      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.FACEBOOK_LINK.PLACEHOLDER,
       variant: 'text',
     },
     {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.twitter,
-      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.PASSWORD.LABEL,
-      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.PASSWORD.PLACEHOLDER,
+      name: EDIT_SOCIAL_PROFILE_FIELDS.twitterLink,
+      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.TWITTER_LINK.LABEL,
+      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.TWITTER_LINK.PLACEHOLDER,
       variant: 'text',
     },
     {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.instagram,
-      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.PASSWORD.LABEL,
-      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.CONFIRM.PLACEHOLDER,
+      name: EDIT_SOCIAL_PROFILE_FIELDS.instagramLink,
+      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.INSTAGRAM_LINK.LABEL,
+      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.INSTAGRAM_LINK.PLACEHOLDER,
       variant: 'text',
     },
   ];

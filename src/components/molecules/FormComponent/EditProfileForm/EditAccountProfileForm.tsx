@@ -9,7 +9,7 @@ import {
   FormInputVariant,
 } from '~/models/form';
 import { validationSchemaEditAccountProfile } from '~/form/validation';
-import accountApi, { EditPersonalProfilePayload } from '~/api/users';
+import accountApi, { EditAccountProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
@@ -25,21 +25,20 @@ export default function EditAccountProfileForm() {
     resolver: resolverEditAccountProfile,
   });
 
-  // const queryClient = useQueryClient();
-  const { mutateAsync: mutateEditPersonalProfile } = useMutation({
-    mutationFn: accountApi.editPersonalProfile,
+  const { mutateAsync: mutateEditAccountProfile } = useMutation({
+    mutationFn: accountApi.editAccountProfile,
   });
 
   const handleSubmitSuccess = async (
     data: EditAccountProfileFormDataPayload
   ) => {
-    const params: EditPersonalProfilePayload = {
+    const params: EditAccountProfilePayload = {
       oldPassword: data.oldPassword,
       newPassword: data.newPassword,
     };
     const id = toast.loadToast('Đang cập nhật ...');
     try {
-      await mutateEditPersonalProfile(params);
+      await mutateEditAccountProfile(params);
       toast.updateSuccessToast(id, 'Cập nhật thành công');
     } catch (error: any) {
       toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);

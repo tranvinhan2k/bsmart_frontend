@@ -12,13 +12,17 @@ export interface RequestRegisterPayload {
   role: Role;
 }
 
-export interface EditPersonalProfilePayload {
+export interface EditAccountProfilePayload {
   oldPassword: string;
   newPassword: string;
 }
-
+export interface EditPersonalProfilePayload {
+  fullName: string;
+  birthday: Date | '';
+  address: string;
+  phone: string;
+}
 export interface EditSocialProfilePayload {
-  id: number;
   twitterLink: string;
   facebookLink: string;
   instagramLink: string;
@@ -28,11 +32,14 @@ const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
   },
-  editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/${data.id}/social`, data);
+  editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
+    return axiosClient.put(`${url}/account`, data);
   },
   editPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/account`, data);
+    return axiosClient.put(`${url}/personal`, data);
+  },
+  editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
+    return axiosClient.put(`${url}/social`, data);
   },
 };
 

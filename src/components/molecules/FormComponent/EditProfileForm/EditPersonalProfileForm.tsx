@@ -1,5 +1,6 @@
 import { Box, Divider, Typography, Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
 import { EDIT_PERSONAL_PROFILE_FIELDS } from '~/form/schema';
 import {
@@ -7,8 +8,10 @@ import {
   FormInputVariant,
 } from '~/models/form';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
+import accountApi, { EditPersonalProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
+import toast from '~/utils/toast';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
@@ -21,8 +24,28 @@ export default function EditPersonalProfileForm() {
     resolver: resolverEditPersonalProfile,
   });
 
-  const handleSubmitSuccess = (data: EditPersonalProfileFormDataPayload) => {
-    // TODO: handle submit form
+  // const queryClient = useQueryClient();
+  const { mutateAsync: mutateEditPersonalProfile } = useMutation({
+    mutationFn: accountApi.editPersonalProfile,
+  });
+
+  const handleSubmitSuccess = async (
+    data: EditPersonalProfileFormDataPayload
+  ) => {
+    console.log(data);
+    const params: EditPersonalProfilePayload = {
+      fullName: data.fullName,
+      birthday: data.birthday,
+      address: data.address,
+      phone: data.phone,
+    };
+    const id = toast.loadToast('Đang cập nhật ...');
+    try {
+      await mutateEditPersonalProfile(params);
+      toast.updateSuccessToast(id, 'Cập nhật thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+    }
   };
 
   interface FormFieldsPersonalProps {
@@ -71,7 +94,7 @@ export default function EditPersonalProfileForm() {
       size: 6,
     },
     {
-      name: EDIT_PERSONAL_PROFILE_FIELDS.name,
+      name: EDIT_PERSONAL_PROFILE_FIELDS.fullName,
       label: EDIT_PERSONAL_PROFILE_FORM_TEXT.NAME.LABEL,
       placeholder: EDIT_PERSONAL_PROFILE_FORM_TEXT.NAME.PLACEHOLDER,
       variant: 'text',
@@ -81,7 +104,7 @@ export default function EditPersonalProfileForm() {
       name: EDIT_PERSONAL_PROFILE_FIELDS.birthday,
       label: EDIT_PERSONAL_PROFILE_FORM_TEXT.BIRTHDAY.LABEL,
       placeholder: EDIT_PERSONAL_PROFILE_FORM_TEXT.BIRTHDAY.PLACEHOLDER,
-      variant: 'text',
+      variant: 'date',
       size: 12,
     },
     {

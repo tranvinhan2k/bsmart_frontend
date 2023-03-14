@@ -1,4 +1,4 @@
-import { object, string, ref } from 'yup';
+import { date, object, ref, string } from 'yup';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -58,12 +58,13 @@ export const validationSchemaBuyCourse = object({
 });
 
 export const validationSchemaEditPersonalProfile = object({
-  avatar: string().required(),
-  name: string().required(),
-  birthday: string().required(),
+  avatar: string(),
+  fullName: string().required(),
+  birthday: date().required(),
   address: string().required(),
   phone: string().required(),
-  identity: string().required(),
+  identityFront: string(),
+  identityBack: string(),
 });
 
 export const validationSchemaEditAccountProfile = object({
