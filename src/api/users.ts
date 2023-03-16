@@ -16,6 +16,13 @@ export interface EditAccountProfilePayload {
   oldPassword: string;
   newPassword: string;
 }
+export interface EditCertificateProfilePayload {
+  certificate1: string;
+  certificate2: string;
+  certificate3: string;
+  certificate4: string;
+  certificate5: string;
+}
 export interface EditPersonalProfilePayload {
   fullName: string;
   birthday: Date | '';
@@ -34,6 +41,9 @@ const accountApi = {
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);
+  },
+  editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
+    return axiosClient.put(`${url}/certificate`, data);
   },
   editPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/personal`, data);

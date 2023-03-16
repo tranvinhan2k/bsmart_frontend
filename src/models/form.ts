@@ -44,6 +44,14 @@ export interface EditPersonalProfileFormDataPayload {
   identityBack: string;
 }
 
+export interface EditCertificateProfileFormDataPayload {
+  certificate1: string;
+  certificate2: string;
+  certificate3: string;
+  certificate4: string;
+  certificate5: string;
+}
+
 export interface EditAccountProfileFormDataPayload {
   oldPassword: string;
   oldPasswordConfirm: string;

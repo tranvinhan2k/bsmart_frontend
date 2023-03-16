@@ -1,6 +1,7 @@
 import {
   BuyCourseDataPayload,
   EditAccountProfileFormDataPayload,
+  EditCertificateProfileFormDataPayload,
   EditPersonalProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
   FeedbackMentorDataPayload,
@@ -44,6 +45,15 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
     phone: '',
     identityFront: '',
     identityBack: '',
+  };
+
+export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
+  {
+    certificate1: '',
+    certificate2: '',
+    certificate3: '',
+    certificate4: '',
+    certificate5: '',
   };
 
 export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =

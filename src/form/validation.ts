@@ -67,6 +67,14 @@ export const validationSchemaEditPersonalProfile = object({
   identityBack: string(),
 });
 
+export const validationSchemaEditCertificateProfile = object({
+  certificate1: string(),
+  certificate2: string(),
+  certificate3: string(),
+  certificate4: string(),
+  certificate5: string(),
+});
+
 export const validationSchemaEditAccountProfile = object({
   oldPassword: string()
     .required(PASSWORD_REQUIRED)

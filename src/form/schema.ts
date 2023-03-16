@@ -54,6 +54,14 @@ export const EDIT_PERSONAL_PROFILE_FIELDS = {
   identityBack: 'identityBack',
 };
 
+export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
+  certificate1: 'certificate1',
+  certificate2: 'certificate2',
+  certificate3: 'certificate3',
+  certificate4: 'certificate4',
+  certificate5: 'certificate5',
+};
+
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
   oldPassword: 'oldPassword',
   oldPasswordConfirm: 'oldPasswordConfirm',
