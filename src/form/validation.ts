@@ -65,6 +65,7 @@ export const validationSchemaEditPersonalProfile = object({
   phone: string().required(),
   identityFront: string(),
   identityBack: string(),
+  introduce: string(),
 });
 
 export const validationSchemaEditCertificateProfile = object({

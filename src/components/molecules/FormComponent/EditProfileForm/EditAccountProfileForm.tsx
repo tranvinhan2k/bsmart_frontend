@@ -41,7 +41,10 @@ export default function EditAccountProfileForm() {
       await mutateEditAccountProfile(params);
       toast.updateSuccessToast(id, 'Cập nhật thành công');
     } catch (error: any) {
-      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+      toast.updateFailedToast(
+        id,
+        `Cập nhật không thành công: ${error.message}`
+      );
     }
   };
 
@@ -55,12 +58,12 @@ export default function EditAccountProfileForm() {
   const EDIT_ACCOUNT_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin tài khoản',
     OLD_PASSWORD: {
-      LABEL: 'Mật khẩu',
-      PLACEHOLDER: 'Mật khẩu',
+      LABEL: 'Mật khẩu hiện tại',
+      PLACEHOLDER: 'Mật khẩu hiện tại',
     },
     OLD_PASSWORD_CONFIRM: {
-      LABEL: 'Xác nhận mật khẩu',
-      PLACEHOLDER: 'Nhập xác nhận mật khẩu',
+      LABEL: 'Xác nhận mật khẩu hiện tại',
+      PLACEHOLDER: 'Nhập xác nhận mật khẩu hiện tại',
     },
     NEW_PASSWORD: {
       LABEL: 'Mật khẩu mới',

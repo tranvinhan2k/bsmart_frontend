@@ -42,6 +42,7 @@ export interface EditPersonalProfileFormDataPayload {
   phone: string;
   identityFront: string;
   identityBack: string;
+  introduce?: string;
 }
 
 export interface EditCertificateProfileFormDataPayload {

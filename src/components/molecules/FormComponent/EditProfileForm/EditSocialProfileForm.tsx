@@ -9,11 +9,11 @@ import {
   EditSocialProfileFormDataPayload,
   FormInputVariant,
 } from '~/models/form';
+import { RootState } from '~/redux/store';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
 import accountApi, { EditSocialProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-import { RootState } from '~/redux/store';
 import toast from '~/utils/toast';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
@@ -22,12 +22,7 @@ export default function EditSocialProfileForm() {
   const resolverEditSocialProfile = useYupValidationResolver(
     validationSchemaEditSocialProfile
   );
-  const {
-    // editProfileHookForm
-    control,
-    handleSubmit,
-    reset,
-  } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: defaultValueEditSocialProfile,
     resolver: resolverEditSocialProfile,
   });
@@ -38,11 +33,6 @@ export default function EditSocialProfileForm() {
   const handleSubmitSuccess = async (
     data: EditSocialProfileFormDataPayload
   ) => {
-    // const params: EditSocialProfilePayload = {
-    //   facebookLink: data.facebookLink,
-    //   twitterLink: data.twitterLink,
-    //   instagramLink: data.instagramLink,
-    // };
     const params: EditSocialProfilePayload = {};
     if (data.facebookLink) params.facebookLink = data.facebookLink;
     if (data.twitterLink) params.twitterLink = data.twitterLink;
@@ -52,7 +42,10 @@ export default function EditSocialProfileForm() {
       await mutateEditSocialProfile(params);
       toast.updateSuccessToast(id, 'Cập nhật thành công');
     } catch (error: any) {
-      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+      toast.updateFailedToast(
+        id,
+        `Cập nhật không thành công: ${error.message}`
+      );
     }
   };
 
@@ -60,7 +53,6 @@ export default function EditSocialProfileForm() {
     name: string;
     variant: FormInputVariant;
     label: string;
-    defaultValue: string | undefined;
     placeholder: string;
   }
 
@@ -81,11 +73,13 @@ export default function EditSocialProfileForm() {
 
   useEffect(() => {
     if (dataGetProfile) {
-      const defaults = {
-        facebookLink: dataGetProfile.facebookLink,
-        twitterLink: dataGetProfile.twitterLink,
-        instagramLink: dataGetProfile.instagramLink,
-      };
+      const defaults = defaultValueEditSocialProfile;
+      if (dataGetProfile.facebookLink)
+        defaults.facebookLink = dataGetProfile.facebookLink;
+      if (dataGetProfile.twitterLink)
+        defaults.twitterLink = dataGetProfile.twitterLink;
+      if (dataGetProfile.instagramLink)
+        defaults.instagramLink = dataGetProfile.instagramLink;
       reset(defaults);
     }
   }, [dataGetProfile, reset]);
@@ -112,21 +106,18 @@ export default function EditSocialProfileForm() {
       name: EDIT_SOCIAL_PROFILE_FIELDS.facebookLink,
       label: EDIT_SOCIAL_PROFILE_FORM_TEXT.FACEBOOK_LINK.LABEL,
       placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.FACEBOOK_LINK.PLACEHOLDER,
-      defaultValue: dataGetProfile ? dataGetProfile.facebookLink : '',
       variant: 'text',
     },
     {
       name: EDIT_SOCIAL_PROFILE_FIELDS.twitterLink,
       label: EDIT_SOCIAL_PROFILE_FORM_TEXT.TWITTER_LINK.LABEL,
       placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.TWITTER_LINK.PLACEHOLDER,
-      defaultValue: dataGetProfile ? dataGetProfile.twitterLink : '',
       variant: 'text',
     },
     {
       name: EDIT_SOCIAL_PROFILE_FIELDS.instagramLink,
       label: EDIT_SOCIAL_PROFILE_FORM_TEXT.INSTAGRAM_LINK.LABEL,
       placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.INSTAGRAM_LINK.PLACEHOLDER,
-      defaultValue: dataGetProfile ? dataGetProfile.instagramLink : '',
       variant: 'text',
     },
   ];
@@ -146,7 +137,6 @@ export default function EditSocialProfileForm() {
               control={control}
               name={field.name}
               placeholder={field.placeholder}
-              defaultValue={field.defaultValue}
             />
           </Fragment>
         ))}

@@ -45,6 +45,7 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
     phone: '',
     identityFront: '',
     identityBack: '',
+    introduce: '',
   };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =

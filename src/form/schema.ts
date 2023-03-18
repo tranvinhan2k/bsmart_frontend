@@ -44,7 +44,7 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
   supportHomeWork: 'yes',
 };
 
-export const EDIT_PERSONAL_PROFILE_FIELDS = {
+export const EDIT_MEMBER_PERSONAL_PROFILE_FIELDS = {
   avatar: 'avatar',
   fullName: 'fullName',
   birthday: 'birthday',
@@ -53,6 +53,11 @@ export const EDIT_PERSONAL_PROFILE_FIELDS = {
   identityFront: 'identityFront',
   identityBack: 'identityBack',
 };
+
+export const EDIT_MENTOR_PERSONAL_PROFILE_FIELDS = Object.assign(
+  EDIT_MEMBER_PERSONAL_PROFILE_FIELDS,
+  { introduce: 'introduce' }
+);
 
 export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
   certificate1: 'certificate1',
