@@ -23,7 +23,7 @@ const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
 export const validationSchemaSignIn = object({
-  email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
+  email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string().required(PASSWORD_REQUIRED),
 });
 

@@ -3,6 +3,7 @@ import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 
 const url = `/users`;
+const urlAuth = `/auth`;
 
 export interface RequestRegisterPayload {
   fullName: string;
@@ -10,6 +11,10 @@ export interface RequestRegisterPayload {
   phone: string;
   password: string;
   role: Role;
+}
+export interface RequestSignInPayload {
+  email: string;
+  password: string;
 }
 
 export interface EditAccountProfilePayload {
@@ -30,14 +35,20 @@ export interface EditPersonalProfilePayload {
   phone: string;
 }
 export interface EditSocialProfilePayload {
-  twitterLink: string;
-  facebookLink: string;
-  instagramLink: string;
+  twitterLink?: string;
+  facebookLink?: string;
+  instagramLink?: string;
 }
 
 const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
+  },
+  signIn(data: RequestSignInPayload): Promise<any> {
+    return axiosClient.post(`${urlAuth}/signin`, data);
+  },
+  getProfile(config: any): Promise<any> {
+    return axiosClient.get(`${url}/profile`, config);
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);

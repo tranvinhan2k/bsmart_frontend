@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+import { signIn } from '~/redux/user/slice';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import useYupValidationResolver from '~/hooks/useYupValidationResolver';
@@ -10,8 +13,10 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
+import accountApi, { RequestSignInPayload } from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
+import toast from '~/utils/toast';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -43,9 +48,32 @@ export default function LoginForm() {
     // TODO: handle remember password
   };
 
-  const handleLoginDataSubmitSuccess = (data: LoginFormDataPayload) => {
-    // TODO: handle submit login
+  /* Login with be swagger */
+  const { mutateAsync } = useMutation({
+    mutationFn: accountApi.signIn,
+  });
+  const dispatch = useDispatch();
+
+  const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
+    const params: RequestSignInPayload = {
+      email: data.email,
+      password: data.password,
+    };
+    const id = toast.loadToast('Đang đăng nhập...');
+    try {
+      const signInData = await mutateAsync(params);
+      localStorage.setItem('token', signInData.token);
+      dispatch(signIn(signInData));
+      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+    } catch (error: any) {
+      toast.updateFailedToast(
+        id,
+        `Đăng nhập không thành công: ${error.message}`
+      );
+    }
   };
+  // const token = useSelector((state: RootState) => state.user.token);
+  // console.log('token', token);
 
   return (
     <Stack>

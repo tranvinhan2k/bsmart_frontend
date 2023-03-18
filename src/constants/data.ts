@@ -635,15 +635,15 @@ export const mockMentorDetailsInformationData = {
   socials: [
     {
       image: 'facebook',
-      link: '',
+      link: '/facebook',
     },
     {
       image: 'twitter',
-      link: '',
+      link: '/twitter',
     },
     {
       image: 'linkedin',
-      link: '',
+      link: '/linkedin',
     },
   ],
   gender: 'male',
@@ -661,15 +661,15 @@ export const mockMemberDetailsInformationData = {
   socials: [
     {
       image: 'facebook',
-      link: '',
+      link: '/facebook',
     },
     {
       image: 'twitter',
-      link: '',
+      link: '/twitter',
     },
     {
       image: 'linkedin',
-      link: '',
+      link: '/linkedin',
     },
   ],
   gender: 'male',
