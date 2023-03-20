@@ -11,9 +11,9 @@ import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import accountApi, { EditCertificateProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-import toast from '~/utils/toast';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
+
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { useYupValidationResolver } from '~/hooks';
 
 export default function EditCertificateProfileForm() {
   const resolverEditCertificateProfile = useYupValidationResolver(
