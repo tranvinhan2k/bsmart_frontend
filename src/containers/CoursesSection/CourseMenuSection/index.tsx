@@ -9,7 +9,8 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { CourseList } from '~/constants';
+import Skeleton from 'react-loading-skeleton';
+import toast from '~/utils/toast';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CourseItem from '~/components/molecules/CourseItem';
 import { CoursePayload } from '~/models/courses';
@@ -17,16 +18,14 @@ import { PagingFilterPayload } from '~/models';
 
 interface CourseMenuSectionProps {
   error: any;
-  data: PagingFilterPayload<CoursePayload> | null;
-  isLoading: any;
+  data: PagingFilterPayload<CoursePayload> | null | undefined;
+  isLoading: boolean;
 }
 
 export default function CourseMenuSection(props: CourseMenuSectionProps) {
   const { data, error, isLoading } = props;
   const navigation = useNavigate();
   const [dropDownValue, setDropDownValue] = useState('');
-
-  console.log(data);
 
   const handleChange = (event: any) => {
     setDropDownValue(event.target.value);
@@ -40,13 +39,65 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
 
   switch (true) {
     case Boolean(error):
-      courseData = error.message;
+      toast.notifyErrorToast(error.message);
+      courseData = (
+        <Stack
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: FontSize.small_18,
+              color: Color.red,
+              fontFamily: FontFamily.light,
+            }}
+          >
+            {error.message}
+          </Typography>
+        </Stack>
+      );
+
       break;
     case isLoading:
-      courseData = <Typography>Is Loading ...</Typography>;
+      courseData = (
+        <Stack
+          sx={{
+            paddingY: MetricSize.medium_15,
+          }}
+          flexDirection="row"
+          flexWrap="wrap"
+          alignContent="space-around"
+          alignItems="stretch"
+        >
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+            <CourseItem isSkeleton key={item} />
+          ))}
+        </Stack>
+      );
       break;
     case data?.items.length === 0:
-      courseData = <Typography>No Items</Typography>;
+      courseData = (
+        <Stack
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50vh',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: FontSize.small_18,
+              color: Color.grey,
+              fontFamily: FontFamily.light,
+            }}
+          >
+            Không có khóa học phù hợp.
+          </Typography>
+        </Stack>
+      );
       break;
     default:
       courseData = (
@@ -96,7 +147,7 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
           </Typography>
         </Stack>
 
-        <FormControl size="small">
+        {/* <FormControl size="small">
           <InputLabel id="demo-select-small">Sắp xếp khóa học</InputLabel>
           <Select
             sx={{ width: '200px' }}
@@ -110,7 +161,7 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
             <MenuItem value={40}>A - Z</MenuItem>
             <MenuItem value={50}>Z - A</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
       </Stack>
       {courseData}
       {data && data.items.length > 0 && (

@@ -1,11 +1,9 @@
 import { Stack } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import categoriesApi, { handleResponseGetCategories } from '~/api/categories';
 import { RequestGetCoursePayload } from '~/api/courses';
-import subjectsApi, { handleResponseGetSubjects } from '~/api/subjects';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
+import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
 
 interface CourseFilterSectionProps {
   filter: RequestGetCoursePayload;
@@ -13,14 +11,8 @@ interface CourseFilterSectionProps {
 }
 
 export default function CourseFFilterSection(props: CourseFilterSectionProps) {
-  const { data: categories } = useQuery({
-    queryFn: () => categoriesApi.getAllCategories(),
-    queryKey: ['categories'],
-  });
-  const { data: subjects } = useQuery({
-    queryFn: () => subjectsApi.getAllSubjects(),
-    queryKey: ['subjects'],
-  });
+  const { categories } = useQueryGetAllCategories();
+  const { subjects } = useQueryGetAllSubjects();
 
   const { filter, onFilter } = props;
 
@@ -49,8 +41,8 @@ export default function CourseFFilterSection(props: CourseFilterSectionProps) {
         onSubmit={handleSubmitSearchValue}
       />
       <FilterCheckboxList
-        fields={handleResponseGetCategories(categories)}
-        subjects={handleResponseGetSubjects(subjects)}
+        fields={categories}
+        subjects={subjects}
         types={TypeOptionPayload}
         provinces={ProvinceOptionPayload}
         onFields={handleFilterFields}
