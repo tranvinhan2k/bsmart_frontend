@@ -34,6 +34,12 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
+export interface EditImageProfileFormDataPayload {
+  avatar: string;
+  identityFront?: string;
+  identityBack?: string;
+}
+
 export interface EditPersonalProfileFormDataPayload {
   avatar: string;
   fullName: string;

@@ -140,9 +140,11 @@ export default function EditSocialProfileForm() {
             />
           </Fragment>
         ))}
-        <Button customVariant="normal" type="submit">
-          {EDIT_SOCIAL_PROFILE_FORM_TEXT.BUTTON_TEXT}
-        </Button>
+        <Box mt={4}>
+          <Button customVariant="normal" type="submit">
+            {EDIT_SOCIAL_PROFILE_FORM_TEXT.BUTTON_TEXT}
+          </Button>
+        </Box>
       </form>
     </Box>
   );

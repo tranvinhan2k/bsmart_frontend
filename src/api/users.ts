@@ -28,6 +28,11 @@ export interface EditCertificateProfilePayload {
   certificate4: string;
   certificate5: string;
 }
+export interface EditImageProfilePayload {
+  avatar: string;
+  identityFront?: string;
+  identityBack?: string;
+}
 export interface EditPersonalProfilePayload {
   fullName: string;
   birthday: Date | '';
@@ -46,13 +51,16 @@ const accountApi = {
     return axiosClient.post(`${url}/register`, data);
   },
   signIn(data: RequestSignInPayload): Promise<any> {
-    return axiosClient.post(`${urlAuth}/signin`, data);
+    return axiosClient.post(`${urlAuth}/login`, data);
   },
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);
+  },
+  editImageProfile(data: EditImageProfilePayload): Promise<any> {
+    return axiosClient.put(`${url}/images`, data);
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/certificate`, data);

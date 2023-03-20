@@ -44,6 +44,12 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
   supportHomeWork: 'yes',
 };
 
+export const EDIT_IMAGE_PROFILE_FIELDS = {
+  avatar: 'avatar',
+  identityFront: 'identityFront',
+  identityBack: 'identityBack',
+};
+
 export const EDIT_MEMBER_PERSONAL_PROFILE_FIELDS = {
   avatar: 'avatar',
   fullName: 'fullName',

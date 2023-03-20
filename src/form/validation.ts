@@ -13,6 +13,7 @@ import {
   EMAIL_REQUIRED,
   PASSWORD_MATCHED,
   PASSWORD_REQUIRED,
+  NAME_REQUIRED,
   PHONE_INVALID,
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
@@ -57,12 +58,18 @@ export const validationSchemaBuyCourse = object({
   voucher: string().required(PASSWORD_REQUIRED),
 });
 
+export const validationSchemaEditImageProfile = object({
+  avatar: string().required(),
+  identityFront: string(),
+  identityBack: string(),
+});
+
 export const validationSchemaEditPersonalProfile = object({
   avatar: string(),
-  fullName: string().required(),
-  birthday: date().required(),
-  address: string().required(),
-  phone: string().required(),
+  fullName: string().required(NAME_REQUIRED),
+  birthday: date(),
+  address: string(),
+  phone: string().required(PHONE_REQUIRED),
   identityFront: string(),
   identityBack: string(),
   introduce: string(),

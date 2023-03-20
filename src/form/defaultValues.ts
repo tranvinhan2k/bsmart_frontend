@@ -1,6 +1,7 @@
 import {
   BuyCourseDataPayload,
   EditAccountProfileFormDataPayload,
+  EditImageProfileFormDataPayload,
   EditCertificateProfileFormDataPayload,
   EditPersonalProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
@@ -36,6 +37,13 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
   phone: '',
   voucher: '',
 };
+
+export const defaultValueEditImageProfile: EditImageProfileFormDataPayload = {
+  avatar: '',
+  identityFront: '',
+  identityBack: '',
+};
+
 export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload =
   {
     avatar: '',

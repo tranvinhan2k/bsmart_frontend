@@ -234,9 +234,11 @@ export default function EditPersonalProfileForm() {
                 </Grid>
               ))}
           </Grid>
-          <Button customVariant="normal" type="submit">
-            {EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.BUTTON_TEXT}
-          </Button>
+          <Box mt={4}>
+            <Button customVariant="normal" type="submit">
+              {EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.BUTTON_TEXT}
+            </Button>
+          </Box>
         </form>
       )}
     </Box>
