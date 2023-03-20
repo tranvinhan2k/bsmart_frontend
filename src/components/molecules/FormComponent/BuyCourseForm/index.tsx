@@ -13,7 +13,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { defaultValueBuyCourse } from '~/form/defaultValues';
 import { BUY_COURSE_FIELDS } from '~/form/schema';
 import { validationSchemaBuyCourse } from '~/form/validation';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
+import { useYupValidationResolver } from '~/hooks';
 
 export default function BuyCourseForm() {
   const resolverBuyCourse = useYupValidationResolver(validationSchemaBuyCourse);

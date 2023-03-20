@@ -24,9 +24,18 @@ const updateFailedToast = (id: Id, label: string) => {
     autoClose: 10000,
   });
 };
+const notifyErrorToast = (message: string) => {
+  toast.error(message, {
+    isLoading: false,
+    closeOnClick: true,
+    closeButton: true,
+    autoClose: 10000,
+  });
+};
 
 export default {
   loadToast,
   updateFailedToast,
   updateSuccessToast,
+  notifyErrorToast,
 };

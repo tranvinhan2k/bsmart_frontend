@@ -67,19 +67,23 @@ export default function MentorDetailSection() {
               {mentorDetails.role}
             </Typography>
 
-            <Stack
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-            >
-              {mentorDetails.socials.map((item) => (
-                <Stack margin={1} key={item.link}>
-                  <Button customVariant="normal">
-                    <Icon name={item.image as IconName} size="small" />
-                  </Button>
-                </Stack>
-              ))}
-            </Stack>
+            {mentorDetails.socials && (
+              <Stack
+                sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                }}
+              >
+                {mentorDetails.socials.map((item) => (
+                  <Stack margin={1} key={item.image}>
+                    <Button customVariant="normal">
+                      <Icon name={item.image as IconName} size="small" />
+                    </Button>
+                  </Stack>
+                ))}
+              </Stack>
+            )}
 
             {mentorDetails.gender && (
               <Icon

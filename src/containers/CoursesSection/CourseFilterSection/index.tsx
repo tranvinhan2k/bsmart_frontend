@@ -1,15 +1,38 @@
 import { Stack } from '@mui/material';
+import { RequestGetCoursePayload } from '~/api/courses';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
-import {
-  FieldOptionPayload,
-  ProvinceOptionPayload,
-  SubjectOptionPayload,
-  TypeOptionPayload,
-} from '~/constants';
+import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
+import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
 
-export default function CourseFilterSection() {
-  const handleSubmitSearchValue = () => {};
+interface CourseFilterSectionProps {
+  filter: RequestGetCoursePayload;
+  onFilter: (params: RequestGetCoursePayload) => void;
+}
+
+export default function CourseFFilterSection(props: CourseFilterSectionProps) {
+  const { categories } = useQueryGetAllCategories();
+  const { subjects } = useQueryGetAllSubjects();
+
+  const { filter, onFilter } = props;
+
+  const handleSubmitSearchValue = (searchValue: string) => {
+    onFilter({ ...filter, q: searchValue });
+  };
+
+  const handleFilterFields = (categoryId: number[]) => {
+    onFilter({ ...filter, categoryId });
+  };
+  const handleFilterSubjects = (subjectId: number[]) => {
+    onFilter({ ...filter, subjectId });
+  };
+  const handleFilterTypes = (types: number[]) => {
+    onFilter({ ...filter, types });
+  };
+  const handleFilterProvinces = (provinces: number[]) => {
+    onFilter({ ...filter, provinces });
+  };
+
   return (
     <Stack marginX={2}>
       <SearchBar
@@ -18,10 +41,14 @@ export default function CourseFilterSection() {
         onSubmit={handleSubmitSearchValue}
       />
       <FilterCheckboxList
-        fields={FieldOptionPayload}
-        subjects={SubjectOptionPayload}
+        fields={categories}
+        subjects={subjects}
         types={TypeOptionPayload}
         provinces={ProvinceOptionPayload}
+        onFields={handleFilterFields}
+        onSubjects={handleFilterSubjects}
+        onTypes={handleFilterTypes}
+        onProvinces={handleFilterProvinces}
       />
     </Stack>
   );

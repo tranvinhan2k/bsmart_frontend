@@ -1,5 +1,7 @@
 import { FeedbackPayload } from '~/models/feedback';
 import { MentorPayload } from '~/models/mentor';
+import { CategoryPayload } from './category';
+import { TypeLearnKeys } from './variables';
 
 export interface CoursePayload {
   id: number;
@@ -9,6 +11,7 @@ export interface CoursePayload {
   mentorImage?: string;
   content: string;
   feedback: number;
+  typeLearn: TypeLearnKeys[];
 }
 export interface CourseDetailPayload {
   id: number;
@@ -22,6 +25,7 @@ export interface CourseDetailPayload {
   numOfRegisterStudent: number;
   numOfOpenClass: number;
   openDate: string;
+  category: CategoryPayload;
 }
 
 export interface CourseModulePayload {

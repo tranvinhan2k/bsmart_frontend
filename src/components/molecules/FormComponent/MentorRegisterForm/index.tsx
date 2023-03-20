@@ -1,17 +1,16 @@
 import { Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useGoogleLogin } from '@react-oauth/google';
 import FormInput from '~/components/atoms/FormInput';
 import Button from '~/components/atoms/Button';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { validationSchemaRegisterMentor } from '~/form/validation';
 import { defaultValueMentorRegister } from '~/form/defaultValues';
 import { REGISTER_MENTOR_FIELDS } from '~/form/schema';
 import { RegisterMentorDataPayload } from '~/models/form';
 import { PASSWORD_MATCHED } from '~/form/message';
-import accountApi, { RequestRegisterPayload } from '~/api/users';
+import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
+import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
 
 export default function MentorRegisterForm() {
   const resolverSignUp = useYupValidationResolver(
@@ -22,15 +21,8 @@ export default function MentorRegisterForm() {
     resolver: resolverSignUp,
   });
 
-  const queryClient = useQueryClient();
   // Mutations
-  const mutation = useMutation({
-    mutationFn: accountApi.signUp,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
-    },
-  });
+  const mutation = useMutationSignUp();
 
   const handleGoogle = useGoogleLogin({
     onSuccess: (tokenResponse) => console.log(tokenResponse),

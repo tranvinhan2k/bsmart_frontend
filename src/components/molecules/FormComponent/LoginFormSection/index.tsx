@@ -2,21 +2,20 @@ import { Stack, Typography, Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { signIn } from '~/redux/user/slice';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SIGN_IN_FIELDS } from '~/form/schema';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
-import accountApi, { RequestSignInPayload } from '~/api/users';
+import { RequestSignInPayload } from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
+import { useMutationLogin, useYupValidationResolver } from '~/hooks';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -31,16 +30,20 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
-  const resolverSinIn = useYupValidationResolver(validationSchemaSignIn);
+  const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
-    resolver: resolverSinIn,
+    resolver: resolverSignIn,
   });
   const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
 
   const handleGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    onError: (error) => console.log(error),
+    onSuccess: (tokenResponse) => {
+      console.log(tokenResponse);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
   const handleRememberPassword = () => {
@@ -49,9 +52,7 @@ export default function LoginForm() {
   };
 
   /* Login with be swagger */
-  const { mutateAsync } = useMutation({
-    mutationFn: accountApi.signIn,
-  });
+  const { mutateAsync } = useMutationLogin();
   const dispatch = useDispatch();
 
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {

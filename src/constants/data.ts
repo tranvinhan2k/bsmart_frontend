@@ -370,39 +370,11 @@ export const MentorCourses: CoursePayload[] = [
     image: cousreImage,
     mentor: 'Cuong',
     title: 'Front End Basic',
+    typeLearn: ['OFFLINE'],
   },
   {
     id: 1,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 1,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-];
-
-export const CourseList: CoursePayload[] = [
-  {
-    id: 0,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 1,
+    typeLearn: ['OFFLINE'],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
@@ -412,60 +384,7 @@ export const CourseList: CoursePayload[] = [
   },
   {
     id: 2,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 3,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 4,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 5,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 6,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 7,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 8,
+    typeLearn: ['OFFLINE'],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
@@ -474,6 +393,7 @@ export const CourseList: CoursePayload[] = [
     title: 'Front End Basic',
   },
 ];
+
 export const CourseDetailData: CourseDetailPayload = {
   title: 'Front End Basic',
   content:
@@ -481,11 +401,17 @@ export const CourseDetailData: CourseDetailPayload = {
   field: 'Front End',
   id: 0,
   image: cousreImage,
+  category: {
+    id: 0,
+    code: '',
+    name: '',
+  },
   numOfOpenClass: 1,
   numOfRegisterStudent: 50,
   openDate: new Date().toISOString(),
   unitPrice: 1200000,
   mentorData: {
+    id: 1,
     avatar: mentor,
     name: 'Mentor Cuong',
   },
@@ -539,6 +465,7 @@ export const CourseDetailData: CourseDetailPayload = {
 export const CommonCourse: CoursePayload[] = [
   {
     id: 0,
+    typeLearn: ['OFFLINE'],
     image: cousreImage,
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
@@ -549,6 +476,8 @@ export const CommonCourse: CoursePayload[] = [
   },
   {
     id: 1,
+    typeLearn: ['OFFLINE'],
+
     image: cousreImage,
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
@@ -558,6 +487,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 2,
     image: cousreImage,
     content:
@@ -568,6 +498,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 3,
     image: cousreImage,
     content:
@@ -578,6 +509,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 4,
     image: cousreImage,
     content:
@@ -588,6 +520,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 5,
     image: cousreImage,
     content:
@@ -598,6 +531,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 6,
     image: cousreImage,
     content:
@@ -608,6 +542,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 7,
     image: cousreImage,
     content:
@@ -618,6 +553,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 8,
     image: cousreImage,
     content:
