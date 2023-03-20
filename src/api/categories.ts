@@ -23,8 +23,11 @@ export function handleResponseGetCategories(
 const url = `/categories`;
 
 const categoriesApi = {
-  async getAllCategories(): Promise<ResponseCategoriesPayload[]> {
-    return axiosClient.get(`${url}`);
+  async getAllCategories(): Promise<OptionPayload[] | undefined> {
+    const response: ResponseCategoriesPayload[] = await axiosClient.get(
+      `${url}`
+    );
+    return handleResponseGetCategories(response);
   },
 };
 
