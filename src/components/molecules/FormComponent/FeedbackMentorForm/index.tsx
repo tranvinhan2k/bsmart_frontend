@@ -6,7 +6,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { defaultValueFeedbackMentor } from '~/form/defaultValues';
 import { FEEDBACK_MENTOR_FIELDS } from '~/form/schema';
 import { validationSchemaFeedbackMentor } from '~/form/validation';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
+import { useYupValidationResolver } from '~/hooks';
 import { OptionPayload } from '~/models';
 
 const MentorData: OptionPayload[] = [

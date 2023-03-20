@@ -76,7 +76,7 @@ export default function MentorDetailSection() {
                 }}
               >
                 {mentorDetail.socials.map((item) => (
-                  <Stack margin={1} key={item.link}>
+                  <Stack margin={1} key={item.image}>
                     <Button customVariant="normal">
                       <Icon name={item.image as IconName} size="small" />
                     </Button>

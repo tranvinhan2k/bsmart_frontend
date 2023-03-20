@@ -18,6 +18,7 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
+        inputFormat="DD/MM/YYYY"
         value={value}
         onChange={(newValue) => onChange(newValue)}
         renderInput={(params) => (

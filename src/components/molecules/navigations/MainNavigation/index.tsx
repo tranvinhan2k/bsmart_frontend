@@ -1,4 +1,12 @@
-import { IconButton, Stack, Typography, SwipeableDrawer } from '@mui/material';
+import {
+  IconButton,
+  Stack,
+  Typography,
+  SwipeableDrawer,
+  Box,
+  Menu,
+  MenuItem,
+} from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import {
@@ -15,8 +23,9 @@ import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '~/components/molecules/SocialBar';
 import ContractBar from '~/components/molecules/ContractBar';
-import { APP_NAME, AuthorizationActionData } from '~/constants';
+import { AuthorizationActionData } from '~/constants';
 import AuthorizationBar from '../../MainHeader/AuthorizationBar';
+import localEnvironment from '~/utils/localEnvironment';
 
 interface NavigationProps {
   pathName: string;
@@ -35,6 +44,16 @@ export default function MainNavigation({
 }: NavigationProps) {
   const navigation = useNavigate();
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleDrawerToggle = () => {
     setOpenDrawer(!isOpenDrawer);
   };
@@ -46,30 +65,62 @@ export default function MainNavigation({
     navigation(link);
   };
 
+  const handleNavigateClick = (id: number) => {
+    navigation('mentor-profile');
+    handleClose();
+  };
+
   const renderNavigationList = () => {
     return (
       pages &&
       pages.map(
         (item) =>
           !item.isHide && (
-            <NavLink
-              style={{ textDecoration: 'none', padding: MetricSize.medium_15 }}
-              key={item.link}
-              to={item.link}
-              onClick={() => {
-                if (isOpenDrawer) handleDrawerToggle();
-              }}
-            >
-              <Typography
+            <React.Fragment key={item.link}>
+              <NavLink
                 style={{
-                  fontFamily: FontFamily.bold,
-                  fontSize: FontSize.small_16,
-                  color: pathName === item.link ? Color.orange : Color.navy,
+                  textDecoration: 'none',
+                  padding: MetricSize.medium_15,
+                }}
+                to={item.link}
+                onClick={(event) => {
+                  if (item.link.includes('mentor-profile')) {
+                    event.preventDefault();
+                    handleClick(event);
+                  } else if (isOpenDrawer) handleDrawerToggle();
                 }}
               >
-                {item.name}
-              </Typography>
-            </NavLink>
+                <Typography
+                  style={{
+                    fontFamily: FontFamily.bold,
+                    fontSize: FontSize.small_16,
+                    color: pathName.includes(item.link)
+                      ? Color.orange
+                      : Color.navy,
+                  }}
+                >
+                  {item.name}
+                </Typography>
+              </NavLink>
+              {item.link.includes('mentor-profile') && (
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={() => handleNavigateClick(0)}>
+                    Mentor Cuong
+                  </MenuItem>
+                  <MenuItem onClick={() => handleNavigateClick(0)}>
+                    Mentor Bao
+                  </MenuItem>
+                </Menu>
+              )}
+            </React.Fragment>
           )
       )
     );
@@ -85,7 +136,7 @@ export default function MainNavigation({
             color: Color.navy,
           }}
         >
-          {APP_NAME.toUpperCase()}
+          {localEnvironment.APP_NAME.toUpperCase()}
         </Typography>
       </Stack>
       <Stack
@@ -140,7 +191,7 @@ export default function MainNavigation({
                 color: Color.navy,
               }}
             >
-              {APP_NAME.toUpperCase()}
+              {localEnvironment.APP_NAME.toUpperCase()}
             </Typography>
             <IconButton onClick={handleDrawerToggle}>
               <Icon name="close" color="navy" size="medium" />

@@ -11,8 +11,8 @@ import {
 import { validationSchemaEditSocialProfile } from '~/form/validation';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { useYupValidationResolver } from '~/hooks';
 
 export default function EditSocialProfileForm() {
   const resolverEditSocialProfile = useYupValidationResolver(

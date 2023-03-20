@@ -11,9 +11,13 @@ import {
 import { formatDate } from '~/utils/date';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
+import mentor from '~/assets/images/avatar-mentor-1.jpg';
+import { SubCoursePayload } from '~/models/subCourse';
+import { PagingFilterPayload } from '~/models';
+import SubCourseList from '~/components/molecules/SubCourseList';
 
 interface CourseDetailBasicInformationSectionProps {
-  mentorData: MentorPayload;
+  mentorData: MentorPayload | undefined;
   percentOfFeedback: number;
   numOfRating: number;
   numOfRegisterStudent: number;
@@ -21,6 +25,7 @@ interface CourseDetailBasicInformationSectionProps {
   openDate: string;
   description: string;
   field: string;
+  subCourse: PagingFilterPayload<SubCoursePayload> | undefined;
 }
 
 export default function CourseDetailBasicInformationSection({
@@ -32,65 +37,70 @@ export default function CourseDetailBasicInformationSection({
   openDate,
   percentOfFeedback,
   field,
+  subCourse,
 }: CourseDetailBasicInformationSectionProps) {
   const handleShareCourse = () => [];
 
   return (
     <Stack>
+      {subCourse && <SubCourseList data={subCourse} />}
       <Stack
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
+          marginTop: 1,
         }}
       >
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            component="img"
-            alt="mentor avatar"
-            src={mentorData.avatar}
-            sx={{
-              width: IconSize.large,
-              height: IconSize.large,
-              borderRadius: Common.borderCircle,
-            }}
-          />
+        {mentorData && (
           <Stack
             sx={{
               flexDirection: 'row',
-              paddingLeft: MetricSize.medium_15,
-              fontSize: FontSize.small_16,
-              fontFamily: FontFamily.regular,
-              color: Color.grey,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <Typography>by</Typography>
-            <Typography
+            <Box
+              component="img"
+              alt="mentor avatar"
+              src={mentorData?.avatar || mentor}
               sx={{
+                width: IconSize.large,
+                height: IconSize.large,
+                borderRadius: Common.borderCircle,
+              }}
+            />
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                paddingLeft: MetricSize.medium_15,
                 fontSize: FontSize.small_16,
-                fontFamily: FontFamily.bold,
-                color: Color.black,
-                paddingLeft: MetricSize.small_5,
+                fontFamily: FontFamily.regular,
+                color: Color.grey,
               }}
             >
-              {mentorData.name}
-            </Typography>
+              <Typography>by</Typography>
+              <Typography
+                sx={{
+                  fontSize: FontSize.small_16,
+                  fontFamily: FontFamily.bold,
+                  color: Color.black,
+                  paddingLeft: MetricSize.small_5,
+                }}
+              >
+                {mentorData?.name || 'Giáo Viên Bsmart'}
+              </Typography>
+            </Stack>
           </Stack>
-        </Stack>
-        <Stack sx={{ flexDirection: 'row' }}>
+        )}
+        {/* <Stack sx={{ flexDirection: 'row' }}>
           <Rating color={Color.orange} readOnly value={percentOfFeedback} />
           <Typography
             sx={{ fontSize: FontSize.small_16, fontFamily: FontFamily.regular }}
           >{`(${numOfRating} Ratings)`}</Typography>
-        </Stack>
-        <Stack>
+        </Stack> */}
+        {/* <Stack>
           <Button onClick={handleShareCourse}>
             <Stack
               sx={{
@@ -111,7 +121,7 @@ export default function CourseDetailBasicInformationSection({
               </Typography>
             </Stack>
           </Button>
-        </Stack>
+        </Stack> */}
       </Stack>
       <Stack
         sx={{
@@ -135,7 +145,8 @@ export default function CourseDetailBasicInformationSection({
           label={field}
         />
       </Stack>
-      <Stack
+
+      {/* <Stack
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -171,7 +182,7 @@ export default function CourseDetailBasicInformationSection({
         >
           {`Ngày khai giảng lớp học mới: ${formatDate(openDate)}`}
         </Typography>
-      </Stack>
+      </Stack> */}
       <Divider sx={{ marginTop: MetricSize.large_20 }} />
       <Stack>
         <Typography

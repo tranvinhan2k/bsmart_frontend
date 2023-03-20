@@ -1,8 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SX_WRAPPER, SX_TITLE } from './style';
-import { CourseList } from '~/constants';
-import CourseLearningItem from '~/components/molecules/CourseLearningItem/index';
+// import CourseLearningItem from '~/components/molecules/CourseLearningItem/index';
 
 export default function AttendingCourseList() {
   const navigation = useNavigate();
@@ -13,7 +12,7 @@ export default function AttendingCourseList() {
   return (
     <Box sx={SX_WRAPPER}>
       <Typography component="h4" sx={SX_TITLE}>
-        Các khoá học đã tham gia
+        Các khóa học đã tham gia
       </Typography>
       <Grid
         container
@@ -22,14 +21,14 @@ export default function AttendingCourseList() {
         alignItems="flex-start"
         spacing={5}
       >
-        {CourseList.map((item) => (
+        {/* {CourseList.map((item) => (
           <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>
             <CourseLearningItem
               item={item}
               onClick={() => handleNavigateCourseDetail(`${item.id}`)}
             />
           </Grid>
-        ))}
+        ))} */}
       </Grid>
     </Box>
   );

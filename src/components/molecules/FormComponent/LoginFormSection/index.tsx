@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
 import { useGoogleLogin } from '@react-oauth/google';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SIGN_IN_FIELDS } from '~/form/schema';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
@@ -12,6 +11,10 @@ import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
+import { setItem } from '~/utils/localStorage';
+import toast from '~/utils/toast';
+import localEnvironment from '~/utils/localEnvironment';
+import { useMutationLogin, useYupValidationResolver } from '~/hooks';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -26,16 +29,21 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
-  const resolverSinIn = useYupValidationResolver(validationSchemaSignIn);
+  const signIn = useMutationLogin();
+  const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
-    resolver: resolverSinIn,
+    resolver: resolverSignIn,
   });
   const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
 
   const handleGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    onError: (error) => console.log(error),
+    onSuccess: (tokenResponse) => {
+      console.log(tokenResponse);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
   const handleRememberPassword = () => {
@@ -43,8 +51,25 @@ export default function LoginForm() {
     // TODO: handle remember password
   };
 
-  const handleLoginDataSubmitSuccess = (data: LoginFormDataPayload) => {
-    // TODO: handle submit login
+  const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
+    const id = toast.loadToast('Đang đăng nhập tài khoản của bạn...');
+    try {
+      const responseLoginData = await signIn.mutateAsync({
+        email: data.email,
+        password: data.password,
+      });
+      setItem(
+        localEnvironment.ASYNC_STORAGE_TOKEN_NAME,
+        responseLoginData.token
+      );
+      setItem(
+        localEnvironment.ASYNC_STORAGE_ROLE_NAME,
+        responseLoginData.roles[0]
+      );
+      toast.updateSuccessToast(id, 'Đăng nhập thành công !');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Đăng nhập thất bại: ${error.message}`);
+    }
   };
 
   return (
