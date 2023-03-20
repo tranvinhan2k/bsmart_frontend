@@ -23,8 +23,9 @@ export function handleResponseGetSubjects(
 const url = `/subjects`;
 
 const subjectsApi = {
-  async getAllSubjects(): Promise<ResponseSubjectsPayload[]> {
-    return axiosClient.get(`${url}`);
+  async getAllSubjects(): Promise<OptionPayload[] | undefined> {
+    const response: ResponseSubjectsPayload[] = await axiosClient.get(`${url}`);
+    return handleResponseGetSubjects(response);
   },
 };
 
