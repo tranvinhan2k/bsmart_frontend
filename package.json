@@ -30,6 +30,8 @@
     "react-elastic-carousel": "^0.11.5",
     "react-hook-form": "^7.43.1",
     "react-icons": "^4.7.1",
+    "react-image-crop": "^10.0.9",
+    "react-loading-skeleton": "^3.2.0",
     "react-only-when": "^1.0.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "6",
