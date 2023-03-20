@@ -35,11 +35,13 @@ export default function CourseDetailSidebarSection({
             paddingBottom: MetricSize.medium_15,
           }}
         >
-          <Typography
-            sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.large_45 }}
-          >
-            {formatMoney(unitPrice)}
-          </Typography>
+          {unitPrice !== 0 && (
+            <Typography
+              sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.large_45 }}
+            >
+              {formatMoney(unitPrice)}
+            </Typography>
+          )}
           <Button
             onClick={handleNavigateBuyCousePage}
             marginTop="medium_15"
