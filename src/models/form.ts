@@ -41,13 +41,10 @@ export interface EditImageProfileFormDataPayload {
 }
 
 export interface EditPersonalProfileFormDataPayload {
-  avatar: string;
   fullName: string;
   birthday: Date | '';
   address: string;
   phone: string;
-  identityFront: string;
-  identityBack: string;
   introduce?: string;
 }
 

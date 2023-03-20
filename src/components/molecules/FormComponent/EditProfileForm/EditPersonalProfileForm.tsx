@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
 import {
   EDIT_MEMBER_PERSONAL_PROFILE_FIELDS,
   EDIT_MENTOR_PERSONAL_PROFILE_FIELDS,
@@ -12,6 +11,7 @@ import {
   EditPersonalProfileFormDataPayload,
   FormInputVariant,
 } from '~/models/form';
+import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
 import { RootState } from '~/redux/store';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import accountApi, { EditPersonalProfilePayload } from '~/api/users';
@@ -48,15 +48,10 @@ export default function EditPersonalProfileForm() {
   useEffect(() => {
     if (dataGetProfile) {
       const defaults = defaultValueEditPersonalProfile;
-      if (dataGetProfile.avatar) defaults.avatar = dataGetProfile.avatar;
       if (dataGetProfile.fullName) defaults.fullName = dataGetProfile.fullName;
       if (dataGetProfile.birthday) defaults.birthday = dataGetProfile.birthday;
       if (dataGetProfile.address) defaults.address = dataGetProfile.address;
       if (dataGetProfile.phone) defaults.phone = dataGetProfile.phone;
-      if (dataGetProfile.identityFront)
-        defaults.identityFront = dataGetProfile.identityFront;
-      if (dataGetProfile.identityBack)
-        defaults.identityBack = dataGetProfile.identityBack;
       if (dataGetProfile.introduce)
         defaults.introduce = dataGetProfile.introduce;
       reset(defaults);
@@ -101,9 +96,6 @@ export default function EditPersonalProfileForm() {
 
   const EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin cá nhân',
-    AVATAR: {
-      LABEL: 'Avatar',
-    },
     NAME: {
       LABEL: 'Họ tên',
       PLACEHOLDER: 'Nhập họ tên',
@@ -120,12 +112,6 @@ export default function EditPersonalProfileForm() {
       LABEL: 'Số điện thoại',
       PLACEHOLDER: 'Nhập số điện thoại',
     },
-    IDENTITY_FRONT: {
-      LABEL: 'Căn cước công dân (mặt trước)',
-    },
-    IDENTITY_BACK: {
-      LABEL: 'Căn cước công dân (mặt sau)',
-    },
     BUTTON_TEXT: 'Cập nhật',
   };
 
@@ -140,12 +126,6 @@ export default function EditPersonalProfileForm() {
   );
 
   const formFieldsMemberPersonal: FormFieldsPersonalProps[] = [
-    {
-      name: EDIT_MEMBER_PERSONAL_PROFILE_FIELDS.avatar,
-      label: EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.AVATAR.LABEL,
-      variant: 'image',
-      size: 12,
-    },
     {
       name: EDIT_MEMBER_PERSONAL_PROFILE_FIELDS.fullName,
       label: EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.NAME.LABEL,
@@ -173,20 +153,6 @@ export default function EditPersonalProfileForm() {
       placeholder: EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.PHONE.PLACEHOLDER,
       variant: 'text',
       size: 12,
-    },
-    {
-      name: EDIT_MEMBER_PERSONAL_PROFILE_FIELDS.identityFront,
-      label: EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.IDENTITY_FRONT.LABEL,
-      placeholder: '',
-      variant: 'image',
-      size: 6,
-    },
-    {
-      name: EDIT_MEMBER_PERSONAL_PROFILE_FIELDS.identityBack,
-      label: EDIT_PERSONAL_MEMBER_PROFILE_FORM_TEXT.IDENTITY_BACK.LABEL,
-      placeholder: '',
-      variant: 'image',
-      size: 6,
     },
   ];
 

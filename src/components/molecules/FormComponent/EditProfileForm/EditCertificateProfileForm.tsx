@@ -60,9 +60,6 @@ export default function EditCertificateProfileForm() {
 
   const EDIT_CERTIFICATE_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin bằng cấp (2 mặt bằng cấp/chứng chỉ)',
-    AVATAR: {
-      LABEL: 'Avatar',
-    },
     CERTIFICATE1: { LABEL: 'Bằng cấp (1)' },
     CERTIFICATE2: { LABEL: 'Bằng cấp (2)' },
     CERTIFICATE3: { LABEL: 'Bằng cấp (3)' },

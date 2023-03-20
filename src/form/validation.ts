@@ -65,13 +65,10 @@ export const validationSchemaEditImageProfile = object({
 });
 
 export const validationSchemaEditPersonalProfile = object({
-  avatar: string(),
   fullName: string().required(NAME_REQUIRED),
   birthday: date(),
   address: string(),
   phone: string().required(PHONE_REQUIRED),
-  identityFront: string(),
-  identityBack: string(),
   introduce: string(),
 });
 

@@ -46,13 +46,10 @@ export const defaultValueEditImageProfile: EditImageProfileFormDataPayload = {
 
 export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload =
   {
-    avatar: '',
     fullName: '',
     birthday: '',
     address: '',
     phone: '',
-    identityFront: '',
-    identityBack: '',
     introduce: '',
   };
 
