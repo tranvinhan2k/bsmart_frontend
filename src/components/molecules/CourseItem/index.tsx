@@ -1,19 +1,52 @@
 import { Box, Divider, Typography, Rating, Stack } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import Skeleton from 'react-loading-skeleton';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { CoursePayload } from '~/models/courses';
 
 interface CourseItemProps {
-  item: CoursePayload;
-  onClick: () => void;
+  item?: CoursePayload;
+  isSkeleton?: boolean;
+  onClick?: () => void;
 }
 
-export default function CourseItem({ item, onClick }: CourseItemProps) {
+export default function CourseItem({
+  item = {
+    content: '',
+    feedback: 0,
+    id: 0,
+    image: '',
+    mentor: '',
+    title: '',
+    mentorImage: '',
+    typeLearn: [''],
+  },
+  isSkeleton = false,
+  onClick = () => {},
+}: CourseItemProps) {
   const { content, feedback, image, mentor, title } = item;
 
   const handleNavigateCourseDetail = () => {
     onClick();
   };
+
+  if (isSkeleton) {
+    return (
+      <Stack
+        sx={{
+          marginTop: MetricSize.medium_15,
+          marginLeft: '10px',
+          borderColor: Color.grey,
+          width: { xs: '100%', md: '32%' },
+          borderRadius: MetricSize.small_5,
+          justifyContent: 'space-between',
+        }}
+      >
+        <Skeleton height={400} />
+      </Stack>
+    );
+  }
 
   return (
     <Stack
@@ -32,8 +65,9 @@ export default function CourseItem({ item, onClick }: CourseItemProps) {
           loading="lazy"
           component="img"
           sx={{
-            objectFit: 'contain',
+            objectFit: 'fill',
             width: '100%',
+            height: '200px',
             borderRadius: MetricSize.small_5,
           }}
           src={image}
@@ -56,6 +90,12 @@ export default function CourseItem({ item, onClick }: CourseItemProps) {
               color: Color.grey,
             }}
           >{`Mentor ${mentor}`}</Typography>
+          <Stack sx={{ flexDirection: 'row' }}>
+            {item.typeLearn &&
+              item.typeLearn.map((type) => (
+                <Chip sx={{ marginRight: 1 }} key={type} label={type} />
+              ))}
+          </Stack>
           <Typography
             sx={{
               fontSize: FontSize.small_18,
@@ -81,3 +121,9 @@ export default function CourseItem({ item, onClick }: CourseItemProps) {
     </Stack>
   );
 }
+
+CourseItem.defaultProps = {
+  isSkeleton: false,
+  item: undefined,
+  onClick: () => {},
+};
