@@ -29,7 +29,7 @@ export default function FilterCheckboxList({
       <FilterCheckbox label="LĨNH VỰC" data={fields} onChange={onFields} />
       <FilterCheckbox label="MÔN HỌC" data={subjects} onChange={onSubjects} />
       <FilterCheckbox label="HÌNH THỨC" data={types} onChange={onTypes} />
-      <FilterCheckbox label="KHU VỰC" data={provinces} onChange={onProvinces} />
+      {/* <FilterCheckbox label="KHU VỰC" data={provinces} onChange={onProvinces} /> */}
     </Stack>
   );
 }
