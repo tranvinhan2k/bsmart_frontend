@@ -1,5 +1,5 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface TextInputProps {
@@ -16,18 +16,20 @@ function TextInput({ controller, placeholder }: TextInputProps) {
   };
 
   return (
-    <TextField
-      sx={SX_TEXT_INPUT_FORM}
-      placeholder={placeholder}
-      fullWidth
-      size="small"
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      inputRef={ref}
-      error={invalid}
-      helperText={error?.message}
-    />
+    <Box mb={error ? 2 : 0}>
+      <TextField
+        sx={SX_TEXT_INPUT_FORM}
+        placeholder={placeholder}
+        fullWidth
+        size="small"
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        inputRef={ref}
+        error={invalid}
+        helperText={error?.message}
+      />
+    </Box>
   );
 }
 export default TextInput;

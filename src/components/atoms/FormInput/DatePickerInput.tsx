@@ -26,6 +26,7 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
             sx={SX_TEXT_INPUT_FORM}
             {...params}
             variant="outlined"
+            size="small"
             placeholder={placeholder}
             onBlur={onBlur}
             error={invalid}

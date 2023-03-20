@@ -1,4 +1,4 @@
-import { InputLabel, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';

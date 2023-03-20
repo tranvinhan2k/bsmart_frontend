@@ -20,11 +20,11 @@ axiosClient.interceptors.request.use(function (config) {
 });
 
 axiosClient.interceptors.response.use(
-  function (response) {
+  (response) => {
     const { data } = response.data;
     return data || response.data;
   },
-  function (error) {
+  (error) => {
     if (error?.response?.status === 401) {
       localStorage.removeItem('token');
     }

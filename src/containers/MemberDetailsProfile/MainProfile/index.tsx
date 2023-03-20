@@ -11,7 +11,11 @@ import {
 import avatar_member from '~/assets/images/MemberDetailSection/avatar_member.jpg';
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
-import { MemberNavigationActionData } from '~/constants';
+import {
+  MemberNavigationActionData,
+  mockMemberDetailsInformationData,
+} from '~/constants';
+import { formatDate } from '~/utils/date';
 import { IconName } from '~/models/icon';
 
 interface ProfileDataProps {
@@ -28,9 +32,7 @@ export default function MainProfile() {
     { id: 4, icon: 'phone', text: '0946005077' },
   ];
   const navigate = useNavigate();
-  // const handleNavigateEditProfilePage = () => {
-  //   navigation('/edit-profile');
-  // };
+  const memberDetails = mockMemberDetailsInformationData;
 
   function handleNavigateLink(link: string) {
     navigate(link);
@@ -54,6 +56,22 @@ export default function MainProfile() {
           Member
         </Typography>
       </>
+      <Stack direction="row" justifyContent="center" alignItems="center">
+        {memberDetails.socials.map((item) => (
+          <Stack margin={1} key={item.link}>
+            <Button customVariant="normal">
+              <Icon name={item.image as IconName} size="small" />
+            </Button>
+          </Stack>
+        ))}
+      </Stack>
+      {memberDetails.gender && (
+        <Icon
+          color="orange"
+          name={memberDetails.gender as IconName}
+          size="ex_large"
+        />
+      )}
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -61,6 +79,9 @@ export default function MainProfile() {
         spacing={2}
         mt={2}
       >
+        <Typography component="p" sx={SX_PROFILE_DETAILS}>
+          {formatDate(memberDetails.dateOfBirth)}
+        </Typography>
         {profileData.map((item) => (
           <Stack
             direction={{ md: 'column', lg: 'row' }}

@@ -34,26 +34,39 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
-export interface EditPersonalProfileFormDataPayload {
+export interface EditImageProfileFormDataPayload {
   avatar: string;
-  name: string;
-  birthday: string;
+  identityFront?: string;
+  identityBack?: string;
+}
+
+export interface EditPersonalProfileFormDataPayload {
+  fullName: string;
+  birthday: Date | '';
   address: string;
   phone: string;
-  identityFront: string;
-  identityBack: string;
+  introduce?: string;
+}
+
+export interface EditCertificateProfileFormDataPayload {
+  certificate1: string;
+  certificate2: string;
+  certificate3: string;
+  certificate4: string;
+  certificate5: string;
 }
 
 export interface EditAccountProfileFormDataPayload {
-  email: string;
-  password: string;
-  confirm: string;
+  oldPassword: string;
+  oldPasswordConfirm: string;
+  newPassword: string;
+  newPasswordConfirm: string;
 }
 
 export interface EditSocialProfileFormDataPayload {
-  facebook: string;
-  twitter: string;
-  instagram: string;
+  facebookLink: string;
+  twitterLink: string;
+  instagramLink: string;
 }
 
 export type FormInputVariant =

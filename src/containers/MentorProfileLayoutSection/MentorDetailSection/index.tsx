@@ -6,7 +6,7 @@ import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import {
   MentorNavigationActionData,
-  mockMentorDetailInformationData,
+  mockMentorDetailsInformationData,
   mockMentorLatestActivities,
 } from '~/constants';
 import { formatDate } from '~/utils/date';
@@ -14,7 +14,7 @@ import { formatMoney } from '~/utils/money';
 
 export default function MentorDetailSection() {
   const navigate = useNavigate();
-  const mentorDetail = mockMentorDetailInformationData;
+  const mentorDetails = mockMentorDetailsInformationData;
   const activities = mockMentorLatestActivities;
 
   function handleNavigateLink(link: string) {
@@ -49,13 +49,13 @@ export default function MentorDetailSection() {
             }}
             component="img"
             alt="mentor avatar"
-            src={mentorDetail.imageLink}
+            src={mentorDetails.imageLink}
           />
           <Stack sx={{ alignItems: 'center' }} marginTop={2}>
             <Typography
               sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.medium_24 }}
             >
-              {mentorDetail.name}
+              {mentorDetails.name}
             </Typography>
             <Typography
               sx={{
@@ -64,10 +64,10 @@ export default function MentorDetailSection() {
                 fontSize: FontSize.small_18,
               }}
             >
-              {mentorDetail.role}
+              {mentorDetails.role}
             </Typography>
 
-            {mentorDetail.socials && (
+            {mentorDetails.socials && (
               <Stack
                 sx={{
                   flexDirection: 'row',
@@ -75,7 +75,7 @@ export default function MentorDetailSection() {
                   justifyContent: 'space-around',
                 }}
               >
-                {mentorDetail.socials.map((item) => (
+                {mentorDetails.socials.map((item) => (
                   <Stack margin={1} key={item.image}>
                     <Button customVariant="normal">
                       <Icon name={item.image as IconName} size="small" />
@@ -85,14 +85,14 @@ export default function MentorDetailSection() {
               </Stack>
             )}
 
-            {mentorDetail.gender && (
+            {mentorDetails.gender && (
               <Icon
                 color="orange"
-                name={mentorDetail.gender as IconName}
+                name={mentorDetails.gender as IconName}
                 size="ex_large"
               />
             )}
-            {mentorDetail.dateofBirth && (
+            {mentorDetails.dateOfBirth && (
               <Typography
                 sx={{
                   fontSize: FontSize.small_16,
@@ -100,21 +100,21 @@ export default function MentorDetailSection() {
                   fontFamily: FontFamily.regular,
                 }}
               >
-                {formatDate(mentorDetail.dateofBirth)}
+                {formatDate(mentorDetails.dateOfBirth)}
               </Typography>
             )}
             {[
               {
                 image: 'location',
-                text: mentorDetail.address,
+                text: mentorDetails.address,
               },
               {
                 image: 'mail',
-                text: mentorDetail.mail,
+                text: mentorDetails.mail,
               },
               {
                 image: 'phone',
-                text: mentorDetail.phone,
+                text: mentorDetails.phone,
               },
             ].map((item) => (
               <Stack
@@ -151,7 +151,7 @@ export default function MentorDetailSection() {
               >
                 Số dư hiện tại:{' '}
                 <span style={{ color: Color.orange }}>
-                  ${formatMoney(mentorDetail.walletMoney)}
+                  ${formatMoney(mentorDetails.walletMoney)}
                 </span>
               </Typography>
             </Stack>

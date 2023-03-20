@@ -12,16 +12,20 @@ import {
   EMAIL_REQUIRED,
   PASSWORD_MATCHED,
   PASSWORD_REQUIRED,
+  NAME_REQUIRED,
   PHONE_INVALID,
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
 } from '~/form/message';
 
+const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
+const PASSWORD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 const FILE_SIZE = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
 export const validationSchemaSignIn = object({
-  email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
+  email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string().required(PASSWORD_REQUIRED),
 });
 
@@ -30,16 +34,11 @@ export const validationSchemaRegisterStudent = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
     .required(PASSWORD_REQUIRED)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      PASSWORD_MATCHED
-    ),
-  phone: string()
-    .required(PHONE_REQUIRED)
-    .matches(/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/, PHONE_INVALID),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
+  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
 });
 
 export const validationSchemaRegisterMentor = object({
@@ -47,13 +46,8 @@ export const validationSchemaRegisterMentor = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
     .required(PASSWORD_REQUIRED)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      PASSWORD_MATCHED
-    ),
-  phone: string()
-    .required(PHONE_REQUIRED)
-    .matches(/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/, PHONE_INVALID),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
@@ -65,19 +59,41 @@ export const validationSchemaBuyCourse = object({
   voucher: string().required(PASSWORD_REQUIRED),
 });
 
-export const validationSchemaEditPersonalProfile = object({
+export const validationSchemaEditImageProfile = object({
   avatar: string().required(),
-  name: string().required(),
-  birthday: string().required(),
-  address: string().required(),
-  phone: string().required(),
-  identity: string().required(),
+  identityFront: string(),
+  identityBack: string(),
+});
+
+export const validationSchemaEditPersonalProfile = object({
+  fullName: string().required(NAME_REQUIRED),
+  birthday: date(),
+  address: string(),
+  phone: string().required(PHONE_REQUIRED),
+  introduce: string(),
+});
+
+export const validationSchemaEditCertificateProfile = object({
+  certificate1: string(),
+  certificate2: string(),
+  certificate3: string(),
+  certificate4: string(),
+  certificate5: string(),
 });
 
 export const validationSchemaEditAccountProfile = object({
-  email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
-  password: string().required(PASSWORD_REQUIRED),
-  confirm: string().required(PASSWORD_REQUIRED),
+  oldPassword: string()
+    .required(PASSWORD_REQUIRED)
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+  oldPasswordConfirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('oldPassword')], CONFIRM_PASSWORD_NOT_MATCH),
+  newPassword: string()
+    .required(PASSWORD_REQUIRED)
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+  newPasswordConfirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),
 });
 
 export const validationSchemaEditSocialProfile = object({

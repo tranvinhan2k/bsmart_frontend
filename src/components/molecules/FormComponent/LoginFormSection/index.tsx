@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useState } from 'react';
+import { signIn } from '~/redux/user/slice';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import { SIGN_IN_FIELDS } from '~/form/schema';
@@ -9,11 +11,10 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
+import { RequestSignInPayload } from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
-import { setItem } from '~/utils/localStorage';
 import toast from '~/utils/toast';
-import localEnvironment from '~/utils/localEnvironment';
 import { useMutationLogin, useYupValidationResolver } from '~/hooks';
 
 const LoginTexts = {
@@ -29,7 +30,6 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
-  const signIn = useMutationLogin();
   const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
@@ -51,26 +51,30 @@ export default function LoginForm() {
     // TODO: handle remember password
   };
 
+  /* Login with be swagger */
+  const { mutateAsync } = useMutationLogin();
+  const dispatch = useDispatch();
+
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
-    const id = toast.loadToast('Đang đăng nhập tài khoản của bạn...');
+    const params: RequestSignInPayload = {
+      email: data.email,
+      password: data.password,
+    };
+    const id = toast.loadToast('Đang đăng nhập...');
     try {
-      const responseLoginData = await signIn.mutateAsync({
-        email: data.email,
-        password: data.password,
-      });
-      setItem(
-        localEnvironment.ASYNC_STORAGE_TOKEN_NAME,
-        responseLoginData.token
-      );
-      setItem(
-        localEnvironment.ASYNC_STORAGE_ROLE_NAME,
-        responseLoginData.roles[0]
-      );
-      toast.updateSuccessToast(id, 'Đăng nhập thành công !');
+      const signInData = await mutateAsync(params);
+      localStorage.setItem('token', signInData.token);
+      dispatch(signIn(signInData));
+      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
     } catch (error: any) {
-      toast.updateFailedToast(id, `Đăng nhập thất bại: ${error.message}`);
+      toast.updateFailedToast(
+        id,
+        `Đăng nhập không thành công: ${error.message}`
+      );
     }
   };
+  // const token = useSelector((state: RootState) => state.user.token);
+  // console.log('token', token);
 
   return (
     <Stack>

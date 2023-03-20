@@ -6,7 +6,7 @@ export const PASSWORD_MATCHED =
 export const CONFIRM_PASSWORD_REQUIRED =
   'Xác nhận mật khẩu không được để trống.';
 export const CONFIRM_PASSWORD_NOT_MATCH =
-  'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập';
+  'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
 // information validate
 export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
 export const NAME_REQUIRED = 'Họ và tên không được để trống.';

@@ -44,27 +44,46 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
   supportHomeWork: 'yes',
 };
 
-export const EDIT_PERSONAL_PROFILE_FIELDS: EditPersonalProfileFormDataPayload =
-  {
-    avatar: 'avatar',
-    name: 'name',
-    birthday: 'birthday',
-    address: 'address',
-    phone: 'phone',
-    identityFront: 'identityFront',
-    identityBack: 'identityBack',
-  };
+export const EDIT_IMAGE_PROFILE_FIELDS = {
+  avatar: 'avatar',
+  identityFront: 'identityFront',
+  identityBack: 'identityBack',
+};
+
+export const EDIT_MEMBER_PERSONAL_PROFILE_FIELDS = {
+  avatar: 'avatar',
+  fullName: 'fullName',
+  birthday: 'birthday',
+  address: 'address',
+  phone: 'phone',
+  identityFront: 'identityFront',
+  identityBack: 'identityBack',
+};
+
+export const EDIT_MENTOR_PERSONAL_PROFILE_FIELDS = Object.assign(
+  EDIT_MEMBER_PERSONAL_PROFILE_FIELDS,
+  { introduce: 'introduce' }
+);
+
+export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
+  certificate1: 'certificate1',
+  certificate2: 'certificate2',
+  certificate3: 'certificate3',
+  certificate4: 'certificate4',
+  certificate5: 'certificate5',
+};
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
-  email: 'email',
-  password: 'password',
-  confirm: 'confirm',
+  oldPassword: 'oldPassword',
+  oldPasswordConfirm: 'oldPasswordConfirm',
+  newPassword: 'newPassword',
+  newPasswordConfirm: 'newPasswordConfirm',
 };
 
 export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
-  facebook: 'email',
-  twitter: 'password',
-  instagram: 'confirm',
+  facebookLink: 'facebookLink',
+  twitterLink: 'twitterLink',
+  instagramLink: 'instagramLink',
 };
 
 export const FEEDBACK_MENTOR_FIELDS = {
