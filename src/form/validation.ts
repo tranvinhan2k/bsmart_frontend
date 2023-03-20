@@ -1,10 +1,9 @@
-import { object, string, ref } from 'yup';
+import { object, string, ref, number, date, mixed } from 'yup';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
   COURSE_CATEGORY_REQUIRED,
   COURSE_DESCRIPTION,
-  COURSE_IMAGE_REQUIRED,
   COURSE_LANGUAGE_REQUIRED,
   COURSE_LEVEL_REQUIRED,
   COURSE_NAME_REQUIRED,
@@ -17,6 +16,9 @@ import {
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
 } from '~/form/message';
+
+const FILE_SIZE = 1024 * 1024 * 2; // 2MB
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
@@ -96,9 +98,52 @@ export const validationSchemaFeedbackMentor = object({
 export const validationSchemaCreateCourse = object({
   name: string().required(COURSE_NAME_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
-  image: string().required(COURSE_IMAGE_REQUIRED),
+  image: mixed()
+    .required('Hình ảnh khóa học là bắt buộc')
+    .test(
+      'fileSize',
+      'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác',
+      (value: any) => value && value.size <= FILE_SIZE
+    )
+    .test(
+      'fileFormat',
+      'Định dạng hình ảnh không hỗ trợ.',
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+  price: number()
+    .min(1000, 'Giá tiền phải lớn hơn 1000')
+    .required('Giá tiền là bắt buộc'),
   category: object().required(COURSE_CATEGORY_REQUIRED),
-  programmingLanguage: object().required(COURSE_LANGUAGE_REQUIRED),
+  subject: object().required(COURSE_LANGUAGE_REQUIRED),
   type: object().required(COURSE_TYPE),
-  courseDescription: string().required(COURSE_DESCRIPTION),
+  description: string().required(COURSE_DESCRIPTION),
+  minStudent: number()
+    .required('Số học sinh tối thiểu không được bỏ trống')
+    .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
+  maxStudent: number()
+    .required('Số học sinh tối đa không được bỏ trống')
+    .test(
+      'is-greater',
+      'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',
+      function (value) {
+        const { minStudent } = this.parent;
+        return value > minStudent;
+      }
+    ),
+  startDateExpected: date().required(),
+  endDateExpected: date()
+    .required()
+    .test(
+      'is-greater',
+      'Ngày kết thúc phải lớn hơn ngày bắt đầu',
+      function (endDate: Date) {
+        const { startDate } = this.parent;
+
+        if (!startDate || !endDate) {
+          return true;
+        }
+
+        return endDate > startDate;
+      }
+    ),
 });
