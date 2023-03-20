@@ -98,105 +98,103 @@ export default function CreateCourseForm() {
       toast.updateFailedToast(id, `Tạo khóa học thất bại: ${error.message}`);
     }
   }
+  if (!categories && !subjects) return null;
   return (
-    categories &&
-    subjects && (
-      <Stack>
-        <form
-          onSubmit={createCourseHookForm.handleSubmit(
-            onSubmitSuccess,
-            (error) => {
-              console.log(error);
-            }
-          )}
-        >
-          <CollapseStack label="Thông tin khóa học">
-            <Stack padding={1}>
-              <FormInput
-                name={CREATE_COURSE_FIELDS.name}
-                control={createCourseHookForm.control}
-                label="Tên Khóa Học"
-              />
-              <FormInput
-                variant="date"
-                name={CREATE_COURSE_FIELDS.startDateExpected}
-                control={createCourseHookForm.control}
-                label="Ngày mở lớp dự kiến"
-              />
-              <FormInput
-                variant="date"
-                name={CREATE_COURSE_FIELDS.endDateExpected}
-                control={createCourseHookForm.control}
-                label="Ngày kết thúc dự kiến"
-              />
-              <FormInput
-                variant="number"
-                name={CREATE_COURSE_FIELDS.price}
-                control={createCourseHookForm.control}
-                label="Giá khóa học"
-              />
-              <FormInput
-                variant="number"
-                name={CREATE_COURSE_FIELDS.minStudent}
-                control={createCourseHookForm.control}
-                label="Số học sinh tối thiểu"
-              />
-              <FormInput
-                variant="number"
-                name={CREATE_COURSE_FIELDS.maxStudent}
-                control={createCourseHookForm.control}
-                label="Số học sinh tối đa"
-              />
-              <FormInput
-                data={mockLevelData}
-                variant="radioGroup"
-                name={CREATE_COURSE_FIELDS.level}
-                control={createCourseHookForm.control}
-                label="Trình độ"
-              />
-              <FormInput
-                variant="image"
-                name={CREATE_COURSE_FIELDS.image}
-                control={createCourseHookForm.control}
-                label="Hình ảnh"
-              />
-              <FormInput
-                data={categories}
-                variant="dropdown"
-                name={CREATE_COURSE_FIELDS.category}
-                control={createCourseHookForm.control}
-                label="Lĩnh Vực"
-              />
-              <FormInput
-                data={subjects}
-                variant="dropdown"
-                name={CREATE_COURSE_FIELDS.subject}
-                control={createCourseHookForm.control}
-                label="Ngôn ngữ lập trình"
-              />
-              <FormInput
-                data={typeData}
-                variant="dropdown"
-                name={CREATE_COURSE_FIELDS.type}
-                control={createCourseHookForm.control}
-                label="Hình thức khóa học"
-              />
-              <FormInput
-                name={CREATE_COURSE_FIELDS.description}
-                variant="multiline"
-                control={createCourseHookForm.control}
-                label="Mô tả khóa học"
-              />
-            </Stack>
-          </CollapseStack>
-
-          <Stack marginTop={2}>
-            <Button type="submit" customVariant="form">
-              TẠO KHÓA HỌC
-            </Button>
+    <Stack>
+      <form
+        onSubmit={createCourseHookForm.handleSubmit(
+          onSubmitSuccess,
+          (error) => {
+            console.log(error);
+          }
+        )}
+      >
+        <CollapseStack label="Thông tin khóa học">
+          <Stack padding={1}>
+            <FormInput
+              name={CREATE_COURSE_FIELDS.name}
+              control={createCourseHookForm.control}
+              label="Tên Khóa Học"
+            />
+            <FormInput
+              variant="date"
+              name={CREATE_COURSE_FIELDS.startDateExpected}
+              control={createCourseHookForm.control}
+              label="Ngày mở lớp dự kiến"
+            />
+            <FormInput
+              variant="date"
+              name={CREATE_COURSE_FIELDS.endDateExpected}
+              control={createCourseHookForm.control}
+              label="Ngày kết thúc dự kiến"
+            />
+            <FormInput
+              variant="number"
+              name={CREATE_COURSE_FIELDS.price}
+              control={createCourseHookForm.control}
+              label="Giá khóa học"
+            />
+            <FormInput
+              variant="number"
+              name={CREATE_COURSE_FIELDS.minStudent}
+              control={createCourseHookForm.control}
+              label="Số học sinh tối thiểu"
+            />
+            <FormInput
+              variant="number"
+              name={CREATE_COURSE_FIELDS.maxStudent}
+              control={createCourseHookForm.control}
+              label="Số học sinh tối đa"
+            />
+            <FormInput
+              data={mockLevelData}
+              variant="radioGroup"
+              name={CREATE_COURSE_FIELDS.level}
+              control={createCourseHookForm.control}
+              label="Trình độ"
+            />
+            <FormInput
+              variant="image"
+              name={CREATE_COURSE_FIELDS.image}
+              control={createCourseHookForm.control}
+              label="Hình ảnh"
+            />
+            <FormInput
+              data={categories}
+              variant="dropdown"
+              name={CREATE_COURSE_FIELDS.category}
+              control={createCourseHookForm.control}
+              label="Lĩnh Vực"
+            />
+            <FormInput
+              data={subjects}
+              variant="dropdown"
+              name={CREATE_COURSE_FIELDS.subject}
+              control={createCourseHookForm.control}
+              label="Ngôn ngữ lập trình"
+            />
+            <FormInput
+              data={typeData}
+              variant="dropdown"
+              name={CREATE_COURSE_FIELDS.type}
+              control={createCourseHookForm.control}
+              label="Hình thức khóa học"
+            />
+            <FormInput
+              name={CREATE_COURSE_FIELDS.description}
+              variant="multiline"
+              control={createCourseHookForm.control}
+              label="Mô tả khóa học"
+            />
           </Stack>
-        </form>
-      </Stack>
-    )
+        </CollapseStack>
+
+        <Stack marginTop={2}>
+          <Button type="submit" customVariant="form">
+            TẠO KHÓA HỌC
+          </Button>
+        </Stack>
+      </form>
+    </Stack>
   );
 }
