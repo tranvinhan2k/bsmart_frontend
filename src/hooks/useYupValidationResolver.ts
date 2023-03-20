@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-const useYupValidationResolver = (validationSchemaSignIn: any) =>
+export const useYupValidationResolver = (validationSchemaSignIn: any) =>
   useCallback(
     async (data: any) => {
       try {
@@ -30,5 +30,3 @@ const useYupValidationResolver = (validationSchemaSignIn: any) =>
     },
     [validationSchemaSignIn]
   );
-
-export default useYupValidationResolver;
