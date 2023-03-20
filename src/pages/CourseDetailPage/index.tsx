@@ -39,45 +39,45 @@ export default function CourseDetailPage() {
     );
   }
 
+  if (!courseDetail) return null;
+
   return isLoading ? (
     <Stack sx={{ height: '100vh' }}>
       <LazyLoadingScreen />
     </Stack>
   ) : (
-    courseDetail && (
-      <Stack>
-        <Grid
-          container
-          sx={{
-            gridAutoFlow: 'dense',
-            padding: { xs: MetricSize.medium_15, md: '70px' },
-          }}
-        >
-          <Grid item xs={12} md={12} sx={{ padding: MetricSize.medium_15 }}>
-            <CourseDetailBasicInformationSection
-              mentorData={mentor}
-              percentOfFeedback={courseDetail.feedbackData.percentOfFeedback}
-              numOfRating={courseDetail.feedbackData.numOfRating}
-              numOfRegisterStudent={courseDetail.numOfRegisterStudent}
-              numOfOpenClass={courseDetail.numOfOpenClass}
-              openDate={courseDetail.openDate}
-              description={courseDetail.content}
-              field={courseDetail.field}
-              subCourse={subCourses}
-            />
-            {/* <CourseDetailFeedbackSection feedbackData={data.feedbackData} /> */}
-          </Grid>
-          {/* <Grid sx={{ order: { xs: -1, md: 1 } }} item xs={12} md={4}>
+    <Stack>
+      <Grid
+        container
+        sx={{
+          gridAutoFlow: 'dense',
+          padding: { xs: MetricSize.medium_15, md: '70px' },
+        }}
+      >
+        <Grid item xs={12} md={12} sx={{ padding: MetricSize.medium_15 }}>
+          <CourseDetailBasicInformationSection
+            mentorData={mentor}
+            percentOfFeedback={courseDetail.feedbackData.percentOfFeedback}
+            numOfRating={courseDetail.feedbackData.numOfRating}
+            numOfRegisterStudent={courseDetail.numOfRegisterStudent}
+            numOfOpenClass={courseDetail.numOfOpenClass}
+            openDate={courseDetail.openDate}
+            description={courseDetail.content}
+            field={courseDetail.field}
+            subCourse={subCourses}
+          />
+          {/* <CourseDetailFeedbackSection feedbackData={data.feedbackData} /> */}
+        </Grid>
+        {/* <Grid sx={{ order: { xs: -1, md: 1 } }} item xs={12} md={4}>
             <CourseDetailSidebarSection
               image={data.image}
               unitPrice={data.unitPrice}
             />
           </Grid> */}
-        </Grid>
-        <Stack>
-          <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
-        </Stack>
+      </Grid>
+      <Stack>
+        <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
       </Stack>
-    )
+    </Stack>
   );
 }
