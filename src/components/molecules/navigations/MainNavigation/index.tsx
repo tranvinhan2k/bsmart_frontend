@@ -23,8 +23,9 @@ import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '~/components/molecules/SocialBar';
 import ContractBar from '~/components/molecules/ContractBar';
-import { APP_NAME, AuthorizationActionData } from '~/constants';
+import { AuthorizationActionData } from '~/constants';
 import AuthorizationBar from '../../MainHeader/AuthorizationBar';
+import localEnvironment from '~/utils/localEnvironment';
 
 interface NavigationProps {
   pathName: string;
@@ -47,7 +48,6 @@ export default function MainNavigation({
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
-    console.log('hello');
   };
 
   const handleClose = () => {
@@ -136,7 +136,7 @@ export default function MainNavigation({
             color: Color.navy,
           }}
         >
-          {APP_NAME.toUpperCase()}
+          {localEnvironment.APP_NAME.toUpperCase()}
         </Typography>
       </Stack>
       <Stack
@@ -191,7 +191,7 @@ export default function MainNavigation({
                 color: Color.navy,
               }}
             >
-              {APP_NAME.toUpperCase()}
+              {localEnvironment.APP_NAME.toUpperCase()}
             </Typography>
             <IconButton onClick={handleDrawerToggle}>
               <Icon name="close" color="navy" size="medium" />
