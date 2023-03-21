@@ -58,6 +58,23 @@ export const SX_NORMAL_BUTTON: SxProps<Theme> = {
   padding: MetricSize.medium_15,
 };
 
+export const SX_NORMAL_BUTTON_SMALL: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
+  color: Color.white,
+  background: Color.orange,
+  width: '100%',
+  boxShadow: 3,
+  borderStyle: 'solid',
+  borderWidth: 1,
+  borderColor: Color.orange,
+  '&:hover': {
+    color: Color.orange,
+    background: Color.white,
+  },
+  padding: MetricSize.small_5,
+};
+
 export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,

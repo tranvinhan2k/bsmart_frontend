@@ -45,7 +45,12 @@ export interface EditPersonalProfileFormDataPayload {
   birthday: Date | '';
   address: string;
   phone: string;
-  introduce?: string;
+}
+
+export interface EditMentorProfileFormDataPayload {
+  introduce: string;
+  skills: { subjectId: number; level: number }[];
+  experience: string;
 }
 
 export interface EditCertificateProfileFormDataPayload {

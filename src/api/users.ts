@@ -39,7 +39,11 @@ export interface EditPersonalProfilePayload {
   birthday: Date | '';
   address: string;
   phone: string;
-  introduce?: string;
+}
+export interface EditMentorProfilePayload {
+  introduce: string;
+  skills: Array<any>;
+  experience: string;
 }
 export interface EditSocialProfilePayload {
   twitterLink?: string;
@@ -109,6 +113,9 @@ const accountApi = {
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/certificate`, data);
+  },
+  editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
+    return axiosClient.put(`${url}/mentorProfiles`, data);
   },
   editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);

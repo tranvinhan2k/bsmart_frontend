@@ -1,9 +1,10 @@
-import { object, string, ref, number, date, mixed } from 'yup';
+import { array, date, mixed, number, object, ref, string } from 'yup';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
   COURSE_CATEGORY_REQUIRED,
   COURSE_DESCRIPTION,
+  COURSE_IMAGE_REQUIRED,
   COURSE_LANGUAGE_REQUIRED,
   COURSE_LEVEL_REQUIRED,
   COURSE_NAME_REQUIRED,
@@ -70,7 +71,12 @@ export const validationSchemaEditPersonalProfile = object({
   birthday: date(),
   address: string(),
   phone: string().required(PHONE_REQUIRED),
-  introduce: string(),
+});
+
+export const validationSchemaEditMentorProfile = object({
+  introduce: string().required(),
+  skills: array(),
+  experience: string(),
 });
 
 export const validationSchemaEditCertificateProfile = object({
