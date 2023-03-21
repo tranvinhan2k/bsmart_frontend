@@ -1,9 +1,9 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const WRAPPER = {
-  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  width: MetricSize.centeredContainer1,
   marginX: 'auto',
   marginTop: '40px',
   textAlign: 'center',

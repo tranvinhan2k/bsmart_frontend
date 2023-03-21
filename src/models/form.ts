@@ -7,6 +7,7 @@ export interface RegisterStudentDataPayload {
   email: string;
   password: string;
   confirm: string;
+  phone: string;
 }
 export interface RegisterMentorDataPayload {
   name: string;
@@ -24,3 +25,61 @@ export interface BuyCourseDataPayload {
   voucher: string;
   paymentMethod: string;
 }
+export interface FeedbackMentorDataPayload {
+  mentorId: string;
+  subjectId: string;
+  enthusiasmLevel: number;
+  supportAnswerQuestion: string;
+  supportHomeWork: string;
+  feelingOfTeacher: string;
+}
+
+export interface EditImageProfileFormDataPayload {
+  avatar: string;
+  identityFront?: string;
+  identityBack?: string;
+}
+
+export interface EditPersonalProfileFormDataPayload {
+  fullName: string;
+  birthday: Date | '';
+  address: string;
+  phone: string;
+  introduce?: string;
+}
+
+export interface EditCertificateProfileFormDataPayload {
+  certificate1: string;
+  certificate2: string;
+  certificate3: string;
+  certificate4: string;
+  certificate5: string;
+}
+
+export interface EditAccountProfileFormDataPayload {
+  oldPassword: string;
+  oldPasswordConfirm: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
+export interface EditSocialProfileFormDataPayload {
+  facebookLink: string;
+  twitterLink: string;
+  instagramLink: string;
+}
+
+export type FormInputVariant =
+  | 'text'
+  | 'number'
+  | 'multiline'
+  | 'dropdown'
+  | 'radioGroup'
+  | 'image'
+  | 'multiSelect'
+  | 'time'
+  | 'file'
+  | 'tags'
+  | 'modules'
+  | 'password'
+  | 'date';

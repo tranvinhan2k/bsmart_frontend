@@ -1,7 +1,5 @@
-import React from 'react';
-import { Stack, Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import { Box, Stack, Typography } from '@mui/material';
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { formatMoney } from '~/utils/money';
 import Button from '~/components/atoms/Button';
@@ -37,11 +35,13 @@ export default function CourseDetailSidebarSection({
             paddingBottom: MetricSize.medium_15,
           }}
         >
-          <Typography
-            sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.large_45 }}
-          >
-            {formatMoney(unitPrice)}
-          </Typography>
+          {unitPrice !== 0 && (
+            <Typography
+              sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.large_45 }}
+            >
+              {formatMoney(unitPrice)}
+            </Typography>
+          )}
           <Button
             onClick={handleNavigateBuyCousePage}
             marginTop="medium_15"

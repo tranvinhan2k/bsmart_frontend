@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useState } from 'react';
+import { signIn } from '~/redux/user/slice';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
-import useYupValidationResolver from '~/hooks/useYupValidationResolver';
 import { SIGN_IN_FIELDS } from '~/form/schema';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
+import { RequestSignInPayload } from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
+import toast from '~/utils/toast';
+import { useMutationLogin, useYupValidationResolver } from '~/hooks';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -25,25 +30,51 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
-  const resolverSinIn = useYupValidationResolver(validationSchemaSignIn);
+  const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
-    resolver: resolverSinIn,
+    resolver: resolverSignIn,
   });
   const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
+
+  const handleGoogle = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      console.log(tokenResponse);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const handleRememberPassword = () => {
     setRememberPassword(!isRememberPassword);
     // TODO: handle remember password
   };
 
-  const handleGoogle = () => {
-    // TODO: handle google
-  };
+  /* Login with be swagger */
+  const { mutateAsync } = useMutationLogin();
+  const dispatch = useDispatch();
 
-  const handleLoginDataSubmitSuccess = (data: LoginFormDataPayload) => {
-    // TODO: handle submit login
+  const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
+    const params: RequestSignInPayload = {
+      email: data.email,
+      password: data.password,
+    };
+    const id = toast.loadToast('Đang đăng nhập...');
+    try {
+      const signInData = await mutateAsync(params);
+      localStorage.setItem('token', signInData.token);
+      dispatch(signIn(signInData));
+      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+    } catch (error: any) {
+      toast.updateFailedToast(
+        id,
+        `Đăng nhập không thành công: ${error.message}`
+      );
+    }
   };
+  // const token = useSelector((state: RootState) => state.user.token);
+  // console.log('token', token);
 
   return (
     <Stack>
@@ -72,7 +103,7 @@ export default function LoginForm() {
             <FormInput
               control={signInHookForm.control}
               name={SIGN_IN_FIELDS.password}
-              type="password"
+              variant="password"
               placeholder={LoginTexts.PASSWORD_PLACEHOLDER}
             />
           </Stack>
@@ -97,7 +128,7 @@ export default function LoginForm() {
           <Button
             marginTop="small_10"
             customVariant="google"
-            onClick={handleGoogle}
+            onClick={() => handleGoogle()}
           >
             {LoginTexts.GOOGLE_LOGIN_BUTTON}
           </Button>

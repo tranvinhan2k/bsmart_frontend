@@ -1,7 +1,7 @@
 import { Box, Typography, Grid } from '@mui/material';
 import React from 'react';
+import { advantagesOfLms } from '~/constants/dataMocked';
 import { SX } from './style';
-import { advantagesOfLms } from '~/constants/mockData/advantages';
 
 export default function Section2LmsFeatures() {
   return (

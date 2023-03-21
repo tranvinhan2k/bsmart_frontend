@@ -1,6 +1,4 @@
 import { Stack } from '@mui/material';
-import { MetricSize } from '~/assets/variables';
-
 import BreadcrumbNavigationSection from '~/containers/MainLayout/BreadcrumbNavigationSection';
 import MainFooterSection from '~/containers/MainLayout/MainFooterSection';
 import MainHeaderSection from '~/containers/MainLayout/MainHeaderSection';
@@ -28,14 +26,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <Stack>
         <BreadcrumbNavigationSection />
       </Stack>
-      <Stack
-        sx={{
-          minHeight: '100vh',
-          paddingX: { xs: MetricSize.medium_15, md: MetricSize.extraLarge_100 },
-        }}
-      >
-        {children}
-      </Stack>
+      {children}
       <Stack
         sx={{
           minHeight: '20vh',

@@ -1,14 +1,16 @@
 import axios from 'axios';
+import localEnvironment from '~/utils/localEnvironment';
 
 export const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: localEnvironment.SERVER_LINK,
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   },
 });
 
 axiosClient.interceptors.request.use(function (config) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(localEnvironment.ASYNC_STORAGE_TOKEN_NAME);
   const responseConfig = config;
   if (token) {
     responseConfig.headers.Authorization = `Bearer ${token}`;
@@ -18,12 +20,12 @@ axiosClient.interceptors.request.use(function (config) {
 });
 
 axiosClient.interceptors.response.use(
-  function (response) {
+  (response) => {
     const { data } = response.data;
     return data || response.data;
   },
-  function (error) {
-    if (error.response.status === 401) {
+  (error) => {
+    if (error?.response?.status === 401) {
       localStorage.removeItem('token');
     }
 

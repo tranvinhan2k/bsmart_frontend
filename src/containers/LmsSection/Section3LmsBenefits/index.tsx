@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { SX } from './style';
 import {
-  lmsTeacherBenefits,
-  lmsStudentBenefits,
-} from '~/constants/mockData/lmsBenefits';
+  lmsBenefitOfStudentList,
+  lmsBenefitOfTeacherList,
+} from '~/constants/dataMocked';
+import { SX } from './style';
 
 export default function Section3LmsBenefits() {
   return (
@@ -15,7 +15,7 @@ export default function Section3LmsBenefits() {
         Đối với học viên
       </Typography>
       <Grid container spacing={2}>
-        {lmsStudentBenefits.map((benefit) => (
+        {lmsBenefitOfStudentList.map((benefit) => (
           <Grid item xs={12} md={6} key={benefit.id}>
             <Box sx={SX.BOX}>
               <Typography component="h3" sx={SX.H3_BENEFIT}>
@@ -33,7 +33,7 @@ export default function Section3LmsBenefits() {
         Đối với giảng viên
       </Typography>
       <Grid container spacing={2}>
-        {lmsTeacherBenefits.map((benefit) => (
+        {lmsBenefitOfTeacherList.map((benefit) => (
           <Grid item xs={12} md={6} key={benefit.id}>
             <Box sx={SX.BOX}>
               <Typography component="h3" sx={SX.H3_BENEFIT}>

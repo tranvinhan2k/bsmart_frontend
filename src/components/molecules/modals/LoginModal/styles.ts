@@ -1,8 +1,8 @@
 import { SxProps, Theme } from '@mui/material';
-import { Color, Common, MetricSize } from '~/assets/variables';
+import { BorderRadius, Color, MetricSize } from '~/assets/variables';
 
 export const SX_MODAL_CONTAINER: SxProps<Theme> = {
-  borderRadius: Common.borderRadius,
+  borderRadius: BorderRadius.small_5,
   background: Color.white,
   position: 'absolute',
   top: '50%',

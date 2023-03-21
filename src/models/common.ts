@@ -1,4 +1,5 @@
-import { IconName } from '~/models/icon';
+import { IconName } from '~/components/atoms/Icon';
+import { CoursePayload } from './courses';
 
 export interface SocialPayload {
   name: string;
@@ -23,8 +24,19 @@ export interface TabPayload {
   label: string;
 }
 
-export interface CheckBoxPayload {
+export interface OptionPayload {
   id: number;
   label: string;
   value: string;
+}
+
+export interface PagingFilterPayload<ItemType> {
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
+  first: boolean;
+  last: boolean;
+  pageItemSize: number;
+  pageSize: number;
+  items: ItemType[];
 }

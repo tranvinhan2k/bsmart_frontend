@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import {
+  BorderRadius,
   Color,
   Common,
   FontFamily,
@@ -27,7 +28,7 @@ export default function SearchBar({
   return (
     <Stack
       sx={{
-        borderRadius: Common.borderRadius,
+        borderRadius: BorderRadius.small_5,
         background: Color.semiTransparent,
         marginTop: MetricSize.large_20,
         marginBottom: MetricSize.large_20,
@@ -49,7 +50,7 @@ export default function SearchBar({
           border: 'none',
           background: Color.transparent,
           overflow: 'hidden',
-          borderRadius: Common.borderRadius,
+          borderRadius: BorderRadius.small_5,
           color: Color.white,
           width: '100%',
         }}

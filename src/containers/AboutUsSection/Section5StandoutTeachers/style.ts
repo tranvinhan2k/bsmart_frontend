@@ -1,9 +1,8 @@
-import { Color, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 export const BOX = {
-  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  width: MetricSize.centeredContainer1,
   marginX: 'auto',
-  // marginTop: '40px',
   textAlign: 'center',
   padding: '95px 0 150px',
 };
@@ -13,7 +12,7 @@ export const H2 = {
   fontWeight: FontWeight.bold,
   lineHeight: '55px',
   color: Color.navy,
-  marginBottom: '30px',
+  marginBottom: MetricSize.large_20,
 };
 
 export const CONTAINER = {

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import HomePageSection from '~/containers/HomePageSection';
+import HomeSection from '~/containers/HomeSection';
 import { scrollToTop } from '~/utils/common';
 
 export default function HomePage() {
   useEffect(() => {
     scrollToTop();
   }, []);
-  return <HomePageSection />;
+  return <HomeSection />;
 }

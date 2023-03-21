@@ -1,17 +1,17 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 
 const WRAPPER: SxProps<Theme> = {
   backgroundColor: '#f7f7f7',
   width: '100%',
-  marginTop: '80px',
+  marginTop: MetricSize.extraLarge_90,
   padding: '70px 20px',
   boxSizing: 'border-box',
 };
 
 const CONTAINER: SxProps<Theme> = {
-  width: 'clamp(0rem, 70vw + 10rem, 100rem)',
+  width: MetricSize.centeredContainer1,
   marginX: 'auto',
   textAlign: 'center',
 };
@@ -24,7 +24,7 @@ const H4: SxProps<Theme> = {
   color: Color.orange,
   letterSpacing: '1px',
   textAlign: 'center',
-  marginBottom: '15px',
+  marginBottom: MetricSize.medium_15,
 };
 
 const H2: SxProps<Theme> = {
@@ -52,7 +52,7 @@ const SINGLE_BOX_H3: SxProps<Theme> = {
   marginBottom: '10px',
   fontSize: FontSize.medium_24,
   lineHeight: '34px',
-  color: '#130f40',
+  color: Color.navy2,
 };
 
 const SINGLE_BOX_P: SxProps<Theme> = {

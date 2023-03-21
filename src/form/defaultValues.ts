@@ -1,5 +1,11 @@
 import {
   BuyCourseDataPayload,
+  EditAccountProfileFormDataPayload,
+  EditImageProfileFormDataPayload,
+  EditCertificateProfileFormDataPayload,
+  EditPersonalProfileFormDataPayload,
+  EditSocialProfileFormDataPayload,
+  FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
@@ -13,6 +19,7 @@ export const defaultValueStudentRegister: RegisterStudentDataPayload = {
   email: '',
   password: '',
   name: '',
+  phone: '',
   confirm: '',
 };
 export const defaultValueMentorRegister: RegisterMentorDataPayload = {
@@ -31,4 +38,59 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
   voucher: '',
 };
 
-export default {};
+export const defaultValueEditImageProfile: EditImageProfileFormDataPayload = {
+  avatar: '',
+  identityFront: '',
+  identityBack: '',
+};
+
+export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload =
+  {
+    fullName: '',
+    birthday: '',
+    address: '',
+    phone: '',
+    introduce: '',
+  };
+
+export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
+  {
+    certificate1: '',
+    certificate2: '',
+    certificate3: '',
+    certificate4: '',
+    certificate5: '',
+  };
+
+export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =
+  {
+    oldPassword: '',
+    oldPasswordConfirm: '',
+    newPassword: '',
+    newPasswordConfirm: '',
+  };
+
+export const defaultValueEditSocialProfile: EditSocialProfileFormDataPayload = {
+  facebookLink: '',
+  twitterLink: '',
+  instagramLink: '',
+};
+
+export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
+  enthusiasmLevel: 5,
+  feelingOfTeacher: '',
+  mentorId: '',
+  subjectId: '',
+  supportAnswerQuestion: 'yes',
+  supportHomeWork: 'yes',
+};
+
+export const defaultValueCreateCourse = {
+  name: '',
+  level: '',
+  image: '',
+  category: null,
+  programmingLanguage: null,
+  type: null,
+  courseDescription: '',
+};

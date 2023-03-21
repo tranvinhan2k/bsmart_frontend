@@ -3,7 +3,7 @@ import {
   TabPayload,
   ContractPayload,
   ActionPayload,
-  CheckBoxPayload,
+  OptionPayload,
 } from '~/models';
 import { AddressDataPayload } from '~/models/address';
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
@@ -18,57 +18,118 @@ export const AuthorizationActionData: ActionPayload[] = [
 export const NavigationActionData: ActionPayload[] = [
   {
     name: 'Trang Chủ',
-    link: '/homepage',
+    link: 'homepage',
   },
   {
     name: 'Về Chúng Tôi',
-    link: '/about_us',
+    link: 'about_us',
   },
   {
     name: 'Khóa Học',
-    link: '/course',
+    link: 'course',
   },
   {
     name: 'Giảng viên',
-    link: '/teacher',
+    link: 'mentor-profile',
   },
   {
     name: 'Blog',
-    link: '/blog',
+    link: 'blog',
   },
   {
     isHide: true,
     name: 'Tuyển dụng',
-    link: '/recuitment',
+    link: 'recruitment',
   },
   {
     isHide: true,
     name: 'Đăng ký',
-    link: '/register',
+    link: 'register',
   },
   {
     isHide: true,
     name: 'Đăng nhập',
-    link: '/login',
+    link: 'login',
   },
   {
     isHide: true,
     name: 'Chi Tiết Khóa Học',
-    link: '/course/course-detail/:id',
+    link: 'course/course-detail/:id',
   },
   {
     name: 'Nền tảng LMS',
-    link: '/lms',
+    link: 'lms',
   },
   {
     isHide: true,
     name: 'Thông báo',
-    link: '/annotation',
+    link: 'annotation',
   },
   {
     isHide: true,
     name: 'Đăng kí khóa học',
-    link: '/buy-course',
+    link: 'buy-course',
+  },
+  {
+    isHide: true,
+    name: 'Chi Tiết Blog',
+    link: '/blog/blog-details/:id',
+  },
+  {
+    isHide: true,
+    name: 'Thông tin member',
+    link: '/member-details',
+  },
+  {
+    isHide: true,
+    name: 'Feedback',
+    link: 'feedback',
+  },
+];
+
+export const MentorNavigationActionData: ActionPayload[] = [
+  {
+    name: 'Chỉnh sửa thông tin',
+    link: 'edit-profile',
+  },
+  {
+    name: 'Quản lí ví tiền',
+    link: 'wallet-management',
+  },
+  {
+    name: 'Rút tiền',
+    link: 'withdraw',
+  },
+  {
+    name: 'Danh sách khóa học',
+    link: 'mentor-course-list',
+  },
+  {
+    name: 'Tạo khóa học',
+    link: 'create-course',
+  },
+  {
+    name: 'Giới thiệu giáo viên',
+    link: 'mentor-introduce',
+  },
+  {
+    name: 'Liên hệ',
+    link: 'contract',
+  },
+];
+
+export const MemberNavigationActionData: ActionPayload[] = [
+  {
+    name: 'Chỉnh sửa thông tin',
+    link: 'edit-profile',
+  },
+  {
+    name: 'Quản lý ví tiền',
+    link: 'wallet-management',
+  },
+  {
+    name: 'Rút tiền',
+    link: 'withdraw',
   },
 ];
 
@@ -151,7 +212,7 @@ export const FooterContractDataList: ContractPayload[] = [
   { name: 'Số điện thoại', image: 'phone', value: '+98 946005077' },
 ];
 
-export const FieldCheckBoxPayload: CheckBoxPayload[] = [
+export const FieldOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Front End',
@@ -173,7 +234,7 @@ export const FieldCheckBoxPayload: CheckBoxPayload[] = [
     value: 'db',
   },
 ];
-export const SubjectCheckBoxPayload: CheckBoxPayload[] = [
+export const SubjectOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Ngôn ngữ C/C++',
@@ -215,7 +276,7 @@ export const SubjectCheckBoxPayload: CheckBoxPayload[] = [
     value: 'Database MongoDB',
   },
 ];
-export const TypeCheckBoxPayload: CheckBoxPayload[] = [
+export const TypeOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Online',
@@ -227,7 +288,7 @@ export const TypeCheckBoxPayload: CheckBoxPayload[] = [
     value: 'Offline',
   },
 ];
-export const ProvinceCheckBoxPayload: CheckBoxPayload[] = [
+export const ProvinceOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Quận 1',
@@ -300,7 +361,7 @@ export const ProvinceCheckBoxPayload: CheckBoxPayload[] = [
   },
 ];
 
-export const CourseList: CoursePayload[] = [
+export const MentorCourses: CoursePayload[] = [
   {
     id: 0,
     content:
@@ -309,9 +370,11 @@ export const CourseList: CoursePayload[] = [
     image: cousreImage,
     mentor: 'Cuong',
     title: 'Front End Basic',
+    typeLearn: ['OFFLINE'],
   },
   {
     id: 1,
+    typeLearn: ['OFFLINE'],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
@@ -321,60 +384,7 @@ export const CourseList: CoursePayload[] = [
   },
   {
     id: 2,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 3,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 4,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 5,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 6,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 7,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    image: cousreImage,
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 8,
+    typeLearn: ['OFFLINE'],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
@@ -383,6 +393,7 @@ export const CourseList: CoursePayload[] = [
     title: 'Front End Basic',
   },
 ];
+
 export const CourseDetailData: CourseDetailPayload = {
   title: 'Front End Basic',
   content:
@@ -390,11 +401,17 @@ export const CourseDetailData: CourseDetailPayload = {
   field: 'Front End',
   id: 0,
   image: cousreImage,
+  category: {
+    id: 0,
+    code: '',
+    name: '',
+  },
   numOfOpenClass: 1,
   numOfRegisterStudent: 50,
   openDate: new Date().toISOString(),
   unitPrice: 1200000,
   mentorData: {
+    id: 1,
     avatar: mentor,
     name: 'Mentor Cuong',
   },
@@ -448,6 +465,7 @@ export const CourseDetailData: CourseDetailPayload = {
 export const CommonCourse: CoursePayload[] = [
   {
     id: 0,
+    typeLearn: ['OFFLINE'],
     image: cousreImage,
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
@@ -458,6 +476,8 @@ export const CommonCourse: CoursePayload[] = [
   },
   {
     id: 1,
+    typeLearn: ['OFFLINE'],
+
     image: cousreImage,
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
@@ -467,6 +487,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 2,
     image: cousreImage,
     content:
@@ -477,6 +498,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 3,
     image: cousreImage,
     content:
@@ -487,6 +509,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 4,
     image: cousreImage,
     content:
@@ -497,6 +520,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 5,
     image: cousreImage,
     content:
@@ -507,6 +531,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 6,
     image: cousreImage,
     content:
@@ -517,6 +542,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 7,
     image: cousreImage,
     content:
@@ -527,6 +553,7 @@ export const CommonCourse: CoursePayload[] = [
     mentorImage: mentor,
   },
   {
+    typeLearn: ['OFFLINE'],
     id: 8,
     image: cousreImage,
     content:
@@ -535,5 +562,69 @@ export const CommonCourse: CoursePayload[] = [
     mentor: 'Mentor Cuong',
     title: 'Khóa học Devops',
     mentorImage: mentor,
+  },
+];
+export const mockMentorDetailsInformationData = {
+  imageLink: mentor,
+  name: 'Mentor Cuong',
+  role: 'Mentor',
+  socials: [
+    {
+      image: 'facebook',
+      link: '/facebook',
+    },
+    {
+      image: 'twitter',
+      link: '/twitter',
+    },
+    {
+      image: 'linkedin',
+      link: '/linkedin',
+    },
+  ],
+  gender: 'male',
+  dateOfBirth: new Date().toISOString(),
+  address: 'Tân Bình, Tp. Hồ Chí Minh',
+  mail: 'mentor@gmail.com',
+  phone: '0946005077',
+  walletMoney: 300000,
+};
+
+export const mockMemberDetailsInformationData = {
+  imageLink: mentor,
+  name: 'Adam',
+  role: 'Member',
+  socials: [
+    {
+      image: 'facebook',
+      link: '/facebook',
+    },
+    {
+      image: 'twitter',
+      link: '/twitter',
+    },
+    {
+      image: 'linkedin',
+      link: '/linkedin',
+    },
+  ],
+  gender: 'male',
+  dateOfBirth: new Date().toISOString(),
+  address: 'Tân Bình, Tp. Hồ Chí Minh',
+  mail: 'mentor@gmail.com',
+  phone: '0946005077',
+  walletMoney: 300000,
+};
+
+export const mockMentorLatestActivities = [
+  {
+    id: 0,
+    message: 'Đã đăng ký khoá học ReactJS Basic',
+    updateDate: new Date().toISOString(),
+  },
+  {
+    id: 1,
+    message: 'Đã nhận được 100 BS từ việc chia sẻ khoá học',
+    updateDate: new Date().toISOString(),
   },
 ];

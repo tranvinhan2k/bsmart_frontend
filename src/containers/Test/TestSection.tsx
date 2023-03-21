@@ -1,111 +1,128 @@
-import { Button, Grid, Stack, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { Stack } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import Button from '~/components/atoms/Button';
+import FormInput from '~/components/atoms/FormInput';
+import { OptionPayload } from '~/models';
 
-import { changeUserStatus } from '~/redux/user/slice';
-import { selectUserStatus } from '~/redux/user/selector';
-import accountApi from '~/api/users';
-import { UserPayload } from '~/models/user';
-import { MetricSize } from '~/assets/variables';
+const optionData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'All',
+    value: '',
+  },
+  {
+    id: 1,
+    label: 'Option 1',
+    value: 'OPTION_1',
+  },
+  {
+    id: 2,
+    label: 'Option 2',
+    value: 'OPTION_2',
+  },
+];
 
 export default function TestSection() {
-  const dispatch = useDispatch();
-  const isUser = useSelector(selectUserStatus);
-  // Access the client
-  const queryClient = useQueryClient();
-  // Queries
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['users'],
-    queryFn: accountApi.get,
-  });
-  // Mutations
-  const mutation = useMutation({
-    mutationFn: accountApi.get,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
-    },
-  });
-  const [users, setUsers] = useState<UserPayload[]>();
-  const handleClick = () => {
-    dispatch(changeUserStatus(!isUser));
-  };
-  const handleClickMutation = async () => {
-    try {
-      const response = await mutation.mutateAsync();
-      setUsers(response);
-    } catch (e: any) {
-      console.error(e.message);
-    }
-  };
+  const { control, handleSubmit } = useForm();
+
+  function onSubmitSuccess(data: any) {
+    console.log('data', data);
+  }
   return (
-    <Stack width="90%" padding={2}>
-      <Stack>
-        <Typography>Update redux </Typography>
-        <Typography>{`${isUser}`}</Typography>
-        <Stack padding={MetricSize.medium_15}>
-          <Button onClick={handleClick} variant="contained">
-            Update User Status
-          </Button>
-        </Stack>
-      </Stack>
-      <Grid
-        container
-        sx={{ minHeight: '200vh', padding: MetricSize.medium_15 }}
-      >
-        <Grid item xl={6}>
-          <>
-            {isLoading && <p>Is Loading ..</p>}
-            {error && <p>{`${error}`}</p>}
-            <Stack
-              sx={{
-                border: '1px solid black',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {data &&
-                data.map((item: UserPayload) => (
-                  <Stack key={item.id}>
-                    <p>{`${item.firstName}`}</p>
-                    <p>{`${item.lastName}`}</p>
-                    <p>{`${item.id}`}</p>
-                    <p>{`${item.note}`}</p>
-                  </Stack>
-                ))}
-            </Stack>
-          </>
-        </Grid>
-        <Grid item xl={6}>
-          <>
-            {isLoading && <p>Is Loading ..</p>}
-            {error && <p>{`${error}`}</p>}
-            <Stack
-              sx={{
-                border: '1px solid black',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {users &&
-                users.map((item: UserPayload) => (
-                  <Stack key={item.id}>
-                    <p>{`${item.firstName}`}</p>
-                    <p>{`${item.lastName}`}</p>
-                    <p>{`${item.id}`}</p>
-                    <p>{`${item.note}`}</p>
-                  </Stack>
-                ))}
-            </Stack>
-            <Stack padding={MetricSize.medium_15}>
-              <Button onClick={handleClickMutation} variant="contained">
-                Update User Status
-              </Button>
-            </Stack>
-          </>
-        </Grid>
-      </Grid>
+    <Stack margin={5}>
+      <form onSubmit={handleSubmit(onSubmitSuccess)}>
+        <FormInput
+          variant="text"
+          control={control}
+          name="text"
+          label="Text Input"
+          placeholder="Text"
+          defaultValue="Hello"
+        />
+        <FormInput
+          variant="password"
+          control={control}
+          name="password"
+          label="Password Input"
+          placeholder="Text"
+          defaultValue="Hello"
+        />
+        <FormInput
+          variant="dropdown"
+          control={control}
+          name="dropdown"
+          label="Dropdown Input"
+          placeholder="Dropdown"
+          data={optionData}
+          defaultValue={{
+            id: 0,
+            label: 'Option 1',
+            value: 'OPTION_1',
+          }}
+        />
+        <FormInput
+          variant="number"
+          control={control}
+          name="number"
+          label="Number Input"
+          placeholder="Number"
+          defaultValue={1}
+        />
+        <FormInput
+          variant="multiline"
+          control={control}
+          name="multiline"
+          label="Multiline Input"
+          placeholder="Multiline"
+          defaultValue="Hello"
+        />
+        <FormInput
+          variant="image"
+          control={control}
+          name="image"
+          label="Image Input"
+          placeholder="Image"
+          defaultValue="Hello"
+        />
+        <FormInput
+          variant="radioGroup"
+          control={control}
+          name="radio"
+          label="Radio Input"
+          placeholder="Radio"
+          data={optionData}
+          defaultValue={{
+            id: 0,
+            label: 'Option 1',
+            value: 'OPTION_1',
+          }}
+        />
+        <FormInput
+          variant="date"
+          control={control}
+          name="date"
+          label="Date Input"
+          placeholder="Date"
+          data={optionData}
+          defaultValue="Hello"
+        />
+        <FormInput
+          variant="tags"
+          control={control}
+          name="tag"
+          label="Tag Input"
+          placeholder="Tags"
+          data={optionData}
+          defaultValue={{
+            id: 0,
+            label: 'Option 1',
+            value: 'OPTION_1',
+          }}
+        />
+        <Button customVariant="form" type="submit">
+          Submit
+        </Button>
+      </form>
     </Stack>
   );
 }
