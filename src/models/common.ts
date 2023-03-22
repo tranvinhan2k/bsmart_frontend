@@ -1,5 +1,6 @@
 import { IconName } from '~/components/atoms/Icon';
 import { CoursePayload } from './courses';
+import { Role } from './role';
 
 export interface SocialPayload {
   name: string;
@@ -14,9 +15,11 @@ export interface ContractPayload {
 }
 
 export interface ActionPayload {
+  id: number;
   isHide?: boolean;
   name: string;
   link: string;
+  role?: Role;
 }
 
 export interface TabPayload {
