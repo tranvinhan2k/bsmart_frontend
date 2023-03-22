@@ -1,36 +1,34 @@
 import { Stack } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { RequestGetCoursePayload } from '~/api/courses';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
 import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
+import { selectFilterParams } from '~/redux/courses/selector';
+import { changeFilterParams } from '~/redux/courses/slice';
 
-interface CourseFilterSectionProps {
-  filter: RequestGetCoursePayload;
-  onFilter: (params: RequestGetCoursePayload) => void;
-}
-
-export default function CourseFFilterSection(props: CourseFilterSectionProps) {
+export default function CourseFFilterSection() {
+  const dispatch = useDispatch();
+  const filterParams = useSelector(selectFilterParams);
   const { categories } = useQueryGetAllCategories();
   const { subjects } = useQueryGetAllSubjects();
 
-  const { filter, onFilter } = props;
-
   const handleSubmitSearchValue = (searchValue: string) => {
-    onFilter({ ...filter, q: searchValue });
+    dispatch(changeFilterParams({ ...filterParams, q: searchValue }));
   };
 
   const handleFilterFields = (categoryId: number[]) => {
-    onFilter({ ...filter, categoryId });
+    dispatch(changeFilterParams({ ...filterParams, categoryId }));
   };
   const handleFilterSubjects = (subjectId: number[]) => {
-    onFilter({ ...filter, subjectId });
+    dispatch(changeFilterParams({ ...filterParams, subjectId }));
   };
   const handleFilterTypes = (types: number[]) => {
-    onFilter({ ...filter, types });
+    dispatch(changeFilterParams({ ...filterParams, types }));
   };
   const handleFilterProvinces = (provinces: number[]) => {
-    onFilter({ ...filter, provinces });
+    dispatch(changeFilterParams({ ...filterParams, provinces }));
   };
 
   return (
@@ -41,6 +39,9 @@ export default function CourseFFilterSection(props: CourseFilterSectionProps) {
         onSubmit={handleSubmitSearchValue}
       />
       <FilterCheckboxList
+        type={filterParams.types}
+        categoryId={filterParams.categoryId}
+        subjectId={filterParams.subjectId}
         fields={categories}
         subjects={subjects}
         types={TypeOptionPayload}
