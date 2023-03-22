@@ -12,8 +12,8 @@ import {
 } from '~/models/form';
 
 export const defaultValueSignIn: LoginFormDataPayload = {
-  email: '',
-  password: '',
+  email: localStorage.getItem('username') || '',
+  password: localStorage.getItem('password') || '',
 };
 export const defaultValueStudentRegister: RegisterStudentDataPayload = {
   email: '',
