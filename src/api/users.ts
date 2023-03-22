@@ -47,6 +47,41 @@ export interface EditSocialProfilePayload {
   instagramLink?: string;
 }
 
+export interface ResponseProfilePayload {
+  id: number;
+  username: string;
+  introduce: string;
+  fullName: string;
+  email: string;
+  birthday: string;
+  address: string;
+  phone: string;
+  status: boolean;
+  roles: [
+    {
+      id: number;
+      name: string;
+      code: string;
+    }
+  ];
+  twitterLink: string;
+  facebookLink: string;
+  instagramLink: string;
+  userImages: [
+    {
+      id: number;
+      name: string;
+      url: string;
+    }
+  ];
+  wallet: {
+    id: number;
+    balance: number;
+    previous_balance: number;
+    owner_id: number;
+  };
+}
+
 export interface UserResponsePayload {
   id: number;
   username: string;
@@ -100,6 +135,9 @@ const accountApi = {
   },
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
+  },
+  getTokenProfile(): Promise<ResponseProfilePayload> {
+    return axiosClient.get(`${url}/profile`);
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);

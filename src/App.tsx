@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -16,15 +16,23 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import localEnvironment from './utils/localEnvironment';
+import { Role } from './models/role';
+import { selectRole } from './redux/user/selector';
 
-const showRoutes = () => {
+const showRoutes = (currentRole: Role | undefined) => {
   let result = null;
 
   if (routes.length > 0) {
     result = routes.map((route: RoutePayload) => {
-      return (
-        <Route key={route.path} path={route.path} element={route?.main()} />
-      );
+      if (
+        (route.role === currentRole && route.role) ||
+        route.role === undefined
+      ) {
+        return (
+          <Route key={route.path} path={route.path} element={route?.main()} />
+        );
+      }
+      return null;
     });
   }
 
@@ -32,6 +40,7 @@ const showRoutes = () => {
 };
 
 function App() {
+  const role = useSelector(selectRole);
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer
@@ -47,7 +56,7 @@ function App() {
         theme="colored"
       />
       <MainLayout>
-        <Routes>{showRoutes()}</Routes>
+        <Routes>{showRoutes(role)}</Routes>
       </MainLayout>
     </Suspense>
   );

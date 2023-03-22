@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Color,
   FontFamily,
@@ -26,6 +27,7 @@ import ContractBar from '~/components/molecules/ContractBar';
 import { AuthorizationActionData } from '~/constants';
 import AuthorizationBar from '../../MainHeader/AuthorizationBar';
 import localEnvironment from '~/utils/localEnvironment';
+import { selectRole } from '~/redux/user/selector';
 
 interface NavigationProps {
   pathName: string;
@@ -45,6 +47,8 @@ export default function MainNavigation({
   const navigation = useNavigate();
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const role = useSelector(selectRole);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -153,11 +157,13 @@ export default function MainNavigation({
         }}
       >
         <IconButton>
-          <img
-            style={{ width: IconSize.medium, height: IconSize.medium }}
-            src={cart}
-            alt="cart"
-          />
+          {role !== 'TEACHER' && (
+            <img
+              style={{ width: IconSize.medium, height: IconSize.medium }}
+              src={cart}
+              alt="cart"
+            />
+          )}
         </IconButton>
       </Stack>
       <Stack

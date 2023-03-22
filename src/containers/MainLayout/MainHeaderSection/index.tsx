@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MainHeader from '~/components/molecules/MainHeader';
 import LoginModal from '~/components/molecules/modals/LoginModal';
@@ -7,12 +8,13 @@ import {
   HeaderContractDataList,
   HeaderSocialDataList,
 } from '~/constants';
+import { selectToken } from '~/redux/user/selector';
 
 const SEARCH_BAR_LABEL = 'Tìm kiếm khóa học';
 
 export default function MainHeaderSection() {
   const navigate = useNavigate();
-
+  const token = useSelector(selectToken);
   const [isLoginModalVisisble, setLoginModalVisisble] =
     useState<boolean>(false);
 
@@ -39,10 +41,12 @@ export default function MainHeaderSection() {
         onLoginClick={handleTriggerLoginModal}
         onRegisterClick={handleNavigateRegister}
       />
-      <LoginModal
-        visible={isLoginModalVisisble}
-        onClick={handleTriggerLoginModal}
-      />
+      {!token && (
+        <LoginModal
+          visible={isLoginModalVisisble}
+          onClick={handleTriggerLoginModal}
+        />
+      )}
     </>
   );
 }

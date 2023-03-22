@@ -1,20 +1,53 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { ResponseProfilePayload } from '~/api/users';
+import { Role } from '~/models/role';
 
 export type UserStateType = {
+  roles: Role | undefined;
   isUser: boolean;
   token: string | null;
-  id: number | null;
-  email: string | null;
-  roles: string[] | null;
+  profile: ResponseProfilePayload;
 };
 
 const initialState: UserStateType = {
+  roles: undefined,
   isUser: false,
   token: null,
-  id: null,
-  email: null,
-  roles: null,
+  profile: {
+    id: 0,
+    email: '',
+    address: '',
+    birthday: new Date().toISOString(),
+    facebookLink: '',
+    fullName: '',
+    instagramLink: '',
+    introduce: '',
+    phone: '',
+    roles: [
+      {
+        id: 0,
+        code: '',
+        name: '',
+      },
+    ],
+    status: false,
+    twitterLink: '',
+    userImages: [
+      {
+        id: 0,
+        name: '',
+        url: '',
+      },
+    ],
+    username: '',
+    wallet: {
+      id: 0,
+      balance: 0,
+      owner_id: 0,
+      previous_balance: 0,
+    },
+  },
 };
 
 const slice = createSlice({
@@ -26,9 +59,11 @@ const slice = createSlice({
     },
     signIn: (state, action) => {
       state.token = action.payload.token;
-      state.id = action.payload.id;
-      state.email = action.payload.email;
       state.roles = action.payload.roles;
+      state.profile = action.payload.profile;
+    },
+    logOut: () => {
+      return initialState;
     },
   },
 });
@@ -37,4 +72,4 @@ const userReducer = slice.reducer;
 
 export default userReducer;
 
-export const { changeUserStatus, signIn } = slice.actions;
+export const { changeUserStatus, signIn, logOut } = slice.actions;
