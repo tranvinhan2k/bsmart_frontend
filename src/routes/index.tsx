@@ -65,6 +65,7 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[3].link}/*`,
     main: () => <MentorProfilePage />,
+    role: NavigationActionData[3].role,
   },
   {
     path: `/${NavigationActionData[4].link}`,
@@ -74,15 +75,17 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[5].link}`,
     main: () => <Stack>Hello</Stack>,
 
-    /* // TODO: add teacher */
+    /* // TODO: add tuyen dung */
   },
   {
     path: `/${NavigationActionData[6].link}`,
     main: () => <RegisterPage />,
+    role: NavigationActionData[6].role,
   },
   {
     path: `/${NavigationActionData[7].link}`,
     main: () => <LoginPage />,
+    role: NavigationActionData[7].role,
   },
   {
     path: `/${NavigationActionData[8].link}`,
@@ -107,10 +110,12 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[13].link}/*`,
     main: () => <MemberProfilePage />,
+    role: NavigationActionData[13].role,
   },
   {
     path: `/${NavigationActionData[14].link}`,
     main: () => <FeedbackPage />,
+    role: NavigationActionData[14].role,
   },
   {
     path: '*',

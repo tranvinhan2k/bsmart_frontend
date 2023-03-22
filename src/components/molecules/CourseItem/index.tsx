@@ -114,7 +114,7 @@ export default function CourseItem({
         <Divider />
         <Stack marginTop={2}>
           <Button onClick={handleNavigateCourseDetail} customVariant="normal">
-            Đăng ký
+            Xem chi tiết
           </Button>
         </Stack>
       </Stack>

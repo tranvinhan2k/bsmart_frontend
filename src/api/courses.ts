@@ -145,7 +145,10 @@ const coursesApi = {
     data: RequestGetCoursePayload
   ): Promise<PagingFilterPayload<CoursePayload> | null> {
     const response: PagingFilterPayload<ResponseGetCoursePayload> =
-      await axiosClient.get(url, { params: data });
+      await axiosClient.get(url, {
+        params: data,
+        paramsSerializer: { indexes: null },
+      });
     return handleResponseGetCourse(response);
   },
 

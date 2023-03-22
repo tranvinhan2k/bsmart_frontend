@@ -11,108 +11,150 @@ import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 
 export const AuthorizationActionData: ActionPayload[] = [
-  { name: 'Đăng nhập', link: '/login' },
-  { name: 'Đăng kí', link: '/register' },
+  {
+    id: 0,
+    name: 'Đăng nhập',
+    link: '/login',
+  },
+  {
+    id: 1,
+    name: 'Đăng kí',
+    link: '/register',
+  },
 ];
 
 export const NavigationActionData: ActionPayload[] = [
   {
+    id: 0,
     name: 'Trang Chủ',
     link: 'homepage',
   },
   {
+    id: 1,
     name: 'Về Chúng Tôi',
     link: 'about_us',
   },
   {
+    id: 2,
     name: 'Khóa Học',
     link: 'course',
   },
   {
-    name: 'Giảng viên',
+    id: 3,
+    isHide: true,
+    name: 'Thông tin giáo viên',
     link: 'mentor-profile',
+    role: 'TEACHER',
   },
   {
+    id: 4,
     name: 'Blog',
     link: 'blog',
   },
   {
+    id: 5,
     isHide: true,
     name: 'Tuyển dụng',
     link: 'recruitment',
   },
   {
+    id: 6,
     isHide: true,
     name: 'Đăng ký',
     link: 'register',
+    role: 'GUEST',
   },
   {
+    id: 7,
     isHide: true,
     name: 'Đăng nhập',
     link: 'login',
+    role: 'GUEST',
   },
   {
+    id: 8,
     isHide: true,
     name: 'Chi Tiết Khóa Học',
     link: 'course/course-detail/:id',
   },
   {
+    id: 9,
     name: 'Nền tảng LMS',
     link: 'lms',
   },
   {
+    id: 10,
     isHide: true,
     name: 'Thông báo',
     link: 'annotation',
   },
   {
+    id: 11,
     isHide: true,
     name: 'Đăng kí khóa học',
     link: 'buy-course',
   },
   {
+    id: 12,
     isHide: true,
     name: 'Chi Tiết Blog',
-    link: '/blog/blog-details/:id',
+    link: 'blog/blog-details/:id',
   },
   {
+    id: 13,
     isHide: true,
     name: 'Thông tin member',
-    link: '/member-details',
+    link: 'member-details',
+    role: 'STUDENT',
   },
   {
+    id: 14,
     isHide: true,
     name: 'Feedback',
     link: 'feedback',
+    role: 'STUDENT',
+  },
+  {
+    id: 15,
+    isHide: true,
+    name: 'Giảng viên',
+    link: 'mentor-introduce',
   },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [
   {
+    id: 0,
     name: 'Chỉnh sửa thông tin',
     link: 'edit-profile',
   },
   {
+    id: 1,
     name: 'Quản lí ví tiền',
     link: 'wallet-management',
   },
   {
+    id: 2,
     name: 'Rút tiền',
     link: 'withdraw',
   },
   {
+    id: 3,
     name: 'Danh sách khóa học',
     link: 'mentor-course-list',
   },
   {
+    id: 4,
     name: 'Tạo khóa học',
     link: 'create-course',
   },
   {
+    id: 5,
     name: 'Giới thiệu giáo viên',
     link: 'mentor-introduce',
   },
   {
+    id: 6,
     name: 'Liên hệ',
     link: 'contract',
   },
@@ -120,14 +162,17 @@ export const MentorNavigationActionData: ActionPayload[] = [
 
 export const MemberNavigationActionData: ActionPayload[] = [
   {
+    id: 0,
     name: 'Chỉnh sửa thông tin',
     link: 'edit-profile',
   },
   {
+    id: 1,
     name: 'Quản lý ví tiền',
     link: 'wallet-management',
   },
   {
+    id: 2,
     name: 'Rút tiền',
     link: 'withdraw',
   },

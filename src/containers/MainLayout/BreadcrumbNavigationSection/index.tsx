@@ -26,6 +26,7 @@ export default function BreadcrumbNavigationSection() {
 
   if (pathName.includes('course-detail')) {
     breadcrumbs.push({
+      id: 0,
       name: 'Chi Tiết Khóa Học',
       link: pathName,
     });

@@ -7,13 +7,27 @@ import { formatDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import TextLine from '~/components/atoms/TextLine';
 import Button from '~/components/atoms/Button';
+import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
+import toast from '~/utils/toast';
 
 interface SubCourseListProps {
   data: PagingFilterPayload<SubCoursePayload>;
 }
 
 export default function SubCourseList({ data }: SubCourseListProps) {
-  function handleSubCourse() {}
+  const { mutateAsync } = useMutationPayQuick();
+  async function handleSubCourse(subCourseId: number) {
+    const id = toast.loadToast('Đang thêm khóa học..');
+    try {
+      await mutateAsync(subCourseId);
+      toast.updateSuccessToast(id, 'Đăng kí khóa học mới thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(
+        id,
+        `Đăng kí khóa học thất bại: ${error.message}`
+      );
+    }
+  }
   return (
     <Stack>
       <Typography
@@ -75,7 +89,12 @@ export default function SubCourseList({ data }: SubCourseListProps) {
                   <TextLine label="Trạng thái" variable={item.status} />
                 </Stack>
                 <Stack padding={2}>
-                  <Button customVariant="normal">Xem chi tiết</Button>
+                  <Button
+                    onClick={() => handleSubCourse(item.id)}
+                    customVariant="normal"
+                  >
+                    Đăng kí
+                  </Button>
                   <Button marginTop="small_10" customVariant="outlined">
                     Thêm vào giỏ hàng
                   </Button>

@@ -11,11 +11,19 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
-import { RequestSignInPayload } from '~/api/users';
+import accountApi, {
+  RequestSignInPayload,
+  ResponseProfilePayload,
+} from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
-import { useMutationLogin, useYupValidationResolver } from '~/hooks';
+import {
+  useMutationLogin,
+  useMutationProfile,
+  useYupValidationResolver,
+} from '~/hooks';
+import { Role } from '~/models/role';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -35,7 +43,9 @@ export default function LoginForm() {
     defaultValues: defaultValueSignIn,
     resolver: resolverSignIn,
   });
-  const [isRememberPassword, setRememberPassword] = useState<boolean>(false);
+  const [isRememberPassword, setRememberPassword] = useState<boolean>(
+    localStorage.getItem('isRememberPassword') === 'true'
+  );
 
   const handleGoogle = useGoogleLogin({
     onSuccess: (tokenResponse) => {
@@ -53,6 +63,7 @@ export default function LoginForm() {
 
   /* Login with be swagger */
   const { mutateAsync } = useMutationLogin();
+  const getProfileMutation = useMutationProfile();
   const dispatch = useDispatch();
 
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
@@ -60,11 +71,32 @@ export default function LoginForm() {
       email: data.email,
       password: data.password,
     };
+
     const id = toast.loadToast('Đang đăng nhập...');
     try {
       const signInData = await mutateAsync(params);
       localStorage.setItem('token', signInData.token);
-      dispatch(signIn(signInData));
+      const responseProfile = await getProfileMutation.mutateAsync();
+      const requestProfile: {
+        token: string;
+        role: Role[];
+        profile: ResponseProfilePayload;
+      } = {
+        token: signInData.token,
+        role: signInData.roles,
+        profile: responseProfile,
+      };
+      dispatch(signIn(requestProfile));
+      if (isRememberPassword) {
+        localStorage.setItem('username', data.email);
+        localStorage.setItem('password', data.password);
+        localStorage.setItem('isRememberPassword', 'true');
+      } else {
+        localStorage.setItem('username', '');
+        localStorage.setItem('password', '');
+        localStorage.setItem('isRememberPassword', 'false');
+      }
+      signInHookForm.reset();
       toast.updateSuccessToast(id, 'Đăng nhập thành công!');
     } catch (error: any) {
       toast.updateFailedToast(

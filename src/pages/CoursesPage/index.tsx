@@ -12,8 +12,7 @@ export default function CoursesPage() {
     scrollToTop();
   }, []);
 
-  const { courses, error, isLoading, filterParams, handleChangeFilterParams } =
-    useQueryGetAllCourse();
+  const { courses, error, isLoading } = useQueryGetAllCourse();
   return (
     <Grid
       container
@@ -24,10 +23,7 @@ export default function CoursesPage() {
       }}
     >
       <Grid item xs={12} md={3}>
-        <CourseFilterSection
-          filter={filterParams}
-          onFilter={handleChangeFilterParams}
-        />
+        <CourseFilterSection />
       </Grid>
       <Grid item xs={12} md={9}>
         <CourseMenuSection error={error} data={courses} isLoading={isLoading} />

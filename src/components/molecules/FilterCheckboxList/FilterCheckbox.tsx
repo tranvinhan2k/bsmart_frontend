@@ -7,31 +7,28 @@ import Icon from '~/components/atoms/Icon';
 import { OptionPayload } from '~/models';
 
 interface FilterCheckboxProps {
+  value: number[] | undefined;
   label: string;
   data: OptionPayload[] | undefined;
   onChange: (data: number[]) => void;
 }
 
 export default function FilterCheckbox({
+  value = [],
   label,
   data,
   onChange,
 }: FilterCheckboxProps) {
-  const [checkedList, setCheckedList] = useState<number[]>([]);
   const [isViewMore, setViewMore] = useState<boolean>(true);
   const [isViewMoreMobile, setViewMoreMobile] = useState<boolean>(false);
 
   const handleClickedCheckBox = (id: number) => {
-    if (checkedList.includes(id)) {
-      const resultCheckedList = checkedList.filter(
-        (checkbox) => checkbox !== id
-      );
-      setCheckedList(resultCheckedList);
-      onChange(resultCheckedList);
+    if (value.includes(id)) {
+      const resultvalue = value.filter((checkbox) => checkbox !== id);
+      onChange(resultvalue);
       return;
     }
-    const resultSelectedCheckbox = [...checkedList, id];
-    setCheckedList(resultSelectedCheckbox);
+    const resultSelectedCheckbox = [...value, id];
     onChange(resultSelectedCheckbox);
   };
 
@@ -93,7 +90,7 @@ export default function FilterCheckbox({
               key={checkbox.id}
             >
               <Checkbox
-                isChecked={checkedList.includes(checkbox.id)}
+                isChecked={value.includes(checkbox.id)}
                 onCheck={() => handleClickedCheckBox(checkbox.id)}
               >
                 {checkbox.label}
