@@ -4,6 +4,7 @@ export * from './useMutationUploadImage';
 export * from './useMutationCreateCourse';
 export * from './useMutationSignUp';
 export * from './useMutationLogin';
+export * from './useMutationProfile';
 
 export * from './useQueryGetAllCategories';
 export * from './useQueryGetAllSubjects';

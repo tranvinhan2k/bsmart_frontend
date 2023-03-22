@@ -99,7 +99,7 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
         </Stack>
       );
       break;
-    default:
+    case isLoading === false:
       courseData = (
         <Stack
           sx={{
@@ -119,6 +119,8 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
           ))}
         </Stack>
       );
+      break;
+    default:
       break;
   }
 
