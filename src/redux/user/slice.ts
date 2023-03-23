@@ -4,16 +4,16 @@ import { ResponseProfilePayload } from '~/api/users';
 import { Role } from '~/models/role';
 
 export type UserStateType = {
-  roles: Role | undefined;
+  roles: Role | null;
   isUser: boolean;
   token: string | null;
   profile: ResponseProfilePayload;
 };
 
 const initialState: UserStateType = {
-  roles: undefined,
+  roles: (localStorage.getItem('role') as Role) || null,
   isUser: false,
-  token: null,
+  token: localStorage.getItem('token'),
   profile: {
     id: 0,
     email: '',
@@ -62,8 +62,13 @@ const slice = createSlice({
       state.roles = action.payload.roles;
       state.profile = action.payload.profile;
     },
-    logOut: () => {
-      return initialState;
+    addProfile: (state, action) => {
+      state.profile = action.payload.profile;
+    },
+    logOut: (state) => {
+      state.token = null;
+      state.roles = null;
+      state.profile = initialState.profile;
     },
   },
 });
@@ -72,4 +77,4 @@ const userReducer = slice.reducer;
 
 export default userReducer;
 
-export const { changeUserStatus, signIn, logOut } = slice.actions;
+export const { changeUserStatus, addProfile, signIn, logOut } = slice.actions;
