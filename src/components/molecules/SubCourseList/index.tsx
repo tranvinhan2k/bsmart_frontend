@@ -9,13 +9,17 @@ import TextLine from '~/components/atoms/TextLine';
 import Button from '~/components/atoms/Button';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
+import { useMutationAddCourseToCart } from '~/hooks';
+import { RequestCartItem } from '~/api/cart';
 
 interface SubCourseListProps {
+  courseId: number | undefined;
   data: PagingFilterPayload<SubCoursePayload>;
 }
 
-export default function SubCourseList({ data }: SubCourseListProps) {
+export default function SubCourseList({ courseId, data }: SubCourseListProps) {
   const { mutateAsync } = useMutationPayQuick();
+  const { mutateAsync: addToCartMutationAsync } = useMutationAddCourseToCart();
   async function handleSubCourse(subCourseId: number) {
     const id = toast.loadToast('Đang thêm khóa học..');
     try {
@@ -26,6 +30,19 @@ export default function SubCourseList({ data }: SubCourseListProps) {
         id,
         `Đăng kí khóa học thất bại: ${error.message}`
       );
+    }
+  }
+  async function handleSubCourseAddToCart(subCourseId: number) {
+    const id = toast.loadToast('Đang thêm khóa học vào giỏ hàng..');
+    try {
+      const params: RequestCartItem = {
+        cartItemId: courseId,
+        subCourseId,
+      };
+      await addToCartMutationAsync(params);
+      toast.updateSuccessToast(id, 'Thêm khóa học mới thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Thêm khóa học thất bại: ${error.message}`);
     }
   }
   return (
@@ -95,7 +112,11 @@ export default function SubCourseList({ data }: SubCourseListProps) {
                   >
                     Đăng kí
                   </Button>
-                  <Button marginTop="small_10" customVariant="outlined">
+                  <Button
+                    onClick={() => handleSubCourseAddToCart(item.id)}
+                    marginTop="small_10"
+                    customVariant="outlined"
+                  >
                     Thêm vào giỏ hàng
                   </Button>
                 </Stack>

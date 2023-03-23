@@ -56,6 +56,7 @@ export default function CourseDetailPage() {
       >
         <Grid item xs={12} md={12} sx={{ padding: MetricSize.medium_15 }}>
           <CourseDetailBasicInformationSection
+            id={Number(id)}
             mentorData={mentor}
             percentOfFeedback={courseDetail.feedbackData.percentOfFeedback}
             numOfRating={courseDetail.feedbackData.numOfRating}
