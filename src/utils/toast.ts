@@ -9,7 +9,7 @@ const updateSuccessToast = (id: Id, label: string) => {
     render: label,
     type: 'success',
     isLoading: false,
-    autoClose: 5000,
+    autoClose: 1000,
     closeOnClick: true,
     closeButton: true,
   });
@@ -21,7 +21,7 @@ const updateFailedToast = (id: Id, label: string) => {
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 10000,
+    autoClose: 5000,
   });
 };
 const notifyErrorToast = (message: string) => {
@@ -29,7 +29,7 @@ const notifyErrorToast = (message: string) => {
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 10000,
+    autoClose: 5000,
   });
 };
 
