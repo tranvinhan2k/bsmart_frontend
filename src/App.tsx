@@ -29,6 +29,11 @@ const showRoutes = (currentRole: Role | null) => {
 
   if (routes.length > 0) {
     result = routes.map((route: RoutePayload) => {
+      if (route.role === 'GUEST') {
+        return (
+          <Route key={route.path} path={route.path} element={route?.main()} />
+        );
+      }
       if (
         (route.role === currentRole && Boolean(route.role)) ||
         route.role === undefined
@@ -65,7 +70,7 @@ function App() {
         const responseProfile = await getProfileMutation.mutateAsync();
         dispatch(addProfile({ profile: responseProfile }));
       } catch (error) {
-        toast.notifyErrorToast('Lấy thông tin thất bại. Xin hãy thử lại.');
+        // toast.notifyErrorToast('Lấy thông tin thất bại. Xin hãy thử lại.');
       }
     }
     if (!profile.id) {
