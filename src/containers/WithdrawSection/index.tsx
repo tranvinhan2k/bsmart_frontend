@@ -22,6 +22,7 @@ import {
   SX_DESC_NOTE,
   SX_NOTE,
 } from './style';
+import transactionsApi from '~/api/transactions';
 
 export default function WithdrawSection() {
   const formData = [
@@ -32,6 +33,10 @@ export default function WithdrawSection() {
     { id: 5, placeholder: 'Ghi chú', icon: <StickyNote2Icon /> },
     { id: 6, placeholder: 'Mã xác thực', icon: <VpnKeyIcon /> },
   ];
+
+  async function handleWithdraw() {
+    // await transactionsApi.DepositMoney();
+  }
 
   return (
     <>

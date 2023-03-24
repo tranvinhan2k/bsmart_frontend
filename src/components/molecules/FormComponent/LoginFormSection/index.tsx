@@ -76,14 +76,17 @@ export default function LoginForm() {
     try {
       const signInData = await mutateAsync(params);
       localStorage.setItem('token', signInData.token);
+      localStorage.setItem('roles', signInData.roles[0]);
+
       const responseProfile = await getProfileMutation.mutateAsync();
+
       const requestProfile: {
         token: string;
-        role: Role[];
+        roles: Role;
         profile: ResponseProfilePayload;
       } = {
         token: signInData.token,
-        role: signInData.roles,
+        roles: signInData.roles[0],
         profile: responseProfile,
       };
       dispatch(signIn(requestProfile));

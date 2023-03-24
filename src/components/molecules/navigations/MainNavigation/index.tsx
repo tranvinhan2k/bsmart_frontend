@@ -62,6 +62,10 @@ export default function MainNavigation({
     setOpenDrawer(!isOpenDrawer);
   };
 
+  const handleNavigateCartPage = () => {
+    navigation('/cart');
+  };
+
   const handleNavigation = (link: string) => {
     if (isOpenDrawer) {
       handleDrawerToggle();
@@ -156,15 +160,16 @@ export default function MainNavigation({
           display: { xs: 'none', md: 'flex' },
         }}
       >
-        <IconButton>
-          {role !== 'TEACHER' && (
+        {' '}
+        {role !== 'TEACHER' && (
+          <IconButton onClick={handleNavigateCartPage}>
             <img
               style={{ width: IconSize.medium, height: IconSize.medium }}
               src={cart}
               alt="cart"
             />
-          )}
-        </IconButton>
+          </IconButton>
+        )}
       </Stack>
       <Stack
         sx={{

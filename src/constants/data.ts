@@ -116,9 +116,14 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     id: 15,
-    isHide: true,
     name: 'Giảng viên',
     link: 'mentor-introduce',
+  },
+  {
+    id: 16,
+    isHide: true,
+    name: 'Giỏ Hàng',
+    link: 'cart',
   },
 ];
 
@@ -613,32 +618,6 @@ export const mockMentorDetailsInformationData = {
   imageLink: mentor,
   name: 'Mentor Cuong',
   role: 'Mentor',
-  socials: [
-    {
-      image: 'facebook',
-      link: '/facebook',
-    },
-    {
-      image: 'twitter',
-      link: '/twitter',
-    },
-    {
-      image: 'linkedin',
-      link: '/linkedin',
-    },
-  ],
-  gender: 'male',
-  dateOfBirth: new Date().toISOString(),
-  address: 'Tân Bình, Tp. Hồ Chí Minh',
-  mail: 'mentor@gmail.com',
-  phone: '0946005077',
-  walletMoney: 300000,
-};
-
-export const mockMemberDetailsInformationData = {
-  imageLink: mentor,
-  name: 'Adam',
-  role: 'Member',
   socials: [
     {
       image: 'facebook',

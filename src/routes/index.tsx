@@ -10,6 +10,7 @@ import {
 } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
+import CartPage from '~/pages/CartPage';
 
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
@@ -74,7 +75,6 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[5].link}`,
     main: () => <Stack>Hello</Stack>,
-
     /* // TODO: add tuyen dung */
   },
   {
@@ -116,6 +116,16 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[14].link}`,
     main: () => <FeedbackPage />,
     role: NavigationActionData[14].role,
+  },
+  {
+    path: `/${NavigationActionData[15].link}`,
+    main: () => <div>Hello</div>,
+    role: NavigationActionData[15].role,
+  },
+  {
+    path: `/${NavigationActionData[16].link}`,
+    main: () => <CartPage />,
+    role: NavigationActionData[16].role,
   },
   {
     path: '*',

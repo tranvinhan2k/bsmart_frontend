@@ -46,7 +46,10 @@ export default function MainHeader({
     setAnchorEl(null);
   };
   const handleLogOut = () => {
-    localStorage.removeItem(localEnvironment.ASYNC_STORAGE_TOKEN_NAME);
+    console.log('log out');
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('roles');
     dispatch(logOut());
     handleClose();
   };
@@ -58,7 +61,7 @@ export default function MainHeader({
     navigate(
       role !== 'STUDENT'
         ? '/mentor-profile/edit-profile'
-        : '/member-detail/edit-profile'
+        : '/member-details/edit-profile'
     );
     handleClose();
   };

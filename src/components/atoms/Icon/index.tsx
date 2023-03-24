@@ -17,6 +17,7 @@ import {
   BsFacebook,
 } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
+import { MdPayments } from 'react-icons/md';
 import { FaShare } from 'react-icons/fa';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { HiLocationMarker } from 'react-icons/hi';
@@ -66,6 +67,7 @@ export type IconName =
   | 'eye-off'
   | 'add-icon'
   | 'star'
+  | 'payment'
   | 'pinterest';
 interface IconProps {
   color?: ColorKeys;
@@ -119,6 +121,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsTwitter />
+        </Typography>
+      );
+    case 'payment':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdPayments />
         </Typography>
       );
     case 'instagram':

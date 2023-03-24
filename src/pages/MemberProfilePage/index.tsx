@@ -10,11 +10,15 @@ export default function MemberProfilePage() {
     scrollToTop();
   }, []);
 
+  console.log('member profile');
+
   const showMemberRoutes = () => {
     let result = null;
 
     if (memberRoutes.length > 0) {
       result = memberRoutes.map((route: RoutePayload) => {
+        console.log(route);
+
         return (
           <Route key={route.path} path={route.path} element={route?.main()} />
         );
