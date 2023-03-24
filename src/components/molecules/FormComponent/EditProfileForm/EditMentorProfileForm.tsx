@@ -1,5 +1,5 @@
 import { Box, Divider, Typography, Grid } from '@mui/material';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
@@ -62,19 +62,18 @@ export default function EditMentorProfileForm() {
   const handleSubmitSuccess = async (
     data: EditMentorProfileFormDataPayload
   ) => {
-    console.log(data);
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,
       skills: data.skills,
       experience: data.experience,
     };
-    // const id = toast.loadToast('Đang cập nhật ...');
-    // try {
-    //   await mutateEditMentorProfile(params);
-    //   toast.updateSuccessToast(id, 'Cập nhật thành công');
-    // } catch (error: any) {
-    //   toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
-    // }
+    const id = toast.loadToast('Đang cập nhật ...');
+    try {
+      await mutateEditMentorProfile(params);
+      toast.updateSuccessToast(id, 'Cập nhật thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+    }
   };
 
   interface FormFieldsMentorProps {
@@ -186,44 +185,46 @@ export default function EditMentorProfileForm() {
             </Grid>
             <Grid item xs={12}>
               <Typography sx={SX_FORM_LABEL}>Kĩ năng</Typography>
-              {fields.map((field, index) => (
-                <Grid container columnSpacing={2} mb={2} key={field.id}>
-                  <Grid item xs={8}>
-                    <FormInput
-                      control={control}
-                      name={`skills.${index}.subjectId`}
-                      variant="text"
-                      placeholder="Nhập kĩ năng"
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormInput
-                      control={control}
-                      name={`skills.${index}.level`}
-                      variant="text"
-                      placeholder="Nhập số tháng thành thục kĩ năng"
-                    />
-                  </Grid>
-                  <Grid item xs={6} lg={3}>
-                    <Button
-                      customVariant="normal"
-                      size="small"
-                      onClick={() => appendSkill()}
-                    >
-                      Thêm kĩ năng
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} lg={3}>
-                    <Button
-                      customVariant="normal"
-                      size="small"
-                      onClick={() => removeSkill(index)}
-                    >
-                      Xóa kĩ năng
-                    </Button>
-                  </Grid>
-                </Grid>
-              ))}
+              <Grid container columnSpacing={2} mb={2}>
+                {fields.map((field, index) => (
+                  <Fragment key={field.id}>
+                    <Grid item xs={7}>
+                      <FormInput
+                        control={control}
+                        name={`skills.${index}.subjectId`}
+                        variant="text"
+                        placeholder="Nhập kĩ năng"
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <FormInput
+                        control={control}
+                        name={`skills.${index}.level`}
+                        variant="text"
+                        placeholder="Nhập số tháng thành thục kĩ năng"
+                      />
+                    </Grid>
+                    <Grid item xs={1}>
+                      <Button
+                        customVariant="normal"
+                        size="small"
+                        onClick={() => removeSkill(index)}
+                      >
+                        Xóa
+                      </Button>
+                    </Grid>
+                  </Fragment>
+                ))}
+              </Grid>
+              <Grid item xs={6} lg={3}>
+                <Button
+                  customVariant="normal"
+                  size="small"
+                  onClick={() => appendSkill()}
+                >
+                  Thêm kĩ năng
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
           <Box mt={4}>

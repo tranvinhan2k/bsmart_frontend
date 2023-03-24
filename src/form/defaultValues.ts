@@ -61,11 +61,7 @@ export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
   {
-    certificate1: '',
-    certificate2: '',
-    certificate3: '',
-    certificate4: '',
-    certificate5: '',
+    certificates: [{ file: '' }],
   };
 
 export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =

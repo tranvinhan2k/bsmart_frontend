@@ -54,11 +54,7 @@ export interface EditMentorProfileFormDataPayload {
 }
 
 export interface EditCertificateProfileFormDataPayload {
-  certificate1: string;
-  certificate2: string;
-  certificate3: string;
-  certificate4: string;
-  certificate5: string;
+  certificates: { file: string | Blob }[];
 }
 
 export interface EditAccountProfileFormDataPayload {

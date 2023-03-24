@@ -67,11 +67,7 @@ export const EDIT_MENTOR_PROFILE_FIELDS = {
 };
 
 export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
-  certificate1: 'certificate1',
-  certificate2: 'certificate2',
-  certificate3: 'certificate3',
-  certificate4: 'certificate4',
-  certificate5: 'certificate5',
+  certificates: 'certificates',
 };
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {

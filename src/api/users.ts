@@ -23,11 +23,7 @@ export interface EditAccountProfilePayload {
   newPassword: string;
 }
 export interface EditCertificateProfilePayload {
-  certificate1: string;
-  certificate2: string;
-  certificate3: string;
-  certificate4: string;
-  certificate5: string;
+  certificates: { file: string | Blob }[];
 }
 export interface EditImageProfilePayload {
   avatar: string;
@@ -150,7 +146,14 @@ const accountApi = {
     return axiosClient.put(`${url}/images`, data);
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/certificate`, data);
+    const bodyFormData = new FormData();
+    const files = data.certificates;
+    files.forEach((item) => {
+      bodyFormData.append('files', item.file);
+    });
+    return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   },
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/mentorProfiles`, data);
