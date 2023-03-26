@@ -55,7 +55,7 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
 
 export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
   introduce: '',
-  skills: [{ subjectId: 0, level: 0 }],
+  skills: [{ id: 0, label: '', value: '' }],
   experience: '',
 };
 

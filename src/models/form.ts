@@ -49,7 +49,7 @@ export interface EditPersonalProfileFormDataPayload {
 
 export interface EditMentorProfileFormDataPayload {
   introduce: string;
-  skills: { subjectId: number; level: number }[];
+  skills: { id: number; label: string; value: string }[];
   experience: string;
 }
 

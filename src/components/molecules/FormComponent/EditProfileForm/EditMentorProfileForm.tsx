@@ -16,7 +16,7 @@ import accountApi, { EditMentorProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { useYupValidationResolver } from '~/hooks';
+import { useQueryGetAllSubjects, useYupValidationResolver } from '~/hooks';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
 export default function EditMentorProfileForm() {
@@ -34,6 +34,10 @@ export default function EditMentorProfileForm() {
       enabled: Boolean(token),
     }
   );
+  const { subjects } = useQueryGetAllSubjects();
+  const { mutateAsync: mutateEditMentorProfile } = useMutation({
+    mutationFn: accountApi.editMentorProfile,
+  });
 
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditMentorProfile
@@ -51,22 +55,36 @@ export default function EditMentorProfileForm() {
       if (dataGetProfile.skills) defaults.skills = dataGetProfile.skill;
       if (dataGetProfile.introduce)
         defaults.introduce = dataGetProfile.introduce;
+
+      // console.log('defaults', defaults);
+      if (subjects) {
+        defaults.skills = [
+          {
+            id: subjects[0].id,
+            label: subjects[0].label,
+            value: subjects[0].value,
+          },
+        ];
+      }
       reset(defaults);
     }
-  }, [dataGetProfile, reset]);
+  }, [dataGetProfile, reset, subjects]);
 
-  const { mutateAsync: mutateEditMentorProfile } = useMutation({
-    mutationFn: accountApi.editMentorProfile,
-  });
-
-  const handleSubmitSuccess = async (
-    data: EditMentorProfileFormDataPayload
-  ) => {
+  const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,
-      skills: data.skills,
+      skills: [],
       experience: data.experience,
     };
+    data.skills.forEach((item: any) => {
+      params.skills.push({
+        skillId: item.subjectId.id,
+        yearOfExperiences: item.yearOfExperiences,
+      });
+    });
+
+    console.log('data', data);
+    console.log('params', params);
     const id = toast.loadToast('Đang cập nhật ...');
     try {
       await mutateEditMentorProfile(params);
@@ -134,10 +152,13 @@ export default function EditMentorProfileForm() {
   });
 
   const appendSkill = () => {
-    append({
-      subjectId: 0,
-      level: 0,
-    });
+    if (subjects) {
+      append({
+        id: subjects[0].id,
+        label: subjects[0].label,
+        value: subjects[0].value,
+      });
+    }
   };
   const removeSkill = (order: number) => {
     remove(order);
@@ -162,7 +183,7 @@ export default function EditMentorProfileForm() {
         {EDIT_MENTOR_PROFILE_FORM_TEXT.TITLE}
       </Typography>
       <Divider sx={{ marginY: 2 }} />
-      {dataGetProfile && (
+      {dataGetProfile && subjects && (
         <form onSubmit={handleSubmit(handleSubmitSuccess)}>
           <Grid container columnSpacing={3}>
             <Grid item xs={12}>
@@ -191,17 +212,17 @@ export default function EditMentorProfileForm() {
                     <Grid item xs={7}>
                       <FormInput
                         control={control}
+                        data={subjects}
                         name={`skills.${index}.subjectId`}
-                        variant="text"
-                        placeholder="Nhập kĩ năng"
+                        variant="dropdown"
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <FormInput
                         control={control}
-                        name={`skills.${index}.level`}
-                        variant="text"
-                        placeholder="Nhập số tháng thành thục kĩ năng"
+                        name={`skills.${index}.yearOfExperiences`}
+                        variant="number"
+                        placeholder="Nhập số năm kinh nghiệm"
                       />
                     </Grid>
                     <Grid item xs={1}>
@@ -233,6 +254,11 @@ export default function EditMentorProfileForm() {
             </Button>
           </Box>
         </form>
+      )}
+      {(!dataGetProfile || !subjects) && (
+        <Typography component="h3" sx={SX_FORM_TITLE}>
+          Đang tải
+        </Typography>
       )}
     </Box>
   );

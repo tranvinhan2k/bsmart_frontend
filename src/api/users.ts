@@ -156,7 +156,7 @@ const accountApi = {
     });
   },
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/mentorProfiles`, data);
+    return axiosClient.put(`/mentorProfiles`, data);
   },
   editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);
