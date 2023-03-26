@@ -43,3 +43,9 @@ export interface PagingFilterPayload<ItemType> {
   pageSize: number;
   items: ItemType[];
 }
+
+export interface PaginationPayload {
+  page: number;
+  size: number;
+  sort: string;
+}
