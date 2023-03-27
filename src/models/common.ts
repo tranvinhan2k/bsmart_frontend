@@ -33,6 +33,12 @@ export interface OptionPayload {
   value: string;
 }
 
+export interface ImagePayload {
+  id: number;
+  name: string;
+  url: string;
+}
+
 export interface PagingFilterPayload<ItemType> {
   totalPages: number;
   totalItems: number;
@@ -42,4 +48,10 @@ export interface PagingFilterPayload<ItemType> {
   pageItemSize: number;
   pageSize: number;
   items: ItemType[];
+}
+
+export interface RequestPagingFilterPayload {
+  page: number;
+  size: number;
+  sort: string[] | undefined;
 }

@@ -7,13 +7,15 @@ export type UserStateType = {
   roles: Role | null;
   isUser: boolean;
   token: string | null;
+  isAddToCart: boolean;
   profile: ResponseProfilePayload;
 };
 
 const initialState: UserStateType = {
-  roles: (localStorage.getItem('role') as Role) || null,
+  roles: (localStorage.getItem('roles') as Role) || null,
   isUser: false,
   token: localStorage.getItem('token'),
+  isAddToCart: false,
   profile: {
     id: 0,
     email: '',
@@ -22,6 +24,7 @@ const initialState: UserStateType = {
     facebookLink: '',
     fullName: '',
     instagramLink: '',
+    gender: '',
     introduce: '',
     phone: '',
     roles: [
@@ -65,6 +68,9 @@ const slice = createSlice({
     addProfile: (state, action) => {
       state.profile = action.payload.profile;
     },
+    toggleAddToCart: (state, action) => {
+      state.isAddToCart = action.payload;
+    },
     logOut: (state) => {
       state.token = null;
       state.roles = null;
@@ -77,4 +83,5 @@ const userReducer = slice.reducer;
 
 export default userReducer;
 
-export const { changeUserStatus, addProfile, signIn, logOut } = slice.actions;
+export const { changeUserStatus, toggleAddToCart, addProfile, signIn, logOut } =
+  slice.actions;

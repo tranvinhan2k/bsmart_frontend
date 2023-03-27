@@ -1,11 +1,16 @@
 import { Stack } from '@mui/material';
 import Box from '@mui/material/Box/Box';
 import Checkbox from '@mui/material/Checkbox';
-import Radio from '@mui/material/Radio/Radio';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import Divider from '@mui/material/Divider';
 import { CartItem, RequestCartItem } from '~/api/cart';
-import { Color, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import cousreImage from '~/assets/images/front-end-course.png';
+import mentor from '~/assets/images/avatar-mentor-1.jpg';
+import { formatDate } from '~/utils/date';
+import { formatMoney } from '~/utils/money';
+import CarouselSubCourse from '../CarouselSubCourse';
 
 interface CourseInCartProps {
   row: CartItem;
@@ -14,65 +19,76 @@ interface CourseInCartProps {
 
 function CourseInCart({ row, onUpdate }: CourseInCartProps) {
   const chosenSubCourse = row.subCourses.find((item) => item.isChosen);
-  const [subCourseId, setSubCourseId] = React.useState<number>(
-    chosenSubCourse?.id || 0
-  );
 
-  function handleUpdateSubCourse(data: RequestCartItem) {
-    onUpdate(data);
-  }
   return (
     <Stack>
-      <Stack>
-        <Typography>{row.id}</Typography>
-        <Typography>{row.image?.url}</Typography>
-        <Typography>{row.level}</Typography>
-        <Typography>{row.mentor?.fullName}</Typography>
-        <Typography>{row.referenceDiscount}</Typography>
-        <Typography>{row.status}</Typography>
-        <Typography>{row.subject?.name}</Typography>
-      </Stack>
-      <Stack flexDirection="row">
-        {row.subCourses.map((subCourse) => (
-          <Stack
+      <Stack
+        sx={{
+          padding: MetricSize.small_10,
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
+        <Stack>
+          <Box
+            src={cousreImage}
+            alt="course image"
+            component="img"
             sx={{
-              margin: MetricSize.small_5,
-              background: Color.whiteSmoke,
-              padding: MetricSize.small_10,
-              boxShadow: 3,
-              borderColor: subCourse.isChosen
-                ? Color.orange
-                : Color.transparent,
-              borderWidth: '2px',
+              width: '100px',
+              height: '100px',
+              objectFit: 'cover',
               borderRadius: '5px',
-              borderStyle: 'solid',
             }}
-            key={subCourse.id}
+          />
+        </Stack>
+        <Stack sx={{ padding: MetricSize.small_10 }}>
+          <Typography
+            sx={{ fontSize: FontSize.medium_28, fontFamily: FontFamily.medium }}
           >
-            <Box>
-              <Checkbox
-                onClick={() =>
-                  handleUpdateSubCourse({
-                    cartItemId: row.cartItemId,
-                    subCourseId: subCourse.id,
-                  })
-                }
-                color="secondary"
-                checked={subCourse.isChosen}
-              />
-              <Stack sx={{ paddingX: MetricSize.medium_15 }}>
-                <Typography>{subCourse.id}</Typography>
-                <Typography>{subCourse.isChosen}</Typography>
-                <Typography>{subCourse.level}</Typography>
-                <Typography>{subCourse.price}</Typography>
-                <Typography>{subCourse.startDateExpected}</Typography>
-                <Typography>{subCourse.endDateExpected}</Typography>
-                <Typography>{subCourse.status}</Typography>
-                <Typography>{subCourse.typeLearn}</Typography>
-              </Stack>
-            </Box>
+            Khóa học lập trình C#
+          </Typography>
+          <Typography
+            sx={{ fontSize: FontSize.small_18, fontFamily: FontFamily.light }}
+          >
+            {row.subject?.name}
+          </Typography>
+          <Typography>{row.level}</Typography>
+          <Divider />
+          <Stack
+            flexDirection="row"
+            sx={{ alignItems: 'center', paddingY: MetricSize.small_10 }}
+          >
+            <Box
+              component="img"
+              src={mentor}
+              alt="mentor"
+              sx={{
+                width: MetricSize.large_30,
+                height: MetricSize.large_30,
+                borderRadius: 1000,
+                objectFit: 'contain',
+                marginRight: '5px',
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: FontSize.small_18,
+                fontFamily: FontFamily.regular,
+              }}
+            >
+              {row.mentor?.fullName}
+            </Typography>
           </Stack>
-        ))}
+        </Stack>
+      </Stack>
+      <Stack flexDirection="row" sx={{ width: 600 }}>
+        <CarouselSubCourse
+          cartItemId={row.cartItemId}
+          items={row.subCourses}
+          label="Giờ học"
+          onUpdate={onUpdate}
+        />
       </Stack>
     </Stack>
   );
