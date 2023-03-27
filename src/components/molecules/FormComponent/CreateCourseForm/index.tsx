@@ -21,22 +21,22 @@ import { RequestCreateCoursePayload } from '~/api/courses';
 const mockLevelData: OptionPayload[] = [
   {
     id: 0,
-    label: 'Beginner',
+    label: 'Cơ bản',
     value: 'BEGINNER',
   },
   {
     id: 1,
-    label: 'Intermediate',
+    label: 'Trung cấp',
     value: 'Intermediate',
   },
   {
     id: 2,
-    label: 'Advanced',
+    label: 'Nâng cao',
     value: 'Advanced',
   },
   {
     id: 3,
-    label: 'Expert',
+    label: 'Thành thạo',
     value: 'Expert',
   },
 ];
@@ -71,18 +71,21 @@ export default function CreateCourseForm() {
   async function onSubmitSuccess(data: any) {
     const id = toast.loadToast('Đang tạo khóa học...');
 
-    console.log('data', data);
     try {
       const formData = new FormData();
       formData.append('type', 'COURSE');
-      formData.append('file', data.image);
+      formData.append('file', data.imageId);
       const imageResponse = await uploadImageMutation.mutateAsync(formData);
       const params: RequestCreateCoursePayload = {
+        code: data?.code,
+        numberOfSlot: data?.numberOfSlot,
+        subCourseTile: data?.subCourseTile,
+        timeInWeekRequests: data?.timeInWeekRequests,
         name: data?.name,
         level: data?.level,
-        categoryId: data.category?.id,
+        categoryId: data.categoryId?.id,
         imageId: imageResponse.id,
-        subjectId: data.subject?.id,
+        subjectId: data.subjectId?.id,
         type: data.type.id,
         price: Number(data.price),
         minStudent: data.minStudent,
@@ -91,7 +94,6 @@ export default function CreateCourseForm() {
         endDateExpected: data.endDateExpected?.toISOString(),
         description: data.description,
       };
-
       await createCourseMutation.mutateAsync(params);
       toast.updateSuccessToast(id, 'Tạo khóa học thành công !');
     } catch (error: any) {
@@ -101,20 +103,23 @@ export default function CreateCourseForm() {
   if (!categories && !subjects) return null;
   return (
     <Stack>
-      <form
-        onSubmit={createCourseHookForm.handleSubmit(
-          onSubmitSuccess,
-          (error) => {
-            console.log(error);
-          }
-        )}
-      >
+      <form onSubmit={createCourseHookForm.handleSubmit(onSubmitSuccess)}>
         <CollapseStack label="Thông tin khóa học">
           <Stack padding={1}>
+            <FormInput
+              name={CREATE_COURSE_FIELDS.code}
+              control={createCourseHookForm.control}
+              label="Mẫ khóa học"
+            />
             <FormInput
               name={CREATE_COURSE_FIELDS.name}
               control={createCourseHookForm.control}
               label="Tên Khóa Học"
+            />
+            <FormInput
+              name={CREATE_COURSE_FIELDS.subCourseTile}
+              control={createCourseHookForm.control}
+              label="Tên Khóa Học Phụ"
             />
             <FormInput
               variant="date"
@@ -155,21 +160,21 @@ export default function CreateCourseForm() {
             />
             <FormInput
               variant="image"
-              name={CREATE_COURSE_FIELDS.image}
+              name={CREATE_COURSE_FIELDS.imageId}
               control={createCourseHookForm.control}
               label="Hình ảnh"
             />
             <FormInput
               data={categories}
               variant="dropdown"
-              name={CREATE_COURSE_FIELDS.category}
+              name={CREATE_COURSE_FIELDS.categoryId}
               control={createCourseHookForm.control}
               label="Lĩnh Vực"
             />
             <FormInput
               data={subjects}
               variant="dropdown"
-              name={CREATE_COURSE_FIELDS.subject}
+              name={CREATE_COURSE_FIELDS.subjectId}
               control={createCourseHookForm.control}
               label="Ngôn ngữ lập trình"
             />
@@ -185,6 +190,18 @@ export default function CreateCourseForm() {
               variant="multiline"
               control={createCourseHookForm.control}
               label="Mô tả khóa học"
+            />
+            <FormInput
+              name={CREATE_COURSE_FIELDS.numberOfSlot}
+              variant="number"
+              control={createCourseHookForm.control}
+              label="Số buổi học"
+            />
+            <FormInput
+              name={CREATE_COURSE_FIELDS.timeInWeekRequests}
+              variant="timetable"
+              control={createCourseHookForm.control}
+              label="Thời khóa biểu"
             />
           </Stack>
         </CollapseStack>
