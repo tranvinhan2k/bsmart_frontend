@@ -1,4 +1,4 @@
-import { object, string, ref, number, date, mixed } from 'yup';
+import { object, string, ref, number, date, mixed, array } from 'yup';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -101,6 +101,10 @@ export const validationSchemaEditSocialProfile = object({
   twitter: string(),
   instagram: string(),
 });
+export const validationSchemaTimeTable = object({
+  slot: object().required('Hãy nhập khung giờ học của bạn'),
+  dayInWeek: object().required('Hãy nhập thứ của bạn'),
+});
 
 export const validationSchemaFeedbackMentor = object({
   enthusiasmLevel: string().required(),
@@ -112,9 +116,12 @@ export const validationSchemaFeedbackMentor = object({
 });
 
 export const validationSchemaCreateCourse = object({
+  code: string().required('Mã khóa học là bắt buộc'),
+  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
+  numberOfSlot: number(),
   name: string().required(COURSE_NAME_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
-  image: mixed()
+  imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
     .test(
       'fileSize',
@@ -129,8 +136,8 @@ export const validationSchemaCreateCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  category: object().required(COURSE_CATEGORY_REQUIRED),
-  subject: object().required(COURSE_LANGUAGE_REQUIRED),
+  categoryId: object().required(COURSE_CATEGORY_REQUIRED),
+  subjectId: object().required(COURSE_LANGUAGE_REQUIRED),
   type: object().required(COURSE_TYPE),
   description: string().required(COURSE_DESCRIPTION),
   minStudent: number()
@@ -147,19 +154,20 @@ export const validationSchemaCreateCourse = object({
       }
     ),
   startDateExpected: date().required(),
+  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
     .required()
     .test(
       'is-greater',
       'Ngày kết thúc phải lớn hơn ngày bắt đầu',
       function (endDate: Date) {
-        const { startDate } = this.parent;
+        const { startDateExpected } = this.parent;
 
-        if (!startDate || !endDate) {
+        if (!startDateExpected || !endDate) {
           return true;
         }
 
-        return endDate > startDate;
+        return endDate > startDateExpected;
       }
     ),
 });

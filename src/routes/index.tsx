@@ -40,11 +40,13 @@ const MentorIntroduceProfilePage = lazy(
   () => import('~/pages/MentorIntroduceProfilePage')
 );
 const MentorCourseListPage = lazy(() => import('~/pages/MentorCourseListPage'));
+const MemberCourseListPage = lazy(() => import('~/pages/MemberCourseListPage'));
 const MentorCreateCoursePage = lazy(
   () => import('~/pages/MentorCreateCoursePage')
 );
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
+const IntroduceMentorPage = lazy(() => import('~/pages/IntroduceMentorPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -119,7 +121,7 @@ const routes: RoutePayload[] = [
   },
   {
     path: `/${NavigationActionData[15].link}`,
-    main: () => <div>Hello</div>,
+    main: () => <IntroduceMentorPage />,
     role: NavigationActionData[15].role,
   },
   {
@@ -152,6 +154,10 @@ export const memberRoutes: RoutePayload[] = [
   {
     path: `/${MemberNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[3].link}`,
+    main: () => <MemberCourseListPage />,
   },
 ];
 export const mentorRoutes: RoutePayload[] = [

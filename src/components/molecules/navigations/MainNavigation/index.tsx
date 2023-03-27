@@ -2,22 +2,16 @@ import {
   IconButton,
   Stack,
   Typography,
-  SwipeableDrawer,
-  Box,
   Menu,
   MenuItem,
+  Badge,
 } from '@mui/material';
+
 import { NavLink, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import {
-  Color,
-  FontFamily,
-  FontSize,
-  IconSize,
-  MetricSize,
-} from '~/assets/variables';
-import cart from '~/assets/images/icons8_shopping_cart_52px_2.png';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Drawer from '@mui/material/Drawer';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { SX_NAVIGATION_STACK } from './styles';
 import Icon from '~/components/atoms/Icon';
@@ -27,7 +21,10 @@ import ContractBar from '~/components/molecules/ContractBar';
 import { AuthorizationActionData } from '~/constants';
 import AuthorizationBar from '../../MainHeader/AuthorizationBar';
 import localEnvironment from '~/utils/localEnvironment';
-import { selectRole } from '~/redux/user/selector';
+import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
+import { useQueryGetCart } from '~/hooks';
+import { selectFilterParams } from '~/redux/courses/selector';
+import { toggleAddToCart } from '~/redux/user/slice';
 
 interface NavigationProps {
   pathName: string;
@@ -48,8 +45,13 @@ export default function MainNavigation({
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
+  const dispatch = useDispatch();
+  const { cart, refetch } = useQueryGetCart();
   const role = useSelector(selectRole);
+  const filterParams = useSelector(selectFilterParams);
+  const selectAddToCart = useSelector(selectIsToggleAddToCart);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -73,10 +75,20 @@ export default function MainNavigation({
     navigation(link);
   };
 
-  const handleNavigateClick = (id: number) => {
+  const handleNavigateClick = () => {
+    handleDrawerToggle();
     navigation('mentor-profile');
-    handleClose();
   };
+
+  useEffect(() => {
+    const handleRefetchCart = () => {
+      if (selectAddToCart) {
+        refetch();
+        dispatch(toggleAddToCart(false));
+      }
+    };
+    handleRefetchCart();
+  }, [dispatch, refetch, selectAddToCart]);
 
   const renderNavigationList = () => {
     return (
@@ -120,10 +132,10 @@ export default function MainNavigation({
                     'aria-labelledby': 'basic-button',
                   }}
                 >
-                  <MenuItem onClick={() => handleNavigateClick(0)}>
+                  <MenuItem onClick={() => handleNavigateClick()}>
                     Mentor Cuong
                   </MenuItem>
-                  <MenuItem onClick={() => handleNavigateClick(0)}>
+                  <MenuItem onClick={() => handleNavigateClick()}>
                     Mentor Bao
                   </MenuItem>
                 </Menu>
@@ -163,11 +175,18 @@ export default function MainNavigation({
         {' '}
         {role !== 'TEACHER' && (
           <IconButton onClick={handleNavigateCartPage}>
-            <img
-              style={{ width: IconSize.medium, height: IconSize.medium }}
-              src={cart}
-              alt="cart"
-            />
+            <Badge
+              badgeContent={cart?.totalItem}
+              color="secondary"
+              sx={{
+                '& .MuiBadge-badge': {
+                  color: Color.white,
+                  backgroundColor: Color.orange,
+                },
+              }}
+            >
+              <Icon name="cart" size="medium" />
+            </Badge>
           </IconButton>
         )}
       </Stack>
@@ -181,12 +200,7 @@ export default function MainNavigation({
         </IconButton>
       </Stack>
 
-      <SwipeableDrawer
-        anchor="right"
-        open={isOpenDrawer}
-        onClose={handleDrawerToggle}
-        onOpen={handleDrawerToggle}
-      >
+      <Drawer anchor="right" open={isOpenDrawer} onClose={handleDrawerToggle}>
         <Stack sx={{ padding: MetricSize.medium_15 }}>
           <Stack
             sx={{
@@ -210,6 +224,7 @@ export default function MainNavigation({
           </Stack>
           {renderNavigationList()}
           <SearchBar
+            value={filterParams.q || ''}
             color="black"
             placeholder="Tìm kiếm khóa học"
             onSubmit={onSearchCourse}
@@ -231,7 +246,7 @@ export default function MainNavigation({
             />
           </Stack>
         </Stack>
-      </SwipeableDrawer>
+      </Drawer>
     </Stack>
   );
 }

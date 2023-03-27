@@ -13,8 +13,13 @@ const transactionsApi = {
   async payQuick(subCourseId: number): Promise<any> {
     return axiosClient.post(`${url}/pay-quick`, { subCourseId });
   },
-  async pay(cartItemId: number): Promise<any> {
-    return axiosClient.post(`${url}/pay`, { cartItemId });
+  async pay(
+    data: {
+      cartItemId: number;
+      subCourseId: number;
+    }[]
+  ): Promise<any> {
+    return axiosClient.post(`${url}/pay`, data);
   },
   async getTransactions(): Promise<any> {
     return axiosClient.post(`${url}`);
