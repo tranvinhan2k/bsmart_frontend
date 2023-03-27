@@ -58,20 +58,7 @@ export default function CartPage() {
       }
     }
   }
-  async function handlePaymentCourseFromCart(courseId: number) {
-    // eslint-disable-next-line no-restricted-globals
-    const isDelete = confirm('Xác nhận thanh toán khóa học này ? ');
-    if (isDelete) {
-      const id = toast.loadToast('Đang thanh toán khóa học...');
-      try {
-        await payCart(courseId);
-        refetch();
-        toast.updateSuccessToast(id, 'Bạn đã thanh toán thành công !');
-      } catch (e: any) {
-        toast.updateFailedToast(id, `Thanh toán thất bại: ${e.message}`);
-      }
-    }
-  }
+
   const handleUpdateCourseFromCart = async (data: RequestCartItem) => {
     const id = toast.loadToast('Đang cập nhật khóa học khỏi giỏ hàng...');
     try {
