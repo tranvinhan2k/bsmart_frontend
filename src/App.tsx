@@ -18,10 +18,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import localEnvironment from './utils/localEnvironment';
 import { Role } from './models/role';
 import { selectProfile, selectRole } from './redux/user/selector';
-import TestPage from './pages/TestPage';
 import AuthorizePage from './pages/AuthorizePage';
 import { useMutationProfile } from './hooks';
-import toast from './utils/toast';
 import { addProfile } from './redux/user/slice';
 
 const showRoutes = (currentRole: Role | null) => {
@@ -43,16 +41,12 @@ const showRoutes = (currentRole: Role | null) => {
         );
       }
       return (
-        <Route
-          key={route.path}
-          path={route.path}
-          element={<AuthorizePage role={`${currentRole} ${route.role}`} />}
-        />
+        <Route key={route.path} path={route.path} element={<AuthorizePage />} />
       );
 
-      return (
-        <Route key={route.path} path={route.path} element={route?.main()} />
-      );
+      // return (
+      //   <Route key={route.path} path={route.path} element={route?.main()} />
+      // );
     });
   }
 

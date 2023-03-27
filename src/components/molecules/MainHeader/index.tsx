@@ -13,6 +13,8 @@ import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import { IconSize } from '~/assets/variables';
 import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
+import { image } from '~/constants/image';
+import { selectFilterParams } from '~/redux/courses/selector';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -38,7 +40,7 @@ export default function MainHeader({
   const token = useSelector(selectToken);
   const profile = useSelector(selectProfile);
   const role = useSelector(selectRole);
-  console.log(role);
+  const filterParams = useSelector(selectFilterParams);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -46,8 +48,6 @@ export default function MainHeader({
     setAnchorEl(null);
   };
   const handleLogOut = () => {
-    console.log('log out');
-
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     dispatch(logOut());
@@ -71,6 +71,7 @@ export default function MainHeader({
       <SocialBar color="white" socials={socials} />
       <ContractBar color="white" contracts={contracts} />
       <SearchBar
+        value={filterParams.q || ''}
         color="white"
         placeholder={searchLabel}
         onSubmit={onSearchText}
@@ -95,7 +96,7 @@ export default function MainHeader({
                 borderRadius: 1000,
               }}
               component="img"
-              src={profile?.userImages?.[0]?.url || mentor}
+              src={profile?.userImages?.[0]?.url || image.noAvatar}
               alt="authentication"
             />
           </IconButton>
