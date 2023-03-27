@@ -1,4 +1,5 @@
-import { object, string, ref, number, date, mixed, array } from 'yup';
+import { array, date, mixed, number, object, ref, string } from 'yup';
+
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -21,7 +22,7 @@ import {
 const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-const FILE_SIZE = 1024 * 1024 * 2; // 2MB
+const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
 export const validationSchemaSignIn = object({
@@ -70,15 +71,16 @@ export const validationSchemaEditPersonalProfile = object({
   birthday: date(),
   address: string(),
   phone: string().required(PHONE_REQUIRED),
-  introduce: string(),
+});
+
+export const validationSchemaEditMentorProfile = object({
+  introduce: string().required(),
+  skills: array(),
+  experience: string(),
 });
 
 export const validationSchemaEditCertificateProfile = object({
-  certificate1: string(),
-  certificate2: string(),
-  certificate3: string(),
-  certificate4: string(),
-  certificate5: string(),
+  certificates: array(),
 });
 
 export const validationSchemaEditAccountProfile = object({
@@ -126,7 +128,7 @@ export const validationSchemaCreateCourse = object({
     .test(
       'fileSize',
       'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác',
-      (value: any) => value && value.size <= FILE_SIZE
+      (value: any) => value && value.size <= FILE_SIZE_2
     )
     .test(
       'fileFormat',

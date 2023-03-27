@@ -10,22 +10,24 @@ import {
   SX_FORM_BUTTON,
   SX_GOOGLE_BUTTON,
   SX_GOOGLE_STACK,
-  SX_NORMAL_BUTTON,
   SX_OUTLINED_BUTTON,
 } from '~/components/atoms/Button/styles';
 import { FontFamily, MetricSize } from '~/assets/variables';
 import { MetricSizeKeys } from '~/models/variables';
 import Icon from '~/components/atoms/Icon';
+import NormalButton from './NormalButton';
 
 interface ButtonProps extends MUIButtonProps {
   customVariant?: ButtonVariant;
   children: any;
+  size?: 'medium' | 'small';
   marginTop?: MetricSizeKeys;
 }
 
 export default function Button({
   customVariant,
   children,
+  size = 'medium',
   marginTop = 'none',
   ...rest
 }: ButtonProps) {
@@ -40,11 +42,9 @@ export default function Button({
       );
     case 'normal':
       return (
-        <Stack marginTop={MetricSize[marginTop]}>
-          <MUIButton sx={SX_NORMAL_BUTTON} {...rest}>
-            {children}
-          </MUIButton>
-        </Stack>
+        <NormalButton marginTop={marginTop} size={size} {...rest}>
+          {children}
+        </NormalButton>
       );
     case 'outlined':
       return (
@@ -88,4 +88,5 @@ export default function Button({
 Button.defaultProps = {
   customVariant: '',
   marginTop: 'none',
+  size: 'medium',
 };

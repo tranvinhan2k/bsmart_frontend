@@ -1,9 +1,10 @@
 import {
   BuyCourseDataPayload,
   EditAccountProfileFormDataPayload,
-  EditImageProfileFormDataPayload,
   EditCertificateProfileFormDataPayload,
+  EditImageProfileFormDataPayload,
   EditPersonalProfileFormDataPayload,
+  EditMentorProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
@@ -50,16 +51,17 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
     birthday: '',
     address: '',
     phone: '',
-    introduce: '',
   };
+
+export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
+  introduce: '',
+  skills: [{ id: 0, label: '', value: '' }],
+  experience: '',
+};
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
   {
-    certificate1: '',
-    certificate2: '',
-    certificate3: '',
-    certificate4: '',
-    certificate5: '',
+    certificates: [{ file: '' }],
   };
 
 export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =

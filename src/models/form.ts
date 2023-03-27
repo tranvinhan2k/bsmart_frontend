@@ -45,15 +45,16 @@ export interface EditPersonalProfileFormDataPayload {
   birthday: Date | '';
   address: string;
   phone: string;
-  introduce?: string;
+}
+
+export interface EditMentorProfileFormDataPayload {
+  introduce: string;
+  skills: { id: number; label: string; value: string }[];
+  experience: string;
 }
 
 export interface EditCertificateProfileFormDataPayload {
-  certificate1: string;
-  certificate2: string;
-  certificate3: string;
-  certificate4: string;
-  certificate5: string;
+  certificates: { file: string | Blob }[];
 }
 
 export interface EditAccountProfileFormDataPayload {

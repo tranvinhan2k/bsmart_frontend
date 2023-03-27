@@ -30,7 +30,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
       onChange(selectedFile);
     } else {
       setFile(null);
-      setError('Please select a valid file type (PDF, Word, or Excel)');
+      setError('Hãy nhập định dạng file đúng (PDF, Word, or Excel)');
       onChange(null);
     }
   };
@@ -51,6 +51,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     >
       <TextField
         type="file"
+        size="small"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

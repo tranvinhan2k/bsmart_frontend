@@ -1,5 +1,4 @@
 import { IconName } from '~/components/atoms/Icon';
-import { CoursePayload } from './courses';
 import { Role } from './role';
 
 export interface SocialPayload {
@@ -48,6 +47,12 @@ export interface PagingFilterPayload<ItemType> {
   pageItemSize: number;
   pageSize: number;
   items: ItemType[];
+}
+
+export interface PaginationPayload {
+  page: number;
+  size: number;
+  sort: string;
 }
 
 export interface RequestPagingFilterPayload {
