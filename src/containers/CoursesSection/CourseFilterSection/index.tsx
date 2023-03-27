@@ -34,6 +34,7 @@ export default function CourseFFilterSection() {
   return (
     <Stack marginX={2}>
       <SearchBar
+        value={filterParams.q || ''}
         color="black"
         placeholder="Tìm kiếm ..."
         onSubmit={handleSubmitSearchValue}

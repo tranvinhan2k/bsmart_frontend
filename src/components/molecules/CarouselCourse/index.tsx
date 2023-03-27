@@ -35,15 +35,19 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   const renderArrow = ({ type, onClick }: RenderArrowProps) => {
     if (type === 'NEXT') {
       return (
-        <MUIButton onClick={onClick}>
-          <Icon name="next2" size="medium" />
-        </MUIButton>
+        <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+          <MUIButton onClick={onClick}>
+            <Icon name="next2" size="medium" />
+          </MUIButton>
+        </Stack>
       );
     }
     return (
-      <MUIButton onClick={onClick}>
-        <Icon name="previous" size="medium" />
-      </MUIButton>
+      <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+        <MUIButton onClick={onClick}>
+          <Icon name="previous" size="medium" />
+        </MUIButton>
+      </Stack>
     );
   };
 

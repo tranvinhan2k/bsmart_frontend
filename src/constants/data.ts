@@ -181,6 +181,11 @@ export const MemberNavigationActionData: ActionPayload[] = [
     name: 'Rút tiền',
     link: 'withdraw',
   },
+  {
+    id: 3,
+    name: 'Danh sách khóa học',
+    link: 'member-course-list',
+  },
 ];
 
 export const AddressData: AddressDataPayload[] = [

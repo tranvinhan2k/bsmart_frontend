@@ -13,6 +13,10 @@ export const SIGN_IN_FIELDS: LoginFormDataPayload = {
   email: 'email',
   password: 'password',
 };
+export const TIME_TABLE_FIELDS = {
+  slot: 'slot',
+  dayInWeek: 'dayInWeek',
+};
 export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   name: 'name',
   email: 'email',
@@ -92,16 +96,20 @@ export const FEEDBACK_MENTOR_FIELDS = {
   supportHomeWork: 'supportHomeWork',
 };
 export const CREATE_COURSE_FIELDS = {
+  code: 'code',
   name: 'name',
   level: 'level',
-  image: 'image',
-  price: 'price',
-  category: 'category',
-  subject: 'subject',
+  imageId: 'imageId',
+  categoryId: 'categoryId',
+  subjectId: 'subjectId',
   type: 'type',
+  price: 'price',
   minStudent: 'minStudent',
   maxStudent: 'maxStudent',
   startDateExpected: 'startDateExpected',
   endDateExpected: 'endDateExpected',
   description: 'description',
+  subCourseTile: 'subCourseTile',
+  numberOfSlot: 'numberOfSlot',
+  timeInWeekRequests: 'timeInWeekRequests',
 };

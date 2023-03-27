@@ -32,10 +32,19 @@ const notifyErrorToast = (message: string) => {
     autoClose: 5000,
   });
 };
+const notifyWarningToast = (message: string) => {
+  toast.warning(message, {
+    isLoading: false,
+    closeOnClick: true,
+    closeButton: true,
+    autoClose: 2000,
+  });
+};
 
 export default {
   loadToast,
   updateFailedToast,
   updateSuccessToast,
   notifyErrorToast,
+  notifyWarningToast,
 };

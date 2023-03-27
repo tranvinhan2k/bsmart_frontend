@@ -76,7 +76,11 @@ export default function CourseDetailPage() {
             />
           </Grid> */}
       </Grid>
-      <Stack>
+      <Stack
+        sx={{
+          padding: { xs: MetricSize.medium_15, md: '70px' },
+        }}
+      >
         <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
       </Stack>
     </Stack>

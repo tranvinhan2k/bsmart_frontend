@@ -88,11 +88,25 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
 };
 
 export const defaultValueCreateCourse = {
+  code: '',
   name: '',
   level: '',
-  image: '',
-  category: null,
-  programmingLanguage: null,
-  type: null,
-  courseDescription: '',
+  imageId: '',
+  categoryId: '',
+  subjectId: '',
+  type: '',
+  price: 0,
+  minStudent: 0,
+  maxStudent: 0,
+  startDateExpected: '',
+  endDateExpected: '',
+  description: '',
+  subCourseTile: '',
+  numberOfSlot: '',
+  timeInWeekRequests: [],
+};
+
+export const defaultValueTimetable = {
+  slot: '',
+  dayInWeek: '',
 };

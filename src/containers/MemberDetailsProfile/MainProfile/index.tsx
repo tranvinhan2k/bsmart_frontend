@@ -17,6 +17,10 @@ import { formatDate } from '~/utils/date';
 import { IconName } from '~/models/icon';
 import { selectProfile } from '~/redux/user/selector';
 import { formatMoney } from '~/utils/money';
+import toast from '~/utils/toast';
+import { image } from '~/constants/image';
+import { ROLE_LABELS } from '~/constants/role';
+import { RoleKeys } from '~/models/variables';
 
 interface ProfileDataProps {
   id: number;
@@ -29,24 +33,24 @@ export default function MainProfile() {
 
   const navigate = useNavigate();
   const memberDetails = {
-    imageLink: profile?.userImages?.[0]?.url,
+    imageLink: profile?.userImages?.[0]?.url || image.noAvatar,
     name: profile?.fullName,
-    role: profile?.roles?.[0]?.code,
+    role: ROLE_LABELS[profile?.roles?.[0]?.code as RoleKeys],
     socials: [
       {
         image: 'facebook',
-        link: profile?.facebookLink,
+        link: profile?.facebookLink || null,
       },
       {
         image: 'twitter',
-        link: profile?.twitterLink,
+        link: profile?.twitterLink || null,
       },
       {
         image: 'instagram',
-        link: profile?.instagramLink,
+        link: profile?.instagramLink || null,
       },
     ],
-    gender: 'male',
+    gender: profile?.gender || null,
     dateOfBirth: profile?.birthday,
     address: profile?.address,
     mail: profile?.email,
@@ -71,6 +75,12 @@ export default function MainProfile() {
     navigate(link);
   }
 
+  function handleOpenSocialLink(link: string | null) {
+    if (link) {
+      window.open(link, '_blank');
+    }
+  }
+
   return (
     <Box sx={SX_WRAPPER}>
       <Box sx={SX_CONTAINER}>
@@ -78,7 +88,7 @@ export default function MainProfile() {
           component="img"
           alt="img_avatar_member"
           sx={SX_PROFILE_IMG}
-          src={avatar_member}
+          src={memberDetails.imageLink}
         />
       </Box>
       <>
@@ -90,13 +100,19 @@ export default function MainProfile() {
         </Typography>
       </>
       <Stack direction="row" justifyContent="center" alignItems="center">
-        {memberDetails.socials.map((item) => (
-          <Stack margin={1} key={item.link}>
-            <Button customVariant="normal">
-              <Icon name={item.image as IconName} size="small" />
-            </Button>
-          </Stack>
-        ))}
+        {memberDetails.socials.map((item) => {
+          if (!item.link) return null;
+          return (
+            <Stack margin={1} key={item.link}>
+              <Button
+                onClick={() => handleOpenSocialLink(item.link)}
+                customVariant="normal"
+              >
+                <Icon name={item.image as IconName} size="small" />
+              </Button>
+            </Stack>
+          );
+        })}
       </Stack>
       {memberDetails.gender && (
         <Icon
