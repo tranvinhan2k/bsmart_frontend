@@ -87,6 +87,14 @@ export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
   instagramLink: 'instagramLink',
 };
 
+export const WITHDRAW_MONEY_FIELDS = {
+  amount: 'amount',
+  bankLinking: 'bankLinking',
+  bankAccount: 'bankAccount',
+  bankAccountOwner: 'bankAccountOwner',
+  note: 'note',
+};
+
 export const FEEDBACK_MENTOR_FIELDS = {
   enthusiasmLevel: 'enthusiasmLevel',
   feelingOfTeacher: 'feelingOfTeacher',

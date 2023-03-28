@@ -69,12 +69,41 @@ export interface EditSocialProfileFormDataPayload {
   twitterLink: string;
   instagramLink: string;
 }
+export interface WithdrawMoneyFormDataPayload {
+  amount: number;
+  bankLinking:
+    | {
+        bin: string;
+        code: string;
+        id: number;
+        logo: string;
+        lookupSupported: number;
+        name: string;
+        shortName: string;
+        transferSupported: number;
+      }
+    | '';
+  bankAccount: number;
+  bankAccountOwner: string;
+  note: string;
+}
+export interface BankLinking {
+  bin: string;
+  code: string;
+  id: number;
+  logo: string;
+  lookupSupported: number;
+  name: string;
+  shortName: string;
+  transferSupported: number;
+}
 
 export type FormInputVariant =
   | 'text'
   | 'number'
   | 'multiline'
   | 'dropdown'
+  | 'dropdownBanks'
   | 'timetable'
   | 'radioGroup'
   | 'image'

@@ -17,6 +17,11 @@ import {
   PHONE_INVALID,
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
+  WITHDRAW_AMOUNT_REQUIRED,
+  WITHDRAW_AMOUNT_POSITIVE,
+  WITHDRAW_BANK_LINKING_REQUIRE,
+  WITHDRAW_BANK_ACCOUNT_REQUIRED,
+  WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
 } from '~/form/message';
 
 const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
@@ -172,4 +177,14 @@ export const validationSchemaCreateCourse = object({
         return endDate > startDateExpected;
       }
     ),
+});
+
+export const validationSchemaWithdrawMoney = object({
+  amount: number()
+    .required(WITHDRAW_AMOUNT_REQUIRED)
+    .positive(WITHDRAW_AMOUNT_POSITIVE),
+  bankLinking: object(),
+  bankAccount: number().required(WITHDRAW_BANK_ACCOUNT_REQUIRED),
+  bankAccountOwner: string().required(WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED),
+  note: string(),
 });
