@@ -10,6 +10,7 @@ import {
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
+  WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
 export const defaultValueSignIn: LoginFormDataPayload = {
@@ -95,4 +96,12 @@ export const defaultValueCreateCourse = {
   programmingLanguage: null,
   type: null,
   courseDescription: '',
+};
+
+export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
+  amount: 50000,
+  bankLinking: '',
+  bankAccount: 0,
+  bankAccountOwner: '',
+  note: '',
 };
