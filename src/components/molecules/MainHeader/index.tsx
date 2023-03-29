@@ -15,6 +15,7 @@ import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
 import { image } from '~/constants/image';
 import { selectFilterParams } from '~/redux/courses/selector';
+import { delay } from '~/utils/common';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -58,12 +59,13 @@ export default function MainHeader({
   };
 
   const handleNavigateProfile = () => {
+    handleClose();
+    delay(500);
     navigate(
       role !== 'STUDENT'
         ? '/mentor-profile/edit-profile'
         : '/member-details/edit-profile'
     );
-    handleClose();
   };
 
   return (
@@ -114,6 +116,7 @@ export default function MainHeader({
             }}
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            onMouseLeave={handleClose}
           >
             <MenuItem onClick={handleNavigateProfile}>Hồ sơ </MenuItem>
             <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
