@@ -335,12 +335,12 @@ export const TypeOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Online',
-    value: 'Online',
+    value: 'ONLINE',
   },
   {
     id: 1,
     label: 'Offline',
-    value: 'Offline',
+    value: 'OFFLINE',
   },
 ];
 export const ProvinceOptionPayload: OptionPayload[] = [

@@ -15,7 +15,7 @@ export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
   q?: string | undefined;
   categoryId?: number[] | undefined;
   subjectId?: number[] | undefined;
-  types?: number[] | undefined;
+  types?: string[] | undefined;
   provinces?: number[] | undefined;
 }
 export interface RequestCreateCoursePayload {
