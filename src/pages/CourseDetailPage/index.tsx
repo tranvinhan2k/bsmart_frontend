@@ -15,9 +15,6 @@ import {
 import { scrollToTop } from '~/utils/common';
 
 export default function CourseDetailPage() {
-  useEffect(() => {
-    scrollToTop();
-  }, []);
   const params = useParams();
   const { id } = params;
 
@@ -28,6 +25,10 @@ export default function CourseDetailPage() {
     courseDetail?.mentorData.id,
     Boolean(courseDetail?.mentorData.id)
   );
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   if (error) {
     return (
