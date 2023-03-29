@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 import coursesApi from '~/api/courses';
 import { RequestPagingFilterPayload } from '~/models';
 
-export const useQueryGetAllMemberCourses = (
+export const useQueryGetAllMentorCourses = (
   filterParams: RequestPagingFilterPayload
 ) => {
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['member_course', filterParams],
-    queryFn: () => coursesApi.getMemberCourse(filterParams),
+    queryFn: () => coursesApi.getMentorCourse(filterParams),
   });
 
   useEffect(() => {
