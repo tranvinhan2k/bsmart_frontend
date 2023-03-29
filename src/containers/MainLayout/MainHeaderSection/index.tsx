@@ -33,7 +33,7 @@ export default function MainHeaderSection() {
         types: undefined,
       })
     );
-    navigate('/course');
+    navigate('/course_menu');
   };
 
   const handleTriggerLoginModal = () => {
