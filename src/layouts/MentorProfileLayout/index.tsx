@@ -4,10 +4,12 @@ import { SX_WRAPPER, SX_CONTAINER } from './style';
 
 interface MentorProfileLayoutProps {
   children: any;
+  isIntroduce?: boolean;
 }
 
 export default function MentorProfileLayout({
   children,
+  isIntroduce = false,
 }: MentorProfileLayoutProps) {
   return (
     <Box sx={SX_WRAPPER}>
@@ -37,3 +39,7 @@ export default function MentorProfileLayout({
     </Box>
   );
 }
+
+MentorProfileLayout.defaultProps = {
+  isIntroduce: false,
+};
