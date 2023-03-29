@@ -13,7 +13,7 @@ export interface ResponseMentorData {
     password: string;
     fullName: string;
     email: string;
-    birthday: '2023-03-19T03:47:56.077Z';
+    birthday: string;
     address: string;
     phone: string;
     status: true;
@@ -64,6 +64,9 @@ const mentorProfileApi = {
   async getMentorById(id: number): Promise<MentorPayload | undefined> {
     const response: ResponseMentorData = await axiosClient.get(`${url}/${id}`);
     return handleGetMentorById(response);
+  },
+  async getAllMentor(): Promise<MentorPayload[] | undefined> {
+    return axiosClient.get(`${url}/name`);
   },
 };
 
