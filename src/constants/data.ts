@@ -37,7 +37,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 2,
     name: 'Khóa Học',
-    link: 'course',
+    link: 'course_menu',
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ export const NavigationActionData: ActionPayload[] = [
     id: 8,
     isHide: true,
     name: 'Chi Tiết Khóa Học',
-    link: 'course/course-detail/:id',
+    link: 'course_menu/course-detail/:id',
   },
   {
     id: 9,
@@ -117,7 +117,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 15,
     name: 'Giảng viên',
-    link: 'mentor-introduce',
+    link: 'mentor-introduce/:id',
   },
   {
     id: 16,
