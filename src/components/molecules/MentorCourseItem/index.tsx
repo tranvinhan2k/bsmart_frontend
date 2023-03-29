@@ -1,47 +1,21 @@
 import { Box, Typography, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
-import { ResponseMemberCoursePayload } from '~/api/courses';
+import { ResponseMentorCoursePayload } from '~/api/courses';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
 
-interface MemberCourseItemProps {
-  item?: ResponseMemberCoursePayload;
+interface MentorCourseItemProps {
+  item?: ResponseMentorCoursePayload;
   isSkeleton?: boolean;
   onClick?: () => void;
 }
 
-export default function MemberCourseItem({
-  item = {
-    categoryName: '',
-    courseCode: '',
-    courseDescription: '',
-    id: 0,
-    courseName: '',
-    images: [
-      {
-        id: 0,
-        name: '',
-        url: image.noCourse,
-      },
-    ],
-    mentorName: '',
-    categoryId: 0,
-    subjectId: 0,
-    learns: [],
-    subjectName: '',
-    totalSubCourse: 0,
-  },
+export default function MentorCourseItem({
+  item,
   isSkeleton = false,
   onClick = () => {},
-}: MemberCourseItemProps) {
-  const {
-    courseDescription: content,
-    images,
-    mentorName: mentor,
-    courseName: title,
-  } = item;
-
+}: MentorCourseItemProps) {
   const handleNavigateCourseDetail = () => {
     onClick();
   };
@@ -86,8 +60,8 @@ export default function MemberCourseItem({
             height: '300px',
             borderRadius: MetricSize.small_5,
           }}
-          src={images[0].url}
-          alt={images[0].name}
+          src={item?.image?.[0]?.url}
+          alt={item?.image?.[0]?.name}
         />
         <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography
@@ -97,7 +71,7 @@ export default function MemberCourseItem({
               fontFamily: FontFamily.bold,
             }}
           >
-            {title}
+            {`Khóa học số ${item?.id}`}
           </Typography>
           <Typography
             sx={{
@@ -105,20 +79,7 @@ export default function MemberCourseItem({
               fontFamily: FontFamily.light,
               color: Color.grey,
             }}
-          >{`Mentor ${mentor}`}</Typography>
-          <Stack sx={{ flexDirection: 'row' }}>{item.learns[0]}</Stack>
-          <Stack margin={1} overflow="hidden" height="100px">
-            <Typography
-              textOverflow="ellipsis"
-              sx={{
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-                textOverflow: 'clip',
-              }}
-            >
-              {content}
-            </Typography>
-          </Stack>
+          >{`Mentor ${item?.mentor?.fullName}`}</Typography>
         </Stack>
       </Stack>
 
@@ -133,7 +94,7 @@ export default function MemberCourseItem({
   );
 }
 
-MemberCourseItem.defaultProps = {
+MentorCourseItem.defaultProps = {
   isSkeleton: false,
   item: undefined,
   onClick: () => {},
