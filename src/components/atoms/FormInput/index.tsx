@@ -16,6 +16,7 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
+// eslint-disable-next-line import/no-cycle
 import TimeTableInput from './TimeTableInput';
 
 interface FormInputProps {
