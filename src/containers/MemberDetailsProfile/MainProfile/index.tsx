@@ -9,18 +9,16 @@ import {
   SX_PROFILE_DETAILS,
   SX_PROFILE_DETAILS_HIGHLIGHTED,
 } from './style';
-import avatar_member from '~/assets/images/MemberDetailSection/avatar_member.jpg';
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
 import { MemberNavigationActionData } from '~/constants';
-import { formatDate } from '~/utils/date';
 import { IconName } from '~/models/icon';
 import { selectProfile } from '~/redux/user/selector';
 import { formatMoney } from '~/utils/money';
-import toast from '~/utils/toast';
 import { image } from '~/constants/image';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
+import toast from '~/utils/toast';
 
 interface ProfileDataProps {
   id: number;
@@ -55,7 +53,7 @@ export default function MainProfile() {
     address: profile?.address,
     mail: profile?.email,
     phone: profile?.phone,
-    walletMoney: profile?.wallet?.balance,
+    walletMoney: profile?.wallet?.balance || 0,
   };
   const profileData: ProfileDataProps[] = [
     {
@@ -78,6 +76,8 @@ export default function MainProfile() {
   function handleOpenSocialLink(link: string | null) {
     if (link) {
       window.open(link, '_blank');
+    } else {
+      toast.notifyErrorToast('Không thể mở trang này.');
     }
   }
 
