@@ -58,6 +58,7 @@ export default function CourseItem({
         width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
+        height: '600px',
       }}
     >
       <Stack>
@@ -73,7 +74,7 @@ export default function CourseItem({
           src={image}
           alt={title}
         />
-        <Stack sx={{ padding: MetricSize.medium_15 }}>
+        <Stack sx={{ padding: MetricSize.medium_15, height: '200px' }}>
           <Typography
             sx={{
               fontSize: FontSize.medium_28,
@@ -96,14 +97,22 @@ export default function CourseItem({
                 <Chip sx={{ marginRight: 1 }} key={type} label={type} />
               ))}
           </Stack>
-          <Typography
+          <Stack
             sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.regular,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              height: '150px',
             }}
           >
-            {content}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_18,
+                fontFamily: FontFamily.regular,
+              }}
+            >
+              {content}
+            </Typography>
+          </Stack>
         </Stack>
       </Stack>
 
