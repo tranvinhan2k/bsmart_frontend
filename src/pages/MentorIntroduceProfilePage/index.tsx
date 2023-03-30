@@ -1,12 +1,19 @@
 import { Stack, Typography, LinearProgress } from '@mui/material';
 import { useEffect } from 'react';
+import { ResponseMentorData } from '~/api/mentorProfiles';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CourseItem from '~/components/molecules/CourseItem';
 import { MentorCourses } from '~/constants';
 import { scrollToTop } from '~/utils/common';
 
-export default function MentorIntroduceProfilePage() {
+interface MentorIntroduceProfilePageProps {
+  mentor: ResponseMentorData;
+}
+
+export default function MentorIntroduceProfilePage({
+  mentor,
+}: MentorIntroduceProfilePageProps) {
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -26,13 +33,10 @@ export default function MentorIntroduceProfilePage() {
             color: Color.grey,
           }}
         >
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
-          accusamus libero veniam reprehenderit ut, repellat illum quasi aut
-          amet perferendis explicabo assumenda neque, temporibus earum
-          consectetur, dolor omnis alias dolores?
+          {mentor.introduce}
         </Typography>
       </Stack>
-      <Stack marginTop={2}>
+      {/* <Stack marginTop={2}>
         <Typography
           sx={{ fontSize: FontSize.medium_28, fontFamily: FontFamily.bold }}
         >
@@ -130,7 +134,7 @@ export default function MentorIntroduceProfilePage() {
             </Stack>
           </Stack>
         </Stack>
-      </Stack>
+      </Stack> */}
       <Stack marginTop={2}>
         <Typography
           sx={{ fontSize: FontSize.medium_28, fontFamily: FontFamily.bold }}

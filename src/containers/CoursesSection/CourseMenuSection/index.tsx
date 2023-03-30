@@ -108,7 +108,7 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
           flexDirection="row"
           flexWrap="wrap"
           alignContent="space-around"
-          alignItems="stretch"
+          // alignItems="stretch"
         >
           {data?.items.map((item) => (
             <CourseItem

@@ -1,12 +1,20 @@
 import { Stack, Typography, Box } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { useEffect } from 'react';
 import { FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import CourseItem from '~/components/molecules/CourseItem';
-import { MentorCourses } from '~/constants';
+import MemberCourseItem from '~/components/molecules/MemberCourseItem';
+import MentorCourseItem from '~/components/molecules/MentorCourseItem';
+import { useQueryGetAllMentorCourses } from '~/hooks';
 import { scrollToTop } from '~/utils/common';
 
 export default function MentorCourseListPage() {
+  const { courses } = useQueryGetAllMentorCourses({
+    page: 0,
+    size: 1000,
+    sort: undefined,
+  });
+
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -27,12 +35,26 @@ export default function MentorCourseListPage() {
           <Button customVariant="normal">Tạo khóa học</Button>
         </Box>
       </Stack>
-      <Stack flexDirection="row" justifyContent="space-between">
-        {MentorCourses &&
-          MentorCourses.map((item) => (
-            <CourseItem onClick={() => {}} item={item} key={item.id} />
+      <Grid
+        container
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        {courses &&
+          courses?.map((item) => (
+            <Grid
+              item
+              xs={12}
+              md={6}
+              key={item.id}
+              sx={{ alignItems: 'stretch' }}
+            >
+              <MentorCourseItem onClick={() => {}} item={item} key={item.id} />
+            </Grid>
           ))}
-      </Stack>
+      </Grid>
     </Stack>
   );
 }

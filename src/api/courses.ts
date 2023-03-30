@@ -15,7 +15,7 @@ export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
   q?: string | undefined;
   categoryId?: number[] | undefined;
   subjectId?: number[] | undefined;
-  types?: number[] | undefined;
+  types?: string[] | undefined;
   provinces?: number[] | undefined;
 }
 export interface RequestCreateCoursePayload {
@@ -52,6 +52,71 @@ export interface ResponseMemberCoursePayload {
   courseDescription: string;
   totalSubCourse: number;
   learns: TypeLearnKeys[];
+}
+export interface ResponseMentorCoursePayload {
+  id: number;
+  status: string;
+  level: string;
+  referenceDiscount: number;
+  subject: {
+    id: number;
+    code: string;
+    name: string;
+    categoryId: number;
+  };
+  mentorId: number;
+  mentor: {
+    id: number;
+    introduce: string;
+    fullName: string;
+    email: string;
+    birthday: string;
+    address: string;
+    phone: string;
+    status: true;
+    roles: [
+      {
+        id: number;
+        name: string;
+        code: string;
+      }
+    ];
+    twitterLink: string;
+    facebookLink: string;
+    instagramLink: string;
+    userImages: [
+      {
+        id: number;
+        name: string;
+        url: string;
+        type: string;
+      }
+    ];
+    wallet: {
+      id: number;
+      balance: number;
+      previous_balance: number;
+      owner_id: number;
+    };
+    mentorProfile: {
+      id: number;
+      introduce: string;
+      workingExperience: string;
+      userId: number;
+      mentorSkills: [
+        {
+          skillId: number;
+          yearOfExperiences: number;
+        }
+      ];
+    };
+  };
+  image: {
+    id: number;
+    name: string;
+    url: string;
+    type: string;
+  };
 }
 
 export interface ResponseGetCoursePayload {
@@ -164,7 +229,15 @@ const coursesApi = {
   async getMemberCourse(
     data: RequestPagingFilterPayload
   ): Promise<PagingFilterPayload<ResponseMemberCoursePayload>> {
-    return axiosClient.get(url, {
+    return axiosClient.get(`${url}/member`, {
+      params: data,
+      paramsSerializer: { indexes: null },
+    });
+  },
+  async getMentorCourse(
+    data: RequestPagingFilterPayload
+  ): Promise<PagingFilterPayload<ResponseMentorCoursePayload>> {
+    return axiosClient.get(`${url}/mentor`, {
       params: data,
       paramsSerializer: { indexes: null },
     });

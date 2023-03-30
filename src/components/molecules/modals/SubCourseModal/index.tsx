@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
+import { useSelector } from 'react-redux';
 import { Color, FontFamily, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { SubCoursePayload } from '~/models/subCourse';
@@ -11,6 +12,7 @@ import { formatMoney } from '~/utils/money';
 import { formatDate } from '~/utils/date';
 import Icon from '~/components/atoms/Icon';
 import SubCourseTimetable from '../../SubCourseTimetable';
+import { selectRole } from '~/redux/user/selector';
 
 interface SubCourseModalProps {
   visible: boolean;
@@ -27,6 +29,7 @@ export default function SubCourseModal({
   onAddToCart,
   onPayQuick,
 }: SubCourseModalProps) {
+  const role = useSelector(selectRole);
   if (!item) return null;
   return (
     <Modal
@@ -209,21 +212,23 @@ export default function SubCourseModal({
                     ))}
                   </Stack>
                 </Box>
-                <Stack padding={2}>
-                  <Button
-                    onClick={() => onPayQuick(item.id)}
-                    customVariant="normal"
-                  >
-                    Đăng kí ngay
-                  </Button>
-                  <Button
-                    onClick={() => onAddToCart(item.id)}
-                    marginTop="small_10"
-                    customVariant="outlined"
-                  >
-                    Thêm vào giỏ hàng
-                  </Button>
-                </Stack>
+                {role !== 'TEACHER' && (
+                  <Stack padding={2}>
+                    <Button
+                      onClick={() => onPayQuick(item.id)}
+                      customVariant="normal"
+                    >
+                      Đăng kí ngay
+                    </Button>
+                    <Button
+                      onClick={() => onAddToCart(item.id)}
+                      marginTop="small_10"
+                      customVariant="outlined"
+                    >
+                      Thêm vào giỏ hàng
+                    </Button>
+                  </Stack>
+                )}
               </Grid>
             </Grid>
           </Stack>

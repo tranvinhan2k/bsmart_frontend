@@ -53,9 +53,9 @@ export default function MemberCourseItem({
           marginTop: MetricSize.medium_15,
           marginLeft: '10px',
           borderColor: Color.grey,
-          width: { xs: '100%', md: '32%' },
           borderRadius: MetricSize.small_5,
           justifyContent: 'space-between',
+          height: '100%',
         }}
       >
         <Skeleton height={400} />
@@ -70,9 +70,10 @@ export default function MemberCourseItem({
         marginLeft: '10px',
         border: '1px solid',
         borderColor: Color.grey,
-        width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
+        alignItems: 'stretch',
+        height: '600px',
       }}
     >
       <Stack>
@@ -82,13 +83,13 @@ export default function MemberCourseItem({
           sx={{
             objectFit: 'fill',
             width: '100%',
-            height: '200px',
+            height: '300px',
             borderRadius: MetricSize.small_5,
           }}
           src={images[0].url}
           alt={images[0].name}
         />
-        <Stack sx={{ padding: MetricSize.medium_15 }}>
+        <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography
             sx={{
               fontSize: FontSize.medium_28,
@@ -106,23 +107,23 @@ export default function MemberCourseItem({
             }}
           >{`Mentor ${mentor}`}</Typography>
           <Stack sx={{ flexDirection: 'row' }}>{item.learns[0]}</Stack>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.regular,
-            }}
-          >
-            {content}
-          </Typography>
+          <Stack margin={1} overflow="hidden" height="100px">
+            <Typography
+              textOverflow="ellipsis"
+              sx={{
+                fontSize: FontSize.small_18,
+                fontFamily: FontFamily.regular,
+                textOverflow: 'clip',
+              }}
+            >
+              {content}
+            </Typography>
+          </Stack>
         </Stack>
       </Stack>
 
-      <Stack padding={2}>
-        {/* <Stack marginY={1}>
-          <Rating name="size-small" defaultValue={feedback} size="small" />
-        </Stack> */}
-        {/* <Divider /> */}
-        <Stack marginTop={2}>
+      <Stack padding={1}>
+        <Stack marginTop={1}>
           <Button onClick={handleNavigateCourseDetail} customVariant="normal">
             Xem chi tiết
           </Button>

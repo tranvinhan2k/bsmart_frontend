@@ -168,9 +168,8 @@ const accountApi = {
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/social`, data);
   },
-  async getMentorData(id: string): Promise<MentorPayload> {
-    const response: UserResponsePayload = await axiosClient.get(`${url}/${id}`);
-    return handleGetMentor(response);
+  async getMentorData(id: string): Promise<any> {
+    return axiosClient.get(`${url}/${id}`);
   },
 };
 

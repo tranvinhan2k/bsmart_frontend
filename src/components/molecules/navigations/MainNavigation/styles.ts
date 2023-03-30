@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material';
-import { Color, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
-export const SX_NAVIGATION_STACK: SxProps<Theme> = {
+export const view: SxProps<Theme> = {
   background: Color.white,
   flexDirection: 'row',
   paddingX: { xs: MetricSize.medium_15, md: MetricSize.extraLarge_100 },
@@ -11,4 +11,54 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   boxShadow: 4,
 };
 
-export default {};
+export const subView: SxProps<Theme> = {
+  justifyContent: 'space-between',
+  flexDirection: 'row',
+  alignItems: 'center',
+};
+
+export const view1: SxProps<Theme> = {
+  display: { xs: 'none', md: 'flex' },
+};
+
+export const view2: SxProps<Theme> = {
+  display: { xs: 'none', md: 'flex' },
+};
+
+export const view3: SxProps<Theme> = {
+  display: { xs: 'flex', md: 'none' },
+};
+export const view4: SxProps<Theme> = { padding: MetricSize.medium_15 };
+
+export const text1: SxProps<Theme> = {
+  fontSize: { xs: FontSize.medium_24, md: FontSize.large_45 },
+  fontFamily: FontFamily.bold,
+  color: Color.navy,
+};
+
+export const text2: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.medium_24,
+  color: Color.navy,
+};
+
+export const badge: SxProps<Theme> = {
+  '& .MuiBadge-badge': {
+    color: Color.white,
+    backgroundColor: Color.orange,
+  },
+};
+
+const styles = {
+  view,
+  view1,
+  view2,
+  view3,
+  view4,
+  subView,
+  text1,
+  text2,
+  badge,
+};
+
+export default styles;

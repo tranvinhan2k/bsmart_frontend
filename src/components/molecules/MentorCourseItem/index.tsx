@@ -1,32 +1,21 @@
-import { Box, Divider, Typography, Rating, Stack } from '@mui/material';
-import Chip from '@mui/material/Chip';
+import { Box, Typography, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
+import { ResponseMentorCoursePayload } from '~/api/courses';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import { CoursePayload } from '~/models/courses';
+import { image } from '~/constants/image';
 
-interface CourseItemProps {
-  item?: CoursePayload;
+interface MentorCourseItemProps {
+  item?: ResponseMentorCoursePayload;
   isSkeleton?: boolean;
   onClick?: () => void;
 }
 
-export default function CourseItem({
-  item = {
-    content: '',
-    feedback: 0,
-    id: 0,
-    image: '',
-    mentor: '',
-    title: '',
-    mentorImage: '',
-    typeLearn: [''],
-  },
+export default function MentorCourseItem({
+  item,
   isSkeleton = false,
   onClick = () => {},
-}: CourseItemProps) {
-  const { content, feedback, image, mentor, title } = item;
-
+}: MentorCourseItemProps) {
   const handleNavigateCourseDetail = () => {
     onClick();
   };
@@ -38,9 +27,9 @@ export default function CourseItem({
           marginTop: MetricSize.medium_15,
           marginLeft: '10px',
           borderColor: Color.grey,
-          width: { xs: '100%', md: '32%' },
           borderRadius: MetricSize.small_5,
           justifyContent: 'space-between',
+          height: '100%',
         }}
       >
         <Skeleton height={400} />
@@ -55,9 +44,9 @@ export default function CourseItem({
         marginLeft: '10px',
         border: '1px solid',
         borderColor: Color.grey,
-        width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
+        alignItems: 'stretch',
         height: '600px',
       }}
     >
@@ -68,13 +57,13 @@ export default function CourseItem({
           sx={{
             objectFit: 'fill',
             width: '100%',
-            height: '200px',
+            height: '300px',
             borderRadius: MetricSize.small_5,
           }}
-          src={image}
-          alt={title}
+          src={item?.image?.[0]?.url}
+          alt={item?.image?.[0]?.name}
         />
-        <Stack sx={{ padding: MetricSize.medium_15, height: '200px' }}>
+        <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography
             sx={{
               fontSize: FontSize.medium_28,
@@ -82,7 +71,7 @@ export default function CourseItem({
               fontFamily: FontFamily.bold,
             }}
           >
-            {title}
+            {`Khóa học số ${item?.id}`}
           </Typography>
           <Typography
             sx={{
@@ -90,38 +79,12 @@ export default function CourseItem({
               fontFamily: FontFamily.light,
               color: Color.grey,
             }}
-          >{`Mentor ${mentor}`}</Typography>
-          <Stack sx={{ flexDirection: 'row' }}>
-            {item.typeLearn &&
-              item.typeLearn.map((type) => (
-                <Chip sx={{ marginRight: 1 }} key={type} label={type} />
-              ))}
-          </Stack>
-          <Stack
-            sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              height: '150px',
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-              }}
-            >
-              {content}
-            </Typography>
-          </Stack>
+          >{`Mentor ${item?.mentor?.fullName}`}</Typography>
         </Stack>
       </Stack>
 
-      <Stack padding={2}>
-        <Stack marginY={1}>
-          <Rating name="size-small" defaultValue={feedback} size="small" />
-        </Stack>
-        <Divider />
-        <Stack marginTop={2}>
+      <Stack padding={1}>
+        <Stack marginTop={1}>
           <Button onClick={handleNavigateCourseDetail} customVariant="normal">
             Xem chi tiết
           </Button>
@@ -131,7 +94,7 @@ export default function CourseItem({
   );
 }
 
-CourseItem.defaultProps = {
+MentorCourseItem.defaultProps = {
   isSkeleton: false,
   item: undefined,
   onClick: () => {},

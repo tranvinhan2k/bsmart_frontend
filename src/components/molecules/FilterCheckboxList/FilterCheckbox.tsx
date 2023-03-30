@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, Typography, Stack } from '@mui/material';
+import Skeleton from 'react-loading-skeleton';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
@@ -145,6 +146,8 @@ export default function FilterCheckbox({
       </Box>
     </Stack>
   ) : (
-    <Stack>Is Loading ...</Stack>
+    <Stack marginTop={2}>
+      <Skeleton height={100} />
+    </Stack>
   );
 }
