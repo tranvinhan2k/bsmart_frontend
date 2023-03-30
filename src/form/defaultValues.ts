@@ -119,11 +119,3 @@ export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
   bankAccountOwner: '',
   note: '',
 };
-
-export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
-  amount: 50000,
-  bankLinking: '',
-  bankAccount: 0,
-  bankAccountOwner: '',
-  note: '',
-};
