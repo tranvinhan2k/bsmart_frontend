@@ -53,7 +53,6 @@ export default function WithdrawSection() {
 
   useEffect(() => {
     if (banks) {
-      console.log('defaultValueWithdrawMoney', defaultValueWithdrawMoney);
       const defaults = defaultValueWithdrawMoney;
       defaults.bankLinking = {
         id: banks[0].id,
@@ -65,8 +64,7 @@ export default function WithdrawSection() {
         shortName: banks[0].shortName,
         transferSupported: banks[0].transferSupported,
       };
-      console.log('defaults', defaults);
-      // reset(defaults);
+      reset(defaults);
     }
   }, [banks, reset]);
 

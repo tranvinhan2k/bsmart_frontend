@@ -16,6 +16,7 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
+import TimeTableInput from './TimeTableInput';
 import DropdownInputBank from './DropdownInputBank';
 
 interface FormInputProps {
@@ -44,6 +45,10 @@ const generateFormInput = (
     case variant === 'multiline':
       return (
         <MultilineInput controller={controller} placeholder={placeholder} />
+      );
+    case variant === 'timetable':
+      return (
+        <TimeTableInput controller={controller} placeholder={placeholder} />
       );
     case variant === 'password':
       return (

@@ -51,9 +51,6 @@ export default function LoginForm() {
     onSuccess: (tokenResponse) => {
       console.log(tokenResponse);
     },
-    onError: (error) => {
-      console.log(error);
-    },
   });
 
   const handleRememberPassword = () => {
@@ -109,7 +106,7 @@ export default function LoginForm() {
     }
   };
   // const token = useSelector((state: RootState) => state.user.token);
-  // console.log('token', token);
+  // ('token', token);
 
   return (
     <Stack>

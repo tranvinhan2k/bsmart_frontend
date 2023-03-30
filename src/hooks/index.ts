@@ -13,4 +13,7 @@ export * from './useQueryGetCourseDetailByCourseId';
 export * from './useQueryGetSubCourseByCourseId';
 export * from './useQueryGetMentorByMentorId';
 export * from './useQueryGetAllCourses';
+export * from './useQueryGetAllMemberCourses';
 export * from './useQueryGetCart';
+export * from './useQueryGetAllDayInWeeks';
+export * from './useQueryGetAllSlots';

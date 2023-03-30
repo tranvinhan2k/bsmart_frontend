@@ -26,7 +26,7 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
       onChange(selectedFile);
     } else {
       setFile(null);
-      setError('Please select a valid image file (JPEG, PNG, or GIF)');
+      setError('Xin hãy chọn lại định dạng ảnh phù hợp (JPEG, PNG, or GIF)');
       onChange(null);
     }
   };
@@ -72,7 +72,7 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
               startIcon={<Icon name="delete" size="medium" />}
               onClick={handleDeleteClick}
             >
-              Remove
+              Gỡ bỏ
             </Button>
           </Stack>
         </Stack>

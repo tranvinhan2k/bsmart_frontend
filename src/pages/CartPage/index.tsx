@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Stack, Grid, Typography, IconButton } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import Tooltip from '@mui/material/Tooltip';
 import { scrollToTop } from '~/utils/common';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { useQueryGetCart } from '~/hooks';
@@ -23,7 +24,16 @@ export default function CartPage() {
   const handlePayCart = async () => {
     const id = toast.loadToast('Đang thanh toán giỏ hàng,...');
     try {
-      await payCart(Number(cart?.id));
+      if (cart?.cartItems && cart.cartItems?.length > 0) {
+        await payCart(
+          cart?.cartItems.map((item) => ({
+            cartItemId: item.cartItemId,
+            subCourseId: 0,
+          }))
+        );
+      } else {
+        throw new Error('Không có hàng trong giỏ');
+      }
       refetch();
       toast.updateSuccessToast(id, 'Thanh toán thành công');
     } catch (e: any) {
@@ -48,20 +58,7 @@ export default function CartPage() {
       }
     }
   }
-  async function handlePaymentCourseFromCart(courseId: number) {
-    // eslint-disable-next-line no-restricted-globals
-    const isDelete = confirm('Xác nhận thanh toán khóa học này ? ');
-    if (isDelete) {
-      const id = toast.loadToast('Đang thanh toán khóa học...');
-      try {
-        await payCart(courseId);
-        refetch();
-        toast.updateSuccessToast(id, 'Bạn đã thanh toán thành công !');
-      } catch (e: any) {
-        toast.updateFailedToast(id, `Thanh toán thất bại: ${e.message}`);
-      }
-    }
-  }
+
   const handleUpdateCourseFromCart = async (data: RequestCartItem) => {
     const id = toast.loadToast('Đang cập nhật khóa học khỏi giỏ hàng...');
     try {
@@ -96,32 +93,40 @@ export default function CartPage() {
       renderCell: (row) => {
         return (
           <Stack sx={{ flexDirection: 'row' }}>
-            <IconButton
-              onClick={() =>
-                handleDeleteCourseFromCart(Number(row.row.cartItemId))
-              }
-            >
-              <Icon name="delete" size="medium" color="orange" />
-            </IconButton>
-            <IconButton
-              onClick={() =>
-                handlePaymentCourseFromCart(Number(row.row.cartItemId))
-              }
-            >
-              <Icon name="payment" size="medium" color="orange" />
-            </IconButton>
+            <Tooltip title="Xóa khóa học">
+              <IconButton
+                onClick={() =>
+                  handleDeleteCourseFromCart(Number(row.row.cartItemId))
+                }
+              >
+                <Icon name="delete" size="medium" color="orange" />
+              </IconButton>
+            </Tooltip>
           </Stack>
         );
       },
     },
   ];
 
+  const renderNoRow = () => {
+    return (
+      <Stack
+        sx={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+        }}
+      >
+        <Typography>Không có hàng trong giỏ</Typography>
+      </Stack>
+    );
+  };
+
   useEffect(() => {
     scrollToTop();
   }, []);
 
   if (error) {
-    toast.notifyErrorToast('Lỗi khi tải dữ liệu giỏ hàng của bạn !');
     return (
       <Stack
         sx={{
@@ -139,7 +144,7 @@ export default function CartPage() {
             color: Color.red,
           }}
         >
-          Đã xảy ra lỗi
+          Đã xảy ra lỗi. Vui lòng thử lại
         </Typography>
       </Stack>
     );
@@ -195,8 +200,12 @@ export default function CartPage() {
           >{`Bạn đang có ${cart?.totalItem} khóa học trong giỏ hàng`}</Typography>
           {cart && (
             <DataGrid
-              rowHeight={400}
+              rowHeight={600}
               autoHeight
+              components={{
+                NoRowsOverlay: renderNoRow,
+                NoResultsOverlay: renderNoRow,
+              }}
               sx={{ marginY: MetricSize.medium_15 }}
               rows={cart?.cartItems}
               columns={columns}

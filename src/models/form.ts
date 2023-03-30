@@ -105,6 +105,7 @@ export type FormInputVariant =
   | 'multiline'
   | 'dropdown'
   | 'dropdownBanks'
+  | 'timetable'
   | 'radioGroup'
   | 'image'
   | 'multiSelect'

@@ -54,6 +54,7 @@ export interface ResponseProfilePayload {
   fullName: string;
   email: string;
   birthday: string;
+  gender: string;
   address: string;
   phone: string;
   status: boolean;

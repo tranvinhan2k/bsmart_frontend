@@ -1,26 +1,27 @@
 import axiosClient from '~/api/axiosClient';
-import { PagingFilterPayload } from '~/models';
+import {
+  ImagePayload,
+  PagingFilterPayload,
+  RequestPagingFilterPayload,
+} from '~/models';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
-import { TypeLearnKeys } from '~/models/variables';
+import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
 
 // Define the request payload for fetching courses
-export interface RequestGetCoursePayload {
-  q?: string;
-  categoryId?: number[];
-  subjectId?: number[];
-  types?: number[];
-  provinces?: number[];
 
-  page?: number;
-  size?: number;
-  sort?: string[];
+export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
+  q?: string | undefined;
+  categoryId?: number[] | undefined;
+  subjectId?: number[] | undefined;
+  types?: number[] | undefined;
+  provinces?: number[] | undefined;
 }
-
 export interface RequestCreateCoursePayload {
+  code: string;
   name: string;
-  level: string;
+  level: LevelKeys;
   imageId: number;
   categoryId: number;
   subjectId: number;
@@ -31,9 +32,28 @@ export interface RequestCreateCoursePayload {
   startDateExpected: string;
   endDateExpected: string;
   description: string;
+  subCourseTile: string;
+  numberOfSlot: number;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+}
+export interface ResponseMemberCoursePayload {
+  id: number;
+  images: ImagePayload[];
+  courseCode: string;
+  courseName: string;
+  categoryId: number;
+  categoryName: string;
+  subjectId: number;
+  subjectName: string;
+  mentorName: string;
+  courseDescription: string;
+  totalSubCourse: number;
+  learns: TypeLearnKeys[];
 }
 
-// Define the response payload for fetching a course
 export interface ResponseGetCoursePayload {
   id: number;
   subCourseId: number;
@@ -47,7 +67,6 @@ export interface ResponseGetCoursePayload {
   mentorName: string;
   learns: TypeLearnKeys[];
 }
-
 interface ResponseCourseDetailPayload {
   id: number;
   name: string;
@@ -66,10 +85,6 @@ interface ResponseCourseDetailPayload {
   };
   mentorId: number;
 }
-
-/**
- * Transforms a response payload into the desired format for rendering a course detail page
- */
 function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   if (!data) {
     return null;
@@ -104,10 +119,6 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   };
   return responseData;
 }
-
-/**
- * Transforms a response payload into the desired format for rendering a list of courses
- */
 function handleResponseGetCourse(
   data?: PagingFilterPayload<ResponseGetCoursePayload>
 ): PagingFilterPayload<CoursePayload> | null {
@@ -139,7 +150,6 @@ function handleResponseGetCourse(
 
 const url = '/courses';
 
-// Define a module for fetching courses
 const coursesApi = {
   async getAllCourse(
     data: RequestGetCoursePayload
@@ -151,7 +161,14 @@ const coursesApi = {
       });
     return handleResponseGetCourse(response);
   },
-
+  async getMemberCourse(
+    data: RequestPagingFilterPayload
+  ): Promise<PagingFilterPayload<ResponseMemberCoursePayload>> {
+    return axiosClient.get(url, {
+      params: data,
+      paramsSerializer: { indexes: null },
+    });
+  },
   async getDetailCourse(id: string): Promise<CourseDetailPayload | null> {
     const response: ResponseCourseDetailPayload = await axiosClient.get(
       `${url}/${id}`
