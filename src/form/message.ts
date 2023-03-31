@@ -17,6 +17,13 @@ export const EMAIL_REQUIRED = 'Email không được để trống.';
 export const PHONE_INVALID = 'Số điện thoại không hợp lệ.';
 export const MENTOR_REQUIRED = 'Giáo viên cần đánh giá không được để trống.';
 export const SUBJECT_REQUIRED = 'Môn học không được để trống.';
+export const IMAGE_SIZE_TOO_BIG =
+  'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác.';
+export const IMAGE_FORMAT_NOT_SUPPORT = 'Định dạng hình ảnh không hỗ trợ.';
+export const generateRequiredText = (text: string) => {
+  return `${text} là bắt buộc`;
+};
+
 // course
 export const COURSE_NAME_REQUIRED = 'Tên khoá học không được để trống';
 export const COURSE_LEVEL_REQUIRED = 'Trình độ không được để trống';

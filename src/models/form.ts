@@ -34,10 +34,14 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
-export interface EditImageProfileFormDataPayload {
+export interface EditAvatarFormDataPayload {
   avatar: string;
-  identityFront?: string;
-  identityBack?: string;
+}
+export interface EditIdentityFrontFormDataPayload {
+  identityFront: string;
+}
+export interface EditIdentityBackFormDataPayload {
+  identityBack: string;
 }
 
 export interface EditPersonalProfileFormDataPayload {
@@ -69,7 +73,6 @@ export interface EditSocialProfileFormDataPayload {
   twitterLink: string;
   instagramLink: string;
 }
-
 export interface WithdrawMoneyFormDataPayload {
   amount: number;
   bankLinking:

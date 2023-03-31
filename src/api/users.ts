@@ -26,10 +26,10 @@ export interface EditCertificateProfilePayload {
   certificates: { file: string | Blob }[];
 }
 export interface EditImageProfilePayload {
-  avatar: string;
-  identityFront?: string;
-  identityBack?: string;
+  file: string | Blob;
+  imageType: 'AVATAR' | 'FRONTCI' | 'BACKCI';
 }
+
 export interface EditPersonalProfilePayload {
   fullName: string;
   birthday: Date | '';
@@ -143,8 +143,16 @@ const accountApi = {
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);
   },
-  editImageProfile(data: EditImageProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/images`, data);
+  async editImageProfile(data: EditImageProfilePayload): Promise<any> {
+    const bodyFormData = new FormData();
+    const { file, imageType } = data;
+
+    bodyFormData.append('file', file);
+    bodyFormData.append('imageType', imageType);
+
+    return axiosClient.post(`${url}/upload-image`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
@@ -157,7 +165,7 @@ const accountApi = {
     });
   },
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
-    return axiosClient.put(`/mentor-profiles`, data);
+    return axiosClient.put(`/mentorProfiles`, data);
   },
   editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);

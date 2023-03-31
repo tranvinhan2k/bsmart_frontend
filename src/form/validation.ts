@@ -1,5 +1,4 @@
 import { array, date, mixed, number, object, ref, string } from 'yup';
-
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -19,9 +18,11 @@ import {
   USERNAME_REQUIRED,
   WITHDRAW_AMOUNT_REQUIRED,
   WITHDRAW_AMOUNT_POSITIVE,
-  WITHDRAW_BANK_LINKING_REQUIRE,
   WITHDRAW_BANK_ACCOUNT_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
+  IMAGE_SIZE_TOO_BIG,
+  IMAGE_FORMAT_NOT_SUPPORT,
+  generateRequiredText,
 } from '~/form/message';
 
 const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
@@ -64,11 +65,47 @@ export const validationSchemaBuyCourse = object({
   email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
   voucher: string().required(PASSWORD_REQUIRED),
 });
-
-export const validationSchemaEditImageProfile = object({
-  avatar: string().required(),
-  identityFront: string(),
-  identityBack: string(),
+export const validationSchemaEditAvatar = object({
+  avatar: mixed()
+    .required(generateRequiredText('Hình ảnh đại diện'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+});
+export const validationSchemaEditIdentityFront = object({
+  identityFront: mixed()
+    .required(generateRequiredText('Căn cước công dân (mặt trước)'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+});
+export const validationSchemaEditIdentityBack = object({
+  identityBack: mixed()
+    .required(generateRequiredText('Căn cước công dân (mặt sau)'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
 });
 
 export const validationSchemaEditPersonalProfile = object({
