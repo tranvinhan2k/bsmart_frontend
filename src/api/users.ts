@@ -38,8 +38,8 @@ export interface EditPersonalProfilePayload {
 }
 export interface EditMentorProfilePayload {
   introduce: string;
-  skills: Array<any>;
-  experience: string;
+  mentorSkills: Array<any>;
+  workingExperience: string;
 }
 export interface EditSocialProfilePayload {
   twitterLink?: string;
@@ -165,7 +165,7 @@ const accountApi = {
     });
   },
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
-    return axiosClient.put(`/mentorProfiles`, data);
+    return axiosClient.put(`/mentor-profiles`, data);
   },
   editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);

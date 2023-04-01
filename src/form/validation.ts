@@ -117,8 +117,8 @@ export const validationSchemaEditPersonalProfile = object({
 
 export const validationSchemaEditMentorProfile = object({
   introduce: string().required(),
-  skills: array(),
-  experience: string(),
+  mentorSkills: array(),
+  workingExperience: string(),
 });
 
 export const validationSchemaEditCertificateProfile = object({

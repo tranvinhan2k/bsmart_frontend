@@ -50,15 +50,16 @@ export default function EditMentorProfileForm() {
   useEffect(() => {
     if (dataGetProfile) {
       const defaults = defaultValueEditMentorProfile;
-      if (dataGetProfile.experience)
-        defaults.experience = dataGetProfile.experience;
-      if (dataGetProfile.skills) defaults.skills = dataGetProfile.skill;
+      if (dataGetProfile.workingExperience)
+        defaults.workingExperience = dataGetProfile.workingExperience;
+      if (dataGetProfile.mentorSkills)
+        defaults.mentorSkills = dataGetProfile.skill;
       if (dataGetProfile.introduce)
         defaults.introduce = dataGetProfile.introduce;
 
       // console.log('defaults', defaults);
       if (subjects) {
-        defaults.skills = [
+        defaults.mentorSkills = [
           {
             id: subjects[0].id,
             label: subjects[0].label,
@@ -73,24 +74,24 @@ export default function EditMentorProfileForm() {
   const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,
-      skills: [],
-      experience: data.experience,
+      mentorSkills: [],
+      workingExperience: data.workingExperience,
     };
-    data.skills.forEach((item: any) => {
-      params.skills.push({
+    data.mentorSkills.forEach((item: any) => {
+      params.mentorSkills.push({
         skillId: item.subjectId.id,
         yearOfExperiences: item.yearOfExperiences,
       });
     });
-
-    console.log('data', data);
-    console.log('params', params);
     const id = toast.loadToast('Đang cập nhật ...');
     try {
       await mutateEditMentorProfile(params);
       toast.updateSuccessToast(id, 'Cập nhật thành công');
     } catch (error: any) {
-      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+      toast.updateFailedToast(
+        id,
+        `Cập nhật không thành công: ${error.message}`
+      );
     }
   };
 
@@ -128,14 +129,14 @@ export default function EditMentorProfileForm() {
       size: 12,
     },
     {
-      name: EDIT_MENTOR_PROFILE_FIELDS.skills,
+      name: EDIT_MENTOR_PROFILE_FIELDS.mentorSkills,
       label: EDIT_MENTOR_PROFILE_FORM_TEXT.SKILLS.LABEL,
       placeholder: EDIT_MENTOR_PROFILE_FORM_TEXT.SKILLS.PLACEHOLDER,
       variant: 'text',
       size: 12,
     },
     {
-      name: EDIT_MENTOR_PROFILE_FIELDS.experience,
+      name: EDIT_MENTOR_PROFILE_FIELDS.workingExperience,
       label: EDIT_MENTOR_PROFILE_FORM_TEXT.EXPERIENCE.LABEL,
       placeholder: EDIT_MENTOR_PROFILE_FORM_TEXT.EXPERIENCE.PLACEHOLDER,
       variant: 'multiline',
@@ -144,7 +145,7 @@ export default function EditMentorProfileForm() {
   ];
 
   const { fields, append, prepend, remove } = useFieldArray({
-    name: 'skills',
+    name: 'mentorSkills',
     control,
     rules: {
       required: 'Please append at least 1 item',
@@ -190,7 +191,7 @@ export default function EditMentorProfileForm() {
               <Typography sx={SX_FORM_LABEL}>Kinh nghiệm</Typography>
               <FormInput
                 control={control}
-                name="experience"
+                name="workingExperience"
                 variant="multiline"
                 placeholder="Nhập kinh nghiệm"
               />
@@ -213,14 +214,14 @@ export default function EditMentorProfileForm() {
                       <FormInput
                         control={control}
                         data={subjects}
-                        name={`skills.${index}.subjectId`}
+                        name={`mentorSkills.${index}.subjectId`}
                         variant="dropdown"
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <FormInput
                         control={control}
-                        name={`skills.${index}.yearOfExperiences`}
+                        name={`mentorSkills.${index}.yearOfExperiences`}
                         variant="number"
                         placeholder="Nhập số năm kinh nghiệm"
                       />

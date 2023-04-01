@@ -66,8 +66,8 @@ export const EDIT_PERSONAL_PROFILE_FIELDS = {
 
 export const EDIT_MENTOR_PROFILE_FIELDS = {
   introduce: 'introduce',
-  skills: 'skills',
-  experience: 'experience',
+  mentorSkills: 'mentorSkills',
+  workingExperience: 'workingExperience',
 };
 
 export const EDIT_CERTIFICATE_PROFILE_FIELDS = {

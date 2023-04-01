@@ -53,8 +53,8 @@ export interface EditPersonalProfileFormDataPayload {
 
 export interface EditMentorProfileFormDataPayload {
   introduce: string;
-  skills: { id: number; label: string; value: string }[];
-  experience: string;
+  mentorSkills: { id: number; label: string; value: string }[];
+  workingExperience: string;
 }
 
 export interface EditCertificateProfileFormDataPayload {

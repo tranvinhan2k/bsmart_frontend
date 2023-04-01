@@ -41,7 +41,10 @@ export default function EditCertificateProfileForm() {
       await mutateEditCertificateProfile(params);
       toast.updateSuccessToast(id, 'Cập nhật thành công');
     } catch (error: any) {
-      toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
+      toast.updateFailedToast(
+        id,
+        `Cập nhật không thành công: ${error.message}`
+      );
     }
   };
 
