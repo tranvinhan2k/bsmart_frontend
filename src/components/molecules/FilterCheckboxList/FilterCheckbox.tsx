@@ -146,7 +146,7 @@ export default function FilterCheckbox({
       </Box>
     </Stack>
   ) : (
-    <Stack marginTop={2}>
+    <Stack marginBottom={2}>
       <Skeleton height={100} />
     </Stack>
   );

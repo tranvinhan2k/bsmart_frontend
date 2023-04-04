@@ -119,7 +119,7 @@ export interface UserResponsePayload {
 }
 
 function handleGetMentor(data: UserResponsePayload) {
-  const result: MentorPayload = {
+  const result: any = {
     id: data.id,
     avatar: data.userImages?.[0]?.url,
     name: data.fullName,
@@ -136,6 +136,9 @@ const accountApi = {
   },
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
+  },
+  getUserById(id: number): Promise<any> {
+    return axiosClient.get(`${url}/${id}`);
   },
   getTokenProfile(): Promise<ResponseProfilePayload> {
     return axiosClient.get(`${url}/profile`);

@@ -1,19 +1,30 @@
 import { Stack, Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import { useEffect } from 'react';
+import Pagination from '@mui/material/Pagination';
+import { useEffect, useState } from 'react';
 import { FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import MemberCourseItem from '~/components/molecules/MemberCourseItem';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { useQueryGetAllMentorCourses } from '~/hooks';
+import { RequestPagingFilterPayload } from '~/models';
 import { scrollToTop } from '~/utils/common';
 
 export default function MentorCourseListPage() {
-  const { courses } = useQueryGetAllMentorCourses({
+  const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
     page: 0,
-    size: 1000,
+    size: 9,
     sort: undefined,
+    status: 'REQUESTING',
   });
+
+  const { courses } = useQueryGetAllMentorCourses(filterParams);
+
+  const handleChangePageNumber = (e: any, value: number) => {
+    setFilterParams({
+      ...filterParams,
+      page: value - 1,
+    });
+  };
 
   useEffect(() => {
     scrollToTop();
@@ -43,7 +54,7 @@ export default function MentorCourseListPage() {
         }}
       >
         {courses &&
-          courses?.map((item) => (
+          courses?.items?.map((item) => (
             <Grid
               item
               xs={12}
@@ -55,6 +66,20 @@ export default function MentorCourseListPage() {
             </Grid>
           ))}
       </Grid>
+      <Stack
+        sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
+      >
+        {courses && (
+          <Pagination
+            page={courses.currentPage}
+            onChange={handleChangePageNumber}
+            count={courses.totalPages}
+          />
+        )}
+        {courses && courses.items.length === 0 && (
+          <Typography>Bạn chưa đăng kí khóa học nào</Typography>
+        )}
+      </Stack>
     </Stack>
   );
 }

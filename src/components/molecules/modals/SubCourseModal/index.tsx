@@ -212,7 +212,7 @@ export default function SubCourseModal({
                     ))}
                   </Stack>
                 </Box>
-                {role !== 'TEACHER' && (
+                {role !== 'TEACHER' && item.purchase && (
                   <Stack padding={2}>
                     <Button
                       onClick={() => onPayQuick(item.id)}
@@ -226,6 +226,17 @@ export default function SubCourseModal({
                       customVariant="outlined"
                     >
                       Thêm vào giỏ hàng
+                    </Button>
+                  </Stack>
+                )}
+                {(item.purchase === null || !item.purchase) && (
+                  <Stack padding={2}>
+                    <Button
+                      disabled
+                      onClick={() => onPayQuick(item.id)}
+                      customVariant="normal"
+                    >
+                      Đã đăng kí
                     </Button>
                   </Stack>
                 )}

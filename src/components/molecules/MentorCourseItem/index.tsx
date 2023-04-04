@@ -6,7 +6,7 @@ import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
 
 interface MentorCourseItemProps {
-  item?: ResponseMentorCoursePayload;
+  item?: any;
   isSkeleton?: boolean;
   onClick?: () => void;
 }
@@ -36,6 +36,7 @@ export default function MentorCourseItem({
       </Stack>
     );
   }
+  console.log(item);
 
   return (
     <Stack
@@ -60,8 +61,8 @@ export default function MentorCourseItem({
             height: '300px',
             borderRadius: MetricSize.small_5,
           }}
-          src={item?.image?.[0]?.url}
-          alt={item?.image?.[0]?.name}
+          src={item?.images?.[0]?.url || image.noCourse}
+          alt={item?.images?.[0]?.name}
         />
         <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography
@@ -71,7 +72,7 @@ export default function MentorCourseItem({
               fontFamily: FontFamily.bold,
             }}
           >
-            {`Khóa học số ${item?.id}`}
+            {item.courseName || ''}
           </Typography>
           <Typography
             sx={{
@@ -79,7 +80,16 @@ export default function MentorCourseItem({
               fontFamily: FontFamily.light,
               color: Color.grey,
             }}
-          >{`Mentor ${item?.mentor?.fullName}`}</Typography>
+          >{`Mentor ${item.mentorName[0]}`}</Typography>
+          <Typography
+            sx={{
+              fontSize: FontSize.small_18,
+              fontFamily: FontFamily.light,
+              color: Color.grey,
+            }}
+          >
+            {item.courseDescription}
+          </Typography>
         </Stack>
       </Stack>
 

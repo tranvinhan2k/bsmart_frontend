@@ -171,7 +171,7 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
     },
     category: data.category,
     feedbackData: {
-      commentData: [],
+      commentData: [],  
       numOfRating: 50,
       percentOfFeedback: 0.5,
       starData: [

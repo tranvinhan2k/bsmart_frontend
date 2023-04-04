@@ -1,7 +1,7 @@
 import axiosClient from '~/api/axiosClient';
 import { MentorPayload } from '~/models/mentor';
 
-const url = `/mentorProfiles`;
+const url = `/mentor-profiles`;
 
 export interface ResponseMentorData {
   id: number;
@@ -51,19 +51,9 @@ export interface ResponseMentorData {
   ];
 }
 
-function handleGetMentorById(data: ResponseMentorData) {
-  const result: MentorPayload = {
-    id: data.id,
-    avatar: data.user?.userImages?.[0].url,
-    name: data.user?.fullName,
-  };
-  return result;
-}
-
 const mentorProfileApi = {
   async getMentorById(id: number): Promise<MentorPayload | undefined> {
-    const response: ResponseMentorData = await axiosClient.get(`${url}/${id}`);
-    return handleGetMentorById(response);
+    return axiosClient.get(`${url}/${id}`);
   },
   async getAllMentor(): Promise<MentorPayload[] | undefined> {
     return axiosClient.get(`${url}/name`);

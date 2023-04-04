@@ -86,8 +86,8 @@ export default function MemberCourseItem({
             height: '300px',
             borderRadius: MetricSize.small_5,
           }}
-          src={images[0].url}
-          alt={images[0].name}
+          src={images?.[0].url || image.noCourse}
+          alt={images?.[0].name}
         />
         <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography

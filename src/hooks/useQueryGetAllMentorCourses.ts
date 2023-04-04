@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import coursesApi from '~/api/courses';
 import { RequestPagingFilterPayload } from '~/models';
@@ -18,7 +17,7 @@ export const useQueryGetAllMentorCourses = (
   }, [filterParams]);
   return {
     error,
-    courses: data?.items,
+    courses: data,
     isLoading,
   };
 };

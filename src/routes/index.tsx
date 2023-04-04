@@ -127,6 +127,10 @@ const routes: RoutePayload[] = [
     role: NavigationActionData[16].role,
   },
   {
+    path: `/${NavigationActionData[17].link}`,
+    main: () => <MentorContractPage />,
+  },
+  {
     path: '*',
     main: () => <NotFoundPage />,
   },
@@ -185,10 +189,6 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: `/${MentorNavigationActionData[4].link}`,
     main: () => <MentorCreateCoursePage />,
-  },
-  {
-    path: `/${MentorNavigationActionData[6].link}`,
-    main: () => <MentorContractPage />,
   },
 ];
 
