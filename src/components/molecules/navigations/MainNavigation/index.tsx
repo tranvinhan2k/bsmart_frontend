@@ -219,7 +219,7 @@ export default function MainNavigation({
                   )
                 }
               >
-                {mentor.name || `Tên giáo viên ${mentor.id}`}
+                {mentor.name || `Giáo viên ${mentor.id}`}
               </MenuItem>
             );
           })}
@@ -236,8 +236,6 @@ export default function MainNavigation({
       >
         {courses &&
           courses.map((course: any) => {
-            console.log(course);
-
             return (
               <MenuItem
                 key={course.id}

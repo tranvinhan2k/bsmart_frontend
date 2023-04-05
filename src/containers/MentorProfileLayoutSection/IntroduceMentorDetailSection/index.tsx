@@ -2,6 +2,7 @@ import { Box, Divider, Stack, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ResponseProfilePayload } from '~/api/users';
 import overlay_bg from '~/assets/images/overlay-bg.jpg';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
@@ -14,15 +15,23 @@ import {
 import { image } from '~/constants/image';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
-import { selectProfile } from '~/redux/user/selector';
 import { formatDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import toast from '~/utils/toast';
 
-export default function MentorDetailSection() {
-  const profile = useSelector(selectProfile);
+interface IntroduceMentorDetailSectionProps {
+  mentor: ResponseProfilePayload | undefined;
+}
 
+export default function IntroduceMentorDetailSection({
+  mentor,
+}: IntroduceMentorDetailSectionProps) {
   const navigate = useNavigate();
+
+  const profile = mentor;
+
+  if (!mentor) return null;
+
   const mentorDetails = {
     imageLink: profile?.userImages?.[0]?.url || image.noAvatar,
     name: profile?.fullName,
@@ -188,71 +197,17 @@ export default function MentorDetailSection() {
                 </Typography>
               </Stack>
             ))}
-            {mentorDetails.walletMoney && (
-              <Stack marginTop={1}>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_16,
-                    color: Color.grey,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  Số dư hiện tại:{' '}
-                  <span style={{ color: Color.orange }}>
-                    ${formatMoney(mentorDetails.walletMoney)}
-                  </span>
-                </Typography>
-              </Stack>
-            )}
           </Stack>
           <Stack sx={{ marginTop: 1, width: '100%' }}>
-            {MentorNavigationActionData.map((item) => (
-              <Button
-                marginTop="small_10"
-                key={item.link}
-                onClick={() => handleNavigateLink(item.link)}
-                customVariant="normal"
-              >
-                {item.name}
-              </Button>
-            ))}
+            <Button
+              marginTop="small_10"
+              onClick={() => handleNavigateLink('/contact')}
+              customVariant="normal"
+            >
+              Liên hệ
+            </Button>
           </Stack>
         </Stack>
-      </Stack>
-      <Stack
-        sx={{ marginTop: 3, boxShadow: 3, padding: 2, borderRadius: '5px' }}
-      >
-        <Typography
-          sx={{ fontSize: FontSize.small_18, fontFamily: FontFamily.bold }}
-        >
-          Các hoạt động gần đây
-        </Typography>
-        {activities &&
-          activities.map((item) => (
-            <Stack key={item.id}>
-              <Stack>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_16,
-                    color: Color.grey,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  {item.message}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_16,
-                    color: Color.orange,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  {formatDate(item.updateDate)}
-                </Typography>
-              </Stack>
-              <Divider sx={{ marginY: 1 }} />
-            </Stack>
-          ))}
       </Stack>
     </Stack>
   );

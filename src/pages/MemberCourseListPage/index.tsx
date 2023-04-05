@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack, Typography, Box, Grid } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
+import Pagination from '@mui/material/Pagination';
 import Button from '~/components/atoms/Button';
 
 import styles from './styles';
@@ -9,6 +10,7 @@ import { useQueryGetAllMemberCourses } from '~/hooks';
 import MemberCourseItem from '~/components/molecules/MemberCourseItem';
 import toast from '~/utils/toast';
 import { scrollToTop } from '~/utils/common';
+import { RequestPagingFilterPayload } from '~/models';
 
 const texts = {
   title: 'Khoá học đã đăng kí',
@@ -17,11 +19,20 @@ const texts = {
 
 export default function MemberCourseListPage() {
   const navigate = useNavigate();
-  const { courses } = useQueryGetAllMemberCourses({
+  const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
     page: 0,
-    size: 1000,
+    size: 9,
     sort: undefined,
+    status: 'NOTSTART',
   });
+  const { courses } = useQueryGetAllMemberCourses(filterParams);
+
+  const handleChangePageNumber = (e: any, value: number) => {
+    setFilterParams({
+      ...filterParams,
+      page: value - 1,
+    });
+  };
 
   const handleNavigateCourseMenu = () => {
     navigate('/course_menu');
@@ -43,8 +54,8 @@ export default function MemberCourseListPage() {
       </Stack>
       <Grid container sx={styles.stack2}>
         {courses &&
-          courses?.length > 0 &&
-          courses?.map((item) => (
+          courses?.items.length > 0 &&
+          courses?.items.map((item) => (
             <Grid
               item
               xs={12}
@@ -60,10 +71,19 @@ export default function MemberCourseListPage() {
               />
             </Grid>
           ))}
-        {courses && courses.length === 0 && (
+        {courses && courses.items.length === 0 && (
           <Typography>Bạn chưa đăng kí khóa học nào</Typography>
         )}
       </Grid>
+      <Stack>
+        {courses && courses.items.length > 0 && (
+          <Pagination
+            page={courses.currentPage}
+            onChange={handleChangePageNumber}
+            count={courses.totalPages}
+          />
+        )}
+      </Stack>
     </Stack>
   );
 }

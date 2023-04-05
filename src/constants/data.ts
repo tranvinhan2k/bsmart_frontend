@@ -125,6 +125,12 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Giỏ Hàng',
     link: 'cart',
   },
+  {
+    id: 16,
+    isHide: true,
+    name: 'Liên hệ',
+    link: 'contact',
+  },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [
@@ -157,11 +163,6 @@ export const MentorNavigationActionData: ActionPayload[] = [
     id: 5,
     name: 'Giới thiệu giáo viên',
     link: 'mentor-introduce',
-  },
-  {
-    id: 6,
-    name: 'Liên hệ',
-    link: 'contract',
   },
 ];
 

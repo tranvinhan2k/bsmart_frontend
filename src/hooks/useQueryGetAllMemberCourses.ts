@@ -18,7 +18,7 @@ export const useQueryGetAllMemberCourses = (
   }, [filterParams]);
   return {
     error,
-    courses: data?.items,
+    courses: data,
     isLoading,
   };
 };

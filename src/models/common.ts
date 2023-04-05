@@ -59,4 +59,14 @@ export interface RequestPagingFilterPayload {
   page: number;
   size: number;
   sort: string[] | undefined;
+  status?:
+    | 'REQUESTING'
+    | 'WAITING'
+    | 'EDITREQUEST'
+    | 'REJECTED'
+    | 'NOTSTART'
+    | 'STARTING'
+    | 'ENDED'
+    | 'CANCEL'
+    | 'ALL';
 }

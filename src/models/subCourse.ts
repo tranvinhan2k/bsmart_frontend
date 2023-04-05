@@ -15,6 +15,7 @@ export interface SubCoursePayload {
     url: string;
   };
   timeInWeeks: SubCourseTimeInWeek[];
+  purchase: boolean | null;
 }
 
 export interface SubCourseTimeInWeek {
