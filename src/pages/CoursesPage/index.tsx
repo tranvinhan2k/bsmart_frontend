@@ -19,7 +19,6 @@ export default function CoursesPage() {
       sx={{
         flexDirection: 'row',
         paddingTop: MetricSize.large_20,
-        paddingX: { xs: 0, md: '95px' },
       }}
     >
       <Grid item xs={12} md={3}>
