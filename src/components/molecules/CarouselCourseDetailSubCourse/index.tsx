@@ -9,6 +9,7 @@ import {
   Stack,
   Typography,
   Checkbox,
+  Grid,
 } from '@mui/material';
 import Carousel, {
   RenderArrowProps,
@@ -89,9 +90,8 @@ export default function CarouselCourseDetailSubCourse({
     return (
       <Stack
         sx={{
-          margin: MetricSize.small_5,
           background: Color.whiteSmoke,
-          padding: MetricSize.small_10,
+          paddingY: MetricSize.small_10,
           boxShadow: 3,
           borderColor: item.isChosen ? Color.orange : Color.transparent,
           borderWidth: '2px',
@@ -179,17 +179,22 @@ export default function CarouselCourseDetailSubCourse({
   };
   return (
     <Stack sx={{ width: '100%' }}>
-      <Stack sx={{ marginTop: MetricSize.medium_15 }}>
-        <Carousel
-          breakPoints={breakPoints}
-          renderArrow={renderArrow}
-          renderPagination={renderNavigationDot}
-        >
-          {items.map((item) => {
-            return <div key={item.id}>{renderItem(item)}</div>;
-          })}
-        </Carousel>
-      </Stack>
+      <Grid
+        container
+        sx={{
+          marginTop: MetricSize.medium_15,
+          flexDirection: 'row',
+          gap: '30px',
+        }}
+      >
+        {items.map((item) => {
+          return (
+            <Grid item key={item.id} xs={12} md={3}>
+              {renderItem(item)}
+            </Grid>
+          );
+        })}
+      </Grid>
     </Stack>
   );
 }
