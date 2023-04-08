@@ -1,10 +1,13 @@
 import { ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ReactKeycloakProvider } from '@react-keycloak/web';
+
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import keycloak from '~/utils/keycloak';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
@@ -98,17 +101,26 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <ThemeProvider theme={defaultTheme}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ThemeProvider>
-        </Provider>
-      </QueryClientProvider>
-    </GoogleOAuthProvider>
+    <ReactKeycloakProvider
+      authClient={keycloak}
+      initOptions={{
+        checkLoginIframe: false,
+      }}
+    >
+      <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <ThemeProvider theme={defaultTheme}>
+              <BrowserRouter>
+                <React.StrictMode>
+                  <App />
+                </React.StrictMode>
+              </BrowserRouter>
+            </ThemeProvider>
+          </Provider>
+        </QueryClientProvider>
+      </GoogleOAuthProvider>
+    </ReactKeycloakProvider>
   );
 }
 
