@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
+import { useKeycloak } from '@react-keycloak/web';
 import { signIn } from '~/redux/user/slice';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
@@ -38,6 +39,7 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
+  const { initialized, keycloak } = useKeycloak();
   const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
@@ -71,33 +73,34 @@ export default function LoginForm() {
 
     const id = toast.loadToast('Đang đăng nhập...');
     try {
-      const signInData = await mutateAsync(params);
-      localStorage.setItem('token', signInData.token);
-      localStorage.setItem('roles', signInData.roles[0]);
+      // const signInData = await mutateAsync(params);
+      // localStorage.setItem('token', signInData.token);
+      // localStorage.setItem('roles', signInData.roles[0]);
 
-      const responseProfile = await getProfileMutation.mutateAsync();
+      // const responseProfile = await getProfileMutation.mutateAsync();
 
-      const requestProfile: {
-        token: string;
-        roles: Role;
-        profile: ResponseProfilePayload;
-      } = {
-        token: signInData.token,
-        roles: signInData.roles[0],
-        profile: responseProfile,
-      };
-      dispatch(signIn(requestProfile));
-      if (isRememberPassword) {
-        localStorage.setItem('username', data.email);
-        localStorage.setItem('password', data.password);
-        localStorage.setItem('isRememberPassword', 'true');
-      } else {
-        localStorage.setItem('username', '');
-        localStorage.setItem('password', '');
-        localStorage.setItem('isRememberPassword', 'false');
-      }
-      signInHookForm.reset();
-      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+      // const requestProfile: {
+      //   token: string;
+      //   roles: Role;
+      //   profile: ResponseProfilePayload;
+      // } = {
+      //   token: signInData.token,
+      //   roles: signInData.roles[0],
+      //   profile: responseProfile,
+      // };
+      // dispatch(signIn(requestProfile));
+      // if (isRememberPassword) {
+      //   localStorage.setItem('username', data.email);
+      //   localStorage.setItem('password', data.password);
+      //   localStorage.setItem('isRememberPassword', 'true');
+      // } else {
+      //   localStorage.setItem('username', '');
+      //   localStorage.setItem('password', '');
+      //   localStorage.setItem('isRememberPassword', 'false');
+      // }
+      // signInHookForm.reset();
+      // toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+      await keycloak.login();
     } catch (error: any) {
       toast.updateFailedToast(
         id,
