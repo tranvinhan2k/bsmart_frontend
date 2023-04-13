@@ -1,32 +1,32 @@
 import { Box, Chip, Divider, Typography, Rating, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 import Button from '~/components/atoms/Button';
-import { CoursePayload } from '~/models/courses';
+import { MentorQuickPayload } from '~/models/mentor';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
-interface CourseItemProps {
-  item?: CoursePayload;
+interface MentorItemProps {
+  item?: MentorQuickPayload;
   isSkeleton?: boolean;
   onClick?: () => void;
 }
 
-export default function CourseItem({
+export default function MentorItem({
   item = {
-    content: '',
-    feedback: 0,
     id: 0,
-    image: '',
-    mentor: '',
-    title: '',
-    mentorImage: '',
-    typeLearn: [''],
+    fullName: '',
+    introduce: '',
+    workingExperience: '',
   },
   isSkeleton = false,
   onClick = () => {},
-}: CourseItemProps) {
-  const { content, feedback, image, mentor, title } = item;
+}: MentorItemProps) {
+  const { id, fullName, introduce, workingExperience } = item;
+  const image = undefined;
+  const title = '';
+  const content = '';
+  const feedback = 5;
 
-  const handleNavigateCourseDetail = () => {
+  const handleNavigateMentorDetail = () => {
     onClick();
   };
 
@@ -90,14 +90,26 @@ export default function CourseItem({
               color: Color.grey,
             }}
           >
-            Mentor {mentor}
+            Tên: {fullName}
           </Typography>
-          <Stack sx={{ flexDirection: 'row' }}>
-            {item.typeLearn &&
-              item.typeLearn.map((type) => (
-                <Chip sx={{ marginRight: 1 }} key={type} label={type} />
-              ))}
-          </Stack>
+          <Typography
+            sx={{
+              fontSize: FontSize.small_18,
+              fontFamily: FontFamily.light,
+              color: Color.grey,
+            }}
+          >
+            Giới thiệu: {introduce}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: FontSize.small_18,
+              fontFamily: FontFamily.light,
+              color: Color.grey,
+            }}
+          >
+            Kinh nghiệm: {workingExperience}
+          </Typography>
           <Stack
             sx={{
               overflow: 'hidden',
@@ -128,7 +140,7 @@ export default function CourseItem({
         </Stack>
         <Divider />
         <Stack marginTop={2}>
-          <Button onClick={handleNavigateCourseDetail} customVariant="normal">
+          <Button onClick={handleNavigateMentorDetail} customVariant="normal">
             Xem chi tiết
           </Button>
         </Stack>
@@ -137,7 +149,7 @@ export default function CourseItem({
   );
 }
 
-CourseItem.defaultProps = {
+MentorItem.defaultProps = {
   isSkeleton: false,
   item: undefined,
   onClick: () => {},

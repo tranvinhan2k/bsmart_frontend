@@ -10,3 +10,10 @@ export interface MentorPayload {
     }
   ];
 }
+
+export interface MentorQuickPayload {
+  id: number;
+  fullName: string;
+  introduce: string;
+  workingExperience: string;
+}

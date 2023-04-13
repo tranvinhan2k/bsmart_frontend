@@ -1,18 +1,17 @@
 import { Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { MetricSize } from '~/assets/variables';
-import CourseFilterSection from '~/containers/CoursesSection/CourseFilterSection';
-import CourseMenuSection from '~/containers/CoursesSection/CourseMenuSection';
-import { useQueryGetAllCourse } from '~/hooks';
+import MentorFilterSection from '~/containers/MentorSection/MentorFilterSection';
+import MentorMenuSection from '~/containers/MentorSection/MentorMenuSection';
+import { useQueryGetAllMentors } from '~/hooks';
 import { scrollToTop } from '~/utils/common';
 
-// TODO: add filter params
-export default function CoursesPage() {
+export default function MentorsPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
 
-  const { courses, error, isLoading } = useQueryGetAllCourse();
+  const { mentors, error, isLoading } = useQueryGetAllMentors();
   return (
     <Grid
       container
@@ -23,10 +22,10 @@ export default function CoursesPage() {
       }}
     >
       <Grid item xs={12} md={3}>
-        <CourseFilterSection />
+        <MentorFilterSection />
       </Grid>
       <Grid item xs={12} md={9}>
-        <CourseMenuSection error={error} data={courses} isLoading={isLoading} />
+        <MentorMenuSection error={error} data={mentors} isLoading={isLoading} />
       </Grid>
     </Grid>
   );

@@ -33,12 +33,10 @@ import styles from './styles';
 import { Role } from '~/models/role';
 import { CoursePayload } from '~/models/courses';
 import { ResponseCartItem } from '~/api/cart';
-import { MentorPayload } from '~/models/mentor';
 
 interface NavigationProps {
   texts: {
     CART_LINK: string;
-    INTRODUCE_MENTOR_KEYWORD: string;
     COURSE_MENU_KEYWORD: string;
     COURSE_MENU_LINK: string;
     MOCK_TEACHER_NAME: string;
@@ -48,7 +46,6 @@ interface NavigationProps {
   };
   isOpenDrawer: boolean;
   cart: ResponseCartItem | undefined;
-  mentors: MentorPayload[] | undefined;
   courses: CoursePayload[] | undefined;
   role: Role | null;
   filterParams: {
@@ -65,9 +62,7 @@ interface NavigationProps {
   pages: ActionPayload[];
   socials: SocialPayload[];
   contracts: ContractPayload[];
-  mentorAnchorEl: HTMLElement | null;
   courseAnchorEl: HTMLElement | null;
-  onCloseMentorMenu: () => void;
   onToggleDrawer: () => void;
   onNavigationLink: (_link: string) => void;
   onCloseCourseMenu: () => void;
@@ -82,7 +77,6 @@ export default function MainNavigation({
   texts,
   isOpenDrawer,
   cart,
-  mentors,
   courses,
   role,
   filterParams,
@@ -91,9 +85,7 @@ export default function MainNavigation({
   contracts,
   socials,
   courseAnchorEl,
-  mentorAnchorEl,
   onCloseCourseMenu,
-  onCloseMentorMenu,
   onToggleDrawer,
   onNavigationLink,
   onSearchCourse,
@@ -198,32 +190,6 @@ export default function MainNavigation({
           </Stack>
         </Stack>
       </Drawer>
-      <Menu
-        id="basic-menu"
-        anchorEl={mentorAnchorEl}
-        open={Boolean(mentorAnchorEl)}
-        onClose={onCloseMentorMenu}
-        onMouseLeave={onMouseLeaveNavigation}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        {mentors &&
-          mentors.map((mentor: any) => {
-            return (
-              <MenuItem
-                key={mentor.id}
-                onClick={() =>
-                  onClickNavigation(
-                    `/${texts.INTRODUCE_MENTOR_KEYWORD}/${mentor.id}`
-                  )
-                }
-              >
-                {mentor.name || `Giáo viên ${mentor.id}`}
-              </MenuItem>
-            );
-          })}
-      </Menu>
       <Menu
         id="basic-menu"
         anchorEl={courseAnchorEl}

@@ -7,11 +7,7 @@ import {
   HeaderSocialDataList,
   NavigationActionData,
 } from '~/constants';
-import {
-  useQueryGetAllCourse,
-  useQueryGetAllMentors,
-  useQueryGetCart,
-} from '~/hooks';
+import { useQueryGetAllCourse, useQueryGetCart } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
 import { toggleAddToCart } from '~/redux/user/slice';
@@ -39,15 +35,11 @@ export default function MainNavigationSection() {
   const filterParams = useSelector(selectFilterParams);
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
-  const { mentors } = useQueryGetAllMentors();
   const { cart, refetch } = useQueryGetCart();
   const { courses } = useQueryGetAllCourse();
 
   // useState
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
-  const [mentorAnchorEl, setMentorAnchorEl] = useState<null | HTMLElement>(
-    null
-  );
   const [courseAnchorEl, setCourseAnchorEl] = useState<null | HTMLElement>(
     null
   );
@@ -66,25 +58,17 @@ export default function MainNavigationSection() {
     //   setCourseAnchorEl(_event.currentTarget);
     //   return;
     // }
-    if (checkEqualValue(_link, texts.INTRODUCE_MENTOR_KEYWORD)) {
-      setMentorAnchorEl(_event.currentTarget);
-    }
-  };
-  const handleCloseMentorMenu = () => {
-    setMentorAnchorEl(null);
   };
   const handleCloseCourseMenu = () => {
     setCourseAnchorEl(null);
   };
 
   const handleMouseLeaveNavigation = () => {
-    setMentorAnchorEl(null);
     setCourseAnchorEl(null);
   };
 
   const handleClickNavigation = (_link: string) => {
     setCourseAnchorEl(null);
-    setMentorAnchorEl(null);
 
     navigation(_link);
 
@@ -103,7 +87,6 @@ export default function MainNavigationSection() {
 
   const navigationLink = (_link: string) => {
     setCourseAnchorEl(null);
-    setMentorAnchorEl(null);
     navigation(_link);
   };
 
@@ -123,7 +106,6 @@ export default function MainNavigationSection() {
       texts={texts}
       isOpenDrawer={isOpenDrawer}
       cart={cart}
-      mentors={mentors}
       courses={courses?.items}
       role={role}
       filterParams={filterParams}
@@ -131,11 +113,9 @@ export default function MainNavigationSection() {
       pages={NavigationActionData}
       contracts={HeaderContractDataList}
       socials={HeaderSocialDataList}
-      mentorAnchorEl={mentorAnchorEl}
       courseAnchorEl={courseAnchorEl}
       onSearchCourse={handleSearchValue}
       onNavigationLink={navigationLink}
-      onCloseMentorMenu={handleCloseMentorMenu}
       onToggleDrawer={handleToggleDrawer}
       onCloseCourseMenu={handleCloseCourseMenu}
       onMouseEnterNavigation={handleMouseEnterNavigation}

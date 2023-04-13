@@ -117,7 +117,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 15,
     name: 'Giảng viên',
-    link: 'mentor-introduce/:id',
+    link: 'mentor_menu',
   },
   {
     id: 16,
