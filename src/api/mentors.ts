@@ -4,7 +4,9 @@ import {
   PagingFilterPayload,
   RequestPagingFilterPayload,
 } from '~/models';
+import { image } from '~/constants/image';
 import { MentorPayload, MentorQuickPayload } from '~/models/mentor';
+import { ProfileImgType } from '~/constants/profile';
 
 const url = `/mentor-profiles`;
 
@@ -75,12 +77,17 @@ function handleResponseGetMentor(
   }
   return {
     ...data,
-    items: data.items.map((item: any) => ({
-      id: item.id,
-      fullName: item.user.fullName,
-      introduce: item.introduce,
-      workingExperience: item.workingExperience,
-    })),
+    items: data.items.map((item: any) => {
+      return {
+        id: item.id,
+        fullName: item.user.fullName,
+        introduce: item.introduce,
+        workingExperience: item.workingExperience,
+        userImagesAvatar: item.user.userImages
+          .filter((img: any) => img.type === ProfileImgType.AVATAR)
+          .map((img: any) => img.url),
+      };
+    }),
   };
 }
 

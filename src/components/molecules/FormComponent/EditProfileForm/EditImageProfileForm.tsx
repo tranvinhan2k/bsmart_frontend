@@ -30,6 +30,7 @@ import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { ProfileImgType } from '~/constants/profile';
 
 export default function EditImageProfileForm() {
   const token =
@@ -116,7 +117,7 @@ export default function EditImageProfileForm() {
 
   const handleSubmitAvatar = async (data: EditAvatarFormDataPayload) => {
     const params: EditImageProfilePayload = {
-      imageType: 'AVATAR',
+      imageType: ProfileImgType.AVATAR,
       file: data.avatar,
     };
     const id = toast.loadToast('Đang cập nhật ...');
@@ -135,7 +136,7 @@ export default function EditImageProfileForm() {
     data: EditIdentityFrontFormDataPayload
   ) => {
     const params: EditImageProfilePayload = {
-      imageType: 'FRONTCI',
+      imageType: ProfileImgType.FRONTCI,
       file: data.identityFront,
     };
     const id = toast.loadToast('Đang cập nhật ...');
@@ -155,7 +156,7 @@ export default function EditImageProfileForm() {
   ) => {
     const params: EditImageProfilePayload = {
       file: data.identityBack,
-      imageType: 'BACKCI',
+      imageType: ProfileImgType.BACKCI,
     };
     const id = toast.loadToast('Đang cập nhật ...');
     try {

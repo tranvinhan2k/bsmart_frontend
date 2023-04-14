@@ -2,6 +2,7 @@ import { Box, Chip, Divider, Typography, Rating, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 import Button from '~/components/atoms/Button';
 import { MentorQuickPayload } from '~/models/mentor';
+import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 interface MentorItemProps {
@@ -16,12 +17,13 @@ export default function MentorItem({
     fullName: '',
     introduce: '',
     workingExperience: '',
+    userImagesAvatar: '',
   },
   isSkeleton = false,
   onClick = () => {},
 }: MentorItemProps) {
-  const { id, fullName, introduce, workingExperience } = item;
-  const image = undefined;
+  const { id, fullName, introduce, workingExperience, userImagesAvatar } = item;
+  // const image = undefined;
   const title = '';
   const content = '';
   const feedback = 5;
@@ -70,7 +72,10 @@ export default function MentorItem({
             height: '200px',
             borderRadius: MetricSize.small_5,
           }}
-          src={image}
+          // src={image}
+          src={
+            userImagesAvatar.length === 0 ? image.noAvatar : userImagesAvatar
+          }
           alt={title}
         />
         <Stack sx={{ padding: MetricSize.medium_15, height: '200px' }}>

@@ -16,4 +16,5 @@ export interface MentorQuickPayload {
   fullName: string;
   introduce: string;
   workingExperience: string;
+  userImagesAvatar: string;
 }

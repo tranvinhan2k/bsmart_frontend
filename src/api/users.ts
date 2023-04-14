@@ -2,6 +2,7 @@ import axiosClient from '~/api/axiosClient';
 import { MentorPayload } from '~/models/mentor';
 import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
+import { ProfileImgType } from '~/constants/profile';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -27,7 +28,10 @@ export interface EditCertificateProfilePayload {
 }
 export interface EditImageProfilePayload {
   file: string | Blob;
-  imageType: 'AVATAR' | 'FRONTCI' | 'BACKCI';
+  imageType:
+    | ProfileImgType.AVATAR
+    | ProfileImgType.FRONTCI
+    | ProfileImgType.BACKCI;
 }
 
 export interface EditPersonalProfilePayload {
