@@ -76,6 +76,7 @@ interface NavigationProps {
   onMouseLeaveNavigation: () => void;
   onClickNavigation: (_link: string) => void;
   onClickCart: () => void;
+  onLoginKeycloak: () => void;
 }
 
 export default function MainNavigation({
@@ -101,6 +102,7 @@ export default function MainNavigation({
   onClickNavigation,
   onMouseEnterNavigation,
   onMouseLeaveNavigation,
+  onLoginKeycloak,
 }: NavigationProps) {
   const renderNavigationList = () => {
     return (
@@ -165,7 +167,7 @@ export default function MainNavigation({
       </Stack>
 
       <Drawer anchor="right" open={isOpenDrawer} onClose={onToggleDrawer}>
-        <Stack sx={styles.view}>
+        <Stack sx={styles.view4}>
           <Stack sx={styles.subView}>
             <Typography sx={styles.text2}>
               {texts.APP_NAME.toUpperCase()}
@@ -188,9 +190,7 @@ export default function MainNavigation({
               color="black"
               loginData={AuthorizationActionData[0]}
               registerData={AuthorizationActionData[1]}
-              onLoginClick={() =>
-                onNavigationLink(AuthorizationActionData[0].link)
-              }
+              onLoginClick={onLoginKeycloak}
               onRegisterClick={() =>
                 onNavigationLink(AuthorizationActionData[1].link)
               }
