@@ -1,3 +1,4 @@
+import { useKeycloak } from '@react-keycloak/web';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -26,6 +27,7 @@ const texts = {
 
 export default function MainNavigationSection() {
   const dispatch = useDispatch();
+  const { keycloak } = useKeycloak();
 
   const navigation = useNavigate();
   const location = useLocation();
@@ -85,6 +87,10 @@ export default function MainNavigationSection() {
     // TODO: add feature search value
   };
 
+  const handleLoginKeycloak = async () => {
+    await keycloak.login();
+  };
+
   const navigationLink = (_link: string) => {
     setCourseAnchorEl(null);
     navigation(_link);
@@ -122,6 +128,7 @@ export default function MainNavigationSection() {
       onMouseLeaveNavigation={handleMouseLeaveNavigation}
       onClickNavigation={handleClickNavigation}
       onClickCart={handleNavigateCartPage}
+      onLoginKeycloak={handleLoginKeycloak}
     />
   );
 }

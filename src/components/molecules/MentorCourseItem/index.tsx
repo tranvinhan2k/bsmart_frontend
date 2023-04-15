@@ -36,7 +36,6 @@ export default function MentorCourseItem({
       </Stack>
     );
   }
-  console.log(item);
 
   return (
     <Stack

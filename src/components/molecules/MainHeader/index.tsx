@@ -2,6 +2,7 @@ import React from 'react';
 import { Stack, IconButton, Box, Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useKeycloak } from '@react-keycloak/web';
 import AuthorizationBar from './AuthorizationBar';
 import ContractBar from '../ContractBar';
 import SocialBar from '../SocialBar';
@@ -36,9 +37,9 @@ export default function MainHeader({
   onLoginClick,
   onRegisterClick,
 }: MainHeaderProps) {
+  const { keycloak } = useKeycloak();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(selectToken);
   const profile = useSelector(selectProfile);
   const role = useSelector(selectRole);
   const filterParams = useSelector(selectFilterParams);
@@ -48,10 +49,11 @@ export default function MainHeader({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     dispatch(logOut());
+    await keycloak.logout();
     handleClose();
   };
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -79,7 +81,7 @@ export default function MainHeader({
         onSubmit={onSearchText}
       />
 
-      {!token ? (
+      {!keycloak.authenticated ? (
         <AuthorizationBar
           color="white"
           loginData={authenticationData[0]}

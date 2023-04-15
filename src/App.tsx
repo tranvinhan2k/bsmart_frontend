@@ -1,13 +1,13 @@
 import { ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { ReactKeycloakProvider } from '@react-keycloak/web';
+import { ReactKeycloakProvider, useKeycloak } from '@react-keycloak/web';
 
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React, { Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import keycloak from '~/utils/keycloak';
+import keycloakConfig from '~/utils/keycloak';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
@@ -61,6 +61,17 @@ function App() {
   const role = useSelector(selectRole);
   const profile = useSelector(selectProfile);
   const getProfileMutation = useMutationProfile();
+  const { initialized, keycloak } = useKeycloak();
+
+  useEffect(() => {
+    function getToken() {
+      const { token: keycloakToken } = keycloak;
+      localStorage.setItem('token', `${keycloakToken}`);
+    }
+    getToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keycloak.authenticated]);
+
   useEffect(() => {
     async function getProfile() {
       try {
@@ -73,7 +84,6 @@ function App() {
     if (!profile.id) {
       getProfile();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -101,12 +111,7 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <ReactKeycloakProvider
-      authClient={keycloak}
-      initOptions={{
-        checkLoginIframe: false,
-      }}
-    >
+    <ReactKeycloakProvider authClient={keycloakConfig}>
       <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
