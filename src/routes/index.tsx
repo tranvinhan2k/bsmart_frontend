@@ -11,6 +11,7 @@ import {
 
 import { RoutePayload } from '~/models/routes';
 import CartPage from '~/pages/CartPage';
+import CheckoutPage from '~/pages/CheckoutPage';
 
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
@@ -129,6 +130,10 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[17].link}`,
     main: () => <MentorContractPage />,
+  },
+  {
+    path: `/${NavigationActionData[18].link}`,
+    main: () => <CheckoutPage />,
   },
   {
     path: '*',

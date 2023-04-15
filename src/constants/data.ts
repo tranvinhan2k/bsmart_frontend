@@ -126,10 +126,16 @@ export const NavigationActionData: ActionPayload[] = [
     link: 'cart',
   },
   {
-    id: 16,
+    id: 17,
     isHide: true,
     name: 'Liên hệ',
     link: 'contact',
+  },
+  {
+    id: 18,
+    isHide: true,
+    name: 'Thanh Toán',
+    link: 'check_out',
   },
 ];
 
