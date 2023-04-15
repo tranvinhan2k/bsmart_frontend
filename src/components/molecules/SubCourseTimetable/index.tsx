@@ -132,8 +132,6 @@ export default function SubCourseTimetable({ data }: SubCourseTimetableProps) {
         const slotCode = slotTime.slot.code;
         const index = rows.findIndex((item) => item.code === slotCode);
 
-        console.log(dayCode, slotCode, rows[index], rows);
-
         rows[index][dayCode] = true;
         return null;
       });

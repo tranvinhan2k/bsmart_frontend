@@ -60,9 +60,9 @@ export default function EditMentorProfileForm() {
       if (subjects) {
         defaults.skills = [
           {
-            id: subjects[0].id,
-            label: subjects[0].label,
-            value: subjects[0].value,
+            id: subjects[0]?.id,
+            label: subjects[0]?.label,
+            value: subjects[0]?.value,
           },
         ];
       }
