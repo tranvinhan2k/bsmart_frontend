@@ -3,6 +3,8 @@ export interface MentorPayload {
   introduce: string;
   workingExperience: string;
   userId: number;
+  avatar?: string;
+  name?: string;
   mentorSkills: [
     {
       skillId: number;

@@ -37,7 +37,7 @@ const MentorProfilePage = lazy(() => import('~/pages/MentorProfilePage'));
 const MentorEditProfilePage = lazy(
   () => import('~/pages/MentorEditProfilePage')
 );
-const MentorsPage = lazy(() => import('~/pages/MentorsPage'));
+const IntroduceMentorPage = lazy(() => import('~/pages/IntroduceMentorPage'));
 const MentorCourseListPage = lazy(() => import('~/pages/MentorCourseListPage'));
 const MemberCourseListPage = lazy(() => import('~/pages/MemberCourseListPage'));
 const MentorCreateCoursePage = lazy(
@@ -50,120 +50,140 @@ const routes: RoutePayload[] = [
   {
     path: '/',
     main: () => <Navigate to={NavigationActionData[0].link} />,
+    role: [],
   },
   {
     path: `/${NavigationActionData[0].link}`,
     main: () => <HomePage />,
+    role: [],
   },
   {
     path: `/${NavigationActionData[1].link}`,
     main: () => <AboutUsPage />,
+    role: [],
   },
   {
     path: `/${NavigationActionData[2].link}`,
+    role: [],
     main: () => <CoursesPage />,
   },
   {
     path: `/${NavigationActionData[3].link}/*`,
     main: () => <MentorProfilePage />,
-    role: NavigationActionData[3].role,
+    role: ['TEACHER'],
   },
   {
     path: `/${NavigationActionData[4].link}`,
     main: () => <BlogPage />,
+    role: [],
   },
   {
     path: `/${NavigationActionData[5].link}`,
     main: () => <Stack>Hello</Stack>,
-    /* // TODO: add tuyen dung */
+    role: [],
   },
   {
     path: `/${NavigationActionData[6].link}`,
     main: () => <RegisterPage />,
-    role: NavigationActionData[6].role,
+    role: ['GUEST'],
   },
   {
     path: `/${NavigationActionData[7].link}`,
     main: () => <LoginPage />,
-    role: NavigationActionData[7].role,
+    role: ['GUEST'],
   },
   {
     path: `/${NavigationActionData[8].link}`,
     main: () => <CourseDetailPage />,
+    role: ['GUEST', 'STUDENT', 'TEACHER'],
   },
   {
     path: `/${NavigationActionData[9].link}`,
     main: () => <LmsPage />,
+    role: [],
   },
   {
     path: `/${NavigationActionData[10].link}`,
     main: () => <AnnotationPage />,
+    role: ['STUDENT', 'TEACHER'],
   },
   {
     path: `/${NavigationActionData[11].link}`,
     main: () => <BuyCoursePage />,
+    role: ['STUDENT'],
   },
   {
     path: `/${NavigationActionData[12].link}`,
     main: () => <BlogDetailsPage />,
+    role: ['GUEST', 'TEACHER', 'STUDENT'],
   },
   {
     path: `/${NavigationActionData[13].link}/*`,
     main: () => <MemberProfilePage />,
-    role: NavigationActionData[13].role,
+    role: ['STUDENT'],
   },
   {
     path: `/${NavigationActionData[14].link}`,
     main: () => <FeedbackPage />,
-    role: NavigationActionData[14].role,
+    role: ['STUDENT'],
   },
   {
     path: `/${NavigationActionData[15].link}`,
-    main: () => <MentorsPage />,
-    role: NavigationActionData[15].role,
+    main: () => <IntroduceMentorPage />,
+    role: ['GUEST', 'STUDENT'],
   },
   {
     path: `/${NavigationActionData[16].link}`,
     main: () => <CartPage />,
-    role: NavigationActionData[16].role,
+    role: ['STUDENT'],
   },
   {
     path: `/${NavigationActionData[17].link}`,
     main: () => <MentorContractPage />,
+    role: [],
   },
   {
     path: `/${NavigationActionData[18].link}`,
     main: () => <CheckoutPage />,
+    role: ['STUDENT'],
   },
   {
     path: '*',
     main: () => <NotFoundPage />,
+    role: [],
   },
   {
     path: '/test_page',
     main: () => <TestPage />,
+    role: [],
   },
 ];
+
 export const memberRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => <MemberDetailsPage />,
+    role: ['STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[0].link}`,
     main: () => <EditMemberProfilePage />,
+    role: ['STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[1].link}`,
     main: () => <WalletManagementPage />,
+    role: ['STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
+    role: ['STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[3].link}`,
     main: () => <MemberCourseListPage />,
+    role: ['STUDENT'],
   },
 ];
 export const mentorRoutes: RoutePayload[] = [
@@ -174,26 +194,32 @@ export const mentorRoutes: RoutePayload[] = [
         to={`/${NavigationActionData[3].link}/${MentorNavigationActionData[0].link}`}
       />
     ),
+    role: ['TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[0].link}`,
     main: () => <MentorEditProfilePage />,
+    role: ['TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[1].link}`,
     main: () => <WalletManagementPage />,
+    role: ['TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
+    role: ['TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[3].link}`,
     main: () => <MentorCourseListPage />,
+    role: ['TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[4].link}`,
     main: () => <MentorCreateCoursePage />,
+    role: ['TEACHER'],
   },
 ];
 

@@ -44,7 +44,6 @@ export const NavigationActionData: ActionPayload[] = [
     isHide: true,
     name: 'Thông tin giáo viên',
     link: 'mentor-profile',
-    role: 'TEACHER',
   },
   {
     id: 4,
@@ -62,14 +61,12 @@ export const NavigationActionData: ActionPayload[] = [
     isHide: true,
     name: 'Đăng ký',
     link: 'register',
-    role: 'GUEST',
   },
   {
     id: 7,
     isHide: true,
     name: 'Đăng nhập',
     link: 'login',
-    role: 'GUEST',
   },
   {
     id: 8,
@@ -105,14 +102,12 @@ export const NavigationActionData: ActionPayload[] = [
     isHide: true,
     name: 'Thông tin member',
     link: 'member-details',
-    role: 'STUDENT',
   },
   {
     id: 14,
     isHide: true,
     name: 'Feedback',
     link: 'feedback',
-    role: 'STUDENT',
   },
   {
     id: 15,

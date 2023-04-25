@@ -106,9 +106,14 @@ export const FEEDBACK_MENTOR_FIELDS = {
 export const CREATE_COURSE_FIELDS = {
   code: 'code',
   name: 'name',
-  level: 'level',
   imageId: 'imageId',
   categoryId: 'categoryId',
+  subjectId: 'subjectId',
+  description: 'description',
+};
+export const CREATE_SUB_COURSE_FIELDS = {
+  level: 'level',
+  imageId: 'imageId',
   subjectId: 'subjectId',
   type: 'type',
   price: 'price',
@@ -116,7 +121,6 @@ export const CREATE_COURSE_FIELDS = {
   maxStudent: 'maxStudent',
   startDateExpected: 'startDateExpected',
   endDateExpected: 'endDateExpected',
-  description: 'description',
   subCourseTile: 'subCourseTile',
   numberOfSlot: 'numberOfSlot',
   timeInWeekRequests: 'timeInWeekRequests',
