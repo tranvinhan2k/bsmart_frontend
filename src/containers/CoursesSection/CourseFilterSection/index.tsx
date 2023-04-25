@@ -1,6 +1,5 @@
 import { Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RequestGetCoursePayload } from '~/api/courses';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
@@ -34,6 +33,7 @@ export default function CourseFFilterSection() {
   return (
     <Stack marginX={2}>
       <SearchBar
+        value={filterParams.q || ''}
         color="black"
         placeholder="Tìm kiếm ..."
         onSubmit={handleSubmitSearchValue}

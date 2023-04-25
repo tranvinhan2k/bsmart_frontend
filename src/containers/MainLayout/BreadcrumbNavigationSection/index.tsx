@@ -8,9 +8,12 @@ export default function BreadcrumbNavigationSection() {
   const location = useLocation();
   const pathName = location.pathname;
 
-  let navigationAction = NavigationActionData.find(
-    (item) => item.link === pathName
-  );
+  let navigationAction = NavigationActionData.find((item) => {
+    const link = item.link.split('/')[0];
+    const pathNameLink = pathName.replace('/', '').split('/')[0];
+
+    return link === pathNameLink;
+  });
   if (pathName.includes('course-detail')) {
     // eslint-disable-next-line prefer-destructuring
     navigationAction = NavigationActionData[2];
@@ -26,6 +29,7 @@ export default function BreadcrumbNavigationSection() {
 
   if (pathName.includes('course-detail')) {
     breadcrumbs.push({
+      id: 0,
       name: 'Chi Tiết Khóa Học',
       link: pathName,
     });

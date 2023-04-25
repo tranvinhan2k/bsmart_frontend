@@ -34,10 +34,14 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
-export interface EditImageProfileFormDataPayload {
+export interface EditAvatarFormDataPayload {
   avatar: string;
-  identityFront?: string;
-  identityBack?: string;
+}
+export interface EditIdentityFrontFormDataPayload {
+  identityFront: string;
+}
+export interface EditIdentityBackFormDataPayload {
+  identityBack: string;
 }
 
 export interface EditPersonalProfileFormDataPayload {
@@ -45,15 +49,16 @@ export interface EditPersonalProfileFormDataPayload {
   birthday: Date | '';
   address: string;
   phone: string;
-  introduce?: string;
+}
+
+export interface EditMentorProfileFormDataPayload {
+  introduce: string;
+  mentorSkills: { id: number; label: string; value: string }[];
+  workingExperience: string;
 }
 
 export interface EditCertificateProfileFormDataPayload {
-  certificate1: string;
-  certificate2: string;
-  certificate3: string;
-  certificate4: string;
-  certificate5: string;
+  certificates: { file: string | Blob }[];
 }
 
 export interface EditAccountProfileFormDataPayload {
@@ -68,12 +73,42 @@ export interface EditSocialProfileFormDataPayload {
   twitterLink: string;
   instagramLink: string;
 }
+export interface WithdrawMoneyFormDataPayload {
+  amount: number;
+  bankLinking:
+    | {
+        bin: string;
+        code: string;
+        id: number;
+        logo: string;
+        lookupSupported: number;
+        name: string;
+        shortName: string;
+        transferSupported: number;
+      }
+    | '';
+  bankAccount: number;
+  bankAccountOwner: string;
+  note: string;
+}
+export interface BankLinking {
+  bin: string;
+  code: string;
+  id: number;
+  logo: string;
+  lookupSupported: number;
+  name: string;
+  shortName: string;
+  transferSupported: number;
+}
 
 export type FormInputVariant =
   | 'text'
   | 'number'
   | 'multiline'
   | 'dropdown'
+  | 'dropdownBanks'
+  | 'timetable'
   | 'radioGroup'
   | 'image'
   | 'multiSelect'

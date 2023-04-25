@@ -15,9 +15,6 @@ import {
 import { scrollToTop } from '~/utils/common';
 
 export default function CourseDetailPage() {
-  useEffect(() => {
-    scrollToTop();
-  }, []);
   const params = useParams();
   const { id } = params;
 
@@ -28,6 +25,10 @@ export default function CourseDetailPage() {
     courseDetail?.mentorData.id,
     Boolean(courseDetail?.mentorData.id)
   );
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   if (error) {
     return (
@@ -56,6 +57,7 @@ export default function CourseDetailPage() {
       >
         <Grid item xs={12} md={12} sx={{ padding: MetricSize.medium_15 }}>
           <CourseDetailBasicInformationSection
+            id={Number(id)}
             mentorData={mentor}
             percentOfFeedback={courseDetail.feedbackData.percentOfFeedback}
             numOfRating={courseDetail.feedbackData.numOfRating}
@@ -75,7 +77,11 @@ export default function CourseDetailPage() {
             />
           </Grid> */}
       </Grid>
-      <Stack>
+      <Stack
+        sx={{
+          padding: { xs: MetricSize.medium_15, md: '70px' },
+        }}
+      >
         <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
       </Stack>
     </Stack>

@@ -17,6 +17,13 @@ export const EMAIL_REQUIRED = 'Email không được để trống.';
 export const PHONE_INVALID = 'Số điện thoại không hợp lệ.';
 export const MENTOR_REQUIRED = 'Giáo viên cần đánh giá không được để trống.';
 export const SUBJECT_REQUIRED = 'Môn học không được để trống.';
+export const IMAGE_SIZE_TOO_BIG =
+  'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác.';
+export const IMAGE_FORMAT_NOT_SUPPORT = 'Định dạng hình ảnh không hỗ trợ.';
+export const generateRequiredText = (text: string) => {
+  return `${text} là bắt buộc`;
+};
+
 // course
 export const COURSE_NAME_REQUIRED = 'Tên khoá học không được để trống';
 export const COURSE_LEVEL_REQUIRED = 'Trình độ không được để trống';
@@ -26,3 +33,12 @@ export const COURSE_LANGUAGE_REQUIRED =
   'Ngôn ngữ lập trình không được để trống';
 export const COURSE_TYPE = 'Hình thức học không được để trống';
 export const COURSE_DESCRIPTION = 'Miêu tả khoá học không được để trống';
+
+// money
+export const WITHDRAW_AMOUNT_REQUIRED = 'Số tiền không được để trống';
+export const WITHDRAW_AMOUNT_POSITIVE = 'Số tiền phải là số dương';
+export const WITHDRAW_BANK_LINKING_REQUIRE = 'Hãy chọn ngân hàng';
+export const WITHDRAW_BANK_ACCOUNT_REQUIRED =
+  'Số tài khoản không được để trống';
+export const WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED =
+  'Tên chủ khoản không được để trống';

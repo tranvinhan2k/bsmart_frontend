@@ -1,14 +1,18 @@
 import {
   BuyCourseDataPayload,
   EditAccountProfileFormDataPayload,
-  EditImageProfileFormDataPayload,
   EditCertificateProfileFormDataPayload,
+  EditAvatarFormDataPayload,
+  EditIdentityBackFormDataPayload,
+  EditIdentityFrontFormDataPayload,
   EditPersonalProfileFormDataPayload,
+  EditMentorProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
+  WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
 export const defaultValueSignIn: LoginFormDataPayload = {
@@ -38,9 +42,13 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
   voucher: '',
 };
 
-export const defaultValueEditImageProfile: EditImageProfileFormDataPayload = {
+export const defaultValueEditAvatar: EditAvatarFormDataPayload = {
   avatar: '',
+};
+export const defaultValueEditIdentityFront: EditIdentityFrontFormDataPayload = {
   identityFront: '',
+};
+export const defaultValueEditIdentityBack: EditIdentityBackFormDataPayload = {
   identityBack: '',
 };
 
@@ -50,16 +58,17 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
     birthday: '',
     address: '',
     phone: '',
-    introduce: '',
   };
+
+export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
+  introduce: '',
+  mentorSkills: [{ id: 0, label: '', value: '' }],
+  workingExperience: '',
+};
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
   {
-    certificate1: '',
-    certificate2: '',
-    certificate3: '',
-    certificate4: '',
-    certificate5: '',
+    certificates: [{ file: '' }],
   };
 
 export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =
@@ -86,11 +95,33 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
 };
 
 export const defaultValueCreateCourse = {
+  code: '',
   name: '',
   level: '',
-  image: '',
-  category: null,
-  programmingLanguage: null,
-  type: null,
-  courseDescription: '',
+  imageId: '',
+  categoryId: '',
+  subjectId: '',
+  type: '',
+  price: 0,
+  minStudent: 0,
+  maxStudent: 0,
+  startDateExpected: '',
+  endDateExpected: '',
+  description: '',
+  subCourseTile: '',
+  numberOfSlot: '',
+  timeInWeekRequests: [],
+};
+
+export const defaultValueTimetable = {
+  slot: '',
+  dayInWeek: '',
+};
+
+export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
+  amount: 50000,
+  bankLinking: '',
+  bankAccount: 0,
+  bankAccountOwner: '',
+  note: '',
 };

@@ -1,13 +1,20 @@
 import { Box, Grid, Stack } from '@mui/material';
+import { ResponseMentorCoursePayload } from '~/api/courses';
+import { ResponseProfilePayload } from '~/api/users';
+import IntroduceMentorDetailSection from '~/containers/MentorProfileLayoutSection/IntroduceMentorDetailSection';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
 interface MentorProfileLayoutProps {
   children: any;
+  isIntroduce?: boolean;
+  mentor: ResponseProfilePayload | undefined;
 }
 
 export default function MentorProfileLayout({
   children,
+  isIntroduce = false,
+  mentor,
 }: MentorProfileLayoutProps) {
   return (
     <Box sx={SX_WRAPPER}>
@@ -19,17 +26,21 @@ export default function MentorProfileLayout({
           alignItems="flex-start"
           spacing={5}
         >
-          <Grid item xs={12} sm={4} md={5} lg={4}>
+          <Grid item sm={12} md={5} lg={4}>
             <Stack
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
               spacing={2}
             >
-              <MentorDetailSection />
+              {isIntroduce ? (
+                <IntroduceMentorDetailSection mentor={mentor} />
+              ) : (
+                <MentorDetailSection />
+              )}
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={8} md={7} lg={8}>
+          <Grid item sm={12} md={7} lg={8}>
             {children}
           </Grid>
         </Grid>
@@ -37,3 +48,7 @@ export default function MentorProfileLayout({
     </Box>
   );
 }
+
+MentorProfileLayout.defaultProps = {
+  isIntroduce: false,
+};

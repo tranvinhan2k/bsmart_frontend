@@ -1,22 +1,30 @@
-import { Stack, Grid, Typography, Box } from '@mui/material';
+import { Stack, Grid, Typography } from '@mui/material';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { PagingFilterPayload } from '~/models';
 import { SubCoursePayload } from '~/models/subCourse';
-import courseImage from '~/assets/images/front-end-course.png';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
-import { formatDate } from '~/utils/date';
-import { formatMoney } from '~/utils/money';
-import TextLine from '~/components/atoms/TextLine';
-import Button from '~/components/atoms/Button';
+import { FontFamily, FontSize } from '~/assets/variables';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
+import { useMutationAddCourseToCart } from '~/hooks';
+import { RequestCartItem } from '~/api/cart';
+import CarouselCourseDetailSubCourse from '../CarouselCourseDetailSubCourse';
+import SubCourseModal from '../modals/SubCourseModal';
+import { toggleAddToCart } from '~/redux/user/slice';
 
 interface SubCourseListProps {
+  courseId: number | undefined;
   data: PagingFilterPayload<SubCoursePayload>;
 }
 
-export default function SubCourseList({ data }: SubCourseListProps) {
+export default function SubCourseList({ courseId, data }: SubCourseListProps) {
+  const [visible, setVisible] = React.useState<boolean>(false);
+  const [item, setItem] = React.useState<SubCoursePayload | undefined>();
+
+  const dispatch = useDispatch();
   const { mutateAsync } = useMutationPayQuick();
-  async function handleSubCourse(subCourseId: number) {
+  const { mutateAsync: addToCartMutationAsync } = useMutationAddCourseToCart();
+  const handleSubCourse = async (subCourseId: number) => {
     const id = toast.loadToast('Đang thêm khóa học..');
     try {
       await mutateAsync(subCourseId);
@@ -27,7 +35,28 @@ export default function SubCourseList({ data }: SubCourseListProps) {
         `Đăng kí khóa học thất bại: ${error.message}`
       );
     }
-  }
+  };
+  const handleSubCourseAddToCart = async (subCourseId: number) => {
+    const id = toast.loadToast('Đang thêm khóa học vào giỏ hàng..');
+    try {
+      const params: RequestCartItem = {
+        cartItemId: courseId,
+        subCourseId,
+      };
+      await addToCartMutationAsync(params);
+      dispatch(toggleAddToCart(true));
+      toast.updateSuccessToast(id, 'Thêm khóa học mới thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(id, `Thêm khóa học thất bại: ${error.message}`);
+    }
+  };
+  const handleVisible = () => {
+    setVisible(!visible);
+  };
+  const handleOpenModal = (chooseItem: SubCoursePayload) => {
+    setVisible(!visible);
+    setItem(chooseItem);
+  };
   return (
     <Stack>
       <Typography
@@ -36,72 +65,18 @@ export default function SubCourseList({ data }: SubCourseListProps) {
         Hãy chọn loại khóa học bạn muốn tham gia
       </Typography>
       <Grid container>
-        {data.items &&
-          data.items.map((item) => {
-            return (
-              <Grid
-                item
-                xs={12}
-                md={4}
-                sx={{
-                  boxShadow: 3,
-                  margin: 1,
-                  borderRadius: '5px',
-                  ':hover': {
-                    cursor: 'pointer',
-                    background: Color.grey,
-                  },
-                }}
-                key={item.id}
-              >
-                <Box
-                  sx={{
-                    objectFit: 'contain',
-                    width: '100%',
-                    borderRadius: '5px',
-                  }}
-                  component="img"
-                  src={courseImage}
-                  alt="image"
-                />
-                <Stack padding={2}>
-                  <TextLine
-                    label="Giá tiền"
-                    variable={formatMoney(item.price)}
-                  />
-                  <TextLine
-                    label="Ngày bắt đầu dự kiến "
-                    variable={formatDate(item.startDateExpected)}
-                  />
-                  <TextLine
-                    label="Ngày kết thúc dự kiến"
-                    variable={formatDate(item.endDateExpected)}
-                  />
-                  <TextLine label="Trình độ" variable={item.level} />
-                  <TextLine
-                    label="Số lượng học sinh tối thiểu"
-                    variable={`${item.minStudent}`}
-                  />
-                  <TextLine
-                    label="Số lượng học sinh tối đa"
-                    variable={`${item.maxStudent}`}
-                  />
-                  <TextLine label="Trạng thái" variable={item.status} />
-                </Stack>
-                <Stack padding={2}>
-                  <Button
-                    onClick={() => handleSubCourse(item.id)}
-                    customVariant="normal"
-                  >
-                    Đăng kí
-                  </Button>
-                  <Button marginTop="small_10" customVariant="outlined">
-                    Thêm vào giỏ hàng
-                  </Button>
-                </Stack>
-              </Grid>
-            );
-          })}
+        <CarouselCourseDetailSubCourse
+          items={data.items}
+          onPayQuick={handleSubCourse}
+          onAddToCart={handleOpenModal}
+        />
+        <SubCourseModal
+          visible={visible}
+          item={item}
+          onClose={handleVisible}
+          onAddToCart={handleSubCourseAddToCart}
+          onPayQuick={handleSubCourse}
+        />
       </Grid>
     </Stack>
   );

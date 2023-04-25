@@ -4,16 +4,18 @@ import { ResponseProfilePayload } from '~/api/users';
 import { Role } from '~/models/role';
 
 export type UserStateType = {
-  roles: Role | undefined;
+  roles: Role | null;
   isUser: boolean;
   token: string | null;
+  isAddToCart: boolean;
   profile: ResponseProfilePayload;
 };
 
 const initialState: UserStateType = {
-  roles: undefined,
+  roles: (localStorage.getItem('roles') as Role) || null,
   isUser: false,
-  token: null,
+  token: localStorage.getItem('token'),
+  isAddToCart: false,
   profile: {
     id: 0,
     email: '',
@@ -22,6 +24,7 @@ const initialState: UserStateType = {
     facebookLink: '',
     fullName: '',
     instagramLink: '',
+    gender: '',
     introduce: '',
     phone: '',
     roles: [
@@ -62,8 +65,16 @@ const slice = createSlice({
       state.roles = action.payload.roles;
       state.profile = action.payload.profile;
     },
-    logOut: () => {
-      return initialState;
+    addProfile: (state, action) => {
+      state.profile = action.payload.profile;
+    },
+    toggleAddToCart: (state, action) => {
+      state.isAddToCart = action.payload;
+    },
+    logOut: (state) => {
+      state.token = null;
+      state.roles = null;
+      state.profile = initialState.profile;
     },
   },
 });
@@ -72,4 +83,5 @@ const userReducer = slice.reducer;
 
 export default userReducer;
 
-export const { changeUserStatus, signIn, logOut } = slice.actions;
+export const { changeUserStatus, toggleAddToCart, addProfile, signIn, logOut } =
+  slice.actions;

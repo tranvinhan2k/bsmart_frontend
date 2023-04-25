@@ -2,6 +2,7 @@ import React from 'react';
 import { Stack, IconButton, Box, Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useKeycloak } from '@react-keycloak/web';
 import AuthorizationBar from './AuthorizationBar';
 import ContractBar from '../ContractBar';
 import SocialBar from '../SocialBar';
@@ -13,6 +14,9 @@ import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import { IconSize } from '~/assets/variables';
 import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
+import { image } from '~/constants/image';
+import { selectFilterParams } from '~/redux/courses/selector';
+import { delay } from '~/utils/common';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -33,21 +37,23 @@ export default function MainHeader({
   onLoginClick,
   onRegisterClick,
 }: MainHeaderProps) {
+  const { keycloak } = useKeycloak();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(selectToken);
   const profile = useSelector(selectProfile);
   const role = useSelector(selectRole);
-  console.log(role);
+  const filterParams = useSelector(selectFilterParams);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogOut = () => {
-    localStorage.removeItem(localEnvironment.ASYNC_STORAGE_TOKEN_NAME);
+  const handleLogOut = async () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('roles');
     dispatch(logOut());
+    await keycloak.logout();
     handleClose();
   };
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -55,12 +61,13 @@ export default function MainHeader({
   };
 
   const handleNavigateProfile = () => {
+    handleClose();
+    delay(500);
     navigate(
       role !== 'STUDENT'
         ? '/mentor-profile/edit-profile'
-        : '/member-detail/edit-profile'
+        : '/member-details/edit-profile'
     );
-    handleClose();
   };
 
   return (
@@ -68,12 +75,13 @@ export default function MainHeader({
       <SocialBar color="white" socials={socials} />
       <ContractBar color="white" contracts={contracts} />
       <SearchBar
+        value={filterParams.q || ''}
         color="white"
         placeholder={searchLabel}
         onSubmit={onSearchText}
       />
 
-      {!token ? (
+      {!keycloak.authenticated ? (
         <AuthorizationBar
           color="white"
           loginData={authenticationData[0]}
@@ -92,7 +100,7 @@ export default function MainHeader({
                 borderRadius: 1000,
               }}
               component="img"
-              src={profile?.userImages?.[0]?.url || mentor}
+              src={profile?.userImages?.[0]?.url || image.noAvatar}
               alt="authentication"
             />
           </IconButton>
@@ -110,6 +118,7 @@ export default function MainHeader({
             }}
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            onMouseLeave={handleClose}
           >
             <MenuItem onClick={handleNavigateProfile}>Hồ sơ </MenuItem>
             <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>

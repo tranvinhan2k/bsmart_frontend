@@ -1,5 +1,6 @@
 import { Box, Typography, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
   SX_WRAPPER,
   SX_CONTAINER,
@@ -8,15 +9,16 @@ import {
   SX_PROFILE_DETAILS,
   SX_PROFILE_DETAILS_HIGHLIGHTED,
 } from './style';
-import avatar_member from '~/assets/images/MemberDetailSection/avatar_member.jpg';
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
-import {
-  MemberNavigationActionData,
-  mockMemberDetailsInformationData,
-} from '~/constants';
-import { formatDate } from '~/utils/date';
+import { MemberNavigationActionData } from '~/constants';
 import { IconName } from '~/models/icon';
+import { selectProfile } from '~/redux/user/selector';
+import { formatMoney } from '~/utils/money';
+import { image } from '~/constants/image';
+import { ROLE_LABELS } from '~/constants/role';
+import { RoleKeys } from '~/models/variables';
+import toast from '~/utils/toast';
 
 interface ProfileDataProps {
   id: number;
@@ -25,17 +27,58 @@ interface ProfileDataProps {
 }
 
 export default function MainProfile() {
-  const profileData: ProfileDataProps[] = [
-    { id: 1, icon: 'person', text: '27/01/2001' },
-    { id: 2, icon: 'nearMe', text: 'Tân Bình, Tp. Hồ Chí Minh' },
-    { id: 3, icon: 'mail', text: 'tangbaotrann@gmail.com' },
-    { id: 4, icon: 'phone', text: '0946005077' },
-  ];
-  const navigate = useNavigate();
-  const memberDetails = mockMemberDetailsInformationData;
+  const profile = useSelector(selectProfile);
 
+  const navigate = useNavigate();
+  const memberDetails = {
+    imageLink: profile?.userImages?.[0]?.url || image.noAvatar,
+    name: profile?.fullName,
+    role: ROLE_LABELS[profile?.roles?.[0]?.code as RoleKeys],
+    socials: [
+      {
+        image: 'facebook',
+        link: profile?.facebookLink || null,
+      },
+      {
+        image: 'twitter',
+        link: profile?.twitterLink || null,
+      },
+      {
+        image: 'instagram',
+        link: profile?.instagramLink || null,
+      },
+    ],
+    gender: profile?.gender || null,
+    dateOfBirth: profile?.birthday,
+    address: profile?.address,
+    mail: profile?.email,
+    phone: profile?.phone,
+    walletMoney: profile?.wallet?.balance || 0,
+  };
+  const profileData: ProfileDataProps[] = [
+    {
+      id: 1,
+      icon: 'person',
+      text: memberDetails.dateOfBirth || 'Chưa có thông tin',
+    },
+    {
+      id: 2,
+      icon: 'nearMe',
+      text: memberDetails.address || 'Chưa có thông tin',
+    },
+    { id: 3, icon: 'mail', text: memberDetails.mail || 'Chưa có thông tin' },
+    { id: 4, icon: 'phone', text: memberDetails.phone || 'Chưa có thông tin' },
+  ];
   function handleNavigateLink(link: string) {
     navigate(link);
+  }
+
+  function handleOpenSocialLink(link: string | null) {
+    if (link) {
+      window.open(link, '_blank');
+    } else {
+      toast.notifyErrorToast('Không thể mở trang này.');
+    }
   }
 
   return (
@@ -45,25 +88,31 @@ export default function MainProfile() {
           component="img"
           alt="img_avatar_member"
           sx={SX_PROFILE_IMG}
-          src={avatar_member}
+          src={memberDetails.imageLink}
         />
       </Box>
       <>
         <Typography component="h4" sx={SX_PROFILE_NAME}>
-          Adam
+          {memberDetails.name || 'Tên học sinh'}
         </Typography>
         <Typography component="p" sx={SX_PROFILE_DETAILS}>
-          Member
+          {memberDetails.role || 'Role'}
         </Typography>
       </>
       <Stack direction="row" justifyContent="center" alignItems="center">
-        {memberDetails.socials.map((item) => (
-          <Stack margin={1} key={item.link}>
-            <Button customVariant="normal">
-              <Icon name={item.image as IconName} size="small" />
-            </Button>
-          </Stack>
-        ))}
+        {memberDetails.socials.map((item) => {
+          if (!item.link) return null;
+          return (
+            <Stack margin={1} key={item.link}>
+              <Button
+                onClick={() => handleOpenSocialLink(item.link)}
+                customVariant="normal"
+              >
+                <Icon name={item.image as IconName} size="small" />
+              </Button>
+            </Stack>
+          );
+        })}
       </Stack>
       {memberDetails.gender && (
         <Icon
@@ -79,9 +128,9 @@ export default function MainProfile() {
         spacing={2}
         mt={2}
       >
-        <Typography component="p" sx={SX_PROFILE_DETAILS}>
+        {/* <Typography component="p" sx={SX_PROFILE_DETAILS}>
           {formatDate(memberDetails.dateOfBirth)}
-        </Typography>
+        </Typography> */}
         {profileData.map((item) => (
           <Stack
             direction={{ md: 'column', lg: 'row' }}
@@ -107,7 +156,7 @@ export default function MainProfile() {
             Số dư hiện tại:
           </Typography>
           <Typography sx={SX_PROFILE_DETAILS_HIGHLIGHTED}>
-            300,000 vnđ
+            {formatMoney(memberDetails.walletMoney)}
           </Typography>
         </Stack>
       </Stack>

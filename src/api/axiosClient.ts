@@ -14,7 +14,6 @@ axiosClient.interceptors.request.use(function (config) {
   if (token) {
     responseConfig.headers.Authorization = `Bearer ${token}`;
   }
-
   return responseConfig;
 });
 
@@ -27,7 +26,6 @@ axiosClient.interceptors.response.use(
     if (error?.response?.status === 401) {
       localStorage.removeItem('token');
     }
-
     return Promise.reject(
       new Error(error?.response?.data?.error_message || 'Something went wrong.')
     );

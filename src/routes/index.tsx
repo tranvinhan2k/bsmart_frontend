@@ -10,6 +10,8 @@ import {
 } from '~/constants';
 
 import { RoutePayload } from '~/models/routes';
+import CartPage from '~/pages/CartPage';
+import CheckoutPage from '~/pages/CheckoutPage';
 
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
@@ -35,10 +37,9 @@ const MentorProfilePage = lazy(() => import('~/pages/MentorProfilePage'));
 const MentorEditProfilePage = lazy(
   () => import('~/pages/MentorEditProfilePage')
 );
-const MentorIntroduceProfilePage = lazy(
-  () => import('~/pages/MentorIntroduceProfilePage')
-);
+const MentorsPage = lazy(() => import('~/pages/MentorsPage'));
 const MentorCourseListPage = lazy(() => import('~/pages/MentorCourseListPage'));
+const MemberCourseListPage = lazy(() => import('~/pages/MemberCourseListPage'));
 const MentorCreateCoursePage = lazy(
   () => import('~/pages/MentorCreateCoursePage')
 );
@@ -74,7 +75,6 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[5].link}`,
     main: () => <Stack>Hello</Stack>,
-
     /* // TODO: add tuyen dung */
   },
   {
@@ -118,6 +118,24 @@ const routes: RoutePayload[] = [
     role: NavigationActionData[14].role,
   },
   {
+    path: `/${NavigationActionData[15].link}`,
+    main: () => <MentorsPage />,
+    role: NavigationActionData[15].role,
+  },
+  {
+    path: `/${NavigationActionData[16].link}`,
+    main: () => <CartPage />,
+    role: NavigationActionData[16].role,
+  },
+  {
+    path: `/${NavigationActionData[17].link}`,
+    main: () => <MentorContractPage />,
+  },
+  {
+    path: `/${NavigationActionData[18].link}`,
+    main: () => <CheckoutPage />,
+  },
+  {
     path: '*',
     main: () => <NotFoundPage />,
   },
@@ -142,6 +160,10 @@ export const memberRoutes: RoutePayload[] = [
   {
     path: `/${MemberNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
+  },
+  {
+    path: `/${MemberNavigationActionData[3].link}`,
+    main: () => <MemberCourseListPage />,
   },
 ];
 export const mentorRoutes: RoutePayload[] = [
@@ -172,14 +194,6 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: `/${MentorNavigationActionData[4].link}`,
     main: () => <MentorCreateCoursePage />,
-  },
-  {
-    path: `/${MentorNavigationActionData[5].link}`,
-    main: () => <MentorIntroduceProfilePage />,
-  },
-  {
-    path: `/${MentorNavigationActionData[6].link}`,
-    main: () => <MentorContractPage />,
   },
 ];
 

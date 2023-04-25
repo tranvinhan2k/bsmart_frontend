@@ -2,6 +2,7 @@ import axiosClient from '~/api/axiosClient';
 import { MentorPayload } from '~/models/mentor';
 import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
+import { ProfileImgType } from '~/constants/profile';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -23,23 +24,26 @@ export interface EditAccountProfilePayload {
   newPassword: string;
 }
 export interface EditCertificateProfilePayload {
-  certificate1: string;
-  certificate2: string;
-  certificate3: string;
-  certificate4: string;
-  certificate5: string;
+  certificates: { file: string | Blob }[];
 }
 export interface EditImageProfilePayload {
-  avatar: string;
-  identityFront?: string;
-  identityBack?: string;
+  file: string | Blob;
+  imageType:
+    | ProfileImgType.AVATAR
+    | ProfileImgType.FRONTCI
+    | ProfileImgType.BACKCI;
 }
+
 export interface EditPersonalProfilePayload {
   fullName: string;
   birthday: Date | '';
   address: string;
   phone: string;
-  introduce?: string;
+}
+export interface EditMentorProfilePayload {
+  introduce: string;
+  mentorSkills: Array<any>;
+  workingExperience: string;
 }
 export interface EditSocialProfilePayload {
   twitterLink?: string;
@@ -54,6 +58,7 @@ export interface ResponseProfilePayload {
   fullName: string;
   email: string;
   birthday: string;
+  gender: string;
   address: string;
   phone: string;
   status: boolean;
@@ -118,7 +123,7 @@ export interface UserResponsePayload {
 }
 
 function handleGetMentor(data: UserResponsePayload) {
-  const result: MentorPayload = {
+  const result: any = {
     id: data.id,
     avatar: data.userImages?.[0]?.url,
     name: data.fullName,
@@ -136,17 +141,38 @@ const accountApi = {
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
   },
+  getUserById(id: number): Promise<any> {
+    return axiosClient.get(`${url}/${id}`);
+  },
   getTokenProfile(): Promise<ResponseProfilePayload> {
     return axiosClient.get(`${url}/profile`);
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);
   },
-  editImageProfile(data: EditImageProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/images`, data);
+  async editImageProfile(data: EditImageProfilePayload): Promise<any> {
+    const bodyFormData = new FormData();
+    const { file, imageType } = data;
+
+    bodyFormData.append('file', file);
+    bodyFormData.append('imageType', imageType);
+
+    return axiosClient.post(`${url}/upload-image`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/certificate`, data);
+    const bodyFormData = new FormData();
+    const files = data.certificates;
+    files.forEach((item) => {
+      bodyFormData.append('files', item.file);
+    });
+    return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+  editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
+    return axiosClient.put(`/mentor-profiles`, data);
   },
   editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);
@@ -157,9 +183,8 @@ const accountApi = {
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/social`, data);
   },
-  async getMentorData(id: string): Promise<MentorPayload> {
-    const response: UserResponsePayload = await axiosClient.get(`${url}/${id}`);
-    return handleGetMentor(response);
+  async getMentorData(id: string): Promise<any> {
+    return axiosClient.get(`${url}/${id}`);
   },
 };
 

@@ -1,9 +1,8 @@
-import { Box, Divider, Typography, Rating, Stack } from '@mui/material';
-import Chip from '@mui/material/Chip';
+import { Box, Chip, Divider, Typography, Rating, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { CoursePayload } from '~/models/courses';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 interface CourseItemProps {
   item?: CoursePayload;
@@ -58,6 +57,7 @@ export default function CourseItem({
         width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
+        height: '600px',
       }}
     >
       <Stack>
@@ -73,7 +73,7 @@ export default function CourseItem({
           src={image}
           alt={title}
         />
-        <Stack sx={{ padding: MetricSize.medium_15 }}>
+        <Stack sx={{ padding: MetricSize.medium_15, height: '200px' }}>
           <Typography
             sx={{
               fontSize: FontSize.medium_28,
@@ -89,27 +89,42 @@ export default function CourseItem({
               fontFamily: FontFamily.light,
               color: Color.grey,
             }}
-          >{`Mentor ${mentor}`}</Typography>
+          >
+            Mentor {mentor}
+          </Typography>
           <Stack sx={{ flexDirection: 'row' }}>
             {item.typeLearn &&
               item.typeLearn.map((type) => (
                 <Chip sx={{ marginRight: 1 }} key={type} label={type} />
               ))}
           </Stack>
-          <Typography
+          <Stack
             sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.regular,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              height: '150px',
             }}
           >
-            {content}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_18,
+                fontFamily: FontFamily.regular,
+              }}
+            >
+              {content}
+            </Typography>
+          </Stack>
         </Stack>
       </Stack>
 
       <Stack padding={2}>
         <Stack marginY={1}>
-          <Rating name="size-small" defaultValue={feedback} size="small" />
+          <Rating
+            name="size-small"
+            defaultValue={feedback}
+            disabled
+            size="small"
+          />
         </Stack>
         <Divider />
         <Stack marginTop={2}>

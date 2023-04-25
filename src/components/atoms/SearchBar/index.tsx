@@ -1,20 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextField, Stack } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 
 interface SearchBarProps {
+  value: string;
   color: 'white' | 'black';
   placeholder: string;
   onSubmit: (searchValue: string) => void;
 }
 
 export default function SearchBar({
+  value,
   color = 'black',
   placeholder,
   onSubmit,
 }: SearchBarProps) {
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>(value);
 
   const handleChangeSearchValue = (event: any) => {
     setSearchValue(event.target.value);
@@ -23,9 +25,17 @@ export default function SearchBar({
   const handleTextFieldKeyDown = (event: any) => {
     if (event.key === 'Enter') {
       event.preventDefault();
+      setSearchValue(searchValue);
       onSubmit(searchValue);
     }
   };
+
+  useEffect(() => {
+    if (value) {
+      setSearchValue(value);
+    }
+  }, [value]);
+
   return (
     <Stack
       sx={{

@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
-import { FormInputVariant } from '~/models/form';
+import { BankLinking, FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
 import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
@@ -16,6 +16,9 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
+// eslint-disable-next-line import/no-cycle
+import TimeTableInput from './TimeTableInput';
+import DropdownInputBank from './DropdownInputBank';
 
 interface FormInputProps {
   control: Control<any>;
@@ -25,6 +28,7 @@ interface FormInputProps {
   defaultValue?: any;
   variant?: FormInputVariant;
   data?: OptionPayload[];
+  banks?: BankLinking[];
   helperText?: string;
 }
 
@@ -33,7 +37,8 @@ const generateFormInput = (
   controller: UseControllerReturn<any, string>,
   placeholder: string,
   data: OptionPayload[],
-  helperText: string
+  helperText: string,
+  banks: BankLinking[]
 ) => {
   switch (true) {
     case variant === 'text':
@@ -41,6 +46,10 @@ const generateFormInput = (
     case variant === 'multiline':
       return (
         <MultilineInput controller={controller} placeholder={placeholder} />
+      );
+    case variant === 'timetable':
+      return (
+        <TimeTableInput controller={controller} placeholder={placeholder} />
       );
     case variant === 'password':
       return (
@@ -80,6 +89,14 @@ const generateFormInput = (
           data={data}
         />
       );
+    case variant === 'dropdownBanks':
+      return (
+        <DropdownInputBank
+          controller={controller}
+          placeholder={placeholder}
+          data={banks}
+        />
+      );
     default:
       return null;
   }
@@ -94,13 +111,21 @@ export default function FormInput({
   placeholder = '',
   data = [],
   helperText = '',
+  banks = [],
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });
 
   return (
     <Stack flexGrow={1} marginBottom={1}>
       <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
-      {generateFormInput(variant, controller, placeholder, data, helperText)}
+      {generateFormInput(
+        variant,
+        controller,
+        placeholder,
+        data,
+        helperText,
+        banks
+      )}
     </Stack>
   );
 }
@@ -112,4 +137,5 @@ FormInput.defaultProps = {
   variant: 'text',
   data: [],
   helperText: '',
+  banks: [],
 };

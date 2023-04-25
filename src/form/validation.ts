@@ -1,4 +1,4 @@
-import { object, string, ref, number, date, mixed } from 'yup';
+import { array, date, mixed, number, object, ref, string } from 'yup';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -16,12 +16,19 @@ import {
   PHONE_INVALID,
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
+  WITHDRAW_AMOUNT_REQUIRED,
+  WITHDRAW_AMOUNT_POSITIVE,
+  WITHDRAW_BANK_ACCOUNT_REQUIRED,
+  WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
+  IMAGE_SIZE_TOO_BIG,
+  IMAGE_FORMAT_NOT_SUPPORT,
+  generateRequiredText,
 } from '~/form/message';
 
 const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-const FILE_SIZE = 1024 * 1024 * 2; // 2MB
+const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
 export const validationSchemaSignIn = object({
@@ -58,11 +65,47 @@ export const validationSchemaBuyCourse = object({
   email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
   voucher: string().required(PASSWORD_REQUIRED),
 });
-
-export const validationSchemaEditImageProfile = object({
-  avatar: string().required(),
-  identityFront: string(),
-  identityBack: string(),
+export const validationSchemaEditAvatar = object({
+  avatar: mixed()
+    .required(generateRequiredText('Hình ảnh đại diện'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+});
+export const validationSchemaEditIdentityFront = object({
+  identityFront: mixed()
+    .required(generateRequiredText('Căn cước công dân (mặt trước)'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+});
+export const validationSchemaEditIdentityBack = object({
+  identityBack: mixed()
+    .required(generateRequiredText('Căn cước công dân (mặt sau)'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
 });
 
 export const validationSchemaEditPersonalProfile = object({
@@ -70,15 +113,16 @@ export const validationSchemaEditPersonalProfile = object({
   birthday: date(),
   address: string(),
   phone: string().required(PHONE_REQUIRED),
-  introduce: string(),
+});
+
+export const validationSchemaEditMentorProfile = object({
+  introduce: string().required(),
+  mentorSkills: array(),
+  workingExperience: string(),
 });
 
 export const validationSchemaEditCertificateProfile = object({
-  certificate1: string(),
-  certificate2: string(),
-  certificate3: string(),
-  certificate4: string(),
-  certificate5: string(),
+  certificates: array(),
 });
 
 export const validationSchemaEditAccountProfile = object({
@@ -101,6 +145,10 @@ export const validationSchemaEditSocialProfile = object({
   twitter: string(),
   instagram: string(),
 });
+export const validationSchemaTimeTable = object({
+  slot: object().required('Hãy nhập khung giờ học của bạn'),
+  dayInWeek: object().required('Hãy nhập thứ của bạn'),
+});
 
 export const validationSchemaFeedbackMentor = object({
   enthusiasmLevel: string().required(),
@@ -112,14 +160,17 @@ export const validationSchemaFeedbackMentor = object({
 });
 
 export const validationSchemaCreateCourse = object({
+  code: string().required('Mã khóa học là bắt buộc'),
+  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
+  numberOfSlot: number(),
   name: string().required(COURSE_NAME_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
-  image: mixed()
+  imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
     .test(
       'fileSize',
       'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác',
-      (value: any) => value && value.size <= FILE_SIZE
+      (value: any) => value && value.size <= FILE_SIZE_2
     )
     .test(
       'fileFormat',
@@ -129,8 +180,8 @@ export const validationSchemaCreateCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  category: object().required(COURSE_CATEGORY_REQUIRED),
-  subject: object().required(COURSE_LANGUAGE_REQUIRED),
+  categoryId: object().required(COURSE_CATEGORY_REQUIRED),
+  subjectId: object().required(COURSE_LANGUAGE_REQUIRED),
   type: object().required(COURSE_TYPE),
   description: string().required(COURSE_DESCRIPTION),
   minStudent: number()
@@ -147,19 +198,30 @@ export const validationSchemaCreateCourse = object({
       }
     ),
   startDateExpected: date().required(),
+  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
     .required()
     .test(
       'is-greater',
       'Ngày kết thúc phải lớn hơn ngày bắt đầu',
       function (endDate: Date) {
-        const { startDate } = this.parent;
+        const { startDateExpected } = this.parent;
 
-        if (!startDate || !endDate) {
+        if (!startDateExpected || !endDate) {
           return true;
         }
 
-        return endDate > startDate;
+        return endDate > startDateExpected;
       }
     ),
+});
+
+export const validationSchemaWithdrawMoney = object({
+  amount: number()
+    .required(WITHDRAW_AMOUNT_REQUIRED)
+    .positive(WITHDRAW_AMOUNT_POSITIVE),
+  bankLinking: object(),
+  bankAccount: number().required(WITHDRAW_BANK_ACCOUNT_REQUIRED),
+  bankAccountOwner: string().required(WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED),
+  note: string(),
 });

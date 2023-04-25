@@ -8,6 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
   BsDribbble,
   BsInstagram,
@@ -17,6 +18,7 @@ import {
   BsFacebook,
 } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
+import { MdPayments } from 'react-icons/md';
 import { FaShare } from 'react-icons/fa';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { HiLocationMarker } from 'react-icons/hi';
@@ -28,6 +30,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ManIcon from '@mui/icons-material/Man';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WomanIcon from '@mui/icons-material/Woman';
 import AddIcon from '@mui/icons-material/Add';
 import { Color, IconSize } from '~/assets/variables';
@@ -54,6 +57,7 @@ export type IconName =
   | 'location'
   | 'delete'
   | 'close'
+  | 'check'
   | 'facebook'
   | 'next'
   | 'next2'
@@ -62,10 +66,12 @@ export type IconName =
   | 'female'
   | 'previous'
   | 'share'
+  | 'cart'
   | 'eye'
   | 'eye-off'
   | 'add-icon'
   | 'star'
+  | 'payment'
   | 'pinterest';
 interface IconProps {
   color?: ColorKeys;
@@ -87,12 +93,16 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'check':
+      return <CheckCircleIcon sx={STYLED_ICON} />;
     case 'add':
       return <AddIcon sx={STYLED_ICON} />;
     case 'eye':
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
     case 'delete':
       return <DeleteIcon sx={STYLED_ICON} />;
+    case 'cart':
+      return <ShoppingCartIcon sx={STYLED_ICON} />;
     case 'eye-off':
       return <VisibilityOffIcon sx={STYLED_ICON} />;
     case 'add-icon':
@@ -119,6 +129,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsTwitter />
+        </Typography>
+      );
+    case 'payment':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdPayments />
         </Typography>
       );
     case 'instagram':

@@ -1,5 +1,6 @@
 import { Box, Divider, Typography, Grid } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { Fragment } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditCertificateProfile } from '~/form/defaultValues';
 import { EDIT_CERTIFICATE_PROFILE_FIELDS } from '~/form/schema';
@@ -11,7 +12,7 @@ import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import accountApi, { EditCertificateProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-
+import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 import { useYupValidationResolver } from '~/hooks';
 
@@ -19,7 +20,7 @@ export default function EditCertificateProfileForm() {
   const resolverEditCertificateProfile = useYupValidationResolver(
     validationSchemaEditCertificateProfile
   );
-  const editProfileHookForm = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: defaultValueEditCertificateProfile,
     resolver: resolverEditCertificateProfile,
   });
@@ -33,21 +34,18 @@ export default function EditCertificateProfileForm() {
     data: EditCertificateProfileFormDataPayload
   ) => {
     const params: EditCertificateProfilePayload = {
-      certificate1: data.certificate1,
-      certificate2: data.certificate2,
-      certificate3: data.certificate3,
-      certificate4: data.certificate4,
-      certificate5: data.certificate5,
+      certificates: data.certificates,
     };
-    console.log(data);
-    console.log(params);
-    // const id = toast.loadToast('Đang cập nhật ...');
-    // try {
-    //   await mutateEditCertificateProfile(params);
-    //   toast.updateSuccessToast(id, 'Cập nhật thành công');
-    // } catch (error: any) {
-    //   toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
-    // }
+    const id = toast.loadToast('Đang cập nhật ...');
+    try {
+      await mutateEditCertificateProfile(params);
+      toast.updateSuccessToast(id, 'Cập nhật thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(
+        id,
+        `Cập nhật không thành công: ${error.message}`
+      );
+    }
   };
 
   interface FormFieldsCertificateProps {
@@ -60,51 +58,43 @@ export default function EditCertificateProfileForm() {
 
   const EDIT_CERTIFICATE_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin bằng cấp (2 mặt bằng cấp/chứng chỉ)',
-    CERTIFICATE1: { LABEL: 'Bằng cấp (1)' },
-    CERTIFICATE2: { LABEL: 'Bằng cấp (2)' },
-    CERTIFICATE3: { LABEL: 'Bằng cấp (3)' },
-    CERTIFICATE4: { LABEL: 'Bằng cấp (4)' },
-    CERTIFICATE5: { LABEL: 'Bằng cấp (5)' },
+    CERTIFICATES: { LABEL: 'Bằng cấp' },
+    DESC1: 'Kích thước tệp tối đa là 10 MB.',
+    DESC2:
+      'Bạn có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
+    DESC3: 'Không mật khẩu bảo vệ PDF của bạn.',
+    DESC4: 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
     BUTTON_TEXT: 'Cập nhật',
   };
 
-  const formFieldsCertificate: FormFieldsCertificateProps[] = [
-    {
-      name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificate1,
-      label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATE1.LABEL,
-      placeholder: '',
-      variant: 'file',
-      size: 12,
+  const formFieldsCertificate: FormFieldsCertificateProps = {
+    name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificates,
+    label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATES.LABEL,
+    placeholder: '',
+    variant: 'file',
+    size: 12,
+  };
+
+  const {
+    fields: certificateFields,
+    append,
+    remove,
+  } = useFieldArray({
+    name: 'certificates',
+    control,
+    rules: {
+      required: 'Hãy nhập ít nhất 1 bằng',
     },
-    {
-      name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificate2,
-      label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATE2.LABEL,
-      placeholder: '',
-      variant: 'file',
-      size: 12,
-    },
-    {
-      name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificate3,
-      label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATE3.LABEL,
-      placeholder: '',
-      variant: 'file',
-      size: 12,
-    },
-    {
-      name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificate4,
-      label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATE4.LABEL,
-      placeholder: '',
-      variant: 'file',
-      size: 12,
-    },
-    {
-      name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificate5,
-      label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATE5.LABEL,
-      placeholder: '',
-      variant: 'file',
-      size: 12,
-    },
-  ];
+  });
+
+  const appendCertificate = () => {
+    append({
+      file: '',
+    });
+  };
+  const removeCertificate = (order: number) => {
+    remove(order);
+  };
 
   return (
     <Box sx={SX_FORM}>
@@ -112,23 +102,61 @@ export default function EditCertificateProfileForm() {
         {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.TITLE}
       </Typography>
       <Divider sx={{ marginY: 2 }} />
-      <form onSubmit={editProfileHookForm.handleSubmit(handleSubmitSuccess)}>
+      <Typography component="h3">
+        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC1}
+      </Typography>
+      <Typography component="h3">
+        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC2}
+      </Typography>
+      <Typography component="h3">
+        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC3}
+      </Typography>
+      <Typography component="h3">
+        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC4}
+      </Typography>
+      <form onSubmit={handleSubmit(handleSubmitSuccess)}>
         <Grid container columnSpacing={3}>
-          {formFieldsCertificate.map((field) => (
-            <Grid item xs={field.size} key={field.name}>
-              <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
-              <FormInput
-                control={editProfileHookForm.control}
-                name={field.name}
-                variant={field.variant}
-                placeholder={field.placeholder}
-              />
-            </Grid>
+          {certificateFields.map((field, index) => (
+            <Fragment key={field.id}>
+              <Grid item xs={12}>
+                <Typography sx={SX_FORM_LABEL}>
+                  {`${formFieldsCertificate.label} ${1 + index}`}
+                </Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <FormInput
+                  control={control}
+                  name={`${formFieldsCertificate.name}.${index}.file`}
+                  variant={formFieldsCertificate.variant}
+                  placeholder={formFieldsCertificate.placeholder}
+                />
+              </Grid>
+              <Grid item xs={1} lg={1}>
+                <Button
+                  customVariant="normal"
+                  size="small"
+                  onClick={() => removeCertificate(index)}
+                >
+                  Xóa
+                </Button>
+              </Grid>
+            </Fragment>
           ))}
+          <Grid item xs={6} lg={3}>
+            <Button
+              customVariant="normal"
+              size="small"
+              onClick={() => appendCertificate()}
+            >
+              Thêm bằng cấp
+            </Button>
+          </Grid>
         </Grid>
-        <Button customVariant="normal" type="submit">
-          {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.BUTTON_TEXT}
-        </Button>
+        <Box mt={4}>
+          <Button customVariant="normal" type="submit">
+            {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.BUTTON_TEXT}
+          </Button>
+        </Box>
       </form>
     </Box>
   );

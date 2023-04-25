@@ -13,6 +13,10 @@ export const SIGN_IN_FIELDS: LoginFormDataPayload = {
   email: 'email',
   password: 'password',
 };
+export const TIME_TABLE_FIELDS = {
+  slot: 'slot',
+  dayInWeek: 'dayInWeek',
+};
 export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   name: 'name',
   email: 'email',
@@ -50,7 +54,7 @@ export const EDIT_IMAGE_PROFILE_FIELDS = {
   identityBack: 'identityBack',
 };
 
-export const EDIT_MEMBER_PERSONAL_PROFILE_FIELDS = {
+export const EDIT_PERSONAL_PROFILE_FIELDS = {
   avatar: 'avatar',
   fullName: 'fullName',
   birthday: 'birthday',
@@ -60,17 +64,14 @@ export const EDIT_MEMBER_PERSONAL_PROFILE_FIELDS = {
   identityBack: 'identityBack',
 };
 
-export const EDIT_MENTOR_PERSONAL_PROFILE_FIELDS = Object.assign(
-  EDIT_MEMBER_PERSONAL_PROFILE_FIELDS,
-  { introduce: 'introduce' }
-);
+export const EDIT_MENTOR_PROFILE_FIELDS = {
+  introduce: 'introduce',
+  mentorSkills: 'mentorSkills',
+  workingExperience: 'workingExperience',
+};
 
 export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
-  certificate1: 'certificate1',
-  certificate2: 'certificate2',
-  certificate3: 'certificate3',
-  certificate4: 'certificate4',
-  certificate5: 'certificate5',
+  certificates: 'certificates',
 };
 
 export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
@@ -86,6 +87,14 @@ export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
   instagramLink: 'instagramLink',
 };
 
+export const WITHDRAW_MONEY_FIELDS = {
+  amount: 'amount',
+  bankLinking: 'bankLinking',
+  bankAccount: 'bankAccount',
+  bankAccountOwner: 'bankAccountOwner',
+  note: 'note',
+};
+
 export const FEEDBACK_MENTOR_FIELDS = {
   enthusiasmLevel: 'enthusiasmLevel',
   feelingOfTeacher: 'feelingOfTeacher',
@@ -95,16 +104,20 @@ export const FEEDBACK_MENTOR_FIELDS = {
   supportHomeWork: 'supportHomeWork',
 };
 export const CREATE_COURSE_FIELDS = {
+  code: 'code',
   name: 'name',
   level: 'level',
-  image: 'image',
-  price: 'price',
-  category: 'category',
-  subject: 'subject',
+  imageId: 'imageId',
+  categoryId: 'categoryId',
+  subjectId: 'subjectId',
   type: 'type',
+  price: 'price',
   minStudent: 'minStudent',
   maxStudent: 'maxStudent',
   startDateExpected: 'startDateExpected',
   endDateExpected: 'endDateExpected',
   description: 'description',
+  subCourseTile: 'subCourseTile',
+  numberOfSlot: 'numberOfSlot',
+  timeInWeekRequests: 'timeInWeekRequests',
 };

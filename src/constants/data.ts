@@ -37,7 +37,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 2,
     name: 'Khóa Học',
-    link: 'course',
+    link: 'course_menu',
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ export const NavigationActionData: ActionPayload[] = [
     id: 8,
     isHide: true,
     name: 'Chi Tiết Khóa Học',
-    link: 'course/course-detail/:id',
+    link: 'course_menu/course-detail/:id',
   },
   {
     id: 9,
@@ -116,9 +116,26 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     id: 15,
-    isHide: true,
     name: 'Giảng viên',
-    link: 'mentor-introduce',
+    link: 'mentor_menu',
+  },
+  {
+    id: 16,
+    isHide: true,
+    name: 'Giỏ Hàng',
+    link: 'cart',
+  },
+  {
+    id: 17,
+    isHide: true,
+    name: 'Liên hệ',
+    link: 'contact',
+  },
+  {
+    id: 18,
+    isHide: true,
+    name: 'Thanh Toán',
+    link: 'check_out',
   },
 ];
 
@@ -153,11 +170,6 @@ export const MentorNavigationActionData: ActionPayload[] = [
     name: 'Giới thiệu giáo viên',
     link: 'mentor-introduce',
   },
-  {
-    id: 6,
-    name: 'Liên hệ',
-    link: 'contract',
-  },
 ];
 
 export const MemberNavigationActionData: ActionPayload[] = [
@@ -175,6 +187,11 @@ export const MemberNavigationActionData: ActionPayload[] = [
     id: 2,
     name: 'Rút tiền',
     link: 'withdraw',
+  },
+  {
+    id: 3,
+    name: 'Danh sách khóa học',
+    link: 'member-course-list',
   },
 ];
 
@@ -325,12 +342,12 @@ export const TypeOptionPayload: OptionPayload[] = [
   {
     id: 0,
     label: 'Online',
-    value: 'Online',
+    value: 'ONLINE',
   },
   {
     id: 1,
     label: 'Offline',
-    value: 'Offline',
+    value: 'OFFLINE',
   },
 ];
 export const ProvinceOptionPayload: OptionPayload[] = [
@@ -613,32 +630,6 @@ export const mockMentorDetailsInformationData = {
   imageLink: mentor,
   name: 'Mentor Cuong',
   role: 'Mentor',
-  socials: [
-    {
-      image: 'facebook',
-      link: '/facebook',
-    },
-    {
-      image: 'twitter',
-      link: '/twitter',
-    },
-    {
-      image: 'linkedin',
-      link: '/linkedin',
-    },
-  ],
-  gender: 'male',
-  dateOfBirth: new Date().toISOString(),
-  address: 'Tân Bình, Tp. Hồ Chí Minh',
-  mail: 'mentor@gmail.com',
-  phone: '0946005077',
-  walletMoney: 300000,
-};
-
-export const mockMemberDetailsInformationData = {
-  imageLink: mentor,
-  name: 'Adam',
-  role: 'Member',
   socials: [
     {
       image: 'facebook',

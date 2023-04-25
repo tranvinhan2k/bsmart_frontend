@@ -1,15 +1,38 @@
-import { Stack, Typography, LinearProgress } from '@mui/material';
+import { Stack, Typography, LinearProgress, Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { useNavigate } from 'react-router-dom';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CourseItem from '~/components/molecules/CourseItem';
-import { MentorCourses } from '~/constants';
+import { image } from '~/constants/image';
+import { useQueryGetAllMentorCourses, useQueryGetAllSubjects } from '~/hooks';
+import { MentorPayload } from '~/models/mentor';
 import { scrollToTop } from '~/utils/common';
 
-export default function MentorIntroduceProfilePage() {
+interface MentorIntroduceProfilePageProps {
+  mentor: MentorPayload;
+}
+
+export default function MentorIntroduceProfilePage({
+  mentor,
+}: MentorIntroduceProfilePageProps) {
+  const navigation = useNavigate();
+  const { subjects } = useQueryGetAllSubjects();
+  const { courses } = useQueryGetAllMentorCourses({
+    page: 0,
+    size: 4,
+    sort: undefined,
+    status: 'REQUESTING',
+  });
+
   useEffect(() => {
     scrollToTop();
   }, []);
+
+  const handleNavigateLink = () => {
+    // window.open('/course_menu');
+    navigation('/course_menu');
+  };
 
   return (
     <Stack>
@@ -26,10 +49,7 @@ export default function MentorIntroduceProfilePage() {
             color: Color.grey,
           }}
         >
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
-          accusamus libero veniam reprehenderit ut, repellat illum quasi aut
-          amet perferendis explicabo assumenda neque, temporibus earum
-          consectetur, dolor omnis alias dolores?
+          {mentor.introduce}
         </Typography>
       </Stack>
       <Stack marginTop={2}>
@@ -38,98 +58,43 @@ export default function MentorIntroduceProfilePage() {
         >
           Skill
         </Typography>
-        <Stack marginTop={1}>
-          <Stack flexDirection="row">
-            <Stack flexGrow={1}>
-              <Stack flexDirection="row" justifyContent="space-between">
-                <Typography
+        <Grid container marginTop={1}>
+          {mentor?.mentorSkills?.map((skill) => {
+            const subjectLabel = subjects?.find(
+              (item) => item.id === skill.skillId
+            );
+            return (
+              <Grid key={skill.skillId} item xs={12} md={6}>
+                <Stack
                   sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
+                    padding: MetricSize.medium_15,
+                    background: Color.whiteSmoke,
+                    borderRadius: MetricSize.small_5,
                   }}
+                  flexDirection="row"
+                  justifyContent="space-between"
                 >
-                  PHP
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  97%
-                </Typography>
-              </Stack>
-              <LinearProgress color="info" variant="determinate" value={50} />
-            </Stack>
-            <Stack margin={1} />
-            <Stack flexGrow={1}>
-              <Stack flexDirection="row" justifyContent="space-between">
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  PHP
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  97%
-                </Typography>
-              </Stack>
-              <LinearProgress color="info" variant="determinate" value={50} />
-            </Stack>
-          </Stack>
-          <Stack flexDirection="row">
-            <Stack flexGrow={1}>
-              <Stack flexDirection="row" justifyContent="space-between">
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  PHP
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  97%
-                </Typography>
-              </Stack>
-              <LinearProgress color="info" variant="determinate" value={50} />
-            </Stack>
-            <Stack margin={1} />
-            <Stack flexGrow={1}>
-              <Stack flexDirection="row" justifyContent="space-between">
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  PHP
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  97%
-                </Typography>
-              </Stack>
-              <LinearProgress color="info" variant="determinate" value={50} />
-            </Stack>
-          </Stack>
-        </Stack>
+                  <Typography
+                    sx={{
+                      fontSize: FontSize.small_18,
+                      fontFamily: FontFamily.bold,
+                    }}
+                  >
+                    {subjectLabel?.label}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: FontSize.small_18,
+                      fontFamily: FontFamily.light,
+                    }}
+                  >
+                    {`${skill.yearOfExperiences} years of experiences`}
+                  </Typography>
+                </Stack>
+              </Grid>
+            );
+          })}
+        </Grid>
       </Stack>
       <Stack marginTop={2}>
         <Typography
@@ -144,11 +109,9 @@ export default function MentorIntroduceProfilePage() {
             color: Color.grey,
           }}
         >
-          Tôi có kinh nghiệm 10 năm với vai trò là một seniot web developer
-          (2010 - Hiện tại) tại CodeMex. Ngoài ra, tôi còn là mentor của trung
-          tâm lập trình WebCode trong hơn 5 năm (2005 -2010).
+          {mentor.workingExperience}
         </Typography>
-        <Stack
+        {/* <Stack
           sx={{
             marginTop: 1,
             flexDirection: 'row',
@@ -211,7 +174,7 @@ export default function MentorIntroduceProfilePage() {
               Học viên
             </Typography>
           </Stack>
-        </Stack>
+        </Stack> */}
       </Stack>
       <Stack marginTop={2}>
         <Typography
@@ -220,13 +183,27 @@ export default function MentorIntroduceProfilePage() {
           Khóa học tiêu biểu
         </Typography>
         <Stack flexDirection="row" justifyContent="space-between">
-          {MentorCourses &&
-            MentorCourses.map((item) => (
-              <CourseItem onClick={() => {}} key={item.id} item={item} />
-            ))}
+          {courses &&
+            courses.items.map((item: any) => {
+              const params: any = {
+                content: item.courseDescription,
+                feedback: 5,
+                id: item?.id,
+                image: item?.image?.url || image.noCourse,
+                mentor: item?.mentorName,
+                title: item.courseName,
+                typeLearn: [],
+                mentorImage: item?.imageUrl,
+              };
+              return (
+                <CourseItem onClick={() => {}} key={item.id} item={params} />
+              );
+            })}
         </Stack>
         <Stack marginTop={1}>
-          <Button customVariant="outlined">Xem Thêm</Button>
+          <Button onClick={handleNavigateLink} customVariant="outlined">
+            Xem Thêm
+          </Button>
         </Stack>
       </Stack>
     </Stack>

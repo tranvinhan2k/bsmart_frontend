@@ -8,15 +8,14 @@ import {
   IconSize,
   MetricSize,
 } from '~/assets/variables';
-import { formatDate } from '~/utils/date';
-import Button from '~/components/atoms/Button';
-import Icon from '~/components/atoms/Icon';
+
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import { SubCoursePayload } from '~/models/subCourse';
 import { PagingFilterPayload } from '~/models';
 import SubCourseList from '~/components/molecules/SubCourseList';
 
 interface CourseDetailBasicInformationSectionProps {
+  id: number | undefined;
   mentorData: MentorPayload | undefined;
   percentOfFeedback: number;
   numOfRating: number;
@@ -29,6 +28,7 @@ interface CourseDetailBasicInformationSectionProps {
 }
 
 export default function CourseDetailBasicInformationSection({
+  id,
   description,
   mentorData,
   numOfOpenClass,
@@ -43,7 +43,13 @@ export default function CourseDetailBasicInformationSection({
 
   return (
     <Stack>
-      {subCourse && <SubCourseList data={subCourse} />}
+      <Stack
+        sx={{
+          marginX: { md: '120px' },
+        }}
+      >
+        {subCourse && <SubCourseList courseId={id} data={subCourse} />}
+      </Stack>
       <Stack
         sx={{
           flexDirection: 'row',

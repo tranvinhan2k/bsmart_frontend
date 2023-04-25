@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import accountApi from '~/api/users';
+import mentorsApi from '~/api/mentors';
 
 export const useQueryGetMentorByMentorId = (
   id: string | number | undefined,
@@ -7,9 +7,10 @@ export const useQueryGetMentorByMentorId = (
 ) => {
   const { error, data, isLoading } = useQuery({
     queryKey: ['mentor', id],
-    queryFn: () => accountApi.getMentorData(`${id}`),
+    queryFn: () => mentorsApi.getMentorById(id as number),
     enabled,
   });
+
   return {
     error,
     mentor: data,
