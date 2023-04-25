@@ -212,7 +212,7 @@ export default function SubCourseModal({
                     ))}
                   </Stack>
                 </Box>
-                {role !== 'TEACHER' && item.purchase && (
+                {role !== 'TEACHER' && item.purchase === null && (
                   <Stack padding={2}>
                     <Button
                       onClick={() => onPayQuick(item.id)}
@@ -229,7 +229,7 @@ export default function SubCourseModal({
                     </Button>
                   </Stack>
                 )}
-                {(item.purchase === null || !item.purchase) && (
+                {item.purchase && (
                   <Stack padding={2}>
                     <Button
                       disabled

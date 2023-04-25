@@ -124,9 +124,18 @@ export const validationSchemaFeedbackMentor = object({
 
 export const validationSchemaCreateCourse = object({
   code: string().required('Mã khóa học là bắt buộc'),
-  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
-  numberOfSlot: number(),
   name: string().required(COURSE_NAME_REQUIRED),
+  categoryId: object()
+    .typeError('Lĩnh vực không hợp lệ')
+    .required(COURSE_CATEGORY_REQUIRED),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
+  description: string().required(COURSE_DESCRIPTION),
+});
+export const validationSchemaCreateSubCourse = object({
+  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
+  numberOfSlot: number().required('Số lượng học sinh không được để trống'),
   level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
@@ -143,10 +152,10 @@ export const validationSchemaCreateCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  categoryId: object().required(COURSE_CATEGORY_REQUIRED),
-  subjectId: object().required(COURSE_LANGUAGE_REQUIRED),
-  type: object().required(COURSE_TYPE),
-  description: string().required(COURSE_DESCRIPTION),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
+  type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
     .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
@@ -160,10 +169,13 @@ export const validationSchemaCreateCourse = object({
         return value > minStudent;
       }
     ),
-  startDateExpected: date().required(),
+  startDateExpected: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống'),
   timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
-    .required()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống')
     .test(
       'is-greater',
       'Ngày kết thúc phải lớn hơn ngày bắt đầu',

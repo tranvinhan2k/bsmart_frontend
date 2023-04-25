@@ -43,11 +43,7 @@ export default function CourseDetailBasicInformationSection({
 
   return (
     <Stack>
-      <Stack
-        sx={{
-          marginX: { md: '120px' },
-        }}
-      >
+      <Stack>
         {subCourse && <SubCourseList courseId={id} data={subCourse} />}
       </Stack>
       <Stack

@@ -30,15 +30,17 @@ const showRoutes = (currentRole: Role | null) => {
 
   if (routes.length > 0) {
     result = routes.map((route: RoutePayload) => {
-      if (route.role === 'GUEST') {
+      if (route.role.length === 0) {
         return (
           <Route key={route.path} path={route.path} element={route?.main()} />
         );
       }
-      if (
-        (route.role === currentRole && Boolean(route.role)) ||
-        route.role === undefined
-      ) {
+      if (currentRole !== null && route.role.includes(currentRole)) {
+        return (
+          <Route key={route.path} path={route.path} element={route?.main()} />
+        );
+      }
+      if (currentRole === null && route.role.includes('GUEST')) {
         return (
           <Route key={route.path} path={route.path} element={route?.main()} />
         );

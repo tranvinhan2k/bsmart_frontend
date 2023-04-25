@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { Stack, Grid, Typography, IconButton } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Tooltip from '@mui/material/Tooltip';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { scrollToTop } from '~/utils/common';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { useQueryGetCart } from '~/hooks';
@@ -13,33 +15,43 @@ import { useMutationUpdateCourseFromCart } from '~/hooks/useMutationUpdateCourse
 import toast from '~/utils/toast';
 import CourseInCart from '~/components/molecules/CourseInCart';
 import { RequestCartItem } from '~/api/cart';
-import { useMutationPay } from '~/hooks/useMutationPay';
+import { addCheckoutItem } from '~/redux/courses/slice';
 
 export default function CartPage() {
   const { cart, error, isLoading, refetch } = useQueryGetCart();
   const { mutateAsync: deleteCourse } = useMutationDeleteCourseFromCart();
   const { mutateAsync: updateCourse } = useMutationUpdateCourseFromCart();
-  const { mutateAsync: payCart } = useMutationPay();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handlePayCart = async () => {
-    const id = toast.loadToast('Đang thanh toán giỏ hàng,...');
-    try {
-      if (cart?.cartItems && cart.cartItems?.length > 0) {
-        await payCart(
-          cart?.cartItems.map((item) => ({
-            cartItemId: item.cartItemId,
-            subCourseId: 0,
-          }))
-        );
-      } else {
-        throw new Error('Không có hàng trong giỏ');
-      }
-      refetch();
-      toast.updateSuccessToast(id, 'Thanh toán thành công');
-    } catch (e: any) {
-      toast.updateFailedToast(id, `Thanh toán thất bại: ${e.message}`);
-    }
+  const handlePayCart = () => {
+    dispatch(
+      addCheckoutItem({
+        checkOutCourses: cart?.cartItems,
+        totalAmount: cart?.totalPrice,
+      })
+    );
+    navigate('/check_out');
   };
+  // const handlePayCart = async () => {
+  //   const id = toast.loadToast('Đang thanh toán giỏ hàng,...');
+  //   try {
+  //     if (cart?.cartItems && cart.cartItems?.length > 0) {
+  //       await payCart(
+  //         cart?.cartItems.map((item) => ({
+  //           cartItemId: item.cartItemId,
+  //           subCourseId: 0,
+  //         }))
+  //       );
+  //     } else {
+  //       throw new Error('Không có hàng trong giỏ');
+  //     }
+  //     refetch();
+  //     toast.updateSuccessToast(id, 'Thanh toán thành công');
+  //   } catch (e: any) {
+  //     toast.updateFailedToast(id, `Thanh toán thất bại: ${e.message}`);
+  //   }
+  // };
 
   async function handleDeleteCourseFromCart(courseId: number) {
     // eslint-disable-next-line no-restricted-globals

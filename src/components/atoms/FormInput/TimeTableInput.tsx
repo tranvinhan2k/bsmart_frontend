@@ -53,7 +53,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
         ...(value || []),
         {
           slotId: data.slot.id,
-          dayInWeekId: data.dayInWeek.id,
+          dayOfWeekId: data.dayInWeek.id,
         },
       ]);
       setSchedule([

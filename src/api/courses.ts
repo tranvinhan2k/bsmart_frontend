@@ -21,23 +21,10 @@ export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
 export interface RequestCreateCoursePayload {
   code: string;
   name: string;
-  level: LevelKeys;
-  imageId: number;
   categoryId: number;
   subjectId: number;
-  type: TypeLearnKeys;
-  price: number;
-  minStudent: number;
-  maxStudent: number;
-  startDateExpected: string;
-  endDateExpected: string;
   description: string;
-  subCourseTile: string;
-  numberOfSlot: number;
-  timeInWeekRequests: {
-    dayOfWeekId: number;
-    slotId: number;
-  }[];
+  subCourseRequests: SubCoursePayload[];
 }
 export interface ResponseMemberCoursePayload {
   id: number;
@@ -171,7 +158,7 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
     },
     category: data.category,
     feedbackData: {
-      commentData: [],  
+      commentData: [],
       numOfRating: 50,
       percentOfFeedback: 0.5,
       starData: [
