@@ -132,6 +132,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Thanh Toán',
     link: 'check_out',
   },
+  {
+    id: 19,
+    name: 'Quản lý Resource',
+    link: 'mentor-resource-management',
+  },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [

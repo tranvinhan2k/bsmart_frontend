@@ -43,6 +43,9 @@ const MemberCourseListPage = lazy(() => import('~/pages/MemberCourseListPage'));
 const MentorCreateCoursePage = lazy(
   () => import('~/pages/MentorCreateCoursePage')
 );
+const MentorResourceManagePage = lazy(
+  () => import('~/pages/MentorResourceManagePage')
+);
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 
@@ -146,6 +149,11 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[18].link}`,
     main: () => <CheckoutPage />,
     role: ['STUDENT'],
+  },
+  {
+    path: `/${NavigationActionData[19].link}`,
+    main: () => <MentorResourceManagePage />,
+    role: ['TEACHER'],
   },
   {
     path: '*',
