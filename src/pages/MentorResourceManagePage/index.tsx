@@ -3,8 +3,6 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import ResourceEditMode from './ResourceEditMode';
 import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
 import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
-import ResourceMentorResult from '~/components/molecules/ResourceManagement/ResourceMentorResult';
-import ResourceMentorSettings from '~/components/molecules/ResourceManagement/ResourceMentorSettings';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import { scrollToTop } from '~/utils/common';
 
@@ -27,16 +25,10 @@ export default function MentorResourceManagePage() {
       text: 'Tài nguyên',
       component: <ResourceMentorMain editMode={editMode} />,
     },
-    { id: 1, text: 'Cài đặt', component: <ResourceMentorSettings /> },
     {
-      id: 2,
+      id: 1,
       text: 'Ngân hàng câu hỏi',
       component: <ResourceMentorQuestionBank />,
-    },
-    {
-      id: 3,
-      text: 'Kết quả',
-      component: <ResourceMentorResult />,
     },
   ];
 
@@ -68,7 +60,7 @@ export default function MentorResourceManagePage() {
       </Stack>
       {tabEl.map((tab) => (
         <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-          {tab.component}
+          <Box py={2}>{tab.component}</Box>
         </TabPanel>
       ))}
     </Box>
