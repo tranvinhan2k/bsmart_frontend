@@ -46,6 +46,9 @@ const MentorCreateCoursePage = lazy(
 const MentorResourceManagePage = lazy(
   () => import('~/pages/MentorResourceManagePage')
 );
+const MentorQuizSettingsPage = lazy(
+  () => import('~/pages/MentorQuizSettingsPage')
+);
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 
@@ -153,6 +156,11 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[19].link}`,
     main: () => <MentorResourceManagePage />,
+    role: ['TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[20].link}`,
+    main: () => <MentorQuizSettingsPage />,
     role: ['TEACHER'],
   },
   {

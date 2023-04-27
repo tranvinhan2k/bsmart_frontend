@@ -19,6 +19,7 @@ import Icon, { IconName } from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
 import { SX_RESOURCE_TITTLE, SX_RESOURCE_ITEM_CONTAINER } from './style';
 import Resource from '~/components/molecules/ResourceMentor/Resource';
+import { NavigationActionData } from '~/constants';
 
 interface TopicProps {
   editMode: boolean;
@@ -42,6 +43,7 @@ export default function Topic({ editMode }: TopicProps) {
     id: number;
     name: string;
     iconName: IconName;
+    editLinkTo: string;
   }
   interface TopicCreatorProps {
     id: number;
@@ -50,13 +52,24 @@ export default function Topic({ editMode }: TopicProps) {
   }
 
   const resourceTmpList: ResourceProps[] = [
-    { id: 0, name: 'Thông báo 1', iconName: 'chat' },
-    { id: 1, name: 'Bài quiz 1', iconName: 'quiz' },
+    {
+      id: 0,
+      name: 'Thông báo 1',
+      iconName: 'chat',
+      editLinkTo: '',
+    },
+    {
+      id: 1,
+      name: 'Bài quiz 1',
+      iconName: 'quiz',
+      editLinkTo: `/${NavigationActionData[20].link}`,
+    },
   ];
 
   const topicCreatorList: TopicCreatorProps[] = [
     { id: 0, name: 'Thông báo', iconName: 'chat' },
     { id: 1, name: 'Quiz', iconName: 'quiz' },
+    { id: 2, name: 'Assignment', iconName: 'assignment' },
   ];
 
   return (
@@ -84,6 +97,7 @@ export default function Topic({ editMode }: TopicProps) {
               editMode={editMode}
               resourceName={resource.name}
               resourceIconName={resource.iconName}
+              editLinkTo={resource.editLinkTo}
             />
           ))}
         </Stack>

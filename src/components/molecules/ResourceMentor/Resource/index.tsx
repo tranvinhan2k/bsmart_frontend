@@ -2,22 +2,24 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton, Typography, Stack } from '@mui/material';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
-import { SX_RESOURCE_TITTLE, SX_RESOURCE_ITEM_CONTAINER } from './style';
+import { SX_RESOURCE_ITEM_CONTAINER } from './style';
 
 interface ResourceProps {
   editMode: boolean;
   resourceName: string;
   resourceIconName: IconName;
+  editLinkTo: string;
 }
 
 export default function Resource({
   editMode,
   resourceName,
   resourceIconName,
+  editLinkTo,
 }: ResourceProps) {
   const navigation = useNavigate();
   const handleEditResource = () => {
-    navigation(`edit`);
+    navigation(editLinkTo);
   };
 
   return (

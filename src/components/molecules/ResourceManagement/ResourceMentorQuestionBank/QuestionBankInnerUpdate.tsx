@@ -1,9 +1,9 @@
-import { Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import FormInput from '~/components/atoms/FormInput';
-import { validationSchemaEditMentorProfile } from '~/form/validation';
+import { Grid } from '@mui/material';
 import { defaultValueEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
+import { validationSchemaEditMentorProfile } from '~/form/validation';
+import FormInput from '~/components/atoms/FormInput';
 import Button from '~/components/atoms/Button';
 
 export default function QuestionBankInnerUpdate() {
@@ -29,6 +29,7 @@ export default function QuestionBankInnerUpdate() {
           name="type"
           variant="dropdown"
           label="Định dạng file"
+          placeholder="Chọn định dạng file"
         />
       </Grid>
       <Grid item xs={12}>

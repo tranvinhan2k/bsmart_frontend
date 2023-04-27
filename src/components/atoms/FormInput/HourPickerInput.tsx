@@ -2,7 +2,6 @@ import { TextField } from '@mui/material';
 import { UseControllerReturn } from 'react-hook-form';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TimePicker } from '@mui/x-date-pickers';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
@@ -26,6 +25,7 @@ function HourPickerInput({ controller, placeholder }: HourPickerInputProps) {
             sx={SX_TEXT_INPUT_FORM}
             {...params}
             variant="outlined"
+            size="small"
             placeholder={placeholder}
             onBlur={onBlur}
             error={invalid}

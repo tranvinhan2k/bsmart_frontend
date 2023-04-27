@@ -16,12 +16,12 @@ export default function QuestionBankInnerCreate() {
 
   const types = [
     { id: 0, value: 'Trắc nghiệm', label: 'Trắc nghiệm' },
-    { id: 1, value: 'Câu hỏi dài', label: 'Câu hỏi dài' },
+    { id: 1, value: 'Tự luận', label: 'Tự luận' },
   ];
 
   return (
     <>
-      <Typography>Chọn loại câu hỏi</Typography>
+      <Typography>Loại câu hỏi</Typography>
       <Grid container columnSpacing={2}>
         <Grid item xs={12}>
           <FormInput
@@ -29,6 +29,7 @@ export default function QuestionBankInnerCreate() {
             data={types}
             name="type"
             variant="dropdown"
+            placeholder="Chọn loại câu hỏi"
           />
         </Grid>
       </Grid>

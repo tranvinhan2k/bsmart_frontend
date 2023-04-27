@@ -18,6 +18,7 @@ import { MdPayments } from 'react-icons/md';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -41,44 +42,45 @@ import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
-  | 'google'
-  | 'search'
-  | 'down'
-  | 'up'
-  | 'keyboardArrowRight'
-  | 'calendarMonth'
-  | 'menu'
-  | 'nearMe'
-  | 'person'
-  | 'twitter'
-  | 'instagram'
-  | 'linkedin'
-  | 'dribbble'
-  | 'mail'
-  | 'phone'
+  | 'add-icon'
   | 'add'
-  | 'location'
-  | 'delete'
-  | 'close'
+  | 'assignment'
+  | 'calendarMonth'
+  | 'cart'
+  | 'chat'
   | 'check'
+  | 'close'
+  | 'delete'
+  | 'dot'
+  | 'down'
+  | 'dribbble'
+  | 'eye-off'
+  | 'eye'
   | 'facebook'
+  | 'female'
+  | 'google'
+  | 'instagram'
+  | 'keyboardArrowRight'
+  | 'linkedin'
+  | 'location'
+  | 'mail'
+  | 'male'
+  | 'menu'
+  | 'modeEdit'
+  | 'nearMe'
   | 'next'
   | 'next2'
-  | 'dot'
-  | 'male'
-  | 'female'
-  | 'previous'
-  | 'share'
-  | 'cart'
-  | 'eye'
-  | 'eye-off'
-  | 'add-icon'
-  | 'star'
   | 'payment'
-  | 'chat'
-  | 'modeEdit'
+  | 'person'
+  | 'phone'
+  | 'pinterest'
+  | 'previous'
   | 'quiz'
-  | 'pinterest';
+  | 'search'
+  | 'share'
+  | 'star'
+  | 'twitter'
+  | 'up';
 interface IconProps {
   color?: ColorKeys;
   size: IconSizeKeys;
@@ -105,6 +107,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ChatIcon sx={STYLED_ICON} />;
     case 'add':
       return <AddIcon sx={STYLED_ICON} />;
+    case 'assignment':
+      return <AssignmentIcon sx={STYLED_ICON} />;
     case 'eye':
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
     case 'delete':

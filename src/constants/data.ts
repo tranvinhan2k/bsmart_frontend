@@ -134,8 +134,15 @@ export const NavigationActionData: ActionPayload[] = [
   },
   {
     id: 19,
+    isHide: true,
     name: 'Quản lý Resource',
     link: 'mentor-resource-management',
+  },
+  {
+    id: 20,
+    isHide: true,
+    name: 'Quản lý Quiz',
+    link: 'mentor-quiz-settings',
   },
 ];
 
