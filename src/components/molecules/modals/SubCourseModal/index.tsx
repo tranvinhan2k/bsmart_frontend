@@ -49,18 +49,18 @@ export default function SubCourseModal({
             padding: MetricSize.medium_15,
             boxShadow: 3,
             borderRadius: '5px',
-            overflowY: 'scroll',
+            overflowY: 'hidden',
           }}
           key={item.id}
         >
           <Stack padding={1}>
             <IconButton sx={{ alignSelf: 'flex-end' }} onClick={onClose}>
-              <Icon name="close" size="small" color="black" />
+              <Icon name="close" size="medium" color="black" />
             </IconButton>
           </Stack>
           <Stack>
             <Grid container>
-              <Grid item md={8}>
+              <Grid item md={9}>
                 <Stack>
                   <Typography>Tên lớp học</Typography>
                   <Typography
@@ -157,7 +157,7 @@ export default function SubCourseModal({
                 <Divider sx={{ marginTop: 2 }} />
                 <SubCourseTimetable data={item.timeInWeeks} />
               </Grid>
-              <Grid item md={4}>
+              <Grid item md={3}>
                 <Box>
                   <Stack sx={{ paddingX: MetricSize.medium_15 }}>
                     <Box

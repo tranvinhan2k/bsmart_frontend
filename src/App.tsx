@@ -22,7 +22,7 @@ import localEnvironment from './utils/localEnvironment';
 import { Role } from './models/role';
 import { selectProfile, selectRole } from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
-import { useMutationProfile } from './hooks';
+import { useDispatchGetCart, useMutationProfile } from './hooks';
 import { addProfile } from './redux/user/slice';
 
 const showRoutes = (currentRole: Role | null) => {
@@ -62,13 +62,17 @@ function App() {
   const dispatch = useDispatch();
   const role = useSelector(selectRole);
   const profile = useSelector(selectProfile);
+  const { cart, handleDispatch } = useDispatchGetCart();
   const getProfileMutation = useMutationProfile();
-  const { initialized, keycloak } = useKeycloak();
+  const { keycloak } = useKeycloak();
 
   useEffect(() => {
-    function getToken() {
+    async function getToken() {
       const { token: keycloakToken } = keycloak;
-      localStorage.setItem('token', `${keycloakToken}`);
+      if (keycloakToken && !cart) {
+        localStorage.setItem('token', `${keycloakToken}`);
+        await handleDispatch();
+      }
     }
     getToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,20 +92,10 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      <ToastContainer />
       <MainLayout>
         <Routes>{showRoutes(role)}</Routes>
       </MainLayout>

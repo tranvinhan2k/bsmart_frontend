@@ -12,19 +12,18 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
-import accountApi, {
-  RequestSignInPayload,
-  ResponseProfilePayload,
-} from '~/api/users';
+import accountApi, { ResponseProfilePayload } from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
 import {
+  useDispatchGetCart,
   useMutationLogin,
   useMutationProfile,
   useYupValidationResolver,
 } from '~/hooks';
 import { Role } from '~/models/role';
+import { LoginRequestPayload } from '~/models/api/auth';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -39,7 +38,7 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
-  const { initialized, keycloak } = useKeycloak();
+  const { keycloak } = useKeycloak();
   const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
@@ -66,7 +65,7 @@ export default function LoginForm() {
   const dispatch = useDispatch();
 
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
-    const params: RequestSignInPayload = {
+    const params: LoginRequestPayload = {
       email: data.email,
       password: data.password,
     };

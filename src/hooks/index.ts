@@ -16,6 +16,7 @@ export * from './useQueryGetAllCourses';
 export * from './useQueryGetAllMentors';
 export * from './useQueryGetAllMemberCourses';
 export * from './useQueryGetAllMentorCourses';
-export * from './useQueryGetCart';
 export * from './useQueryGetAllDayInWeeks';
 export * from './useQueryGetAllSlots';
+
+export * from './useDispatchGetCart';

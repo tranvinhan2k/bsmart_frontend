@@ -37,7 +37,7 @@ const MentorProfilePage = lazy(() => import('~/pages/MentorProfilePage'));
 const MentorEditProfilePage = lazy(
   () => import('~/pages/MentorEditProfilePage')
 );
-const IntroduceMentorPage = lazy(() => import('~/pages/IntroduceMentorPage'));
+const MentorsPage = lazy(() => import('~/pages/MentorsPage'));
 const MentorCourseListPage = lazy(() => import('~/pages/MentorCourseListPage'));
 const MemberCourseListPage = lazy(() => import('~/pages/MemberCourseListPage'));
 const MentorCreateCoursePage = lazy(
@@ -129,7 +129,7 @@ const routes: RoutePayload[] = [
   },
   {
     path: `/${NavigationActionData[15].link}`,
-    main: () => <IntroduceMentorPage />,
+    main: () => <MentorsPage />,
     role: ['GUEST', 'STUDENT'],
   },
   {

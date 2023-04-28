@@ -8,7 +8,7 @@ import {
   HeaderSocialDataList,
   NavigationActionData,
 } from '~/constants';
-import { useQueryGetAllCourse, useQueryGetCart } from '~/hooks';
+import { useQueryGetAllCourse, useDispatchGetCart } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
 import { toggleAddToCart } from '~/redux/user/slice';
@@ -37,7 +37,9 @@ export default function MainNavigationSection() {
   const filterParams = useSelector(selectFilterParams);
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
-  const { cart, refetch } = useQueryGetCart();
+  const { cart, error, handleDispatch, isLoading } = useDispatchGetCart();
+  console.log(isLoading);
+
   const { courses } = useQueryGetAllCourse();
 
   // useState
@@ -99,19 +101,18 @@ export default function MainNavigationSection() {
   useEffect(() => {
     function handleRefetchCart() {
       if (isAddToCart) {
-        refetch();
         dispatch(toggleAddToCart(false));
       }
     }
 
     handleRefetchCart();
-  }, [dispatch, refetch, isAddToCart]);
+  }, [dispatch, isAddToCart]);
 
   return (
     <MainNavigation
       texts={texts}
       isOpenDrawer={isOpenDrawer}
-      cart={cart}
+      cart={cart as any}
       courses={courses?.items}
       role={role}
       filterParams={filterParams}
