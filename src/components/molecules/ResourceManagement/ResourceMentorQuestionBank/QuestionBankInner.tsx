@@ -64,21 +64,27 @@ const questionBankInners = {
   ],
 };
 
+const popoverOptions = [
+  {
+    id: 0,
+    label: 'Xem chi tiết',
+    optionFunc: () => console.log('Xem chi tiết'),
+  },
+];
+
 export default function QuestionBankInner() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const [sort, setSort] = useState('');
-
   // const { transactions } = useQueryGetTransactions({ page, size, sort });
-
   const handleNewPage = (params: number) => setPage(params);
   const handleNewSize = (params: number) => setSize(params);
-
   const isLoading = false;
 
   return (
     <DataGrid
       columns={questionBankInnerColumns}
+      density="compact"
       loading={isLoading}
       page={page}
       pageSize={size}
@@ -87,7 +93,6 @@ export default function QuestionBankInner() {
       rowCount={questionBankInners.totalItems}
       rows={questionBankInners.items}
       rowsPerPageOptions={rowsPerPageOptionsDefault}
-      // sx={SX_WALLET_DATAGRID}
       /*  */
       disableSelectionOnClick
       getRowClassName={(params) =>
@@ -96,6 +101,7 @@ export default function QuestionBankInner() {
       getRowHeight={() => 'auto'}
       onPageChange={handleNewPage}
       onPageSizeChange={handleNewSize}
+      popoverOptions={popoverOptions}
       rowHeight={rowHeightDefault}
     />
   );

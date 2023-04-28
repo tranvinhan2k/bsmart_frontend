@@ -23,7 +23,7 @@ export default function MentorQuizSetting() {
     },
     {
       id: 1,
-      text: 'Câu hỏi',
+      text: 'Câu hỏi đang dùng',
       component: <QuestionSettings />,
     },
     {
@@ -34,7 +34,7 @@ export default function MentorQuizSetting() {
   ];
 
   return (
-    <Box pr={15} pl={15}>
+    <Box pt={2} pr={15} pl={15}>
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"

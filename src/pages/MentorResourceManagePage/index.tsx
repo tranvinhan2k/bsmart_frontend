@@ -33,7 +33,7 @@ export default function MentorResourceManagePage() {
   ];
 
   return (
-    <Box pr={15} pl={15}>
+    <Box pt={2} pr={15} pl={15}>
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
