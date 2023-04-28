@@ -57,7 +57,7 @@ export default function CourseItem({
         width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
-        height: '600px',
+        height: '800px',
       }}
     >
       <Stack>
@@ -67,7 +67,7 @@ export default function CourseItem({
           sx={{
             objectFit: 'fill',
             width: '100%',
-            height: '200px',
+            height: '400px',
             borderRadius: MetricSize.small_5,
           }}
           src={image}
