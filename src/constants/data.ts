@@ -144,6 +144,18 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Quản lý Quiz',
     link: 'mentor-quiz-settings',
   },
+  {
+    id: 21,
+    isHide: true,
+    name: 'Giảng viên điểm danh',
+    link: 'mentor-take-attendance',
+  },
+  {
+    id: 22,
+    isHide: true,
+    name: 'Giảng viên điểm danh lại',
+    link: 'mentor-re-take-attendance',
+  },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [

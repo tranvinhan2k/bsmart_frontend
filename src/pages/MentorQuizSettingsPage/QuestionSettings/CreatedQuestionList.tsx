@@ -84,8 +84,9 @@ export default function CreatedQuestionList() {
   return (
     <DataGrid
       columns={questionBankInnerColumns}
-      density="compact"
       loading={isLoading}
+      onPageChange={handleNewPage}
+      onPageSizeChange={handleNewSize}
       page={page}
       pageSize={size}
       pagination
@@ -94,15 +95,15 @@ export default function CreatedQuestionList() {
       rows={questionBankInners.items}
       rowsPerPageOptions={rowsPerPageOptionsDefault}
       /*  */
+      density="compact"
       disableSelectionOnClick
       getRowClassName={(params) =>
         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
       }
       getRowHeight={() => 'auto'}
-      onPageChange={handleNewPage}
-      onPageSizeChange={handleNewSize}
       popoverOptions={popoverOptions}
       rowHeight={rowHeightDefault}
+      /*  */
     />
   );
 }

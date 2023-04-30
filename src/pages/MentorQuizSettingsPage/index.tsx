@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Tab, Tabs, Stack } from '@mui/material';
+import { Box, Tab, Tabs } from '@mui/material';
 import { scrollToTop } from '~/utils/common';
 import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
 import TabPanel from '~/components/atoms/TabPanel/index';
@@ -35,26 +35,16 @@ export default function MentorQuizSetting() {
 
   return (
     <Box pt={2} pr={15} pl={15}>
-      <Stack
-        direction={{ sm: 'column', md: 'row' }}
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={{ sm: 2, md: 0 }}
+      <Box
         sx={{ borderBottom: 1, borderColor: 'divider' }}
         pb={{ sm: 2, md: 0 }}
       >
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-        >
-          <Tabs value={tabValue} onChange={handleSetTabValue}>
-            {tabEl.map((tab) => (
-              <Tab label={tab.text} key={tab.id} />
-            ))}
-          </Tabs>
-        </Stack>
-      </Stack>
+        <Tabs value={tabValue} onChange={handleSetTabValue}>
+          {tabEl.map((tab) => (
+            <Tab label={tab.text} key={tab.id} />
+          ))}
+        </Tabs>
+      </Box>
       {tabEl.map((tab) => (
         <TabPanel value={tabValue} index={tab.id} key={tab.id}>
           <Box py={2}>{tab.component}</Box>

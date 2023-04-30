@@ -67,6 +67,8 @@ export default function WalletManagementSection() {
           <DataGrid
             columns={transactionColumns}
             loading={isLoading}
+            onPageChange={handleNewPage}
+            onPageSizeChange={handleNewSize}
             page={page}
             pageSize={size}
             pagination
@@ -74,16 +76,16 @@ export default function WalletManagementSection() {
             rowCount={transactions.totalItems}
             rows={transactions.items}
             rowsPerPageOptions={rowsPerPageOptionsDefault}
-            sx={SX_WALLET_DATAGRID}
             /*  */
+            density="compact"
             disableSelectionOnClick
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
             }
             getRowHeight={() => 'auto'}
-            onPageChange={handleNewPage}
-            onPageSizeChange={handleNewSize}
             rowHeight={rowHeightDefault}
+            /*  */
+            sx={SX_WALLET_DATAGRID}
           />
         )}
         {!transactions && (
