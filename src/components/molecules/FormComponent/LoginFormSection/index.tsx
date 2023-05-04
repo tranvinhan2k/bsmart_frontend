@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { useKeycloak } from '@react-keycloak/web';
-import { signIn } from '~/redux/user/slice';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import { SIGN_IN_FIELDS } from '~/form/schema';
@@ -12,12 +11,10 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
-import accountApi, { ResponseProfilePayload } from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
 import {
-  useDispatchGetCart,
   useMutationLogin,
   useMutationProfile,
   useYupValidationResolver,

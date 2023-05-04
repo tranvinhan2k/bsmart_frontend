@@ -11,7 +11,7 @@ import keycloakConfig from '~/utils/keycloak';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
-import routes from '~/routes';
+import routes, { adminRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 // css
@@ -29,6 +29,11 @@ const showRoutes = (currentRole: Role | null) => {
   let result = null;
 
   if (routes.length > 0) {
+    if (currentRole === 'ADMIN') {
+      result = adminRoutes.map((route: RoutePayload) => (
+        <Route key={route.path} path={route.path} element={<AuthorizePage />} />
+      ));
+    }
     result = routes.map((route: RoutePayload) => {
       if (route.role.length === 0) {
         return (
