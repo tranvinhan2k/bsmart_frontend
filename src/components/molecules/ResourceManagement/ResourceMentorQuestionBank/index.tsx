@@ -28,7 +28,11 @@ export default function ResourceMentorQuestionBank() {
         sx={{ borderBottom: 1, borderColor: 'divider' }}
         pb={{ sm: 2, md: 0 }}
       >
-        <Tabs value={tabValue} onChange={handleSetTabValue}>
+        <Tabs
+          variant="scrollable"
+          value={tabValue}
+          onChange={handleSetTabValue}
+        >
           {tabEl.map((tab) => (
             <Tab label={tab.text} key={tab.id} />
           ))}

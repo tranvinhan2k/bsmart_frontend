@@ -1,12 +1,10 @@
-import { Box, Tab, Tabs, Stack } from '@mui/material';
+import { Box, Tab, Tabs, Typography, Stack } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
-import ResourceEditMode from './ResourceEditMode';
-import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
-import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
-import TabPanel from '~/components/atoms/TabPanel/index';
 import { scrollToTop } from '~/utils/common';
+import ProcessRegisterRequest from '~/components/molecules/ProcessRegisterRequest';
+import TabPanel from '~/components/atoms/TabPanel/index';
 
-export default function MentorResourceManagePage() {
+export default function AdminApproveRegisterPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -22,18 +20,41 @@ export default function MentorResourceManagePage() {
   const tabEl = [
     {
       id: 0,
-      text: 'Tài nguyên',
-      component: <ResourceMentorMain editMode={editMode} />,
+      text: 'Đang chờ duyệt',
+      component: <ProcessRegisterRequest />,
     },
     {
       id: 1,
-      text: 'Ngân hàng câu hỏi',
-      component: <ResourceMentorQuestionBank />,
+      text: 'Đã phê duyệt',
+      component: <ProcessRegisterRequest />,
+    },
+    {
+      id: 2,
+      text: 'Đã yêu cầu chỉnh sửa',
+      component: <ProcessRegisterRequest />,
+    },
+    {
+      id: 3,
+      text: 'Đã từ chối',
+      component: <ProcessRegisterRequest />,
     },
   ];
 
   return (
-    <Box pt={2} pr={15} pl={15}>
+    <Box pt={2} pr={15} pl={15} pb={2}>
+      <Box pb={2}>
+        <Typography
+          sx={{
+            fontSize: '1.625rem',
+            fontWeight: 500,
+            lineHeight: 1,
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          Yêu cầu tạo tài khoản giáo viên
+        </Typography>
+      </Box>
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
@@ -57,10 +78,6 @@ export default function MentorResourceManagePage() {
             ))}
           </Tabs>
         </Stack>
-        <ResourceEditMode
-          editMode={editMode}
-          handleSetEditMode={handleSetEditMode}
-        />
       </Stack>
       {tabEl.map((tab) => (
         <TabPanel value={tabValue} index={tab.id} key={tab.id}>

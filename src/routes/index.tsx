@@ -49,6 +49,12 @@ const MentorTakeAttendancePage = lazy(
 const MentorReTakeAttendancePage = lazy(
   () => import('~/pages/MentorReTakeAttendancePage')
 );
+const AdminApproveRegisterPage = lazy(
+  () => import('~/pages/AdminApproveRegisterPage')
+);
+const MentorRegisterRequestDetailsPage = lazy(
+  () => import('~/pages/MentorRegisterRequestDetailsPage')
+);
 const MentorResourceManagePage = lazy(
   () => import('~/pages/MentorResourceManagePage')
 );
@@ -178,6 +184,16 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[22].link}`,
     main: () => <MentorReTakeAttendancePage />,
     role: ['TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[23].link}`,
+    main: () => <AdminApproveRegisterPage />,
+    role: [],
+  },
+  {
+    path: `/${NavigationActionData[24].link}`,
+    main: () => <MentorRegisterRequestDetailsPage />,
+    role: [],
   },
   {
     path: '*',
