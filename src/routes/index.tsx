@@ -55,6 +55,12 @@ const AdminApproveRegisterPage = lazy(
 const MentorRegisterRequestDetailsPage = lazy(
   () => import('~/pages/MentorRegisterRequestDetailsPage')
 );
+const AdminProcessCourseCreateRequestPage = lazy(
+  () => import('~/pages/AdminProcessCourseCreateRequestPage')
+);
+const MentorProcessCourseCreateRequestDetailsPage = lazy(
+  () => import('~/pages/AdminProcessCourseCreateRequestDetailsPage')
+);
 const MentorResourceManagePage = lazy(
   () => import('~/pages/MentorResourceManagePage')
 );
@@ -193,6 +199,16 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[24].link}`,
     main: () => <MentorRegisterRequestDetailsPage />,
+    role: [],
+  },
+  {
+    path: `/${NavigationActionData[25].link}`,
+    main: () => <AdminProcessCourseCreateRequestPage />,
+    role: [],
+  },
+  {
+    path: `/${NavigationActionData[26].link}`,
+    main: () => <MentorProcessCourseCreateRequestDetailsPage />,
     role: [],
   },
   {

@@ -168,6 +168,18 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Admin phê duyệt tạo tài khoản',
     link: 'admin-register-approve/:id',
   },
+  {
+    id: 25,
+    isHide: true,
+    name: 'Danh sách khóa học cần phê duyệt',
+    link: 'admin-create-course-request-approve',
+  },
+  {
+    id: 26,
+    isHide: true,
+    name: 'Admin phê duyệt tạo tài khoản',
+    link: 'admin-create-course-request-approve/:id',
+  },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [

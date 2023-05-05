@@ -1,10 +1,10 @@
 import { Box, Tab, Tabs, Typography, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { scrollToTop } from '~/utils/common';
-import ProcessRegisterRequest from '~/components/molecules/ProcessRegisterRequest';
+import ProcessCourseCreateRequest from '~/components/molecules/ProcessCourseCreateRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
-export default function AdminApproveRegisterPage() {
+export default function AdminProcessCourseCreateRequestPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -16,22 +16,22 @@ export default function AdminApproveRegisterPage() {
     {
       id: 0,
       text: 'Đang chờ duyệt',
-      component: <ProcessRegisterRequest />,
+      component: <ProcessCourseCreateRequest />,
     },
     {
       id: 1,
       text: 'Đã phê duyệt',
-      component: <ProcessRegisterRequest />,
+      component: <ProcessCourseCreateRequest />,
     },
     {
       id: 2,
       text: 'Đã yêu cầu chỉnh sửa',
-      component: <ProcessRegisterRequest />,
+      component: <ProcessCourseCreateRequest />,
     },
     {
       id: 3,
       text: 'Đã từ chối',
-      component: <ProcessRegisterRequest />,
+      component: <ProcessCourseCreateRequest />,
     },
   ];
 
@@ -47,7 +47,7 @@ export default function AdminApproveRegisterPage() {
             padding: 0,
           }}
         >
-          Yêu cầu tạo tài khoản giáo viên
+          Yêu cầu tạo lớp của giáo viên
         </Typography>
       </Box>
       <Stack
