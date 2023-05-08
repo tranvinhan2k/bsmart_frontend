@@ -1,22 +1,26 @@
-import { Box, Divider, Typography } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
+import { Box, Divider, Typography } from '@mui/material';
 import { defaultValueEditSocialProfile } from '~/form/defaultValues';
 import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
-import {
-  EditSocialProfileFormDataPayload,
-  FormInputVariant,
-} from '~/models/form';
+import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
+import { EditSocialProfileFormDefault, FormInputVariant } from '~/models/form';
 import { RootState } from '~/redux/store';
+import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
-import accountApi, { EditSocialProfilePayload } from '~/api/users';
+import accountApi from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
-import { useYupValidationResolver } from '~/hooks';
+
+const toastMsgLoading = 'Đang cập nhật ...';
+const toastMsgSuccess = 'Cập nhật thành công ...';
+const toastMsgError = (error: any): string => {
+  return `Cập nhật không thành công: ${error.message}`;
+};
 
 export default function EditSocialProfileForm() {
   const resolverEditSocialProfile = useYupValidationResolver(
@@ -30,22 +34,17 @@ export default function EditSocialProfileForm() {
     mutationFn: accountApi.editSocialProfile,
   });
 
-  const handleSubmitSuccess = async (
-    data: EditSocialProfileFormDataPayload
-  ) => {
+  const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {};
     if (data.facebookLink) params.facebookLink = data.facebookLink;
     if (data.twitterLink) params.twitterLink = data.twitterLink;
     if (data.instagramLink) params.instagramLink = data.instagramLink;
-    const id = toast.loadToast('Đang cập nhật ...');
+    const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditSocialProfile(params);
-      toast.updateSuccessToast(id, 'Cập nhật thành công');
+      toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Cập nhật không thành công: ${error.message}`
-      );
+      toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
 
@@ -84,40 +83,23 @@ export default function EditSocialProfileForm() {
     }
   }, [dataGetProfile, reset]);
 
-  const EDIT_SOCIAL_PROFILE_FORM_TEXT = {
-    TITLE: 'Liên kết mạng xã hội',
-    FACEBOOK_LINK: {
-      LABEL: 'Facebook',
-      PLACEHOLDER: 'Nhập link Facebook',
-    },
-    TWITTER_LINK: {
-      LABEL: 'Twitter',
-      PLACEHOLDER: 'Nhập link Twitter',
-    },
-    INSTAGRAM_LINK: {
-      LABEL: 'Instagram',
-      PLACEHOLDER: 'Nhập link Instagram',
-    },
-    BUTTON_TEXT: 'Cập nhật',
-  };
-
   const formFieldsSocial: FormFieldsSocialProps[] = [
     {
       name: EDIT_SOCIAL_PROFILE_FIELDS.facebookLink,
-      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.FACEBOOK_LINK.LABEL,
-      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.FACEBOOK_LINK.PLACEHOLDER,
+      label: 'Facebook',
+      placeholder: 'Nhập link Facebook',
       variant: 'text',
     },
     {
       name: EDIT_SOCIAL_PROFILE_FIELDS.twitterLink,
-      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.TWITTER_LINK.LABEL,
-      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.TWITTER_LINK.PLACEHOLDER,
+      label: 'Twitter',
+      placeholder: 'Nhập link Twitter',
       variant: 'text',
     },
     {
       name: EDIT_SOCIAL_PROFILE_FIELDS.instagramLink,
-      label: EDIT_SOCIAL_PROFILE_FORM_TEXT.INSTAGRAM_LINK.LABEL,
-      placeholder: EDIT_SOCIAL_PROFILE_FORM_TEXT.INSTAGRAM_LINK.PLACEHOLDER,
+      label: 'Instagram',
+      placeholder: 'Nhập link Instagram',
       variant: 'text',
     },
   ];
@@ -125,7 +107,7 @@ export default function EditSocialProfileForm() {
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
-        {EDIT_SOCIAL_PROFILE_FORM_TEXT.TITLE}
+        Liên kết mạng xã hội
       </Typography>
       <Divider sx={{ marginY: 2 }} />
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
@@ -142,7 +124,7 @@ export default function EditSocialProfileForm() {
         ))}
         <Box mt={4}>
           <Button customVariant="normal" type="submit">
-            {EDIT_SOCIAL_PROFILE_FORM_TEXT.BUTTON_TEXT}
+            Cập nhật
           </Button>
         </Box>
       </form>

@@ -1,8 +1,10 @@
 import axiosClient from '~/api/axiosClient';
-import { MentorPayload } from '~/models/mentor';
 import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import { ProfileImgType } from '~/constants/profile';
+import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
+import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -18,11 +20,6 @@ export interface RequestSignInPayload {
   email: string;
   password: string;
 }
-
-export interface EditAccountProfilePayload {
-  oldPassword: string;
-  newPassword: string;
-}
 export interface EditCertificateProfilePayload {
   certificates: { file: string | Blob }[];
 }
@@ -34,21 +31,10 @@ export interface EditImageProfilePayload {
     | ProfileImgType.BACKCI;
 }
 
-export interface EditPersonalProfilePayload {
-  fullName: string;
-  birthday: Date | '';
-  address: string;
-  phone: string;
-}
 export interface EditMentorProfilePayload {
   introduce: string;
   mentorSkills: Array<any>;
   workingExperience: string;
-}
-export interface EditSocialProfilePayload {
-  twitterLink?: string;
-  facebookLink?: string;
-  instagramLink?: string;
 }
 
 export interface ResponseProfilePayload {
@@ -122,15 +108,6 @@ export interface UserResponsePayload {
   };
 }
 
-function handleGetMentor(data: UserResponsePayload) {
-  const result: any = {
-    id: data.id,
-    avatar: data.userImages?.[0]?.url,
-    name: data.fullName,
-  };
-  return result;
-}
-
 const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
@@ -148,7 +125,7 @@ const accountApi = {
     return axiosClient.get(`${url}/profile`);
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/account`, data);
+    return axiosClient.put(`${url}/password`, data);
   },
   async editImageProfile(data: EditImageProfilePayload): Promise<any> {
     const bodyFormData = new FormData();

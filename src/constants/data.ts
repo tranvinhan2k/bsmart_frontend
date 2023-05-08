@@ -177,7 +177,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 26,
     isHide: true,
-    name: 'Admin phê duyệt tạo tài khoản',
+    name: 'Admin phê duyệt tạo khóa học',
     link: 'admin-create-course-request-approve/:id',
   },
 ];

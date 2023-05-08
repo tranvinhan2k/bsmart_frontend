@@ -8,8 +8,10 @@ export const CONFIRM_PASSWORD_REQUIRED =
 export const CONFIRM_PASSWORD_NOT_MATCH =
   'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
 // information validate
-export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
 export const NAME_REQUIRED = 'Họ và tên không được để trống.';
+export const BIRTHDAY_REQUIRED = 'Ngày sinh không được để trống.';
+export const ADDRESS_REQUIRED = 'Địa chỉ không được để trống.';
+export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
 
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const EMAIL_REQUIRED = 'Email không được để trống.';
