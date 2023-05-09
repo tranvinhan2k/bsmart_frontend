@@ -127,7 +127,7 @@ export const defaultValueCreateSubCourse = {
   endDateExpected: '',
   description: '',
   subCourseTile: '',
-  numberOfSlot: '',
+  numberOfSlot: 0,
   timeInWeekRequests: [],
 };
 
