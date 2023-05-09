@@ -1,13 +1,11 @@
 import { ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { ReactKeycloakProvider, useKeycloak } from '@react-keycloak/web';
 
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React, { Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import keycloakConfig from '~/utils/keycloak';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
@@ -67,21 +65,7 @@ function App() {
   const dispatch = useDispatch();
   const role = useSelector(selectRole);
   const profile = useSelector(selectProfile);
-  const { cart, handleDispatch } = useDispatchGetCart();
   const getProfileMutation = useMutationProfile();
-  const { keycloak } = useKeycloak();
-
-  useEffect(() => {
-    async function getToken() {
-      const { token: keycloakToken } = keycloak;
-      if (keycloakToken && !cart) {
-        localStorage.setItem('token', `${keycloakToken}`);
-        await handleDispatch();
-      }
-    }
-    getToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keycloak.authenticated]);
 
   useEffect(() => {
     async function getProfile() {
@@ -112,21 +96,19 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <ReactKeycloakProvider authClient={keycloakConfig}>
-      <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <ThemeProvider theme={defaultTheme}>
-              <BrowserRouter>
-                <React.StrictMode>
-                  <App />
-                </React.StrictMode>
-              </BrowserRouter>
-            </ThemeProvider>
-          </Provider>
-        </QueryClientProvider>
-      </GoogleOAuthProvider>
-    </ReactKeycloakProvider>
+    <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <ThemeProvider theme={defaultTheme}>
+            <BrowserRouter>
+              <React.StrictMode>
+                <App />
+              </React.StrictMode>
+            </BrowserRouter>
+          </ThemeProvider>
+        </Provider>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   );
 }
 
