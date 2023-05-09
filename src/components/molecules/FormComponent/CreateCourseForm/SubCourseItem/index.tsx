@@ -1,5 +1,6 @@
 import { Grid, Stack, Box, Typography } from '@mui/material';
 import { useState } from 'react';
+import { Color } from '~/assets/variables';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import Icon from '~/components/atoms/Icon';
 import TextLine from '~/components/atoms/TextLine';
@@ -22,33 +23,34 @@ export default function SubCourseItem({
   const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
 
   function handleDelete() {
-    setOpenDialog(!isOpenDialog);
+    // setOpenDialog(!isOpenDialog);
+    onDelete(id);
   }
 
-  const handleConfirm = () => {
-    onDelete(id);
-    setOpenDialog(!isOpenDialog);
-  };
-  const handleCancel = () => {
-    setOpenDialog(!isOpenDialog);
-  };
+  // const handleConfirm = () => {
+  //   onDelete(id);
+  //   setOpenDialog(!isOpenDialog);
+  // };
+  // const handleCancel = () => {
+  //   setOpenDialog(!isOpenDialog);
+  // };
 
   return (
     <Grid item xs={12}>
-      <ConfirmDialog
+      {/* <ConfirmDialog
         open={isOpenDialog}
         title="Xác nhận xóa khóa học phụ"
         content="Bạn có chắc xóa khóa học này ?"
         handleAccept={handleConfirm}
         handleClose={handleCancel}
-      />
+      /> */}
       <Stack sx={{ position: 'relative' }}>
         <Stack
           onClick={() => handleDelete()}
           sx={{
             opacity: 0,
             borderRadius: '10px',
-            background: '#ff4300AA',
+            background: `${Color.orange}AA`,
             position: 'absolute',
             top: 0,
             left: 0,
@@ -65,7 +67,7 @@ export default function SubCourseItem({
             },
           }}
         >
-          <Icon name="delete" size="ex_large" color="white" />
+          <Icon name="edit" size="ex_large" color="white" />
         </Stack>
         <Grid
           container

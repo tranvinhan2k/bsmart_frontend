@@ -1,4 +1,3 @@
-import { useKeycloak } from '@react-keycloak/web';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +27,6 @@ export default function MainHeaderSection() {
 
   const [isLoginModalVisisble, setLoginModalVisisble] =
     useState<boolean>(false);
-  const { initialized, keycloak } = useKeycloak();
 
   const handleSearchValue = (searchValue: string) => {
     dispatch(
@@ -49,38 +47,10 @@ export default function MainHeaderSection() {
   const handleTriggerLoginModal = () => {
     setLoginModalVisisble(!isLoginModalVisisble);
   };
-  const handleLoginKeycloak = async () => {
-    await keycloak.login();
-  };
 
   const handleNavigateRegister = () => {
     navigate(AuthorizationActionData[1].link);
   };
-
-  useEffect(() => {
-    async function getProfile() {
-      console.log('token');
-
-      const { token: keycloakToken } = keycloak;
-      localStorage.setItem('token', `${keycloakToken}`);
-
-      const responseProfile = await getProfileMutation.mutateAsync();
-      localStorage.setItem('roles', responseProfile.roles[0].code);
-
-      const requestProfile: {
-        token: string;
-        roles: Role;
-        profile: ResponseProfilePayload;
-      } = {
-        token: `${keycloakToken}`,
-        roles: responseProfile.roles[0].code as Role,
-        profile: responseProfile,
-      };
-      dispatch(signIn(requestProfile));
-    }
-    getProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keycloak]);
 
   return (
     <>
@@ -90,7 +60,7 @@ export default function MainHeaderSection() {
         socials={HeaderSocialDataList}
         contracts={HeaderContractDataList}
         onSearchText={handleSearchValue}
-        onLoginClick={handleLoginKeycloak}
+        onLoginClick={handleTriggerLoginModal}
         onRegisterClick={handleNavigateRegister}
       />
       {!token && (

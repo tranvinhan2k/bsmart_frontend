@@ -79,6 +79,7 @@ export default function CreateCourseForm() {
   const [subCourses, setSubCourses] = useState<SubCoursePayload[]>([]);
   const { subjects } = useQueryGetAllSubjects();
   const { categories } = useQueryGetAllCategories();
+  const [editIndex, setEditIndex] = useState(-1);
   const createCourseMutation = useMutationCreateCourse();
   const uploadImageMutation = useMutationUploadImage();
 
@@ -102,7 +103,9 @@ export default function CreateCourseForm() {
   };
 
   const handleDelete = (id: number) => {
-    setSubCourses(subCourses.filter((_, index) => index !== id));
+    createSubCourseHookForm.reset(subCourses.find((_, index) => index === id));
+    setEditIndex(id);
+    // setSubCourses(subCourses.filter((_, index) => index !== id));
   };
 
   async function onSubmitSuccess(data: any) {
@@ -125,20 +128,37 @@ export default function CreateCourseForm() {
   }
 
   const onSubmitSubCourse = async (data: any) => {
-    setOpen(!open);
     const formData = new FormData();
     formData.append('type', 'COURSE');
     formData.append('file', data.imageId);
     const imageResponse = await uploadImageMutation.mutateAsync(formData);
-    setSubCourses([
-      ...subCourses,
-      {
-        ...data,
-        subjectId: data.subjectId?.id,
-        imageId: imageResponse.id,
-        type: data.type?.id,
-      },
-    ]);
+    if (editIndex === -1) {
+      setSubCourses([
+        ...subCourses,
+        {
+          ...data,
+          subjectId: data.subjectId?.id,
+          imageId: imageResponse.id,
+          type: data.type?.id,
+        },
+      ]);
+      createSubCourseHookForm.reset();
+      setOpen(!open);
+    } else {
+      const tmpSubCourses = subCourses.map((item, index) => {
+        if (index === editIndex) {
+          return {
+            ...data,
+            subjectId: data.subjectId?.id,
+            imageId: imageResponse.id,
+            type: data.type?.id,
+          };
+        }
+        return item;
+      });
+      setSubCourses(tmpSubCourses);
+      setEditIndex(-1);
+    }
   };
   if (!categories && !subjects) return null;
   return (
@@ -169,13 +189,6 @@ export default function CreateCourseForm() {
               name={CREATE_COURSE_FIELDS.categoryId}
               control={createCourseHookForm.control}
               label="Lĩnh Vực"
-            />
-            <FormInput
-              data={subjects}
-              variant="dropdown"
-              name={CREATE_COURSE_FIELDS.subjectId}
-              control={createCourseHookForm.control}
-              label="Ngôn ngữ lập trình"
             />
             <FormInput
               name={CREATE_COURSE_FIELDS.description}
@@ -264,7 +277,7 @@ export default function CreateCourseForm() {
                       fontSize: FontSize.large_45,
                     }}
                   >
-                    Tạo khóa học phụ mới
+                    Tạo giờ học mới
                   </Typography>
                   <FormInput
                     variant="text"
@@ -347,7 +360,134 @@ export default function CreateCourseForm() {
                     )}
                     customVariant="normal"
                   >
-                    Tạo khóa học phụ
+                    Tạo giờ học
+                  </Button>
+                </Stack>
+              </Modal>
+              <Modal
+                sx={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  display: 'flex',
+                  borderRadius: '10px',
+                  boxShadow: 3,
+                }}
+                open={editIndex !== -1}
+                onClose={() => {
+                  setEditIndex(-1);
+                }}
+              >
+                <Stack
+                  sx={{
+                    background: 'white',
+                    width: { sx: '100%', md: '50vw' },
+                    padding: '20px',
+                    height: '90vh',
+                    alignSelf: 'center',
+                    overflowY: 'scroll',
+                  }}
+                >
+                  <Stack>
+                    <IconButton
+                      sx={{ alignSelf: 'flex-end' }}
+                      onClick={() => {
+                        setEditIndex(-1);
+                      }}
+                    >
+                      <Icon name="close" color="black" size="medium" />
+                    </IconButton>
+                  </Stack>
+                  <Typography
+                    sx={{
+                      textAlign: 'center',
+                      fontFamily: FontFamily.bold,
+                      fontSize: FontSize.large_45,
+                    }}
+                  >
+                    Cập nhật giờ học
+                  </Typography>
+                  <FormInput
+                    variant="text"
+                    name={CREATE_SUB_COURSE_FIELDS.subCourseTile}
+                    control={createSubCourseHookForm.control}
+                    label="Tên khóa học phụ"
+                  />
+                  <FormInput
+                    variant="date"
+                    name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
+                    control={createSubCourseHookForm.control}
+                    label="Ngày mở lớp dự kiến"
+                  />
+                  <FormInput
+                    variant="date"
+                    name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
+                    control={createSubCourseHookForm.control}
+                    label="Ngày kết thúc dự kiến"
+                  />
+                  <FormInput
+                    variant="number"
+                    name={CREATE_SUB_COURSE_FIELDS.price}
+                    control={createSubCourseHookForm.control}
+                    label="Giá khóa học"
+                  />
+                  <FormInput
+                    variant="number"
+                    name={CREATE_SUB_COURSE_FIELDS.minStudent}
+                    control={createSubCourseHookForm.control}
+                    label="Số học sinh tối thiểu"
+                  />
+                  <FormInput
+                    variant="number"
+                    name={CREATE_SUB_COURSE_FIELDS.maxStudent}
+                    control={createSubCourseHookForm.control}
+                    label="Số học sinh tối đa"
+                  />
+                  <FormInput
+                    data={mockLevelData}
+                    variant="radioGroup"
+                    name={CREATE_SUB_COURSE_FIELDS.level}
+                    control={createSubCourseHookForm.control}
+                    label="Trình độ"
+                  />
+                  <FormInput
+                    variant="image"
+                    name={CREATE_SUB_COURSE_FIELDS.imageId}
+                    control={createSubCourseHookForm.control}
+                    label="Hình ảnh"
+                  />
+                  <FormInput
+                    data={subjects}
+                    variant="dropdown"
+                    name={CREATE_SUB_COURSE_FIELDS.subjectId}
+                    control={createSubCourseHookForm.control}
+                    label="Ngôn ngữ lập trình"
+                  />
+                  <FormInput
+                    data={typeData}
+                    variant="dropdown"
+                    name={CREATE_SUB_COURSE_FIELDS.type}
+                    control={createSubCourseHookForm.control}
+                    label="Hình thức khóa học"
+                  />
+                  <FormInput
+                    name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
+                    variant="number"
+                    control={createSubCourseHookForm.control}
+                    label="Số buổi học"
+                  />
+                  <FormInput
+                    name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
+                    variant="timetable"
+                    control={createSubCourseHookForm.control}
+                    label="Thời khóa biểu"
+                  />
+                  <Button
+                    onClick={createSubCourseHookForm.handleSubmit(
+                      onSubmitSubCourse
+                    )}
+                    customVariant="normal"
+                  >
+                    Cập nhật giờ học
                   </Button>
                 </Stack>
               </Modal>
