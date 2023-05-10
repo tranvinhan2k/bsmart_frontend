@@ -8,6 +8,7 @@ export * from './useMutationProfile';
 export * from './useMutationAddCourseToCart';
 
 export * from './useQueryGetAllCategories';
+export * from './useQueryGetImage';
 export * from './useQueryGetAllSubjects';
 export * from './useQueryGetCourseDetailByCourseId';
 export * from './useQueryGetSubCourseByCourseId';

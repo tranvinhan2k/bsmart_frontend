@@ -2,7 +2,7 @@ import { ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import React, { Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -48,13 +48,28 @@ const showRoutes = (currentRole: Role | null) => {
           <Route key={route.path} path={route.path} element={route?.main()} />
         );
       }
-      return (
-        <Route key={route.path} path={route.path} element={<AuthorizePage />} />
-      );
+      if (currentRole === 'STUDENT' || currentRole === 'TEACHER') {
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<Navigate to="/homepage" />}
+          />
+        );
+      }
+      if (currentRole === 'GUEST') {
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<AuthorizePage />}
+          />
+        );
+      }
 
-      // return (
-      //   <Route key={route.path} path={route.path} element={route?.main()} />
-      // );
+      return (
+        <Route key={route.path} path={route.path} element={route?.main()} />
+      );
     });
   }
 

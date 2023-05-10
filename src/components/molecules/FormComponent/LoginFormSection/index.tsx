@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import { SIGN_IN_FIELDS } from '~/form/schema';
@@ -58,6 +59,7 @@ export default function LoginForm() {
 
   /* Login with be swagger */
   const { mutateAsync } = useMutationLogin();
+  const navigate = useNavigate();
   const getProfileMutation = useMutationProfile();
   const dispatch = useDispatch();
 
@@ -96,6 +98,7 @@ export default function LoginForm() {
       }
       signInHookForm.reset();
       toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+      navigate('/homepage');
     } catch (error: any) {
       toast.updateFailedToast(
         id,

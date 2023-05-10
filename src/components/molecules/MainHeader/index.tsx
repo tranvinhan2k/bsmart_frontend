@@ -13,7 +13,7 @@ import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
 import { image } from '~/constants/image';
 import { selectFilterParams } from '~/redux/courses/selector';
-import { delay } from '~/utils/common';
+import toast from '~/utils/toast';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -63,6 +63,8 @@ export default function MainHeader({
     localStorage.removeItem('roles');
     dispatch(logOut());
     handleClose();
+    navigate('/homepage');
+    toast.notifySuccessToast('Đăng xuất thành công');
   };
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

@@ -166,14 +166,14 @@ export const validationSchemaCreateCourse = object({
   categoryId: object()
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
-  subjectId: object()
-    .typeError('Ngôn ngữ không hợp lệ')
-    .required(COURSE_LANGUAGE_REQUIRED),
   description: string().required(COURSE_DESCRIPTION),
 });
 export const validationSchemaCreateSubCourse = object({
   subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number().required('Số lượng học sinh không được để trống'),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')

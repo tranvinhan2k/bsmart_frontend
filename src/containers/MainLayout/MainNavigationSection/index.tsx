@@ -36,7 +36,6 @@ export default function MainNavigationSection() {
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
   const { cart, error, handleDispatch, isLoading } = useDispatchGetCart();
-  console.log(isLoading);
 
   const { courses } = useQueryGetAllCourse();
 

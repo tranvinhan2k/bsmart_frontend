@@ -6,6 +6,7 @@ import Icon from '~/components/atoms/Icon';
 import TextLine from '~/components/atoms/TextLine';
 import { image } from '~/constants/image';
 import { LEVEL_LABELS } from '~/constants/level';
+import { useQueryGetImage } from '~/hooks';
 import { SubCoursePayload } from '~/models/subCourse';
 import { formatDate } from '~/utils/date';
 
@@ -21,6 +22,8 @@ export default function SubCourseItem({
   onDelete,
 }: SubCourseItemProps) {
   const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
+
+  console.log(subCourse.level);
 
   function handleDelete() {
     // setOpenDialog(!isOpenDialog);
@@ -80,7 +83,11 @@ export default function SubCourseItem({
           <Grid item xs={12} md={2} padding={1}>
             <Box
               component="img"
-              src={image.noCourse}
+              src={
+                subCourse.imageId
+                  ? URL.createObjectURL(subCourse.imageId as any)
+                  : ''
+              }
               alt="course"
               sx={{ objectFit: 'contain', width: '100%' }}
             />
@@ -89,7 +96,10 @@ export default function SubCourseItem({
             <Typography>Thông tin khóa học</Typography>
             {[
               { label: 'Tên khóa học phụ', variable: subCourse.subCourseTile },
-              { label: 'Trình độ', variable: LEVEL_LABELS[subCourse.level] },
+              {
+                label: 'Trình độ',
+                variable: LEVEL_LABELS[subCourse.level.toUpperCase() as any],
+              },
               {
                 label: 'Ngày bắt đầu dự kiến',
                 variable: formatDate(subCourse.startDateExpected),
@@ -115,9 +125,9 @@ export default function SubCourseItem({
             <Typography>Thông tin giờ học</Typography>
             {subCourse.timeInWeekRequests.map((item, index) => (
               <TextLine
-                key={item.dayOfWeekId}
+                key={`${item.dayInWeek.id} ${item.slot.id}`}
                 label={`Giờ học thứ ${index + 1}`}
-                variable={`${item.slotId} - ${item.dayOfWeekId}`}
+                variable={`${item.slot.label} - ${item.dayInWeek.label}`}
               />
             ))}
           </Grid>

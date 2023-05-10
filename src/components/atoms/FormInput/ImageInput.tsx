@@ -10,29 +10,29 @@ interface ImageInputProps {
   placeholder: string;
 }
 function ImageInput({ controller, placeholder }: ImageInputProps) {
-  const [file, setFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('');
-  const [error, setError] = useState<string | null>(null);
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error: fieldError },
   } = controller;
+
+  const [previewUrl, setPreviewUrl] = useState(
+    value ? URL.createObjectURL(value) : ''
+  );
+  const [error, setError] = useState<string | null>(null);
+
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('image')) {
-      setFile(selectedFile);
       setError(null);
       setPreviewUrl(URL.createObjectURL(selectedFile));
       onChange(selectedFile);
     } else {
-      setFile(null);
       setError('Xin hãy chọn lại định dạng ảnh phù hợp (JPEG, PNG, or GIF)');
       onChange(null);
     }
   };
 
   const handleDeleteClick = () => {
-    setFile(null);
     setPreviewUrl('');
     setError(null);
     onChange(null);

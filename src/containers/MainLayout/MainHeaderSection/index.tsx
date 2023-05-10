@@ -52,6 +52,12 @@ export default function MainHeaderSection() {
     navigate(AuthorizationActionData[1].link);
   };
 
+  useEffect(() => {
+    if (token) {
+      setLoginModalVisisble(false);
+    }
+  }, [token]);
+
   return (
     <>
       <MainHeader

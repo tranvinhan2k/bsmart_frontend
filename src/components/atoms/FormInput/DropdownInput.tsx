@@ -20,7 +20,6 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
   const onChange: any = (e: any, newValue: OptionPayload) => {
     controllerOnChange(newValue);
   };
-  console.log(value);
 
   return (
     <Autocomplete
@@ -30,13 +29,6 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
       fullWidth
       size="small"
       isOptionEqualToValue={(option, optionValue) => {
-        console.log(
-          option,
-          optionValue,
-          option.id === optionValue.id ||
-            option.id === (optionValue as unknown as number)
-        );
-
         return (
           option.id === optionValue.id || option.id === (optionValue as number)
         );
