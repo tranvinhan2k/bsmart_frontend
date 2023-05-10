@@ -42,7 +42,6 @@ export default function SearchBar({
         flexDirection: 'row',
         alignItems: 'center',
         flexGrow: 1,
-        paddingX: MetricSize.medium_15,
       }}
     >
       <TextField

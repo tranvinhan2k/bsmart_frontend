@@ -2,7 +2,7 @@ import { SxProps, Theme } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 const view: SxProps<Theme> = {
-  minHeight: '50vh',
+  minHeight: '100vh',
 };
 const viewLeft: SxProps<Theme> = {
   backgroundColor: Color.white,

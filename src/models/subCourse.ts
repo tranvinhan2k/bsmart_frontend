@@ -1,11 +1,14 @@
+import { ImagePayload } from '~/api/image';
 import { LevelKeys, TypeLearnKeys } from './variables';
+import { OptionPayload } from './common';
 
 export interface SubCoursePayload {
   id: number;
   level: LevelKeys;
-  imageId: number;
-  subjectId: number;
-  type: TypeLearnKeys;
+  imageId: ImagePayload | number;
+  imageIndex: number;
+  subjectId: OptionPayload | number;
+  type: OptionPayload | number;
   price: number;
   minStudent: number;
   maxStudent: number;
@@ -18,6 +21,6 @@ export interface SubCoursePayload {
 }
 
 export interface SubCourseTimeInWeekPayload {
-  dayOfWeekId: number;
-  slotId: number;
+  dayInWeek: { label: string; id: string; code: string };
+  slot: { label: string; id: string; code: string };
 }

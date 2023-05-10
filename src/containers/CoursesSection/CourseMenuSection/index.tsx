@@ -129,23 +129,17 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
       <Stack
         sx={{ width: '100%' }}
         flexDirection="row"
-        justifyContent="space-between"
+        justifyContent="flex-end"
         alignItems="center"
       >
         <Stack flexDirection="row">
           <Typography
             sx={{
-              fontFamily: FontFamily.bold,
-              fontSize: FontSize.small_16,
-              paddingRight: MetricSize.small_5,
+              fontFamily: FontFamily.regular,
+              fontSize: FontSize.small_18,
             }}
           >
-            {data?.items?.length || 0}
-          </Typography>
-          <Typography
-            sx={{ fontFamily: FontFamily.regular, fontSize: FontSize.small_16 }}
-          >
-            Khóa học
+            {`${data?.items?.length || 0} Khóa học.`}
           </Typography>
         </Stack>
 

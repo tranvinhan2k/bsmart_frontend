@@ -32,11 +32,15 @@ import {
   useYupValidationResolver,
 } from '~/hooks';
 import { RequestCreateCoursePayload } from '~/api/courses';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import SubCourseItem from './SubCourseItem';
 import { SubCoursePayload } from '~/models/subCourse';
 import { LEVEL_LABELS } from '~/constants/level';
+import CreateSubCourseModal from './CreateSubCourseModal';
+import UpdateSubCourseModal from './UpdateSubCourseModal';
+import SubCourseList from './SubCourseList';
+
 // TODO : Not implement useHookForm yet !! waiting for API to start
 const mockLevelData: OptionPayload[] = [
   {
@@ -46,18 +50,18 @@ const mockLevelData: OptionPayload[] = [
   },
   {
     id: 1,
-    label: LEVEL_LABELS.Intermediate,
-    value: 'Intermediate',
+    label: LEVEL_LABELS.INTERMEDIATE,
+    value: 'INTERMEDIATE',
   },
   {
     id: 2,
-    label: LEVEL_LABELS.Advanced,
-    value: 'Advanced',
+    label: LEVEL_LABELS.ADVANCED,
+    value: 'ADVANCED',
   },
   {
     id: 3,
-    label: LEVEL_LABELS.Expert,
-    value: 'Expert',
+    label: LEVEL_LABELS.EXPERT,
+    value: 'EXPERT',
   },
 ];
 
@@ -79,6 +83,8 @@ export default function CreateCourseForm() {
   const [subCourses, setSubCourses] = useState<SubCoursePayload[]>([]);
   const { subjects } = useQueryGetAllSubjects();
   const { categories } = useQueryGetAllCategories();
+  const [editIndex, setEditIndex] = useState(-1);
+
   const createCourseMutation = useMutationCreateCourse();
   const uploadImageMutation = useMutationUploadImage();
 
@@ -89,6 +95,7 @@ export default function CreateCourseForm() {
     defaultValues: defaultValueCreateCourse,
     resolver: resolverCreateCourse,
   });
+
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse
   );
@@ -98,14 +105,28 @@ export default function CreateCourseForm() {
   });
 
   const handleTriggerModal = () => {
+    createSubCourseHookForm.reset(defaultValueCreateSubCourse);
     setOpen(!open);
   };
 
-  const handleDelete = (id: number) => {
-    setSubCourses(subCourses.filter((_, index) => index !== id));
+  const handleCLoseUpdateModal = () => {
+    setEditIndex(-1);
   };
 
-  async function onSubmitSuccess(data: any) {
+  const handleOpenUpdateModal = (id: number) => {
+    createSubCourseHookForm.reset(subCourses.find((_, index) => index === id));
+    setEditIndex(id);
+  };
+  const handleDelete = () => {
+    createSubCourseHookForm.reset();
+
+    setSubCourses(subCourses.filter((_, index) => index !== editIndex));
+    toast.notifySuccessToast('Xóa khóa học thành công');
+    setEditIndex(-1);
+    // setSubCourses(subCourses.filter((_, index) => index !== id));
+  };
+
+  async function handleCreateCourse(data: any) {
     const id = toast.loadToast('Đang tạo khóa học...');
 
     try {
@@ -113,10 +134,16 @@ export default function CreateCourseForm() {
         code: data?.code,
         name: data?.name,
         categoryId: data.categoryId?.id,
-        subjectId: data.subjectId?.id,
         description: data?.description,
-        subCourseRequests: subCourses,
+        subCourseRequests: subCourses.map((item) => ({
+          ...item,
+          imageId: item.imageIndex,
+          subjectId: item.subjectId.id,
+          type: item.type.id,
+        })),
       };
+      createSubCourseHookForm.reset();
+
       await createCourseMutation.mutateAsync(params);
       toast.updateSuccessToast(id, 'Tạo khóa học thành công !');
     } catch (error: any) {
@@ -124,28 +151,77 @@ export default function CreateCourseForm() {
     }
   }
 
-  const onSubmitSubCourse = async (data: any) => {
-    setOpen(!open);
-    const formData = new FormData();
-    formData.append('type', 'COURSE');
-    formData.append('file', data.imageId);
-    const imageResponse = await uploadImageMutation.mutateAsync(formData);
-    setSubCourses([
-      ...subCourses,
-      {
-        ...data,
-        subjectId: data.subjectId?.id,
-        imageId: imageResponse.id,
-        type: data.type?.id,
-      },
-    ]);
+  const handleCreateSubCourse = async (data: any) => {
+    const id = toast.loadToast('Đang tạo khóa học ...');
+
+    try {
+      const formData = new FormData();
+      formData.append('type', 'COURSE');
+      formData.append('file', data.imageId);
+      const imageResponse = await uploadImageMutation.mutateAsync(formData);
+      if (editIndex === -1) {
+        setSubCourses([
+          ...subCourses,
+          { ...data, imageIndex: imageResponse.id },
+        ]);
+        createSubCourseHookForm.reset();
+        setOpen(!open);
+      } else {
+        const tmpSubCourses = subCourses.map((item, index) => {
+          if (index === editIndex) {
+            return { ...data, imageIndex: imageResponse.id };
+          }
+          return item;
+        });
+        createSubCourseHookForm.reset();
+        setSubCourses(tmpSubCourses);
+        setEditIndex(-1);
+      }
+      toast.updateSuccessToast(id, 'Tạo giờ học thành công');
+    } catch (error) {
+      toast.updateFailedToast(id, 'Tạo giờ học không thành công');
+    }
   };
+
+  const handleUpdateSubCourse = async (data: any) => {
+    const id = toast.loadToast('Đang cập nhật khóa học ...');
+
+    try {
+      const formData = new FormData();
+      formData.append('type', 'COURSE');
+      formData.append('file', data.imageId);
+      const imageResponse = await uploadImageMutation.mutateAsync(formData);
+      if (editIndex === -1) {
+        setSubCourses([
+          ...subCourses,
+          { ...data, imageIndex: imageResponse.id },
+        ]);
+        createSubCourseHookForm.reset();
+        setOpen(!open);
+      } else {
+        const tmpSubCourses = subCourses.map((item, index) => {
+          if (index === editIndex) {
+            return { ...data, imageIndex: imageResponse.id };
+          }
+          return item;
+        });
+        createSubCourseHookForm.reset();
+        setSubCourses(tmpSubCourses);
+        setEditIndex(-1);
+      }
+      toast.updateSuccessToast(id, 'Cập nhật giờ học thành công');
+    } catch (error) {
+      toast.updateFailedToast(id, 'Cập nhật giờ học không thành công');
+    }
+  };
+
   if (!categories && !subjects) return null;
+
   return (
     <Stack>
       <form
         onSubmit={createCourseHookForm.handleSubmit(
-          onSubmitSuccess,
+          handleCreateCourse,
           (error) => {
             console.log(error);
           }
@@ -171,13 +247,6 @@ export default function CreateCourseForm() {
               label="Lĩnh Vực"
             />
             <FormInput
-              data={subjects}
-              variant="dropdown"
-              name={CREATE_COURSE_FIELDS.subjectId}
-              control={createCourseHookForm.control}
-              label="Ngôn ngữ lập trình"
-            />
-            <FormInput
               name={CREATE_COURSE_FIELDS.description}
               variant="multiline"
               control={createCourseHookForm.control}
@@ -188,169 +257,30 @@ export default function CreateCourseForm() {
         <Box marginTop={2}>
           <CollapseStack label="Thông tin khóa học phụ">
             <Stack padding={1}>
-              <Grid container spacing={2}>
-                {subCourses.map((item, index) => (
-                  <SubCourseItem
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    id={index}
-                    onDelete={handleDelete}
-                    subCourse={item}
-                  />
-                ))}
-                <Grid item xs={12}>
-                  <Stack
-                    sx={{
-                      height: '100px',
-                      border:
-                        subCourses.length !== 0
-                          ? '1px dotted grey'
-                          : '1px solid #ff0000',
-                      borderRadius: '10px',
-                      '&>hover': {
-                        background: 'grey',
-                      },
-                    }}
-                  >
-                    <Button
-                      onClick={handleTriggerModal}
-                      sx={{ flex: 1, flexGrow: 1 }}
-                    >
-                      <Icon name="add" size="medium" color="black" />
-                    </Button>
-                  </Stack>
-                  <Stack>
-                    {subCourses.length === 0 && (
-                      <FormHelperText sx={{ color: Color.red }}>
-                        Phải có ít nhất một khóa học phụ{' '}
-                      </FormHelperText>
-                    )}
-                  </Stack>
-                </Grid>
-              </Grid>
-              <Modal
-                sx={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  display: 'flex',
-                  borderRadius: '10px',
-                  boxShadow: 3,
-                }}
-                open={open}
+              <SubCourseList
+                subCourses={subCourses}
+                onOpenAddModal={handleTriggerModal}
+                onOpenUpdateModal={handleOpenUpdateModal}
+              />
+              <CreateSubCourseModal
+                isOpen={open}
+                hookForm={createSubCourseHookForm}
+                levels={mockLevelData}
+                subjects={subjects}
+                types={typeData}
                 onClose={handleTriggerModal}
-              >
-                <Stack
-                  sx={{
-                    background: 'white',
-                    width: { sx: '100%', md: '50vw' },
-                    padding: '20px',
-                    height: '90vh',
-                    alignSelf: 'center',
-                    overflowY: 'scroll',
-                  }}
-                >
-                  <Stack>
-                    <IconButton
-                      sx={{ alignSelf: 'flex-end' }}
-                      onClick={handleTriggerModal}
-                    >
-                      <Icon name="close" color="black" size="medium" />
-                    </IconButton>
-                  </Stack>
-                  <Typography
-                    sx={{
-                      textAlign: 'center',
-                      fontFamily: FontFamily.bold,
-                      fontSize: FontSize.large_45,
-                    }}
-                  >
-                    Tạo khóa học phụ mới
-                  </Typography>
-                  <FormInput
-                    variant="text"
-                    name={CREATE_SUB_COURSE_FIELDS.subCourseTile}
-                    control={createSubCourseHookForm.control}
-                    label="Tên khóa học phụ"
-                  />
-                  <FormInput
-                    variant="date"
-                    name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
-                    control={createSubCourseHookForm.control}
-                    label="Ngày mở lớp dự kiến"
-                  />
-                  <FormInput
-                    variant="date"
-                    name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
-                    control={createSubCourseHookForm.control}
-                    label="Ngày kết thúc dự kiến"
-                  />
-                  <FormInput
-                    variant="number"
-                    name={CREATE_SUB_COURSE_FIELDS.price}
-                    control={createSubCourseHookForm.control}
-                    label="Giá khóa học"
-                  />
-                  <FormInput
-                    variant="number"
-                    name={CREATE_SUB_COURSE_FIELDS.minStudent}
-                    control={createSubCourseHookForm.control}
-                    label="Số học sinh tối thiểu"
-                  />
-                  <FormInput
-                    variant="number"
-                    name={CREATE_SUB_COURSE_FIELDS.maxStudent}
-                    control={createSubCourseHookForm.control}
-                    label="Số học sinh tối đa"
-                  />
-                  <FormInput
-                    data={mockLevelData}
-                    variant="radioGroup"
-                    name={CREATE_SUB_COURSE_FIELDS.level}
-                    control={createSubCourseHookForm.control}
-                    label="Trình độ"
-                  />
-                  <FormInput
-                    variant="image"
-                    name={CREATE_SUB_COURSE_FIELDS.imageId}
-                    control={createSubCourseHookForm.control}
-                    label="Hình ảnh"
-                  />
-                  <FormInput
-                    data={subjects}
-                    variant="dropdown"
-                    name={CREATE_SUB_COURSE_FIELDS.subjectId}
-                    control={createSubCourseHookForm.control}
-                    label="Ngôn ngữ lập trình"
-                  />
-                  <FormInput
-                    data={typeData}
-                    variant="dropdown"
-                    name={CREATE_SUB_COURSE_FIELDS.type}
-                    control={createSubCourseHookForm.control}
-                    label="Hình thức khóa học"
-                  />
-                  <FormInput
-                    name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
-                    variant="number"
-                    control={createSubCourseHookForm.control}
-                    label="Số buổi học"
-                  />
-                  <FormInput
-                    name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
-                    variant="timetable"
-                    control={createSubCourseHookForm.control}
-                    label="Thời khóa biểu"
-                  />
-                  <Button
-                    onClick={createSubCourseHookForm.handleSubmit(
-                      onSubmitSubCourse
-                    )}
-                    customVariant="normal"
-                  >
-                    Tạo khóa học phụ
-                  </Button>
-                </Stack>
-              </Modal>
+                onSubmit={handleCreateSubCourse}
+              />
+              <UpdateSubCourseModal
+                index={editIndex}
+                hookForm={createSubCourseHookForm}
+                levels={mockLevelData}
+                subjects={subjects}
+                types={typeData}
+                onClose={handleCLoseUpdateModal}
+                onDelete={handleDelete}
+                onUpdate={handleUpdateSubCourse}
+              />
             </Stack>
           </CollapseStack>
         </Box>

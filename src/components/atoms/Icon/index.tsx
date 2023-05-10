@@ -24,6 +24,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ManIcon from '@mui/icons-material/Man';
@@ -54,6 +55,7 @@ export type IconName =
   | 'dot'
   | 'down'
   | 'dribbble'
+  | 'edit'
   | 'eye-off'
   | 'eye'
   | 'facebook'
@@ -113,6 +115,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
     case 'delete':
       return <DeleteIcon sx={STYLED_ICON} />;
+    case 'edit':
+      return <EditIcon sx={STYLED_ICON} />;
     case 'cart':
       return <ShoppingCartIcon sx={STYLED_ICON} />;
     case 'eye-off':

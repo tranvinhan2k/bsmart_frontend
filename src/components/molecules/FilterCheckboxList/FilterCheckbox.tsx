@@ -57,7 +57,7 @@ export default function FilterCheckbox({
       >
         <Typography
           sx={{
-            fontSize: FontSize.small_18,
+            fontSize: FontSize.small_16,
             fontFamily: FontFamily.bold,
             ':hover': { cursor: 'pointer' },
           }}
@@ -67,7 +67,7 @@ export default function FilterCheckbox({
       </Button>
       <Typography
         sx={{
-          fontSize: FontSize.small_18,
+          fontSize: FontSize.small_16,
           fontFamily: FontFamily.bold,
           display: { xs: 'none', md: 'block' },
         }}

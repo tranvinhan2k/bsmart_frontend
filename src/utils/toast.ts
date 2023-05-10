@@ -40,6 +40,14 @@ const notifyWarningToast = (message: string) => {
     autoClose: 2000,
   });
 };
+const notifySuccessToast = (message: string) => {
+  toast.success(message, {
+    isLoading: false,
+    autoClose: 1000,
+    closeOnClick: true,
+    closeButton: true,
+  });
+};
 
 export default {
   loadToast,
@@ -47,4 +55,5 @@ export default {
   updateSuccessToast,
   notifyErrorToast,
   notifyWarningToast,
+  notifySuccessToast,
 };

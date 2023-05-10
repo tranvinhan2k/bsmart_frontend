@@ -1,4 +1,5 @@
 import { array, date, mixed, number, object, ref, string } from 'yup';
+import 'yup-phone';
 import {
   ADDRESS_REQUIRED,
   BIRTHDAY_REQUIRED,
@@ -42,21 +43,21 @@ export const validationSchemaRegisterStudent = object({
   name: string().required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
-    .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
-  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
+  phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
 });
 
 export const validationSchemaRegisterMentor = object({
   name: string().required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
-    .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
-  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+  phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
@@ -170,14 +171,14 @@ export const validationSchemaCreateCourse = object({
   categoryId: object()
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
-  subjectId: object()
-    .typeError('Ngôn ngữ không hợp lệ')
-    .required(COURSE_LANGUAGE_REQUIRED),
   description: string().required(COURSE_DESCRIPTION),
 });
 export const validationSchemaCreateSubCourse = object({
   subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number().required('Số lượng học sinh không được để trống'),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
@@ -194,9 +195,6 @@ export const validationSchemaCreateSubCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  subjectId: object()
-    .typeError('Ngôn ngữ không hợp lệ')
-    .required(COURSE_LANGUAGE_REQUIRED),
   type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')

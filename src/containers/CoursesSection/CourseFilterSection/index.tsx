@@ -38,19 +38,21 @@ export default function CourseFFilterSection() {
         placeholder="Tìm kiếm ..."
         onSubmit={handleSubmitSearchValue}
       />
-      <FilterCheckboxList
-        type={filterParams.types}
-        categoryId={filterParams.categoryId}
-        subjectId={filterParams.subjectId}
-        fields={categories}
-        subjects={subjects}
-        types={TypeOptionPayload}
-        provinces={ProvinceOptionPayload}
-        onFields={handleFilterFields}
-        onSubjects={handleFilterSubjects}
-        onTypes={handleFilterTypes}
-        onProvinces={handleFilterProvinces}
-      />
+      <Stack marginTop={2}>
+        <FilterCheckboxList
+          type={filterParams.types}
+          categoryId={filterParams.categoryId}
+          subjectId={filterParams.subjectId}
+          fields={categories}
+          subjects={subjects}
+          types={TypeOptionPayload}
+          provinces={ProvinceOptionPayload}
+          onFields={handleFilterFields}
+          onSubjects={handleFilterSubjects}
+          onTypes={handleFilterTypes}
+          onProvinces={handleFilterProvinces}
+        />
+      </Stack>
     </Stack>
   );
 }

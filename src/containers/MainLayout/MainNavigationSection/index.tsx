@@ -1,4 +1,3 @@
-import { useKeycloak } from '@react-keycloak/web';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,7 +7,7 @@ import {
   HeaderSocialDataList,
   NavigationActionData,
 } from '~/constants';
-import { useQueryGetAllCourse, useQueryGetCart } from '~/hooks';
+import { useQueryGetAllCourse, useDispatchGetCart } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
 import { toggleAddToCart } from '~/redux/user/slice';
@@ -27,7 +26,6 @@ const texts = {
 
 export default function MainNavigationSection() {
   const dispatch = useDispatch();
-  const { keycloak } = useKeycloak();
 
   const navigation = useNavigate();
   const location = useLocation();
@@ -37,7 +35,8 @@ export default function MainNavigationSection() {
   const filterParams = useSelector(selectFilterParams);
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
-  const { cart, refetch } = useQueryGetCart();
+  const { cart, error, handleDispatch, isLoading } = useDispatchGetCart();
+
   const { courses } = useQueryGetAllCourse();
 
   // useState
@@ -87,10 +86,6 @@ export default function MainNavigationSection() {
     // TODO: add feature search value
   };
 
-  const handleLoginKeycloak = async () => {
-    await keycloak.login();
-  };
-
   const navigationLink = (_link: string) => {
     setCourseAnchorEl(null);
     navigation(_link);
@@ -99,19 +94,18 @@ export default function MainNavigationSection() {
   useEffect(() => {
     function handleRefetchCart() {
       if (isAddToCart) {
-        refetch();
         dispatch(toggleAddToCart(false));
       }
     }
 
     handleRefetchCart();
-  }, [dispatch, refetch, isAddToCart]);
+  }, [dispatch, isAddToCart]);
 
   return (
     <MainNavigation
       texts={texts}
       isOpenDrawer={isOpenDrawer}
-      cart={cart}
+      cart={cart as any}
       courses={courses?.items}
       role={role}
       filterParams={filterParams}
@@ -128,7 +122,6 @@ export default function MainNavigationSection() {
       onMouseLeaveNavigation={handleMouseLeaveNavigation}
       onClickNavigation={handleClickNavigation}
       onClickCart={handleNavigateCartPage}
-      onLoginKeycloak={handleLoginKeycloak}
     />
   );
 }

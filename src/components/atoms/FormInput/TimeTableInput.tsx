@@ -25,12 +25,6 @@ interface TimeTableInputProps {
   placeholder: string;
 }
 function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
-  const [schedule, setSchedule] = useState<
-    {
-      slot: OptionPayload;
-      dayInWeek: OptionPayload;
-    }[]
-  >([]);
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
     fieldState: { invalid, error },
@@ -42,7 +36,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
   });
   const onSubmit = (data: any) => {
     const isExisted = Boolean(
-      schedule.find(
+      value.find(
         (scheduleItem: any) =>
           scheduleItem.slot.id === data.slot.id &&
           scheduleItem.dayInWeek.id === data.dayInWeek.id
@@ -51,13 +45,6 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
     if (!isExisted) {
       controllerOnChange([
         ...(value || []),
-        {
-          slotId: data.slot.id,
-          dayOfWeekId: data.dayInWeek.id,
-        },
-      ]);
-      setSchedule([
-        ...schedule,
         {
           slot: data.slot,
           dayInWeek: data.dayInWeek,
@@ -71,18 +58,17 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
   };
 
   const handleDeleteItem = (item: any) => {
-    const deletedItem = schedule.filter(
+    const deletedItem = value.filter(
       (scheduleItem: any) =>
         !(
           scheduleItem.slot.id === item.slot.id &&
           scheduleItem.dayInWeek.id === item.dayInWeek.id
         )
     );
-    setSchedule(deletedItem);
     controllerOnChange(
       deletedItem.map((scheduleItem: any) => ({
-        dayOfWeekId: scheduleItem.dayInWeek,
-        slotId: scheduleItem.slotId,
+        dayInWeek: scheduleItem.dayInWeek,
+        slot: scheduleItem.slotId,
       }))
     );
   };
@@ -105,7 +91,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
     <Stack>
       <Stack>
         {Array.isArray(value) &&
-          schedule.map((item) => {
+          value.map((item) => {
             return (
               <Stack
                 sx={{

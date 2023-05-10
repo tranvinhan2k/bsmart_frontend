@@ -2,6 +2,7 @@ import axiosClient from '~/api/axiosClient';
 import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import { ProfileImgType } from '~/constants/profile';
+import { LoginRequestPayload } from '~/models/api/auth';
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
 import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
@@ -16,9 +17,9 @@ export interface RequestRegisterPayload {
   password: string;
   role: Role;
 }
-export interface RequestSignInPayload {
-  email: string;
-  password: string;
+export interface EditAccountProfilePayload {
+  oldPassword: string;
+  newPassword: string;
 }
 export interface EditCertificateProfilePayload {
   certificates: { file: string | Blob }[];
@@ -112,7 +113,7 @@ const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
   },
-  signIn(data: RequestSignInPayload): Promise<any> {
+  signIn(data: LoginRequestPayload): Promise<any> {
     return axiosClient.post(`${urlAuth}/login`, data);
   },
   getProfile(config: any): Promise<any> {
