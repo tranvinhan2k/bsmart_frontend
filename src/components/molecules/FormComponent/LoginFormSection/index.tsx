@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
-import { useKeycloak } from '@react-keycloak/web';
-import { signIn } from '~/redux/user/slice';
+import { useNavigate } from 'react-router-dom';
 import { defaultValueSignIn } from '~/form/defaultValues';
 import { validationSchemaSignIn } from '~/form/validation';
 import { SIGN_IN_FIELDS } from '~/form/schema';
@@ -12,10 +11,6 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Link from '~/components/atoms/Link';
-import accountApi, {
-  RequestSignInPayload,
-  ResponseProfilePayload,
-} from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
@@ -25,6 +20,9 @@ import {
   useYupValidationResolver,
 } from '~/hooks';
 import { Role } from '~/models/role';
+import { LoginRequestPayload } from '~/models/api/auth';
+import { ResponseProfilePayload } from '~/api/users';
+import { signIn } from '~/redux/user/slice';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -39,7 +37,6 @@ const LoginTexts = {
 };
 
 export default function LoginForm() {
-  const { initialized, keycloak } = useKeycloak();
   const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
@@ -62,45 +59,46 @@ export default function LoginForm() {
 
   /* Login with be swagger */
   const { mutateAsync } = useMutationLogin();
+  const navigate = useNavigate();
   const getProfileMutation = useMutationProfile();
   const dispatch = useDispatch();
 
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
-    const params: RequestSignInPayload = {
+    const params: LoginRequestPayload = {
       email: data.email,
       password: data.password,
     };
 
     const id = toast.loadToast('Đang đăng nhập...');
     try {
-      // const signInData = await mutateAsync(params);
-      // localStorage.setItem('token', signInData.token);
-      // localStorage.setItem('roles', signInData.roles[0]);
+      const signInData = await mutateAsync(params);
+      localStorage.setItem('token', signInData.token);
+      localStorage.setItem('roles', signInData.roles[0]);
 
-      // const responseProfile = await getProfileMutation.mutateAsync();
+      const responseProfile = await getProfileMutation.mutateAsync();
 
-      // const requestProfile: {
-      //   token: string;
-      //   roles: Role;
-      //   profile: ResponseProfilePayload;
-      // } = {
-      //   token: signInData.token,
-      //   roles: signInData.roles[0],
-      //   profile: responseProfile,
-      // };
-      // dispatch(signIn(requestProfile));
-      // if (isRememberPassword) {
-      //   localStorage.setItem('username', data.email);
-      //   localStorage.setItem('password', data.password);
-      //   localStorage.setItem('isRememberPassword', 'true');
-      // } else {
-      //   localStorage.setItem('username', '');
-      //   localStorage.setItem('password', '');
-      //   localStorage.setItem('isRememberPassword', 'false');
-      // }
-      // signInHookForm.reset();
-      // toast.updateSuccessToast(id, 'Đăng nhập thành công!');
-      await keycloak.login();
+      const requestProfile: {
+        token: string;
+        roles: Role;
+        profile: ResponseProfilePayload;
+      } = {
+        token: signInData.token,
+        roles: signInData.roles[0],
+        profile: responseProfile,
+      };
+      dispatch(signIn(requestProfile));
+      if (isRememberPassword) {
+        localStorage.setItem('username', data.email);
+        localStorage.setItem('password', data.password);
+        localStorage.setItem('isRememberPassword', 'true');
+      } else {
+        localStorage.setItem('username', '');
+        localStorage.setItem('password', '');
+        localStorage.setItem('isRememberPassword', 'false');
+      }
+      signInHookForm.reset();
+      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+      navigate('/homepage');
     } catch (error: any) {
       toast.updateFailedToast(
         id,

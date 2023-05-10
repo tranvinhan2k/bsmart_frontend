@@ -20,6 +20,7 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
   const onChange: any = (e: any, newValue: OptionPayload) => {
     controllerOnChange(newValue);
   };
+
   return (
     <Autocomplete
       {...defaultProps}
@@ -27,9 +28,11 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
       id="combo-box-demo"
       fullWidth
       size="small"
-      isOptionEqualToValue={(option, optionValue) =>
-        option.id === optionValue.id
-      }
+      isOptionEqualToValue={(option, optionValue) => {
+        return (
+          option.id === optionValue.id || option.id === (optionValue as number)
+        );
+      }}
       value={value !== '' ? value : null}
       onChange={onChange}
       onBlur={onBlur}

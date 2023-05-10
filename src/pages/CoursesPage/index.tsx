@@ -20,6 +20,7 @@ export default function CoursesPage() {
         flexDirection: 'row',
         paddingTop: MetricSize.large_20,
         paddingX: { xs: 0, md: '95px' },
+        backgroundColor: '#f5f7f8',
       }}
     >
       <Grid item xs={12} md={3}>

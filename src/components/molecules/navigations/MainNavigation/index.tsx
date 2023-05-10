@@ -71,7 +71,6 @@ interface NavigationProps {
   onMouseLeaveNavigation: () => void;
   onClickNavigation: (_link: string) => void;
   onClickCart: () => void;
-  onLoginKeycloak: () => void;
 }
 
 export default function MainNavigation({
@@ -94,7 +93,6 @@ export default function MainNavigation({
   onClickNavigation,
   onMouseEnterNavigation,
   onMouseLeaveNavigation,
-  onLoginKeycloak,
 }: NavigationProps) {
   const renderNavigationList = () => {
     return (
@@ -182,7 +180,7 @@ export default function MainNavigation({
               color="black"
               loginData={AuthorizationActionData[0]}
               registerData={AuthorizationActionData[1]}
-              onLoginClick={onLoginKeycloak}
+              onLoginClick={() => onNavigationLink('/login')}
               onRegisterClick={() =>
                 onNavigationLink(AuthorizationActionData[1].link)
               }

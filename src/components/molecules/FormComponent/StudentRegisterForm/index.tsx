@@ -41,8 +41,8 @@ export default function StudentRegisterForm() {
     const id = toast.loadToast('Đang đăng kí khoá học ...');
     try {
       await mutation.mutateAsync(params);
-      toast.updateSuccessToast(id, 'Đăng kí thành công!');
-      navigate('/homepage');
+      navigate('/login');
+      toast.updateSuccessToast(id, `Đăng kí thành công!`);
     } catch (error: any) {
       toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
     }

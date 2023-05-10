@@ -3,6 +3,7 @@ import { MentorPayload } from '~/models/mentor';
 import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import { ProfileImgType } from '~/constants/profile';
+import { LoginRequestPayload } from '~/models/api/auth';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -14,11 +15,6 @@ export interface RequestRegisterPayload {
   password: string;
   role: Role;
 }
-export interface RequestSignInPayload {
-  email: string;
-  password: string;
-}
-
 export interface EditAccountProfilePayload {
   oldPassword: string;
   newPassword: string;
@@ -135,7 +131,7 @@ const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
   },
-  signIn(data: RequestSignInPayload): Promise<any> {
+  signIn(data: LoginRequestPayload): Promise<any> {
     return axiosClient.post(`${urlAuth}/login`, data);
   },
   getProfile(config: any): Promise<any> {

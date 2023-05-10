@@ -1,4 +1,5 @@
 import axiosClient from '~/api/axiosClient';
+import { CartDataPayload } from '~/models/api/cart';
 
 export interface CartItem {
   id: number;
@@ -78,7 +79,7 @@ export interface RequestCartItem {
 const url = `/cart`;
 
 const cartApi = {
-  async getCart(): Promise<ResponseCartItem> {
+  async getCart(): Promise<CartDataPayload> {
     return axiosClient.get(`${url}`);
   },
   async addCourseToCart(data: RequestCartItem): Promise<any> {

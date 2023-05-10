@@ -26,14 +26,16 @@ import { SubCoursePayload } from '~/models/subCourse';
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
+import { selectIntroduceCode } from '~/redux/user/selector';
 
 function CheckoutPage() {
   const { mutateAsync } = useMutationPay();
   const { mutateAsync: mutatePayQuick } = useMutationPayQuick();
   const checkOutItem = useSelector(selectCheckoutItem);
   const slTotalAmount = useSelector(selectTotalAmount);
+  const slIntroduceCode = useSelector(selectIntroduceCode);
 
-  const [introduceCode, setIntroduceCode] = useState('');
+  const [introduceCode, setIntroduceCode] = useState(slIntroduceCode);
   const [text, setText] = useState('');
   if (checkOutItem === null) {
     <Navigate to="/homepage" />;

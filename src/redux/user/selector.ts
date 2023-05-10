@@ -8,10 +8,15 @@ export const selectIsToggleAddToCart = (state: { user: UserStateType }) =>
 export const selectRole = (state: { user: UserStateType }) => state.user.roles;
 export const selectProfile = (state: { user: UserStateType }) =>
   state.user.profile;
+export const selectCart = (state: { user: UserStateType }) => state.user.cart;
+export const selectIntroduceCode = (state: { user: UserStateType }) =>
+  state.user.introduceCode;
 
 export default {
   selectUserStatus,
   selectToken,
   selectProfile,
+  selectCart,
   selectIsToggleAddToCart,
+  selectIntroduceCode,
 };

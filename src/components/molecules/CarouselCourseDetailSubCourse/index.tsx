@@ -90,9 +90,7 @@ export default function CarouselCourseDetailSubCourse({
     return (
       <Stack
         sx={{
-          background: Color.whiteSmoke,
-          paddingY: MetricSize.small_10,
-          boxShadow: 3,
+          background: '#eee',
           borderColor: item.isChosen ? Color.orange : Color.transparent,
           borderWidth: '2px',
           borderRadius: '5px',
@@ -101,7 +99,7 @@ export default function CarouselCourseDetailSubCourse({
         key={item.id}
       >
         <Box>
-          <Stack sx={{ paddingX: MetricSize.medium_15 }}>
+          <Stack sx={{ padding: MetricSize.large_20 }}>
             <Box
               component="img"
               src={cousreImage}

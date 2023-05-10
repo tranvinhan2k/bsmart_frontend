@@ -7,7 +7,7 @@ import { SubCoursePayload } from '~/models/subCourse';
 import { FontFamily, FontSize } from '~/assets/variables';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
-import { useMutationAddCourseToCart } from '~/hooks';
+import { useDispatchGetCart, useMutationAddCourseToCart } from '~/hooks';
 import { RequestCartItem } from '~/api/cart';
 import CarouselCourseDetailSubCourse from '../CarouselCourseDetailSubCourse';
 import SubCourseModal from '../modals/SubCourseModal';
@@ -26,6 +26,7 @@ export default function SubCourseList({ courseId, data }: SubCourseListProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mutateAsync: addToCartMutationAsync } = useMutationAddCourseToCart();
+  const { handleDispatch } = useDispatchGetCart();
 
   const handleSubCourse = async (subCourseId: number) => {
     dispatch(
@@ -46,6 +47,7 @@ export default function SubCourseList({ courseId, data }: SubCourseListProps) {
       };
       await addToCartMutationAsync(params);
       dispatch(toggleAddToCart(true));
+      handleDispatch();
       toast.updateSuccessToast(id, 'Thêm khóa học mới thành công');
     } catch (error: any) {
       toast.updateFailedToast(id, `Thêm khóa học thất bại: ${error.message}`);

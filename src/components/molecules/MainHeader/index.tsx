@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, IconButton, Box, Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useKeycloak } from '@react-keycloak/web';
 import AuthorizationBar from './AuthorizationBar';
 import ContractBar from '../ContractBar';
 import SocialBar from '../SocialBar';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { SX_HEADER_CONTAINER } from './styles';
 import SearchBar from '~/components/atoms/SearchBar';
-import localEnvironment from '~/utils/localEnvironment';
-import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import { IconSize } from '~/assets/variables';
 import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
 import { image } from '~/constants/image';
 import { selectFilterParams } from '~/redux/courses/selector';
-import { delay } from '~/utils/common';
+import toast from '~/utils/toast';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -37,37 +34,45 @@ export default function MainHeader({
   onLoginClick,
   onRegisterClick,
 }: MainHeaderProps) {
-  const { keycloak } = useKeycloak();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const profile = useSelector(selectProfile);
+  const token = useSelector(selectToken);
   const role = useSelector(selectRole);
   const filterParams = useSelector(selectFilterParams);
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isNeedRedirect, setNeedRedirect] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isNeedRedirect) {
+      navigate(
+        role !== 'STUDENT'
+          ? '/mentor-profile/edit-profile'
+          : '/member-details/edit-profile'
+      );
+      setNeedRedirect(false);
+      window.location.reload();
+    }
+  }, [isNeedRedirect, navigate, role]);
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(() => null);
   };
   const handleLogOut = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     dispatch(logOut());
-    await keycloak.logout();
     handleClose();
+    navigate('/homepage');
+    toast.notifySuccessToast('Đăng xuất thành công');
   };
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleNavigateProfile = () => {
-    handleClose();
-    delay(500);
-    navigate(
-      role !== 'STUDENT'
-        ? '/mentor-profile/edit-profile'
-        : '/member-details/edit-profile'
-    );
+    setAnchorEl(() => null);
+    setNeedRedirect(true);
   };
 
   return (
@@ -81,7 +86,7 @@ export default function MainHeader({
         onSubmit={onSearchText}
       />
 
-      {!keycloak.authenticated ? (
+      {!token ? (
         <AuthorizationBar
           color="white"
           loginData={authenticationData[0]}
