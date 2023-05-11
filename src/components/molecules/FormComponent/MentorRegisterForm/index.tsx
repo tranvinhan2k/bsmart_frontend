@@ -33,7 +33,7 @@ export default function MentorRegisterForm() {
 
   const handleRegisterSubmit = async (data: RegisterMentorDataPayload) => {
     const params: RequestRegisterPayload = {
-      email: data.email,
+      email: data.email.toLowerCase(),
       fullName: data.name,
       password: data.password,
       phone: data.phone,
