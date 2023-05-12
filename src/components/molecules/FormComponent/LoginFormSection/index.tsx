@@ -65,7 +65,7 @@ export default function LoginForm() {
 
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
     const params: LoginRequestPayload = {
-      email: data.email,
+      email: data.email.toLowerCase(),
       password: data.password,
     };
 

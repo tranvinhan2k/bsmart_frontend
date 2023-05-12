@@ -53,9 +53,9 @@ export default function CourseItem({
       sx={{
         background: Color.white,
         marginTop: MetricSize.medium_15,
-        marginLeft: '15px',
+        marginLeft: '10px',
         borderRadius: MetricSize.medium_15,
-        width: { xs: '100%', md: '32%' },
+        width: { xs: '100%', md: 'calc(50% - 10px)', lg: 'calc(33% - 10px)' },
         justifyContent: 'space-between',
         height: '650px',
         transition: 'box-shadow ease-in 100ms',

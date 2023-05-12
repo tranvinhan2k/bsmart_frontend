@@ -1,21 +1,20 @@
 import { Box, Grid, Stack } from '@mui/material';
-import { ResponseMentorCoursePayload } from '~/api/courses';
 import { ResponseProfilePayload } from '~/api/users';
-import IntroduceMentorDetailSection from '~/containers/MentorProfileLayoutSection/IntroduceMentorDetailSection';
-import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
+import IntroduceAdminDetailSection from '~/containers/AdminProfileLayoutSection/IntroduceAdminDetailSection';
+import AdminDetailSection from '~/containers/AdminProfileLayoutSection/AdminDetailSection';
 
-interface MentorProfileLayoutProps {
+interface AdminProfileLayoutProps {
   children: any;
   isIntroduce?: boolean;
   mentor?: ResponseProfilePayload;
 }
 
-export default function MentorProfileLayout({
+export default function AdminProfileLayout({
   children,
   isIntroduce = false,
   mentor,
-}: MentorProfileLayoutProps) {
+}: AdminProfileLayoutProps) {
   return (
     <Box sx={SX_WRAPPER}>
       <Box sx={SX_CONTAINER}>
@@ -26,7 +25,7 @@ export default function MentorProfileLayout({
           alignItems="flex-start"
           spacing={5}
         >
-          <Grid item sm={12} md={5} lg={4}>
+          <Grid item sm={12} md={4} lg={3}>
             <Stack
               direction="column"
               justifyContent="flex-start"
@@ -34,13 +33,13 @@ export default function MentorProfileLayout({
               spacing={2}
             >
               {isIntroduce ? (
-                <IntroduceMentorDetailSection mentor={mentor} />
+                <IntroduceAdminDetailSection mentor={mentor} />
               ) : (
-                <MentorDetailSection />
+                <AdminDetailSection />
               )}
             </Stack>
           </Grid>
-          <Grid item sm={12} md={7} lg={8}>
+          <Grid item sm={12} md={8} lg={9}>
             {children}
           </Grid>
         </Grid>
@@ -49,7 +48,7 @@ export default function MentorProfileLayout({
   );
 }
 
-MentorProfileLayout.defaultProps = {
+AdminProfileLayout.defaultProps = {
   isIntroduce: false,
   mentor: {},
 };

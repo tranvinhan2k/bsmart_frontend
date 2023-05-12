@@ -70,6 +70,7 @@ const MentorQuizSettingsPage = lazy(
 );
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
+const AdminProfilePage = lazy(() => import('~/pages/AdminProfilePage'));
 
 const routes: RoutePayload[] = [
   {
@@ -220,6 +221,11 @@ const routes: RoutePayload[] = [
   {
     path: '/test_page',
     main: () => <TestPage />,
+    role: [],
+  },
+  {
+    path: '/admin',
+    main: () => <AdminProfilePage />,
     role: [],
   },
 ];

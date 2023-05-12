@@ -130,7 +130,7 @@ export default function CreateCourseForm() {
     const id = toast.loadToast('Đang tạo khóa học...');
 
     try {
-      const params: RequestCreateCoursePayload = {
+      const params: any = {
         code: data?.code,
         name: data?.name,
         categoryId: data.categoryId?.id,
@@ -138,8 +138,12 @@ export default function CreateCourseForm() {
         subCourseRequests: subCourses.map((item) => ({
           ...item,
           imageId: item.imageIndex,
-          subjectId: item.subjectId.id,
-          type: item.type.id,
+          subjectId: (item.subjectId as OptionPayload).id as number,
+          type: (item.type as OptionPayload).id as number,
+          timeInWeekRequests: item.timeInWeekRequests.map((time) => ({
+            slotId: time.slot.id,
+            dayOfWeekId: time.dayInWeek.id,
+          })),
         })),
       };
       createSubCourseHookForm.reset();
