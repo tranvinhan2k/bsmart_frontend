@@ -140,7 +140,7 @@ export default function DialogUpdateIdCard({
               )}
             >
               <Typography sx={SX_FORM_LABEL}>
-                Căn cước công dân (trước)+++
+                Căn cước công dân (trước)
               </Typography>
               <FormInput
                 control={controlEditIdentityFront}

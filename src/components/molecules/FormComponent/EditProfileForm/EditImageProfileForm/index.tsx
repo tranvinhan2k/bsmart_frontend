@@ -38,33 +38,31 @@ export default function EditImageProfileForm() {
     <>
       <Box sx={SX_FORM}>
         <Typography component="h3" sx={SX_FORM_TITLE}>
-          Cập nhật ảnh
+          Thông tin ảnh đại diện
         </Typography>
+        <Divider sx={{ marginY: 2 }} />
         {dataGetProfile && (
-          <>
-            <Divider sx={{ marginY: 2 }} />
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={2}
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="stretch"
+            spacing={2}
+          >
+            <Button
+              customVariant="normal"
+              onClick={handleOpenDialogUpdateAvatar}
+              size="small"
             >
-              <Button
-                customVariant="normal"
-                onClick={handleOpenDialogUpdateAvatar}
-                size="small"
-              >
-                Cập nhật ảnh đại diện
-              </Button>
-              <Button
-                customVariant="normal"
-                onClick={handleOpenDialogUpdateIDCard}
-                size="small"
-              >
-                Cập nhật CMND
-              </Button>
-            </Stack>
-          </>
+              Cập nhật ảnh đại diện
+            </Button>
+            <Button
+              customVariant="normal"
+              onClick={handleOpenDialogUpdateIDCard}
+              size="small"
+            >
+              Cập nhật CMND
+            </Button>
+          </Stack>
         )}
       </Box>
       <DialogUpdateAvatar

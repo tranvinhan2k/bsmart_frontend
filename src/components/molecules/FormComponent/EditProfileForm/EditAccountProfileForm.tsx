@@ -1,5 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material';
-import { Fragment } from 'react';
+import { Box, Divider, Typography, Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditAccountProfile } from '~/form/defaultValues';
@@ -48,42 +47,36 @@ export default function EditAccountProfileForm() {
   };
 
   interface FormFieldsPersonalProps {
-    name: string;
-    variant: FormInputVariant;
     label: string;
+    name: string;
     placeholder: string;
+    variant: FormInputVariant;
   }
 
   const formFieldsPersonal: FormFieldsPersonalProps[] = [
     {
-      name: EDIT_PROFILE_FIELDS.oldPassword,
       label: 'Mật khẩu hiện tại',
+      name: EDIT_PROFILE_FIELDS.oldPassword,
       placeholder: 'Nhập mật khẩu hiện tại',
       variant: 'password',
     },
     {
-      name: EDIT_PROFILE_FIELDS.oldPasswordConfirm,
       label: 'Xác nhận mật khẩu hiện tại',
+      name: EDIT_PROFILE_FIELDS.oldPasswordConfirm,
       placeholder: 'Nhập xác nhận mật khẩu hiện tại',
       variant: 'password',
     },
     {
-      name: EDIT_PROFILE_FIELDS.newPassword,
       label: 'Mật khẩu mới',
+      name: EDIT_PROFILE_FIELDS.newPassword,
       placeholder: 'Nhập mật khẩu mới',
       variant: 'password',
     },
     {
-      name: EDIT_PROFILE_FIELDS.newPasswordConfirm,
       label: 'Xác nhận mật khẩu mới',
+      name: EDIT_PROFILE_FIELDS.newPasswordConfirm,
       placeholder: 'Nhập xác nhận mật khẩu mới',
       variant: 'password',
-    },
-    {
-      name: 'date',
-      label: 'Ngày sinh',
-      placeholder: 'Nhập ngày sinh',
-      variant: 'date',
     },
   ];
 
@@ -94,17 +87,19 @@ export default function EditAccountProfileForm() {
       </Typography>
       <Divider sx={{ marginY: 2 }} />
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
-        {formFieldsPersonal.map((field) => (
-          <Fragment key={field.name}>
-            <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
-            <FormInput
-              control={control}
-              name={field.name}
-              variant={field.variant}
-              placeholder={field.placeholder}
-            />
-          </Fragment>
-        ))}
+        <Grid container spacing={2}>
+          {formFieldsPersonal.map((field) => (
+            <Grid item key={field.name} sm={12} md={6}>
+              <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
+              <FormInput
+                control={control}
+                name={field.name}
+                variant={field.variant}
+                placeholder={field.placeholder}
+              />
+            </Grid>
+          ))}
+        </Grid>
         <Box mt={4}>
           <Button customVariant="normal" type="submit">
             Cập nhật

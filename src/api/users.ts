@@ -1,11 +1,11 @@
-import axiosClient from '~/api/axiosClient';
-import { Role } from '~/models/role';
-import { UserPayload } from '~/models/user';
-import { ProfileImgType } from '~/constants/profile';
-import { LoginRequestPayload } from '~/models/api/auth';
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
 import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
+import { LoginRequestPayload } from '~/models/api/auth';
+import { ProfileImgType } from '~/constants/profile';
+import { Role } from '~/models/role';
+import { UserPayload } from '~/models/user';
+import axiosClient from '~/api/axiosClient';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -17,10 +17,7 @@ export interface RequestRegisterPayload {
   password: string;
   role: Role;
 }
-export interface EditAccountProfilePayload {
-  oldPassword: string;
-  newPassword: string;
-}
+
 export interface EditCertificateProfilePayload {
   certificates: { file: string | Blob }[];
 }
