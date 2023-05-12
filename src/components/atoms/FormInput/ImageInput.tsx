@@ -1,5 +1,11 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { TextField, Stack, IconButton, InputAdornment } from '@mui/material';
+import {
+  Avatar,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+} from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
 import { MetricSize } from '~/assets/variables';
@@ -7,9 +13,14 @@ import Button from '../Button';
 
 interface ImageInputProps {
   controller: UseControllerReturn<any, string>;
-  placeholder: string;
+  previewImgHeight: number | '100%';
+  previewImgWidth: number | '100%';
 }
-function ImageInput({ controller, placeholder }: ImageInputProps) {
+export default function ImageInput({
+  controller,
+  previewImgHeight,
+  previewImgWidth,
+}: ImageInputProps) {
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error: fieldError },
@@ -65,12 +76,20 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
 
       {previewUrl && (
         <Stack marginTop={1}>
-          <img src={previewUrl} alt="Preview" />
+          <Stack justifyContent="flex-start" alignItems="center">
+            <Avatar
+              src={previewUrl}
+              alt="Preview"
+              variant="rounded"
+              sx={{ width: previewImgWidth, height: previewImgHeight }}
+            />
+          </Stack>
           <Stack marginTop={1}>
             <Button
               customVariant="normal"
               startIcon={<Icon name="delete" size="medium" />}
               onClick={handleDeleteClick}
+              size="small"
             >
               Gỡ bỏ
             </Button>
@@ -80,4 +99,3 @@ function ImageInput({ controller, placeholder }: ImageInputProps) {
     </Stack>
   );
 }
-export default ImageInput;

@@ -21,24 +21,28 @@ import TimeTableInput from './TimeTableInput';
 import DropdownInputBank from './DropdownInputBank';
 
 interface FormInputProps {
-  control: Control<any>;
-  name: string;
-  label?: string;
-  placeholder?: string;
-  defaultValue?: any;
-  variant?: FormInputVariant;
-  data?: OptionPayload[];
   banks?: BankLinking[];
+  control: Control<any>;
+  data?: OptionPayload[];
+  defaultValue?: any;
   helperText?: string;
+  label?: string;
+  name: string;
+  placeholder?: string;
+  previewImgHeight?: number | '100%';
+  previewImgWidth?: number | '100%';
+  variant?: FormInputVariant;
 }
 
 const generateFormInput = (
-  variant: FormInputVariant,
+  banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
-  placeholder: string,
   data: OptionPayload[],
   helperText: string,
-  banks: BankLinking[]
+  placeholder: string,
+  previewImgHeight: number | '100%',
+  previewImgWidth: number | '100%',
+  variant: FormInputVariant
 ) => {
   switch (true) {
     case variant === 'text':
@@ -62,7 +66,13 @@ const generateFormInput = (
     case variant === 'number':
       return <NumberInput controller={controller} placeholder={placeholder} />;
     case variant === 'image':
-      return <ImageInput controller={controller} placeholder={placeholder} />;
+      return (
+        <ImageInput
+          controller={controller}
+          previewImgHeight={previewImgHeight}
+          previewImgWidth={previewImgWidth}
+        />
+      );
     case variant === 'file':
       return <FileInput controller={controller} placeholder={placeholder} />;
     case variant === 'radioGroup':
@@ -103,15 +113,17 @@ const generateFormInput = (
 };
 
 export default function FormInput({
-  control,
-  name,
-  label = '',
-  defaultValue,
-  variant = 'text',
-  placeholder = '',
-  data = [],
-  helperText = '',
   banks = [],
+  control,
+  data = [],
+  defaultValue,
+  helperText = '',
+  label = '',
+  name,
+  placeholder = '',
+  previewImgHeight = '100%',
+  previewImgWidth = '100%',
+  variant = 'text',
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });
 
@@ -119,23 +131,27 @@ export default function FormInput({
     <Stack flexGrow={1} marginBottom={1}>
       <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
       {generateFormInput(
-        variant,
+        banks,
         controller,
-        placeholder,
         data,
         helperText,
-        banks
+        placeholder,
+        previewImgHeight,
+        previewImgWidth,
+        variant
       )}
     </Stack>
   );
 }
 
 FormInput.defaultProps = {
-  label: '',
-  defaultValue: '',
-  placeholder: '',
-  variant: 'text',
-  data: [],
-  helperText: '',
   banks: [],
+  data: [],
+  defaultValue: '',
+  helperText: '',
+  label: '',
+  placeholder: '',
+  previewImgHeight: '100%',
+  previewImgWidth: '100%',
+  variant: 'text',
 };
