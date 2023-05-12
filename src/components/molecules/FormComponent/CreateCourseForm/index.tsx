@@ -140,6 +140,10 @@ export default function CreateCourseForm() {
           imageId: item.imageIndex,
           subjectId: (item.subjectId as OptionPayload).id as number,
           type: (item.type as OptionPayload).id as number,
+          timeInWeekRequests: item.timeInWeekRequests.map((time) => ({
+            slotId: time.slot.id,
+            dayOfWeekId: time.dayInWeek.id,
+          })),
         })),
       };
       createSubCourseHookForm.reset();
