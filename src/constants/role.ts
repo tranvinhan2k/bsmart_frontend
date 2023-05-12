@@ -1,4 +1,5 @@
 export const ROLE_LABELS = {
-  STUDENT: 'Hoc Sinh',
-  TEACHER: 'Giang Vien',
+  STUDENT: 'Học Sinh',
+  TEACHER: 'Giảng viên',
+  ADMIN: 'Quản trị viên',
 };
