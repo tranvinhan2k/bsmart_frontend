@@ -1,4 +1,3 @@
-import { useKeycloak } from '@react-keycloak/web';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,11 +7,7 @@ import {
   HeaderSocialDataList,
   NavigationActionData,
 } from '~/constants';
-import {
-  useQueryGetAllCourse,
-  useQueryGetAllMentors,
-  useQueryGetCart,
-} from '~/hooks';
+import { useQueryGetAllCourse, useDispatchGetCart } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
 import { toggleAddToCart } from '~/redux/user/slice';
@@ -31,7 +26,6 @@ const texts = {
 
 export default function MainNavigationSection() {
   const dispatch = useDispatch();
-  const { keycloak } = useKeycloak();
 
   const navigation = useNavigate();
   const location = useLocation();
@@ -41,15 +35,12 @@ export default function MainNavigationSection() {
   const filterParams = useSelector(selectFilterParams);
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
-  const { mentors } = useQueryGetAllMentors();
-  const { cart, refetch } = useQueryGetCart();
+  const { cart, error, handleDispatch, isLoading } = useDispatchGetCart();
+
   const { courses } = useQueryGetAllCourse();
 
   // useState
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
-  const [mentorAnchorEl, setMentorAnchorEl] = useState<null | HTMLElement>(
-    null
-  );
   const [courseAnchorEl, setCourseAnchorEl] = useState<null | HTMLElement>(
     null
   );
@@ -68,25 +59,17 @@ export default function MainNavigationSection() {
     //   setCourseAnchorEl(_event.currentTarget);
     //   return;
     // }
-    if (checkEqualValue(_link, texts.INTRODUCE_MENTOR_KEYWORD)) {
-      setMentorAnchorEl(_event.currentTarget);
-    }
-  };
-  const handleCloseMentorMenu = () => {
-    setMentorAnchorEl(null);
   };
   const handleCloseCourseMenu = () => {
     setCourseAnchorEl(null);
   };
 
   const handleMouseLeaveNavigation = () => {
-    setMentorAnchorEl(null);
     setCourseAnchorEl(null);
   };
 
   const handleClickNavigation = (_link: string) => {
     setCourseAnchorEl(null);
-    setMentorAnchorEl(null);
 
     navigation(_link);
 
@@ -103,33 +86,26 @@ export default function MainNavigationSection() {
     // TODO: add feature search value
   };
 
-  const handleLoginKeycloak = async () => {
-    await keycloak.login();
-  };
-
   const navigationLink = (_link: string) => {
     setCourseAnchorEl(null);
-    setMentorAnchorEl(null);
     navigation(_link);
   };
 
   useEffect(() => {
     function handleRefetchCart() {
       if (isAddToCart) {
-        refetch();
         dispatch(toggleAddToCart(false));
       }
     }
 
     handleRefetchCart();
-  }, [dispatch, refetch, isAddToCart]);
+  }, [dispatch, isAddToCart]);
 
   return (
     <MainNavigation
       texts={texts}
       isOpenDrawer={isOpenDrawer}
-      cart={cart}
-      mentors={mentors}
+      cart={cart as any}
       courses={courses?.items}
       role={role}
       filterParams={filterParams}
@@ -137,18 +113,15 @@ export default function MainNavigationSection() {
       pages={NavigationActionData}
       contracts={HeaderContractDataList}
       socials={HeaderSocialDataList}
-      mentorAnchorEl={mentorAnchorEl}
       courseAnchorEl={courseAnchorEl}
       onSearchCourse={handleSearchValue}
       onNavigationLink={navigationLink}
-      onCloseMentorMenu={handleCloseMentorMenu}
       onToggleDrawer={handleToggleDrawer}
       onCloseCourseMenu={handleCloseCourseMenu}
       onMouseEnterNavigation={handleMouseEnterNavigation}
       onMouseLeaveNavigation={handleMouseLeaveNavigation}
       onClickNavigation={handleClickNavigation}
       onClickCart={handleNavigateCartPage}
-      onLoginKeycloak={handleLoginKeycloak}
     />
   );
 }

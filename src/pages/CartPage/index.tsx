@@ -1,10 +1,18 @@
-import { useEffect } from 'react';
-import { Stack, Grid, Typography, IconButton } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+  Stack,
+  Grid,
+  Typography,
+  IconButton,
+  Box,
+  Divider,
+} from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Tooltip from '@mui/material/Tooltip';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { scrollToTop } from '~/utils/common';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import { useQueryGetCart } from '~/hooks';
 import { formatMoney } from '~/utils/money';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
@@ -13,32 +21,29 @@ import { useMutationUpdateCourseFromCart } from '~/hooks/useMutationUpdateCourse
 import toast from '~/utils/toast';
 import CourseInCart from '~/components/molecules/CourseInCart';
 import { RequestCartItem } from '~/api/cart';
-import { useMutationPay } from '~/hooks/useMutationPay';
+import { addCheckoutItem } from '~/redux/courses/slice';
+import { useDispatchGetCart } from '~/hooks';
+import { image } from '~/constants/image';
+import CarouselCourse from '~/components/molecules/CarouselCourse';
+import { CommonCourse } from '~/constants';
+import IntroduceCodeInput from './IntroduceCodeInput';
 
 export default function CartPage() {
-  const { cart, error, isLoading, refetch } = useQueryGetCart();
+  const { cart, isLoading, handleDispatch, error } = useDispatchGetCart();
   const { mutateAsync: deleteCourse } = useMutationDeleteCourseFromCart();
   const { mutateAsync: updateCourse } = useMutationUpdateCourseFromCart();
-  const { mutateAsync: payCart } = useMutationPay();
+  const { text, setText } = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handlePayCart = async () => {
-    const id = toast.loadToast('Đang thanh toán giỏ hàng,...');
-    try {
-      if (cart?.cartItems && cart.cartItems?.length > 0) {
-        await payCart(
-          cart?.cartItems.map((item) => ({
-            cartItemId: item.cartItemId,
-            subCourseId: 0,
-          }))
-        );
-      } else {
-        throw new Error('Không có hàng trong giỏ');
-      }
-      refetch();
-      toast.updateSuccessToast(id, 'Thanh toán thành công');
-    } catch (e: any) {
-      toast.updateFailedToast(id, `Thanh toán thất bại: ${e.message}`);
-    }
+  const handlePayCart = () => {
+    dispatch(
+      addCheckoutItem({
+        checkOutCourses: cart?.cartItems,
+        totalAmount: cart?.totalPrice,
+      })
+    );
+    navigate('/check_out');
   };
 
   async function handleDeleteCourseFromCart(courseId: number) {
@@ -51,7 +56,7 @@ export default function CartPage() {
           cartItemId: courseId,
           subCourseId: undefined,
         });
-        refetch();
+        handleDispatch();
         toast.updateSuccessToast(id, 'Bạn đã gỡ khóa học thành công !');
       } catch (e: any) {
         toast.updateFailedToast(id, `Gỡ khóa học thất bại: ${e.message}`);
@@ -63,7 +68,6 @@ export default function CartPage() {
     const id = toast.loadToast('Đang cập nhật khóa học khỏi giỏ hàng...');
     try {
       await updateCourse(data);
-      refetch();
       toast.updateSuccessToast(id, 'Bạn đã cập nhật giờ học thành công !');
     } catch (e: any) {
       toast.updateFailedToast(id, `Cập nhật giờ học thất bại: ${e.message}`);
@@ -74,12 +78,16 @@ export default function CartPage() {
     {
       field: 'index',
       headerName: 'Số thứ tự',
+      flex: 1,
+      headerAlign: 'center',
+      headerClassName: 'header',
       renderCell: (index) => index.api.getRowIndex(index.row.id) + 1,
     },
     {
       field: 'course',
       headerName: 'Khóa học',
-      minWidth: 700,
+      flex: 5,
+      headerClassName: 'header',
       renderCell: (row) => {
         return (
           <CourseInCart row={row.row} onUpdate={handleUpdateCourseFromCart} />
@@ -87,9 +95,20 @@ export default function CartPage() {
       },
     },
     {
+      field: 'price',
+      headerName: 'Giá tiền',
+      headerClassName: 'header',
+      flex: 1,
+      renderCell: (row) => {
+        return formatMoney(500000);
+      },
+    },
+    {
       field: 'actions',
       type: 'actions',
-      headerName: 'Chức năng',
+      headerName: 'Thao tác',
+      headerClassName: 'header',
+      flex: 1,
       renderCell: (row) => {
         return (
           <Stack sx={{ flexDirection: 'row' }}>
@@ -117,7 +136,17 @@ export default function CartPage() {
           height: '100%',
         }}
       >
-        <Typography>Không có hàng trong giỏ</Typography>
+        <Box component="img" alt="no empty" src={image.emptyCart} />
+
+        <Typography
+          sx={{
+            paddingTop: MetricSize.medium_15,
+            fontSize: FontSize.small_18,
+            fontFamily: FontFamily.regular,
+          }}
+        >
+          Không có hàng trong giỏ
+        </Typography>
       </Stack>
     );
   };
@@ -133,7 +162,6 @@ export default function CartPage() {
           minHeight: MetricSize.fullHeight,
           justifyContent: 'center',
           alignItems: 'center',
-          paddingX: { xs: MetricSize.medium_15, md: '75px' },
         }}
       >
         <Typography
@@ -157,18 +185,9 @@ export default function CartPage() {
           minHeight: MetricSize.fullHeight,
           justifyContent: 'center',
           alignItems: 'center',
-          paddingX: { xs: MetricSize.medium_15, md: '75px' },
         }}
       >
-        <Typography
-          sx={{
-            paddingTop: MetricSize.medium_15,
-            fontSize: FontSize.small_18,
-            fontFamily: FontFamily.regular,
-          }}
-        >
-          Đang khởi tạo dữ liệu ...
-        </Typography>
+        Đang tải...
       </Stack>
     );
   }
@@ -177,11 +196,18 @@ export default function CartPage() {
     <Stack
       sx={{
         minHeight: MetricSize.fullHeight,
-        paddingX: { xs: MetricSize.medium_15, md: '75px' },
       }}
     >
       <Grid container>
-        <Grid item xs={12} md={8}>
+        <Grid
+          sx={{
+            paddingRight: MetricSize.medium_15,
+            paddingLeft: { xs: MetricSize.medium_15, md: '75px' },
+          }}
+          item
+          xs={12}
+          md={8}
+        >
           <Typography
             sx={{
               paddingTop: MetricSize.medium_15,
@@ -200,13 +226,19 @@ export default function CartPage() {
           >{`Bạn đang có ${cart?.totalItem} khóa học trong giỏ hàng`}</Typography>
           {cart && (
             <DataGrid
-              rowHeight={600}
-              autoHeight
+              loading={isLoading}
+              rowHeight={160}
               components={{
                 NoRowsOverlay: renderNoRow,
                 NoResultsOverlay: renderNoRow,
               }}
-              sx={{ marginY: MetricSize.medium_15 }}
+              sx={{
+                marginY: MetricSize.medium_15,
+                height: 160 * 3 + 80,
+                '&.header': {
+                  color: Color.blue,
+                },
+              }}
               rows={cart?.cartItems}
               columns={columns}
               initialState={{
@@ -216,20 +248,28 @@ export default function CartPage() {
               }}
             />
           )}
+          <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid
+          sx={{
+            backgroundColor: Color.whiteSmoke,
+            paddingRight: { xs: MetricSize.medium_15, md: '75px' },
+          }}
+          item
+          xs={12}
+          md={4}
+        >
           <Stack sx={{ padding: MetricSize.large_20 }}>
             <Typography
               sx={{
                 fontSize: FontSize.small_18,
-                fontFamily: FontFamily.medium,
+                fontFamily: FontFamily.bold,
               }}
             >
               Tổng giá tiền
             </Typography>
             <Typography
               sx={{
-                textAlign: 'center',
                 paddingY: MetricSize.medium_15,
                 fontSize: FontSize.large_45,
                 fontFamily: FontFamily.bold,
@@ -240,6 +280,10 @@ export default function CartPage() {
             <Button onClick={handlePayCart} customVariant="normal">
               Thanh Toán
             </Button>
+            <Stack marginTop={3}>
+              <Divider />
+              <IntroduceCodeInput />
+            </Stack>
           </Stack>
         </Grid>
       </Grid>

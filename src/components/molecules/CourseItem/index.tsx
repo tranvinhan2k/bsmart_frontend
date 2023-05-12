@@ -1,9 +1,9 @@
-import { Box, Divider, Typography, Rating, Stack } from '@mui/material';
-import Chip from '@mui/material/Chip';
+import { Box, Chip, Divider, Typography, Rating, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { CoursePayload } from '~/models/courses';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { image } from '~/constants/image';
 
 interface CourseItemProps {
   item?: CoursePayload;
@@ -25,7 +25,7 @@ export default function CourseItem({
   isSkeleton = false,
   onClick = () => {},
 }: CourseItemProps) {
-  const { content, feedback, image, mentor, title } = item;
+  const { content, feedback, image: itemImage, mentor, title } = item;
 
   const handleNavigateCourseDetail = () => {
     onClick();
@@ -36,14 +36,14 @@ export default function CourseItem({
       <Stack
         sx={{
           marginTop: MetricSize.medium_15,
-          marginLeft: '10px',
+          marginLeft: '15px',
           borderColor: Color.grey,
           width: { xs: '100%', md: '32%' },
           borderRadius: MetricSize.small_5,
           justifyContent: 'space-between',
         }}
       >
-        <Skeleton height={400} />
+        <Skeleton height={700} />
       </Stack>
     );
   }
@@ -51,75 +51,93 @@ export default function CourseItem({
   return (
     <Stack
       sx={{
+        background: Color.white,
         marginTop: MetricSize.medium_15,
         marginLeft: '10px',
-        border: '1px solid',
-        borderColor: Color.grey,
-        width: { xs: '100%', md: '32%' },
-        borderRadius: MetricSize.small_5,
+        borderRadius: MetricSize.medium_15,
+        width: { xs: '100%', md: 'calc(50% - 10px)', lg: 'calc(33% - 10px)' },
         justifyContent: 'space-between',
-        height: '600px',
+        height: '650px',
+        transition: 'box-shadow ease-in 100ms',
+        '&:hover': {
+          boxShadow: 3,
+        },
       }}
     >
-      <Stack>
-        <Box
-          loading="lazy"
-          component="img"
+      <Box
+        loading="lazy"
+        component="img"
+        sx={{
+          objectFit: 'fill',
+          width: '100%',
+          height: '300px',
+          borderRadius: MetricSize.small_5,
+        }}
+        src={itemImage}
+        alt={title}
+      />
+      <Stack
+        sx={{
+          padding: MetricSize.medium_15,
+          height: '200px',
+        }}
+      >
+        <Stack
           sx={{
-            objectFit: 'fill',
-            width: '100%',
-            height: '200px',
-            borderRadius: MetricSize.small_5,
+            alignItems: 'center',
+            flexDirection: 'row',
           }}
-          src={image}
-          alt={title}
-        />
-        <Stack sx={{ padding: MetricSize.medium_15, height: '200px' }}>
-          <Typography
+        >
+          <Box
+            component="img"
+            src={image.noAvatar}
             sx={{
-              fontSize: FontSize.medium_28,
-              fontWeight: 'bold',
-              fontFamily: FontFamily.bold,
+              border: 'solid grey',
+              borderWidth: 0.5,
+              borderRadius: 1000,
+              width: '30px',
+              height: '30px',
+              marginRight: MetricSize.small_10,
             }}
-          >
-            {title}
-          </Typography>
+          />
           <Typography
             sx={{
               fontSize: FontSize.small_18,
-              fontFamily: FontFamily.light,
+              fontFamily: FontFamily.regular,
               color: Color.grey,
             }}
-          >{`Mentor ${mentor}`}</Typography>
-          <Stack sx={{ flexDirection: 'row' }}>
-            {item.typeLearn &&
-              item.typeLearn.map((type) => (
-                <Chip sx={{ marginRight: 1 }} key={type} label={type} />
-              ))}
-          </Stack>
-          <Stack
+          >
+            {mentor}
+          </Typography>
+        </Stack>
+        <Typography
+          sx={{
+            marginTop: MetricSize.small_10,
+            fontSize: FontSize.medium_28,
+            fontWeight: 'bold',
+            fontFamily: FontFamily.bold,
+          }}
+        >
+          {title}
+        </Typography>
+        <Stack>
+          <Typography
             sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              height: '150px',
+              fontSize: FontSize.small_18,
+              fontFamily: FontFamily.regular,
             }}
           >
-            <Typography
-              sx={{
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-              }}
-            >
-              {content}
-            </Typography>
-          </Stack>
+            {content}
+          </Typography>
+        </Stack>
+        <Stack sx={{ flexDirection: 'row' }}>
+          {item.typeLearn &&
+            item.typeLearn.map((type) => (
+              <Chip sx={{ marginRight: 1 }} key={type} label={type} />
+            ))}
         </Stack>
       </Stack>
-
       <Stack padding={2}>
-        <Stack marginY={1}>
-          <Rating name="size-small" defaultValue={feedback} size="small" />
-        </Stack>
         <Divider />
         <Stack marginTop={2}>
           <Button onClick={handleNavigateCourseDetail} customVariant="normal">

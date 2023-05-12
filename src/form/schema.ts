@@ -66,8 +66,8 @@ export const EDIT_PERSONAL_PROFILE_FIELDS = {
 
 export const EDIT_MENTOR_PROFILE_FIELDS = {
   introduce: 'introduce',
-  skills: 'skills',
-  experience: 'experience',
+  mentorSkills: 'mentorSkills',
+  workingExperience: 'workingExperience',
 };
 
 export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
@@ -106,9 +106,14 @@ export const FEEDBACK_MENTOR_FIELDS = {
 export const CREATE_COURSE_FIELDS = {
   code: 'code',
   name: 'name',
-  level: 'level',
   imageId: 'imageId',
   categoryId: 'categoryId',
+  subjectId: 'subjectId',
+  description: 'description',
+};
+export const CREATE_SUB_COURSE_FIELDS = {
+  level: 'level',
+  imageId: 'imageId',
   subjectId: 'subjectId',
   type: 'type',
   price: 'price',
@@ -116,7 +121,6 @@ export const CREATE_COURSE_FIELDS = {
   maxStudent: 'maxStudent',
   startDateExpected: 'startDateExpected',
   endDateExpected: 'endDateExpected',
-  description: 'description',
   subCourseTile: 'subCourseTile',
   numberOfSlot: 'numberOfSlot',
   timeInWeekRequests: 'timeInWeekRequests',

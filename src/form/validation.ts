@@ -1,5 +1,5 @@
 import { array, date, mixed, number, object, ref, string } from 'yup';
-
+import 'yup-phone';
 import {
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
@@ -19,9 +19,11 @@ import {
   USERNAME_REQUIRED,
   WITHDRAW_AMOUNT_REQUIRED,
   WITHDRAW_AMOUNT_POSITIVE,
-  WITHDRAW_BANK_LINKING_REQUIRE,
   WITHDRAW_BANK_ACCOUNT_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
+  IMAGE_SIZE_TOO_BIG,
+  IMAGE_FORMAT_NOT_SUPPORT,
+  generateRequiredText,
 } from '~/form/message';
 
 const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
@@ -39,21 +41,21 @@ export const validationSchemaRegisterStudent = object({
   name: string().required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
-    .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
-  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
+  phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
 });
 
 export const validationSchemaRegisterMentor = object({
   name: string().required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
-    .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
-  phone: string().required(PHONE_REQUIRED).matches(PHONE_REGEX, PHONE_INVALID),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+  phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
@@ -64,11 +66,47 @@ export const validationSchemaBuyCourse = object({
   email: string().email(EMAIL_INVALID).required(USERNAME_REQUIRED),
   voucher: string().required(PASSWORD_REQUIRED),
 });
-
-export const validationSchemaEditImageProfile = object({
-  avatar: string().required(),
-  identityFront: string(),
-  identityBack: string(),
+export const validationSchemaEditAvatar = object({
+  avatar: mixed()
+    .required(generateRequiredText('Hình ảnh đại diện'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+});
+export const validationSchemaEditIdentityFront = object({
+  identityFront: mixed()
+    .required(generateRequiredText('Căn cước công dân (mặt trước)'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
+});
+export const validationSchemaEditIdentityBack = object({
+  identityBack: mixed()
+    .required(generateRequiredText('Căn cước công dân (mặt sau)'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    )
+    .test(
+      'fileFormat',
+      IMAGE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
 });
 
 export const validationSchemaEditPersonalProfile = object({
@@ -80,8 +118,8 @@ export const validationSchemaEditPersonalProfile = object({
 
 export const validationSchemaEditMentorProfile = object({
   introduce: string().required(),
-  skills: array(),
-  experience: string(),
+  mentorSkills: array(),
+  workingExperience: string(),
 });
 
 export const validationSchemaEditCertificateProfile = object({
@@ -124,9 +162,18 @@ export const validationSchemaFeedbackMentor = object({
 
 export const validationSchemaCreateCourse = object({
   code: string().required('Mã khóa học là bắt buộc'),
-  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
-  numberOfSlot: number(),
   name: string().required(COURSE_NAME_REQUIRED),
+  categoryId: object()
+    .typeError('Lĩnh vực không hợp lệ')
+    .required(COURSE_CATEGORY_REQUIRED),
+  description: string().required(COURSE_DESCRIPTION),
+});
+export const validationSchemaCreateSubCourse = object({
+  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
+  numberOfSlot: number().required('Số lượng học sinh không được để trống'),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
   level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
@@ -143,10 +190,7 @@ export const validationSchemaCreateCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  categoryId: object().required(COURSE_CATEGORY_REQUIRED),
-  subjectId: object().required(COURSE_LANGUAGE_REQUIRED),
-  type: object().required(COURSE_TYPE),
-  description: string().required(COURSE_DESCRIPTION),
+  type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
     .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
@@ -160,10 +204,13 @@ export const validationSchemaCreateCourse = object({
         return value > minStudent;
       }
     ),
-  startDateExpected: date().required(),
+  startDateExpected: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống'),
   timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
-    .required()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống')
     .test(
       'is-greater',
       'Ngày kết thúc phải lớn hơn ngày bắt đầu',

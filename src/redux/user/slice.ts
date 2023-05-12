@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
+import { StaticDatePicker } from '@mui/x-date-pickers';
 import { createSlice } from '@reduxjs/toolkit';
 import { ResponseProfilePayload } from '~/api/users';
+import { CartDataPayload } from '~/models/api/cart';
 import { Role } from '~/models/role';
 
 export type UserStateType = {
@@ -9,6 +11,8 @@ export type UserStateType = {
   token: string | null;
   isAddToCart: boolean;
   profile: ResponseProfilePayload;
+  cart: CartDataPayload | null;
+  introduceCode: string;
 };
 
 const initialState: UserStateType = {
@@ -51,6 +55,8 @@ const initialState: UserStateType = {
       previous_balance: 0,
     },
   },
+  cart: null,
+  introduceCode: '',
 };
 
 const slice = createSlice({
@@ -71,10 +77,16 @@ const slice = createSlice({
     toggleAddToCart: (state, action) => {
       state.isAddToCart = action.payload;
     },
+    updateUserCart: (state, action) => {
+      state.cart = action.payload;
+    },
     logOut: (state) => {
       state.token = null;
       state.roles = null;
       state.profile = initialState.profile;
+    },
+    addIntroduceCode: (state, action) => {
+      state.introduceCode = action.payload;
     },
   },
 });
@@ -83,5 +95,12 @@ const userReducer = slice.reducer;
 
 export default userReducer;
 
-export const { changeUserStatus, toggleAddToCart, addProfile, signIn, logOut } =
-  slice.actions;
+export const {
+  changeUserStatus,
+  toggleAddToCart,
+  addProfile,
+  signIn,
+  logOut,
+  updateUserCart,
+  addIntroduceCode,
+} = slice.actions;

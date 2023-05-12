@@ -82,14 +82,6 @@ function CourseInCart({ row, onUpdate }: CourseInCartProps) {
           </Stack>
         </Stack>
       </Stack>
-      <Stack flexDirection="row" sx={{ width: 600 }}>
-        <CarouselSubCourse
-          cartItemId={row.cartItemId}
-          items={row.subCourses}
-          label="Giờ học"
-          onUpdate={onUpdate}
-        />
-      </Stack>
     </Stack>
   );
 }

@@ -2,7 +2,9 @@ import {
   BuyCourseDataPayload,
   EditAccountProfileFormDataPayload,
   EditCertificateProfileFormDataPayload,
-  EditImageProfileFormDataPayload,
+  EditAvatarFormDataPayload,
+  EditIdentityBackFormDataPayload,
+  EditIdentityFrontFormDataPayload,
   EditPersonalProfileFormDataPayload,
   EditMentorProfileFormDataPayload,
   EditSocialProfileFormDataPayload,
@@ -40,9 +42,13 @@ export const defaultValueBuyCourse: BuyCourseDataPayload = {
   voucher: '',
 };
 
-export const defaultValueEditImageProfile: EditImageProfileFormDataPayload = {
+export const defaultValueEditAvatar: EditAvatarFormDataPayload = {
   avatar: '',
+};
+export const defaultValueEditIdentityFront: EditIdentityFrontFormDataPayload = {
   identityFront: '',
+};
+export const defaultValueEditIdentityBack: EditIdentityBackFormDataPayload = {
   identityBack: '',
 };
 
@@ -56,8 +62,8 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload
 
 export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
   introduce: '',
-  skills: [{ id: 0, label: '', value: '' }],
-  experience: '',
+  mentorSkills: [{ id: 0, label: '', value: '' }],
+  workingExperience: '',
 };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
@@ -104,6 +110,24 @@ export const defaultValueCreateCourse = {
   description: '',
   subCourseTile: '',
   numberOfSlot: '',
+  timeInWeekRequests: [],
+};
+export const defaultValueCreateSubCourse = {
+  code: '',
+  name: '',
+  level: '',
+  imageId: '',
+  categoryId: '',
+  subjectId: '',
+  type: '',
+  price: 0,
+  minStudent: 0,
+  maxStudent: 0,
+  startDateExpected: '',
+  endDateExpected: '',
+  description: '',
+  subCourseTile: '',
+  numberOfSlot: 0,
   timeInWeekRequests: [],
 };
 

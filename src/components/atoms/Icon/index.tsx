@@ -8,6 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
+import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
   BsDribbble,
@@ -66,6 +67,7 @@ export type IconName =
   | 'female'
   | 'previous'
   | 'share'
+  | 'edit'
   | 'cart'
   | 'eye'
   | 'eye-off'
@@ -101,6 +103,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
     case 'delete':
       return <DeleteIcon sx={STYLED_ICON} />;
+    case 'edit':
+      return <EditIcon sx={STYLED_ICON} />;
     case 'cart':
       return <ShoppingCartIcon sx={STYLED_ICON} />;
     case 'eye-off':

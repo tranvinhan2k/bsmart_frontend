@@ -2,6 +2,8 @@ import axiosClient from '~/api/axiosClient';
 import { MentorPayload } from '~/models/mentor';
 import { Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
+import { ProfileImgType } from '~/constants/profile';
+import { LoginRequestPayload } from '~/models/api/auth';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -13,11 +15,6 @@ export interface RequestRegisterPayload {
   password: string;
   role: Role;
 }
-export interface RequestSignInPayload {
-  email: string;
-  password: string;
-}
-
 export interface EditAccountProfilePayload {
   oldPassword: string;
   newPassword: string;
@@ -26,10 +23,13 @@ export interface EditCertificateProfilePayload {
   certificates: { file: string | Blob }[];
 }
 export interface EditImageProfilePayload {
-  avatar: string;
-  identityFront?: string;
-  identityBack?: string;
+  file: string | Blob;
+  imageType:
+    | ProfileImgType.AVATAR
+    | ProfileImgType.FRONTCI
+    | ProfileImgType.BACKCI;
 }
+
 export interface EditPersonalProfilePayload {
   fullName: string;
   birthday: Date | '';
@@ -38,8 +38,8 @@ export interface EditPersonalProfilePayload {
 }
 export interface EditMentorProfilePayload {
   introduce: string;
-  skills: Array<any>;
-  experience: string;
+  mentorSkills: Array<any>;
+  workingExperience: string;
 }
 export interface EditSocialProfilePayload {
   twitterLink?: string;
@@ -131,7 +131,7 @@ const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
   },
-  signIn(data: RequestSignInPayload): Promise<any> {
+  signIn(data: LoginRequestPayload): Promise<any> {
     return axiosClient.post(`${urlAuth}/login`, data);
   },
   getProfile(config: any): Promise<any> {
@@ -146,8 +146,16 @@ const accountApi = {
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/account`, data);
   },
-  editImageProfile(data: EditImageProfilePayload): Promise<any> {
-    return axiosClient.put(`${url}/images`, data);
+  async editImageProfile(data: EditImageProfilePayload): Promise<any> {
+    const bodyFormData = new FormData();
+    const { file, imageType } = data;
+
+    bodyFormData.append('file', file);
+    bodyFormData.append('imageType', imageType);
+
+    return axiosClient.post(`${url}/upload-image`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();

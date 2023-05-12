@@ -5,11 +5,10 @@ export const axiosClient = axios.create({
   baseURL: localEnvironment.SERVER_LINK,
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   },
 });
 
-axiosClient.interceptors.request.use(function (config) {
+axiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem(localEnvironment.ASYNC_STORAGE_TOKEN_NAME);
   const responseConfig = config;
   if (token) {

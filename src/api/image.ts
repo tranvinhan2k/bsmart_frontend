@@ -37,6 +37,9 @@ const imageApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
+  async getImage(id: string): Promise<ImagePayload> {
+    return axiosClient.get(`${url}/${id}`);
+  },
 };
 
 export default imageApi;

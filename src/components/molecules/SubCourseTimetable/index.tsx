@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { SubCourseTimeInWeek } from '~/models/subCourse';
+import { SubCourseTimeInWeekPayload } from '~/models/subCourse';
 import { DayInWeekPayload } from '~/models/dayInWeek';
 import { SlotPayload } from '~/models/slot';
 import Icon from '~/components/atoms/Icon';
@@ -121,7 +121,7 @@ const rows = slot.map((item) => {
 });
 
 interface SubCourseTimetableProps {
-  data: SubCourseTimeInWeek[];
+  data: { dayOfWeek: DayInWeekPayload; slot: SlotPayload }[];
 }
 
 export default function SubCourseTimetable({ data }: SubCourseTimetableProps) {
@@ -131,8 +131,9 @@ export default function SubCourseTimetable({ data }: SubCourseTimetableProps) {
         const dayCode = slotTime.dayOfWeek.code;
         const slotCode = slotTime.slot.code;
         const index = rows.findIndex((item) => item.code === slotCode);
-
-        rows[index][dayCode] = true;
+        if (dayCode !== null && index !== null) {
+          rows[index][dayCode] = true;
+        }
         return null;
       });
     }

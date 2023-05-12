@@ -32,6 +32,16 @@ export const SX_SMALL_RED_TEXT: SxProps<Theme> = {
   fontSize: FontSize.medium_24,
   color: Color.red,
 };
+const textTitle: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.large_35,
+  color: Color.black,
+};
+const textSubTitle: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+  fontSize: FontSize.medium_24,
+  color: Color.black,
+};
 export const SX_SHADOW: SxProps<Theme> = {
   shadowColor: '#000000',
   shadowOffset: {
@@ -46,4 +56,9 @@ export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
   height: '50px',
 };
 
-export default {};
+const globalStyles = {
+  textTitle,
+  textSubTitle,
+};
+
+export default globalStyles;

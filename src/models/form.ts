@@ -34,10 +34,14 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
-export interface EditImageProfileFormDataPayload {
+export interface EditAvatarFormDataPayload {
   avatar: string;
-  identityFront?: string;
-  identityBack?: string;
+}
+export interface EditIdentityFrontFormDataPayload {
+  identityFront: string;
+}
+export interface EditIdentityBackFormDataPayload {
+  identityBack: string;
 }
 
 export interface EditPersonalProfileFormDataPayload {
@@ -49,8 +53,8 @@ export interface EditPersonalProfileFormDataPayload {
 
 export interface EditMentorProfileFormDataPayload {
   introduce: string;
-  skills: { id: number; label: string; value: string }[];
-  experience: string;
+  mentorSkills: { id: number; label: string; value: string }[];
+  workingExperience: string;
 }
 
 export interface EditCertificateProfileFormDataPayload {
@@ -69,7 +73,6 @@ export interface EditSocialProfileFormDataPayload {
   twitterLink: string;
   instagramLink: string;
 }
-
 export interface WithdrawMoneyFormDataPayload {
   amount: number;
   bankLinking:

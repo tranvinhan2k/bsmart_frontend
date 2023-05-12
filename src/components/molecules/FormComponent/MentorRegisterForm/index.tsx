@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 import FormInput from '~/components/atoms/FormInput';
 import Button from '~/components/atoms/Button';
 import { validationSchemaRegisterMentor } from '~/form/validation';
@@ -23,6 +24,7 @@ export default function MentorRegisterForm() {
 
   // Mutations
   const mutation = useMutationSignUp();
+  const navigate = useNavigate();
 
   const handleGoogle = useGoogleLogin({
     onSuccess: (tokenResponse) => console.log(tokenResponse),
@@ -31,7 +33,7 @@ export default function MentorRegisterForm() {
 
   const handleRegisterSubmit = async (data: RegisterMentorDataPayload) => {
     const params: RequestRegisterPayload = {
-      email: data.email,
+      email: data.email.toLowerCase(),
       fullName: data.name,
       password: data.password,
       phone: data.phone,
@@ -40,7 +42,10 @@ export default function MentorRegisterForm() {
     const id = toast.loadToast('Đang đăng kí...');
     try {
       await mutation.mutateAsync(params);
-      toast.updateSuccessToast(id, 'Đăng kí thành công!');
+      navigate('/login');
+      console.log('dang ki thanh cong ');
+
+      toast.updateSuccessToast(id, `Đăng kí thành công!`);
     } catch (error: any) {
       toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
     }

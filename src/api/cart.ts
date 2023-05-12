@@ -1,9 +1,10 @@
 import axiosClient from '~/api/axiosClient';
+import { CartDataPayload } from '~/models/api/cart';
 
 export interface CartItem {
   id: number;
   status: string;
-  level: string;
+  level: string | null;
   referenceDiscount: number;
   subject: {
     id: number;
@@ -44,25 +45,25 @@ export interface CartItem {
       previous_balance: number;
       owner_id: number;
     };
-  };
+  } | null;
   image: {
     id: number;
     name: string;
     url: string;
-  };
-  subCourses: [
-    {
-      id: number;
-      level: string;
-      status: string;
-      startDateExpected: string;
-      endDateExpected: string;
-      price: number;
-      typeLearn: string;
-      isChosen: boolean;
-    }
-  ];
+  } | null;
+  subCourses: CartSubCourse[];
   cartItemId: number;
+}
+
+export interface CartSubCourse {
+  id: number;
+  level: string;
+  status: string;
+  startDateExpected: string;
+  endDateExpected: string;
+  price: number;
+  typeLearn: string;
+  isChosen: boolean;
 }
 
 export interface ResponseCartItem {
@@ -78,7 +79,7 @@ export interface RequestCartItem {
 const url = `/cart`;
 
 const cartApi = {
-  async getCart(): Promise<ResponseCartItem> {
+  async getCart(): Promise<CartDataPayload> {
     return axiosClient.get(`${url}`);
   },
   async addCourseToCart(data: RequestCartItem): Promise<any> {
