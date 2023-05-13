@@ -7,6 +7,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
 import NearMeIcon from '@mui/icons-material/NearMe';
+import NavigateNext from '@mui/icons-material/NavigateNext';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -34,6 +35,8 @@ import ManIcon from '@mui/icons-material/Man';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WomanIcon from '@mui/icons-material/Woman';
 import AddIcon from '@mui/icons-material/Add';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ArticleIcon from '@mui/icons-material/Article';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
@@ -41,6 +44,7 @@ import google from '~/assets/images/icons8_google_480px.png';
 export type IconName =
   | 'google'
   | 'search'
+  | 'course'
   | 'down'
   | 'up'
   | 'keyboardArrowRight'
@@ -50,6 +54,7 @@ export type IconName =
   | 'person'
   | 'twitter'
   | 'instagram'
+  | 'right'
   | 'linkedin'
   | 'dribbble'
   | 'mail'
@@ -57,6 +62,7 @@ export type IconName =
   | 'add'
   | 'location'
   | 'delete'
+  | 'user'
   | 'close'
   | 'check'
   | 'facebook'
@@ -95,12 +101,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'course':
+      return <ArticleIcon sx={STYLED_ICON} />;
+    case 'user':
+      return <AccountBoxIcon sx={STYLED_ICON} />;
     case 'check':
       return <CheckCircleIcon sx={STYLED_ICON} />;
     case 'add':
       return <AddIcon sx={STYLED_ICON} />;
     case 'eye':
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
+    case 'right':
+      return <NavigateNext sx={STYLED_ICON} />;
     case 'delete':
       return <DeleteIcon sx={STYLED_ICON} />;
     case 'edit':
