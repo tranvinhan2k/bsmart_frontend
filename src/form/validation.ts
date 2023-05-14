@@ -1,6 +1,8 @@
 import { array, date, mixed, number, object, ref, string } from 'yup';
 import 'yup-phone';
 import {
+  ADDRESS_REQUIRED,
+  BIRTHDAY_REQUIRED,
   CONFIRM_PASSWORD_NOT_MATCH,
   CONFIRM_PASSWORD_REQUIRED,
   COURSE_CATEGORY_REQUIRED,
@@ -11,19 +13,19 @@ import {
   COURSE_TYPE,
   EMAIL_INVALID,
   EMAIL_REQUIRED,
+  generateRequiredText,
+  IMAGE_FORMAT_NOT_SUPPORT,
+  IMAGE_SIZE_TOO_BIG,
+  NAME_REQUIRED,
   PASSWORD_MATCHED,
   PASSWORD_REQUIRED,
-  NAME_REQUIRED,
   PHONE_INVALID,
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
-  WITHDRAW_AMOUNT_REQUIRED,
   WITHDRAW_AMOUNT_POSITIVE,
-  WITHDRAW_BANK_ACCOUNT_REQUIRED,
+  WITHDRAW_AMOUNT_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
-  IMAGE_SIZE_TOO_BIG,
-  IMAGE_FORMAT_NOT_SUPPORT,
-  generateRequiredText,
+  WITHDRAW_BANK_ACCOUNT_REQUIRED,
 } from '~/form/message';
 
 const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
@@ -111,8 +113,11 @@ export const validationSchemaEditIdentityBack = object({
 
 export const validationSchemaEditPersonalProfile = object({
   fullName: string().required(NAME_REQUIRED),
-  birthday: date(),
-  address: string(),
+  birthday: date()
+    .nullable()
+    .transform((curr, orig) => (orig === '' ? null : curr))
+    .required(BIRTHDAY_REQUIRED),
+  address: string().required(ADDRESS_REQUIRED),
   phone: string().required(PHONE_REQUIRED),
 });
 

@@ -1,16 +1,5 @@
 import { Box, SxProps, Theme, Typography } from '@mui/material';
-import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
-import SearchIcon from '@mui/icons-material/Search';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import MenuIcon from '@mui/icons-material/Menu';
-import NearMeIcon from '@mui/icons-material/NearMe';
-import NavigateNext from '@mui/icons-material/NavigateNext';
-import PersonIcon from '@mui/icons-material/Person';
-import EditIcon from '@mui/icons-material/Edit';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
 import {
   BsDribbble,
   BsInstagram,
@@ -19,68 +8,87 @@ import {
   BsTwitter,
   BsFacebook,
 } from 'react-icons/bs';
-import { FcNext } from 'react-icons/fc';
-import { MdPayments } from 'react-icons/md';
-import { FaShare } from 'react-icons/fa';
 import { CiMail, CiPhone } from 'react-icons/ci';
-import { HiLocationMarker } from 'react-icons/hi';
-import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
+import { FaShare } from 'react-icons/fa';
+import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ManIcon from '@mui/icons-material/Man';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import WomanIcon from '@mui/icons-material/Woman';
-import AddIcon from '@mui/icons-material/Add';
+import { HiLocationMarker } from 'react-icons/hi';
+import { MdPayments } from 'react-icons/md';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AddIcon from '@mui/icons-material/Add';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArticleIcon from '@mui/icons-material/Article';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ChatIcon from '@mui/icons-material/Chat';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ManIcon from '@mui/icons-material/Man';
+import MenuIcon from '@mui/icons-material/Menu';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import NavigateNext from '@mui/icons-material/NavigateNext';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import PersonIcon from '@mui/icons-material/Person';
+import QuizIcon from '@mui/icons-material/Quiz';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import WomanIcon from '@mui/icons-material/Woman';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
-  | 'google'
-  | 'search'
-  | 'course'
-  | 'down'
-  | 'up'
-  | 'keyboardArrowRight'
-  | 'calendarMonth'
-  | 'menu'
-  | 'nearMe'
-  | 'person'
-  | 'twitter'
-  | 'instagram'
-  | 'right'
-  | 'linkedin'
-  | 'dribbble'
-  | 'mail'
-  | 'phone'
+  | 'add-icon'
   | 'add'
-  | 'location'
-  | 'delete'
-  | 'user'
-  | 'close'
+  | 'assignment'
+  | 'calendarMonth'
+  | 'cart'
+  | 'chat'
   | 'check'
+  | 'close'
+  | 'course'
+  | 'delete'
+  | 'dot'
+  | 'down'
+  | 'dribbble'
+  | 'edit'
+  | 'eye-off'
+  | 'eye'
   | 'facebook'
+  | 'female'
+  | 'google'
+  | 'instagram'
+  | 'keyboardArrowRight'
+  | 'linkedin'
+  | 'location'
+  | 'mail'
+  | 'male'
+  | 'menu'
+  | 'modeEdit'
+  | 'nearMe'
   | 'next'
   | 'next2'
-  | 'dot'
-  | 'male'
-  | 'female'
-  | 'previous'
-  | 'share'
-  | 'edit'
-  | 'cart'
-  | 'eye'
-  | 'eye-off'
-  | 'add-icon'
-  | 'star'
   | 'payment'
-  | 'pinterest';
+  | 'person'
+  | 'phone'
+  | 'pinterest'
+  | 'previous'
+  | 'quiz'
+  | 'right'
+  | 'search'
+  | 'share'
+  | 'star'
+  | 'twitter'
+  | 'up'
+  | 'user';
 interface IconProps {
   color?: ColorKeys;
   size: IconSizeKeys;
@@ -107,8 +115,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <AccountBoxIcon sx={STYLED_ICON} />;
     case 'check':
       return <CheckCircleIcon sx={STYLED_ICON} />;
+    case 'chat':
+      return <ChatIcon sx={STYLED_ICON} />;
     case 'add':
       return <AddIcon sx={STYLED_ICON} />;
+    case 'assignment':
+      return <AssignmentIcon sx={STYLED_ICON} />;
     case 'eye':
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
     case 'right':
@@ -137,6 +149,10 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'menu':
       return <MenuIcon sx={STYLED_ICON} />;
+    case 'modeEdit':
+      return <ModeEditIcon sx={STYLED_ICON} />;
+    case 'quiz':
+      return <QuizIcon sx={STYLED_ICON} />;
     case 'nearMe':
       return <NearMeIcon sx={STYLED_ICON} />;
     case 'person':

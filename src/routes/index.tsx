@@ -44,6 +44,30 @@ const MemberCourseListPage = lazy(() => import('~/pages/MemberCourseListPage'));
 const MentorCreateCoursePage = lazy(
   () => import('~/pages/MentorCreateCoursePage')
 );
+const MentorTakeAttendancePage = lazy(
+  () => import('~/pages/MentorTakeAttendancePage')
+);
+const MentorReTakeAttendancePage = lazy(
+  () => import('~/pages/MentorReTakeAttendancePage')
+);
+const AdminApproveRegisterPage = lazy(
+  () => import('~/pages/AdminApproveRegisterPage')
+);
+const MentorRegisterRequestDetailsPage = lazy(
+  () => import('~/pages/MentorRegisterRequestDetailsPage')
+);
+const AdminProcessCourseCreateRequestPage = lazy(
+  () => import('~/pages/AdminProcessCourseCreateRequestPage')
+);
+const MentorProcessCourseCreateRequestDetailsPage = lazy(
+  () => import('~/pages/AdminProcessCourseCreateRequestDetailsPage')
+);
+const MentorResourceManagePage = lazy(
+  () => import('~/pages/MentorResourceManagePage')
+);
+const MentorQuizSettingsPage = lazy(
+  () => import('~/pages/MentorQuizSettingsPage')
+);
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 const AdminProfilePage = lazy(() => import('~/pages/AdminProfilePage'));
@@ -148,6 +172,46 @@ const routes: RoutePayload[] = [
     path: `/${NavigationActionData[18].link}`,
     main: () => <CheckoutPage />,
     role: ['STUDENT'],
+  },
+  {
+    path: `/${NavigationActionData[19].link}`,
+    main: () => <MentorResourceManagePage />,
+    role: ['TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[20].link}`,
+    main: () => <MentorQuizSettingsPage />,
+    role: ['TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[21].link}`,
+    main: () => <MentorTakeAttendancePage />,
+    role: ['TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[22].link}`,
+    main: () => <MentorReTakeAttendancePage />,
+    role: ['TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[23].link}`,
+    main: () => <AdminApproveRegisterPage />,
+    role: [],
+  },
+  {
+    path: `/${NavigationActionData[24].link}`,
+    main: () => <MentorRegisterRequestDetailsPage />,
+    role: [],
+  },
+  {
+    path: `/${NavigationActionData[25].link}`,
+    main: () => <AdminProcessCourseCreateRequestPage />,
+    role: [],
+  },
+  {
+    path: `/${NavigationActionData[26].link}`,
+    main: () => <MentorProcessCourseCreateRequestDetailsPage />,
+    role: [],
   },
   {
     path: '*',
