@@ -1,8 +1,10 @@
-import { Box, Grid, Stack } from '@mui/material';
+import { Box, Grid, IconButton } from '@mui/material';
+import { useProSidebar } from 'react-pro-sidebar';
 import { ResponseProfilePayload } from '~/api/users';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
-import IntroduceAdminDetailSection from '~/containers/AdminProfileLayoutSection/IntroduceAdminDetailSection';
 import AdminDetailSection from '~/containers/AdminProfileLayoutSection/AdminDetailSection';
+import Icon from '~/components/atoms/Icon';
+import { Color } from '~/assets/variables';
 
 interface AdminProfileLayoutProps {
   children: any;
@@ -15,6 +17,8 @@ export default function AdminProfileLayout({
   isIntroduce = false,
   mentor,
 }: AdminProfileLayoutProps) {
+  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
+    useProSidebar();
   return (
     <Box sx={SX_WRAPPER}>
       <Box sx={SX_CONTAINER}>
@@ -26,18 +30,9 @@ export default function AdminProfileLayout({
           spacing={5}
         >
           <Grid item sm={12} md={4} lg={3}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={2}
-            >
-              {isIntroduce ? (
-                <IntroduceAdminDetailSection mentor={mentor} />
-              ) : (
-                <AdminDetailSection />
-              )}
-            </Stack>
+            <Box sx={{ display: 'block', width: '100%' }}>
+              <AdminDetailSection />
+            </Box>
           </Grid>
           <Grid item sm={12} md={8} lg={9}>
             {children}

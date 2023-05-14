@@ -15,11 +15,13 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { MdPayments } from 'react-icons/md';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArticleIcon from '@mui/icons-material/Article';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -30,6 +32,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ManIcon from '@mui/icons-material/Man';
 import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import NavigateNext from '@mui/icons-material/NavigateNext';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
 import QuizIcon from '@mui/icons-material/Quiz';
@@ -51,6 +54,7 @@ export type IconName =
   | 'chat'
   | 'check'
   | 'close'
+  | 'course'
   | 'delete'
   | 'dot'
   | 'down'
@@ -78,11 +82,13 @@ export type IconName =
   | 'pinterest'
   | 'previous'
   | 'quiz'
+  | 'right'
   | 'search'
   | 'share'
   | 'star'
   | 'twitter'
-  | 'up';
+  | 'up'
+  | 'user';
 interface IconProps {
   color?: ColorKeys;
   size: IconSizeKeys;
@@ -103,6 +109,10 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'course':
+      return <ArticleIcon sx={STYLED_ICON} />;
+    case 'user':
+      return <AccountBoxIcon sx={STYLED_ICON} />;
     case 'check':
       return <CheckCircleIcon sx={STYLED_ICON} />;
     case 'chat':
@@ -113,6 +123,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <AssignmentIcon sx={STYLED_ICON} />;
     case 'eye':
       return <RemoveRedEyeIcon sx={STYLED_ICON} />;
+    case 'right':
+      return <NavigateNext sx={STYLED_ICON} />;
     case 'delete':
       return <DeleteIcon sx={STYLED_ICON} />;
     case 'edit':

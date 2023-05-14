@@ -224,7 +224,7 @@ const routes: RoutePayload[] = [
     role: [],
   },
   {
-    path: '/admin',
+    path: '/admin/*',
     main: () => <AdminProfilePage />,
     role: [],
   },
@@ -296,11 +296,16 @@ export const mentorRoutes: RoutePayload[] = [
 export const adminRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to="/admin" />,
+    main: () => <Navigate to="/admin/user" />,
     role: ['ADMIN'],
   },
   {
-    path: '/admin',
+    path: '/user',
+    main: () => <AdminPage />,
+    role: ['ADMIN'],
+  },
+  {
+    path: '/course',
     main: () => <AdminPage />,
     role: ['ADMIN'],
   },
