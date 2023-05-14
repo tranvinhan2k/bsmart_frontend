@@ -190,6 +190,19 @@ export const MemberNavigationActionData: ActionPayload[] = [
   },
 ];
 
+export const AdminNavigationActionData: ActionPayload[] = [
+  {
+    id: 0,
+    name: 'Chỉnh sửa thông tin',
+    link: 'admin',
+  },
+  {
+    id: 1,
+    name: 'Quản lý ví tiền',
+    link: 'wallet-management',
+  },
+];
+
 export const AddressData: AddressDataPayload[] = [
   {
     id: 0,

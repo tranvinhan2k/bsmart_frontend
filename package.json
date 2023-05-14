@@ -33,6 +33,7 @@
     "react-image-crop": "^10.0.9",
     "react-loading-skeleton": "^3.2.0",
     "react-only-when": "^1.0.2",
+    "react-pro-sidebar": "^1.0.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "6",
     "react-toastify": "^9.1.1",
