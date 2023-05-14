@@ -1,12 +1,12 @@
+import { Box, Divider, Typography } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { Box, Divider, Typography } from '@mui/material';
 import { defaultValueEditSocialProfile } from '~/form/defaultValues';
 import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
-import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { EditSocialProfileFormDefault, FormInputVariant } from '~/models/form';
+import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { RootState } from '~/redux/store';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditSocialProfile } from '~/form/validation';

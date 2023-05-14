@@ -87,9 +87,9 @@ export default function EditAccountProfileForm() {
       </Typography>
       <Divider sx={{ marginY: 2 }} />
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
-        <Grid container spacing={2}>
+        <Grid container>
           {formFieldsPersonal.map((field) => (
-            <Grid item key={field.name} sm={12} md={6}>
+            <Grid item key={field.name} xs={12}>
               <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
               <FormInput
                 control={control}
