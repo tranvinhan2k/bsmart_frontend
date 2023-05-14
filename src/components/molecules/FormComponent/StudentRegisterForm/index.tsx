@@ -32,7 +32,7 @@ export default function StudentRegisterForm() {
 
   const handleRegisterSubmitData = async (data: RegisterStudentDataPayload) => {
     const params: RequestRegisterPayload = {
-      email: data.email,
+      email: data.email.toLowerCase(),
       fullName: data.name,
       password: data.password,
       phone: data.phone,

@@ -8,7 +8,7 @@ import { SX_WRAPPER, SX_CONTAINER } from './style';
 interface MentorProfileLayoutProps {
   children: any;
   isIntroduce?: boolean;
-  mentor: ResponseProfilePayload | undefined;
+  mentor?: ResponseProfilePayload;
 }
 
 export default function MentorProfileLayout({
@@ -51,4 +51,5 @@ export default function MentorProfileLayout({
 
 MentorProfileLayout.defaultProps = {
   isIntroduce: false,
+  mentor: {},
 };

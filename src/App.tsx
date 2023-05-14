@@ -6,6 +6,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import React, { Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
@@ -27,11 +28,6 @@ const showRoutes = (currentRole: Role | null) => {
   let result = null;
 
   if (routes.length > 0) {
-    if (currentRole === 'ADMIN') {
-      result = adminRoutes.map((route: RoutePayload) => (
-        <Route key={route.path} path={route.path} element={<AuthorizePage />} />
-      ));
-    }
     result = routes.map((route: RoutePayload) => {
       if (route.role.length === 0) {
         return (
@@ -111,19 +107,21 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <ThemeProvider theme={defaultTheme}>
-            <BrowserRouter>
-              <React.StrictMode>
-                <App />
-              </React.StrictMode>
-            </BrowserRouter>
-          </ThemeProvider>
-        </Provider>
-      </QueryClientProvider>
-    </GoogleOAuthProvider>
+    <ProSidebarProvider>
+      <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <ThemeProvider theme={defaultTheme}>
+              <BrowserRouter>
+                <React.StrictMode>
+                  <App />
+                </React.StrictMode>
+              </BrowserRouter>
+            </ThemeProvider>
+          </Provider>
+        </QueryClientProvider>
+      </GoogleOAuthProvider>
+    </ProSidebarProvider>
   );
 }
 

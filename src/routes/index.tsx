@@ -46,6 +46,7 @@ const MentorCreateCoursePage = lazy(
 );
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
+const AdminProfilePage = lazy(() => import('~/pages/AdminProfilePage'));
 
 const routes: RoutePayload[] = [
   {
@@ -158,6 +159,11 @@ const routes: RoutePayload[] = [
     main: () => <TestPage />,
     role: [],
   },
+  {
+    path: '/admin/*',
+    main: () => <AdminProfilePage />,
+    role: [],
+  },
 ];
 
 export const memberRoutes: RoutePayload[] = [
@@ -226,11 +232,16 @@ export const mentorRoutes: RoutePayload[] = [
 export const adminRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to="/admin" />,
+    main: () => <Navigate to="/admin/user" />,
     role: ['ADMIN'],
   },
   {
-    path: '/admin',
+    path: '/user',
+    main: () => <AdminPage />,
+    role: ['ADMIN'],
+  },
+  {
+    path: '/course',
     main: () => <AdminPage />,
     role: ['ADMIN'],
   },
