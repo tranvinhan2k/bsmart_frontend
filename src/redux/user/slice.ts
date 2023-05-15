@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { StaticDatePicker } from '@mui/x-date-pickers';
 import { createSlice } from '@reduxjs/toolkit';
 import { ResponseProfilePayload } from '~/api/users';
 import { CartDataPayload } from '~/models/api/cart';

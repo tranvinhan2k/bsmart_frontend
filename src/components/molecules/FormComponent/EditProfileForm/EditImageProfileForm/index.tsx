@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Box, Divider, Typography, Stack } from '@mui/material';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/redux/store';
@@ -38,7 +38,7 @@ export default function EditImageProfileForm() {
     <>
       <Box sx={SX_FORM}>
         <Typography component="h3" sx={SX_FORM_TITLE}>
-          Thông tin ảnh đại diện
+          Thông tin ảnh
         </Typography>
         <Divider sx={{ marginY: 2 }} />
         {dataGetProfile && (

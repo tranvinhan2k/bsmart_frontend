@@ -13,7 +13,7 @@ import { image } from '~/constants/image';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
 import { selectProfile } from '~/redux/user/selector';
-import { formatDate, formateISODateStringToDisplayDate } from '~/utils/date';
+import { formateISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import toast from '~/utils/toast';
 import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
@@ -23,9 +23,9 @@ import {
   SX_ACCOUNT_AVATAR,
   SX_ACCOUNT_NAME,
   SX_ACCOUNT_ROLE,
-  SX_ACCOUNT_DOB,
   SX_DISPLAY_FIELD_TEXT,
 } from './styles';
+import { ProfileImgType } from '~/constants/profile';
 
 export default function MentorDetailSection() {
   const profile = useSelector(selectProfile);
@@ -33,8 +33,8 @@ export default function MentorDetailSection() {
   const navigate = useNavigate();
   const mentorDetails = {
     imageLink:
-      profile?.userImages?.find((img) => img?.type === 'AVATAR')?.url ||
-      image.noAvatar,
+      profile?.userImages?.find((img) => img?.type === ProfileImgType.AVATAR)
+        ?.url || image.noAvatar,
     name: profile?.fullName,
     role: ROLE_LABELS[profile?.roles?.[0]?.code as RoleKeys],
     socials: [
@@ -128,13 +128,6 @@ export default function MentorDetailSection() {
                 name={mentorDetails.gender as IconName}
                 size="ex_large"
               />
-            )}
-            {mentorDetails.dateOfBirth && (
-              <Box mt={2}>
-                <Typography sx={SX_ACCOUNT_DOB}>
-                  {formatDate(mentorDetails.dateOfBirth)}
-                </Typography>
-              </Box>
             )}
             {displayFields.map((item) => (
               <Stack
