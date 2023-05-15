@@ -44,6 +44,7 @@ const initialState: UserStateType = {
       {
         id: 0,
         name: '',
+        type: '',
         url: '',
       },
     ],

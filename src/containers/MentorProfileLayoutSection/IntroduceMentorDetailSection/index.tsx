@@ -1,23 +1,24 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ResponseProfilePayload } from '~/api/users';
-import overlay_bg from '~/assets/images/overlay-bg.jpg';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import {
-  MentorNavigationActionData,
-  mockMentorDetailsInformationData,
-  mockMentorLatestActivities,
-} from '~/constants';
+import { mockMentorLatestActivities } from '~/constants';
 import { image } from '~/constants/image';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
 import { formatDate } from '~/utils/date';
-import { formatMoney } from '~/utils/money';
 import toast from '~/utils/toast';
+import {
+  SX_WRAPPER,
+  SX_BOX_ITEM_AVATAR,
+  SX_ACCOUNT_AVATAR,
+  SX_ACCOUNT_NAME,
+  SX_ACCOUNT_ROLE,
+  SX_ACCOUNT_DOB,
+  SX_DISPLAY_FIELD_TEXT,
+} from './styles';
 
 interface IntroduceMentorDetailSectionProps {
   mentor: ResponseProfilePayload | undefined;
@@ -57,6 +58,25 @@ export default function IntroduceMentorDetailSection({
     phone: profile?.phone || 'Chưa có thông tin',
     walletMoney: profile?.wallet?.balance || 0,
   };
+
+  const displayFields = [
+    {
+      image: 'mail',
+      text: mentorDetails.mail,
+    },
+    {
+      image: 'cake',
+      text: mentorDetails.dateOfBirth,
+    },
+    {
+      image: 'phone',
+      text: mentorDetails.phone,
+    },
+    {
+      image: 'location',
+      text: mentorDetails.address,
+    },
+  ];
   const activities = mockMentorLatestActivities;
 
   function handleNavigateLink(link: string) {
@@ -73,61 +93,26 @@ export default function IntroduceMentorDetailSection({
 
   return (
     <Stack>
-      <Stack
-        sx={{
-          boxShadow: 3,
-          padding: MetricSize.medium_15,
-          borderRadius: '5px',
-        }}
-      >
-        <Stack
-          sx={{
-            backgroundImage: `url(${overlay_bg})`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            paddingX: MetricSize.medium_15,
-
-            alignItems: 'center',
-          }}
-        >
+      <Box sx={SX_WRAPPER}>
+        <Stack sx={SX_BOX_ITEM_AVATAR}>
           <Box
-            sx={{
-              marginTop: { xs: MetricSize.medium_15, md: '100px' },
-              width: '200px',
-              height: '200px',
-              borderRadius: '5px',
-              objectFit: 'fill',
-            }}
-            component="img"
             alt="mentor avatar"
+            component="img"
             src={mentorDetails.imageLink}
+            sx={SX_ACCOUNT_AVATAR}
           />
-          <Stack sx={{ alignItems: 'center' }} marginTop={2}>
-            <Typography
-              sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.medium_24 }}
-            >
-              {mentorDetails.name}
-            </Typography>
-            <Typography
-              sx={{
-                color: Color.grey,
-                fontFamily: FontFamily.regular,
-                fontSize: FontSize.small_18,
-              }}
-            >
-              {mentorDetails.role}
-            </Typography>
+          <Stack alignItems="center" mt={2}>
+            <Typography sx={SX_ACCOUNT_NAME}>{mentorDetails.name}</Typography>
+            <Typography sx={SX_ACCOUNT_ROLE}>{mentorDetails.role}</Typography>
 
             {mentorDetails.socials && (
               <Stack
-                sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                }}
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
               >
                 {mentorDetails.socials.map((item) => (
-                  <Stack margin={1} key={item.image}>
+                  <Stack m={1} key={item.image}>
                     <Tooltip title={item.link || 'Chưa có địa chỉ mạng xã hội'}>
                       <Button
                         onClick={() => handleOpenSocialLink(item.link)}
@@ -149,52 +134,27 @@ export default function IntroduceMentorDetailSection({
               />
             )}
             {mentorDetails.dateOfBirth && (
-              <Typography
-                sx={{
-                  fontSize: FontSize.small_16,
-                  color: Color.grey,
-                  fontFamily: FontFamily.regular,
-                }}
-              >
-                {formatDate(mentorDetails.dateOfBirth)}
-              </Typography>
+              <Box mt={2}>
+                <Typography sx={SX_ACCOUNT_DOB}>
+                  {formatDate(mentorDetails.dateOfBirth)}
+                </Typography>
+              </Box>
             )}
-            {[
-              {
-                image: 'location',
-                text: mentorDetails.address,
-              },
-              {
-                image: 'mail',
-                text: mentorDetails.mail,
-              },
-              {
-                image: 'phone',
-                text: mentorDetails.phone,
-              },
-            ].map((item) => (
+            {displayFields.map((item) => (
               <Stack
                 key={item.text}
-                sx={{
-                  marginTop: 2,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1}
+                mt={2}
               >
                 <Icon
                   name={item.image as IconName}
                   size="small"
                   color="orange"
                 />
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_16,
-                    color: Color.grey,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  {item.text}
-                </Typography>
+                <Typography sx={SX_DISPLAY_FIELD_TEXT}>{item.text}</Typography>
               </Stack>
             ))}
           </Stack>
@@ -208,7 +168,7 @@ export default function IntroduceMentorDetailSection({
             </Button>
           </Stack>
         </Stack>
-      </Stack>
+      </Box>
     </Stack>
   );
 }

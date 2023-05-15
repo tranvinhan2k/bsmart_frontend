@@ -1,20 +1,10 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
-import Tooltip from '@mui/material/Tooltip';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { ResponseProfilePayload } from '~/api/users';
-import overlay_bg from '~/assets/images/overlay-bg.jpg';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
-import Icon, { IconName } from '~/components/atoms/Icon';
-import { mockMentorLatestActivities } from '~/constants';
+import { useNavigate } from 'react-router-dom';
 import { image } from '~/constants/image';
+import { mockMentorLatestActivities } from '~/constants';
+import { ResponseProfilePayload } from '~/api/users';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
-import { formatDate } from '~/utils/date';
-import { formatMoney } from '~/utils/money';
-
 import toast from '~/utils/toast';
 
 interface IntroduceAdminDetailSectionProps {

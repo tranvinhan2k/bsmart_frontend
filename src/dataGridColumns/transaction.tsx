@@ -1,6 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { formatMoney } from '~/utils/money';
-import { transformISODateToDisplayDateTime } from '~/utils/date';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import TypographyQuickColor from '~/components/atoms/Typography/TypographyQuickColor';
 
 export const transactionColumns: GridColDef[] = [
@@ -45,7 +45,7 @@ export const transactionColumns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     renderCell: (params) => {
-      const result = transformISODateToDisplayDateTime(params.row.created);
+      const result = formatISODateDateToDisplayDateTime(params.row.created);
       return result;
     },
   },
@@ -56,7 +56,7 @@ export const transactionColumns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     renderCell: (params) => {
-      const result = transformISODateToDisplayDateTime(params.row.lastModified);
+      const result = formatISODateDateToDisplayDateTime(params.row.lastModified);
       return result;
     },
   },

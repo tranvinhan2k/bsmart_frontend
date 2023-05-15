@@ -14,7 +14,7 @@ import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
-import { MdPayments } from 'react-icons/md';
+import { MdPayments, MdCake } from 'react-icons/md';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -49,6 +49,7 @@ export type IconName =
   | 'add-icon'
   | 'add'
   | 'assignment'
+  | 'cake'
   | 'calendarMonth'
   | 'cart'
   | 'chat'
@@ -203,6 +204,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <CiPhone />
+        </Typography>
+      );
+    case 'cake':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdCake />
         </Typography>
       );
     case 'location':

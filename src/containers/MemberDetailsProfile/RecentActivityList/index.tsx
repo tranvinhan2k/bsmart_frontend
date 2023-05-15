@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography, Stack } from '@mui/material';
 import {
   SX_WRAPPER,
   SX_TITLE,
@@ -8,7 +8,7 @@ import {
 
 export default function RecentActivityList() {
   return (
-    <Box sx={SX_WRAPPER}>
+    <Stack sx={SX_WRAPPER}>
       <Typography component="h4" sx={SX_TITLE}>
         Các hoạt động gần đây
       </Typography>
@@ -34,6 +34,6 @@ export default function RecentActivityList() {
           <Divider />
         </Box>
       </Box>
-    </Box>
+    </Stack>
   );
 }

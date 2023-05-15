@@ -1,6 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
-import { transformISODateToDisplayDateTime } from '~/utils/date';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 
 export const questionBankInnerColumns: GridColDef[] = [
   {
@@ -22,7 +22,7 @@ export const questionBankInnerColumns: GridColDef[] = [
     flex: 2,
     renderCell: (params) => {
       const { name, date } = params.row.createdBy;
-      const formattedDate = transformISODateToDisplayDateTime(date);
+      const formattedDate = formatISODateDateToDisplayDateTime(date);
       return (
         <Box>
           <Typography>{name}</Typography>
@@ -56,7 +56,7 @@ export const questionBankInnerColumns: GridColDef[] = [
     flex: 2,
     renderCell: (params) => {
       const { name, date } = params.row.modifiedBy;
-      const formattedDate = transformISODateToDisplayDateTime(date);
+      const formattedDate = formatISODateDateToDisplayDateTime(date);
       return (
         <Box>
           <Typography>{name}</Typography>

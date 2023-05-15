@@ -1,5 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { transformISODateToDisplayDateTime } from '~/utils/date';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 
 export const mentorCreateCourseRequestColumns: GridColDef[] = [
@@ -12,7 +12,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { createDate } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(createDate);
+      const formattedDate = formatISODateDateToDisplayDateTime(createDate);
       return formattedDate;
     },
   },
@@ -23,7 +23,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { startDate } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(startDate);
+      const formattedDate = formatISODateDateToDisplayDateTime(startDate);
       return formattedDate;
     },
   },
@@ -34,7 +34,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { endDate } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(endDate);
+      const formattedDate = formatISODateDateToDisplayDateTime(endDate);
       return formattedDate;
     },
   },
