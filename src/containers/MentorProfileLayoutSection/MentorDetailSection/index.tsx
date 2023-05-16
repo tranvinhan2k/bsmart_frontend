@@ -188,22 +188,20 @@ export default function MentorDetailSection() {
                 </Typography>
               </Stack>
             ))}
-            {mentorDetails.walletMoney && (
-              <Stack marginTop={1}>
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_16,
-                    color: Color.grey,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  Số dư hiện tại:{' '}
-                  <span style={{ color: Color.orange }}>
-                    ${formatMoney(mentorDetails.walletMoney)}
-                  </span>
-                </Typography>
-              </Stack>
-            )}
+            <Stack marginTop={1}>
+              <Typography
+                sx={{
+                  fontSize: FontSize.small_16,
+                  color: Color.grey,
+                  fontFamily: FontFamily.regular,
+                }}
+              >
+                Số dư hiện tại:{' '}
+                <span style={{ color: Color.orange }}>
+                  ${formatMoney(mentorDetails.walletMoney)}
+                </span>
+              </Typography>
+            </Stack>
           </Stack>
           <Stack sx={{ marginTop: 1, width: '100%' }}>
             {MentorNavigationActionData.map((item) => (
