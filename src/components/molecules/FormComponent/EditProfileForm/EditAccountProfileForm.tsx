@@ -83,7 +83,7 @@ export default function EditAccountProfileForm() {
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
-        Thông tin tài khoản
+        Thông tin mật khẩu
       </Typography>
       <Divider sx={{ marginY: 2 }} />
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>

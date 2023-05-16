@@ -24,7 +24,7 @@ import {
   SX_ACCOUNT_NAME,
   SX_ACCOUNT_ROLE,
   SX_DISPLAY_FIELD_TEXT,
-} from './styles';
+} from './style';
 import { ProfileImgType } from '~/constants/profile';
 
 export default function MentorDetailSection() {
@@ -102,8 +102,12 @@ export default function MentorDetailSection() {
             sx={SX_ACCOUNT_AVATAR}
           />
           <Stack alignItems="center" mt={2}>
-            <Typography sx={SX_ACCOUNT_NAME}>{mentorDetails.name}</Typography>
-            <Typography sx={SX_ACCOUNT_ROLE}>{mentorDetails.role}</Typography>
+            <Typography component="h4" sx={SX_ACCOUNT_NAME}>
+              {mentorDetails.name}
+            </Typography>
+            <Typography component="p" sx={SX_ACCOUNT_ROLE}>
+              {mentorDetails.role}
+            </Typography>
             <Stack
               direction="row"
               justifyContent="space-around"

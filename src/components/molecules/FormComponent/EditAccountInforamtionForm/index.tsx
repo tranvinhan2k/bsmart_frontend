@@ -15,7 +15,7 @@ export default function EditAccountInformationForm() {
       <Typography
         sx={{ fontSize: FontSize.medium_28, fontFamily: FontFamily.bold }}
       >
-        Thông tin tài khoản
+        Thông tin mật khẩu
       </Typography>
       <Divider sx={{ marginY: 1 }} />
       <form onSubmit={editBasicHookForm.handleSubmit(handleSubmitSuccess)}>

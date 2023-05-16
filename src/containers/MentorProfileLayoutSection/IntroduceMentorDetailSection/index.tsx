@@ -18,7 +18,7 @@ import {
   SX_ACCOUNT_ROLE,
   SX_ACCOUNT_DOB,
   SX_DISPLAY_FIELD_TEXT,
-} from './styles';
+} from './style';
 
 interface IntroduceMentorDetailSectionProps {
   mentor: ResponseProfilePayload | undefined;
@@ -102,8 +102,12 @@ export default function IntroduceMentorDetailSection({
             sx={SX_ACCOUNT_AVATAR}
           />
           <Stack alignItems="center" mt={2}>
-            <Typography sx={SX_ACCOUNT_NAME}>{mentorDetails.name}</Typography>
-            <Typography sx={SX_ACCOUNT_ROLE}>{mentorDetails.role}</Typography>
+            <Typography component="h4" sx={SX_ACCOUNT_NAME}>
+              {mentorDetails.name}
+            </Typography>
+            <Typography component="p" sx={SX_ACCOUNT_ROLE}>
+              {mentorDetails.role}
+            </Typography>
 
             {mentorDetails.socials && (
               <Stack
