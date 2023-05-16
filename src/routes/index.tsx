@@ -72,7 +72,7 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[3].link}/*`,
     main: () => <MentorProfilePage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[4].link}`,
@@ -97,7 +97,7 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[8].link}`,
     main: () => <CourseDetailPage />,
-    role: ['GUEST', 'STUDENT', 'TEACHER'],
+    role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[9].link}`,
@@ -107,37 +107,37 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[10].link}`,
     main: () => <AnnotationPage />,
-    role: ['STUDENT', 'TEACHER'],
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[11].link}`,
     main: () => <BuyCoursePage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${NavigationActionData[12].link}`,
     main: () => <BlogDetailsPage />,
-    role: ['GUEST', 'TEACHER', 'STUDENT'],
+    role: ['GUEST', 'ROLE_TEACHER', 'ROLE_STUDENT'],
   },
   {
     path: `/${NavigationActionData[13].link}/*`,
     main: () => <MemberProfilePage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${NavigationActionData[14].link}`,
     main: () => <FeedbackPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${NavigationActionData[15].link}`,
     main: () => <MentorsPage />,
-    role: ['GUEST', 'STUDENT'],
+    role: ['GUEST', 'ROLE_STUDENT'],
   },
   {
     path: `/${NavigationActionData[16].link}`,
     main: () => <CartPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${NavigationActionData[17].link}`,
@@ -147,7 +147,7 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[18].link}`,
     main: () => <CheckoutPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: '*',
@@ -170,27 +170,27 @@ export const memberRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => <MemberDetailsPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[0].link}`,
     main: () => <EditMemberProfilePage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[1].link}`,
     main: () => <WalletManagementPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
   {
     path: `/${MemberNavigationActionData[3].link}`,
     main: () => <MemberCourseListPage />,
-    role: ['STUDENT'],
+    role: ['ROLE_STUDENT'],
   },
 ];
 export const mentorRoutes: RoutePayload[] = [
@@ -201,49 +201,49 @@ export const mentorRoutes: RoutePayload[] = [
         to={`/${NavigationActionData[3].link}/${MentorNavigationActionData[0].link}`}
       />
     ),
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[0].link}`,
     main: () => <MentorEditProfilePage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[1].link}`,
     main: () => <WalletManagementPage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[3].link}`,
     main: () => <MentorCourseListPage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[4].link}`,
     main: () => <MentorCreateCoursePage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
 ];
 export const adminRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => <Navigate to="/admin/user" />,
-    role: ['ADMIN'],
+    role: ['ROLE_ADMIN'],
   },
   {
     path: '/user',
     main: () => <AdminPage />,
-    role: ['ADMIN'],
+    role: ['ROLE_ADMIN'],
   },
   {
     path: '/course',
     main: () => <AdminPage />,
-    role: ['ADMIN'],
+    role: ['ROLE_ADMIN'],
   },
 ];
 
