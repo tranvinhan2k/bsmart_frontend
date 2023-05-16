@@ -12,20 +12,16 @@ interface UpdateSubCourseModalProps {
   hookForm: UseFormReturn<any, any>;
   levels: OptionPayload[];
   types: OptionPayload[];
-  subjects: OptionPayload[] | undefined;
   onClose: () => void;
   onUpdate: (data: any) => void;
-  onDelete: () => void;
 }
 
 export default function UpdateSubCourseModal({
   index,
   hookForm,
   levels,
-  subjects,
   types,
   onClose,
-  onDelete,
   onUpdate,
 }: UpdateSubCourseModalProps) {
   return (
@@ -114,13 +110,6 @@ export default function UpdateSubCourseModal({
           label="Hình ảnh"
         />
         <FormInput
-          data={subjects}
-          variant="dropdown"
-          name={CREATE_SUB_COURSE_FIELDS.subjectId}
-          control={hookForm.control}
-          label="Ngôn ngữ lập trình"
-        />
-        <FormInput
           data={types}
           variant="dropdown"
           name={CREATE_SUB_COURSE_FIELDS.type}
@@ -145,11 +134,6 @@ export default function UpdateSubCourseModal({
         >
           Cập nhật giờ học
         </Button>
-        <Stack sx={{ marginTop: MetricSize.medium_15 }}>
-          <Button onClick={onDelete} customVariant="outlined">
-            Xóa giờ học
-          </Button>
-        </Stack>
       </Stack>
     </Modal>
   );

@@ -117,8 +117,6 @@ export const defaultValueCreateSubCourse = {
   name: '',
   level: '',
   imageId: '',
-  categoryId: '',
-  subjectId: '',
   type: '',
   price: 0,
   minStudent: 0,

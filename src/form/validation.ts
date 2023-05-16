@@ -163,6 +163,9 @@ export const validationSchemaFeedbackMentor = object({
 export const validationSchemaCreateCourse = object({
   code: string().required('Mã khóa học là bắt buộc'),
   name: string().required(COURSE_NAME_REQUIRED),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
   categoryId: object()
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
@@ -170,10 +173,9 @@ export const validationSchemaCreateCourse = object({
 });
 export const validationSchemaCreateSubCourse = object({
   subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
-  numberOfSlot: number().required('Số lượng học sinh không được để trống'),
-  subjectId: object()
-    .typeError('Ngôn ngữ không hợp lệ')
-    .required(COURSE_LANGUAGE_REQUIRED),
+  numberOfSlot: number()
+    .required('Số lượng học sinh không được để trống')
+    .min(30, 'Học sinh tối thiểu phải lớn hơn 30'),
   level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
@@ -196,6 +198,7 @@ export const validationSchemaCreateSubCourse = object({
     .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
   maxStudent: number()
     .required('Số học sinh tối đa không được bỏ trống')
+    .min(5, 'Học sinh tối thiểu phải lớn hơn 5')
     .test(
       'is-greater',
       'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',

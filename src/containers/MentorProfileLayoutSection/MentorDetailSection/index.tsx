@@ -120,12 +120,14 @@ export default function MentorDetailSection() {
                 {mentorDetails.socials.map((item) => (
                   <Stack margin={1} key={item.image}>
                     <Tooltip title={item.link || 'Chưa có địa chỉ mạng xã hội'}>
-                      <Button
-                        onClick={() => handleOpenSocialLink(item.link)}
-                        customVariant="normal"
-                      >
-                        <Icon name={item.image as IconName} size="small" />
-                      </Button>
+                      <span>
+                        <Button
+                          onClick={() => handleOpenSocialLink(item.link)}
+                          customVariant="normal"
+                        >
+                          <Icon name={item.image as IconName} size="small" />
+                        </Button>
+                      </span>
                     </Tooltip>
                   </Stack>
                 ))}

@@ -6,6 +6,7 @@ export const useQueryGetAllSubjects = () => {
     queryKey: ['subjects'],
     queryFn: () => subjectsApi.getAllSubjects(),
   });
+
   return {
     error,
     subjects: data,

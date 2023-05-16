@@ -5,6 +5,7 @@ export interface ResponseSubjectsPayload {
   id: number;
   code: string;
   name: string;
+  categoryId: number;
 }
 
 export function handleResponseGetSubjects(
@@ -17,6 +18,7 @@ export function handleResponseGetSubjects(
     id: item.id,
     label: item.name,
     value: item.code,
+    categoryId: item.categoryId,
   }));
 }
 

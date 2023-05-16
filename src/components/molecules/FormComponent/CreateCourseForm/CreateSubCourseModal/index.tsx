@@ -11,7 +11,6 @@ interface CreateSubCourseModalProps {
   isOpen: boolean;
   hookForm: UseFormReturn<any, any>;
   levels: OptionPayload[];
-  subjects: OptionPayload[] | undefined;
   types: OptionPayload[];
   onClose: () => void;
   onSubmit: (data: any) => void;
@@ -21,7 +20,6 @@ export default function CreateSubCourseModal({
   isOpen,
   hookForm,
   levels,
-  subjects,
   types,
 
   onClose,
@@ -111,13 +109,6 @@ export default function CreateSubCourseModal({
           name={CREATE_SUB_COURSE_FIELDS.imageId}
           control={hookForm.control}
           label="Hình ảnh"
-        />
-        <FormInput
-          data={subjects}
-          variant="dropdown"
-          name={CREATE_SUB_COURSE_FIELDS.subjectId}
-          control={hookForm.control}
-          label="Ngôn ngữ lập trình"
         />
         <FormInput
           data={types}

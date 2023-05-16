@@ -34,6 +34,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ManIcon from '@mui/icons-material/Man';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WomanIcon from '@mui/icons-material/Woman';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddIcon from '@mui/icons-material/Add';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -49,6 +50,7 @@ export type IconName =
   | 'up'
   | 'keyboardArrowRight'
   | 'calendarMonth'
+  | 'moreVert'
   | 'menu'
   | 'nearMe'
   | 'person'
@@ -101,6 +103,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'moreVert':
+      return <MoreVertIcon sx={STYLED_ICON} />;
     case 'course':
       return <ArticleIcon sx={STYLED_ICON} />;
     case 'user':
