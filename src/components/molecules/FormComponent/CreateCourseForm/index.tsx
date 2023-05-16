@@ -134,6 +134,7 @@ export default function CreateCourseForm() {
         code: data?.code,
         name: data?.name,
         categoryId: data.categoryId?.id,
+        subjectId: data.subjectId.id,
         description: data?.description,
         subCourseRequests: subCourses.map((item) => ({
           ...item,
@@ -249,6 +250,13 @@ export default function CreateCourseForm() {
               name={CREATE_COURSE_FIELDS.categoryId}
               control={createCourseHookForm.control}
               label="Lĩnh Vực"
+            />
+            <FormInput
+              data={subjects}
+              variant="dropdown"
+              name={CREATE_COURSE_FIELDS.subjectId}
+              control={createCourseHookForm.control}
+              label="Ngôn ngữ"
             />
             <FormInput
               name={CREATE_COURSE_FIELDS.description}
