@@ -10,7 +10,7 @@ export const Color = {
   grey: '#999',
   grey2: '#696969',
   grey3: '#0000001f',
-  navy: '#004165',
+  navy: '#0e0a38',
   navy2: '#130f40',
   neutral: '#ccc',
   orange: '#ff630e',
@@ -19,6 +19,7 @@ export const Color = {
   transparent: '#00000000',
   white: '#ffffff',
   whiteSmoke: '#f5f5f5',
+  white2: '#eeeeee',
 };
 
 export const BorderRadius = {
@@ -43,6 +44,7 @@ export const FontFamily = {
 
 export const FontSize = {
   small_16: 16,
+  small_14: 14,
   small_18: 18,
   medium_24: 24,
   medium_28: 28,

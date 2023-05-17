@@ -63,7 +63,7 @@ export default function MentorDetailSection() {
   };
 
   return (
-    <Stack>
+    <Stack sx={{ width: '100%' }}>
       <Stack
         sx={{
           boxShadow: 3,
@@ -77,7 +77,6 @@ export default function MentorDetailSection() {
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             paddingX: MetricSize.medium_15,
-
             alignItems: 'center',
           }}
         >

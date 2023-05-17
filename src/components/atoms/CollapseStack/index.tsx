@@ -21,6 +21,7 @@ export default function CollapseStack({ label, children }: CollapseStackProps) {
         width: '100%',
         borderRadius: '10px',
         border: '1px solid grey',
+        background: Color.white,
       }}
     >
       <Stack
@@ -32,7 +33,7 @@ export default function CollapseStack({ label, children }: CollapseStackProps) {
           borderTopRightRadius: '10px',
           borderBottomLeftRadius: visibleCollapse ? 0 : '10px',
           borderBottomRightRadius: visibleCollapse ? 0 : '10px',
-          background: Color.whiteSmoke,
+          background: Color.white,
           padding: MetricSize.small_10,
           transition: 'all 200ms',
           borderBottom: visibleCollapse ? '1px solid grey' : 0,

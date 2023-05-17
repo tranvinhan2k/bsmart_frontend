@@ -47,6 +47,7 @@ const MentorCreateCoursePage = lazy(
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 const AdminProfilePage = lazy(() => import('~/pages/AdminProfilePage'));
+const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -150,6 +151,11 @@ const routes: RoutePayload[] = [
     role: ['ROLE_STUDENT'],
   },
   {
+    path: `/${NavigationActionData[19].link}`,
+    main: () => <ConfirmEmailPage />,
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  },
+  {
     path: '*',
     main: () => <NotFoundPage />,
     role: [],
@@ -157,11 +163,6 @@ const routes: RoutePayload[] = [
   {
     path: '/test_page',
     main: () => <TestPage />,
-    role: [],
-  },
-  {
-    path: '/admin/*',
-    main: () => <AdminProfilePage />,
     role: [],
   },
 ];
@@ -236,6 +237,11 @@ export const adminRoutes: RoutePayload[] = [
     role: ['ROLE_ADMIN'],
   },
   {
+    path: '/homepage',
+    main: () => <AdminPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
     path: '/user',
     main: () => <AdminPage />,
     role: ['ROLE_ADMIN'],
@@ -244,6 +250,11 @@ export const adminRoutes: RoutePayload[] = [
     path: '/course',
     main: () => <AdminPage />,
     role: ['ROLE_ADMIN'],
+  },
+  {
+    path: '*',
+    main: () => <NotFoundPage />,
+    role: [],
   },
 ];
 

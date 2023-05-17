@@ -10,6 +10,8 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import NavigateNext from '@mui/icons-material/NavigateNext';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
+import HomeIcon from '@mui/icons-material/Home';
+import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
   BsDribbble,
@@ -18,13 +20,18 @@ import {
   BsPinterest,
   BsTwitter,
   BsFacebook,
+  BsQuestionSquare,
+  BsPostcardFill,
 } from 'react-icons/bs';
 import { FcNext } from 'react-icons/fc';
-import { MdPayments } from 'react-icons/md';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { MdPayments, MdManageAccounts } from 'react-icons/md';
+import { BiCategoryAlt } from 'react-icons/bi';
 import { FaShare } from 'react-icons/fa';
 import { CiMail, CiPhone } from 'react-icons/ci';
+import { IoMdPaper } from 'react-icons/io';
 import { HiLocationMarker } from 'react-icons/hi';
-import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineStar, AiFillSetting } from 'react-icons/ai';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -53,11 +60,13 @@ export type IconName =
   | 'moreVert'
   | 'menu'
   | 'nearMe'
+  | 'setting'
   | 'person'
   | 'twitter'
   | 'instagram'
   | 'right'
   | 'linkedin'
+  | 'teacher'
   | 'dribbble'
   | 'mail'
   | 'phone'
@@ -67,12 +76,19 @@ export type IconName =
   | 'user'
   | 'close'
   | 'check'
+  | 'account'
   | 'facebook'
   | 'next'
+  | 'home'
+  | 'blog'
   | 'next2'
+  | 'category'
+  | 'question'
   | 'dot'
   | 'male'
   | 'female'
+  | 'class'
+  | 'subject'
   | 'previous'
   | 'share'
   | 'edit'
@@ -103,8 +119,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'teacher':
+      return <SwitchAccountIcon sx={STYLED_ICON} />;
     case 'moreVert':
       return <MoreVertIcon sx={STYLED_ICON} />;
+    case 'home':
+      return <HomeIcon sx={STYLED_ICON} />;
     case 'course':
       return <ArticleIcon sx={STYLED_ICON} />;
     case 'user':
@@ -149,6 +169,48 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsTwitter />
+        </Typography>
+      );
+    case 'account':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdManageAccounts />
+        </Typography>
+      );
+    case 'question':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsQuestionSquare />
+        </Typography>
+      );
+    case 'blog':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsPostcardFill />
+        </Typography>
+      );
+    case 'setting':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiFillSetting />
+        </Typography>
+      );
+    case 'category':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BiCategoryAlt />
+        </Typography>
+      );
+    case 'subject':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <IoMdPaper />
+        </Typography>
+      );
+    case 'class':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <SiGoogleclassroom />
         </Typography>
       );
     case 'payment':

@@ -86,7 +86,6 @@ export default function IntroduceMentorDetailSection({
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             paddingX: MetricSize.medium_15,
-
             alignItems: 'center',
           }}
         >
