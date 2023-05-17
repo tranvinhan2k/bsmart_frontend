@@ -6,7 +6,7 @@ import overlay_bg from '~/assets/images/overlay-bg.jpg';
 export const SX_WRAPPER: SxProps<Theme> = {
   boxShadow: 3,
   padding: MetricSize.medium_15,
-  borderRadius: '5px',
+  borderRadius: MetricSize.small_5,
 };
 
 export const SX_BOX_ITEM_AVATAR: SxProps<Theme> = {
@@ -19,11 +19,8 @@ export const SX_BOX_ITEM_AVATAR: SxProps<Theme> = {
 };
 
 export const SX_ACCOUNT_AVATAR: SxProps<Theme> = {
-  marginTop: { xs: MetricSize.medium_15, md: '100px' },
-  width: '200px',
-  height: '200px',
-  borderRadius: '5px',
-  objectFit: 'fill',
+  width: 140,
+  height: 140,
 };
 
 export const SX_ACCOUNT_NAME: SxProps<Theme> = {

@@ -20,19 +20,19 @@ import { validationSchemaEditAvatar } from '~/form/validation';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { SX_FORM_LABEL } from '../style';
+import { SX_FORM_LABEL } from './style';
 
-interface DialogUpdateAvatarProps {
+interface DialogEditAvatarProps {
   open: boolean;
   handleOnClose: () => void;
-  dataGetProfile: any;
+  profile: any;
 }
 
 export default function DialogUpdateAvatar({
   open,
   handleOnClose,
-  dataGetProfile,
-}: DialogUpdateAvatarProps) {
+  profile,
+}: DialogEditAvatarProps) {
   const resolverEditAvatar = useYupValidationResolver(
     validationSchemaEditAvatar
   );
@@ -43,15 +43,15 @@ export default function DialogUpdateAvatar({
   });
 
   useEffect(() => {
-    if (dataGetProfile) {
+    if (profile) {
       const defaultOfEditAvatar = defaultValueEditAvatar;
 
-      if (dataGetProfile.avatar) {
-        defaultOfEditAvatar.avatar = dataGetProfile.avatar;
+      if (profile.avatar) {
+        defaultOfEditAvatar.avatar = profile.avatar;
         reset(defaultOfEditAvatar);
       }
     }
-  }, [dataGetProfile, reset]);
+  }, [profile, reset]);
 
   const { mutateAsync: mutateEditAvatar } = useMutationEditAvatar();
 
