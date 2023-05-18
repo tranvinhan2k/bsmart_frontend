@@ -3,14 +3,8 @@ import { Fragment, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { EDIT_MENTOR_PROFILE_FIELDS } from '~/form/schema';
-import {
-  EditMentorProfileFormDataPayload,
-  FormInputVariant,
-} from '~/models/form';
 import { defaultValueEditMentorProfile } from '~/form/defaultValues';
 import { RootState } from '~/redux/store';
-import { OptionPayload } from '~/models';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import accountApi, { EditMentorProfilePayload } from '~/api/users';
 import Button from '~/components/atoms/Button';
@@ -20,6 +14,12 @@ import { useQueryGetAllSubjects, useYupValidationResolver } from '~/hooks';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
 export default function EditMentorProfileForm() {
+  const toastMsgLoading = 'Đang cập nhật ...';
+  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${error.message}`;
+  };
+
   const token =
     useSelector((state: RootState) => state.user.token) ||
     localStorage.getItem('token');
@@ -50,23 +50,19 @@ export default function EditMentorProfileForm() {
   useEffect(() => {
     if (dataGetProfile) {
       const defaults = defaultValueEditMentorProfile;
-      if (dataGetProfile.workingExperience)
-        defaults.workingExperience = dataGetProfile.workingExperience;
-      if (dataGetProfile.mentorSkills)
-        defaults.mentorSkills = dataGetProfile.skill;
-      if (dataGetProfile.introduce)
-        defaults.introduce = dataGetProfile.introduce;
-
-      // console.log('defaults', defaults);
-      if (subjects) {
-        defaults.mentorSkills = [
-          {
-            id: subjects[0]?.id,
-            label: subjects[0]?.label,
-            value: subjects[0]?.value,
-          },
-        ];
+      if (dataGetProfile.mentorProfile.workingExperience)
+        defaults.workingExperience =
+          dataGetProfile.mentorProfile.workingExperience;
+      if (dataGetProfile.mentorProfile.mentorSkills) {
+        defaults.mentorSkills = dataGetProfile.mentorProfile.mentorSkills.map(
+          (item: any) => ({
+            skillId: item.skillId,
+            yearOfExperiences: item.yearOfExperiences,
+          })
+        );
       }
+      if (dataGetProfile.mentorProfile.introduce)
+        defaults.introduce = dataGetProfile.mentorProfile.introduce;
       reset(defaults);
     }
   }, [dataGetProfile, reset, subjects]);
@@ -79,29 +75,18 @@ export default function EditMentorProfileForm() {
     };
     data.mentorSkills.forEach((item: any) => {
       params.mentorSkills.push({
-        skillId: item.subjectId.id,
+        skillId: item.skillId.id,
         yearOfExperiences: item.yearOfExperiences,
       });
     });
-    const id = toast.loadToast('Đang cập nhật ...');
+    const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditMentorProfile(params);
-      toast.updateSuccessToast(id, 'Cập nhật thành công');
+      toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Cập nhật không thành công: ${error.message}`
-      );
+      toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
-
-  interface FormFieldsMentorProps {
-    name: string;
-    variant: FormInputVariant;
-    label: string;
-    placeholder?: string;
-    size: number;
-  }
 
   const EDIT_MENTOR_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin sư phạm',
@@ -120,31 +105,7 @@ export default function EditMentorProfileForm() {
     BUTTON_TEXT: 'Cập nhật',
   };
 
-  const formFieldsMentor: FormFieldsMentorProps[] = [
-    {
-      name: EDIT_MENTOR_PROFILE_FIELDS.introduce,
-      label: EDIT_MENTOR_PROFILE_FORM_TEXT.INTRODUCE.LABEL,
-      placeholder: EDIT_MENTOR_PROFILE_FORM_TEXT.INTRODUCE.PLACEHOLDER,
-      variant: 'multiline',
-      size: 12,
-    },
-    {
-      name: EDIT_MENTOR_PROFILE_FIELDS.mentorSkills,
-      label: EDIT_MENTOR_PROFILE_FORM_TEXT.SKILLS.LABEL,
-      placeholder: EDIT_MENTOR_PROFILE_FORM_TEXT.SKILLS.PLACEHOLDER,
-      variant: 'text',
-      size: 12,
-    },
-    {
-      name: EDIT_MENTOR_PROFILE_FIELDS.workingExperience,
-      label: EDIT_MENTOR_PROFILE_FORM_TEXT.EXPERIENCE.LABEL,
-      placeholder: EDIT_MENTOR_PROFILE_FORM_TEXT.EXPERIENCE.PLACEHOLDER,
-      variant: 'multiline',
-      size: 12,
-    },
-  ];
-
-  const { fields, append, prepend, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: 'mentorSkills',
     control,
     rules: {
@@ -164,19 +125,6 @@ export default function EditMentorProfileForm() {
   const removeSkill = (order: number) => {
     remove(order);
   };
-
-  const mockSubjectTypeData: OptionPayload[] = [
-    {
-      id: 0,
-      label: 'Front End',
-      value: 'Front End',
-    },
-    {
-      id: 1,
-      label: 'Back End',
-      value: 'Back End',
-    },
-  ];
 
   return (
     <Box sx={SX_FORM}>
@@ -214,7 +162,7 @@ export default function EditMentorProfileForm() {
                       <FormInput
                         control={control}
                         data={subjects}
-                        name={`mentorSkills.${index}.subjectId`}
+                        name={`mentorSkills.${index}.skillId`}
                         variant="dropdown"
                       />
                     </Grid>

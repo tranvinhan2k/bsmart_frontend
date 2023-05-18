@@ -1,8 +1,10 @@
 import { Box, Divider, Typography, Grid } from '@mui/material';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 import { defaultValueEditCertificateProfile } from '~/form/defaultValues';
+import { RootState } from '~/redux/store';
 import { EDIT_CERTIFICATE_PROFILE_FIELDS } from '~/form/schema';
 import {
   EditCertificateProfileFormDataPayload,
@@ -17,10 +19,31 @@ import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 import { useYupValidationResolver } from '~/hooks';
 
 export default function EditCertificateProfileForm() {
+  const toastMsgLoading = 'Đang cập nhật ...';
+  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${error.message}`;
+  };
+
+  const token =
+    useSelector((state: RootState) => state.user.token) ||
+    localStorage.getItem('token');
+  const queryKey = ['/loginUser'];
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const { data: dataGetProfile } = useQuery(
+    queryKey,
+    () => accountApi.getProfile(config),
+    {
+      enabled: Boolean(token),
+    }
+  );
+
   const resolverEditCertificateProfile = useYupValidationResolver(
     validationSchemaEditCertificateProfile
   );
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: defaultValueEditCertificateProfile,
     resolver: resolverEditCertificateProfile,
   });
@@ -30,21 +53,38 @@ export default function EditCertificateProfileForm() {
     mutationFn: accountApi.editCertificateProfile,
   });
 
+  // useEffect(() => {
+  //   if (dataGetProfile) {
+  //     const defaults = defaultValueEditCertificateProfile;
+  //     if (dataGetProfile.mentorProfile.workingExperience)
+  //       defaults.workingExperience =
+  //         dataGetProfile.mentorProfile.workingExperience;
+  //     if (dataGetProfile.mentorProfile.mentorSkills) {
+  //       defaults.mentorSkills = dataGetProfile.mentorProfile.mentorSkills.map(
+  //         (item: any) => ({
+  //           skillId: item.skillId,
+  //           yearOfExperiences: item.yearOfExperiences,
+  //         })
+  //       );
+  //     }
+  //     if (dataGetProfile.mentorProfile.introduce)
+  //       defaults.introduce = dataGetProfile.mentorProfile.introduce;
+  //     reset(defaults);
+  //   }
+  // }, [dataGetProfile, reset, subjects]);
+
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
     const params: EditCertificateProfilePayload = {
       certificates: data.certificates,
     };
-    const id = toast.loadToast('Đang cập nhật ...');
+    const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditCertificateProfile(params);
-      toast.updateSuccessToast(id, 'Cập nhật thành công');
+      toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Cập nhật không thành công: ${error.message}`
-      );
+      toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
 

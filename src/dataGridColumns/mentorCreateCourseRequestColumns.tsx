@@ -1,5 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { transformISODateToDisplayDateTime } from '~/utils/date';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 
 export const mentorCreateCourseRequestColumns: GridColDef[] = [
@@ -12,8 +12,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { createDate } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(createDate);
-      return formattedDate;
+      return formatISODateDateToDisplayDateTime(createDate);
     },
   },
   {
@@ -23,8 +22,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { startDate } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(startDate);
-      return formattedDate;
+      return formatISODateDateToDisplayDateTime(startDate);
     },
   },
   {
@@ -34,8 +32,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { endDate } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(endDate);
-      return formattedDate;
+      return formatISODateDateToDisplayDateTime(endDate);
     },
   },
   {
@@ -51,8 +48,7 @@ export const mentorCreateCourseRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { unitPrice } = params.row;
-      const formattedDate = formatMoney(unitPrice);
-      return formattedDate;
+      return formatMoney(unitPrice);
     },
   },
   { field: 'numberStudent', headerName: 'HS hiện có', minWidth: 200, flex: 1 },

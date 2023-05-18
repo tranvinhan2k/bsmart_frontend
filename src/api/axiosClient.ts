@@ -1,4 +1,6 @@
 import axios from 'axios';
+import store from '~/redux/store';
+import { logOut } from '~/redux/user/slice';
 import localEnvironment from '~/utils/localEnvironment';
 
 export const axiosClient = axios.create({
@@ -26,6 +28,7 @@ axiosClient.interceptors.response.use(
     if (error?.response?.status === 401) {
       localStorage.removeItem('token');
     }
+    store.dispatch(logOut());
     return Promise.reject(
       new Error(error?.response?.data?.error_message || 'Something went wrong.')
     );

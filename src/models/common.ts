@@ -29,6 +29,7 @@ export interface OptionPayload {
   id: number;
   label: string;
   value: string;
+  categoryId?: number;
 }
 
 export interface ImagePayload {

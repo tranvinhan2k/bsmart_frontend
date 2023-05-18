@@ -1,5 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { transformISODateToDisplayDateTime } from '~/utils/date';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
 
 export const mentorRegisterRequestColumns: GridColDef[] = [
@@ -12,7 +12,7 @@ export const mentorRegisterRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { birthDay } = params.row;
-      const formattedDate = transformISODateToDisplayDateTime(birthDay);
+      const formattedDate = formatISODateDateToDisplayDateTime(birthDay);
       return formattedDate;
     },
   },

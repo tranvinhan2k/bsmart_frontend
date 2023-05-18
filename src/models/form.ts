@@ -101,6 +101,11 @@ export interface BankLinking {
   shortName: string;
   transferSupported: number;
 }
+export interface MentorSkills {
+  id: number;
+  label: string;
+  value: string;
+}
 
 export type FormInputVariant =
   | 'text'

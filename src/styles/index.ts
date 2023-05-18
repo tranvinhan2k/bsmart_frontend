@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
-import { alpha, Theme } from '@mui/material/styles';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Theme } from '@mui/material/styles';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 export const SX_LARGE_TITLE: SxProps<Theme> = {
   fontFamily: FontFamily.bold,

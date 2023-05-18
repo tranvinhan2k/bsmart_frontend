@@ -60,6 +60,7 @@ export interface ResponseProfilePayload {
     {
       id: number;
       name: string;
+      type: string;
       url: string;
     }
   ];

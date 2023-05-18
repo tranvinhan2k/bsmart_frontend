@@ -83,13 +83,13 @@ export default function EditAccountProfileForm() {
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
-        Thông tin tài khoản
+        Thông tin mật khẩu
       </Typography>
       <Divider sx={{ marginY: 2 }} />
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
-        <Grid container spacing={2}>
+        <Grid container>
           {formFieldsPersonal.map((field) => (
-            <Grid item key={field.name} sm={12} md={6}>
+            <Grid item key={field.name} xs={12}>
               <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
               <FormInput
                 control={control}

@@ -9,11 +9,13 @@ interface SubCourseListProps {
   subCourses: SubCoursePayload[];
   onOpenUpdateModal: (index: number) => void;
   onOpenAddModal: () => void;
+  onDeleteModal: (id: number) => void;
 }
 export default function SubCourseList({
   subCourses,
   onOpenAddModal,
   onOpenUpdateModal,
+  onDeleteModal,
 }: SubCourseListProps) {
   return (
     <Grid container spacing={2}>
@@ -22,7 +24,8 @@ export default function SubCourseList({
           // eslint-disable-next-line react/no-array-index-key
           key={index}
           id={index}
-          onDelete={() => onOpenUpdateModal(index)}
+          onUpdate={() => onOpenUpdateModal(index)}
+          onDeleteModal={() => onDeleteModal(index)}
           subCourse={item}
         />
       ))}

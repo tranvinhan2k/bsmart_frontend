@@ -1,6 +1,5 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { Box, TextField, Autocomplete } from '@mui/material';
-// import { BankLinking } from '~/models';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 import { BankLinking } from '~/models/form';
 
@@ -25,7 +24,6 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
     <Autocomplete
       {...defaultProps}
       disablePortal
-      id="combo-box-demo"
       fullWidth
       size="small"
       isOptionEqualToValue={(option, optionValue) =>
