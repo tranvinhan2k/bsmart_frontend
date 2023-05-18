@@ -8,7 +8,6 @@ import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import {
   MentorNavigationActionData,
-  mockMentorDetailsInformationData,
   mockMentorLatestActivities,
 } from '~/constants';
 import { image } from '~/constants/image';
@@ -24,7 +23,9 @@ export default function MentorDetailSection() {
 
   const navigate = useNavigate();
   const mentorDetails = {
-    imageLink: profile?.userImages?.[0]?.url || image.noAvatar,
+    imageLink:
+      profile?.userImages?.find((item) => item.type === 'AVATAR')?.url ||
+      image.noAvatar,
     name: profile?.fullName,
     role: ROLE_LABELS[profile?.roles?.[0]?.code as RoleKeys],
     socials: [
