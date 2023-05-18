@@ -1,77 +1,51 @@
-import { Grid, Stack, Box, Typography } from '@mui/material';
-import { useState } from 'react';
-import { Color } from '~/assets/variables';
-import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import {
+  Grid,
+  Stack,
+  Box,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+} from '@mui/material';
+import React, { useState } from 'react';
 import Icon from '~/components/atoms/Icon';
 import TextLine from '~/components/atoms/TextLine';
-import { image } from '~/constants/image';
 import { LEVEL_LABELS } from '~/constants/level';
-import { useQueryGetImage } from '~/hooks';
 import { SubCoursePayload } from '~/models/subCourse';
+import { LevelKeys } from '~/models/variables';
 import { formatDate } from '~/utils/date';
 
 interface SubCourseItemProps {
   id: number;
   subCourse: SubCoursePayload;
-  onDelete: (id: number) => void;
+  onUpdate: (id: number) => void;
+  onDeleteModal: () => void;
 }
 
 export default function SubCourseItem({
   id,
   subCourse,
-  onDelete,
+  onUpdate,
+  onDeleteModal,
 }: SubCourseItemProps) {
-  const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  console.log(subCourse.level);
-
-  function handleDelete() {
+  const handleDelete = () => {
     // setOpenDialog(!isOpenDialog);
-    onDelete(id);
-  }
+    onUpdate(id);
+  };
 
-  // const handleConfirm = () => {
-  //   onDelete(id);
-  //   setOpenDialog(!isOpenDialog);
-  // };
-  // const handleCancel = () => {
-  //   setOpenDialog(!isOpenDialog);
-  // };
+  const handleClose = () => {
+    setAnchorEl(() => null);
+  };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   return (
     <Grid item xs={12}>
-      {/* <ConfirmDialog
-        open={isOpenDialog}
-        title="Xác nhận xóa khóa học phụ"
-        content="Bạn có chắc xóa khóa học này ?"
-        handleAccept={handleConfirm}
-        handleClose={handleCancel}
-      /> */}
       <Stack sx={{ position: 'relative' }}>
-        <Stack
-          onClick={() => handleDelete()}
-          sx={{
-            opacity: 0,
-            borderRadius: '10px',
-            background: `${Color.orange}AA`,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 2,
-            width: 'calc(100%-10px)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            transition: 'opacity .5s ease-out',
-            '&:hover': {
-              opacity: 1,
-              cursor: 'pointer',
-            },
-          }}
-        >
-          <Icon name="edit" size="ex_large" color="white" />
-        </Stack>
         <Grid
           container
           sx={{
@@ -80,7 +54,7 @@ export default function SubCourseItem({
             padding: '20px',
           }}
         >
-          <Grid item xs={12} md={2} padding={1}>
+          <Grid item xs={12} md={1} padding={1}>
             <Box
               component="img"
               src={
@@ -98,7 +72,8 @@ export default function SubCourseItem({
               { label: 'Tên khóa học phụ', variable: subCourse.subCourseTile },
               {
                 label: 'Trình độ',
-                variable: LEVEL_LABELS[subCourse.level.toUpperCase() as any],
+                variable:
+                  LEVEL_LABELS[subCourse.level.toUpperCase() as LevelKeys],
               },
               {
                 label: 'Ngày bắt đầu dự kiến',
@@ -130,6 +105,26 @@ export default function SubCourseItem({
                 variable={`${item.slot.label} - ${item.dayInWeek.label}`}
               />
             ))}
+          </Grid>
+          <Grid>
+            <IconButton onClick={handleMenu}>
+              <Icon name="moreVert" color="black" size="medium" />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              onMouseLeave={handleClose}
+            >
+              <MenuItem onClick={handleDelete}>Cập nhật </MenuItem>
+              <MenuItem onClick={onDeleteModal}>Xóa</MenuItem>
+            </Menu>
           </Grid>
         </Grid>
       </Stack>

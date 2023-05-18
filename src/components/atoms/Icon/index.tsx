@@ -1,5 +1,6 @@
 import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { AiOutlineClose, AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineStar, AiFillSetting } from 'react-icons/ai';
+import { BiCategoryAlt } from 'react-icons/bi';
 import {
   BsDribbble,
   BsInstagram,
@@ -7,6 +8,8 @@ import {
   BsPinterest,
   BsTwitter,
   BsFacebook,
+  BsQuestionSquare,
+  BsPostcardFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
@@ -14,7 +17,9 @@ import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
-import { MdPayments, MdCake } from 'react-icons/md';
+import { IoMdPaper } from 'react-icons/io';
+import { MdPayments, MdCake, MdManageAccounts } from 'react-icons/md';
+import { SiGoogleclassroom } from 'react-icons/si';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -27,11 +32,13 @@ import ChatIcon from '@mui/icons-material/Chat';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import HomeIcon from '@mui/icons-material/Home';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ManIcon from '@mui/icons-material/Man';
 import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NavigateNext from '@mui/icons-material/NavigateNext';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
@@ -39,6 +46,7 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
 import { Color, IconSize } from '~/assets/variables';
@@ -46,14 +54,18 @@ import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
+  | 'account'
   | 'add-icon'
   | 'add'
   | 'assignment'
+  | 'blog'
   | 'cake'
   | 'calendarMonth'
   | 'cart'
+  | 'category'
   | 'chat'
   | 'check'
+  | 'class'
   | 'close'
   | 'course'
   | 'delete'
@@ -66,6 +78,7 @@ export type IconName =
   | 'facebook'
   | 'female'
   | 'google'
+  | 'home'
   | 'instagram'
   | 'keyboardArrowRight'
   | 'linkedin'
@@ -74,6 +87,7 @@ export type IconName =
   | 'male'
   | 'menu'
   | 'modeEdit'
+  | 'moreVert'
   | 'nearMe'
   | 'next'
   | 'next2'
@@ -82,11 +96,15 @@ export type IconName =
   | 'phone'
   | 'pinterest'
   | 'previous'
+  | 'question'
   | 'quiz'
   | 'right'
   | 'search'
+  | 'setting'
   | 'share'
   | 'star'
+  | 'subject'
+  | 'teacher'
   | 'twitter'
   | 'up'
   | 'user';
@@ -110,6 +128,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
+    case 'teacher':
+      return <SwitchAccountIcon sx={STYLED_ICON} />;
+    case 'moreVert':
+      return <MoreVertIcon sx={STYLED_ICON} />;
+    case 'home':
+      return <HomeIcon sx={STYLED_ICON} />;
     case 'course':
       return <ArticleIcon sx={STYLED_ICON} />;
     case 'user':
@@ -162,6 +186,48 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsTwitter />
+        </Typography>
+      );
+    case 'account':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdManageAccounts />
+        </Typography>
+      );
+    case 'question':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsQuestionSquare />
+        </Typography>
+      );
+    case 'blog':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsPostcardFill />
+        </Typography>
+      );
+    case 'setting':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiFillSetting />
+        </Typography>
+      );
+    case 'category':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BiCategoryAlt />
+        </Typography>
+      );
+    case 'subject':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <IoMdPaper />
+        </Typography>
+      );
+    case 'class':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <SiGoogleclassroom />
         </Typography>
       );
     case 'payment':

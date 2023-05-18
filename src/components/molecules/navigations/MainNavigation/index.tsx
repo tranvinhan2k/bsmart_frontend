@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 import {
   IconButton,
@@ -14,12 +12,7 @@ import {
 } from '@mui/material';
 
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import {
-  ActionPayload,
-  ContractPayload,
-  PagingFilterPayload,
-  SocialPayload,
-} from '~/models';
+import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 
 import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
@@ -138,7 +131,7 @@ export default function MainNavigation({
         {renderNavigationList()}
       </Stack>
       <Stack sx={styles.view2}>
-        {role !== 'TEACHER' && (
+        {role !== 'ROLE_TEACHER' && (
           <IconButton onClick={onClickCart}>
             <Badge
               badgeContent={cart?.totalItem}

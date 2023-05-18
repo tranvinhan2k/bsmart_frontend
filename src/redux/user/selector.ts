@@ -1,3 +1,4 @@
+import { Role } from '~/models/role';
 import { UserStateType } from './slice';
 
 export const selectUserStatus = (state: { user: UserStateType }) =>
@@ -5,7 +6,8 @@ export const selectUserStatus = (state: { user: UserStateType }) =>
 export const selectToken = (state: { user: UserStateType }) => state.user.token;
 export const selectIsToggleAddToCart = (state: { user: UserStateType }) =>
   state.user.isAddToCart;
-export const selectRole = (state: { user: UserStateType }) => state.user.roles;
+export const selectRole = (state: { user: UserStateType }) =>
+  state.user.roles as Role;
 export const selectProfile = (state: { user: UserStateType }) =>
   state.user.profile;
 export const selectCart = (state: { user: UserStateType }) => state.user.cart;
