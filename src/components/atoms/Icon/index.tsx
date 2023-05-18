@@ -1,4 +1,3 @@
-import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { AiOutlineClose, AiOutlineStar, AiFillSetting } from 'react-icons/ai';
 import { BiCategoryAlt } from 'react-icons/bi';
 import {
@@ -49,6 +48,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
+import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
@@ -122,154 +122,22 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     color: Color[color],
   };
   switch (name) {
-    case 'google':
-      return (
-        <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />
-      );
-    case 'search':
-      return <SearchIcon sx={STYLED_ICON} />;
-    case 'teacher':
-      return <SwitchAccountIcon sx={STYLED_ICON} />;
-    case 'moreVert':
-      return <MoreVertIcon sx={STYLED_ICON} />;
-    case 'home':
-      return <HomeIcon sx={STYLED_ICON} />;
-    case 'course':
-      return <ArticleIcon sx={STYLED_ICON} />;
-    case 'user':
-      return <AccountBoxIcon sx={STYLED_ICON} />;
-    case 'check':
-      return <CheckCircleIcon sx={STYLED_ICON} />;
-    case 'chat':
-      return <ChatIcon sx={STYLED_ICON} />;
-    case 'add':
-      return <AddIcon sx={STYLED_ICON} />;
-    case 'assignment':
-      return <AssignmentIcon sx={STYLED_ICON} />;
-    case 'eye':
-      return <RemoveRedEyeIcon sx={STYLED_ICON} />;
-    case 'right':
-      return <NavigateNext sx={STYLED_ICON} />;
-    case 'delete':
-      return <DeleteIcon sx={STYLED_ICON} />;
-    case 'edit':
-      return <EditIcon sx={STYLED_ICON} />;
-    case 'cart':
-      return <ShoppingCartIcon sx={STYLED_ICON} />;
-    case 'eye-off':
-      return <VisibilityOffIcon sx={STYLED_ICON} />;
-    case 'add-icon':
-      return <AddPhotoAlternateIcon sx={STYLED_ICON} />;
-    case 'down':
-      return <ArrowDownwardIcon sx={STYLED_ICON} />;
-    case 'up':
-      return <ArrowUpwardIcon sx={STYLED_ICON} />;
-    case 'keyboardArrowRight':
-      return <KeyboardArrowRightIcon sx={STYLED_ICON} />;
-    case 'male':
-      return <ManIcon sx={STYLED_ICON} />;
-    case 'female':
-      return <WomanIcon sx={STYLED_ICON} />;
-    case 'calendarMonth':
-      return <CalendarMonthIcon sx={STYLED_ICON} />;
-    case 'menu':
-      return <MenuIcon sx={STYLED_ICON} />;
-    case 'modeEdit':
-      return <ModeEditIcon sx={STYLED_ICON} />;
-    case 'quiz':
-      return <QuizIcon sx={STYLED_ICON} />;
-    case 'nearMe':
-      return <NearMeIcon sx={STYLED_ICON} />;
-    case 'person':
-      return <PersonIcon sx={STYLED_ICON} />;
-    case 'twitter':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BsTwitter />
-        </Typography>
-      );
     case 'account':
       return (
         <Typography sx={STYLED_ICON}>
           <MdManageAccounts />
         </Typography>
       );
-    case 'question':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BsQuestionSquare />
-        </Typography>
-      );
+    case 'add-icon':
+      return <AddPhotoAlternateIcon sx={STYLED_ICON} />;
+    case 'add':
+      return <AddIcon sx={STYLED_ICON} />;
+    case 'assignment':
+      return <AssignmentIcon sx={STYLED_ICON} />;
     case 'blog':
       return (
         <Typography sx={STYLED_ICON}>
           <BsPostcardFill />
-        </Typography>
-      );
-    case 'setting':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <AiFillSetting />
-        </Typography>
-      );
-    case 'category':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BiCategoryAlt />
-        </Typography>
-      );
-    case 'subject':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <IoMdPaper />
-        </Typography>
-      );
-    case 'class':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <SiGoogleclassroom />
-        </Typography>
-      );
-    case 'payment':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <MdPayments />
-        </Typography>
-      );
-    case 'instagram':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BsInstagram />
-        </Typography>
-      );
-    case 'linkedin':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BsLinkedin />
-        </Typography>
-      );
-    case 'pinterest':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BsPinterest />
-        </Typography>
-      );
-    case 'dribbble':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <BsDribbble />
-        </Typography>
-      );
-    case 'mail':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <CiMail />
-        </Typography>
-      );
-    case 'phone':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <CiPhone />
         </Typography>
       );
     case 'cake':
@@ -278,16 +146,24 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <MdCake />
         </Typography>
       );
-    case 'location':
+    case 'calendarMonth':
+      return <CalendarMonthIcon sx={STYLED_ICON} />;
+    case 'cart':
+      return <ShoppingCartIcon sx={STYLED_ICON} />;
+    case 'category':
       return (
         <Typography sx={STYLED_ICON}>
-          <HiLocationMarker />
+          <BiCategoryAlt />
         </Typography>
       );
-    case 'facebook':
+    case 'chat':
+      return <ChatIcon sx={STYLED_ICON} />;
+    case 'check':
+      return <CheckCircleIcon sx={STYLED_ICON} />;
+    case 'class':
       return (
         <Typography sx={STYLED_ICON}>
-          <BsFacebook />
+          <SiGoogleclassroom />
         </Typography>
       );
     case 'close':
@@ -296,10 +172,134 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <AiOutlineClose />
         </Typography>
       );
+    case 'course':
+      return <ArticleIcon sx={STYLED_ICON} />;
+    case 'delete':
+      return <DeleteIcon sx={STYLED_ICON} />;
+    case 'dot':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GoPrimitiveDot />
+        </Typography>
+      );
+    case 'down':
+      return <ArrowDownwardIcon sx={STYLED_ICON} />;
+    case 'dribbble':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsDribbble />
+        </Typography>
+      );
+    case 'edit':
+      return <EditIcon sx={STYLED_ICON} />;
+    case 'eye-off':
+      return <VisibilityOffIcon sx={STYLED_ICON} />;
+    case 'eye':
+      return <RemoveRedEyeIcon sx={STYLED_ICON} />;
+    case 'facebook':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFacebook />
+        </Typography>
+      );
+    case 'female':
+      return <WomanIcon sx={STYLED_ICON} />;
+    case 'google':
+      return (
+        <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />
+      );
+    case 'home':
+      return <HomeIcon sx={STYLED_ICON} />;
+    case 'instagram':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsInstagram />
+        </Typography>
+      );
+    case 'keyboardArrowRight':
+      return <KeyboardArrowRightIcon sx={STYLED_ICON} />;
+    case 'linkedin':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsLinkedin />
+        </Typography>
+      );
+    case 'location':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <HiLocationMarker />
+        </Typography>
+      );
+    case 'mail':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <CiMail />
+        </Typography>
+      );
+    case 'male':
+      return <ManIcon sx={STYLED_ICON} />;
+    case 'menu':
+      return <MenuIcon sx={STYLED_ICON} />;
+    case 'modeEdit':
+      return <ModeEditIcon sx={STYLED_ICON} />;
+    case 'moreVert':
+      return <MoreVertIcon sx={STYLED_ICON} />;
+    case 'nearMe':
+      return <NearMeIcon sx={STYLED_ICON} />;
     case 'next':
       return (
         <Typography sx={STYLED_ICON}>
           <FcNext />
+        </Typography>
+      );
+    case 'next2':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GrNext />
+        </Typography>
+      );
+    case 'payment':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdPayments />
+        </Typography>
+      );
+    case 'person':
+      return <PersonIcon sx={STYLED_ICON} />;
+    case 'phone':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <CiPhone />
+        </Typography>
+      );
+    case 'pinterest':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsPinterest />
+        </Typography>
+      );
+    case 'previous':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <GrPrevious />
+        </Typography>
+      );
+    case 'question':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsQuestionSquare />
+        </Typography>
+      );
+    case 'quiz':
+      return <QuizIcon sx={STYLED_ICON} />;
+    case 'right':
+      return <NavigateNext sx={STYLED_ICON} />;
+    case 'search':
+      return <SearchIcon sx={STYLED_ICON} />;
+    case 'setting':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiFillSetting />
         </Typography>
       );
     case 'share':
@@ -314,24 +314,24 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <AiOutlineStar />
         </Typography>
       );
-    case 'next2':
+    case 'subject':
       return (
         <Typography sx={STYLED_ICON}>
-          <GrNext />
+          <IoMdPaper />
         </Typography>
       );
-    case 'previous':
+    case 'teacher':
+      return <SwitchAccountIcon sx={STYLED_ICON} />;
+    case 'twitter':
       return (
         <Typography sx={STYLED_ICON}>
-          <GrPrevious />
+          <BsTwitter />
         </Typography>
       );
-    case 'dot':
-      return (
-        <Typography sx={STYLED_ICON}>
-          <GoPrimitiveDot />
-        </Typography>
-      );
+    case 'up':
+      return <ArrowUpwardIcon sx={STYLED_ICON} />;
+    case 'user':
+      return <AccountBoxIcon sx={STYLED_ICON} />;
     default:
       return <ImageNotSupportedIcon />;
   }
