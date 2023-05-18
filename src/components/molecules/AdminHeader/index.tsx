@@ -1,15 +1,14 @@
 import {
-  Stack,
-  Typography,
-  IconButton,
   Box,
+  IconButton,
   Menu,
   MenuItem,
+  Stack,
+  Typography,
 } from '@mui/material';
-import React from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useState, MouseEvent } from 'react';
 import {
   IconSize,
   Color,
@@ -17,11 +16,9 @@ import {
   FontSize,
   FontFamily,
 } from '~/assets/variables';
-
 import { image } from '~/constants/image';
 import { selectProfile } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
-import globalStyles from '~/styles';
 
 const mappingData = {
   title: 'Quản lí tài khoản',
@@ -34,9 +31,9 @@ export default function AdminHeader() {
   const dispatch = useDispatch();
   const profile = useSelector(selectProfile);
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {

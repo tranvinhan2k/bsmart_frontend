@@ -2,9 +2,9 @@ import {
   Avatar,
   Box,
   IconButton,
-  Typography,
   Stack,
   Tooltip,
+  Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -15,15 +15,15 @@ import { formatMoney } from '~/utils/money';
 import { IconName } from '~/models/icon';
 import { image } from '~/constants/image';
 import { MemberNavigationActionData } from '~/constants';
+import { ProfileImgType } from '~/constants/profile';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
 import { selectProfile } from '~/redux/user/selector';
 import Button from '~/components/atoms/Button';
-import Icon from '~/components/atoms/Icon';
-import toast from '~/utils/toast';
-import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
 import DialogUpdateAvatar from '~/components/molecules/Dialog/DialogEditAvatar';
-
+import Icon from '~/components/atoms/Icon';
+import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
+import toast from '~/utils/toast';
 import {
   SX_WRAPPER,
   SX_BOX_ITEM_AVATAR,
@@ -38,7 +38,9 @@ export default function MainProfile() {
 
   const navigate = useNavigate();
   const memberDetails = {
-    imageLink: profile?.userImages?.[0]?.url || image.noAvatar,
+    imageLink:
+      profile?.userImages?.find((img) => img?.type === ProfileImgType.AVATAR)
+        ?.url || image.noAvatar,
     name: profile?.fullName,
     role: ROLE_LABELS[profile?.roles?.[0]?.code as RoleKeys],
     socials: [

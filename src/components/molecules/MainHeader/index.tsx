@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Stack, IconButton, Box, Menu, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Avatar, IconButton, Menu, MenuItem, Stack } from '@mui/material';
+import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
+import { image } from '~/constants/image';
+import { logOut } from '~/redux/user/slice';
+import { ProfileImgType } from '~/constants/profile';
+import { selectFilterParams } from '~/redux/courses/selector';
+import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import AuthorizationBar from './AuthorizationBar';
 import ContractBar from '../ContractBar';
-import SocialBar from '../SocialBar';
-import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
-import { SX_HEADER_CONTAINER } from './styles';
 import SearchBar from '~/components/atoms/SearchBar';
-import { IconSize } from '~/assets/variables';
-import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
-import { logOut } from '~/redux/user/slice';
-import { image } from '~/constants/image';
-import { selectFilterParams } from '~/redux/courses/selector';
+import SocialBar from '../SocialBar';
 import toast from '~/utils/toast';
+import { SX_HEADER_CONTAINER } from './styles';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -40,7 +40,7 @@ export default function MainHeader({
   const token = useSelector(selectToken);
   const role = useSelector(selectRole);
   const filterParams = useSelector(selectFilterParams);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isNeedRedirect, setNeedRedirect] = useState<boolean>(false);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function MainHeader({
     navigate('/homepage');
     toast.notifySuccessToast('Đăng xuất thành công');
   };
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -97,20 +97,20 @@ export default function MainHeader({
       ) : (
         <>
           <IconButton onClick={handleMenu}>
-            <Box
+            <Avatar
+              alt="Avatar"
+              src={
+                profile?.userImages?.find(
+                  (img) => img?.type === ProfileImgType.AVATAR
+                )?.url || image.noAvatar
+              }
               sx={{
-                width: IconSize.large,
-                height: IconSize.large,
-                objectFit: 'contain',
-                borderRadius: 1000,
+                width: 40,
+                height: 40,
               }}
-              component="img"
-              src={profile?.userImages?.[0]?.url || image.noAvatar}
-              alt="authentication"
             />
           </IconButton>
           <Menu
-            id="menu-appbar"
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'bottom',
