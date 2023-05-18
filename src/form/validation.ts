@@ -26,7 +26,7 @@ import {
   generateRequiredText,
 } from '~/form/message';
 
-const PHONE_REGEX = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
+const PHONE_REGEX = /(?:03|05|07|08|09|01[2689])[0-9]{8}\\b/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
