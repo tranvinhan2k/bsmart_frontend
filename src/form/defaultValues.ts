@@ -1,13 +1,10 @@
 import {
   BuyCourseDataPayload,
-  EditAccountProfileFormDataPayload,
-  EditCertificateProfileFormDataPayload,
   EditAvatarFormDataPayload,
+  EditCertificateProfileFormDataPayload,
   EditIdentityBackFormDataPayload,
   EditIdentityFrontFormDataPayload,
-  EditPersonalProfileFormDataPayload,
   EditMentorProfileFormDataPayload,
-  EditSocialProfileFormDataPayload,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
@@ -52,13 +49,12 @@ export const defaultValueEditIdentityBack: EditIdentityBackFormDataPayload = {
   identityBack: '',
 };
 
-export const defaultValueEditPersonalProfile: EditPersonalProfileFormDataPayload =
-  {
-    fullName: '',
-    birthday: '',
-    address: '',
-    phone: '',
-  };
+export const defaultValueEditPersonalProfile = {
+  fullName: '',
+  birthday: '',
+  address: '',
+  phone: '',
+};
 
 export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
   introduce: '',
@@ -71,15 +67,14 @@ export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataP
     certificates: [{ file: '' }],
   };
 
-export const defaultValueEditAccountProfile: EditAccountProfileFormDataPayload =
-  {
-    oldPassword: '',
-    oldPasswordConfirm: '',
-    newPassword: '',
-    newPasswordConfirm: '',
-  };
+export const defaultValueEditAccountProfile = {
+  oldPassword: '',
+  oldPasswordConfirm: '',
+  newPassword: '',
+  newPasswordConfirm: '',
+};
 
-export const defaultValueEditSocialProfile: EditSocialProfileFormDataPayload = {
+export const defaultValueEditSocialProfile = {
   facebookLink: '',
   twitterLink: '',
   instagramLink: '',
@@ -117,8 +112,6 @@ export const defaultValueCreateSubCourse = {
   name: '',
   level: '',
   imageId: '',
-  categoryId: '',
-  subjectId: '',
   type: '',
   price: 0,
   minStudent: 0,

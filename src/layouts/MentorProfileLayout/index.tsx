@@ -1,5 +1,4 @@
 import { Box, Grid, Stack } from '@mui/material';
-import { ResponseMentorCoursePayload } from '~/api/courses';
 import { ResponseProfilePayload } from '~/api/users';
 import IntroduceMentorDetailSection from '~/containers/MentorProfileLayoutSection/IntroduceMentorDetailSection';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';

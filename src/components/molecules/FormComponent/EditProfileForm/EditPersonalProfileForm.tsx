@@ -3,20 +3,27 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
+import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
 import { EDIT_PERSONAL_PROFILE_FIELDS } from '~/form/schema';
+import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { RootState } from '~/redux/store';
+import { useYupValidationResolver } from '~/hooks';
+import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import {
-  EditPersonalProfileFormDataPayload,
+  EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
-import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
-import { RootState } from '~/redux/store';
-import { validationSchemaEditPersonalProfile } from '~/form/validation';
-import accountApi, { EditPersonalProfilePayload } from '~/api/users';
+import accountApi from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { useYupValidationResolver } from '~/hooks';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+
+const toastMsgLoading = 'Đang cập nhật ...';
+const toastMsgSuccess = 'Cập nhật thành công ...';
+const toastMsgError = (error: any): string => {
+  return `Cập nhật không thành công: ${error.message}`;
+};
 
 export default function EditPersonalProfileForm() {
   const token =
@@ -60,25 +67,19 @@ export default function EditPersonalProfileForm() {
         : accountApi.editMemberPersonalProfile,
   });
 
-  const handleSubmitSuccess = async (
-    data: EditPersonalProfileFormDataPayload
-  ) => {
-    console.log(data);
+  const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
     const params: EditPersonalProfilePayload = {
       fullName: data.fullName,
       birthday: data.birthday,
       address: data.address,
       phone: data.phone,
     };
-    const id = toast.loadToast('Đang cập nhật ...');
+    const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditPersonalProfile(params);
-      toast.updateSuccessToast(id, 'Cập nhật thành công');
+      toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Cập nhật không thành công: ${error.message}`
-      );
+      toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
 
@@ -90,53 +91,32 @@ export default function EditPersonalProfileForm() {
     size: number;
   }
 
-  const EDIT_PERSONAL_PROFILE_FORM_TEXT = {
-    TITLE: 'Thông tin cá nhân',
-    NAME: {
-      LABEL: 'Họ tên',
-      PLACEHOLDER: 'Nhập họ tên',
-    },
-    BIRTHDAY: {
-      LABEL: 'Ngày sinh',
-      PLACEHOLDER: 'Nhập ngày sinh',
-    },
-    ADDRESS: {
-      LABEL: 'Địa chỉ',
-      PLACEHOLDER: 'Nhập địa chỉ',
-    },
-    PHONE: {
-      LABEL: 'Số điện thoại',
-      PLACEHOLDER: 'Nhập số điện thoại',
-    },
-    BUTTON_TEXT: 'Cập nhật',
-  };
-
   const formFieldsPersonal: FormFieldsPersonalProps[] = [
     {
       name: EDIT_PERSONAL_PROFILE_FIELDS.fullName,
-      label: EDIT_PERSONAL_PROFILE_FORM_TEXT.NAME.LABEL,
-      placeholder: EDIT_PERSONAL_PROFILE_FORM_TEXT.NAME.PLACEHOLDER,
+      label: 'Họ tên',
+      placeholder: 'Nhập họ tên',
       variant: 'text',
       size: 12,
     },
     {
       name: EDIT_PERSONAL_PROFILE_FIELDS.birthday,
-      label: EDIT_PERSONAL_PROFILE_FORM_TEXT.BIRTHDAY.LABEL,
-      placeholder: EDIT_PERSONAL_PROFILE_FORM_TEXT.BIRTHDAY.PLACEHOLDER,
+      label: 'Ngày sinh',
+      placeholder: 'Nhập ngày sinh',
       variant: 'date',
       size: 12,
     },
     {
       name: EDIT_PERSONAL_PROFILE_FIELDS.address,
-      label: EDIT_PERSONAL_PROFILE_FORM_TEXT.ADDRESS.LABEL,
-      placeholder: EDIT_PERSONAL_PROFILE_FORM_TEXT.ADDRESS.PLACEHOLDER,
+      label: 'Địa chỉ',
+      placeholder: 'Nhập địa chỉ',
       variant: 'text',
       size: 12,
     },
     {
       name: EDIT_PERSONAL_PROFILE_FIELDS.phone,
-      label: EDIT_PERSONAL_PROFILE_FORM_TEXT.PHONE.LABEL,
-      placeholder: EDIT_PERSONAL_PROFILE_FORM_TEXT.PHONE.PLACEHOLDER,
+      label: 'Số điện thoại',
+      placeholder: 'Nhập số điện thoại',
       variant: 'text',
       size: 12,
     },
@@ -145,7 +125,7 @@ export default function EditPersonalProfileForm() {
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
-        {EDIT_PERSONAL_PROFILE_FORM_TEXT.TITLE}
+        Thông tin cá nhân
       </Typography>
       <Divider sx={{ marginY: 2 }} />
       {dataGetProfile && (
@@ -165,7 +145,7 @@ export default function EditPersonalProfileForm() {
           </Grid>
           <Box mt={4}>
             <Button customVariant="normal" type="submit">
-              {EDIT_PERSONAL_PROFILE_FORM_TEXT.BUTTON_TEXT}
+              Cập nhật
             </Button>
           </Box>
         </form>

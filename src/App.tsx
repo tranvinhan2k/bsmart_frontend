@@ -23,6 +23,13 @@ import { selectProfile, selectRole } from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
 import { useDispatchGetCart, useMutationProfile } from './hooks';
 import { addProfile } from './redux/user/slice';
+import AdminProfileLayout from './layouts/AdminProfileLayout';
+
+const showAdminRoutes = () => {
+  return adminRoutes.map((route: RoutePayload) => (
+    <Route key={route.path} path={route.path} element={route?.main()} />
+  ));
+};
 
 const showRoutes = (currentRole: Role | null) => {
   let result = null;
@@ -44,7 +51,7 @@ const showRoutes = (currentRole: Role | null) => {
           <Route key={route.path} path={route.path} element={route?.main()} />
         );
       }
-      if (currentRole === 'STUDENT' || currentRole === 'TEACHER') {
+      if (currentRole === 'ROLE_STUDENT' || currentRole === 'ROLE_TEACHER') {
         return (
           <Route
             key={route.path}
@@ -96,9 +103,15 @@ function App() {
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer />
-      <MainLayout>
-        <Routes>{showRoutes(role)}</Routes>
-      </MainLayout>
+      {role === 'ROLE_ADMIN' ? (
+        <AdminProfileLayout>
+          <Routes>{showAdminRoutes()}</Routes>
+        </AdminProfileLayout>
+      ) : (
+        <MainLayout>
+          <Routes>{showRoutes(role)}</Routes>
+        </MainLayout>
+      )}
     </Suspense>
   );
 }

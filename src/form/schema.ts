@@ -1,8 +1,5 @@
 import {
   BuyCourseDataPayload,
-  EditPersonalProfileFormDataPayload,
-  EditAccountProfileFormDataPayload,
-  EditSocialProfileFormDataPayload,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   RegisterMentorDataPayload,
@@ -55,13 +52,10 @@ export const EDIT_IMAGE_PROFILE_FIELDS = {
 };
 
 export const EDIT_PERSONAL_PROFILE_FIELDS = {
-  avatar: 'avatar',
   fullName: 'fullName',
   birthday: 'birthday',
   address: 'address',
   phone: 'phone',
-  identityFront: 'identityFront',
-  identityBack: 'identityBack',
 };
 
 export const EDIT_MENTOR_PROFILE_FIELDS = {
@@ -74,14 +68,14 @@ export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
   certificates: 'certificates',
 };
 
-export const EDIT_PROFILE_FIELDS: EditAccountProfileFormDataPayload = {
+export const EDIT_PROFILE_FIELDS = {
   oldPassword: 'oldPassword',
   oldPasswordConfirm: 'oldPasswordConfirm',
   newPassword: 'newPassword',
   newPasswordConfirm: 'newPasswordConfirm',
 };
 
-export const EDIT_SOCIAL_PROFILE_FIELDS: EditSocialProfileFormDataPayload = {
+export const EDIT_SOCIAL_PROFILE_FIELDS = {
   facebookLink: 'facebookLink',
   twitterLink: 'twitterLink',
   instagramLink: 'instagramLink',

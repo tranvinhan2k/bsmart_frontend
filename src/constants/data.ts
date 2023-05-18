@@ -132,6 +132,12 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Thanh Toán',
     link: 'check_out',
   },
+  {
+    id: 19,
+    isHide: true,
+    name: 'Xác nhận khóa học',
+    link: 'confirm_email',
+  },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [

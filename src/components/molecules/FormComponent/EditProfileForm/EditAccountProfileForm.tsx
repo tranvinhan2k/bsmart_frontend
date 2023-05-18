@@ -1,26 +1,29 @@
-import { Box, Divider, Typography } from '@mui/material';
-import { Fragment } from 'react';
+import { Box, Divider, Typography, Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditAccountProfile } from '~/form/defaultValues';
 import { EDIT_PROFILE_FIELDS } from '~/form/schema';
-import {
-  EditAccountProfileFormDataPayload,
-  FormInputVariant,
-} from '~/models/form';
+import { EditAccountProfileFormDefault, FormInputVariant } from '~/models/form';
+import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
+import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditAccountProfile } from '~/form/validation';
-import accountApi, { EditAccountProfilePayload } from '~/api/users';
+import accountApi from '~/api/users';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
-import { useYupValidationResolver } from '~/hooks';
+
+const toastMsgLoading = 'Đang cập nhật ...';
+const toastMsgSuccess = 'Cập nhật thành công ...';
+const toastMsgError = (error: any): string => {
+  return `Cập nhật không thành công: ${error.message}`;
+};
 
 export default function EditAccountProfileForm() {
   const resolverEditAccountProfile = useYupValidationResolver(
     validationSchemaEditAccountProfile
   );
-  const editAccountProfileHookForm = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: defaultValueEditAccountProfile,
     resolver: resolverEditAccountProfile,
   });
@@ -29,78 +32,50 @@ export default function EditAccountProfileForm() {
     mutationFn: accountApi.editAccountProfile,
   });
 
-  const handleSubmitSuccess = async (
-    data: EditAccountProfileFormDataPayload
-  ) => {
+  const handleSubmitSuccess = async (data: EditAccountProfileFormDefault) => {
     const params: EditAccountProfilePayload = {
       oldPassword: data.oldPassword,
       newPassword: data.newPassword,
     };
-    const id = toast.loadToast('Đang cập nhật ...');
+    const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditAccountProfile(params);
-      toast.updateSuccessToast(id, 'Cập nhật thành công');
+      toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Cập nhật không thành công: ${error.message}`
-      );
+      toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
 
   interface FormFieldsPersonalProps {
-    name: string;
-    variant: FormInputVariant;
     label: string;
+    name: string;
     placeholder: string;
+    variant: FormInputVariant;
   }
-
-  const EDIT_ACCOUNT_PROFILE_FORM_TEXT = {
-    TITLE: 'Thông tin tài khoản',
-    OLD_PASSWORD: {
-      LABEL: 'Mật khẩu hiện tại',
-      PLACEHOLDER: 'Mật khẩu hiện tại',
-    },
-    OLD_PASSWORD_CONFIRM: {
-      LABEL: 'Xác nhận mật khẩu hiện tại',
-      PLACEHOLDER: 'Nhập xác nhận mật khẩu hiện tại',
-    },
-    NEW_PASSWORD: {
-      LABEL: 'Mật khẩu mới',
-      PLACEHOLDER: 'Mật khẩu mới',
-    },
-    NEW_PASSWORD_CONFIRM: {
-      LABEL: 'Xác nhận mật khẩu mới',
-      PLACEHOLDER: 'Nhập mật khẩu mới',
-    },
-    BUTTON_TEXT: 'Cập nhật',
-  };
 
   const formFieldsPersonal: FormFieldsPersonalProps[] = [
     {
+      label: 'Mật khẩu hiện tại',
       name: EDIT_PROFILE_FIELDS.oldPassword,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD.LABEL,
-      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD.PLACEHOLDER,
+      placeholder: 'Nhập mật khẩu hiện tại',
       variant: 'password',
     },
     {
+      label: 'Xác nhận mật khẩu hiện tại',
       name: EDIT_PROFILE_FIELDS.oldPasswordConfirm,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD_CONFIRM.LABEL,
-      placeholder:
-        EDIT_ACCOUNT_PROFILE_FORM_TEXT.OLD_PASSWORD_CONFIRM.PLACEHOLDER,
+      placeholder: 'Nhập xác nhận mật khẩu hiện tại',
       variant: 'password',
     },
     {
+      label: 'Mật khẩu mới',
       name: EDIT_PROFILE_FIELDS.newPassword,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD.LABEL,
-      placeholder: EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD.PLACEHOLDER,
+      placeholder: 'Nhập mật khẩu mới',
       variant: 'password',
     },
     {
+      label: 'Xác nhận mật khẩu mới',
       name: EDIT_PROFILE_FIELDS.newPasswordConfirm,
-      label: EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD_CONFIRM.LABEL,
-      placeholder:
-        EDIT_ACCOUNT_PROFILE_FORM_TEXT.NEW_PASSWORD_CONFIRM.PLACEHOLDER,
+      placeholder: 'Nhập xác nhận mật khẩu mới',
       variant: 'password',
     },
   ];
@@ -108,26 +83,26 @@ export default function EditAccountProfileForm() {
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
-        {EDIT_ACCOUNT_PROFILE_FORM_TEXT.TITLE}
+        Thông tin mật khẩu
       </Typography>
       <Divider sx={{ marginY: 2 }} />
-      <form
-        onSubmit={editAccountProfileHookForm.handleSubmit(handleSubmitSuccess)}
-      >
-        {formFieldsPersonal.map((field) => (
-          <Fragment key={field.name}>
-            <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
-            <FormInput
-              control={editAccountProfileHookForm.control}
-              name={field.name}
-              variant={field.variant}
-              placeholder={field.placeholder}
-            />
-          </Fragment>
-        ))}
+      <form onSubmit={handleSubmit(handleSubmitSuccess)}>
+        <Grid container>
+          {formFieldsPersonal.map((field) => (
+            <Grid item key={field.name} xs={12}>
+              <Typography sx={SX_FORM_LABEL}>{field.label}</Typography>
+              <FormInput
+                control={control}
+                name={field.name}
+                variant={field.variant}
+                placeholder={field.placeholder}
+              />
+            </Grid>
+          ))}
+        </Grid>
         <Box mt={4}>
           <Button customVariant="normal" type="submit">
-            {EDIT_ACCOUNT_PROFILE_FORM_TEXT.BUTTON_TEXT}
+            Cập nhật
           </Button>
         </Box>
       </form>

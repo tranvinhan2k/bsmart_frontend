@@ -4,7 +4,7 @@ export const formatDate = (dateText: string) => {
   return Moment(dateText).format('DD/MM/YYYY');
 };
 
-export const transformISODateToDisplayDate = (inputDate: Date) => {
+export const formateISODateStringToDisplayDate = (inputDate: string) => {
   let result = '';
   if (inputDate) {
     const date = new Date(inputDate);
@@ -19,7 +19,22 @@ export const transformISODateToDisplayDate = (inputDate: Date) => {
   return result;
 };
 
-export const transformISODateToDisplayDateTime = (inputDate: Date) => {
+export const formateISODateDateToDisplayDate = (inputDate: Date) => {
+  let result = '';
+  if (inputDate) {
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    let month: string | number = date.getMonth() + 1;
+    let day: string | number = date.getDate();
+
+    if (day < 10) day = `0${day}`;
+    if (month < 10) month = `0${month}`;
+    result = `${day} thg ${month}, ${year}`;
+  }
+  return result;
+};
+
+export const formatISODateDateToDisplayDateTime = (inputDate: Date) => {
   let result = '';
   if (inputDate) {
     const date = new Date(inputDate);

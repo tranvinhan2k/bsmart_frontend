@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Stack, Box, Tab, Tabs } from '@mui/material';
+import { Box, Tab, Tabs, Stack } from '@mui/material';
 import { SX_REGISTER_TAB, SX_TAB, SX_TABS } from './styles';
 import { TabPayload } from '~/models';
 import TabPanel from '~/components/atoms/TabPanel';
@@ -45,10 +45,14 @@ export default function RegisterTab({ registerTabs }: RegisterTabProps) {
         </Tabs>
       </Box>
       <TabPanel value={tabIndex} index={registerTabs[0].index}>
-        <StudentRegisterForm />
+        <Box sx={{ p: 3 }}>
+          <StudentRegisterForm />
+        </Box>
       </TabPanel>
       <TabPanel value={tabIndex} index={registerTabs[1].index}>
-        <MentorRegisterForm />
+        <Box sx={{ p: 3 }}>
+          <MentorRegisterForm />
+        </Box>
       </TabPanel>
     </Stack>
   );

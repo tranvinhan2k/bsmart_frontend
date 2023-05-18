@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import { Color } from '~/assets/variables';
+import { Color, FontFamily } from '~/assets/variables';
 
 const defaultTheme = createTheme({
   palette: {
@@ -9,6 +9,10 @@ const defaultTheme = createTheme({
     secondary: {
       main: Color.orange,
     },
+  },
+  typography: {
+    fontSize: 14,
+    fontFamily: FontFamily.regular,
   },
 });
 

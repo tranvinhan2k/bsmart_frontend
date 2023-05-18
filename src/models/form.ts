@@ -44,11 +44,24 @@ export interface EditIdentityBackFormDataPayload {
   identityBack: string;
 }
 
-export interface EditPersonalProfileFormDataPayload {
+export interface EditPersonalProfileFormDefault {
   fullName: string;
-  birthday: Date | '';
+  birthday: Date;
   address: string;
   phone: string;
+}
+
+export interface EditAccountProfileFormDefault {
+  oldPassword: string;
+  oldPasswordConfirm: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
+export interface EditSocialProfileFormDefault {
+  facebookLink: string;
+  twitterLink: string;
+  instagramLink: string;
 }
 
 export interface EditMentorProfileFormDataPayload {
@@ -59,19 +72,6 @@ export interface EditMentorProfileFormDataPayload {
 
 export interface EditCertificateProfileFormDataPayload {
   certificates: { file: string | Blob }[];
-}
-
-export interface EditAccountProfileFormDataPayload {
-  oldPassword: string;
-  oldPasswordConfirm: string;
-  newPassword: string;
-  newPasswordConfirm: string;
-}
-
-export interface EditSocialProfileFormDataPayload {
-  facebookLink: string;
-  twitterLink: string;
-  instagramLink: string;
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;
@@ -100,6 +100,11 @@ export interface BankLinking {
   name: string;
   shortName: string;
   transferSupported: number;
+}
+export interface MentorSkills {
+  id: number;
+  label: string;
+  value: string;
 }
 
 export type FormInputVariant =

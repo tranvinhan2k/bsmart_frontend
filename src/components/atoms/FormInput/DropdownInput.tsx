@@ -25,15 +25,13 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
     <Autocomplete
       {...defaultProps}
       disablePortal
-      id="combo-box-demo"
       fullWidth
       size="small"
-      isOptionEqualToValue={(option, optionValue) => {
-        return (
-          option.id === optionValue.id || option.id === (optionValue as number)
-        );
-      }}
+      isOptionEqualToValue={(option, optionValue) =>
+        option.id === optionValue.id || option.id === (optionValue as number)
+      }
       value={value !== '' ? value : null}
+      inputValue={data.find((item) => item.id === value)?.label}
       onChange={onChange}
       onBlur={onBlur}
       renderInput={(params) => (

@@ -1,19 +1,11 @@
-import { useState } from 'react';
-import {
-  Box,
-  Modal,
-  Stack,
-  Typography,
-  Grid,
-  IconButton,
-  FormHelperText,
-} from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Button from '~/components/atoms/Button';
 import CollapseStack from '~/components/atoms/CollapseStack';
 import FormInput from '~/components/atoms/FormInput';
 import { OptionPayload } from '~/models';
-import { CREATE_COURSE_FIELDS, CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
+import { CREATE_COURSE_FIELDS } from '~/form/schema';
 import {
   validationSchemaCreateCourse,
   validationSchemaCreateSubCourse,
@@ -31,15 +23,12 @@ import {
   useMutationUploadImage,
   useYupValidationResolver,
 } from '~/hooks';
-import { RequestCreateCoursePayload } from '~/api/courses';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Icon from '~/components/atoms/Icon';
-import SubCourseItem from './SubCourseItem';
 import { SubCoursePayload } from '~/models/subCourse';
 import { LEVEL_LABELS } from '~/constants/level';
 import CreateSubCourseModal from './CreateSubCourseModal';
 import UpdateSubCourseModal from './UpdateSubCourseModal';
 import SubCourseList from './SubCourseList';
+import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 
 // TODO : Not implement useHookForm yet !! waiting for API to start
 const mockLevelData: OptionPayload[] = [
@@ -80,10 +69,14 @@ const typeData: OptionPayload[] = [
 
 export default function CreateCourseForm() {
   const [open, setOpen] = useState<boolean>(false);
+  const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
   const [subCourses, setSubCourses] = useState<SubCoursePayload[]>([]);
-  const { subjects } = useQueryGetAllSubjects();
+  const [categoryId, setCategoriesId] = useState<number>();
   const { categories } = useQueryGetAllCategories();
+  const { subjects } = useQueryGetAllSubjects();
+
   const [editIndex, setEditIndex] = useState(-1);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
 
   const createCourseMutation = useMutationCreateCourse();
   const uploadImageMutation = useMutationUploadImage();
@@ -95,6 +88,9 @@ export default function CreateCourseForm() {
     defaultValues: defaultValueCreateCourse,
     resolver: resolverCreateCourse,
   });
+  const subjectWatch = createCourseHookForm.watch(
+    CREATE_COURSE_FIELDS.categoryId
+  );
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse
@@ -117,13 +113,29 @@ export default function CreateCourseForm() {
     createSubCourseHookForm.reset(subCourses.find((_, index) => index === id));
     setEditIndex(id);
   };
-  const handleDelete = () => {
-    createSubCourseHookForm.reset();
 
-    setSubCourses(subCourses.filter((_, index) => index !== editIndex));
-    toast.notifySuccessToast('Xóa khóa học thành công');
-    setEditIndex(-1);
-    // setSubCourses(subCourses.filter((_, index) => index !== id));
+  const handleOpenDialog = () => {
+    setOpenDialog(() => !isOpenDialog);
+  };
+  const handleDelete = (index: number) => {
+    handleOpenDialog();
+    setDeleteIndex(index);
+  };
+  const handleAcceptDelete = () => {
+    createSubCourseHookForm.reset();
+    const value = subCourses.find((_, index) => index === deleteIndex);
+
+    if (value) {
+      setSubCourses(subCourses.filter((_, index) => index !== deleteIndex));
+
+      toast.notifySuccessToast('Xóa khóa học thành công');
+      setDeleteIndex(-1);
+    } else {
+      toast.notifyErrorToast(
+        'Lỗi không xóa được khóa học. Vui lòng thử lại sau.'
+      );
+    }
+    handleOpenDialog();
   };
 
   async function handleCreateCourse(data: any) {
@@ -134,6 +146,7 @@ export default function CreateCourseForm() {
         code: data?.code,
         name: data?.name,
         categoryId: data.categoryId?.id,
+        subjectId: data.subjectId.id,
         description: data?.description,
         subCourseRequests: subCourses.map((item) => ({
           ...item,
@@ -219,6 +232,14 @@ export default function CreateCourseForm() {
     }
   };
 
+  useEffect(() => {
+    setCategoriesId(subjectWatch?.id);
+  }, [subjectWatch]);
+
+  const filterSubjects = !categoryId
+    ? subjects
+    : subjects?.filter((item) => item.categoryId === categoryId);
+
   if (!categories && !subjects) return null;
 
   return (
@@ -251,6 +272,13 @@ export default function CreateCourseForm() {
               label="Lĩnh Vực"
             />
             <FormInput
+              data={filterSubjects}
+              variant="dropdown"
+              name={CREATE_COURSE_FIELDS.subjectId}
+              control={createCourseHookForm.control}
+              label="Ngôn ngữ"
+            />
+            <FormInput
               name={CREATE_COURSE_FIELDS.description}
               variant="multiline"
               control={createCourseHookForm.control}
@@ -265,12 +293,12 @@ export default function CreateCourseForm() {
                 subCourses={subCourses}
                 onOpenAddModal={handleTriggerModal}
                 onOpenUpdateModal={handleOpenUpdateModal}
+                onDeleteModal={handleDelete}
               />
               <CreateSubCourseModal
                 isOpen={open}
                 hookForm={createSubCourseHookForm}
                 levels={mockLevelData}
-                subjects={subjects}
                 types={typeData}
                 onClose={handleTriggerModal}
                 onSubmit={handleCreateSubCourse}
@@ -279,10 +307,8 @@ export default function CreateCourseForm() {
                 index={editIndex}
                 hookForm={createSubCourseHookForm}
                 levels={mockLevelData}
-                subjects={subjects}
                 types={typeData}
                 onClose={handleCLoseUpdateModal}
-                onDelete={handleDelete}
                 onUpdate={handleUpdateSubCourse}
               />
             </Stack>
@@ -293,6 +319,13 @@ export default function CreateCourseForm() {
             TẠO KHÓA HỌC
           </Button>
         </Stack>
+        <ConfirmDialog
+          content="Bạn có chắc chắn muốn xóa giờ học này ?"
+          title="Xác nhận xóa giờ học"
+          open={isOpenDialog}
+          handleAccept={handleAcceptDelete}
+          handleClose={handleOpenDialog}
+        />
       </form>
     </Stack>
   );
