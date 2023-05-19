@@ -182,22 +182,22 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[19].link}`,
     main: () => <MentorResourceManagePage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[20].link}`,
     main: () => <MentorQuizSettingsPage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[21].link}`,
     main: () => <MentorTakeAttendancePage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[22].link}`,
     main: () => <MentorReTakeAttendancePage />,
-    role: ['TEACHER'],
+    role: ['ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[23].link}`,
