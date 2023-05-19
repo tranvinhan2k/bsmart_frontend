@@ -45,6 +45,7 @@ const initialState: UserStateType = {
         name: '',
         type: '',
         url: '',
+        type: 'AVATAR',
       },
     ],
     username: '',
