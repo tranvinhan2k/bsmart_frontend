@@ -1,7 +1,6 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Stack, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
 import localEnvironment from '~/utils/localEnvironment';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { AdminNavigationActionData } from '~/constants';
@@ -11,6 +10,16 @@ import {
   SX_APP_NAME,
   SX_SIDEBAR_TITLE,
   SX_WRAPPER,
+  STYLE_MENU_ITEM_BUTTON_ACTIVE,
+  STYLE_MENU_ITEM_BUTTON,
+  STYLE_MENU_ITEM_ICO_ACTIVE,
+  STYLE_MENU_ITEM_ICO,
+  STYLE_MENU_ITEM_LABEL_ACTIVE,
+  STYLE_MENU_ITEM_LABEL,
+  STYLE_MENU_ITEM_ROOT_ACTIVE,
+  STYLE_MENU_ITEM_ROOT,
+  STYLE_SUB_MENU_ROOT,
+  STYLE_MENU_LINK,
 } from './style';
 
 export default function AdminDetailSection() {
@@ -44,51 +53,63 @@ export default function AdminDetailSection() {
         {
           label: 'Người dùng',
           icon: 'user',
-          link: 'user',
+          link: 'account',
           items: [
             {
-              label: 'Danh sách',
-              icon: 'account',
-              link: 'account',
+              label: 'Tất cả người dùng',
+              icon: 'groups',
+              link: 'allAccount',
             },
             {
               label: 'Yêu cầu tạo tài khoản',
-              icon: 'teacher',
+              icon: 'description',
               link: `/${AdminNavigationActionData[2].link}`,
             },
           ],
         },
         {
           label: 'Lớp học',
-          icon: 'class',
-          link: 'user',
+          icon: 'coPresent',
+          link: 'classZ',
           items: [
             {
-              label: 'Danh sách',
-              icon: 'account',
-              link: 'account',
+              label: 'Tất cả lớp học',
+              icon: 'class',
+              link: 'allClass',
             },
             {
               label: 'Yêu cầu tạo lớp học',
-              icon: 'class',
+              icon: 'description',
               link: `/${AdminNavigationActionData[4].link}`,
             },
           ],
         },
         {
-          label: 'Môn học',
+          label: 'Chủ đê',
           icon: 'subject',
-          link: 'user',
+          link: 'subject',
           items: [
             {
-              label: 'Danh sách',
+              label: 'Tất cả chủ đề',
               icon: 'account',
-              link: 'user',
+              link: 'allSubject',
             },
             {
               label: 'Yêu cầu tạo môn học',
               icon: 'class',
-              link: 'user',
+              link: 'classCreateRequest',
+            },
+          ],
+        },
+        {
+          label: 'Câu hỏi',
+          icon: 'question',
+          link: 'questionZ',
+          items: [
+            {
+              label: 'Ngân hàng câu hỏi',
+              icon: 'dynamicFeed',
+              link: 'questionBank',
             },
           ],
         },
@@ -96,11 +117,6 @@ export default function AdminDetailSection() {
           label: 'Blog',
           icon: 'blog',
           link: 'blog',
-        },
-        {
-          label: 'Câu hỏi',
-          icon: 'question',
-          link: 'question',
         },
       ],
     },
@@ -125,37 +141,14 @@ export default function AdminDetailSection() {
         <Menu
           style={STYLE_MENU}
           menuItemStyles={{
-            label: ({ active }) => {
-              return {
-                fontSize: FontSize.small_16,
-                fontFamily: FontFamily.regular,
-                color: active ? Color.white : Color.whiteSmoke,
-              };
-            },
-            icon: (params) => {
-              return {
-                color: params.active ? Color.white : Color.grey,
-                ':hover': {
-                  color: Color.black,
-                },
-              };
-            },
-            button: (params) => {
-              return {
-                background: params.active ? `${Color.orange}` : Color.navy,
-                ':hover': {
-                  background: `${Color.orange}55`,
-                },
-              };
-            },
-            root: (params) => {
-              return {
-                background: params.active ? `${Color.white}55` : Color.navy,
-                ':hover': {
-                  color: `${Color.black}`,
-                },
-              };
-            },
+            label: ({ active }) =>
+              active ? STYLE_MENU_ITEM_LABEL_ACTIVE : STYLE_MENU_ITEM_LABEL,
+            icon: ({ active }) =>
+              active ? STYLE_MENU_ITEM_ICO_ACTIVE : STYLE_MENU_ITEM_ICO,
+            button: ({ active }) =>
+              active ? STYLE_MENU_ITEM_BUTTON_ACTIVE : STYLE_MENU_ITEM_BUTTON,
+            root: ({ active }) =>
+              active ? STYLE_MENU_ITEM_ROOT_ACTIVE : STYLE_MENU_ITEM_ROOT,
           }}
         >
           <Stack p={2}>
@@ -171,9 +164,7 @@ export default function AdminDetailSection() {
                 if (item.items) {
                   return (
                     <SubMenu
-                      rootStyles={{
-                        color: Color.white,
-                      }}
+                      rootStyles={STYLE_SUB_MENU_ROOT}
                       label={item.label}
                       icon={
                         <Icon
@@ -190,14 +181,7 @@ export default function AdminDetailSection() {
                           active={pathName.includes(subItem.link)}
                           key={subItem.link}
                           component={
-                            <Link
-                              style={{
-                                color: Color.grey,
-                                fontSize: FontSize.small_16,
-                                fontFamily: FontFamily.regular,
-                              }}
-                              to={subItem.link}
-                            />
+                            <Link style={STYLE_MENU_LINK} to={subItem.link} />
                           }
                           icon={
                             <Icon
@@ -219,16 +203,7 @@ export default function AdminDetailSection() {
                   <MenuItem
                     active={pathName.includes(item.link)}
                     key={item.link}
-                    component={
-                      <Link
-                        style={{
-                          color: Color.grey,
-                          fontSize: FontSize.small_16,
-                          fontFamily: FontFamily.regular,
-                        }}
-                        to={item.link}
-                      />
-                    }
+                    component={<Link style={STYLE_MENU_LINK} to={item.link} />}
                     icon={
                       <Icon
                         name={item.icon}
