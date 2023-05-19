@@ -1,12 +1,5 @@
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography,
-} from '@mui/material';
-import { useState } from 'react';
+import { Box, Divider, Stack, Typography } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Color } from '~/assets/variables';
@@ -23,6 +16,7 @@ import { ProfileImgType } from '~/constants/profile';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
 import { selectProfile } from '~/redux/user/selector';
+import { formatDate } from '~/utils/date';
 import toast from '~/utils/toast';
 import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
 import DialogUpdateAvatar from '~/components/molecules/Dialog/DialogEditAvatar';
@@ -105,42 +99,53 @@ export default function MentorDetailSection() {
   };
 
   return (
-    <>
-      <Stack>
-        <Box sx={SX_WRAPPER}>
-          <Stack sx={SX_BOX_ITEM_AVATAR}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
-              <Box pt={{ xs: 10, sm: 30, md: 14 }}>
-                <IconButton onClick={handleOpenDialogUpdateAvatar}>
-                  <Tooltip title="Cập nhật" arrow placement="top">
-                    <Stack
-                      direction="column"
-                      justifyContent="flex-start"
-                      alignItems="center"
-                      spacing={2}
-                    >
-                      <Avatar
-                        alt="Avatar"
-                        src={mentorDetails.imageLink}
-                        sx={SX_ACCOUNT_AVATAR}
-                      />
-                    </Stack>
-                  </Tooltip>
-                </IconButton>
-              </Box>
-            </Stack>
+    <Stack>
+      <Stack
+        sx={{
+          boxShadow: 3,
+          padding: MetricSize.medium_15,
+          borderRadius: '5px',
+        }}
+      >
+        <Stack
+          sx={{
+            backgroundImage: `url(${overlay_bg})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            paddingX: MetricSize.medium_15,
 
-            <Stack alignItems="center" mt={3}>
-              <Typography component="h4" sx={SX_ACCOUNT_NAME}>
-                {mentorDetails.name}
-              </Typography>
-              <Typography component="p" sx={SX_ACCOUNT_ROLE}>
-                {mentorDetails.role}
-              </Typography>
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              marginTop: { xs: MetricSize.medium_15, md: '100px' },
+              width: '200px',
+              height: '200px',
+              borderRadius: '5px',
+              objectFit: 'fill',
+            }}
+            component="img"
+            alt="mentor avatar"
+            src={mentorDetails.imageLink}
+          />
+          <Stack sx={{ alignItems: 'center' }} marginTop={2}>
+            <Typography
+              sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.medium_24 }}
+            >
+              {mentorDetails.name}
+            </Typography>
+            <Typography
+              sx={{
+                color: Color.grey,
+                fontFamily: FontFamily.regular,
+                fontSize: FontSize.small_18,
+              }}
+            >
+              {mentorDetails.role}
+            </Typography>
+
+            {mentorDetails.socials && (
               <Stack
                 direction="row"
                 justifyContent="space-around"
@@ -149,74 +154,104 @@ export default function MentorDetailSection() {
                 {mentorDetails.socials.map((item) => (
                   <Stack m={1} key={item.image}>
                     <Tooltip title={item.link || 'Chưa có địa chỉ mạng xã hội'}>
-                      <span>
-                        <Button
-                          onClick={() => handleOpenSocialLink(item.link)}
-                          customVariant="normal"
-                        >
-                          <Icon name={item.image as IconName} size="small" />
-                        </Button>
-                      </span>
+                      <Button
+                        onClick={() => handleOpenSocialLink(item.link)}
+                        customVariant="normal"
+                      >
+                        <Icon name={item.image as IconName} size="small" />
+                      </Button>
                     </Tooltip>
                   </Stack>
                 ))}
               </Stack>
-              {mentorDetails.gender && (
+            )}
+
+            {mentorDetails.gender && (
+              <Icon
+                color="orange"
+                name={mentorDetails.gender as IconName}
+                size="ex_large"
+              />
+            )}
+            {mentorDetails.dateOfBirth && (
+              <Typography
+                sx={{
+                  fontSize: FontSize.small_16,
+                  color: Color.grey,
+                  fontFamily: FontFamily.regular,
+                }}
+              >
+                {formatDate(mentorDetails.dateOfBirth)}
+              </Typography>
+            )}
+            {[
+              {
+                image: 'location',
+                text: mentorDetails.address,
+              },
+              {
+                image: 'mail',
+                text: mentorDetails.mail,
+              },
+              {
+                image: 'phone',
+                text: mentorDetails.phone,
+              },
+            ].map((item) => (
+              <Stack
+                key={item.text}
+                sx={{
+                  marginTop: 2,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
                 <Icon
+                  name={item.image as IconName}
+                  size="small"
                   color="orange"
-                  name={mentorDetails.gender as IconName}
-                  size="ex_large"
                 />
-              )}
-              {displayFields.map((item) => (
-                <Stack
-                  key={item.text}
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={1}
-                  mt={2}
+                <Typography
+                  sx={{
+                    fontSize: FontSize.small_16,
+                    color: Color.grey,
+                    fontFamily: FontFamily.regular,
+                  }}
                 >
-                  <Icon
-                    name={item.image as IconName}
-                    size="small"
-                    color="orange"
-                  />
-                  <Typography sx={SX_DISPLAY_FIELD_TEXT}>
-                    {item.text}
-                  </Typography>
-                </Stack>
-              ))}
-              <Stack my={2}>
-                <Typography sx={SX_DISPLAY_FIELD_TEXT}>
+                  {item.text}
+                </Typography>
+              </Stack>
+            ))}
+            {mentorDetails.walletMoney && (
+              <Stack marginTop={1}>
+                <Typography
+                  sx={{
+                    fontSize: FontSize.small_16,
+                    color: Color.grey,
+                    fontFamily: FontFamily.regular,
+                  }}
+                >
                   Số dư hiện tại:{' '}
                   <span style={{ color: Color.orange }}>
                     ${formatMoney(mentorDetails.walletMoney)}
                   </span>
                 </Typography>
               </Stack>
-            </Stack>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={1}
-              mt={1}
-              sx={{ width: '100%' }}
-            >
-              {MentorNavigationActionData.map((item) => (
-                <Button
-                  key={item.link}
-                  onClick={() => handleNavigateLink(item.link)}
-                  customVariant="normal"
-                >
-                  {item.name}
-                </Button>
-              ))}
-            </Stack>
+            )}
           </Stack>
-        </Box>
-        <RecentActivityList />
+          <Stack sx={{ marginTop: 1, width: '100%' }}>
+            {MentorNavigationActionData.map((item) => (
+              <Button
+                marginTop="small_10"
+                key={item.link}
+                onClick={() => handleNavigateLink(item.link)}
+                customVariant="normal"
+              >
+                {item.name}
+              </Button>
+            ))}
+          </Stack>
+        </Stack>
       </Stack>
       <DialogUpdateAvatar
         open={openDialogUpdateAvatar}
