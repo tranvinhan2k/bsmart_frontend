@@ -133,7 +133,7 @@ export const validationSchemaEditMentorProfile = object({
 });
 
 export const validationSchemaEditCertificateProfile = object({
-  certificates: array(),
+  userImages: array(),
 });
 
 export const validationSchemaEditAccountProfile = object({

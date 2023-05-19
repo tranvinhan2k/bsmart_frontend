@@ -74,7 +74,7 @@ export interface EditMentorProfileFormDataPayload {
 }
 
 export interface EditCertificateProfileFormDataPayload {
-  certificates: { file: string | Blob }[];
+  userImages: (string | Blob)[];
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;

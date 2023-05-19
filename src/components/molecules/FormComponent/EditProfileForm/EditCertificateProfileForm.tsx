@@ -40,45 +40,39 @@ export default function EditCertificateProfileForm() {
     }
   );
 
-  const resolverEditCertificateProfile = useYupValidationResolver(
-    validationSchemaEditCertificateProfile
-  );
-  const { control, handleSubmit } = useForm({
-    defaultValues: defaultValueEditCertificateProfile,
-    resolver: resolverEditCertificateProfile,
-  });
-
-  // const queryClient = useQueryClient();
   const { mutateAsync: mutateEditCertificateProfile } = useMutation({
     mutationFn: accountApi.editCertificateProfile,
   });
 
-  // useEffect(() => {
-  //   if (dataGetProfile) {
-  //     const defaults = defaultValueEditCertificateProfile;
-  //     if (dataGetProfile.mentorProfile.workingExperience)
-  //       defaults.workingExperience =
-  //         dataGetProfile.mentorProfile.workingExperience;
-  //     if (dataGetProfile.mentorProfile.mentorSkills) {
-  //       defaults.mentorSkills = dataGetProfile.mentorProfile.mentorSkills.map(
-  //         (item: any) => ({
-  //           skillId: item.skillId,
-  //           yearOfExperiences: item.yearOfExperiences,
-  //         })
-  //       );
-  //     }
-  //     if (dataGetProfile.mentorProfile.introduce)
-  //       defaults.introduce = dataGetProfile.mentorProfile.introduce;
-  //     reset(defaults);
-  //   }
-  // }, [dataGetProfile, reset, subjects]);
+  const resolverEditCertificateProfile = useYupValidationResolver(
+    validationSchemaEditCertificateProfile
+  );
+  const { control, reset, handleSubmit } = useForm({
+    defaultValues: defaultValueEditCertificateProfile,
+    resolver: resolverEditCertificateProfile,
+  });
+
+  useEffect(() => {
+    if (dataGetProfile) {
+      const defaults = defaultValueEditCertificateProfile;
+      if (dataGetProfile.userImages) {
+        defaults.userImages = dataGetProfile.userImages.filter(
+          (item: any) => item.type === 'DEGREE'
+        );
+      }
+      reset(defaults);
+    }
+  }, [dataGetProfile, reset]);
 
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
     const params: EditCertificateProfilePayload = {
-      certificates: data.certificates,
+      userImages: data.userImages,
     };
+    // params.userImages.map((item) => {
+    //   console.log('item instanceof File', item instanceof File);
+    // });
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditCertificateProfile(params);
@@ -98,7 +92,7 @@ export default function EditCertificateProfileForm() {
 
   const EDIT_CERTIFICATE_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin bằng cấp',
-    CERTIFICATES: { LABEL: 'Bằng cấp' },
+    USERIMAGES: { LABEL: 'Bằng cấp' },
     DESC1: 'Kích thước tệp tối đa là 10 MB.',
     DESC2:
       'Bạn có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
@@ -109,8 +103,8 @@ export default function EditCertificateProfileForm() {
   };
 
   const formFieldsCertificate: FormFieldsCertificateProps = {
-    name: EDIT_CERTIFICATE_PROFILE_FIELDS.certificates,
-    label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.CERTIFICATES.LABEL,
+    name: EDIT_CERTIFICATE_PROFILE_FIELDS.userImages,
+    label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.USERIMAGES.LABEL,
     placeholder: '',
     variant: 'file',
     size: 12,
@@ -121,7 +115,7 @@ export default function EditCertificateProfileForm() {
     append,
     remove,
   } = useFieldArray({
-    name: 'certificates',
+    name: 'userImages',
     control,
     rules: {
       required: 'Hãy nhập ít nhất 1 bằng',
@@ -129,9 +123,7 @@ export default function EditCertificateProfileForm() {
   });
 
   const appendCertificate = () => {
-    append({
-      file: '',
-    });
+    append('');
   };
   const removeCertificate = (order: number) => {
     remove(order);
@@ -167,7 +159,7 @@ export default function EditCertificateProfileForm() {
               <Grid item xs={10}>
                 <FormInput
                   control={control}
-                  name={`${formFieldsCertificate.name}.${index}.file`}
+                  name={`${formFieldsCertificate.name}.${index}`}
                   variant={formFieldsCertificate.variant}
                   placeholder={formFieldsCertificate.placeholder}
                 />
@@ -183,7 +175,7 @@ export default function EditCertificateProfileForm() {
               </Grid>
             </Fragment>
           ))}
-          <Grid item xs={6} lg={3}>
+          <Grid item xs={6} lg={3} mt={2}>
             <Button
               customVariant="normal"
               size="small"

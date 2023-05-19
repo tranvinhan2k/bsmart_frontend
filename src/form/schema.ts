@@ -68,7 +68,7 @@ export const EDIT_MENTOR_PROFILE_FIELDS = {
 };
 
 export const EDIT_CERTIFICATE_PROFILE_FIELDS = {
-  certificates: 'certificates',
+  userImages: 'userImages',
 };
 
 export const EDIT_PROFILE_FIELDS = {
