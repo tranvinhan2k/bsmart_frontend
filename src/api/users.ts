@@ -3,7 +3,7 @@ import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
-import { Role } from '~/models/role';
+import { RequestRole, Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
 
@@ -15,7 +15,9 @@ export interface RequestRegisterPayload {
   email: string;
   phone: string;
   password: string;
-  role: Role;
+  role: RequestRole;
+  introduce: string;
+  birthDay: string;
 }
 
 export interface EditCertificateProfilePayload {
@@ -46,6 +48,7 @@ export interface ResponseProfilePayload {
   address: string;
   phone: string;
   status: boolean;
+  isVerified: boolean;
   roles: [
     {
       id: number;
@@ -60,7 +63,6 @@ export interface ResponseProfilePayload {
     {
       id: number;
       name: string;
-      type: string;
       url: string;
       type: 'DEGREE' | 'AVATAR';
     }

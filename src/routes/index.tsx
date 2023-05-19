@@ -70,8 +70,9 @@ const MentorQuizSettingsPage = lazy(
 );
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
-const AdminProfilePage = lazy(() => import('~/pages/AdminProfilePage'));
 const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
+
+const FeedbackManagerPage = lazy(() => import('~/pages/FeedbackManagerPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -313,6 +314,11 @@ export const adminRoutes: RoutePayload[] = [
   {
     path: '/course',
     main: () => <AdminPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: '/feedback_manager',
+    main: () => <FeedbackManagerPage />,
     role: ['ROLE_ADMIN'],
   },
   {

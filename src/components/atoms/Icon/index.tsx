@@ -17,8 +17,14 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
-import { MdPayments, MdCake, MdManageAccounts } from 'react-icons/md';
+import {
+  MdPayments,
+  MdCake,
+  MdManageAccounts,
+  MdFeedback,
+} from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
+
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -48,6 +54,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
+
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -77,6 +84,7 @@ export type IconName =
   | 'eye'
   | 'facebook'
   | 'female'
+  | 'feedback'
   | 'google'
   | 'home'
   | 'instagram'
@@ -204,6 +212,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'female':
       return <WomanIcon sx={STYLED_ICON} />;
+    case 'feedback':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdFeedback />
+        </Typography>
+      );
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />

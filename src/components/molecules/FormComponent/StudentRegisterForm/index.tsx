@@ -31,12 +31,16 @@ export default function StudentRegisterForm() {
   });
 
   const handleRegisterSubmitData = async (data: RegisterStudentDataPayload) => {
+    console.log(data.birthDay, typeof data.birthDay);
+
     const params: RequestRegisterPayload = {
       email: data.email.toLowerCase(),
       fullName: data.name,
       password: data.password,
       phone: data.phone,
       role: 'STUDENT',
+      birthDay: data.birthDay,
+      introduce: data.introduce,
     };
     const id = toast.loadToast('Đang đăng kí khoá học ...');
     try {
@@ -66,9 +70,27 @@ export default function StudentRegisterForm() {
       <Stack marginTop={2}>
         <FormInput
           label="Số điện thoại"
-          placeholder="+843456789"
+          placeholder="0362456789"
           control={studentSignUpForm.control}
           name={REGISTER_STUDENT_FIELDS.phone}
+        />
+      </Stack>
+      <Stack marginTop={2}>
+        <FormInput
+          variant="date"
+          label="Ngày Sinh"
+          placeholder="01/01/2000"
+          control={studentSignUpForm.control}
+          name={REGISTER_STUDENT_FIELDS.birthDay}
+        />
+      </Stack>
+      <Stack marginTop={2}>
+        <FormInput
+          variant="multiline"
+          label="Giới thiệu bản thân"
+          placeholder="Tôi là giáo viên/ học sinh ..."
+          control={studentSignUpForm.control}
+          name={REGISTER_STUDENT_FIELDS.introduce}
         />
       </Stack>
       <Stack marginTop={2}>

@@ -69,7 +69,6 @@ export default function LoginForm() {
       password: data.password,
     };
 
-    const id = toast.loadToast('Đang đăng nhập...');
     try {
       const signInData = await mutateAsync(params);
       localStorage.setItem('token', signInData.token);
@@ -97,13 +96,10 @@ export default function LoginForm() {
         localStorage.setItem('isRememberPassword', 'false');
       }
       signInHookForm.reset();
-      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+      toast.notifySuccessToast('Đăng nhập thành công!');
       navigate('/homepage');
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Đăng nhập không thành công: ${error.message}`
-      );
+      toast.notifyErrorToast(`Đăng nhập không thành công: ${error.message}`);
     }
   };
   // const token = useSelector((state: RootState) => state.user.token);

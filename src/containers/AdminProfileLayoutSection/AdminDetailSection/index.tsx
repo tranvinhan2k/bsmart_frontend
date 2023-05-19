@@ -74,6 +74,11 @@ export default function AdminDetailSection() {
           icon: 'question',
           link: 'question',
         },
+        {
+          label: 'Đánh giá',
+          icon: 'feedback',
+          link: 'feedback_manager',
+        },
       ],
     },
     {

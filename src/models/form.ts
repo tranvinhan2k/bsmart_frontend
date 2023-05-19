@@ -8,6 +8,8 @@ export interface RegisterStudentDataPayload {
   password: string;
   confirm: string;
   phone: string;
+  introduce: string;
+  birthDay: string;
 }
 export interface RegisterMentorDataPayload {
   name: string;
@@ -15,7 +17,8 @@ export interface RegisterMentorDataPayload {
   email: string;
   password: string;
   confirm: string;
-  introduction: string;
+  introduce: string;
+  birthDay: string;
 }
 
 export interface BuyCourseDataPayload {

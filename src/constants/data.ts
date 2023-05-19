@@ -136,7 +136,7 @@ export const NavigationActionData: ActionPayload[] = [
     id: 19,
     isHide: true,
     name: 'Xác nhận khóa học',
-    link: 'confirm_email',
+    link: 'confirm_email/:code',
   },
   {
     id: 20,
@@ -185,6 +185,12 @@ export const NavigationActionData: ActionPayload[] = [
     isHide: true,
     name: 'Admin phê duyệt tạo khóa học',
     link: 'admin-create-course-request-approve/:id',
+  },
+  {
+    id: 28,
+    isHide: true,
+    name: 'Quản lí đánh giá',
+    link: 'feedback_manager',
   },
 ];
 
@@ -254,6 +260,12 @@ export const AdminNavigationActionData: ActionPayload[] = [
     id: 1,
     name: 'Quản lý ví tiền',
     link: 'wallet-management',
+  },
+  {
+    id: 2,
+    isHide: true,
+    name: 'Quản lí đánh giá',
+    link: 'feedback_manager',
   },
 ];
 
@@ -538,6 +550,15 @@ export const CourseDetailData: CourseDetailPayload = {
     id: 1,
     avatar: mentor,
     name: 'Mentor Cuong',
+    introduce: '',
+    mentorSkills: [
+      {
+        skillId: 0,
+        yearOfExperiences: 0,
+      },
+    ],
+    userId: 0,
+    workingExperience: '',
   },
   feedbackData: {
     percentOfFeedback: 5,
