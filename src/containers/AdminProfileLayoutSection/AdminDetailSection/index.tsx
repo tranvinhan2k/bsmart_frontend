@@ -1,12 +1,20 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Stack, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 import localEnvironment from '~/utils/localEnvironment';
 import Icon, { IconName } from '~/components/atoms/Icon';
+import { AdminNavigationActionData } from '~/constants';
+import {
+  STYLE_MENU,
+  STYLE_SIDEBAR,
+  SX_APP_NAME,
+  SX_SIDEBAR_TITLE,
+  SX_WRAPPER,
+} from './style';
 
 export default function AdminDetailSection() {
-  const sidebarNavigations: {
+  interface SidebarNavigationProps {
     title: string;
     items: {
       label: string;
@@ -18,51 +26,71 @@ export default function AdminDetailSection() {
         link: string;
       }[];
     }[];
-  }[] = [
+  }
+  const sidebarNavigation: SidebarNavigationProps[] = [
     {
-      title: 'Chức năng chính',
+      title: '',
       items: [
         {
           label: 'Trang chủ',
           icon: 'home',
           link: 'homepage',
         },
+      ],
+    },
+    {
+      title: 'Quản lý',
+      items: [
         {
           label: 'Người dùng',
           icon: 'user',
           link: 'user',
           items: [
             {
-              label: 'Tài khoản',
+              label: 'Danh sách',
               icon: 'account',
               link: 'account',
             },
             {
-              label: 'Hồ sơ giáo viên',
+              label: 'Yêu cầu tạo tài khoản',
               icon: 'teacher',
-              link: 'teacher',
+              link: `/${AdminNavigationActionData[2].link}`,
             },
           ],
         },
-      ],
-    },
-    {
-      title: 'Thao tác dữ liệu',
-      items: [
         {
           label: 'Lớp học',
           icon: 'class',
-          link: 'class',
-        },
-        {
-          label: 'Phân loại',
-          icon: 'category',
-          link: 'category',
+          link: 'user',
+          items: [
+            {
+              label: 'Danh sách',
+              icon: 'account',
+              link: 'account',
+            },
+            {
+              label: 'Yêu cầu tạo lớp học',
+              icon: 'class',
+              link: `/${AdminNavigationActionData[4].link}`,
+            },
+          ],
         },
         {
           label: 'Môn học',
           icon: 'subject',
-          link: 'subject',
+          link: 'user',
+          items: [
+            {
+              label: 'Danh sách',
+              icon: 'account',
+              link: 'user',
+            },
+            {
+              label: 'Yêu cầu tạo môn học',
+              icon: 'class',
+              link: 'user',
+            },
+          ],
         },
         {
           label: 'Blog',
@@ -77,7 +105,7 @@ export default function AdminDetailSection() {
       ],
     },
     {
-      title: 'Hệ thống',
+      title: 'Cá nhân',
       items: [
         {
           label: 'Cài đặt',
@@ -92,25 +120,12 @@ export default function AdminDetailSection() {
   const pathName = location.pathname;
 
   return (
-    <Stack
-      style={{
-        background: Color.navy,
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      <Sidebar
-        collapsedWidth="100px"
-        style={{
-          height: '100%',
-          width: '100%',
-          background: Color.navy,
-        }}
-      >
+    <Stack sx={SX_WRAPPER}>
+      <Sidebar collapsedWidth="100px" style={STYLE_SIDEBAR}>
         <Menu
-          style={{ background: Color.navy, height: '100vh' }}
+          style={STYLE_MENU}
           menuItemStyles={{
-            label: ({ active, disabled, level }) => {
+            label: ({ active }) => {
               return {
                 fontSize: FontSize.small_16,
                 fontFamily: FontFamily.regular,
@@ -143,32 +158,15 @@ export default function AdminDetailSection() {
             },
           }}
         >
-          <Stack padding={2}>
-            <Typography
-              sx={{
-                textAlign: 'center',
-                fontSize: { xs: FontSize.small_18, md: FontSize.medium_28 },
-                fontFamily: FontFamily.bold,
-                color: Color.whiteSmoke,
-              }}
-            >
+          <Stack p={2}>
+            <Typography sx={SX_APP_NAME}>
               {localEnvironment.APP_NAME.toUpperCase()}
             </Typography>
           </Stack>
 
-          {sidebarNavigations.map((mainItem) => (
+          {sidebarNavigation.map((mainItem) => (
             <Stack key={mainItem.title}>
-              <Typography
-                sx={{
-                  color: Color.whiteSmoke,
-                  fontFamily: FontFamily.medium,
-                  fontSize: FontSize.small_14,
-                  marginLeft: MetricSize.large_20,
-                  marginTop: MetricSize.large_30,
-                }}
-              >
-                {mainItem.title}
-              </Typography>
+              <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.title}</Typography>
               {mainItem.items.map((item) => {
                 if (item.items) {
                   return (
@@ -180,7 +178,7 @@ export default function AdminDetailSection() {
                       icon={
                         <Icon
                           name={item.icon}
-                          size="medium"
+                          size="small_20"
                           color={
                             pathName.includes(item.link) ? 'black' : 'white'
                           }
@@ -204,7 +202,7 @@ export default function AdminDetailSection() {
                           icon={
                             <Icon
                               name={subItem.icon}
-                              size="medium"
+                              size="small_20"
                               color={
                                 pathName.includes(item.link) ? 'white' : 'grey'
                               }
@@ -234,7 +232,7 @@ export default function AdminDetailSection() {
                     icon={
                       <Icon
                         name={item.icon}
-                        size="medium"
+                        size="small_20"
                         color={pathName.includes(item.link) ? 'white' : 'grey'}
                       />
                     }
