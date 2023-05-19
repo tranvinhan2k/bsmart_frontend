@@ -192,54 +192,6 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Quản lí đánh giá',
     link: 'feedback_manager',
   },
-  {
-    id: 20,
-    isHide: true,
-    name: 'Quản lý Resource',
-    link: 'mentor-resource-management',
-  },
-  {
-    id: 21,
-    isHide: true,
-    name: 'Quản lý Quiz',
-    link: 'mentor-quiz-settings',
-  },
-  {
-    id: 22,
-    isHide: true,
-    name: 'Giảng viên điểm danh',
-    link: 'mentor-take-attendance',
-  },
-  {
-    id: 23,
-    isHide: true,
-    name: 'Giảng viên điểm danh lại',
-    link: 'mentor-re-take-attendance',
-  },
-  {
-    id: 24,
-    isHide: true,
-    name: 'Danh sách tài khoản cần phê duyệt',
-    link: 'admin-register-approve',
-  },
-  {
-    id: 25,
-    isHide: true,
-    name: 'Admin phê duyệt tạo tài khoản',
-    link: 'admin-register-approve/:id',
-  },
-  {
-    id: 26,
-    isHide: true,
-    name: 'Danh sách khóa học cần phê duyệt',
-    link: 'admin-create-course-request-approve',
-  },
-  {
-    id: 27,
-    isHide: true,
-    name: 'Admin phê duyệt tạo khóa học',
-    link: 'admin-create-course-request-approve/:id',
-  },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [
@@ -272,6 +224,26 @@ export const MentorNavigationActionData: ActionPayload[] = [
     id: 5,
     name: 'Giới thiệu giáo viên',
     link: 'mentor-introduce',
+  },
+  {
+    id: 6,
+    name: 'Quản lý Resource',
+    link: 'mentor-resource-management',
+  },
+  {
+    id: 7,
+    name: 'Quản lý Quiz',
+    link: 'mentor-quiz-settings',
+  },
+  {
+    id: 8,
+    name: 'Giảng viên điểm danh',
+    link: 'mentor-take-attendance',
+  },
+  {
+    id: 9,
+    name: 'Giảng viên điểm danh lại',
+    link: 'mentor-re-take-attendance',
   },
 ];
 
@@ -311,6 +283,30 @@ export const AdminNavigationActionData: ActionPayload[] = [
   },
   {
     id: 2,
+    isHide: true,
+    name: 'Danh sách tài khoản cần phê duyệt',
+    link: 'admin-register-approve',
+  },
+  {
+    id: 3,
+    isHide: true,
+    name: 'Admin phê duyệt tạo tài khoản',
+    link: 'admin-register-approve/:id',
+  },
+  {
+    id: 4,
+    isHide: true,
+    name: 'Danh sách khóa học cần phê duyệt',
+    link: 'admin-create-course-request-approve',
+  },
+  {
+    id: 5,
+    isHide: true,
+    name: 'Admin phê duyệt tạo khóa học',
+    link: 'admin-create-course-request-approve/:id',
+  },
+  {
+    id: 6,
     isHide: true,
     name: 'Quản lí đánh giá',
     link: 'feedback_manager',

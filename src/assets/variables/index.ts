@@ -62,6 +62,7 @@ export const FontWeight = {
 
 export const IconSize = {
   small: '15px',
+  small_20: '20px',
   medium: '30px',
   large: '35px',
   ex_large: '45px',

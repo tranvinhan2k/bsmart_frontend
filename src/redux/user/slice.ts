@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ResponseProfilePayload } from '~/api/users';
 import { CartDataPayload } from '~/models/api/cart';
 import { Role } from '~/models/role';
+import { ProfileImgType } from '~/constants/profile';
 
 export type UserStateType = {
   roles: Role | null;
@@ -44,8 +45,8 @@ const initialState: UserStateType = {
       {
         id: 0,
         name: '',
+        type: ProfileImgType.AVATAR,
         url: '',
-        type: 'AVATAR',
       },
     ],
     username: '',

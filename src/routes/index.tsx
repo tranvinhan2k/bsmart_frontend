@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import {
+  AdminNavigationActionData,
   MemberNavigationActionData,
   MentorNavigationActionData,
   NavigationActionData,
@@ -181,46 +182,6 @@ const routes: RoutePayload[] = [
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationActionData[20].link}`,
-    main: () => <MentorResourceManagePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${NavigationActionData[21].link}`,
-    main: () => <MentorQuizSettingsPage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${NavigationActionData[22].link}`,
-    main: () => <MentorTakeAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${NavigationActionData[23].link}`,
-    main: () => <MentorReTakeAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${NavigationActionData[24].link}`,
-    main: () => <AdminApproveRegisterPage />,
-    role: [],
-  },
-  {
-    path: `/${NavigationActionData[25].link}`,
-    main: () => <MentorRegisterRequestDetailsPage />,
-    role: [],
-  },
-  {
-    path: `/${NavigationActionData[26].link}`,
-    main: () => <AdminProcessCourseCreateRequestPage />,
-    role: [],
-  },
-  {
-    path: `/${NavigationActionData[27].link}`,
-    main: () => <MentorProcessCourseCreateRequestDetailsPage />,
-    role: [],
-  },
-  {
     path: '*',
     main: () => <NotFoundPage />,
     role: [],
@@ -294,6 +255,31 @@ export const mentorRoutes: RoutePayload[] = [
     main: () => <MentorCreateCoursePage />,
     role: ['ROLE_TEACHER'],
   },
+  // {
+  //   path: `/${NavigationActionData[5].link}`,
+  //   main: () => <??? mentor-introduce/>,
+  //   role: ['ROLE_TEACHER'],
+  // },
+  {
+    path: `/${MentorNavigationActionData[6].link}`,
+    main: () => <MentorResourceManagePage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[7].link}`,
+    main: () => <MentorQuizSettingsPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[8].link}`,
+    main: () => <MentorTakeAttendancePage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[9].link}`,
+    main: () => <MentorReTakeAttendancePage />,
+    role: ['ROLE_TEACHER'],
+  },
 ];
 export const adminRoutes: RoutePayload[] = [
   {
@@ -314,6 +300,26 @@ export const adminRoutes: RoutePayload[] = [
   {
     path: '/course',
     main: () => <AdminPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: `/${AdminNavigationActionData[2].link}`,
+    main: () => <AdminApproveRegisterPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: `/${AdminNavigationActionData[3].link}`,
+    main: () => <MentorRegisterRequestDetailsPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: `/${AdminNavigationActionData[4].link}`,
+    main: () => <AdminProcessCourseCreateRequestPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: `/${AdminNavigationActionData[5].link}`,
+    main: () => <MentorProcessCourseCreateRequestDetailsPage />,
     role: ['ROLE_ADMIN'],
   },
   {
