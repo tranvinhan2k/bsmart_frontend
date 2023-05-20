@@ -48,6 +48,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
+import GroupsIcon from '@mui/icons-material/Groups';
+import DescriptionIcon from '@mui/icons-material/Description';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -107,6 +111,10 @@ export type IconName =
   | 'teacher'
   | 'twitter'
   | 'up'
+  | 'groups'
+  | 'description'
+  | 'coPresent'
+  | 'dynamicFeed'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -204,6 +212,14 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'female':
       return <WomanIcon sx={STYLED_ICON} />;
+    case 'groups':
+      return <GroupsIcon sx={STYLED_ICON} />;
+    case 'description':
+      return <DescriptionIcon sx={STYLED_ICON} />;
+    case 'coPresent':
+      return <CoPresentIcon sx={STYLED_ICON} />;
+    case 'dynamicFeed':
+      return <DynamicFeedIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />

@@ -19,7 +19,7 @@ export interface RequestRegisterPayload {
 }
 
 export interface EditCertificateProfilePayload {
-  certificates: { file: string | Blob }[];
+  userImages: (string | Blob)[];
 }
 export interface EditImageProfilePayload {
   file: string | Blob;
@@ -62,6 +62,7 @@ export interface ResponseProfilePayload {
       name: string;
       type: string;
       url: string;
+      type: 'DEGREE' | 'AVATAR';
     }
   ];
   wallet: {
@@ -139,9 +140,9 @@ const accountApi = {
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const files = data.certificates;
+    const files = data.userImages;
     files.forEach((item) => {
-      bodyFormData.append('files', item.file);
+      bodyFormData.append('files', item);
     });
     return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },

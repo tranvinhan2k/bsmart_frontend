@@ -19,7 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import localEnvironment from './utils/localEnvironment';
 import { Role } from './models/role';
-import { selectProfile, selectRole } from './redux/user/selector';
+import { selectCart, selectProfile, selectRole } from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
 import { useDispatchGetCart, useMutationProfile } from './hooks';
 import { addProfile } from './redux/user/slice';
@@ -84,6 +84,8 @@ function App() {
   const role = useSelector(selectRole);
   const profile = useSelector(selectProfile);
   const getProfileMutation = useMutationProfile();
+  const getUserCart = useDispatchGetCart();
+  const cart = useSelector(selectCart);
 
   useEffect(() => {
     async function getProfile() {
@@ -96,6 +98,23 @@ function App() {
     }
     if (!profile.id) {
       getProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    async function getCart() {
+      try {
+        await getUserCart.handleDispatch();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (!cart) {
+      console.log('cart');
+
+      getCart();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,12 +1,29 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Stack, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import localEnvironment from '~/utils/localEnvironment';
 import Icon, { IconName } from '~/components/atoms/Icon';
+import { AdminNavigationActionData } from '~/constants';
+import {
+  STYLE_MENU,
+  STYLE_SIDEBAR,
+  SX_APP_NAME,
+  SX_SIDEBAR_TITLE,
+  SX_WRAPPER,
+  STYLE_MENU_ITEM_BUTTON_ACTIVE,
+  STYLE_MENU_ITEM_BUTTON,
+  STYLE_MENU_ITEM_ICO_ACTIVE,
+  STYLE_MENU_ITEM_ICO,
+  STYLE_MENU_ITEM_LABEL_ACTIVE,
+  STYLE_MENU_ITEM_LABEL,
+  STYLE_MENU_ITEM_ROOT_ACTIVE,
+  STYLE_MENU_ITEM_ROOT,
+  STYLE_SUB_MENU_ROOT,
+  STYLE_MENU_LINK,
+} from './style';
 
 export default function AdminDetailSection() {
-  const sidebarNavigations: {
+  interface SidebarNavigationProps {
     title: string;
     items: {
       label: string;
@@ -18,66 +35,93 @@ export default function AdminDetailSection() {
         link: string;
       }[];
     }[];
-  }[] = [
+  }
+  const sidebarNavigation: SidebarNavigationProps[] = [
     {
-      title: 'Chức năng chính',
+      title: '',
       items: [
         {
           label: 'Trang chủ',
           icon: 'home',
           link: 'homepage',
         },
-        {
-          label: 'Người dùng',
-          icon: 'user',
-          link: 'user',
-          items: [
-            {
-              label: 'Tài khoản',
-              icon: 'account',
-              link: 'account',
-            },
-            {
-              label: 'Hồ sơ giáo viên',
-              icon: 'teacher',
-              link: 'teacher',
-            },
-          ],
-        },
       ],
     },
     {
-      title: 'Thao tác dữ liệu',
+      title: 'Quản lý',
       items: [
         {
+          label: 'Người dùng',
+          icon: 'user',
+          link: 'account',
+          items: [
+            {
+              label: 'Tất cả người dùng',
+              icon: 'groups',
+              link: 'allAccount',
+            },
+            {
+              label: 'Yêu cầu tạo tài khoản',
+              icon: 'description',
+              link: `/${AdminNavigationActionData[2].link}`,
+            },
+          ],
+        },
+        {
           label: 'Lớp học',
-          icon: 'class',
-          link: 'class',
+          icon: 'coPresent',
+          link: 'classZ',
+          items: [
+            {
+              label: 'Tất cả lớp học',
+              icon: 'class',
+              link: 'allClass',
+            },
+            {
+              label: 'Yêu cầu tạo lớp học',
+              icon: 'description',
+              link: `/${AdminNavigationActionData[4].link}`,
+            },
+          ],
         },
         {
-          label: 'Phân loại',
-          icon: 'category',
-          link: 'category',
-        },
-        {
-          label: 'Môn học',
+          label: 'Chủ đê',
           icon: 'subject',
           link: 'subject',
+          items: [
+            {
+              label: 'Tất cả chủ đề',
+              icon: 'account',
+              link: 'allSubject',
+            },
+            {
+              label: 'Yêu cầu tạo môn học',
+              icon: 'class',
+              link: 'classCreateRequest',
+            },
+          ],
+        },
+        {
+          label: 'Câu hỏi',
+          icon: 'question',
+          link: 'questionZ',
+          items: [
+            {
+              label: 'Ngân hàng câu hỏi',
+              icon: 'dynamicFeed',
+              link: 'questionBank',
+            },
+          ],
         },
         {
           label: 'Blog',
           icon: 'blog',
           link: 'blog',
         },
-        {
-          label: 'Câu hỏi',
-          icon: 'question',
-          link: 'question',
-        },
       ],
     },
     {
-      title: 'Hệ thống',
+      title: 'Cá nhân',
       items: [
         {
           label: 'Cài đặt',
@@ -92,95 +136,40 @@ export default function AdminDetailSection() {
   const pathName = location.pathname;
 
   return (
-    <Stack
-      style={{
-        background: Color.navy,
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      <Sidebar
-        collapsedWidth="100px"
-        style={{
-          height: '100%',
-          width: '100%',
-          background: Color.navy,
-        }}
-      >
+    <Stack sx={SX_WRAPPER}>
+      <Sidebar collapsedWidth="100px" style={STYLE_SIDEBAR}>
         <Menu
-          style={{ background: Color.navy, height: '100vh' }}
+          style={STYLE_MENU}
           menuItemStyles={{
-            label: ({ active, disabled, level }) => {
-              return {
-                fontSize: FontSize.small_16,
-                fontFamily: FontFamily.regular,
-                color: active ? Color.white : Color.whiteSmoke,
-              };
-            },
-            icon: (params) => {
-              return {
-                color: params.active ? Color.white : Color.grey,
-                ':hover': {
-                  color: Color.black,
-                },
-              };
-            },
-            button: (params) => {
-              return {
-                background: params.active ? `${Color.orange}` : Color.navy,
-                ':hover': {
-                  background: `${Color.orange}55`,
-                },
-              };
-            },
-            root: (params) => {
-              return {
-                background: params.active ? `${Color.white}55` : Color.navy,
-                ':hover': {
-                  color: `${Color.black}`,
-                },
-              };
-            },
+            label: ({ active }) =>
+              active ? STYLE_MENU_ITEM_LABEL_ACTIVE : STYLE_MENU_ITEM_LABEL,
+            icon: ({ active }) =>
+              active ? STYLE_MENU_ITEM_ICO_ACTIVE : STYLE_MENU_ITEM_ICO,
+            button: ({ active }) =>
+              active ? STYLE_MENU_ITEM_BUTTON_ACTIVE : STYLE_MENU_ITEM_BUTTON,
+            root: ({ active }) =>
+              active ? STYLE_MENU_ITEM_ROOT_ACTIVE : STYLE_MENU_ITEM_ROOT,
           }}
         >
-          <Stack padding={2}>
-            <Typography
-              sx={{
-                textAlign: 'center',
-                fontSize: { xs: FontSize.small_18, md: FontSize.medium_28 },
-                fontFamily: FontFamily.bold,
-                color: Color.whiteSmoke,
-              }}
-            >
+          <Stack p={2}>
+            <Typography sx={SX_APP_NAME}>
               {localEnvironment.APP_NAME.toUpperCase()}
             </Typography>
           </Stack>
 
-          {sidebarNavigations.map((mainItem) => (
+          {sidebarNavigation.map((mainItem) => (
             <Stack key={mainItem.title}>
-              <Typography
-                sx={{
-                  color: Color.whiteSmoke,
-                  fontFamily: FontFamily.medium,
-                  fontSize: FontSize.small_14,
-                  marginLeft: MetricSize.large_20,
-                  marginTop: MetricSize.large_30,
-                }}
-              >
-                {mainItem.title}
-              </Typography>
+              <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.title}</Typography>
               {mainItem.items.map((item) => {
                 if (item.items) {
                   return (
                     <SubMenu
-                      rootStyles={{
-                        color: Color.white,
-                      }}
+                      rootStyles={STYLE_SUB_MENU_ROOT}
                       label={item.label}
                       icon={
                         <Icon
                           name={item.icon}
-                          size="medium"
+                          size="small_20"
                           color={
                             pathName.includes(item.link) ? 'black' : 'white'
                           }
@@ -192,19 +181,12 @@ export default function AdminDetailSection() {
                           active={pathName.includes(subItem.link)}
                           key={subItem.link}
                           component={
-                            <Link
-                              style={{
-                                color: Color.grey,
-                                fontSize: FontSize.small_16,
-                                fontFamily: FontFamily.regular,
-                              }}
-                              to={subItem.link}
-                            />
+                            <Link style={STYLE_MENU_LINK} to={subItem.link} />
                           }
                           icon={
                             <Icon
                               name={subItem.icon}
-                              size="medium"
+                              size="small_20"
                               color={
                                 pathName.includes(item.link) ? 'white' : 'grey'
                               }
@@ -221,20 +203,11 @@ export default function AdminDetailSection() {
                   <MenuItem
                     active={pathName.includes(item.link)}
                     key={item.link}
-                    component={
-                      <Link
-                        style={{
-                          color: Color.grey,
-                          fontSize: FontSize.small_16,
-                          fontFamily: FontFamily.regular,
-                        }}
-                        to={item.link}
-                      />
-                    }
+                    component={<Link style={STYLE_MENU_LINK} to={item.link} />}
                     icon={
                       <Icon
                         name={item.icon}
-                        size="medium"
+                        size="small_20"
                         color={pathName.includes(item.link) ? 'white' : 'grey'}
                       />
                     }
