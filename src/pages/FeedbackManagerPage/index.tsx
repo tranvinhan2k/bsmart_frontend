@@ -95,18 +95,18 @@ export default function FeedbackManagerPage() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <CRUDTable
+        {/* <CRUDTable
           title="Quản lí bản mẫu"
           columns={columns.templateColumns}
           rows={feedbackRows}
-        />
+        /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CRUDTable
+        {/* <CRUDTable
           title="Quản lí câu hỏi"
           columns={columns.templateColumns}
           rows={feedbackRows}
-        />
+        /> */}
       </TabPanel>
     </Stack>
   );
