@@ -155,6 +155,15 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
       id: data.mentorId,
       avatar: '',
       name: '',
+      introduce: '',
+      mentorSkills: [
+        {
+          skillId: 0,
+          yearOfExperiences: 0,
+        },
+      ],
+      userId: 0,
+      workingExperience: '',
     },
     category: data.category,
     feedbackData: {

@@ -81,7 +81,7 @@ function CheckoutPage() {
   const values: {
     totalAmount: string;
     totalQuantity: number;
-    courseList: (CartSubCourse | null)[];
+    courseList: any;
   } = {
     totalAmount: formatMoney(slTotalAmount),
     totalQuantity: Array.isArray(checkOutItem) ? checkOutItem.length : 1,
@@ -128,7 +128,7 @@ function CheckoutPage() {
           <Icon name="down" size="small" color="grey" />
         </Stack>
         <Box sx={{ width: '500px' }}>
-          {values.courseList.map((item) => (
+          {values.courseList.map((item: any) => (
             <Box key={item.id}>
               <Stack
                 sx={{
@@ -138,6 +138,9 @@ function CheckoutPage() {
               >
                 <Stack>
                   <Box
+                    component="img"
+                    src={image.noCourse}
+                    alt={item?.id}
                     sx={{
                       alignSelf: 'center',
                       width: '50px',
@@ -146,9 +149,6 @@ function CheckoutPage() {
                       borderRadius: '5px',
                       objectFit: 'contain',
                     }}
-                    component="img"
-                    src={image.noCourse}
-                    alt={item?.id}
                   />
                 </Stack>
                 <Stack
@@ -183,7 +183,7 @@ function CheckoutPage() {
                       fontSize: FontSize.small_18,
                     }}
                   >
-                    {formatMoney(item?.price)}
+                    {formatMoney(item?.price || 0)}
                   </Typography>
                 </Stack>
               </Stack>

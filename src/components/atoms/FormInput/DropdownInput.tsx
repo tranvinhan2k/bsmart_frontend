@@ -28,7 +28,7 @@ function DropdownInput({ controller, placeholder, data }: DropdownInputProps) {
       fullWidth
       size="small"
       isOptionEqualToValue={(option, optionValue) =>
-        option.id === optionValue.id || option.id === (optionValue as number)
+        option.id === optionValue.id || option.id === (optionValue as any)
       }
       value={value !== '' ? value : null}
       inputValue={data.find((item) => item.id === value)?.label}

@@ -5,7 +5,7 @@ import MentorIntroduceProfilePage from '../MentorIntroduceProfilePage';
 
 export default function IntroduceMentor() {
   const { id } = useParams();
-  const { mentor } = useQueryGetMentorByMentorId(id, true);
+  const { mentor }: any = useQueryGetMentorByMentorId(id, true);
 
   return (
     <MentorProfileLayout isIntroduce mentor={mentor?.user}>

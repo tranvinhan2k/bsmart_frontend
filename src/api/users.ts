@@ -64,7 +64,7 @@ export interface ResponseProfilePayload {
       id: number;
       name: string;
       url: string;
-      type: 'DEGREE' | 'AVATAR';
+      type: string;
     }
   ];
   wallet: {

@@ -155,7 +155,7 @@ export default function SubCourseModal({
                   </Grid>
                 </Grid>
                 <Divider sx={{ marginTop: 2 }} />
-                <SubCourseTimetable data={item.timeInWeeks} />
+                <SubCourseTimetable data={item.timeInWeeks as any} />
               </Grid>
               <Grid item md={3}>
                 <Box>
@@ -212,7 +212,7 @@ export default function SubCourseModal({
                     ))}
                   </Stack>
                 </Box>
-                {role !== 'TEACHER' && item.purchase === null && (
+                {role !== 'ROLE_TEACHER' && item.purchase === null && (
                   <Stack padding={2}>
                     <Button
                       onClick={() => onPayQuick(item.id)}

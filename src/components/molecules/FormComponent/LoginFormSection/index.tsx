@@ -180,7 +180,7 @@ export default function LoginForm() {
             <Box sx={{ paddingLeft: MetricSize.small_5 }}>
               <Link
                 onClick={() => {
-                  window.location.href('/register');
+                  navigate('/register');
                 }}
                 to="/register"
               >
