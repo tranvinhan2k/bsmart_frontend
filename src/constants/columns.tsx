@@ -11,10 +11,26 @@ const templateColumns: GridColDef[] = [
     flex: 5,
     editable: true,
   },
+  {
+    field: 'numberOfQuestion',
+    headerName: 'Số lượng câu hỏi',
+    width: 150,
+    editable: true,
+  },
+];
+const feedbackQuestionColumns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'name',
+    headerName: 'Tên bản mẫu',
+    flex: 5,
+    editable: true,
+  },
 ];
 
 const columns = {
   templateColumns,
+  feedbackQuestionColumns,
 };
 
 export default columns;

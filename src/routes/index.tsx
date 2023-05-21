@@ -323,7 +323,7 @@ export const adminRoutes: RoutePayload[] = [
     role: ['ROLE_ADMIN'],
   },
   {
-    path: '/feedback_manager',
+    path: `/${AdminNavigationActionData[6].link}`,
     main: () => <FeedbackManagerPage />,
     role: ['ROLE_ADMIN'],
   },

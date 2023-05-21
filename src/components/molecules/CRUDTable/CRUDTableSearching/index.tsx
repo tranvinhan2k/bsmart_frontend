@@ -7,6 +7,7 @@ import Icon from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 import { MetricSize } from '~/assets/variables';
 import { FormInputVariant } from '~/models/form';
+import { OptionPayload } from '~/models';
 
 interface CRUDTableSearchingProps {
   searchPlaceholder: string;
@@ -15,15 +16,17 @@ interface CRUDTableSearchingProps {
     variant: FormInputVariant;
     name: string;
     placeholder: string;
+    data: OptionPayload[];
   }[];
+  onSearch: (data: any) => void;
 }
 
 export default function CRUDTableSearching({
   searchPlaceholder,
   searchControl,
   filterFormInputList,
+  onSearch,
 }: CRUDTableSearchingProps) {
-  const { control, handleSubmit } = useForm();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const formInputList = [{}];
@@ -37,12 +40,12 @@ export default function CRUDTableSearching({
   };
 
   return (
-    <Stack
-      sx={{
-        marginY: 2,
-      }}
-    >
-      <form>
+    <form onSubmit={searchControl.handleSubmit(onSearch)}>
+      <Stack
+        sx={{
+          marginY: 2,
+        }}
+      >
         <Stack
           sx={{
             flexDirection: 'row',
@@ -95,6 +98,7 @@ export default function CRUDTableSearching({
                   control={searchControl.control}
                   name={item.name}
                   placeholder={item.placeholder}
+                  data={item.data}
                 />
               ))}
               <Button onClick={handleClose} customVariant="horizonForm">
@@ -109,6 +113,7 @@ export default function CRUDTableSearching({
             }}
           >
             <Button
+              type="submit"
               startIcon={<Icon name="search" color="white" size="medium" />}
               customVariant="horizonForm"
             >
@@ -116,7 +121,7 @@ export default function CRUDTableSearching({
             </Button>
           </Stack>
         </Stack>
-      </form>
-    </Stack>
+      </Stack>
+    </form>
   );
 }

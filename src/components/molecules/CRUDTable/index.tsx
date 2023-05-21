@@ -1,26 +1,35 @@
-import { Stack, IconButton, Menu, MenuItem } from '@mui/material';
+import {
+  Stack,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn, useForm } from 'react-hook-form';
 import CRUDTableHeader from './CRUDTableHeader';
 import CRUDTableSearching from './CRUDTableSearching';
-import Icon from '~/components/atoms/Icon';
+import Icon, { IconName } from '~/components/atoms/Icon';
 import { FormInputVariant } from '~/models/form';
+import { OptionPayload } from '~/models';
 
 interface CRUDTableProps {
   title: string;
   columns: GridColDef[];
   rows: any;
   addItemButtonLabel: string;
-  menuItemList: { title: string; onCLick: () => void }[];
-  searchControl: UseFormReturn;
+  menuItemList: { icon: IconName; title: string; onCLick: () => void }[];
   searchPlaceholder: string;
   searchFilterFormInputList: {
     variant: FormInputVariant;
     name: string;
     placeholder: string;
+    data: OptionPayload[];
   }[];
   onAdd: () => void;
+  onSearch: (data: any) => void;
 }
 
 export default function CRUDTable({
@@ -29,11 +38,13 @@ export default function CRUDTable({
   rows,
   addItemButtonLabel,
   menuItemList,
-  searchControl,
   searchPlaceholder,
   searchFilterFormInputList,
   onAdd,
+  onSearch,
 }: CRUDTableProps) {
+  const searchValueForm = useForm();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const texts = {
@@ -82,7 +93,8 @@ export default function CRUDTable({
       />
       <CRUDTableSearching
         searchPlaceholder={searchPlaceholder}
-        searchControl={searchControl}
+        searchControl={searchValueForm}
+        onSearch={onSearch}
         filterFormInputList={searchFilterFormInputList}
       />
       <Stack
@@ -105,7 +117,10 @@ export default function CRUDTable({
       >
         {menuItemList.map((item) => (
           <MenuItem key={item.title} onClick={handleClose}>
-            {item.title}
+            <ListItemIcon>
+              <Icon name={item.icon} size="medium" color="black" />
+            </ListItemIcon>
+            <ListItemText>{item.title}</ListItemText>
           </MenuItem>
         ))}
       </Menu>
