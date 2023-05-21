@@ -1,15 +1,19 @@
-FROM node:18-alpine3.17 as build
-WORKDIR /vite-app
-COPY . /vite-app
+# Image base
+FROM node:14
 
-RUN npm config set legacy-peer-deps true
-RUN npm install
-RUN npm run build
+# Set work directory
+WORKDIR /apps
 
-# FROM ubuntu
-# RUN apt-get update
-# RUN apt-get install nginx -y
-# COPY --from=build /vite-app/dist /var/www/html/
+# Install dependencies
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
 
+# Copy source code
+COPY . .
+
+# Expose port
 EXPOSE 3000
-CMD ["npm", "start"]
+
+# Start the app
+CMD ["yarn", "dev"]

@@ -9,10 +9,10 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // server: {
-  //   host: true,
-  //   port: 8000, // This is the port which we will use in docker
-  // },
+  server: {
+    host: true,
+    port: 3000,
+  },
   test: {
     globals: true,
     environment: 'jsdom',
