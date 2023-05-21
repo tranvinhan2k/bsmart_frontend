@@ -28,6 +28,7 @@ export const STYLE_SIDEBAR: CSSProperties = {
   height: '100%',
   width: '100%',
   background: Color.navy,
+  overflow: 'auto',
 };
 
 export const STYLE_MENU: CSSProperties = {

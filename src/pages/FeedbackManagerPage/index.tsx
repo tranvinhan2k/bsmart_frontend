@@ -11,6 +11,8 @@ import {
   TableCell,
   TableBody,
 } from '@mui/material';
+import CRUDTable from '~/components/molecules/CRUDTable';
+import columns from '~/constants/columns';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,6 +64,16 @@ export default function FeedbackManagerPage() {
     setValue(newValue);
   };
 
+  const feedbackRows = [
+    { id: 1, templateName: 'Đánh giá các môn Toán' },
+    { id: 2, templateName: 'Đánh giá các môn Ngữ Văn' },
+    { id: 3, templateName: 'Đánh giá các môn Tiếng Anh' },
+    { id: 4, templateName: 'Đánh giá các môn Địa Lí' },
+    { id: 5, templateName: 'Đánh giá các môn Sinh Học' },
+    { id: 6, templateName: 'Đánh giá các môn GDCD' },
+    { id: 7, templateName: 'Đánh giá các môn Tiếng Pháp' },
+  ];
+
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -71,74 +83,30 @@ export default function FeedbackManagerPage() {
   ];
 
   return (
-    <Stack>
+    <Stack padding={3}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Câu hỏi" {...a11yProps(0)} />
-          <Tab label="Bản mẫu" {...a11yProps(1)} />
+          <Tab label="Bản mẫu" {...a11yProps(0)} />
+          <Tab label="Câu hỏi" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <CRUDTable
+          title="Quản lí bản mẫu"
+          columns={columns.templateColumns}
+          rows={feedbackRows}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <CRUDTable
+          title="Quản lí câu hỏi"
+          columns={columns.templateColumns}
+          rows={feedbackRows}
+        />
       </TabPanel>
     </Stack>
   );

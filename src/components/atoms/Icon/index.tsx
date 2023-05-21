@@ -1,5 +1,5 @@
 import { AiOutlineClose, AiOutlineStar, AiFillSetting } from 'react-icons/ai';
-import { BiCategoryAlt } from 'react-icons/bi';
+import { BiCategoryAlt, BiFilter } from 'react-icons/bi';
 import {
   BsDribbble,
   BsInstagram,
@@ -14,7 +14,7 @@ import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
-import { GrNext, GrPrevious } from 'react-icons/gr';
+import { GrNext, GrPrevious, GrFilter } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
 import {
@@ -89,6 +89,7 @@ export type IconName =
   | 'facebook'
   | 'female'
   | 'feedback'
+  | 'filter'
   | 'google'
   | 'home'
   | 'instagram'
@@ -234,6 +235,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CoPresentIcon sx={STYLED_ICON} />;
     case 'dynamicFeed':
       return <DynamicFeedIcon sx={STYLED_ICON} />;
+    case 'filter':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BiFilter />
+        </Typography>
+      );
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />

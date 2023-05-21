@@ -179,7 +179,9 @@ export default function LoginForm() {
             </Typography>
             <Box sx={{ paddingLeft: MetricSize.small_5 }}>
               <Link
-                onClick={() => window.location.href('/register')}
+                onClick={() => {
+                  window.location.href('/register');
+                }}
                 to="/register"
               >
                 {LoginTexts.REGISTER_BUTTON}
