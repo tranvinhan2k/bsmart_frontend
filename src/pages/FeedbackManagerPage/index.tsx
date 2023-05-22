@@ -169,7 +169,7 @@ export default function FeedbackManagerPage() {
           ]}
           searchPlaceholder="Tìm kiếm bản mẫu"
         />
-        <CustomModal open onClose={() => {}}>
+        {/* <CustomModal open onClose={() => {}}>
           <Stack>
             <Typography sx={globalStyles.textSmallLabel}>
               Tên bản mẫu
@@ -198,7 +198,7 @@ export default function FeedbackManagerPage() {
               },
             ]}
           />
-        </CustomModal>
+        </CustomModal> */}
         {/* <CustomModal open onClose={() => {}}>
           Hello World
         </CustomModal> */}

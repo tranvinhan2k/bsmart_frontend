@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "npx eslint --fix src",
-    "docker-build": "docker build -t vite-image .",
-    "docker-run": "docker run -p 80:80 vite-image"
+    "docker-build": "docker build -t mismart_frontend .",
+    "docker-run": "docker run -p 3000:3000 -d mismart_frontend"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
