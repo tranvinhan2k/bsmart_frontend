@@ -15,19 +15,26 @@ import Icon, { IconName } from '~/components/atoms/Icon';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
 
+export type MenuItemPayload = {
+  icon: IconName;
+  title: string;
+  onCLick: () => void;
+};
+
+export type SearchFilterFormInput = {
+  variant: FormInputVariant;
+  name: string;
+  placeholder: string;
+  data: OptionPayload[];
+};
 interface CRUDTableProps {
   title: string;
   columns: GridColDef[];
   rows: any;
   addItemButtonLabel: string;
-  menuItemList: { icon: IconName; title: string; onCLick: () => void }[];
+  menuItemList: MenuItemPayload[];
   searchPlaceholder: string;
-  searchFilterFormInputList: {
-    variant: FormInputVariant;
-    name: string;
-    placeholder: string;
-    data: OptionPayload[];
-  }[];
+  searchFilterFormInputList: SearchFilterFormInput[];
   onAdd: () => void;
   onSearch: (data: any) => void;
 }
@@ -82,8 +89,7 @@ export default function CRUDTable({
   return (
     <Stack
       sx={{
-        height: '700px',
-        padding: 2,
+        height: '100vh',
       }}
     >
       <CRUDTableHeader
@@ -97,12 +103,8 @@ export default function CRUDTable({
         onSearch={onSearch}
         filterFormInputList={searchFilterFormInputList}
       />
-      <Stack
-        sx={{
-          height: '700px',
-        }}
-      >
-        <DataGrid rows={rows} columns={addMoreVertColumns} />
+      <Stack>
+        <DataGrid autoHeight rows={rows} columns={addMoreVertColumns} />
       </Stack>
       <Menu
         anchorEl={anchorEl}
@@ -116,7 +118,7 @@ export default function CRUDTable({
         onMouseLeave={handleClose}
       >
         {menuItemList.map((item) => (
-          <MenuItem key={item.title} onClick={handleClose}>
+          <MenuItem key={item.title} onClick={item.onCLick}>
             <ListItemIcon>
               <Icon name={item.icon} size="medium" color="black" />
             </ListItemIcon>

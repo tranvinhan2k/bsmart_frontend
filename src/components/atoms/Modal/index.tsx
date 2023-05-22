@@ -32,7 +32,9 @@ export default function CustomModal({
             <Icon name="close" size="small_20" color="black" />
           </IconButton>
         </Box>
-        <Stack>{children}</Stack>
+        <Stack overflow="auto" padding={1}>
+          {children}
+        </Stack>
       </Stack>
     </Modal>
   );
