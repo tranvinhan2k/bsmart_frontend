@@ -80,7 +80,6 @@ export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultVa
 
 export const defaultValueEditAccountProfile = {
   oldPassword: '',
-  oldPasswordConfirm: '',
   newPassword: '',
   newPasswordConfirm: '',
 };

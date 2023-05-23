@@ -1,25 +1,30 @@
-import { Box, Divider, Typography, Grid } from '@mui/material';
+import {
+  Box,
+  Button as MuiButton,
+  Divider,
+  Grid,
+  Typography,
+} from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 import { defaultValueEditAccountProfile } from '~/form/defaultValues';
 import { EDIT_PROFILE_FIELDS } from '~/form/schema';
 import { EditAccountProfileFormDefault, FormInputVariant } from '~/models/form';
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditAccountProfile } from '~/form/validation';
-import accountApi from '~/api/users';
-import Button from '~/components/atoms/Button';
+import { FontFamily } from '~/assets/variables';
+import { useMutationEditAccountProfile } from '~/hooks/useMutationEditAccountProfile';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
-const toastMsgLoading = 'Đang cập nhật ...';
-const toastMsgSuccess = 'Cập nhật thành công ...';
-const toastMsgError = (error: any): string => {
-  return `Cập nhật không thành công: ${error.message}`;
-};
-
 export default function EditAccountProfileForm() {
+  const toastMsgLoading = 'Đang cập nhật mật khẩu...';
+  const toastMsgSuccess = 'Cập nhật mật khẩu thành công ...';
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${error}`;
+  };
+
   const resolverEditAccountProfile = useYupValidationResolver(
     validationSchemaEditAccountProfile
   );
@@ -28,9 +33,8 @@ export default function EditAccountProfileForm() {
     resolver: resolverEditAccountProfile,
   });
 
-  const { mutateAsync: mutateEditAccountProfile } = useMutation({
-    mutationFn: accountApi.editAccountProfile,
-  });
+  const { mutateAsync: mutateEditAccountProfile } =
+    useMutationEditAccountProfile();
 
   const handleSubmitSuccess = async (data: EditAccountProfileFormDefault) => {
     const params: EditAccountProfilePayload = {
@@ -42,7 +46,7 @@ export default function EditAccountProfileForm() {
       await mutateEditAccountProfile(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 
@@ -58,12 +62,6 @@ export default function EditAccountProfileForm() {
       label: 'Mật khẩu hiện tại',
       name: EDIT_PROFILE_FIELDS.oldPassword,
       placeholder: 'Nhập mật khẩu hiện tại',
-      variant: 'password',
-    },
-    {
-      label: 'Xác nhận mật khẩu hiện tại',
-      name: EDIT_PROFILE_FIELDS.oldPasswordConfirm,
-      placeholder: 'Nhập xác nhận mật khẩu hiện tại',
       variant: 'password',
     },
     {
@@ -101,9 +99,16 @@ export default function EditAccountProfileForm() {
           ))}
         </Grid>
         <Box mt={4}>
-          <Button customVariant="normal" type="submit">
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            sx={{ fontFamily: FontFamily.bold }}
+          >
             Cập nhật
-          </Button>
+          </MuiButton>
         </Box>
       </form>
     </Box>

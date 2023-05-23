@@ -56,7 +56,6 @@ export interface EditPersonalProfileFormDefault {
 
 export interface EditAccountProfileFormDefault {
   oldPassword: string;
-  oldPasswordConfirm: string;
   newPassword: string;
   newPasswordConfirm: string;
 }
