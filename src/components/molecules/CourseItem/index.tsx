@@ -20,7 +20,7 @@ export default function CourseItem({
     mentor: '',
     title: '',
     mentorImage: '',
-    typeLearn: [''],
+    typeLearn: [],
   },
   isSkeleton = false,
   onClick = () => {},

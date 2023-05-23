@@ -20,4 +20,6 @@ export * from './useQueryGetAllMentorCourses';
 export * from './useQueryGetAllDayInWeeks';
 export * from './useQueryGetAllSlots';
 
+export * from './useQueryVerifyEmail';
+
 export * from './useDispatchGetCart';

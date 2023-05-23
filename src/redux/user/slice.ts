@@ -21,6 +21,7 @@ const initialState: UserStateType = {
   token: localStorage.getItem('token'),
   isAddToCart: false,
   profile: {
+    isVerified: false,
     id: 0,
     email: '',
     address: '',

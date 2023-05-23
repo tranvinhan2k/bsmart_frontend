@@ -1,9 +1,9 @@
 import { Box, Stack } from '@mui/material';
-import loadingIcon from '~/assets/gifs/loading.gif';
 import {
   SX_LOADING_IMG,
   SX_LOADING_STACK,
 } from '~/components/atoms/LazyLoadingScreen/styles';
+import { image } from '~/constants/image';
 
 function LazyLoadingScreen() {
   return (
@@ -11,7 +11,7 @@ function LazyLoadingScreen() {
       <Box
         component="img"
         sx={SX_LOADING_IMG}
-        src={loadingIcon}
+        src={image.loadingIcon}
         alt="loading"
       />
     </Stack>

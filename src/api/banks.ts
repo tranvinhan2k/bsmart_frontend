@@ -4,7 +4,7 @@ import { BankDataPayload } from '~/models/data';
 const url = `/banks`;
 
 const banksApi = {
-  async getAllBanks(): Promise<BankDataPayload> {
+  async getAllBanks(): Promise<BankDataPayload[]> {
     return axiosClient.get(`${url}`);
   },
 };

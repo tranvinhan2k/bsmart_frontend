@@ -22,6 +22,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     fieldState: { invalid, error: fieldError },
   } = controller;
 
+
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
@@ -47,23 +48,25 @@ function FileInput({ controller, placeholder }: FileInputProps) {
       }}
     >
       {!value && (
+        {!value && (
         <TextField
-          type="file"
-          size="small"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <IconButton component="span">
-                  <Icon name="add-icon" size="medium" />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          onBlur={onBlur}
-          onChange={handleFileChange}
-          error={invalid}
-          helperText={fieldError?.message || error}
-        />
+            type="file"
+            size="small"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton component="span">
+                    <Icon name="add-icon" size="medium" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            onBlur={onBlur}
+            onChange={handleFileChange}
+            error={invalid}
+            helperText={fieldError?.message || error}
+          />
+      )}
       )}
 
       {value && (

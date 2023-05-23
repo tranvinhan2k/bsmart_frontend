@@ -12,7 +12,6 @@ import { useState } from 'react';
 import { Color } from '~/assets/variables';
 import { formateISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
-import { IconName } from '~/models/icon';
 import { image } from '~/constants/image';
 import { MemberNavigationActionData } from '~/constants';
 import { ProfileImgType } from '~/constants/profile';
@@ -21,7 +20,7 @@ import { RoleKeys } from '~/models/variables';
 import { selectProfile } from '~/redux/user/selector';
 import Button from '~/components/atoms/Button';
 import DialogUpdateAvatar from '~/components/molecules/Dialog/DialogEditAvatar';
-import Icon from '~/components/atoms/Icon';
+import Icon, { IconName } from '~/components/atoms/Icon';
 import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
 import toast from '~/utils/toast';
 import {

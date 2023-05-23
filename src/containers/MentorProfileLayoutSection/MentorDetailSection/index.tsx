@@ -204,15 +204,16 @@ export default function MentorDetailSection() {
               mt={1}
               sx={{ width: '100%' }}
             >
-              {MentorNavigationActionData.map((item) => (
-                <Button
-                  key={item.link}
-                  onClick={() => handleNavigateLink(item.link)}
-                  customVariant="normal"
-                >
-                  {item.name}
-                </Button>
-              ))}
+              {profile.isVerified &&
+                MentorNavigationActionData.map((item) => (
+                  <Button
+                    key={item.link}
+                    onClick={() => handleNavigateLink(item.link)}
+                    customVariant="normal"
+                  >
+                    {item.name}
+                  </Button>
+                ))}
             </Stack>
           </Stack>
         </Box>

@@ -38,6 +38,8 @@ export default function MentorRegisterForm() {
       password: data.password,
       phone: data.phone,
       role: 'TEACHER',
+      birthDay: data.birthDay,
+      introduce: data.introduce,
     };
     const id = toast.loadToast('Đang đăng kí...');
     try {
@@ -72,6 +74,24 @@ export default function MentorRegisterForm() {
           placeholder="+843456789"
           control={mentorSignUpForm.control}
           name={REGISTER_MENTOR_FIELDS.phone}
+        />
+      </Stack>
+      <Stack marginTop={2}>
+        <FormInput
+          variant="date"
+          label="Ngày Sinh"
+          placeholder="01/01/2000"
+          control={mentorSignUpForm.control}
+          name={REGISTER_MENTOR_FIELDS.birthDay}
+        />
+      </Stack>
+      <Stack marginTop={2}>
+        <FormInput
+          variant="multiline"
+          label="Giới thiệu bản thân"
+          placeholder="Tôi là giáo viên/ học sinh ..."
+          control={mentorSignUpForm.control}
+          name={REGISTER_MENTOR_FIELDS.introduce}
         />
       </Stack>
       <Stack marginTop={2}>

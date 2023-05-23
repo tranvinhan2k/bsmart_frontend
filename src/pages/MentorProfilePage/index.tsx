@@ -1,11 +1,16 @@
+import { Stack, Alert } from '@mui/material';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import MentorProfileLayout from '~/layouts/MentorProfileLayout';
 import { RoutePayload } from '~/models/routes';
+import { selectProfile } from '~/redux/user/selector';
 import { mentorRoutes } from '~/routes';
 import { scrollToTop } from '~/utils/common';
 
 export default function MentorProfilePage() {
+  const profile = useSelector(selectProfile);
+
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -26,7 +31,15 @@ export default function MentorProfilePage() {
 
   return (
     <MentorProfileLayout>
-      <Routes>{showMentorRoutes()}</Routes>
+      {profile.isVerified ? (
+        <Routes>{showMentorRoutes()}</Routes>
+      ) : (
+        <Stack>
+          <Alert severity="warning">
+            {`Xin hãy xác thực email ${profile.email} để truy cập tất cả chức năng`}
+          </Alert>
+        </Stack>
+      )}
     </MentorProfileLayout>
   );
 }

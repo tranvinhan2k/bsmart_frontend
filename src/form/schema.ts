@@ -20,6 +20,8 @@ export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   password: 'password',
   confirm: 'confirm',
   phone: 'phone',
+  birthDay: 'birthDay',
+  introduce: 'introduce',
 };
 export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   name: 'name',
@@ -27,7 +29,8 @@ export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   email: 'email',
   password: 'password',
   confirm: 'confirm',
-  introduction: 'introduction',
+  introduce: 'introduce',
+  birthDay: 'birthDay',
 };
 export const BUY_COURSE_FIELDS: BuyCourseDataPayload = {
   name: 'name',

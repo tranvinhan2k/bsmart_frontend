@@ -12,6 +12,7 @@ export const NAME_REQUIRED = 'Họ và tên không được để trống.';
 export const BIRTHDAY_REQUIRED = 'Ngày sinh không được để trống.';
 export const ADDRESS_REQUIRED = 'Địa chỉ không được để trống.';
 export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
+export const INTRODUCE_REQUIRED = 'Giới thiệu bản thân không được để trống.';
 
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const EMAIL_REQUIRED = 'Email không được để trống.';
@@ -22,6 +23,7 @@ export const SUBJECT_REQUIRED = 'Môn học không được để trống.';
 export const IMAGE_SIZE_TOO_BIG =
   'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác.';
 export const IMAGE_FORMAT_NOT_SUPPORT = 'Định dạng hình ảnh không hỗ trợ.';
+
 export const generateRequiredText = (text: string) => {
   return `${text} là bắt buộc`;
 };

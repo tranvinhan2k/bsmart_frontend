@@ -16,6 +16,7 @@ import {
   generateRequiredText,
   IMAGE_FORMAT_NOT_SUPPORT,
   IMAGE_SIZE_TOO_BIG,
+  INTRODUCE_REQUIRED,
   NAME_REQUIRED,
   PASSWORD_MATCHED,
   PASSWORD_REQUIRED,
@@ -28,7 +29,7 @@ import {
   WITHDRAW_BANK_ACCOUNT_REQUIRED,
 } from '~/form/message';
 
-const PHONE_REGEX = /(?:03|05|07|08|09|01[2689])[0-9]{8}\\b/;
+const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
@@ -49,6 +50,8 @@ export const validationSchemaRegisterStudent = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
+  introduce: string().required(INTRODUCE_REQUIRED),
+  birthDay: string().required(BIRTHDAY_REQUIRED),
 });
 
 export const validationSchemaRegisterMentor = object({
@@ -61,6 +64,8 @@ export const validationSchemaRegisterMentor = object({
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
+  introduce: string().required(INTRODUCE_REQUIRED),
+  birthDay: string().required(BIRTHDAY_REQUIRED),
 });
 export const validationSchemaBuyCourse = object({
   name: string().required(USERNAME_REQUIRED),

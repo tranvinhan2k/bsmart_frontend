@@ -6,6 +6,7 @@ export type MetricSizeKeys = keyof typeof MetricSize;
 export type TypeLearnKeys = 'ONLINE' | 'OFFLINE';
 export type LevelKeys = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'EXPERT';
 export type RoleKeys = 'STUDENT' | 'TEACHER' | 'ADMIN';
+export type CRUDModes = 'CREATE' | 'READ' | 'UPDATE' | 'DELETE';
 export type ClassStatusKeys =
   | 'REQUESTING'
   | 'WAITING'

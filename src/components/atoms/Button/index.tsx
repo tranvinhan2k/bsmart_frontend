@@ -8,6 +8,7 @@ import {
 import { ButtonVariant } from '~/models/button';
 import {
   SX_FORM_BUTTON,
+  SX_FORM_INPUT_HORIZON_BUTTON,
   SX_GOOGLE_BUTTON,
   SX_GOOGLE_STACK,
   SX_OUTLINED_BUTTON,
@@ -50,6 +51,14 @@ export default function Button({
       return (
         <Stack marginTop={MetricSize[marginTop]}>
           <MUIButton sx={SX_OUTLINED_BUTTON} {...rest}>
+            {children}
+          </MUIButton>
+        </Stack>
+      );
+    case 'horizonForm':
+      return (
+        <Stack marginTop={MetricSize[marginTop]}>
+          <MUIButton sx={SX_FORM_INPUT_HORIZON_BUTTON} {...rest}>
             {children}
           </MUIButton>
         </Stack>

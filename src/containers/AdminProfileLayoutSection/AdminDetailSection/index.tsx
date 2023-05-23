@@ -118,6 +118,16 @@ export default function AdminDetailSection() {
           icon: 'blog',
           link: 'blog',
         },
+        {
+          label: 'Câu hỏi',
+          icon: 'question',
+          link: 'question',
+        },
+        {
+          label: 'Đánh giá',
+          icon: 'feedback',
+          link: 'feedback_manager',
+        },
       ],
     },
     {

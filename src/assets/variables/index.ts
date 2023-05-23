@@ -81,6 +81,7 @@ export const MetricSize = {
   fullWidth: '100vw',
   halfWidth: '50vw',
   none: 0,
+  formInputHeight: '50px',
 };
 
 /* Positioning */

@@ -18,6 +18,10 @@ export interface SubCoursePayload {
   numberOfSlot: number;
   isChosen?: boolean;
   timeInWeekRequests: SubCourseTimeInWeekPayload[];
+  title: string;
+  typeLearn: TypeLearnKeys;
+  timeInWeeks: SubCourseTimeInWeekPayload[];
+  purchase: any;
 }
 
 export interface SubCourseTimeInWeekPayload {

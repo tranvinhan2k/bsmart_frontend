@@ -20,7 +20,7 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
       <DatePicker
         inputFormat="DD/MM/YYYY"
         value={value}
-        onChange={(newValue) => onChange(newValue)}
+        onChange={(newValue) => onChange(newValue.toISOString())}
         renderInput={(params) => (
           <TextField
             sx={SX_TEXT_INPUT_FORM}

@@ -92,4 +92,23 @@ export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
   padding: MetricSize.medium_15,
 };
 
+export const SX_FORM_INPUT_HORIZON_BUTTON: SxProps<Theme> = {
+  height: MetricSize.formInputHeight,
+  fontFamily: FontFamily.regular,
+  paddingX: MetricSize.small_10,
+  fontSize: FontSize.small_16,
+  color: Color.white,
+  background: Color.orange,
+  width: '100%',
+  boxShadow: 3,
+  borderStyle: 'solid',
+  borderWidth: 1,
+  borderColor: Color.orange,
+  '&:hover': {
+    color: Color.orange,
+    background: Color.white,
+  },
+  padding: MetricSize.small_5,
+};
+
 export default {};

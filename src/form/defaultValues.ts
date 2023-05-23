@@ -22,12 +22,15 @@ export const defaultValueStudentRegister: RegisterStudentDataPayload = {
   name: '',
   phone: '',
   confirm: '',
+  birthDay: '',
+  introduce: '',
 };
 export const defaultValueMentorRegister: RegisterMentorDataPayload = {
   email: '',
   password: '',
   confirm: '',
-  introduction: '',
+  birthDay: '',
+  introduce: '',
   name: '',
   phone: '',
 };

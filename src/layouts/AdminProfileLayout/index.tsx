@@ -11,13 +11,13 @@ export default function AdminProfileLayout({
   children,
 }: AdminProfileLayoutProps) {
   return (
-    <Grid container sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Grid container sx={{ height: '100vh', overflow: 'auto' }}>
       <Grid item xs={12} md={2}>
         <AdminDetailSection />
       </Grid>
       <Grid item xs={12} md={10}>
         <AdminHeader />
-        <Stack sx={{ overflowY: 'scroll' }}>{children}</Stack>
+        <Stack>{children}</Stack>
       </Grid>
     </Grid>
   );
