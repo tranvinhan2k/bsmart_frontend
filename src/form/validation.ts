@@ -40,6 +40,29 @@ export const validationSchemaSignIn = object({
   password: string().required(PASSWORD_REQUIRED),
 });
 
+export const validationSchemaCreateCategories = object({
+  code: string().required('Mã môn học không được để trống.'),
+  name: string().required('Tên môn học không được để trống.'),
+});
+export const validationSchemaCreateSubjects = object({
+  code: string().required('Mã ngôn ngữ không được để trống.'),
+  name: string().required('Tên ngôn ngữ không được để trống.'),
+  categoryId: object()
+    .typeError('Lĩnh vực không hợp lệ')
+    .required(COURSE_CATEGORY_REQUIRED),
+});
+export const validationSchemaUpdateSubjects = object({
+  code: string().required('Mã ngôn ngữ không được để trống.'),
+  name: string().required('Tên ngôn ngữ không được để trống.'),
+  categoryId: object()
+    .typeError('Lĩnh vực không hợp lệ')
+    .required(COURSE_CATEGORY_REQUIRED),
+});
+export const validationSchemaUpdateCategories = object({
+  code: string().required('Mã môn học không được để trống.'),
+  name: string().required('Tên môn học không được để trống.'),
+});
+
 export const validationSchemaRegisterStudent = object({
   name: string().required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),

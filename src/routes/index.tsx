@@ -74,6 +74,8 @@ const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 
 const FeedbackManagerPage = lazy(() => import('~/pages/FeedbackManagerPage'));
+const SubjectManagerPage = lazy(() => import('~/pages/SubjectManagerPage'));
+const CategoryManagerPage = lazy(() => import('~/pages/CategoryManagerPage'));
 
 const routes: RoutePayload[] = [
   {
@@ -325,6 +327,16 @@ export const adminRoutes: RoutePayload[] = [
   {
     path: `/${AdminNavigationActionData[6].link}`,
     main: () => <FeedbackManagerPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: `/${AdminNavigationActionData[7].link}`,
+    main: () => <CategoryManagerPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: `/${AdminNavigationActionData[8].link}`,
+    main: () => <SubjectManagerPage />,
     role: ['ROLE_ADMIN'],
   },
   {

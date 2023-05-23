@@ -198,15 +198,16 @@ export default function MainProfile() {
               mt={1}
               sx={{ width: '100%' }}
             >
-              {MemberNavigationActionData.map((item) => (
-                <Button
-                  key={item.link}
-                  onClick={() => handleNavigateLink(item.link)}
-                  customVariant="normal"
-                >
-                  {item.name}
-                </Button>
-              ))}
+              {profile.isVerified &&
+                MemberNavigationActionData.map((item) => (
+                  <Button
+                    key={item.link}
+                    onClick={() => handleNavigateLink(item.link)}
+                    customVariant="normal"
+                  >
+                    {item.name}
+                  </Button>
+                ))}
             </Stack>
           </Stack>
         </Box>

@@ -3,7 +3,7 @@ import { Stack, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import localEnvironment from '~/utils/localEnvironment';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import { AdminNavigationActionData } from '~/constants';
+import { ADMIN_SIDE_BAR_NAVIGATION } from '~/constants';
 import {
   STYLE_MENU,
   STYLE_SIDEBAR,
@@ -23,125 +23,6 @@ import {
 } from './style';
 
 export default function AdminDetailSection() {
-  interface SidebarNavigationProps {
-    title: string;
-    items: {
-      label: string;
-      icon: IconName;
-      link: string;
-      items?: {
-        label: string;
-        icon: IconName;
-        link: string;
-      }[];
-    }[];
-  }
-  const sidebarNavigation: SidebarNavigationProps[] = [
-    {
-      title: '',
-      items: [
-        {
-          label: 'Trang chủ',
-          icon: 'home',
-          link: 'homepage',
-        },
-      ],
-    },
-    {
-      title: 'Quản lý',
-      items: [
-        {
-          label: 'Người dùng',
-          icon: 'user',
-          link: 'account',
-          items: [
-            {
-              label: 'Tất cả người dùng',
-              icon: 'groups',
-              link: 'allAccount',
-            },
-            {
-              label: 'Yêu cầu tạo tài khoản',
-              icon: 'description',
-              link: `/${AdminNavigationActionData[2].link}`,
-            },
-          ],
-        },
-        {
-          label: 'Lớp học',
-          icon: 'coPresent',
-          link: 'classZ',
-          items: [
-            {
-              label: 'Tất cả lớp học',
-              icon: 'class',
-              link: 'allClass',
-            },
-            {
-              label: 'Yêu cầu tạo lớp học',
-              icon: 'description',
-              link: `/${AdminNavigationActionData[4].link}`,
-            },
-          ],
-        },
-        {
-          label: 'Chủ đê',
-          icon: 'subject',
-          link: 'subject',
-          items: [
-            {
-              label: 'Tất cả chủ đề',
-              icon: 'account',
-              link: 'allSubject',
-            },
-            {
-              label: 'Yêu cầu tạo môn học',
-              icon: 'class',
-              link: 'classCreateRequest',
-            },
-          ],
-        },
-        {
-          label: 'Câu hỏi',
-          icon: 'question',
-          link: 'questionZ',
-          items: [
-            {
-              label: 'Ngân hàng câu hỏi',
-              icon: 'dynamicFeed',
-              link: 'questionBank',
-            },
-          ],
-        },
-        {
-          label: 'Blog',
-          icon: 'blog',
-          link: 'blog',
-        },
-        {
-          label: 'Câu hỏi',
-          icon: 'question',
-          link: 'question',
-        },
-        {
-          label: 'Đánh giá',
-          icon: 'feedback',
-          link: 'feedback_manager',
-        },
-      ],
-    },
-    {
-      title: 'Cá nhân',
-      items: [
-        {
-          label: 'Cài đặt',
-          icon: 'setting',
-          link: 'setting',
-        },
-      ],
-    },
-  ];
-
   const location = useLocation();
   const pathName = location.pathname;
 
@@ -167,7 +48,7 @@ export default function AdminDetailSection() {
             </Typography>
           </Stack>
 
-          {sidebarNavigation.map((mainItem) => (
+          {ADMIN_SIDE_BAR_NAVIGATION.map((mainItem) => (
             <Stack key={mainItem.title}>
               <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.title}</Typography>
               {mainItem.items.map((item) => {

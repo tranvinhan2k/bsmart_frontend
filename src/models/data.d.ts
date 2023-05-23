@@ -8,3 +8,17 @@ export interface BankDataPayload {
   transferSupported: number;
   lookupSupported: number;
 }
+
+export interface SidebarNavigationProps {
+  title: string;
+  items: {
+    label: string;
+    icon: IconName;
+    link: string;
+    items?: {
+      label: string;
+      icon: IconName;
+      link: string;
+    }[];
+  }[];
+}
