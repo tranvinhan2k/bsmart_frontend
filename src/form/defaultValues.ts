@@ -139,3 +139,12 @@ export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
   bankAccountOwner: '',
   note: '',
 };
+
+export const defaultValueCreateCategory = {
+  code: '',
+  name: '',
+};
+export const defaultValueUpdateCategory = {
+  code: '',
+  name: '',
+};

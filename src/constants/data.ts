@@ -9,6 +9,7 @@ import { AddressDataPayload } from '~/models/address';
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
+import { SidebarNavigationProps } from '~/models/data';
 
 export const AuthorizationActionData: ActionPayload[] = [
   {
@@ -310,6 +311,18 @@ export const AdminNavigationActionData: ActionPayload[] = [
     isHide: true,
     name: 'Quản lí đánh giá',
     link: 'feedback_manager',
+  },
+  {
+    id: 7,
+    isHide: true,
+    name: 'Quản lí môn học',
+    link: 'subject_manager',
+  },
+  {
+    id: 8,
+    isHide: true,
+    name: 'Quản lí ngôn ngũ lập trình',
+    link: 'category_manager',
   },
 ];
 
@@ -789,5 +802,120 @@ export const mockMentorLatestActivities = [
     id: 1,
     message: 'Đã nhận được 100 BS từ việc chia sẻ khoá học',
     updateDate: new Date().toISOString(),
+  },
+];
+export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
+  {
+    title: '',
+    items: [
+      {
+        label: 'Trang chủ',
+        icon: 'home',
+        link: 'homepage',
+      },
+    ],
+  },
+  {
+    title: 'Quản lý',
+    items: [
+      {
+        label: 'Người dùng',
+        icon: 'user',
+        link: 'account',
+        items: [
+          {
+            label: 'Tất cả người dùng',
+            icon: 'groups',
+            link: 'allAccount',
+          },
+          {
+            label: 'Yêu cầu tạo tài khoản',
+            icon: 'description',
+            link: `/${AdminNavigationActionData[2].link}`,
+          },
+        ],
+      },
+      {
+        label: 'Lớp học',
+        icon: 'coPresent',
+        link: 'classZ',
+        items: [
+          {
+            label: 'Tất cả lớp học',
+            icon: 'class',
+            link: 'allClass',
+          },
+          {
+            label: 'Yêu cầu tạo lớp học',
+            icon: 'description',
+            link: `/${AdminNavigationActionData[4].link}`,
+          },
+        ],
+      },
+      {
+        label: 'Chủ đê',
+        icon: 'subject',
+        link: 'subject',
+        items: [
+          {
+            label: 'Tất cả chủ đề',
+            icon: 'account',
+            link: 'allSubject',
+          },
+          {
+            label: 'Yêu cầu tạo môn học',
+            icon: 'class',
+            link: 'classCreateRequest',
+          },
+        ],
+      },
+      {
+        label: 'Câu hỏi',
+        icon: 'question',
+        link: 'questionZ',
+        items: [
+          {
+            label: 'Ngân hàng câu hỏi',
+            icon: 'dynamicFeed',
+            link: 'questionBank',
+          },
+        ],
+      },
+      {
+        label: 'Blog',
+        icon: 'blog',
+        link: 'blog',
+      },
+      {
+        label: 'Câu hỏi',
+        icon: 'question',
+        link: 'question',
+      },
+      {
+        label: 'Đánh giá',
+        icon: 'feedback',
+        link: 'feedback_manager',
+      },
+      {
+        label: 'Môn Học',
+        icon: 'subject',
+        link: 'subject_manager',
+      },
+      {
+        label: 'Ngôn ngữ lập trình',
+        icon: 'category',
+        link: 'category_manager',
+      },
+    ],
+  },
+  {
+    title: 'Cá nhân',
+    items: [
+      {
+        label: 'Cài đặt',
+        icon: 'setting',
+        link: 'setting',
+      },
+    ],
   },
 ];

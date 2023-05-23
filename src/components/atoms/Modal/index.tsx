@@ -20,8 +20,8 @@ export default function CustomModal({
     >
       <Stack
         sx={{
-          width: '80%',
-          height: 'calc(100vh - 40px)',
+          width: '60%',
+          minHeight: '100px',
           background: Color.white,
           borderRadius: MetricSize.small_10,
           padding: MetricSize.small_10,

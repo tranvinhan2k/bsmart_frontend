@@ -14,6 +14,24 @@ export const TIME_TABLE_FIELDS = {
   slot: 'slot',
   dayInWeek: 'dayInWeek',
 };
+export const CREATE_CATEGORY_FIELDS = {
+  code: 'code',
+  name: 'name',
+};
+export const UPDATE_CATEGORY_FIELDS = {
+  code: 'code',
+  name: 'name',
+};
+export const CREATE_SUBJECT_FIELDS = {
+  code: 'code',
+  name: 'name',
+  categoryId: 'categoryId',
+};
+export const UPDATE_SUBJECT_FIELDS = {
+  code: 'code',
+  name: 'name',
+  categoryId: 'categoryId',
+};
 export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   name: 'name',
   email: 'email',

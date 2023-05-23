@@ -37,24 +37,28 @@ const subjectsApi = {
     const response: any = await axiosClient.delete(`${url}/${id}`);
     return response;
   },
-  async updateSubject(
-    id: number,
-    params: {
-      code: string;
-      name: string;
-    }
-  ): Promise<OptionPayload | undefined> {
-    const response: any = await axiosClient.put(`${url}/${id}`, params);
+  async updateSubject(params: {
+    id: number;
+    code: string;
+    name: string;
+    categoryId: number;
+  }): Promise<any> {
+    const response: any = await axiosClient.put(`${url}/${params.id}`, {
+      code: params.code,
+      name: params.name,
+      categoryId: params.categoryId,
+    });
     return response;
   },
-  async createSubject(
-    id: number,
-    params: { code: string; name: string }
-  ): Promise<OptionPayload | undefined> {
-    const response: any = await axiosClient.post(`${url}/${id}`, params);
+  async createSubject(params: {
+    code: string;
+    name: string;
+    categoryId: number;
+  }): Promise<any> {
+    const response: any = await axiosClient.post(`${url}`, params);
     return response;
   },
-  async getAllCategoriesAllProp(): Promise<OptionPayload | undefined> {
+  async getAllSubjectsAllProp(): Promise<any> {
     const response: any = await axiosClient.get(`${url}`);
     return response;
   },
