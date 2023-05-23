@@ -128,7 +128,7 @@ export default function FormInput({
   const controller = useController({ name, defaultValue, control });
 
   return (
-    <Stack flexGrow={1} marginBottom={1}>
+    <Stack flexGrow={1}>
       <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
       {generateFormInput(
         banks,

@@ -20,6 +20,7 @@ export interface RequestRegisterPayload {
 
 export interface EditCertificateProfilePayload {
   userImages: (string | Blob)[];
+  degreeIdsToDelete?: number[];
 }
 export interface EditImageProfilePayload {
   file: string | Blob;
@@ -140,10 +141,13 @@ const accountApi = {
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const files = data.userImages;
-    files.forEach((item) => {
+    const { userImages, degreeIdsToDelete } = data;
+    userImages.forEach((item) => {
       bodyFormData.append('files', item);
     });
+    if (degreeIdsToDelete) {
+      bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete); // CORRECT WAY
+    }
     return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

@@ -1,7 +1,7 @@
 import {
   BuyCourseDataPayload,
   EditAvatarFormDataPayload,
-  EditCertificateProfileFormDataPayload,
+  EditCertificateProfileDefaultValuePayload,
   EditIdentityBackFormDataPayload,
   EditIdentityFrontFormDataPayload,
   EditMentorProfileFormDataPayload,
@@ -62,9 +62,17 @@ export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
   workingExperience: '',
 };
 
-export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
+export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
   {
-    userImages: [''],
+    userImages: [
+      {
+        id: 0,
+        name: '',
+        status: true,
+        type: '',
+        url: '',
+      },
+    ],
   };
 
 export const defaultValueEditAccountProfile = {

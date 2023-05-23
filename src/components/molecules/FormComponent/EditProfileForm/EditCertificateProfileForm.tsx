@@ -1,7 +1,14 @@
-import { Box, Divider, Typography, Grid } from '@mui/material';
-import { Fragment, useEffect } from 'react';
+import {
+  Box,
+  Button as MuiButton,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { Fragment, useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { defaultValueEditCertificateProfile } from '~/form/defaultValues';
 import { RootState } from '~/redux/store';
@@ -12,11 +19,13 @@ import {
 } from '~/models/form';
 import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import accountApi, { EditCertificateProfilePayload } from '~/api/users';
-import Button from '~/components/atoms/Button';
+import { FontFamily } from '~/assets/variables';
+import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
+import { useYupValidationResolver } from '~/hooks';
+import Icon from '~/components/atoms/Icon';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
-import { useYupValidationResolver } from '~/hooks';
 
 export default function EditCertificateProfileForm() {
   const toastMsgLoading = 'Đang cập nhật ...';
@@ -40,17 +49,17 @@ export default function EditCertificateProfileForm() {
     }
   );
 
-  const { mutateAsync: mutateEditCertificateProfile } = useMutation({
-    mutationFn: accountApi.editCertificateProfile,
-  });
+  const { mutateAsync: mutateEditCertificateProfile } =
+    useMutationEditCertificateProfile();
 
   const resolverEditCertificateProfile = useYupValidationResolver(
     validationSchemaEditCertificateProfile
   );
-  const { control, reset, handleSubmit } = useForm({
+  const { control, reset, handleSubmit, getValues } = useForm({
     defaultValues: defaultValueEditCertificateProfile,
     resolver: resolverEditCertificateProfile,
   });
+  const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
 
   useEffect(() => {
     if (dataGetProfile) {
@@ -67,12 +76,15 @@ export default function EditCertificateProfileForm() {
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
-    const params: EditCertificateProfilePayload = {
-      userImages: data.userImages,
-    };
-    // params.userImages.map((item) => {
-    //   console.log('item instanceof File', item instanceof File);
-    // });
+    const params: EditCertificateProfilePayload =
+      degreeIdsToDelete.length > 0
+        ? {
+            userImages: data.userImages,
+            degreeIdsToDelete,
+          }
+        : {
+            userImages: data.userImages,
+          };
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditCertificateProfile(params);
@@ -96,7 +108,7 @@ export default function EditCertificateProfileForm() {
     DESC1: 'Kích thước tệp tối đa là 10 MB.',
     DESC2:
       'Bạn có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
-    DESC3: 'Không mật khẩu bảo vệ PDF của bạn.',
+    DESC3: 'Không đặt mật khẩu bảo vệ file của bạn.',
     DESC4: 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
     DESC5: 'Hãy chụp 2 mặt bằng cấp/chứng chỉ',
     BUTTON_TEXT: 'Cập nhật',
@@ -125,8 +137,13 @@ export default function EditCertificateProfileForm() {
   const appendCertificate = () => {
     append('');
   };
-  const removeCertificate = (order: number) => {
-    remove(order);
+  const removeCertificate = (index: number, certificate: any) => {
+    remove(index);
+    if (certificate.type === 'DEGREE') {
+      setDegreeIdsToDelete((prev) => {
+        return [...prev, certificate.id];
+      });
+    }
   };
 
   return (
@@ -156,39 +173,58 @@ export default function EditCertificateProfileForm() {
                   {`${formFieldsCertificate.label} ${1 + index}`}
                 </Typography>
               </Grid>
-              <Grid item xs={10}>
-                <FormInput
-                  control={control}
-                  name={`${formFieldsCertificate.name}.${index}`}
-                  variant={formFieldsCertificate.variant}
-                  placeholder={formFieldsCertificate.placeholder}
-                />
-              </Grid>
-              <Grid item xs={1} lg={1}>
-                <Button
-                  customVariant="normal"
-                  size="small"
-                  onClick={() => removeCertificate(index)}
+              <Grid item xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={2}
                 >
-                  Xóa
-                </Button>
+                  <FormInput
+                    control={control}
+                    name={`${formFieldsCertificate.name}.${index}`}
+                    variant={formFieldsCertificate.variant}
+                    placeholder={formFieldsCertificate.placeholder}
+                  />
+                  <MuiButton
+                    color="error"
+                    size="small"
+                    variant="outlined"
+                    onClick={() =>
+                      removeCertificate(
+                        index,
+                        getValues(`${formFieldsCertificate.name}.${index}`)
+                      )
+                    }
+                  >
+                    <Icon name="delete" size="medium" />
+                  </MuiButton>
+                </Stack>
               </Grid>
             </Fragment>
           ))}
-          <Grid item xs={6} lg={3} mt={2}>
-            <Button
-              customVariant="normal"
-              size="small"
+          <Grid item xs={12} lg={3} mt={2}>
+            <MuiButton
+              color="success"
+              size="large"
+              variant="outlined"
               onClick={() => appendCertificate()}
             >
-              Thêm bằng cấp
-            </Button>
+              <Icon name="add" size="medium" />
+            </MuiButton>
           </Grid>
         </Grid>
         <Box mt={4}>
-          <Button customVariant="normal" type="submit">
-            {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.BUTTON_TEXT}
-          </Button>
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            sx={{ fontFamily: FontFamily.bold }}
+          >
+            Cập nhật
+          </MuiButton>
         </Box>
       </form>
     </Box>

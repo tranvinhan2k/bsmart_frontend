@@ -4,13 +4,12 @@ import {
   Stack,
   IconButton,
   InputAdornment,
-  Box,
-  Link,
+  Button as MuiButton,
+  Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
 import { MetricSize } from '~/assets/variables';
-import Button from '../Button';
 
 interface FileInputProps {
   controller: UseControllerReturn<any, string>;
@@ -68,18 +67,38 @@ function FileInput({ controller, placeholder }: FileInputProps) {
       )}
 
       {value && (
-        <Stack mt={1}>
-          <Link href={value.url}>{value.name}</Link>
-          <Box mt={2}>
-            <Button
-              customVariant="normal"
-              startIcon={<Icon name="delete" size="small" />}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
+        >
+          <Typography>{value.name}</Typography>
+          <Stack
+            direction={{ md: 'column', lg: 'row' }}
+            justifyContent={{ md: 'flex-start', lg: 'space-between' }}
+            alignItems={{ md: 'center', lg: 'flex-start' }}
+            spacing={2}
+          >
+            <MuiButton
+              variant="outlined"
+              color="success"
+              fullWidth
+              href={value.url}
+              size="small"
+            >
+              <Icon name="eye" size="medium" />
+            </MuiButton>
+            <MuiButton
+              variant="outlined"
+              color="error"
+              fullWidth
               size="small"
               onClick={handleDeleteClick}
             >
-              Gỡ file
-            </Button>
-          </Box>
+              <Icon name="clear" size="medium" />
+            </MuiButton>
+          </Stack>
         </Stack>
       )}
     </Stack>

@@ -52,6 +52,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import DescriptionIcon from '@mui/icons-material/Description';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -115,6 +116,7 @@ export type IconName =
   | 'description'
   | 'coPresent'
   | 'dynamicFeed'
+  | 'clear'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -220,6 +222,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CoPresentIcon sx={STYLED_ICON} />;
     case 'dynamicFeed':
       return <DynamicFeedIcon sx={STYLED_ICON} />;
+    case 'clear':
+      return <ClearIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />
