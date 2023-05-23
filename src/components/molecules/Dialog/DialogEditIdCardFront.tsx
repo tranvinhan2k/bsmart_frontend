@@ -82,12 +82,12 @@ export default function DialogEditIdCardFront({
 
   return (
     <Dialog open={open} onClose={handleOnClose} fullWidth>
-      <DialogTitle>Cập nhật mặt trước CMND</DialogTitle>
+      <DialogTitle>Cập nhật mặt trước Chứng minh thư</DialogTitle>
       <DialogContent>
         <form
           onSubmit={handleSubmitEditIdentityFront(handleSubmitIdentityFront)}
         >
-          <Typography sx={SX_FORM_LABEL}>Căn cước công dân (trước)</Typography>
+          <Typography sx={SX_FORM_LABEL}>Chứng minh thư (trước)</Typography>
           <FormInput
             control={controlEditIdentityFront}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityFront}

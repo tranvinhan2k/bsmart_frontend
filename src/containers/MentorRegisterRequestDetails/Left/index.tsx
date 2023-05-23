@@ -20,7 +20,7 @@ export default function MentorRegisterRequestDetailsLeft({
     { id: 0, label: 'Mail', value: mentorRequest.mail },
     { id: 1, label: 'Ngày sinh', value: mentorRequest.birthday },
     { id: 2, label: 'Giới tính', value: mentorRequest.gender },
-    { id: 3, label: 'CMND', value: mentorRequest.idCard },
+    { id: 3, label: 'Chứng minh thư', value: mentorRequest.idCard },
     { id: 4, label: 'SĐT', value: mentorRequest.phone },
   ];
 

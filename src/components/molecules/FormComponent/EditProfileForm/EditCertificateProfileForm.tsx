@@ -28,8 +28,8 @@ import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
 export default function EditCertificateProfileForm() {
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
     return `Cập nhật không thành công: ${error.message}`;
   };

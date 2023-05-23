@@ -28,7 +28,7 @@ import { useQueryGetAllSubjects, useYupValidationResolver } from '~/hooks';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
 export default function EditMentorProfileForm() {
-  const toastMsgLoading = 'Đang hồ sơ giảng dạy ...';
+  const toastMsgLoading = 'Đang cập nhật ...';
   const toastMsgSuccess = 'Cập nhật thành công ...';
   const toastMsgError = (error: any): string => {
     return `Cập nhật không thành công: ${error.message}`;
@@ -150,6 +150,7 @@ export default function EditMentorProfileForm() {
                 control={control}
                 name="introduce"
                 variant="multiline"
+                multilineRows={6}
                 placeholder="Nhập giới thiệu"
               />
             </Grid>
@@ -159,6 +160,7 @@ export default function EditMentorProfileForm() {
                 control={control}
                 name="workingExperience"
                 variant="multiline"
+                multilineRows={6}
                 placeholder="Nhập kinh nghiệm"
               />
             </Grid>
