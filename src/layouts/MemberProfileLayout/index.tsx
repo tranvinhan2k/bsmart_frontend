@@ -29,7 +29,6 @@ export default function MemberProfileLayout({
               spacing={2}
             >
               <MainProfile />
-              <RecentActivityList />
             </Stack>
           </Grid>
           <Grid item sm={12} md={7} lg={8}>

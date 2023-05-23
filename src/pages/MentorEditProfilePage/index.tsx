@@ -1,4 +1,3 @@
-// import EditCertificateInformationSection from '~/containers/EditProfileSection/EditCertificateInformationSection';
 import DisplayCISection from '~/components/molecules/FormComponent/EditProfileForm/DisplayCISection';
 import EditAccountProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditAccountProfileForm';
 import EditCertificateProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditCertificateProfileForm';

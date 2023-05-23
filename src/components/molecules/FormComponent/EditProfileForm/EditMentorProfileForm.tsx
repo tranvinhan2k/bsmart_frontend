@@ -10,7 +10,6 @@ import { Fragment, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
 import { RootState } from '~/redux/store';
 
 import { validationSchemaEditMentorProfile } from '~/form/validation';
