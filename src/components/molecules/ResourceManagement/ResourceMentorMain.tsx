@@ -16,7 +16,7 @@ export default function ResourceMentorMain({
       {/* <ResourceMentorMainItem editMode={editMode} /> */}
       {editMode && (
         <Box mt={2}>
-          <Button variant="outlined">Thêm đề mục</Button>
+          <Button variant="outlined">Thêm tài nguyên</Button>
         </Box>
       )}
     </>

@@ -16,7 +16,7 @@ import { defaultValueEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 
-export default function GeneralSettings() {
+export default function MentorCreateQuizPage() {
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditMentorProfile
   );
@@ -74,7 +74,7 @@ export default function GeneralSettings() {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack
             direction="row"
@@ -118,7 +118,7 @@ export default function GeneralSettings() {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack
             direction="row"

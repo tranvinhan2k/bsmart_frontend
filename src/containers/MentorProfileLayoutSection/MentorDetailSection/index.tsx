@@ -191,7 +191,7 @@ export default function MentorDetailSection() {
                 <Typography sx={SX_DISPLAY_FIELD_TEXT}>
                   Số dư hiện tại:{' '}
                   <span style={{ color: Color.orange }}>
-                    ${formatMoney(mentorDetails.walletMoney)}
+                    {formatMoney(mentorDetails.walletMoney)}
                   </span>
                 </Typography>
               </Stack>

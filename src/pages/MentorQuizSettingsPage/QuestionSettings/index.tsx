@@ -1,5 +1,5 @@
-import { Stack } from '@mui/material';
-import Button from '~/components/atoms/Button';
+import { Stack, Button as MuiButton } from '@mui/material';
+import { FontFamily } from '~/assets/variables';
 import CreatedQuestionList from './CreatedQuestionList';
 
 export default function QuestionSettings() {
@@ -11,7 +11,14 @@ export default function QuestionSettings() {
         alignItems="flex-start"
         mb={2}
       >
-        <Button variant="outlined">Thêm câu hỏi</Button>
+        <MuiButton
+          color="miSmartOrange"
+          size="large"
+          variant="outlined"
+          sx={{ fontFamily: FontFamily.regular }}
+        >
+          Thêm câu hỏi
+        </MuiButton>
       </Stack>
       <CreatedQuestionList />
     </>
