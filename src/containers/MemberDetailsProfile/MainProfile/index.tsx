@@ -185,7 +185,7 @@ export default function MainProfile() {
                 <Typography sx={SX_DISPLAY_FIELD_TEXT}>
                   Số dư hiện tại:{' '}
                   <span style={{ color: Color.orange }}>
-                    ${formatMoney(memberDetails.walletMoney)}
+                    {formatMoney(memberDetails.walletMoney)}
                   </span>
                 </Typography>
               </Stack>

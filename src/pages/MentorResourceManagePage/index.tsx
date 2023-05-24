@@ -25,15 +25,15 @@ export default function MentorResourceManagePage() {
       text: 'Tài nguyên',
       component: <ResourceMentorMain editMode={editMode} />,
     },
-    {
-      id: 1,
-      text: 'Ngân hàng câu hỏi',
-      component: <ResourceMentorQuestionBank />,
-    },
+    // {
+    //   id: 1,
+    //   text: 'Ngân hàng câu hỏi',
+    //   component: <ResourceMentorQuestionBank />,
+    // },
   ];
 
   return (
-    <Box pt={2} pr={15} pl={15}>
+    <Box>
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"

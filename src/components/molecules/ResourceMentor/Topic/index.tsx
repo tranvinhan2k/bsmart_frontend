@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
@@ -17,18 +17,19 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
-import { SX_RESOURCE_TITTLE, SX_RESOURCE_ITEM_CONTAINER } from './style';
+import { SX_RESOURCE_TITTLE } from './style';
 import Resource from '~/components/molecules/ResourceMentor/Resource';
-import { NavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/constants';
 
 interface TopicProps {
   editMode: boolean;
 }
 
 export default function Topic({ editMode }: TopicProps) {
-  const navigation = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleEditResource = () => {
-    navigation(`edit`);
+    navigate(`edit`);
   };
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -49,6 +50,7 @@ export default function Topic({ editMode }: TopicProps) {
     id: number;
     name: string;
     iconName: IconName;
+    onClickAction: () => void;
   }
 
   const resourceTmpList: ResourceProps[] = [
@@ -62,14 +64,34 @@ export default function Topic({ editMode }: TopicProps) {
       id: 1,
       name: 'Bài quiz 1',
       iconName: 'quiz',
-      editLinkTo: `/${NavigationActionData[20].link}`,
+      editLinkTo: `/mentor-profile/mentor-quiz-settings`,
     },
   ];
 
+  const handleCreateAnnouncement = () => console.log('Tạo thông báo');
+  const handleCreateQuiz = () =>
+    navigate(`/mentor-profile/${MentorNavigationActionData[10].link}`);
+  const handleCreateAssignment = () => console.log('Tạo assignment');
+
   const topicCreatorList: TopicCreatorProps[] = [
-    { id: 0, name: 'Thông báo', iconName: 'chat' },
-    { id: 1, name: 'Quiz', iconName: 'quiz' },
-    { id: 2, name: 'Assignment', iconName: 'assignment' },
+    {
+      id: 0,
+      name: 'Thông báo',
+      iconName: 'chat',
+      onClickAction: handleCreateAnnouncement,
+    },
+    {
+      id: 1,
+      name: 'Quiz',
+      iconName: 'quiz',
+      onClickAction: handleCreateQuiz,
+    },
+    {
+      id: 2,
+      name: 'Assignment',
+      iconName: 'assignment',
+      onClickAction: handleCreateAssignment,
+    },
   ];
 
   return (
@@ -83,7 +105,7 @@ export default function Topic({ editMode }: TopicProps) {
         >
           <Typography sx={SX_RESOURCE_TITTLE}>Hoạt động 1</Typography>
           {editMode && (
-            <IconButton sx={{ padding: 0 }} onClick={handleEditResource}>
+            <IconButton onClick={handleEditResource}>
               <Icon name="modeEdit" size="small" />
             </IconButton>
           )}
@@ -112,9 +134,9 @@ export default function Topic({ editMode }: TopicProps) {
               open={openDialog}
               onClose={handleCloseDialog}
               fullWidth
-              maxWidth="lg"
+              // maxWidth="lg"
             >
-              <DialogTitle>Đề mục mới</DialogTitle>
+              <DialogTitle>Hoạt động</DialogTitle>
               <DialogContent>
                 <Grid
                   container
@@ -124,18 +146,12 @@ export default function Topic({ editMode }: TopicProps) {
                   spacing={2}
                 >
                   {topicCreatorList.map((topicCreator) => (
-                    <Grid
-                      item
-                      xs={6}
-                      sm={4}
-                      md={3}
-                      lg={2}
-                      key={topicCreator.id}
-                    >
+                    <Grid item xs={6} sm={4} key={topicCreator.id}>
                       <Button
                         variant="outlined"
                         size="small"
                         fullWidth
+                        onClick={topicCreator.onClickAction}
                         startIcon={
                           <Icon name={topicCreator.iconName} size="medium" />
                         }
