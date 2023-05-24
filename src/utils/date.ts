@@ -1,3 +1,4 @@
+import dayjs, { Dayjs } from 'dayjs';
 import Moment from 'moment';
 
 export const formatDate = (dateText: string) => {
@@ -53,3 +54,7 @@ export const formatISODateDateToDisplayDateTime = (inputDate: Date) => {
   }
   return result;
 };
+
+export function isValidDate(d: Dayjs) {
+  return dayjs(d).isValid();
+}

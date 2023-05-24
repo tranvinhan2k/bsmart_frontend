@@ -4,6 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
+import { isValidDate } from '~/utils/date';
 
 interface DatePickerInputProps {
   controller: UseControllerReturn<any, string>;
@@ -20,7 +21,11 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
       <DatePicker
         inputFormat="DD/MM/YYYY"
         value={value}
-        onChange={(newValue) => onChange(newValue.toISOString())}
+        onChange={(newValue) => {
+          console.log(newValue);
+
+          if (isValidDate(newValue)) onChange(newValue?.toISOString());
+        }}
         renderInput={(params) => (
           <TextField
             sx={SX_TEXT_INPUT_FORM}
