@@ -236,11 +236,9 @@ export default function CreateCourseForm() {
     setCategoriesId(categoryWatch?.id);
   }, [categoryWatch]);
 
-  const filterSubjects = !categoryId
-    ? subjects
-    : subjects?.filter((item) => {
-        return item.categoryId === categoryId;
-      });
+  const filterSubjects = subjects?.filter((item) => {
+    return item.categoryId === categoryId;
+  });
 
   if (!categories && !subjects) return null;
 
