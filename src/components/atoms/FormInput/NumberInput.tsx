@@ -21,6 +21,7 @@ function NumberInput({ controller, placeholder }: NumberInputProps) {
       fullWidth
       type="number"
       size="small"
+      InputProps={{ inputProps: { min: 0 } }}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
