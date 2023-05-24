@@ -88,7 +88,7 @@ export default function CreateCourseForm() {
     defaultValues: defaultValueCreateCourse,
     resolver: resolverCreateCourse,
   });
-  const subjectWatch = createCourseHookForm.watch(
+  const categoryWatch = createCourseHookForm.watch(
     CREATE_COURSE_FIELDS.categoryId
   );
 
@@ -233,12 +233,14 @@ export default function CreateCourseForm() {
   };
 
   useEffect(() => {
-    setCategoriesId(subjectWatch?.id);
-  }, [subjectWatch]);
+    setCategoriesId(categoryWatch?.id);
+  }, [categoryWatch]);
 
   const filterSubjects = !categoryId
     ? subjects
-    : subjects?.filter((item) => item.categoryId === categoryId);
+    : subjects?.filter((item) => {
+        return item.categoryId === categoryId;
+      });
 
   if (!categories && !subjects) return null;
 
