@@ -29,6 +29,7 @@ interface FormInputProps {
   label?: string;
   name: string;
   placeholder?: string;
+  multilineRows?: number;
   previewImgHeight?: number | '100%';
   previewImgWidth?: number | '100%';
   variant?: FormInputVariant;
@@ -40,6 +41,7 @@ const generateFormInput = (
   data: OptionPayload[],
   helperText: string,
   placeholder: string,
+  multilineRows: number,
   previewImgHeight: number | '100%',
   previewImgWidth: number | '100%',
   variant: FormInputVariant
@@ -49,7 +51,11 @@ const generateFormInput = (
       return <TextInput controller={controller} placeholder={placeholder} />;
     case variant === 'multiline':
       return (
-        <MultilineInput controller={controller} placeholder={placeholder} />
+        <MultilineInput
+          controller={controller}
+          placeholder={placeholder}
+          multilineRows={multilineRows}
+        />
       );
     case variant === 'timetable':
       return (
@@ -121,6 +127,7 @@ export default function FormInput({
   label = '',
   name,
   placeholder = '',
+  multilineRows = 4,
   previewImgHeight = '100%',
   previewImgWidth = '100%',
   variant = 'text',
@@ -128,7 +135,7 @@ export default function FormInput({
   const controller = useController({ name, defaultValue, control });
 
   return (
-    <Stack flexGrow={1} marginBottom={1}>
+    <Stack flexGrow={1}>
       <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
       {generateFormInput(
         banks,
@@ -136,6 +143,7 @@ export default function FormInput({
         data,
         helperText,
         placeholder,
+        multilineRows,
         previewImgHeight,
         previewImgWidth,
         variant
@@ -151,6 +159,7 @@ FormInput.defaultProps = {
   helperText: '',
   label: '',
   placeholder: '',
+  multilineRows: 4,
   previewImgHeight: '100%',
   previewImgWidth: '100%',
   variant: 'text',

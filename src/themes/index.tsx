@@ -9,6 +9,12 @@ const defaultTheme = createTheme({
     secondary: {
       main: Color.orange,
     },
+    miSmartOrange: {
+      main: Color.orange,
+      light: Color.orange,
+      dark: Color.orange,
+      contrastText: Color.white,
+    },
   },
   typography: {
     fontSize: 14,

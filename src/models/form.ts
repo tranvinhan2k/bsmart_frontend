@@ -56,7 +56,6 @@ export interface EditPersonalProfileFormDefault {
 
 export interface EditAccountProfileFormDefault {
   oldPassword: string;
-  oldPasswordConfirm: string;
   newPassword: string;
   newPasswordConfirm: string;
 }
@@ -75,6 +74,15 @@ export interface EditMentorProfileFormDataPayload {
 
 export interface EditCertificateProfileFormDataPayload {
   userImages: (string | Blob)[];
+}
+export interface EditCertificateProfileDefaultValuePayload {
+  userImages: {
+    id: number;
+    name: string;
+    status: boolean;
+    type: string;
+    url: string;
+  }[];
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;

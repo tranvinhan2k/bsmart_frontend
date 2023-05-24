@@ -55,8 +55,8 @@ export default function DialogUpdateAvatar({
 
   const { mutateAsync: mutateEditAvatar } = useMutationEditAvatar();
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
     return `Cập nhật không thành công: ${error.message}`;
   };

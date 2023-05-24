@@ -163,9 +163,6 @@ export const validationSchemaEditAccountProfile = object({
   oldPassword: string()
     .required(PASSWORD_REQUIRED)
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
-  oldPasswordConfirm: string()
-    .required(CONFIRM_PASSWORD_REQUIRED)
-    .oneOf([ref('oldPassword')], CONFIRM_PASSWORD_NOT_MATCH),
   newPassword: string()
     .required(PASSWORD_REQUIRED)
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED),

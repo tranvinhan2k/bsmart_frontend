@@ -14,7 +14,7 @@ export default function BasicInfo({ mentorRequest }: BasicInfoProps) {
     { id: 1, label: 'Tên', value: mentorRequest.name },
     { id: 2, label: 'Ngày sinh', value: mentorRequest.birthday },
     { id: 4, label: 'Giới tính', value: mentorRequest.gender },
-    { id: 3, label: 'CMND', value: mentorRequest.idCard },
+    { id: 3, label: 'Chứng minh thư', value: mentorRequest.idCard },
     { id: 5, label: 'SĐT', value: mentorRequest.phone },
   ];
 

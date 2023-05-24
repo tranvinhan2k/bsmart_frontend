@@ -58,8 +58,8 @@ export default function DialogEditIdCardBack({
 
   const { mutateAsync: mutateEditIdentityBack } = useMutationEditIdentityBack();
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
     return `Cập nhật không thành công: ${error.message}`;
   };
@@ -81,10 +81,10 @@ export default function DialogEditIdCardBack({
 
   return (
     <Dialog open={open} onClose={handleOnClose} fullWidth>
-      <DialogTitle>Cập nhật CMND</DialogTitle>
+      <DialogTitle>Cập nhật Chứng minh thư</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
-          <Typography sx={SX_FORM_LABEL}>Căn cước công dân (sau)</Typography>
+          <Typography sx={SX_FORM_LABEL}>Chứng minh thư (sau)</Typography>
           <FormInput
             control={controlEditIdentityBack}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityBack}

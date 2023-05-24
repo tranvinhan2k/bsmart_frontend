@@ -1,6 +1,5 @@
-// import EditCertificateInformationSection from '~/containers/EditProfileSection/EditCertificateInformationSection';
 import DisplayCISection from '~/components/molecules/FormComponent/EditProfileForm/DisplayCISection';
-import EditAccountProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditAccountProfileForm';
+import EditPasswordProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditPasswordProfileForm';
 import EditCertificateProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditCertificateProfileForm';
 import EditMentorProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditMentorProfileForm';
 import EditPersonalProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditPersonalProfileForm';
@@ -12,9 +11,8 @@ export default function MentorEditProfilePage() {
       <DisplayCISection />
       <EditPersonalProfileForm />
       <EditMentorProfileForm />
-      {/* <EditCertificateInformationSection /> */}
       <EditCertificateProfileForm />
-      <EditAccountProfileForm />
+      <EditPasswordProfileForm />
       <EditSocialProfileForm />
     </>
   );
