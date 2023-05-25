@@ -123,12 +123,10 @@ export default function DisplayCISection() {
       <DialogEditIdCardFront
         open={openDialogUpdateIDCardFront}
         handleOnClose={handleCloseDialogUpdateIDCardFront}
-        profile={dataGetProfile}
       />
       <DialogEditIdCardBack
         open={openDialogUpdateIDCardBack}
         handleOnClose={handleCloseDialogUpdateIDCardBack}
-        profile={dataGetProfile}
       />
     </>
   );

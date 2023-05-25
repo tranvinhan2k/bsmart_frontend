@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Button as MuiButton, Divider, Typography } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -10,8 +10,8 @@ import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { RootState } from '~/redux/store';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
+import { FontFamily } from '~/assets/variables';
 import accountApi from '~/api/users';
-import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
@@ -123,9 +123,16 @@ export default function EditSocialProfileForm() {
           </Fragment>
         ))}
         <Box mt={4}>
-          <Button customVariant="normal" type="submit">
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            sx={{ fontFamily: FontFamily.bold }}
+          >
             Cập nhật
-          </Button>
+          </MuiButton>
         </Box>
       </form>
     </Box>

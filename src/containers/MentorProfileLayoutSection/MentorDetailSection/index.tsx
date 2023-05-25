@@ -247,7 +247,6 @@ export default function MentorDetailSection() {
       <DialogUpdateAvatar
         open={openDialogUpdateAvatar}
         handleOnClose={handleCloseDialogUpdateAvatar}
-        profile={dataGetProfile}
       />
     </>
   );

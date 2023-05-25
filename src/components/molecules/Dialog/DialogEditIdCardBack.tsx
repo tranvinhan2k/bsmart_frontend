@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Box,
+  Button as MuiButton,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
+  Stack,
   Typography,
 } from '@mui/material';
 import { defaultValueEditIdentityBack } from '~/form/defaultValues';
@@ -16,7 +15,7 @@ import { ProfileImgType } from '~/constants/profile';
 import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditIdentityBack } from '~/form/validation';
-import Button from '~/components/atoms/Button';
+import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM_LABEL } from './style';
@@ -24,13 +23,11 @@ import { SX_FORM_LABEL } from './style';
 interface DialogEditIdCardBackProps {
   open: boolean;
   handleOnClose: () => void;
-  profile: any;
 }
 
 export default function DialogEditIdCardBack({
   open,
   handleOnClose,
-  profile,
 }: DialogEditIdCardBackProps) {
   const resolverEditIdentityBack = useYupValidationResolver(
     validationSchemaEditIdentityBack
@@ -44,17 +41,6 @@ export default function DialogEditIdCardBack({
     defaultValues: defaultValueEditIdentityBack,
     resolver: resolverEditIdentityBack,
   });
-
-  useEffect(() => {
-    if (profile) {
-      const defaultOfEditEditIdentityBack = defaultValueEditIdentityBack;
-
-      if (profile.identityBack) {
-        defaultOfEditEditIdentityBack.identityBack = profile.identityBack;
-        resetEditIdentityBack(defaultOfEditEditIdentityBack);
-      }
-    }
-  }, [profile, resetEditIdentityBack]);
 
   const { mutateAsync: mutateEditIdentityBack } = useMutationEditIdentityBack();
 
@@ -80,8 +66,13 @@ export default function DialogEditIdCardBack({
     }
   };
 
+  const handleOnCloseCustom = () => {
+    resetEditIdentityBack();
+    handleOnClose();
+  };
+
   return (
-    <Dialog open={open} onClose={handleOnClose} fullWidth>
+    <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
       <DialogTitle>Cập nhật Chứng minh thư</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
@@ -93,18 +84,37 @@ export default function DialogEditIdCardBack({
             previewImgHeight={300}
             previewImgWidth={500}
           />
-          <Box mt={4}>
-            <Button customVariant="normal" type="submit" size="small">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            mt={2}
+          >
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+            >
               Cập nhật
-            </Button>
-          </Box>
+            </MuiButton>
+            <MuiButton
+              color="error"
+              fullWidth
+              size="large"
+              type="button"
+              variant="contained"
+              onClick={handleOnCloseCustom}
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Hủy
+            </MuiButton>
+          </Stack>
         </form>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleOnClose} variant="outlined" color="error">
-          Hủy
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
