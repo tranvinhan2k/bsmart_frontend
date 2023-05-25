@@ -41,6 +41,8 @@ export default function AdminHeader() {
   };
 
   const handleLogOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('roles');
     dispatch(logOut());
     navigate('/homepage');
     handleClose();

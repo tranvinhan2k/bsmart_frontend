@@ -5,7 +5,7 @@ export interface ResponseSubjectsPayload {
   id: number;
   code: string;
   name: string;
-  SubjectId: number;
+  categoryId: number;
 }
 
 export function handleResponseGetSubjects(
@@ -18,7 +18,7 @@ export function handleResponseGetSubjects(
     id: item.id,
     label: item.name,
     value: item.code,
-    SubjectId: item.SubjectId,
+    categoryId: item.categoryId,
   }));
 }
 
