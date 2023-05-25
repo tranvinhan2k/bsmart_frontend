@@ -54,7 +54,7 @@ export interface EditPersonalProfileFormDefault {
   phone: string;
 }
 
-export interface EditAccountProfileFormDefault {
+export interface EditPasswordSectionDefault {
   oldPassword: string;
   newPassword: string;
   newPasswordConfirm: string;
