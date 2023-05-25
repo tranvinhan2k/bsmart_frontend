@@ -85,6 +85,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
               color="success"
               fullWidth
               href={value.url}
+              target="_blank"
               size="small"
             >
               <Icon name="eye" size="medium" />

@@ -9,6 +9,7 @@ import {
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
@@ -22,10 +23,12 @@ import { image } from '~/constants/image';
 import { ProfileImgType } from '~/constants/profile';
 import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
-import { selectProfile } from '~/redux/user/selector';
+import { RootState } from '~/redux/store';
+import accountApi from '~/api/users';
 import toast from '~/utils/toast';
 import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
 import DialogUpdateAvatar from '~/components/molecules/Dialog/DialogEditAvatar';
+
 import {
   SX_WRAPPER,
   SX_BOX_ITEM_AVATAR,
@@ -36,34 +39,49 @@ import {
 } from './style';
 
 export default function MentorDetailSection() {
-  const profile = useSelector(selectProfile);
+  // const profile = useSelector(selectProfile);
+  const token =
+    useSelector((state: RootState) => state.user.token) ||
+    localStorage.getItem('token');
+  const queryKey = ['/loginUser'];
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const { data: dataGetProfile } = useQuery(
+    queryKey,
+    () => accountApi.getProfile(config),
+    {
+      enabled: Boolean(token),
+    }
+  );
 
   const mentorDetails = {
     imageLink:
-      profile?.userImages?.find((img) => img?.type === ProfileImgType.AVATAR)
-        ?.url || image.noAvatar,
-    name: profile?.fullName,
-    role: ROLE_LABELS[profile?.roles?.[0]?.code as RoleKeys],
+      dataGetProfile?.userImages?.find(
+        (img: any) => img?.type === ProfileImgType.AVATAR
+      )?.url || image.noAvatar,
+    name: dataGetProfile?.fullName,
+    role: ROLE_LABELS[dataGetProfile?.roles?.[0]?.code as RoleKeys],
     socials: [
       {
         image: 'facebook',
-        link: profile?.facebookLink || null,
+        link: dataGetProfile?.facebookLink || null,
       },
       {
         image: 'twitter',
-        link: profile?.twitterLink || null,
+        link: dataGetProfile?.twitterLink || null,
       },
       {
         image: 'instagram',
-        link: profile?.instagramLink || null,
+        link: dataGetProfile?.instagramLink || null,
       },
     ],
-    gender: profile?.gender || null,
-    dateOfBirth: profile?.birthday,
-    address: profile?.address || 'Chưa có thông tin',
-    mail: profile?.email,
-    phone: profile?.phone || 'Chưa có thông tin',
-    walletMoney: profile?.wallet?.balance || 0,
+    gender: dataGetProfile?.gender || null,
+    dateOfBirth: dataGetProfile?.birthday,
+    address: dataGetProfile?.address || 'Chưa có thông tin',
+    mail: dataGetProfile?.email,
+    phone: dataGetProfile?.phone || 'Chưa có thông tin',
+    walletMoney: dataGetProfile?.wallet?.balance || 0,
   };
 
   const [openDialogUpdateAvatar, setOpenDialogUpdateAvatar] =
@@ -73,18 +91,22 @@ export default function MentorDetailSection() {
 
   const displayFields = [
     {
+      id: 0,
       image: 'mail',
       text: mentorDetails.mail,
     },
     {
+      id: 1,
       image: 'cake',
       text: formateISODateStringToDisplayDate(mentorDetails.dateOfBirth),
     },
     {
+      id: 2,
       image: 'phone',
       text: mentorDetails.phone,
     },
     {
+      id: 3,
       image: 'location',
       text: mentorDetails.address,
     },
@@ -168,25 +190,27 @@ export default function MentorDetailSection() {
                   size="ex_large"
                 />
               )}
-              {displayFields.map((item) => (
-                <Stack
-                  key={item.text}
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={1}
-                  mt={2}
-                >
-                  <Icon
-                    name={item.image as IconName}
-                    size="small"
-                    color="orange"
-                  />
-                  <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
-                    {item.text}
-                  </Typography>
-                </Stack>
-              ))}
+              {displayFields.map((item) => {
+                return (
+                  <Stack
+                    key={item.id}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={1}
+                    mt={2}
+                  >
+                    <Icon
+                      name={item.image as IconName}
+                      size="small"
+                      color="orange"
+                    />
+                    <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
+                      {item.text}
+                    </Typography>
+                  </Stack>
+                );
+              })}
               <Stack my={2}>
                 <Typography sx={SX_DISPLAY_FIELD_TEXT}>
                   Số dư hiện tại:{' '}
@@ -204,7 +228,8 @@ export default function MentorDetailSection() {
               mt={1}
               sx={{ width: '100%' }}
             >
-              {profile.isVerified &&
+              {dataGetProfile &&
+                dataGetProfile.isVerified &&
                 MentorNavigationActionData.map((item) => (
                   <Button
                     key={item.link}
@@ -222,7 +247,7 @@ export default function MentorDetailSection() {
       <DialogUpdateAvatar
         open={openDialogUpdateAvatar}
         handleOnClose={handleCloseDialogUpdateAvatar}
-        profile={profile}
+        profile={dataGetProfile}
       />
     </>
   );

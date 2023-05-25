@@ -73,6 +73,7 @@ export default function DialogEditIdCardBack({
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditIdentityBack(params);
+      handleOnClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
