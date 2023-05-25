@@ -107,7 +107,7 @@ export default function EditCertificateProfileForm() {
     USERIMAGES: { LABEL: 'Bằng cấp' },
     DESC1: 'Kích thước tệp tối đa là 10 MB.',
     DESC2:
-      'Bạn có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
+      'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
     DESC3: 'Không đặt mật khẩu bảo vệ file của bạn.',
     DESC4: 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
     DESC5: 'Hãy chụp 2 mặt bằng cấp/chứng chỉ',

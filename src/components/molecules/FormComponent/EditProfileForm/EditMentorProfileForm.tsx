@@ -115,6 +115,7 @@ export default function EditMentorProfileForm() {
       LABEL: 'Kinh nghiệm bản thân',
       PLACEHOLDER: 'Nhập kinh nghiệm bản thân',
     },
+    DESC1: 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
     BUTTON_TEXT: 'Cập nhật',
   };
 
@@ -141,6 +142,9 @@ export default function EditMentorProfileForm() {
         {EDIT_MENTOR_PROFILE_FORM_TEXT.TITLE}
       </Typography>
       <Divider sx={{ marginY: 2 }} />
+      <Typography component="h3">
+        - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC1}
+      </Typography>
       {dataGetProfile && subjects && (
         <form onSubmit={handleSubmit(handleSubmitSuccess)}>
           <Grid container>

@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Box,
-  Typography,
-  Stack,
+  Button as MuiButton,
   Dialog,
-  DialogTitle,
   DialogContent,
-  DialogActions,
+  DialogTitle,
+  Stack,
+  Typography,
 } from '@mui/material';
 import { defaultValueEditAvatar } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
@@ -17,7 +15,7 @@ import { ProfileImgType } from '~/constants/profile';
 import { useMutationEditAvatar } from '~/hooks/useMutationEditAvatar';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditAvatar } from '~/form/validation';
-import Button from '~/components/atoms/Button';
+import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM_LABEL } from './style';
@@ -25,13 +23,11 @@ import { SX_FORM_LABEL } from './style';
 interface DialogEditAvatarProps {
   open: boolean;
   handleOnClose: () => void;
-  profile: any;
 }
 
 export default function DialogUpdateAvatar({
   open,
   handleOnClose,
-  profile,
 }: DialogEditAvatarProps) {
   const resolverEditAvatar = useYupValidationResolver(
     validationSchemaEditAvatar
@@ -41,17 +37,6 @@ export default function DialogUpdateAvatar({
     defaultValues: defaultValueEditAvatar,
     resolver: resolverEditAvatar,
   });
-
-  useEffect(() => {
-    if (profile) {
-      const defaultOfEditAvatar = defaultValueEditAvatar;
-
-      if (profile.avatar) {
-        defaultOfEditAvatar.avatar = profile.avatar;
-        reset(defaultOfEditAvatar);
-      }
-    }
-  }, [profile, reset]);
 
   const { mutateAsync: mutateEditAvatar } = useMutationEditAvatar();
 
@@ -75,37 +60,55 @@ export default function DialogUpdateAvatar({
     }
   };
 
+  const handleOnCloseCustom = () => {
+    reset();
+    handleOnClose();
+  };
+
   return (
-    <Dialog open={open} onClose={handleOnClose} fullWidth>
-      <DialogTitle>Cập nhật Avatar</DialogTitle>
+    <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
+      <DialogTitle>Cập nhật ảnh đại diện</DialogTitle>
       <DialogContent>
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
-        >
-          <form onSubmit={handleSubmit(handleSubmitAvatar)}>
-            <Typography sx={SX_FORM_LABEL}>Avatar</Typography>
-            <FormInput
-              control={control}
-              name={EDIT_IMAGE_PROFILE_FIELDS.avatar}
-              variant="image"
-              previewImgHeight={300}
-              previewImgWidth={300}
-            />
-            <Box mt={4}>
-              <Button customVariant="normal" type="submit">
-                Cập nhật
-              </Button>
-            </Box>
-          </form>
-        </Stack>
+        <form onSubmit={handleSubmit(handleSubmitAvatar)}>
+          <Typography sx={SX_FORM_LABEL}>Avatar</Typography>
+          <FormInput
+            control={control}
+            name={EDIT_IMAGE_PROFILE_FIELDS.avatar}
+            variant="image"
+            previewImgHeight={300}
+            previewImgWidth={300}
+          />
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            mt={2}
+          >
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Cập nhật
+            </MuiButton>
+            <MuiButton
+              color="error"
+              fullWidth
+              size="large"
+              type="button"
+              variant="contained"
+              onClick={handleOnCloseCustom}
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Hủy
+            </MuiButton>
+          </Stack>
+        </form>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleOnClose} variant="outlined" color="error">
-          Hủy
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

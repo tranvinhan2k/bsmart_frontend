@@ -216,7 +216,6 @@ export default function MainProfile() {
       <DialogUpdateAvatar
         open={openDialogUpdateAvatar}
         handleOnClose={handleCloseDialogUpdateAvatar}
-        profile={profile}
       />
     </>
   );
