@@ -182,7 +182,7 @@ export default function EditMentorProfileForm() {
                       <Stack
                         direction="row"
                         justifyContent="flex-start"
-                        alignItems="flex-start"
+                        alignItems="center"
                         spacing={2}
                       >
                         <FormInput
@@ -191,16 +191,14 @@ export default function EditMentorProfileForm() {
                           variant="number"
                           placeholder="Nhập số năm kinh nghiệm"
                         />
-                        <Box mb={1}>
-                          <MuiButton
-                            color="error"
-                            size="small"
-                            variant="outlined"
-                            onClick={() => removeSkill(index)}
-                          >
-                            <Icon name="delete" size="medium" />
-                          </MuiButton>
-                        </Box>
+                        <MuiButton
+                          color="error"
+                          size="small"
+                          variant="outlined"
+                          onClick={() => removeSkill(index)}
+                        >
+                          <Icon name="delete" size="medium" />
+                        </MuiButton>
                       </Stack>
                     </Grid>
                   </Fragment>

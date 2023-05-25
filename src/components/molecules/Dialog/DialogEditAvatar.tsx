@@ -68,6 +68,7 @@ export default function DialogUpdateAvatar({
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditAvatar(params);
+      handleOnClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));

@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import usersApi from '~/api/users';
+import accountApi from '~/api/users';
 
 export const useMutationEditAvatar = () => {
   const key = 'edit_avatar';
+  const keyGetProfile = '/loginUser';
   const queryClient = useQueryClient();
 
   const mutationResult = useMutation({
     mutationKey: [key],
-    mutationFn: usersApi.editImageProfile,
+    mutationFn: accountApi.editImageProfile,
     onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries(['/loginUser']);
+      queryClient.invalidateQueries({ queryKey: [keyGetProfile] });
     },
   });
   return mutationResult;

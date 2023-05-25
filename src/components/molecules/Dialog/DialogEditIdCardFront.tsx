@@ -74,6 +74,7 @@ export default function DialogEditIdCardFront({
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditIdentityFront(params);
+      handleOnClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
