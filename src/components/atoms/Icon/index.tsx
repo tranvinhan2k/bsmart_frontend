@@ -9,6 +9,7 @@ import {
   BsFacebook,
   BsQuestionSquare,
   BsPostcardFill,
+  BsFilter,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
@@ -218,6 +219,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsFacebook />
+        </Typography>
+      );
+    case 'filter':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFilter />
         </Typography>
       );
     case 'female':

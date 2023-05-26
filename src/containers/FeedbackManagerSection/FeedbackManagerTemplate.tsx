@@ -13,6 +13,11 @@ import columns from '~/constants/columns';
 import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { CRUDModes } from '~/models/variables';
+import { useCRUDTemplate } from '~/hooks/useCRUDTemplate';
+import CreateTemplateForm from './CreateTemplateForm';
+import toast from '~/utils/toast';
+import ReadOneTemplateForm from './ReadOneTemplateForm';
+import UpdateTemplateForm from './UpdateTemplateForm';
 
 const texts = {
   title: 'Quản lí bản mẫu',
@@ -21,6 +26,15 @@ const texts = {
 };
 
 export default function FeedbackManagerTemplate() {
+  const {
+    addTemplateMutation,
+    deleteTemplateMutation,
+    updateTemplateMutation,
+    error,
+    templates,
+    isLoading,
+    refetch,
+  } = useCRUDTemplate();
   const { subjects } = useQueryGetAllSubjects();
   const { categories } = useQueryGetAllCategories();
   const rows = [
@@ -63,6 +77,7 @@ export default function FeedbackManagerTemplate() {
 
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<CRUDModes>('CREATE');
+  const [row, setRow] = useState<any>();
 
   const handleClose = (chooseMode?: CRUDModes) => {
     console.log(open);
@@ -77,20 +92,51 @@ export default function FeedbackManagerTemplate() {
     console.log('search data', searchData);
   };
 
-  const template = {
-    name: 'Đánh giá học sinh môn Toán',
-    questions: [
-      {
-        id: 0,
-        question: 'Con gà hay quả trứng có trước ?',
-        answer: 'ai tới trc cũng được, nhưng mày không bao giờ tới trước',
-      },
-      {
-        id: 0,
-        question: 'Con gà hay quả trứng có trước ?',
-        answer: 'ai tới trc cũng được, nhưng mày không bao giờ tới trước',
-      },
-    ],
+  const handleAddTemplate = async (data: any) => {
+    console.log(data);
+
+    const tmpData = {
+      templateName: data.templateName,
+      questionList: data.questionList.map((item: any) => item.question.id),
+      feedbackType: data.feedbackType.value,
+      permission: data.permission.value,
+    };
+    const id = toast.loadToast('Đang thêm bản mẫu mới');
+    try {
+      await addTemplateMutation.mutateAsync(tmpData as any);
+      toast.updateSuccessToast(id, 'Thên bản mẫu mới thành công');
+      handleClose();
+    } catch (e: any) {
+      toast.updateFailedToast(id, 'Thên bản mẫu mới bị lỗi');
+    }
+  };
+  const handleUpdateTemplate = async (data: any) => {
+    console.log(data);
+
+    const tmpData = {
+      templateName: data.templateName,
+      questionList: data.questionList.map((item: any) => item.question.id),
+      feedbackType: data.feedbackType.value,
+      permission: data.permission.value,
+    };
+    const id = toast.loadToast('Đang cập nhật bản mẫu');
+    try {
+      await updateTemplateMutation.mutateAsync(tmpData as any);
+      toast.updateSuccessToast(id, 'Cập nhẩt bản mẫu mới thành công');
+      handleClose();
+    } catch (e: any) {
+      toast.updateFailedToast(id, `Cập nhật bản mẫu mới bị lỗi: ${e.message}`);
+    }
+  };
+
+  const handleDelete = async () => {
+    const id = toast.loadToast('Đang xóa bản mẫu..');
+    try {
+      await deleteTemplateMutation.mutateAsync(row.id);
+      toast.updateSuccessToast(id, 'Đã xóa thành công bản mẫu');
+    } catch (e: any) {
+      toast.updateFailedToast(id, `Xóa bản mẫu không thành công: ${e.message}`);
+    }
   };
 
   let renderModal = null;
@@ -98,51 +144,21 @@ export default function FeedbackManagerTemplate() {
     case 'CREATE':
       renderModal = (
         <CustomModal open={open} onClose={handleClose}>
-          Create
+          <CreateTemplateForm onSubmit={handleAddTemplate} />
         </CustomModal>
       );
       break;
     case 'READ':
       renderModal = (
         <CustomModal open={open} onClose={handleClose}>
-          <CRUDTable
-            columns={columns.feedbackQuestionColumns}
-            rows={[
-              { id: 0, name: 'Câu hỏi về giáo viên 1' },
-              { id: 1, name: 'Câu hỏi về giáo viên 2' },
-              { id: 2, name: 'Câu hỏi về giáo viên 3' },
-              { id: 3, name: 'Câu hỏi về giáo viên 4' },
-            ]}
-            menuItemList={[
-              {
-                icon: 'search',
-                title: 'Xem chi tiết câu hỏi',
-                onCLick: () => {},
-              },
-            ]}
-            onSearch={(searchData: any) => {
-              console.log(searchData);
-            }}
-            searchFilterFormInputList={[
-              {
-                name: 'subject',
-                placeholder: 'Thêm môn học mới',
-                variant: 'dropdown',
-                data: [{ id: 0, label: '', value: '', categoryId: 0 }],
-              },
-            ]}
-            addItemButtonLabel="Thêm câu hỏi vào bản mẫu"
-            onAdd={() => {}}
-            searchPlaceholder="Tìm câu hỏi"
-            title={template.name}
-          />
+          <ReadOneTemplateForm row={row} />
         </CustomModal>
       );
       break;
     case 'UPDATE':
       renderModal = (
         <CustomModal open={open} onClose={handleClose}>
-          Update
+          <UpdateTemplateForm row={row} onSubmit={handleUpdateTemplate} />
         </CustomModal>
       );
       break;
@@ -153,7 +169,7 @@ export default function FeedbackManagerTemplate() {
           title="Xác nhận xóa bản mẫu"
           content="Bạn có thực sự muốn xóa bản mẫu này ?"
           handleClose={handleClose}
-          handleAccept={() => {}}
+          handleAccept={handleDelete}
         />
       );
   }
@@ -196,13 +212,16 @@ export default function FeedbackManagerTemplate() {
       <CRUDTable
         title={texts.title}
         columns={columns.templateColumns}
-        rows={rows}
+        rows={templates}
         addItemButtonLabel={texts.addItemLabel}
         onAdd={() => handleClose('CREATE')}
         menuItemList={menuItemList}
         searchPlaceholder={texts.searchTemplatePlaceholder}
         searchFilterFormInputList={searchFilterFormInputList}
         onSearch={handleSearchValue}
+        error={error}
+        isLoading={isLoading}
+        setSelectedRow={setRow}
       />
       {renderModal}
     </Stack>

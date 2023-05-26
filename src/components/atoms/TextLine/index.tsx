@@ -20,7 +20,7 @@ export default function TextLine({ label, variable }: TextLineProps) {
           fontSize: FontSize.small_18,
         }}
       >
-        {label}
+        {`${label}`}
       </Typography>
       <Typography
         sx={{
@@ -28,7 +28,7 @@ export default function TextLine({ label, variable }: TextLineProps) {
           fontSize: FontSize.small_18,
         }}
       >
-        {variable}
+        {`${variable}`}
       </Typography>
     </Stack>
   );

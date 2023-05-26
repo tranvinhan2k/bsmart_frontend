@@ -39,6 +39,16 @@ export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string().required(PASSWORD_REQUIRED),
 });
+export const validationSchemaFeedbackQuestionChoice = object({
+  point: number().required('Số điểm không được để trống'),
+  label: string().required('Nội dung không được để trống'),
+});
+export const validationSchemaCreateTemplate = object({
+  templateName: string().required('Tên bản mẫu không được để trống'),
+});
+export const validationSchemaFeedbackQuestion = object({
+  question: string().required('Tên câu hỏi đánh giá không được để trống'),
+});
 
 export const validationSchemaCreateCategories = object({
   code: string().required('Mã môn học không được để trống.'),

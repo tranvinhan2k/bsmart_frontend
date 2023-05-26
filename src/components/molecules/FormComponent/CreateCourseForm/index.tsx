@@ -140,6 +140,8 @@ export default function CreateCourseForm() {
 
   async function handleCreateCourse(data: any) {
     const id = toast.loadToast('Đang tạo khóa học...');
+    console.log('creat course', data);
+    console.log('creat course', subCourses);
 
     try {
       const params: any = {
@@ -151,7 +153,6 @@ export default function CreateCourseForm() {
         subCourseRequests: subCourses.map((item) => ({
           ...item,
           imageId: item.imageIndex,
-          subjectId: (item.subjectId as OptionPayload).id as number,
           type: (item.type as OptionPayload).id as number,
           timeInWeekRequests: item.timeInWeekRequests.map((time) => ({
             slotId: time.slot.id,

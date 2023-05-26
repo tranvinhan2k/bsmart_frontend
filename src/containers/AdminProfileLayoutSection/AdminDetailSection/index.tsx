@@ -55,6 +55,7 @@ export default function AdminDetailSection() {
                 if (item.items) {
                   return (
                     <SubMenu
+                      key={item.link}
                       rootStyles={STYLE_SUB_MENU_ROOT}
                       label={item.label}
                       icon={

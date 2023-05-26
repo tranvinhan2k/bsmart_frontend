@@ -19,7 +19,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import localEnvironment from './utils/localEnvironment';
 import { Role } from './models/role';
-import { selectCart, selectProfile, selectRole } from './redux/user/selector';
+import {
+  selectCart,
+  selectProfile,
+  selectRole,
+  selectToken,
+} from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
 import { useDispatchGetCart, useMutationProfile } from './hooks';
 import { addProfile } from './redux/user/slice';
@@ -82,6 +87,7 @@ const showRoutes = (currentRole: Role | null) => {
 function App() {
   const dispatch = useDispatch();
   const role = useSelector(selectRole);
+  const token = useSelector(selectToken);
   const profile = useSelector(selectProfile);
   const getProfileMutation = useMutationProfile();
   const getUserCart = useDispatchGetCart();
@@ -91,6 +97,8 @@ function App() {
     async function getProfile() {
       try {
         const responseProfile = await getProfileMutation.mutateAsync();
+        console.log('response profile', responseProfile);
+
         dispatch(addProfile({ profile: responseProfile }));
       } catch (error) {
         // toast.notifyErrorToast('Lấy thông tin thất bại. Xin hãy thử lại.');
@@ -122,7 +130,7 @@ function App() {
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer />
-      {role === 'ROLE_ADMIN' ? (
+      {role === 'ROLE_ADMIN' && Boolean(token) ? (
         <AdminProfileLayout>
           <Routes>{showAdminRoutes()}</Routes>
         </AdminProfileLayout>
