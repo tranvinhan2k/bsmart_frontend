@@ -350,7 +350,7 @@ export const RegisterTabPayload: TabPayload[] = [
   },
   {
     index: 1,
-    label: 'Thầy Giáo',
+    label: 'Giáo viên',
   },
 ];
 
