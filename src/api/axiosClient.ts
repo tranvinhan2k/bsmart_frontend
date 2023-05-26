@@ -28,7 +28,7 @@ axiosClient.interceptors.response.use(
     if (error?.response?.status === 401) {
       localStorage.removeItem('token');
     }
-    store.dispatch(logOut());
+    // store.dispatch(logOut());
     return Promise.reject(
       new Error(error?.response?.data?.error_message || 'Something went wrong.')
     );
