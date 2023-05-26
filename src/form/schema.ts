@@ -18,6 +18,21 @@ export const CREATE_CATEGORY_FIELDS = {
   code: 'code',
   name: 'name',
 };
+export const CREATE_TEMPLATE_FIELDS = {
+  templateName: 'templateName',
+  questionList: 'questionList',
+  feedbackType: 'feedbackType',
+  permission: 'permission',
+};
+export const FEEDBACK_QUESTION_FIELDS = {
+  point: 'point',
+  label: 'label',
+};
+export const CREATE_FEEDBACK_QUESTION = {
+  question: 'question',
+  possibleAnswer: 'possibleAnswer',
+  questionType: 'questionType',
+};
 export const UPDATE_CATEGORY_FIELDS = {
   code: 'code',
   name: 'name',

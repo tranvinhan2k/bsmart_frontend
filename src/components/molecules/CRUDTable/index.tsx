@@ -87,7 +87,7 @@ export default function CRUDTable({
   isLoading,
   error,
   columns,
-  rows,
+  rows = [],
   addItemButtonLabel,
   menuItemList,
   searchPlaceholder,

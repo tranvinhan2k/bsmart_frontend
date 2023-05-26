@@ -39,95 +39,91 @@ export default function CRUDTableSearching({
   };
 
   return (
-    <form onSubmit={searchControl.handleSubmit(onSearch)}>
+    <Stack
+      sx={{
+        marginY: 2,
+      }}
+    >
       <Stack
         sx={{
-          marginY: 2,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}
       >
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Stack sx={{ flexGrow: 1 }}>
-            <FormInput
-              variant="text"
-              control={searchControl.control}
-              name="searchValue"
-              placeholder={searchPlaceholder}
-            />
-          </Stack>
+        <Stack sx={{ flexGrow: 1 }}>
+          <FormInput
+            variant="text"
+            control={searchControl.control}
+            name="searchValue"
+            placeholder={searchPlaceholder}
+          />
+        </Stack>
 
-          {filterFormInputList?.length !== 0 && (
-            <Stack marginLeft={1}>
-              <Button onClick={handleMenu} customVariant="horizonForm">
-                <Icon name="filter" color="white" size="medium" />
-              </Button>
-            </Stack>
-          )}
-          {filterFormInputList?.length !== 0 && (
-            <Menu
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              onMouseLeave={handleClose}
-            >
-              <Stack sx={{ width: '500px', padding: 2 }}>
-                <Stack
-                  sx={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                  paddingY={1}
-                >
-                  <Typography sx={globalStyles.textSmallLabel}>
-                    Bộ lọc
-                  </Typography>
-                  <IconButton onClick={handleClose}>
-                    <Icon name="close" size="small" color="black" />
-                  </IconButton>
-                </Stack>
-                {filterFormInputList?.map((item) => (
-                  <FormInput
-                    key={item.name}
-                    variant={item.variant}
-                    control={searchControl.control}
-                    name={item.name}
-                    placeholder={item.placeholder}
-                    data={item.data}
-                  />
-                ))}
-                <Button onClick={handleClose} customVariant="horizonForm">
-                  Xác nhận
-                </Button>
-              </Stack>
-            </Menu>
-          )}
-          <Stack
-            sx={{
-              marginLeft: 1,
-              width: '15%',
-            }}
-          >
-            <Button
-              type="submit"
-              startIcon={<Icon name="search" color="white" size="medium" />}
-              customVariant="horizonForm"
-            >
-              Tìm kiếm
+        {filterFormInputList?.length !== 0 && (
+          <Stack marginLeft={1}>
+            <Button onClick={handleMenu} customVariant="horizonForm">
+              <Icon name="filter" color="white" size="medium" />
             </Button>
           </Stack>
+        )}
+        {filterFormInputList?.length !== 0 && (
+          <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            onMouseLeave={handleClose}
+          >
+            <Stack sx={{ width: '500px', padding: 2 }}>
+              <Stack
+                sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+                paddingY={1}
+              >
+                <Typography sx={globalStyles.textSmallLabel}>Bộ lọc</Typography>
+                <IconButton onClick={handleClose}>
+                  <Icon name="close" size="small" color="black" />
+                </IconButton>
+              </Stack>
+              {filterFormInputList?.map((item) => (
+                <FormInput
+                  key={item.name}
+                  variant={item.variant}
+                  control={searchControl.control}
+                  name={item.name}
+                  placeholder={item.placeholder}
+                  data={item.data}
+                />
+              ))}
+              <Button onClick={handleClose} customVariant="horizonForm">
+                Xác nhận
+              </Button>
+            </Stack>
+          </Menu>
+        )}
+        <Stack
+          sx={{
+            marginLeft: 1,
+            width: '15%',
+          }}
+        >
+          <Button
+            onClick={searchControl.handleSubmit(onSearch)}
+            startIcon={<Icon name="search" color="white" size="medium" />}
+            customVariant="horizonForm"
+          >
+            Tìm kiếm
+          </Button>
         </Stack>
       </Stack>
-    </form>
+    </Stack>
   );
 }
 

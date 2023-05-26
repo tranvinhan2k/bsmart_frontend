@@ -65,7 +65,7 @@ export default function TabsLayout({ data }: TabsLayoutProps) {
       </Box>
       {data.map((item, index) => (
         <TabPanel key={item.label} value={value} index={index}>
-          {item.renderItem}
+          <Stack>{item.renderItem}</Stack>
         </TabPanel>
       ))}
     </Stack>

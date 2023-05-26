@@ -11,6 +11,42 @@ import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 
+export const RoleOptionList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Học sinh',
+    value: 'STUDENT',
+  },
+  {
+    id: 1,
+    label: 'Giáo viên',
+    value: 'TEACHER',
+  },
+];
+export const FeedbackTypeOptionList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Học kì đầu',
+    value: 'SUB_COURSE_FIRST_HALF',
+  },
+  {
+    id: 1,
+    label: 'Học kì sau',
+    value: 'SECOND_HALF',
+  },
+];
+export const QuestionTypeOptionList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Câu hỏi nhiều lựa chọn',
+    value: 'MULTIPLE_CHOICE',
+  },
+  {
+    id: 1,
+    label: 'Câu hỏi tự trả lời',
+    value: 'FILL_THE_ANSWER',
+  },
+];
 export const AuthorizationActionData: ActionPayload[] = [
   {
     id: 0,

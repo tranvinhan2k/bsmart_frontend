@@ -12,19 +12,40 @@ const templateColumns: GridColDef[] = [
     editable: true,
   },
   {
-    field: 'numberOfQuestion',
+    field: 'questions',
     headerName: 'Số lượng câu hỏi',
     width: 150,
     editable: true,
+    valueGetter: (params) => {
+      return `${params?.row?.questions?.length || 'Chưa thêm câu hỏi'} `;
+    },
   },
 ];
 const feedbackQuestionColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
-    field: 'name',
+    field: 'question',
     headerName: 'Tên bản mẫu',
-    flex: 5,
-    editable: true,
+    flex: 4,
+  },
+  {
+    field: 'questionType',
+    headerName: 'Loại câu hỏi',
+    flex: 1,
+    valueGetter: (params) => {
+      return `${params?.row?.questionType?.label} `;
+    },
+  },
+  {
+    field: 'possibleAnswer',
+    headerName: 'Số lượng câu trả lời',
+    flex: 2,
+    valueGetter: (params) => {
+      return `${
+        Object.keys(params?.row?.possibleAnswer || {})?.length ||
+        'Không có câu trả lời mặc định'
+      } `;
+    },
   },
 ];
 const categoryColumns: GridColDef[] = [

@@ -14,4 +14,16 @@ export function delay(time?: number) {
   });
 }
 
-export default {};
+interface MyHashMap {
+  [key: string]: number;
+}
+
+export function isHashMap(property: any): property is MyHashMap {
+  return typeof property === 'object' && property !== null;
+}
+
+export function changeArrayToHashmap(hashmap: any) {
+  return Object.entries(hashmap).map(([key, value]) => {
+    return { key, value };
+  });
+}

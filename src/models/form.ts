@@ -133,4 +133,6 @@ export type FormInputVariant =
   | 'tags'
   | 'modules'
   | 'password'
+  | 'feedbackQuestionChoice'
+  | 'feedbackTypeChoose'
   | 'date';
