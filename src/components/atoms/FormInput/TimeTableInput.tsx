@@ -129,7 +129,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
               name={TIME_TABLE_FIELDS.slot}
               control={timetableHookForm.control}
               data={slotOptions}
-              label="Khung giờ học"
+              placeholder="Khung giờ học"
             />
           )}
         </Grid>
@@ -140,7 +140,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
               name={TIME_TABLE_FIELDS.dayInWeek}
               control={timetableHookForm.control}
               data={dayInWeekOptions}
-              label="Ngày trong tuần"
+              placeholder="Ngày trong tuần"
             />
           )}
         </Grid>
@@ -159,7 +159,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           >
             <Button
               onClick={timetableHookForm.handleSubmit(onSubmit)}
-              customVariant="form"
+              customVariant="horizonForm"
             >
               Thêm giờ học
             </Button>

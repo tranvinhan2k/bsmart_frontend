@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+
 import { Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
 import { BankLinking, FormInputVariant } from '~/models/form';
@@ -16,7 +18,6 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
-// eslint-disable-next-line import/no-cycle
 import TimeTableInput from './TimeTableInput';
 import DropdownInputBank from './DropdownInputBank';
 import FeedbackQuestionChoiceInput from './FeedbackQuestionChoiceInput';
