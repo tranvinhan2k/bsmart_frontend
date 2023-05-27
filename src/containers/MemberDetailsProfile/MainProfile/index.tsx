@@ -71,20 +71,19 @@ export default function MainProfile() {
 
   const displayFields = [
     {
+      id: 0,
       image: 'mail',
-      text: memberDetails.mail,
+      text: mentorDetails.mail,
     },
     {
+      id: 1,
       image: 'cake',
-      text: formateISODateStringToDisplayDate(memberDetails.dateOfBirth),
+      text: formateISODateStringToDisplayDate(mentorDetails.dateOfBirth),
     },
     {
+      id: 2,
       image: 'phone',
-      text: memberDetails.phone,
-    },
-    {
-      image: 'location',
-      text: memberDetails.address,
+      text: mentorDetails.phone,
     },
   ];
 
