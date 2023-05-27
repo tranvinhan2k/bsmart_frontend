@@ -12,7 +12,7 @@ export type UserStateType = {
   isAddToCart: boolean;
   profile: ResponseProfilePayload;
   cart: CartDataPayload | null;
-  introduceCode: string;
+  introduceCode: string | undefined;
 };
 
 const initialState: UserStateType = {
@@ -58,7 +58,7 @@ const initialState: UserStateType = {
     },
   },
   cart: null,
-  introduceCode: '',
+  introduceCode: undefined,
 };
 
 const slice = createSlice({

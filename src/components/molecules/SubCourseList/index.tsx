@@ -1,6 +1,6 @@
 import { Stack, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { PagingFilterPayload } from '~/models';
 import { SubCoursePayload } from '~/models/subCourse';
@@ -13,6 +13,7 @@ import CarouselCourseDetailSubCourse from '../CarouselCourseDetailSubCourse';
 import SubCourseModal from '../modals/SubCourseModal';
 import { toggleAddToCart } from '~/redux/user/slice';
 import { addCheckoutItem } from '~/redux/courses/slice';
+import { selectToken } from '~/redux/user/selector';
 
 interface SubCourseListProps {
   courseId: number | undefined;
@@ -23,19 +24,25 @@ export default function SubCourseList({ courseId, data }: SubCourseListProps) {
   const [visible, setVisible] = React.useState<boolean>(false);
   const [item, setItem] = React.useState<SubCoursePayload | undefined>();
 
+  const token = useSelector(selectToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mutateAsync: addToCartMutationAsync } = useMutationAddCourseToCart();
   const { handleDispatch } = useDispatchGetCart();
 
   const handleSubCourse = async (subCourseId: number) => {
-    dispatch(
-      addCheckoutItem({
-        checkOutCourses: item,
-        totalAmount: item?.price,
-      })
-    );
-    navigate('/check_out');
+    if (token) {
+      dispatch(
+        addCheckoutItem({
+          checkOutCourses: item,
+          totalAmount: item?.price,
+        })
+      );
+      navigate('/check_out');
+    } else {
+      toast.notifySuccessToast('Xin hãy đăng nhập trước khi đăng kí khóa học');
+      navigate('/login');
+    }
   };
 
   const handleSubCourseAddToCart = async (subCourseId: number) => {
