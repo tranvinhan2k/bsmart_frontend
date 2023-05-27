@@ -215,7 +215,7 @@ export const validationSchemaCreateSubCourse = object({
   subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
-    .min(30, 'Học sinh tối thiểu phải lớn hơn 30'),
+    .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
