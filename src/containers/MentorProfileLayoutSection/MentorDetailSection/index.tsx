@@ -105,11 +105,6 @@ export default function MentorDetailSection() {
       image: 'phone',
       text: mentorDetails.phone,
     },
-    {
-      id: 3,
-      image: 'location',
-      text: mentorDetails.address,
-    },
   ];
   const activities = mockMentorLatestActivities;
 
