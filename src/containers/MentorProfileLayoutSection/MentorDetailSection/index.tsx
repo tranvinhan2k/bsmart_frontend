@@ -182,7 +182,7 @@ export default function MentorDetailSection() {
                     size="small"
                     color="orange"
                   />
-                  <Typography sx={SX_DISPLAY_FIELD_TEXT}>
+                  <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
                     {item.text}
                   </Typography>
                 </Stack>

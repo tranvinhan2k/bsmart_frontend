@@ -44,7 +44,7 @@ export default function EditSocialProfileForm() {
       await mutateEditSocialProfile(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 
