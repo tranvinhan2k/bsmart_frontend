@@ -101,13 +101,13 @@ export default function MentorCourseItem({
           >
             {item.courseName || ''}
           </Typography>
-          <Typography
+          {/* <Typography
             sx={{
               fontSize: FontSize.small_18,
               fontFamily: FontFamily.light,
               color: Color.grey,
             }}
-          >{`Mentor ${item.mentorName[0]}`}</Typography>
+          >{`Mentor ${item.mentorName[0]}`}</Typography> */}
           <Typography
             sx={{
               fontSize: FontSize.small_18,
