@@ -75,7 +75,9 @@ export default function MemberCourseListPage() {
           <Typography>Bạn chưa đăng kí khóa học nào</Typography>
         )}
       </Grid>
-      <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Stack
+        sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
+      >
         {courses && courses.items.length > 0 && (
           <Pagination
             page={courses.currentPage}
