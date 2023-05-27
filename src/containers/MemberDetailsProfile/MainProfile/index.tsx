@@ -73,17 +73,17 @@ export default function MainProfile() {
     {
       id: 0,
       image: 'mail',
-      text: mentorDetails.mail,
+      text: memberDetails.mail,
     },
     {
       id: 1,
       image: 'cake',
-      text: formateISODateStringToDisplayDate(mentorDetails.dateOfBirth),
+      text: formateISODateStringToDisplayDate(memberDetails.dateOfBirth),
     },
     {
       id: 2,
       image: 'phone',
-      text: mentorDetails.phone,
+      text: memberDetails.phone,
     },
   ];
 
