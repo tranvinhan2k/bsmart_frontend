@@ -230,7 +230,7 @@ function CheckoutPage() {
           </Stack>
         ) : (
           <Stack>
-            <TextLine label="Mã giới thiệu" variable={introduceCode} />
+            <TextLine label="Mã giới thiệu" variable={`${introduceCode}`} />
           </Stack>
         )}
 

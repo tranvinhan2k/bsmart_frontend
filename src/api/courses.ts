@@ -29,6 +29,7 @@ export interface RequestCreateCoursePayload {
 export interface ResponseMemberCoursePayload {
   id: number;
   images: ImagePayload[];
+  imageUrl: string;
   courseCode: string;
   courseName: string;
   categoryId: number;
