@@ -76,6 +76,7 @@ export default function MentorCourseItem({
         justifyContent: 'space-between',
         alignItems: 'stretch',
         padding: MetricSize.medium_15,
+        height: '800px',
       }}
     >
       <Stack>
