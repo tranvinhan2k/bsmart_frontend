@@ -73,7 +73,6 @@ export default function MemberCourseItem({
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
         alignItems: 'stretch',
-        height: '600px',
       }}
     >
       <Stack>

@@ -238,7 +238,7 @@ const coursesApi = {
       paramsSerializer: { indexes: null },
     });
   },
-  async getDetailCourse(id: string): Promise<CourseDetailPayload | null> {
+  async getDetailCourse(id: number): Promise<CourseDetailPayload | null> {
     const response: ResponseCourseDetailPayload = await axiosClient.get(
       `${url}/${id}`
     );
@@ -253,6 +253,42 @@ const coursesApi = {
   },
   async createCourse(params: RequestCreateCoursePayload): Promise<any> {
     const response: any = await axiosClient.post(url, params);
+    return response;
+  },
+  async requestSubCourse(id: number): Promise<any> {
+    const response: any = await axiosClient.put(
+      `${url}/${id}/request-approval`
+    );
+    return response;
+  },
+  async deleteSubCourse(id: number): Promise<any> {
+    const response: any = await axiosClient.delete(`${url}/${id}`);
+    return response;
+  },
+  async updateSubCourse(
+    params: {
+      courseCode: string;
+      courseName: string;
+      courseDescription: string;
+      categoryId: number;
+      subjectId: number;
+      subCourseTitle: string;
+      price: number;
+      startDateExpected: string;
+      endDateExpected: string;
+      minStudent: number;
+      maxStudent: number;
+      numberOfSlot: number;
+      type: TypeLearnKeys;
+      level: LevelKeys;
+      timeInWeekRequests: {
+        dayOfWeekId: number;
+        slotId: number;
+      }[];
+    },
+    id: number
+  ): Promise<any> {
+    const response: any = await axiosClient.put(`${url}/${id}`, params);
     return response;
   },
 };

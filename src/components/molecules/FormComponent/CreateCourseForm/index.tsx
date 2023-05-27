@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import Button from '~/components/atoms/Button';
 import CollapseStack from '~/components/atoms/CollapseStack';
 import FormInput from '~/components/atoms/FormInput';
@@ -68,6 +69,8 @@ const typeData: OptionPayload[] = [
 ];
 
 export default function CreateCourseForm() {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState<boolean>(false);
   const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
   const [subCourses, setSubCourses] = useState<SubCoursePayload[]>([]);
@@ -140,8 +143,6 @@ export default function CreateCourseForm() {
 
   async function handleCreateCourse(data: any) {
     const id = toast.loadToast('Đang tạo khóa học...');
-    console.log('creat course', data);
-    console.log('creat course', subCourses);
 
     try {
       const params: any = {
@@ -164,6 +165,7 @@ export default function CreateCourseForm() {
 
       await createCourseMutation.mutateAsync(params);
       toast.updateSuccessToast(id, 'Tạo khóa học thành công !');
+      navigate('/mentor-profile/mentor-course-list');
     } catch (error: any) {
       toast.updateFailedToast(id, `Tạo khóa học thất bại: ${error.message}`);
     }

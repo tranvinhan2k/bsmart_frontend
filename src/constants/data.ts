@@ -11,6 +11,49 @@ import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 
+export const ClassStatusList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Đang chờ phê duyệt',
+    value: 'REQUESTING',
+  },
+  {
+    id: 1,
+    label: 'Đang chờ',
+    value: 'WAITING',
+  },
+  {
+    id: 2,
+    label: 'Yêu cầu chỉnh sửa',
+    value: 'EDITREQUEST',
+  },
+  {
+    id: 3,
+    label: 'Bị từ chối',
+    value: 'REJECTED',
+  },
+  {
+    id: 4,
+    label: 'Chưa bắt đầu',
+    value: 'NOTSTART',
+  },
+  {
+    id: 5,
+    label: 'Đang dạy',
+    value: 'STARTING',
+  },
+  {
+    id: 6,
+    label: 'Đã kết thúc',
+    value: 'ENDED',
+  },
+  {
+    id: 7,
+    label: 'Đã hủy bỏ',
+    value: 'CANCEL',
+  },
+];
+
 export const RoleOptionList: OptionPayload[] = [
   {
     id: 0,
@@ -261,6 +304,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
     id: 5,
     name: 'Giới thiệu giáo viên',
     link: 'mentor-introduce',
+    isHide: true,
   },
   {
     id: 6,
@@ -281,6 +325,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
     id: 9,
     name: 'Giảng viên điểm danh lại',
     link: 'mentor-re-take-attendance',
+  },
+  {
+    id: 10,
+    name: 'Chi tiết khóa học',
+    link: 'mentor_course_detail/:id',
+    isHide: true,
   },
 ];
 
