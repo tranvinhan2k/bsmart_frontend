@@ -56,7 +56,7 @@ export default function MentorRegisterForm() {
     <Stack>
       <FormInput
         label="Họ và tên"
-        placeholder="Nguyen Van A"
+        placeholder="Nguyễn Văn A"
         control={mentorSignUpForm.control}
         name={REGISTER_MENTOR_FIELDS.name}
       />
@@ -71,7 +71,7 @@ export default function MentorRegisterForm() {
       <Stack marginTop={2}>
         <FormInput
           label="Số điện thoại"
-          placeholder="+843456789"
+          placeholder="0362456xxx"
           control={mentorSignUpForm.control}
           name={REGISTER_MENTOR_FIELDS.phone}
         />

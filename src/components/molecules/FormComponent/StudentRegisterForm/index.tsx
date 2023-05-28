@@ -42,7 +42,7 @@ export default function StudentRegisterForm() {
       birthDay: data.birthDay,
       introduce: data.introduce,
     };
-    const id = toast.loadToast('Đang đăng kí khoá học ...');
+    const id = toast.loadToast('Đang đăng kí tài khoản ...');
     try {
       await mutation.mutateAsync(params);
       navigate('/login');
@@ -55,7 +55,7 @@ export default function StudentRegisterForm() {
     <Stack>
       <FormInput
         label="Họ và tên"
-        placeholder="Nguyen Van A"
+        placeholder="Nguyễn Văn A"
         control={studentSignUpForm.control}
         name={REGISTER_STUDENT_FIELDS.name}
       />
@@ -70,7 +70,7 @@ export default function StudentRegisterForm() {
       <Stack marginTop={2}>
         <FormInput
           label="Số điện thoại"
-          placeholder="0362456789"
+          placeholder="0362456xxx"
           control={studentSignUpForm.control}
           name={REGISTER_STUDENT_FIELDS.phone}
         />
