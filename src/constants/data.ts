@@ -280,14 +280,14 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 10,
-    name: 'Chi tiết khóa học',
-    link: 'mentor_course_detail/:id',
+    name: 'Tạo Quiz',
+    link: 'mentor-create-quiz',
     isHide: true,
   },
   {
     id: 11,
-    name: 'Tạo Quiz',
-    link: 'mentor-create-quiz',
+    name: 'Chi tiết khóa học',
+    link: 'mentor_course_detail/:id',
     isHide: true,
   },
 ];

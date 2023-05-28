@@ -37,8 +37,9 @@ function CheckoutPage() {
 
   const [introduceCode, setIntroduceCode] = useState(slIntroduceCode);
   const [text, setText] = useState('');
+
   if (checkOutItem === null) {
-    <Navigate to="/homepage" />;
+    return <Navigate to="/homepage" />;
   }
 
   const handleCheckOut = async () => {
@@ -202,7 +203,7 @@ function CheckoutPage() {
           <Divider sx={{ marginY: MetricSize.small_5 }} />
           <TextLine label={texts.totalPrice} variable={values.totalAmount} />
         </Stack>
-        {introduceCode === '' ? (
+        {!introduceCode ? (
           <Stack marginTop={2}>
             <Typography sx={globalStyles.textSubTitle}>
               Mã giới thiệu
@@ -230,7 +231,10 @@ function CheckoutPage() {
           </Stack>
         ) : (
           <Stack>
-            <TextLine label="Mã giới thiệu" variable={`${introduceCode}`} />
+            <TextLine
+              label="Mã giới thiệu"
+              variable={`${introduceCode || ''}`}
+            />
           </Stack>
         )}
 

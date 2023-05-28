@@ -18,6 +18,7 @@ function NumberInput({ controller, placeholder }: NumberInputProps) {
     <TextField
       sx={SX_TEXT_INPUT_FORM}
       placeholder={placeholder}
+      onWheel={(e: any) => e.target.blur()}
       fullWidth
       type="number"
       size="small"
