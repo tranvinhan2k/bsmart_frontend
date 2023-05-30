@@ -10,7 +10,7 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
-import routes, { adminRoutes } from '~/routes';
+import routes, { adminRoutes, managerRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 // css
@@ -29,9 +29,15 @@ import AuthorizePage from './pages/AuthorizePage';
 import { useDispatchGetCart, useMutationProfile } from './hooks';
 import { addProfile } from './redux/user/slice';
 import AdminProfileLayout from './layouts/AdminProfileLayout';
+import ManagerProfileLayout from '~/layouts/ManagerProfileLayout';
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (
+    <Route key={route.path} path={route.path} element={route?.main()} />
+  ));
+};
+const showManagerRoutes = () => {
+  return managerRoutes.map((route: RoutePayload) => (
     <Route key={route.path} path={route.path} element={route?.main()} />
   ));
 };
@@ -130,11 +136,17 @@ function App() {
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer />
-      {role === 'ROLE_ADMIN' && Boolean(token) ? (
+      {role === 'ROLE_ADMIN' && Boolean(token) && (
         <AdminProfileLayout>
           <Routes>{showAdminRoutes()}</Routes>
         </AdminProfileLayout>
-      ) : (
+      )}
+      {role === 'ROLE_MANAGER' && Boolean(token) && (
+        <ManagerProfileLayout>
+          <Routes>{showManagerRoutes()}</Routes>
+        </ManagerProfileLayout>
+      )}
+      {role !== 'ROLE_ADMIN' && role !== 'ROLE_MANAGER' && (
         <MainLayout>
           <Routes>{showRoutes(role)}</Routes>
         </MainLayout>

@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 import {
   AdminNavigationActionData,
+  ManagerNavigationActionData,
   MemberNavigationActionData,
   MentorNavigationActionData,
   NavigationActionData,
@@ -52,17 +53,17 @@ const MentorReTakeAttendancePage = lazy(
   () => import('~/pages/MentorReTakeAttendancePage')
 );
 const MentorCreateQuizPage = lazy(() => import('~/pages/MentorCreateQuizPage'));
-const AdminApproveRegisterPage = lazy(
-  () => import('~/pages/AdminApproveRegisterPage')
+const ManagerProcessRegisterRequestPage = lazy(
+  () => import('~/pages/ManagerProcessRegisterRequestPage')
 );
-const MentorRegisterRequestDetailsPage = lazy(
-  () => import('~/pages/MentorRegisterRequestDetailsPage')
+const ManagerProcessRegisterRequestDetailsPage = lazy(
+  () => import('~/pages/ManagerProcessRegisterRequestDetailsPage')
 );
-const AdminProcessCourseCreateRequestPage = lazy(
-  () => import('~/pages/AdminProcessCourseCreateRequestPage')
+const ManagerProcessCourseCreateRequestPage = lazy(
+  () => import('~/pages/ManagerProcessCourseCreateRequestPage')
 );
-const MentorProcessCourseCreateRequestDetailsPage = lazy(
-  () => import('~/pages/AdminProcessCourseCreateRequestDetailsPage')
+const ManagerProcessCourseCreateRequestDetailsPage = lazy(
+  () => import('~/pages/ManagerProcessCourseCreateRequestDetailsPage')
 );
 const MentorResourceManagePage = lazy(
   () => import('~/pages/MentorResourceManagePage')
@@ -322,38 +323,61 @@ export const adminRoutes: RoutePayload[] = [
   },
   {
     path: `/${AdminNavigationActionData[2].link}`,
-    main: () => <AdminApproveRegisterPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: `/${AdminNavigationActionData[3].link}`,
-    main: () => <MentorRegisterRequestDetailsPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: `/${AdminNavigationActionData[4].link}`,
-    main: () => <AdminProcessCourseCreateRequestPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: `/${AdminNavigationActionData[5].link}`,
-    main: () => <MentorProcessCourseCreateRequestDetailsPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: `/${AdminNavigationActionData[6].link}`,
     main: () => <FeedbackManagerPage />,
     role: ['ROLE_ADMIN'],
   },
   {
-    path: `/${AdminNavigationActionData[7].link}`,
+    path: `/${AdminNavigationActionData[3].link}`,
     main: () => <CategoryManagerPage />,
     role: ['ROLE_ADMIN'],
   },
   {
-    path: `/${AdminNavigationActionData[8].link}`,
+    path: `/${AdminNavigationActionData[4].link}`,
     main: () => <SubjectManagerPage />,
     role: ['ROLE_ADMIN'],
+  },
+  {
+    path: '*',
+    main: () => <NotFoundPage />,
+    role: [],
+  },
+];
+
+export const managerRoutes: RoutePayload[] = [
+  {
+    path: '/',
+    main: () => <Navigate to="/manager/user" />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: `/${ManagerNavigationActionData[1].link}`,
+    main: () => <h1>Manager xem tất cả giáo viên</h1>,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: `/${ManagerNavigationActionData[2].link}`,
+    main: () => <ManagerProcessRegisterRequestPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: `/${ManagerNavigationActionData[3].link}`,
+    main: () => <ManagerProcessRegisterRequestDetailsPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: `/${ManagerNavigationActionData[4].link}`,
+    main: () => <h1>Manager xem tất khóa học</h1>,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: `/${ManagerNavigationActionData[5].link}`,
+    main: () => <ManagerProcessCourseCreateRequestPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: `/${ManagerNavigationActionData[6].link}`,
+    main: () => <ManagerProcessCourseCreateRequestDetailsPage />,
+    role: ['ROLE_MANAGER'],
   },
   {
     path: '*',
