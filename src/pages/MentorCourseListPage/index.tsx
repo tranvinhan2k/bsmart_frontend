@@ -15,7 +15,7 @@ import { scrollToTop } from '~/utils/common';
 export default function MentorCourseListPage() {
   const { control, watch } = useForm({
     defaultValues: {
-      filter: ClassStatusList[0],
+      filter: ClassStatusList[8],
     },
   });
   const filterWatch = watch('filter');
@@ -23,7 +23,7 @@ export default function MentorCourseListPage() {
     page: 0,
     size: 9,
     sort: undefined,
-    status: 'REQUESTING',
+    status: 'ALL',
   });
 
   const { courses } = useQueryGetAllMentorCourses(filterParams);
@@ -108,11 +108,11 @@ export default function MentorCourseListPage() {
             <Typography>Không có khóa học nào.</Typography>
           </Stack>
         )}
-        {courses && (
+        {courses?.items?.length !== 0 && (
           <Pagination
-            page={courses.currentPage}
+            page={courses?.currentPage}
             onChange={handleChangePageNumber}
-            count={courses.totalPages}
+            count={courses?.totalPages}
           />
         )}
       </Stack>

@@ -30,43 +30,9 @@ import CreateSubCourseModal from './CreateSubCourseModal';
 import UpdateSubCourseModal from './UpdateSubCourseModal';
 import SubCourseList from './SubCourseList';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { mockLevelData, typeData } from '~/constants';
 
 // TODO : Not implement useHookForm yet !! waiting for API to start
-const mockLevelData: OptionPayload[] = [
-  {
-    id: 0,
-    label: LEVEL_LABELS.BEGINNER,
-    value: 'BEGINNER',
-  },
-  {
-    id: 1,
-    label: LEVEL_LABELS.INTERMEDIATE,
-    value: 'INTERMEDIATE',
-  },
-  {
-    id: 2,
-    label: LEVEL_LABELS.ADVANCED,
-    value: 'ADVANCED',
-  },
-  {
-    id: 3,
-    label: LEVEL_LABELS.EXPERT,
-    value: 'EXPERT',
-  },
-];
-
-const typeData: OptionPayload[] = [
-  {
-    id: 0,
-    label: 'Online',
-    value: 'ONLINE',
-  },
-  {
-    id: 1,
-    label: 'Offline',
-    value: 'OFFLINE',
-  },
-];
 
 export default function CreateCourseForm() {
   const navigate = useNavigate();

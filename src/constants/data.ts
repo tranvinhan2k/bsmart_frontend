@@ -10,6 +10,43 @@ import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
+import { LEVEL_LABELS } from './level';
+
+export const typeData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Online',
+    value: 'ONLINE',
+  },
+  {
+    id: 1,
+    label: 'Offline',
+    value: 'OFFLINE',
+  },
+];
+
+export const mockLevelData: OptionPayload[] = [
+  {
+    id: 0,
+    label: LEVEL_LABELS.BEGINNER,
+    value: 'BEGINNER',
+  },
+  {
+    id: 1,
+    label: LEVEL_LABELS.INTERMEDIATE,
+    value: 'INTERMEDIATE',
+  },
+  {
+    id: 2,
+    label: LEVEL_LABELS.ADVANCED,
+    value: 'ADVANCED',
+  },
+  {
+    id: 3,
+    label: LEVEL_LABELS.EXPERT,
+    value: 'EXPERT',
+  },
+];
 
 export const ClassStatusList: OptionPayload[] = [
   {
@@ -51,6 +88,11 @@ export const ClassStatusList: OptionPayload[] = [
     id: 7,
     label: 'Đã hủy bỏ',
     value: 'CANCEL',
+  },
+  {
+    id: 8,
+    label: 'Tất cả',
+    value: 'ALL',
   },
 ];
 
