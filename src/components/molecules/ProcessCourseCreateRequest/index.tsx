@@ -52,7 +52,7 @@ export default function ProcessCourseCreateRequest() {
 
   const navigation = useNavigate();
   const navigateToRequestDetails = () => {
-    navigation('/admin-create-course-request-approve/1');
+    navigation('/manager-process-create-course-request/1');
   };
 
   const popoverOptions = [

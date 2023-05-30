@@ -49,7 +49,7 @@ export default function ProcessRegisterRequest() {
 
   const navigation = useNavigate();
   const navigateToRequestDetails = () => {
-    navigation('/admin-register-approve/1');
+    navigation('/manager-process-register-request/1');
   };
 
   const popoverOptions = [

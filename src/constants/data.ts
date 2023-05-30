@@ -371,44 +371,64 @@ export const AdminNavigationActionData: ActionPayload[] = [
   {
     id: 2,
     isHide: true,
-    name: 'Danh sách tài khoản cần phê duyệt',
-    link: 'admin-register-approve',
-  },
-  {
-    id: 3,
-    isHide: true,
-    name: 'Admin phê duyệt tạo tài khoản',
-    link: 'admin-register-approve/:id',
-  },
-  {
-    id: 4,
-    isHide: true,
-    name: 'Danh sách khóa học cần phê duyệt',
-    link: 'admin-create-course-request-approve',
-  },
-  {
-    id: 5,
-    isHide: true,
-    name: 'Admin phê duyệt tạo khóa học',
-    link: 'admin-create-course-request-approve/:id',
-  },
-  {
-    id: 6,
-    isHide: true,
     name: 'Quản lí đánh giá',
     link: 'feedback_manager',
   },
   {
-    id: 7,
+    id: 3,
     isHide: true,
     name: 'Quản lí môn học',
     link: 'subject_manager',
   },
   {
-    id: 8,
+    id: 4,
     isHide: true,
     name: 'Quản lí ngôn ngũ lập trình',
     link: 'category_manager',
+  },
+];
+
+export const ManagerNavigationActionData: ActionPayload[] = [
+  {
+    id: 0,
+    name: 'Chỉnh sửa thông tin',
+    link: 'manager',
+  },
+  {
+    id: 1,
+    isHide: true,
+    name: 'Danh sách tất cả tài khoản',
+    link: 'manager-all-account',
+  },
+  {
+    id: 2,
+    isHide: true,
+    name: 'Danh sách tài khoản cần phê duyệt',
+    link: 'manager-process-register-request',
+  },
+  {
+    id: 3,
+    isHide: true,
+    name: 'Manager phê duyệt tạo tài khoản',
+    link: 'manager-process-register-request/:id',
+  },
+  {
+    id: 4,
+    isHide: true,
+    name: 'Danh sách tất cả khóa học',
+    link: 'manager-all-course',
+  },
+  {
+    id: 5,
+    isHide: true,
+    name: 'Danh sách khóa học cần phê duyệt',
+    link: 'manager-process-create-course-request',
+  },
+  {
+    id: 6,
+    isHide: true,
+    name: 'Manager phê duyệt tạo khóa học',
+    link: 'manager-process-create-course-request/:id',
   },
 ];
 
@@ -917,7 +937,7 @@ export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
           {
             label: 'Yêu cầu tạo tài khoản',
             icon: 'description',
-            link: `/${AdminNavigationActionData[2].link}`,
+            link: `allAccount`,
           },
         ],
       },
@@ -934,7 +954,7 @@ export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
           {
             label: 'Yêu cầu tạo lớp học',
             icon: 'description',
-            link: `/${AdminNavigationActionData[4].link}`,
+            link: 'allClass',
           },
         ],
       },
@@ -991,6 +1011,67 @@ export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
         label: 'Ngôn ngữ lập trình',
         icon: 'category',
         link: 'category_manager',
+      },
+    ],
+  },
+  {
+    title: 'Cá nhân',
+    items: [
+      {
+        label: 'Cài đặt',
+        icon: 'setting',
+        link: 'setting',
+      },
+    ],
+  },
+];
+export const MANAGER_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
+  {
+    title: '',
+    items: [
+      {
+        label: 'Trang chủ',
+        icon: 'home',
+        link: 'homepage',
+      },
+    ],
+  },
+  {
+    title: 'Quản lý',
+    items: [
+      {
+        label: 'Người dùng',
+        icon: 'user',
+        link: 'accountZ',
+        items: [
+          {
+            label: 'Tất cả người dùng',
+            icon: 'groups',
+            link: `/${ManagerNavigationActionData[1].link}`,
+          },
+          {
+            label: 'Yêu cầu tạo tài khoản',
+            icon: 'description',
+            link: `/${ManagerNavigationActionData[2].link}`,
+          },
+        ],
+      },
+      {
+        label: 'Lớp học',
+        icon: 'coPresent',
+        link: 'classZ',
+        items: [
+          {
+            label: 'Tất cả lớp học',
+            icon: 'class',
+            link: `/${ManagerNavigationActionData[4].link}`,
+          },
+          {
+            label: 'Yêu cầu tạo lớp học',
+            icon: 'description',
+            link: `/${ManagerNavigationActionData[5].link}`,
+          },
+        ],
       },
     ],
   },
