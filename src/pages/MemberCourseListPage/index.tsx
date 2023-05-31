@@ -59,7 +59,7 @@ export default function MemberCourseListPage() {
             <Grid
               item
               xs={12}
-              md={6}
+              md={4}
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >

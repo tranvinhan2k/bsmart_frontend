@@ -92,7 +92,7 @@ export default function MentorCourseListPage() {
             <Grid
               item
               xs={12}
-              md={6}
+              md={4}
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
