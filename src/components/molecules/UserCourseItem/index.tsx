@@ -6,22 +6,32 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
-import Icon from '~/components/atoms/Icon';
+import Icon, { IconName } from '~/components/atoms/Icon';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   courseName: string | undefined;
   courseDescription: string | undefined;
+  menuItemList: {
+    id: number;
+    title: string;
+    icon: IconName;
+    isHide?: boolean;
+    onClick: () => void;
+  }[];
 }
 export default function UserCourseItem({
   courseDescription,
   courseName,
   imageAlt,
   imageUrl,
+  menuItemList,
 }: UserCourseItemProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -115,8 +125,19 @@ export default function UserCourseItem({
         onClose={handleClose}
         onMouseLeave={handleClose}
       >
-        <MenuItem onClick={handleClose}>Hồ sơ </MenuItem>
-        <MenuItem onClick={handleClose}>Đăng Xuất</MenuItem>
+        {menuItemList?.map((item) => {
+          if (!item.isHide) {
+            return (
+              <MenuItem key={item.title} onClick={item.onClick}>
+                <ListItemIcon>
+                  <Icon name={item.icon} size="medium" color="black" />
+                </ListItemIcon>
+                <ListItemText>{item.title}</ListItemText>
+              </MenuItem>
+            );
+          }
+          return undefined;
+        })}
       </Menu>
     </Stack>
   );

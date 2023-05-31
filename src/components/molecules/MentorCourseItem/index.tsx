@@ -11,6 +11,9 @@ import useCRUDMentorCourse from '~/hooks/useCRUDMentorCourse';
 import toast from '~/utils/toast';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import UserCourseItem from '../UserCourseItem';
+import { IconName } from '~/components/atoms/Icon';
+import UpdateMentorCourse from './UpdateMentorCourse';
+import globalStyles from '~/styles';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -24,14 +27,18 @@ export default function MentorCourseItem({
   onClick = () => {},
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
-  const { deleteCourseMutation, refetch } = useCRUDMentorCourse(item.courseId);
+  const { deleteCourseMutation, requestCourseMutation } = useCRUDMentorCourse();
   const [open, setOpen] = useState(false);
+  const [type, setType] = useState<'DELETE' | 'UPDATE' | 'READ'>('READ');
 
   const handleNavigateCourseDetail = () => {
     navigate(`/mentor-profile/mentor_course_detail/${item.courseId}`);
   };
 
-  const handleClose = () => {
+  const handleClose = (chooseType?: 'DELETE' | 'UPDATE' | 'READ') => {
+    if (chooseType) {
+      setType(chooseType);
+    }
     setOpen(!open);
   };
 
@@ -45,6 +52,21 @@ export default function MentorCourseItem({
       toast.updateFailedToast(
         id,
         `Xóa khóa học không thành công : ${e.message}`
+      );
+    }
+  };
+
+  const handleUpdateCourse = (data: any) => {};
+  const handleSubmitCourse = async () => {
+    const id = toast.loadToast('Đang gửi yêu cầu phê duyệt khóa học');
+    try {
+      await requestCourseMutation.mutateAsync(item.subCourseId);
+      window.location.reload();
+      toast.updateSuccessToast(id, 'Gửi yêu cầu thành cong');
+    } catch (e: any) {
+      toast.updateFailedToast(
+        id,
+        `Gửi yêu cầu không thành công : ${e.message}`
       );
     }
   };
@@ -66,6 +88,40 @@ export default function MentorCourseItem({
     );
   }
 
+  const menuItemList: {
+    id: number;
+    title: string;
+    icon: IconName;
+    onClick: () => void;
+    isHide?: boolean;
+  }[] = [
+    {
+      id: 0,
+      title: 'Xem chi tiết khóa học',
+      icon: 'search',
+      onClick: () => handleClose('READ'),
+    },
+    {
+      id: 1,
+      title: 'Xóa khóa học',
+      icon: 'delete',
+      onClick: () => handleClose('DELETE'),
+    },
+    {
+      id: 2,
+      title: 'Cập nhật khóa học',
+      icon: 'edit',
+      onClick: () => handleClose('UPDATE'),
+    },
+    {
+      id: 3,
+      title: 'Phê duyệt khóa học',
+      icon: 'share',
+      onClick: handleSubmitCourse,
+      isHide: item.status !== 'REQUESTING',
+    },
+  ];
+
   return (
     <>
       <UserCourseItem
@@ -73,14 +129,35 @@ export default function MentorCourseItem({
         courseName={item.courseName}
         imageAlt="Hình ảnh khóa học"
         imageUrl={item.imageUrl}
+        menuItemList={menuItemList}
       />
-      <ConfirmDialog
-        content="Bạn có chắc chắn muốn xóa khóa học này không ?"
-        title="Xác nhận xóa khóa học"
-        handleAccept={handleDeleteCourse}
-        handleClose={handleClose}
-        open={open}
-      />
+      {type === 'DELETE' && (
+        <ConfirmDialog
+          content="Bạn có chắc chắn muốn xóa khóa học này không ?"
+          title="Xác nhận xóa khóa học"
+          handleAccept={handleDeleteCourse}
+          handleClose={handleClose}
+          open={open}
+        />
+      )}
+      {type === 'UPDATE' && (
+        <UpdateMentorCourse
+          item={item}
+          onClose={handleClose}
+          onSubmit={handleUpdateCourse}
+          open={open}
+        />
+      )}
+      {type === 'READ' && (
+        <CustomModal open={open} onClose={handleClose}>
+          <Stack>
+            <Typography sx={globalStyles.textSubTitle}>
+              Chi tiết khóa học
+            </Typography>
+            {JSON.stringify(item)}
+          </Stack>
+        </CustomModal>
+      )}
     </>
   );
 }

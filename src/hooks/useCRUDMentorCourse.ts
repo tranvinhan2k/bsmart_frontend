@@ -1,14 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import coursesApi from '~/api/courses';
 
-export default function useCRUDMentorCourse(id: number) {
+export default function useCRUDMentorCourse() {
   const key = 'course_detail';
   const queryClient = useQueryClient();
-  const { error, data, isLoading, refetch } = useQuery({
-    queryKey: [key],
-    queryFn: () => coursesApi.getDetailCourse(id),
-    keepPreviousData: true,
-  });
 
   const requestCourseMutation = useMutation({
     mutationKey: [key],
@@ -35,10 +30,6 @@ export default function useCRUDMentorCourse(id: number) {
     },
   } as any);
   return {
-    error,
-    isLoading,
-    data,
-    refetch,
     deleteCourseMutation,
     requestCourseMutation,
     updateCourseMutation,
