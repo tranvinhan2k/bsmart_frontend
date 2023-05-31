@@ -36,7 +36,11 @@ const LoginTexts = {
   REGISTER_BUTTON: 'Đăng kí ngay',
 };
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onCloseModal: () => void;
+}
+
+export default function LoginForm({ onCloseModal }: LoginFormProps) {
   const resolverSignIn = useYupValidationResolver(validationSchemaSignIn);
   const signInHookForm = useForm({
     defaultValues: defaultValueSignIn,
@@ -180,6 +184,7 @@ export default function LoginForm() {
             <Box sx={{ paddingLeft: MetricSize.small_5 }}>
               <Link
                 onClick={() => {
+                  onCloseModal();
                   navigate('/register');
                 }}
                 to="/register"

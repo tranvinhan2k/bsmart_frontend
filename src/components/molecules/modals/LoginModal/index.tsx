@@ -31,7 +31,7 @@ export default function LoginModal({ visible, onClick }: LoginModalProps) {
             />
           </IconButton>
         </Stack>
-        <LoginForm />
+        <LoginForm onCloseModal={onClick} />
       </Box>
     </Modal>
   );
