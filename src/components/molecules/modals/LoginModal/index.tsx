@@ -31,7 +31,11 @@ export default function LoginModal({ visible, onClick }: LoginModalProps) {
             />
           </IconButton>
         </Stack>
-        <LoginForm onCloseModal={onClick} />
+        <LoginForm
+          onCloseModal={() => {
+            if (visible) onClick();
+          }}
+        />
       </Box>
     </Modal>
   );
