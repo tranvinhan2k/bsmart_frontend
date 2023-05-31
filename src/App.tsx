@@ -147,21 +147,21 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <ProSidebarProvider>
-      <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <ThemeProvider theme={defaultTheme}>
-              <BrowserRouter>
+    <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <ThemeProvider theme={defaultTheme}>
+            <BrowserRouter>
+              <ProSidebarProvider>
                 <React.StrictMode>
                   <App />
                 </React.StrictMode>
-              </BrowserRouter>
-            </ThemeProvider>
-          </Provider>
-        </QueryClientProvider>
-      </GoogleOAuthProvider>
-    </ProSidebarProvider>
+              </ProSidebarProvider>
+            </BrowserRouter>
+          </ThemeProvider>
+        </Provider>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   );
 }
 

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
+import CustomModal from '~/components/atoms/Modal';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { ClassStatusList } from '~/constants';
 import { useQueryGetAllMentorCourses } from '~/hooks';
@@ -25,7 +26,6 @@ export default function MentorCourseListPage() {
     sort: undefined,
     status: 'ALL',
   });
-
   const { courses } = useQueryGetAllMentorCourses(filterParams);
 
   const handleChangePageNumber = (e: any, value: number) => {

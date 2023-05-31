@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, MouseEvent } from 'react';
+import { useProSidebar } from 'react-pro-sidebar';
 import {
   IconSize,
   Color,
@@ -19,6 +20,7 @@ import {
 import { image } from '~/constants/image';
 import { selectProfile } from '~/redux/user/selector';
 import { logOut } from '~/redux/user/slice';
+import Icon from '~/components/atoms/Icon';
 
 const mappingData = {
   title: 'Quản lí tài khoản',
@@ -27,6 +29,7 @@ const mappingData = {
 };
 
 export default function AdminHeader() {
+  const { toggleSidebar, collapsed, collapseSidebar } = useProSidebar();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const profile = useSelector(selectProfile);
@@ -38,6 +41,13 @@ export default function AdminHeader() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleToggle = () => {
+    toggleSidebar();
+    if (collapsed) {
+      collapseSidebar();
+    }
   };
 
   const handleLogOut = () => {
@@ -61,9 +71,23 @@ export default function AdminHeader() {
         boxShadow: 3,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingX: MetricSize.medium_15,
+        paddingX: MetricSize.large_30,
+        position: 'sticky',
+        top: 0,
       }}
     >
+      <Box
+        sx={{
+          display: 'block',
+          '@media (min-width: 770px)': {
+            display: 'none',
+          },
+        }}
+      >
+        <IconButton onClick={handleToggle}>
+          <Icon name="menu" color="black" size="medium" />
+        </IconButton>
+      </Box>
       <Stack sx={{ flexGrow: 1 }}>
         <Typography
           sx={{
