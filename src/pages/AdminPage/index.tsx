@@ -1,3 +1,26 @@
+import { useProSidebar } from 'react-pro-sidebar';
+import { Stack } from '@mui/material';
+import Button from '~/components/atoms/Button';
+
 export default function AdminPage() {
-  return <div>Hello World</div>;
+  const { collapseSidebar, toggleSidebar, toggled } = useProSidebar();
+
+  const toggle = () => {
+    toggleSidebar();
+    if (!toggled) {
+      collapseSidebar();
+    }
+  };
+
+  return (
+    <Stack>
+      <Button
+        onClick={() => {
+          toggle();
+        }}
+      >
+        Toggle
+      </Button>
+    </Stack>
+  );
 }

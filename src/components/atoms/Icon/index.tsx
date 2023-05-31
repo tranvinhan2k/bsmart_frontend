@@ -46,6 +46,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NavigateNext from '@mui/icons-material/NavigateNext';
+import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
 import QuizIcon from '@mui/icons-material/Quiz';
@@ -113,6 +114,7 @@ export type IconName =
   | 'question'
   | 'quiz'
   | 'right'
+  | 'left'
   | 'search'
   | 'setting'
   | 'share'
@@ -329,6 +331,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <QuizIcon sx={STYLED_ICON} />;
     case 'right':
       return <NavigateNext sx={STYLED_ICON} />;
+    case 'left':
+      return <NavigateBefore sx={STYLED_ICON} />;
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
     case 'setting':
