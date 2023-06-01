@@ -5,6 +5,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  Collapse,
 } from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -40,6 +41,7 @@ import {
 
 export default function MentorDetailSection() {
   // const profile = useSelector(selectProfile);
+  const [checked, setChecked] = useState<boolean>(false);
   const token =
     useSelector((state: RootState) => state.user.token) ||
     localStorage.getItem('token');
@@ -119,6 +121,10 @@ export default function MentorDetailSection() {
     } else {
       toast.notifyErrorToast('Không thể mở trang này.');
     }
+  };
+
+  const handleCollapse = () => {
+    setChecked(!checked);
   };
 
   return (
@@ -215,25 +221,35 @@ export default function MentorDetailSection() {
                 </Typography>
               </Stack>
             </Stack>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={1}
-              mt={1}
-              sx={{ width: '100%' }}
-            >
-              {dataGetProfile &&
-                dataGetProfile.isVerified &&
-                MentorNavigationActionData.map((item) => (
-                  <Button
-                    key={item.link}
-                    onClick={() => handleNavigateLink(item.link)}
-                    customVariant="normal"
-                  >
-                    {item.name}
-                  </Button>
-                ))}
+            <Collapse sx={{ width: '100%' }} in={checked}>
+              <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="stretch"
+                spacing={1}
+                mt={1}
+              >
+                {dataGetProfile &&
+                  dataGetProfile.isVerified &&
+                  MentorNavigationActionData.map((item) => (
+                    <Button
+                      key={item.link}
+                      onClick={() => handleNavigateLink(item.link)}
+                      customVariant="normal"
+                    >
+                      {item.name}
+                    </Button>
+                  ))}
+              </Stack>
+            </Collapse>
+            <Stack marginTop={1}>
+              <IconButton onClick={handleCollapse}>
+                <Icon
+                  name={checked ? 'arrowUp' : 'arrowDown'}
+                  size="medium"
+                  color="black"
+                />
+              </IconButton>
             </Stack>
           </Stack>
         </Box>

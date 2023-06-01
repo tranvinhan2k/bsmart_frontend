@@ -10,6 +10,8 @@ import {
   BsQuestionSquare,
   BsPostcardFill,
   BsFilter,
+  BsArrowBarUp,
+  BsArrowBarDown,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
@@ -80,6 +82,8 @@ export type IconName =
   | 'check'
   | 'class'
   | 'close'
+  | 'arrowUp'
+  | 'arrowDown'
   | 'course'
   | 'delete'
   | 'dot'
@@ -165,6 +169,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <MdCake />
+        </Typography>
+      );
+    case 'arrowUp':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsArrowBarUp />
+        </Typography>
+      );
+    case 'arrowDown':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsArrowBarDown />
         </Typography>
       );
     case 'calendarMonth':

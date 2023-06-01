@@ -9,6 +9,7 @@ import FormInput from '~/components/atoms/FormInput';
 import CustomModal from '~/components/atoms/Modal';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { ClassStatusList } from '~/constants';
+import { image } from '~/constants/image';
 import { useQueryGetAllMentorCourses } from '~/hooks';
 import { RequestPagingFilterPayload } from '~/models';
 import { scrollToTop } from '~/utils/common';
@@ -104,8 +105,39 @@ export default function MentorCourseListPage() {
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >
         {courses && courses.items.length === 0 && (
-          <Stack sx={{ paddingY: '50px' }}>
-            <Typography>Không có khóa học nào.</Typography>
+          <Stack
+            sx={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '50vh',
+            }}
+          >
+            <Stack
+              sx={{
+                paddingY: '50px',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Box
+                sx={{
+                  width: '300px',
+                  height: '300px',
+                  objectFit: 'contain',
+                }}
+                component="img"
+                src={image.emptyCourseList}
+                alt="no course"
+              />
+              <Typography
+                sx={{
+                  fontSize: FontSize.medium_24,
+                  fontFamily: FontFamily.regular,
+                }}
+              >
+                Không có khóa học nào.
+              </Typography>
+            </Stack>
           </Stack>
         )}
         {courses?.items?.length !== 0 && (
