@@ -15,28 +15,28 @@ export default function ManagerProcessRegisterRequestPage() {
   const tabEl = [
     {
       id: 0,
-      text: 'Đang chờ duyệt',
-      component: <ProcessRegisterRequest />,
+      text: 'Chờ duyệt',
+      component: <ProcessRegisterRequest status="REQUESTING" />,
     },
     {
       id: 1,
-      text: 'Đã phê duyệt',
-      component: <ProcessRegisterRequest />,
+      text: 'Đã duyệt',
+      component: <ProcessRegisterRequest status="STARTING" />,
     },
     {
       id: 2,
-      text: 'Đã yêu cầu chỉnh sửa',
-      component: <ProcessRegisterRequest />,
+      text: 'Yêu cầu chỉnh sửa',
+      component: <ProcessRegisterRequest status="EDITREQUEST" />,
     },
     {
       id: 3,
       text: 'Đã từ chối',
-      component: <ProcessRegisterRequest />,
+      component: <ProcessRegisterRequest status="REJECTED" />,
     },
   ];
 
   return (
-    <Box pt={2} pr={15} pl={15} pb={2}>
+    <Box p={4}>
       <Box pb={2}>
         <Typography
           sx={{

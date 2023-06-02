@@ -20,7 +20,7 @@ export const formateISODateStringToDisplayDate = (inputDate: string) => {
   return result;
 };
 
-export const formateISODateDateToDisplayDate = (inputDate: Date) => {
+export const formatISODateDateToDisplayDate = (inputDate: Date) => {
   let result = '';
   if (inputDate) {
     const date = new Date(inputDate);

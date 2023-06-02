@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
@@ -24,7 +24,7 @@ export default function CreateCategoriesForm({
   });
 
   return (
-    <Stack>
+    <>
       <Typography textAlign="center" sx={globalStyles.textSubTitle}>
         Tạo môn học
       </Typography>
@@ -43,6 +43,6 @@ export default function CreateCategoriesForm({
           Tạo môn học
         </Button>
       </form>
-    </Stack>
+    </>
   );
 }

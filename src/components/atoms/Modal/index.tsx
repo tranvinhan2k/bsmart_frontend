@@ -1,17 +1,19 @@
-import { Modal, Stack, IconButton, Box } from '@mui/material';
-import Icon from '../Icon';
+import { Box, Breakpoint, IconButton, Modal, Stack } from '@mui/material';
 import { Color, MetricSize } from '~/assets/variables';
+import Icon from '../Icon';
 
 interface CustomModalProps {
   open: boolean;
   children: any;
   onClose: () => void;
+  maxWidth?: false | Breakpoint;
 }
 
 export default function CustomModal({
   open,
   children,
   onClose,
+  maxWidth,
 }: CustomModalProps) {
   return (
     <Modal
@@ -52,3 +54,7 @@ export default function CustomModal({
     </Modal>
   );
 }
+
+CustomModal.defaultProps = {
+  maxWidth: 'sm',
+};
