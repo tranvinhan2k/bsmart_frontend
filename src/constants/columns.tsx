@@ -116,6 +116,48 @@ const registerRequestColumns: GridColDef[] = [
     },
   },
 ];
+const courseCreateRequestColumns: GridColDef[] = [
+  {
+    field: 'courseCode',
+    headerName: 'Mã khóa học',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'courseName',
+    headerName: 'Tên khóa học',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'price',
+    headerName: 'Giá tiền',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'startDateExpected',
+    headerName: 'Ngày bắt đầu dự kiến',
+    minWidth: 100,
+    flex: 1,
+    renderCell: (params) => {
+      const { startDateExpected } = params.row;
+      const formattedDate = formatISODateDateToDisplayDate(startDateExpected);
+      return formattedDate;
+    },
+  },
+  {
+    field: 'endDateExpected',
+    headerName: 'Ngày kết thúc dự kiến',
+    minWidth: 100,
+    flex: 1,
+    renderCell: (params) => {
+      const { endDateExpected } = params.row;
+      const formattedDate = formatISODateDateToDisplayDate(endDateExpected);
+      return formattedDate;
+    },
+  },
+];
 
 const columns = {
   templateColumns,
@@ -123,6 +165,7 @@ const columns = {
   categoryColumns,
   subjectColumns,
   registerRequestColumns,
+  courseCreateRequestColumns,
 };
 
 export default columns;

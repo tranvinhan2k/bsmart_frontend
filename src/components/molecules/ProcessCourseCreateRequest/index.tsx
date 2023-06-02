@@ -1,91 +1,138 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  rowHeightDefault,
-  rowsPerPageOptionsDefault,
-} from '~/constants/dataGrid';
-import { mentorCreateCourseRequestColumns } from '~/dataGridColumns/mentorCreateCourseRequestColumns';
-import DataGrid from '~/components/atoms/DataGrid';
+import { useManageCourseCreateRequest } from '~/hooks/useManageCourseCreateRequest';
+import columns from '~/constants/columns';
+import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
+import CustomModal from '~/components/atoms/Modal';
+import ReadOneCreateCourseRequest from '~/containers/CreateCourseRequestManageSection/ReadOneCreateCourseRequest';
+import toast from '~/utils/toast';
 
-const mentorRegisterRequests = {
-  totalPages: 1,
-  totalItems: 3,
-  currentPage: 0,
-  first: true,
-  last: true,
-  items: [
-    {
-      id: 0,
-      email: 'nhatluu9991@gmail.com',
-      name: 'Lớp học C# cơ bản',
-      createDate: '2023-04-27T13:07:46.698Z',
-      startDate: '2023-04-27T13:07:46.698Z',
-      endDate: '2023-04-27T13:07:46.698Z',
-      classLevel: 'Cơ bản',
-      unitPrice: 1000000,
-      numberStudent: 10,
-      maxNumberStudent: 50,
-    },
-    {
-      id: 2,
-      email: 'nhatluu9991@gmail.com',
-      name: 'Lớp học C# cơ bản',
-      createDate: '2023-04-27T13:07:46.698Z',
-    },
-    {
-      id: 3,
-      email: 'nhatluu9991@gmail.com',
-      name: 'Lớp học C# cơ bản',
-      createDate: '2023-04-27T13:07:46.698Z',
-    },
-  ],
-};
+interface ProcessCourseCreateRequestProps {
+  status: 'WAITING' | 'REQUESTING' | 'STARTING' | 'EDITREQUEST' | 'REJECTED';
+}
 
-export default function ProcessCourseCreateRequest() {
-  const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
-  const [sort, setSort] = useState('');
-  // const { transactions } = useQueryGetTransactions({ page, size, sort });
-  const handleNewPage = (params: number) => setPage(params);
-  const handleNewSize = (params: number) => setSize(params);
-  const isLoading = false;
+export default function ProcessCourseCreateRequest({
+  status,
+}: ProcessCourseCreateRequestProps) {
+  const [searchValue, setSearchValue] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
+  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
+  const [selectedRow, setSelectedRow] = useState<any>();
 
-  const navigation = useNavigate();
-  const navigateToRequestDetails = () => {
-    navigation('/manager-process-create-course-request/1');
+  // const [status, setStatus] = useState<string>('STARTING');
+  const [q, setQ] = useState<string>('');
+  const [size, setSize] = useState<number>(10);
+  const [sort, setSort] = useState<string>('');
+
+  const {
+    error,
+    courseCreateRequest,
+    isLoading,
+    refetch,
+    approveCourseCreateRequestMutation,
+  } = useManageCourseCreateRequest({ status, q, size, sort });
+
+  const filterRows =
+    courseCreateRequest?.filter((item: any) => {
+      if (searchValue) {
+        return item?.name?.toLowerCase().includes(searchValue.toLowerCase());
+      }
+      return item;
+    }) || [];
+
+  const handleTriggerModal = () => {
+    setOpen(!open);
   };
 
-  const popoverOptions = [
+  const handleSearchCourseCreateRequest = (data: any) => {
+    setSearchValue(data.searchValue);
+  };
+  const handleOpenDetailCourseCreateRequest = () => {
+    handleTriggerModal();
+    setMode(() => 'READ');
+  };
+
+  const toastMsgLoading = 'Đang phê duyệt ...';
+  const toastMsgSuccess = 'Phê duyệt thành công';
+  const toastMsgError = (errorMsg: any): string => {
+    return `Phê duyệt không thành công: ${errorMsg.message}`;
+  };
+  const handleApproveCourseCreateRequest = async () => {
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await approveCourseCreateRequestMutation.mutateAsync(
+        selectedRow.subCourseId
+      );
+      refetch();
+      handleTriggerModal();
+      toast.updateSuccessToast(id, toastMsgSuccess);
+    } catch (e: any) {
+      toast.updateFailedToast(id, toastMsgError(e.message));
+    }
+  };
+
+  const menuItemListDefault: MenuItemPayload[] = [
     {
-      id: 0,
-      label: 'Xem chi tiết',
-      optionFunc: navigateToRequestDetails,
+      icon: 'question',
+      title: 'Chưa hỗ trợ',
+      onCLick: () => console.log('Chưa hỗ trợ'),
     },
   ];
+  const menuItemListRead: MenuItemPayload[] = [
+    {
+      icon: 'category',
+      title: 'Xem chi tiết',
+      onCLick: handleOpenDetailCourseCreateRequest,
+    },
+    {
+      icon: 'edit',
+      title: 'Cập nhật',
+      onCLick: () => console.log('Hello'),
+    },
+  ];
+  let menuItemList = null;
+  switch (status) {
+    case 'WAITING':
+      menuItemList = menuItemListRead;
+      break;
+    default:
+      menuItemList = menuItemListDefault;
+      break;
+  }
+
+  let renderItem = null;
+  switch (mode) {
+    case 'READ':
+      renderItem = (
+        <CustomModal open={open} onClose={handleTriggerModal} maxWidth="lg">
+          <ReadOneCreateCourseRequest
+            row={selectedRow}
+            onSubmit={handleApproveCourseCreateRequest}
+          />
+        </CustomModal>
+      );
+      break;
+    default:
+      break;
+  }
 
   return (
-    <DataGrid
-      columns={mentorCreateCourseRequestColumns}
-      loading={isLoading}
-      onPageChange={handleNewPage}
-      onPageSizeChange={handleNewSize}
-      page={page}
-      pageSize={size}
-      pagination
-      paginationMode="server"
-      rowCount={mentorRegisterRequests.totalItems}
-      rows={mentorRegisterRequests.items}
-      rowsPerPageOptions={rowsPerPageOptionsDefault}
-      /*  */
-      density="compact"
-      disableSelectionOnClick
-      getRowClassName={(params) =>
-        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-      }
-      getRowHeight={() => 'auto'}
-      popoverOptions={popoverOptions}
-      rowHeight={rowHeightDefault}
-      /*  */
-    />
+    <>
+      <CRUDTable
+        setSelectedRow={setSelectedRow}
+        isLoading={isLoading}
+        error={error}
+        title="Phê duyệt yêu cầu tạo tài khoản giáo viên"
+        addItemButtonLabel="Thêm môn học"
+        columns={columns.courseCreateRequestColumns}
+        // onAdd={}
+        searchPlaceholder="Tìm kiếm môn học"
+        onSearch={handleSearchCourseCreateRequest}
+        rows={filterRows}
+        menuItemList={menuItemList}
+        //
+        getRowId={(row: any) => row?.subCourseId}
+      />
+      {renderItem}
+    </>
   );
 }

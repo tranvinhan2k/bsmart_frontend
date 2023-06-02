@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux';
 import { Color, FontFamily, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import { SubCoursePayload } from '~/models/subCourse';
-import cousreImage from '~/assets/images/front-end-course.png';
+import courseImage from '~/assets/images/front-end-course.png';
 import { formatMoney } from '~/utils/money';
 import { formatDate } from '~/utils/date';
 import Icon from '~/components/atoms/Icon';
-import SubCourseTimetable from '../../SubCourseTimetable';
+import SubCourseTimetable from '~/components/molecules//SubCourseTimetable';
 import { selectRole } from '~/redux/user/selector';
 
 interface SubCourseModalProps {
@@ -155,6 +155,14 @@ export default function SubCourseModal({
                   </Grid>
                 </Grid>
                 <Divider sx={{ marginTop: 2 }} />
+                <Typography
+                  sx={{
+                    fontFamily: FontFamily.regular,
+                    paddingY: MetricSize.small_10,
+                  }}
+                >
+                  Thời khóa biểu
+                </Typography>
                 <SubCourseTimetable data={item.timeInWeeks as any} />
               </Grid>
               <Grid item md={3}>
@@ -162,7 +170,7 @@ export default function SubCourseModal({
                   <Stack sx={{ paddingX: MetricSize.medium_15 }}>
                     <Box
                       component="img"
-                      src={cousreImage}
+                      src={courseImage}
                       sx={{
                         width: '100%',
                         borderRadius: '5px',

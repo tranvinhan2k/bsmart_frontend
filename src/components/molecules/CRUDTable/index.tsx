@@ -11,6 +11,8 @@ import {
   viVN,
   gridClasses,
   GridColDef,
+  GridRowIdGetter,
+  GridValidRowModel,
 } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -46,6 +48,7 @@ interface CRUDTableProps {
   setSelectedRow: (selectedRow: any) => void;
   onAdd?: () => void;
   onSearch: (data: any) => void;
+  getRowId?: GridRowIdGetter<GridValidRowModel>;
 }
 
 const ODD_OPACITY = 0.2;
@@ -95,6 +98,7 @@ export default function CRUDTable({
   setSelectedRow,
   onAdd,
   onSearch,
+  getRowId,
 }: CRUDTableProps) {
   const searchValueForm = useForm();
 
@@ -164,6 +168,7 @@ export default function CRUDTable({
           rows={rows}
           columns={addMoreVertColumns}
           localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
+          getRowId={getRowId ?? getRowId}
         />
       </Stack>
       <Menu
@@ -194,4 +199,5 @@ CRUDTable.defaultProps = {
   menuItemList: [],
   searchFilterFormInputList: [],
   onAdd: undefined,
+  getRowId: undefined,
 };

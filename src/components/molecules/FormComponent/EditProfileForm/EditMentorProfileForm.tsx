@@ -63,10 +63,10 @@ export default function EditMentorProfileForm() {
   useEffect(() => {
     if (dataGetProfile && subjects) {
       const defaults = defaultValueEditMentorProfile;
-      if (dataGetProfile.mentorProfile.workingExperience)
+      if (dataGetProfile.mentorProfile?.workingExperience)
         defaults.workingExperience =
           dataGetProfile.mentorProfile.workingExperience;
-      if (dataGetProfile.mentorProfile.mentorSkills) {
+      if (dataGetProfile.mentorProfile?.mentorSkills) {
         defaults.mentorSkills = dataGetProfile.mentorProfile.mentorSkills.map(
           (item: any) => ({
             skillId: subjects.find((subject) => subject.id === item.skillId),
@@ -74,7 +74,7 @@ export default function EditMentorProfileForm() {
           })
         );
       }
-      if (dataGetProfile.mentorProfile.introduce)
+      if (dataGetProfile.mentorProfile?.introduce)
         defaults.introduce = dataGetProfile.mentorProfile.introduce;
       reset(defaults);
     }

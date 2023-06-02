@@ -282,3 +282,6 @@ export const validationSchemaWithdrawMoney = object({
 export const validationSchemaVerifyRegisterRequest = object({
   id: number(),
 });
+export const validationSchemaApproveCreateCourseRequest = object({
+  id: number(),
+});
