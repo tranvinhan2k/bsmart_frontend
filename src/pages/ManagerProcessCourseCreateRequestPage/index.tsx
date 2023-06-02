@@ -15,28 +15,28 @@ export default function ManagerProcessCourseCreateRequestPage() {
   const tabEl = [
     {
       id: 0,
-      text: 'Đang chờ duyệt',
-      component: <ProcessCourseCreateRequest />,
+      text: 'Chờ duyệt',
+      component: <ProcessCourseCreateRequest status="WAITING" />,
     },
     {
       id: 1,
-      text: 'Đã phê duyệt',
-      component: <ProcessCourseCreateRequest />,
+      text: 'Đã duyệt',
+      component: <ProcessCourseCreateRequest status="STARTING" />,
     },
     {
       id: 2,
-      text: 'Đã yêu cầu chỉnh sửa',
-      component: <ProcessCourseCreateRequest />,
+      text: 'Yêu cầu chỉnh sửa',
+      component: <ProcessCourseCreateRequest status="EDITREQUEST" />,
     },
     {
       id: 3,
       text: 'Đã từ chối',
-      component: <ProcessCourseCreateRequest />,
+      component: <ProcessCourseCreateRequest status="REJECTED" />,
     },
   ];
 
   return (
-    <Box pt={2} pr={15} pl={15} pb={2}>
+    <Box p={4}>
       <Box pb={2}>
         <Typography
           sx={{

@@ -20,7 +20,6 @@ export function handleResponseGetCategories(
   }));
 }
 
-// const url = `/courses/pending?status=ALL&page=0&size=10`;
 const url = '/mentor-profiles';
 
 const registerRequestsApi = {
@@ -44,7 +43,7 @@ const registerRequestsApi = {
     const response: any = await axiosClient.get(`${urlSearch}`);
     return response.items;
   },
-  async verifyRegisterRequest(id: number): Promise<any> {
+  async approveRegisterRequest(id: number): Promise<any> {
     const response: any = await axiosClient.put(`${url}/${id}/approve`);
     return response;
   },

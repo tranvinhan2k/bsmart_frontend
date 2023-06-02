@@ -22,15 +22,15 @@ export const useManageRegisterRequest = ({
   const queryClient = useQueryClient();
 
   const { error, data, isLoading, refetch } = useQuery({
-    queryKey: ['register_requests'],
+    queryKey: [key, status, q, size, sort],
     queryFn: () =>
       registerRequestsApi.searchRegisterRequests({ status, q, size, sort }),
     keepPreviousData: true,
   });
 
-  const verifyRegisterRequestMutation = useMutation({
+  const approveRegisterRequestMutation = useMutation({
     mutationKey: [key.concat('_verify')],
-    mutationFn: registerRequestsApi.verifyRegisterRequest,
+    mutationFn: registerRequestsApi.approveRegisterRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [key] });
     },
@@ -41,6 +41,6 @@ export const useManageRegisterRequest = ({
     registerRequest: data,
     isLoading,
     refetch,
-    verifyRegisterRequestMutation,
+    approveRegisterRequestMutation,
   };
 };

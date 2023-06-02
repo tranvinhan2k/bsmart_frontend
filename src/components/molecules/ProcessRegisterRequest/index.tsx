@@ -6,21 +6,13 @@ import CustomModal from '~/components/atoms/Modal';
 import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
 import toast from '~/utils/toast';
 
-interface ProcessRegisterRequestPayload {
+interface ProcessRegisterRequestProps {
   status: 'REQUESTING' | 'STARTING' | 'EDITREQUEST' | 'REJECTED';
 }
 
 export default function ProcessRegisterRequest({
   status,
-}: ProcessRegisterRequestPayload) {
-  const menuItemListDefault: MenuItemPayload[] = [
-    {
-      icon: 'question',
-      title: 'Chưa hỗ trợ',
-      onCLick: () => console.log('Chưa hỗ trợ'),
-    },
-  ];
-
+}: ProcessRegisterRequestProps) {
   const [searchValue, setSearchValue] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
@@ -36,7 +28,7 @@ export default function ProcessRegisterRequest({
     registerRequest,
     isLoading,
     refetch,
-    verifyRegisterRequestMutation,
+    approveRegisterRequestMutation,
   } = useManageRegisterRequest({ status, q, size, sort });
 
   const filterRows =
@@ -59,6 +51,48 @@ export default function ProcessRegisterRequest({
     setMode(() => 'READ');
   };
 
+  const toastMsgLoading = 'Đang phê duyệt ...';
+  const toastMsgSuccess = 'Phê duyệt thành công';
+  const toastMsgError = (errorMsg: any): string => {
+    return `Cập nhật không thành công: ${errorMsg.message}`;
+  };
+  const handleApproveRegisterRequest = async () => {
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await approveRegisterRequestMutation.mutateAsync(
+        selectedRow.mentorProfile.id
+      );
+      refetch();
+      handleTriggerModal();
+      toast.updateSuccessToast(id, toastMsgSuccess);
+    } catch (e: any) {
+      toast.updateFailedToast(id, toastMsgError(e.message));
+    }
+  };
+
+  let renderItem = null;
+  switch (mode) {
+    case 'READ':
+      renderItem = (
+        <CustomModal open={open} onClose={handleTriggerModal} maxWidth="lg">
+          <ReadOneRegisterRequest
+            row={selectedRow}
+            onSubmit={handleApproveRegisterRequest}
+          />
+        </CustomModal>
+      );
+      break;
+    default:
+      break;
+  }
+
+  const menuItemListDefault: MenuItemPayload[] = [
+    {
+      icon: 'question',
+      title: 'Chưa hỗ trợ',
+      onCLick: () => console.log('Chưa hỗ trợ'),
+    },
+  ];
   const menuItemListRead: MenuItemPayload[] = [
     {
       icon: 'category',
@@ -71,42 +105,7 @@ export default function ProcessRegisterRequest({
       onCLick: () => console.log('Hello'),
     },
   ];
-
-  const toastMsgLoading = 'Đang phê duyệt ...';
-  const toastMsgSuccess = 'Phê duyệt thành công';
-  const toastMsgError = (errorMsg: any): string => {
-    return `Cập nhật không thành công: ${errorMsg.message}`;
-  };
-  const handleVerifyRegisterRequest = async () => {
-    const id = toast.loadToast(toastMsgLoading);
-    try {
-      await verifyRegisterRequestMutation.mutateAsync(
-        selectedRow.mentorProfile.id
-      );
-      refetch();
-      handleTriggerModal();
-      toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
-    }
-  };
-
-  let renderItem = null;
   let menuItemList = null;
-  switch (mode) {
-    case 'READ':
-      renderItem = (
-        <CustomModal open={open} onClose={handleTriggerModal} maxWidth="lg">
-          <ReadOneRegisterRequest
-            row={selectedRow}
-            onSubmit={handleVerifyRegisterRequest}
-          />
-        </CustomModal>
-      );
-      break;
-    default:
-      break;
-  }
   switch (status) {
     case 'REQUESTING':
       menuItemList = menuItemListRead;
