@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Color } from '~/assets/variables';
-import { formateISODateStringToDisplayDate } from '~/utils/date';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { image } from '~/constants/image';
 import { MemberNavigationActionData } from '~/constants';
@@ -78,7 +78,7 @@ export default function MainProfile() {
     {
       id: 1,
       image: 'cake',
-      text: formateISODateStringToDisplayDate(memberDetails.dateOfBirth),
+      text: formatISODateStringToDisplayDate(memberDetails.dateOfBirth),
     },
     {
       id: 2,
