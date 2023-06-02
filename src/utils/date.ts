@@ -5,7 +5,7 @@ export const formatDate = (dateText: string) => {
   return Moment(dateText).format('DD/MM/YYYY');
 };
 
-export const formateISODateStringToDisplayDate = (inputDate: string) => {
+export const formatISODateStringToDisplayDate = (inputDate: string) => {
   let result = '';
   if (inputDate) {
     const date = new Date(inputDate);

@@ -17,7 +17,7 @@ import {
   MentorNavigationActionData,
   mockMentorLatestActivities,
 } from '~/constants';
-import { formateISODateStringToDisplayDate } from '~/utils/date';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { image } from '~/constants/image';
 import { ProfileImgType } from '~/constants/profile';
@@ -98,7 +98,7 @@ export default function MentorDetailSection() {
     {
       id: 1,
       image: 'cake',
-      text: formateISODateStringToDisplayDate(mentorDetails.dateOfBirth),
+      text: formatISODateStringToDisplayDate(mentorDetails.dateOfBirth),
     },
     {
       id: 2,
