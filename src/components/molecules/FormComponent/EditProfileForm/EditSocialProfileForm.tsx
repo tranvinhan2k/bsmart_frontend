@@ -16,12 +16,6 @@ import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
-const toastMsgLoading = 'Đang cập nhật ...';
-const toastMsgSuccess = 'Cập nhật thành công ...';
-const toastMsgError = (error: any): string => {
-  return `Cập nhật không thành công: ${error.message}`;
-};
-
 export default function EditSocialProfileForm() {
   const resolverEditSocialProfile = useYupValidationResolver(
     validationSchemaEditSocialProfile
@@ -34,6 +28,11 @@ export default function EditSocialProfileForm() {
     mutationFn: accountApi.editSocialProfile,
   });
 
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công';
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${error.message}`;
+  };
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {};
     if (data.facebookLink) params.facebookLink = data.facebookLink;

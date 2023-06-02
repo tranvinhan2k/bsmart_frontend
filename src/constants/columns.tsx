@@ -1,7 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { IconButton, Stack } from '@mui/material';
-import Button from '~/components/atoms/Button';
-import Icon from '~/components/atoms/Icon';
+import { formatISODateDateToDisplayDate } from '~/utils/date';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -87,12 +85,44 @@ const subjectColumns: GridColDef[] = [
     },
   },
 ];
+const registerRequestColumns: GridColDef[] = [
+  {
+    field: 'email',
+    headerName: 'Mail',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'fullName',
+    headerName: 'Họ tên',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'phone',
+    headerName: 'SĐT',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'birthday',
+    headerName: 'Ngày sinh',
+    minWidth: 100,
+    flex: 1,
+    renderCell: (params) => {
+      const { birthday } = params.row;
+      const formattedDate = formatISODateDateToDisplayDate(birthday);
+      return formattedDate;
+    },
+  },
+];
 
 const columns = {
   templateColumns,
   feedbackQuestionColumns,
   categoryColumns,
   subjectColumns,
+  registerRequestColumns,
 };
 
 export default columns;

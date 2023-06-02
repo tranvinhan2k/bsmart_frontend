@@ -44,7 +44,7 @@ interface CRUDTableProps {
   searchPlaceholder: string;
   searchFilterFormInputList?: SearchFilterFormInput[];
   setSelectedRow: (selectedRow: any) => void;
-  onAdd: () => void;
+  onAdd?: () => void;
   onSearch: (data: any) => void;
 }
 
@@ -142,11 +142,13 @@ export default function CRUDTable({
         height: '100vh',
       }}
     >
-      <CRUDTableHeader
-        title={texts.title}
-        addButtonTitle={addItemButtonLabel}
-        onCreate={onAdd}
-      />
+      {onAdd && (
+        <CRUDTableHeader
+          title={texts.title}
+          addButtonTitle={addItemButtonLabel}
+          onCreate={onAdd}
+        />
+      )}
       <CRUDTableSearching
         searchPlaceholder={searchPlaceholder}
         searchControl={searchValueForm}
@@ -178,7 +180,7 @@ export default function CRUDTable({
         {menuItemList?.map((item) => (
           <MenuItem key={item.title} onClick={item.onCLick}>
             <ListItemIcon>
-              <Icon name={item.icon} size="medium" color="black" />
+              <Icon name={item.icon} size="small" color="black" />
             </ListItemIcon>
             <ListItemText>{item.title}</ListItemText>
           </MenuItem>
@@ -191,4 +193,5 @@ export default function CRUDTable({
 CRUDTable.defaultProps = {
   menuItemList: [],
   searchFilterFormInputList: [],
+  onAdd: undefined,
 };

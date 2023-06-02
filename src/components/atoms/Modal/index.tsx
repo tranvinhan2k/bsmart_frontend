@@ -1,41 +1,25 @@
-import { Modal, Stack, IconButton, Box } from '@mui/material';
-import Icon from '../Icon';
-import { Color, MetricSize } from '~/assets/variables';
+import { Breakpoint, Dialog, DialogContent } from '@mui/material';
 
 interface CustomModalProps {
   open: boolean;
   children: any;
   onClose: () => void;
+  maxWidth?: false | Breakpoint;
 }
 
 export default function CustomModal({
   open,
   children,
   onClose,
+  maxWidth,
 }: CustomModalProps) {
   return (
-    <Modal
-      sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}
-      open={open}
-    >
-      <Stack
-        sx={{
-          width: '60%',
-          minHeight: '100px',
-          background: Color.white,
-          borderRadius: MetricSize.small_10,
-          padding: MetricSize.small_10,
-        }}
-      >
-        <Box sx={{ alignSelf: 'flex-end' }}>
-          <IconButton onClick={onClose}>
-            <Icon name="close" size="small_20" color="black" />
-          </IconButton>
-        </Box>
-        <Stack overflow="auto" padding={1}>
-          {children}
-        </Stack>
-      </Stack>
-    </Modal>
+    <Dialog fullWidth maxWidth={maxWidth} onClose={onClose} open={open}>
+      <DialogContent>{children}</DialogContent>
+    </Dialog>
   );
 }
+
+CustomModal.defaultProps = {
+  maxWidth: 'sm',
+};

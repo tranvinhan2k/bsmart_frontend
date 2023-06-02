@@ -278,3 +278,7 @@ export const validationSchemaWithdrawMoney = object({
   bankAccountOwner: string().required(WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED),
   note: string(),
 });
+
+export const validationSchemaVerifyRegisterRequest = object({
+  id: number(),
+});

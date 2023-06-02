@@ -1,88 +1,137 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  rowHeightDefault,
-  rowsPerPageOptionsDefault,
-} from '~/constants/dataGrid';
-import { mentorRegisterRequestColumns } from '~/dataGridColumns/mentorRegisterRequest';
-import DataGrid from '~/components/atoms/DataGrid';
+import { useManageRegisterRequest } from '~/hooks/useManageRegisterRequest';
+import columns from '~/constants/columns';
+import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
+import CustomModal from '~/components/atoms/Modal';
+import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
+import toast from '~/utils/toast';
 
-const mentorRegisterRequests = {
-  totalPages: 1,
-  totalItems: 3,
-  currentPage: 0,
-  first: true,
-  last: true,
-  items: [
-    {
-      id: 0,
-      email: 'nhatluu9991@gmail.com',
-      fullName: 'Lưu Quang Nhật',
-      birthDay: '2023-04-27T13:07:46.698Z',
-      phone: '0987654321',
-    },
-    {
-      id: 2,
-      email: 'nhatluu9991@gmail.com',
-      fullName: 'Lưu Quang Nhật',
-      birthDay: '2023-04-27T13:07:46.698Z',
-      phone: '0987654321',
-    },
-    {
-      id: 3,
-      email: 'nhatluu9991@gmail.com',
-      fullName: 'Lưu Quang Nhật',
-      birthDay: '2023-04-27T13:07:46.698Z',
-      phone: '09876543210',
-    },
-  ],
-};
+interface ProcessRegisterRequestPayload {
+  status: 'REQUESTING' | 'STARTING' | 'EDITREQUEST' | 'REJECTED';
+}
 
-export default function ProcessRegisterRequest() {
-  const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
-  const [sort, setSort] = useState('');
-  // const { transactions } = useQueryGetTransactions({ page, size, sort });
-  const handleNewPage = (params: number) => setPage(params);
-  const handleNewSize = (params: number) => setSize(params);
-  const isLoading = false;
-
-  const navigation = useNavigate();
-  const navigateToRequestDetails = () => {
-    navigation('/manager-process-register-request/1');
-  };
-
-  const popoverOptions = [
+export default function ProcessRegisterRequest({
+  status,
+}: ProcessRegisterRequestPayload) {
+  const menuItemListDefault: MenuItemPayload[] = [
     {
-      id: 0,
-      label: 'Xem chi tiết',
-      optionFunc: navigateToRequestDetails,
+      icon: 'question',
+      title: 'Chưa hỗ trợ',
+      onCLick: () => console.log('Chưa hỗ trợ'),
     },
   ];
 
-  return (
-    <DataGrid
-      columns={mentorRegisterRequestColumns}
-      loading={isLoading}
-      onPageChange={handleNewPage}
-      onPageSizeChange={handleNewSize}
-      page={page}
-      pageSize={size}
-      pagination
-      paginationMode="server"
-      rowCount={mentorRegisterRequests.totalItems}
-      rows={mentorRegisterRequests.items}
-      rowsPerPageOptions={rowsPerPageOptionsDefault}
-      /*  */
-      density="compact"
-      disableSelectionOnClick
-      getRowClassName={(params) =>
-        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+  const [searchValue, setSearchValue] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
+  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
+  const [selectedRow, setSelectedRow] = useState<any>();
+
+  // const [status, setStatus] = useState<string>('STARTING');
+  const [q, setQ] = useState<string>('');
+  const [size, setSize] = useState<number>(10);
+  const [sort, setSort] = useState<string>('');
+
+  const {
+    error,
+    registerRequest,
+    isLoading,
+    refetch,
+    verifyRegisterRequestMutation,
+  } = useManageRegisterRequest({ status, q, size, sort });
+
+  const filterRows =
+    registerRequest?.filter((item: any) => {
+      if (searchValue) {
+        return item?.name?.toLowerCase().includes(searchValue.toLowerCase());
       }
-      getRowHeight={() => 'auto'}
-      popoverOptions={popoverOptions}
-      rowHeight={rowHeightDefault}
-      /*  */
-    />
+      return item;
+    }) || [];
+
+  const handleTriggerModal = () => {
+    setOpen(!open);
+  };
+
+  const handleSearchRegisterRequest = (data: any) => {
+    setSearchValue(data.searchValue);
+  };
+  const handleOpenDetailRegisterRequest = () => {
+    handleTriggerModal();
+    setMode(() => 'READ');
+  };
+
+  const menuItemListRead: MenuItemPayload[] = [
+    {
+      icon: 'category',
+      title: 'Xem chi tiết',
+      onCLick: handleOpenDetailRegisterRequest,
+    },
+    {
+      icon: 'edit',
+      title: 'Cập nhật',
+      onCLick: () => console.log('Hello'),
+    },
+  ];
+
+  const toastMsgLoading = 'Đang phê duyệt ...';
+  const toastMsgSuccess = 'Phê duyệt thành công';
+  const toastMsgError = (errorMsg: any): string => {
+    return `Cập nhật không thành công: ${errorMsg.message}`;
+  };
+  const handleVerifyRegisterRequest = async () => {
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await verifyRegisterRequestMutation.mutateAsync(
+        selectedRow.mentorProfile.id
+      );
+      refetch();
+      handleTriggerModal();
+      toast.updateSuccessToast(id, toastMsgSuccess);
+    } catch (e: any) {
+      toast.updateFailedToast(id, toastMsgError(e.message));
+    }
+  };
+
+  let renderItem = null;
+  let menuItemList = null;
+  switch (mode) {
+    case 'READ':
+      renderItem = (
+        <CustomModal open={open} onClose={handleTriggerModal} maxWidth="lg">
+          <ReadOneRegisterRequest
+            row={selectedRow}
+            onSubmit={handleVerifyRegisterRequest}
+          />
+        </CustomModal>
+      );
+      break;
+    default:
+      break;
+  }
+  switch (status) {
+    case 'REQUESTING':
+      menuItemList = menuItemListRead;
+      break;
+    default:
+      menuItemList = menuItemListDefault;
+      break;
+  }
+
+  return (
+    <>
+      <CRUDTable
+        setSelectedRow={setSelectedRow}
+        isLoading={isLoading}
+        error={error}
+        title="Phê duyệt yêu cầu tạo tài khoản giáo viên"
+        addItemButtonLabel="Thêm môn học"
+        columns={columns.registerRequestColumns}
+        // onAdd={}
+        searchPlaceholder="Tìm kiếm môn học"
+        onSearch={handleSearchRegisterRequest}
+        rows={filterRows}
+        menuItemList={menuItemList}
+      />
+      {renderItem}
+    </>
   );
 }
