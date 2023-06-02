@@ -107,7 +107,7 @@ export default function FeedbackManagerTemplate() {
       toast.updateSuccessToast(id, 'Thên bản mẫu mới thành công');
       handleClose();
     } catch (e: any) {
-      toast.updateFailedToast(id, 'Thên bản mẫu mới bị lỗi');
+      toast.updateFailedToast(id, `Thên bản mẫu mới bị lỗi: ${e.message}`);
     }
   };
   const handleUpdateTemplate = async (data: any) => {
@@ -133,6 +133,7 @@ export default function FeedbackManagerTemplate() {
     const id = toast.loadToast('Đang xóa bản mẫu..');
     try {
       await deleteTemplateMutation.mutateAsync(row.id);
+      handleClose();
       toast.updateSuccessToast(id, 'Đã xóa thành công bản mẫu');
     } catch (e: any) {
       toast.updateFailedToast(id, `Xóa bản mẫu không thành công: ${e.message}`);

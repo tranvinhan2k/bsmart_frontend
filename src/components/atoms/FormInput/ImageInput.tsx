@@ -27,7 +27,7 @@ export default function ImageInput({
   } = controller;
 
   const [previewUrl, setPreviewUrl] = useState(
-    value ? URL.createObjectURL(value) : ''
+    value instanceof File ? URL.createObjectURL(value) : value
   );
   const [error, setError] = useState<string | null>(null);
 

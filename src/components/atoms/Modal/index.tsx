@@ -15,7 +15,11 @@ export default function CustomModal({
 }: CustomModalProps) {
   return (
     <Modal
-      sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+      }}
       open={open}
     >
       <Stack
@@ -32,7 +36,16 @@ export default function CustomModal({
             <Icon name="close" size="small_20" color="black" />
           </IconButton>
         </Box>
-        <Stack overflow="auto" padding={1}>
+        <Stack
+          sx={{
+            padding: 1,
+            maxHeight: '90vh',
+            overflowY: 'scroll',
+            '::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+        >
           {children}
         </Stack>
       </Stack>

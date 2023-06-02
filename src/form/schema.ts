@@ -144,6 +144,7 @@ export const CREATE_COURSE_FIELDS = {
 export const CREATE_SUB_COURSE_FIELDS = {
   level: 'level',
   imageId: 'imageId',
+  imageUrl: 'imageUrl',
   subjectId: 'subjectId',
   type: 'type',
   price: 'price',

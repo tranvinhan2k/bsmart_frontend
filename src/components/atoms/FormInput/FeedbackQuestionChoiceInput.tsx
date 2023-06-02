@@ -80,6 +80,8 @@ function FeedbackQuestionChoiceInput({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(value, typeof value);
+
   return (
     <Box mb={error ? 2 : 0}>
       <CustomModal
@@ -126,7 +128,7 @@ function FeedbackQuestionChoiceInput({
           alignItems: 'center',
         }}
       >
-        {value?.length === 0 ? (
+        {!isHashMap(value) && value?.length === 0 ? (
           <Typography
             sx={{
               textAlign: 'center',
@@ -139,6 +141,7 @@ function FeedbackQuestionChoiceInput({
             trả lời)
           </Typography>
         ) : (
+          !isHashMap(value) &&
           value?.map(
             (item: { point: number; label: string }, index: number) => (
               <Stack

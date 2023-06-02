@@ -1,12 +1,14 @@
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
 import CustomModal from '~/components/atoms/Modal';
-import { MetricSize } from '~/assets/variables';
 import globalStyles from '~/styles';
 import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { mockLevelData, typeData } from '~/constants';
 import Button from '~/components/atoms/Button';
+import { RequestUpdateCoursePayload } from '~/api/courses';
+import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
 
 interface UpdateMentorCourseProps {
   item: any;
@@ -21,7 +23,47 @@ export default function UpdateMentorCourse({
   onSubmit,
   onClose,
 }: UpdateMentorCourseProps) {
-  const hookForm = useForm();
+  const { subjects } = useQueryGetAllSubjects();
+  const { categories } = useQueryGetAllCategories();
+  const hookForm = useForm({
+    defaultValues: {
+      ...item,
+      categoryId: {
+        id: item.category.id,
+        label: item.category.name,
+        value: item.category.value,
+      },
+      subjectId: {
+        id: item.subject.id,
+        label: item.subject.name,
+        value: item.subject.value,
+      },
+      type: typeData.find((titem) => titem.value === item.typeLearn),
+      timeInWeekRequests: item.timeInWeek.map((timeSlot: any) => ({
+        dayInWeek: {
+          id: timeSlot.dayOfWeek.id,
+          label: timeSlot.dayOfWeek.name,
+          value: `${timeSlot.dayOfWeek.id}`,
+        },
+        slot: {
+          id: timeSlot.slot.id,
+          label: `${timeSlot.slot.startTime} - ${timeSlot.slot.endTime}`,
+          value: `${timeSlot.id}`,
+        },
+      })),
+    },
+  });
+  const categoryWatch = hookForm.watch('categoryId');
+  const [chooseCategoryId, setChooseCategoryId] = useState();
+
+  const filterSubjects = subjects?.filter((subject: any) => {
+    return subject.categoryId === chooseCategoryId;
+  });
+
+  useEffect(() => {
+    setChooseCategoryId(categoryWatch?.id);
+  }, [categoryWatch]);
+
   return (
     <CustomModal open={open} onClose={onClose}>
       <Stack sx={{ height: '80vh' }}>
@@ -29,9 +71,35 @@ export default function UpdateMentorCourse({
 
         <FormInput
           variant="text"
-          name={CREATE_SUB_COURSE_FIELDS.subCourseTile}
+          name="courseCode"
           control={hookForm.control}
-          label="Tên khóa học phụ"
+          label="Mã khóa học"
+        />
+        <FormInput
+          variant="text"
+          name="courseName"
+          control={hookForm.control}
+          label="Tên khóa học"
+        />
+        <FormInput
+          variant="multiline"
+          name="courseDescription"
+          control={hookForm.control}
+          label="Tên khóa học"
+        />
+        <FormInput
+          variant="dropdown"
+          name="categoryId"
+          control={hookForm.control}
+          label="Môn học"
+          data={categories}
+        />
+        <FormInput
+          variant="dropdown"
+          name="subjectId"
+          control={hookForm.control}
+          label="Ngôn ngữ lập trình"
+          data={filterSubjects}
         />
         <Stack paddingTop={1}>
           <FormInput
@@ -42,7 +110,6 @@ export default function UpdateMentorCourse({
           />
         </Stack>
         <Stack paddingTop={1}>
-          \
           <FormInput
             variant="date"
             name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
@@ -86,7 +153,7 @@ export default function UpdateMentorCourse({
         <Stack paddingTop={1}>
           <FormInput
             variant="image"
-            name={CREATE_SUB_COURSE_FIELDS.imageId}
+            name={CREATE_SUB_COURSE_FIELDS.imageUrl}
             control={hookForm.control}
             label="Hình ảnh"
           />
@@ -116,25 +183,14 @@ export default function UpdateMentorCourse({
             label="Thời khóa biểu"
           />
         </Stack>
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            marginTop: 1,
-          }}
-        >
-          <Box>
-            <Button
-              onClick={hookForm.handleSubmit(onSubmit)}
-              customVariant="horizonForm"
-            >
-              Cập nhật khóa học
-            </Button>
-          </Box>
+        <Stack marginTop={2}>
+          <Button
+            onClick={hookForm.handleSubmit(onSubmit)}
+            customVariant="horizonForm"
+          >
+            Cập nhật khóa học
+          </Button>
         </Stack>
-
-        {/* {JSON.stringify(data)} */}
       </Stack>
     </CustomModal>
   );

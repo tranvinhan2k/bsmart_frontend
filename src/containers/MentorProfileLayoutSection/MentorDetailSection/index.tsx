@@ -221,7 +221,7 @@ export default function MentorDetailSection() {
                 </Typography>
               </Stack>
             </Stack>
-            <Collapse sx={{ width: '100%' }} in={checked}>
+            <Collapse sx={{ width: '100%' }} collapsedSize="410px" in={checked}>
               <Stack
                 direction="column"
                 justifyContent="flex-start"

@@ -46,6 +46,8 @@ function FeedbackTypeInput({ controller, placeholder, data }: TextInputProps) {
     controllerOnChange(tmpValue);
   };
 
+  console.log(value, typeof value);
+
   return (
     <Box mb={error ? 2 : 0}>
       <Stack
@@ -57,7 +59,7 @@ function FeedbackTypeInput({ controller, placeholder, data }: TextInputProps) {
           alignItems: 'center',
         }}
       >
-        {value?.length === 0 ? (
+        {value !== '' && value?.length === 0 ? (
           <Typography
             sx={{
               textAlign: 'center',
@@ -69,6 +71,7 @@ function FeedbackTypeInput({ controller, placeholder, data }: TextInputProps) {
             Chưa có câu hỏi nào được nhập vào
           </Typography>
         ) : (
+          value !== '' &&
           value?.map((item: any, index: number) => (
             <Stack
               sx={{

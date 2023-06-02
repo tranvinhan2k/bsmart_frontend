@@ -66,14 +66,16 @@ export default function AdminHeader() {
     <Stack
       sx={{
         background: Color.white2,
-        height: '70px',
+        height: '100px',
         flexDirection: 'row',
         boxShadow: 3,
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingX: MetricSize.large_30,
+        paddingY: MetricSize.small_10,
         position: 'sticky',
         top: 0,
+        zIndex: 999,
       }}
     >
       <Box

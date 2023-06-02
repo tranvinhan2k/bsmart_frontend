@@ -14,6 +14,7 @@ import UserCourseItem from '../UserCourseItem';
 import { IconName } from '~/components/atoms/Icon';
 import UpdateMentorCourse from './UpdateMentorCourse';
 import globalStyles from '~/styles';
+import { useMutationUploadImage } from '~/hooks';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -27,7 +28,9 @@ export default function MentorCourseItem({
   onClick = () => {},
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
-  const { deleteCourseMutation, requestCourseMutation } = useCRUDMentorCourse();
+  const { deleteCourseMutation, requestCourseMutation, updateCourseMutation } =
+    useCRUDMentorCourse();
+  const uploadImageMutation = useMutationUploadImage();
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<'DELETE' | 'UPDATE' | 'READ'>('READ');
 
@@ -46,7 +49,6 @@ export default function MentorCourseItem({
     const id = toast.loadToast('Đang xóa khóa học');
     try {
       await deleteCourseMutation.mutateAsync(item.subCourseId);
-      window.location.reload();
       toast.updateSuccessToast(id, 'Xóa khóa học thành cong');
     } catch (e: any) {
       toast.updateFailedToast(
@@ -56,12 +58,43 @@ export default function MentorCourseItem({
     }
   };
 
-  const handleUpdateCourse = (data: any) => {};
+  const handleUpdateCourse = async (data: any) => {
+    const id = toast.loadToast('Đang cập nhật khóa học');
+
+    // const formData = new FormData();
+    // formData.append('type', 'COURSE');
+    // formData.append('file', data.imageId);
+    // const imageResponse = await uploadImageMutation.mutateAsync(formData);
+
+    const configParam = {
+      ...data,
+      categoryId: data.categoryId.id,
+      subjectId: data.subjectId.id,
+      timeInWeekRequests: data.timeInWeekRequests.map(
+        (timeInWeekItem: any) => ({
+          dayOfWeekId: timeInWeekItem.dayInWeek.id,
+          slotId: timeInWeekItem.slot.id,
+        })
+      ),
+      level: data.level.id,
+      id: item.subCourseId,
+    };
+    try {
+      await updateCourseMutation.mutateAsync(configParam);
+      toast.updateSuccessToast(id, 'Cập nhật khóa học thành công');
+    } catch (error: any) {
+      toast.updateFailedToast(
+        id,
+        `Cập nhật khóa học thất bại: ${error.message}`
+      );
+    }
+    handleClose();
+  };
   const handleSubmitCourse = async () => {
     const id = toast.loadToast('Đang gửi yêu cầu phê duyệt khóa học');
     try {
       await requestCourseMutation.mutateAsync(item.subCourseId);
-      window.location.reload();
+      handleClose();
       toast.updateSuccessToast(id, 'Gửi yêu cầu thành cong');
     } catch (e: any) {
       toast.updateFailedToast(

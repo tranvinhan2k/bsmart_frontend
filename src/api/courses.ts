@@ -107,6 +107,28 @@ export interface ResponseMentorCoursePayload {
   };
 }
 
+export interface RequestUpdateCoursePayload {
+  id: number;
+  courseCode: string;
+  courseName: string;
+  courseDescription: string;
+  categoryId: number;
+  subjectId: number;
+  subCourseTitle: string;
+  price: number;
+  startDateExpected: string;
+  endDateExpected: string;
+  minStudent: number;
+  maxStudent: number;
+  numberOfSlot: number;
+  type: TypeLearnKeys;
+  level: LevelKeys;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+}
+
 export interface ResponseGetCoursePayload {
   id: number;
   subCourseId: number;
@@ -266,30 +288,8 @@ const coursesApi = {
     const response: any = await axiosClient.delete(`${url}/${id}`);
     return response;
   },
-  async updateSubCourse(
-    params: {
-      courseCode: string;
-      courseName: string;
-      courseDescription: string;
-      categoryId: number;
-      subjectId: number;
-      subCourseTitle: string;
-      price: number;
-      startDateExpected: string;
-      endDateExpected: string;
-      minStudent: number;
-      maxStudent: number;
-      numberOfSlot: number;
-      type: TypeLearnKeys;
-      level: LevelKeys;
-      timeInWeekRequests: {
-        dayOfWeekId: number;
-        slotId: number;
-      }[];
-    },
-    id: number
-  ): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${id}`, params);
+  async updateSubCourse(params: RequestUpdateCoursePayload): Promise<any> {
+    const response: any = await axiosClient.put(`${url}/${params.id}`, params);
     return response;
   },
 };

@@ -25,7 +25,7 @@ export default function UpdateTemplateForm({
     resolver,
   });
 
-  console.log(feedbackQuestion);
+  console.log(row);
 
   return (
     <Stack>

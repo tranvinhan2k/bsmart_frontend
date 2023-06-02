@@ -119,7 +119,9 @@ export default function CRUDTableSearching({
             startIcon={<Icon name="search" color="white" size="medium" />}
             customVariant="horizonForm"
           >
-            Tìm kiếm
+            <Typography noWrap sx={{ display: { xs: 'none', lg: 'block' } }}>
+              Tìm kiếm
+            </Typography>
           </Button>
         </Stack>
       </Stack>
