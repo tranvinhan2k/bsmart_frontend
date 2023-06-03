@@ -118,6 +118,12 @@ export interface MentorSkills {
   value: string;
 }
 
+export interface ProcessRegisterRequestFormDefault {
+  id: number;
+  status: string;
+  message: string;
+}
+
 export type FormInputVariant =
   | 'text'
   | 'number'

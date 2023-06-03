@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { OptionPayload } from '~/models';
+import { ProcessRegisterRequestPayload } from './mentorProfile';
 
 export interface ResponseCategoriesPayload {
   id: number;
@@ -43,8 +44,13 @@ const registerRequestsApi = {
     const response: any = await axiosClient.get(`${urlSearch}`);
     return response.items;
   },
-  async approveRegisterRequest(id: number): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${id}/approve`);
+  async approveRegisterRequest(
+    data: ProcessRegisterRequestPayload
+  ): Promise<any> {
+    const response: any = await axiosClient.put(`${url}/${data.id}/approve`, {
+      status: data.status,
+      message: data.message,
+    });
     return response;
   },
 };

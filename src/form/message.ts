@@ -7,6 +7,8 @@ export const CONFIRM_PASSWORD_REQUIRED =
   'Xác nhận mật khẩu không được để trống.';
 export const CONFIRM_PASSWORD_NOT_MATCH =
   'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
+export const MESSAGE_PROCESS_REQUEST_REQUIRED =
+  'Hãy nhập tin nhắn tới người dùng';
 // information validate
 export const NAME_REQUIRED = 'Họ và tên không được để trống.';
 export const BIRTHDAY_REQUIRED = 'Ngày sinh không được để trống.';
