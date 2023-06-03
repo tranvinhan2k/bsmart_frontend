@@ -128,6 +128,11 @@ export interface RequestUpdateCoursePayload {
     slotId: number;
   }[];
 }
+export interface ProcessCreateCourseRequestPayload {
+  id: number;
+  status: string;
+  message: string;
+}
 
 export interface ResponseGetCoursePayload {
   id: number;

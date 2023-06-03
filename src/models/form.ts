@@ -123,6 +123,11 @@ export interface ProcessRegisterRequestFormDefault {
   status: string;
   message: string;
 }
+export interface ProcessCreateCourseRequestFormDefault {
+  id: number;
+  status: string;
+  message: string;
+}
 
 export type FormInputVariant =
   | 'text'

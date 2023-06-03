@@ -1,5 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
+import { formatMoney } from '~/utils/money';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -120,20 +121,25 @@ const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'courseCode',
     headerName: 'Mã khóa học',
-    minWidth: 100,
+    minWidth: 50,
     flex: 1,
   },
   {
     field: 'courseName',
     headerName: 'Tên khóa học',
     minWidth: 100,
-    flex: 1,
+    flex: 2,
   },
   {
     field: 'price',
-    headerName: 'Giá tiền',
-    minWidth: 100,
+    headerName: 'Giá tiền (vnđ)',
+    minWidth: 50,
     flex: 1,
+    renderCell: (params) => {
+      const { price } = params.row;
+      const formattedDate = formatMoney(price);
+      return formattedDate;
+    },
   },
   {
     field: 'startDateExpected',

@@ -7,7 +7,7 @@ export const CONFIRM_PASSWORD_REQUIRED =
   'Xác nhận mật khẩu không được để trống.';
 export const CONFIRM_PASSWORD_NOT_MATCH =
   'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
-export const MESSAGE_PROCESS_REQUEST_REQUIRED =
+export const MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED =
   'Hãy nhập tin nhắn tới người dùng';
 // information validate
 export const NAME_REQUIRED = 'Họ và tên không được để trống.';
@@ -39,7 +39,8 @@ export const COURSE_LANGUAGE_REQUIRED =
   'Ngôn ngữ lập trình không được để trống';
 export const COURSE_TYPE = 'Hình thức học không được để trống';
 export const COURSE_DESCRIPTION = 'Miêu tả khoá học không được để trống';
-
+export const MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED =
+  'Hãy nhập tin nhắn tới giảng viên';
 // money
 export const WITHDRAW_AMOUNT_REQUIRED = 'Số tiền không được để trống';
 export const WITHDRAW_AMOUNT_POSITIVE = 'Số tiền phải là số dương';
