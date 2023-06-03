@@ -9,7 +9,13 @@ import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/Re
 import toast from '~/utils/toast';
 
 interface ProcessRegisterRequestProps {
-  status: 'WAITING' | 'REQUESTING' | 'STARTING' | 'EDITREQUEST' | 'REJECTED';
+  status:
+    | 'WAITING'
+    | 'REQUESTING'
+    | 'NOTSTART'
+    | 'STARTING'
+    | 'EDITREQUEST'
+    | 'REJECTED';
 }
 
 export default function ProcessRegisterRequest({

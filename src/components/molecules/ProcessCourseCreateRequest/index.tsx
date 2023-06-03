@@ -9,7 +9,13 @@ import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
 
 interface ProcessCourseCreateRequestProps {
-  status: 'WAITING' | 'REQUESTING' | 'STARTING' | 'EDITREQUEST' | 'REJECTED';
+  status:
+    | 'WAITING'
+    | 'REQUESTING'
+    | 'NOTSTART'
+    | 'STARTING'
+    | 'EDITREQUEST'
+    | 'REJECTED';
 }
 
 export default function ProcessCourseCreateRequest({

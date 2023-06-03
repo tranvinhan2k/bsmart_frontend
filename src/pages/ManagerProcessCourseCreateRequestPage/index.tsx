@@ -21,7 +21,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
     {
       id: 1,
       text: 'Đã duyệt',
-      component: <ProcessCourseCreateRequest status="STARTING" />,
+      component: <ProcessCourseCreateRequest status="NOTSTART" />,
     },
     {
       id: 2,
