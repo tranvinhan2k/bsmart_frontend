@@ -17,6 +17,7 @@ import {
   IMAGE_FORMAT_NOT_SUPPORT,
   IMAGE_SIZE_TOO_BIG,
   INTRODUCE_REQUIRED,
+  MESSAGE_PROCESS_REQUEST_REQUIRED,
   NAME_REQUIRED,
   PASSWORD_MATCHED,
   PASSWORD_REQUIRED,
@@ -280,7 +281,7 @@ export const validationSchemaWithdrawMoney = object({
 });
 
 export const validationSchemaVerifyRegisterRequest = object({
-  id: number(),
+  message: string().required(MESSAGE_PROCESS_REQUEST_REQUIRED),
 });
 export const validationSchemaApproveCreateCourseRequest = object({
   id: number(),

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { ProcessRegisterRequestFormDefault } from '~/models/form';
+import { ProcessRegisterRequestPayload } from '~/api/mentorProfile';
 import { useManageRegisterRequest } from '~/hooks/useManageRegisterRequest';
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
@@ -51,17 +53,22 @@ export default function ProcessRegisterRequest({
     setMode(() => 'READ');
   };
 
-  const toastMsgLoading = 'Đang phê duyệt ...';
-  const toastMsgSuccess = 'Phê duyệt thành công';
+  const toastMsgLoading = 'Đang xử lý...';
+  const toastMsgSuccess = 'Xử lý thành công';
   const toastMsgError = (errorMsg: any): string => {
-    return `Cập nhật không thành công: ${errorMsg.message}`;
+    return `Đã xảy ra lỗi: ${errorMsg.message}`;
   };
-  const handleApproveRegisterRequest = async () => {
+  const handleApproveRegisterRequest = async (
+    data: ProcessRegisterRequestFormDefault
+  ) => {
+    const params: ProcessRegisterRequestPayload = {
+      id: data.id,
+      status: data.status,
+      message: data.message,
+    };
     const id = toast.loadToast(toastMsgLoading);
     try {
-      await approveRegisterRequestMutation.mutateAsync(
-        selectedRow.mentorProfile.id
-      );
+      await approveRegisterRequestMutation.mutateAsync(params);
       refetch();
       handleTriggerModal();
       toast.updateSuccessToast(id, toastMsgSuccess);
