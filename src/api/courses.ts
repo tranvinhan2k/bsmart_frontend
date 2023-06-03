@@ -107,6 +107,12 @@ export interface ResponseMentorCoursePayload {
   };
 }
 
+export interface ProcessCreateCourseRequestPayload {
+  id: number;
+  status: string;
+  message: string;
+}
+
 export interface ResponseGetCoursePayload {
   id: number;
   subCourseId: number;

@@ -5,6 +5,8 @@ import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import CustomModal from '~/components/atoms/Modal';
 import ReadOneCreateCourseRequest from '~/containers/CreateCourseRequestManageSection/ReadOneCreateCourseRequest';
 import toast from '~/utils/toast';
+import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
+import { ProcessCreateCourseRequestPayload } from '~/api/courses';
 
 interface ProcessCourseCreateRequestProps {
   status: 'WAITING' | 'REQUESTING' | 'STARTING' | 'EDITREQUEST' | 'REJECTED';
@@ -51,17 +53,22 @@ export default function ProcessCourseCreateRequest({
     setMode(() => 'READ');
   };
 
-  const toastMsgLoading = 'Đang phê duyệt ...';
-  const toastMsgSuccess = 'Phê duyệt thành công';
+  const toastMsgLoading = 'Đang xử lý...';
+  const toastMsgSuccess = 'Xử lý thành công';
   const toastMsgError = (errorMsg: any): string => {
-    return `Phê duyệt không thành công: ${errorMsg.message}`;
+    return `Đã xảy ra lỗi: ${errorMsg.message}`;
   };
-  const handleApproveCourseCreateRequest = async () => {
+  const handleApproveCourseCreateRequest = async (
+    data: ProcessCreateCourseRequestFormDefault
+  ) => {
+    const params: ProcessCreateCourseRequestPayload = {
+      id: data.id,
+      status: data.status,
+      message: data.message,
+    };
     const id = toast.loadToast(toastMsgLoading);
     try {
-      await approveCourseCreateRequestMutation.mutateAsync(
-        selectedRow.subCourseId
-      );
+      await approveCourseCreateRequestMutation.mutateAsync(params);
       refetch();
       handleTriggerModal();
       toast.updateSuccessToast(id, toastMsgSuccess);
