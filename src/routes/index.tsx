@@ -53,6 +53,12 @@ const MentorReTakeAttendancePage = lazy(
   () => import('~/pages/MentorReTakeAttendancePage')
 );
 const MentorCreateQuizPage = lazy(() => import('~/pages/MentorCreateQuizPage'));
+const MentorCreateAssignmentPage = lazy(
+  () => import('~/pages/MentorCreateAssignmentPage')
+);
+const MentorCreateAnnouncementPage = lazy(
+  () => import('~/pages/MentorCreateAnnouncementPage')
+);
 const ManagerProcessRegisterRequestPage = lazy(
   () => import('~/pages/ManagerProcessRegisterRequestPage')
 );
@@ -297,6 +303,16 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: `/${MentorNavigationActionData[11].link}`,
     main: () => <MentorCourseDetailPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[12].link}`,
+    main: () => <MentorCreateAssignmentPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[13].link}`,
+    main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
 ];
