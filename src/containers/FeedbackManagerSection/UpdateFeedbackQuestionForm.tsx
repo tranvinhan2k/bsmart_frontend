@@ -27,7 +27,7 @@ export default function UpdateFeedbackQuestionForm({
     resolver: resolverCreateFeedbackQuestion,
   });
   const texts = {
-    title: 'Thêm câu hỏi đánh giá',
+    title: 'Cập nhật câu hỏi đánh giá',
   };
 
   const typeWatch = createFeedbackQuestionForm.watch(
@@ -77,7 +77,7 @@ export default function UpdateFeedbackQuestionForm({
         customVariant="form"
         onClick={createFeedbackQuestionForm.handleSubmit(onSubmit)}
       >
-        Thêm câu hỏi
+        Cập nhật câu hỏi
       </Button>
     </Stack>
   );

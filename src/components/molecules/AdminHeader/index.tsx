@@ -66,13 +66,12 @@ export default function AdminHeader() {
     <Stack
       sx={{
         background: Color.white2,
-        height: '100px',
+        height: '70px',
         flexDirection: 'row',
         boxShadow: 3,
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingX: MetricSize.large_30,
-        paddingY: MetricSize.small_10,
         position: 'sticky',
         top: 0,
         zIndex: 999,
@@ -90,17 +89,7 @@ export default function AdminHeader() {
           <Icon name="menu" color="black" size="medium" />
         </IconButton>
       </Box>
-      <Stack sx={{ flexGrow: 1 }}>
-        <Typography
-          sx={{
-            color: Color.black,
-            fontSize: FontSize.small_18,
-            fontFamily: FontFamily.bold,
-          }}
-        >
-          {mappingData.title}
-        </Typography>
-      </Stack>
+      <Stack sx={{ flexGrow: 1 }} />
       <Stack>
         <IconButton onClick={handleClick}>
           <Box

@@ -193,21 +193,6 @@ export default function FeedbackManagerTemplate() {
     },
   ];
 
-  const searchFilterFormInputList: SearchFilterFormInput[] = [
-    {
-      name: 'subject',
-      placeholder: 'Môn học',
-      variant: 'dropdown',
-      data: subjects || [],
-    },
-    {
-      name: 'category',
-      placeholder: 'Ngôn ngữ',
-      variant: 'dropdown',
-      data: categories || [],
-    },
-  ];
-
   return (
     <Stack>
       <CRUDTable
@@ -218,7 +203,6 @@ export default function FeedbackManagerTemplate() {
         onAdd={() => handleClose('CREATE')}
         menuItemList={menuItemList}
         searchPlaceholder={texts.searchTemplatePlaceholder}
-        searchFilterFormInputList={searchFilterFormInputList}
         onSearch={handleSearchValue}
         error={error}
         isLoading={isLoading}

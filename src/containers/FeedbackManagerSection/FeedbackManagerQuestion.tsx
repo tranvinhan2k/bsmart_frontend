@@ -16,7 +16,6 @@ import { CRUDModes } from '~/models/variables';
 import { useCRUDFeedbackQuestion } from '~/hooks/useCRUDFeedbackQuestion';
 import CreateFeedbackQuestionForm from './CreateFeedbackQuestionForm';
 import toast from '~/utils/toast';
-import { FeedbackQuestionType } from '~/constants/profile';
 import ReadOneFeedbackQuestion from './ReadOneFeedbackQuestion';
 import UpdateFeedbackQuestionForm from './UpdateFeedbackQuestionForm';
 import { QuestionTypeOptionList } from '~/constants';
@@ -180,23 +179,6 @@ export default function FeedbackManagerQuestion() {
     },
   ];
 
-  const searchFilterFormInputList: SearchFilterFormInput[] = [
-    {
-      name: 'subject',
-      placeholder: 'Môn học',
-      variant: 'dropdown',
-      data: subjects || [],
-    },
-    {
-      name: 'category',
-      placeholder: 'Ngôn ngữ',
-      variant: 'dropdown',
-      data: categories || [],
-    },
-  ];
-
-  console.log(feedbackQuestions);
-
   return (
     <Stack>
       <CRUDTable
@@ -210,7 +192,6 @@ export default function FeedbackManagerQuestion() {
         onAdd={() => handleClose('CREATE')}
         menuItemList={menuItemList}
         searchPlaceholder={texts.searchTemplatePlaceholder}
-        searchFilterFormInputList={searchFilterFormInputList}
         onSearch={handleSearchValue}
       />
       {renderModal}

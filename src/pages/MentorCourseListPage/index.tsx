@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
@@ -15,6 +16,7 @@ import { RequestPagingFilterPayload } from '~/models';
 import { scrollToTop } from '~/utils/common';
 
 export default function MentorCourseListPage() {
+  const navigate = useNavigate();
   const { control, watch } = useForm({
     defaultValues: {
       filter: ClassStatusList[8],
@@ -27,13 +29,17 @@ export default function MentorCourseListPage() {
     sort: undefined,
     status: 'ALL',
   });
-  const { courses } = useQueryGetAllMentorCourses(filterParams);
+  const { courses, refetch } = useQueryGetAllMentorCourses(filterParams);
 
   const handleChangePageNumber = (e: any, value: number) => {
     setFilterParams({
       ...filterParams,
       page: value - 1,
     });
+  };
+
+  const handleNavigateCreateCourse = () => {
+    navigate('/mentor-profile/create-course');
   };
 
   useEffect(() => {
@@ -77,17 +83,16 @@ export default function MentorCourseListPage() {
             />
           </Box>
           <Stack sx={{ marginLeft: 2 }}>
-            <Button customVariant="horizonForm">Tạo khóa học</Button>
+            <Button
+              onClick={handleNavigateCreateCourse}
+              customVariant="horizonForm"
+            >
+              Tạo khóa học
+            </Button>
           </Stack>
         </Stack>
       </Stack>
-      <Grid
-        container
-        sx={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
+      <Grid container>
         {courses &&
           courses?.items?.map((item) => (
             <Grid
@@ -97,7 +102,12 @@ export default function MentorCourseListPage() {
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
-              <MentorCourseItem onClick={() => {}} item={item} key={item.id} />
+              <MentorCourseItem
+                refetch={refetch}
+                onClick={() => {}}
+                item={item}
+                key={item.id}
+              />
             </Grid>
           ))}
       </Grid>

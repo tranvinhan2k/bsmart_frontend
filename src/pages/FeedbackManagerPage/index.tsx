@@ -12,6 +12,10 @@ import { scrollToTop } from '~/utils/common';
 export default function FeedbackManagerPage() {
   const data: TabPanelData = [
     {
+      label: 'Đánh giá',
+      renderItem: <Stack>Chức năng feedback đang phát triển</Stack>,
+    },
+    {
       label: 'Bản mẫu',
       renderItem: <FeedbackManagerTemplate />,
     },

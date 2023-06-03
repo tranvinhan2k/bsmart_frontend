@@ -239,6 +239,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsFacebook />
         </Typography>
       );
+    case 'feedback':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdFeedback />
+        </Typography>
+      );
     case 'filter':
       return (
         <Typography sx={STYLED_ICON}>

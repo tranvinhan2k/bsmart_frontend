@@ -20,12 +20,14 @@ interface MentorCourseItemProps {
   item?: any;
   isSkeleton?: boolean;
   onClick?: () => void;
+  refetch: () => void;
 }
 
 export default function MentorCourseItem({
   item,
   isSkeleton = false,
   onClick = () => {},
+  refetch,
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
   const { deleteCourseMutation, requestCourseMutation, updateCourseMutation } =
@@ -49,6 +51,8 @@ export default function MentorCourseItem({
     const id = toast.loadToast('Đang xóa khóa học');
     try {
       await deleteCourseMutation.mutateAsync(item.subCourseId);
+      await refetch();
+      handleClose();
       toast.updateSuccessToast(id, 'Xóa khóa học thành cong');
     } catch (e: any) {
       toast.updateFailedToast(
@@ -61,10 +65,10 @@ export default function MentorCourseItem({
   const handleUpdateCourse = async (data: any) => {
     const id = toast.loadToast('Đang cập nhật khóa học');
 
-    // const formData = new FormData();
-    // formData.append('type', 'COURSE');
-    // formData.append('file', data.imageId);
-    // const imageResponse = await uploadImageMutation.mutateAsync(formData);
+    const formData = new FormData();
+    formData.append('type', 'COURSE');
+    formData.append('file', data.imageId);
+    const imageResponse = await uploadImageMutation.mutateAsync(formData);
 
     const configParam = {
       ...data,
@@ -76,11 +80,15 @@ export default function MentorCourseItem({
           slotId: timeInWeekItem.slot.id,
         })
       ),
+      imageId: imageResponse.id,
       level: data.level.id,
       id: item.subCourseId,
     };
     try {
       await updateCourseMutation.mutateAsync(configParam);
+      await refetch();
+      handleClose();
+
       toast.updateSuccessToast(id, 'Cập nhật khóa học thành công');
     } catch (error: any) {
       toast.updateFailedToast(

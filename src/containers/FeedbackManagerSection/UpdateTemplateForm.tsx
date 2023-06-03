@@ -25,11 +25,9 @@ export default function UpdateTemplateForm({
     resolver,
   });
 
-  console.log(row);
-
   return (
     <Stack>
-      <Typography sx={globalStyles.textSubTitle}>Tạo bản mẫu</Typography>
+      <Typography sx={globalStyles.textSubTitle}>Cập nhật bản mẫu</Typography>
       <Stack marginTop={2}>
         <FormInput
           name={CREATE_TEMPLATE_FIELDS.templateName}
@@ -74,7 +72,7 @@ export default function UpdateTemplateForm({
           customVariant="form"
           onClick={createTemplateForm.handleSubmit(onSubmit)}
         >
-          Tạo bản mẫu
+          Cập nhật bản mẫu
         </Button>
       </Stack>
     </Stack>
