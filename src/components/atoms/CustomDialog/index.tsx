@@ -1,18 +1,18 @@
 import { Breakpoint, Dialog, DialogContent } from '@mui/material';
 
-interface CustomModalProps {
+interface CustomDialogProps {
   open: boolean;
   children: any;
   onClose: () => void;
   maxWidth?: false | Breakpoint;
 }
 
-export default function CustomModal({
+export default function CustomDialog({
   open,
   children,
   onClose,
   maxWidth,
-}: CustomModalProps) {
+}: CustomDialogProps) {
   return (
     <Dialog fullWidth maxWidth={maxWidth} onClose={onClose} open={open}>
       <DialogContent>{children}</DialogContent>
@@ -20,6 +20,6 @@ export default function CustomModal({
   );
 }
 
-CustomModal.defaultProps = {
+CustomDialog.defaultProps = {
   maxWidth: 'sm',
 };
