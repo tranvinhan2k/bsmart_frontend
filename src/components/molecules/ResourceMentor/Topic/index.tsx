@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
@@ -26,7 +26,6 @@ interface TopicProps {
 }
 
 export default function Topic({ editMode }: TopicProps) {
-  const location = useLocation();
   const navigate = useNavigate();
   const handleEditResource = () => {
     navigate(`edit`);
@@ -68,10 +67,12 @@ export default function Topic({ editMode }: TopicProps) {
     },
   ];
 
-  const handleCreateAnnouncement = () => console.log('Tạo thông báo');
+  const handleCreateAnnouncement = () =>
+    navigate(`/mentor-profile/${MentorNavigationActionData[13].link}`);
   const handleCreateQuiz = () =>
     navigate(`/mentor-profile/${MentorNavigationActionData[10].link}`);
-  const handleCreateAssignment = () => console.log('Tạo assignment');
+  const handleCreateAssignment = () =>
+    navigate(`/mentor-profile/${MentorNavigationActionData[12].link}`);
 
   const topicCreatorList: TopicCreatorProps[] = [
     {

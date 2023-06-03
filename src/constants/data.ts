@@ -332,6 +332,18 @@ export const MentorNavigationActionData: ActionPayload[] = [
     link: 'mentor_course_detail/:id',
     isHide: true,
   },
+  {
+    id: 12,
+    name: 'Tạo Assignment',
+    link: 'mentor-create-assignment',
+    isHide: true,
+  },
+  {
+    id: 13,
+    name: 'Tạo thông báo',
+    link: 'mentor-create-announcement',
+    isHide: true,
+  },
 ];
 
 export const MemberNavigationActionData: ActionPayload[] = [
