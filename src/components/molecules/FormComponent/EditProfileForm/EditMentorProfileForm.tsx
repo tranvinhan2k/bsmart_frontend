@@ -25,7 +25,12 @@ import toast from '~/utils/toast';
 
 import { useQueryGetAllSubjects, useYupValidationResolver } from '~/hooks';
 
-import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import {
+  SX_FORM_ITEM_LABEL,
+  SX_FORM_LABEL,
+  SX_FORM_TITLE,
+  SX_FORM,
+} from './style';
 
 export default function EditMentorProfileForm() {
   const toastMsgLoading = 'Đang cập nhật ...';
@@ -170,6 +175,16 @@ export default function EditMentorProfileForm() {
             </Grid>
             <Grid item xs={12}>
               <Typography sx={SX_FORM_LABEL}>Chuyên môn</Typography>
+              <Grid container spacing={2} mt={2} mb={1}>
+                <Grid item xs={6}>
+                  <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography sx={SX_FORM_ITEM_LABEL}>
+                    Số năm kinh nghiệm
+                  </Typography>
+                </Grid>
+              </Grid>
               <Grid item container spacing={2} mb={2}>
                 {fields.map((field, index) => (
                   <Fragment key={field.id}>

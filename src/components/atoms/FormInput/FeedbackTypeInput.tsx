@@ -12,7 +12,7 @@ import { validationSchemaFeedbackQuestionChoice } from '~/form/validation';
 import { FEEDBACK_QUESTION_FIELDS } from '~/form/schema';
 import toast from '~/utils/toast';
 import Icon from '../Icon';
-import CustomModal from '../Modal';
+import CustomModal from '../CustomModal';
 import { changeArrayToHashmap, isHashMap } from '~/utils/common';
 
 interface TextInputProps {

@@ -22,3 +22,8 @@ export const SX_FORM_LABEL: SxProps<Theme> = {
   fontWeight: 700,
   margin: '1rem 0 0.5rem 0',
 };
+
+export const SX_FORM_ITEM_LABEL: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: 16,
+};
