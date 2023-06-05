@@ -120,7 +120,7 @@ export default function ProcessRegisterRequest({
   ];
   let menuItemList = null;
   switch (status) {
-    case 'REQUESTING':
+    case 'WAITING':
       menuItemList = menuItemListRead;
       break;
     default:
