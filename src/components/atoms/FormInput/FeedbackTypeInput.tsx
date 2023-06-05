@@ -6,6 +6,8 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 // eslint-disable-next-line import/no-cycle
 import FormInput from '.';
 import Icon from '../Icon';
+import CustomModal from '../CustomModal';
+import { changeArrayToHashmap, isHashMap } from '~/utils/common';
 
 interface TextInputProps {
   controller: UseControllerReturn<any, string>;
