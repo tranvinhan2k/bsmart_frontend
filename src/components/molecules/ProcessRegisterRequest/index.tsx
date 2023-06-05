@@ -88,10 +88,12 @@ export default function ProcessRegisterRequest({
     case 'READ':
       renderItem = (
         <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
+        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
           <ReadOneRegisterRequest
             row={selectedRow}
             onSubmit={handleApproveRegisterRequest}
           />
+        </CustomDialog>
         </CustomDialog>
       );
       break;
