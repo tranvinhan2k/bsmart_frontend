@@ -16,7 +16,7 @@ export default function ManagerProcessRegisterRequestPage() {
     {
       id: 0,
       text: 'Chờ duyệt',
-      component: <ProcessRegisterRequest status="REQUESTING" />,
+      component: <ProcessRegisterRequest status="WAITING" />,
     },
     {
       id: 1,

@@ -4,9 +4,9 @@ import { ProcessRegisterRequestPayload } from '~/api/mentorProfile';
 import { useManageRegisterRequest } from '~/hooks/useManageRegisterRequest';
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
+import CustomDialog from '~/components/atoms/CustomDialog';
 import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
 import toast from '~/utils/toast';
-import CustomModal from '~/components/atoms/CustomModal';
 
 interface ProcessRegisterRequestProps {
   status:
@@ -87,12 +87,12 @@ export default function ProcessRegisterRequest({
   switch (mode) {
     case 'READ':
       renderItem = (
-        <CustomModal open={open} onClose={handleTriggerModal} maxWidth="lg">
+        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
           <ReadOneRegisterRequest
             row={selectedRow}
             onSubmit={handleApproveRegisterRequest}
           />
-        </CustomModal>
+        </CustomDialog>
       );
       break;
     default:
