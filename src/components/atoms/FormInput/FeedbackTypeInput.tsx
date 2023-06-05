@@ -1,19 +1,11 @@
 import { UseControllerReturn, useForm } from 'react-hook-form';
-import { Box, Stack, TextField, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import globalStyles, { SX_TEXT_INPUT_FORM } from '~/styles';
+import { Box, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 import Button from '../Button';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 // eslint-disable-next-line import/no-cycle
 import FormInput from '.';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaFeedbackQuestionChoice } from '~/form/validation';
-import { FEEDBACK_QUESTION_FIELDS } from '~/form/schema';
-import toast from '~/utils/toast';
 import Icon from '../Icon';
-import CustomModal from '../Modal';
-import { changeArrayToHashmap, isHashMap } from '~/utils/common';
 
 interface TextInputProps {
   controller: UseControllerReturn<any, string>;

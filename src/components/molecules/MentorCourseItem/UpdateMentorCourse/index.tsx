@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
-import CustomModal from '~/components/atoms/Modal';
 import globalStyles from '~/styles';
 import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
@@ -9,6 +8,7 @@ import { mockLevelData, typeData } from '~/constants';
 import Button from '~/components/atoms/Button';
 import { RequestUpdateCoursePayload } from '~/api/courses';
 import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
+import CustomModal from '~/components/atoms/CustomModal';
 
 interface UpdateMentorCourseProps {
   item: any;

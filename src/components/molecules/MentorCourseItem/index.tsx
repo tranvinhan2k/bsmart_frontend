@@ -1,12 +1,8 @@
-import { Box, Typography, Stack } from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ResponseMentorCoursePayload } from '~/api/courses';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
-import CustomModal from '~/components/atoms/Modal';
-import { image } from '~/constants/image';
+import { Color, MetricSize } from '~/assets/variables';
 import useCRUDMentorCourse from '~/hooks/useCRUDMentorCourse';
 import toast from '~/utils/toast';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
@@ -15,6 +11,7 @@ import { IconName } from '~/components/atoms/Icon';
 import UpdateMentorCourse from './UpdateMentorCourse';
 import globalStyles from '~/styles';
 import { useMutationUploadImage } from '~/hooks';
+import CustomModal from '~/components/atoms/CustomModal';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -65,27 +62,44 @@ export default function MentorCourseItem({
   const handleUpdateCourse = async (data: any) => {
     const id = toast.loadToast('Đang cập nhật khóa học');
 
-    const formData = new FormData();
-    formData.append('type', 'COURSE');
-    formData.append('file', data.imageId);
-    const imageResponse = await uploadImageMutation.mutateAsync(formData);
-
-    const configParam = {
-      ...data,
-      categoryId: data.categoryId.id,
-      subjectId: data.subjectId.id,
-      timeInWeekRequests: data.timeInWeekRequests.map(
-        (timeInWeekItem: any) => ({
-          dayOfWeekId: timeInWeekItem.dayInWeek.id,
-          slotId: timeInWeekItem.slot.id,
-        })
-      ),
-      imageId: imageResponse.id,
-      level: data.level.id,
-      id: item.subCourseId,
-    };
     try {
-      await updateCourseMutation.mutateAsync(configParam);
+      let imageId;
+
+      if (data.imageUrl instanceof File) {
+        const formData = new FormData();
+        formData.append('type', 'COURSE');
+        formData.append('file', data.imageUrl);
+        const imageResponse = await uploadImageMutation.mutateAsync(formData);
+
+        imageId = imageResponse.id;
+      }
+
+      const configParam = {
+        courseCode: data.courseCode,
+        courseName: data.courseName,
+        courseDescription: data.courseDescription,
+        categoryId: data.categoryId.id,
+        subjectId: data.subjectId.id,
+        subCourseTitle: data.subCourseTitle,
+        price: data.price,
+        startDateExpected: data.startDateExpected,
+        endDateExpected: data.endDateExpected,
+        minStudent: data.minStudent,
+        maxStudent: data.maxStudent,
+        numberOfSlot: data.numberOfSlot,
+        imageId: data.imageUrl instanceof File ? imageId : undefined,
+        type: data.type.value,
+        level: 'BEGINNER',
+        timeInWeekRequests: data.timeInWeekRequests.map(
+          (timeInWeekItem: any) => ({
+            dayOfWeekId: timeInWeekItem.dayInWeek.id,
+            slotId: timeInWeekItem.slot.id,
+          })
+        ),
+        id: item.subCourseId,
+      };
+
+      await updateCourseMutation.mutateAsync(configParam as any);
       await refetch();
       handleClose();
 
@@ -102,7 +116,6 @@ export default function MentorCourseItem({
     const id = toast.loadToast('Đang gửi yêu cầu phê duyệt khóa học');
     try {
       await requestCourseMutation.mutateAsync(item.subCourseId);
-      handleClose();
       toast.updateSuccessToast(id, 'Gửi yêu cầu thành cong');
     } catch (e: any) {
       toast.updateFailedToast(
@@ -156,7 +169,7 @@ export default function MentorCourseItem({
     },
     {
       id: 3,
-      title: 'Phê duyệt khóa học',
+      title: 'Gửi yêu cầu phê duyệt',
       icon: 'share',
       onClick: handleSubmitCourse,
       isHide: item.status !== 'REQUESTING',

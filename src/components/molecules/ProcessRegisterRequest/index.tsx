@@ -4,9 +4,9 @@ import { ProcessRegisterRequestPayload } from '~/api/mentorProfile';
 import { useManageRegisterRequest } from '~/hooks/useManageRegisterRequest';
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
-import CustomModal from '~/components/atoms/Modal';
 import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
 import toast from '~/utils/toast';
+import CustomModal from '~/components/atoms/CustomModal';
 
 interface ProcessRegisterRequestProps {
   status:
