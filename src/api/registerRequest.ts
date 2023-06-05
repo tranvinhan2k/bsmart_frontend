@@ -47,7 +47,7 @@ const registerRequestsApi = {
   async approveRegisterRequest(
     data: ProcessRegisterRequestPayload
   ): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${data.id}/approve`, {
+    const response: any = await axiosClient.put(`${url}/${data.id}/approval`, {
       status: data.status,
       message: data.message,
     });

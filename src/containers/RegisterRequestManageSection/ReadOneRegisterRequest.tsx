@@ -210,25 +210,6 @@ export default function ReadOneRegisterRequest({
                 </TabPanel>
               ))}
             </Box>
-
-            {/* <Stack
-              direction="row"
-              justifyContent="flex-end"
-              alignItems="flex-start"
-              spacing={2}
-              mt={4}
-            >
-              <form onSubmit={verifyRegisterRequestForm.handleSubmit(onSubmit)}>
-                <Button
-                  variant="outlined"
-                  type="submit"
-                  size="medium"
-                  color="success"
-                >
-                  Phê duyệt
-                </Button>
-              </form>
-            </Stack> */}
           </Stack>
         </Grid>
       </Grid>
