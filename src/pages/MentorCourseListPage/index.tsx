@@ -1,8 +1,6 @@
 import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import Pagination from '@mui/material/Pagination';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';

@@ -416,6 +416,18 @@ export const MentorNavigationActionData: ActionPayload[] = [
       },
     ],
   },
+  {
+    id: 14,
+    name: '',
+    link: '',
+    isHide: true,
+  },
+  {
+    id: 15,
+    name: 'Xem lịch sử hoạt động',
+    link: 'activity-history',
+    isHide: true,
+  },
 ];
 
 export const MemberNavigationActionData: ActionPayload[] = [

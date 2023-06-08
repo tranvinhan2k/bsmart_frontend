@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Color, MetricSize } from '~/assets/variables';
+import CustomModal from '~/components/atoms/CustomModal';
 import useCRUDMentorCourse from '~/hooks/useCRUDMentorCourse';
 import toast from '~/utils/toast';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
@@ -10,7 +11,6 @@ import UserCourseItem from '../UserCourseItem';
 import { IconName } from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 import { useMutationUploadImage } from '~/hooks';
-import CustomModal from '~/components/atoms/CustomModal';
 import UpdateMentorCourse from './UpdateMentorCourse';
 
 interface MentorCourseItemProps {
