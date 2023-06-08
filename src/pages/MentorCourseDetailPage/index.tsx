@@ -28,9 +28,6 @@ export default function MentorCourseDetailPage() {
   return (
     <Box sx={{ boxShadow: 3, p: 5, borderRadius: 1 }}>
       <h1>Thông tin khóa học</h1>
-      <Button variant="outlined" color="miSmartOrange">
-        Thêm Assignment
-      </Button>
     </Box>
   );
 }
