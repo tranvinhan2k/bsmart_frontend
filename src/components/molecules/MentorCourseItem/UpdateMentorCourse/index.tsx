@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Stack, Typography, Box } from '@mui/material';
-import CustomModal from '~/components/atoms/Modal';
+import CustomModal from '~/components/atoms/CustomModal';
 import globalStyles from '~/styles';
 import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';

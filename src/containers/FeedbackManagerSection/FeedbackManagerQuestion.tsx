@@ -6,7 +6,7 @@ import CRUDTable, {
   MenuItemPayload,
   SearchFilterFormInput,
 } from '~/components/molecules/CRUDTable';
-import CustomModal from '~/components/atoms/Modal';
+import CustomModal from '~/components/atoms/CustomModal';
 
 import columns from '~/constants/columns';
 

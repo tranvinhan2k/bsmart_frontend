@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-import CustomModal from '~/components/atoms/Modal';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';

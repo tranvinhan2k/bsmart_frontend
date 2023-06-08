@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ResponseMentorCoursePayload } from '~/api/courses';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import CustomModal from '~/components/atoms/Modal';
+import CustomModal from '~/components/atoms/CustomModal';
 import { image } from '~/constants/image';
 import useCRUDMentorCourse from '~/hooks/useCRUDMentorCourse';
 import toast from '~/utils/toast';
@@ -129,6 +129,10 @@ export default function MentorCourseItem({
     );
   }
 
+  const handleX = () => {
+    handleClose('READ');
+    handleNavigateCourseDetail();
+  };
   const menuItemList: {
     id: number;
     title: string;
@@ -140,7 +144,7 @@ export default function MentorCourseItem({
       id: 0,
       title: 'Xem chi tiết khóa học',
       icon: 'search',
-      onClick: () => handleClose('READ'),
+      onClick: handleX,
     },
     {
       id: 1,

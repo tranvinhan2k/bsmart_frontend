@@ -61,10 +61,8 @@ export const ANNOTATION_CONTENT: SxProps<Theme> = {
   '&:hover': {
     borderRadius: '8px',
     backgroundColor: Color.navy,
-    transition: 'all 2s',
     '& p': {
       color: Color.whiteSmoke,
-      transition: 'all 2s',
     },
   },
 };

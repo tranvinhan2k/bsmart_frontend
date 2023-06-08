@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { useState } from 'react';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
-import CustomModal from '~/components/atoms/Modal';
+import CustomModal from '~/components/atoms/CustomModal';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import columns from '~/constants/columns';
 import CreateCategoriesForm from '~/containers/CategoriesManagerSection/CreateCategoriesForm';

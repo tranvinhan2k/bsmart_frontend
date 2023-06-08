@@ -10,18 +10,22 @@ export const SX_WRAPPER: SxProps<Theme> = {
 };
 
 export const SX_TITLE: SxProps<Theme> = {
-  fontSize: FontSize.small_18,
+  fontSize: 18,
   fontFamily: FontFamily.bold,
+};
+export const SX_BUTTON: SxProps<Theme> = {
+  fontSize: 16,
+  fontFamily: FontFamily.regular,
 };
 
 export const SX_PROFILE_DETAILS: SxProps<Theme> = {
   color: Color.grey,
   fontFamily: FontFamily.regular,
-  fontSize: FontSize.small_16,
+  fontSize: 16,
 };
 
 export const SX_PROFILE_DETAILS_HIGHLIGHTED: SxProps<Theme> = {
   color: Color.orange,
   fontFamily: FontFamily.regular,
-  fontSize: FontSize.small_16,
+  fontSize: 16,
 };
