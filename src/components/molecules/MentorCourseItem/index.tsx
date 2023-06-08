@@ -8,10 +8,10 @@ import toast from '~/utils/toast';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import UserCourseItem from '../UserCourseItem';
 import { IconName } from '~/components/atoms/Icon';
-import UpdateMentorCourse from './UpdateMentorCourse';
 import globalStyles from '~/styles';
 import { useMutationUploadImage } from '~/hooks';
 import CustomModal from '~/components/atoms/CustomModal';
+import UpdateMentorCourse from './UpdateMentorCourse';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -142,6 +142,10 @@ export default function MentorCourseItem({
     );
   }
 
+  const handleX = () => {
+    handleClose('READ');
+    handleNavigateCourseDetail();
+  };
   const menuItemList: {
     id: number;
     title: string;
@@ -153,7 +157,7 @@ export default function MentorCourseItem({
       id: 0,
       title: 'Xem chi tiết khóa học',
       icon: 'search',
-      onClick: () => handleClose('READ'),
+      onClick: handleX,
     },
     {
       id: 1,

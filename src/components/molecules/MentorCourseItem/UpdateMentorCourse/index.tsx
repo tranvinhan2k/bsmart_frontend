@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Box } from '@mui/material';
+import CustomModal from '~/components/atoms/CustomModal';
 import globalStyles from '~/styles';
 import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
@@ -11,7 +12,6 @@ import {
   useQueryGetAllSubjects,
   useYupValidationResolver,
 } from '~/hooks';
-import CustomModal from '~/components/atoms/CustomModal';
 import {
   validationSchemaUpdateWaitingCourse,
   validationSchemaUpdateWaitingCoursePrivate,
