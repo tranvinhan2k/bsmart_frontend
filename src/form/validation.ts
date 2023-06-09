@@ -11,6 +11,12 @@ import {
   COURSE_LEVEL_REQUIRED,
   COURSE_NAME_REQUIRED,
   COURSE_TYPE,
+  CRATE_ASSIGNMENT_DESCRIPTION,
+  CRATE_ASSIGNMENT_END_DATE,
+  CRATE_ASSIGNMENT_MAX_FILE_SIZE,
+  CRATE_ASSIGNMENT_MAX_FILE_SUBMIT,
+  CRATE_ASSIGNMENT_NAME,
+  CRATE_ASSIGNMENT_START_DATE,
   EMAIL_INVALID,
   EMAIL_REQUIRED,
   generateRequiredText,
@@ -286,4 +292,19 @@ export const validationSchemaVerifyRegisterRequest = object({
 });
 export const validationSchemaApproveCreateCourseRequest = object({
   message: string().required(MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED),
+});
+
+export const validationSchemaCreateAssignment = object({
+  name: string().required(CRATE_ASSIGNMENT_NAME),
+  // activityTypeId: number().required(),
+  // isVisible: bool().required(),
+  // classSectionId: number().required(),
+  description: string().required(CRATE_ASSIGNMENT_DESCRIPTION),
+  startDate: string().required(CRATE_ASSIGNMENT_START_DATE),
+  endDate: string().required(CRATE_ASSIGNMENT_END_DATE),
+  // editBeForSubmitMin: number().required(),
+  maxFileSubmit: number().required(CRATE_ASSIGNMENT_MAX_FILE_SUBMIT),
+  maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
+  // attachFiles: string().required(),
+  // isOverWriteAttachFile: bool().required(),
 });

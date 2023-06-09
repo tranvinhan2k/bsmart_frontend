@@ -22,6 +22,7 @@ import TimeTableInput from './TimeTableInput';
 import DropdownInputBank from './DropdownInputBank';
 import FeedbackQuestionChoiceInput from './FeedbackQuestionChoiceInput';
 import FeedbackTypeInput from './FeedbackTypeInput';
+import DateTimePickerInput from './DateTimePickerInput';
 
 interface FormInputProps {
   banks?: BankLinking[];
@@ -106,6 +107,13 @@ const generateFormInput = (
     case variant === 'time':
       return (
         <HourPickerInput controller={controller} placeholder={placeholder} />
+      );
+    case variant === 'datetime':
+      return (
+        <DateTimePickerInput
+          controller={controller}
+          placeholder={placeholder}
+        />
       );
     case variant === 'dropdown':
       return (
