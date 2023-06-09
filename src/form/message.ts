@@ -9,6 +9,16 @@ export const CONFIRM_PASSWORD_NOT_MATCH =
   'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
 export const MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED =
   'Hãy nhập tin nhắn tới người dùng';
+// account validate
+export const CRATE_ASSIGNMENT_NAME = 'Hãy nhập tên assignment';
+export const CRATE_ASSIGNMENT_DESCRIPTION = 'Hãy nhập mô tả assignment';
+export const CRATE_ASSIGNMENT_START_DATE = 'Hãy nhập ngày bắt đầu assignment';
+export const CRATE_ASSIGNMENT_END_DATE = 'Hãy nhập kết thúc assignment';
+export const CRATE_ASSIGNMENT_MAX_FILE_SUBMIT =
+  'Hãy nhập số lượng file tối đa được nộp';
+export const CRATE_ASSIGNMENT_MAX_FILE_SIZE =
+  'Hãy nhập kích thước file tối đa được nộp';
+
 // information validate
 export const NAME_REQUIRED = 'Họ và tên không được để trống.';
 export const BIRTHDAY_REQUIRED = 'Ngày sinh không được để trống.';

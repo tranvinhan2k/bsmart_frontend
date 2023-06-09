@@ -1,9 +1,9 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
+// import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import { mockLevelData, typeData } from '~/constants';
@@ -28,6 +28,9 @@ export default function MentorCourseDetailPage() {
   return (
     <Box sx={{ boxShadow: 3, p: 5, borderRadius: 1 }}>
       <h1>Thông tin khóa học</h1>
+      <Button variant="outlined" color="miSmartOrange">
+        Thêm Assignment
+      </Button>
     </Box>
   );
 }

@@ -129,6 +129,21 @@ export interface ProcessCreateCourseRequestFormDefault {
   message: string;
 }
 
+export interface CreateAssignmentFormDataPayload {
+  name: string;
+  activityTypeId: number;
+  isVisible: boolean;
+  classSectionId: number;
+  description: string;
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  attachFiles: string[];
+  isOverWriteAttachFile: boolean;
+}
+
 export type FormInputVariant =
   | 'text'
   | 'number'
@@ -146,4 +161,5 @@ export type FormInputVariant =
   | 'password'
   | 'feedbackQuestionChoice'
   | 'feedbackTypeChoose'
+  | 'datetime'
   | 'date';

@@ -80,16 +80,18 @@ function FileInput({ controller, placeholder }: FileInputProps) {
             alignItems={{ md: 'center', lg: 'flex-start' }}
             spacing={2}
           >
-            <MuiButton
-              variant="outlined"
-              color="success"
-              fullWidth
-              href={value.url}
-              target="_blank"
-              size="small"
-            >
-              <Icon name="eye" size="medium" />
-            </MuiButton>
+            {value.url && (
+              <MuiButton
+                variant="outlined"
+                color="success"
+                fullWidth
+                href={value.url}
+                target="_blank"
+                size="small"
+              >
+                <Icon name="eye" size="medium" />
+              </MuiButton>
+            )}
             <MuiButton
               variant="outlined"
               color="error"

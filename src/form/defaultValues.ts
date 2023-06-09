@@ -1,5 +1,6 @@
 import {
   BuyCourseDataPayload,
+  CreateAssignmentFormDataPayload,
   EditAvatarFormDataPayload,
   EditCertificateProfileDefaultValuePayload,
   EditIdentityBackFormDataPayload,
@@ -155,3 +156,19 @@ export const defaultValueUpdateCategory = {
   code: '',
   name: '',
 };
+
+export const defaultValueEditCreateAssignment: CreateAssignmentFormDataPayload =
+  {
+    name: '',
+    activityTypeId: 0,
+    isVisible: true,
+    classSectionId: 0,
+    description: '',
+    startDate: '',
+    endDate: '',
+    editBeForSubmitMin: 0,
+    maxFileSubmit: 1,
+    maxFileSize: 10,
+    attachFiles: [],
+    isOverWriteAttachFile: true,
+  };

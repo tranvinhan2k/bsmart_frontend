@@ -1,34 +1,67 @@
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button as MuiButton,
   Typography,
   Stack,
   Grid,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '~/components/atoms/Button';
-import FormInput from '~/components/atoms/FormInput';
-import { validationSchemaEditMentorProfile } from '~/form/validation';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
-import { useYupValidationResolver } from '~/hooks';
+import { CreateAssignmentFormDataPayload } from '~/models/form';
+import { CreateAssignmentPayload } from '~/api/assignments';
+import { defaultValueEditCreateAssignment } from '~/form/defaultValues';
 import { MentorNavigationActionData } from '~/constants';
+import { useMutationCreateAssignment } from '~/hooks/useManageAssignment';
+import { useYupValidationResolver } from '~/hooks';
+import { validationSchemaCreateAssignment } from '~/form/validation';
+import FormInput from '~/components/atoms/FormInput';
+import Icon from '~/components/atoms/Icon';
+import toast from '~/utils/toast';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 
 export default function MentorCreateAssignmentPage() {
-  const resolverEditPersonalProfile = useYupValidationResolver(
-    validationSchemaEditMentorProfile
+  const resolverCreateAssignment = useYupValidationResolver(
+    validationSchemaCreateAssignment
   );
   const { control, handleSubmit } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
-    resolver: resolverEditPersonalProfile,
+    defaultValues: defaultValueEditCreateAssignment,
+    resolver: resolverCreateAssignment,
   });
 
-  const handleSubmitSuccess = async (data: any) => {
-    console.log('handleSubmitSuccess');
+  const { mutateAsync: mutateCreateAssignment } = useMutationCreateAssignment();
+
+  const toastMsgLoading = 'Đang tạo...';
+  const toastMsgSuccess = 'Tạo thành công';
+  const toastMsgError = (error: any): string => {
+    return `Tạo không thành công: ${error.message}`;
+  };
+  const handleSubmitSuccess = async (data: CreateAssignmentFormDataPayload) => {
+    const params: CreateAssignmentPayload = {
+      name: data.name,
+      activityTypeId: 2 /* hard code */,
+      isVisible: true /* hard code */,
+      classSectionId: 1 /* hard code */,
+      description: data.description,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      editBeForSubmitMin: 1 /* hard code */,
+      maxFileSubmit: data.maxFileSubmit,
+      maxFileSize: data.maxFileSize,
+      attachFiles: data.attachFiles,
+      isOverWriteAttachFile: data.isOverWriteAttachFile,
+    };
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await mutateCreateAssignment(params);
+      toast.updateSuccessToast(id, toastMsgSuccess);
+    } catch (error: any) {
+      toast.updateFailedToast(id, toastMsgError(error.message));
+    }
   };
 
   const gradingMethods = [
@@ -41,21 +74,36 @@ export default function MentorCreateAssignmentPage() {
 
   const maxNoOfFile = [
     { id: 1, value: '1', label: '1' },
-    { id: 2, value: '1', label: '2' },
-    { id: 3, value: '1', label: '3' },
-    { id: 4, value: '1', label: '4' },
-    { id: 5, value: '1', label: '5' },
+    { id: 2, value: '2', label: '2' },
+    { id: 3, value: '3', label: '3' },
+    { id: 4, value: '4', label: '4' },
+    { id: 5, value: '5', label: '5' },
   ];
 
   const maxFileSize = [
-    { id: 1, value: '10 MB', label: '10 MB' },
-    { id: 2, value: '1 MB', label: '1 MB' },
-    { id: 3, value: '10 KB', label: '10 KB' },
+    { id: 1, value: '10', label: '10 MB' },
+    { id: 2, value: '100', label: '100 MB' },
   ];
 
   const navigate = useNavigate();
   const handleReturnResourceManagePage = () =>
     navigate(`/mentor-profile/${MentorNavigationActionData[6].link}`);
+
+  const {
+    fields: attachFileFields,
+    append,
+    remove,
+  } = useFieldArray({
+    name: 'attachFiles',
+    control,
+  });
+
+  const appendAttachFile = () => {
+    append('');
+  };
+  const removeAttachFile = (index: number) => {
+    remove(index);
+  };
 
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess)}>
@@ -85,17 +133,8 @@ export default function MentorCreateAssignmentPage() {
               <Typography sx={SX_FORM_LABEL}>Mô tả</Typography>
               <FormInput
                 control={control}
-                name="name"
+                name="description"
                 variant="multiline"
-                placeholder="Nhập mô tả"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography sx={SX_FORM_LABEL}>Tài liệu đi kèm</Typography>
-              <FormInput
-                control={control}
-                name="name"
-                variant="file"
                 placeholder="Nhập mô tả"
               />
             </Grid>
@@ -118,30 +157,15 @@ export default function MentorCreateAssignmentPage() {
           <Grid container columnSpacing={3}>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Ngày mở</Typography>
-              <FormInput control={control} name="dateStart" variant="date" />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography sx={SX_FORM_LABEL}>Giờ mở</Typography>
-              <FormInput control={control} name="timeStart" variant="time" />
+              <FormInput
+                control={control}
+                name="startDate"
+                variant="datetime"
+              />
             </Grid>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Ngày đóng</Typography>
-              <FormInput control={control} name="dateEnd" variant="date" />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography sx={SX_FORM_LABEL}>Giờ đóng</Typography>
-              <FormInput control={control} name="timeEnd" variant="time" />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography sx={SX_FORM_LABEL}>
-                Giới hạn thời gian (phút)
-              </Typography>
-              <FormInput
-                control={control}
-                name="timeLimit"
-                variant="number"
-                placeholder="Nhập giới hạn thời gian"
-              />
+              <FormInput control={control} name="endDate" variant="datetime" />
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -162,31 +186,12 @@ export default function MentorCreateAssignmentPage() {
           <Grid container columnSpacing={3}>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Điểm đậu</Typography>
-              <FormInput
-                control={control}
-                name="gradeToPass"
-                variant="number"
-                placeholder="Nhập điểm đậu"
-              />
             </Grid>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Số lần được làm</Typography>
-              <FormInput
-                control={control}
-                name="attemptAllowed"
-                variant="number"
-                placeholder="Nhập số lần được làm quiz"
-              />
             </Grid>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Cách thức chấm điểm</Typography>
-              <FormInput
-                control={control}
-                data={gradingMethods}
-                name="gradingMethod"
-                variant="dropdown"
-                placeholder="Chọn cách thức chấm điểm"
-              />
             </Grid>
           </Grid>
         </AccordionDetails>
@@ -204,28 +209,67 @@ export default function MentorCreateAssignmentPage() {
           </Stack>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container columnSpacing={3}>
+          <Grid container columnSpacing={2}>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Số file tối đa nộp</Typography>
               <FormInput
                 control={control}
-                data={maxNoOfFile}
-                name="gradingMethod"
-                variant="dropdown"
-                placeholder="Chọn cách thức chấm điểm"
+                name="maxFileSubmit"
+                variant="number"
+                placeholder="Chọn số file tối đa nộp"
               />
             </Grid>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>
-                Dung lượng tối đa mỗi file
+                Dung lượng tối đa mỗi file (MB)
               </Typography>
               <FormInput
                 control={control}
-                data={maxFileSize}
-                name="gradingMethod"
-                variant="dropdown"
-                placeholder="Chọn cách thức chấm điểm"
+                name="maxFileSize"
+                variant="number"
+                placeholder="Chọn dung lượng tối đa mỗi file"
               />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography sx={SX_FORM_LABEL}>Tài liệu đi kèm</Typography>
+            </Grid>
+            {attachFileFields.map((field, index) => (
+              <Grid item xs={12} key={field.id}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={2}
+                  mb={2}
+                >
+                  <FormInput
+                    control={control}
+                    // name="attachFiles"
+                    name={`attachFiles.${index}`}
+                    variant="file"
+                  />
+                  <MuiButton
+                    color="error"
+                    size="small"
+                    variant="outlined"
+                    onClick={() => removeAttachFile(index)}
+                  >
+                    <Icon name="delete" size="medium" />
+                  </MuiButton>
+                </Stack>
+              </Grid>
+            ))}
+            <Grid item xs={6} lg={3}>
+              <Box mt={2}>
+                <MuiButton
+                  color="success"
+                  size="large"
+                  variant="outlined"
+                  onClick={() => appendAttachFile()}
+                >
+                  <Icon name="add" size="medium" />
+                </MuiButton>
+              </Box>
             </Grid>
           </Grid>
         </AccordionDetails>
