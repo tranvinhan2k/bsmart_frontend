@@ -9,7 +9,6 @@ import { attendanceCheckByMentorColumns } from '~/dataGridColumns/attendanceChec
 import DataGrid from '~/components/atoms/DataGrid';
 import Button from '~/components/atoms/Button';
 
-
 const attendanceCheckByMentor = {
   totalPages: 1,
   totalItems: 3,

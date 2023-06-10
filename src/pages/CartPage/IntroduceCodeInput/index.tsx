@@ -10,7 +10,7 @@ export default function IntroduceCodeInput() {
 
   const slIntroduceCode = useSelector(selectIntroduceCode);
   const [text, setText] = useState<string>('');
-  const [code, setCode] = useState<string>(slIntroduceCode);
+  const [code, setCode] = useState<string | undefined>(slIntroduceCode);
 
   const handleChangeText = (e: any) => {
     setText(e.target.value);

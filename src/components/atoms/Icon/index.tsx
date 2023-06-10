@@ -1,4 +1,9 @@
-import { AiOutlineClose, AiOutlineStar, AiFillSetting } from 'react-icons/ai';
+import {
+  AiOutlineClose,
+  AiOutlineStar,
+  AiFillSetting,
+  AiOutlineRedo,
+} from 'react-icons/ai';
 import { BiCategoryAlt, BiFilter } from 'react-icons/bi';
 import {
   BsDribbble,
@@ -12,9 +17,16 @@ import {
   BsFilter,
   BsArrowBarUp,
   BsArrowBarDown,
+  BsFillClipboard2CheckFill,
+  BsCheckCircle,
+  BsCheckCircleFill,
+  BsXCircle,
+  BsXCircleFill,
+  BsFillInfoCircleFill
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
+import { TbListSearch } from 'react-icons/tb';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious, GrFilter } from 'react-icons/gr';
@@ -27,7 +39,7 @@ import {
   MdFeedback,
 } from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
-
+import { VscTasklist } from 'react-icons/vsc';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -70,6 +82,7 @@ import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
   | 'account'
+  | 'attendance'
   | 'add-icon'
   | 'add'
   | 'assignment'
@@ -85,9 +98,14 @@ export type IconName =
   | 'arrowUp'
   | 'arrowDown'
   | 'course'
+  | 'viewDetail'
   | 'delete'
   | 'dot'
   | 'down'
+  | 'checkCircle'
+  | 'xCircle'
+  | 'checkCircleFill'
+  | 'xCircleFill'
   | 'dribbble'
   | 'edit'
   | 'eye-off'
@@ -118,6 +136,8 @@ export type IconName =
   | 'question'
   | 'quiz'
   | 'right'
+  | 'redo'
+  | 'request'
   | 'left'
   | 'search'
   | 'setting'
@@ -165,6 +185,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsPostcardFill />
         </Typography>
       );
+    case 'viewDetail':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFillInfoCircleFill />
+        </Typography>
+      );
+    case 'attendance':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFillClipboard2CheckFill />
+        </Typography>
+      );
     case 'cake':
       return (
         <Typography sx={STYLED_ICON}>
@@ -175,6 +207,36 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsArrowBarUp />
+        </Typography>
+      );
+    case 'checkCircle':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsCheckCircle />
+        </Typography>
+      );
+    case 'xCircle':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsXCircle />
+        </Typography>
+      );
+    case 'checkCircleFill':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsCheckCircleFill />
+        </Typography>
+      );
+    case 'xCircleFill':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsXCircleFill />
+        </Typography>
+      );
+    case 'request':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <VscTasklist />
         </Typography>
       );
     case 'arrowDown':
@@ -347,6 +409,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsQuestionSquare />
+        </Typography>
+      );
+    case 'redo':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiOutlineRedo />
         </Typography>
       );
     case 'quiz':

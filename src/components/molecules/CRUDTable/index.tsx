@@ -38,16 +38,16 @@ export type SearchFilterFormInput = {
 interface CRUDTableProps {
   title: string;
   columns: GridColDef[];
-  isLoading: boolean;
-  error: any;
+  isLoading?: boolean;
+  error?: any;
   rows: any;
-  addItemButtonLabel: string;
+  addItemButtonLabel?: string;
   menuItemList?: MenuItemPayload[];
-  searchPlaceholder: string;
+  searchPlaceholder?: string;
   searchFilterFormInputList?: SearchFilterFormInput[];
-  setSelectedRow: (selectedRow: any) => void;
+  setSelectedRow?: (selectedRow: any) => void;
   onAdd?: () => void;
-  onSearch: (data: any) => void;
+  onSearch?: (data: any) => void;
   getRowId?: GridRowIdGetter<GridValidRowModel>;
 }
 
@@ -87,13 +87,13 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
 
 export default function CRUDTable({
   title,
-  isLoading,
-  error,
+  isLoading = false,
+  error = null,
   columns,
   rows = [],
-  addItemButtonLabel,
+  addItemButtonLabel = '',
   menuItemList,
-  searchPlaceholder,
+  searchPlaceholder = '',
   searchFilterFormInputList,
   setSelectedRow,
   onAdd,
@@ -113,7 +113,9 @@ export default function CRUDTable({
   };
 
   const handleSelectedRow = (data: any) => {
-    setSelectedRow(data.row);
+    if (setSelectedRow) {
+      setSelectedRow(data.row);
+    }
   };
 
   const handleMenu = (event: any) => {
@@ -153,12 +155,14 @@ export default function CRUDTable({
           onCreate={onAdd}
         />
       )}
-      <CRUDTableSearching
-        searchPlaceholder={searchPlaceholder}
-        searchControl={searchValueForm}
-        onSearch={onSearch}
-        filterFormInputList={searchFilterFormInputList}
-      />
+      {onSearch && (
+        <CRUDTableSearching
+          searchPlaceholder={searchPlaceholder}
+          searchControl={searchValueForm}
+          onSearch={onSearch}
+          filterFormInputList={searchFilterFormInputList}
+        />
+      )}
       <Stack>
         <StripedDataGrid
           onRowClick={handleSelectedRow}
@@ -200,4 +204,10 @@ CRUDTable.defaultProps = {
   searchFilterFormInputList: [],
   onAdd: undefined,
   getRowId: undefined,
+  isLoading: false,
+  error: null,
+  addItemButtonLabel: '',
+  searchPlaceholder: '',
+  onSearch: () => {},
+  setSelectedRow: undefined,
 };

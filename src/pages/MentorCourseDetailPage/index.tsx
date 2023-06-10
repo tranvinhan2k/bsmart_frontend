@@ -14,15 +14,6 @@ import { scrollToTop } from '~/utils/common';
 
 export default function MentorCourseDetailPage() {
   const { id } = useParams();
-  const {
-    data,
-    deleteCourseMutation,
-    error,
-    isLoading,
-    refetch,
-    requestCourseMutation,
-    updateCourseMutation,
-  } = useCRUDMentorCourse(parseInt(`${id}`, 10));
 
   const hookForm = useForm();
 
@@ -33,8 +24,6 @@ export default function MentorCourseDetailPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
-
-  console.log(data);
 
   return (
     <Stack

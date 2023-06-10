@@ -14,6 +14,7 @@ export * from './useQueryGetCourseDetailByCourseId';
 export * from './useQueryGetSubCourseByCourseId';
 export * from './useQueryGetMentorByMentorId';
 export * from './useQueryGetAllCourses';
+export * from './useQueryGetAllPublicCourses';
 export * from './useQueryGetAllMentors';
 export * from './useQueryGetAllMemberCourses';
 export * from './useQueryGetAllMentorCourses';

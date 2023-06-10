@@ -14,7 +14,7 @@ export default function LoginSection() {
         padding: MetricSize.large_20,
       }}
     >
-      <LoginForm />
+      <LoginForm onCloseModal={() => {}} />
     </Stack>
   );
 }

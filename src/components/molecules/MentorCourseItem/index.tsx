@@ -89,7 +89,7 @@ export default function MentorCourseItem({
         numberOfSlot: data.numberOfSlot,
         imageId: data.imageUrl instanceof File ? imageId : undefined,
         type: data.type.value,
-        level: 'BEGINNER',
+        level: data?.level?.id || 'BEGINNER',
         timeInWeekRequests: data.timeInWeekRequests.map(
           (timeInWeekItem: any) => ({
             dayOfWeekId: timeInWeekItem.dayInWeek.id,

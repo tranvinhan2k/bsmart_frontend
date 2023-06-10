@@ -3,7 +3,6 @@ import Skeleton from 'react-loading-skeleton';
 import { ResponseMemberCoursePayload } from '~/api/courses';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import CustomModal from '~/components/atoms/Modal';
 import { image } from '~/constants/image';
 
 interface MemberCourseItemProps {

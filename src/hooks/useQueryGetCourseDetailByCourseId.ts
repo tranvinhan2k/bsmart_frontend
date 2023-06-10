@@ -6,7 +6,7 @@ export const useQueryGetCourseDetailByCourseId = (
 ) => {
   const { error, data, isLoading } = useQuery({
     queryKey: ['course_detail'],
-    queryFn: () => coursesApi.getDetailCourse(`${id}`),
+    queryFn: () => coursesApi.getDetailCourse(id as number),
   });
   return {
     error,

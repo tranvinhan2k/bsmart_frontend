@@ -1,14 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import globalStyles from '~/styles';
 import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { mockLevelData, typeData } from '~/constants';
 import Button from '~/components/atoms/Button';
-import { RequestUpdateCoursePayload } from '~/api/courses';
-import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
+import {
+  useQueryGetAllCategories,
+  useQueryGetAllSubjects,
+  useYupValidationResolver,
+} from '~/hooks';
 import CustomModal from '~/components/atoms/CustomModal';
+import {
+  validationSchemaUpdateWaitingCourse,
+  validationSchemaUpdateWaitingCoursePrivate,
+} from '~/form/validation';
 
 interface UpdateMentorCourseProps {
   item: any;
@@ -25,13 +32,20 @@ export default function UpdateMentorCourse({
 }: UpdateMentorCourseProps) {
   const { subjects } = useQueryGetAllSubjects();
   const { categories } = useQueryGetAllCategories();
+  const resolver = useYupValidationResolver(
+    item.courseType === 'PUBLIC'
+      ? validationSchemaUpdateWaitingCourse
+      : validationSchemaUpdateWaitingCoursePrivate
+  );
+
   const hookForm = useForm({
+    resolver,
     defaultValues: {
       ...item,
       categoryId: {
-        id: item.category.id,
-        label: item.category.name,
-        value: item.category.value,
+        id: item?.categoryDtoList?.[0]?.id,
+        label: item.categoryDtoList?.[0]?.name,
+        value: item.categoryDtoList?.[0]?.value,
       },
       subjectId: {
         id: item.subject.id,
@@ -57,7 +71,7 @@ export default function UpdateMentorCourse({
   const [chooseCategoryId, setChooseCategoryId] = useState();
 
   const filterSubjects = subjects?.filter((subject: any) => {
-    return subject.categoryId === chooseCategoryId;
+    return subject.categoryIds?.includes(chooseCategoryId || 0);
   });
 
   useEffect(() => {
@@ -69,23 +83,32 @@ export default function UpdateMentorCourse({
       <Stack sx={{ height: '80vh' }}>
         <Typography sx={globalStyles.textTitle}>Chỉnh sửa khóa học</Typography>
 
-        <FormInput
-          variant="text"
-          name="courseCode"
-          control={hookForm.control}
-          label="Mã khóa học"
-        />
-        <FormInput
-          variant="text"
-          name="courseName"
-          control={hookForm.control}
-          label="Tên khóa học"
-        />
+        {item.courseType === 'PRIVATE' && (
+          <>
+            <FormInput
+              variant="text"
+              name="courseCode"
+              control={hookForm.control}
+              label="Mã khóa học"
+            />
+            <FormInput
+              variant="text"
+              name="courseName"
+              control={hookForm.control}
+              label="Tên khóa học"
+            />
+          </>
+        )}
         <FormInput
           variant="multiline"
           name="courseDescription"
           control={hookForm.control}
-          label="Tên khóa học"
+          label="Miêu tả khóa học"
+        />
+        <FormInput
+          name="subCourseTitle"
+          control={hookForm.control}
+          label="Tên buổi học"
         />
         <FormInput
           variant="dropdown"
@@ -155,7 +178,7 @@ export default function UpdateMentorCourse({
             variant="image"
             name={CREATE_SUB_COURSE_FIELDS.imageUrl}
             control={hookForm.control}
-            label="Hình ảnh"
+            label="Hình ảnh khóa học"
           />
         </Stack>
         <Stack paddingTop={1}>
@@ -185,7 +208,9 @@ export default function UpdateMentorCourse({
         </Stack>
         <Stack marginTop={2}>
           <Button
-            onClick={hookForm.handleSubmit(onSubmit)}
+            onClick={hookForm.handleSubmit(onSubmit, (e) => {
+              console.log(e);
+            })}
             customVariant="horizonForm"
           >
             Cập nhật khóa học

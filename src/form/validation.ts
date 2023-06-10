@@ -271,6 +271,113 @@ export const validationSchemaCreateSubCourse = object({
     ),
 });
 
+export const validationSchemaUpdateWaitingCourse = object({
+  courseDescription: string().required('Giới thiệu khóa học là bắt buộc'),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
+  categoryId: object()
+    .typeError('Lĩnh vực không hợp lệ')
+    .required(COURSE_CATEGORY_REQUIRED),
+  subCourseTitle: string().required('Tên khóa học phụ là bắt buộc'),
+  numberOfSlot: number()
+    .required('Số lượng học sinh không được để trống')
+    .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
+  level: string().required(COURSE_LEVEL_REQUIRED),
+  price: number()
+    .min(1000, 'Giá tiền phải lớn hơn 1000')
+    .required('Giá tiền là bắt buộc'),
+  type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
+  minStudent: number()
+    .required('Số học sinh tối thiểu không được bỏ trống')
+    .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
+  maxStudent: number()
+    .required('Số học sinh tối đa không được bỏ trống')
+    .min(5, 'Học sinh tối thiểu phải lớn hơn 5')
+    .test(
+      'is-greater',
+      'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',
+      function (value) {
+        const { minStudent } = this.parent;
+        return value > minStudent;
+      }
+    ),
+  startDateExpected: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống'),
+  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
+  endDateExpected: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống')
+    .test(
+      'is-greater',
+      'Ngày kết thúc phải lớn hơn ngày bắt đầu',
+      function (endDate: Date) {
+        const { startDateExpected } = this.parent;
+
+        if (!startDateExpected || !endDate) {
+          return true;
+        }
+
+        return endDate > startDateExpected;
+      }
+    ),
+});
+export const validationSchemaUpdateWaitingCoursePrivate = object({
+  courseCode: string().required('Mã khóa học là bắt buộc'),
+  courseName: string().required('Tên khóa học là bắt buộc'),
+  courseDescription: string().required('Giới thiệu khóa học là bắt buộc'),
+  subjectId: object()
+    .typeError('Ngôn ngữ không hợp lệ')
+    .required(COURSE_LANGUAGE_REQUIRED),
+  categoryId: object()
+    .typeError('Lĩnh vực không hợp lệ')
+    .required(COURSE_CATEGORY_REQUIRED),
+  subCourseTitle: string().required('Tên khóa học phụ là bắt buộc'),
+  numberOfSlot: number()
+    .required('Số lượng học sinh không được để trống')
+    .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
+  level: string().required(COURSE_LEVEL_REQUIRED),
+  price: number()
+    .min(1000, 'Giá tiền phải lớn hơn 1000')
+    .required('Giá tiền là bắt buộc'),
+  type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
+  minStudent: number()
+    .required('Số học sinh tối thiểu không được bỏ trống')
+    .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
+  maxStudent: number()
+    .required('Số học sinh tối đa không được bỏ trống')
+    .min(5, 'Học sinh tối thiểu phải lớn hơn 5')
+    .test(
+      'is-greater',
+      'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',
+      function (value) {
+        const { minStudent } = this.parent;
+        return value > minStudent;
+      }
+    ),
+  startDateExpected: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống'),
+  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
+  endDateExpected: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống')
+    .test(
+      'is-greater',
+      'Ngày kết thúc phải lớn hơn ngày bắt đầu',
+      function (endDate: Date) {
+        const { startDateExpected } = this.parent;
+
+        if (!startDateExpected || !endDate) {
+          return true;
+        }
+
+        return endDate > startDateExpected;
+      }
+    ),
+});
+
 export const validationSchemaWithdrawMoney = object({
   amount: number()
     .required(WITHDRAW_AMOUNT_REQUIRED)

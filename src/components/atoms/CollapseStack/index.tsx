@@ -20,8 +20,8 @@ export default function CollapseStack({ label, children }: CollapseStackProps) {
       sx={{
         width: '100%',
         borderRadius: '10px',
-        border: '1px solid grey',
         background: Color.white,
+        boxShadow: 2,
       }}
     >
       <Stack

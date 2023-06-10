@@ -3,6 +3,7 @@ import { ResponseProfilePayload } from '~/api/users';
 import IntroduceMentorDetailSection from '~/containers/MentorProfileLayoutSection/IntroduceMentorDetailSection';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
+import { Color } from '~/assets/variables';
 
 interface MentorProfileLayoutProps {
   children: any;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useManageCourseCreateRequest } from '~/hooks/useManageCourseCreateRequest';
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
-import CustomModal from '~/components/atoms/Modal';
+import CustomModal from '~/components/atoms/CustomModal';
 import ReadOneCreateCourseRequest from '~/containers/CreateCourseRequestManageSection/ReadOneCreateCourseRequest';
 import toast from '~/utils/toast';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
