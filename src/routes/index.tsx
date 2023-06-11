@@ -49,8 +49,8 @@ const MentorCreateCoursePage = lazy(
 const MentorTakeAttendancePage = lazy(
   () => import('~/pages/MentorTakeAttendancePage')
 );
-const MentorReTakeAttendancePage = lazy(
-  () => import('~/pages/MentorReTakeAttendancePage')
+const MentorViewStudentAttendancePage = lazy(
+  () => import('~/pages/MentorViewStudentAttendancePage')
 );
 const MentorCreateQuizPage = lazy(() => import('~/pages/MentorCreateQuizPage'));
 const MentorCreateAssignmentPage = lazy(
@@ -86,6 +86,9 @@ const SubjectManagerPage = lazy(() => import('~/pages/SubjectManagerPage'));
 const CategoryManagerPage = lazy(() => import('~/pages/CategoryManagerPage'));
 const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
+);
+const MentorAttendanceListPage = lazy(
+  () => import('~/pages/MentorAttendanceListPage')
 );
 
 const routes: RoutePayload[] = [
@@ -287,12 +290,12 @@ export const mentorRoutes: RoutePayload[] = [
   },
   {
     path: `/${MentorNavigationActionData[8].link}`,
-    main: () => <MentorTakeAttendancePage />,
+    main: () => <MentorAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
     path: `/${MentorNavigationActionData[9].link}`,
-    main: () => <MentorReTakeAttendancePage />,
+    main: () => <MentorViewStudentAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {
@@ -313,6 +316,11 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: `/${MentorNavigationActionData[13].link}`,
     main: () => <MentorCreateAnnouncementPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[14].link}`,
+    main: () => <MentorTakeAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
 ];

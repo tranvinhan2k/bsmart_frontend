@@ -312,13 +312,13 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 8,
-    name: 'Giảng viên điểm danh',
-    link: 'mentor-take-attendance',
+    name: 'Danh sách điểm danh',
+    link: 'attendance-list',
   },
   {
     id: 9,
-    name: 'Giảng viên điểm danh lại',
-    link: 'mentor-re-take-attendance',
+    name: 'Điểm danh của học sinh',
+    link: 'view-member-attendance',
   },
   {
     id: 10,
@@ -346,8 +346,8 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 14,
-    name: '',
-    link: '',
+    name: 'Điểm danh',
+    link: 'take-attendance',
     isHide: true,
   },
   {

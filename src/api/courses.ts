@@ -19,6 +19,7 @@ export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
   provinces?: number[] | undefined;
 }
 export interface RequestCreateCoursePayload {
+  id?: number;
   code: string;
   name: string;
   categoryId: number;
@@ -250,6 +251,9 @@ const coursesApi = {
       });
     return handleResponseGetCourse(response);
   },
+  async getAllPublicCourse() {
+    return axiosClient.get(`${url}/public`);
+  },
   async getMemberCourse(
     data: RequestPagingFilterPayload
   ): Promise<PagingFilterPayload<ResponseMemberCoursePayload>> {
@@ -281,6 +285,13 @@ const coursesApi = {
   },
   async createCourse(params: RequestCreateCoursePayload): Promise<any> {
     const response: any = await axiosClient.post(url, params);
+    return response;
+  },
+  async createPublicCourse(params: RequestCreateCoursePayload): Promise<any> {
+    const response: any = await axiosClient.post(
+      `${url}/public-course/${params.id}`,
+      params
+    );
     return response;
   },
   async requestSubCourse(id: number): Promise<any> {

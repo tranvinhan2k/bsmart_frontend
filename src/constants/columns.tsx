@@ -1,4 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
+import { Stack } from '@mui/material';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 
@@ -164,6 +165,27 @@ const courseCreateRequestColumns: GridColDef[] = [
     },
   },
 ];
+const attendanceClassColumns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'slotName',
+    headerName: 'Tên slot',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'date',
+    headerName: 'Ngày',
+    flex: 5,
+    editable: true,
+  },
+  {
+    field: 'numOfStudent',
+    headerName: 'Só lượng điểm danh',
+    flex: 2,
+    editable: true,
+  },
+];
 
 const columns = {
   templateColumns,
@@ -172,6 +194,7 @@ const columns = {
   subjectColumns,
   registerRequestColumns,
   courseCreateRequestColumns,
+  attendanceClassColumns,
 };
 
 export default columns;

@@ -12,10 +12,8 @@ export default function MentorCreateCoursePage() {
   return (
     <Box
       sx={{
-        backgroundColor: Color.whiteSmoke,
         borderRadius: MetricSize.small_10,
         padding: MetricSize.medium_15,
-        boxShadow: 3,
       }}
     >
       <Typography

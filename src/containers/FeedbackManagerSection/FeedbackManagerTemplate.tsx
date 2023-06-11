@@ -6,7 +6,6 @@ import CRUDTable, {
   MenuItemPayload,
   SearchFilterFormInput,
 } from '~/components/molecules/CRUDTable';
-import CustomModal from '~/components/atoms/Modal';
 
 import columns from '~/constants/columns';
 
@@ -18,6 +17,7 @@ import CreateTemplateForm from './CreateTemplateForm';
 import toast from '~/utils/toast';
 import ReadOneTemplateForm from './ReadOneTemplateForm';
 import UpdateTemplateForm from './UpdateTemplateForm';
+import CustomModal from '~/components/atoms/CustomModal';
 
 const texts = {
   title: 'Quản lí bản mẫu',

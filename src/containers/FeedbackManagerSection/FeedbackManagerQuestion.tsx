@@ -6,7 +6,6 @@ import CRUDTable, {
   MenuItemPayload,
   SearchFilterFormInput,
 } from '~/components/molecules/CRUDTable';
-import CustomModal from '~/components/atoms/CustomModal';
 
 import columns from '~/constants/columns';
 
@@ -19,6 +18,7 @@ import toast from '~/utils/toast';
 import ReadOneFeedbackQuestion from './ReadOneFeedbackQuestion';
 import UpdateFeedbackQuestionForm from './UpdateFeedbackQuestionForm';
 import { QuestionTypeOptionList } from '~/constants';
+import CustomModal from '~/components/atoms/CustomModal';
 
 const texts = {
   title: 'Quản lí câu hỏi',

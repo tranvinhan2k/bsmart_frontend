@@ -35,7 +35,9 @@ function CheckoutPage() {
   const slTotalAmount = useSelector(selectTotalAmount);
   const slIntroduceCode = useSelector(selectIntroduceCode);
 
-  const [introduceCode, setIntroduceCode] = useState(slIntroduceCode);
+  const [introduceCode, setIntroduceCode] = useState<string | undefined>(
+    slIntroduceCode
+  );
   const [text, setText] = useState('');
 
   if (checkOutItem === null) {

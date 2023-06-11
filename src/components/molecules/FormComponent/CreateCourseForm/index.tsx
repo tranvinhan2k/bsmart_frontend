@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography, IconButton } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Button from '~/components/atoms/Button';
@@ -23,6 +23,7 @@ import {
   useQueryGetAllSubjects,
   useMutationUploadImage,
   useYupValidationResolver,
+  useQueryGetAllPublicCourses,
 } from '~/hooks';
 import { SubCoursePayload } from '~/models/subCourse';
 import { LEVEL_LABELS } from '~/constants/level';
@@ -31,6 +32,14 @@ import UpdateSubCourseModal from './UpdateSubCourseModal';
 import SubCourseList from './SubCourseList';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { mockLevelData, typeData } from '~/constants';
+import { Color, MetricSize } from '~/assets/variables';
+import Checkbox from '~/components/atoms/Checkbox';
+import CustomCarousel from '../../CustomCarousel';
+import { image } from '~/constants/image';
+import globalStyles from '~/styles';
+import Icon from '~/components/atoms/Icon';
+import CustomModal from '~/components/atoms/CustomModal';
+import PublicCourseItem from './PublicCourseItem';
 
 // TODO : Not implement useHookForm yet !! waiting for API to start
 
@@ -41,21 +50,25 @@ export default function CreateCourseForm() {
   const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
   const [subCourses, setSubCourses] = useState<SubCoursePayload[]>([]);
   const [categoryId, setCategoriesId] = useState<number>();
+  const [isUseCustomCourse, setUseCustomCourse] = useState<boolean>(false);
+  const [selectedPublicCourse, setSelectedPublicCourse] = useState<any>();
+
   const { categories } = useQueryGetAllCategories();
   const { subjects } = useQueryGetAllSubjects();
 
   const [editIndex, setEditIndex] = useState(-1);
   const [deleteIndex, setDeleteIndex] = useState(-1);
 
-  const createCourseMutation = useMutationCreateCourse();
+  const { mutationPublicResult, mutationResult } = useMutationCreateCourse();
   const uploadImageMutation = useMutationUploadImage();
+  const { publicCourses, isLoading } = useQueryGetAllPublicCourses();
 
   const resolverCreateCourse = useYupValidationResolver(
     validationSchemaCreateCourse
   );
   const createCourseHookForm = useForm({
     defaultValues: defaultValueCreateCourse,
-    resolver: resolverCreateCourse,
+    resolver: selectedPublicCourse ? undefined : resolverCreateCourse,
   });
   const categoryWatch = createCourseHookForm.watch(
     CREATE_COURSE_FIELDS.categoryId
@@ -81,6 +94,11 @@ export default function CreateCourseForm() {
   const handleOpenUpdateModal = (id: number) => {
     createSubCourseHookForm.reset(subCourses.find((_, index) => index === id));
     setEditIndex(id);
+  };
+
+  const handleCheckCustomUse = () => {
+    setUseCustomCourse(!isUseCustomCourse);
+    setSelectedPublicCourse(undefined);
   };
 
   const handleOpenDialog = () => {
@@ -112,6 +130,7 @@ export default function CreateCourseForm() {
 
     try {
       const params: any = {
+        id: selectedPublicCourse.id,
         code: data?.code,
         name: data?.name,
         categoryId: data.categoryId?.id,
@@ -129,7 +148,11 @@ export default function CreateCourseForm() {
       };
       createSubCourseHookForm.reset();
 
-      await createCourseMutation.mutateAsync(params);
+      if (selectedPublicCourse) {
+        await mutationPublicResult.mutateAsync(params);
+      } else {
+        await mutationResult.mutateAsync(params);
+      }
       toast.updateSuccessToast(id, 'Tạo khóa học thành công !');
       navigate('/mentor-profile/mentor-course-list');
     } catch (error: any) {
@@ -201,12 +224,36 @@ export default function CreateCourseForm() {
     }
   };
 
+  const renderItem = (item: any) => {
+    const isSelected = selectedPublicCourse?.id === item?.id;
+
+    return (
+      <PublicCourseItem
+        item={item}
+        isSelected={isSelected}
+        onSelectedItem={() => {
+          if (
+            (selectedPublicCourse?.id !== item?.id ||
+              selectedPublicCourse === undefined) &&
+            isUseCustomCourse === false
+          ) {
+            setSelectedPublicCourse(item);
+          } else {
+            setSelectedPublicCourse(undefined);
+          }
+        }}
+      />
+    );
+  };
+
   useEffect(() => {
     setCategoriesId(categoryWatch?.id);
   }, [categoryWatch]);
 
   const filterSubjects = subjects?.filter((item) => {
-    return item.categoryId === categoryId;
+    console.log('category', item.categoryIds, categoryId);
+
+    return item.categoryIds?.includes(categoryId || 0);
   });
 
   if (!categories && !subjects) return null;
@@ -221,40 +268,60 @@ export default function CreateCourseForm() {
           }
         )}
       >
-        <CollapseStack label="Thông tin khóa học">
-          <Stack padding={1}>
-            <FormInput
-              name={CREATE_COURSE_FIELDS.code}
-              control={createCourseHookForm.control}
-              label="Mã khóa học"
-            />
-            <FormInput
-              name={CREATE_COURSE_FIELDS.name}
-              control={createCourseHookForm.control}
-              label="Tên Khóa Học"
-            />
-            <FormInput
-              data={categories}
-              variant="dropdown"
-              name={CREATE_COURSE_FIELDS.categoryId}
-              control={createCourseHookForm.control}
-              label="Lĩnh Vực"
-            />
-            <FormInput
-              data={filterSubjects}
-              variant="dropdown"
-              name={CREATE_COURSE_FIELDS.subjectId}
-              control={createCourseHookForm.control}
-              label="Ngôn ngữ"
-            />
-            <FormInput
-              name={CREATE_COURSE_FIELDS.description}
-              variant="multiline"
-              control={createCourseHookForm.control}
-              label="Mô tả khóa học"
-            />
-          </Stack>
-        </CollapseStack>
+        <Box marginTop={2}>
+          <CollapseStack label="Thông tin khóa học">
+            <Stack padding={2}>
+              <CustomCarousel
+                isLoading={isLoading}
+                label="Chọn khóa học có sẵn"
+                items={publicCourses || []}
+                renderItem={renderItem}
+              />
+              <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Checkbox
+                  isChecked={isUseCustomCourse}
+                  onCheck={handleCheckCustomUse}
+                >
+                  Tự tạo khóa học
+                </Checkbox>
+              </Stack>
+              {isUseCustomCourse && (
+                <Stack padding={1}>
+                  <FormInput
+                    name={CREATE_COURSE_FIELDS.code}
+                    control={createCourseHookForm.control}
+                    label="Mã khóa học"
+                  />
+                  <FormInput
+                    name={CREATE_COURSE_FIELDS.name}
+                    control={createCourseHookForm.control}
+                    label="Tên Khóa Học"
+                  />
+                  <FormInput
+                    data={categories}
+                    variant="dropdown"
+                    name={CREATE_COURSE_FIELDS.categoryId}
+                    control={createCourseHookForm.control}
+                    label="Lĩnh Vực"
+                  />
+                  <FormInput
+                    data={filterSubjects}
+                    variant="dropdown"
+                    name={CREATE_COURSE_FIELDS.subjectId}
+                    control={createCourseHookForm.control}
+                    label="Ngôn ngữ"
+                  />
+                  <FormInput
+                    name={CREATE_COURSE_FIELDS.description}
+                    variant="multiline"
+                    control={createCourseHookForm.control}
+                    label="Mô tả khóa học"
+                  />
+                </Stack>
+              )}
+            </Stack>
+          </CollapseStack>
+        </Box>
         <Box marginTop={2}>
           <CollapseStack label="Thông tin khóa học phụ">
             <Stack padding={1}>

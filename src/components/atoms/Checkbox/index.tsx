@@ -6,7 +6,7 @@ import {
 } from '~/components/atoms/Checkbox/styles';
 
 interface CheckBoxProps {
-  children: string;
+  children?: string;
   isChecked: boolean;
   onCheck: () => void;
 }
@@ -23,3 +23,7 @@ export default function Checkbox({
     </Stack>
   );
 }
+
+Checkbox.defaultProps = {
+  children: '',
+};
