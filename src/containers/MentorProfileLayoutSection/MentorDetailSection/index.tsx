@@ -27,7 +27,7 @@ import { RoleKeys } from '~/models/variables';
 import { RootState } from '~/redux/store';
 import accountApi from '~/api/users';
 import toast from '~/utils/toast';
-import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
+import ActivityHistoryTopFive from '~/containers/AnnotationSection/ActivityHistoryTopFive';
 import DialogUpdateAvatar from '~/components/molecules/Dialog/DialogEditAvatar';
 
 import {
@@ -253,7 +253,7 @@ export default function MentorDetailSection() {
             </Stack>
           </Stack>
         </Box>
-        <RecentActivityList />
+        <ActivityHistoryTopFive />
       </Stack>
       <DialogUpdateAvatar
         open={openDialogUpdateAvatar}

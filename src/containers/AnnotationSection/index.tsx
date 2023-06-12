@@ -1,22 +1,21 @@
-import { Box, Button, Grid, Pagination, Typography } from '@mui/material';
+import { Box, Grid, Pagination, Typography } from '@mui/material';
 import { useState } from 'react';
 import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
 import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import {
-  ANNOTATION_H3,
   ANNOTATION_BOX,
-  ANNOTATION_BUTTON,
   ANNOTATION_CONTENT,
-  ANNOTATION_CONTENT_IMG,
-  ANNOTATION_CONTENT_TITLE,
   ANNOTATION_CONTENT_CONTENT,
   ANNOTATION_CONTENT_DATE,
+  ANNOTATION_CONTENT_IMG,
+  ANNOTATION_CONTENT_TITLE,
+  ANNOTATION_H3,
 } from './style';
 
 export default function AnnotationSection() {
   const [page, setPage] = useState<number>(0);
-  const size = 1;
+  const size = 5;
 
   const { activityHistories, refetch } = useManageActivityHistory({
     page,

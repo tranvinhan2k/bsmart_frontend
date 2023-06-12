@@ -1,6 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload } from '~/models';
-import { ActivityHistory } from '~/models/activityHistory';
+import { ActivityHistoryPayload } from '~/models/activityHistory';
 
 const url = '/activity-history';
 
@@ -10,10 +10,10 @@ const activityHistoryApi = {
     size = 0,
     sort = '',
   }: GetActivityHistoryProps): Promise<
-    PagingFilterPayload<ActivityHistory> | undefined
+    PagingFilterPayload<ActivityHistoryPayload> | undefined
   > {
     const urlGet = `${url}?page=${page}&size=${size}&sort=${sort}`;
-    const response: PagingFilterPayload<ActivityHistory> | undefined =
+    const response: PagingFilterPayload<ActivityHistoryPayload> | undefined =
       await axiosClient.get(`${urlGet}`);
     return response;
   },

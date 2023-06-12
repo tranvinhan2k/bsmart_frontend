@@ -1,6 +1,5 @@
 import { Box, Grid, Stack } from '@mui/material';
 import MainProfile from '~/containers/MemberDetailsProfile/MainProfile';
-import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
 import CourseSuggestList from '~/containers/MemberDetailsProfile/CourseSuggestList';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 

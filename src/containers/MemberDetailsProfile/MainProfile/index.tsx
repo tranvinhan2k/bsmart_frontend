@@ -21,7 +21,7 @@ import { selectProfile } from '~/redux/user/selector';
 import Button from '~/components/atoms/Button';
 import DialogUpdateAvatar from '~/components/molecules/Dialog/DialogEditAvatar';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import RecentActivityList from '~/containers/MemberDetailsProfile/RecentActivityList';
+import ActivityHistoryTopFive from '~/containers/AnnotationSection/ActivityHistoryTopFive';
 import toast from '~/utils/toast';
 import {
   SX_WRAPPER,
@@ -210,7 +210,7 @@ export default function MainProfile() {
             </Stack>
           </Stack>
         </Box>
-        <RecentActivityList />
+        <ActivityHistoryTopFive />
       </Stack>
       <DialogUpdateAvatar
         open={openDialogUpdateAvatar}
