@@ -1,17 +1,12 @@
-import { Box, Button, Divider, Typography, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigationActionData } from '~/constants';
 import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
-import {
-  SX_BUTTON,
-  SX_WRAPPER,
-  SX_TITLE,
-  SX_PROFILE_DETAILS,
-  SX_PROFILE_DETAILS_HIGHLIGHTED,
-} from './style';
+import ActivityHistory from '../ActivityHistory';
+import { SX_BUTTON, SX_TITLE, SX_WRAPPER } from './style';
 
-export default function RecentActivityList() {
+export default function ActivityHistoryTopFive() {
   const page = 0;
   const size = 5;
 
@@ -48,17 +43,14 @@ export default function RecentActivityList() {
       </Stack>
       {activityHistories &&
         activityHistories.items.map((item) => (
-          <Box mt={2} key={item.id}>
-            <Typography component="p" sx={SX_PROFILE_DETAILS}>
-              {item.detail}
-            </Typography>
-            <Typography component="p" sx={SX_PROFILE_DETAILS_HIGHLIGHTED}>
-              {formatISODateStringToDisplayDate(item.activityTime)}
-            </Typography>
-            <Box mt={2}>
-              <Divider />
-            </Box>
-          </Box>
+          <Fragment key={item.id}>
+            <ActivityHistory
+              type={item.type}
+              action={item.action}
+              activityTime={item.activityTime}
+              activityName={item.activityName}
+            />
+          </Fragment>
         ))}
     </Stack>
   );

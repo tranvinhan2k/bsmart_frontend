@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontFamily } from '~/assets/variables';
+import { Color, FontFamily } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
   marginTop: 3,
