@@ -1,24 +1,9 @@
-import {
-  Box,
-  Button as MuiButton,
-  Tab,
-  Tabs,
-  Grid,
-  Stack,
-  Typography,
-  Tooltip,
-} from '@mui/material';
+import { Box, Tab, Tabs, Stack, Typography } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
-import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import { scrollToTop } from '~/utils/common';
-import {
-  SX_WRAPPER,
-  SX_HEADER_TITLE,
-  SX_FORM_ITEM_LABEL,
-  SX_FORM_ITEM_VALUE,
-} from './style';
+import { SX_WRAPPER, SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE } from './style';
 import { useManageClass } from '~/hooks/useManageClass';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
@@ -45,6 +30,7 @@ export default function MentorResourceManagePage() {
   const id = 4;
   const { classDetails, attendanceQueryData } = useManageClass({ id });
 
+  console.log('classDetails', classDetails);
   const tabEl = [
     {
       id: 0,

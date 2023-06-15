@@ -424,8 +424,20 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 15,
-    name: 'Xem lịch sử hoạt động',
-    link: 'activity-history',
+    name: '',
+    link: '',
+    isHide: true,
+  },
+  {
+    id: 16,
+    name: 'Quản lý Assignment',
+    link: 'mentor-assignment-settings',
+    isHide: true,
+  },
+  {
+    id: 17,
+    name: 'Quản lý Announcement',
+    link: 'mentor-announcement-settings',
     isHide: true,
   },
 ];

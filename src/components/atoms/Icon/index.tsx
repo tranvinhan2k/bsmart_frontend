@@ -4,7 +4,7 @@ import {
   AiFillSetting,
   AiOutlineRedo,
 } from 'react-icons/ai';
-import { BiCategoryAlt, BiFilter } from 'react-icons/bi';
+import { BiCategoryAlt } from 'react-icons/bi';
 import {
   BsDribbble,
   BsInstagram,
@@ -23,15 +23,13 @@ import {
   BsXCircle,
   BsXCircleFill,
   BsFillInfoCircleFill,
-  BsArrowBarRight,
   BsFillCaretRightFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
-import { TbListSearch } from 'react-icons/tb';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
-import { GrNext, GrPrevious, GrFilter } from 'react-icons/gr';
+import { GrNext, GrPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
 import {
