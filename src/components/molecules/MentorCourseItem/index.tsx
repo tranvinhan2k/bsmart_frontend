@@ -184,6 +184,7 @@ export default function MentorCourseItem({
         imageAlt="Hình ảnh khóa học"
         imageUrl={item.imageUrl}
         menuItemList={menuItemList}
+        courseType={item.courseType}
       />
       {type === 'DELETE' && (
         <ConfirmDialog

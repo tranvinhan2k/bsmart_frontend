@@ -12,6 +12,11 @@ import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 import { LEVEL_LABELS } from './level';
 
+export const courseTypeData = {
+  PRIVATE: 'Khóa học riêng tư',
+  PUBLIC: 'Khóa học cộng đồng',
+};
+
 export const typeData: OptionPayload[] = [
   {
     id: 0,
@@ -348,6 +353,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
     id: 14,
     name: 'Điểm danh',
     link: 'take-attendance',
+    isHide: true,
+  },
+  {
+    id: 15,
+    name: 'Tạo nội dung khóa học',
+    link: 'create-content',
     isHide: true,
   },
 ];

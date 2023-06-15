@@ -97,14 +97,14 @@ export default function UpdateMentorCourse({
               control={hookForm.control}
               label="Tên khóa học"
             />
+            <FormInput
+              variant="multiline"
+              name="courseDescription"
+              control={hookForm.control}
+              label="Miêu tả khóa học"
+            />
           </>
         )}
-        <FormInput
-          variant="multiline"
-          name="courseDescription"
-          control={hookForm.control}
-          label="Miêu tả khóa học"
-        />
         <FormInput
           name="subCourseTitle"
           control={hookForm.control}

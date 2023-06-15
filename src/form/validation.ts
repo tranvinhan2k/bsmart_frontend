@@ -74,6 +74,12 @@ export const validationSchemaUpdateCategories = object({
   code: string().required('Mã môn học không được để trống.'),
   name: string().required('Tên môn học không được để trống.'),
 });
+export const validationClassContentSection = object({
+  name: string().required('Tên học phần không được để trống.'),
+});
+export const validationClassContentModule = object({
+  name: string().required('Tên bài học không được để trống.'),
+});
 
 export const validationSchemaRegisterStudent = object({
   name: string().required(USERNAME_REQUIRED),
@@ -272,7 +278,6 @@ export const validationSchemaCreateSubCourse = object({
 });
 
 export const validationSchemaUpdateWaitingCourse = object({
-  courseDescription: string().required('Giới thiệu khóa học là bắt buộc'),
   subjectId: object()
     .typeError('Ngôn ngữ không hợp lệ')
     .required(COURSE_LANGUAGE_REQUIRED),

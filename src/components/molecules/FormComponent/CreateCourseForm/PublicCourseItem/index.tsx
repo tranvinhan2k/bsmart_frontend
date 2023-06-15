@@ -30,6 +30,7 @@ export default function PublicCourseItem({
           borderRadius: MetricSize.medium_15,
           padding: MetricSize.small_10,
           height: '400px',
+          width: '33%',
           position: 'relative',
           transition: 'border 200ms',
           border: `5px solid ${isSelected ? Color.orange : Color.transparent}`,
@@ -57,7 +58,7 @@ export default function PublicCourseItem({
             }}
             marginTop={2}
           >
-            <Typography sx={globalStyles.textSubTitle}>{item.title}</Typography>
+            <Typography sx={globalStyles.textSubTitle}>{item.name}</Typography>
           </Stack>
           <IconButton
             onClick={handleClose}
