@@ -15,6 +15,12 @@ const defaultTheme = createTheme({
       dark: Color.orange,
       contrastText: Color.white,
     },
+    miSmartWhite: {
+      main: Color.white,
+      light: Color.white,
+      dark: Color.white,
+      contrastText: Color.black,
+    },
   },
   typography: {
     fontSize: 14,

@@ -1,22 +1,44 @@
+import { IconButton, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { IconButton, Typography, Stack } from '@mui/material';
-import Icon, { IconName } from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
+import Icon, { IconName } from '~/components/atoms/Icon';
+import { MentorNavigationActionData } from '~/constants';
+import { ActivityTypeCode } from '~/models/class';
 import { SX_RESOURCE_ITEM_CONTAINER } from './style';
 
 interface ResourceProps {
   editMode: boolean;
   resourceName: string;
-  resourceIconName: IconName;
-  editLinkTo: string;
+  activityTypeCode: ActivityTypeCode;
 }
 
 export default function Resource({
   editMode,
   resourceName,
-  resourceIconName,
-  editLinkTo,
+  activityTypeCode,
 }: ResourceProps) {
+  let resourceIconName: IconName = 'chat';
+  let editLinkTo: string;
+
+  switch (activityTypeCode) {
+    case ActivityTypeCode.QUIZ:
+      resourceIconName = 'quiz';
+      editLinkTo = `/mentor-profile/${MentorNavigationActionData[7].link}`;
+      break;
+    case ActivityTypeCode.ASSIGNMENT:
+      resourceIconName = 'assignment';
+      editLinkTo = `/mentor-profile/${MentorNavigationActionData[16].link}`;
+      break;
+    case ActivityTypeCode.ANNOUNCEMENT:
+      resourceIconName = 'chat';
+      editLinkTo = `/mentor-profile/${MentorNavigationActionData[17].link}`;
+      break;
+    default:
+      resourceIconName = 'redo';
+      editLinkTo = '';
+      break;
+  }
+
   const navigation = useNavigate();
   const handleEditResource = () => {
     navigation(editLinkTo);
