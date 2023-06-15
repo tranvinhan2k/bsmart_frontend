@@ -22,7 +22,7 @@ import {
   BsCheckCircleFill,
   BsXCircle,
   BsXCircleFill,
-  BsFillInfoCircleFill
+  BsFillInfoCircleFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
@@ -75,6 +75,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import ClearIcon from '@mui/icons-material/Clear';
+import UpdateIcon from '@mui/icons-material/Update';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -152,6 +153,7 @@ export type IconName =
   | 'coPresent'
   | 'dynamicFeed'
   | 'clear'
+  | 'update'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -325,6 +327,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <DynamicFeedIcon sx={STYLED_ICON} />;
     case 'clear':
       return <ClearIcon sx={STYLED_ICON} />;
+    case 'update':
+      return <UpdateIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />

@@ -1,15 +1,17 @@
 import { ChangeEvent } from 'react';
 import { Stack, Switch, Typography } from '@mui/material';
 
-interface ResourceEditModeProps {
+interface CustomSwitchProps {
+  text: string;
   editMode: boolean;
   handleSetEditMode: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function ResourceEditMode({
+export default function CustomSwitch({
+  text,
   editMode,
   handleSetEditMode,
-}: ResourceEditModeProps) {
+}: CustomSwitchProps) {
   return (
     <Stack
       direction="row"
@@ -17,7 +19,7 @@ export default function ResourceEditMode({
       alignItems="center"
       spacing={2}
     >
-      <Typography color="">Chế độ chỉnh sửa</Typography>
+      <Typography color="">{text}</Typography>
       <Switch checked={editMode} onChange={handleSetEditMode} color="info" />
     </Stack>
   );
