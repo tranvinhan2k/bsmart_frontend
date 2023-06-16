@@ -35,11 +35,9 @@ export default function ResourceMentorMain({
           handleSetEditMode={handleSetExpandAll}
         />
       </Stack>
-      {classDetails &&
-        classDetails.classSectionList &&
-        classDetails.classSectionList.map((item) => (
-          <Topic editMode={editMode} key={item.id} />
-        ))}
+      {classDetails && classDetails.classSectionList && (
+        <Topic editMode={editMode} />
+      )}
       {/* <ResourceMentorMainItem editMode={editMode} /> */}
       {editMode && (
         <Box mt={2}>

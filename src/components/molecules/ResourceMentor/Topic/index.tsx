@@ -43,34 +43,12 @@ export default function Topic({ editMode }: TopicProps) {
     setOpenDialog(false);
   };
 
-  interface ResourceProps {
-    id: number;
-    name: string;
-    iconName: IconName;
-    editLinkTo: string;
-  }
   interface TopicCreatorProps {
     id: number;
     name: string;
     iconName: IconName;
     onClickAction: () => void;
   }
-
-  const resourceTmpList: ResourceProps[] = [
-    {
-      id: 0,
-      name: 'Thông báo 1',
-      iconName: 'chat',
-      editLinkTo: '',
-    },
-    {
-      id: 1,
-      name: 'Bài quiz 1',
-      iconName: 'quiz',
-      editLinkTo: `/mentor-profile/mentor-quiz-settings`,
-    },
-  ];
-
   const handleCreateAnnouncement = () =>
     navigate(`/mentor-profile/${MentorNavigationActionData[13].link}`);
   const handleCreateQuiz = () =>
@@ -103,92 +81,92 @@ export default function Topic({ editMode }: TopicProps) {
     <Box>
       {classDetails &&
         classDetails.classSectionList.map((classSection) => (
-          <Accordion
-            sx={{
-              backgroundColor: Color.white,
-            }}
-            key={classSection.id}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={2}
-              >
-                <Typography sx={SX_RESOURCE_TITTLE}>
-                  {classSection.name}
-                </Typography>
+          <Box mb={2} key={classSection.id}>
+            <Accordion
+              sx={{
+                backgroundColor: Color.white,
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <Typography sx={SX_RESOURCE_TITTLE}>
+                    {classSection.name}
+                  </Typography>
+                  {editMode && (
+                    <IconButton onClick={handleEditResource}>
+                      <Icon name="modeEdit" size="small" />
+                    </IconButton>
+                  )}
+                </Stack>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack spacing={2}>
+                  {classSection.activities.map((activity) => (
+                    <Resource
+                      key={activity.id}
+                      editMode={editMode}
+                      resourceName={activity.name}
+                      activityId={activity.id}
+                      activityTypeCode={activity.type.code}
+                    />
+                  ))}
+                </Stack>
                 {editMode && (
-                  <IconButton onClick={handleEditResource}>
-                    <Icon name="modeEdit" size="small" />
-                  </IconButton>
+                  <>
+                    <Box mt={2}>
+                      <Button variant="outlined" onClick={handleOpenDialog}>
+                        Thêm hoạt động
+                      </Button>
+                    </Box>
+                    <Dialog
+                      open={openDialog}
+                      onClose={handleCloseDialog}
+                      fullWidth
+                      // maxWidth="lg"
+                    >
+                      <DialogTitle>Hoạt động</DialogTitle>
+                      <DialogContent>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="stretch"
+                          spacing={2}
+                        >
+                          {topicCreatorList.map((topicCreator) => (
+                            <Grid item xs={6} sm={4} key={topicCreator.id}>
+                              <Button
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                                onClick={topicCreator.onClickAction}
+                                startIcon={
+                                  <Icon
+                                    name={topicCreator.iconName}
+                                    size="medium"
+                                  />
+                                }
+                              >
+                                {topicCreator.name}
+                              </Button>
+                            </Grid>
+                          ))}
+                        </Grid>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleCloseDialog}>Hủy</Button>
+                      </DialogActions>
+                    </Dialog>
+                  </>
                 )}
-              </Stack>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Stack spacing={2}>
-                {classSection.activities.map((activity) => (
-                  <Resource
-                    key={activity.id}
-                    editMode={editMode}
-                    resourceName={activity.name}
-                    // resourceIconName={resource.iconName}
-                    // editLinkTo={resource.editLinkTo}
-                    activityTypeCode={activity.type.code}
-                  />
-                ))}
-              </Stack>
-              {editMode && (
-                <>
-                  <Box mt={2}>
-                    <Button variant="outlined" onClick={handleOpenDialog}>
-                      Thêm hoạt động
-                    </Button>
-                  </Box>
-                  <Dialog
-                    open={openDialog}
-                    onClose={handleCloseDialog}
-                    fullWidth
-                    // maxWidth="lg"
-                  >
-                    <DialogTitle>Hoạt động</DialogTitle>
-                    <DialogContent>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="stretch"
-                        spacing={2}
-                      >
-                        {topicCreatorList.map((topicCreator) => (
-                          <Grid item xs={6} sm={4} key={topicCreator.id}>
-                            <Button
-                              variant="outlined"
-                              size="small"
-                              fullWidth
-                              onClick={topicCreator.onClickAction}
-                              startIcon={
-                                <Icon
-                                  name={topicCreator.iconName}
-                                  size="medium"
-                                />
-                              }
-                            >
-                              {topicCreator.name}
-                            </Button>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleCloseDialog}>Hủy</Button>
-                    </DialogActions>
-                  </Dialog>
-                </>
-              )}
-            </AccordionDetails>
-          </Accordion>
+              </AccordionDetails>
+            </Accordion>
+          </Box>
         ))}
     </Box>
   );

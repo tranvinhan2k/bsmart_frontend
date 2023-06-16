@@ -16,6 +16,20 @@ export interface CreateAssignmentPayload {
   attachFiles: string[];
   isOverWriteAttachFile: boolean;
 }
+export interface UpdateAssignmentPayload {
+  name: string;
+  activityTypeId: number;
+  isVisible: boolean;
+  classSectionId: number;
+  description: string;
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  attachFiles: string[];
+  isOverWriteAttachFile: boolean;
+}
 
 const assignmentApi = {
   createAssignment(data: CreateAssignmentPayload): Promise<any> {

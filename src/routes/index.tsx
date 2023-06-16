@@ -78,6 +78,12 @@ const MentorResourceManagePage = lazy(
 const MentorQuizSettingsPage = lazy(
   () => import('~/pages/MentorQuizSettingsPage')
 );
+const MentorAssignmentSettingsPage = lazy(
+  () => import('~/pages/MentorAssignmentSettingsPage')
+);
+const MentorAssignmentDetailsPage = lazy(
+  () => import('~/pages/MentorAssignmentDetailsPage')
+);
 const MentorContractPage = lazy(() => import('~/pages/MentorContractPage'));
 const MemberProfilePage = lazy(() => import('~/pages/MemberProfilePage'));
 const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));

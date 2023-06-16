@@ -1,3 +1,5 @@
+import { ActivityType } from './activity';
+
 export interface ClassDetailsPayload {
   id: number;
   startDate: string;
@@ -12,13 +14,13 @@ interface ClassSectionList {
   id: number;
   name: string;
   classModules: ClassModule[];
-  activities: ClassActivity[];
+  activities: ClassActivityPayload[];
 }
 interface ClassModule {
   id: number;
   name: string;
 }
-interface ClassActivity {
+export interface ClassActivityPayload {
   created: string;
   lastModified: string;
   createdBy: string;
@@ -28,21 +30,6 @@ interface ClassActivity {
   isVisible: boolean;
   type: ActivityType;
   activityDetail: ActivityDetail;
-}
-interface ActivityType {
-  id: number;
-  name: ActivityTypeName;
-  code: ActivityTypeCode;
-}
-export const enum ActivityTypeName {
-  ASSIGNMENT = 'assignment',
-  QUIZ = 'quiz',
-  ANNOUNCEMENT = 'announcement',
-}
-export const enum ActivityTypeCode {
-  ASSIGNMENT = 'ASSIGNMENT',
-  QUIZ = 'QUIZ',
-  ANNOUNCEMENT = 'ANNOUNCEMENT',
 }
 interface ActivityDetail {
   created: string;
