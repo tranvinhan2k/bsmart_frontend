@@ -415,3 +415,18 @@ export const validationSchemaCreateAssignment = object({
   // attachFiles: string().required(),
   // isOverWriteAttachFile: bool().required(),
 });
+
+export const validationSchemaUpdateAssignment = object({
+  name: string().required(CRATE_ASSIGNMENT_NAME),
+  // activityTypeId: number().required(),
+  // isVisible: bool().required(),
+  // classSectionId: number().required(),
+  description: string().required(CRATE_ASSIGNMENT_DESCRIPTION),
+  startDate: string().required(CRATE_ASSIGNMENT_START_DATE),
+  endDate: string().required(CRATE_ASSIGNMENT_END_DATE),
+  // editBeForSubmitMin: number().required(),
+  maxFileSubmit: number().required(CRATE_ASSIGNMENT_MAX_FILE_SUBMIT),
+  maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
+  // attachFiles: string().required(),
+  // isOverWriteAttachFile: bool().required(),
+});

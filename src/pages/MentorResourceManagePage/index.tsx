@@ -44,7 +44,6 @@ export default function MentorResourceManagePage() {
   const id = 4;
   const { classDetails } = useManageClass({ id });
 
-  console.log('classDetails', classDetails);
   const tabEl = [
     {
       id: 0,
@@ -101,7 +100,7 @@ export default function MentorResourceManagePage() {
   return (
     <Stack>
       <Box sx={SX_WRAPPER}>
-        <Box mt={2} mb={1} px={2}>
+        <Box mt={2} px={2}>
           <Typography sx={SX_FORM_ITEM_LABEL}>
             {classDetails ? classDetails.subCourseName : ''}
           </Typography>

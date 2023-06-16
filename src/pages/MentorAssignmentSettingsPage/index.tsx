@@ -1,5 +1,5 @@
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
@@ -10,38 +10,70 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useEffect } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '~/components/atoms/Button';
-import { CreateAssignmentFormDataPayload } from '~/models/form';
-import { CreateAssignmentPayload } from '~/api/assignments';
-import { defaultValueEditCreateAssignment } from '~/form/defaultValues';
+import { ActivityTypeCode } from '~/models/activity';
+import { defaultValueUpdateAssignment } from '~/form/defaultValues';
 import { MentorNavigationActionData } from '~/constants';
+import { UpdateAssignmentFormDataPayload } from '~/models/form';
+import { UpdateAssignmentPayload } from '~/api/assignments';
+import { useManageActivity } from '~/hooks/useManageActivity';
 import { useMutationCreateAssignment } from '~/hooks/useManageAssignment';
 import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaCreateAssignment } from '~/form/validation';
+import { validationSchemaUpdateAssignment } from '~/form/validation';
+import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 
-export default function MentorCreateAssignmentPage() {
-  const resolverCreateAssignment = useYupValidationResolver(
-    validationSchemaCreateAssignment
+export default function MentorUpdateAssignmentPage() {
+  const resolverUpdateAssignment = useYupValidationResolver(
+    validationSchemaUpdateAssignment
   );
-  const { control, handleSubmit } = useForm({
-    defaultValues: defaultValueEditCreateAssignment,
-    resolver: resolverCreateAssignment,
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: defaultValueUpdateAssignment,
+    resolver: resolverUpdateAssignment,
   });
 
-  const { mutateAsync: mutateCreateAssignment } = useMutationCreateAssignment();
+  const { mutateAsync: mutateUpdateAssignment } = useMutationCreateAssignment();
+  const { id } = useParams();
+  const idActivity: number = id ? +id : 0;
+  const { activity } = useManageActivity({ id: idActivity });
+
+  useEffect(() => {
+    if (activity) {
+      const defaults = defaultValueUpdateAssignment;
+      switch (activity.type.code) {
+        case ActivityTypeCode.ASSIGNMENT:
+          defaults.name = activity.name;
+          // defaults.isVisible = activity.isVisible;
+          // defaults.classSectionId = activity.classSectionId;
+          defaults.description = activity.activityDetail.description;
+          defaults.startDate = activity.activityDetail.startDate;
+          defaults.endDate = activity.activityDetail.endDate;
+          defaults.editBeForSubmitMin =
+            activity.activityDetail.editBeForSubmitMin;
+          defaults.maxFileSubmit = activity.activityDetail.maxFileSubmit;
+          defaults.maxFileSize = activity.activityDetail.maxFileSize;
+          // defaults.attachFiles = activity.activityDetail.assignmentFiles;
+          defaults.isOverWriteAttachFile = true;
+          reset(defaults);
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, [activity, reset]);
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
   const toastMsgError = (error: any): string => {
     return `Tạo không thành công: ${error.message}`;
   };
-  const handleSubmitSuccess = async (data: CreateAssignmentFormDataPayload) => {
-    const params: CreateAssignmentPayload = {
+  const handleSubmitSuccess = async (data: UpdateAssignmentFormDataPayload) => {
+    const params: UpdateAssignmentPayload = {
       name: data.name,
       activityTypeId: 2 /* hard code */,
       isVisible: true /* hard code */,
@@ -55,13 +87,15 @@ export default function MentorCreateAssignmentPage() {
       attachFiles: data.attachFiles,
       isOverWriteAttachFile: data.isOverWriteAttachFile,
     };
-    const id = toast.loadToast(toastMsgLoading);
-    try {
-      await mutateCreateAssignment(params);
-      toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
-    }
+
+    console.log('params', params);
+    // const idToast = toast.loadToast(toastMsgLoading);
+    // try {
+    //   await mutateUpdateAssignment(params);
+    //   toast.updateSuccessToast(idToast, toastMsgSuccess);
+    // } catch (error: any) {
+    //   toast.updateFailedToast(idToast, toastMsgError(error.message));
+    // }
   };
 
   const gradingMethods = [

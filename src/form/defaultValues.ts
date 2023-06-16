@@ -172,3 +172,17 @@ export const defaultValueEditCreateAssignment: CreateAssignmentFormDataPayload =
     attachFiles: [],
     isOverWriteAttachFile: true,
   };
+export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
+  name: '',
+  activityTypeId: 0,
+  isVisible: true,
+  classSectionId: 0,
+  description: '',
+  startDate: '',
+  endDate: '',
+  editBeForSubmitMin: 0,
+  maxFileSubmit: 1,
+  maxFileSize: 10,
+  attachFiles: [],
+  isOverWriteAttachFile: true,
+};

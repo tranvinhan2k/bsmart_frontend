@@ -358,14 +358,26 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 16,
-    name: 'Quản lý Assignment',
-    link: 'mentor-assignment-settings',
+    name: 'Tùy chỉnh Assignment',
+    link: 'mentor-assignment-settings/:id',
     isHide: true,
   },
   {
     id: 17,
+    name: 'Xem chi tiết Assignment',
+    link: 'mentor-assignment-details/:id',
+    isHide: true,
+  },
+  {
+    id: 18,
     name: 'Quản lý Announcement',
     link: 'mentor-announcement-settings',
+    isHide: true,
+  },
+  {
+    id: 19,
+    name: 'Quản lý Announcement',
+    link: 'mentor-announcement-details',
     isHide: true,
   },
 ];
