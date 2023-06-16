@@ -1,14 +1,24 @@
-import { IconButton, Stack, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import {
+  Button as MuiButton,
+  Box,
+  Link,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { MentorNavigationActionData } from '~/constants';
+import { ActivityTypeCode } from '~/models/activity';
 import { SX_RESOURCE_ITEM_CONTAINER } from './style';
 import { ActivityTypeCode } from '~/models/activity';
 
 interface ResourceProps {
   editMode: boolean;
   resourceName: string;
+  activityId: number;
   activityId: number;
   activityTypeCode: ActivityTypeCode;
 }
@@ -17,9 +27,12 @@ export default function Resource({
   editMode,
   resourceName,
   activityId,
+  activityId,
   activityTypeCode,
 }: ResourceProps) {
   let resourceIconName: IconName = 'chat';
+  let linkEdit: string;
+  let linkViewDetails: string;
   let linkEdit: string;
   let linkViewDetails: string;
 
@@ -27,32 +40,40 @@ export default function Resource({
     case ActivityTypeCode.QUIZ:
       resourceIconName = 'quiz';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[4].items?.[0].link.split('/')[0]
+        MentorNavigationActionData[7].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[4].items?.[0].link.split('/')[0]
+        MentorNavigationActionData[7].link.split('/')[0]
       }/${activityId}`;
       break;
     case ActivityTypeCode.ASSIGNMENT:
       resourceIconName = 'assignment';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[4].items?.[2].link.split('/')[0]
+        MentorNavigationActionData[17].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[4].items?.[3].link.split('/')[0]
+        MentorNavigationActionData[16].link.split('/')[0]
+      }/${activityId}`;
+      break;
+    case ActivityTypeCode.ANNOUNCEMENT:
+      resourceIconName = 'chat';
+      linkViewDetails = `/mentor-profile/${
+        MentorNavigationActionData[17].link.split('/')[0]
+      }/${activityId}`;
+      linkEdit = `/mentor-profile/${
+        MentorNavigationActionData[17].link.split('/')[0]
       }/${activityId}`;
       break;
     default:
       resourceIconName = 'redo';
-      linkEdit = '';
       linkViewDetails = '';
+      linkEdit = '';
       break;
   }
 
   const navigation = useNavigate();
-  const handleEditResource = () => {
-    navigation(linkEdit);
-  };
+  const handleViewDetailsResource = () => navigation(linkViewDetails);
+  const handleEditResource = () => navigation(linkEdit);
 
   return (
     <Stack
@@ -69,7 +90,14 @@ export default function Resource({
         spacing={2}
       >
         <Icon name={resourceIconName} size="medium" />
-        <Typography>{resourceName}</Typography>
+        <Link
+          href={linkViewDetails}
+          underline="none"
+          onClick={handleViewDetailsResource}
+          sx={{ fontFamily: FontFamily.regular }}
+        >
+          {resourceName}
+        </Link>
 
         {editMode && (
           <IconButton onClick={handleEditResource}>
