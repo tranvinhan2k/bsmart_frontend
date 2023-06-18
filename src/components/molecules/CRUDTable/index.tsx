@@ -143,11 +143,7 @@ export default function CRUDTable({
   ];
 
   return (
-    <Stack
-      sx={{
-        height: '100vh',
-      }}
-    >
+    <Stack>
       {onAdd && (
         <CRUDTableHeader
           title={texts.title}
@@ -163,12 +159,15 @@ export default function CRUDTable({
           filterFormInputList={searchFilterFormInputList}
         />
       )}
-      <Stack>
+      <Stack
+        sx={{
+          minHeight: '700px',
+        }}
+      >
         <StripedDataGrid
           onRowClick={handleSelectedRow}
           error={error}
           loading={isLoading}
-          autoHeight
           rows={rows}
           columns={addMoreVertColumns}
           localeText={viVN.components.MuiDataGrid.defaultProps.localeText}

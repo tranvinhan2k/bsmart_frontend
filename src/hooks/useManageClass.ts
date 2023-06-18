@@ -15,9 +15,18 @@ export const useManageClass = ({ id }: UseManageClassPayload) => {
       }),
   });
 
+  const attendanceQueryData = useQuery({
+    queryKey: ['attendanceList', id],
+    queryFn: () =>
+      classApi.getMentorClassAttendances({
+        id,
+      }),
+  });
+
   return {
     error,
     classDetails: data,
+    attendanceQueryData,
     isLoading,
     refetch,
   };

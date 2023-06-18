@@ -352,13 +352,25 @@ export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 14,
     name: 'Điểm danh',
-    link: 'take-attendance',
+    link: 'take-attendance/:classId/:id',
     isHide: true,
   },
   {
     id: 15,
     name: 'Tạo nội dung khóa học',
     link: 'create-content',
+    isHide: true,
+  },
+  {
+    id: 16,
+    name: 'Quản lý Assignment',
+    link: 'mentor-assignment-settings',
+    isHide: true,
+  },
+  {
+    id: 17,
+    name: 'Quản lý Announcement',
+    link: 'mentor-announcement-settings',
     isHide: true,
   },
 ];

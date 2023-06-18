@@ -11,6 +11,15 @@ const classApi = {
     const response: any = await axiosClient.get(urlGet);
     return response;
   },
+  async getMentorClassAttendances({ id }: ViewClassProps): Promise<any> {
+    const urlGet = `${url}/${id}/time-tables`;
+    const response: any = await axiosClient.get(urlGet, {
+      params: {
+        id,
+      },
+    });
+    return response;
+  },
 };
 
 interface ViewClassProps {

@@ -23,6 +23,7 @@ import { useManageClass } from '~/hooks/useManageClass';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import CustomSwitch from '~/components/atoms/Switch';
+import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
 
 export default function MentorResourceManagePage() {
   useEffect(() => {
@@ -42,9 +43,8 @@ export default function MentorResourceManagePage() {
   };
 
   const id = 4;
-  const { classDetails } = useManageClass({ id });
+  const { classDetails, attendanceQueryData } = useManageClass({ id });
 
-  console.log('classDetails', classDetails);
   const tabEl = [
     {
       id: 0,
@@ -54,7 +54,18 @@ export default function MentorResourceManagePage() {
     {
       id: 1,
       text: 'Điểm danh',
-      component: <h1>Điểm danh</h1>,
+      component: (
+        <ClassAttendanceList
+          classId={classDetails?.id}
+          name={classDetails?.subCourseName}
+          attendancesList={attendanceQueryData}
+        />
+      ),
+    },
+    {
+      id: 2,
+      text: 'Nội dung khóa học',
+      component: <h1>Điểm </h1>,
     },
   ];
 
