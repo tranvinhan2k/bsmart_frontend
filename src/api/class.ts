@@ -1,15 +1,44 @@
 import axiosClient from '~/api/axiosClient';
-import { ClassDetailsPayload } from '~/models/class';
+import {
+  ClassCreateClassSectionPayload,
+  ClassDeleteClassSectionPayload,
+  ClassDetailsPayload,
+  ClassGetDetailsPayload,
+  ClassUpdateClassSectionPayload,
+} from '~/models/class';
 
 const url = '/classes';
 
 const classApi = {
-  async getClassDetails({
+  getClassDetails({
     id,
-  }: ViewClassProps): Promise<ClassDetailsPayload | undefined> {
+  }: ClassGetDetailsPayload): Promise<ClassDetailsPayload | undefined> {
     const urlGet = `${url}/${id}`;
-    const response: any = await axiosClient.get(urlGet);
-    return response;
+    return axiosClient.get(urlGet);
+  },
+  createClassSections({
+    id,
+    data,
+  }: ClassCreateClassSectionPayload): Promise<any> {
+    const urlPost = `${url}/${id}/class-sections`;
+    return axiosClient.post(urlPost, data);
+  },
+
+  updateClassSections({
+    id,
+    classSectionId,
+    data,
+  }: ClassUpdateClassSectionPayload): Promise<any> {
+    const urlPut = `${url}/${id}/class-sections/${classSectionId}`;
+    return axiosClient.put(urlPut, data);
+  },
+
+  deleteClassSections({
+    id,
+    classSectionId,
+  }: ClassDeleteClassSectionPayload): Promise<any> {
+    const urlDelete = `${url}/${id}/class-sections/${classSectionId}`;
+    return axiosClient.delete(urlDelete);
   },
   async getMentorClassAttendances({ id }: ViewClassProps): Promise<any> {
     const urlGet = `${url}/${id}/time-tables`;
@@ -21,9 +50,5 @@ const classApi = {
     return response;
   },
 };
-
-interface ViewClassProps {
-  id?: number;
-}
 
 export default classApi;

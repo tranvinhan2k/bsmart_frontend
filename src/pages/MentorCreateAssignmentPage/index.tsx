@@ -1,5 +1,5 @@
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
@@ -25,6 +25,8 @@ import toast from '~/utils/toast';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 
 export default function MentorCreateAssignmentPage() {
+  const { classSectionId } = useParams();
+
   const resolverCreateAssignment = useYupValidationResolver(
     validationSchemaCreateAssignment
   );
@@ -45,7 +47,7 @@ export default function MentorCreateAssignmentPage() {
       name: data.name,
       activityTypeId: 2 /* hard code */,
       isVisible: true /* hard code */,
-      classSectionId: 1 /* hard code */,
+      classSectionId: classSectionId ? +classSectionId : 0,
       description: data.description,
       startDate: data.startDate,
       endDate: data.endDate,
@@ -277,17 +279,17 @@ export default function MentorCreateAssignmentPage() {
       <Box my={4}>
         <Grid container columnSpacing={3}>
           <Grid item xs={6}>
-            <Button customVariant="normal" type="submit" size="small">
-              Lưu
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
             <Button
               customVariant="normal"
               size="small"
               onClick={handleReturnResourceManagePage}
             >
               Hủy
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button customVariant="normal" type="submit" size="small">
+              Lưu
             </Button>
           </Grid>
         </Grid>

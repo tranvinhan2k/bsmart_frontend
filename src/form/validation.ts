@@ -17,6 +17,8 @@ import {
   CRATE_ASSIGNMENT_MAX_FILE_SUBMIT,
   CRATE_ASSIGNMENT_NAME,
   CRATE_ASSIGNMENT_START_DATE,
+  CREATE_CLASS_SECTIONS_REQUIRED,
+  UPDATE_CLASS_SECTIONS_REQUIRED,
   EMAIL_INVALID,
   EMAIL_REQUIRED,
   generateRequiredText,
@@ -443,4 +445,11 @@ export const validationSchemaUpdateAssignment = object({
   maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
   // attachFiles: string().required(),
   // isOverWriteAttachFile: bool().required(),
+});
+
+export const validationSchemaCreateClassSections = object({
+  name: string().required(CREATE_CLASS_SECTIONS_REQUIRED),
+});
+export const validationSchemaUpdateClassSections = object({
+  name: string().required(UPDATE_CLASS_SECTIONS_REQUIRED),
 });

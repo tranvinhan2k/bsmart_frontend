@@ -186,3 +186,10 @@ export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
   attachFiles: [],
   isOverWriteAttachFile: true,
 };
+
+export const defaultValueCreateClassSections = {
+  name: '',
+};
+export const defaultValueUpdateClassSections = {
+  name: '',
+};

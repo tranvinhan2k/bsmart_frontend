@@ -2,11 +2,11 @@ import { Box, Tab, Tabs, Stack, Typography } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { scrollToTop } from '~/utils/common';
 import { SX_WRAPPER, SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE } from './style';
-import { useManageClass } from '~/hooks/useManageClass';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
+import { scrollToTop } from '~/utils/common';
+import { useManageClass } from '~/hooks/useManageClass';
 import CustomSwitch from '~/components/atoms/Switch';
 import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
 
@@ -95,7 +95,7 @@ export default function MentorResourceManagePage() {
   ];
 
   return (
-    <Stack>
+    <>
       <Box sx={SX_WRAPPER}>
         <Box mt={2} px={2}>
           <Typography sx={SX_FORM_ITEM_LABEL}>
@@ -120,7 +120,6 @@ export default function MentorResourceManagePage() {
           ))}
         </Box>
       </Box>
-
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
@@ -162,6 +161,6 @@ export default function MentorResourceManagePage() {
           <Box>{tab.component}</Box>
         </TabPanel>
       ))}
-    </Stack>
+    </>
   );
 }

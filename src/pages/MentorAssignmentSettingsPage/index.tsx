@@ -311,17 +311,17 @@ export default function MentorUpdateAssignmentPage() {
       <Box my={4}>
         <Grid container columnSpacing={3}>
           <Grid item xs={6}>
-            <Button customVariant="normal" type="submit" size="small">
-              Lưu
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
             <Button
               customVariant="normal"
               size="small"
               onClick={handleReturnResourceManagePage}
             >
               Hủy
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button customVariant="normal" type="submit" size="small">
+              Lưu
             </Button>
           </Grid>
         </Grid>
