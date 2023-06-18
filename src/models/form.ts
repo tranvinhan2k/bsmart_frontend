@@ -159,6 +159,13 @@ export interface UpdateAssignmentFormDataPayload {
   isOverWriteAttachFile: boolean;
 }
 
+export interface CreateClassSectionsFormDefault {
+  name: string;
+}
+export interface UpdateClassSectionsFormDefault {
+  name: string;
+}
+
 export type FormInputVariant =
   | 'text'
   | 'number'

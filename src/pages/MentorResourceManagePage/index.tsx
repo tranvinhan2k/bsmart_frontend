@@ -1,28 +1,13 @@
-import {
-  Box,
-  Button as MuiButton,
-  Tab,
-  Tabs,
-  Grid,
-  Stack,
-  Typography,
-  Tooltip,
-} from '@mui/material';
+import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
-import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
-import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
-import TabPanel from '~/components/atoms/TabPanel/index';
-import { scrollToTop } from '~/utils/common';
-import {
-  SX_WRAPPER,
-  SX_HEADER_TITLE,
-  SX_FORM_ITEM_LABEL,
-  SX_FORM_ITEM_VALUE,
-} from './style';
-import { useManageClass } from '~/hooks/useManageClass';
-import Icon, { IconName } from '~/components/atoms/Icon';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
+import { scrollToTop } from '~/utils/common';
+import { useManageClass } from '~/hooks/useManageClass';
 import CustomSwitch from '~/components/atoms/Switch';
+import Icon, { IconName } from '~/components/atoms/Icon';
+import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
+import TabPanel from '~/components/atoms/TabPanel/index';
+import { SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE, SX_WRAPPER } from './style';
 
 export default function MentorResourceManagePage() {
   useEffect(() => {
@@ -98,7 +83,7 @@ export default function MentorResourceManagePage() {
   ];
 
   return (
-    <Stack>
+    <>
       <Box sx={SX_WRAPPER}>
         <Box mt={2} px={2}>
           <Typography sx={SX_FORM_ITEM_LABEL}>
@@ -123,7 +108,6 @@ export default function MentorResourceManagePage() {
           ))}
         </Box>
       </Box>
-
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
@@ -165,6 +149,6 @@ export default function MentorResourceManagePage() {
           <Box>{tab.component}</Box>
         </TabPanel>
       ))}
-    </Stack>
+    </>
   );
 }

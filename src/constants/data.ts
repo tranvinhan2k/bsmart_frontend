@@ -323,7 +323,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 10,
     name: 'Tạo Quiz',
-    link: 'mentor-create-quiz',
+    link: 'mentor-create-quiz/:classSectionId',
     isHide: true,
   },
   {
@@ -335,13 +335,13 @@ export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 12,
     name: 'Tạo Assignment',
-    link: 'mentor-create-assignment',
+    link: 'mentor-create-assignment/:classSectionId',
     isHide: true,
   },
   {
     id: 13,
     name: 'Tạo thông báo',
-    link: 'mentor-create-announcement',
+    link: 'mentor-create-announcement/:classSectionId',
     isHide: true,
   },
   {

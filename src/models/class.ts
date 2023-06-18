@@ -42,3 +42,25 @@ interface ActivityDetail {
   endDate: string;
   status: string;
 }
+
+export interface ClassGetDetailsPayload {
+  id?: number;
+}
+
+export interface ClassCreateClassSectionPayload {
+  id: number;
+  data: {
+    name: string;
+  };
+}
+export interface ClassUpdateClassSectionPayload {
+  id: number;
+  classSectionId: number;
+  data: {
+    name: string;
+  };
+}
+export interface ClassDeleteClassSectionPayload {
+  id: number;
+  classSectionId: number;
+}
