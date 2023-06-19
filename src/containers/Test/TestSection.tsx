@@ -5,7 +5,7 @@ import Button from '~/components/atoms/Button';
 
 export default function TestSection() {
   useEffect(() => {
-    const URL = 'ws://103.173.155.221:8080/websocket';
+    const URL = 'http://103.173.155.221:8080/websocket';
 
     const socket = new SockJS(URL);
 

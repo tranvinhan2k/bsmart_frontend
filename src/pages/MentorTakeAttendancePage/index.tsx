@@ -184,7 +184,7 @@ export default function MentorTakeAttendancePage() {
     return total;
   }, 0);
 
-  const filterRows = rows.filter((item: any) =>
+  const filterRows = rows?.filter((item: any) =>
     item.name.toLowerCase().includes(searchValue)
   );
 
@@ -293,7 +293,7 @@ export default function MentorTakeAttendancePage() {
           </Grid>
         </Grid>
         <Stack>
-          {filterRows.length === 0 ? (
+          {filterRows?.length === 0 ? (
             <Stack
               sx={{ padding: MetricSize.medium_15, border: '0.5px solid #eee' }}
             >

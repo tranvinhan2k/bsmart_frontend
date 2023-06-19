@@ -23,15 +23,15 @@ export default function Resource({
   switch (activityTypeCode) {
     case ActivityTypeCode.QUIZ:
       resourceIconName = 'quiz';
-      editLinkTo = `/mentor-profile/${MentorNavigationActionData[7].link}`;
+      editLinkTo = `/mentor-profile/${MentorNavigationActionData[7]?.link}`;
       break;
     case ActivityTypeCode.ASSIGNMENT:
       resourceIconName = 'assignment';
-      editLinkTo = `/mentor-profile/${MentorNavigationActionData[16].link}`;
+      editLinkTo = `/mentor-profile/${MentorNavigationActionData[16]?.link}`;
       break;
     case ActivityTypeCode.ANNOUNCEMENT:
       resourceIconName = 'chat';
-      editLinkTo = `/mentor-profile/${MentorNavigationActionData[17].link}`;
+      editLinkTo = `/mentor-profile/${MentorNavigationActionData[17]?.link}`;
       break;
     default:
       resourceIconName = 'redo';
