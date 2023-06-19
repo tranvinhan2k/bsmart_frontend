@@ -18,6 +18,9 @@ export const CRATE_ASSIGNMENT_MAX_FILE_SUBMIT =
 export const CRATE_ASSIGNMENT_MAX_FILE_SIZE =
   'Hãy nhập kích thước file tối đa được nộp';
 
+export const CRATE_ANNOUNCEMENT_TITLE = 'Hãy nhập tên cho thông báo';
+export const CRATE_ANNOUNCEMENT_CONTENT = 'Hãy nhập mô tả cho thông báo';
+
 // class validate
 export const CREATE_CLASS_SECTIONS_REQUIRED = 'Hãy nhập tên hoạt động mới';
 export const UPDATE_CLASS_SECTIONS_REQUIRED = 'Hãy nhập tên hoạt động mới';

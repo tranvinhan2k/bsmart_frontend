@@ -37,6 +37,8 @@ import {
   WITHDRAW_AMOUNT_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_REQUIRED,
+  CRATE_ANNOUNCEMENT_CONTENT,
+  CRATE_ANNOUNCEMENT_TITLE,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -445,6 +447,11 @@ export const validationSchemaUpdateAssignment = object({
   maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
   // attachFiles: string().required(),
   // isOverWriteAttachFile: bool().required(),
+});
+
+export const validationSchemaCreateAnnouncement = object({
+  content: string().required(CRATE_ANNOUNCEMENT_CONTENT),
+  title: string().required(CRATE_ANNOUNCEMENT_TITLE),
 });
 
 export const validationSchemaCreateClassSections = object({

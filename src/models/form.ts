@@ -159,6 +159,17 @@ export interface UpdateAssignmentFormDataPayload {
   isOverWriteAttachFile: boolean;
 }
 
+export interface CreateAnnouncementFormDataPayload {
+  content: string;
+  title: string;
+  visible: boolean;
+}
+export interface UpdateAnnouncementFormDataPayload {
+  content: string;
+  title: string;
+  visible: boolean;
+}
+
 export interface CreateClassSectionsFormDefault {
   name: string;
 }
@@ -171,6 +182,7 @@ export type FormInputVariant =
   | 'number'
   | 'multiline'
   | 'dropdown'
+  | 'dropdownDynamicValue'
   | 'dropdownBanks'
   | 'timetable'
   | 'radioGroup'

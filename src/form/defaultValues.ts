@@ -1,5 +1,6 @@
 import {
   BuyCourseDataPayload,
+  CreateAnnouncementFormDataPayload,
   CreateAssignmentFormDataPayload,
   EditAvatarFormDataPayload,
   EditCertificateProfileDefaultValuePayload,
@@ -10,6 +11,7 @@ import {
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
+  UpdateAnnouncementFormDataPayload,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
@@ -186,6 +188,19 @@ export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
   attachFiles: [],
   isOverWriteAttachFile: true,
 };
+
+export const defaultValueCreateAnnouncement: CreateAnnouncementFormDataPayload =
+  {
+    content: '',
+    title: '',
+    visible: true,
+  };
+export const defaultValueUpdateAnnouncement: UpdateAnnouncementFormDataPayload =
+  {
+    content: '',
+    title: '',
+    visible: true,
+  };
 
 export const defaultValueCreateClassSections = {
   name: '',

@@ -57,6 +57,12 @@ export interface PaginationPayload {
   sort: string;
 }
 
+export interface DropdownDynamicValueInputDataPayload {
+  id: number;
+  label: string;
+  value: string | number | boolean;
+}
+
 export interface RequestPagingFilterPayload {
   page: number;
   size: number;
