@@ -38,6 +38,7 @@ import {
   SX_ACCOUNT_ROLE,
   SX_DISPLAY_FIELD_TEXT,
 } from './style';
+import SidebarNavigationButton from '~/components/molecules/SidebarNavigationButton';
 
 export default function MentorDetailSection() {
   // const profile = useSelector(selectProfile);
@@ -111,9 +112,9 @@ export default function MentorDetailSection() {
   const activities = mockMentorLatestActivities;
 
   const navigate = useNavigate();
-  function handleNavigateLink(link: string) {
+  const handleNavigateLink = (link: string) => {
     navigate(`/mentor-profile/${link}`);
-  }
+  };
 
   const handleOpenSocialLink = (link: string | null) => {
     if (link) {
@@ -221,35 +222,23 @@ export default function MentorDetailSection() {
                 </Typography>
               </Stack>
             </Stack>
-            <Collapse sx={{ width: '100%' }} collapsedSize="410px" in={checked}>
-              <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="stretch"
-                spacing={1}
-                mt={1}
-              >
-                {dataGetProfile &&
-                  dataGetProfile.isVerified &&
-                  MentorNavigationActionData.map((item) => (
-                    <Button
-                      key={item.link}
-                      onClick={() => handleNavigateLink(item.link)}
-                      customVariant="normal"
-                    >
-                      {item.name}
-                    </Button>
-                  ))}
-              </Stack>
-            </Collapse>
-            <Stack marginTop={1}>
-              <IconButton onClick={handleCollapse}>
-                <Icon
-                  name={checked ? 'arrowUp' : 'arrowDown'}
-                  size="medium"
-                  color="black"
-                />
-              </IconButton>
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={1}
+              mt={1}
+              sx={{ width: '100%' }}
+            >
+              {dataGetProfile &&
+                dataGetProfile.isVerified &&
+                MentorNavigationActionData.map((item) => (
+                  <SidebarNavigationButton
+                    key={item.id}
+                    item={item}
+                    onNavigateLink={handleNavigateLink}
+                  />
+                ))}
             </Stack>
           </Stack>
         </Box>

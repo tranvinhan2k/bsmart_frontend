@@ -23,6 +23,8 @@ import {
   BsXCircle,
   BsXCircleFill,
   BsFillInfoCircleFill,
+  BsArrowBarRight,
+  BsFillCaretRightFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
@@ -98,6 +100,7 @@ export type IconName =
   | 'close'
   | 'arrowUp'
   | 'arrowDown'
+  | 'arrowRight'
   | 'course'
   | 'viewDetail'
   | 'delete'
@@ -245,6 +248,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsArrowBarDown />
+        </Typography>
+      );
+    case 'arrowRight':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFillCaretRightFill />
         </Typography>
       );
     case 'calendarMonth':
