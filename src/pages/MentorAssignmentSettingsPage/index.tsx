@@ -132,12 +132,8 @@ export default function MentorUpdateAssignmentPage() {
     control,
   });
 
-  const appendAttachFile = () => {
-    append('');
-  };
-  const removeAttachFile = (index: number) => {
-    remove(index);
-  };
+  const appendAttachFile = () => append('');
+  const removeAttachFile = (index: number) => remove(index);
 
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess)}>

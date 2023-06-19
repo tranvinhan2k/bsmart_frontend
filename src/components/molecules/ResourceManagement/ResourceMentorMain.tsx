@@ -46,9 +46,9 @@ export default function ResourceMentorMain({
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
-  const toastMsgError = (error: any): string => {
-    return `Tạo không thành công: ${error.message}`;
-  };
+  const toastMsgError = (error: any): string =>
+    `Tạo không thành công: ${error.message}`;
+
   const handleSubmitSuccess = async (data: CreateClassSectionsFormDefault) => {
     const params: ClassCreateClassSectionPayload = {
       id,

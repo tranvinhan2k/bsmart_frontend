@@ -1,12 +1,12 @@
-import { Box, Grid, Stack } from '@mui/material';
+import { Box, Grid } from '@mui/material';
+import { ReactElement } from 'react';
 import { ResponseProfilePayload } from '~/api/users';
 import IntroduceMentorDetailSection from '~/containers/MentorProfileLayoutSection/IntroduceMentorDetailSection';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
-import { Color } from '~/assets/variables';
 
 interface MentorProfileLayoutProps {
-  children: any;
+  children: ReactElement;
   isIntroduce?: boolean;
   mentor?: ResponseProfilePayload;
 }
@@ -21,26 +21,19 @@ export default function MentorProfileLayout({
       <Box sx={SX_CONTAINER}>
         <Grid
           container
-          direction="row"
+          direction={{ xs: 'column', md: 'row' }}
           justifyContent="flex-start"
-          alignItems="flex-start"
+          alignItems="stretch"
           spacing={5}
         >
-          <Grid item sm={12} md={5} lg={4}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={2}
-            >
-              {isIntroduce ? (
-                <IntroduceMentorDetailSection mentor={mentor} />
-              ) : (
-                <MentorDetailSection />
-              )}
-            </Stack>
+          <Grid item xs={12} md={5} lg={4}>
+            {isIntroduce ? (
+              <IntroduceMentorDetailSection mentor={mentor} />
+            ) : (
+              <MentorDetailSection />
+            )}
           </Grid>
-          <Grid item sm={12} md={7} lg={8}>
+          <Grid item xs={12} md={7} lg={8}>
             {children}
           </Grid>
         </Grid>
@@ -48,6 +41,27 @@ export default function MentorProfileLayout({
     </Box>
   );
 }
+
+// {
+//   /* <Grid
+//           container
+//           direction="row"
+//           justifyContent="flex-start"
+//           alignItems="flex-start"
+//           spacing={5}
+//         >
+//           <Grid item sm={12} md={5} lg={4}>
+//             {isIntroduce ? (
+//               <IntroduceMentorDetailSection mentor={mentor} />
+//             ) : (
+//               <MentorDetailSection />
+//             )}
+//           </Grid>
+//           <Grid item sm={12} md={7} lg={8}>
+//             {children}
+//           </Grid>
+//         </Grid> */
+// }
 
 MentorProfileLayout.defaultProps = {
   isIntroduce: false,

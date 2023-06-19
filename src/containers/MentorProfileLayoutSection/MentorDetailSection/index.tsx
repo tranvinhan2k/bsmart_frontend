@@ -108,8 +108,6 @@ export default function MentorDetailSection() {
       text: mentorDetails.phone,
     },
   ];
-  const activities = mockMentorLatestActivities;
-
   const navigate = useNavigate();
   function handleNavigateLink(link: string) {
     navigate(link);

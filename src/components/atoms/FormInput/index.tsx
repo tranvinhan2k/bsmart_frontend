@@ -3,7 +3,7 @@
 import { Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
 import { BankLinking, FormInputVariant } from '~/models/form';
-import { OptionPayload } from '~/models';
+import { DropdownDynamicValueInputDataPayload, OptionPayload } from '~/models';
 import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
@@ -23,11 +23,13 @@ import DropdownInputBank from './DropdownInputBank';
 import FeedbackQuestionChoiceInput from './FeedbackQuestionChoiceInput';
 import FeedbackTypeInput from './FeedbackTypeInput';
 import DateTimePickerInput from './DateTimePickerInput';
+import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 
 interface FormInputProps {
   banks?: BankLinking[];
   control: Control<any>;
   data?: OptionPayload[];
+  dataDropdownDynamicValue?: DropdownDynamicValueInputDataPayload[];
   defaultValue?: any;
   helperText?: string;
   label?: string;
@@ -43,6 +45,7 @@ const generateFormInput = (
   banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
   data: OptionPayload[],
+  dataDropdownDynamicValue: DropdownDynamicValueInputDataPayload[],
   helperText: string,
   placeholder: string,
   multilineRows: number,
@@ -123,6 +126,14 @@ const generateFormInput = (
           data={data}
         />
       );
+    case variant === 'dropdownDynamicValue':
+      return (
+        <DropdownDynamicValueInput
+          controller={controller}
+          placeholder={placeholder}
+          data={dataDropdownDynamicValue}
+        />
+      );
     case variant === 'dropdownBanks':
       return (
         <DropdownInputBank
@@ -148,6 +159,7 @@ export default function FormInput({
   banks = [],
   control,
   data = [],
+  dataDropdownDynamicValue = [],
   defaultValue,
   helperText = '',
   label = '',
@@ -167,6 +179,7 @@ export default function FormInput({
         banks,
         controller,
         data,
+        dataDropdownDynamicValue,
         helperText,
         placeholder,
         multilineRows,
@@ -181,6 +194,7 @@ export default function FormInput({
 FormInput.defaultProps = {
   banks: [],
   data: [],
+  dataDropdownDynamicValue: [],
   defaultValue: '',
   helperText: '',
   label: '',

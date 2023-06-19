@@ -39,9 +39,8 @@ export default function MentorCreateAssignmentPage() {
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
-  const toastMsgError = (error: any): string => {
-    return `Tạo không thành công: ${error.message}`;
-  };
+  const toastMsgError = (error: any): string =>
+    `Tạo không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: CreateAssignmentFormDataPayload) => {
     const params: CreateAssignmentPayload = {
       name: data.name,
@@ -100,12 +99,8 @@ export default function MentorCreateAssignmentPage() {
     control,
   });
 
-  const appendAttachFile = () => {
-    append('');
-  };
-  const removeAttachFile = (index: number) => {
-    remove(index);
-  };
+  const appendAttachFile = () => append('');
+  const removeAttachFile = (index: number) => remove(index);
 
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess)}>

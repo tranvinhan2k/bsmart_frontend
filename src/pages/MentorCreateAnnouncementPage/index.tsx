@@ -12,50 +12,69 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-import { validationSchemaEditMentorProfile } from '~/form/validation';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
+import { validationSchemaCreateAnnouncement } from '~/form/validation';
+import { defaultValueCreateAnnouncement } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 import { MentorNavigationActionData } from '~/constants';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
+import { useManageAnnouncement } from '~/hooks/useManageAnnouncement';
+import { CreateAnnouncementFormDataPayload } from '~/models/form';
+import { ClassCreateAnnouncementPayload } from '~/models/class';
+import toast from '~/utils/toast';
 
-export default function MentorCreateAssignmentPage() {
-  const resolverEditPersonalProfile = useYupValidationResolver(
-    validationSchemaEditMentorProfile
+export default function MentorCreateAnnouncementPage() {
+  const id = 4; /* Hard code */
+  const { createAnnouncement } = useManageAnnouncement({ id });
+
+  const resolverCreateAnnouncement = useYupValidationResolver(
+    validationSchemaCreateAnnouncement
   );
   const { control, handleSubmit } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
-    resolver: resolverEditPersonalProfile,
+    defaultValues: defaultValueCreateAnnouncement,
+    resolver: resolverCreateAnnouncement,
   });
 
-  const handleSubmitSuccess = async (data: any) => {
-    console.log('handleSubmitSuccess');
+  const toastMsgLoading = 'Đang tạo...';
+  const toastMsgSuccess = 'Tạo thành công';
+  const toastMsgError = (error: any): string =>
+    `Tạo không thành công: ${error.message}`;
+
+  const handleSubmitSuccess = async (
+    data: CreateAnnouncementFormDataPayload
+  ) => {
+    const params: ClassCreateAnnouncementPayload = {
+      id,
+      data: {
+        content: data.content,
+        title: data.title,
+        visible: data.visible,
+      },
+    };
+    const idToast = toast.loadToast(toastMsgLoading);
+    try {
+      await createAnnouncement.mutateAsync(params);
+      toast.updateSuccessToast(idToast, toastMsgSuccess);
+    } catch (error: any) {
+      toast.updateFailedToast(idToast, toastMsgError(error));
+    }
   };
-
-  const gradingMethods = [
-    { id: 0, value: 'Điểm cao nhất', label: 'Điểm cao nhất' },
-    { id: 1, value: 'Điểm thấp nhất', label: 'Điểm thấp nhất' },
-    { id: 2, value: 'Điểm trung bình', label: 'Điểm trung bình' },
-    { id: 3, value: 'Lần làm đầu', label: 'Lần làm đầu' },
-    { id: 4, value: 'Lần làm cuối', label: 'Lần làm cuối' },
-  ];
-
-  const maxNoOfFile = [
-    { id: 1, value: '1', label: '1' },
-    { id: 2, value: '1', label: '2' },
-    { id: 3, value: '1', label: '3' },
-    { id: 4, value: '1', label: '4' },
-    { id: 5, value: '1', label: '5' },
-  ];
-
-  const maxFileSize = [
-    { id: 1, value: '10 MB', label: '10 MB' },
-    { id: 2, value: '1 MB', label: '1 MB' },
-    { id: 3, value: '10 KB', label: '10 KB' },
-  ];
 
   const navigate = useNavigate();
   const handleReturnResourceManagePage = () =>
     navigate(`/mentor-profile/${MentorNavigationActionData[6].link}`);
+
+  const types = [
+    {
+      id: 0,
+      label: 'Hiển thị',
+      value: true,
+    },
+    {
+      id: 1,
+      label: 'Ẩn',
+      value: false,
+    },
+  ];
 
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess)}>
@@ -76,7 +95,7 @@ export default function MentorCreateAssignmentPage() {
               <Typography sx={SX_FORM_LABEL}>Tên</Typography>
               <FormInput
                 control={control}
-                name="name"
+                name="title"
                 variant="text"
                 placeholder="Nhập tên"
               />
@@ -85,18 +104,18 @@ export default function MentorCreateAssignmentPage() {
               <Typography sx={SX_FORM_LABEL}>Mô tả</Typography>
               <FormInput
                 control={control}
-                name="name"
+                name="content"
                 variant="multiline"
                 placeholder="Nhập mô tả"
               />
             </Grid>
             <Grid item xs={12}>
-              <Typography sx={SX_FORM_LABEL}>Tài liệu đi kèm</Typography>
+              <Typography sx={SX_FORM_LABEL}>Hiển thị</Typography>
               <FormInput
+                dataDropdownDynamicValue={types}
+                variant="dropdownDynamicValue"
+                name="visible"
                 control={control}
-                name="name"
-                variant="file"
-                placeholder="Nhập mô tả"
               />
             </Grid>
           </Grid>
@@ -105,17 +124,17 @@ export default function MentorCreateAssignmentPage() {
       <Box my={4}>
         <Grid container columnSpacing={3}>
           <Grid item xs={6}>
-            <Button customVariant="normal" type="submit" size="small">
-              Lưu
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
             <Button
               customVariant="normal"
               size="small"
               onClick={handleReturnResourceManagePage}
             >
               Hủy
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button customVariant="normal" type="submit" size="small">
+              Lưu
             </Button>
           </Grid>
         </Grid>
