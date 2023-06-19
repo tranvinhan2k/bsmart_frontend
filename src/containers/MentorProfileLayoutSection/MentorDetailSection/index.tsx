@@ -112,7 +112,7 @@ export default function MentorDetailSection() {
 
   const navigate = useNavigate();
   function handleNavigateLink(link: string) {
-    navigate(link);
+    navigate(`/mentor-profile/${link}`);
   }
 
   const handleOpenSocialLink = (link: string | null) => {

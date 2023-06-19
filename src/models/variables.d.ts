@@ -18,3 +18,4 @@ export type ClassStatusKeys =
   | 'CANCEL';
 export type QuestionTypeKeys = 'MULTIPLE_CHOICE' | 'FILL_THE_ANSWER';
 export type FeedbackTypeKeys = 'SUB_COURSE_FIRST_HALF' | 'SECOND_HALF';
+export type PresentStatusKeys = 'WAIT' | 'PRESENT' | 'ABSENT';

@@ -26,7 +26,15 @@ export default function MentorProfileLayout({
           alignItems="flex-start"
           spacing={5}
         >
-          <Grid item sm={12} md={5} lg={4}>
+          <Grid
+            sx={{
+              display: { xs: 'none', md: 'block' },
+            }}
+            item
+            sm={12}
+            md={5}
+            lg={4}
+          >
             <Stack
               direction="column"
               justifyContent="flex-start"

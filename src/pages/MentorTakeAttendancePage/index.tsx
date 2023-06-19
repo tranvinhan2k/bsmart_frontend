@@ -9,6 +9,7 @@ import {
   Switch,
   FormControlLabel,
   Tooltip,
+  TextField,
 } from '@mui/material';
 import Countdown from 'react-countdown';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -26,6 +27,8 @@ import { formatDate } from '~/utils/date';
 import AttendanceList from './AttendanceList';
 import { useMutationTakeAttendance } from '~/hooks/useMutationTakeAttendance';
 import toast from '~/utils/toast';
+import { PresentStatusKeys } from '~/models/variables';
+import TextDeclareColumn from '~/components/atoms/TextDeclareColumn';
 
 // const initRows = [
 //   {
@@ -53,8 +56,6 @@ import toast from '~/utils/toast';
 //   },
 // ];
 
-export type PresentStatus = 'WAIT' | 'PRESENT' | 'ABSENT';
-
 export default function MentorTakeAttendancePage() {
   const navigate = useNavigate();
   const param = useParams();
@@ -72,20 +73,14 @@ export default function MentorTakeAttendancePage() {
   const [index, setIndex] = useState<number>(-1);
   const [rows, setRows] = useState<any>([]);
   const [showImage, setShowImage] = useState(true);
-  console.log(
-    'classDetails',
-    classDetails,
-    attendanceQueryData.data,
-    attendances,
-    attendanceInformation
-  );
+  const [searchValue, setSearchValue] = useState('');
 
   const handleOpenImage = (iparam: number) => {
     setOpen(!open);
     setIndex(iparam);
   };
 
-  const handleSetPresent = (id: number, status: PresentStatus) => {
+  const handleSetPresent = (id: number, status: PresentStatusKeys) => {
     const tmpRows = rows?.map((item: any) => {
       if (item.id === id) {
         return {
@@ -96,6 +91,10 @@ export default function MentorTakeAttendancePage() {
       return item;
     });
     setRows(tmpRows);
+  };
+
+  const handleSearchValue = (e: any) => {
+    setSearchValue(e.target.value);
   };
 
   const handleNavigateViewDetail = () => {
@@ -114,8 +113,6 @@ export default function MentorTakeAttendancePage() {
     });
     setRows(tmpRows);
   };
-
-  console.log(rows);
 
   const handleTakeAttendance = async () => {
     const id = toast.loadToast('Đang điểm danh buổi học...');
@@ -141,6 +138,7 @@ export default function MentorTakeAttendancePage() {
   useEffect(() => {
     scrollToTop();
   }, []);
+
   useEffect(() => {
     const initRows = attendances?.items?.map((studentSlot: any) => ({
       id: studentSlot.student.id,
@@ -155,7 +153,6 @@ export default function MentorTakeAttendancePage() {
 
   const timeSlotHour = new Date(attendanceInformation?.date);
   const timeStartSlotHour = new Date(attendanceInformation?.date);
-  console.log('date', timeSlotHour?.toDateString());
 
   if (attendanceInformation?.slot) {
     timeSlotHour.setHours(
@@ -167,7 +164,6 @@ export default function MentorTakeAttendancePage() {
       parseInt(attendanceInformation.slot.startTime.split(':')[1], 10)
     );
   }
-  console.log(timeSlotHour?.getTime());
 
   const totalPresentStudent = rows?.reduce((total: number, item: any) => {
     if (item.isPresent === 'PRESENT') {
@@ -188,29 +184,44 @@ export default function MentorTakeAttendancePage() {
     return total;
   }, 0);
 
+  const filterRows = rows.filter((item: any) =>
+    item.name.toLowerCase().includes(searchValue)
+  );
+
   return (
-    <Stack>
+    <Stack sx={{ paddingX: { xs: MetricSize.medium_15, md: 0 } }}>
       <Stack
         sx={{
           justifyContent: 'space-between',
           alignItems: 'center',
-          flexDirection: 'row',
+          flexDirection: { xs: 'column', md: 'row' },
         }}
       >
         <Stack>
           <Typography>Điểm danh</Typography>
-          <Typography sx={globalStyles.textTitle}>
+          <Typography
+            sx={{
+              fontSize: { xs: FontSize.medium_24, md: FontSize.large_35 },
+              fontFamily: FontFamily.bold,
+            }}
+          >
             {classDetails?.subCourseName}
           </Typography>
           <Typography>{`${
             attendanceInformation?.slot?.name
           } - Ngày ${formatDate(attendanceInformation?.date)}`}</Typography>
         </Stack>
-        <Stack sx={{ alignItems: 'flex-end' }}>
+        <Stack
+          sx={{
+            justifyContent: 'flex-start',
+            alignItems: { xs: 'flex-start', md: 'flex-end', marginTop: 2 },
+          }}
+        >
           <Typography>Thời gian còn lại</Typography>
           <Typography
             sx={{
-              ...globalStyles.textTitle,
+              fontSize: { xs: FontSize.medium_24, md: FontSize.large_35 },
+              fontFamily: FontFamily.bold,
               color: Color.red,
               textAlign: 'end',
             }}
@@ -241,6 +252,20 @@ export default function MentorTakeAttendancePage() {
       </Stack>
       <Stack
         sx={{
+          paddingY: MetricSize.small_5,
+        }}
+      >
+        <TextField
+          value={searchValue}
+          onChange={handleSearchValue}
+          placeholder="Thêm tên học sinh cần tìm kiếm"
+          InputProps={{
+            startAdornment: <Icon name="search" size="medium" color="black" />,
+          }}
+        />
+      </Stack>
+      <Stack
+        sx={{
           marginTop: 2,
           borderRadius: MetricSize.small_10,
         }}
@@ -254,33 +279,43 @@ export default function MentorTakeAttendancePage() {
           <Grid sx={headerCell} item md={1}>
             Id
           </Grid>
-          <Grid sx={headerCell} item md={4}>
+          <Grid sx={headerCell} item md={3}>
             Ảnh
           </Grid>
-          <Grid sx={headerCell} item md={3}>
+          <Grid sx={headerCell} item md={2}>
             Tên
           </Grid>
-          <Grid sx={headerCell} item md={2}>
+          <Grid sx={headerCell} item md={4}>
             Ghi Chú
           </Grid>
           <Grid sx={headerCell} item md={2}>
             Điểm danh
           </Grid>
         </Grid>
-        {rows?.map((item: any, rowIndex: any) => {
-          return (
-            <AttendanceList
-              key={item.id}
-              item={item}
-              index={rowIndex}
-              isShowImage={showImage}
-              onSetPresent={handleSetPresent}
-              onViewDetail={handleNavigateViewDetail}
-              onZoomImage={handleOpenImage}
-              onAddNote={handleAddNote}
-            />
-          );
-        })}
+        <Stack>
+          {filterRows.length === 0 ? (
+            <Stack
+              sx={{ padding: MetricSize.medium_15, border: '0.5px solid #eee' }}
+            >
+              <Typography>Không có học sinh nào phù hợp.</Typography>
+            </Stack>
+          ) : (
+            filterRows?.map((item: any, rowIndex: any) => {
+              return (
+                <AttendanceList
+                  key={item.id}
+                  item={item}
+                  index={rowIndex}
+                  isShowImage={showImage}
+                  onSetPresent={handleSetPresent}
+                  onViewDetail={handleNavigateViewDetail}
+                  onZoomImage={handleOpenImage}
+                  onAddNote={handleAddNote}
+                />
+              );
+            })
+          )}
+        </Stack>
       </Stack>
       <CustomModal open={open} onClose={() => setOpen(!open)}>
         <Box
@@ -294,42 +329,48 @@ export default function MentorTakeAttendancePage() {
           }}
         />
       </CustomModal>
-
       <Stack
         sx={{
           flexDirection: 'row',
+          alignItems: 'center',
           justifyContent: 'space-between',
+          flexGrow: 1,
+          height: '100%',
+          paddingTop: MetricSize.large_20,
+        }}
+      >
+        <TextDeclareColumn
+          color="black"
+          title="Tổng số học sinh"
+          value={`${attendances?.totalItems}`}
+        />
+        <TextDeclareColumn
+          color="green"
+          title="Có mặt"
+          value={`${totalPresentStudent}`}
+        />
+        <TextDeclareColumn
+          color="red"
+          title="Vắng"
+          value={`${totalAbsentStudent}`}
+        />
+        <TextDeclareColumn
+          color="orange"
+          title="Chưa điểm danh"
+          value={`${totalWaitStudent}`}
+        />
+      </Stack>
+      <Stack
+        marginTop={2}
+        sx={{
+          alignSelf: 'flex-end',
+          flexDirection: 'row',
           alignItems: 'center',
         }}
       >
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexGrow: 1,
-            height: '100%',
-            paddingTop: MetricSize.medium_15,
-            paddingRight: MetricSize.medium_15,
-          }}
-        >
-          <Typography>{`Tổng số học sinh: ${attendances?.totalItems}`}</Typography>
-          <Typography>{`Có mặt: ${totalPresentStudent}`}</Typography>
-          <Typography>{`Vắng: ${totalAbsentStudent}`}</Typography>
-          <Typography>{`Chưa điểm danh: ${totalWaitStudent}`}</Typography>
-        </Stack>
-        <Stack
-          marginTop={2}
-          sx={{
-            alignSelf: 'flex-end',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Button onClick={handleTakeAttendance} customVariant="horizonForm">
-            Điểm danh khóa học
-          </Button>
-        </Stack>
+        <Button onClick={handleTakeAttendance} customVariant="horizonForm">
+          Điểm danh khóa học
+        </Button>
       </Stack>
     </Stack>
   );

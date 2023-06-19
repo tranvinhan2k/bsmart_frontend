@@ -13,14 +13,14 @@ import { useState } from 'react';
 import { headerCell } from './style';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import { PresentStatus } from '.';
+import { PresentStatusKeys } from '~/models/variables';
 
 interface AttendanceListProps {
   item: any;
   index: number;
   isShowImage: boolean;
   onZoomImage: (index: number) => void;
-  onSetPresent: (id: number, type: PresentStatus) => void;
+  onSetPresent: (id: number, type: PresentStatusKeys) => void;
   onViewDetail: () => void;
   onAddNote: (note: string, id: number) => void;
 }
@@ -38,7 +38,7 @@ export default function AttendanceList({
   const [note, setNote] = useState(item.note);
 
   const handleAddNote = () => {
-    setOpenNote(!note);
+    setOpenNote(!openNote);
     if (note !== item.note) {
       onAddNote(note, item.id);
     }
@@ -65,7 +65,7 @@ export default function AttendanceList({
       <Grid sx={headerCell} item md={1}>
         {item.id}
       </Grid>
-      <Grid sx={headerCell} item md={4}>
+      <Grid sx={headerCell} item md={3}>
         <Button
           sx={{
             padding: MetricSize.medium_15,
@@ -88,7 +88,7 @@ export default function AttendanceList({
           </Tooltip>
         </Button>
       </Grid>
-      <Grid md={3}>
+      <Grid md={2}>
         <Typography
           sx={{
             marginLeft: '10px',
@@ -100,17 +100,35 @@ export default function AttendanceList({
           {item.name}
         </Typography>
       </Grid>
-      <Grid sx={headerCell} item md={2}>
-        <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
-          {openNote ? (
-            <TextField
-              placeholder="Ghi chú"
-              value={note}
-              onChange={(e: any) => setNote(e.target.value)}
-            />
-          ) : (
-            <Typography>{`${item.note}`}</Typography>
-          )}
+      <Grid sx={headerCell} item md={4}>
+        <Stack
+          sx={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}
+        >
+          <Stack
+            sx={{
+              width: '80%',
+              padding: MetricSize.small_10,
+              overflowX: 'hidden',
+              height: '100%',
+            }}
+          >
+            {openNote ? (
+              <TextField
+                sx={{ background: Color.white }}
+                placeholder="Ghi chú"
+                rows={5}
+                multiline
+                value={note}
+                onChange={(e: any) => setNote(e.target.value)}
+              />
+            ) : (
+              <Typography
+                sx={{
+                  wordBreak: 'break-all',
+                }}
+              >{`${item.note}`}</Typography>
+            )}
+          </Stack>
           <IconButton onClick={handleAddNote}>
             <Icon name="edit" size="small" color="black" />
           </IconButton>
