@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Stack, Typography, IconButton } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Button from '~/components/atoms/Button';
@@ -26,20 +26,17 @@ import {
   useQueryGetAllPublicCourses,
 } from '~/hooks';
 import { SubCoursePayload } from '~/models/subCourse';
-import { LEVEL_LABELS } from '~/constants/level';
 import CreateSubCourseModal from './CreateSubCourseModal';
 import UpdateSubCourseModal from './UpdateSubCourseModal';
 import SubCourseList from './SubCourseList';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { mockLevelData, typeData } from '~/constants';
-import { Color, MetricSize } from '~/assets/variables';
 import Checkbox from '~/components/atoms/Checkbox';
 import CustomCarousel from '../../CustomCarousel';
-import { image } from '~/constants/image';
-import globalStyles from '~/styles';
-import Icon from '~/components/atoms/Icon';
-import CustomModal from '~/components/atoms/CustomModal';
 import PublicCourseItem from './PublicCourseItem';
+import CustomTab from '~/components/atoms/CustomTab';
+import { Color, MetricSize } from '~/assets/variables';
+import globalStyles from '~/styles';
 
 // TODO : Not implement useHookForm yet !! waiting for API to start
 
@@ -96,8 +93,11 @@ export default function CreateCourseForm() {
     setEditIndex(id);
   };
 
-  const handleCheckCustomUse = () => {
-    setUseCustomCourse(!isUseCustomCourse);
+  const handleCheckCustomUse = (isCheck: boolean) => {
+    if (!isCheck) {
+      createCourseHookForm.reset();
+    }
+    setUseCustomCourse(isCheck);
     setSelectedPublicCourse(undefined);
   };
 
@@ -269,58 +269,82 @@ export default function CreateCourseForm() {
         )}
       >
         <Box marginTop={2}>
-          <CollapseStack label="Thông tin khóa học">
-            <Stack padding={2}>
-              <CustomCarousel
-                isLoading={isLoading}
-                label="Chọn khóa học có sẵn"
-                items={publicCourses || []}
-                renderItem={renderItem}
-              />
-              <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Checkbox
-                  isChecked={isUseCustomCourse}
-                  onCheck={handleCheckCustomUse}
-                >
-                  Tự tạo khóa học
-                </Checkbox>
-              </Stack>
-              {isUseCustomCourse && (
-                <Stack padding={1}>
-                  <FormInput
-                    name={CREATE_COURSE_FIELDS.code}
-                    control={createCourseHookForm.control}
-                    label="Mã khóa học"
+          <CustomTab
+            tabContentList={[
+              {
+                label: 'Khóa học có sẵn',
+                data: (
+                  <CustomCarousel
+                    isLoading={isLoading}
+                    label="Chọn khóa học có sẵn"
+                    items={publicCourses || []}
+                    renderItem={renderItem}
                   />
-                  <FormInput
-                    name={CREATE_COURSE_FIELDS.name}
-                    control={createCourseHookForm.control}
-                    label="Tên Khóa Học"
-                  />
-                  <FormInput
-                    data={categories}
-                    variant="dropdown"
-                    name={CREATE_COURSE_FIELDS.categoryId}
-                    control={createCourseHookForm.control}
-                    label="Lĩnh Vực"
-                  />
-                  <FormInput
-                    data={filterSubjects}
-                    variant="dropdown"
-                    name={CREATE_COURSE_FIELDS.subjectId}
-                    control={createCourseHookForm.control}
-                    label="Ngôn ngữ"
-                  />
-                  <FormInput
-                    name={CREATE_COURSE_FIELDS.description}
-                    variant="multiline"
-                    control={createCourseHookForm.control}
-                    label="Mô tả khóa học"
-                  />
-                </Stack>
-              )}
-            </Stack>
-          </CollapseStack>
+                ),
+                onClick: () => handleCheckCustomUse(false),
+              },
+              {
+                label: 'Tự tạo khóa học',
+                data: (
+                  <Stack
+                    sx={{
+                      background: Color.white,
+                    }}
+                  >
+                    <Typography sx={globalStyles.textSubTitle}>
+                      Tạo khóa học
+                    </Typography>
+                    <Stack marginTop={1}>
+                      <FormInput
+                        name={CREATE_COURSE_FIELDS.code}
+                        control={createCourseHookForm.control}
+                        label="Mã khóa học"
+                        placeholder="Nhập mã khóa học"
+                      />
+                    </Stack>
+                    <Stack marginTop={1}>
+                      <FormInput
+                        name={CREATE_COURSE_FIELDS.name}
+                        control={createCourseHookForm.control}
+                        label="Tên Khóa Học"
+                        placeholder="Nhập tên khóa học"
+                      />
+                    </Stack>
+                    <Stack marginTop={1}>
+                      <FormInput
+                        data={categories}
+                        variant="dropdown"
+                        name={CREATE_COURSE_FIELDS.categoryId}
+                        control={createCourseHookForm.control}
+                        label="Lĩnh Vực"
+                        placeholder="Nhập lĩnh vực"
+                      />
+                    </Stack>
+                    <Stack marginTop={1}>
+                      <FormInput
+                        data={filterSubjects}
+                        variant="dropdown"
+                        name={CREATE_COURSE_FIELDS.subjectId}
+                        control={createCourseHookForm.control}
+                        label="Ngôn ngữ"
+                        placeholder="Nhập ngôn ngữ lập trình"
+                      />
+                    </Stack>
+                    <Stack marginTop={1}>
+                      <FormInput
+                        name={CREATE_COURSE_FIELDS.description}
+                        variant="multiline"
+                        control={createCourseHookForm.control}
+                        label="Mô tả khóa học"
+                        placeholder="Nhập mô tả khóa học"
+                      />
+                    </Stack>
+                  </Stack>
+                ),
+                onClick: () => handleCheckCustomUse(true),
+              },
+            ]}
+          />
         </Box>
         <Box marginTop={2}>
           <CollapseStack label="Thông tin khóa học phụ">

@@ -26,11 +26,13 @@ export default function PublicCourseItem({
     <Stack>
       <Stack
         sx={{
+          maxWidth: { xs: 'none', md: '300px' },
+          background: Color.white,
           boxShadow: 3,
           borderRadius: MetricSize.medium_15,
           padding: MetricSize.small_10,
-          height: '400px',
-          width: '33%',
+          height: undefined,
+          aspectRatio: 2 / 3,
           position: 'relative',
           transition: 'border 200ms',
           border: `5px solid ${isSelected ? Color.orange : Color.transparent}`,
@@ -38,15 +40,22 @@ export default function PublicCourseItem({
       >
         <Checkbox isChecked={isSelected} onCheck={onSelectedItem} />
         <Stack>
-          <Box
-            component="img"
-            alt="public course"
-            src={item.image || image.noCourse}
+          <Stack
             sx={{
-              width: '100%',
-              objectFit: 'fill',
+              height: '80%',
             }}
-          />
+          >
+            <Box
+              component="img"
+              alt="public course"
+              src={item.image || image.noCourse}
+              sx={{
+                width: '100%',
+
+                objectFit: 'fill',
+              }}
+            />
+          </Stack>
           <Stack
             sx={{
               flexDirection: 'row',

@@ -24,7 +24,7 @@ export default function MentorProfileLayout({
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
-          spacing={5}
+          spacing={{ xs: 0, md: 5 }}
         >
           <Grid
             sx={{

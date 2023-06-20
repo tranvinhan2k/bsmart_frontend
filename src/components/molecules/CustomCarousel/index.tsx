@@ -14,6 +14,7 @@ import Carousel, {
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
+import globalStyles from '~/styles';
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -75,14 +76,8 @@ export default function CustomCarousel({
   };
   return (
     <Stack>
-      {label && (
-        <Typography
-          sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.medium_24 }}
-        >
-          {label}
-        </Typography>
-      )}
-      <Stack sx={{ marginTop: MetricSize.medium_15 }}>
+      {label && <Typography sx={globalStyles.textSubTitle}>{label}</Typography>}
+      <Stack>
         {isLoading ? (
           <Stack>
             <LazyLoadingScreen />
