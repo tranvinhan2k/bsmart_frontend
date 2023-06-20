@@ -1,3 +1,9 @@
+import {
+  DropdownDynamicValueInputBooleanDataPayload,
+  DropdownDynamicValueInputNumberDataPayload,
+  DropdownDynamicValueInputStringDataPayload,
+} from './common';
+
 export interface LoginFormDataPayload {
   email: string;
   password: string;
@@ -162,7 +168,7 @@ export interface UpdateAssignmentFormDataPayload {
 export interface CreateAnnouncementFormDataPayload {
   content: string;
   title: string;
-  visible: boolean;
+  visible: boolean | DropdownDynamicValueInputBooleanDataPayload;
 }
 export interface UpdateAnnouncementFormDataPayload {
   content: string;

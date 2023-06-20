@@ -47,7 +47,8 @@ export default function MentorCreateAnnouncementPage() {
       data: {
         content: data.content,
         title: data.title,
-        visible: data.visible,
+        visible:
+          typeof data.visible === 'boolean' ? data.visible : data.visible.value,
       },
     };
     const idToast = toast.loadToast(toastMsgLoading);

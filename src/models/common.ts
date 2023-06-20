@@ -57,10 +57,20 @@ export interface PaginationPayload {
   sort: string;
 }
 
-export interface DropdownDynamicValueInputDataPayload {
+export interface DropdownDynamicValueInputBooleanDataPayload {
   id: number;
   label: string;
-  value: string | number | boolean;
+  value: boolean;
+}
+export interface DropdownDynamicValueInputNumberDataPayload {
+  id: number;
+  label: string;
+  value: number;
+}
+export interface DropdownDynamicValueInputStringDataPayload {
+  id: number;
+  label: string;
+  value: string;
 }
 
 export interface RequestPagingFilterPayload {
