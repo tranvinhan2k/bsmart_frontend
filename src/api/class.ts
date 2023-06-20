@@ -40,7 +40,10 @@ const classApi = {
     const urlDelete = `${url}/${id}/class-sections/${classSectionId}`;
     return axiosClient.delete(urlDelete);
   },
-  async getMentorClassAttendances({ id }: ViewClassProps): Promise<any> {
+
+  async getMentorClassAttendances({
+    id,
+  }: ClassGetDetailsPayload): Promise<any> {
     const urlGet = `${url}/${id}/time-tables`;
     const response: any = await axiosClient.get(urlGet, {
       params: {
