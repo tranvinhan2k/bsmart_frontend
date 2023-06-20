@@ -383,17 +383,17 @@ export const mentorLMSRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[17].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[15].link}`,
     main: () => <MentorAssignmentDetailsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[18].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[16].link}`,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[19].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[17].link}`,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },

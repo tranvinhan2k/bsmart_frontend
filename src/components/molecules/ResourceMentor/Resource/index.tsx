@@ -40,28 +40,28 @@ export default function Resource({
     case ActivityTypeCode.QUIZ:
       resourceIconName = 'quiz';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[7].link.split('/')[0]
+        MentorNavigationActionData[1].items?.[3].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[7].link.split('/')[0]
+        MentorNavigationActionData[1].items?.[3].link.split('/')[0]
       }/${activityId}`;
       break;
     case ActivityTypeCode.ASSIGNMENT:
       resourceIconName = 'assignment';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[17].link.split('/')[0]
+        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[16].link.split('/')[0]
+        MentorNavigationActionData[1].items?.[14].link.split('/')[0]
       }/${activityId}`;
       break;
     case ActivityTypeCode.ANNOUNCEMENT:
       resourceIconName = 'chat';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[17].link.split('/')[0]
+        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[17].link.split('/')[0]
+        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
       }/${activityId}`;
       break;
     default:
