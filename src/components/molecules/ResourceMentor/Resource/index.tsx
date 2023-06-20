@@ -24,15 +24,30 @@ export default function Resource({
   switch (activityTypeCode) {
     case ActivityTypeCode.QUIZ:
       resourceIconName = 'quiz';
-      editLinkTo = `/mentor-profile/${MentorNavigationActionData[7]?.link}`;
+      linkViewDetails = `/mentor-profile/${
+        MentorNavigationActionData[1].items?.[3].link.split('/')[0]
+      }/${activityId}`;
+      linkEdit = `/mentor-profile/${
+        MentorNavigationActionData[1].items?.[3].link.split('/')[0]
+      }/${activityId}`;
       break;
     case ActivityTypeCode.ASSIGNMENT:
       resourceIconName = 'assignment';
-      editLinkTo = `/mentor-profile/${MentorNavigationActionData[16]?.link}`;
+      linkViewDetails = `/mentor-profile/${
+        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
+      }/${activityId}`;
+      linkEdit = `/mentor-profile/${
+        MentorNavigationActionData[1].items?.[14].link.split('/')[0]
+      }/${activityId}`;
       break;
     case ActivityTypeCode.ANNOUNCEMENT:
       resourceIconName = 'chat';
-      editLinkTo = `/mentor-profile/${MentorNavigationActionData[17]?.link}`;
+      linkViewDetails = `/mentor-profile/${
+        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
+      }/${activityId}`;
+      linkEdit = `/mentor-profile/${
+        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
+      }/${activityId}`;
       break;
     default:
       resourceIconName = 'redo';

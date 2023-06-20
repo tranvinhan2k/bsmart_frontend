@@ -88,7 +88,9 @@ export default function MentorCreateAssignmentPage() {
 
   const navigate = useNavigate();
   const handleReturnResourceManagePage = () =>
-    navigate(`/mentor-profile/${MentorNavigationActionData[6].link}`);
+    navigate(
+      `/mentor-profile/${MentorNavigationActionData[1].items?.[2].link}`
+    );
 
   const {
     fields: attachFileFields,

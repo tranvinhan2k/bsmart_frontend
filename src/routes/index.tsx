@@ -348,7 +348,22 @@ export const mentorRoutes: RoutePayload[] = [
   },
   {
     path: `/${MentorNavigationActionData[1].items?.[14].link}`,
-    main: () => <MentorClassListPage />,
+    main: () => <MentorAssignmentSettingsPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[15].link}`,
+    main: () => <MentorAssignmentDetailsPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[16].link}`,
+    main: () => <MentorCreateAnnouncementPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[17].link}`,
+    main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
 ];
