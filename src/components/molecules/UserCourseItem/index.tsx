@@ -12,11 +12,14 @@ import {
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
 import Icon, { IconName } from '~/components/atoms/Icon';
+import Tag from '~/components/atoms/Tag';
+import { courseTypeData } from '~/constants';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   courseName: string | undefined;
+  courseType: string | undefined;
   courseDescription: string | undefined;
   menuItemList: {
     id: number;
@@ -29,6 +32,7 @@ interface UserCourseItemProps {
 export default function UserCourseItem({
   courseDescription,
   courseName,
+  courseType,
   imageAlt,
   imageUrl,
   menuItemList,
@@ -81,14 +85,21 @@ export default function UserCourseItem({
           src={imageUrl || image.noCourse}
           alt={imageAlt}
         />
+
         <Stack
           sx={{
             padding: MetricSize.medium_15,
             border: '0.5px solid #ddd',
           }}
         >
+          {courseType && (
+            <Box>
+              <Tag title={courseTypeData[courseType]} color="orange" />
+            </Box>
+          )}
           <Stack
             sx={{
+              marginTop: 1,
               height: '100px',
               overflow: 'hidden',
             }}

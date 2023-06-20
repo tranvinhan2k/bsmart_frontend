@@ -12,6 +12,11 @@ import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 import { LEVEL_LABELS } from './level';
 
+export const courseTypeData = {
+  PRIVATE: 'Khóa học riêng tư',
+  PUBLIC: 'Khóa học cộng đồng',
+};
+
 export const typeData: OptionPayload[] = [
   {
     id: 0,
@@ -271,114 +276,140 @@ export const NavigationActionData: ActionPayload[] = [
 export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 0,
-    name: 'Chỉnh sửa thông tin',
-    link: 'edit-profile',
+    link: '',
+    name: 'Quản lí thông tin',
+    items: [
+      {
+        id: 0,
+        name: 'Chỉnh sửa thông tin',
+        link: 'edit-profile',
+      },
+      {
+        id: 1,
+        name: 'Quản lí ví tiền',
+        link: 'wallet-management',
+      },
+      {
+        id: 2,
+        name: 'Rút tiền',
+        link: 'withdraw',
+      },
+      {
+        id: 3,
+        name: 'Giới thiệu giáo viên',
+        link: 'mentor-introduce',
+        isHide: true,
+      },
+    ],
   },
   {
     id: 1,
-    name: 'Quản lí ví tiền',
-    link: 'wallet-management',
-  },
-  {
-    id: 2,
-    name: 'Rút tiền',
-    link: 'withdraw',
-  },
-  {
-    id: 3,
-    name: 'Danh sách khóa học',
-    link: 'mentor-course-list',
-  },
-  {
-    id: 4,
-    name: 'Tạo khóa học',
-    link: 'create-course',
-  },
-  {
-    id: 5,
-    name: 'Giới thiệu giáo viên',
-    link: 'mentor-introduce',
-    isHide: true,
-  },
-  {
-    id: 6,
-    name: 'Quản lý tài nguyên',
-    link: 'mentor-resource-management',
-  },
-  {
-    id: 7,
-    name: 'Quản lý Quiz',
-    link: 'mentor-quiz-settings',
-  },
-  {
-    id: 8,
-    name: 'Danh sách điểm danh',
-    link: 'attendance-list',
-  },
-  {
-    id: 9,
-    name: 'Điểm danh của học sinh',
-    link: 'view-member-attendance',
-  },
-  {
-    id: 10,
-    name: 'Tạo Quiz',
-    link: 'mentor-create-quiz/:classSectionId',
-    isHide: true,
-  },
-  {
-    id: 11,
-    name: 'Chi tiết khóa học',
-    link: 'mentor_course_detail/:id',
-    isHide: true,
-  },
-  {
-    id: 12,
-    name: 'Tạo Assignment',
-    link: 'mentor-create-assignment/:classSectionId',
-    isHide: true,
-  },
-  {
-    id: 13,
-    name: 'Tạo thông báo',
-    link: 'mentor-create-announcement/:classSectionId',
-    isHide: true,
-  },
-  {
-    id: 14,
-    name: 'Điểm danh',
-    link: 'take-attendance',
-    isHide: true,
-  },
-  {
-    id: 15,
-    name: '',
     link: '',
-    isHide: true,
-  },
-  {
-    id: 16,
-    name: 'Tùy chỉnh Assignment',
-    link: 'mentor-assignment-settings/:id',
-    isHide: true,
-  },
-  {
-    id: 17,
-    name: 'Xem chi tiết Assignment',
-    link: 'mentor-assignment-details/:id',
-    isHide: true,
-  },
-  {
-    id: 18,
-    name: 'Quản lý Announcement',
-    link: 'mentor-announcement-settings',
-    isHide: true,
-  },
-  {
-    id: 19,
-    name: 'Quản lý Announcement',
-    link: 'mentor-announcement-details',
-    isHide: true,
+    name: 'Quản li học tập',
+    items: [
+      {
+        id: 0,
+        name: 'Danh sách khóa học',
+        link: 'mentor-course-list',
+      },
+      {
+        id: 1,
+        name: 'Tạo khóa học',
+        link: 'create-course',
+      },
+      {
+        id: 2,
+        name: 'Quản lý tài nguyên',
+        link: 'mentor-resource-management',
+      },
+      {
+        id: 3,
+        name: 'Quản lý Quiz',
+        link: 'mentor-quiz-settings',
+      },
+      {
+        id: 4,
+        name: 'Danh sách điểm danh',
+        link: 'attendance-list',
+      },
+      {
+        id: 5,
+        name: 'Điểm danh của học sinh',
+        link: 'view-member-attendance',
+      },
+      {
+        id: 6,
+        name: 'Tạo Quiz',
+        link: 'mentor-create-quiz/:classSectionId',
+        isHide: true,
+      },
+      {
+        id: 7,
+        name: 'Chi tiết khóa học',
+        link: 'mentor_course_detail/:id',
+        isHide: true,
+      },
+      {
+        id: 8,
+        name: 'Tạo Assignment',
+        link: 'mentor-create-assignment/:classSectionId',
+        isHide: true,
+      },
+      {
+        id: 9,
+        name: 'Tạo thông báo',
+        link: 'mentor-create-announcement/:classSectionId',
+        isHide: true,
+      },
+      {
+        id: 10,
+        name: 'Điểm danh',
+        link: 'take-attendance/:classId/:id',
+        isHide: true,
+      },
+      {
+        id: 11,
+        name: 'Tạo nội dung khóa học',
+        link: 'create-content',
+        isHide: true,
+      },
+      {
+        id: 12,
+        name: 'Quản lý Assignment',
+        link: 'mentor-assignment-settings',
+        isHide: true,
+      },
+      {
+        id: 13,
+        name: 'Quản lý Announcement',
+        link: 'mentor-announcement-settings',
+        isHide: true,
+      },
+      {
+        id: 14,
+        name: 'Tùy chỉnh Assignment',
+        link: 'mentor-assignment-settings/:id',
+        isHide: true,
+      },
+      {
+        id: 15,
+        name: 'Xem chi tiết Assignment',
+        link: 'mentor-assignment-details/:id',
+        isHide: true,
+      },
+      {
+        id: 16,
+        name: 'Quản lý Announcement',
+        link: 'mentor-announcement-settings',
+        isHide: true,
+      },
+      {
+        id: 17,
+        name: 'Quản lý Announcement',
+        link: 'mentor-announcement-details',
+        isHide: true,
+      },
+    ],
   },
 ];
 

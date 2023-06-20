@@ -26,10 +26,10 @@ export default function CustomModal({
     >
       <Stack
         sx={{
-          width: '60%',
+          width: { xs: '100%', md: '60%' },
           minHeight: '100px',
           background: Color.white,
-          borderRadius: MetricSize.small_10,
+          borderRadius: { xs: '0', md: MetricSize.small_10 },
           padding: MetricSize.small_10,
         }}
       >

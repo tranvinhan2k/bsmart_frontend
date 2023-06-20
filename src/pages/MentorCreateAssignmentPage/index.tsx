@@ -164,6 +164,10 @@ export default function MentorCreateAssignmentPage() {
               <Typography sx={SX_FORM_LABEL}>Ngày đóng</Typography>
               <FormInput control={control} name="endDate" variant="datetime" />
             </Grid>
+            <Grid item xs={6}>
+              <Typography sx={SX_FORM_LABEL}>Ngày đóng</Typography>
+              <FormInput control={control} name="endDate" variant="datetime" />
+            </Grid>
           </Grid>
         </AccordionDetails>
       </Accordion>

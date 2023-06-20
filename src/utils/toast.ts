@@ -6,44 +6,49 @@ const loadToast = (label: string) => {
 
 const updateSuccessToast = (id: Id, label: string) => {
   toast.update(id, {
+    position: 'top-left',
     render: label,
     type: 'success',
     isLoading: false,
-    autoClose: 1000,
+    autoClose: 500,
     closeOnClick: true,
     closeButton: true,
   });
 };
 const updateFailedToast = (id: Id, label: string) => {
   toast.update(id, {
+    position: 'top-left',
     render: label,
     type: 'error',
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 5000,
+    autoClose: 1000,
   });
 };
 const notifyErrorToast = (message: string) => {
   toast.error(message, {
+    position: 'top-left',
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 5000,
+    autoClose: 1000,
   });
 };
 const notifyWarningToast = (message: string) => {
   toast.warning(message, {
+    position: 'top-left',
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 2000,
+    autoClose: 1000,
   });
 };
 const notifySuccessToast = (message: string) => {
   toast.success(message, {
+    position: 'top-left',
     isLoading: false,
-    autoClose: 1000,
+    autoClose: 500,
     closeOnClick: true,
     closeButton: true,
   });

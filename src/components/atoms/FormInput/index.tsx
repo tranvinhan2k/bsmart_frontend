@@ -118,6 +118,13 @@ const generateFormInput = (
           placeholder={placeholder}
         />
       );
+    case variant === 'datetime':
+      return (
+        <DateTimePickerInput
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'dropdown':
       return (
         <DropdownInput

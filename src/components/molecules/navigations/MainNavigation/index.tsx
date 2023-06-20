@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Avatar,
   IconButton,
   Stack,
   Typography,
@@ -11,6 +12,7 @@ import {
   Drawer,
 } from '@mui/material';
 
+import { useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 
@@ -26,6 +28,10 @@ import styles from './styles';
 import { Role } from '~/models/role';
 import { CoursePayload } from '~/models/courses';
 import { ResponseCartItem } from '~/api/cart';
+import { selectProfile } from '~/redux/user/selector';
+import { ProfileImgType } from '~/constants/profile';
+import { image } from '~/constants/image';
+import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 
 interface NavigationProps {
   texts: {
@@ -38,6 +44,7 @@ interface NavigationProps {
     SEARCH_COURSE_PLACEHOLDER: string;
   };
   isOpenDrawer: boolean;
+  isOpenProfileDrawer: boolean;
   cart: ResponseCartItem | undefined;
   courses: CoursePayload[] | undefined;
   role: Role | null;
@@ -57,6 +64,7 @@ interface NavigationProps {
   contracts: ContractPayload[];
   courseAnchorEl: HTMLElement | null;
   onToggleDrawer: () => void;
+  onToggleProfileDrawer: () => void;
   onNavigationLink: (_link: string) => void;
   onCloseCourseMenu: () => void;
   onSearchCourse: (searchValue: string) => void;
@@ -69,6 +77,7 @@ interface NavigationProps {
 export default function MainNavigation({
   texts,
   isOpenDrawer,
+  isOpenProfileDrawer,
   cart,
   courses,
   role,
@@ -80,6 +89,7 @@ export default function MainNavigation({
   courseAnchorEl,
   onCloseCourseMenu,
   onToggleDrawer,
+  onToggleProfileDrawer,
   onNavigationLink,
   onSearchCourse,
   onClickCart,
@@ -87,6 +97,8 @@ export default function MainNavigation({
   onMouseEnterNavigation,
   onMouseLeaveNavigation,
 }: NavigationProps) {
+  const profile = useSelector(selectProfile);
+
   const renderNavigationList = () => {
     return (
       pages &&
@@ -122,6 +134,22 @@ export default function MainNavigation({
 
   return (
     <Stack sx={styles.view}>
+      <Stack sx={styles.view3}>
+        <IconButton onClick={onToggleProfileDrawer}>
+          <Avatar
+            alt="Avatar"
+            src={
+              profile?.userImages?.find(
+                (img) => img?.type === ProfileImgType.AVATAR
+              )?.url || image.noAvatar
+            }
+            sx={{
+              width: 40,
+              height: 40,
+            }}
+          />
+        </IconButton>
+      </Stack>
       <Stack>
         <Typography sx={styles.text1}>
           {texts.APP_NAME.toUpperCase()}
@@ -180,6 +208,13 @@ export default function MainNavigation({
             />
           </Stack>
         </Stack>
+      </Drawer>
+      <Drawer
+        anchor="left"
+        open={isOpenProfileDrawer}
+        onClose={onToggleProfileDrawer}
+      >
+        <MentorDetailSection />
       </Drawer>
       <Menu
         id="basic-menu"

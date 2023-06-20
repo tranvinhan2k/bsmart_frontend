@@ -1,13 +1,29 @@
-import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
+import {
+  Box,
+  Button as MuiButton,
+  Tab,
+  Tabs,
+  Grid,
+  Stack,
+  Typography,
+  Tooltip,
+} from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
-import { scrollToTop } from '~/utils/common';
-import { useManageClass } from '~/hooks/useManageClass';
-import CustomSwitch from '~/components/atoms/Switch';
-import Icon, { IconName } from '~/components/atoms/Icon';
 import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
+import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE, SX_WRAPPER } from './style';
+import { scrollToTop } from '~/utils/common';
+import {
+  SX_WRAPPER,
+  SX_HEADER_TITLE,
+  SX_FORM_ITEM_LABEL,
+  SX_FORM_ITEM_VALUE,
+} from './style';
+import { useManageClass } from '~/hooks/useManageClass';
+import Icon, { IconName } from '~/components/atoms/Icon';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
+import CustomSwitch from '~/components/atoms/Switch';
+import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
 
 export default function MentorResourceManagePage() {
   useEffect(() => {
@@ -27,7 +43,7 @@ export default function MentorResourceManagePage() {
   };
 
   const id = 4;
-  const { classDetails } = useManageClass({ id });
+  const { classDetails, attendanceQueryData } = useManageClass({ id });
 
   const tabEl = [
     {
@@ -38,7 +54,18 @@ export default function MentorResourceManagePage() {
     {
       id: 1,
       text: 'Điểm danh',
-      component: <h1>Điểm danh</h1>,
+      component: (
+        <ClassAttendanceList
+          classId={classDetails?.id}
+          name={classDetails?.subCourseName}
+          attendancesList={attendanceQueryData}
+        />
+      ),
+    },
+    {
+      id: 2,
+      text: 'Nội dung khóa học',
+      component: <h1>Điểm </h1>,
     },
   ];
 
@@ -83,9 +110,9 @@ export default function MentorResourceManagePage() {
   ];
 
   return (
-    <>
+    <Stack>
       <Box sx={SX_WRAPPER}>
-        <Box mt={2} px={2}>
+        <Box mt={2} mb={1} px={2}>
           <Typography sx={SX_FORM_ITEM_LABEL}>
             {classDetails ? classDetails.subCourseName : ''}
           </Typography>
@@ -108,6 +135,7 @@ export default function MentorResourceManagePage() {
           ))}
         </Box>
       </Box>
+
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
@@ -149,6 +177,6 @@ export default function MentorResourceManagePage() {
           <Box>{tab.component}</Box>
         </TabPanel>
       ))}
-    </>
+    </Stack>
   );
 }

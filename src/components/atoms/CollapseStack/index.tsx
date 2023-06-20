@@ -42,12 +42,18 @@ export default function CollapseStack({ label, children }: CollapseStackProps) {
         <Typography
           sx={{ fontFamily: FontFamily.medium, fontSize: FontSize.small_18 }}
         >
-          {' '}
           {label}
         </Typography>
-        <IconButton onClick={handleTriggerCollapse}>
-          <Icon name="down" size="small" />
-        </IconButton>
+        <Stack
+          sx={{
+            transform: visibleCollapse ? 'none' : 'rotate(-90deg)',
+            transition: 'transform 0.5s',
+          }}
+        >
+          <IconButton onClick={handleTriggerCollapse}>
+            <Icon name="down" size="small" />
+          </IconButton>
+        </Stack>
       </Stack>
       <Collapse in={visibleCollapse}>
         <Stack padding={1}>{children}</Stack>

@@ -196,4 +196,5 @@ export type FormInputVariant =
   | 'feedbackQuestionChoice'
   | 'feedbackTypeChoose'
   | 'datetime'
+  | 'datetime'
   | 'date';

@@ -35,12 +35,21 @@ export const useManageClass = ({ id }: UseManageClassPayload) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [key] }),
   });
 
+  const attendanceQueryData = useQuery({
+    queryKey: ['attendanceList', id],
+    queryFn: () =>
+      classApi.getMentorClassAttendances({
+        id,
+      }),
+  });
+
   return {
     error,
     classDetails: data,
     isLoading,
     refetch,
     //
+    attendanceQueryData,
     createClassSections,
     updateClassSections,
     deleteClassSections,

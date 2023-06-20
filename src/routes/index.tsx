@@ -90,6 +90,7 @@ const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 const FeedbackManagerPage = lazy(() => import('~/pages/FeedbackManagerPage'));
 const SubjectManagerPage = lazy(() => import('~/pages/SubjectManagerPage'));
 const CategoryManagerPage = lazy(() => import('~/pages/CategoryManagerPage'));
+const CreateContentPage = lazy(() => import('~/pages/CreateContentPage'));
 const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
 );
@@ -253,80 +254,95 @@ export const mentorRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[0].link}`,
+    path: `/${MentorNavigationActionData[0].items?.[0].link}`,
     main: () => <MentorEditProfilePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[1].link}`,
+    path: `/${MentorNavigationActionData[0].items?.[1].link}`,
     main: () => <WalletManagementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[2].link}`,
+    path: `/${MentorNavigationActionData[0].items?.[2].link}`,
     main: () => <WithdrawPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[3].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[0].link}`,
     main: () => <MentorCourseListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[1].link}`,
     main: () => <MentorCreateCoursePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[5].link}`,
+    path: `/${MentorNavigationActionData[5]?.link}`,
     main: () => {
       return <div>mentor-introduce</div>;
     },
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[6].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[2].link}`,
     main: () => <MentorResourceManagePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[7].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[3].link}`,
     main: () => <MentorQuizSettingsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[8].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[4].link}`,
     main: () => <MentorAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[9].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[5].link}`,
     main: () => <MentorViewStudentAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[10].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[6].link}`,
     main: () => <MentorCreateQuizPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[11].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[7].link}`,
     main: () => <MentorCourseDetailPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[12].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[8].link}`,
     main: () => <MentorCreateAssignmentPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[13].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[9].link}`,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[14].link}`,
+    path: `/${MentorNavigationActionData[1].items?.[10].link}`,
     main: () => <MentorTakeAttendancePage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[11].link}`,
+    main: () => <CreateContentPage />,
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[12].link}`,
+    main: () => <MentorCreateAssignmentPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[13].link}`,
+    main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
