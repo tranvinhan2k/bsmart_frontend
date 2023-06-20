@@ -67,6 +67,11 @@ export default function MentorResourceManagePage() {
       text: 'Nội dung khóa học',
       component: <h1>Điểm </h1>,
     },
+    {
+      id: 3,
+      text: 'Thông báo',
+      component: <h1>Thông báo</h1>,
+    },
   ];
 
   interface DisplayTextListProps {

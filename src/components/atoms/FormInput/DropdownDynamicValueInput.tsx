@@ -1,12 +1,20 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { TextField, Autocomplete } from '@mui/material';
-import { DropdownDynamicValueInputDataPayload } from '~/models';
+import {
+  DropdownDynamicValueInputBooleanDataPayload,
+  DropdownDynamicValueInputStringDataPayload,
+  DropdownDynamicValueInputNumberDataPayload,
+} from '~/models';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface DropdownDynamicValueInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
-  data: DropdownDynamicValueInputDataPayload[];
+  data: (
+    | DropdownDynamicValueInputBooleanDataPayload
+    | DropdownDynamicValueInputNumberDataPayload
+    | DropdownDynamicValueInputStringDataPayload
+  )[];
 }
 function DropdownDynamicValueInput({
   controller,
@@ -15,8 +23,12 @@ function DropdownDynamicValueInput({
 }: DropdownDynamicValueInputProps) {
   const defaultProps = {
     options: data,
-    getOptionLabel: (option: DropdownDynamicValueInputDataPayload) =>
-      option.label || '',
+    getOptionLabel: (
+      option:
+        | DropdownDynamicValueInputBooleanDataPayload
+        | DropdownDynamicValueInputNumberDataPayload
+        | DropdownDynamicValueInputStringDataPayload
+    ) => option.label || '',
   };
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
@@ -24,7 +36,10 @@ function DropdownDynamicValueInput({
   } = controller;
   const onChange: any = (
     e: any,
-    newValue: DropdownDynamicValueInputDataPayload
+    newValue:
+      | DropdownDynamicValueInputBooleanDataPayload
+      | DropdownDynamicValueInputNumberDataPayload
+      | DropdownDynamicValueInputStringDataPayload
   ) => {
     controllerOnChange(newValue);
   };

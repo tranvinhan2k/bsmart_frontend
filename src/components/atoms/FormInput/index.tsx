@@ -3,7 +3,12 @@
 import { Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
 import { BankLinking, FormInputVariant } from '~/models/form';
-import { DropdownDynamicValueInputDataPayload, OptionPayload } from '~/models';
+import {
+  DropdownDynamicValueInputBooleanDataPayload,
+  DropdownDynamicValueInputNumberDataPayload,
+  DropdownDynamicValueInputStringDataPayload,
+  OptionPayload,
+} from '~/models';
 import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
@@ -29,7 +34,11 @@ interface FormInputProps {
   banks?: BankLinking[];
   control: Control<any>;
   data?: OptionPayload[];
-  dataDropdownDynamicValue?: DropdownDynamicValueInputDataPayload[];
+  dataDropdownDynamicValue?: (
+    | DropdownDynamicValueInputBooleanDataPayload
+    | DropdownDynamicValueInputNumberDataPayload
+    | DropdownDynamicValueInputStringDataPayload
+  )[];
   defaultValue?: any;
   helperText?: string;
   label?: string;
@@ -45,7 +54,11 @@ const generateFormInput = (
   banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
   data: OptionPayload[],
-  dataDropdownDynamicValue: DropdownDynamicValueInputDataPayload[],
+  dataDropdownDynamicValue: (
+    | DropdownDynamicValueInputBooleanDataPayload
+    | DropdownDynamicValueInputNumberDataPayload
+    | DropdownDynamicValueInputStringDataPayload
+  )[],
   helperText: string,
   placeholder: string,
   multilineRows: number,
@@ -110,13 +123,6 @@ const generateFormInput = (
     case variant === 'time':
       return (
         <HourPickerInput controller={controller} placeholder={placeholder} />
-      );
-    case variant === 'datetime':
-      return (
-        <DateTimePickerInput
-          controller={controller}
-          placeholder={placeholder}
-        />
       );
     case variant === 'datetime':
       return (
