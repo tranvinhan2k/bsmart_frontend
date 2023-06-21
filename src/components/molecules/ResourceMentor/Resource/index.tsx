@@ -35,28 +35,19 @@ export default function Resource({
     case ActivityTypeCode.QUIZ:
       resourceIconName = 'quiz';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[3].link.split('/')[0]
+        MentorNavigationActionData[4].items?.[0].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[3].link.split('/')[0]
+        MentorNavigationActionData[4].items?.[0].link.split('/')[0]
       }/${activityId}`;
       break;
     case ActivityTypeCode.ASSIGNMENT:
       resourceIconName = 'assignment';
       linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
+        MentorNavigationActionData[4].items?.[2].link.split('/')[0]
       }/${activityId}`;
       linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[14].link.split('/')[0]
-      }/${activityId}`;
-      break;
-    case ActivityTypeCode.ANNOUNCEMENT:
-      resourceIconName = 'chat';
-      linkViewDetails = `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
-      }/${activityId}`;
-      linkEdit = `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[15].link.split('/')[0]
+        MentorNavigationActionData[4].items?.[3].link.split('/')[0]
       }/${activityId}`;
       break;
     default:
