@@ -138,20 +138,14 @@ export default function ClassSection({ editMode }: ClassSectionProps) {
   const handleCreateQuiz = () =>
     navigate(
       `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[6].link.split('/')[0]
+        MentorNavigationActionData[4].items?.[1].link.split('/')[0]
       }/${selectedClassSectionsId}`
     );
 
   const handleCreateAssignment = () =>
     navigate(
       `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[8].link.split('/')[0]
-      }/${selectedClassSectionsId}`
-    );
-  const handleCreateAnnouncement = () =>
-    navigate(
-      `/mentor-profile/${
-        MentorNavigationActionData[1].items?.[9].link.split('/')[0]
+        MentorNavigationActionData[4].items?.[3].link.split('/')[0]
       }/${selectedClassSectionsId}`
     );
 
@@ -162,12 +156,6 @@ export default function ClassSection({ editMode }: ClassSectionProps) {
     onClickAction: () => void;
   }
   const topicCreatorList: ClassSectionCreatorProps[] = [
-    {
-      id: 0,
-      name: 'Thông báo',
-      iconName: 'chat',
-      onClickAction: handleCreateAnnouncement,
-    },
     {
       id: 1,
       name: 'Quiz',
