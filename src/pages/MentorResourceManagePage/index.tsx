@@ -78,24 +78,10 @@ export default function MentorResourceManagePage() {
       icon: 'calendarMonth',
     },
     {
-      id: 1,
-      label: 'Số lượng học sinh (?) ',
-      value: classDetails ? `${classDetails.numberOfStudent} / 100` : '',
-      icon: 'groups',
-    },
-    {
       id: 2,
       label: 'Đánh giá (?) ',
       value: '5 / 5',
       icon: 'star',
-    },
-    {
-      id: 3,
-      label: 'Lần cập nhật cuối cùng (?) ',
-      value: classDetails
-        ? formatISODateStringToDisplayDate(classDetails.startDate)
-        : '',
-      icon: 'update',
     },
   ];
 

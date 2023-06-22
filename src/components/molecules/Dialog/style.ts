@@ -2,13 +2,6 @@ import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { FontFamily } from '~/assets/variables';
 
-export const SX_FORM: SxProps<Theme> = {
-  border: '1px solid #ccc',
-  padding: '20px',
-  borderRadius: '10px',
-  marginBottom: '20px',
-};
-
 export const SX_FORM_TITLE: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
   fontWeight: 700,

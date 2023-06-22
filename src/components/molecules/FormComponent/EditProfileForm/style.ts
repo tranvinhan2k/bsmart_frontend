@@ -1,12 +1,13 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { FontFamily } from '~/assets/variables';
+import { Color, FontFamily } from '~/assets/variables';
 
 export const SX_FORM: SxProps<Theme> = {
-  border: '1px solid #ccc',
-  padding: '20px',
-  borderRadius: '10px',
-  marginBottom: '20px',
+  boxShadow: 3,
+  padding: 3,
+  borderRadius: 3,
+  backgroundColor: Color.white,
+  marginBottom: 3,
 };
 
 export const SX_FORM_TITLE: SxProps<Theme> = {
