@@ -5,8 +5,9 @@ import overlay_bg from '~/assets/images/overlay-bg.jpg';
 
 export const SX_WRAPPER: SxProps<Theme> = {
   boxShadow: 3,
-  padding: MetricSize.medium_15,
-  borderRadius: MetricSize.small_5,
+  padding: 3,
+  borderRadius: 3,
+  backgroundColor: Color.white,
 };
 
 export const SX_BOX_ITEM_AVATAR: SxProps<Theme> = {
