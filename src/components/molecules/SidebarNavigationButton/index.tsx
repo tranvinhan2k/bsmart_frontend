@@ -54,8 +54,6 @@ export default function SidebarNavigationButton({
       <Collapse in={open}>
         <Stack sx={{ paddingLeft: 2, marginTop: 2 }} spacing={1}>
           {item.items.map((subItem) => {
-            console.log('pathname', pathname, subItem.link);
-
             return (
               <Button
                 sx={{
