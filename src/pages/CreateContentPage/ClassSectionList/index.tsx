@@ -87,15 +87,14 @@ export default function ClassSectionList({
                   <Icon name="delete" color="black" size="small" />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Thêm học phần">
+              {/* <Tooltip title="Thêm học phần">
                 <Button>
                   <Icon name="add" size="small_20" color="black" />
                   Thêm nội dung học phần
                 </Button>
-              </Tooltip>
+              </Tooltip> */}
             </Stack>
           </Stack>
-          <Typography>{item.introduce}</Typography>
           <Stack sx={{ marginTop: 1, paddingLeft: 1 }}>
             {item.modules.map((module) => (
               <Stack

@@ -263,7 +263,7 @@ export default function MentorTakeAttendancePage() {
             sx={{
               fontSize: FontSize.medium_28,
               fontFamily: FontFamily.regular,
-              color: Color.blue,
+              color: Color.black,
               textAlign: 'end',
             }}
           >

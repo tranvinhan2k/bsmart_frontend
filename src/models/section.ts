@@ -5,6 +5,5 @@ export interface ModuleProps {
 export interface SectionProps {
   id: number;
   name: string;
-  introduce: string;
   modules: ModuleProps[];
 }

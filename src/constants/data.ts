@@ -17,6 +17,8 @@ export const courseTypeData = {
   PUBLIC: 'Khóa học cộng đồng',
 };
 
+export type CourseTypeDataKeys = keyof typeof courseTypeData;
+
 export const typeData: OptionPayload[] = [
   {
     id: 0,

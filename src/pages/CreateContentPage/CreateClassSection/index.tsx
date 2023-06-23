@@ -43,7 +43,7 @@ export default function CreateClassSection({
       <Box>
         <Button
           onClick={handleTriggerFormCreateSection}
-          sx={{ boxShadow: 1, background: Color.white }}
+          sx={{ boxShadow: 1, background: Color.grey }}
         >
           <Icon name="add" size="medium" color="black" />
           <Typography>Thêm học phần</Typography>
@@ -65,7 +65,7 @@ export default function CreateClassSection({
             name="name"
             control={hookForm.control}
           />
-          <Stack marginTop={2}>
+          {/* <Stack marginTop={2}>
             <FormInput
               label="Giới thiệu"
               placeholder="Nhập đôi dòng giới thiệu về phần học"
@@ -73,7 +73,7 @@ export default function CreateClassSection({
               name="description"
               control={hookForm.control}
             />
-          </Stack>
+          </Stack> */}
           <Stack
             sx={{
               marginTop: 2,

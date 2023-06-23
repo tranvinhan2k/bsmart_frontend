@@ -12,6 +12,7 @@ import { IconName } from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 import { useMutationUploadImage } from '~/hooks';
 import UpdateMentorCourse from './UpdateMentorCourse';
+import { MentorNavigationActionData } from '~/constants';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -125,6 +126,12 @@ export default function MentorCourseItem({
     }
   };
 
+  const handleCreateCourse = () => {
+    navigate(
+      `/mentor-profile/${MentorNavigationActionData[3].items?.[0].link}/${item.courseId}`
+    );
+  };
+
   if (isSkeleton) {
     return (
       <Stack
@@ -173,6 +180,13 @@ export default function MentorCourseItem({
     },
     {
       id: 3,
+      title: 'Tạo nội dung khóa học',
+      icon: 'add',
+      onClick: handleCreateCourse,
+      isHide: item.status !== 'REQUESTING',
+    },
+    {
+      id: 4,
       title: 'Gửi yêu cầu phê duyệt',
       icon: 'share',
       onClick: handleSubmitCourse,

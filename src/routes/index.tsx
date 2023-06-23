@@ -295,7 +295,7 @@ export const mentorRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[3].items?.[0].link}`,
+    path: `/${MentorNavigationActionData[3].items?.[0].link}/:id`,
     main: () => <CreateContentPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },

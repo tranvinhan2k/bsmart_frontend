@@ -40,7 +40,7 @@ export default function CreateSectionModule({
       <Box>
         <Button
           onClick={handleTriggerFormCreateModule}
-          sx={{ background: Color.white }}
+          sx={{ background: Color.grey }}
         >
           <Icon name="add" size="small" color="black" />
           <Typography>Thêm bài học</Typography>

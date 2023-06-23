@@ -166,6 +166,15 @@ interface ResponseCourseDetailPayload {
   };
   mentorId: number;
 }
+interface RequestContentItem {
+  sections: {
+    name: string;
+    modules: {
+      name: string;
+    }[];
+  };
+}
+
 function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   if (!data) {
     return null;
@@ -306,6 +315,18 @@ const coursesApi = {
   },
   async updateSubCourse(params: RequestUpdateCoursePayload): Promise<any> {
     const response: any = await axiosClient.put(`${url}/${params.id}`, params);
+    return response;
+  },
+  async createCourseContent(params: {
+    id: number;
+    data: RequestContentItem[];
+  }): Promise<any> {
+    const response: any = await axiosClient.post(
+      `${url}/${params.id}/content`,
+      {
+        params: params.data,
+      }
+    );
     return response;
   },
 };

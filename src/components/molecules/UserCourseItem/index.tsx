@@ -13,7 +13,11 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import Tag from '~/components/atoms/Tag';
-import { ClassStatusList, courseTypeData } from '~/constants';
+import {
+  ClassStatusList,
+  CourseTypeDataKeys,
+  courseTypeData,
+} from '~/constants';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
@@ -115,7 +119,10 @@ export default function UserCourseItem({
         >
           {courseType && (
             <Box>
-              <Tag title={courseTypeData[courseType as any]} color="orange" />
+              <Tag
+                title={courseTypeData[courseType as CourseTypeDataKeys]}
+                color="orange"
+              />
             </Box>
           )}
           <Stack

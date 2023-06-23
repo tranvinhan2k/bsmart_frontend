@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs, Stack, Typography } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import { SX_WRAPPER, SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE } from './style';
@@ -9,7 +10,6 @@ import { scrollToTop } from '~/utils/common';
 import { useManageClass } from '~/hooks/useManageClass';
 import CustomSwitch from '~/components/atoms/Switch';
 import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
-import { useParams } from 'react-router-dom';
 
 export default function MentorClassDetailPage() {
   useEffect(() => {
