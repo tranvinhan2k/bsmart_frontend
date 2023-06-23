@@ -103,11 +103,9 @@ function App() {
     async function getProfile() {
       try {
         const responseProfile = await getProfileMutation.mutateAsync();
-        console.log('response profile', responseProfile);
-
         dispatch(addProfile({ profile: responseProfile }));
-      } catch (error) {
-        // toast.notifyErrorToast('Lấy thông tin thất bại. Xin hãy thử lại.');
+      } catch (error: any) {
+        console.error(error.message);
       }
     }
     if (!profile.id) {
@@ -126,8 +124,6 @@ function App() {
     }
 
     if (!cart) {
-      console.log('cart');
-
       getCart();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
