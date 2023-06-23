@@ -22,6 +22,7 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
+const MentorClassListPage = lazy(() => import('~/pages/MentorClassListPage'));
 const EditMemberProfilePage = lazy(
   () => import('~/pages/EditMemberProfilePage')
 );
@@ -337,6 +338,11 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: `/${MentorNavigationActionData[1].items?.[13].link}`,
     main: () => <MentorCreateAnnouncementPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[1].items?.[14].link}`,
+    main: () => <MentorClassListPage />,
     role: ['ROLE_TEACHER'],
   },
 ];

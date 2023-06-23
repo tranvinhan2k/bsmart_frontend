@@ -20,7 +20,7 @@ interface MentorCourseItemProps {
   refetch: () => void;
 }
 
-export default function MentorCourseItem({
+export default function MentorClassItem({
   item,
   isSkeleton = false,
   onClick = () => {},
@@ -184,7 +184,7 @@ export default function MentorCourseItem({
     <>
       <UserCourseItem
         courseDescription={item.courseDescription}
-        courseName={item.courseName}
+        courseName={item.subCourseName}
         imageAlt="Hình ảnh khóa học"
         imageUrl={item.imageUrl}
         menuItemList={menuItemList}
@@ -222,7 +222,7 @@ export default function MentorCourseItem({
   );
 }
 
-MentorCourseItem.defaultProps = {
+MentorClassItem.defaultProps = {
   isSkeleton: false,
   item: undefined,
   onClick: () => {},

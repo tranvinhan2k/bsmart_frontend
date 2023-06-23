@@ -213,14 +213,6 @@ export default function MentorDetailSection() {
                   </Stack>
                 );
               })}
-              <Stack my={2}>
-                <Typography sx={SX_DISPLAY_FIELD_TEXT}>
-                  Số dư hiện tại:{' '}
-                  <span style={{ color: Color.orange }}>
-                    {formatMoney(mentorDetails.walletMoney)}
-                  </span>
-                </Typography>
-              </Stack>
             </Stack>
             <Stack
               direction="column"

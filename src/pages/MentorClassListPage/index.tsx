@@ -1,19 +1,24 @@
 import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import Pagination from '@mui/material/Pagination';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import MentorClassItem from '~/components/molecules/MentorClassItem';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
-import { CourseStatusList } from '~/constants';
+import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
-import { useQueryGetAllMentorCourses } from '~/hooks';
+import { useQueryGetAllMentorClasses } from '~/hooks/useQueryGetAllMentorClasses';
 import { RequestPagingFilterPayload } from '~/models';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
+
+const TEXTS = {
+  title_1: 'Lớp học đã tạo',
+  button_title_1: 'Tạo khóa học',
+  title_2: 'Không có lớp học nào.',
+};
 
 function a11yProps(index: number) {
   return {
@@ -22,7 +27,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function MentorCourseListPage() {
+export default function MentorClassListPage() {
   const navigate = useNavigate();
 
   // useState
@@ -34,10 +39,10 @@ export default function MentorCourseListPage() {
   });
   const [value, setValue] = useState(0);
 
-  const { courses, refetch } = useQueryGetAllMentorCourses(filterParams);
+  const { classes, refetch } = useQueryGetAllMentorClasses(filterParams);
 
   // parameters
-  const chosenClassStatus = CourseStatusList.find(
+  const chosenClassStatus = ClassStatusList.find(
     (item) => item.value === filterParams.status
   );
 
@@ -66,7 +71,7 @@ export default function MentorCourseListPage() {
     scrollToTop();
   }, []);
 
-  console.log('totalPage', courses?.totalPages, courses?.currentPage);
+  console.log('classes', classes);
 
   return (
     <Stack>
@@ -78,12 +83,12 @@ export default function MentorCourseListPage() {
             justifyContent: 'space-between',
           }}
         >
-          <Typography sx={globalStyles.textTitle}>Khoá học đã tạo</Typography>
+          <Typography sx={globalStyles.textTitle}>{TEXTS.title_1}</Typography>
           <Button
             onClick={handleNavigateCreateCourse}
             customVariant="horizonForm"
           >
-            Tạo khóa học
+            {TEXTS.button_title_1}
           </Button>
         </Stack>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -101,7 +106,7 @@ export default function MentorCourseListPage() {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            {CourseStatusList.map((item, index) => (
+            {ClassStatusList.map((item, index) => (
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
@@ -156,8 +161,8 @@ export default function MentorCourseListPage() {
         </Stack>
       </Stack> */}
       <Grid container>
-        {courses &&
-          courses?.items?.map((item) => (
+        {classes &&
+          classes?.items?.map((item: any) => (
             <Grid
               item
               xs={12}
@@ -165,7 +170,7 @@ export default function MentorCourseListPage() {
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
-              <MentorCourseItem
+              <MentorClassItem
                 refetch={refetch}
                 onClick={() => {}}
                 item={item}
@@ -177,7 +182,7 @@ export default function MentorCourseListPage() {
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >
-        {courses && courses.items.length === 0 && (
+        {classes && classes.items.length === 0 && (
           <Stack
             sx={{
               justifyContent: 'center',
@@ -208,14 +213,14 @@ export default function MentorCourseListPage() {
                   fontFamily: FontFamily.regular,
                 }}
               >
-                Không có khóa học nào.
+                {TEXTS.title_2}
               </Typography>
             </Stack>
           </Stack>
         )}
         <CustomPagination
-          currentPage={courses?.currentPage}
-          totalPages={courses?.totalPages}
+          currentPage={classes?.currentPage}
+          totalPages={classes?.totalPages}
           onChange={handleChangePageNumber}
         />
       </Stack>

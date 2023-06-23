@@ -13,7 +13,7 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import Tag from '~/components/atoms/Tag';
-import { courseTypeData } from '~/constants';
+import { ClassStatusList, courseTypeData } from '~/constants';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
@@ -21,6 +21,7 @@ interface UserCourseItemProps {
   courseName: string | undefined;
   courseType: string | undefined;
   courseDescription: string | undefined;
+  courseStatus: string | undefined;
   menuItemList: {
     id: number;
     title: string;
@@ -33,6 +34,7 @@ export default function UserCourseItem({
   courseDescription,
   courseName,
   courseType,
+  courseStatus,
   imageAlt,
   imageUrl,
   menuItemList,
@@ -50,14 +52,32 @@ export default function UserCourseItem({
     <Stack
       sx={{
         marginTop: MetricSize.medium_15,
-        marginLeft: '10px',
+        marginRight: { xs: '0', md: '10px' },
         boxShadow: 2,
         borderColor: Color.grey,
         justifyContent: 'space-between',
         alignItems: 'stretch',
         position: 'relative',
+        background: Color.white,
       }}
     >
+      {courseStatus && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: MetricSize.small_10,
+            left: MetricSize.small_10,
+            padding: MetricSize.small_10,
+            borderRadius: MetricSize.small_5,
+            background: `${Color.blue}55`,
+            backdropFilter: 'blur(10px)',
+            color: Color.white,
+            fontFamily: FontFamily.bold,
+          }}
+        >
+          {ClassStatusList.find((item) => item.value === courseStatus)?.label}
+        </Box>
+      )}
       <IconButton
         onClick={handleMenu}
         sx={{
@@ -80,7 +100,8 @@ export default function UserCourseItem({
             width: '100%',
             height: undefined,
             aspectRatio: 16 / 9,
-            background: 'black',
+            backgroundColor: '#0093E9',
+            background: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)',
           }}
           src={imageUrl || image.noCourse}
           alt={imageAlt}
@@ -94,7 +115,7 @@ export default function UserCourseItem({
         >
           {courseType && (
             <Box>
-              <Tag title={courseTypeData[courseType]} color="orange" />
+              <Tag title={courseTypeData[courseType as any]} color="orange" />
             </Box>
           )}
           <Stack

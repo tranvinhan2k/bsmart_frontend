@@ -38,8 +38,11 @@ import {
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
+const FULL_NAME_REGEX =
+  /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
 const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
@@ -88,7 +91,10 @@ export const validationClassContentModule = object({
 });
 
 export const validationSchemaRegisterStudent = object({
-  name: string().required(USERNAME_REQUIRED),
+  name: string()
+    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .max(40)
+    .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
@@ -97,12 +103,15 @@ export const validationSchemaRegisterStudent = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
-  introduce: string().required(INTRODUCE_REQUIRED),
+  introduce: string().trim().required(INTRODUCE_REQUIRED),
   birthDay: string().required(BIRTHDAY_REQUIRED),
 });
 
 export const validationSchemaRegisterMentor = object({
-  name: string().required(USERNAME_REQUIRED),
+  name: string()
+    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .max(40)
+    .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
@@ -111,7 +120,7 @@ export const validationSchemaRegisterMentor = object({
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
-  introduce: string().required(INTRODUCE_REQUIRED),
+  introduce: string().trim().required(INTRODUCE_REQUIRED),
   birthDay: string().required(BIRTHDAY_REQUIRED),
 });
 export const validationSchemaBuyCourse = object({

@@ -31,7 +31,7 @@ export default function CreateSubCourseModal({
       <Stack
         sx={{
           background: 'white',
-          width: { sx: '100%' },
+          width: '100%',
           alignSelf: 'center',
         }}
       >

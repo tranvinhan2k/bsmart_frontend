@@ -50,6 +50,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           dayInWeek: data.dayInWeek,
         },
       ]);
+      timetableHookForm.reset();
     } else {
       toast.notifyErrorToast(
         'Khung giờ này đã được chọn, hãy chọn khung giờ khác'
@@ -99,10 +100,10 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   borderRadius: '5px',
-                  background: Color.whiteSmoke,
+                  background: Color.grey3,
                 }}
                 key={`${item.dayInWeek.id} ${item.slot.id}`}
-                margin={1}
+                marginY={1}
                 padding={1}
               >
                 <Typography
@@ -121,8 +122,8 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             );
           })}
       </Stack>
-      <Grid container>
-        <Grid item padding={1} xs={12} md={4}>
+      <Grid container paddingBottom={2} spacing={1}>
+        <Grid item xs={12} md={4}>
           {slots && (
             <FormInput
               variant="dropdown"
@@ -133,7 +134,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             />
           )}
         </Grid>
-        <Grid item padding={1} md={4}>
+        <Grid item md={4}>
           {dayInWeeks && (
             <FormInput
               variant="dropdown"
@@ -148,7 +149,6 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           item
           xs={12}
           md={4}
-          padding={1}
           sx={{ alignItems: 'center', justifyContent: 'center' }}
         >
           <Stack

@@ -7,6 +7,7 @@ export const SX_WRAPPER: SxProps<Theme> = {
   boxShadow: 3,
   padding: 2,
   borderRadius: '5px',
+  background: Color.white,
 };
 
 export const SX_TITLE: SxProps<Theme> = {

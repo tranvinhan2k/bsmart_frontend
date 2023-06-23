@@ -56,48 +56,77 @@ export const mockLevelData: OptionPayload[] = [
 export const ClassStatusList: OptionPayload[] = [
   {
     id: 0,
-    label: 'Đang chờ phê duyệt',
+    label: 'Tất cả',
+    content: 'Tất cả khóa học của bạn hiện đã tạo.',
+    value: 'ALL',
+  },
+  {
+    id: 0,
+    label: 'Lớp đang dạy',
+    content: 'Lớp đang được dạy.',
+    value: 'STARTING',
+  },
+  {
+    id: 1,
+    label: 'Lớp đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy',
+    value: 'CLOSE',
+  },
+];
+export const CourseStatusList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Tất cả',
+    content: 'Tất cả khóa học của bạn hiện đã tạo.',
+    value: 'ALL',
+  },
+  {
+    id: 0,
+    label: 'Lớp đang yêu cầu',
+    content: 'Lớp được yêu cầu mở nhưng chưa được duyệt.',
     value: 'REQUESTING',
   },
   {
     id: 1,
-    label: 'Đang chờ',
+    label: 'Lớp đã sẵn được duyệt',
+    content: 'Lớp đã sẵn được duyệt',
     value: 'WAITING',
   },
   {
     id: 2,
-    label: 'Yêu cầu chỉnh sửa',
+    label: 'Lớp yêu cầu chỉnh sửa',
+    content: 'Lớp không hợp lệ, yêu cầu chỉnh sửa lại.',
     value: 'EDITREQUEST',
   },
   {
     id: 3,
-    label: 'Bị từ chối',
+    label: 'Lớp bị từ chối',
+    content: 'Lớp bị từ chối phê duyệt do vi phạm điều khoản mở lớp.',
     value: 'REJECTED',
   },
   {
     id: 4,
     label: 'Chưa bắt đầu',
+    content: 'Lớp đã được duyệt và đang tuyển sinh.',
     value: 'NOTSTART',
   },
   {
     id: 5,
     label: 'Đang dạy',
+    content: 'Lớp đang được dạy.',
     value: 'STARTING',
   },
   {
     id: 6,
     label: 'Đã kết thúc',
+    content: 'Lớp đã kết thúc.',
     value: 'ENDED',
   },
   {
     id: 7,
     label: 'Đã hủy bỏ',
+    content: 'Lớp đã bị hủy bỏ.',
     value: 'CANCEL',
-  },
-  {
-    id: 8,
-    label: 'Tất cả',
-    value: 'ALL',
   },
 ];
 
@@ -294,18 +323,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
         name: 'Rút tiền',
         link: 'withdraw',
       },
-      {
-        id: 3,
-        name: 'Giới thiệu giáo viên',
-        link: 'mentor-introduce',
-        isHide: true,
-      },
     ],
   },
   {
     id: 1,
     link: '',
-    name: 'Quản li học tập',
+    name: 'Quản lí học tập',
     items: [
       {
         id: 0,
@@ -383,6 +406,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
         id: 13,
         name: 'Quản lý Announcement',
         link: 'mentor-announcement-settings',
+        isHide: true,
+      },
+      {
+        id: 14,
+        name: 'Danh sách lớp học',
+        link: 'mentor-class-list',
         isHide: true,
       },
     ],

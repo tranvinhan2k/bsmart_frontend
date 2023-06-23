@@ -21,6 +21,7 @@ export const Color = {
   whiteSmoke: '#f5f5f5',
   white2: '#eeeeee',
   white3: '#f9f9f9',
+  white4: '#eff3f6',
 };
 
 export const BorderRadius = {

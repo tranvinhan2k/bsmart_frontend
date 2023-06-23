@@ -7,7 +7,7 @@ export const SX_WRAPPER: SxProps<Theme> = {
     xs: '10px',
     md: `${MetricSize.extraLarge_90} ${MetricSize.none} ${MetricSize.extraLarge_100}`,
   },
-  backgroundColor: Color.white3,
+  backgroundColor: Color.white4,
 };
 
 export const SX_CONTAINER: SxProps<Theme> = {

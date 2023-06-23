@@ -1,5 +1,6 @@
 import { Stack, Collapse } from '@mui/material';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 import Button from '~/components/atoms/Button';
@@ -13,6 +14,8 @@ export default function SidebarNavigationButton({
   item: ActionPayload;
   onNavigateLink: (link: string) => void;
 }) {
+  const location = useLocation();
+  const { pathname } = location;
   const [open, setOpen] = useState(false);
 
   const handleOpenCollapse = () => {
@@ -50,22 +53,31 @@ export default function SidebarNavigationButton({
       </Button>
       <Collapse in={open}>
         <Stack sx={{ paddingLeft: 2, marginTop: 2 }} spacing={1}>
-          {item.items.map((subItem) => (
-            <Button
-              sx={{
-                background: `${Color.orange}55`,
-                fontSize: FontSize.small_14,
-                padding: MetricSize.small_10,
-                fontFamily: FontFamily.medium,
-                boxShadow: 1,
-              }}
-              key={subItem.id}
-              onClick={() => onNavigateLink(subItem.link)}
-              customVariant="normal"
-            >
-              {subItem.name}
-            </Button>
-          ))}
+          {item.items.map((subItem) => {
+            console.log('pathname', pathname, subItem.link);
+
+            return (
+              <Button
+                sx={{
+                  background: pathname.includes(subItem.link)
+                    ? '#b24509'
+                    : `${Color.orange}55`,
+                  color: pathname.includes(subItem.link)
+                    ? Color.white
+                    : Color.black,
+                  fontSize: FontSize.small_14,
+                  padding: MetricSize.small_10,
+                  fontFamily: FontFamily.medium,
+                  boxShadow: 1,
+                }}
+                key={subItem.id}
+                onClick={() => onNavigateLink(subItem.link)}
+                customVariant="normal"
+              >
+                {subItem.name}
+              </Button>
+            );
+          })}
         </Stack>
       </Collapse>
     </Stack>
