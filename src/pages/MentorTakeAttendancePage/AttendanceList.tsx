@@ -62,10 +62,10 @@ export default function AttendanceList({
       }}
       container
     >
-      <Grid sx={headerCell} item md={1}>
+      <Grid sx={headerCell} item xs={1}>
         {item.id}
       </Grid>
-      <Grid sx={headerCell} item md={3}>
+      <Grid sx={headerCell} item xs={3}>
         <Button
           sx={{
             padding: MetricSize.medium_15,
@@ -100,7 +100,7 @@ export default function AttendanceList({
           {item.name}
         </Typography>
       </Grid>
-      <Grid sx={headerCell} item md={4}>
+      <Grid sx={headerCell} item xs={4}>
         <Stack
           sx={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}
         >
@@ -134,7 +134,7 @@ export default function AttendanceList({
           </IconButton>
         </Stack>
       </Grid>
-      <Grid sx={headerCell} item md={2}>
+      <Grid sx={headerCell} item xs={2}>
         <Stack
           sx={{
             flexDirection: 'row',

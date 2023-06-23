@@ -1,11 +1,11 @@
 import { Stack, Typography } from '@mui/material';
-import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ColorKeys } from '~/models/variables';
 
 interface TextDeclareColumnProps {
   title: string;
   value: string;
-  color: ColorKeys;
+  color: string;
 }
 
 export default function TextDeclareColumn({
@@ -14,10 +14,25 @@ export default function TextDeclareColumn({
   color,
 }: TextDeclareColumnProps) {
   return (
-    <Stack>
+    <Stack
+      sx={{
+        position: 'relative',
+        background: color,
+        padding: MetricSize.small_10,
+        borderRadius: MetricSize.small_5,
+        boxShadow: 3,
+        height: undefined,
+        aspectRatio: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Typography
         sx={{
-          color,
+          position: 'absolute',
+          top: MetricSize.small_10,
+          left: MetricSize.small_10,
+          color: Color.white,
           fontSize: FontSize.small_18,
           fontFamily: FontFamily.light,
         }}
@@ -26,7 +41,7 @@ export default function TextDeclareColumn({
       </Typography>
       <Stack
         sx={{
-          color,
+          color: Color.white,
           padding: MetricSize.small_5,
           justifyContent: 'center',
           alignItems: 'center',
@@ -34,12 +49,12 @@ export default function TextDeclareColumn({
       >
         <Typography
           sx={{
-            fontSize: FontSize.medium_28,
+            fontSize: FontSize.extraLarge_70,
             fontFamily: FontFamily.light,
           }}
           textAlign="center"
         >
-          {value}
+          {value || '0'}
         </Typography>
       </Stack>
     </Stack>

@@ -12,6 +12,7 @@ import globalStyles from '~/styles';
 import { useMutationUploadImage } from '~/hooks';
 import CustomModal from '~/components/atoms/CustomModal';
 import UpdateMentorCourse from './UpdateMentorCourse';
+import { MentorNavigationActionData } from '~/constants';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -34,7 +35,9 @@ export default function MentorClassItem({
   const [type, setType] = useState<'DELETE' | 'UPDATE' | 'READ'>('READ');
 
   const handleNavigateCourseDetail = () => {
-    navigate(`/mentor-profile/mentor_course_detail/${item.courseId}`);
+    navigate(
+      `/mentor-profile/${MentorNavigationActionData[2].items?.[0].link}/${item.id}`
+    );
   };
 
   const handleClose = (chooseType?: 'DELETE' | 'UPDATE' | 'READ') => {

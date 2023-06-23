@@ -22,6 +22,7 @@ import CRUDTableSearching from './CRUDTableSearching';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
+import { Color, MetricSize } from '~/assets/variables';
 
 export type MenuItemPayload = {
   icon: IconName;
@@ -143,7 +144,13 @@ export default function CRUDTable({
   ];
 
   return (
-    <Stack>
+    <Stack
+      sx={{
+        background: Color.white,
+        padding: 2,
+        borderRadius: MetricSize.small_5,
+      }}
+    >
       {onAdd && (
         <CRUDTableHeader
           title={texts.title}

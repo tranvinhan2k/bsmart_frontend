@@ -1,19 +1,16 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Stack,
   Typography,
   Grid,
   Box,
-  IconButton,
   Switch,
   FormControlLabel,
-  Tooltip,
   TextField,
 } from '@mui/material';
 import Countdown from 'react-countdown';
 import { useNavigate, useParams } from 'react-router-dom';
-import globalStyles from '~/styles';
 import { headerCell } from './style';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
@@ -62,12 +59,8 @@ export default function MentorTakeAttendancePage() {
 
   const { attendances } = useQueryGetAttendance(`${param.id}`);
   const mutationResult = useMutationTakeAttendance();
-  const { classDetails, attendanceQueryData } = useManageClass({
-    id: parseInt(param.classId || '', 10),
-  });
-  const attendanceInformation = attendanceQueryData?.data?.items?.find(
-    (item: any) => item.id === parseInt(`${param.id}`, 10)
-  );
+
+  const attendanceInformation = attendances?.timeTableResponse;
 
   const [open, setOpen] = useState<boolean>(false);
   const [index, setIndex] = useState<number>(-1);
@@ -140,13 +133,15 @@ export default function MentorTakeAttendancePage() {
   }, []);
 
   useEffect(() => {
-    const initRows = attendances?.items?.map((studentSlot: any) => ({
-      id: studentSlot.student.id,
-      isPresent: studentSlot.attendance ? 'PRESENT' : 'WAIT',
-      name: studentSlot.student.name,
-      image: studentSlot.avatar || image.noAvatar,
-      note: studentSlot.note,
-    }));
+    const initRows = attendances?.attendanceResponses?.items?.map(
+      (studentSlot: any) => ({
+        id: studentSlot.student.id,
+        isPresent: studentSlot.attendance ? 'PRESENT' : 'WAIT',
+        name: studentSlot.student.name,
+        image: studentSlot.avatar || image.noAvatar,
+        note: studentSlot.note,
+      })
+    );
 
     setRows(initRows);
   }, [attendances]);
@@ -165,35 +160,71 @@ export default function MentorTakeAttendancePage() {
     );
   }
 
-  const totalPresentStudent = rows?.reduce((total: number, item: any) => {
-    if (item.isPresent === 'PRESENT') {
-      return total + 1;
-    }
-    return total;
-  }, 0);
-  const totalWaitStudent = rows?.reduce((total: number, item: any) => {
-    if (item.isPresent === 'WAIT') {
-      return total + 1;
-    }
-    return total;
-  }, 0);
-  const totalAbsentStudent = rows?.reduce((total: number, item: any) => {
-    if (item.isPresent === 'ABSENT') {
-      return total + 1;
-    }
-    return total;
-  }, 0);
+  const totalPresentStudent =
+    rows?.reduce((total: number, item: any) => {
+      if (item.isPresent === 'PRESENT') {
+        return total + 1;
+      }
+      return total;
+    }, 0) || 0;
+  const totalWaitStudent =
+    rows?.reduce((total: number, item: any) => {
+      if (item.isPresent === 'WAIT') {
+        return total + 1;
+      }
+      return total;
+    }, 0) || 0;
+  const totalAbsentStudent =
+    rows?.reduce((total: number, item: any) => {
+      if (item.isPresent === 'ABSENT') {
+        return total + 1;
+      }
+      return total;
+    }, 0) || 0;
 
   const filterRows = rows?.filter((item: any) =>
     item.name.toLowerCase().includes(searchValue)
   );
 
+  const takeAttendanceAnalysts = [
+    {
+      id: 0,
+      name: 'Tổng số học sinh',
+      value: `${attendances?.attendanceResponses?.totalItems || 0}`,
+      color: '#0079FF',
+    },
+    {
+      id: 1,
+      name: 'Có mặt',
+      value: `${totalPresentStudent || 0}`,
+      color: '#00DFA2',
+    },
+    {
+      id: 2,
+      name: 'Vắng',
+      value: `${totalAbsentStudent || 0}`,
+      color: '#FF0060',
+    },
+    {
+      id: 3,
+      name: 'Chưa điểm danh',
+      value: `${totalWaitStudent || 0}`,
+      color: '#F6FA70',
+    },
+  ];
+
   return (
-    <Stack sx={{ paddingX: { xs: MetricSize.medium_15, md: 0 } }}>
+    <Stack
+      sx={{
+        paddingX: { xs: MetricSize.medium_15, md: MetricSize.large_20 },
+        background: Color.white,
+        paddingY: MetricSize.large_20,
+        borderRadius: MetricSize.small_5,
+      }}
+    >
       <Stack
         sx={{
           justifyContent: 'space-between',
-          alignItems: 'center',
           flexDirection: { xs: 'column', md: 'row' },
         }}
       >
@@ -201,15 +232,25 @@ export default function MentorTakeAttendancePage() {
           <Typography>Điểm danh</Typography>
           <Typography
             sx={{
-              fontSize: { xs: FontSize.medium_24, md: FontSize.large_35 },
-              fontFamily: FontFamily.bold,
+              fontSize: FontSize.medium_28,
+              fontFamily: FontFamily.regular,
+              color: Color.orange,
             }}
-          >
-            {classDetails?.subCourseName}
-          </Typography>
-          <Typography>{`${
-            attendanceInformation?.slot?.name
-          } - Ngày ${formatDate(attendanceInformation?.date)}`}</Typography>
+          >{`${attendanceInformation?.slot?.name} - Ngày ${formatDate(
+            attendanceInformation?.date
+          )}`}</Typography>
+          <FormControlLabel
+            control={
+              <Switch
+                color="secondary"
+                checked={showImage}
+                onChange={() => {
+                  setShowImage(!showImage);
+                }}
+              />
+            }
+            label="Hiển thị hình ảnh"
+          />
         </Stack>
         <Stack
           sx={{
@@ -220,9 +261,9 @@ export default function MentorTakeAttendancePage() {
           <Typography>Thời gian còn lại</Typography>
           <Typography
             sx={{
-              fontSize: { xs: FontSize.medium_24, md: FontSize.large_35 },
-              fontFamily: FontFamily.bold,
-              color: Color.red,
+              fontSize: FontSize.medium_28,
+              fontFamily: FontFamily.regular,
+              color: Color.blue,
               textAlign: 'end',
             }}
           >
@@ -236,18 +277,6 @@ export default function MentorTakeAttendancePage() {
               <span>Đã hết thời gian điểm danh</span>
             )}
           </Typography>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={showImage}
-                onChange={() => {
-                  setShowImage(!showImage);
-                }}
-                name="jason"
-              />
-            }
-            label="Hiển thị hình ảnh"
-          />
         </Stack>
       </Stack>
       <Stack
@@ -268,6 +297,9 @@ export default function MentorTakeAttendancePage() {
         sx={{
           marginTop: 2,
           borderRadius: MetricSize.small_10,
+          boxShadow: 2,
+          width: '100%',
+          overflow: 'auto',
         }}
       >
         <Grid
@@ -276,30 +308,24 @@ export default function MentorTakeAttendancePage() {
           }}
           container
         >
-          <Grid sx={headerCell} item md={1}>
+          <Grid sx={headerCell} item xs={1}>
             Id
           </Grid>
-          <Grid sx={headerCell} item md={3}>
+          <Grid sx={headerCell} item xs={3}>
             Ảnh
           </Grid>
-          <Grid sx={headerCell} item md={2}>
+          <Grid sx={headerCell} item xs={2}>
             Tên
           </Grid>
-          <Grid sx={headerCell} item md={4}>
+          <Grid sx={headerCell} item xs={4}>
             Ghi Chú
           </Grid>
-          <Grid sx={headerCell} item md={2}>
+          <Grid sx={headerCell} item xs={2}>
             Điểm danh
           </Grid>
         </Grid>
         <Stack>
-          {filterRows?.length === 0 ? (
-            <Stack
-              sx={{ padding: MetricSize.medium_15, border: '0.5px solid #eee' }}
-            >
-              <Typography>Không có học sinh nào phù hợp.</Typography>
-            </Stack>
-          ) : (
+          {filterRows?.length !== 0 && filterRows ? (
             filterRows?.map((item: any, rowIndex: any) => {
               return (
                 <AttendanceList
@@ -314,6 +340,12 @@ export default function MentorTakeAttendancePage() {
                 />
               );
             })
+          ) : (
+            <Stack
+              sx={{ padding: MetricSize.medium_15, border: '0.5px solid #eee' }}
+            >
+              <Typography>Không có học sinh nào phù hợp.</Typography>
+            </Stack>
           )}
         </Stack>
       </Stack>
@@ -329,7 +361,9 @@ export default function MentorTakeAttendancePage() {
           }}
         />
       </CustomModal>
-      <Stack
+      <Grid
+        container
+        spacing={2}
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -339,27 +373,18 @@ export default function MentorTakeAttendancePage() {
           paddingTop: MetricSize.large_20,
         }}
       >
-        <TextDeclareColumn
-          color="black"
-          title="Tổng số học sinh"
-          value={`${attendances?.totalItems}`}
-        />
-        <TextDeclareColumn
-          color="green"
-          title="Có mặt"
-          value={`${totalPresentStudent}`}
-        />
-        <TextDeclareColumn
-          color="red"
-          title="Vắng"
-          value={`${totalAbsentStudent}`}
-        />
-        <TextDeclareColumn
-          color="orange"
-          title="Chưa điểm danh"
-          value={`${totalWaitStudent}`}
-        />
-      </Stack>
+        {takeAttendanceAnalysts.map((item) => {
+          return (
+            <Grid key={item.id} item xs={6} md={3}>
+              <TextDeclareColumn
+                color={item.color}
+                title={item.name}
+                value={item.value}
+              />
+            </Grid>
+          );
+        })}
+      </Grid>
       <Stack
         marginTop={2}
         sx={{

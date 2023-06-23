@@ -6,6 +6,8 @@ import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import columns from '~/constants/columns';
 import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
+import { MetricSize, FontSize, FontFamily, Color } from '~/assets/variables';
+import { MentorNavigationActionData } from '~/constants';
 
 interface ClassAttendanceListProps {
   name: string | undefined;
@@ -31,12 +33,13 @@ export default function ClassAttendanceList({
       id: item.id,
       slotName: item.slot.name,
       date: formatDate(item.date),
-      numOfStudent: '27/30',
     })) || [];
 
   const handleNavigateAttendance = () => {
     if (row) {
-      navigate(`/mentor-profile/take-attendance/${classId}/${row.id}`);
+      navigate(
+        `/mentor-profile/${MentorNavigationActionData[6].items?.[2].link}/${classId}/${row.id}`
+      );
     }
   };
 
@@ -59,10 +62,27 @@ export default function ClassAttendanceList({
   ];
 
   return (
-    <Stack marginTop={2}>
-      <Typography
-        sx={globalStyles.textSubTitle}
-      >{`Điểm danh lớp ${name}`}</Typography>
+    <Stack>
+      <Stack sx={{ paddingY: MetricSize.medium_15 }}>
+        <Typography
+          sx={{
+            fontSize: FontSize.medium_28,
+            fontFamily: FontFamily.bold,
+            color: Color.orange,
+          }}
+        >
+          Điểm danh
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: FontSize.small_18,
+            fontFamily: FontFamily.light,
+            color: Color.black,
+          }}
+        >
+          {name}
+        </Typography>
+      </Stack>
       <Stack
         sx={{
           marginTop: 1,

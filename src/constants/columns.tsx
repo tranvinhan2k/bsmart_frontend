@@ -179,12 +179,6 @@ const attendanceClassColumns: GridColDef[] = [
     flex: 5,
     editable: true,
   },
-  {
-    field: 'numOfStudent',
-    headerName: 'Só lượng điểm danh',
-    flex: 2,
-    editable: true,
-  },
 ];
 
 const columns = {

@@ -9,8 +9,9 @@ import { scrollToTop } from '~/utils/common';
 import { useManageClass } from '~/hooks/useManageClass';
 import CustomSwitch from '~/components/atoms/Switch';
 import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
+import { useParams } from 'react-router-dom';
 
-export default function MentorResourceManagePage() {
+export default function MentorClassDetailPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -27,8 +28,10 @@ export default function MentorResourceManagePage() {
     setExpandAll(event.target.checked);
   };
 
-  const id = 4;
-  const { classDetails, attendanceQueryData } = useManageClass({ id });
+  const { id } = useParams();
+  const { classDetails, attendanceQueryData } = useManageClass({
+    id: parseInt(`${id}`, 10),
+  });
 
   const tabEl = [
     {

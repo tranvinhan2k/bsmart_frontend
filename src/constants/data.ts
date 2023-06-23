@@ -340,6 +340,11 @@ export const MentorNavigationActionData: ActionPayload[] = [
         name: 'Tạo khóa học',
         link: 'create-course',
       },
+      {
+        id: 2,
+        name: 'Danh sách lớp học',
+        link: 'mentor-class-list',
+      },
     ],
   },
   {
@@ -350,7 +355,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
       {
         id: 0,
         name: 'Khóa học - Chi tiết khóa học (1)',
-        link: 'mentor-resource-management',
+        link: 'mentor-class-detail',
       },
       {
         id: 1,
@@ -452,7 +457,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
       {
         id: 2,
         name: 'Danh sách điểm danh (3)',
-        link: 'take-attendance/:classId/:id',
+        link: 'take-attendance',
         isHide: true,
       },
     ],
