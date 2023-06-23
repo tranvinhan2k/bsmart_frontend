@@ -9,17 +9,19 @@ import { ActivityTypeCode } from '~/models/activity';
 interface ResourceProps {
   editMode: boolean;
   resourceName: string;
-
+  activityId: number;
   activityTypeCode: ActivityTypeCode;
 }
 
 export default function Resource({
   editMode,
   resourceName,
+  activityId,
   activityTypeCode,
 }: ResourceProps) {
   let resourceIconName: IconName = 'chat';
-  let editLinkTo: string;
+  let linkEdit: string;
+  let linkViewDetails: string;
 
   switch (activityTypeCode) {
     case ActivityTypeCode.QUIZ:
@@ -42,13 +44,14 @@ export default function Resource({
       break;
     default:
       resourceIconName = 'redo';
-      editLinkTo = '';
+      linkEdit = '';
+      linkViewDetails = '';
       break;
   }
 
   const navigation = useNavigate();
   const handleEditResource = () => {
-    navigation(editLinkTo);
+    navigation(linkEdit);
   };
 
   return (
