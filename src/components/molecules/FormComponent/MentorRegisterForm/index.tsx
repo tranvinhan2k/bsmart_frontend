@@ -13,7 +13,7 @@ import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
 
-export default function MentorRegisterForm() {
+export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
   const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterMentor
   );
@@ -44,7 +44,7 @@ export default function MentorRegisterForm() {
     const id = toast.loadToast('Đang đăng kí...');
     try {
       await mutation.mutateAsync(params);
-      navigate('/login');
+      onOpen();
       console.log('dang ki thanh cong ');
 
       toast.updateSuccessToast(id, `Đăng kí thành công!`);

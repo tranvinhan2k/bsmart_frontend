@@ -139,7 +139,13 @@ export interface ResponseGetCoursePayload {
   id: number;
   subCourseId: number;
   courseId: number;
-  imageUrl: string;
+  images: {
+    id: number;
+    name: string;
+    status: boolean;
+    type: string;
+    url: string;
+  }[];
   courseName: string;
   courseCode: string;
   courseDescription: string;
@@ -227,16 +233,9 @@ function handleResponseGetCourse(
   return {
     ...data,
     items: data.items.map(
-      ({
+      ({ id, images, courseName, mentorName, courseDescription, learns }) => ({
         id,
-        imageUrl,
-        courseName,
-        mentorName,
-        courseDescription,
-        learns,
-      }) => ({
-        id,
-        image: imageUrl || mockCourse,
+        images,
         title: courseName,
         mentor: mentorName,
         content: courseDescription,
@@ -297,10 +296,10 @@ const coursesApi = {
     return response;
   },
   async createPublicCourse(params: RequestCreateCoursePayload): Promise<any> {
-    const response: any = await axiosClient.post(
-      `${url}/public-course/${params.id}`,
-      params
-    );
+    const { id, ...newParams } = params;
+    const response: any = await axiosClient.post(`${url}/public-course/${id}`, {
+      ...newParams,
+    });
     return response;
   },
   async requestSubCourse(id: number): Promise<any> {

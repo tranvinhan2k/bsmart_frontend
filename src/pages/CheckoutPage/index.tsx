@@ -12,7 +12,6 @@ import { Navigate } from 'react-router-dom';
 import styles from './styles';
 import globalStyles from '~/styles';
 import { formatMoney } from '~/utils/money';
-import { CartItem, CartSubCourse } from '~/api/cart';
 import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
@@ -22,7 +21,6 @@ import {
   selectCheckoutItem,
   selectTotalAmount,
 } from '~/redux/courses/selector';
-import { SubCoursePayload } from '~/models/subCourse';
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
@@ -55,10 +53,12 @@ function CheckoutPage() {
           }))
         );
       } else {
-        await mutatePayQuick({
+        const response = await mutatePayQuick({
           subCourseId: checkOutItem?.id || 0,
           referralCode: introduceCode,
         });
+        const url = response.paymentUrl;
+        window.open(url);
       }
       toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {

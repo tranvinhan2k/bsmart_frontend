@@ -228,7 +228,6 @@ export const validationSchemaFeedbackMentor = object({
 });
 
 export const validationSchemaCreateCourse = object({
-  code: string().required('Mã khóa học là bắt buộc'),
   name: string().required(COURSE_NAME_REQUIRED),
   subjectId: object()
     .typeError('Ngôn ngữ không hợp lệ')

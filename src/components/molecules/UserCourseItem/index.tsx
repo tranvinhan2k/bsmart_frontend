@@ -15,6 +15,7 @@ import Icon, { IconName } from '~/components/atoms/Icon';
 import Tag from '~/components/atoms/Tag';
 import {
   ClassStatusList,
+  CourseStatusList,
   CourseTypeDataKeys,
   courseTypeData,
 } from '~/constants';
@@ -51,6 +52,11 @@ export default function UserCourseItem({
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
+  console.log(
+    'course Status',
+    courseStatus,
+    ClassStatusList.find((item) => item.value === courseStatus)?.label
+  );
 
   return (
     <Stack
@@ -79,7 +85,7 @@ export default function UserCourseItem({
             fontFamily: FontFamily.bold,
           }}
         >
-          {ClassStatusList.find((item) => item.value === courseStatus)?.label}
+          {CourseStatusList.find((item) => item.value === courseStatus)?.label}
         </Box>
       )}
       <IconButton

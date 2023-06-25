@@ -103,7 +103,6 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
 };
 
 export const defaultValueCreateCourse = {
-  code: '',
   name: '',
   level: '',
   imageId: '',
@@ -121,8 +120,6 @@ export const defaultValueCreateCourse = {
   timeInWeekRequests: [],
 };
 export const defaultValueCreateSubCourse = {
-  code: '',
-  name: '',
   level: '',
   imageId: '',
   type: '',
@@ -131,7 +128,6 @@ export const defaultValueCreateSubCourse = {
   maxStudent: 0,
   startDateExpected: '',
   endDateExpected: '',
-  description: '',
   subCourseTile: '',
   numberOfSlot: 0,
   timeInWeekRequests: [],

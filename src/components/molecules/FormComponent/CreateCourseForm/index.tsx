@@ -143,15 +143,21 @@ export default function CreateCourseForm() {
     try {
       const params: any = {
         id: selectedPublicCourse?.id,
-        code: data?.code,
         name: data?.name,
         categoryId: data.categoryId?.id,
         subjectId: data.subjectId?.id,
         description: data?.description,
         subCourseRequests: subCourses.map((item) => ({
-          ...item,
+          level: item.level,
           imageId: item.imageIndex,
           type: (item.type as OptionPayload).id as number,
+          price: item.price,
+          minStudent: item.minStudent,
+          maxStudent: item.maxStudent,
+          startDateExpected: item.startDateExpected,
+          endDateExpected: item.endDateExpected,
+          subCourseTile: item.subCourseTile,
+          numberOfSlot: item.numberOfSlot,
           timeInWeekRequests: item.timeInWeekRequests.map((time) => ({
             slotId: time.slot.id,
             dayOfWeekId: time.dayInWeek.id,
@@ -161,6 +167,7 @@ export default function CreateCourseForm() {
       createSubCourseHookForm.reset();
 
       if (selectedPublicCourse) {
+        delete params.code;
         await mutationPublicResult.mutateAsync(params);
       } else {
         await mutationResult.mutateAsync(params);
@@ -263,8 +270,6 @@ export default function CreateCourseForm() {
   }, [categoryWatch]);
 
   const filterSubjects = subjects?.filter((item) => {
-    console.log('category', item.categoryIds, categoryId);
-
     return item.categoryIds?.includes(categoryId || 0);
   });
 
@@ -278,12 +283,18 @@ export default function CreateCourseForm() {
             {
               label: 'Khóa học có sẵn',
               data: (
-                <CustomCarousel
-                  isLoading={isLoading}
-                  label="Chọn khóa học có sẵn"
-                  items={publicCourses || []}
-                  renderItem={renderItem}
-                />
+                <Stack>
+                  {publicCourses ? (
+                    <CustomCarousel
+                      isLoading={isLoading}
+                      label="Chọn khóa học có sẵn"
+                      items={publicCourses || []}
+                      renderItem={renderItem}
+                    />
+                  ) : (
+                    <Typography>Không có khóa học cộng đồng nào.</Typography>
+                  )}
+                </Stack>
               ),
               onClick: () => handleCheckCustomUse(false),
             },
@@ -298,14 +309,6 @@ export default function CreateCourseForm() {
                   <Typography sx={globalStyles.textSubTitle}>
                     Tạo khóa học
                   </Typography>
-                  <Stack marginTop={1}>
-                    <FormInput
-                      name={CREATE_COURSE_FIELDS.code}
-                      control={createCourseHookForm.control}
-                      label="Mã khóa học"
-                      placeholder="Nhập mã khóa học"
-                    />
-                  </Stack>
                   <Stack marginTop={1}>
                     <FormInput
                       name={CREATE_COURSE_FIELDS.name}

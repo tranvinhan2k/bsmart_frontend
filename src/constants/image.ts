@@ -4,6 +4,7 @@ import emptyCart from '~/assets/images/empty_cart.png';
 import emptyCourseList from '~/assets/images/emptyListCourseIllustration.png';
 import loadingIcon from '~/assets/gifs/loading.gif';
 import loadingIcon2 from '~/assets/gifs/loading2.gif';
+import success from '~/assets/images/Celebration-amico.png';
 
 export const image = {
   noAvatar,
@@ -12,4 +13,5 @@ export const image = {
   loadingIcon,
   loadingIcon2,
   emptyCourseList,
+  success,
 };

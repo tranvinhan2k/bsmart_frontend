@@ -14,7 +14,11 @@ import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
 
-export default function StudentRegisterForm() {
+export default function StudentRegisterForm({
+  onOpen,
+}: {
+  onOpen: () => void;
+}) {
   const navigate = useNavigate();
   const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterStudent
@@ -45,7 +49,7 @@ export default function StudentRegisterForm() {
     const id = toast.loadToast('Đang đăng kí tài khoản ...');
     try {
       await mutation.mutateAsync(params);
-      navigate('/login');
+      onOpen();
       toast.updateSuccessToast(id, `Đăng kí thành công!`);
     } catch (error: any) {
       toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);

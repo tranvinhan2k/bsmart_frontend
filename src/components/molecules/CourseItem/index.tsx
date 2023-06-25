@@ -16,7 +16,7 @@ export default function CourseItem({
     content: '',
     feedback: 0,
     id: 0,
-    image: '',
+    images: [],
     mentor: '',
     title: '',
     mentorImage: '',
@@ -25,7 +25,7 @@ export default function CourseItem({
   isSkeleton = false,
   onClick = () => {},
 }: CourseItemProps) {
-  const { content, feedback, image: itemImage, mentor, title } = item;
+  const { content, feedback, images: itemImage, mentor, title } = item;
 
   const handleNavigateCourseDetail = () => {
     onClick();
@@ -47,6 +47,8 @@ export default function CourseItem({
       </Stack>
     );
   }
+
+  console.log('image', item);
 
   return (
     <Stack
@@ -73,7 +75,7 @@ export default function CourseItem({
           height: '350px',
           borderRadius: MetricSize.small_5,
         }}
-        src={itemImage}
+        src={itemImage?.[0]?.url || image.noCourse}
         alt={title}
       />
       <Stack

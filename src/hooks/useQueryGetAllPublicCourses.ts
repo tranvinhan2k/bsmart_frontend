@@ -3,8 +3,8 @@ import coursesApi from '~/api/courses';
 
 export const useQueryGetAllPublicCourses = () => {
   const { error, data, isLoading } = useQuery({
-    queryKey: ['public'],
-    queryFn: () => coursesApi.getAllPublicCourse,
+    queryKey: ['public_course'],
+    queryFn: () => coursesApi.getAllPublicCourse(),
   });
 
   return {

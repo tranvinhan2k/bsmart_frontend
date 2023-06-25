@@ -18,6 +18,7 @@ import { CoursePayload } from '~/models/courses';
 import { PagingFilterPayload } from '~/models';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
+import CustomPagination from '~/components/atoms/CustomPagination';
 
 interface CourseMenuSectionProps {
   error: any;
@@ -166,16 +167,10 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
       {courseData}
       {data && data.items.length > 0 && (
         <Stack justifyContent="center" alignItems="center" padding={2}>
-          <Pagination
-            sx={{
-              fontSize: FontSize.small_18,
-              color: Color.white,
-              fontFamily: FontFamily.bold,
-            }}
+          <CustomPagination
+            currentPage={data?.currentPage}
             onChange={handlePagination}
-            color="secondary"
-            size="large"
-            count={data?.totalPages}
+            totalPages={data?.totalPages}
           />
         </Stack>
       )}

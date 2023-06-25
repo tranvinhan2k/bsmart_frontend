@@ -47,6 +47,11 @@ const textSmallLabel: SxProps<Theme> = {
   fontSize: FontSize.small_18,
   color: Color.black,
 };
+const textSmallLight: SxProps<Theme> = {
+  fontFamily: FontFamily.light,
+  fontSize: FontSize.small_18,
+  color: Color.black,
+};
 export const SX_SHADOW: SxProps<Theme> = {
   shadowColor: '#000000',
   shadowOffset: {
@@ -68,6 +73,7 @@ const globalStyles = {
   textTitle,
   textSubTitle,
   textSmallLabel,
+  textSmallLight,
 };
 
 export default globalStyles;
