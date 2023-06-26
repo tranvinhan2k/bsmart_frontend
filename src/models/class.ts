@@ -64,11 +64,3 @@ export interface ClassDeleteClassSectionPayload {
   id: number;
   classSectionId: number;
 }
-export interface ClassCreateAnnouncementPayload {
-  id: number;
-  data: {
-    content: string;
-    title: string;
-    visible: boolean;
-  };
-}

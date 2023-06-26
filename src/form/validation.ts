@@ -39,6 +39,8 @@ import {
   WITHDRAW_BANK_ACCOUNT_REQUIRED,
   CRATE_ANNOUNCEMENT_CONTENT,
   CRATE_ANNOUNCEMENT_TITLE,
+  UPDATE_ANNOUNCEMENT_TITLE,
+  UPDATE_ANNOUNCEMENT_CONTENT,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -451,6 +453,10 @@ export const validationSchemaUpdateAssignment = object({
 export const validationSchemaCreateAnnouncement = object({
   content: string().required(CRATE_ANNOUNCEMENT_CONTENT),
   title: string().required(CRATE_ANNOUNCEMENT_TITLE),
+});
+export const validationSchemaUpdateAnnouncement = object({
+  content: string().required(UPDATE_ANNOUNCEMENT_TITLE),
+  title: string().required(UPDATE_ANNOUNCEMENT_CONTENT),
 });
 
 export const validationSchemaCreateClassSections = object({

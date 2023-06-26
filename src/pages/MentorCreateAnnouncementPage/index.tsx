@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
@@ -17,14 +18,20 @@ import { defaultValueCreateAnnouncement } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 import { MentorNavigationActionData } from '~/constants';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
-import { useManageAnnouncement } from '~/hooks/useManageAnnouncement';
 import { CreateAnnouncementFormDataPayload } from '~/models/form';
-import { ClassCreateAnnouncementPayload } from '~/models/class';
+import { useCreateAnnouncement } from '~/hooks/useManageAnnouncement/create';
 import toast from '~/utils/toast';
+import { scrollToTop } from '~/utils/common';
+import { UseCreateAnnouncementPayload } from '~/models/announcement';
 
 export default function MentorCreateAnnouncementPage() {
-  const id = 4; /* Hard code */
-  const { createAnnouncement } = useManageAnnouncement({ id });
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
+  // const { classSectionId } = useParams();
+  const idClassSection = 4;
+  const { createAnnouncement } = useCreateAnnouncement();
 
   const resolverCreateAnnouncement = useYupValidationResolver(
     validationSchemaCreateAnnouncement
@@ -42,8 +49,8 @@ export default function MentorCreateAnnouncementPage() {
   const handleSubmitSuccess = async (
     data: CreateAnnouncementFormDataPayload
   ) => {
-    const params: ClassCreateAnnouncementPayload = {
-      id,
+    const params: UseCreateAnnouncementPayload = {
+      idClassSection: Number(idClassSection),
       data: {
         content: data.content,
         title: data.title,
@@ -63,7 +70,7 @@ export default function MentorCreateAnnouncementPage() {
   const navigate = useNavigate();
   const handleReturnResourceManagePage = () =>
     navigate(
-      `/mentor-profile/${MentorNavigationActionData[1].items?.[2].link}`
+      `/mentor-profile/${MentorNavigationActionData[2].items?.[0].link}`
     );
 
   const types = [
@@ -137,7 +144,7 @@ export default function MentorCreateAnnouncementPage() {
           </Grid>
           <Grid item xs={6}>
             <Button customVariant="normal" type="submit" size="small">
-              Lưu
+              Tạo
             </Button>
           </Grid>
         </Grid>
