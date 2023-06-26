@@ -1,7 +1,9 @@
 import { Id, toast } from 'react-toastify';
 
 const loadToast = (label: string) => {
-  return toast.loading(label);
+  return toast.loading(label, {
+    position: 'top-left',
+  });
 };
 
 const updateSuccessToast = (id: Id, label: string) => {

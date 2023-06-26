@@ -399,7 +399,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
     items: [
       {
         id: 0,
-        name: 'Announcement - Xem chi tiết',
+        name: 'Announcement - Cập nhật',
         link: 'mentor-announcement-settings',
         isHide: true,
       },

@@ -309,7 +309,7 @@ export default function ClassSection({ editMode }: ClassSectionProps) {
       <CustomDialog
         open={openDialogUpdateActivity}
         onClose={handleCloseDialogUpdateActivity}
-        title="Thay đổi tên tài nguyên"
+        title="Cập nhật tài nguyên"
       >
         <form onSubmit={handleSubmit(handleSubmitUpdate)}>
           <FormInput

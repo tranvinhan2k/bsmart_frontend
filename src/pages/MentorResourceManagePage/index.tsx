@@ -1,29 +1,15 @@
-import {
-  Box,
-  Button as MuiButton,
-  Tab,
-  Tabs,
-  Grid,
-  Stack,
-  Typography,
-  Tooltip,
-} from '@mui/material';
+import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
-import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
-import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
-import TabPanel from '~/components/atoms/TabPanel/index';
-import { scrollToTop } from '~/utils/common';
-import {
-  SX_WRAPPER,
-  SX_HEADER_TITLE,
-  SX_FORM_ITEM_LABEL,
-  SX_FORM_ITEM_VALUE,
-} from './style';
-import { useManageClass } from '~/hooks/useManageClass';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
 import CustomSwitch from '~/components/atoms/Switch';
+import TabPanel from '~/components/atoms/TabPanel/index';
+import AnnouncementManagement from '~/components/molecules/AnnouncementManagement';
 import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
+import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
+import { useManageClass } from '~/hooks/useManageClass';
+import { scrollToTop } from '~/utils/common';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
+import { SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE, SX_WRAPPER } from './style';
 
 export default function MentorResourceManagePage() {
   useEffect(() => {
@@ -64,13 +50,13 @@ export default function MentorResourceManagePage() {
     },
     {
       id: 2,
-      text: 'Nội dung khóa học',
-      component: <h1>Điểm </h1>,
+      text: 'Nội dung',
+      component: <h1>Nội dung</h1>,
     },
     {
       id: 3,
       text: 'Thông báo',
-      component: <h1>Thông báo</h1>,
+      component: <AnnouncementManagement editMode={editMode} />,
     },
   ];
 

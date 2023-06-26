@@ -20,6 +20,8 @@ export const CRATE_ASSIGNMENT_MAX_FILE_SIZE =
 
 export const CRATE_ANNOUNCEMENT_TITLE = 'Hãy nhập tên cho thông báo';
 export const CRATE_ANNOUNCEMENT_CONTENT = 'Hãy nhập mô tả cho thông báo';
+export const UPDATE_ANNOUNCEMENT_TITLE = CRATE_ANNOUNCEMENT_TITLE;
+export const UPDATE_ANNOUNCEMENT_CONTENT = CRATE_ANNOUNCEMENT_CONTENT;
 
 // class validate
 export const CREATE_CLASS_SECTIONS_REQUIRED = 'Hãy nhập tên hoạt động mới';
