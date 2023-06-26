@@ -1,6 +1,6 @@
 import { IconButton, Modal, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
-import { FontFamily, FontSize } from '~/assets/variables';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
@@ -31,7 +31,8 @@ export default function CreateSubCourseModal({
       <Stack
         sx={{
           background: 'white',
-          width: '100%',
+          width: { xs: '100%', md: '60vw' },
+          paddingX: MetricSize.medium_15,
           alignSelf: 'center',
         }}
       >
@@ -50,13 +51,21 @@ export default function CreateSubCourseModal({
           control={hookForm.control}
           label="Tên khóa học phụ"
         />
-        <FormInput
-          variant="date"
-          name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
-          control={hookForm.control}
-          label="Ngày mở lớp dự kiến"
-        />
-        <Stack marginTop={2}>
+        <Stack
+          sx={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginTop: 2,
+            gap: 1,
+          }}
+        >
+          <FormInput
+            variant="date"
+            name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
+            control={hookForm.control}
+            label="Ngày mở lớp dự kiến"
+          />
           <FormInput
             variant="date"
             name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
@@ -72,15 +81,21 @@ export default function CreateSubCourseModal({
             label="Giá khóa học"
           />
         </Stack>
-        <Stack marginTop={2}>
+        <Stack
+          marginTop={2}
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
           <FormInput
             variant="number"
             name={CREATE_SUB_COURSE_FIELDS.minStudent}
             control={hookForm.control}
             label="Số học sinh tối thiểu"
           />
-        </Stack>
-        <Stack marginTop={2}>
           <FormInput
             variant="number"
             name={CREATE_SUB_COURSE_FIELDS.maxStudent}
@@ -88,6 +103,7 @@ export default function CreateSubCourseModal({
             label="Số học sinh tối đa"
           />
         </Stack>
+
         <Stack marginTop={2}>
           <FormInput
             data={levels}

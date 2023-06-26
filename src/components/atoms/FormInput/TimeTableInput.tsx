@@ -123,7 +123,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           })}
       </Stack>
       <Grid container paddingBottom={2} spacing={1}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={5}>
           {slots && (
             <FormInput
               variant="dropdown"
@@ -134,7 +134,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             />
           )}
         </Grid>
-        <Grid item md={4}>
+        <Grid item xs={12} md={5}>
           {dayInWeeks && (
             <FormInput
               variant="dropdown"
@@ -148,7 +148,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
         <Grid
           item
           xs={12}
-          md={4}
+          md={2}
           sx={{ alignItems: 'center', justifyContent: 'center' }}
         >
           <Stack
@@ -161,7 +161,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
               onClick={timetableHookForm.handleSubmit(onSubmit)}
               customVariant="horizonForm"
             >
-              Thêm giờ học
+              <Icon name="add" color="white" size="medium" />
             </Button>
           </Stack>
         </Grid>

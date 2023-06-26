@@ -183,7 +183,7 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[15].link}`,
     main: () => <MentorsPage />,
-    role: ['GUEST', 'ROLE_STUDENT'],
+    role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
     path: `/${NavigationActionData[16].link}`,

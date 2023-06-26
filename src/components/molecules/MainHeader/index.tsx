@@ -1,7 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, IconButton, Menu, MenuItem, Stack } from '@mui/material';
+import {
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { image } from '~/constants/image';
 import { logOut } from '~/redux/user/slice';
@@ -14,6 +21,7 @@ import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '../SocialBar';
 import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -42,6 +50,8 @@ export default function MainHeader({
   const filterParams = useSelector(selectFilterParams);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isNeedRedirect, setNeedRedirect] = useState<boolean>(false);
+
+  const nameSplit = profile.fullName.split(' ');
 
   useEffect(() => {
     if (isNeedRedirect) {
@@ -96,20 +106,40 @@ export default function MainHeader({
         />
       ) : (
         <>
-          <IconButton onClick={handleMenu}>
-            <Avatar
-              alt="Avatar"
-              src={
-                profile?.userImages?.find(
-                  (img) => img?.type === ProfileImgType.AVATAR
-                )?.url || image.noAvatar
-              }
-              sx={{
-                width: 40,
-                height: 40,
-              }}
-            />
-          </IconButton>
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingLeft: MetricSize.medium_15,
+            }}
+          >
+            <Typography sx={{ paddingRight: MetricSize.medium_15 }}>
+              Xin chào,{' '}
+              <span
+                style={{
+                  fontFamily: FontFamily.bold,
+                  fontSize: FontSize.small_18,
+                  color: Color.white,
+                }}
+              >
+                {nameSplit[nameSplit.length - 1]}
+              </span>
+            </Typography>
+            <IconButton onClick={handleMenu}>
+              <Avatar
+                alt="Avatar"
+                src={
+                  profile?.userImages?.find(
+                    (img) => img?.type === ProfileImgType.AVATAR
+                  )?.url || image.noAvatar
+                }
+                sx={{
+                  width: 40,
+                  height: 40,
+                }}
+              />
+            </IconButton>
+          </Stack>
           <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
