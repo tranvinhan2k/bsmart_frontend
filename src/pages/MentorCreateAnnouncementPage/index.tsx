@@ -1,17 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
+  Button as MuiButton,
   Typography,
   Stack,
   Grid,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import { validationSchemaCreateAnnouncement } from '~/form/validation';
 import { defaultValueCreateAnnouncement } from '~/form/defaultValues';
@@ -45,7 +44,7 @@ export default function MentorCreateAnnouncementPage() {
   const toastMsgSuccess = 'Tạo thành công';
   const toastMsgError = (error: any): string =>
     `Tạo không thành công: ${error.message}`;
-
+  const navigate = useNavigate();
   const handleSubmitSuccess = async (
     data: CreateAnnouncementFormDataPayload
   ) => {
@@ -54,37 +53,23 @@ export default function MentorCreateAnnouncementPage() {
       data: {
         content: data.content,
         title: data.title,
-        visible:
-          typeof data.visible === 'boolean' ? data.visible : data.visible.value,
+        visible: true,
+        // visible: typeof data.visible === 'boolean' ? data.visible : data.visible.value,
       },
     };
     const idToast = toast.loadToast(toastMsgLoading);
     try {
       await createAnnouncement.mutateAsync(params);
       toast.updateSuccessToast(idToast, toastMsgSuccess);
+      navigate(
+        `/mentor-profile/${MentorNavigationActionData[2].items?.[0].link}`
+      );
     } catch (error: any) {
       toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };
 
-  const navigate = useNavigate();
-  const handleReturnResourceManagePage = () =>
-    navigate(
-      `/mentor-profile/${MentorNavigationActionData[2].items?.[0].link}`
-    );
-
-  const types = [
-    {
-      id: 0,
-      label: 'Hiển thị',
-      value: true,
-    },
-    {
-      id: 1,
-      label: 'Ẩn',
-      value: false,
-    },
-  ];
+  // const handleAbortCreateAnnouncement = () =>
 
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess)}>
@@ -119,36 +104,20 @@ export default function MentorCreateAnnouncementPage() {
                 placeholder="Nhập mô tả"
               />
             </Grid>
-            <Grid item xs={12}>
-              <Typography sx={SX_FORM_LABEL}>Hiển thị</Typography>
-              <FormInput
-                dataDropdownDynamicValue={types}
-                variant="dropdownDynamicValue"
-                name="visible"
-                control={control}
-              />
-            </Grid>
           </Grid>
         </AccordionDetails>
       </Accordion>
-      <Box my={4}>
-        <Grid container columnSpacing={3}>
-          <Grid item xs={6}>
-            <Button
-              customVariant="normal"
-              size="small"
-              onClick={handleReturnResourceManagePage}
-            >
-              Hủy
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button customVariant="normal" type="submit" size="small">
-              Tạo
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+      <Stack
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="flex-start"
+        spacing={2}
+        mt={2}
+      >
+        <MuiButton variant="contained" color="success">
+          Tạo mới
+        </MuiButton>
+      </Stack>
     </form>
   );
 }

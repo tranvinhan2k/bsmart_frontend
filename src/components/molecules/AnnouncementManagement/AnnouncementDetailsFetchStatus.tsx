@@ -4,10 +4,9 @@ import Icon from '~/components/atoms/Icon';
 import { SX_FORM_LABEL, SX_FORM_LABEL_ERROR } from './style';
 
 interface AnnouncementListFetchStatusProps {
-  isError: boolean;
   isLoading: boolean;
+  isError: boolean;
 }
-
 export default function AnnouncementListFetchStatus({
   isLoading,
   isError,

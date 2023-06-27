@@ -59,6 +59,9 @@ const MentorCreateAssignmentPage = lazy(
 const MentorCreateAnnouncementPage = lazy(
   () => import('~/pages/MentorCreateAnnouncementPage')
 );
+const MentorUpdateAnnouncementPage = lazy(
+  () => import('~/pages/MentorUpdateAnnouncementPage')
+);
 const ManagerProcessRegisterRequestPage = lazy(
   () => import('~/pages/ManagerProcessRegisterRequestPage')
 );
@@ -336,6 +339,11 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: `/${MentorNavigationActionData[5].items?.[1].link}`,
     main: () => <MentorCreateAnnouncementPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorNavigationActionData[5].items?.[2].link}`,
+    main: () => <MentorUpdateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
