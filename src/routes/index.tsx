@@ -62,6 +62,9 @@ const MentorCreateAssignmentPage = lazy(
 const MentorCreateAnnouncementPage = lazy(
   () => import('~/pages/MentorCreateAnnouncementPage')
 );
+const MentorUpdateAnnouncementPage = lazy(
+  () => import('~/pages/MentorUpdateAnnouncementPage')
+);
 const ManagerProcessRegisterRequestPage = lazy(
   () => import('~/pages/ManagerProcessRegisterRequestPage')
 );

@@ -7,19 +7,19 @@ export const useGetDetailsAnnouncement = ({
   idClassSection,
   idAnnouncement,
 }: UseGetDetailsAnnouncementPayload) => {
-  const { data, error, isLoading, refetch } = useQuery({
+  const { data, error, isError, isLoading, refetch } = useQuery({
     queryKey: [keyGetDetails, idClassSection, idAnnouncement],
     queryFn: () =>
       announcementApi.getDetailsAnnouncement({
         idClassSection,
         idAnnouncement,
       }),
-    enabled: false,
   });
 
   return {
     announcementDetails: data,
     error,
+    isError,
     isLoading,
     refetch,
   };

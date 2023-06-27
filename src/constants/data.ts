@@ -447,9 +447,15 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
         isHide: true,
       },
       {
-        id: 3,
+        id: 1,
         name: 'Announcement - Tạo',
-        link: 'mentor-create-announcement/:classSectionId',
+        link: 'mentor-create-announcement/:idClassSection',
+        isHide: true,
+      },
+      {
+        id: 2,
+        name: 'Announcement - Cập nhật',
+        link: 'mentor-update-announcement/:idAnnouncement',
         isHide: true,
       },
     ],
