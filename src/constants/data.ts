@@ -19,6 +19,19 @@ export const courseTypeData = {
 
 export type CourseTypeDataKeys = keyof typeof courseTypeData;
 
+export const genderData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Nam',
+    value: 'MALE',
+  },
+  {
+    id: 1,
+    label: 'Nữ',
+    value: 'FEMALE',
+  },
+];
+
 export const typeData: OptionPayload[] = [
   {
     id: 0,
@@ -297,10 +310,10 @@ export const NavigationActionData: ActionPayload[] = [
     link: 'confirm_email/:code',
   },
   {
-    id: 28,
+    id: 20,
     isHide: true,
-    name: 'Quản lí đánh giá',
-    link: 'feedback_manager',
+    name: 'Quản lí học tập',
+    link: 'dashboard',
   },
 ];
 

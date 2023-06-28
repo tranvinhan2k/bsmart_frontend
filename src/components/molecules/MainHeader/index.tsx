@@ -85,10 +85,18 @@ export default function MainHeader({
     setNeedRedirect(true);
   };
 
+  const handleNavigateDashboard = () => {
+    navigate('/dashboard');
+  };
+
+  const handleHomepage = () => {
+    navigate('/homepage');
+  };
+
   return (
     <Stack sx={SX_HEADER_CONTAINER}>
       <SocialBar color="white" socials={socials} />
-      <ContractBar color="white" contracts={contracts} />
+      {/* <ContractBar color="white" contracts={contracts} /> */}
       <SearchBar
         value={filterParams.q || ''}
         color="white"
@@ -151,7 +159,11 @@ export default function MainHeader({
             onClose={handleClose}
             onMouseLeave={handleClose}
           >
-            <MenuItem onClick={handleNavigateProfile}>Hồ sơ </MenuItem>
+            <MenuItem onClick={handleHomepage}>Trang Chủ</MenuItem>
+            <MenuItem onClick={handleNavigateProfile}>Hồ sơ</MenuItem>
+            <MenuItem onClick={handleNavigateDashboard}>
+              Quản lí học tập
+            </MenuItem>
             <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
           </Menu>
         </>

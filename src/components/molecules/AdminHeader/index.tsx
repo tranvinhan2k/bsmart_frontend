@@ -62,6 +62,10 @@ export default function AdminHeader() {
     handleClose();
   };
 
+  const handleHomePage = () => {
+    navigate('/homepage');
+  };
+
   return (
     <Stack
       sx={{
@@ -113,6 +117,7 @@ export default function AdminHeader() {
             'aria-labelledby': 'basic-button',
           }}
         >
+          <MenuItem onClick={handleHomePage}>Trang Chủ</MenuItem>
           <MenuItem onClick={handleProfile}>Hồ Sơ</MenuItem>
           <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
         </Menu>

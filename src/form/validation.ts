@@ -107,7 +107,7 @@ export const validationSchemaRegisterStudent = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
-  introduce: string().trim().required(INTRODUCE_REQUIRED),
+  gender: object().required('Giới tính không được để trống'),
   birthDay: string().required(BIRTHDAY_REQUIRED),
 });
 
@@ -124,7 +124,7 @@ export const validationSchemaRegisterMentor = object({
   confirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
-  introduce: string().trim().required(INTRODUCE_REQUIRED),
+  gender: object().required('Giới tính không được để trống'),
   birthDay: string().required(BIRTHDAY_REQUIRED),
 });
 export const validationSchemaBuyCourse = object({

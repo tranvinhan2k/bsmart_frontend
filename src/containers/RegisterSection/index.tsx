@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import RegisterTab from '~/components/molecules/RegisterTab';
 import { RegisterTabPayload } from '~/constants';
 
@@ -9,8 +9,8 @@ export default function RegisterSection() {
     <Stack
       sx={{
         borderRadius: MetricSize.small_5,
-        boxShadow: { xs: 0, md: 5 },
         width: { xs: '90vw', md: MetricSize.halfWidth },
+        background: Color.white,
       }}
     >
       <RegisterTab registerTabs={RegisterTabPayload} />

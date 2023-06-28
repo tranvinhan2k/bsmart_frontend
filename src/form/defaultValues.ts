@@ -19,23 +19,23 @@ export const defaultValueSignIn: LoginFormDataPayload = {
   email: localStorage.getItem('username') || '',
   password: localStorage.getItem('password') || '',
 };
-export const defaultValueStudentRegister: RegisterStudentDataPayload = {
+export const defaultValueStudentRegister = {
   email: '',
   password: '',
   name: '',
   phone: '',
   confirm: '',
   birthDay: '',
-  introduce: '',
+  gender: null,
 };
-export const defaultValueMentorRegister: RegisterMentorDataPayload = {
+export const defaultValueMentorRegister = {
   email: '',
   password: '',
   confirm: '',
   birthDay: '',
-  introduce: '',
   name: '',
   phone: '',
+  gender: null,
 };
 export const defaultValueBuyCourse: BuyCourseDataPayload = {
   email: '',

@@ -14,7 +14,7 @@ export interface RegisterStudentDataPayload {
   password: string;
   confirm: string;
   phone: string;
-  introduce: string;
+  gender: string;
   birthDay: string;
 }
 export interface RegisterMentorDataPayload {
@@ -23,7 +23,7 @@ export interface RegisterMentorDataPayload {
   email: string;
   password: string;
   confirm: string;
-  introduce: string;
+  gender: string;
   birthDay: string;
 }
 

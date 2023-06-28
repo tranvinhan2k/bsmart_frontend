@@ -45,6 +45,8 @@ export default function RegisterTab({ registerTabs }: RegisterTabProps) {
           sx={SX_TABS}
           value={tabIndex}
           onChange={handleChange}
+          indicatorColor="secondary"
+          textColor="inherit"
           aria-label="basic tabs example"
           variant="fullWidth"
         >

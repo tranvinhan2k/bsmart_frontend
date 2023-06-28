@@ -31,7 +31,7 @@ export const view3: SxProps<Theme> = {
 export const view4: SxProps<Theme> = { padding: MetricSize.medium_15 };
 
 export const text1: SxProps<Theme> = {
-  fontSize: { xs: FontSize.medium_24, md: FontSize.large_45 },
+  fontSize: { xs: FontSize.medium_24, md: FontSize.medium_28 },
   fontFamily: FontFamily.bold,
   color: Color.navy,
 };

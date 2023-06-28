@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack } from '@mui/material';
+import { Stack, Box, Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,11 @@ import { PASSWORD_MATCHED } from '~/form/message';
 import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
+import { genderData } from '~/constants';
+import { OptionPayload } from '~/models';
+import { image } from '~/constants/image';
+
+import RegisterStudent from '~/assets/images/register_student.svg';
 
 export default function StudentRegisterForm({
   onOpen,
@@ -35,8 +40,6 @@ export default function StudentRegisterForm({
   });
 
   const handleRegisterSubmitData = async (data: RegisterStudentDataPayload) => {
-    console.log(data.birthDay, typeof data.birthDay);
-
     const params: RequestRegisterPayload = {
       email: data.email.toLowerCase(),
       fullName: data.name,
@@ -44,7 +47,7 @@ export default function StudentRegisterForm({
       phone: data.phone,
       role: 'STUDENT',
       birthDay: data.birthDay,
-      introduce: data.introduce,
+      gender: (data.gender as any).value,
     };
     const id = toast.loadToast('Đang đăng kí tài khoản ...');
     try {
@@ -56,77 +59,93 @@ export default function StudentRegisterForm({
     }
   };
   return (
-    <Stack>
-      <FormInput
-        label="Họ và tên"
-        placeholder="Nguyễn Văn A"
-        control={studentSignUpForm.control}
-        name={REGISTER_STUDENT_FIELDS.name}
-      />
-      <Stack marginTop={2}>
-        <FormInput
-          label="E-Mail"
-          placeholder="example@gmail.com"
-          control={studentSignUpForm.control}
-          name={REGISTER_STUDENT_FIELDS.email}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          label="Số điện thoại"
-          placeholder="0362456xxx"
-          control={studentSignUpForm.control}
-          name={REGISTER_STUDENT_FIELDS.phone}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          variant="date"
-          label="Ngày Sinh"
-          placeholder="01/01/2000"
-          control={studentSignUpForm.control}
-          name={REGISTER_STUDENT_FIELDS.birthDay}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          variant="multiline"
-          label="Giới thiệu bản thân"
-          placeholder="Tôi là giáo viên/ học sinh ..."
-          control={studentSignUpForm.control}
-          name={REGISTER_STUDENT_FIELDS.introduce}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          variant="password"
-          label="Mật Khẩu"
-          control={studentSignUpForm.control}
-          name={REGISTER_STUDENT_FIELDS.password}
-          helperText={PASSWORD_MATCHED}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          variant="password"
-          label="Xác Nhận Mật Khẩu"
-          control={studentSignUpForm.control}
-          name={REGISTER_STUDENT_FIELDS.confirm}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <Button
-          onClick={studentSignUpForm.handleSubmit(handleRegisterSubmitData)}
-          customVariant="form"
+    <Grid container>
+      <Grid padding={3} item xs={12} lg={6}>
+        <Stack
+          sx={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          Đăng kí
-        </Button>
-      </Stack>
-      <Stack marginTop={2}>
-        <Button onClick={() => handleGoogle()} customVariant="google">
-          Đăng nhập với Google
-        </Button>
-      </Stack>
-    </Stack>
+          <img src={RegisterStudent} alt="React Logo" />
+        </Stack>
+      </Grid>
+      <Grid item xs={12} lg={6}>
+        <Stack>
+          <FormInput
+            label="Họ và tên"
+            placeholder="Nguyễn Văn A"
+            control={studentSignUpForm.control}
+            name={REGISTER_STUDENT_FIELDS.name}
+          />
+          <Stack marginTop={2}>
+            <FormInput
+              label="E-Mail"
+              placeholder="example@gmail.com"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.email}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              label="Số điện thoại"
+              placeholder="0362456xxx"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.phone}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              variant="date"
+              label="Ngày Sinh"
+              placeholder="01/01/2000"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.birthDay}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              data={genderData}
+              variant="dropdown"
+              label="Giới tính"
+              placeholder="Chọn giới tính của bạn"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.gender}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              variant="password"
+              label="Mật Khẩu"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.password}
+              helperText={PASSWORD_MATCHED}
+            />
+          </Stack>
+          <Stack marginTop={4}>
+            <FormInput
+              variant="password"
+              label="Xác Nhận Mật Khẩu"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.confirm}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <Button
+              onClick={studentSignUpForm.handleSubmit(handleRegisterSubmitData)}
+              customVariant="form"
+            >
+              Đăng kí
+            </Button>
+          </Stack>
+          <Stack marginTop={2}>
+            <Button onClick={() => handleGoogle()} customVariant="google">
+              Đăng nhập với Google
+            </Button>
+          </Stack>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }

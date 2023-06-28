@@ -27,6 +27,7 @@ const EditMemberProfilePage = lazy(
   () => import('~/pages/EditMemberProfilePage')
 );
 const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
+const DashboardPage = lazy(() => import('~/pages/DashboardPage'));
 const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
 const TestPage = lazy(() => import('~/pages/TestPage'));
 const RegisterPage = lazy(() => import('~/pages/RegisterPage'));
@@ -203,6 +204,11 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[19].link}`,
     main: () => <ConfirmEmailPage />,
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  },
+  {
+    path: `/${NavigationActionData[20].link}`,
+    main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {

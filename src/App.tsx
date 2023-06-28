@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@mui/material';
+import { Stack, ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import { Provider, useDispatch, useSelector } from 'react-redux';
@@ -30,6 +30,7 @@ import { useDispatchGetCart, useMutationProfile } from './hooks';
 import { addProfile } from './redux/user/slice';
 import AdminProfileLayout from './layouts/AdminProfileLayout';
 import ManagerProfileLayout from '~/layouts/ManagerProfileLayout';
+import { Color } from './assets/variables';
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (
@@ -162,7 +163,9 @@ function Wrapper() {
             <BrowserRouter>
               <ProSidebarProvider>
                 <React.StrictMode>
-                  <App />
+                  <Stack sx={{ background: Color.white4 }}>
+                    <App />
+                  </Stack>
                 </React.StrictMode>
               </ProSidebarProvider>
             </BrowserRouter>

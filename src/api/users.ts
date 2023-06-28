@@ -17,7 +17,7 @@ export interface RequestRegisterPayload {
   phone: string;
   password: string;
   role: RequestRole;
-  introduce: string;
+  gender: string;
   birthDay: string;
 }
 
