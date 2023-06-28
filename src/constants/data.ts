@@ -320,26 +320,21 @@ export const NavigationActionData: ActionPayload[] = [
 export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 0,
-    link: '',
-    name: 'Quản lí thông tin',
-    items: [
-      {
-        id: 0,
-        name: 'Chỉnh sửa thông tin',
-        link: 'edit-profile',
-      },
-      {
-        id: 1,
-        name: 'Quản lí ví tiền',
-        link: 'wallet-management',
-      },
-      {
-        id: 2,
-        name: 'Rút tiền',
-        link: 'withdraw',
-      },
-    ],
+    name: 'Chỉnh sửa thông tin',
+    link: 'edit-profile',
   },
+  {
+    id: 1,
+    name: 'Quản lí ví tiền',
+    link: 'wallet-management',
+  },
+  {
+    id: 2,
+    name: 'Rút tiền',
+    link: 'withdraw',
+  },
+];
+export const MentorDashboardNavigationActionData: ActionPayload[] = [
   {
     id: 1,
     link: '',

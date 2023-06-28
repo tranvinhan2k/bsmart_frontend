@@ -7,6 +7,7 @@ import {
   AdminNavigationActionData,
   ManagerNavigationActionData,
   MemberNavigationActionData,
+  MentorDashboardNavigationActionData,
   MentorNavigationActionData,
   NavigationActionData,
 } from '~/constants';
@@ -207,7 +208,7 @@ const routes: RoutePayload[] = [
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationActionData[20].link}`,
+    path: `/${NavigationActionData[20].link}/*`,
     main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
@@ -261,102 +262,113 @@ export const mentorRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[0].items?.[0].link}`,
+    path: `/${MentorNavigationActionData[0].link}`,
     main: () => <MentorEditProfilePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[0].items?.[1].link}`,
+    path: `/${MentorNavigationActionData[1].link}`,
     main: () => <WalletManagementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[0].items?.[2].link}`,
+    path: `/${MentorNavigationActionData[2].link}`,
     main: () => <WithdrawPage />,
     role: ['ROLE_TEACHER'],
   },
+];
+export const mentorLMSRoutes: RoutePayload[] = [
   {
-    path: `/${MentorNavigationActionData[1].items?.[0].link}`,
+    path: '/',
+    main: () => (
+      <Navigate
+        to={`/${NavigationActionData[20].link}/${MentorDashboardNavigationActionData[0].items?.[0].link}`}
+      />
+    ),
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorDashboardNavigationActionData[0].items?.[0].link}`,
     main: () => <MentorCourseListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[1].items?.[1].link}`,
+    path: `/${MentorDashboardNavigationActionData[0].items?.[1].link}`,
     main: () => <MentorCreateCoursePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[1].items?.[2].link}`,
+    path: `/${MentorDashboardNavigationActionData[0].items?.[2].link}`,
     main: () => <MentorClassListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[2].items?.[0].link}/:id`,
+    path: `/${MentorDashboardNavigationActionData[1].items?.[0].link}/:id`,
     main: () => <MentorClassDetailPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[2].items?.[1].link}`,
+    path: `/${MentorDashboardNavigationActionData[1].items?.[1].link}`,
     main: () => <MentorCourseDetailPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[3].items?.[0].link}/:id`,
+    path: `/${MentorDashboardNavigationActionData[2].items?.[0].link}/:id`,
     main: () => <CreateContentPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].items?.[0].link}`,
+    path: `/${MentorDashboardNavigationActionData[3].items?.[0].link}`,
     main: () => <MentorQuizSettingsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].items?.[1].link}`,
+    path: `/${MentorDashboardNavigationActionData[3].items?.[1].link}`,
     main: () => <MentorCreateQuizPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].items?.[2].link}`,
+    path: `/${MentorDashboardNavigationActionData[3].items?.[2].link}`,
     main: () => <MentorCreateAssignmentPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].items?.[3].link}`,
+    path: `/${MentorDashboardNavigationActionData[3].items?.[3].link}`,
     main: () => <MentorCreateAssignmentPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].items?.[4].link}`,
+    path: `/${MentorDashboardNavigationActionData[3].items?.[4].link}`,
     main: () => <MentorAssignmentSettingsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[4].items?.[5].link}`,
+    path: `/${MentorDashboardNavigationActionData[3].items?.[5].link}`,
     main: () => <MentorAssignmentDetailsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[5].items?.[0].link}`,
+    path: `/${MentorDashboardNavigationActionData[4].items?.[0].link}`,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[5].items?.[1].link}`,
+    path: `/${MentorDashboardNavigationActionData[4].items?.[1].link}`,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[6].items?.[0].link}`,
+    path: `/${MentorDashboardNavigationActionData[7].items?.[0].link}`,
     main: () => <MentorAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[6].items?.[1].link}`,
+    path: `/${MentorDashboardNavigationActionData[7].items?.[1].link}`,
     main: () => <MentorViewStudentAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[6].items?.[2].link}/:classId/:id`,
+    path: `/${MentorDashboardNavigationActionData[7].items?.[2].link}/:classId/:id`,
     main: () => <MentorTakeAttendancePage />,
     role: ['ROLE_TEACHER'],
   },

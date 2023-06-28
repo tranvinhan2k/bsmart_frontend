@@ -87,6 +87,7 @@ export default function MainHeader({
 
   const handleNavigateDashboard = () => {
     navigate('/dashboard');
+    handleClose();
   };
 
   const handleHomepage = () => {

@@ -19,12 +19,14 @@ import Icon from '~/components/atoms/Icon';
 
 interface BreadcrumbNavigationProps {
   isHomePage: boolean;
+  isDashboard: boolean;
   breadcrumbs: ActionPayload[];
   onViewCourse: () => void;
 }
 
 export default function BreadcrumbNavigation({
   isHomePage,
+  isDashboard,
   breadcrumbs,
   onViewCourse,
 }: BreadcrumbNavigationProps) {
@@ -33,7 +35,7 @@ export default function BreadcrumbNavigation({
     navigation(link);
   };
 
-  if (breadcrumbs.length === 1) {
+  if (breadcrumbs.length === 1 || isDashboard) {
     return null;
   }
 

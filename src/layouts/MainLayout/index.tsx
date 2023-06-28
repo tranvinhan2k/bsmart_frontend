@@ -10,12 +10,12 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <Stack>
-      <Stack sx={{ height: { xs: 0, md: '90px' } }}>
+      <Stack sx={{ height: { xs: 0, md: '70px' } }}>
         <MainHeaderSection />
       </Stack>
       <Stack
         sx={{
-          height: '60px',
+          height: '70px',
           position: 'sticky',
           top: 0,
           zIndex: 10,
