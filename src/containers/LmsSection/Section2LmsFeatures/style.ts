@@ -5,7 +5,8 @@ import { Color, FontSize, FontWeight, MetricSize } from '~/assets/variables';
 const BOX: SxProps<Theme> = {
   mx: 'auto',
   width: { sm: 500, md: 800, lg: 1100, xl: 1400 },
-  padding: '95px 0 150px',
+  paddingTop: 12,
+  paddingBottom: 14,
 };
 
 const H2: SxProps<Theme> = {
