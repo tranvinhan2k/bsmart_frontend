@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontFamily, FontSize, FontWeight } from '~/assets/variables';
 import img_img_banner_2 from '~/assets/images/HomePageSection/img_banner_2.jpg';
 
 const BOX_BANNER: SxProps<Theme> = {
@@ -37,7 +37,7 @@ const H2: SxProps<Theme> = {
 
 const P: SxProps<Theme> = {
   fontSize: FontSize.small_18,
-  fontWeight: FontWeight.medium,
+  fontFamily: FontFamily.medium,
   color: Color.navy,
   textAlign: 'justify',
   lineHeight: '30px',

@@ -209,7 +209,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 10,
     isHide: true,
-    name: 'Thông báo',
+    name: 'Hoạt động',
     link: 'annotation',
   },
   {

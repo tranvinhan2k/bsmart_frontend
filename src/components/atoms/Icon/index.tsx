@@ -79,6 +79,8 @@ import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import ClearIcon from '@mui/icons-material/Clear';
 import UpdateIcon from '@mui/icons-material/Update';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import WarningIcon from '@mui/icons-material/Warning';
+import ImageIcon from '@mui/icons-material/Image';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -159,6 +161,8 @@ export type IconName =
   | 'clear'
   | 'update'
   | 'sentimentVeryDissatisfiedIcon'
+  | 'warningIcon'
+  | 'imageIcon'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -342,6 +346,10 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <UpdateIcon sx={STYLED_ICON} />;
     case 'sentimentVeryDissatisfiedIcon':
       return <SentimentVeryDissatisfiedIcon sx={STYLED_ICON} />;
+    case 'warningIcon':
+      return <WarningIcon sx={STYLED_ICON} />;
+    case 'imageIcon':
+      return <ImageIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />
