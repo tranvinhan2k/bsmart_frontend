@@ -1,17 +1,8 @@
-import { Box, Grid, Pagination, Typography } from '@mui/material';
+import { Box, Grid, Pagination, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
 import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
-import {
-  ANNOTATION_BOX,
-  ANNOTATION_CONTENT,
-  ANNOTATION_CONTENT_CONTENT,
-  ANNOTATION_CONTENT_DATE,
-  ANNOTATION_CONTENT_IMG,
-  ANNOTATION_CONTENT_TITLE,
-  ANNOTATION_H3,
-} from './style';
+import ActivityHistoryDetails from './ActivityHistoryDetails';
+import { ANNOTATION_BOX, ANNOTATION_H3, SX_FORM_LABEL_GRAY } from './style';
 
 export default function AnnotationSection() {
   const [page, setPage] = useState<number>(0);
@@ -31,28 +22,32 @@ export default function AnnotationSection() {
   };
 
   return (
-    <Grid container my={2}>
+    <Grid container my={5}>
       <Grid item xs={1} md={3}>
         <Box />
       </Grid>
       <Grid item xs={10} md={6}>
         <Box sx={ANNOTATION_BOX}>
-          <Typography component="h3" sx={ANNOTATION_H3}>
-            Thông báo
-          </Typography>
-          {/* <Button sx={ANNOTATION_BUTTON}>Tất cả</Button>
-          <Button sx={ANNOTATION_BUTTON}>Chưa đọc</Button> */}
-          {activityHistories && (
-            <>
-              {activityHistories.items.map((item) => (
-                <Box sx={ANNOTATION_CONTENT} key={item.id}>
-                  <Grid container my={2} p={2}>
-                    <Grid item xs={2}>
-                      <Box
-                        component="img"
-                        sx={ANNOTATION_CONTENT_IMG}
-                        alt="img"
-                        src={img_banner_sub_typing_1}
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            // spacing={2}
+          >
+            <Typography component="h3" sx={ANNOTATION_H3}>
+              Danh sách hoạt động
+            </Typography>
+            {activityHistories && (
+              <>
+                {activityHistories.items.length > 0 && (
+                  <>
+                    {activityHistories.items.map((item) => (
+                      <ActivityHistoryDetails
+                        key={item.id}
+                        action={item.action}
+                        activityName={item.activityName}
+                        activityTime={item.activityTime}
+                        type={item.type}
                       />
                     </Grid>
                     <Grid item xs={10}>

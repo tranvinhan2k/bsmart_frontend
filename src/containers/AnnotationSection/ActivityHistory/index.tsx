@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from '@mui/material';
 import {
   ActivityHistoryActionType,
-  ActivityHistoryTypeType
+  ActivityHistoryTypeType,
 } from '~/constants/activityHistory';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { SX_PROFILE_DETAILS, SX_PROFILE_DETAILS_HIGHLIGHTED } from './style';
