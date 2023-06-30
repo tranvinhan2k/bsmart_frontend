@@ -1,8 +1,9 @@
-import { Grid, Stack } from '@mui/material';
+import { Grid, Stack, Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
+import Button from '~/components/atoms/Button';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse } from '~/constants';
@@ -12,6 +13,7 @@ import {
   useQueryGetMentorByMentorId,
   useQueryGetSubCourseByCourseId,
 } from '~/hooks';
+import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
 
 export default function CourseDetailPage() {
@@ -55,7 +57,51 @@ export default function CourseDetailPage() {
           padding: { xs: MetricSize.medium_15, md: '70px' },
         }}
       >
-        <Grid item xs={12} md={12} sx={{ padding: MetricSize.medium_15 }}>
+        <Grid item xs={12} md={3}>
+          <Stack
+            sx={{
+              position: 'sticky',
+              top: '80px',
+              margin: 2,
+              background: Color.white,
+              borderRadius: MetricSize.small_5,
+              boxShadow: 2,
+            }}
+          >
+            <Stack
+              sx={{
+                padding: 3,
+              }}
+            >
+              <Typography sx={globalStyles.textSubTitle}>Mục lục</Typography>
+              <Divider />
+            </Stack>
+
+            <Stack marginTop={2}>
+              <Stack
+                sx={{
+                  paddingY: MetricSize.small_10,
+                  ':hover': {
+                    cursor: 'pointer',
+                    background: Color.whiteSmoke,
+                  },
+                }}
+              >
+                <Typography sx={globalStyles.textSmallLight}>
+                  Giới thiệu khóa học
+                </Typography>
+              </Stack>
+              <Typography sx={globalStyles.textSmallLight}>Giờ học</Typography>
+              <Typography sx={globalStyles.textSmallLight}>
+                Giảng viên
+              </Typography>
+              <Typography sx={globalStyles.textSmallLight}>
+                Khóa học tiêu biểu
+              </Typography>
+            </Stack>
+          </Stack>
+        </Grid>
+        <Grid item xs={12} md={9} sx={{ padding: MetricSize.medium_15 }}>
           <CourseDetailBasicInformationSection
             id={Number(id)}
             mentorData={mentor}
@@ -69,6 +115,13 @@ export default function CourseDetailPage() {
             subCourse={subCourses}
           />
           {/* <CourseDetailFeedbackSection feedbackData={data.feedbackData} /> */}
+          <Stack
+            sx={{
+              padding: { xs: MetricSize.medium_15, md: '70px' },
+            }}
+          >
+            <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
+          </Stack>
         </Grid>
         {/* <Grid sx={{ order: { xs: -1, md: 1 } }} item xs={12} md={4}>
             <CourseDetailSidebarSection
@@ -77,13 +130,6 @@ export default function CourseDetailPage() {
             />
           </Grid> */}
       </Grid>
-      <Stack
-        sx={{
-          padding: { xs: MetricSize.medium_15, md: '70px' },
-        }}
-      >
-        <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
-      </Stack>
     </Stack>
   );
 }

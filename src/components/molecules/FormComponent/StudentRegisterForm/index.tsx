@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, Grid } from '@mui/material';
+import { Stack, Box, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,7 @@ import { OptionPayload } from '~/models';
 import { image } from '~/constants/image';
 
 import RegisterStudent from '~/assets/images/register_student.svg';
+import globalStyles from '~/styles';
 
 export default function StudentRegisterForm({
   onOpen,
@@ -60,18 +61,12 @@ export default function StudentRegisterForm({
   };
   return (
     <Grid container>
-      <Grid padding={3} item xs={12} lg={6}>
+      <Grid padding={2} item xs={12} lg={6}>
         <Stack
-          sx={{
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          sx={{ justifyContent: 'center', alignItems: 'center', padding: 2 }}
         >
-          <img src={RegisterStudent} alt="React Logo" />
+          <Typography sx={globalStyles.textTitle}>Đăng kí học sinh</Typography>
         </Stack>
-      </Grid>
-      <Grid item xs={12} lg={6}>
         <Stack>
           <FormInput
             label="Họ và tên"
@@ -144,6 +139,17 @@ export default function StudentRegisterForm({
               Đăng nhập với Google
             </Button>
           </Stack>
+        </Stack>
+      </Grid>
+      <Grid padding={3} item xs={12} lg={6}>
+        <Stack
+          sx={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img src={RegisterStudent} alt="React Logo" />
         </Stack>
       </Grid>
     </Grid>

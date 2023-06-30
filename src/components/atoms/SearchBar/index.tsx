@@ -41,7 +41,6 @@ export default function SearchBar({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingX: MetricSize.medium_15,
         flexGrow: 1,
       }}
     >

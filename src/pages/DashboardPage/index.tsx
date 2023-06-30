@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { Grid, Stack, Typography } from '@mui/material';
-import { MenuItem, Sidebar, SubMenu, Menu } from 'react-pro-sidebar';
+import { Grid, Stack } from '@mui/material';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { scrollToTop } from '~/utils/common';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';

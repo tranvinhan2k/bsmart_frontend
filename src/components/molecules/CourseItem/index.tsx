@@ -35,7 +35,7 @@ export default function CourseItem({
     return (
       <Stack
         sx={{
-          marginTop: MetricSize.medium_15,
+          marginBottom: MetricSize.medium_15,
           marginLeft: '15px',
           borderColor: Color.grey,
           width: { xs: '100%', md: '32%' },
@@ -54,7 +54,7 @@ export default function CourseItem({
     <Stack
       sx={{
         background: Color.white,
-        marginTop: MetricSize.medium_15,
+        marginBottom: MetricSize.medium_15,
         marginLeft: '10px',
         borderRadius: MetricSize.medium_15,
         width: { xs: '100%', md: 'calc(50% - 10px)', lg: 'calc(33% - 10px)' },

@@ -1,5 +1,7 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
@@ -31,7 +33,37 @@ export default function CourseFFilterSection() {
   };
 
   return (
-    <Stack marginX={2}>
+    <Stack
+      sx={{
+        position: 'sticky',
+        top: '80px',
+        zIndex: 9,
+
+        marginX: 1,
+        marginBottom: MetricSize.small_10,
+        padding: 4,
+        borderRadius: MetricSize.small_5,
+        background: Color.white,
+        boxShadow: 1,
+      }}
+    >
+      <Stack
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 1,
+        }}
+      >
+        <Typography
+          sx={{
+            fontFamily: FontFamily.bold,
+            fontSize: FontSize.medium_24,
+          }}
+        >
+          Bộ lọc
+        </Typography>
+      </Stack>
       <SearchBar
         value={filterParams.q || ''}
         color="black"

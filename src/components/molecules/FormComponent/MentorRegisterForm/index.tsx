@@ -1,4 +1,4 @@
-import { Stack, Grid, Box } from '@mui/material';
+import { Stack, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,7 @@ import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
 import RegisterTeacher from '~/assets/images/register_teacher.svg';
 import { genderData } from '~/constants';
+import globalStyles from '~/styles';
 
 export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
   const resolverSignUp = useYupValidationResolver(
@@ -67,7 +68,12 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
           <img src={RegisterTeacher} alt="logo teacher" />
         </Stack>
       </Grid>
-      <Grid item xs={12} lg={6}>
+      <Grid item padding={2} xs={12} lg={6}>
+        <Stack
+          sx={{ justifyContent: 'center', alignItems: 'center', padding: 2 }}
+        >
+          <Typography sx={globalStyles.textTitle}>Đăng kí giáo viên</Typography>
+        </Stack>
         <Stack>
           <FormInput
             label="Họ và tên"

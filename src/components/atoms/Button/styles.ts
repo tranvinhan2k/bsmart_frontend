@@ -11,6 +11,7 @@ export const SX_FORM_BUTTON: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   color: Color.white,
+  borderColor: Color.transparent,
   background: Color.orange,
   width: '100%',
   boxShadow: 3,
@@ -42,6 +43,7 @@ export const SX_GOOGLE_STACK: SxProps<Theme> = {
 };
 
 export const SX_NORMAL_BUTTON: SxProps<Theme> = {
+  transition: 'all 500ms ease',
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   color: Color.white,
@@ -59,6 +61,7 @@ export const SX_NORMAL_BUTTON: SxProps<Theme> = {
 };
 
 export const SX_NORMAL_BUTTON_SMALL: SxProps<Theme> = {
+  transition: 'all 500ms ease',
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   color: Color.white,
@@ -76,6 +79,7 @@ export const SX_NORMAL_BUTTON_SMALL: SxProps<Theme> = {
 };
 
 export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
+  transition: 'all 500ms ease',
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   color: Color.orange,
@@ -93,6 +97,7 @@ export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
 };
 
 export const SX_FORM_INPUT_HORIZON_BUTTON: SxProps<Theme> = {
+  transition: 'all 500ms ease',
   height: MetricSize.formInputHeight,
   fontFamily: FontFamily.regular,
   paddingX: MetricSize.small_10,

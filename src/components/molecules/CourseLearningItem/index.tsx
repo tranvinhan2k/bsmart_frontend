@@ -16,7 +16,7 @@ interface CourseItemProps {
 }
 
 export default function CourseLearningItem({ item, onClick }: CourseItemProps) {
-  const { content, feedback, image, mentor, title } = item;
+  const { content, feedback, images, mentor, title } = item;
 
   const handleNavigateCourseDetail = () => {
     onClick();
@@ -32,7 +32,7 @@ export default function CourseLearningItem({ item, onClick }: CourseItemProps) {
         borderRadius: MetricSize.small_5,
       }}
     >
-      <Box component="img" src={image} alt={title} />
+      <Box component="img" src={images[0].url} alt={title} />
       <Stack sx={{ padding: MetricSize.medium_15 }}>
         <Typography>{title}</Typography>
         <Typography>{`Mentor ${mentor}`}</Typography>

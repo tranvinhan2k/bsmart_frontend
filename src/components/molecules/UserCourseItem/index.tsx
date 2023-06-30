@@ -24,16 +24,17 @@ interface UserCourseItemProps {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   courseName: string | undefined;
-  courseType: string | undefined;
+  courseType?: string;
+  courseStatus?: string;
   courseDescription: string | undefined;
-  courseStatus: string | undefined;
-  menuItemList: {
+  menuItemList?: {
     id: number;
     title: string;
     icon: IconName;
     isHide?: boolean;
     onClick: () => void;
   }[];
+  onClick?: () => void;
 }
 export default function UserCourseItem({
   courseDescription,
@@ -43,8 +44,12 @@ export default function UserCourseItem({
   imageAlt,
   imageUrl,
   menuItemList,
+  onClick,
 }: UserCourseItemProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [viewDetailShowing, setViewDetailShowing] = useState(false);
+
+  const isHover = onClick !== null;
 
   const handleClose = () => {
     setAnchorEl(() => null);
@@ -52,6 +57,14 @@ export default function UserCourseItem({
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleMouseOver = () => {
+    setViewDetailShowing(true);
+  };
+  const handleMouseOut = () => {
+    setViewDetailShowing(false);
+  };
+
   console.log(
     'course Status',
     courseStatus,
@@ -61,7 +74,9 @@ export default function UserCourseItem({
   return (
     <Stack
       sx={{
-        marginTop: MetricSize.medium_15,
+        transition: 'all 200ms ease',
+        marginBottom: MetricSize.medium_15,
+        borderRadius: MetricSize.small_5,
         marginRight: { xs: '0', md: '10px' },
         boxShadow: 2,
         borderColor: Color.grey,
@@ -69,8 +84,53 @@ export default function UserCourseItem({
         alignItems: 'stretch',
         position: 'relative',
         background: Color.white,
+        ':hover': {
+          cursor: isHover ? 'pointer' : 'default',
+          boxShadow: isHover ? 5 : 2,
+          transform: isHover ? 'scale(1.02)' : 'none',
+        },
       }}
     >
+      {isHover && (
+        <Stack
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+
+            transition: 'all 200ms ease',
+            backdropFilter: 'none',
+            borderRadius: MetricSize.small_5,
+            justifyContent: 'center',
+            alignItems: 'center',
+
+            ':hover': {
+              backdropFilter: 'blur(4px)',
+              background: `${Color.navy}88`,
+            },
+          }}
+          onClick={onClick}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+        >
+          {viewDetailShowing && (
+            <>
+              <Icon name="search" size="ex_large" color="white" />
+              <Typography
+                sx={{
+                  fontFamily: FontFamily.light,
+                  fontSize: FontSize.small_18,
+                  color: Color.white,
+                }}
+              >
+                Xem chi tiết khóa học
+              </Typography>
+            </>
+          )}
+        </Stack>
+      )}
       {courseStatus && (
         <Box
           sx={{
@@ -88,30 +148,35 @@ export default function UserCourseItem({
           {CourseStatusList.find((item) => item.value === courseStatus)?.label}
         </Box>
       )}
-      <IconButton
-        onClick={handleMenu}
-        sx={{
-          height: '25px',
-          width: '25px',
-          position: 'absolute',
-          top: MetricSize.small_10,
-          right: MetricSize.small_10,
-          background: Color.white,
-        }}
-      >
-        <Icon name="moreVert" size="small" color="black" />
-      </IconButton>
+      {menuItemList?.length !== 0 && (
+        <IconButton
+          onClick={handleMenu}
+          sx={{
+            height: '25px',
+            width: '25px',
+            position: 'absolute',
+            top: MetricSize.small_10,
+            right: MetricSize.small_10,
+            background: Color.white,
+          }}
+        >
+          <Icon name="moreVert" size="small" color="black" />
+        </IconButton>
+      )}
       <Stack>
         <Box
           loading="lazy"
           component="img"
           sx={{
-            objectFit: 'contain',
+            borderTopRightRadius: MetricSize.small_5,
+            borderTopLeftRadius: MetricSize.small_5,
+            objectFit: 'cover',
             width: '100%',
             height: undefined,
             aspectRatio: 16 / 9,
             backgroundColor: '#0093E9',
-            background: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)',
+            background:
+              'linear-gradient(157deg, rgba(112,235,255,1) 29%, rgba(58,108,188,1) 60%)',
           }}
           src={imageUrl || image.noCourse}
           alt={imageAlt}
@@ -120,7 +185,7 @@ export default function UserCourseItem({
         <Stack
           sx={{
             padding: MetricSize.medium_15,
-            border: '0.5px solid #ddd',
+            borderTop: '0.5px solid #ddd',
           }}
         >
           {courseType && (
@@ -159,31 +224,39 @@ export default function UserCourseItem({
           </Stack>
         </Stack>
       </Stack>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        onMouseLeave={handleClose}
-      >
-        {menuItemList?.map((item) => {
-          if (!item.isHide) {
-            return (
-              <MenuItem key={item.title} onClick={item.onClick}>
-                <ListItemIcon>
-                  <Icon name={item.icon} size="medium" color="black" />
-                </ListItemIcon>
-                <ListItemText>{item.title}</ListItemText>
-              </MenuItem>
-            );
-          }
-          return undefined;
-        })}
-      </Menu>
+      {menuItemList?.length !== 0 && (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          onMouseLeave={handleClose}
+        >
+          {menuItemList?.map((item) => {
+            if (!item.isHide) {
+              return (
+                <MenuItem key={item.title} onClick={item.onClick}>
+                  <ListItemIcon>
+                    <Icon name={item.icon} size="medium" color="black" />
+                  </ListItemIcon>
+                  <ListItemText>{item.title}</ListItemText>
+                </MenuItem>
+              );
+            }
+            return undefined;
+          })}
+        </Menu>
+      )}
     </Stack>
   );
 }
+UserCourseItem.defaultProps = {
+  courseType: '',
+  courseStatus: '',
+  menuItemList: [],
+  onClick: null,
+};

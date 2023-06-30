@@ -51,13 +51,16 @@ export default function DashboardSidebarButton({
         borderTopRightRadius:
           activeIndex + 1 === index ? MetricSize.small_10 : 0,
         padding: MetricSize.medium_15,
-        color: activeIndex === index ? Color.black : Color.whiteSmoke,
-        fontSize: FontSize.small_18,
+        color: activeIndex === index ? Color.black : Color.white,
+        fontSize: FontSize.small_16,
         fontFamily:
           activeIndex === index ? FontFamily.bold : FontFamily.regular,
-        background: activeIndex === index ? Color.white4 : Color.navy,
+        background:
+          activeIndex === index
+            ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.white4} 80%)`
+            : Color.navy,
         ':hover': {
-          background: `linear-gradient(90deg, ${Color.navy}AA 30%, ${Color.white4} 75%)`,
+          background: `linear-gradient(153deg, ${Color.navy}CC 30%, ${Color.white4} 75%)`,
           cursor: 'pointer',
           color: Color.white,
         },
@@ -72,19 +75,22 @@ export default function DashboardSidebarButton({
         onClick={handleOpenCollapse}
         sx={{
           position: 'relative',
-          transition: 'background-color 500ms ease',
+          transition: 'background-color 700ms ease',
           borderBottomRightRadius:
             activeIndex - 1 === index ? MetricSize.small_10 : 0,
           borderTopRightRadius:
             activeIndex + 1 === index ? MetricSize.small_10 : 0,
           padding: MetricSize.medium_15,
-          color: activeIndex === index ? Color.black : Color.whiteSmoke,
-          fontSize: FontSize.small_18,
+          color: activeIndex === index ? 'Color.black' : Color.white,
+          fontSize: FontSize.small_16,
           fontFamily:
             activeIndex === index ? FontFamily.bold : FontFamily.regular,
-          background: activeIndex === index ? Color.white4 : Color.navy,
+          background:
+            activeIndex === index
+              ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.white4} 80%)`
+              : Color.navy,
           ':hover': {
-            background: `linear-gradient(90deg, ${Color.navy}AA 30%, ${Color.white4} 75%)`,
+            background: `linear-gradient(90deg, ${Color.navy}CC 30%, ${Color.white4} 80%)`,
             cursor: 'pointer',
             color: Color.white,
           },
@@ -95,14 +101,23 @@ export default function DashboardSidebarButton({
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            // justifyContent: 'space-between',
           }}
         >
+          {item.icon && (
+            <Stack marginRight={1}>
+              <Icon
+                size="small_20"
+                color={activeIndex === index ? 'black' : 'white'}
+                name={item.icon}
+              />
+            </Stack>
+          )}
           {item.name}
           <Stack
             sx={{
-              postion: 'absolute',
-              right: 0,
+              position: 'absolute',
+              right: MetricSize.medium_15,
               transform: activeIndex === index ? 'rotate(90deg)' : 0,
             }}
           >
@@ -111,37 +126,51 @@ export default function DashboardSidebarButton({
         </Stack>
       </Stack>
       <Collapse in={open}>
-        <Stack sx={{ marginRight: 2, marginBottom: 2 }}>
+        <Stack sx={{ marginBottom: 1 }}>
           {item.items.map((subItem) => {
             return (
               <Stack
                 sx={{
                   transition: 'background 500ms',
-                  marginTop: 1,
-                  marginX: 1,
                   height: '30px',
-                  alignItems: 'center',
                   justifyContent: 'center',
-                  borderRadius: MetricSize.small_5,
                   background: pathname.includes(subItem.link)
-                    ? Color.grey2
-                    : Color.white,
+                    ? Color.grey3
+                    : Color.white4,
                   color: pathname.includes(subItem.link)
-                    ? Color.white
+                    ? Color.black
                     : Color.black,
                   fontSize: FontSize.small_14,
-                  padding: MetricSize.small_10,
-                  fontFamily: FontFamily.medium,
+                  paddingY: MetricSize.small_10,
+                  paddingLeft: MetricSize.large_30,
+                  paddingRight: MetricSize.small_10,
+                  marginRight: 1,
+                  fontFamily: pathname.includes(subItem.link)
+                    ? FontFamily.medium
+                    : FontFamily.light,
                   ':hover': {
-                    background: Color.grey,
+                    background: `${Color.grey}`,
                     cursor: 'pointer',
-                    color: Color.white,
+                    color: Color.black,
                   },
                 }}
                 key={subItem.id}
                 onClick={() => onNavigateLink(subItem.link)}
               >
-                {subItem.name}
+                <Stack
+                  sx={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    // justifyContent: 'space-between',
+                  }}
+                >
+                  {item.icon && (
+                    <Stack marginRight={1}>
+                      <Icon size="small_20" color="black" name={item.icon} />
+                    </Stack>
+                  )}
+                  {subItem.name}
+                </Stack>
               </Stack>
             );
           })}

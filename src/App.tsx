@@ -163,7 +163,7 @@ function Wrapper() {
             <BrowserRouter>
               <ProSidebarProvider>
                 <React.StrictMode>
-                  <Stack sx={{ background: Color.white4 }}>
+                  <Stack sx={{ background: Color.white4, minHeight: '100vh' }}>
                     <App />
                   </Stack>
                 </React.StrictMode>

@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from '~/utils/toast';
@@ -19,6 +11,7 @@ import { PagingFilterPayload } from '~/models';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import UserCourseItem from '~/components/molecules/UserCourseItem';
 
 interface CourseMenuSectionProps {
   error: any;
@@ -106,23 +99,20 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
       break;
     case isLoading === false:
       courseData = (
-        <Stack
-          sx={{
-            paddingY: MetricSize.medium_15,
-          }}
-          flexDirection="row"
-          flexWrap="wrap"
-          alignContent="space-around"
-          // alignItems="stretch"
-        >
+        <Grid container>
           {data?.items.map((item) => (
-            <CourseItem
-              key={item.id}
-              item={item}
-              onClick={() => handleNavigateCourseDetail(`${item.id}`)}
-            />
+            <Grid key={item.id} item xs={12} md={4} lg={3}>
+              <UserCourseItem
+                key={item.id}
+                courseDescription={item.content}
+                courseName={item.title}
+                imageAlt="course logo"
+                imageUrl={item.images?.[0]?.url}
+                onClick={() => handleNavigateCourseDetail(`${item.id}`)}
+              />
+            </Grid>
           ))}
-        </Stack>
+        </Grid>
       );
       break;
     default:
@@ -137,7 +127,7 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
         justifyContent="flex-end"
         alignItems="center"
       >
-        <Stack flexDirection="row">
+        {/* <Stack flexDirection="row">
           <Typography
             sx={{
               fontFamily: FontFamily.regular,
@@ -146,7 +136,7 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
           >
             {`${data?.items?.length || 0} Khóa học.`}
           </Typography>
-        </Stack>
+        </Stack> */}
 
         {/* <FormControl size="small">
           <InputLabel id="demo-select-small">Sắp xếp khóa học</InputLabel>

@@ -71,8 +71,6 @@ export default function MentorClassListPage() {
     scrollToTop();
   }, []);
 
-  console.log('classes', classes);
-
   return (
     <Stack>
       <Stack>

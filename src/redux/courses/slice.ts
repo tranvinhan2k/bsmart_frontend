@@ -25,7 +25,7 @@ const initialState: CourseStateType = {
     categoryId: undefined,
     page: 0,
     provinces: undefined,
-    size: 9,
+    size: 24,
     sort: undefined,
     subjectId: undefined,
     types: undefined,

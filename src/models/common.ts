@@ -18,6 +18,7 @@ export interface ActionPayload {
   isHide?: boolean;
   name: string;
   link: string;
+  icon?: IconName;
   items?: ActionPayload[];
 }
 
