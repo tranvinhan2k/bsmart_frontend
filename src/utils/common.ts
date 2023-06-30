@@ -27,3 +27,19 @@ export function changeArrayToHashmap(hashmap: any) {
     return { key, value };
   });
 }
+
+export function getGender(genderCode?: string) {
+  let result;
+  switch (genderCode) {
+    case 'MALE':
+      result = 'Nam';
+      break;
+    case 'FEMALE':
+      result = 'Nữ';
+      break;
+    default:
+      result = 'Khác';
+      break;
+  }
+  return result;
+}

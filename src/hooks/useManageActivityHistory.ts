@@ -13,7 +13,7 @@ export const useManageActivityHistory = ({
   sort,
 }: UseManageActivityHistoryPayload) => {
   const key = 'activity_history';
-  const { error, data, isLoading, refetch } = useQuery({
+  const { error, data, isError, isLoading, refetch } = useQuery({
     queryKey: [key, page, size, sort],
     queryFn: () =>
       activityHistoryApi.getActivityHistory({
@@ -27,6 +27,7 @@ export const useManageActivityHistory = ({
   return {
     error,
     activityHistories: data,
+    isError,
     isLoading,
     refetch,
   };
