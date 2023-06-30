@@ -68,7 +68,7 @@ export default function RequestCourseDetails({
         {
           id: 1,
           label: 'Phân loại',
-          value: `${row.category.name} - ${row.subject.name}`,
+          value: `${row.categoryDtoList.name} - ${row.subject.name}`,
         },
       ],
     },

@@ -1273,17 +1273,17 @@ export const MANAGER_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
         ],
       },
       {
-        label: 'Lớp học',
+        label: 'Khóa học ',
         icon: 'coPresent',
-        link: 'classZ',
+        link: 'courseZ',
         items: [
           {
-            label: 'Tất cả lớp học',
+            label: 'Tất cả khóa học',
             icon: 'class',
             link: `/${ManagerNavigationActionData[4].link}`,
           },
           {
-            label: 'Yêu cầu tạo lớp học',
+            label: 'Yêu cầu tạo khóa học',
             icon: 'description',
             link: `/${ManagerNavigationActionData[5].link}`,
           },

@@ -47,7 +47,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
             padding: 0,
           }}
         >
-          Yêu cầu tạo lớp của giáo viên
+          Yêu cầu tạo khóa học của giáo viên
         </Typography>
       </Box>
       <Stack
