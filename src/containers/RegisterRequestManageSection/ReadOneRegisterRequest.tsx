@@ -9,6 +9,7 @@ import RequestBasicInfo from './RequestBasicInfo';
 import RequestDate from './RequestDate';
 import RequestMentorDegree from './RequestMentorDegree';
 import RequestMentorInfo from './RequestMentorInfo';
+import RequestCI from './RequestCI';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import { SX_BOX_ITEM_WRAPPER } from './style';
 
@@ -176,6 +177,7 @@ export default function ReadOneRegisterRequest({
             alignItems="stretch"
             spacing={2}
           >
+            <RequestCI row={row} />
             <RequestMentorInfo row={row} />
             <RequestMentorDegree row={row} />
 

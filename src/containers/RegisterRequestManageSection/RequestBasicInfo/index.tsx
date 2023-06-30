@@ -1,5 +1,6 @@
 import { Avatar, Box, Grid, Stack, Typography } from '@mui/material';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
+import { getGender } from '~/utils/common';
 import { image } from '~/constants/image';
 import { SX_BOX_ITEM_BG } from './style';
 import {
@@ -9,25 +10,26 @@ import {
   SX_PROFILE_TITLE,
   SX_WRAPPER,
 } from '../style';
+import { formatPhoneNumberVi } from '~/utils/phone';
 
 interface BasicInfoProps {
   row: any;
 }
 export default function BasicInfo({ row }: BasicInfoProps) {
-  const tmpTitle = [
-    { id: 0, label: 'Mail', value: row.email },
-    { id: 1, label: 'Chứng minh thư', value: '' },
-    {
-      id: 2,
-      label: 'Ngày sinh',
-      value: formatISODateDateToDisplayDate(row.birthday),
-    },
-    { id: 3, label: 'Giới tính', value: '' },
-    { id: 4, label: 'SĐT', value: row.phone },
-  ];
   const userAvatar =
     row.userImages.find((item: any) => item.type === 'AVATAR')?.url ??
     image.noAvatar;
+
+  const tmpTitle = [
+    { id: 0, label: 'Mail', value: row.email },
+    {
+      id: 1,
+      label: 'Ngày sinh',
+      value: formatISODateDateToDisplayDate(row.birthday),
+    },
+    { id: 2, label: 'Giới tính', value: getGender(row.gender) },
+    { id: 3, label: 'SĐT', value: formatPhoneNumberVi(row.phone) },
+  ];
 
   return (
     <Stack sx={SX_WRAPPER}>
