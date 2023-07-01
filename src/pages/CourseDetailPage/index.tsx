@@ -66,39 +66,52 @@ export default function CourseDetailPage() {
               background: Color.white,
               borderRadius: MetricSize.small_5,
               boxShadow: 2,
+              paddingY: 4,
             }}
           >
             <Stack
               sx={{
-                padding: 3,
+                paddingX: 4,
               }}
             >
               <Typography sx={globalStyles.textSubTitle}>Mục lục</Typography>
               <Divider />
             </Stack>
-
-            <Stack marginTop={2}>
-              <Stack
-                sx={{
-                  paddingY: MetricSize.small_10,
-                  ':hover': {
-                    cursor: 'pointer',
-                    background: Color.whiteSmoke,
-                  },
-                }}
-              >
-                <Typography sx={globalStyles.textSmallLight}>
-                  Giới thiệu khóa học
-                </Typography>
-              </Stack>
-              <Typography sx={globalStyles.textSmallLight}>Giờ học</Typography>
-              <Typography sx={globalStyles.textSmallLight}>
-                Giảng viên
-              </Typography>
-              <Typography sx={globalStyles.textSmallLight}>
-                Khóa học tiêu biểu
-              </Typography>
-            </Stack>
+            {[
+              {
+                id: 0,
+                name: 'Giới thiệu khóa học',
+                link: 'introduce-code',
+              },
+              {
+                id: 1,
+                name: 'Giảng viên',
+                link: 'mentor',
+              },
+              {
+                id: 2,
+                name: 'Khóa học tiêu biểu',
+                link: 'popular-course',
+              },
+            ].map((item) => {
+              return (
+                <Stack
+                  sx={{
+                    paddingY: MetricSize.small_10,
+                    paddingX: 4,
+                    ':hover': {
+                      background: Color.whiteSmoke,
+                      cursor: 'pointer',
+                    },
+                  }}
+                  key={item.id}
+                >
+                  <Typography sx={globalStyles.textSmallLight}>
+                    {item.name}
+                  </Typography>
+                </Stack>
+              );
+            })}
           </Stack>
         </Grid>
         <Grid item xs={12} md={9} sx={{ padding: MetricSize.medium_15 }}>
