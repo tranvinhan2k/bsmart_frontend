@@ -336,7 +336,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
 ];
 export const MentorDashboardNavigationActionData: ActionPayload[] = [
   {
-    id: 1,
+    id: 0,
     icon: 'course',
     link: '',
     name: 'Quản lí học tập',
@@ -359,7 +359,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 2,
+    id: 1,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Khóa học',
@@ -378,7 +378,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Nội dung',
@@ -392,7 +392,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 4,
+    id: 3,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Hoạt động',
@@ -435,7 +435,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Thông báo',
@@ -461,7 +461,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 6,
+    id: 5,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Điểm danh',
@@ -483,70 +483,6 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
         isHide: true,
       },
     ],
-  },
-  {
-    id: 16,
-    icon: 'course',
-    name: 'Tùy chỉnh Assignment',
-    link: 'mentor-assignment-settings/:id',
-    isHide: true,
-  },
-  {
-    id: 17,
-    icon: 'course',
-    name: 'Xem chi tiết Assignment',
-    link: 'mentor-assignment-details/:id',
-    isHide: true,
-  },
-  {
-    id: 18,
-    icon: 'course',
-    name: 'Quản lý Announcement',
-    link: 'mentor-announcement-settings',
-    isHide: true,
-  },
-  {
-    id: 19,
-    icon: 'course',
-    name: 'Quản lý Announcement',
-    link: 'mentor-announcement-details',
-    isHide: true,
-  },
-  {
-    id: 14,
-    name: '',
-    link: '',
-    isHide: true,
-  },
-  {
-    id: 15,
-    name: '',
-    link: '',
-    isHide: true,
-  },
-  {
-    id: 16,
-    name: 'Tùy chỉnh Assignment',
-    link: 'mentor-assignment-settings/:id',
-    isHide: true,
-  },
-  {
-    id: 17,
-    name: 'Xem chi tiết Assignment',
-    link: 'mentor-assignment-details/:id',
-    isHide: true,
-  },
-  {
-    id: 18,
-    name: 'Quản lý Announcement',
-    link: 'mentor-announcement-settings',
-    isHide: true,
-  },
-  {
-    id: 19,
-    name: 'Quản lý Announcement',
-    link: 'mentor-announcement-details',
-    isHide: true,
   },
 ];
 

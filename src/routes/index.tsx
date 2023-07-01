@@ -361,37 +361,22 @@ export const mentorLMSRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[7].items?.[0].link}`,
+    path: `/${MentorDashboardNavigationActionData[4].items?.[2].link}`,
+    main: () => <MentorUpdateAnnouncementPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `/${MentorDashboardNavigationActionData[5].items?.[0].link}`,
     main: () => <MentorAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[7].items?.[1].link}`,
+    path: `/${MentorDashboardNavigationActionData[5].items?.[1].link}`,
     main: () => <MentorViewStudentAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[7].items?.[2].link}/:classId/:id`,
-    main: () => <MentorTakeAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorNavigationActionData[15].link}`,
-    main: () => <h1>15</h1>,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorNavigationActionData[16].link}`,
-    main: () => <MentorAssignmentSettingsPage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorNavigationActionData[6].items?.[1].link}`,
-    main: () => <MentorViewStudentAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorNavigationActionData[6].items?.[2].link}`,
+    path: `/${MentorDashboardNavigationActionData[5].items?.[2].link}/:classId/:id`,
     main: () => <MentorTakeAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
