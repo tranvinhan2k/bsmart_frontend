@@ -37,7 +37,9 @@ export default function ConfirmEmailPage() {
     title: error
       ? 'Xác thực email thất bại'
       : 'Bạn đã xác thực email thành công.',
-    subtitle: error ? `${error}` : `Email của bạn đã được ${data?.message}`,
+    subtitle: error
+      ? `${error}`
+      : `Chúc mừng bạn đã trở thành thành viên của MiSmart`,
     button_tittle: error ? 'Thử lại' : 'Trở về trang chủ',
   };
 

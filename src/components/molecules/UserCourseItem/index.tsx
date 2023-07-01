@@ -175,8 +175,7 @@ export default function UserCourseItem({
             height: undefined,
             aspectRatio: 16 / 9,
             backgroundColor: '#0093E9',
-            background:
-              'linear-gradient(157deg, rgba(112,235,255,1) 29%, rgba(58,108,188,1) 60%)',
+            background: '#F5F5F5',
           }}
           src={imageUrl || image.noCourse}
           alt={imageAlt}

@@ -22,6 +22,7 @@ import SocialBar from '../SocialBar';
 import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { NavigationActionData } from '~/constants';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -49,21 +50,8 @@ export default function MainHeader({
   const role = useSelector(selectRole);
   const filterParams = useSelector(selectFilterParams);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isNeedRedirect, setNeedRedirect] = useState<boolean>(false);
 
   const nameSplit = profile.fullName.split(' ');
-
-  useEffect(() => {
-    if (isNeedRedirect) {
-      navigate(
-        role !== 'ROLE_STUDENT'
-          ? '/mentor-profile/edit-profile'
-          : '/member-details/edit-profile'
-      );
-      setNeedRedirect(false);
-      window.location.reload();
-    }
-  }, [isNeedRedirect, navigate, role]);
 
   const handleClose = () => {
     setAnchorEl(() => null);
@@ -81,17 +69,18 @@ export default function MainHeader({
   };
 
   const handleNavigateProfile = () => {
-    setAnchorEl(() => null);
-    setNeedRedirect(true);
+    window.location.pathname =
+      role !== 'ROLE_STUDENT'
+        ? NavigationActionData[3].link
+        : NavigationActionData[13].link;
   };
 
   const handleNavigateDashboard = () => {
-    navigate('/dashboard');
-    handleClose();
+    window.location.pathname = NavigationActionData[20].link;
   };
 
   const handleHomepage = () => {
-    navigate('/homepage');
+    window.location.pathname = NavigationActionData[0].link;
   };
 
   return (
@@ -145,6 +134,7 @@ export default function MainHeader({
                 sx={{
                   width: 40,
                   height: 40,
+                  background: Color.white4,
                 }}
               />
             </IconButton>

@@ -11,6 +11,7 @@ export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
 };
 export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
   background: Color.blueTransparent,
+  backdropFilter: 'blur(5px)',
   position: 'position',
   content: '""',
   top: 0,

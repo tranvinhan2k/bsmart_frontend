@@ -22,6 +22,7 @@ export const SX_BOX_ITEM_AVATAR: SxProps<Theme> = {
 export const SX_ACCOUNT_AVATAR: SxProps<Theme> = {
   width: 140,
   height: 140,
+  background: Color.white,
 };
 
 export const SX_ACCOUNT_NAME: SxProps<Theme> = {
