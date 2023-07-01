@@ -38,12 +38,12 @@ export default function CourseItem({
           marginBottom: MetricSize.medium_15,
           marginLeft: '15px',
           borderColor: Color.grey,
-          width: { xs: '100%', md: '32%' },
+          width: { xs: '100%', md: '23%' },
           borderRadius: MetricSize.small_5,
           justifyContent: 'space-between',
         }}
       >
-        <Skeleton height={700} />
+        <Skeleton height={250} />
       </Stack>
     );
   }

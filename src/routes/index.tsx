@@ -230,7 +230,11 @@ const routes: RoutePayload[] = [
 export const memberRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <MemberDetailsPage />,
+    main: () => (
+      <Navigate
+        to={`/${NavigationActionData[13].link}/${MemberNavigationActionData[0].link}`}
+      />
+    ),
     role: ['ROLE_STUDENT'],
   },
   {

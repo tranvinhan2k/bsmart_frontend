@@ -2,6 +2,7 @@ import { SxProps, Theme } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 export const view: SxProps<Theme> = {
+  transition: 'all 1s ease',
   background: Color.white,
   flexDirection: 'row',
   paddingX: { xs: MetricSize.medium_15, md: MetricSize.extraLarge_100 },

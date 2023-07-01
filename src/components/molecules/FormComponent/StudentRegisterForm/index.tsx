@@ -1,5 +1,4 @@
-import React from 'react';
-import { Stack, Box, Grid, Typography } from '@mui/material';
+import { Stack, Grid, Typography, Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -14,10 +13,8 @@ import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
 import { genderData } from '~/constants';
-import { OptionPayload } from '~/models';
 import { image } from '~/constants/image';
 
-import RegisterStudent from '~/assets/images/register_student.svg';
 import globalStyles from '~/styles';
 
 export default function StudentRegisterForm({
@@ -25,7 +22,6 @@ export default function StudentRegisterForm({
 }: {
   onOpen: () => void;
 }) {
-  const navigate = useNavigate();
   const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterStudent
   );
@@ -149,7 +145,15 @@ export default function StudentRegisterForm({
             alignItems: 'center',
           }}
         >
-          <img src={RegisterStudent} alt="React Logo" />
+          <Box
+            component="img"
+            src={image.student}
+            alt="React Logo"
+            sx={{
+              width: '100%',
+              objectFit: 'contain',
+            }}
+          />
         </Stack>
       </Grid>
     </Grid>

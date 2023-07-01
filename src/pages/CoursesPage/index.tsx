@@ -15,27 +15,32 @@ export default function CoursesPage() {
   const { courses, error, isLoading } = useQueryGetAllCourse();
   return (
     <Stack>
-      {courses && (
-        <Stack
+      <Stack
+        sx={{
+          background: Color.white,
+          paddingX: {
+            xs: MetricSize.medium_15,
+            md: `calc(95px + ${MetricSize.large_30})`,
+          },
+          paddingY: courses.totalItems > 0 ? MetricSize.small_10 : 0,
+          boxShadow: 2,
+          justifyContent: 'center',
+          height: courses.totalItems > 0 ? '30px' : 0,
+          transition: 'all 1s ease',
+        }}
+      >
+        <Typography
           sx={{
-            background: Color.white,
-            paddingX: { xs: 0, md: `calc(95px + ${MetricSize.large_30})` },
-            paddingY: MetricSize.small_10,
-            boxShadow: 2,
+            fontFamily: FontFamily.medium,
+            fontSize: FontSize.small_18,
           }}
-        >
-          <Typography
-            sx={{
-              fontFamily: FontFamily.medium,
-              fontSize: FontSize.small_18,
-            }}
-          >{`${1 + (courses?.currentPage || 0) * (courses?.pageSize || 0)} - ${
-            courses.pageSize * (courses.currentPage + 1) >= courses.totalItems
-              ? courses.totalItems
-              : courses.pageSize * (courses.currentPage + 1)
-          } của ${courses?.totalItems} kết quả `}</Typography>
-        </Stack>
-      )}
+        >{`${1 + courses.currentPage * courses.pageSize} - ${
+          courses.pageSize * (courses.currentPage + 1) >= courses.totalItems
+            ? courses.totalItems
+            : courses.pageSize * (courses.currentPage + 1)
+        } của ${courses?.totalItems} kết quả `}</Typography>
+      </Stack>
+
       <Grid
         container
         sx={{

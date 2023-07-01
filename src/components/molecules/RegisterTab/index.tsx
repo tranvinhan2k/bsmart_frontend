@@ -9,6 +9,8 @@ import MentorRegisterForm from '~/components/molecules/FormComponent/MentorRegis
 import globalStyles from '~/styles';
 import CustomModal from '~/components/atoms/CustomModal';
 import { image } from '~/constants/image';
+import CustomDialog from '~/components/atoms/CustomDialog';
+import Button from '~/components/atoms/Button';
 
 function a11yProps(index: number) {
   return {
@@ -70,7 +72,7 @@ export default function RegisterTab({ registerTabs }: RegisterTabProps) {
           <MentorRegisterForm onOpen={handleOpen} />
         </Box>
       </TabPanel>
-      <CustomModal open={open} onClose={handleClose}>
+      <CustomDialog open={open} onClose={handleClose}>
         <Stack
           padding={3}
           sx={{
@@ -94,8 +96,13 @@ export default function RegisterTab({ registerTabs }: RegisterTabProps) {
             Bạn đã đăng kí tài khoản thành công ! Vui lòng đăng nhập và kiểm tra
             email xác thực đã được gửi đến địa chỉ mail của bạn.{' '}
           </Typography>
+          <Stack marginTop={2}>
+            <Button onClick={handleClose} customVariant="form">
+              Xác nhận
+            </Button>
+          </Stack>
         </Stack>
-      </CustomModal>
+      </CustomDialog>
     </Stack>
   );
 }

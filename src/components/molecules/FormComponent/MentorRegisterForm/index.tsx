@@ -1,4 +1,4 @@
-import { Stack, Grid, Typography } from '@mui/material';
+import { Stack, Grid, Typography, Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -12,9 +12,9 @@ import { PASSWORD_MATCHED } from '~/form/message';
 import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
-import RegisterTeacher from '~/assets/images/register_teacher.svg';
 import { genderData } from '~/constants';
 import globalStyles from '~/styles';
+import { image } from '~/constants/image';
 
 export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
   const resolverSignUp = useYupValidationResolver(
@@ -65,7 +65,15 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
             alignItems: 'center',
           }}
         >
-          <img src={RegisterTeacher} alt="logo teacher" />
+          <Box
+            component="img"
+            src={image.mentor}
+            alt="React Logo"
+            sx={{
+              width: '100%',
+              objectFit: 'contain',
+            }}
+          />
         </Stack>
       </Grid>
       <Grid item padding={2} xs={12} lg={6}>

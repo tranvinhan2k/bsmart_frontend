@@ -2,6 +2,7 @@ import { SxProps, Theme } from '@mui/material';
 import { Color, MetricSize } from '~/assets/variables';
 
 export const SX_HEADER_CONTAINER: SxProps<Theme> = {
+  transition: 'all 1s ease',
   flex: 1,
   background: Color.navy,
   color: Color.white,

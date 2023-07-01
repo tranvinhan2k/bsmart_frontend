@@ -30,7 +30,7 @@ axiosClient.interceptors.response.use(
     }
     // store.dispatch(logOut());
     return Promise.reject(
-      new Error(error?.response?.data?.error_message || 'Something went wrong.')
+      new Error(error?.response?.data?.error_message || 'Đã có lỗi xảy ra.')
     );
   }
 );

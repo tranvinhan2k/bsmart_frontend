@@ -62,15 +62,12 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
     case isLoading:
       courseData = (
         <Stack
-          sx={{
-            paddingY: MetricSize.medium_15,
-          }}
           flexDirection="row"
           flexWrap="wrap"
           alignContent="space-around"
           alignItems="stretch"
         >
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item) => (
             <CourseItem isSkeleton key={item} />
           ))}
         </Stack>
@@ -121,39 +118,6 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
 
   return (
     <Stack sx={{ width: '100%' }}>
-      <Stack
-        sx={{ width: '100%' }}
-        flexDirection="row"
-        justifyContent="flex-end"
-        alignItems="center"
-      >
-        {/* <Stack flexDirection="row">
-          <Typography
-            sx={{
-              fontFamily: FontFamily.regular,
-              fontSize: FontSize.small_18,
-            }}
-          >
-            {`${data?.items?.length || 0} Khóa học.`}
-          </Typography>
-        </Stack> */}
-
-        {/* <FormControl size="small">
-          <InputLabel id="demo-select-small">Sắp xếp khóa học</InputLabel>
-          <Select
-            sx={{ width: '200px' }}
-            value={dropDownValue}
-            label="Sắp xếp khóa học"
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>Khóa học mới nhất</MenuItem>
-            <MenuItem value={20}>Khóa học nhiều người học</MenuItem>
-            <MenuItem value={30}>Khóa học sắp bắt đầu</MenuItem>
-            <MenuItem value={40}>A - Z</MenuItem>
-            <MenuItem value={50}>Z - A</MenuItem>
-          </Select>
-        </FormControl> */}
-      </Stack>
       {courseData}
       {data && data.items.length > 0 && (
         <Stack justifyContent="center" alignItems="center" padding={2}>
