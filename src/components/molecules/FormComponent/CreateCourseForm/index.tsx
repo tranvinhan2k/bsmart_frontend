@@ -19,11 +19,11 @@ import {
 import toast from '~/utils/toast';
 import {
   useMutationCreateCourse,
-  useQueryGetAllCategories,
   useMutationUploadImage,
   useYupValidationResolver,
   useQueryGetAllPublicCourses,
   useDispatchGetAllSubjects,
+  useDispatchGetAllCategories,
 } from '~/hooks';
 import { SubCoursePayload } from '~/models/subCourse';
 import CreateSubCourseModal from './CreateSubCourseModal';
@@ -49,7 +49,7 @@ export default function CreateCourseForm() {
   const [isUseCustomCourse, setUseCustomCourse] = useState<boolean>(false);
   const [selectedPublicCourse, setSelectedPublicCourse] = useState<any>();
 
-  const { categories } = useQueryGetAllCategories();
+  const {  } = useDispatchGetAllCategories();
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
 
   const [editIndex, setEditIndex] = useState(-1);

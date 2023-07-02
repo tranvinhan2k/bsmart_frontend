@@ -7,6 +7,7 @@ import { useHandleApi } from './useHandleApi';
 import { updateCategories } from '~/redux/globalData/slice';
 import { OptionPayload } from '~/models';
 import { CategoriesPayload } from '~/models/type';
+import categoriesApi from '~/api/categories';
 
 const transformOptionData = (categories: CategoriesPayload[]) => {
   const transformData: OptionPayload[] = categories.map((item) => ({
@@ -29,7 +30,9 @@ export const useDispatchGetAllCategories = () => {
   );
 
   const handleUpdateCategories = useCallback(async () => {
-    const response = await handleQueryApi(subjectsApi.getAllSubjectsAllProp);
+    const response = await handleQueryApi(
+      categoriesApi.getAllCategoriesAllProp
+    );
     dispatch(updateCategories(response));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
