@@ -23,6 +23,7 @@ import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { NavigationActionData } from '~/constants';
+import { NavigationLink } from '~/constants/routeLink';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -71,16 +72,16 @@ export default function MainHeader({
   const handleNavigateProfile = () => {
     window.location.pathname =
       role !== 'ROLE_STUDENT'
-        ? NavigationActionData[3].link
-        : NavigationActionData[13].link;
+        ? NavigationLink.mentor_profile
+        : NavigationLink.member_details;
   };
 
   const handleNavigateDashboard = () => {
-    window.location.pathname = NavigationActionData[20].link;
+    window.location.pathname = `/${NavigationLink.dashboard}`;
   };
 
   const handleHomepage = () => {
-    window.location.pathname = NavigationActionData[0].link;
+    window.location.pathname = `/${NavigationLink.homepage}`;
   };
 
   return (
@@ -153,7 +154,7 @@ export default function MainHeader({
             <MenuItem onClick={handleHomepage}>Trang Chủ</MenuItem>
             <MenuItem onClick={handleNavigateProfile}>Hồ sơ</MenuItem>
             <MenuItem onClick={handleNavigateDashboard}>
-              Quản lí học tập
+              Quản lí học tập++
             </MenuItem>
             <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
           </Menu>

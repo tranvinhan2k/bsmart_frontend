@@ -27,7 +27,7 @@ import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 
-export default function MentorCreateAnnouncementPage() {
+export default function MentorUpdateAnnouncementPage() {
   useEffect(() => {
     scrollToTop();
   }, []);

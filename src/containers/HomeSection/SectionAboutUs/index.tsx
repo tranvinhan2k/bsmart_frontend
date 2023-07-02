@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AuthorizationActionData, NavigationActionData } from '~/constants';
+import { AuthorizationALink, NavigationLink } from '~/constants/routeLink';
 import { RootState } from '~/redux/store';
 import Button from '~/components/atoms/Button';
 import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
@@ -9,8 +9,8 @@ import { SX } from './style';
 
 export default function SectionAboutUs() {
   const navigate = useNavigate();
-  const handleViewCourse = () => navigate(`/${NavigationActionData[2].link}`);
-  const handleRegister = () => navigate(AuthorizationActionData[1].link);
+  const handleViewCourse = () => navigate(`/${NavigationLink.course_menu}`);
+  const handleRegister = () => navigate(AuthorizationALink.register);
 
   const token =
     useSelector((state: RootState) => state.user.token) ||
