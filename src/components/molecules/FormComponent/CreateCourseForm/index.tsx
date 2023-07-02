@@ -50,6 +50,7 @@ export default function CreateCourseForm() {
   const [selectedPublicCourse, setSelectedPublicCourse] = useState<any>();
 
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
+  const { optionCategories: categories } = useDispatchGetAllCategories();
 
   const [editIndex, setEditIndex] = useState(-1);
   const [deleteIndex, setDeleteIndex] = useState(-1);

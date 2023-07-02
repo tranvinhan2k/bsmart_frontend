@@ -26,13 +26,13 @@ import { AuthorizationActionData } from '~/constants';
 
 import styles from './styles';
 import { Role } from '~/models/role';
-import { CoursePayload } from '~/models/courses';
 import { ResponseCartItem } from '~/api/cart';
 import { selectProfile, selectRole } from '~/redux/user/selector';
 import { ProfileImgType } from '~/constants/profile';
 import { image } from '~/constants/image';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
+import { CoursePayload } from '~/models/type';
 
 interface NavigationProps {
   texts: {

@@ -1,5 +1,5 @@
 import { Stack, Typography, Box } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
@@ -15,6 +15,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { LoginFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
 import {
+  useDispatchProfile,
   useMutationLogin,
   useMutationProfile,
   useYupValidationResolver,
@@ -23,6 +24,8 @@ import { Role } from '~/models/role';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ResponseProfilePayload } from '~/api/users';
 import { signIn } from '~/redux/user/slice';
+import { selectProfile } from '~/redux/user/selector';
+import { ProfilePayload } from '~/models/type';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -64,8 +67,9 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
   /* Login with be swagger */
   const { mutateAsync } = useMutationLogin();
   const navigate = useNavigate();
-  const getProfileMutation = useMutationProfile();
   const dispatch = useDispatch();
+
+  const { profile, handleDispatch } = useDispatchProfile();
 
   const handleLoginDataSubmitSuccess = async (data: LoginFormDataPayload) => {
     const params: LoginRequestPayload = {
@@ -78,18 +82,18 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
       localStorage.setItem('token', signInData.token);
       localStorage.setItem('roles', signInData.roles[0]);
 
-      const responseProfile = await getProfileMutation.mutateAsync();
+      await handleDispatch();
 
       const requestProfile: {
         token: string;
         roles: Role;
-        profile: ResponseProfilePayload;
       } = {
         token: signInData.token,
         roles: signInData.roles[0],
-        profile: responseProfile,
       };
+
       dispatch(signIn(requestProfile));
+
       if (isRememberPassword) {
         localStorage.setItem('username', data.email);
         localStorage.setItem('password', data.password);

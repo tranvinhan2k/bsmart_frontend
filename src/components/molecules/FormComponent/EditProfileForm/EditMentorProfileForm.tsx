@@ -58,14 +58,14 @@ export default function EditMentorProfileForm() {
       const defaults = defaultValueEditMentorProfile;
       if (profile.mentorProfile?.workingExperience)
         defaults.workingExperience = profile.mentorProfile.workingExperience;
-      if (profile.mentorProfile?.mentorSkills) {
-        defaults.mentorSkills = profile.mentorProfile.mentorSkills.map(
-          (item) => ({
-            skillId: subjects.find((subject) => subject.id === item.skillId),
-            yearOfExperiences: item.yearOfExperiences,
-          })
-        );
-      }
+      // if (profile.mentorProfile?.mentorSkills) {
+      //   defaults.mentorSkills = profile.mentorProfile.mentorSkills.map(
+      //     (item) => ({
+      //       skillId: subjects.find((subject) => subject.id === item.skillId),
+      //       yearOfExperiences: item.yearOfExperiences,
+      //     })
+      //   );
+      // }
       if (profile.mentorProfile?.introduce)
         defaults.introduce = profile.mentorProfile.introduce;
       reset(defaults);
