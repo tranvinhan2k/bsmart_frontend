@@ -28,10 +28,11 @@ import styles from './styles';
 import { Role } from '~/models/role';
 import { CoursePayload } from '~/models/courses';
 import { ResponseCartItem } from '~/api/cart';
-import { selectProfile } from '~/redux/user/selector';
+import { selectProfile, selectRole } from '~/redux/user/selector';
 import { ProfileImgType } from '~/constants/profile';
 import { image } from '~/constants/image';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
+import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
 
 interface NavigationProps {
   texts: {
@@ -177,7 +178,16 @@ export default function MainNavigation({
         </IconButton>
       </Stack>
 
-      <Drawer anchor="right" open={isOpenDrawer} onClose={onToggleDrawer}>
+      <Drawer
+        sx={{
+          ':-webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
+        anchor="right"
+        open={isOpenDrawer}
+        onClose={onToggleDrawer}
+      >
         <Stack sx={styles.view4}>
           <Stack sx={styles.subView}>
             <Typography sx={styles.text2}>
@@ -214,7 +224,11 @@ export default function MainNavigation({
         open={isOpenProfileDrawer}
         onClose={onToggleProfileDrawer}
       >
-        <MentorDetailSection />
+        {role === 'ROLE_STUDENT' ? (
+          <MemberDetailsProfile />
+        ) : (
+          <MentorDetailSection />
+        )}
       </Drawer>
       <Menu
         id="basic-menu"

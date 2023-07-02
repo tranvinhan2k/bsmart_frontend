@@ -31,29 +31,17 @@ import {
   SX_FORM_TITLE,
   SX_FORM,
 } from './style';
+import { selectProfile } from '~/redux/user/selector';
 
 export default function EditMentorProfileForm() {
+  const profile = useSelector(selectProfile);
   const toastMsgLoading = 'Đang cập nhật ...';
   const toastMsgSuccess = 'Cập nhật thành công ...';
   const toastMsgError = (error: any): string => {
     return `Cập nhật không thành công: ${error.message}`;
   };
 
-  const token =
-    useSelector((state: RootState) => state.user.token) ||
-    localStorage.getItem('token');
-  const queryKey = ['/loginUser'];
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const { data: dataGetProfile } = useQuery(
-    queryKey,
-    () => accountApi.getProfile(config),
-    {
-      enabled: Boolean(token),
-    }
-  );
-  const { optionSubjects: subjectsData } = useDispatchGetAllSubjects();
+  const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { mutateAsync: mutateEditMentorProfile } =
     useMutationEditMentorProfile();
 
@@ -66,24 +54,23 @@ export default function EditMentorProfileForm() {
   });
 
   useEffect(() => {
-    if (dataGetProfile && subjects) {
+    if (profile && subjects) {
       const defaults = defaultValueEditMentorProfile;
-      if (dataGetProfile.mentorProfile?.workingExperience)
-        defaults.workingExperience =
-          dataGetProfile.mentorProfile.workingExperience;
-      if (dataGetProfile.mentorProfile?.mentorSkills) {
-        defaults.mentorSkills = dataGetProfile.mentorProfile.mentorSkills.map(
-          (item: any) => ({
+      if (profile.mentorProfile?.workingExperience)
+        defaults.workingExperience = profile.mentorProfile.workingExperience;
+      if (profile.mentorProfile?.mentorSkills) {
+        defaults.mentorSkills = profile.mentorProfile.mentorSkills.map(
+          (item) => ({
             skillId: subjects.find((subject) => subject.id === item.skillId),
             yearOfExperiences: item.yearOfExperiences,
           })
         );
       }
-      if (dataGetProfile.mentorProfile?.introduce)
-        defaults.introduce = dataGetProfile.mentorProfile.introduce;
+      if (profile.mentorProfile?.introduce)
+        defaults.introduce = profile.mentorProfile.introduce;
       reset(defaults);
     }
-  }, [dataGetProfile, reset, subjects]);
+  }, [profile, reset, subjects]);
 
   const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
@@ -150,7 +137,7 @@ export default function EditMentorProfileForm() {
       <Typography component="h3">
         - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC1}
       </Typography>
-      {dataGetProfile && subjects && (
+      {profile && subjects && (
         <form onSubmit={handleSubmit(handleSubmitSuccess)}>
           <Grid container>
             <Grid item xs={12}>
@@ -191,7 +178,7 @@ export default function EditMentorProfileForm() {
                     <Grid item xs={6}>
                       <FormInput
                         control={control}
-                        data={subjectsData}
+                        data={subjects}
                         name={`mentorSkills.${index}.skillId`}
                         variant="dropdown"
                         placeholder="Nhập kĩ năng"
@@ -249,7 +236,7 @@ export default function EditMentorProfileForm() {
           </Box>
         </form>
       )}
-      {(!dataGetProfile || !subjects) && (
+      {(!profile || !subjects) && (
         <Typography component="h3" sx={SX_FORM_LABEL}>
           Đang tải
         </Typography>

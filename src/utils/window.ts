@@ -1,4 +1,9 @@
+import toast from './toast';
+
 export function openUrl(link: string) {
-  window.open(link);
+  if (link) {
+    window.open(link, '_blank');
+  } else {
+    toast.notifyErrorToast('Không thể mở trang này.');
+  }
 }
-export default {};

@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import { ReactElement } from 'react';
-import MainProfile from '~/containers/MemberDetailsProfile/MainProfile';
+import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
 import CourseSuggestList from '~/containers/MemberDetailsProfile/CourseSuggestList';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
@@ -22,7 +22,7 @@ export default function MemberProfileLayout({
           spacing={5}
         >
           <Grid item xs={12} md={5} lg={4}>
-            <MainProfile />
+            <MemberDetailsProfile />
           </Grid>
           <Grid item xs={12} md={7} lg={8}>
             {children}

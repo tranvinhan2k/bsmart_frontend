@@ -14,8 +14,8 @@ export const SX_BOX_ITEM_AVATAR: SxProps<Theme> = {
   backgroundImage: `url(${overlay_bg})`,
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat',
+  backdropFilter: 'blur(5px)',
   paddingX: MetricSize.medium_15,
-
   alignItems: 'center',
 };
 
@@ -23,6 +23,7 @@ export const SX_ACCOUNT_AVATAR: SxProps<Theme> = {
   width: 140,
   height: 140,
   background: Color.white,
+  boxShadow: 1,
 };
 
 export const SX_ACCOUNT_NAME: SxProps<Theme> = {

@@ -7,6 +7,7 @@ import { RequestRole, Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
 import { RequestPagingFilterPayload } from '~/models';
+import { ProfilePayload } from '~/models/type';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -125,8 +126,10 @@ const accountApi = {
   getUserById(id: number): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
   },
-  getTokenProfile(): Promise<ResponseProfilePayload> {
-    return axiosClient.get(`${url}/profile`);
+  async getTokenProfile(): Promise<ProfilePayload> {
+    const response = await axiosClient.get(`${url}/profile`);
+    const result: ProfilePayload = response;
+    return result;
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);
