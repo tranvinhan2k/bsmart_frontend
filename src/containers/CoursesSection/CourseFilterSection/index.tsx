@@ -4,14 +4,17 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
-import { useDispatchGetAllSubjects, useQueryGetAllCategories } from '~/hooks';
+import {
+  useDispatchGetAllCategories,
+  useDispatchGetAllSubjects,
+} from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 
 export default function CourseFilterSection() {
   const dispatch = useDispatch();
   const filterParams = useSelector(selectFilterParams);
-  const { categories } = useQueryGetAllCategories();
+  const { optionCategories: categories } = useDispatchGetAllCategories();
   const { optionSubjects } = useDispatchGetAllSubjects();
 
   const handleSubmitSearchValue = (searchValue: string) => {

@@ -5,7 +5,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { defaultValueCreateCategory } from '~/form/defaultValues';
 import { CREATE_SUBJECT_FIELDS } from '~/form/schema';
 import { validationSchemaCreateCategories } from '~/form/validation';
-import { useQueryGetAllCategories, useYupValidationResolver } from '~/hooks';
+import { useDispatchGetAllCategories, useYupValidationResolver } from '~/hooks';
 import globalStyles from '~/styles';
 
 interface CreateSubjectsFormProps {
@@ -23,7 +23,7 @@ export default function CreateSubjectsForm({
     resolver: resolverSignIn,
   });
 
-  const { categories, error, isLoading } = useQueryGetAllCategories();
+  const { optionCategories: categories } = useDispatchGetAllCategories();
 
   return (
     <Stack>

@@ -7,7 +7,6 @@ import CustomModal from '~/components/atoms/CustomModal';
 
 import columns from '~/constants/columns';
 
-import { useQueryGetAllCategories } from '~/hooks';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { CRUDModes } from '~/models/variables';
 import { useCRUDFeedbackQuestion } from '~/hooks/useCRUDFeedbackQuestion';

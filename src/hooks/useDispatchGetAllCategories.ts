@@ -1,0 +1,44 @@
+import { useMemo, useCallback } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import subjectsApi from '~/api/subjects';
+import { globalCategories } from '~/redux/globalData/selector';
+import { useHandleApi } from './useHandleApi';
+import { updateCategories } from '~/redux/globalData/slice';
+import { OptionPayload } from '~/models';
+import { CategoriesPayload } from '~/models/type';
+
+const transformOptionData = (categories: CategoriesPayload[]) => {
+  const transformData: OptionPayload[] = categories.map((item) => ({
+    id: item.id,
+    label: item.name,
+    value: `${item.id}`,
+  }));
+  return transformData;
+};
+
+export const useDispatchGetAllCategories = () => {
+  const dispatch = useDispatch();
+  const { error, isLoading, handleQueryApi } = useHandleApi();
+
+  const categories = useSelector(globalCategories);
+
+  const optionCategories = useMemo(
+    () => transformOptionData(categories),
+    [categories]
+  );
+
+  const handleUpdateCategories = useCallback(async () => {
+    const response = await handleQueryApi(subjectsApi.getAllSubjectsAllProp);
+    dispatch(updateCategories(response));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {
+    isLoading,
+    error,
+    categories,
+    optionCategories,
+    handleUpdateCategories,
+  };
+};
