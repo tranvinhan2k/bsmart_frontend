@@ -69,3 +69,15 @@ export interface MentorProfileIntroducePayload {
   status: AccountStatusKeys;
   mentorSkills: SkillPayload[];
 }
+
+export interface CoursePayload {
+  id: number;
+  images: ImagePayload[];
+  courseCode: string;
+  courseName: string;
+  subjectId: number;
+  subjectName: string;
+  courseDescription: string;
+  totalClass: number;
+  mentorName: string[];
+}

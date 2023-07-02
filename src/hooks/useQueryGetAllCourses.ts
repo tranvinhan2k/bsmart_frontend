@@ -5,7 +5,7 @@ import coursesApi from '~/api/courses';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { TypeOptionPayload } from '~/constants';
 import { PagingFilterPayload } from '~/models';
-import { CoursePayload } from '~/models/courses';
+import { CoursePayload } from '~/models/type';
 
 export const useQueryGetAllCourse = () => {
   const filterParams = useSelector(selectFilterParams);

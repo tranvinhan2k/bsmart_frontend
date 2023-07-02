@@ -19,13 +19,17 @@ import {
   CourseTypeDataKeys,
   courseTypeData,
 } from '~/constants';
+import { getYearPickerUtilityClass } from '@mui/x-date-pickers';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
+  courseTeacherName?: string[];
   courseName: string | undefined;
+  subjectName?: string;
   courseType?: string;
   courseStatus?: string;
+  totalClass?: number;
   courseDescription: string | undefined;
   menuItemList?: {
     id: number;
@@ -40,6 +44,9 @@ export default function UserCourseItem({
   courseDescription,
   courseName,
   courseType,
+  subjectName,
+  courseTeacherName,
+  totalClass,
   courseStatus,
   imageAlt,
   imageUrl,
@@ -142,6 +149,7 @@ export default function UserCourseItem({
           {CourseStatusList.find((item) => item.value === courseStatus)?.label}
         </Box>
       )}
+
       {menuItemList?.length !== 0 && (
         <IconButton
           onClick={handleMenu}
@@ -181,18 +189,22 @@ export default function UserCourseItem({
             borderTop: '0.5px solid #ddd',
           }}
         >
-          {courseType && (
-            <Box>
-              <Tag
-                title={courseTypeData[courseType as CourseTypeDataKeys]}
-                color="orange"
-              />
-            </Box>
-          )}
+          {totalClass && totalClass !== 0 ? (
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontWeight: 'bold',
+                fontFamily: FontFamily.bold,
+                color: Color.red,
+              }}
+            >
+              {`Có ${totalClass} lớp đang mở` || ''}
+            </Typography>
+          ) : null}
           <Stack
             sx={{
               marginTop: 1,
-              height: '100px',
+              height: '120px',
               overflow: 'hidden',
             }}
           >
@@ -205,6 +217,19 @@ export default function UserCourseItem({
             >
               {courseName || ''}
             </Typography>
+            {courseTeacherName && (
+              <Typography
+                sx={{
+                  fontSize: FontSize.small_14,
+                  fontFamily: FontFamily.light,
+                  color: Color.grey,
+                }}
+              >
+                {courseTeacherName.map((item, index) => (
+                  <span key={item}>{`${index !== 0 && ', '} ${item} `}</span>
+                ))}
+              </Typography>
+            )}
             <Typography
               sx={{
                 fontSize: FontSize.small_14,
@@ -214,6 +239,30 @@ export default function UserCourseItem({
             >
               {courseDescription}
             </Typography>
+          </Stack>
+          <Stack
+            spacing={1}
+            sx={{
+              flexDirection: 'row',
+              marginTop: 1,
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            {courseType && (
+              <Box>
+                <Tag
+                  title={courseTypeData[courseType as CourseTypeDataKeys]}
+                  color="orange"
+                />
+              </Box>
+            )}
+            {subjectName && (
+              <Box>
+                <Tag title={subjectName} color="white5" textColor="grey" />
+              </Box>
+            )}
           </Stack>
         </Stack>
       </Stack>
@@ -249,7 +298,10 @@ export default function UserCourseItem({
 }
 UserCourseItem.defaultProps = {
   courseType: '',
+  courseTeacherName: '',
   courseStatus: '',
+  subjectName: '',
   menuItemList: [],
+  totalClass: 0,
   onClick: null,
 };

@@ -4,10 +4,11 @@ import {
   PagingFilterPayload,
   RequestPagingFilterPayload,
 } from '~/models';
-import { CourseDetailPayload, CoursePayload } from '~/models/courses';
+import { CourseDetailPayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
+import { CoursePayload } from '~/models/type';
 
 // Define the request payload for fetching courses
 
@@ -224,27 +225,6 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   };
   return responseData;
 }
-function handleResponseGetCourse(
-  data?: PagingFilterPayload<ResponseGetCoursePayload>
-): PagingFilterPayload<CoursePayload> | null {
-  if (!data) {
-    return null;
-  }
-  return {
-    ...data,
-    items: data.items.map(
-      ({ id, images, courseName, mentorName, courseDescription, learns }) => ({
-        id,
-        images,
-        title: courseName,
-        mentor: mentorName,
-        content: courseDescription,
-        feedback: 50,
-        typeLearn: learns,
-      })
-    ),
-  };
-}
 
 const url = '/courses';
 
@@ -252,12 +232,23 @@ const coursesApi = {
   async getAllCourse(
     data: RequestGetCoursePayload
   ): Promise<PagingFilterPayload<CoursePayload> | null> {
-    const response: PagingFilterPayload<ResponseGetCoursePayload> =
-      await axiosClient.get(url, {
-        params: data,
-        paramsSerializer: { indexes: null },
-      });
-    return handleResponseGetCourse(response);
+    const response = await axiosClient.get(url, {
+      params: data,
+      paramsSerializer: { indexes: null },
+    });
+    const result: CoursePayload[] = (response.items as any[]).map((item) => ({
+      id: item.id,
+      content: item.content,
+      courseCode: item.courseCode,
+      courseDescription: item.courseDescription,
+      courseName: item.courseName,
+      images: item.images,
+      mentorName: item.mentorName,
+      subjectId: item.subjectId,
+      subjectName: item.subjectName,
+      totalClass: item.totalClass,
+    }));
+    return { ...response, items: result };
   },
   async getAllPublicCourse() {
     return axiosClient.get(`${url}/public`);

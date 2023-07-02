@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from '~/utils/toast';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CourseItem from '~/components/molecules/CourseItem';
-import { CoursePayload } from '~/models/courses';
 import { PagingFilterPayload } from '~/models';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import UserCourseItem from '~/components/molecules/UserCourseItem';
+import { CoursePayload } from '~/models/type';
 
 interface CourseMenuSectionProps {
   error: any;
@@ -101,8 +101,10 @@ export default function CourseMenuSection(props: CourseMenuSectionProps) {
             <Grid key={item.id} item xs={12} md={4} lg={3}>
               <UserCourseItem
                 key={item.id}
-                courseDescription={item.content}
-                courseName={item.title}
+                courseTeacherName={item.mentorName}
+                courseDescription={item.courseDescription}
+                courseName={item.courseName}
+                subjectName={item.subjectName}
                 imageAlt="course logo"
                 imageUrl={item.images?.[0]?.url}
                 onClick={() => handleNavigateCourseDetail(`${item.id}`)}
