@@ -14,6 +14,7 @@ import {
   BsFacebook,
   BsQuestionSquare,
   BsPostcardFill,
+  BsBook,
   BsFilter,
   BsArrowBarUp,
   BsArrowBarDown,
@@ -134,6 +135,7 @@ export type IconName =
   | 'next'
   | 'next2'
   | 'payment'
+  | 'book'
   | 'person'
   | 'phone'
   | 'pinterest'
@@ -198,6 +200,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsFillInfoCircleFill />
+        </Typography>
+      );
+    case 'book':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsBook />
         </Typography>
       );
     case 'attendance':

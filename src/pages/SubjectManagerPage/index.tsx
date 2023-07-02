@@ -7,12 +7,12 @@ import columns from '~/constants/columns';
 import CreateSubjectsForm from '~/containers/SubjectsManagerSection/CreateSubjectsForm';
 import ReadOneSubject from '~/containers/SubjectsManagerSection/ReadOneSubject';
 import UpdateSubjectsForm from '~/containers/SubjectsManagerSection/UpdateSubjectsForm';
-import { useQueryGetAllCategories } from '~/hooks';
+import { useDispatchGetAllCategories } from '~/hooks';
 import { useCRUDSubjects } from '~/hooks/useCRUDSubjects';
 import toast from '~/utils/toast';
 
 export default function SubjectManagerPage() {
-  const { categories } = useQueryGetAllCategories();
+  const { optionCategories: categories } = useDispatchGetAllCategories();
   const [searchValue, setSearchValue] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'CREATE' | 'READ' | 'UPDATE' | 'DELETE'>(

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProfile } from '~/redux/user/selector';
-import { updateUserCart } from '~/redux/user/slice';
+import { addProfile } from '~/redux/user/slice';
 import { useHandleApi } from './useHandleApi';
 import accountApi from '~/api/users';
 
@@ -13,7 +13,7 @@ export const useDispatchProfile = () => {
 
   const handleDispatch = useCallback(async () => {
     const response = await handleQueryApi(accountApi.getTokenProfile);
-    dispatch(updateUserCart(response));
+    dispatch(addProfile({ profile: response }));
   }, [dispatch, handleQueryApi]);
 
   return {

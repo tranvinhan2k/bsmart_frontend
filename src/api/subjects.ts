@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { OptionPayload } from '~/models';
+import { SubjectPayload } from '~/models/type';
 
 export interface ResponseSubjectsPayload {
   id: number;
@@ -58,9 +59,16 @@ const subjectsApi = {
     const response: any = await axiosClient.post(`${url}`, params);
     return response;
   },
-  async getAllSubjectsAllProp(): Promise<any> {
-    const response: any = await axiosClient.get(`${url}`);
-    return response;
+  async getAllSubjectsAllProp(): Promise<SubjectPayload[]> {
+    const response = await axiosClient.get<any[]>(`${url}`);
+
+    const result: SubjectPayload[] = response.map((item: any) => ({
+      id: item.id,
+      name: item.name,
+      code: item.code,
+      categoryIds: item.categoryIds,
+    }));
+    return result;
   },
 };
 

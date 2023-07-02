@@ -7,7 +7,6 @@ export * from './useMutationLogin';
 export * from './useMutationProfile';
 export * from './useMutationAddCourseToCart';
 
-export * from './useQueryGetAllCategories';
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';
 export * from './useQueryGetSubCourseByCourseId';
@@ -25,5 +24,6 @@ export * from './useQueryVerifyEmail';
 export * from './useDispatchGetCart';
 export * from './useDispatchProfile';
 export * from './useDispatchGetAllSubjects';
+export * from './useDispatchGetAllCategories';
 
 export * from './useHandleApi';

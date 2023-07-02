@@ -8,8 +8,8 @@ import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { mockLevelData, typeData } from '~/constants';
 import Button from '~/components/atoms/Button';
 import {
+  useDispatchGetAllCategories,
   useDispatchGetAllSubjects,
-  useQueryGetAllCategories,
   useYupValidationResolver,
 } from '~/hooks';
 import {
@@ -31,7 +31,7 @@ export default function UpdateMentorCourse({
   onClose,
 }: UpdateMentorCourseProps) {
   const { optionSubjects } = useDispatchGetAllSubjects();
-  const { categories } = useQueryGetAllCategories();
+  const { optionCategories: categories } = useDispatchGetAllCategories();
   const resolver = useYupValidationResolver(
     item.courseType === 'PUBLIC'
       ? validationSchemaUpdateWaitingCourse

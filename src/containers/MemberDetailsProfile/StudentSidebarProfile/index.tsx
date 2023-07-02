@@ -1,20 +1,22 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { MentorNavigationActionData, NavigationActionData } from '~/constants';
-import toast from '~/utils/toast';
-
-import ProfileSideBar from '~/components/molecules/ProfileSideBar';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { MemberNavigationActionData, NavigationActionData } from '~/constants';
 import { selectProfile } from '~/redux/user/selector';
+import ProfileSideBar from '~/components/molecules/ProfileSideBar';
+import { openUrl } from '~/utils/window';
 import { SocialPayload } from '~/models';
 import { handleGetImageLink } from '~/utils/image';
 
-export default function MentorDetailSection() {
-  const navigate = useNavigate();
+export default function StudentSidebarProfile() {
   const profile = useSelector(selectProfile);
+
+  const navigate = useNavigate();
 
   const [openDialogUpdateAvatar, setOpenDialogUpdateAvatar] =
     useState<boolean>(false);
+
+  const imageLink = handleGetImageLink(profile.userImages, 'AVATAR');
 
   const socials: SocialPayload[] = [
     {
@@ -29,22 +31,12 @@ export default function MentorDetailSection() {
     },
   ];
 
-  const imageLink = handleGetImageLink(profile.userImages, 'AVATAR');
+  const handleNavigateLink = (link: string) => {
+    navigate(`/${NavigationActionData[13].link}/${link}`);
+  };
 
   const handleOpenDialogUpdateAvatar = () =>
     setOpenDialogUpdateAvatar(!openDialogUpdateAvatar);
-
-  const handleNavigateLink = (link: string) => {
-    navigate(`/${NavigationActionData[3].link}/${link}`);
-  };
-
-  const handleOpenSocialLink = (link: string | null) => {
-    if (link) {
-      window.open(link, '_blank');
-    } else {
-      toast.notifyErrorToast('Không thể mở trang này.');
-    }
-  };
 
   return (
     <ProfileSideBar
@@ -58,9 +50,9 @@ export default function MentorDetailSection() {
       role={profile.roles?.[0]?.code}
       socials={socials}
       openAvatar={openDialogUpdateAvatar}
-      navigationData={MentorNavigationActionData}
+      navigationData={MemberNavigationActionData}
       onNavigateLink={handleNavigateLink}
-      onOpenLink={handleOpenSocialLink}
+      onOpenLink={openUrl}
       onOpenUpdateAvatar={handleOpenDialogUpdateAvatar}
     />
   );

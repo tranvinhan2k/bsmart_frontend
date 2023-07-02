@@ -59,6 +59,20 @@ export const SX_NORMAL_BUTTON: SxProps<Theme> = {
   },
   padding: MetricSize.medium_15,
 };
+export const SX_LINEAR_BUTTON: SxProps<Theme> = {
+  transition: 'all 1000ms ease',
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_16,
+  color: Color.white,
+  background: `${Color.navy}AA`,
+  width: '100%',
+  boxShadow: 3,
+  '&:hover': {
+    color: Color.white,
+    background: Color.navy,
+  },
+  padding: MetricSize.medium_15,
+};
 
 export const SX_NORMAL_BUTTON_SMALL: SxProps<Theme> = {
   transition: 'all 500ms ease',

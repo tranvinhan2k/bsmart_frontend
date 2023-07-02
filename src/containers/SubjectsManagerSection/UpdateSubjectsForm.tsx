@@ -4,7 +4,7 @@ import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import { UPDATE_SUBJECT_FIELDS } from '~/form/schema';
 import { validationSchemaUpdateSubjects } from '~/form/validation';
-import { useQueryGetAllCategories, useYupValidationResolver } from '~/hooks';
+import { useDispatchGetAllCategories, useYupValidationResolver } from '~/hooks';
 import globalStyles from '~/styles';
 
 interface UpdateSubjectsFormProps {
@@ -20,7 +20,7 @@ export default function UpdateSubjectsForm({
     validationSchemaUpdateSubjects
   );
 
-  const { categories } = useQueryGetAllCategories();
+  const { optionCategories: categories } = useDispatchGetAllCategories();
 
   const updateCategoryForm = useForm({
     defaultValues: {

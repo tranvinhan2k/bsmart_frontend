@@ -3,6 +3,7 @@ export type ButtonVariant =
   | 'normal'
   | 'google'
   | 'outlined'
+  | 'linear'
   | 'horizonForm';
 
 export default {};

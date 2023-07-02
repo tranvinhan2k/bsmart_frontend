@@ -29,7 +29,12 @@ export const view2: SxProps<Theme> = {
 export const view3: SxProps<Theme> = {
   display: { xs: 'flex', md: 'none' },
 };
-export const view4: SxProps<Theme> = { padding: MetricSize.medium_15 };
+export const view4: SxProps<Theme> = {
+  padding: MetricSize.medium_15,
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+};
 
 export const text1: SxProps<Theme> = {
   fontSize: { xs: FontSize.medium_24, md: FontSize.medium_28 },

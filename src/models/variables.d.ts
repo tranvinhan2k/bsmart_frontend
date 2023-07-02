@@ -19,3 +19,6 @@ export type ClassStatusKeys =
 export type QuestionTypeKeys = 'MULTIPLE_CHOICE' | 'FILL_THE_ANSWER';
 export type FeedbackTypeKeys = 'SUB_COURSE_FIRST_HALF' | 'SECOND_HALF';
 export type PresentStatusKeys = 'WAIT' | 'PRESENT' | 'ABSENT';
+export type GenderKeys = 'MALE' | 'FEMALE';
+export type AccountStatusKeys = 'REQUESTING';
+export type ImageKeys = 'AVATAR' | 'FRONTCI' | 'BACKCI' | 'COURSE';

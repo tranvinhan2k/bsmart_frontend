@@ -1,16 +1,15 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { ResponseProfilePayload } from '~/api/users';
 import { CartDataPayload } from '~/models/api/cart';
 import { Role } from '~/models/role';
-import { ProfileImgType } from '~/constants/profile';
+import { ProfilePayload } from '~/models/type';
 
 export type UserStateType = {
   roles: Role | null;
   isUser: boolean;
   token: string | null;
   isAddToCart: boolean;
-  profile: ResponseProfilePayload;
+  profile: ProfilePayload;
   cart: CartDataPayload | null;
   introduceCode: string | undefined;
 };
@@ -20,45 +19,36 @@ const initialState: UserStateType = {
   isUser: false,
   token: localStorage.getItem('token'),
   isAddToCart: false,
+  cart: null,
+  introduceCode: '',
   profile: {
-    isVerified: false,
-    id: 0,
-    email: '',
     address: '',
-    birthday: new Date().toISOString(),
+    birthday: '',
+    email: '',
     facebookLink: '',
     fullName: '',
-    instagramLink: '',
-    gender: '',
-    introduce: '',
-    phone: '',
-    roles: [
-      {
-        id: 0,
-        code: '',
-        name: '',
-      },
-    ],
-    status: false,
-    twitterLink: '',
-    userImages: [
-      {
-        id: 0,
-        name: '',
-        type: ProfileImgType.AVATAR,
-        url: '',
-      },
-    ],
-    username: '',
-    wallet: {
+    gender: 'MALE',
+    id: 0,
+    isVerified: false,
+    linkedinLink: '',
+    mentorProfile: {
       id: 0,
+      introduce: '',
+      mentorSkills: [],
+      status: 'REQUESTING',
+      workingExperience: '',
+    },
+    phone: '',
+    roles: [],
+    status: false,
+    userImages: [],
+    wallet: {
       balance: 0,
+      id: 0,
       owner_id: 0,
       previous_balance: 0,
     },
   },
-  cart: null,
-  introduceCode: undefined,
 };
 
 const slice = createSlice({

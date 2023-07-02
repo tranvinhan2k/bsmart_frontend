@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { OptionPayload } from '~/models';
+import { CategoriesPayload } from '~/models/type';
 
 export interface ResponseCategoriesPayload {
   id: number;
@@ -52,15 +53,15 @@ const categoriesApi = {
     const response: any = await axiosClient.post(`${url}`, params);
     return response;
   },
-  async getAllCategoriesAllProp(): Promise<
-    { id: number; name: string; code: string }[] | undefined
-  > {
-    const response: any = await axiosClient.get(`${url}`);
-    return response.map((item: any) => ({
+  async getAllCategoriesAllProp(): Promise<CategoriesPayload[] | undefined> {
+    const response = await axiosClient.get<any[]>(url);
+    const result: CategoriesPayload[] = response.map((item: any) => ({
       id: item.id,
-      name: item.name,
       code: item.code,
+      name: item.name,
     }));
+
+    return result;
   },
 };
 

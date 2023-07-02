@@ -27,6 +27,7 @@ import {
 } from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
 import {
+  useDispatchGetAllCategories,
   useDispatchGetAllSubjects,
   useDispatchGetCart,
   useDispatchProfile,
@@ -103,6 +104,7 @@ function App() {
   const getUserCart = useDispatchGetCart();
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { handleUpdateSubjects } = useDispatchGetAllSubjects();
+  const { handleUpdateCategories } = useDispatchGetAllCategories();
 
   useEffect(() => {
     async function initGlobalValue() {
@@ -111,6 +113,7 @@ function App() {
       await handleDispatchProfile();
       await getUserCart.handleDispatch();
       await handleUpdateSubjects();
+      await handleUpdateCategories();
     }
     initGlobalValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -2,14 +2,10 @@ import { useState } from 'react';
 
 import { Stack } from '@mui/material';
 
-import CRUDTable, {
-  MenuItemPayload,
-  SearchFilterFormInput,
-} from '~/components/molecules/CRUDTable';
+import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 
 import columns from '~/constants/columns';
 
-import { useQueryGetAllCategories } from '~/hooks';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { CRUDModes } from '~/models/variables';
 import { useCRUDTemplate } from '~/hooks/useCRUDTemplate';
