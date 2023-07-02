@@ -9,7 +9,7 @@ import CRUDTable, {
 
 import columns from '~/constants/columns';
 
-import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
+import { useQueryGetAllCategories } from '~/hooks';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { CRUDModes } from '~/models/variables';
 import { useCRUDTemplate } from '~/hooks/useCRUDTemplate';
@@ -33,47 +33,7 @@ export default function FeedbackManagerTemplate() {
     error,
     templates,
     isLoading,
-    refetch,
   } = useCRUDTemplate();
-  const { subjects } = useQueryGetAllSubjects();
-  const { categories } = useQueryGetAllCategories();
-  const rows = [
-    {
-      id: 1,
-      templateName: 'Đánh giá các môn Toán',
-      numberOfQuestion: 5,
-    },
-    {
-      id: 2,
-      templateName: 'Đánh giá các môn Ngữ Văn',
-      numberOfQuestion: 5,
-    },
-    {
-      id: 3,
-      templateName: 'Đánh giá các môn Tiếng Anh',
-      numberOfQuestion: 5,
-    },
-    {
-      id: 4,
-      templateName: 'Đánh giá các môn Địa Lí',
-      numberOfQuestion: 5,
-    },
-    {
-      id: 5,
-      templateName: 'Đánh giá các môn Sinh Học',
-      numberOfQuestion: 5,
-    },
-    {
-      id: 6,
-      templateName: 'Đánh giá các môn GDCD',
-      numberOfQuestion: 5,
-    },
-    {
-      id: 7,
-      templateName: 'Đánh giá các môn Tiếng Pháp',
-      numberOfQuestion: 5,
-    },
-  ];
 
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<CRUDModes>('CREATE');

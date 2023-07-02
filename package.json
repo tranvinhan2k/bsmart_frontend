@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "npx eslint --fix src",
+    "lint": "  npx eslint --fix src & yarn build",
     "docker-build": "docker build -t mismart_frontend .",
     "docker-run": "docker run -p 3000:3000 -d mismart_frontend"
   },

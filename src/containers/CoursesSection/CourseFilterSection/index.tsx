@@ -1,19 +1,18 @@
-import { Stack, Typography, IconButton } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
 import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
-import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
+import { useDispatchGetAllSubjects, useQueryGetAllCategories } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 
-export default function CourseFFilterSection() {
+export default function CourseFilterSection() {
   const dispatch = useDispatch();
   const filterParams = useSelector(selectFilterParams);
   const { categories } = useQueryGetAllCategories();
-  const { subjects } = useQueryGetAllSubjects();
+  const { optionSubjects } = useDispatchGetAllSubjects();
 
   const handleSubmitSearchValue = (searchValue: string) => {
     dispatch(changeFilterParams({ ...filterParams, q: searchValue }));
@@ -35,10 +34,10 @@ export default function CourseFFilterSection() {
   return (
     <Stack
       sx={{
+        transition: 'all 1s ease',
         position: 'sticky',
         top: '80px',
         zIndex: 9,
-
         marginX: 1,
         marginBottom: MetricSize.small_10,
         padding: 4,
@@ -76,7 +75,7 @@ export default function CourseFFilterSection() {
           categoryId={filterParams.categoryId}
           subjectId={filterParams.subjectId}
           fields={categories}
-          subjects={subjects}
+          subjects={optionSubjects}
           types={TypeOptionPayload}
           provinces={ProvinceOptionPayload}
           onFields={handleFilterFields}

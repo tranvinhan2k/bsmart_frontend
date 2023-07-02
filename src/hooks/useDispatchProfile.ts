@@ -1,23 +1,23 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import cartApi from '~/api/cart';
-import { selectCart } from '~/redux/user/selector';
+import { selectProfile } from '~/redux/user/selector';
 import { updateUserCart } from '~/redux/user/slice';
 import { useHandleApi } from './useHandleApi';
+import accountApi from '~/api/users';
 
-export const useDispatchGetCart = () => {
+export const useDispatchProfile = () => {
   const dispatch = useDispatch();
   const { error, isLoading, handleQueryApi } = useHandleApi();
 
-  const cart = useSelector(selectCart);
+  const profile = useSelector(selectProfile);
 
   const handleDispatch = useCallback(async () => {
-    const response = await handleQueryApi(cartApi.getCart);
+    const response = await handleQueryApi(accountApi.getTokenProfile);
     dispatch(updateUserCart(response));
   }, [dispatch, handleQueryApi]);
 
   return {
-    cart,
+    profile,
     isLoading,
     handleDispatch,
     error,

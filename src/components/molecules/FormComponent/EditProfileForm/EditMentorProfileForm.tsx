@@ -23,7 +23,7 @@ import FormInput from '~/components/atoms/FormInput';
 
 import toast from '~/utils/toast';
 
-import { useQueryGetAllSubjects, useYupValidationResolver } from '~/hooks';
+import { useDispatchGetAllSubjects, useYupValidationResolver } from '~/hooks';
 
 import {
   SX_FORM_ITEM_LABEL,
@@ -53,7 +53,7 @@ export default function EditMentorProfileForm() {
       enabled: Boolean(token),
     }
   );
-  const { subjects } = useQueryGetAllSubjects();
+  const { optionSubjects: subjectsData } = useDispatchGetAllSubjects();
   const { mutateAsync: mutateEditMentorProfile } =
     useMutationEditMentorProfile();
 
@@ -191,7 +191,7 @@ export default function EditMentorProfileForm() {
                     <Grid item xs={6}>
                       <FormInput
                         control={control}
-                        data={subjects}
+                        data={subjectsData}
                         name={`mentorSkills.${index}.skillId`}
                         variant="dropdown"
                         placeholder="Nhập kĩ năng"

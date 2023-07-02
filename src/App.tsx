@@ -26,7 +26,12 @@ import {
   selectToken,
 } from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
-import { useDispatchGetCart, useMutationProfile } from './hooks';
+import {
+  useDispatchGetAllSubjects,
+  useDispatchGetCart,
+  useDispatchProfile,
+  useMutationProfile,
+} from './hooks';
 import { addProfile } from './redux/user/slice';
 import AdminProfileLayout from './layouts/AdminProfileLayout';
 import ManagerProfileLayout from '~/layouts/ManagerProfileLayout';
@@ -92,41 +97,22 @@ const showRoutes = (currentRole: Role | null) => {
 };
 
 function App() {
-  const dispatch = useDispatch();
   const role = useSelector(selectRole);
   const token = useSelector(selectToken);
-  const profile = useSelector(selectProfile);
-  const getProfileMutation = useMutationProfile();
+
   const getUserCart = useDispatchGetCart();
-  const cart = useSelector(selectCart);
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
+  const { handleUpdateSubjects } = useDispatchGetAllSubjects();
 
   useEffect(() => {
-    async function getProfile() {
-      try {
-        const responseProfile = await getProfileMutation.mutateAsync();
-        dispatch(addProfile({ profile: responseProfile }));
-      } catch (error: any) {
-        console.error(error.message);
-      }
-    }
-    if (!profile.id) {
-      getProfile();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    async function initGlobalValue() {
+      console.log('hello function');
 
-  useEffect(() => {
-    async function getCart() {
-      try {
-        await getUserCart.handleDispatch();
-      } catch (error) {
-        console.error(error);
-      }
+      await handleDispatchProfile();
+      await getUserCart.handleDispatch();
+      await handleUpdateSubjects();
     }
-
-    if (!cart) {
-      getCart();
-    }
+    initGlobalValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

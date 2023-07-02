@@ -2,15 +2,12 @@ import { useState } from 'react';
 
 import { Stack } from '@mui/material';
 
-import CRUDTable, {
-  MenuItemPayload,
-  SearchFilterFormInput,
-} from '~/components/molecules/CRUDTable';
+import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import CustomModal from '~/components/atoms/CustomModal';
 
 import columns from '~/constants/columns';
 
-import { useQueryGetAllCategories, useQueryGetAllSubjects } from '~/hooks';
+import { useQueryGetAllCategories } from '~/hooks';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { CRUDModes } from '~/models/variables';
 import { useCRUDFeedbackQuestion } from '~/hooks/useCRUDFeedbackQuestion';
@@ -33,11 +30,7 @@ export default function FeedbackManagerQuestion() {
     error,
     feedbackQuestions,
     isLoading,
-    refetch,
-    updateFeedbackQuestionMutation,
   } = useCRUDFeedbackQuestion();
-  const { subjects } = useQueryGetAllSubjects();
-  const { categories } = useQueryGetAllCategories();
 
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<CRUDModes>('CREATE');

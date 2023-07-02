@@ -11,9 +11,8 @@ import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { MentorNavigationActionData } from '~/constants';
-import { ActivityTypeCode } from '~/models/activity';
+import { ActivityTypeCode, ActivityTypeCode } from '~/models/activity';
 import { SX_RESOURCE_ITEM_CONTAINER } from './style';
-import { ActivityTypeCode } from '~/models/activity';
 
 interface ResourceProps {
   editMode: boolean;

@@ -9,7 +9,14 @@ interface MainLayoutProps {
 }
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <Stack>
+    <Stack
+      sx={{
+        transition: 'all 1s ease',
+        '::-webkit-scrollbar': {
+          display: 'none',
+        },
+      }}
+    >
       <Stack sx={{ height: { xs: 0, md: '70px' } }}>
         <MainHeaderSection />
       </Stack>

@@ -8,8 +8,8 @@ import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { mockLevelData, typeData } from '~/constants';
 import Button from '~/components/atoms/Button';
 import {
+  useDispatchGetAllSubjects,
   useQueryGetAllCategories,
-  useQueryGetAllSubjects,
   useYupValidationResolver,
 } from '~/hooks';
 import {
@@ -30,7 +30,7 @@ export default function UpdateMentorCourse({
   onSubmit,
   onClose,
 }: UpdateMentorCourseProps) {
-  const { subjects } = useQueryGetAllSubjects();
+  const { optionSubjects } = useDispatchGetAllSubjects();
   const { categories } = useQueryGetAllCategories();
   const resolver = useYupValidationResolver(
     item.courseType === 'PUBLIC'
@@ -70,7 +70,7 @@ export default function UpdateMentorCourse({
   const categoryWatch = hookForm.watch('categoryId');
   const [chooseCategoryId, setChooseCategoryId] = useState();
 
-  const filterSubjects = subjects?.filter((subject: any) => {
+  const filterSubjects = optionSubjects?.filter((subject: any) => {
     return subject.categoryIds?.includes(chooseCategoryId || 0);
   });
 

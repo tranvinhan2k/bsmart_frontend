@@ -65,12 +65,6 @@ export default function UserCourseItem({
     setViewDetailShowing(false);
   };
 
-  console.log(
-    'course Status',
-    courseStatus,
-    ClassStatusList.find((item) => item.value === courseStatus)?.label
-  );
-
   return (
     <Stack
       sx={{
@@ -100,8 +94,8 @@ export default function UserCourseItem({
             right: 0,
             bottom: 0,
 
-            transition: 'all 200ms ease',
-            backdropFilter: 'none',
+            transition: 'all 500ms ease',
+            backdropFilter: 'blur(0px)',
             borderRadius: MetricSize.small_5,
             justifyContent: 'center',
             alignItems: 'center',

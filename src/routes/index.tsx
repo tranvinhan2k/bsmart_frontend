@@ -208,7 +208,7 @@ const routes: RoutePayload[] = [
   {
     path: `/${NavigationActionData[19].link}`,
     main: () => <ConfirmEmailPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER', 'GUEST'],
   },
   {
     path: `/${NavigationActionData[20].link}/*`,
