@@ -108,10 +108,10 @@ function App() {
 
   useEffect(() => {
     async function initGlobalValue() {
-      console.log('hello function');
-
-      await handleDispatchProfile();
-      await getUserCart.handleDispatch();
+      if (token) {
+        await handleDispatchProfile();
+        await getUserCart.handleDispatch();
+      }
       await handleUpdateSubjects();
       await handleUpdateCategories();
     }

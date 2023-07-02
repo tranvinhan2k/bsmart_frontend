@@ -10,7 +10,10 @@ export const useHandleApi = (texts?: {
   const [error, setError] = useState<Error>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const handleQueryApi = async (callback: () => Promise<any>) => {
+  const handleQueryApi = async (
+    callback: () => Promise<any>,
+    onError?: () => void
+  ) => {
     let id: Id = -1;
     setLoading(true);
     if (texts) {
@@ -27,6 +30,9 @@ export const useHandleApi = (texts?: {
         toast.updateFailedToast(id, `${texts?.error}: ${e.message}`);
       }
       setError(e);
+      if (onError) {
+        onError();
+      }
     }
     setLoading(false);
     return null;
