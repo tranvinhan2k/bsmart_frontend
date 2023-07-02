@@ -51,7 +51,7 @@ export default function MainHeader({
   const filterParams = useSelector(selectFilterParams);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const nameSplit = profile.fullName.split(' ');
+  const nameSplit = profile?.fullName?.split(' ') || [];
 
   const handleClose = () => {
     setAnchorEl(() => null);
@@ -120,7 +120,7 @@ export default function MainHeader({
                   color: Color.white,
                 }}
               >
-                {nameSplit[nameSplit.length - 1]}
+                {nameSplit?.[nameSplit.length - 1] || ''}
               </span>
             </Typography>
             <IconButton onClick={handleMenu}>
