@@ -61,7 +61,6 @@ const slice = createSlice({
     signIn: (state, action) => {
       state.token = action.payload.token;
       state.roles = action.payload.roles;
-      state.profile = action.payload.profile;
     },
     addProfile: (state, action) => {
       state.profile = action.payload.profile;
