@@ -49,103 +49,23 @@ export default function AnnotationSection() {
                         activityTime={item.activityTime}
                         type={item.type}
                       />
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_TITLE}>
-                        {item.detail}
-                      </Typography>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_CONTENT}>
-                        {item.detail}
-                      </Typography>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_DATE}>
-                        {formatISODateStringToDisplayDate(item.activityTime)}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Box>
-              ))}
-              <Pagination
-                onChange={handlePagination}
-                color="standard"
-                size="large"
-                count={activityHistories.totalPages}
-              />
-            </>
-          )}
-          {/* <Button sx={ANNOTATION_BUTTON}>Tất cả</Button>
-          <Button sx={ANNOTATION_BUTTON}>Chưa đọc</Button> */}
-          {activityHistories && (
-            <>
-              {activityHistories.items.map((item) => (
-                <Box sx={ANNOTATION_CONTENT} key={item.id}>
-                  <Grid container my={2} p={2}>
-                    <Grid item xs={2}>
-                      <Box
-                        component="img"
-                        sx={ANNOTATION_CONTENT_IMG}
-                        alt="img"
-                        src={img_banner_sub_typing_1}
-                      />
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_TITLE}>
-                        {item.detail}
-                      </Typography>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_CONTENT}>
-                        {item.detail}
-                      </Typography>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_DATE}>
-                        {formatISODateStringToDisplayDate(item.activityTime)}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Box>
-              ))}
-              <Pagination
-                onChange={handlePagination}
-                color="standard"
-                size="large"
-                count={activityHistories.totalPages}
-              />
-            </>
-          )}
-          {/* <Button sx={ANNOTATION_BUTTON}>Tất cả</Button>
-          <Button sx={ANNOTATION_BUTTON}>Chưa đọc</Button> */}
-          {activityHistories && (
-            <>
-              {activityHistories.items.map((item) => (
-                <Box sx={ANNOTATION_CONTENT} key={item.id}>
-                  <Grid container my={2} p={2}>
-                    <Grid item xs={2}>
-                      <Box
-                        component="img"
-                        sx={ANNOTATION_CONTENT_IMG}
-                        alt="img"
-                        src={img_banner_sub_typing_1}
-                      />
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_TITLE}>
-                        {item.detail}
-                      </Typography>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_CONTENT}>
-                        {item.detail}
-                      </Typography>
-                      <Typography component="p" sx={ANNOTATION_CONTENT_DATE}>
-                        {formatISODateStringToDisplayDate(item.activityTime)}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Box>
-              ))}
-              <Pagination
-                onChange={handlePagination}
-                color="standard"
-                size="large"
-                count={activityHistories.totalPages}
-              />
-            </>
-          )}
+                    ))}
+                    <Pagination
+                      onChange={handlePagination}
+                      color="standard"
+                      size="large"
+                      count={activityHistories.totalPages}
+                    />
+                  </>
+                )}
+                {activityHistories.items.length < 0 && (
+                  <Typography sx={SX_FORM_LABEL_GRAY}>
+                    Không có dữ liệu
+                  </Typography>
+                )}
+              </>
+            )}
+          </Stack>
         </Box>
       </Grid>
       <Grid item xs={1} md={3}>
