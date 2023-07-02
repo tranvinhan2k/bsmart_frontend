@@ -6,6 +6,7 @@ import {
   Avatar,
   Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import {
   SX_WRAPPER,
   SX_BOX_ITEM_AVATAR,
@@ -24,7 +25,6 @@ import { ActionPayload, SocialPayload } from '~/models';
 import Button from '~/components/atoms/Button';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { Color, MetricSize } from '~/assets/variables';
-import { useNavigate } from 'react-router-dom';
 import { NavigationActionData } from '~/constants';
 
 export interface ProfileSideBarProps {

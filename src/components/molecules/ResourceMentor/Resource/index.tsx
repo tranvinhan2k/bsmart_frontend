@@ -11,13 +11,12 @@ import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { MentorNavigationActionData } from '~/constants';
-import { ActivityTypeCode, ActivityTypeCode } from '~/models/activity';
+import { ActivityTypeCode } from '~/models/activity';
 import { SX_RESOURCE_ITEM_CONTAINER } from './style';
 
 interface ResourceProps {
   editMode: boolean;
   resourceName: string;
-  activityId: number;
   activityId: number;
   activityTypeCode: ActivityTypeCode;
 }
@@ -26,12 +25,9 @@ export default function Resource({
   editMode,
   resourceName,
   activityId,
-  activityId,
   activityTypeCode,
 }: ResourceProps) {
   let resourceIconName: IconName = 'chat';
-  let linkEdit: string;
-  let linkViewDetails: string;
   let linkEdit: string;
   let linkViewDetails: string;
 

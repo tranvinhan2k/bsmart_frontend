@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { getYearPickerUtilityClass } from '@mui/x-date-pickers';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
 import Icon, { IconName } from '~/components/atoms/Icon';
@@ -19,7 +20,6 @@ import {
   CourseTypeDataKeys,
   courseTypeData,
 } from '~/constants';
-import { getYearPickerUtilityClass } from '@mui/x-date-pickers';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
