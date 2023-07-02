@@ -3,9 +3,14 @@ import { TextField } from '@mui/material';
 
 interface MultilineInputProps {
   controller: UseControllerReturn<any, string>;
+  multilineRows: number;
   placeholder: string;
 }
-function MultilineInput({ controller, placeholder }: MultilineInputProps) {
+function MultilineInput({
+  controller,
+  multilineRows,
+  placeholder,
+}: MultilineInputProps) {
   const {
     field: { value, onChange, onBlur, ref },
     fieldState: { invalid, error },
@@ -23,7 +28,7 @@ function MultilineInput({ controller, placeholder }: MultilineInputProps) {
       error={invalid}
       helperText={error?.message}
       multiline
-      rows={4}
+      rows={multilineRows}
     />
   );
 }

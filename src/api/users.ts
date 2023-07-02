@@ -3,9 +3,11 @@ import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
-import { Role } from '~/models/role';
+import { RequestRole, Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
+import { RequestPagingFilterPayload } from '~/models';
+import { ProfilePayload } from '~/models/type';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -15,11 +17,14 @@ export interface RequestRegisterPayload {
   email: string;
   phone: string;
   password: string;
-  role: Role;
+  role: RequestRole;
+  gender: string;
+  birthDay: string;
 }
 
 export interface EditCertificateProfilePayload {
   userImages: (string | Blob)[];
+  degreeIdsToDelete?: number[];
 }
 export interface EditImageProfilePayload {
   file: string | Blob;
@@ -46,6 +51,7 @@ export interface ResponseProfilePayload {
   address: string;
   phone: string;
   status: boolean;
+  isVerified: boolean;
   roles: [
     {
       id: number;
@@ -60,9 +66,8 @@ export interface ResponseProfilePayload {
     {
       id: number;
       name: string;
-      type: string;
       url: string;
-      type: 'DEGREE' | 'AVATAR';
+      type: string;
     }
   ];
   wallet: {
@@ -121,8 +126,10 @@ const accountApi = {
   getUserById(id: number): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
   },
-  getTokenProfile(): Promise<ResponseProfilePayload> {
-    return axiosClient.get(`${url}/profile`);
+  async getTokenProfile(): Promise<ProfilePayload> {
+    const response = await axiosClient.get(`${url}/profile`);
+    const result: ProfilePayload = response;
+    return result;
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);
@@ -140,10 +147,13 @@ const accountApi = {
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const files = data.userImages;
-    files.forEach((item) => {
+    const { userImages, degreeIdsToDelete } = data;
+    userImages.forEach((item) => {
       bodyFormData.append('files', item);
     });
+    if (degreeIdsToDelete) {
+      bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete as any); // CORRECT WAY
+    }
     return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
@@ -162,6 +172,12 @@ const accountApi = {
   },
   async getMentorData(id: string): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
+  },
+  async getMentorClasses(data: RequestPagingFilterPayload): Promise<any> {
+    return axiosClient.get(`${url}/classes`, {
+      params: data,
+      paramsSerializer: { indexes: null },
+    });
   },
 };
 

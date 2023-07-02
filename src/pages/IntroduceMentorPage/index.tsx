@@ -1,15 +1,5 @@
-import { useParams } from 'react-router-dom';
-import { useQueryGetMentorByMentorId } from '~/hooks';
-import MentorProfileLayout from '~/layouts/MentorProfileLayout';
-import MentorIntroduceProfilePage from '../MentorIntroduceProfilePage';
+import { Stack } from '@mui/material';
 
 export default function IntroduceMentor() {
-  const { id } = useParams();
-  const { mentor } = useQueryGetMentorByMentorId(id, true);
-
-  return (
-    <MentorProfileLayout isIntroduce mentor={mentor?.user}>
-      {mentor && <MentorIntroduceProfilePage mentor={mentor} />}
-    </MentorProfileLayout>
-  );
+  return <Stack>Đang phát triển</Stack>;
 }

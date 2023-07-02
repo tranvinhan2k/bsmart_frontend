@@ -19,5 +19,6 @@ export const useQueryGetAllMentorCourses = (
     error,
     courses: data,
     isLoading,
+    refetch,
   };
 };

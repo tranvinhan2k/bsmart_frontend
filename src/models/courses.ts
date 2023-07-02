@@ -5,7 +5,13 @@ import { TypeLearnKeys } from './variables';
 
 export interface CoursePayload {
   id: number;
-  image: string;
+  images: {
+    id: number;
+    name: string;
+    status: boolean;
+    type: string;
+    url: string;
+  }[];
   title: string;
   mentor: string;
   mentorImage?: string;

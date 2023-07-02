@@ -6,6 +6,7 @@ export type MetricSizeKeys = keyof typeof MetricSize;
 export type TypeLearnKeys = 'ONLINE' | 'OFFLINE';
 export type LevelKeys = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'EXPERT';
 export type RoleKeys = 'STUDENT' | 'TEACHER' | 'ADMIN';
+export type CRUDModes = 'CREATE' | 'READ' | 'UPDATE' | 'DELETE';
 export type ClassStatusKeys =
   | 'REQUESTING'
   | 'WAITING'
@@ -15,3 +16,9 @@ export type ClassStatusKeys =
   | 'STARTING'
   | 'ENDED'
   | 'CANCEL';
+export type QuestionTypeKeys = 'MULTIPLE_CHOICE' | 'FILL_THE_ANSWER';
+export type FeedbackTypeKeys = 'SUB_COURSE_FIRST_HALF' | 'SECOND_HALF';
+export type PresentStatusKeys = 'WAIT' | 'PRESENT' | 'ABSENT';
+export type GenderKeys = 'MALE' | 'FEMALE';
+export type AccountStatusKeys = 'REQUESTING';
+export type ImageKeys = 'AVATAR' | 'FRONTCI' | 'BACKCI' | 'COURSE';

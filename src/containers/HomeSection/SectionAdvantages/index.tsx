@@ -1,12 +1,18 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Stack, Grid } from '@mui/material';
 import React from 'react';
 import { advantagesOfBsmart } from '~/constants/dataMocked';
 import { SX } from './style';
 
 export default function SectionAdvantages() {
   return (
-    <Box sx={SX.BOX}>
-      <Box sx={SX.CONTAINER} px={16}>
+    <Box pt={12} pb={14}>
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
+        spacing={2}
+        px={16}
+      >
         <Typography component="h2" sx={SX.H2}>
           Điểm ưu việt tại BSmart
         </Typography>
@@ -22,7 +28,7 @@ export default function SectionAdvantages() {
             </React.Fragment>
           ))}
         </Grid>
-      </Box>
+      </Stack>
     </Box>
   );
 }

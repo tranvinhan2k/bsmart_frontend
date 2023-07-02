@@ -1,3 +1,9 @@
+import {
+  DropdownDynamicValueInputBooleanDataPayload,
+  DropdownDynamicValueInputNumberDataPayload,
+  DropdownDynamicValueInputStringDataPayload,
+} from './common';
+
 export interface LoginFormDataPayload {
   email: string;
   password: string;
@@ -8,6 +14,8 @@ export interface RegisterStudentDataPayload {
   password: string;
   confirm: string;
   phone: string;
+  gender: string;
+  birthDay: string;
 }
 export interface RegisterMentorDataPayload {
   name: string;
@@ -15,7 +23,8 @@ export interface RegisterMentorDataPayload {
   email: string;
   password: string;
   confirm: string;
-  introduction: string;
+  gender: string;
+  birthDay: string;
 }
 
 export interface BuyCourseDataPayload {
@@ -51,9 +60,8 @@ export interface EditPersonalProfileFormDefault {
   phone: string;
 }
 
-export interface EditAccountProfileFormDefault {
+export interface EditPasswordSectionDefault {
   oldPassword: string;
-  oldPasswordConfirm: string;
   newPassword: string;
   newPasswordConfirm: string;
 }
@@ -72,6 +80,15 @@ export interface EditMentorProfileFormDataPayload {
 
 export interface EditCertificateProfileFormDataPayload {
   userImages: (string | Blob)[];
+}
+export interface EditCertificateProfileDefaultValuePayload {
+  userImages: {
+    id: number;
+    name: string;
+    status: boolean;
+    type: string;
+    url: string;
+  }[];
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;
@@ -107,11 +124,71 @@ export interface MentorSkills {
   value: string;
 }
 
+export interface ProcessRegisterRequestFormDefault {
+  id: number;
+  status: string;
+  message: string;
+}
+export interface ProcessCreateCourseRequestFormDefault {
+  id: number;
+  status: string;
+  message: string;
+}
+
+export interface CreateAssignmentFormDataPayload {
+  name: string;
+  activityTypeId: number;
+  isVisible: boolean;
+  classSectionId: number;
+  description: string;
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  attachFiles: string[];
+  isOverWriteAttachFile: boolean;
+}
+
+export interface UpdateAssignmentFormDataPayload {
+  name: string;
+  activityTypeId: number;
+  isVisible: boolean;
+  classSectionId: number;
+  description: string;
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  attachFiles: string[];
+  isOverWriteAttachFile: boolean;
+}
+
+export interface CreateAnnouncementFormDataPayload {
+  content: string;
+  title: string;
+  visible: boolean | DropdownDynamicValueInputBooleanDataPayload;
+}
+export interface UpdateAnnouncementFormDataPayload {
+  content: string;
+  title: string;
+  visible: boolean;
+}
+
+export interface CreateClassSectionsFormDefault {
+  name: string;
+}
+export interface UpdateClassSectionsFormDefault {
+  name: string;
+}
+
 export type FormInputVariant =
   | 'text'
   | 'number'
   | 'multiline'
   | 'dropdown'
+  | 'dropdownDynamicValue'
   | 'dropdownBanks'
   | 'timetable'
   | 'radioGroup'
@@ -122,4 +199,7 @@ export type FormInputVariant =
   | 'tags'
   | 'modules'
   | 'password'
+  | 'feedbackQuestionChoice'
+  | 'feedbackTypeChoose'
+  | 'datetime'
   | 'date';

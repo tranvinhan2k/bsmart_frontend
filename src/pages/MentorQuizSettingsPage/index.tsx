@@ -6,6 +6,7 @@ import TabPanel from '~/components/atoms/TabPanel/index';
 
 import GeneralSettings from './GeneralSettings';
 import QuestionSettings from './QuestionSettings';
+import QuizSecuritySettings from './QuizSecuritySettings';
 
 export default function MentorQuizSetting() {
   useEffect(() => {
@@ -31,10 +32,15 @@ export default function MentorQuizSetting() {
       text: 'Ngân hàng câu hỏi',
       component: <ResourceMentorQuestionBank />,
     },
+    {
+      id: 3,
+      text: 'Bảo mật',
+      component: <QuizSecuritySettings />,
+    },
   ];
 
   return (
-    <Box pt={2} pr={15} pl={15}>
+    <Box>
       <Box
         sx={{ borderBottom: 1, borderColor: 'divider' }}
         pb={{ sm: 2, md: 0 }}

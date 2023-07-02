@@ -8,6 +8,6 @@ export const SX_RESOURCE_TITTLE: SxProps<Theme> = {
 };
 export const SX_RESOURCE_ITEM_CONTAINER: SxProps<Theme> = {
   border: '1px solid #dee2e6',
-  borderRadius: '15px',
-  padding: '20px',
+  padding: 2,
+  borderRadius: 1,
 };

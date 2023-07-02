@@ -73,6 +73,7 @@ export default function GeneralSettings() {
           </Grid>
         </AccordionDetails>
       </Accordion>
+
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack
@@ -103,7 +104,9 @@ export default function GeneralSettings() {
               <FormInput control={control} name="timeEnd" variant="time" />
             </Grid>
             <Grid item xs={6}>
-              <Typography sx={SX_FORM_LABEL}>Giới hạn thời gian</Typography>
+              <Typography sx={SX_FORM_LABEL}>
+                Giới hạn thời gian (phút)
+              </Typography>
               <FormInput
                 control={control}
                 name="timeLimit"
@@ -114,6 +117,7 @@ export default function GeneralSettings() {
           </Grid>
         </AccordionDetails>
       </Accordion>
+
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Stack
@@ -128,12 +132,12 @@ export default function GeneralSettings() {
         <AccordionDetails>
           <Grid container columnSpacing={3}>
             <Grid item xs={6}>
-              <Typography sx={SX_FORM_LABEL}>Điểm qua môn</Typography>
+              <Typography sx={SX_FORM_LABEL}>Điểm đậu</Typography>
               <FormInput
                 control={control}
                 name="gradeToPass"
                 variant="number"
-                placeholder="Nhập điểm qua môn"
+                placeholder="Nhập điểm đậu"
               />
             </Grid>
             <Grid item xs={6}>

@@ -1,5 +1,5 @@
 import DisplayCISection from '~/components/molecules/FormComponent/EditProfileForm/DisplayCISection';
-import EditAccountProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditAccountProfileForm';
+import DisplayEditPasswordSection from '~/components/molecules/FormComponent/EditProfileForm/DisplayEditPasswordSection';
 import EditPersonalProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditPersonalProfileForm';
 import EditSocialProfileForm from '~/components/molecules/FormComponent/EditProfileForm/EditSocialProfileForm';
 
@@ -8,7 +8,7 @@ export default function EditMemberProfilePage() {
     <>
       <DisplayCISection />
       <EditPersonalProfileForm />
-      <EditAccountProfileForm />
+      <DisplayEditPasswordSection />
       <EditSocialProfileForm />
     </>
   );

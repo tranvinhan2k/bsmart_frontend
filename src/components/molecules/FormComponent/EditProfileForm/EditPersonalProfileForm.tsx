@@ -1,4 +1,10 @@
-import { Box, Divider, Typography, Grid } from '@mui/material';
+import {
+  Box,
+  Button as MuiButton,
+  Divider,
+  Grid,
+  Typography,
+} from '@mui/material';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -9,12 +15,12 @@ import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
 import { RootState } from '~/redux/store';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
+import { FontFamily } from '~/assets/variables';
 import {
   EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
 import accountApi from '~/api/users';
-import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
@@ -79,7 +85,7 @@ export default function EditPersonalProfileForm() {
       await mutateEditPersonalProfile(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 
@@ -144,9 +150,16 @@ export default function EditPersonalProfileForm() {
             ))}
           </Grid>
           <Box mt={4}>
-            <Button customVariant="normal" type="submit">
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+            >
               Cập nhật
-            </Button>
+            </MuiButton>
           </Box>
         </form>
       )}

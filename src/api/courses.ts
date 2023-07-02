@@ -4,10 +4,11 @@ import {
   PagingFilterPayload,
   RequestPagingFilterPayload,
 } from '~/models';
-import { CourseDetailPayload, CoursePayload } from '~/models/courses';
+import { CourseDetailPayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
+import { CoursePayload } from '~/models/type';
 
 // Define the request payload for fetching courses
 
@@ -19,6 +20,7 @@ export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
   provinces?: number[] | undefined;
 }
 export interface RequestCreateCoursePayload {
+  id?: number;
   code: string;
   name: string;
   categoryId: number;
@@ -29,6 +31,7 @@ export interface RequestCreateCoursePayload {
 export interface ResponseMemberCoursePayload {
   id: number;
   images: ImagePayload[];
+  imageUrl: string;
   courseCode: string;
   courseName: string;
   categoryId: number;
@@ -106,11 +109,44 @@ export interface ResponseMentorCoursePayload {
   };
 }
 
+export interface RequestUpdateCoursePayload {
+  id: number;
+  courseCode: string;
+  courseName: string;
+  courseDescription: string;
+  categoryId: number;
+  subjectId: number;
+  subCourseTitle: string;
+  price: number;
+  startDateExpected: string;
+  endDateExpected: string;
+  minStudent: number;
+  maxStudent: number;
+  numberOfSlot: number;
+  type: TypeLearnKeys;
+  level: LevelKeys;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+}
+export interface ProcessCreateCourseRequestPayload {
+  id: number;
+  status: string;
+  message: string;
+}
+
 export interface ResponseGetCoursePayload {
   id: number;
   subCourseId: number;
   courseId: number;
-  imageUrl: string;
+  images: {
+    id: number;
+    name: string;
+    status: boolean;
+    type: string;
+    url: string;
+  }[];
   courseName: string;
   courseCode: string;
   courseDescription: string;
@@ -137,6 +173,15 @@ interface ResponseCourseDetailPayload {
   };
   mentorId: number;
 }
+interface RequestContentItem {
+  sections: {
+    name: string;
+    modules: {
+      name: string;
+    }[];
+  };
+}
+
 function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   if (!data) {
     return null;
@@ -155,6 +200,15 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
       id: data.mentorId,
       avatar: '',
       name: '',
+      introduce: '',
+      mentorSkills: [
+        {
+          skillId: 0,
+          yearOfExperiences: 0,
+        },
+      ],
+      userId: 0,
+      workingExperience: '',
     },
     category: data.category,
     feedbackData: {
@@ -171,34 +225,6 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   };
   return responseData;
 }
-function handleResponseGetCourse(
-  data?: PagingFilterPayload<ResponseGetCoursePayload>
-): PagingFilterPayload<CoursePayload> | null {
-  if (!data) {
-    return null;
-  }
-  return {
-    ...data,
-    items: data.items.map(
-      ({
-        id,
-        imageUrl,
-        courseName,
-        mentorName,
-        courseDescription,
-        learns,
-      }) => ({
-        id,
-        image: imageUrl || mockCourse,
-        title: courseName,
-        mentor: mentorName,
-        content: courseDescription,
-        feedback: 50,
-        typeLearn: learns,
-      })
-    ),
-  };
-}
 
 const url = '/courses';
 
@@ -206,12 +232,26 @@ const coursesApi = {
   async getAllCourse(
     data: RequestGetCoursePayload
   ): Promise<PagingFilterPayload<CoursePayload> | null> {
-    const response: PagingFilterPayload<ResponseGetCoursePayload> =
-      await axiosClient.get(url, {
-        params: data,
-        paramsSerializer: { indexes: null },
-      });
-    return handleResponseGetCourse(response);
+    const response = await axiosClient.get(url, {
+      params: data,
+      paramsSerializer: { indexes: null },
+    });
+    const result: CoursePayload[] = (response.items as any[]).map((item) => ({
+      id: item.id,
+      content: item.content,
+      courseCode: item.courseCode,
+      courseDescription: item.courseDescription,
+      courseName: item.courseName,
+      images: item.images,
+      mentorName: item.mentorName,
+      subjectId: item.subjectId,
+      subjectName: item.subjectName,
+      totalClass: item.totalClass,
+    }));
+    return { ...response, items: result };
+  },
+  async getAllPublicCourse() {
+    return axiosClient.get(`${url}/public`);
   },
   async getMemberCourse(
     data: RequestPagingFilterPayload
@@ -229,7 +269,7 @@ const coursesApi = {
       paramsSerializer: { indexes: null },
     });
   },
-  async getDetailCourse(id: string): Promise<CourseDetailPayload | null> {
+  async getDetailCourse(id: number): Promise<CourseDetailPayload | null> {
     const response: ResponseCourseDetailPayload = await axiosClient.get(
       `${url}/${id}`
     );
@@ -244,6 +284,39 @@ const coursesApi = {
   },
   async createCourse(params: RequestCreateCoursePayload): Promise<any> {
     const response: any = await axiosClient.post(url, params);
+    return response;
+  },
+  async createPublicCourse(params: RequestCreateCoursePayload): Promise<any> {
+    const { id, ...newParams } = params;
+    const response: any = await axiosClient.post(`${url}/public-course/${id}`, {
+      ...newParams,
+    });
+    return response;
+  },
+  async requestSubCourse(id: number): Promise<any> {
+    const response: any = await axiosClient.put(
+      `${url}/${id}/request-approval`
+    );
+    return response;
+  },
+  async deleteSubCourse(id: number): Promise<any> {
+    const response: any = await axiosClient.delete(`${url}/${id}`);
+    return response;
+  },
+  async updateSubCourse(params: RequestUpdateCoursePayload): Promise<any> {
+    const response: any = await axiosClient.put(`${url}/${params.id}`, params);
+    return response;
+  },
+  async createCourseContent(params: {
+    id: number;
+    data: RequestContentItem[];
+  }): Promise<any> {
+    const response: any = await axiosClient.post(
+      `${url}/${params.id}/content`,
+      {
+        params: params.data,
+      }
+    );
     return response;
   },
 };

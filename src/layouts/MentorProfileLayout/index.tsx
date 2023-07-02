@@ -1,45 +1,44 @@
 import { Box, Grid, Stack } from '@mui/material';
-import { ResponseProfilePayload } from '~/api/users';
-import IntroduceMentorDetailSection from '~/containers/MentorProfileLayoutSection/IntroduceMentorDetailSection';
+import { ReactElement } from 'react';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
 interface MentorProfileLayoutProps {
-  children: any;
-  isIntroduce?: boolean;
-  mentor?: ResponseProfilePayload;
+  children: ReactElement;
 }
 
 export default function MentorProfileLayout({
   children,
-  isIntroduce = false,
-  mentor,
 }: MentorProfileLayoutProps) {
   return (
     <Box sx={SX_WRAPPER}>
       <Box sx={SX_CONTAINER}>
         <Grid
           container
-          direction="row"
+          direction={{ xs: 'column', md: 'row' }}
           justifyContent="flex-start"
           alignItems="flex-start"
-          spacing={5}
+          spacing={{ xs: 0, md: 5 }}
         >
-          <Grid item sm={12} md={5} lg={4}>
+          <Grid
+            sx={{
+              display: { xs: 'none', md: 'block' },
+            }}
+            item
+            sm={12}
+            md={5}
+            lg={4}
+          >
             <Stack
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
               spacing={2}
             >
-              {isIntroduce ? (
-                <IntroduceMentorDetailSection mentor={mentor} />
-              ) : (
-                <MentorDetailSection />
-              )}
+              <MentorDetailSection />
             </Stack>
           </Grid>
-          <Grid item sm={12} md={7} lg={8}>
+          <Grid item xs={12} md={7} lg={8}>
             {children}
           </Grid>
         </Grid>
@@ -47,8 +46,3 @@ export default function MentorProfileLayout({
     </Box>
   );
 }
-
-MentorProfileLayout.defaultProps = {
-  isIntroduce: false,
-  mentor: {},
-};

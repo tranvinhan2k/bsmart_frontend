@@ -9,7 +9,178 @@ import { AddressDataPayload } from '~/models/address';
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
+import { SidebarNavigationProps } from '~/models/data';
+import { LEVEL_LABELS } from './level';
 
+export const courseTypeData = {
+  PRIVATE: 'Khóa học riêng tư',
+  PUBLIC: 'Khóa học cộng đồng',
+};
+
+export type CourseTypeDataKeys = keyof typeof courseTypeData;
+
+export const genderData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Nam',
+    value: 'MALE',
+  },
+  {
+    id: 1,
+    label: 'Nữ',
+    value: 'FEMALE',
+  },
+];
+
+export const typeData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Online',
+    value: 'ONLINE',
+  },
+  {
+    id: 1,
+    label: 'Offline',
+    value: 'OFFLINE',
+  },
+];
+
+export const mockLevelData: OptionPayload[] = [
+  {
+    id: 0,
+    label: LEVEL_LABELS.BEGINNER,
+    value: 'BEGINNER',
+  },
+  {
+    id: 1,
+    label: LEVEL_LABELS.INTERMEDIATE,
+    value: 'INTERMEDIATE',
+  },
+  {
+    id: 2,
+    label: LEVEL_LABELS.ADVANCED,
+    value: 'ADVANCED',
+  },
+  {
+    id: 3,
+    label: LEVEL_LABELS.EXPERT,
+    value: 'EXPERT',
+  },
+];
+
+export const ClassStatusList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Tất cả',
+    content: 'Tất cả khóa học của bạn hiện đã tạo.',
+    value: 'ALL',
+  },
+  {
+    id: 0,
+    label: 'Lớp đang dạy',
+    content: 'Lớp đang được dạy.',
+    value: 'STARTING',
+  },
+  {
+    id: 1,
+    label: 'Lớp đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy',
+    value: 'CLOSE',
+  },
+];
+export const CourseStatusList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Tất cả',
+    content: 'Tất cả khóa học của bạn hiện đã tạo.',
+    value: 'ALL',
+  },
+  {
+    id: 0,
+    label: 'Lớp đang yêu cầu',
+    content: 'Lớp được yêu cầu mở nhưng chưa được duyệt.',
+    value: 'REQUESTING',
+  },
+  {
+    id: 1,
+    label: 'Lớp đã sẵn được duyệt',
+    content: 'Lớp đã sẵn được duyệt',
+    value: 'WAITING',
+  },
+  {
+    id: 2,
+    label: 'Lớp yêu cầu chỉnh sửa',
+    content: 'Lớp không hợp lệ, yêu cầu chỉnh sửa lại.',
+    value: 'EDITREQUEST',
+  },
+  {
+    id: 3,
+    label: 'Lớp bị từ chối',
+    content: 'Lớp bị từ chối phê duyệt do vi phạm điều khoản mở lớp.',
+    value: 'REJECTED',
+  },
+  {
+    id: 4,
+    label: 'Chưa bắt đầu',
+    content: 'Lớp đã được duyệt và đang tuyển sinh.',
+    value: 'NOTSTART',
+  },
+  {
+    id: 5,
+    label: 'Đang dạy',
+    content: 'Lớp đang được dạy.',
+    value: 'STARTING',
+  },
+  {
+    id: 6,
+    label: 'Đã kết thúc',
+    content: 'Lớp đã kết thúc.',
+    value: 'ENDED',
+  },
+  {
+    id: 7,
+    label: 'Đã hủy bỏ',
+    content: 'Lớp đã bị hủy bỏ.',
+    value: 'CANCEL',
+  },
+];
+
+export const RoleOptionList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Học sinh',
+    value: 'STUDENT',
+  },
+  {
+    id: 1,
+    label: 'Giáo viên',
+    value: 'TEACHER',
+  },
+];
+export const FeedbackTypeOptionList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Học kì đầu',
+    value: 'SUB_COURSE_FIRST_HALF',
+  },
+  {
+    id: 1,
+    label: 'Học kì sau',
+    value: 'SECOND_HALF',
+  },
+];
+export const QuestionTypeOptionList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Câu hỏi nhiều lựa chọn',
+    value: 'MULTIPLE_CHOICE',
+  },
+  {
+    id: 1,
+    label: 'Câu hỏi tự trả lời',
+    value: 'FILL_THE_ANSWER',
+  },
+];
 export const AuthorizationActionData: ActionPayload[] = [
   {
     id: 0,
@@ -82,7 +253,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 10,
     isHide: true,
-    name: 'Thông báo',
+    name: 'Hoạt động',
     link: 'annotation',
   },
   {
@@ -136,7 +307,13 @@ export const NavigationActionData: ActionPayload[] = [
     id: 19,
     isHide: true,
     name: 'Xác nhận khóa học',
-    link: 'confirm_email',
+    link: 'confirm_email/:code',
+  },
+  {
+    id: 20,
+    isHide: true,
+    name: 'Quản lí học tập',
+    link: 'dashboard',
   },
 ];
 
@@ -156,40 +333,156 @@ export const MentorNavigationActionData: ActionPayload[] = [
     name: 'Rút tiền',
     link: 'withdraw',
   },
+];
+export const MentorDashboardNavigationActionData: ActionPayload[] = [
+  {
+    id: 0,
+    icon: 'course',
+    link: '',
+    name: 'Quản lí học tập',
+    items: [
+      {
+        id: 0,
+        name: 'Danh sách khóa học (Mentor/Member)',
+        link: 'mentor-course-list',
+      },
+      {
+        id: 1,
+        name: 'Tạo khóa học',
+        link: 'create-course',
+      },
+      {
+        id: 2,
+        name: 'Danh sách lớp học',
+        link: 'mentor-class-list',
+      },
+    ],
+  },
+  {
+    id: 1,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Khóa học',
+    items: [
+      {
+        id: 0,
+        name: 'Khóa học - Chi tiết khóa học (1)',
+        link: 'mentor-class-detail',
+      },
+      {
+        id: 1,
+        name: 'Khóa học - Chi tiết khóa học (2)',
+        link: 'mentor_course_detail/:id',
+        isHide: true,
+      },
+    ],
+  },
+  {
+    id: 2,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Nội dung',
+    items: [
+      {
+        id: 0,
+        name: 'Nội dung - Tạo',
+        link: 'create-content',
+        isHide: true,
+      },
+    ],
+  },
   {
     id: 3,
-    name: 'Danh sách khóa học',
-    link: 'mentor-course-list',
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Hoạt động',
+    items: [
+      {
+        id: 0,
+        name: 'Quiz - Xem chi tiết',
+        link: 'mentor-quiz-settings',
+      },
+      {
+        id: 1,
+        name: 'Quiz - Tạo',
+        link: 'mentor-create-quiz/:classSectionId',
+        isHide: true,
+      },
+      {
+        id: 2,
+        name: 'Assignment - Xem chi tiết (1)',
+        link: 'mentor-assignment-settings',
+        isHide: true,
+      },
+      {
+        id: 3,
+        name: 'Assignment - Tạo',
+        link: 'mentor-create-assignment/:classSectionId',
+        isHide: true,
+      },
+      {
+        id: 4,
+        name: 'Assignment - Chỉnh sửa',
+        link: 'mentor-assignment-settings/:id',
+        isHide: true,
+      },
+      {
+        id: 5,
+        name: 'Assignment - Xem chi tiết (2)',
+        link: 'mentor-assignment-details/:id',
+        isHide: true,
+      },
+    ],
   },
   {
     id: 4,
-    name: 'Tạo khóa học',
-    link: 'create-course',
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Thông báo',
+    items: [
+      {
+        id: 0,
+        name: 'Announcement - Cập nhật',
+        link: 'mentor-announcement-settings',
+        isHide: true,
+      },
+      {
+        id: 1,
+        name: 'Announcement - Tạo',
+        link: 'mentor-create-announcement/:idClassSection',
+        isHide: true,
+      },
+      {
+        id: 2,
+        name: 'Announcement - Cập nhật',
+        link: 'mentor-update-announcement/:idAnnouncement',
+        isHide: true,
+      },
+    ],
   },
   {
     id: 5,
-    name: 'Giới thiệu giáo viên',
-    link: 'mentor-introduce',
-  },
-  {
-    id: 6,
-    name: 'Quản lý Resource',
-    link: 'mentor-resource-management',
-  },
-  {
-    id: 7,
-    name: 'Quản lý Quiz',
-    link: 'mentor-quiz-settings',
-  },
-  {
-    id: 8,
-    name: 'Giảng viên điểm danh',
-    link: 'mentor-take-attendance',
-  },
-  {
-    id: 9,
-    name: 'Giảng viên điểm danh lại',
-    link: 'mentor-re-take-attendance',
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Điểm danh',
+    items: [
+      {
+        id: 0,
+        name: 'Danh sách điểm danh (1)',
+        link: 'attendance-list',
+      },
+      {
+        id: 1,
+        name: 'Danh sách điểm danh (2)',
+        link: 'view-member-attendance',
+      },
+      {
+        id: 2,
+        name: 'Danh sách điểm danh (3)',
+        link: 'take-attendance',
+        isHide: true,
+      },
+    ],
   },
 ];
 
@@ -230,26 +523,64 @@ export const AdminNavigationActionData: ActionPayload[] = [
   {
     id: 2,
     isHide: true,
-    name: 'Danh sách tài khoản cần phê duyệt',
-    link: 'admin-register-approve',
+    name: 'Quản lí đánh giá',
+    link: 'feedback_manager',
   },
   {
     id: 3,
     isHide: true,
-    name: 'Admin phê duyệt tạo tài khoản',
-    link: 'admin-register-approve/:id',
+    name: 'Quản lí môn học',
+    link: 'subject_manager',
   },
   {
     id: 4,
     isHide: true,
-    name: 'Danh sách khóa học cần phê duyệt',
-    link: 'admin-create-course-request-approve',
+    name: 'Quản lí ngôn ngũ lập trình',
+    link: 'category_manager',
+  },
+];
+
+export const ManagerNavigationActionData: ActionPayload[] = [
+  {
+    id: 0,
+    name: 'Chỉnh sửa thông tin',
+    link: 'manager',
+  },
+  {
+    id: 1,
+    isHide: true,
+    name: 'Danh sách tất cả tài khoản',
+    link: 'manager-all-account',
+  },
+  {
+    id: 2,
+    isHide: true,
+    name: 'Danh sách tài khoản cần phê duyệt',
+    link: 'manager-process-register-request',
+  },
+  {
+    id: 3,
+    isHide: true,
+    name: 'Manager phê duyệt tạo tài khoản',
+    link: 'manager-process-register-request/:id',
+  },
+  {
+    id: 4,
+    isHide: true,
+    name: 'Danh sách tất cả khóa học',
+    link: 'manager-all-course',
   },
   {
     id: 5,
     isHide: true,
-    name: 'Admin phê duyệt tạo khóa học',
-    link: 'admin-create-course-request-approve/:id',
+    name: 'Danh sách khóa học cần phê duyệt',
+    link: 'manager-process-create-course-request',
+  },
+  {
+    id: 6,
+    isHide: true,
+    name: 'Manager phê duyệt tạo khóa học',
+    link: 'manager-process-create-course-request/:id',
   },
 ];
 
@@ -284,7 +615,7 @@ export const RegisterTabPayload: TabPayload[] = [
   },
   {
     index: 1,
-    label: 'Thầy Giáo',
+    label: 'Giáo viên',
   },
 ];
 
@@ -487,7 +818,7 @@ export const MentorCourses: CoursePayload[] = [
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
-    image: cousreImage,
+    images: [],
     mentor: 'Cuong',
     title: 'Front End Basic',
     typeLearn: ['OFFLINE'],
@@ -498,7 +829,7 @@ export const MentorCourses: CoursePayload[] = [
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
-    image: cousreImage,
+    images: [],
     mentor: 'Cuong',
     title: 'Front End Basic',
   },
@@ -508,7 +839,7 @@ export const MentorCourses: CoursePayload[] = [
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
     feedback: 5,
-    image: cousreImage,
+    images: [],
     mentor: 'Cuong',
     title: 'Front End Basic',
   },
@@ -534,6 +865,15 @@ export const CourseDetailData: CourseDetailPayload = {
     id: 1,
     avatar: mentor,
     name: 'Mentor Cuong',
+    introduce: '',
+    mentorSkills: [
+      {
+        skillId: 0,
+        yearOfExperiences: 0,
+      },
+    ],
+    userId: 0,
+    workingExperience: '',
   },
   feedbackData: {
     percentOfFeedback: 5,
@@ -586,7 +926,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     id: 0,
     typeLearn: ['OFFLINE'],
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -598,7 +938,7 @@ export const CommonCourse: CoursePayload[] = [
     id: 1,
     typeLearn: ['OFFLINE'],
 
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -609,7 +949,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 2,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -620,7 +960,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 3,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -631,7 +971,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 4,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -642,7 +982,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 5,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -653,7 +993,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 6,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -664,7 +1004,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 7,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -675,7 +1015,7 @@ export const CommonCourse: CoursePayload[] = [
   {
     typeLearn: ['OFFLINE'],
     id: 8,
-    image: cousreImage,
+    images: [],
     content:
       'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
     feedback: 5,
@@ -720,5 +1060,181 @@ export const mockMentorLatestActivities = [
     id: 1,
     message: 'Đã nhận được 100 BS từ việc chia sẻ khoá học',
     updateDate: new Date().toISOString(),
+  },
+];
+export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
+  {
+    title: '',
+    items: [
+      {
+        label: 'Trang chủ',
+        icon: 'home',
+        link: 'homepage',
+      },
+    ],
+  },
+  {
+    title: 'Quản lý',
+    items: [
+      {
+        label: 'Người dùng',
+        icon: 'user',
+        link: 'account',
+        items: [
+          {
+            label: 'Tất cả người dùng',
+            icon: 'groups',
+            link: 'allAccount',
+          },
+          {
+            label: 'Yêu cầu tạo tài khoản',
+            icon: 'description',
+            link: `allAccount`,
+          },
+        ],
+      },
+      {
+        label: 'Lớp học',
+        icon: 'coPresent',
+        link: 'classZ',
+        items: [
+          {
+            label: 'Tất cả lớp học',
+            icon: 'class',
+            link: 'allClass',
+          },
+          {
+            label: 'Yêu cầu tạo lớp học',
+            icon: 'description',
+            link: 'allClass',
+          },
+        ],
+      },
+      {
+        label: 'Chủ đê',
+        icon: 'subject',
+        link: 'subject',
+        items: [
+          {
+            label: 'Tất cả chủ đề',
+            icon: 'account',
+            link: 'allSubject',
+          },
+          {
+            label: 'Yêu cầu tạo môn học',
+            icon: 'class',
+            link: 'classCreateRequest',
+          },
+        ],
+      },
+      {
+        label: 'Câu hỏi',
+        icon: 'question',
+        link: 'questionZ',
+        items: [
+          {
+            label: 'Ngân hàng câu hỏi',
+            icon: 'dynamicFeed',
+            link: 'questionBank',
+          },
+        ],
+      },
+      {
+        label: 'Blog',
+        icon: 'blog',
+        link: 'blog',
+      },
+      {
+        label: 'Câu hỏi',
+        icon: 'question',
+        link: 'question',
+      },
+      {
+        label: 'Đánh giá',
+        icon: 'feedback',
+        link: 'feedback_manager',
+      },
+      {
+        label: 'Môn Học',
+        icon: 'subject',
+        link: 'subject_manager',
+      },
+      {
+        label: 'Ngôn ngữ lập trình',
+        icon: 'category',
+        link: 'category_manager',
+      },
+    ],
+  },
+  {
+    title: 'Cá nhân',
+    items: [
+      {
+        label: 'Cài đặt',
+        icon: 'setting',
+        link: 'setting',
+      },
+    ],
+  },
+];
+export const MANAGER_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
+  {
+    title: '',
+    items: [
+      {
+        label: 'Trang chủ',
+        icon: 'home',
+        link: 'homepage',
+      },
+    ],
+  },
+  {
+    title: 'Quản lý',
+    items: [
+      {
+        label: 'Người dùng',
+        icon: 'user',
+        link: 'accountZ',
+        items: [
+          {
+            label: 'Tất cả người dùng',
+            icon: 'groups',
+            link: `/${ManagerNavigationActionData[1].link}`,
+          },
+          {
+            label: 'Yêu cầu tạo tài khoản',
+            icon: 'description',
+            link: `/${ManagerNavigationActionData[2].link}`,
+          },
+        ],
+      },
+      {
+        label: 'Khóa học ',
+        icon: 'coPresent',
+        link: 'courseZ',
+        items: [
+          {
+            label: 'Tất cả khóa học',
+            icon: 'class',
+            link: `/${ManagerNavigationActionData[4].link}`,
+          },
+          {
+            label: 'Yêu cầu tạo khóa học',
+            icon: 'description',
+            link: `/${ManagerNavigationActionData[5].link}`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Cá nhân',
+    items: [
+      {
+        label: 'Cài đặt',
+        icon: 'setting',
+        link: 'setting',
+      },
+    ],
   },
 ];

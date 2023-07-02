@@ -1,7 +1,8 @@
 import { IconButton, Modal, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
-import { FontFamily, FontSize } from '~/assets/variables';
+import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
+import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
@@ -26,32 +27,15 @@ export default function CreateSubCourseModal({
   onSubmit,
 }: CreateSubCourseModalProps) {
   return (
-    <Modal
-      sx={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        display: 'flex',
-        borderRadius: '10px',
-        boxShadow: 3,
-      }}
-      open={isOpen}
-      onClose={onClose}
-    >
+    <CustomModal open={isOpen} onClose={onClose}>
       <Stack
         sx={{
           background: 'white',
-          width: { sx: '100%', md: '50vw' },
-          padding: '20px',
-          height: '90vh',
+          width: { xs: '100%', md: '60vw' },
+          paddingX: MetricSize.medium_15,
           alignSelf: 'center',
-          overflowY: 'scroll',
         }}
       >
-        <Stack>
-          <IconButton sx={{ alignSelf: 'flex-end' }} onClick={onClose}>
-            <Icon name="close" color="black" size="medium" />
-          </IconButton>
-        </Stack>
         <Typography
           sx={{
             textAlign: 'center',
@@ -67,75 +51,108 @@ export default function CreateSubCourseModal({
           control={hookForm.control}
           label="Tên khóa học phụ"
         />
-        <FormInput
-          variant="date"
-          name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
-          control={hookForm.control}
-          label="Ngày mở lớp dự kiến"
-        />
-        <FormInput
-          variant="date"
-          name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
-          control={hookForm.control}
-          label="Ngày kết thúc dự kiến"
-        />
-        <FormInput
-          variant="number"
-          name={CREATE_SUB_COURSE_FIELDS.price}
-          control={hookForm.control}
-          label="Giá khóa học"
-        />
-        <FormInput
-          variant="number"
-          name={CREATE_SUB_COURSE_FIELDS.minStudent}
-          control={hookForm.control}
-          label="Số học sinh tối thiểu"
-        />
-        <FormInput
-          variant="number"
-          name={CREATE_SUB_COURSE_FIELDS.maxStudent}
-          control={hookForm.control}
-          label="Số học sinh tối đa"
-        />
-        <FormInput
-          data={levels}
-          variant="radioGroup"
-          name={CREATE_SUB_COURSE_FIELDS.level}
-          control={hookForm.control}
-          label="Trình độ"
-        />
-        <FormInput
-          variant="image"
-          name={CREATE_SUB_COURSE_FIELDS.imageId}
-          control={hookForm.control}
-          label="Hình ảnh"
-        />
-        <FormInput
-          data={types}
-          variant="dropdown"
-          name={CREATE_SUB_COURSE_FIELDS.type}
-          control={hookForm.control}
-          label="Hình thức khóa học"
-        />
-        <FormInput
-          name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
-          variant="number"
-          control={hookForm.control}
-          label="Số buổi học"
-        />
-        <FormInput
-          name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
-          variant="timetable"
-          control={hookForm.control}
-          label="Thời khóa biểu"
-        />
+        <Stack
+          sx={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginTop: 2,
+            gap: 1,
+          }}
+        >
+          <FormInput
+            variant="date"
+            name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
+            control={hookForm.control}
+            label="Ngày mở lớp dự kiến"
+          />
+          <FormInput
+            variant="date"
+            name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
+            control={hookForm.control}
+            label="Ngày kết thúc dự kiến"
+          />
+        </Stack>
+        <Stack marginTop={2}>
+          <FormInput
+            variant="number"
+            name={CREATE_SUB_COURSE_FIELDS.price}
+            control={hookForm.control}
+            label="Giá khóa học"
+          />
+        </Stack>
+        <Stack
+          marginTop={2}
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
+          <FormInput
+            variant="number"
+            name={CREATE_SUB_COURSE_FIELDS.minStudent}
+            control={hookForm.control}
+            label="Số học sinh tối thiểu"
+          />
+          <FormInput
+            variant="number"
+            name={CREATE_SUB_COURSE_FIELDS.maxStudent}
+            control={hookForm.control}
+            label="Số học sinh tối đa"
+          />
+        </Stack>
+
+        <Stack marginTop={2}>
+          <FormInput
+            data={levels}
+            variant="radioGroup"
+            name={CREATE_SUB_COURSE_FIELDS.level}
+            control={hookForm.control}
+            label="Trình độ"
+          />
+        </Stack>
+        <Stack marginTop={2}>
+          <FormInput
+            variant="image"
+            name={CREATE_SUB_COURSE_FIELDS.imageId}
+            control={hookForm.control}
+            label="Hình ảnh"
+          />
+        </Stack>
+        <Stack marginTop={2}>
+          <FormInput
+            data={types}
+            variant="dropdown"
+            name={CREATE_SUB_COURSE_FIELDS.type}
+            control={hookForm.control}
+            label="Hình thức khóa học"
+          />
+        </Stack>
+        <Stack marginTop={2}>
+          <FormInput
+            name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
+            variant="number"
+            control={hookForm.control}
+            label="Số buổi học"
+          />
+        </Stack>
+        <Stack marginTop={2}>
+          <FormInput
+            name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
+            variant="timetable"
+            control={hookForm.control}
+            label="Thời khóa biểu"
+          />
+        </Stack>
         <Button
           onClick={hookForm.handleSubmit(onSubmit)}
-          customVariant="normal"
+          customVariant="horizonForm"
         >
           Tạo giờ học
         </Button>
       </Stack>
-    </Modal>
+    </CustomModal>
   );
 }

@@ -144,18 +144,8 @@ export default function SubCourseTimetable({ data }: SubCourseTimetableProps) {
     return <Typography>Lớp học chưa có thời khóa biẻu</Typography>;
 
   return (
-    <Box>
-      <Typography
-        sx={{
-          fontFamily: FontFamily.regular,
-          paddingY: MetricSize.small_10,
-        }}
-      >
-        Thời khóa biểu
-      </Typography>
-      <Box sx={{ height: 400, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
-      </Box>
+    <Box height={400} width="100%">
+      <DataGrid rows={rows} columns={columns} />
     </Box>
   );
 }

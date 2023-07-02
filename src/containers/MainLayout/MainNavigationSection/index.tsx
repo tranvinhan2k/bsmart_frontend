@@ -41,6 +41,7 @@ export default function MainNavigationSection() {
 
   // useState
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
+  const [isOpenProfileDrawer, setOpenProfileDrawer] = useState<boolean>(false);
   const [courseAnchorEl, setCourseAnchorEl] = useState<null | HTMLElement>(
     null
   );
@@ -52,6 +53,10 @@ export default function MainNavigationSection() {
 
   const handleToggleDrawer = () => {
     setOpenDrawer(!isOpenDrawer);
+  };
+
+  const handleToggleProfileDrawer = () => {
+    setOpenProfileDrawer(!isOpenProfileDrawer);
   };
 
   const handleMouseEnterNavigation = (_event: any, _link: string) => {
@@ -105,6 +110,7 @@ export default function MainNavigationSection() {
     <MainNavigation
       texts={texts}
       isOpenDrawer={isOpenDrawer}
+      isOpenProfileDrawer={isOpenProfileDrawer}
       cart={cart as any}
       courses={courses?.items}
       role={role}
@@ -117,6 +123,7 @@ export default function MainNavigationSection() {
       onSearchCourse={handleSearchValue}
       onNavigationLink={navigationLink}
       onToggleDrawer={handleToggleDrawer}
+      onToggleProfileDrawer={handleToggleProfileDrawer}
       onCloseCourseMenu={handleCloseCourseMenu}
       onMouseEnterNavigation={handleMouseEnterNavigation}
       onMouseLeaveNavigation={handleMouseLeaveNavigation}

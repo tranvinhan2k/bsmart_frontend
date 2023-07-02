@@ -21,6 +21,7 @@ export default function BreadcrumbNavigationSection() {
   if (!navigationAction) return null;
 
   const isHomePage = navigationAction === NavigationActionData[0];
+  const isDashboard = navigationAction === NavigationActionData[20];
 
   const breadcrumbs: ActionPayload[] = [
     NavigationActionData[0],
@@ -41,6 +42,7 @@ export default function BreadcrumbNavigationSection() {
   return (
     <BreadcrumbNavigation
       isHomePage={isHomePage}
+      isDashboard={isDashboard}
       breadcrumbs={breadcrumbs}
       onViewCourse={handleViewCourse}
     />

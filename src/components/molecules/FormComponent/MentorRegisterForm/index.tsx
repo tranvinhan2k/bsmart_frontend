@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, Grid, Typography, Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +12,11 @@ import { PASSWORD_MATCHED } from '~/form/message';
 import { RequestRegisterPayload } from '~/api/users';
 import toast from '~/utils/toast';
 import { useMutationSignUp, useYupValidationResolver } from '~/hooks';
+import { genderData } from '~/constants';
+import globalStyles from '~/styles';
+import { image } from '~/constants/image';
 
-export default function MentorRegisterForm() {
+export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
   const resolverSignUp = useYupValidationResolver(
     validationSchemaRegisterMentor
   );
@@ -38,11 +41,13 @@ export default function MentorRegisterForm() {
       password: data.password,
       phone: data.phone,
       role: 'TEACHER',
+      birthDay: data.birthDay,
+      gender: (data.gender as any).value,
     };
     const id = toast.loadToast('Đang đăng kí...');
     try {
       await mutation.mutateAsync(params);
-      navigate('/login');
+      onOpen();
       console.log('dang ki thanh cong ');
 
       toast.updateSuccessToast(id, `Đăng kí thành công!`);
@@ -51,59 +56,106 @@ export default function MentorRegisterForm() {
     }
   };
   return (
-    <Stack>
-      <FormInput
-        label="Họ và tên"
-        placeholder="Nguyen Van A"
-        control={mentorSignUpForm.control}
-        name={REGISTER_MENTOR_FIELDS.name}
-      />
-      <Stack marginTop={2}>
-        <FormInput
-          label="E-Mail"
-          placeholder="example@gmail.com"
-          control={mentorSignUpForm.control}
-          name={REGISTER_MENTOR_FIELDS.email}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          label="Số điện thoại"
-          placeholder="+843456789"
-          control={mentorSignUpForm.control}
-          name={REGISTER_MENTOR_FIELDS.phone}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          variant="password"
-          label="Mật Khẩu"
-          control={mentorSignUpForm.control}
-          name={REGISTER_MENTOR_FIELDS.password}
-          helperText={PASSWORD_MATCHED}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          variant="password"
-          label="Xác Nhận Mật Khẩu"
-          control={mentorSignUpForm.control}
-          name={REGISTER_MENTOR_FIELDS.confirm}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <Button
-          onClick={mentorSignUpForm.handleSubmit(handleRegisterSubmit)}
-          customVariant="form"
+    <Grid container>
+      <Grid padding={3} item xs={12} lg={6}>
+        <Stack
+          sx={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
-          Đăng kí
-        </Button>
-      </Stack>
-      <Stack marginTop={2}>
-        <Button onClick={() => handleGoogle()} customVariant="google">
-          Đăng nhập với Google
-        </Button>
-      </Stack>
-    </Stack>
+          <Box
+            component="img"
+            src={image.mentor}
+            alt="React Logo"
+            sx={{
+              width: '100%',
+              objectFit: 'contain',
+            }}
+          />
+        </Stack>
+      </Grid>
+      <Grid item padding={2} xs={12} lg={6}>
+        <Stack
+          sx={{ justifyContent: 'center', alignItems: 'center', padding: 2 }}
+        >
+          <Typography sx={globalStyles.textTitle}>Đăng kí giáo viên</Typography>
+        </Stack>
+        <Stack>
+          <FormInput
+            label="Họ và tên"
+            placeholder="Nguyễn Văn A"
+            control={mentorSignUpForm.control}
+            name={REGISTER_MENTOR_FIELDS.name}
+          />
+          <Stack marginTop={2}>
+            <FormInput
+              label="E-Mail"
+              placeholder="example@gmail.com"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.email}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              label="Số điện thoại"
+              placeholder="0362456xxx"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.phone}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              variant="date"
+              label="Ngày Sinh"
+              placeholder="01/01/2000"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.birthDay}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              data={genderData}
+              variant="dropdown"
+              label="Giới tính"
+              placeholder="Chọn giới tính của bạn"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.gender}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <FormInput
+              variant="password"
+              label="Mật Khẩu"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.password}
+              helperText={PASSWORD_MATCHED}
+            />
+          </Stack>
+          <Stack marginTop={4}>
+            <FormInput
+              variant="password"
+              label="Xác Nhận Mật Khẩu"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.confirm}
+            />
+          </Stack>
+          <Stack marginTop={2}>
+            <Button
+              onClick={mentorSignUpForm.handleSubmit(handleRegisterSubmit)}
+              customVariant="form"
+            >
+              Đăng kí
+            </Button>
+          </Stack>
+          <Stack marginTop={2}>
+            <Button onClick={() => handleGoogle()} customVariant="google">
+              Đăng nhập với Google
+            </Button>
+          </Stack>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }

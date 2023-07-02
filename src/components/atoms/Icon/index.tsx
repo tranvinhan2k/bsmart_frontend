@@ -1,4 +1,9 @@
-import { AiOutlineClose, AiOutlineStar, AiFillSetting } from 'react-icons/ai';
+import {
+  AiOutlineClose,
+  AiOutlineStar,
+  AiFillSetting,
+  AiOutlineRedo,
+} from 'react-icons/ai';
 import { BiCategoryAlt } from 'react-icons/bi';
 import {
   BsDribbble,
@@ -9,6 +14,17 @@ import {
   BsFacebook,
   BsQuestionSquare,
   BsPostcardFill,
+  BsBook,
+  BsFilter,
+  BsArrowBarUp,
+  BsArrowBarDown,
+  BsFillClipboard2CheckFill,
+  BsCheckCircle,
+  BsCheckCircleFill,
+  BsXCircle,
+  BsXCircleFill,
+  BsFillInfoCircleFill,
+  BsFillCaretRightFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
@@ -17,8 +33,14 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
-import { MdPayments, MdCake, MdManageAccounts } from 'react-icons/md';
+import {
+  MdPayments,
+  MdCake,
+  MdManageAccounts,
+  MdFeedback,
+} from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
+import { VscTasklist } from 'react-icons/vsc';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -39,6 +61,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NavigateNext from '@mui/icons-material/NavigateNext';
+import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
 import QuizIcon from '@mui/icons-material/Quiz';
@@ -52,6 +75,11 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import DescriptionIcon from '@mui/icons-material/Description';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import ClearIcon from '@mui/icons-material/Clear';
+import UpdateIcon from '@mui/icons-material/Update';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import WarningIcon from '@mui/icons-material/Warning';
+import ImageIcon from '@mui/icons-material/Image';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -59,6 +87,7 @@ import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
   | 'account'
+  | 'attendance'
   | 'add-icon'
   | 'add'
   | 'assignment'
@@ -71,16 +100,26 @@ export type IconName =
   | 'check'
   | 'class'
   | 'close'
+  | 'arrowUp'
+  | 'arrowDown'
+  | 'arrowRight'
   | 'course'
+  | 'viewDetail'
   | 'delete'
   | 'dot'
   | 'down'
+  | 'checkCircle'
+  | 'xCircle'
+  | 'checkCircleFill'
+  | 'xCircleFill'
   | 'dribbble'
   | 'edit'
   | 'eye-off'
   | 'eye'
   | 'facebook'
   | 'female'
+  | 'feedback'
+  | 'filter'
   | 'google'
   | 'home'
   | 'instagram'
@@ -96,6 +135,7 @@ export type IconName =
   | 'next'
   | 'next2'
   | 'payment'
+  | 'book'
   | 'person'
   | 'phone'
   | 'pinterest'
@@ -103,6 +143,9 @@ export type IconName =
   | 'question'
   | 'quiz'
   | 'right'
+  | 'redo'
+  | 'request'
+  | 'left'
   | 'search'
   | 'setting'
   | 'share'
@@ -115,6 +158,11 @@ export type IconName =
   | 'description'
   | 'coPresent'
   | 'dynamicFeed'
+  | 'clear'
+  | 'update'
+  | 'sentimentVeryDissatisfiedIcon'
+  | 'warningIcon'
+  | 'imageIcon'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -148,10 +196,76 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsPostcardFill />
         </Typography>
       );
+    case 'viewDetail':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFillInfoCircleFill />
+        </Typography>
+      );
+    case 'book':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsBook />
+        </Typography>
+      );
+    case 'attendance':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFillClipboard2CheckFill />
+        </Typography>
+      );
     case 'cake':
       return (
         <Typography sx={STYLED_ICON}>
           <MdCake />
+        </Typography>
+      );
+    case 'arrowUp':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsArrowBarUp />
+        </Typography>
+      );
+    case 'checkCircle':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsCheckCircle />
+        </Typography>
+      );
+    case 'xCircle':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsXCircle />
+        </Typography>
+      );
+    case 'checkCircleFill':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsCheckCircleFill />
+        </Typography>
+      );
+    case 'xCircleFill':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsXCircleFill />
+        </Typography>
+      );
+    case 'request':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <VscTasklist />
+        </Typography>
+      );
+    case 'arrowDown':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsArrowBarDown />
+        </Typography>
+      );
+    case 'arrowRight':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFillCaretRightFill />
         </Typography>
       );
     case 'calendarMonth':
@@ -210,6 +324,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsFacebook />
         </Typography>
       );
+    case 'feedback':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdFeedback />
+        </Typography>
+      );
+    case 'filter':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsFilter />
+        </Typography>
+      );
     case 'female':
       return <WomanIcon sx={STYLED_ICON} />;
     case 'groups':
@@ -220,6 +346,16 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CoPresentIcon sx={STYLED_ICON} />;
     case 'dynamicFeed':
       return <DynamicFeedIcon sx={STYLED_ICON} />;
+    case 'clear':
+      return <ClearIcon sx={STYLED_ICON} />;
+    case 'update':
+      return <UpdateIcon sx={STYLED_ICON} />;
+    case 'sentimentVeryDissatisfiedIcon':
+      return <SentimentVeryDissatisfiedIcon sx={STYLED_ICON} />;
+    case 'warningIcon':
+      return <WarningIcon sx={STYLED_ICON} />;
+    case 'imageIcon':
+      return <ImageIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />
@@ -306,10 +442,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsQuestionSquare />
         </Typography>
       );
+    case 'redo':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiOutlineRedo />
+        </Typography>
+      );
     case 'quiz':
       return <QuizIcon sx={STYLED_ICON} />;
     case 'right':
       return <NavigateNext sx={STYLED_ICON} />;
+    case 'left':
+      return <NavigateBefore sx={STYLED_ICON} />;
     case 'search':
       return <SearchIcon sx={STYLED_ICON} />;
     case 'setting':

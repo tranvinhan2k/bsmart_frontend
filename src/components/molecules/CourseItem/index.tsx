@@ -16,16 +16,16 @@ export default function CourseItem({
     content: '',
     feedback: 0,
     id: 0,
-    image: '',
+    images: [],
     mentor: '',
     title: '',
     mentorImage: '',
-    typeLearn: [''],
+    typeLearn: [],
   },
   isSkeleton = false,
   onClick = () => {},
 }: CourseItemProps) {
-  const { content, feedback, image: itemImage, mentor, title } = item;
+  const { content, feedback, images: itemImage, mentor, title } = item;
 
   const handleNavigateCourseDetail = () => {
     onClick();
@@ -35,29 +35,31 @@ export default function CourseItem({
     return (
       <Stack
         sx={{
-          marginTop: MetricSize.medium_15,
+          marginBottom: MetricSize.medium_15,
           marginLeft: '15px',
           borderColor: Color.grey,
-          width: { xs: '100%', md: '32%' },
+          width: { xs: '100%', md: '23%' },
           borderRadius: MetricSize.small_5,
           justifyContent: 'space-between',
         }}
       >
-        <Skeleton height={700} />
+        <Skeleton height={250} />
       </Stack>
     );
   }
+
+  console.log('image', item);
 
   return (
     <Stack
       sx={{
         background: Color.white,
-        marginTop: MetricSize.medium_15,
+        marginBottom: MetricSize.medium_15,
         marginLeft: '10px',
         borderRadius: MetricSize.medium_15,
         width: { xs: '100%', md: 'calc(50% - 10px)', lg: 'calc(33% - 10px)' },
         justifyContent: 'space-between',
-        height: '650px',
+        height: '700px',
         transition: 'box-shadow ease-in 100ms',
         '&:hover': {
           boxShadow: 3,
@@ -70,16 +72,15 @@ export default function CourseItem({
         sx={{
           objectFit: 'fill',
           width: '100%',
-          height: '300px',
+          height: '350px',
           borderRadius: MetricSize.small_5,
         }}
-        src={itemImage}
+        src={itemImage?.[0]?.url || image.noCourse}
         alt={title}
       />
       <Stack
         sx={{
           padding: MetricSize.medium_15,
-          height: '200px',
         }}
       >
         <Stack
@@ -111,18 +112,22 @@ export default function CourseItem({
           </Typography>
         </Stack>
         <Typography
+          noWrap
           sx={{
             marginTop: MetricSize.small_10,
-            fontSize: FontSize.medium_28,
+            fontSize: FontSize.medium_24,
             fontWeight: 'bold',
             fontFamily: FontFamily.bold,
           }}
         >
           {title}
         </Typography>
-        <Stack>
+        <Stack marginTop={1}>
           <Typography
             sx={{
+              height: '100px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
               fontSize: FontSize.small_18,
               fontFamily: FontFamily.regular,
             }}

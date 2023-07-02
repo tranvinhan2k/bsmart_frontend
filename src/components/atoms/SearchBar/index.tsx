@@ -41,7 +41,6 @@ export default function SearchBar({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingX: MetricSize.medium_15,
         flexGrow: 1,
       }}
     >
@@ -51,6 +50,8 @@ export default function SearchBar({
           borderRadius: MetricSize.small_10,
           borderColor: Color.white,
           flex: 1,
+          height: '50px',
+          paddingY: 0,
           fontFamily: FontFamily.regular,
           fontSize: FontSize.small_16,
           background: Color.semiTransparent,

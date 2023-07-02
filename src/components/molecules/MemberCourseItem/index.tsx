@@ -18,6 +18,7 @@ export default function MemberCourseItem({
     courseDescription: '',
     id: 0,
     courseName: '',
+    imageUrl: '',
     images: [
       {
         id: 0,
@@ -68,12 +69,13 @@ export default function MemberCourseItem({
       sx={{
         marginTop: MetricSize.medium_15,
         marginLeft: '10px',
-        border: '1px solid',
+        boxShadow: 3,
         borderColor: Color.grey,
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
         alignItems: 'stretch',
-        height: '600px',
+        padding: MetricSize.medium_15,
+        height: '800px',
       }}
     >
       <Stack>
@@ -86,8 +88,8 @@ export default function MemberCourseItem({
             height: '300px',
             borderRadius: MetricSize.small_5,
           }}
-          src={images?.[0].url || image.noCourse}
-          alt={images?.[0].name}
+          src={item?.imageUrl || image.noCourse}
+          alt={item?.images?.[0]?.name}
         />
         <Stack sx={{ paddingX: MetricSize.medium_15 }}>
           <Typography
@@ -97,28 +99,24 @@ export default function MemberCourseItem({
               fontFamily: FontFamily.bold,
             }}
           >
-            {title}
+            {item.courseName || ''}
           </Typography>
+          {/* <Typography
+          sx={{
+            fontSize: FontSize.small_18,
+            fontFamily: FontFamily.light,
+            color: Color.grey,
+          }}
+        >{`Mentor ${item.mentorName[0]}`}</Typography> */}
           <Typography
             sx={{
               fontSize: FontSize.small_18,
               fontFamily: FontFamily.light,
               color: Color.grey,
             }}
-          >{`Mentor ${mentor}`}</Typography>
-          <Stack sx={{ flexDirection: 'row' }}>{item.learns[0]}</Stack>
-          <Stack margin={1} overflow="hidden" height="100px">
-            <Typography
-              textOverflow="ellipsis"
-              sx={{
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-                textOverflow: 'clip',
-              }}
-            >
-              {content}
-            </Typography>
-          </Stack>
+          >
+            {item.courseDescription}
+          </Typography>
         </Stack>
       </Stack>
 

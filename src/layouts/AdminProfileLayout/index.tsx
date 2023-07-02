@@ -1,7 +1,6 @@
 import { Stack, Grid } from '@mui/material';
 import AdminDetailSection from '~/containers/AdminProfileLayoutSection/AdminDetailSection';
 import AdminHeader from '~/components/molecules/AdminHeader';
-import { Color } from '~/assets/variables';
 
 interface AdminProfileLayoutProps {
   children: any;
@@ -11,14 +10,28 @@ export default function AdminProfileLayout({
   children,
 }: AdminProfileLayoutProps) {
   return (
-    <Grid container sx={{ height: '100vh', overflow: 'hidden' }}>
-      <Grid item xs={12} md={2}>
-        <AdminDetailSection />
-      </Grid>
-      <Grid item xs={12} md={10}>
+    <Stack
+      sx={{
+        height: '100vh',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: '',
+      }}
+    >
+      <AdminDetailSection />
+      <Stack
+        sx={{
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'scroll',
+          '::-webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
+      >
         <AdminHeader />
-        <Stack sx={{ overflowY: 'scroll' }}>{children}</Stack>
-      </Grid>
-    </Grid>
+        <Stack>{children}</Stack>
+      </Stack>
+    </Stack>
   );
 }

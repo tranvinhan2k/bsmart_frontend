@@ -1,0 +1,8 @@
+version: '2'
+services:
+  web:
+    image: node:alpine
+    container_name: app_mismart_fe_1
+    build: .
+    ports:
+      - "3000:3000"

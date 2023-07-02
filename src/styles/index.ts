@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_LARGE_TITLE: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
@@ -42,6 +42,16 @@ const textSubTitle: SxProps<Theme> = {
   fontSize: FontSize.medium_24,
   color: Color.black,
 };
+const textSmallLabel: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.small_18,
+  color: Color.black,
+};
+const textSmallLight: SxProps<Theme> = {
+  fontFamily: FontFamily.light,
+  fontSize: FontSize.small_18,
+  color: Color.black,
+};
 export const SX_SHADOW: SxProps<Theme> = {
   shadowColor: '#000000',
   shadowOffset: {
@@ -53,12 +63,17 @@ export const SX_SHADOW: SxProps<Theme> = {
   elevation: 4,
 };
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
-  height: '50px',
+  height: MetricSize.formInputHeight,
+  '.MuiInputBase-root': {
+    height: MetricSize.formInputHeight,
+  },
 };
 
 const globalStyles = {
   textTitle,
   textSubTitle,
+  textSmallLabel,
+  textSmallLight,
 };
 
 export default globalStyles;

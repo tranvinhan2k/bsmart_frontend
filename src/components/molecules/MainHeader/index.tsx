@@ -1,7 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, IconButton, Menu, MenuItem, Stack } from '@mui/material';
+import {
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { image } from '~/constants/image';
 import { logOut } from '~/redux/user/slice';
@@ -14,6 +21,8 @@ import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '../SocialBar';
 import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { NavigationActionData } from '~/constants';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -41,19 +50,8 @@ export default function MainHeader({
   const role = useSelector(selectRole);
   const filterParams = useSelector(selectFilterParams);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isNeedRedirect, setNeedRedirect] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isNeedRedirect) {
-      navigate(
-        role !== 'ROLE_STUDENT'
-          ? '/mentor-profile/edit-profile'
-          : '/member-details/edit-profile'
-      );
-      setNeedRedirect(false);
-      window.location.reload();
-    }
-  }, [isNeedRedirect, navigate, role]);
+  const nameSplit = profile.fullName.split(' ');
 
   const handleClose = () => {
     setAnchorEl(() => null);
@@ -71,14 +69,24 @@ export default function MainHeader({
   };
 
   const handleNavigateProfile = () => {
-    setAnchorEl(() => null);
-    setNeedRedirect(true);
+    window.location.pathname =
+      role !== 'ROLE_STUDENT'
+        ? NavigationActionData[3].link
+        : NavigationActionData[13].link;
+  };
+
+  const handleNavigateDashboard = () => {
+    window.location.pathname = NavigationActionData[20].link;
+  };
+
+  const handleHomepage = () => {
+    window.location.pathname = NavigationActionData[0].link;
   };
 
   return (
     <Stack sx={SX_HEADER_CONTAINER}>
       <SocialBar color="white" socials={socials} />
-      <ContractBar color="white" contracts={contracts} />
+      {/* <ContractBar color="white" contracts={contracts} /> */}
       <SearchBar
         value={filterParams.q || ''}
         color="white"
@@ -96,20 +104,41 @@ export default function MainHeader({
         />
       ) : (
         <>
-          <IconButton onClick={handleMenu}>
-            <Avatar
-              alt="Avatar"
-              src={
-                profile?.userImages?.find(
-                  (img) => img?.type === ProfileImgType.AVATAR
-                )?.url || image.noAvatar
-              }
-              sx={{
-                width: 40,
-                height: 40,
-              }}
-            />
-          </IconButton>
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingLeft: MetricSize.medium_15,
+            }}
+          >
+            <Typography sx={{ paddingRight: MetricSize.medium_15 }}>
+              Xin chào,{' '}
+              <span
+                style={{
+                  fontFamily: FontFamily.bold,
+                  fontSize: FontSize.small_18,
+                  color: Color.white,
+                }}
+              >
+                {nameSplit[nameSplit.length - 1]}
+              </span>
+            </Typography>
+            <IconButton onClick={handleMenu}>
+              <Avatar
+                alt="Avatar"
+                src={
+                  profile?.userImages?.find(
+                    (img) => img?.type === ProfileImgType.AVATAR
+                  )?.url || image.noAvatar
+                }
+                sx={{
+                  width: 40,
+                  height: 40,
+                  background: Color.white4,
+                }}
+              />
+            </IconButton>
+          </Stack>
           <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -121,7 +150,11 @@ export default function MainHeader({
             onClose={handleClose}
             onMouseLeave={handleClose}
           >
-            <MenuItem onClick={handleNavigateProfile}>Hồ sơ </MenuItem>
+            <MenuItem onClick={handleHomepage}>Trang Chủ</MenuItem>
+            <MenuItem onClick={handleNavigateProfile}>Hồ sơ</MenuItem>
+            <MenuItem onClick={handleNavigateDashboard}>
+              Quản lí học tập
+            </MenuItem>
             <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
           </Menu>
         </>

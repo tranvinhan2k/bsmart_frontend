@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Box,
+  Button as MuiButton,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
+  Stack,
   Typography,
 } from '@mui/material';
 import { defaultValueEditIdentityFront } from '~/form/defaultValues';
@@ -16,7 +15,7 @@ import { ProfileImgType } from '~/constants/profile';
 import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditIdentityFront } from '~/form/validation';
-import Button from '~/components/atoms/Button';
+import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM_LABEL } from './style';
@@ -24,13 +23,11 @@ import { SX_FORM_LABEL } from './style';
 interface DialogEditIdCardFrontProps {
   open: boolean;
   handleOnClose: () => void;
-  profile: any;
 }
 
 export default function DialogEditIdCardFront({
   open,
   handleOnClose,
-  profile,
 }: DialogEditIdCardFrontProps) {
   const resolverEditIdentityFront = useYupValidationResolver(
     validationSchemaEditIdentityFront
@@ -44,17 +41,6 @@ export default function DialogEditIdCardFront({
     defaultValues: defaultValueEditIdentityFront,
     resolver: resolverEditIdentityFront,
   });
-
-  useEffect(() => {
-    if (profile) {
-      const defaultOfEditIdentityFront = defaultValueEditIdentityFront;
-
-      if (profile.identityFront) {
-        defaultOfEditIdentityFront.identityFront = profile.identityFront;
-        resetEditIdentityFront(defaultOfEditIdentityFront);
-      }
-    }
-  }, [profile, resetEditIdentityFront]);
 
   const { mutateAsync: mutateEditIdentityFront } =
     useMutationEditIdentityFront();
@@ -74,37 +60,62 @@ export default function DialogEditIdCardFront({
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditIdentityFront(params);
+      handleOnClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
 
+  const handleOnCloseCustom = () => {
+    resetEditIdentityFront();
+    handleOnClose();
+  };
+
   return (
-    <Dialog open={open} onClose={handleOnClose} fullWidth>
-      <DialogTitle>Cập nhật mặt trước CMND</DialogTitle>
+    <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
+      <DialogTitle>Cập nhật mặt trước Chứng minh thư</DialogTitle>
       <DialogContent>
         <form
           onSubmit={handleSubmitEditIdentityFront(handleSubmitIdentityFront)}
         >
-          <Typography sx={SX_FORM_LABEL}>Căn cước công dân (trước)</Typography>
+          <Typography sx={SX_FORM_LABEL}>Chứng minh thư (trước)</Typography>
           <FormInput
             control={controlEditIdentityFront}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityFront}
             variant="image"
           />
-          <Box mt={4}>
-            <Button customVariant="normal" type="submit" size="small">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            mt={2}
+          >
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+            >
               Cập nhật
-            </Button>
-          </Box>
+            </MuiButton>
+            <MuiButton
+              color="error"
+              fullWidth
+              size="large"
+              type="button"
+              variant="contained"
+              onClick={handleOnCloseCustom}
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Hủy
+            </MuiButton>
+          </Stack>
         </form>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleOnClose} variant="outlined" color="error">
-          Hủy
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

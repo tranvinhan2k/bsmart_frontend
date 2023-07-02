@@ -32,7 +32,6 @@ export default function CartPage() {
   const { cart, isLoading, handleDispatch, error } = useDispatchGetCart();
   const { mutateAsync: deleteCourse } = useMutationDeleteCourseFromCart();
   const { mutateAsync: updateCourse } = useMutationUpdateCourseFromCart();
-  const { text, setText } = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

@@ -1,7 +1,14 @@
+/* eslint-disable import/no-cycle */
+
 import { Stack, Typography } from '@mui/material';
 import { Control, useController, UseControllerReturn } from 'react-hook-form';
 import { BankLinking, FormInputVariant } from '~/models/form';
-import { OptionPayload } from '~/models';
+import {
+  DropdownDynamicValueInputBooleanDataPayload,
+  DropdownDynamicValueInputNumberDataPayload,
+  DropdownDynamicValueInputStringDataPayload,
+  OptionPayload,
+} from '~/models';
 import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
@@ -16,19 +23,28 @@ import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
-// eslint-disable-next-line import/no-cycle
 import TimeTableInput from './TimeTableInput';
 import DropdownInputBank from './DropdownInputBank';
+import FeedbackQuestionChoiceInput from './FeedbackQuestionChoiceInput';
+import FeedbackTypeInput from './FeedbackTypeInput';
+import DateTimePickerInput from './DateTimePickerInput';
+import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 
 interface FormInputProps {
   banks?: BankLinking[];
   control: Control<any>;
   data?: OptionPayload[];
+  dataDropdownDynamicValue?: (
+    | DropdownDynamicValueInputBooleanDataPayload
+    | DropdownDynamicValueInputNumberDataPayload
+    | DropdownDynamicValueInputStringDataPayload
+  )[];
   defaultValue?: any;
   helperText?: string;
   label?: string;
   name: string;
   placeholder?: string;
+  multilineRows?: number;
   previewImgHeight?: number | '100%';
   previewImgWidth?: number | '100%';
   variant?: FormInputVariant;
@@ -38,8 +54,14 @@ const generateFormInput = (
   banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
   data: OptionPayload[],
+  dataDropdownDynamicValue: (
+    | DropdownDynamicValueInputBooleanDataPayload
+    | DropdownDynamicValueInputNumberDataPayload
+    | DropdownDynamicValueInputStringDataPayload
+  )[],
   helperText: string,
   placeholder: string,
+  multilineRows: number,
   previewImgHeight: number | '100%',
   previewImgWidth: number | '100%',
   variant: FormInputVariant
@@ -47,9 +69,20 @@ const generateFormInput = (
   switch (true) {
     case variant === 'text':
       return <TextInput controller={controller} placeholder={placeholder} />;
+    case variant === 'feedbackQuestionChoice':
+      return (
+        <FeedbackQuestionChoiceInput
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'multiline':
       return (
-        <MultilineInput controller={controller} placeholder={placeholder} />
+        <MultilineInput
+          controller={controller}
+          placeholder={placeholder}
+          multilineRows={multilineRows}
+        />
       );
     case variant === 'timetable':
       return (
@@ -91,6 +124,13 @@ const generateFormInput = (
       return (
         <HourPickerInput controller={controller} placeholder={placeholder} />
       );
+    case variant === 'datetime':
+      return (
+        <DateTimePickerInput
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'dropdown':
       return (
         <DropdownInput
@@ -99,12 +139,28 @@ const generateFormInput = (
           data={data}
         />
       );
+    case variant === 'dropdownDynamicValue':
+      return (
+        <DropdownDynamicValueInput
+          controller={controller}
+          placeholder={placeholder}
+          data={dataDropdownDynamicValue}
+        />
+      );
     case variant === 'dropdownBanks':
       return (
         <DropdownInputBank
           controller={controller}
           placeholder={placeholder}
           data={banks}
+        />
+      );
+    case variant === 'feedbackTypeChoose':
+      return (
+        <FeedbackTypeInput
+          data={data}
+          controller={controller}
+          placeholder={placeholder}
         />
       );
     default:
@@ -116,11 +172,13 @@ export default function FormInput({
   banks = [],
   control,
   data = [],
+  dataDropdownDynamicValue = [],
   defaultValue,
   helperText = '',
   label = '',
   name,
   placeholder = '',
+  multilineRows = 4,
   previewImgHeight = '100%',
   previewImgWidth = '100%',
   variant = 'text',
@@ -128,14 +186,16 @@ export default function FormInput({
   const controller = useController({ name, defaultValue, control });
 
   return (
-    <Stack flexGrow={1} marginBottom={1}>
+    <Stack flexGrow={1}>
       <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
       {generateFormInput(
         banks,
         controller,
         data,
+        dataDropdownDynamicValue,
         helperText,
         placeholder,
+        multilineRows,
         previewImgHeight,
         previewImgWidth,
         variant
@@ -147,10 +207,12 @@ export default function FormInput({
 FormInput.defaultProps = {
   banks: [],
   data: [],
+  dataDropdownDynamicValue: [],
   defaultValue: '',
   helperText: '',
   label: '',
   placeholder: '',
+  multilineRows: 4,
   previewImgHeight: '100%',
   previewImgWidth: '100%',
   variant: 'text',

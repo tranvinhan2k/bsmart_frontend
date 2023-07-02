@@ -18,6 +18,8 @@ export interface ActionPayload {
   isHide?: boolean;
   name: string;
   link: string;
+  icon?: IconName;
+  items?: ActionPayload[];
 }
 
 export interface TabPayload {
@@ -29,7 +31,8 @@ export interface OptionPayload {
   id: number;
   label: string;
   value: string;
-  categoryId?: number;
+  categoryIds?: number[];
+  content?: string;
 }
 
 export interface ImagePayload {
@@ -53,6 +56,22 @@ export interface PaginationPayload {
   page: number;
   size: number;
   sort: string;
+}
+
+export interface DropdownDynamicValueInputBooleanDataPayload {
+  id: number;
+  label: string;
+  value: boolean;
+}
+export interface DropdownDynamicValueInputNumberDataPayload {
+  id: number;
+  label: string;
+  value: number;
+}
+export interface DropdownDynamicValueInputStringDataPayload {
+  id: number;
+  label: string;
+  value: string;
 }
 
 export interface RequestPagingFilterPayload {

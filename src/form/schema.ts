@@ -14,12 +14,47 @@ export const TIME_TABLE_FIELDS = {
   slot: 'slot',
   dayInWeek: 'dayInWeek',
 };
+export const CREATE_CATEGORY_FIELDS = {
+  code: 'code',
+  name: 'name',
+};
+export const CREATE_TEMPLATE_FIELDS = {
+  templateName: 'templateName',
+  questionList: 'questionList',
+  feedbackType: 'feedbackType',
+  permission: 'permission',
+};
+export const FEEDBACK_QUESTION_FIELDS = {
+  point: 'point',
+  label: 'label',
+};
+export const CREATE_FEEDBACK_QUESTION = {
+  question: 'question',
+  possibleAnswer: 'possibleAnswer',
+  questionType: 'questionType',
+};
+export const UPDATE_CATEGORY_FIELDS = {
+  code: 'code',
+  name: 'name',
+};
+export const CREATE_SUBJECT_FIELDS = {
+  code: 'code',
+  name: 'name',
+  categoryId: 'categoryId',
+};
+export const UPDATE_SUBJECT_FIELDS = {
+  code: 'code',
+  name: 'name',
+  categoryId: 'categoryId',
+};
 export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   name: 'name',
   email: 'email',
   password: 'password',
   confirm: 'confirm',
   phone: 'phone',
+  birthDay: 'birthDay',
+  gender: 'gender',
 };
 export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   name: 'name',
@@ -27,7 +62,8 @@ export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   email: 'email',
   password: 'password',
   confirm: 'confirm',
-  introduction: 'introduction',
+  gender: 'gender',
+  birthDay: 'birthDay',
 };
 export const BUY_COURSE_FIELDS: BuyCourseDataPayload = {
   name: 'name',
@@ -108,6 +144,7 @@ export const CREATE_COURSE_FIELDS = {
 export const CREATE_SUB_COURSE_FIELDS = {
   level: 'level',
   imageId: 'imageId',
+  imageUrl: 'imageUrl',
   subjectId: 'subjectId',
   type: 'type',
   price: 'price',

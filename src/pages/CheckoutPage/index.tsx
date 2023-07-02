@@ -12,7 +12,6 @@ import { Navigate } from 'react-router-dom';
 import styles from './styles';
 import globalStyles from '~/styles';
 import { formatMoney } from '~/utils/money';
-import { CartItem, CartSubCourse } from '~/api/cart';
 import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
@@ -22,7 +21,6 @@ import {
   selectCheckoutItem,
   selectTotalAmount,
 } from '~/redux/courses/selector';
-import { SubCoursePayload } from '~/models/subCourse';
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
@@ -35,10 +33,13 @@ function CheckoutPage() {
   const slTotalAmount = useSelector(selectTotalAmount);
   const slIntroduceCode = useSelector(selectIntroduceCode);
 
-  const [introduceCode, setIntroduceCode] = useState(slIntroduceCode);
+  const [introduceCode, setIntroduceCode] = useState<string | undefined>(
+    slIntroduceCode
+  );
   const [text, setText] = useState('');
+
   if (checkOutItem === null) {
-    <Navigate to="/homepage" />;
+    return <Navigate to="/homepage" />;
   }
 
   const handleCheckOut = async () => {
@@ -52,10 +53,12 @@ function CheckoutPage() {
           }))
         );
       } else {
-        await mutatePayQuick({
+        const response = await mutatePayQuick({
           subCourseId: checkOutItem?.id || 0,
           referralCode: introduceCode,
         });
+        const url = response.paymentUrl;
+        window.open(url);
       }
       toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {
@@ -81,7 +84,7 @@ function CheckoutPage() {
   const values: {
     totalAmount: string;
     totalQuantity: number;
-    courseList: (CartSubCourse | null)[];
+    courseList: any;
   } = {
     totalAmount: formatMoney(slTotalAmount),
     totalQuantity: Array.isArray(checkOutItem) ? checkOutItem.length : 1,
@@ -128,7 +131,7 @@ function CheckoutPage() {
           <Icon name="down" size="small" color="grey" />
         </Stack>
         <Box sx={{ width: '500px' }}>
-          {values.courseList.map((item) => (
+          {values.courseList.map((item: any) => (
             <Box key={item.id}>
               <Stack
                 sx={{
@@ -138,6 +141,9 @@ function CheckoutPage() {
               >
                 <Stack>
                   <Box
+                    component="img"
+                    src={image.noCourse}
+                    alt={item?.id}
                     sx={{
                       alignSelf: 'center',
                       width: '50px',
@@ -146,9 +152,6 @@ function CheckoutPage() {
                       borderRadius: '5px',
                       objectFit: 'contain',
                     }}
-                    component="img"
-                    src={image.noCourse}
-                    alt={item?.id}
                   />
                 </Stack>
                 <Stack
@@ -183,7 +186,7 @@ function CheckoutPage() {
                       fontSize: FontSize.small_18,
                     }}
                   >
-                    {formatMoney(item?.price)}
+                    {formatMoney(item?.price || 0)}
                   </Typography>
                 </Stack>
               </Stack>
@@ -202,7 +205,7 @@ function CheckoutPage() {
           <Divider sx={{ marginY: MetricSize.small_5 }} />
           <TextLine label={texts.totalPrice} variable={values.totalAmount} />
         </Stack>
-        {introduceCode === '' ? (
+        {!introduceCode ? (
           <Stack marginTop={2}>
             <Typography sx={globalStyles.textSubTitle}>
               Mã giới thiệu
@@ -230,7 +233,10 @@ function CheckoutPage() {
           </Stack>
         ) : (
           <Stack>
-            <TextLine label="Mã giới thiệu" variable={introduceCode} />
+            <TextLine
+              label="Mã giới thiệu"
+              variable={`${introduceCode || ''}`}
+            />
           </Stack>
         )}
 

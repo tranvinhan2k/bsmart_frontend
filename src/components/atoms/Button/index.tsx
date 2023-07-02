@@ -8,6 +8,7 @@ import {
 import { ButtonVariant } from '~/models/button';
 import {
   SX_FORM_BUTTON,
+  SX_FORM_INPUT_HORIZON_BUTTON,
   SX_GOOGLE_BUTTON,
   SX_GOOGLE_STACK,
   SX_OUTLINED_BUTTON,
@@ -16,6 +17,7 @@ import { FontFamily, MetricSize } from '~/assets/variables';
 import { MetricSizeKeys } from '~/models/variables';
 import Icon from '~/components/atoms/Icon';
 import NormalButton from './NormalButton';
+import LinearButton from './LinearButton';
 
 interface ButtonProps extends MUIButtonProps {
   customVariant?: ButtonVariant;
@@ -46,10 +48,20 @@ export default function Button({
           {children}
         </NormalButton>
       );
+    case 'linear':
+      return <LinearButton {...rest}>{children}</LinearButton>;
     case 'outlined':
       return (
         <Stack marginTop={MetricSize[marginTop]}>
           <MUIButton sx={SX_OUTLINED_BUTTON} {...rest}>
+            {children}
+          </MUIButton>
+        </Stack>
+      );
+    case 'horizonForm':
+      return (
+        <Stack marginTop={MetricSize[marginTop]}>
+          <MUIButton sx={SX_FORM_INPUT_HORIZON_BUTTON} {...rest}>
             {children}
           </MUIButton>
         </Stack>

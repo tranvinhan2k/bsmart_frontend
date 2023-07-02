@@ -1,7 +1,9 @@
 import {
   BuyCourseDataPayload,
+  CreateAnnouncementFormDataPayload,
+  CreateAssignmentFormDataPayload,
   EditAvatarFormDataPayload,
-  EditCertificateProfileFormDataPayload,
+  EditCertificateProfileDefaultValuePayload,
   EditIdentityBackFormDataPayload,
   EditIdentityFrontFormDataPayload,
   EditMentorProfileFormDataPayload,
@@ -9,6 +11,7 @@ import {
   LoginFormDataPayload,
   RegisterMentorDataPayload,
   RegisterStudentDataPayload,
+  UpdateAnnouncementFormDataPayload,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
@@ -16,20 +19,23 @@ export const defaultValueSignIn: LoginFormDataPayload = {
   email: localStorage.getItem('username') || '',
   password: localStorage.getItem('password') || '',
 };
-export const defaultValueStudentRegister: RegisterStudentDataPayload = {
+export const defaultValueStudentRegister = {
   email: '',
   password: '',
   name: '',
   phone: '',
   confirm: '',
+  birthDay: '',
+  gender: null,
 };
-export const defaultValueMentorRegister: RegisterMentorDataPayload = {
+export const defaultValueMentorRegister = {
   email: '',
   password: '',
   confirm: '',
-  introduction: '',
+  birthDay: '',
   name: '',
   phone: '',
+  gender: null,
 };
 export const defaultValueBuyCourse: BuyCourseDataPayload = {
   email: '',
@@ -62,14 +68,21 @@ export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
   workingExperience: '',
 };
 
-export const defaultValueEditCertificateProfile: EditCertificateProfileFormDataPayload =
+export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
   {
-    userImages: [''],
+    userImages: [
+      {
+        id: 0,
+        name: '',
+        status: true,
+        type: '',
+        url: '',
+      },
+    ],
   };
 
 export const defaultValueEditAccountProfile = {
   oldPassword: '',
-  oldPasswordConfirm: '',
   newPassword: '',
   newPasswordConfirm: '',
 };
@@ -90,7 +103,6 @@ export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
 };
 
 export const defaultValueCreateCourse = {
-  code: '',
   name: '',
   level: '',
   imageId: '',
@@ -108,8 +120,6 @@ export const defaultValueCreateCourse = {
   timeInWeekRequests: [],
 };
 export const defaultValueCreateSubCourse = {
-  code: '',
-  name: '',
   level: '',
   imageId: '',
   type: '',
@@ -118,7 +128,6 @@ export const defaultValueCreateSubCourse = {
   maxStudent: 0,
   startDateExpected: '',
   endDateExpected: '',
-  description: '',
   subCourseTile: '',
   numberOfSlot: 0,
   timeInWeekRequests: [],
@@ -135,4 +144,63 @@ export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
   bankAccount: 0,
   bankAccountOwner: '',
   note: '',
+};
+
+export const defaultValueCreateCategory = {
+  code: '',
+  name: '',
+};
+export const defaultValueUpdateCategory = {
+  code: '',
+  name: '',
+};
+
+export const defaultValueEditCreateAssignment: CreateAssignmentFormDataPayload =
+  {
+    name: '',
+    activityTypeId: 0,
+    isVisible: true,
+    classSectionId: 0,
+    description: '',
+    startDate: '',
+    endDate: '',
+    editBeForSubmitMin: 0,
+    maxFileSubmit: 1,
+    maxFileSize: 10,
+    attachFiles: [],
+    isOverWriteAttachFile: true,
+  };
+export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
+  name: '',
+  activityTypeId: 0,
+  isVisible: true,
+  classSectionId: 0,
+  description: '',
+  startDate: '',
+  endDate: '',
+  editBeForSubmitMin: 0,
+  maxFileSubmit: 1,
+  maxFileSize: 10,
+  attachFiles: [],
+  isOverWriteAttachFile: true,
+};
+
+export const defaultValueCreateAnnouncement: CreateAnnouncementFormDataPayload =
+  {
+    content: '',
+    title: '',
+    visible: true,
+  };
+export const defaultValueUpdateAnnouncement: UpdateAnnouncementFormDataPayload =
+  {
+    content: '',
+    title: '',
+    visible: true,
+  };
+
+export const defaultValueCreateClassSections = {
+  name: '',
+};
+export const defaultValueUpdateClassSections = {
+  name: '',
 };

@@ -13,13 +13,16 @@ export const Color = {
   navy: '#0e0a38',
   navy2: '#130f40',
   neutral: '#ccc',
-  orange: '#ff630e',
+  orange: '#19A7CE',
   red: '#e74033',
   semiTransparent: '#ffffff22',
   transparent: '#00000000',
   white: '#ffffff',
   whiteSmoke: '#f5f5f5',
   white2: '#eeeeee',
+  white3: '#f9f9f9',
+  white4: '#eff3f6',
+  white5: '#ebebeb',
 };
 
 export const BorderRadius = {
@@ -81,6 +84,7 @@ export const MetricSize = {
   fullWidth: '100vw',
   halfWidth: '50vw',
   none: 0,
+  formInputHeight: '50px',
 };
 
 /* Positioning */

@@ -8,7 +8,6 @@ const stack1: SxProps<Theme> = {
 };
 const stack2: SxProps<Theme> = {
   flexDirection: 'row',
-  justifyContent: 'space-between',
 };
 const typography1: SxProps<Theme> = {
   fontSize: FontSize.medium_28,

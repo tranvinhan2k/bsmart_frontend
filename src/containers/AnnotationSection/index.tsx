@@ -1,56 +1,71 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
-import img_banner_sub_typing_1 from '~/assets/images/HomePageSection/img_banner_sub_typing_1.jpg';
+import { Box, Grid, Pagination, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
+import ActivityHistoryDetails from './ActivityHistoryDetails';
+import { ANNOTATION_BOX, ANNOTATION_H3, SX_FORM_LABEL_GRAY } from './style';
 
-import {
-  ANNOTATION_H3,
-  ANNOTATION_BOX,
-  ANNOTATION_BUTTON,
-  ANNOTATION_CONTENT,
-  ANNOTATION_CONTENT_IMG,
-  ANNOTATION_CONTENT_TITLE,
-  ANNOTATION_CONTENT_CONTENT,
-  ANNOTATION_CONTENT_DATE,
-} from './style';
+export default function AnnotationSection() {
+  const [page, setPage] = useState<number>(0);
+  const size = 5;
 
-export default function index() {
+  const { activityHistories, refetch } = useManageActivityHistory({
+    page,
+    size,
+  });
+
+  const handlePagination = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value - 1);
+    refetch();
+  };
+
   return (
-    <Grid container my={2}>
+    <Grid container my={5}>
       <Grid item xs={1} md={3}>
         <Box />
       </Grid>
       <Grid item xs={10} md={6}>
         <Box sx={ANNOTATION_BOX}>
-          <Typography component="h3" sx={ANNOTATION_H3}>
-            Thông báo
-          </Typography>
-          <Button sx={ANNOTATION_BUTTON}>Tất cả</Button>
-          <Button sx={ANNOTATION_BUTTON}>Chưa đọc</Button>
-          <Box sx={ANNOTATION_CONTENT}>
-            <Grid container my={2} p={2}>
-              <Grid item xs={2}>
-                <Box
-                  component="img"
-                  sx={ANNOTATION_CONTENT_IMG}
-                  alt="img"
-                  src={img_banner_sub_typing_1}
-                />
-              </Grid>
-              <Grid item xs={10}>
-                <Typography component="p" sx={ANNOTATION_CONTENT_TITLE}>
-                  ĐĂNG KÝ MÔN HỌC
-                </Typography>
-                <Typography component="p" sx={ANNOTATION_CONTENT_CONTENT}>
-                  Chúc mừng bạn đã đăng ký môn học thành công
-                </Typography>
-                <Typography component="p" sx={ANNOTATION_CONTENT_DATE}>
-                  Ngày 01/01/2023
-                </Typography>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Box textAlign="center" mt={2}>
-          <Button sx={ANNOTATION_BUTTON}>Tải thêm</Button>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            // spacing={2}
+          >
+            <Typography component="h3" sx={ANNOTATION_H3}>
+              Danh sách hoạt động
+            </Typography>
+            {activityHistories && (
+              <>
+                {activityHistories.items.length > 0 && (
+                  <>
+                    {activityHistories.items.map((item) => (
+                      <ActivityHistoryDetails
+                        key={item.id}
+                        action={item.action}
+                        activityName={item.activityName}
+                        activityTime={item.activityTime}
+                        type={item.type}
+                      />
+                    ))}
+                    <Pagination
+                      onChange={handlePagination}
+                      color="standard"
+                      size="large"
+                      count={activityHistories.totalPages}
+                    />
+                  </>
+                )}
+                {activityHistories.items.length < 0 && (
+                  <Typography sx={SX_FORM_LABEL_GRAY}>
+                    Không có dữ liệu
+                  </Typography>
+                )}
+              </>
+            )}
+          </Stack>
         </Box>
       </Grid>
       <Grid item xs={1} md={3}>

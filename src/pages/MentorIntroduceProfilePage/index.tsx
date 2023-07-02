@@ -5,7 +5,10 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CourseItem from '~/components/molecules/CourseItem';
 import { image } from '~/constants/image';
-import { useQueryGetAllMentorCourses, useQueryGetAllSubjects } from '~/hooks';
+import {
+  useDispatchGetAllSubjects,
+  useQueryGetAllMentorCourses,
+} from '~/hooks';
 import { MentorPayload } from '~/models/mentor';
 import { scrollToTop } from '~/utils/common';
 
@@ -17,7 +20,7 @@ export default function MentorIntroduceProfilePage({
   mentor,
 }: MentorIntroduceProfilePageProps) {
   const navigation = useNavigate();
-  const { subjects } = useQueryGetAllSubjects();
+  const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { courses } = useQueryGetAllMentorCourses({
     page: 0,
     size: 4,

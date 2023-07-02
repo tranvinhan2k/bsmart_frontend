@@ -11,6 +11,7 @@ export const SX_NAVIGATION_CONTAINER: SxProps<Theme> = {
 };
 export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
   background: Color.blueTransparent,
+  backdropFilter: 'blur(5px)',
   position: 'position',
   content: '""',
   top: 0,
@@ -48,10 +49,10 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
   height: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingY: '60px',
+  paddingY: '20px',
 };
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
-  fontSize: FontSize.extraLarge_70,
+  fontSize: FontSize.large_45,
   fontFamily: FontFamily.medium,
   color: Color.orange,
   textAlign: 'center',

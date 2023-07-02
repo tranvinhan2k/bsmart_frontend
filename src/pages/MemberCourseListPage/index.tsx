@@ -11,6 +11,7 @@ import MemberCourseItem from '~/components/molecules/MemberCourseItem';
 import toast from '~/utils/toast';
 import { scrollToTop } from '~/utils/common';
 import { RequestPagingFilterPayload } from '~/models';
+import CustomPagination from '~/components/atoms/CustomPagination';
 
 const texts = {
   title: 'Khoá học đã đăng kí',
@@ -59,7 +60,7 @@ export default function MemberCourseListPage() {
             <Grid
               item
               xs={12}
-              md={6}
+              md={4}
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
@@ -75,12 +76,14 @@ export default function MemberCourseListPage() {
           <Typography>Bạn chưa đăng kí khóa học nào</Typography>
         )}
       </Grid>
-      <Stack>
+      <Stack
+        sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
+      >
         {courses && courses.items.length > 0 && (
-          <Pagination
-            page={courses.currentPage}
+          <CustomPagination
+            currentPage={courses.currentPage}
             onChange={handleChangePageNumber}
-            count={courses.totalPages}
+            totalPages={courses.totalPages}
           />
         )}
       </Stack>

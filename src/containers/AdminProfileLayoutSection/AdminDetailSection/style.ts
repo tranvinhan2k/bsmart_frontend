@@ -4,9 +4,7 @@ import { CSSObject } from 'react-pro-sidebar';
 import { Color, FontSize, FontFamily, MetricSize } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
-  background: Color.navy,
-  width: '100%',
-  height: '100%',
+  position: 'relative',
 };
 
 export const SX_APP_NAME: SxProps<Theme> = {
@@ -25,9 +23,13 @@ export const SX_SIDEBAR_TITLE: SxProps<Theme> = {
 };
 
 export const STYLE_SIDEBAR: CSSProperties = {
-  height: '100%',
-  width: '100%',
   background: Color.navy,
+};
+export const STYLE_SCROLLBAR: SxProps<Theme> = {
+  overflowY: 'scroll',
+  '&::-webkit-scrollbar': {
+    display: 'none',
+  },
 };
 
 export const STYLE_MENU: CSSProperties = {

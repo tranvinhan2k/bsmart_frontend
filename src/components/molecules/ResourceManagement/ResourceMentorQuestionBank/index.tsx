@@ -11,7 +11,7 @@ export default function ResourceMentorQuestionBank() {
   const tabEl = [
     {
       id: 0,
-      text: 'Câu hỏi trong ngân hàng',
+      text: 'Danh sách câu hỏi',
       component: <QuestionBankInner />,
     },
     { id: 1, text: 'Tạo mới', component: <QuestionBankInnerCreate /> },

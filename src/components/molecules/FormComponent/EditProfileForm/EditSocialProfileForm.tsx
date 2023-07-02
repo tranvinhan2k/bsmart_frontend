@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Button as MuiButton, Divider, Typography } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -10,17 +10,11 @@ import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { RootState } from '~/redux/store';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
+import { FontFamily } from '~/assets/variables';
 import accountApi from '~/api/users';
-import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
-
-const toastMsgLoading = 'Đang cập nhật ...';
-const toastMsgSuccess = 'Cập nhật thành công ...';
-const toastMsgError = (error: any): string => {
-  return `Cập nhật không thành công: ${error.message}`;
-};
 
 export default function EditSocialProfileForm() {
   const resolverEditSocialProfile = useYupValidationResolver(
@@ -34,6 +28,11 @@ export default function EditSocialProfileForm() {
     mutationFn: accountApi.editSocialProfile,
   });
 
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công';
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${error.message}`;
+  };
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {};
     if (data.facebookLink) params.facebookLink = data.facebookLink;
@@ -44,7 +43,7 @@ export default function EditSocialProfileForm() {
       await mutateEditSocialProfile(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 
@@ -123,9 +122,16 @@ export default function EditSocialProfileForm() {
           </Fragment>
         ))}
         <Box mt={4}>
-          <Button customVariant="normal" type="submit">
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            sx={{ fontFamily: FontFamily.bold }}
+          >
             Cập nhật
-          </Button>
+          </MuiButton>
         </Box>
       </form>
     </Box>

@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@mui/material';
+import { Stack, ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import { Provider, useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import store from '~/redux/store';
 import defaultTheme from '~/themes';
 import MainLayout from '~/layouts/MainLayout';
-import routes, { adminRoutes } from '~/routes';
+import routes, { adminRoutes, managerRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 // css
@@ -19,14 +19,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import localEnvironment from './utils/localEnvironment';
 import { Role } from './models/role';
-import { selectCart, selectProfile, selectRole } from './redux/user/selector';
+import {
+  selectCart,
+  selectProfile,
+  selectRole,
+  selectToken,
+} from './redux/user/selector';
 import AuthorizePage from './pages/AuthorizePage';
-import { useDispatchGetCart, useMutationProfile } from './hooks';
+import {
+  useDispatchGetAllCategories,
+  useDispatchGetAllSubjects,
+  useDispatchGetCart,
+  useDispatchProfile,
+  useMutationProfile,
+} from './hooks';
 import { addProfile } from './redux/user/slice';
 import AdminProfileLayout from './layouts/AdminProfileLayout';
+import ManagerProfileLayout from '~/layouts/ManagerProfileLayout';
+import { Color } from './assets/variables';
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (
+    <Route key={route.path} path={route.path} element={route?.main()} />
+  ));
+};
+const showManagerRoutes = () => {
+  return managerRoutes.map((route: RoutePayload) => (
     <Route key={route.path} path={route.path} element={route?.main()} />
   ));
 };
@@ -80,53 +98,41 @@ const showRoutes = (currentRole: Role | null) => {
 };
 
 function App() {
-  const dispatch = useDispatch();
   const role = useSelector(selectRole);
-  const profile = useSelector(selectProfile);
-  const getProfileMutation = useMutationProfile();
+  const token = useSelector(selectToken);
+
   const getUserCart = useDispatchGetCart();
-  const cart = useSelector(selectCart);
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
+  const { handleUpdateSubjects } = useDispatchGetAllSubjects();
+  const { handleUpdateCategories } = useDispatchGetAllCategories();
 
   useEffect(() => {
-    async function getProfile() {
-      try {
-        const responseProfile = await getProfileMutation.mutateAsync();
-        dispatch(addProfile({ profile: responseProfile }));
-      } catch (error) {
-        // toast.notifyErrorToast('Lấy thông tin thất bại. Xin hãy thử lại.');
-      }
-    }
-    if (!profile.id) {
-      getProfile();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    async function initGlobalValue() {
+      console.log('hello function');
 
-  useEffect(() => {
-    async function getCart() {
-      try {
-        await getUserCart.handleDispatch();
-      } catch (error) {
-        console.error(error);
-      }
+      await handleDispatchProfile();
+      await getUserCart.handleDispatch();
+      await handleUpdateSubjects();
+      await handleUpdateCategories();
     }
-
-    if (!cart) {
-      console.log('cart');
-
-      getCart();
-    }
+    initGlobalValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer />
-      {role === 'ROLE_ADMIN' ? (
+      {role === 'ROLE_ADMIN' && Boolean(token) && (
         <AdminProfileLayout>
           <Routes>{showAdminRoutes()}</Routes>
         </AdminProfileLayout>
-      ) : (
+      )}
+      {role === 'ROLE_MANAGER' && Boolean(token) && (
+        <ManagerProfileLayout>
+          <Routes>{showManagerRoutes()}</Routes>
+        </ManagerProfileLayout>
+      )}
+      {role !== 'ROLE_ADMIN' && role !== 'ROLE_MANAGER' && (
         <MainLayout>
           <Routes>{showRoutes(role)}</Routes>
         </MainLayout>
@@ -139,21 +145,23 @@ const queryClient = new QueryClient();
 
 function Wrapper() {
   return (
-    <ProSidebarProvider>
-      <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <ThemeProvider theme={defaultTheme}>
-              <BrowserRouter>
+    <GoogleOAuthProvider clientId={localEnvironment.GOOGLE_CLIENT_KEY}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <ThemeProvider theme={defaultTheme}>
+            <BrowserRouter>
+              <ProSidebarProvider>
                 <React.StrictMode>
-                  <App />
+                  <Stack sx={{ background: Color.white4, minHeight: '100vh' }}>
+                    <App />
+                  </Stack>
                 </React.StrictMode>
-              </BrowserRouter>
-            </ThemeProvider>
-          </Provider>
-        </QueryClientProvider>
-      </GoogleOAuthProvider>
-    </ProSidebarProvider>
+              </ProSidebarProvider>
+            </BrowserRouter>
+          </ThemeProvider>
+        </Provider>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   );
 }
 

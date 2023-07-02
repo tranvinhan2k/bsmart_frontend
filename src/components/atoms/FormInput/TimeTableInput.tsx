@@ -50,6 +50,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           dayInWeek: data.dayInWeek,
         },
       ]);
+      timetableHookForm.reset();
     } else {
       toast.notifyErrorToast(
         'Khung giờ này đã được chọn, hãy chọn khung giờ khác'
@@ -99,10 +100,10 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   borderRadius: '5px',
-                  background: Color.whiteSmoke,
+                  background: Color.grey3,
                 }}
                 key={`${item.dayInWeek.id} ${item.slot.id}`}
-                margin={1}
+                marginY={1}
                 padding={1}
               >
                 <Typography
@@ -121,34 +122,33 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             );
           })}
       </Stack>
-      <Grid container>
-        <Grid item padding={1} xs={12} md={4}>
+      <Grid container paddingBottom={2} spacing={1}>
+        <Grid item xs={12} md={5}>
           {slots && (
             <FormInput
               variant="dropdown"
               name={TIME_TABLE_FIELDS.slot}
               control={timetableHookForm.control}
               data={slotOptions}
-              label="Khung giờ học"
+              placeholder="Khung giờ học"
             />
           )}
         </Grid>
-        <Grid item padding={1} md={4}>
+        <Grid item xs={12} md={5}>
           {dayInWeeks && (
             <FormInput
               variant="dropdown"
               name={TIME_TABLE_FIELDS.dayInWeek}
               control={timetableHookForm.control}
               data={dayInWeekOptions}
-              label="Ngày trong tuần"
+              placeholder="Ngày trong tuần"
             />
           )}
         </Grid>
         <Grid
           item
           xs={12}
-          md={4}
-          padding={1}
+          md={2}
           sx={{ alignItems: 'center', justifyContent: 'center' }}
         >
           <Stack
@@ -159,9 +159,9 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           >
             <Button
               onClick={timetableHookForm.handleSubmit(onSubmit)}
-              customVariant="form"
+              customVariant="horizonForm"
             >
-              Thêm giờ học
+              <Icon name="add" color="white" size="medium" />
             </Button>
           </Stack>
         </Grid>

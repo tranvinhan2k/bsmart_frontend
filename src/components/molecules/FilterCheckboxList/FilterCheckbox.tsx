@@ -41,7 +41,11 @@ export default function FilterCheckbox({
   };
 
   return data && data.length !== 0 ? (
-    <Stack>
+    <Stack
+      sx={{
+        transition: 'all 1s ease',
+      }}
+    >
       <Button
         sx={{
           textAlign: 'start',

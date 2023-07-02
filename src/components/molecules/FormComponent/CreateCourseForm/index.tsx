@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import Button from '~/components/atoms/Button';
 import CollapseStack from '~/components/atoms/CollapseStack';
 import FormInput from '~/components/atoms/FormInput';
@@ -18,77 +19,65 @@ import {
 import toast from '~/utils/toast';
 import {
   useMutationCreateCourse,
-  useQueryGetAllCategories,
-  useQueryGetAllSubjects,
   useMutationUploadImage,
   useYupValidationResolver,
+  useQueryGetAllPublicCourses,
+  useDispatchGetAllSubjects,
+  useDispatchGetAllCategories,
 } from '~/hooks';
 import { SubCoursePayload } from '~/models/subCourse';
-import { LEVEL_LABELS } from '~/constants/level';
 import CreateSubCourseModal from './CreateSubCourseModal';
 import UpdateSubCourseModal from './UpdateSubCourseModal';
 import SubCourseList from './SubCourseList';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { mockLevelData, typeData } from '~/constants';
+import CustomCarousel from '../../CustomCarousel';
+import PublicCourseItem from './PublicCourseItem';
+import CustomTab from '~/components/atoms/CustomTab';
+import { Color } from '~/assets/variables';
+import globalStyles from '~/styles';
 
 // TODO : Not implement useHookForm yet !! waiting for API to start
-const mockLevelData: OptionPayload[] = [
-  {
-    id: 0,
-    label: LEVEL_LABELS.BEGINNER,
-    value: 'BEGINNER',
-  },
-  {
-    id: 1,
-    label: LEVEL_LABELS.INTERMEDIATE,
-    value: 'INTERMEDIATE',
-  },
-  {
-    id: 2,
-    label: LEVEL_LABELS.ADVANCED,
-    value: 'ADVANCED',
-  },
-  {
-    id: 3,
-    label: LEVEL_LABELS.EXPERT,
-    value: 'EXPERT',
-  },
-];
-
-const typeData: OptionPayload[] = [
-  {
-    id: 0,
-    label: 'Online',
-    value: 'ONLINE',
-  },
-  {
-    id: 1,
-    label: 'Offline',
-    value: 'OFFLINE',
-  },
-];
 
 export default function CreateCourseForm() {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState<boolean>(false);
   const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
   const [subCourses, setSubCourses] = useState<SubCoursePayload[]>([]);
   const [categoryId, setCategoriesId] = useState<number>();
-  const { categories } = useQueryGetAllCategories();
-  const { subjects } = useQueryGetAllSubjects();
+  const [isUseCustomCourse, setUseCustomCourse] = useState<boolean>(false);
+  const [selectedPublicCourse, setSelectedPublicCourse] = useState<any>();
+
+  const { optionSubjects: subjects } = useDispatchGetAllSubjects();
 
   const [editIndex, setEditIndex] = useState(-1);
   const [deleteIndex, setDeleteIndex] = useState(-1);
 
-  const createCourseMutation = useMutationCreateCourse();
+  const { mutationPublicResult, mutationResult } = useMutationCreateCourse();
   const uploadImageMutation = useMutationUploadImage();
+  const { publicCourses, isLoading } = useQueryGetAllPublicCourses();
 
   const resolverCreateCourse = useYupValidationResolver(
     validationSchemaCreateCourse
   );
   const createCourseHookForm = useForm({
     defaultValues: defaultValueCreateCourse,
-    resolver: resolverCreateCourse,
+    resolver: selectedPublicCourse ? undefined : resolverCreateCourse,
   });
-  const subjectWatch = createCourseHookForm.watch(
+  const categoryWatch = createCourseHookForm.watch(
+    CREATE_COURSE_FIELDS.categoryId
+  );
+  const startDateWatch = createCourseHookForm.watch(
+    CREATE_COURSE_FIELDS.categoryId
+  );
+  const endDateWatch = createCourseHookForm.watch(
+    CREATE_COURSE_FIELDS.categoryId
+  );
+  const slotsWatch = createCourseHookForm.watch(
+    CREATE_COURSE_FIELDS.categoryId
+  );
+  const timetableWatch = createCourseHookForm.watch(
     CREATE_COURSE_FIELDS.categoryId
   );
 
@@ -112,6 +101,14 @@ export default function CreateCourseForm() {
   const handleOpenUpdateModal = (id: number) => {
     createSubCourseHookForm.reset(subCourses.find((_, index) => index === id));
     setEditIndex(id);
+  };
+
+  const handleCheckCustomUse = (isCheck: boolean) => {
+    if (!isCheck) {
+      createCourseHookForm.reset();
+    }
+    setUseCustomCourse(isCheck);
+    setSelectedPublicCourse(undefined);
   };
 
   const handleOpenDialog = () => {
@@ -140,19 +137,26 @@ export default function CreateCourseForm() {
 
   async function handleCreateCourse(data: any) {
     const id = toast.loadToast('Đang tạo khóa học...');
+    console.log('create course ', data);
 
     try {
       const params: any = {
-        code: data?.code,
+        id: selectedPublicCourse?.id,
         name: data?.name,
         categoryId: data.categoryId?.id,
-        subjectId: data.subjectId.id,
+        subjectId: data.subjectId?.id,
         description: data?.description,
         subCourseRequests: subCourses.map((item) => ({
-          ...item,
+          level: item.level,
           imageId: item.imageIndex,
-          subjectId: (item.subjectId as OptionPayload).id as number,
           type: (item.type as OptionPayload).id as number,
+          price: item.price,
+          minStudent: item.minStudent,
+          maxStudent: item.maxStudent,
+          startDateExpected: item.startDateExpected,
+          endDateExpected: item.endDateExpected,
+          subCourseTile: item.subCourseTile,
+          numberOfSlot: item.numberOfSlot,
           timeInWeekRequests: item.timeInWeekRequests.map((time) => ({
             slotId: time.slot.id,
             dayOfWeekId: time.dayInWeek.id,
@@ -161,8 +165,14 @@ export default function CreateCourseForm() {
       };
       createSubCourseHookForm.reset();
 
-      await createCourseMutation.mutateAsync(params);
+      if (selectedPublicCourse) {
+        delete params.code;
+        await mutationPublicResult.mutateAsync(params);
+      } else {
+        await mutationResult.mutateAsync(params);
+      }
       toast.updateSuccessToast(id, 'Tạo khóa học thành công !');
+      navigate('/mentor-profile/mentor-course-list');
     } catch (error: any) {
       toast.updateFailedToast(id, `Tạo khóa học thất bại: ${error.message}`);
     }
@@ -232,101 +242,164 @@ export default function CreateCourseForm() {
     }
   };
 
-  useEffect(() => {
-    setCategoriesId(subjectWatch?.id);
-  }, [subjectWatch]);
+  const renderItem = (item: any) => {
+    const isSelected = selectedPublicCourse?.id === item?.id;
 
-  const filterSubjects = !categoryId
-    ? subjects
-    : subjects?.filter((item) => item.categoryId === categoryId);
+    return (
+      <PublicCourseItem
+        item={item}
+        isSelected={isSelected}
+        onSelectedItem={() => {
+          if (
+            (selectedPublicCourse?.id !== item?.id ||
+              selectedPublicCourse === undefined) &&
+            isUseCustomCourse === false
+          ) {
+            setSelectedPublicCourse(item);
+          } else {
+            setSelectedPublicCourse(undefined);
+          }
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
+    setCategoriesId(categoryWatch?.id);
+  }, [categoryWatch]);
+
+  const filterSubjects = subjects?.filter((item) => {
+    return item.categoryIds?.includes(categoryId || 0);
+  });
 
   if (!categories && !subjects) return null;
 
   return (
     <Stack>
-      <form
-        onSubmit={createCourseHookForm.handleSubmit(
-          handleCreateCourse,
-          (error) => {
-            console.log(error);
-          }
-        )}
-      >
-        <CollapseStack label="Thông tin khóa học">
+      <Box marginTop={2}>
+        <CustomTab
+          tabContentList={[
+            {
+              label: 'Khóa học có sẵn',
+              data: (
+                <Stack>
+                  {publicCourses ? (
+                    <CustomCarousel
+                      isLoading={isLoading}
+                      label="Chọn khóa học có sẵn"
+                      items={publicCourses || []}
+                      renderItem={renderItem}
+                    />
+                  ) : (
+                    <Typography>Không có khóa học cộng đồng nào.</Typography>
+                  )}
+                </Stack>
+              ),
+              onClick: () => handleCheckCustomUse(false),
+            },
+            {
+              label: 'Tự tạo khóa học',
+              data: (
+                <Stack
+                  sx={{
+                    background: Color.white,
+                  }}
+                >
+                  <Typography sx={globalStyles.textSubTitle}>
+                    Tạo khóa học
+                  </Typography>
+                  <Stack marginTop={1}>
+                    <FormInput
+                      name={CREATE_COURSE_FIELDS.name}
+                      control={createCourseHookForm.control}
+                      label="Tên Khóa Học"
+                      placeholder="Nhập tên khóa học"
+                    />
+                  </Stack>
+                  <Stack marginTop={1}>
+                    <FormInput
+                      data={categories}
+                      variant="dropdown"
+                      name={CREATE_COURSE_FIELDS.categoryId}
+                      control={createCourseHookForm.control}
+                      label="Lĩnh Vực"
+                      placeholder="Nhập lĩnh vực"
+                    />
+                  </Stack>
+                  <Stack marginTop={1}>
+                    <FormInput
+                      data={filterSubjects}
+                      variant="dropdown"
+                      name={CREATE_COURSE_FIELDS.subjectId}
+                      control={createCourseHookForm.control}
+                      label="Ngôn ngữ"
+                      placeholder="Nhập ngôn ngữ lập trình"
+                    />
+                  </Stack>
+                  <Stack marginTop={1}>
+                    <FormInput
+                      name={CREATE_COURSE_FIELDS.description}
+                      variant="multiline"
+                      control={createCourseHookForm.control}
+                      label="Mô tả khóa học"
+                      placeholder="Nhập mô tả khóa học"
+                    />
+                  </Stack>
+                </Stack>
+              ),
+              onClick: () => handleCheckCustomUse(true),
+            },
+          ]}
+        />
+      </Box>
+      <Box marginTop={2}>
+        <CollapseStack label="Thông tin khóa học phụ">
           <Stack padding={1}>
-            <FormInput
-              name={CREATE_COURSE_FIELDS.code}
-              control={createCourseHookForm.control}
-              label="Mã khóa học"
+            <SubCourseList
+              subCourses={subCourses}
+              onOpenAddModal={handleTriggerModal}
+              onOpenUpdateModal={handleOpenUpdateModal}
+              onDeleteModal={handleDelete}
             />
-            <FormInput
-              name={CREATE_COURSE_FIELDS.name}
-              control={createCourseHookForm.control}
-              label="Tên Khóa Học"
+            <CreateSubCourseModal
+              isOpen={open}
+              hookForm={createSubCourseHookForm}
+              levels={mockLevelData}
+              types={typeData}
+              onClose={handleTriggerModal}
+              onSubmit={handleCreateSubCourse}
             />
-            <FormInput
-              data={categories}
-              variant="dropdown"
-              name={CREATE_COURSE_FIELDS.categoryId}
-              control={createCourseHookForm.control}
-              label="Lĩnh Vực"
-            />
-            <FormInput
-              data={filterSubjects}
-              variant="dropdown"
-              name={CREATE_COURSE_FIELDS.subjectId}
-              control={createCourseHookForm.control}
-              label="Ngôn ngữ"
-            />
-            <FormInput
-              name={CREATE_COURSE_FIELDS.description}
-              variant="multiline"
-              control={createCourseHookForm.control}
-              label="Mô tả khóa học"
+            <UpdateSubCourseModal
+              index={editIndex}
+              hookForm={createSubCourseHookForm}
+              levels={mockLevelData}
+              types={typeData}
+              onClose={handleCLoseUpdateModal}
+              onUpdate={handleUpdateSubCourse}
             />
           </Stack>
         </CollapseStack>
-        <Box marginTop={2}>
-          <CollapseStack label="Thông tin khóa học phụ">
-            <Stack padding={1}>
-              <SubCourseList
-                subCourses={subCourses}
-                onOpenAddModal={handleTriggerModal}
-                onOpenUpdateModal={handleOpenUpdateModal}
-                onDeleteModal={handleDelete}
-              />
-              <CreateSubCourseModal
-                isOpen={open}
-                hookForm={createSubCourseHookForm}
-                levels={mockLevelData}
-                types={typeData}
-                onClose={handleTriggerModal}
-                onSubmit={handleCreateSubCourse}
-              />
-              <UpdateSubCourseModal
-                index={editIndex}
-                hookForm={createSubCourseHookForm}
-                levels={mockLevelData}
-                types={typeData}
-                onClose={handleCLoseUpdateModal}
-                onUpdate={handleUpdateSubCourse}
-              />
-            </Stack>
-          </CollapseStack>
-        </Box>
-        <Stack marginTop={2}>
-          <Button type="submit" customVariant="form">
-            TẠO KHÓA HỌC
-          </Button>
-        </Stack>
-        <ConfirmDialog
-          content="Bạn có chắc chắn muốn xóa giờ học này ?"
-          title="Xác nhận xóa giờ học"
-          open={isOpenDialog}
-          handleAccept={handleAcceptDelete}
-          handleClose={handleOpenDialog}
-        />
-      </form>
+      </Box>
+      <Stack marginTop={2}>
+        <Button
+          onClick={createCourseHookForm.handleSubmit(
+            handleCreateCourse,
+            (error) => {
+              console.log(error);
+            }
+          )}
+          customVariant="form"
+        >
+          TẠO KHÓA HỌC
+        </Button>
+      </Stack>
+      <ConfirmDialog
+        content="Bạn có chắc chắn muốn xóa giờ học này ?"
+        title="Xác nhận xóa giờ học"
+        open={isOpenDialog}
+        handleAccept={handleAcceptDelete}
+        handleClose={handleOpenDialog}
+      />
     </Stack>
   );
 }

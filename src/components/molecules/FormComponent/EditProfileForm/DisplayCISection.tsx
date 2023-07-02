@@ -8,15 +8,30 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
 import { image } from '~/constants/image';
 import { ProfileImgType } from '~/constants/profile';
-import { selectProfile } from '~/redux/user/selector';
+import { RootState } from '~/redux/store';
+import accountApi from '~/api/users';
 import DialogEditIdCardBack from '~/components/molecules/Dialog/DialogEditIdCardBack';
 import DialogEditIdCardFront from '~/components/molecules/Dialog/DialogEditIdCardFront';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
 export default function DisplayCISection() {
-  const profile = useSelector(selectProfile);
+  const token =
+    useSelector((state: RootState) => state.user.token) ||
+    localStorage.getItem('token');
+  const queryKey = ['/loginUser'];
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const { data: dataGetProfile } = useQuery(
+    queryKey,
+    () => accountApi.getProfile(config),
+    {
+      enabled: Boolean(token),
+    }
+  );
 
   const [openDialogUpdateIDCardFront, setOpenDialogUpdateIDCardFront] =
     useState<boolean>(false);
@@ -44,8 +59,9 @@ export default function DisplayCISection() {
     {
       id: 0,
       img:
-        profile?.userImages?.find((img) => img?.type === ProfileImgType.FRONTCI)
-          ?.url || image.noAvatar,
+        dataGetProfile?.userImages?.find(
+          (img: any) => img?.type === ProfileImgType.FRONTCI
+        )?.url || image.noAvatar,
       onClickAction: handleOpenDialogUpdateIDCardFront,
       text: 'Mặt trước',
       toolTipArrowPlacement: 'bottom',
@@ -53,8 +69,9 @@ export default function DisplayCISection() {
     {
       id: 2,
       img:
-        profile?.userImages?.find((img) => img?.type === ProfileImgType.BACKCI)
-          ?.url || image.noAvatar,
+        dataGetProfile?.userImages?.find(
+          (img: any) => img?.type === ProfileImgType.BACKCI
+        )?.url || image.noAvatar,
       onClickAction: handleOpenDialogUpdateIDCardBack,
       text: 'Mặt sau',
       toolTipArrowPlacement: 'bottom',
@@ -66,7 +83,7 @@ export default function DisplayCISection() {
       <Box sx={SX_FORM}>
         <Box mb={2}>
           <Typography component="h3" sx={SX_FORM_TITLE}>
-            Thông tin CMND
+            Thông tin chứng minh thư
           </Typography>
         </Box>
         <Stack
@@ -106,12 +123,10 @@ export default function DisplayCISection() {
       <DialogEditIdCardFront
         open={openDialogUpdateIDCardFront}
         handleOnClose={handleCloseDialogUpdateIDCardFront}
-        profile={profile}
       />
       <DialogEditIdCardBack
         open={openDialogUpdateIDCardBack}
         handleOnClose={handleCloseDialogUpdateIDCardBack}
-        profile={profile}
       />
     </>
   );
