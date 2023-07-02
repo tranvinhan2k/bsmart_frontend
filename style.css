@@ -1,0 +1,6 @@
+html::-webkit-scrollbar{
+    display: none;
+}
+html{
+    overscroll-behavior: ;
+}
