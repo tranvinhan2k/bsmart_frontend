@@ -1,25 +1,18 @@
-import {
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useState, MouseEvent } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { useNavigate } from 'react-router-dom';
 import { useProSidebar } from 'react-pro-sidebar';
-import {
-  IconSize,
-  Color,
-  MetricSize,
-  FontSize,
-  FontFamily,
-} from '~/assets/variables';
+
+import { Box, IconButton, Menu, MenuItem, Stack } from '@mui/material';
+
+import { IconSize, Color, MetricSize } from '~/assets/variables';
+
 import { image } from '~/constants/image';
-import { selectProfile } from '~/redux/user/selector';
+import { NavigationLink } from '~/constants/routeLink';
+
 import { logOut } from '~/redux/user/slice';
+
 import Icon from '~/components/atoms/Icon';
 
 const mappingData = {
@@ -29,10 +22,9 @@ const mappingData = {
 };
 
 export default function AdminHeader() {
-  const { toggleSidebar, collapsed, collapseSidebar } = useProSidebar();
   const navigate = useNavigate();
+  const { toggleSidebar, collapsed, collapseSidebar } = useProSidebar();
   const dispatch = useDispatch();
-  const profile = useSelector(selectProfile);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -54,7 +46,7 @@ export default function AdminHeader() {
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     dispatch(logOut());
-    navigate('/homepage');
+    navigate(`/${NavigationLink.homepage}`);
     handleClose();
   };
 
@@ -63,7 +55,7 @@ export default function AdminHeader() {
   };
 
   const handleHomePage = () => {
-    navigate('/homepage');
+    navigate(`/${NavigationLink.homepage}`);
   };
 
   return (

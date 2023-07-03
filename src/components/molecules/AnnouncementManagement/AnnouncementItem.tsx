@@ -1,8 +1,15 @@
-import { Box, IconButton, Link, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+import { Box, IconButton, Link, Stack } from '@mui/material';
+
 import { Color, FontFamily } from '~/assets/variables';
+
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+
 import Icon from '~/components/atoms/Icon';
-import { MentorNavigationActionData } from '~/constants';
 
 interface AnnouncementItemProps {
   editMode: boolean;
@@ -20,9 +27,7 @@ export default function AnnouncementItem({
   const navigate = useNavigate();
   const handleNavigateToUpdatePage = () => {
     navigate(
-      `/mentor-profile/${
-        MentorNavigationActionData[5].items?.[2].link.split('/')[0]
-      }/${id}`
+      `/${NavigationLink.mentor_profile}/${MentorDashboardNavigationActionLink.mentor_update_announcement}/${id}`
     );
   };
 
