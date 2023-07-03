@@ -361,6 +361,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
 export const MentorDashboardNavigationActionData: ActionPayload[] = [
   {
     id: 0,
+    icon: 'menu',
+    link: MentorDashboardNavigationActionLink.mentor_menu_dashboard,
+    name: 'Trang chủ',
+  },
+  {
+    id: 0,
     icon: 'course',
     link: '',
     name: 'Quản lí học tập',

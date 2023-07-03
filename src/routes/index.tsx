@@ -23,6 +23,7 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
+const MenuDashboardPage = lazy(() => import('~/pages/MenuDashboardPage'));
 const MentorClassListPage = lazy(() => import('~/pages/MentorClassListPage'));
 const MemberEditProfilePage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditImgInfoPage')
@@ -332,6 +333,11 @@ export const mentorLMSRoutes: RoutePayload[] = [
         to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
       />
     ),
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: MentorDashboardNavigationActionLink.mentor_menu_dashboard,
+    main: () => <MenuDashboardPage />,
     role: ['ROLE_TEACHER'],
   },
   {

@@ -45,6 +45,7 @@ export const enum MentorNavigationLink {
   withdraw = 'withdraw',
 }
 export const enum MentorDashboardNavigationActionLink {
+  mentor_menu_dashboard = 'mentor-menu',
   // Quản lí học tập
   mentor_course_list = 'mentor-course-list',
   create_course = 'create-course',

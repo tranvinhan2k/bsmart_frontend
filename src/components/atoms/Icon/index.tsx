@@ -17,6 +17,7 @@ import {
   BsBook,
   BsFilter,
   BsArrowBarUp,
+  BsArrowReturnLeft,
   BsArrowBarDown,
   BsFillClipboard2CheckFill,
   BsCheckCircle,
@@ -30,7 +31,7 @@ import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
-import { GrNext, GrPrevious } from 'react-icons/gr';
+import { GrNext, GrPrevious, GrReturn } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
 import {
@@ -95,6 +96,7 @@ export type IconName =
   | 'cake'
   | 'calendarMonth'
   | 'cart'
+  | 'return'
   | 'category'
   | 'chat'
   | 'check'
@@ -224,6 +226,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsArrowBarUp />
+        </Typography>
+      );
+    case 'return':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsArrowReturnLeft />
         </Typography>
       );
     case 'checkCircle':

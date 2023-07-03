@@ -67,7 +67,33 @@ export default function DashboardSidebarButton({
       }}
       key={item.id}
     >
-      {item.name}
+      <Stack
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          // justifyContent: 'space-between',
+        }}
+      >
+        {item.icon && (
+          <Stack marginRight={1}>
+            <Icon
+              size="small_20"
+              color={activeIndex === index ? 'black' : 'white'}
+              name={item.icon}
+            />
+          </Stack>
+        )}
+        {item.name}
+        <Stack
+          sx={{
+            position: 'absolute',
+            right: MetricSize.medium_15,
+            transform: activeIndex === index ? 'rotate(90deg)' : 0,
+          }}
+        >
+          <Icon name="arrowRight" size="small" />
+        </Stack>
+      </Stack>
     </Stack>
   ) : (
     <Stack>
