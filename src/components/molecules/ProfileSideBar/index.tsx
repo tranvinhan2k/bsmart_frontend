@@ -189,7 +189,7 @@ export default function ProfileSideBar({
                   );
                 })}
               </Stack>
-              <MentorProfileCompleteProgress />
+              {role === 'TEACHER' && <MentorProfileCompleteProgress />}
             </Stack>
             <Stack
               direction="column"
