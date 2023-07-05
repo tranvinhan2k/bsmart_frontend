@@ -29,6 +29,9 @@ import FeedbackQuestionChoiceInput from './FeedbackQuestionChoiceInput';
 import FeedbackTypeInput from './FeedbackTypeInput';
 import DateTimePickerInput from './DateTimePickerInput';
 import DropdownDynamicValueInput from './DropdownDynamicValueInput';
+import EditorInput from './EditorInput';
+import globalStyles from '~/styles';
+import { FontFamily, FontSize } from '~/assets/variables';
 
 interface FormInputProps {
   banks?: BankLinking[];
@@ -84,6 +87,8 @@ const generateFormInput = (
           multilineRows={multilineRows}
         />
       );
+    case variant === 'editor':
+      return <EditorInput controller={controller} placeholder={placeholder} />;
     case variant === 'timetable':
       return (
         <TimeTableInput controller={controller} placeholder={placeholder} />
@@ -187,7 +192,14 @@ export default function FormInput({
 
   return (
     <Stack flexGrow={1}>
-      <Typography sx={SX_INPUT_LABEL}>{label}</Typography>
+      <Typography
+        sx={{
+          fontSize: FontSize.small_14,
+          fontFamily: FontFamily.regular,
+        }}
+      >
+        {label}
+      </Typography>
       {generateFormInput(
         banks,
         controller,
