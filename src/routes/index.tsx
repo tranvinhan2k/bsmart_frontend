@@ -330,7 +330,7 @@ export const mentorLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
+        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_menu_dashboard}`}
       />
     ),
     role: ['ROLE_TEACHER'],
@@ -343,6 +343,11 @@ export const mentorLMSRoutes: RoutePayload[] = [
   {
     path: MentorDashboardNavigationActionLink.mentor_course_list,
     main: () => <MentorCourseListPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `${MentorDashboardNavigationActionLink.mentor_course_list}/:id`,
+    main: () => <MentorCourseDetailPage />,
     role: ['ROLE_TEACHER'],
   },
   {
@@ -360,11 +365,12 @@ export const mentorLMSRoutes: RoutePayload[] = [
     main: () => <MentorClassDetailPage />,
     role: ['ROLE_TEACHER'],
   },
-  {
-    path: MentorDashboardNavigationActionLink.mentor_class_detail_2,
-    main: () => <MentorCourseDetailPage />,
-    role: ['ROLE_TEACHER'],
-  },
+  // TODO: Đã có route cho trang này
+  // {
+  //   path: MentorDashboardNavigationActionLink.mentor_class_detail_2,
+  //   main: () => <MentorCourseDetailPage />,
+  //   role: ['ROLE_TEACHER'],
+  // },
   {
     path: MentorDashboardNavigationActionLink.create_content,
     main: () => <CreateContentPage />,
