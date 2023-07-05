@@ -16,12 +16,15 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { CoursePayload } from '~/models/courses';
 import Button from '~/components/atoms/Button';
+import { image } from '~/constants/image';
+import UserCourseItem from '../UserCourseItem';
+import globalStyles from '~/styles';
 
 const breakPoints = [
-  { width: 1, itemsToShow: 1 },
-  { width: 550, itemsToShow: 2 },
+  { width: 1, itemsToShow: 2 },
+  { width: 550, itemsToShow: 3 },
   { width: 768, itemsToShow: 3 },
-  { width: 1200, itemsToShow: 4 },
+  { width: 1200, itemsToShow: 3 },
 ];
 interface CarouselCourseProps {
   label: string;
@@ -35,18 +38,62 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   const renderArrow = ({ type, onClick }: RenderArrowProps) => {
     if (type === 'NEXT') {
       return (
-        <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
-          <MUIButton onClick={onClick}>
-            <Icon name="next2" size="medium" />
-          </MUIButton>
+        <Stack
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            right: MetricSize.large_20,
+            top: 0,
+            bottom: 0,
+            zIndex: 10,
+          }}
+        >
+          <IconButton
+            sx={{
+              transition: 'all 500ms ease',
+              padding: 2,
+              background: Color.transparent,
+              backdropFilter: 'blur(0px)',
+              ':hover': {
+                background: `${Color.navy}AA`,
+                backdropFilter: 'blur(5px)',
+              },
+            }}
+            onClick={onClick}
+          >
+            <Icon name="right" size="small" color="white" />
+          </IconButton>
         </Stack>
       );
     }
     return (
-      <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
-        <MUIButton onClick={onClick}>
-          <Icon name="previous" size="medium" />
-        </MUIButton>
+      <Stack
+        sx={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          left: MetricSize.large_20,
+          top: 0,
+          bottom: 0,
+          zIndex: 10,
+        }}
+      >
+        <IconButton
+          sx={{
+            transition: 'all 500ms ease',
+            padding: 2,
+            background: Color.transparent,
+            backdropFilter: 'blur(0px)',
+            ':hover': {
+              background: `${Color.navy}AA`,
+              backdropFilter: 'blur(5px)',
+            },
+          }}
+          onClick={onClick}
+        >
+          <Icon name="left" size="small" color="white" />
+        </IconButton>
       </Stack>
     );
   };
@@ -57,7 +104,7 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
     pages,
   }: RenderPaginationProps) => {
     return (
-      <Stack flexDirection="row" marginY={1}>
+      <Stack flexDirection="row">
         {pages.map((page) => (
           <Box key={page}>
             <IconButton onClick={() => onClick(`${page}`)}>
@@ -75,85 +122,25 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
 
   const renderItem = (item: CoursePayload) => {
     return (
-      <Stack
-        sx={{
-          borderRadius: '5px',
-          borderColor: Color.grey,
-          borderWidth: 1,
-          borderStyle: 'solid',
-          marginX: MetricSize.small_5,
-        }}
-      >
-        <Box
-          sx={{ width: '100%', objectFit: 'cover' }}
-          component="img"
-          src={item.image}
-          alt="image background"
-        />
-        <Stack sx={{ paddingX: MetricSize.medium_15 }}>
-          <Box
-            sx={{
-              position: 'relative',
-              top: '-40px',
-              background: Color.white,
-              width: '65px',
-              objectFit: '65px',
-              padding: '3px',
-              borderRadius: '5px',
-              borderColor: Color.grey,
-              borderStyle: 'solid',
-            }}
-            component="img"
-            src={item.mentorImage}
-            alt="image mentor"
-          />
-          <Typography
-            sx={{ fontSize: FontSize.medium_24, fontFamily: FontFamily.bold }}
-          >
-            {item.title}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_16,
-              fontFamily: FontFamily.regular,
-              color: Color.grey,
-            }}
-          >
-            {item.mentor}
-          </Typography>
-          <Typography
-            sx={{
-              display: '-webkit-box',
-              overflow: 'hidden',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 3,
-              fontSize: FontSize.small_16,
-              fontFamily: FontFamily.regular,
-            }}
-          >
-            {item.content}
-          </Typography>
-          <Rating value={item.feedback} readOnly />
-          <Box sx={{ padding: MetricSize.medium_15 }}>
-            <Button
-              customVariant="normal"
-              onClick={() => handleNavigateCourse(item.id)}
-            >
-              Tham Gia
-            </Button>
-          </Box>
-        </Stack>
-      </Stack>
+      <UserCourseItem
+        courseName={item.title}
+        courseDescription={item.content}
+        imageUrl={image.mockClass}
+      />
     );
   };
   return (
     <Stack>
-      <Typography
-        sx={{ fontFamily: FontFamily.bold, fontSize: FontSize.medium_24 }}
+      <Stack paddingX={1}>
+        <Typography sx={globalStyles.textSmallLabel}>{label}</Typography>
+      </Stack>
+      <Stack
+        sx={{
+          position: 'relative',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        {label}
-      </Typography>
-      <Stack sx={{ marginTop: MetricSize.medium_15 }}>
         <Carousel
           breakPoints={breakPoints}
           renderArrow={renderArrow}

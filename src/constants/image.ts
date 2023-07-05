@@ -12,6 +12,10 @@ import notFound from '~/assets/images/404.png';
 import lms_logo from '~/assets/images/lms_logo.png';
 import no_classes from '~/assets/images/no_classes.png';
 import mockClass from '~/assets/images/mockClass.png';
+import level1 from '~/assets/images/level1.png';
+import level2 from '~/assets/images/level2.png';
+import level3 from '~/assets/images/level3.png';
+import level4 from '~/assets/images/level4.png';
 import guide from '~/assets/images/guide.png';
 
 export const image = {
@@ -30,4 +34,8 @@ export const image = {
   no_classes,
   mockClass,
   guide,
+  level1,
+  level2,
+  level3,
+  level4,
 };
