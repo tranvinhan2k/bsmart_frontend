@@ -1,22 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
 import { mockLevelData, typeData } from '~/constants';
-import { SelectedClassPayload } from '~/pages/MentorCreateCoursePage';
-import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { useMutationUploadImage } from '../useMutationUploadImage';
 import { OptionPayload } from '~/models';
 import toast from '~/utils/toast';
-import { formatDate } from '~/utils/date';
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
 export const useCreateClassesForm = (
-  classes: SelectedClassPayload[],
-  onChangeClass: (params: SelectedClassPayload[]) => void
+  classes: DetailCourseClassPayload[],
+  onChangeClass: (params: DetailCourseClassPayload[]) => void
 ) => {
   const levels = mockLevelData;
   const types = typeData;
