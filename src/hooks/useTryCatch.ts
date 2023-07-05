@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Id } from 'react-toastify';
 import toast from '~/utils/toast';
 
-export const useHandleApi = (texts?: {
+export const useTryCatch = (texts?: {
   loading: string;
   success: string;
   error: string;
@@ -10,7 +10,7 @@ export const useHandleApi = (texts?: {
   const [error, setError] = useState<Error>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const handleQueryApi = async (
+  const handleTryCatch = async (
     callback: () => Promise<any>,
     onError?: () => void
   ) => {
@@ -24,6 +24,7 @@ export const useHandleApi = (texts?: {
       if (texts && id) {
         toast.updateSuccessToast(id, texts?.success);
       }
+      setLoading(false);
       return response;
     } catch (e: any) {
       if (texts && id) {
@@ -41,6 +42,6 @@ export const useHandleApi = (texts?: {
   return {
     error,
     isLoading,
-    handleQueryApi,
+    handleTryCatch,
   };
 };
