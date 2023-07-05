@@ -99,7 +99,7 @@ export default function MentorClassItem({
         level: data?.level?.id || 'BEGINNER',
         timeInWeekRequests: data.timeInWeekRequests.map(
           (timeInWeekItem: any) => ({
-            dayOfWeekId: timeInWeekItem.dayInWeek.id,
+            dayOfWeekId: timeInWeekItem.dayOfWeek.id,
             slotId: timeInWeekItem.slot.id,
           })
         ),

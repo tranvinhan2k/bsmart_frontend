@@ -1,10 +1,10 @@
 import axiosClient from '~/api/axiosClient';
-import { DayInWeekPayload } from '~/models/dayInWeek';
+import { DayOfWeekPayload } from '~/models/dayOfWeek';
 
 const url = `/day-of-week`;
 
 const dayOfWeeksApi = {
-  getAllDayInWeeks(): Promise<DayInWeekPayload[] | undefined> {
+  getAllDayOfWeeks(): Promise<DayOfWeekPayload[] | undefined> {
     return axiosClient.get(`${url}`);
   },
 };

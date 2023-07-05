@@ -217,7 +217,7 @@ export const validationSchemaEditSocialProfile = object({
 });
 export const validationSchemaTimeTable = object({
   slot: object().required('Hãy nhập khung giờ học của bạn'),
-  dayInWeek: object().required('Hãy nhập thứ của bạn'),
+  dayOfWeek: object().required('Hãy nhập thứ của bạn'),
 });
 
 export const validationSchemaFeedbackMentor = object({

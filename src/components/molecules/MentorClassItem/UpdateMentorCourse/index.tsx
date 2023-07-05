@@ -54,7 +54,7 @@ export default function UpdateMentorCourse({
       },
       type: typeData.find((titem) => titem.value === item.typeLearn),
       timeInWeekRequests: item.timeInWeek.map((timeSlot: any) => ({
-        dayInWeek: {
+        dayOfWeek: {
           id: timeSlot.dayOfWeek.id,
           label: timeSlot.dayOfWeek.name,
           value: `${timeSlot.dayOfWeek.id}`,
