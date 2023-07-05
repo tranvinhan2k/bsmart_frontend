@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import { UseControllerReturn, useForm } from 'react-hook-form';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import {
-  useQueryGetAllDayInWeeks,
-  useQueryGetAllSlots,
+  useDispatchGetAllDayOfWeeks,
+  useDispatchGetAllSlots,
   useYupValidationResolver,
 } from '~/hooks';
-import { OptionPayload } from '~/models';
 import { defaultValueTimetable } from '~/form/defaultValues';
 import { validationSchemaTimeTable } from '~/form/validation';
 // eslint-disable-next-line import/no-cycle
@@ -39,7 +37,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
       value.find(
         (scheduleItem: any) =>
           scheduleItem.slot.id === data.slot.id &&
-          scheduleItem.dayInWeek.id === data.dayInWeek.id
+          scheduleItem.dayOfWeek.id === data.dayOfWeek.id
       )
     );
     if (!isExisted) {
@@ -47,7 +45,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
         ...(value || []),
         {
           slot: data.slot,
-          dayInWeek: data.dayInWeek,
+          dayOfWeek: data.dayOfWeek,
         },
       ]);
       timetableHookForm.reset();
@@ -63,31 +61,20 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
       (scheduleItem: any) =>
         !(
           scheduleItem.slot.id === item.slot.id &&
-          scheduleItem.dayInWeek.id === item.dayInWeek.id
+          scheduleItem.dayOfWeek.id === item.dayOfWeek.id
         )
     );
     controllerOnChange(
       deletedItem.map((scheduleItem: any) => ({
-        dayInWeek: scheduleItem.dayInWeek,
+        dayOfWeek: scheduleItem.dayOfWeek,
         slot: scheduleItem.slotId,
       }))
     );
   };
 
-  const { slots } = useQueryGetAllSlots();
-  const { dayInWeeks } = useQueryGetAllDayInWeeks();
-  const slotOptions: OptionPayload[] | undefined = slots?.map((slot) => ({
-    id: slot.id,
-    label: `${slot.startTime} - ${slot.endTime}`,
-    value: `${slot.id}`,
-  }));
-  const dayInWeekOptions: OptionPayload[] | undefined = dayInWeeks?.map(
-    (dayInWeek) => ({
-      id: dayInWeek.id,
-      label: dayInWeek.name,
-      value: `${dayInWeek.id}`,
-    })
-  );
+  const { optionSlots: slotOptions } = useDispatchGetAllSlots();
+  const { optionDayOfWeeks: dayOfWeekOptions } = useDispatchGetAllDayOfWeeks();
+
   return (
     <Stack>
       <Stack>
@@ -102,7 +89,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                   borderRadius: '5px',
                   background: Color.grey3,
                 }}
-                key={`${item.dayInWeek.id} ${item.slot.id}`}
+                key={`${item.dayOfWeek.id} ${item.slot.id}`}
                 marginY={1}
                 padding={1}
               >
@@ -112,7 +99,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                     fontFamily: FontFamily.bold,
                   }}
                 >
-                  {item.dayInWeek.label}
+                  {item.dayOfWeek.label}
                 </Typography>
                 <Typography>{item.slot.label}</Typography>
                 <IconButton onClick={() => handleDeleteItem(item)}>
@@ -124,7 +111,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
       </Stack>
       <Grid container paddingBottom={2} spacing={1}>
         <Grid item xs={12} md={5}>
-          {slots && (
+          {slotOptions && (
             <FormInput
               variant="dropdown"
               name={TIME_TABLE_FIELDS.slot}
@@ -135,12 +122,12 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           )}
         </Grid>
         <Grid item xs={12} md={5}>
-          {dayInWeeks && (
+          {dayOfWeekOptions && (
             <FormInput
               variant="dropdown"
-              name={TIME_TABLE_FIELDS.dayInWeek}
+              name={TIME_TABLE_FIELDS.dayOfWeek}
               control={timetableHookForm.control}
-              data={dayInWeekOptions}
+              data={dayOfWeekOptions}
               placeholder="Ngày trong tuần"
             />
           )}
