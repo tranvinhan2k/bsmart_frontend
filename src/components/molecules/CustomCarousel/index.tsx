@@ -11,7 +11,7 @@ import Carousel, {
   RenderArrowProps,
   RenderPaginationProps,
 } from 'react-elastic-carousel';
-import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import globalStyles from '~/styles';
@@ -25,13 +25,11 @@ const breakPoints = [
 interface CustomCarouselProps {
   label?: string;
   items: any[];
-  isLoading: boolean;
   renderItem: (item: any) => ReactNode;
 }
 export default function CustomCarousel({
   label,
   items,
-  isLoading,
   renderItem,
 }: CustomCarouselProps) {
   const renderArrow = ({ type, onClick }: RenderArrowProps) => {
@@ -78,23 +76,17 @@ export default function CustomCarousel({
     <Stack>
       {label && <Typography sx={globalStyles.textSubTitle}>{label}</Typography>}
       <Stack>
-        {isLoading ? (
-          <Stack>
-            <LazyLoadingScreen />
-          </Stack>
-        ) : (
-          <Carousel
-            breakPoints={breakPoints}
-            renderArrow={renderArrow}
-            renderPagination={renderNavigationDot}
-          >
-            {items.map((item) => (
-              <div style={{ margin: MetricSize.small_5 }} key={item.id}>
-                {renderItem(item)}
-              </div>
-            ))}
-          </Carousel>
-        )}
+        <Carousel
+          breakPoints={breakPoints}
+          renderArrow={renderArrow}
+          renderPagination={renderNavigationDot}
+        >
+          {items.map((item) => (
+            <div style={{ margin: MetricSize.small_5 }} key={item.id}>
+              {renderItem(item)}
+            </div>
+          ))}
+        </Carousel>
       </Stack>
     </Stack>
   );
