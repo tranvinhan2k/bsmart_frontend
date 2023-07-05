@@ -1,15 +1,18 @@
 import { UseControllerReturn } from 'react-hook-form';
 import {
   Avatar,
+  Box,
   IconButton,
   InputAdornment,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
-import { MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '../Button';
+import globalStyles from '~/styles';
 
 interface ImageInputProps {
   controller: UseControllerReturn<any, string>;
@@ -53,18 +56,32 @@ export default function ImageInput({
     <Stack
       sx={{
         borderRadius: '5px',
-        border: '1px solid grey',
-        padding: MetricSize.medium_15,
       }}
     >
       <TextField
         type="file"
+        sx={{
+          ':hover': {
+            cursor: 'pointer',
+          },
+          input: {
+            opacity: 0,
+            ':hover': {
+              cursor: 'pointer',
+            },
+          },
+        }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <IconButton component="span">
-                <Icon name="add-icon" size="medium" />
-              </IconButton>
+              <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                <IconButton sx={{ marginRight: 1 }} component="span">
+                  <Icon name="add-icon" size="medium" />
+                </IconButton>
+                <Typography sx={globalStyles.textLowSmallLight}>
+                  Chưa có hình ảnh được chọn.
+                </Typography>
+              </Stack>
             </InputAdornment>
           ),
         }}
@@ -76,23 +93,44 @@ export default function ImageInput({
 
       {previewUrl && (
         <Stack marginTop={1}>
-          <Stack justifyContent="flex-start" alignItems="center">
+          <Stack
+            sx={{
+              position: 'relative',
+            }}
+            justifyContent="flex-start"
+            alignItems="center"
+          >
+            <Stack
+              onClick={handleDeleteClick}
+              sx={{
+                transition: 'all 1s ease',
+                position: 'absolute',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: Color.transparent,
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.light,
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 10,
+                ':hover': {
+                  cursor: 'pointer',
+                  background: `${Color.navy}AA`,
+                  backdropFilter: 'blur(10px)',
+                  color: Color.white,
+                },
+              }}
+            >
+              Xóa hình ảnh
+            </Stack>
             <Avatar
               src={previewUrl}
               alt="Preview"
               variant="rounded"
               sx={{ width: previewImgWidth, height: previewImgHeight }}
             />
-          </Stack>
-          <Stack marginTop={1}>
-            <Button
-              customVariant="normal"
-              startIcon={<Icon name="delete" size="medium" />}
-              onClick={handleDeleteClick}
-              size="small"
-            >
-              Gỡ bỏ
-            </Button>
           </Stack>
         </Stack>
       )}
