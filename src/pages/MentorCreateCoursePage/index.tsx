@@ -1,53 +1,70 @@
-import { Box, Stepper, Step, StepLabel } from '@mui/material';
-import { useEffect } from 'react';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import CreateCourseForm from '~/components/molecules/FormComponent/CreateCourseForm';
-import { scrollToTop } from '~/utils/common';
+import { Box, Typography } from '@mui/material';
 
-const steps = [
-  'Tạo khóa học mới',
-  'Tạo thời khóa biểu',
-  'Tạo nội dung môn học',
-];
+import { useNavigate } from 'react-router-dom';
+import globalStyles from '~/styles';
+
+import { MetricSize } from '~/assets/variables';
+
+import CreateCourseForm from '~/components/molecules/FormComponent/CreateCourseForm';
+
+import {
+  useEffectPreventReload,
+  useEffectScrollToTop,
+  useMutationCreateCourse,
+  useTryCatch,
+} from '~/hooks';
+import { useTimeOut } from '~/hooks/useTimeOut';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import { PostCoursePayload } from '~/models/request';
+
+export interface SelectedCoursePayload {
+  id?: number;
+  categoryId?: number;
+  subjectId?: number;
+  description?: string;
+  name?: string;
+}
 
 export default function MentorCreateCoursePage() {
-  useEffect(() => {
-    scrollToTop();
-  }, []);
+  const navigate = useNavigate();
+
+  const { mutationResult } = useMutationCreateCourse();
+
+  const { handleTryCatch } = useTryCatch({
+    loading: 'Đang tạo khóa học mới',
+    error: 'Tạo khóa học thất bại',
+    success: 'Tạo khóa học thành công',
+  });
+
+  const handleCreateCourse = async (paramCourse: PostCoursePayload) => {
+    // ToDO: Goi api create course o day
+    const response = await handleTryCatch(() =>
+      mutationResult.mutateAsync(paramCourse)
+    );
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${response.id}`
+    );
+  };
+
+  useEffectScrollToTop();
+  useEffectPreventReload();
+
   return (
     <Box
       sx={{
         borderRadius: MetricSize.small_10,
-        padding: { xs: '0', md: MetricSize.medium_15 },
         width: '100%',
       }}
     >
-      <Stepper
-        sx={{
-          color: Color.orange,
-          '.css-1m13l5j-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed': {
-            color: Color.green,
-          },
-          '.css-1m13l5j-MuiSvgIcon-root-MuiStepIcon-root.Mui-active': {
-            color: Color.orange,
-          },
-        }}
-        activeStep={0}
-        alternativeLabel
-      >
-        {steps.map((label) => (
-          <Step
-            sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.light,
-            }}
-            key={label}
-          >
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <CreateCourseForm />
+      <Typography sx={globalStyles.textTitle}>Tạo khóa học mới</Typography>
+      <CreateCourseForm
+        // selectedCourse={course}
+        // onNextStep={handleNextStep}
+        onChangeSelectedCourse={handleCreateCourse}
+      />
     </Box>
   );
 }

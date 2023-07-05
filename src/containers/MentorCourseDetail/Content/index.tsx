@@ -1,20 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useForm } from 'react-hook-form';
-
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { Color, MetricSize } from '~/assets/variables';
-import globalStyles from '~/styles';
-import CreateClassSection from './CreateClassSection';
-import ClassSectionList from './ClassSectionList';
 import { SectionProps } from '~/models/section';
-import { useMutationCreateCourse } from '~/hooks';
+import { useTimeOut, useTryCatch } from '~/hooks';
 import { useMutationCreateContent } from '~/hooks/useMutationCreateContent';
-import Button from '~/components/atoms/Button';
 import toast from '~/utils/toast';
+import Sections from '../Sections';
+import AddSection from '../AddSection';
+import LoadingWrapper from '~/HOCs/LoadingWrapper';
 
-export default function CreateContentPage() {
+export default function Content() {
+  const { onSleep } = useTimeOut(1000);
+  const { error, isLoading, handleTryCatch } = useTryCatch();
+
   const { id } = useParams();
   const createCourseContentMutation = useMutationCreateContent();
 
@@ -71,37 +70,25 @@ export default function CreateContentPage() {
       };
       await createCourseContentMutation.mutateAsync(params);
       toast.updateSuccessToast(idNotify, 'Thêm nội dung khóa học thành công');
-    } catch (error: any) {
+    } catch (e: any) {
       toast.updateFailedToast(
         idNotify,
-        `Thêm nội dung khóa học không thành công: ${error.message}`
+        `Thêm nội dung khóa học không thành công: ${e.message}`
       );
     }
   };
 
+  useEffect(() => {
+    handleTryCatch(() => onSleep(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
+
   return (
     <Stack>
-      <Typography sx={globalStyles.textTitle}>Tạo nội dung khóa học</Typography>
-      <Stack
-        sx={{
-          background: Color.white3,
-          padding: MetricSize.medium_15,
-          borderRadius: MetricSize.small_5,
-          marginTop: 2,
-          marginBottom: 1,
-        }}
-      >
-        <Typography sx={globalStyles.textSubTitle}>
-          Danh sách nội dung
-        </Typography>
-        <ClassSectionList content={content} onAddNew={handleAddNewModule} />
-        <CreateClassSection onAddNew={handleAddNewSection} />
-        <Stack marginTop={1}>
-          <Button onClick={handleCreateContent} customVariant="normal">
-            Lưu nội dung khóa học
-          </Button>
-        </Stack>
-      </Stack>
+      <LoadingWrapper error={error} isLoading={isLoading}>
+        <Sections content={content} onAddNew={handleAddNewModule} />
+      </LoadingWrapper>
+      <AddSection onAdd={handleAddNewSection} />
     </Stack>
   );
 }
