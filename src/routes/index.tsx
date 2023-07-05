@@ -112,7 +112,6 @@ const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 const FeedbackManagerPage = lazy(() => import('~/pages/FeedbackManagerPage'));
 const SubjectManagerPage = lazy(() => import('~/pages/SubjectManagerPage'));
 const CategoryManagerPage = lazy(() => import('~/pages/CategoryManagerPage'));
-const CreateContentPage = lazy(() => import('~/pages/CreateContentPage'));
 const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
 );
@@ -371,11 +370,11 @@ export const mentorLMSRoutes: RoutePayload[] = [
   //   main: () => <MentorCourseDetailPage />,
   //   role: ['ROLE_TEACHER'],
   // },
-  {
-    path: MentorDashboardNavigationActionLink.create_content,
-    main: () => <CreateContentPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
-  },
+  // {
+  //   path: MentorDashboardNavigationActionLink.create_content,
+  //   main: () => <CreateContentPage />,
+  //   role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  // },
   {
     path: MentorDashboardNavigationActionLink.mentor_quiz_settings,
     main: () => <MentorQuizSettingsPage />,
