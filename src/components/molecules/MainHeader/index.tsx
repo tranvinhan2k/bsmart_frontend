@@ -154,7 +154,7 @@ export default function MainHeader({
             <MenuItem onClick={handleHomepage}>Trang Chủ</MenuItem>
             <MenuItem onClick={handleNavigateProfile}>Hồ sơ</MenuItem>
             <MenuItem onClick={handleNavigateDashboard}>
-              Quản lí học tập++
+              Quản lí học tập
             </MenuItem>
             <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
           </Menu>
