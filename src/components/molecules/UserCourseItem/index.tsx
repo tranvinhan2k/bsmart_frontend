@@ -283,7 +283,7 @@ export default function UserCourseItem({
               return (
                 <MenuItem key={item.title} onClick={item.onClick}>
                   <ListItemIcon>
-                    <Icon name={item.icon} size="medium" color="black" />
+                    <Icon name={item.icon} size="small_20" color="black" />
                   </ListItemIcon>
                   <ListItemText>{item.title}</ListItemText>
                 </MenuItem>

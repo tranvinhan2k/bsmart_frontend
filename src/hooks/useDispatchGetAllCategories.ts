@@ -3,7 +3,7 @@ import { useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import subjectsApi from '~/api/subjects';
 import { globalCategories } from '~/redux/globalData/selector';
-import { useHandleApi } from './useHandleApi';
+import { useTryCatch } from './useTryCatch';
 import { updateCategories } from '~/redux/globalData/slice';
 import { OptionPayload } from '~/models';
 import { CategoriesPayload } from '~/models/type';
@@ -20,7 +20,7 @@ const transformOptionData = (categories: CategoriesPayload[]) => {
 
 export const useDispatchGetAllCategories = () => {
   const dispatch = useDispatch();
-  const { error, isLoading, handleQueryApi } = useHandleApi();
+  const { error, isLoading, handleTryCatch } = useTryCatch();
 
   const categories = useSelector(globalCategories);
 
@@ -30,7 +30,7 @@ export const useDispatchGetAllCategories = () => {
   );
 
   const handleUpdateCategories = useCallback(async () => {
-    const response = await handleQueryApi(
+    const response = await handleTryCatch(
       categoriesApi.getAllCategoriesAllProp
     );
     dispatch(updateCategories(response));

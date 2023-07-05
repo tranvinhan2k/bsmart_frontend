@@ -16,8 +16,8 @@ export default function TextLine({ label, variable }: TextLineProps) {
     >
       <Typography
         sx={{
-          fontFamily: FontFamily.bold,
-          fontSize: FontSize.small_18,
+          fontFamily: FontFamily.medium,
+          fontSize: FontSize.small_14,
         }}
       >
         {`${label}`}
@@ -25,7 +25,7 @@ export default function TextLine({ label, variable }: TextLineProps) {
       <Typography
         sx={{
           fontFamily: FontFamily.light,
-          fontSize: FontSize.small_18,
+          fontSize: FontSize.small_14,
         }}
       >
         {`${variable}`}

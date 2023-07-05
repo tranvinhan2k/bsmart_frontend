@@ -240,7 +240,6 @@ export const validationSchemaCreateCourse = object({
   description: string().required(COURSE_DESCRIPTION),
 });
 export const validationSchemaCreateSubCourse = object({
-  subCourseTile: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),

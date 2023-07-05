@@ -4,11 +4,12 @@ import { Color, FontFamily } from '~/assets/variables';
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: '#000000',
+      main: Color.navy,
     },
     secondary: {
       main: Color.orange,
     },
+
     miSmartOrange: {
       main: Color.orange,
       light: Color.orange,

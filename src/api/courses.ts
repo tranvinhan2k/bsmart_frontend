@@ -9,6 +9,7 @@ import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
 import { CoursePayload } from '~/models/type';
+import { PostCoursePayload } from '~/models/request';
 
 // Define the request payload for fetching courses
 
@@ -19,15 +20,7 @@ export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
   types?: string[] | undefined;
   provinces?: number[] | undefined;
 }
-export interface RequestCreateCoursePayload {
-  id?: number;
-  code: string;
-  name: string;
-  categoryId: number;
-  subjectId: number;
-  description: string;
-  subCourseRequests: SubCoursePayload[];
-}
+
 export interface ResponseMemberCoursePayload {
   id: number;
   images: ImagePayload[];
@@ -282,17 +275,18 @@ const coursesApi = {
       await axiosClient.get(`${url}/${id}/sub-courses`);
     return response;
   },
-  async createCourse(params: RequestCreateCoursePayload): Promise<any> {
+  async createCourse(params: PostCoursePayload): Promise<any> {
     const response: any = await axiosClient.post(url, params);
     return response;
   },
-  async createPublicCourse(params: RequestCreateCoursePayload): Promise<any> {
-    const { id, ...newParams } = params;
-    const response: any = await axiosClient.post(`${url}/public-course/${id}`, {
-      ...newParams,
-    });
-    return response;
-  },
+  // TODO: tạm thời đóng chức năng public course, có thể mở lại
+  // async createPublicCourse(params: PostCoursePayload): Promise<any> {
+  //   const { id, ...newParams } = params;
+  //   const response: any = await axiosClient.post(`${url}/public-course/${id}`, {
+  //     ...newParams,
+  //   });
+  //   return response;
+  // },
   async requestSubCourse(id: number): Promise<any> {
     const response: any = await axiosClient.put(
       `${url}/${id}/request-approval`

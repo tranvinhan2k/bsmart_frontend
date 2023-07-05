@@ -13,16 +13,16 @@ export const useMutationCreateCourse = () => {
       queryClient.invalidateQueries({ queryKey: [key] });
     },
   });
-  const mutationPublicResult = useMutation({
-    mutationKey: [key],
-    mutationFn: coursesApi.createPublicCourse,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  });
+  // const mutationPublicResult = useMutation({
+  //   mutationKey: [key],
+  //   mutationFn: coursesApi.createPublicCourse,
+  //   onSuccess: () => {
+  //     // Invalidate and refetch
+  //     queryClient.invalidateQueries({ queryKey: [key] });
+  //   },
+  // });
   return {
     mutationResult,
-    mutationPublicResult,
+    // mutationPublicResult,
   };
 };

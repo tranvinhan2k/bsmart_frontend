@@ -3,7 +3,7 @@ import { useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import subjectsApi from '~/api/subjects';
 import { globalSubjects } from '~/redux/globalData/selector';
-import { useHandleApi } from './useHandleApi';
+import { useTryCatch } from './useTryCatch';
 import { updateSubjects } from '~/redux/globalData/slice';
 import { OptionPayload } from '~/models';
 import { SubjectPayload } from '~/models/type';
@@ -20,7 +20,7 @@ const transformOptionData = (subjects: SubjectPayload[]) => {
 
 export const useDispatchGetAllSubjects = () => {
   const dispatch = useDispatch();
-  const { error, isLoading, handleQueryApi } = useHandleApi();
+  const { error, isLoading, handleTryCatch } = useTryCatch();
 
   const subjects = useSelector(globalSubjects);
 
@@ -30,7 +30,7 @@ export const useDispatchGetAllSubjects = () => {
   );
 
   const handleUpdateSubjects = useCallback(async () => {
-    const response = await handleQueryApi(subjectsApi.getAllSubjectsAllProp);
+    const response = await handleTryCatch(subjectsApi.getAllSubjectsAllProp);
     dispatch(updateSubjects(response));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
