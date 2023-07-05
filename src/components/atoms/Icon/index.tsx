@@ -39,6 +39,8 @@ import {
   MdCake,
   MdManageAccounts,
   MdFeedback,
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
 } from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
 import { VscTasklist } from 'react-icons/vsc';
@@ -98,6 +100,7 @@ export type IconName =
   | 'cart'
   | 'return'
   | 'category'
+  | 'blankSquareCheckbox'
   | 'chat'
   | 'check'
   | 'class'
@@ -128,6 +131,7 @@ export type IconName =
   | 'keyboardArrowRight'
   | 'linkedin'
   | 'location'
+  | 'squareCheckbox'
   | 'mail'
   | 'male'
   | 'menu'
@@ -202,6 +206,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsFillInfoCircleFill />
+        </Typography>
+      );
+    case 'blankSquareCheckbox':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdCheckBoxOutlineBlank />
+        </Typography>
+      );
+    case 'squareCheckbox':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdCheckBox />
         </Typography>
       );
     case 'book':

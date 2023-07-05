@@ -21,7 +21,6 @@ export default function CollapseStack({ label, children }: CollapseStackProps) {
         width: '100%',
         borderRadius: '10px',
         background: Color.white,
-        boxShadow: 2,
       }}
     >
       <Stack

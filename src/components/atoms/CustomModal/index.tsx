@@ -40,7 +40,7 @@ export default function CustomModal({
         </Box>
         <Stack
           sx={{
-            padding: 1,
+            transition: 'all 1s ease',
             maxHeight: '90vh',
             overflowY: 'scroll',
             '::-webkit-scrollbar': {

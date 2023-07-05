@@ -35,8 +35,10 @@ export default function ConfirmDialog({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAccept}>Xác Nhận</Button>
-        <Button onClick={handleClose} autoFocus>
+        <Button variant="contained" onClick={handleAccept}>
+          Xác Nhận
+        </Button>
+        <Button variant="outlined" onClick={handleClose} autoFocus>
           Hủy bỏ
         </Button>
       </DialogActions>

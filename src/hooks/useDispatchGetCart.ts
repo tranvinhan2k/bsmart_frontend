@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import cartApi from '~/api/cart';
 import { selectCart } from '~/redux/user/selector';
 import { updateUserCart } from '~/redux/user/slice';
-import { useHandleApi } from './useHandleApi';
+import { useTryCatch } from './useTryCatch';
 
 export const useDispatchGetCart = () => {
   const dispatch = useDispatch();
-  const { error, isLoading, handleQueryApi } = useHandleApi();
+  const { error, isLoading, handleTryCatch } = useTryCatch();
 
   const cart = useSelector(selectCart);
 
   const handleDispatch = useCallback(async () => {
-    const response = await handleQueryApi(cartApi.getCart);
+    const response = await handleTryCatch(cartApi.getCart);
     dispatch(updateUserCart(response));
-  }, [dispatch, handleQueryApi]);
+  }, [dispatch, handleTryCatch]);
 
   return {
     cart,

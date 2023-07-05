@@ -52,6 +52,11 @@ const textSmallLight: SxProps<Theme> = {
   fontSize: FontSize.small_18,
   color: Color.black,
 };
+const textLowSmallLight: SxProps<Theme> = {
+  fontFamily: FontFamily.light,
+  fontSize: FontSize.small_14,
+  color: Color.grey,
+};
 export const SX_SHADOW: SxProps<Theme> = {
   shadowColor: '#000000',
   shadowOffset: {
@@ -63,8 +68,11 @@ export const SX_SHADOW: SxProps<Theme> = {
   elevation: 4,
 };
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
-  height: MetricSize.formInputHeight,
-  '.MuiInputBase-root': {
+  maxHeight: '50px',
+  input: {
+    fontFamily: FontFamily.light,
+    fontSize: FontSize.small_14,
+    background: Color.white,
     height: MetricSize.formInputHeight,
   },
 };
@@ -74,6 +82,7 @@ const globalStyles = {
   textSubTitle,
   textSmallLabel,
   textSmallLight,
+  textLowSmallLight,
 };
 
 export default globalStyles;

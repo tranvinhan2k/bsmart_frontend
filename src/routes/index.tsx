@@ -112,7 +112,6 @@ const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 const FeedbackManagerPage = lazy(() => import('~/pages/FeedbackManagerPage'));
 const SubjectManagerPage = lazy(() => import('~/pages/SubjectManagerPage'));
 const CategoryManagerPage = lazy(() => import('~/pages/CategoryManagerPage'));
-const CreateContentPage = lazy(() => import('~/pages/CreateContentPage'));
 const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
 );
@@ -330,7 +329,7 @@ export const mentorLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
+        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_menu_dashboard}`}
       />
     ),
     role: ['ROLE_TEACHER'],
@@ -343,6 +342,11 @@ export const mentorLMSRoutes: RoutePayload[] = [
   {
     path: MentorDashboardNavigationActionLink.mentor_course_list,
     main: () => <MentorCourseListPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `${MentorDashboardNavigationActionLink.mentor_course_list}/:id`,
+    main: () => <MentorCourseDetailPage />,
     role: ['ROLE_TEACHER'],
   },
   {
@@ -360,16 +364,17 @@ export const mentorLMSRoutes: RoutePayload[] = [
     main: () => <MentorClassDetailPage />,
     role: ['ROLE_TEACHER'],
   },
-  {
-    path: MentorDashboardNavigationActionLink.mentor_class_detail_2,
-    main: () => <MentorCourseDetailPage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: MentorDashboardNavigationActionLink.create_content,
-    main: () => <CreateContentPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
-  },
+  // TODO: Đã có route cho trang này
+  // {
+  //   path: MentorDashboardNavigationActionLink.mentor_class_detail_2,
+  //   main: () => <MentorCourseDetailPage />,
+  //   role: ['ROLE_TEACHER'],
+  // },
+  // {
+  //   path: MentorDashboardNavigationActionLink.create_content,
+  //   main: () => <CreateContentPage />,
+  //   role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  // },
   {
     path: MentorDashboardNavigationActionLink.mentor_quiz_settings,
     main: () => <MentorQuizSettingsPage />,
