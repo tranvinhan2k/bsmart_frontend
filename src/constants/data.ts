@@ -366,7 +366,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     name: 'Trang chủ',
   },
   {
-    id: 0,
+    id: 1,
     icon: 'course',
     link: '',
     name: 'Quản lí học tập',
@@ -377,6 +377,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
         link: MentorDashboardNavigationActionLink.mentor_course_list,
       },
       {
+        isHide: true,
         id: 1,
         name: 'Tạo khóa học',
         link: MentorDashboardNavigationActionLink.create_course,
@@ -389,7 +390,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 1,
+    id: 2,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Khóa học',
@@ -408,7 +409,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Nội dung',
@@ -422,7 +423,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Hoạt động',
@@ -465,7 +466,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Thông báo',
@@ -491,7 +492,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     icon: 'course',
     link: '',
     name: 'Trang tạm - Điểm danh',
