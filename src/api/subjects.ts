@@ -70,6 +70,17 @@ const subjectsApi = {
     }));
     return result;
   },
+  async getAllMentorSubjects(): Promise<OptionPayload[]> {
+    const response = await axiosClient.get<any[]>(`${url}/mentor-skills`);
+
+    const result: OptionPayload[] = response.map((item: any) => ({
+      id: item.id,
+      label: item.name,
+      value: item.id,
+      categoryIds: item.categoryIds,
+    }));
+    return result;
+  },
 };
 
 export default subjectsApi;

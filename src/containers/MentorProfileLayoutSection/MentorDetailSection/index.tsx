@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { MentorNavigationActionData, NavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/constants';
 import toast from '~/utils/toast';
 
 import ProfileSideBar from '~/components/molecules/ProfileSideBar';
@@ -35,7 +35,7 @@ export default function MentorDetailSection() {
     setOpenDialogUpdateAvatar(!openDialogUpdateAvatar);
 
   const handleNavigateLink = (link: string) => {
-    navigate(`/${NavigationActionData[3].link}/${link}`);
+    navigate(link);
   };
 
   const handleOpenSocialLink = (link: string | null) => {

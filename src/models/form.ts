@@ -186,6 +186,7 @@ export interface UpdateClassSectionsFormDefault {
 export type FormInputVariant =
   | 'text'
   | 'number'
+  | 'editor'
   | 'multiline'
   | 'dropdown'
   | 'dropdownDynamicValue'

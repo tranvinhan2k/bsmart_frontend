@@ -1,5 +1,5 @@
 import { Box, Typography, AppBar, Tab, Tabs, useTheme } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { Color, MetricSize } from '~/assets/variables';
 
@@ -51,16 +51,13 @@ function a11yProps(index: number) {
 }
 
 export default function CustomTab({ tabContentList = [] }: CustomTabProps) {
+  const [value, setValue] = useState(0);
   // params
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
 
   // functions
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
   };
 
   // if list null
@@ -74,7 +71,6 @@ export default function CustomTab({ tabContentList = [] }: CustomTabProps) {
       sx={{
         background: Color.white,
         borderRadius: MetricSize.small_10,
-        boxShadow: 2,
       }}
     >
       <AppBar
@@ -91,7 +87,7 @@ export default function CustomTab({ tabContentList = [] }: CustomTabProps) {
           }}
           value={value}
           onChange={handleChange}
-          indicatorColor="secondary"
+          indicatorColor="primary"
           textColor="inherit"
           variant="fullWidth"
           aria-label="full width tabs example"
@@ -109,22 +105,16 @@ export default function CustomTab({ tabContentList = [] }: CustomTabProps) {
           ))}
         </Tabs>
       </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        {tabContentList.map((item, index) => (
-          <TabPanel
-            key={item.label}
-            value={value}
-            index={index}
-            dir={theme.direction}
-          >
-            {item.data}
-          </TabPanel>
-        ))}
-      </SwipeableViews>
+      {tabContentList.map((item, index) => (
+        <TabPanel
+          key={item.label}
+          value={value}
+          index={index}
+          dir={theme.direction}
+        >
+          {item.data}
+        </TabPanel>
+      ))}
     </Box>
   );
 }

@@ -4,13 +4,13 @@ import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import {
-  AdminNavigationActionData,
-  ManagerNavigationActionData,
-  MemberNavigationActionData,
-  MentorDashboardNavigationActionData,
-  MentorNavigationActionData,
-  NavigationActionData,
-} from '~/constants';
+  AdminNavigationActionLink,
+  ManagerNavigationActionLink,
+  MemberNavigationActionLink,
+  MentorDashboardNavigationActionLink,
+  MentorNavigationLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 import { RoutePayload } from '~/models/routes';
 import CartPage from '~/pages/CartPage';
@@ -23,9 +23,16 @@ const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 const BlogPage = lazy(() => import('~/pages/BlogPage'));
 const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
+const MenuDashboardPage = lazy(() => import('~/pages/MenuDashboardPage'));
 const MentorClassListPage = lazy(() => import('~/pages/MentorClassListPage'));
-const EditMemberProfilePage = lazy(
-  () => import('~/pages/EditMemberProfilePage')
+const MemberEditProfilePage = lazy(
+  () => import('~/pages/MemberEditProfilePage/MemberEditImgInfoPage')
+);
+const MemberEditPersonalInfoPage = lazy(
+  () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
+);
+const MemberEditPasswordPage = lazy(
+  () => import('~/pages/MemberEditProfilePage/MemberEditPasswordPage')
 );
 const WalletManagementPage = lazy(() => import('~/pages/WalletManagementPage'));
 const DashboardPage = lazy(() => import('~/pages/DashboardPage'));
@@ -40,8 +47,17 @@ const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
 const AdminPage = lazy(() => import('~/pages/AdminPage'));
 const FeedbackPage = lazy(() => import('~/pages/FeedbackPage'));
 const MentorProfilePage = lazy(() => import('~/pages/MentorProfilePage'));
-const MentorEditProfilePage = lazy(
-  () => import('~/pages/MentorEditProfilePage')
+const MentorEditPersonalInfoPage = lazy(
+  () => import('~/pages/MentorEditProfilePage/MentorEditPersonalInfoPage')
+);
+const MentorEditProfileImgPage = lazy(
+  () => import('~/pages/MentorEditProfilePage/MentorEditImgInfoPage')
+);
+const MentorEditPasswordPage = lazy(
+  () => import('~/pages/MentorEditProfilePage/MentorEditPasswordPage')
+);
+const MentorEditMentorProfile = lazy(
+  () => import('~/pages/MentorEditProfilePage/MentorEditMentorProfile')
 );
 const MentorsPage = lazy(() => import('~/pages/MentorsPage'));
 const MentorCourseListPage = lazy(() => import('~/pages/MentorCourseListPage'));
@@ -96,7 +112,6 @@ const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 const FeedbackManagerPage = lazy(() => import('~/pages/FeedbackManagerPage'));
 const SubjectManagerPage = lazy(() => import('~/pages/SubjectManagerPage'));
 const CategoryManagerPage = lazy(() => import('~/pages/CategoryManagerPage'));
-const CreateContentPage = lazy(() => import('~/pages/CreateContentPage'));
 const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
 );
@@ -107,111 +122,111 @@ const MentorAttendanceListPage = lazy(
 const routes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={NavigationActionData[0].link} />,
+    main: () => <Navigate to={NavigationLink.homepage} />,
     role: [],
   },
   {
-    path: `/${NavigationActionData[0].link}`,
+    path: NavigationLink.homepage,
     main: () => <HomePage />,
     role: [],
   },
   {
-    path: `/${NavigationActionData[1].link}`,
+    path: NavigationLink.about_us,
     main: () => <AboutUsPage />,
     role: [],
   },
   {
-    path: `/${NavigationActionData[2].link}`,
+    path: NavigationLink.course_menu,
     role: [],
     main: () => <CoursesPage />,
   },
   {
-    path: `/${NavigationActionData[3].link}/*`,
+    path: `/${NavigationLink.mentor_profile}/*`,
     main: () => <MentorProfilePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationActionData[4].link}`,
+    path: NavigationLink.blog,
     main: () => <BlogPage />,
     role: [],
   },
   {
-    path: `/${NavigationActionData[5].link}`,
-    main: () => <Stack>Hello</Stack>,
+    path: NavigationLink.recruitment,
+    main: () => <Stack>Recruitment</Stack>,
     role: [],
   },
   {
-    path: `/${NavigationActionData[6].link}`,
+    path: NavigationLink.register,
     main: () => <RegisterPage />,
     role: ['GUEST'],
   },
   {
-    path: `/${NavigationActionData[7].link}`,
+    path: NavigationLink.login,
     main: () => <LoginPage />,
     role: ['GUEST'],
   },
   {
-    path: `/${NavigationActionData[8].link}`,
+    path: NavigationLink.course_menu_details,
     main: () => <CourseDetailPage />,
     role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationActionData[9].link}`,
+    path: NavigationLink.lms,
     main: () => <LmsPage />,
     role: [],
   },
   {
-    path: `/${NavigationActionData[10].link}`,
+    path: NavigationLink.annotation,
     main: () => <AnnotationPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationActionData[11].link}`,
+    path: NavigationLink.buy_course,
     main: () => <BuyCoursePage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${NavigationActionData[12].link}`,
+    path: NavigationLink.blog_details,
     main: () => <BlogDetailsPage />,
     role: ['GUEST', 'ROLE_TEACHER', 'ROLE_STUDENT'],
   },
   {
-    path: `/${NavigationActionData[13].link}/*`,
+    path: `/${NavigationLink.member_details}/*`,
     main: () => <MemberProfilePage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${NavigationActionData[14].link}`,
+    path: NavigationLink.feedback,
     main: () => <FeedbackPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${NavigationActionData[15].link}`,
+    path: NavigationLink.mentor_menu,
     main: () => <MentorsPage />,
     role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationActionData[16].link}`,
+    path: NavigationLink.cart,
     main: () => <CartPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${NavigationActionData[17].link}`,
+    path: NavigationLink.contact,
     main: () => <MentorContractPage />,
     role: [],
   },
   {
-    path: `/${NavigationActionData[18].link}`,
+    path: NavigationLink.check_out,
     main: () => <CheckoutPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${NavigationActionData[19].link}`,
+    path: NavigationLink.confirm_email,
     main: () => <ConfirmEmailPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER', 'GUEST'],
   },
   {
-    path: `/${NavigationActionData[20].link}/*`,
+    path: `/${NavigationLink.dashboard}/*`,
     main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
@@ -232,28 +247,38 @@ export const memberRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationActionData[13].link}/${MemberNavigationActionData[0].link}`}
+        to={`/${NavigationLink.member_details}/${MemberNavigationActionLink.edit_profile_personal_info}`}
       />
     ),
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${MemberNavigationActionData[0].link}`,
-    main: () => <EditMemberProfilePage />,
+    path: MemberNavigationActionLink.edit_profile_personal_info,
+    main: () => <MemberEditProfilePage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${MemberNavigationActionData[1].link}`,
+    path: MemberNavigationActionLink.edit_profile_img,
+    main: () => <MemberEditPersonalInfoPage />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: MemberNavigationActionLink.edit_profile_password,
+    main: () => <MemberEditPasswordPage />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: MemberNavigationActionLink.wallet_management,
     main: () => <WalletManagementPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${MemberNavigationActionData[2].link}`,
+    path: MemberNavigationActionLink.withdraw,
     main: () => <WithdrawPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `/${MemberNavigationActionData[3].link}`,
+    path: MemberNavigationActionLink.member_course_list,
     main: () => <MemberCourseListPage />,
     role: ['ROLE_STUDENT'],
   },
@@ -263,23 +288,38 @@ export const mentorRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationActionData[3].link}/${MentorNavigationActionData[0].link}`}
+        to={`/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_personal_info}`}
       />
     ),
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[0].link}`,
-    main: () => <MentorEditProfilePage />,
+    path: MentorNavigationLink.edit_profile_personal_info,
+    main: () => <MentorEditPersonalInfoPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[1].link}`,
+    path: MentorNavigationLink.edit_profile_mentor_info,
+    main: () => <MentorEditMentorProfile />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: MentorNavigationLink.edit_profile_img,
+    main: () => <MentorEditProfileImgPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: MentorNavigationLink.edit_profile_password,
+    main: () => <MentorEditPasswordPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: MentorNavigationLink.wallet_management,
     main: () => <WalletManagementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorNavigationActionData[2].link}`,
+    path: MentorNavigationLink.withdraw,
     main: () => <WithdrawPage />,
     role: ['ROLE_TEACHER'],
   },
@@ -289,98 +329,109 @@ export const mentorLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationActionData[20].link}/${MentorDashboardNavigationActionData[0].items?.[0].link}`}
+        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_menu_dashboard}`}
       />
     ),
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[0].items?.[0].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_menu_dashboard,
+    main: () => <MenuDashboardPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: MentorDashboardNavigationActionLink.mentor_course_list,
     main: () => <MentorCourseListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[0].items?.[1].link}`,
-    main: () => <MentorCreateCoursePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorDashboardNavigationActionData[0].items?.[2].link}`,
-    main: () => <MentorClassListPage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorDashboardNavigationActionData[1].items?.[0].link}/:id`,
-    main: () => <MentorClassDetailPage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: `/${MentorDashboardNavigationActionData[1].items?.[1].link}`,
+    path: `${MentorDashboardNavigationActionLink.mentor_course_list}/:id`,
     main: () => <MentorCourseDetailPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[2].items?.[0].link}/:id`,
-    main: () => <CreateContentPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    path: MentorDashboardNavigationActionLink.create_course,
+    main: () => <MentorCreateCoursePage />,
+    role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[3].items?.[0].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_class_list,
+    main: () => <MentorClassListPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  {
+    path: MentorDashboardNavigationActionLink.mentor_class_detail_1,
+    main: () => <MentorClassDetailPage />,
+    role: ['ROLE_TEACHER'],
+  },
+  // TODO: Đã có route cho trang này
+  // {
+  //   path: MentorDashboardNavigationActionLink.mentor_class_detail_2,
+  //   main: () => <MentorCourseDetailPage />,
+  //   role: ['ROLE_TEACHER'],
+  // },
+  // {
+  //   path: MentorDashboardNavigationActionLink.create_content,
+  //   main: () => <CreateContentPage />,
+  //   role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  // },
+  {
+    path: MentorDashboardNavigationActionLink.mentor_quiz_settings,
     main: () => <MentorQuizSettingsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[3].items?.[1].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_create_quiz,
     main: () => <MentorCreateQuizPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[3].items?.[2].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_assignment_settings_1,
     main: () => <MentorCreateAssignmentPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[3].items?.[3].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_create_assignment,
     main: () => <MentorCreateAssignmentPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[3].items?.[4].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_assignment_settings_2,
     main: () => <MentorAssignmentSettingsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[3].items?.[5].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_assignment_details,
     main: () => <MentorAssignmentDetailsPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[4].items?.[0].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_create_announcement,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[4].items?.[1].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_create_announcement,
     main: () => <MentorCreateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[4].items?.[2].link}`,
+    path: MentorDashboardNavigationActionLink.mentor_update_announcement,
     main: () => <MentorUpdateAnnouncementPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[5].items?.[0].link}`,
+    path: MentorDashboardNavigationActionLink.take_attendance_1,
     main: () => <MentorAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[5].items?.[1].link}`,
+    path: MentorDashboardNavigationActionLink.view_member_attendance,
     main: () => <MentorViewStudentAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {
-    path: `/${MentorDashboardNavigationActionData[5].items?.[2].link}/:classId/:id`,
+    path: MentorDashboardNavigationActionLink.take_attendance_2,
     main: () => <MentorTakeAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
@@ -407,17 +458,17 @@ export const adminRoutes: RoutePayload[] = [
     role: ['ROLE_ADMIN'],
   },
   {
-    path: `/${AdminNavigationActionData[2].link}`,
+    path: AdminNavigationActionLink.feedback_manager,
     main: () => <FeedbackManagerPage />,
     role: ['ROLE_ADMIN'],
   },
   {
-    path: `/${AdminNavigationActionData[3].link}`,
+    path: AdminNavigationActionLink.category_manager,
     main: () => <CategoryManagerPage />,
     role: ['ROLE_ADMIN'],
   },
   {
-    path: `/${AdminNavigationActionData[4].link}`,
+    path: AdminNavigationActionLink.subject_manager,
     main: () => <SubjectManagerPage />,
     role: ['ROLE_ADMIN'],
   },
@@ -435,32 +486,32 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
-    path: `/${ManagerNavigationActionData[1].link}`,
-    main: () => <h1>Manager xem tất cả giáo viên</h1>,
+    path: ManagerNavigationActionLink.account_search,
+    main: () => <h1>Manager xem tất cả người dùng</h1>,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: `/${ManagerNavigationActionData[2].link}`,
+    path: ManagerNavigationActionLink.process_register_request_search,
     main: () => <ManagerProcessRegisterRequestPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: `/${ManagerNavigationActionData[3].link}`,
+    path: ManagerNavigationActionLink.process_register_request_details,
     main: () => <ManagerProcessRegisterRequestDetailsPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: `/${ManagerNavigationActionData[4].link}`,
+    path: ManagerNavigationActionLink.course_search,
     main: () => <h1>Manager xem tất khóa học</h1>,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: `/${ManagerNavigationActionData[5].link}`,
+    path: ManagerNavigationActionLink.process_create_course_request_search,
     main: () => <ManagerProcessCourseCreateRequestPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: `/${ManagerNavigationActionData[6].link}`,
+    path: ManagerNavigationActionLink.process_create_course_request_details,
     main: () => <ManagerProcessCourseCreateRequestDetailsPage />,
     role: ['ROLE_MANAGER'],
   },

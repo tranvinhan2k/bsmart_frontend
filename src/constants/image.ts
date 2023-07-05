@@ -9,6 +9,10 @@ import error from '~/assets/images/error.png';
 import mentor from '~/assets/images/mentor.png';
 import student from '~/assets/images/student.png';
 import notFound from '~/assets/images/404.png';
+import lms_logo from '~/assets/images/lms_logo.png';
+import no_classes from '~/assets/images/no_classes.png';
+import mockClass from '~/assets/images/mockClass.png';
+import guide from '~/assets/images/guide.png';
 
 export const image = {
   noAvatar,
@@ -22,4 +26,8 @@ export const image = {
   mentor,
   student,
   notFound,
+  lms_logo,
+  no_classes,
+  mockClass,
+  guide,
 };

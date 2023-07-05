@@ -1,9 +1,8 @@
-import { Stack, Collapse } from '@mui/material';
+import { Stack, Collapse, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
-import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
 import { ActionPayload } from '~/models';
 
@@ -11,12 +10,14 @@ export default function DashboardSidebarButton({
   item,
   activeIndex,
   index,
+  isHover,
   onSetActive,
   onNavigateLink,
 }: {
   item: ActionPayload;
   activeIndex: number;
   index: number;
+  isHover: boolean;
   onSetActive: (index: number) => void;
   onNavigateLink: (link: string) => void;
 }) {
@@ -35,39 +36,65 @@ export default function DashboardSidebarButton({
   };
 
   useEffect(() => {
-    if (activeIndex !== index && open) {
+    if ((activeIndex !== index && open) || isHover === false) {
       setOpen(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeIndex]);
+  }, [activeIndex, isHover]);
 
   return !item.items ? (
     <Stack
       onClick={handleSingleNavigate}
       sx={{
-        transition: 'background-color 500ms ease',
-        borderBottomRightRadius:
-          activeIndex - 1 === index ? MetricSize.small_10 : 0,
-        borderTopRightRadius:
-          activeIndex + 1 === index ? MetricSize.small_10 : 0,
+        transition: 'height 500ms ease',
+        backdropFilter: 'blur(4px)',
+        borderBottomRightRadius: {
+          xs: 0,
+          md: activeIndex - 1 === index ? MetricSize.small_10 : 0,
+        },
+        borderTopRightRadius: {
+          xs: 0,
+          md: activeIndex + 1 === index ? MetricSize.small_10 : 0,
+        },
         padding: MetricSize.medium_15,
-        color: activeIndex === index ? Color.black : Color.white,
+        color: Color.white,
         fontSize: FontSize.small_16,
         fontFamily:
           activeIndex === index ? FontFamily.bold : FontFamily.regular,
         background:
           activeIndex === index
-            ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.white4} 80%)`
+            ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.transparent} 80%)`
             : Color.navy,
         ':hover': {
-          background: `linear-gradient(153deg, ${Color.navy}CC 30%, ${Color.white4} 75%)`,
+          background: `linear-gradient(153deg, ${Color.navy}CC 30%, ${Color.transparent} 75%)`,
           cursor: 'pointer',
           color: Color.white,
         },
       }}
       key={item.id}
     >
-      {item.name}
+      <Stack
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+
+          // justifyContent: 'space-between',
+        }}
+      >
+        {item.icon && (
+          <Stack marginRight={1}>
+            <Icon size="small_20" color="white" name={item.icon} />
+          </Stack>
+        )}
+        <Stack
+          sx={{
+            opacity: isHover ? '1' : 0,
+            flexWrap: 'nowrap',
+          }}
+        >
+          <Typography noWrap>{item.name}</Typography>
+        </Stack>
+      </Stack>
     </Stack>
   ) : (
     <Stack>
@@ -75,22 +102,26 @@ export default function DashboardSidebarButton({
         onClick={handleOpenCollapse}
         sx={{
           position: 'relative',
-          transition: 'background-color 700ms ease',
-          borderBottomRightRadius:
-            activeIndex - 1 === index ? MetricSize.small_10 : 0,
-          borderTopRightRadius:
-            activeIndex + 1 === index ? MetricSize.small_10 : 0,
+          transition: 'height 700ms ease',
+          borderBottomRightRadius: {
+            xs: 0,
+            md: activeIndex - 1 === index ? MetricSize.small_10 : 0,
+          },
+          borderTopRightRadius: {
+            xs: 0,
+            md: activeIndex + 1 === index ? MetricSize.small_10 : 0,
+          },
           padding: MetricSize.medium_15,
-          color: activeIndex === index ? 'Color.black' : Color.white,
+          color: Color.white,
           fontSize: FontSize.small_16,
           fontFamily:
             activeIndex === index ? FontFamily.bold : FontFamily.regular,
           background:
             activeIndex === index
-              ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.white4} 80%)`
+              ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.transparent} 80%)`
               : Color.navy,
           ':hover': {
-            background: `linear-gradient(90deg, ${Color.navy}CC 30%, ${Color.white4} 80%)`,
+            background: `linear-gradient(90deg, ${Color.navy}CC 30%, ${Color.transparent} 80%)`,
             cursor: 'pointer',
             color: Color.white,
           },
@@ -101,33 +132,44 @@ export default function DashboardSidebarButton({
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
+
             // justifyContent: 'space-between',
           }}
         >
           {item.icon && (
             <Stack marginRight={1}>
-              <Icon
-                size="small_20"
-                color={activeIndex === index ? 'black' : 'white'}
-                name={item.icon}
-              />
+              <Icon size="small_20" color="white" name={item.icon} />
             </Stack>
           )}
-          {item.name}
           <Stack
             sx={{
-              position: 'absolute',
-              right: MetricSize.medium_15,
-              transform: activeIndex === index ? 'rotate(90deg)' : 0,
+              transition: 'all 1000ms ease',
+              opacity: isHover ? '1' : 0,
+              flexWrap: 'nowrap',
             }}
           >
-            <Icon name="arrowRight" size="small" />
+            <Typography noWrap>{item.name}</Typography>
+
+            <Stack
+              sx={{
+                position: 'absolute',
+                right: MetricSize.medium_15,
+                transform: activeIndex === index ? 'rotate(90deg)' : 0,
+              }}
+            >
+              <Icon
+                name="arrowRight"
+                size="small"
+                color={activeIndex === index ? 'black' : 'white'}
+              />
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
       <Collapse in={open}>
         <Stack sx={{ marginBottom: 1 }}>
           {item.items.map((subItem) => {
+            if (subItem.isHide) return null;
             return (
               <Stack
                 sx={{
@@ -135,7 +177,7 @@ export default function DashboardSidebarButton({
                   height: '30px',
                   justifyContent: 'center',
                   background: pathname.includes(subItem.link)
-                    ? Color.grey3
+                    ? Color.grey
                     : Color.white4,
                   color: pathname.includes(subItem.link)
                     ? Color.black
@@ -144,7 +186,6 @@ export default function DashboardSidebarButton({
                   paddingY: MetricSize.small_10,
                   paddingLeft: MetricSize.large_30,
                   paddingRight: MetricSize.small_10,
-                  marginRight: 1,
                   fontFamily: pathname.includes(subItem.link)
                     ? FontFamily.medium
                     : FontFamily.light,

@@ -11,6 +11,15 @@ import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload, CoursePayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 import { LEVEL_LABELS } from './level';
+import {
+  AdminNavigationActionLink,
+  AuthorizationALink,
+  ManagerNavigationActionLink,
+  MemberNavigationActionLink,
+  MentorDashboardNavigationActionLink,
+  MentorNavigationLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 export const courseTypeData = {
   PRIVATE: 'Khóa học riêng tư',
@@ -185,12 +194,12 @@ export const AuthorizationActionData: ActionPayload[] = [
   {
     id: 0,
     name: 'Đăng nhập',
-    link: '/login',
+    link: AuthorizationALink.log_in,
   },
   {
     id: 1,
     name: 'Đăng kí',
-    link: '/register',
+    link: AuthorizationALink.register,
   },
 ];
 
@@ -198,145 +207,166 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 0,
     name: 'Trang Chủ',
-    link: 'homepage',
+    link: NavigationLink.homepage,
   },
   {
     id: 1,
     name: 'Về Chúng Tôi',
-    link: 'about_us',
+    link: NavigationLink.about_us,
   },
   {
     id: 2,
     name: 'Khóa Học',
-    link: 'course_menu',
+    link: NavigationLink.course_menu,
   },
   {
     id: 3,
     isHide: true,
     name: 'Thông tin giáo viên',
-    link: 'mentor-profile',
+    link: NavigationLink.mentor_profile,
   },
   {
     id: 4,
     name: 'Blog',
-    link: 'blog',
+    link: NavigationLink.blog,
   },
   {
     id: 5,
     isHide: true,
     name: 'Tuyển dụng',
-    link: 'recruitment',
+    link: NavigationLink.recruitment,
   },
   {
     id: 6,
     isHide: true,
     name: 'Đăng ký',
-    link: 'register',
+    link: NavigationLink.register,
   },
   {
     id: 7,
     isHide: true,
     name: 'Đăng nhập',
-    link: 'login',
+    link: NavigationLink.login,
   },
   {
     id: 8,
     isHide: true,
     name: 'Chi Tiết Khóa Học',
-    link: 'course_menu/course-detail/:id',
+    link: NavigationLink.course_menu_details,
   },
   {
     id: 9,
     name: 'Nền tảng LMS',
-    link: 'lms',
+    link: NavigationLink.lms,
   },
   {
     id: 10,
     isHide: true,
     name: 'Hoạt động',
-    link: 'annotation',
+    link: NavigationLink.annotation,
   },
   {
     id: 11,
     isHide: true,
     name: 'Đăng kí khóa học',
-    link: 'buy-course',
+    link: NavigationLink.buy_course,
   },
   {
     id: 12,
     isHide: true,
     name: 'Chi Tiết Blog',
-    link: 'blog/blog-details/:id',
+    link: NavigationLink.blog_details,
   },
   {
     id: 13,
     isHide: true,
     name: 'Thông tin member',
-    link: 'member-details',
+    link: NavigationLink.member_details,
   },
   {
     id: 14,
     isHide: true,
     name: 'Feedback',
-    link: 'feedback',
+    link: NavigationLink.feedback,
   },
   {
     id: 15,
     name: 'Giảng viên',
-    link: 'mentor_menu',
+    link: NavigationLink.mentor_menu,
   },
   {
     id: 16,
     isHide: true,
     name: 'Giỏ Hàng',
-    link: 'cart',
+    link: NavigationLink.cart,
   },
   {
     id: 17,
     isHide: true,
     name: 'Liên hệ',
-    link: 'contact',
+    link: NavigationLink.contact,
   },
   {
     id: 18,
     isHide: true,
     name: 'Thanh Toán',
-    link: 'check_out',
+    link: NavigationLink.check_out,
   },
   {
     id: 19,
     isHide: true,
     name: 'Xác nhận khóa học',
-    link: 'confirm_email/:code',
+    link: NavigationLink.confirm_email,
   },
   {
     id: 20,
     isHide: true,
     name: 'Quản lí học tập',
-    link: 'dashboard',
+    link: NavigationLink.dashboard,
   },
 ];
 
 export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 0,
-    name: 'Chỉnh sửa thông tin',
-    link: 'edit-profile',
+    name: 'Thông tin chung',
+    link: MentorNavigationLink.edit_profile_personal_info,
   },
   {
     id: 1,
-    name: 'Quản lí ví tiền',
-    link: 'wallet-management',
+    name: 'Thông tin giảng dạy',
+    link: MentorNavigationLink.edit_profile_mentor_info,
   },
   {
     id: 2,
+    name: 'Chứng minh thư',
+    link: MentorNavigationLink.edit_profile_img,
+  },
+  {
+    id: 3,
+    name: 'Mật khẩu',
+    link: MentorNavigationLink.edit_profile_password,
+  },
+  {
+    id: 4,
+    name: 'Quản lí ví tiền',
+    link: MentorNavigationLink.wallet_management,
+  },
+  {
+    id: 5,
     name: 'Rút tiền',
-    link: 'withdraw',
+    link: MentorNavigationLink.withdraw,
   },
 ];
 export const MentorDashboardNavigationActionData: ActionPayload[] = [
   {
     id: 0,
+    icon: 'menu',
+    link: MentorDashboardNavigationActionLink.mentor_menu_dashboard,
+    name: 'Trang chủ',
+  },
+  {
+    id: 1,
     icon: 'course',
     link: '',
     name: 'Quản lí học tập',
@@ -344,36 +374,18 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
       {
         id: 0,
         name: 'Danh sách khóa học (Mentor/Member)',
-        link: 'mentor-course-list',
+        link: MentorDashboardNavigationActionLink.mentor_course_list,
       },
       {
+        isHide: true,
         id: 1,
         name: 'Tạo khóa học',
-        link: 'create-course',
+        link: MentorDashboardNavigationActionLink.create_course,
       },
       {
         id: 2,
         name: 'Danh sách lớp học',
-        link: 'mentor-class-list',
-      },
-    ],
-  },
-  {
-    id: 1,
-    icon: 'course',
-    link: '',
-    name: 'Trang tạm - Khóa học',
-    items: [
-      {
-        id: 0,
-        name: 'Khóa học - Chi tiết khóa học (1)',
-        link: 'mentor-class-detail',
-      },
-      {
-        id: 1,
-        name: 'Khóa học - Chi tiết khóa học (2)',
-        link: 'mentor_course_detail/:id',
-        isHide: true,
+        link: MentorDashboardNavigationActionLink.mentor_class_list,
       },
     ],
   },
@@ -381,12 +393,17 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     id: 2,
     icon: 'course',
     link: '',
-    name: 'Trang tạm - Nội dung',
+    name: 'Trang tạm - Khóa học',
     items: [
       {
         id: 0,
-        name: 'Nội dung - Tạo',
-        link: 'create-content',
+        name: 'Khóa học - Chi tiết khóa học (1)',
+        link: MentorDashboardNavigationActionLink.mentor_class_detail_1,
+      },
+      {
+        id: 1,
+        name: 'Khóa học - Chi tiết khóa học (2)',
+        link: MentorDashboardNavigationActionLink.mentor_class_detail_2,
         isHide: true,
       },
     ],
@@ -395,41 +412,12 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     id: 3,
     icon: 'course',
     link: '',
-    name: 'Trang tạm - Hoạt động',
+    name: 'Trang tạm - Nội dung',
     items: [
       {
         id: 0,
-        name: 'Quiz - Xem chi tiết',
-        link: 'mentor-quiz-settings',
-      },
-      {
-        id: 1,
-        name: 'Quiz - Tạo',
-        link: 'mentor-create-quiz/:classSectionId',
-        isHide: true,
-      },
-      {
-        id: 2,
-        name: 'Assignment - Xem chi tiết (1)',
-        link: 'mentor-assignment-settings',
-        isHide: true,
-      },
-      {
-        id: 3,
-        name: 'Assignment - Tạo',
-        link: 'mentor-create-assignment/:classSectionId',
-        isHide: true,
-      },
-      {
-        id: 4,
-        name: 'Assignment - Chỉnh sửa',
-        link: 'mentor-assignment-settings/:id',
-        isHide: true,
-      },
-      {
-        id: 5,
-        name: 'Assignment - Xem chi tiết (2)',
-        link: 'mentor-assignment-details/:id',
+        name: 'Nội dung - Tạo',
+        link: MentorDashboardNavigationActionLink.create_content,
         isHide: true,
       },
     ],
@@ -438,24 +426,41 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     id: 4,
     icon: 'course',
     link: '',
-    name: 'Trang tạm - Thông báo',
+    name: 'Trang tạm - Hoạt động',
     items: [
       {
         id: 0,
-        name: 'Announcement - Cập nhật',
-        link: 'mentor-announcement-settings',
-        isHide: true,
+        name: 'Quiz - Xem chi tiết',
+        link: MentorDashboardNavigationActionLink.create_content,
       },
       {
         id: 1,
-        name: 'Announcement - Tạo',
-        link: 'mentor-create-announcement/:idClassSection',
+        name: 'Quiz - Tạo',
+        link: MentorDashboardNavigationActionLink.mentor_create_quiz,
         isHide: true,
       },
       {
         id: 2,
-        name: 'Announcement - Cập nhật',
-        link: 'mentor-update-announcement/:idAnnouncement',
+        name: 'Assignment - Xem chi tiết (1)',
+        link: MentorDashboardNavigationActionLink.mentor_assignment_settings_1,
+        isHide: true,
+      },
+      {
+        id: 3,
+        name: 'Assignment - Tạo',
+        link: MentorDashboardNavigationActionLink.mentor_create_assignment,
+        isHide: true,
+      },
+      {
+        id: 4,
+        name: 'Assignment - Chỉnh sửa',
+        link: MentorDashboardNavigationActionLink.mentor_assignment_settings_2,
+        isHide: true,
+      },
+      {
+        id: 5,
+        name: 'Assignment - Xem chi tiết (2)',
+        link: MentorDashboardNavigationActionLink.mentor_assignment_details,
         isHide: true,
       },
     ],
@@ -464,22 +469,48 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
     id: 5,
     icon: 'course',
     link: '',
+    name: 'Trang tạm - Thông báo',
+    items: [
+      {
+        id: 0,
+        name: 'Announcement - Cập nhật',
+        link: MentorDashboardNavigationActionLink.mentor_announcement_settings,
+        isHide: true,
+      },
+      {
+        id: 1,
+        name: 'Announcement - Tạo',
+        link: MentorDashboardNavigationActionLink.mentor_create_announcement,
+        isHide: true,
+      },
+      {
+        id: 2,
+        name: 'Announcement - Cập nhật',
+        link: MentorDashboardNavigationActionLink.mentor_update_announcement,
+        isHide: true,
+      },
+    ],
+  },
+  {
+    id: 6,
+    icon: 'course',
+    link: '',
     name: 'Trang tạm - Điểm danh',
     items: [
       {
         id: 0,
         name: 'Danh sách điểm danh (1)',
-        link: 'attendance-list',
+        link: MentorDashboardNavigationActionLink.take_attendance_1,
       },
       {
         id: 1,
         name: 'Danh sách điểm danh (2)',
-        link: 'view-member-attendance',
+        link: MentorDashboardNavigationActionLink.view_member_attendance,
       },
       {
         id: 2,
         name: 'Danh sách điểm danh (3)',
-        link: 'take-attendance',
+        link: MentorDashboardNavigationActionLink.take_attendance_2,
         isHide: true,
       },
     ],
@@ -489,23 +520,33 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
 export const MemberNavigationActionData: ActionPayload[] = [
   {
     id: 0,
-    name: 'Chỉnh sửa thông tin',
-    link: 'edit-profile',
+    name: 'Thông tin chung',
+    link: MemberNavigationActionLink.edit_profile_personal_info,
   },
   {
     id: 1,
-    name: 'Quản lý ví tiền',
-    link: 'wallet-management',
+    name: 'Chứng minh thư',
+    link: MentorNavigationLink.edit_profile_img,
   },
   {
     id: 2,
-    name: 'Rút tiền',
-    link: 'withdraw',
+    name: 'Mật khẩu',
+    link: MentorNavigationLink.edit_profile_password,
   },
   {
     id: 3,
+    name: 'Quản lý ví tiền',
+    link: MemberNavigationActionLink.wallet_management,
+  },
+  {
+    id: 4,
+    name: 'Rút tiền',
+    link: MemberNavigationActionLink.withdraw,
+  },
+  {
+    id: 5,
     name: 'Danh sách khóa học',
-    link: 'member-course-list',
+    link: MemberNavigationActionLink.member_course_list,
   },
 ];
 
@@ -513,30 +554,30 @@ export const AdminNavigationActionData: ActionPayload[] = [
   {
     id: 0,
     name: 'Chỉnh sửa thông tin',
-    link: 'admin',
+    link: AdminNavigationActionLink.admin,
   },
   {
     id: 1,
     name: 'Quản lý ví tiền',
-    link: 'wallet-management',
+    link: AdminNavigationActionLink.wallet_management,
   },
   {
     id: 2,
     isHide: true,
     name: 'Quản lí đánh giá',
-    link: 'feedback_manager',
+    link: AdminNavigationActionLink.feedback_manager,
   },
   {
     id: 3,
     isHide: true,
     name: 'Quản lí môn học',
-    link: 'subject_manager',
+    link: AdminNavigationActionLink.subject_manager,
   },
   {
     id: 4,
     isHide: true,
     name: 'Quản lí ngôn ngũ lập trình',
-    link: 'category_manager',
+    link: AdminNavigationActionLink.category_manager,
   },
 ];
 
@@ -544,43 +585,43 @@ export const ManagerNavigationActionData: ActionPayload[] = [
   {
     id: 0,
     name: 'Chỉnh sửa thông tin',
-    link: 'manager',
+    link: ManagerNavigationActionLink.manager,
   },
   {
     id: 1,
     isHide: true,
     name: 'Danh sách tất cả tài khoản',
-    link: 'manager-all-account',
+    link: ManagerNavigationActionLink.account_search,
   },
   {
     id: 2,
     isHide: true,
     name: 'Danh sách tài khoản cần phê duyệt',
-    link: 'manager-process-register-request',
+    link: ManagerNavigationActionLink.process_register_request_search,
   },
   {
     id: 3,
     isHide: true,
     name: 'Manager phê duyệt tạo tài khoản',
-    link: 'manager-process-register-request/:id',
+    link: ManagerNavigationActionLink.process_register_request_details,
   },
   {
     id: 4,
     isHide: true,
     name: 'Danh sách tất cả khóa học',
-    link: 'manager-all-course',
+    link: ManagerNavigationActionLink.course_search,
   },
   {
     id: 5,
     isHide: true,
     name: 'Danh sách khóa học cần phê duyệt',
-    link: 'manager-process-create-course-request',
+    link: ManagerNavigationActionLink.process_create_course_request_search,
   },
   {
     id: 6,
     isHide: true,
     name: 'Manager phê duyệt tạo khóa học',
-    link: 'manager-process-create-course-request/:id',
+    link: ManagerNavigationActionLink.process_create_course_request_details,
   },
 ];
 

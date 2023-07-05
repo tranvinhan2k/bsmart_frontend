@@ -1,42 +1,46 @@
+import React, { Suspense, useEffect } from 'react';
+import { Provider, useSelector } from 'react-redux';
+
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Stack, ThemeProvider } from '@mui/material';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import React, { Suspense, useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ProSidebarProvider } from 'react-pro-sidebar';
-import store from '~/redux/store';
-import defaultTheme from '~/themes';
-import MainLayout from '~/layouts/MainLayout';
-import routes, { adminRoutes, managerRoutes } from '~/routes';
-import { RoutePayload } from '~/models/routes';
-import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
-// css
-import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
-import 'react-loading-skeleton/dist/skeleton.css';
-import localEnvironment from './utils/localEnvironment';
-import { Role } from './models/role';
-import {
-  selectCart,
-  selectProfile,
-  selectRole,
-  selectToken,
-} from './redux/user/selector';
-import AuthorizePage from './pages/AuthorizePage';
+
 import {
   useDispatchGetAllCategories,
   useDispatchGetAllSubjects,
   useDispatchGetCart,
   useDispatchProfile,
-  useMutationProfile,
 } from './hooks';
-import { addProfile } from './redux/user/slice';
-import AdminProfileLayout from './layouts/AdminProfileLayout';
+
+import defaultTheme from '~/themes';
+
+import store from '~/redux/store';
+import { selectRole, selectToken } from '~/redux/user/selector';
+
+import MainLayout from '~/layouts/MainLayout';
+import AdminProfileLayout from '~/layouts/AdminProfileLayout';
 import ManagerProfileLayout from '~/layouts/ManagerProfileLayout';
+
 import { Color } from './assets/variables';
+
+import routes, { adminRoutes, managerRoutes } from '~/routes';
+
+import { RoutePayload } from '~/models/routes';
+import { Role } from './models/role';
+
+import localEnvironment from './utils/localEnvironment';
+
+import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
+
+import AuthorizePage from '~/pages/AuthorizePage';
+
+// css
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (

@@ -6,6 +6,7 @@ import { useSearchAnnouncements } from '~/hooks/useManageAnnouncement/search';
 import AnnouncementItem from './AnnouncementItem';
 import AnnouncementListFetchStatus from './AnnouncementListFetchStatus';
 import { SX_FORM_LABEL_EMPTY_LIST } from './style';
+import { NavigationLink } from '~/constants/routeLink';
 
 interface AnnouncementManagementProps {
   editMode: boolean;
@@ -29,7 +30,7 @@ export default function AnnouncementManagement({
   const navigate = useNavigate();
   const handleCreateAnnouncement = () =>
     navigate(
-      `/mentor-profile/${
+      `/${NavigationLink.mentor_profile}/${
         MentorNavigationActionData[5].items?.[1].link.split('/')[0]
       }/${idClassSection}`
     );

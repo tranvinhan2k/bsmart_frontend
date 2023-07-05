@@ -210,7 +210,7 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-"@babel/runtime@^7.2.0":
+"@babel/runtime@^7.2.0", "@babel/runtime@^7.7.6":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.5.tgz#8564dd588182ce0047d55d7a75e93921107b57ec"
   integrity sha512-ecjvYlnAaZ/KVneE/OdKYBYfgXV3Ptu6zQWmgEF7vwKhQnvVS6bjMD2XYgj+SNvQ1GfK/pjgokfPkC/2CO8CuA==
@@ -783,6 +783,11 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.2.tgz#bbe75f8c59e0b7077584920ce2cc76f8f354934d"
   integrity sha512-LzqpSrMK/3JBAVBI9u3NWtOhWNw5AMQfrUFYB0+bDHTSw17z++WJLsPsxAuK+oSddsxk4d7F/JcdDPM1M5YAhA==
 
+"@remix-run/router@1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.7.1.tgz#fea7ac35ae4014637c130011f59428f618730498"
+  integrity sha512-bgVQM4ZJ2u2CM8k1ey70o1ePFXsEzYVZoWghh6WjM8p59jQ7HxzbHW4SbnWFG7V9ig9chLawQxDTZ3xzOF8MkQ==
+
 "@sinclair/typebox@^0.25.16":
   version "0.25.24"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.25.24.tgz#8c7688559979f7079aacaf31aa881c3aa410b718"
@@ -843,6 +848,14 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^8.5.0"
     "@types/react-dom" "^18.0.0"
+
+"@tinymce/tinymce-react@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-4.3.0.tgz#5e2f5a58526a1bba9710f54f5fcf16abd4c742a1"
+  integrity sha512-iB4cUsYfcJL4NGuKhqCGYuTmFTje3nPxyPv1HxprTsp/YMGuuiiSNWrv3zwI31QX5Cn8qeq9MrMDnbxuRugHyg==
+  dependencies:
+    prop-types "^15.6.2"
+    tinymce "^6.3.1"
 
 "@types/aria-query@^5.0.1":
   version "5.0.1"
@@ -1297,6 +1310,11 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
+
+attr-accept@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-2.2.2.tgz#646613809660110749e92f2c10833b70968d929b"
+  integrity sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==
 
 available-typed-arrays@^1.0.5:
   version "1.0.5"
@@ -2226,6 +2244,13 @@ file-entry-cache@^6.0.1:
   dependencies:
     flat-cache "^3.0.4"
 
+file-selector@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.6.0.tgz#fa0a8d9007b829504db4d07dd4de0310b65287dc"
+  integrity sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==
+  dependencies:
+    tslib "^2.4.0"
+
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
@@ -2459,6 +2484,13 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+history@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
+  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
 
 hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
@@ -3346,6 +3378,15 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-dropzone@^14.2.3:
+  version "14.2.3"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-14.2.3.tgz#0acab68308fda2d54d1273a1e626264e13d4e84b"
+  integrity sha512-O3om8I+PkFKbxCukfIR3QAGftYXDZfOE2N1mr/7qebQJHs7U+/RSL/9xomJNpRg9kM5h9soQSdf0Gc7OHF5Fug==
+  dependencies:
+    attr-accept "^2.2.2"
+    file-selector "^0.6.0"
+    prop-types "^15.8.1"
+
 react-elastic-carousel@^0.11.5:
   version "0.11.5"
   resolved "https://registry.yarnpkg.com/react-elastic-carousel/-/react-elastic-carousel-0.11.5.tgz#4be027ea047c4f7678273caa844e83d91f3784dc"
@@ -3448,6 +3489,13 @@ react-router@6.11.2:
   integrity sha512-74z9xUSaSX07t3LM+pS6Un0T55ibUE/79CzfZpy5wsPDZaea1F8QkrsiyRnA2YQ7LwE/umaydzXZV80iDCPkMg==
   dependencies:
     "@remix-run/router" "1.6.2"
+
+react-router@^6.14.1:
+  version "6.14.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.14.1.tgz#5e82bcdabf21add859dc04b1859f91066b3a5810"
+  integrity sha512-U4PfgvG55LdvbQjg5Y9QRWyVxIdO1LlpYT7x+tMAxd9/vmiPuJhIwdxZuIQLN/9e3O4KFDHYfR9gzGeYMasW8g==
+  dependencies:
+    "@remix-run/router" "1.7.1"
 
 react-swipeable-views-core@^0.14.0:
   version "0.14.0"
@@ -3982,6 +4030,11 @@ tinybench@^2.3.1:
   resolved "https://registry.yarnpkg.com/tinybench/-/tinybench-2.5.0.tgz#4711c99bbf6f3e986f67eb722fed9cddb3a68ba5"
   integrity sha512-kRwSG8Zx4tjF9ZiyH4bhaebu+EDz1BOx9hOigYHlUW4xxI/wKIUQUqo018UlU4ar6ATPBsaMrdbKZ+tmPdohFA==
 
+tinymce@^6.3.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.5.1.tgz#f228bf2dc1abf28565523f359b849dad1706357d"
+  integrity sha512-J67fxJiX3tjvVqer1dg1+cOxMeE2P55ESGhaakvqGPbAUU45HnCMLSioaOsxV1KfcXustw9WJo0rtn1SNQlVKQ==
+
 tinypool@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/tinypool/-/tinypool-0.3.1.tgz#a99c2e446aba9be05d3e1cb756d6aed7af4723b6"
@@ -4023,6 +4076,11 @@ tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.4.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.0.tgz#b295854684dbda164e181d259a22cd779dcd7bc3"
+  integrity sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA==
 
 tsutils@^3.21.0:
   version "3.21.0"

@@ -1,18 +1,25 @@
 import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import LoadingWrapper from '~/HOCs/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
-import FormInput from '~/components/atoms/FormInput';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { CourseStatusList } from '~/constants';
-import { image } from '~/constants/image';
-import { useQueryGetAllMentorCourses } from '~/hooks';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import { useQueryGetAllMentorCourses, useTimeOut, useTryCatch } from '~/hooks';
 import { RequestPagingFilterPayload } from '~/models';
+import { CoursePayload } from '~/models/type';
+import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
+import toast from '~/utils/toast';
 
 function a11yProps(index: number) {
   return {
@@ -24,6 +31,8 @@ function a11yProps(index: number) {
 export default function MentorCourseListPage() {
   const navigate = useNavigate();
 
+  const profile = useSelector(selectProfile);
+
   // useState
   const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
     page: 0,
@@ -33,7 +42,40 @@ export default function MentorCourseListPage() {
   });
   const [value, setValue] = useState(0);
 
-  const { courses, refetch } = useQueryGetAllMentorCourses(filterParams);
+  const { error, isLoading, handleTryCatch } = useTryCatch();
+  const { onSleep } = useTimeOut(1000);
+
+  useEffect(() => {
+    handleTryCatch(() => onSleep(1000));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const totalPages = 10;
+
+  const currentPage = 0;
+
+  const courses: CoursePayload[] = [
+    {
+      id: 0,
+      courseCode: 'CODE1',
+      courseDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit enim eveniet iste, possimus quidem in error id, placeat culpa quaerat quisquam mollitia natus reprehenderit dolores? Nihil praesentium magnam deserunt autem? ',
+      courseName: 'COURSE NAME TEST 1',
+      images: [
+        {
+          id: 0,
+          name: 'Hello',
+          url: '',
+          status: true,
+          type: 'AVATAR',
+        },
+      ],
+      mentorName: ['Hello'],
+      subjectId: 0,
+      subjectName: 'Hello',
+      totalClass: 5,
+    },
+  ];
 
   // parameters
   const chosenClassStatus = CourseStatusList.find(
@@ -51,7 +93,15 @@ export default function MentorCourseListPage() {
     });
   };
   const handleNavigateCreateCourse = () => {
-    navigate('/mentor-profile/create-course');
+    if (profile?.mentorProfile?.mentorSkills?.length === 0) {
+      toast.notifyErrorToast(
+        'Vui lòng cập nhật kĩ năng giáo viên để tạo lớp học mới !'
+      );
+    } else {
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.create_course}`
+      );
+    }
   };
   const handleChangeClassStatus = (classStatus: string) => {
     setFilterParams({
@@ -65,8 +115,6 @@ export default function MentorCourseListPage() {
     scrollToTop();
   }, []);
 
-  console.log('totalPage', courses?.totalPages, courses?.currentPage);
-
   return (
     <Stack>
       <Stack>
@@ -78,9 +126,12 @@ export default function MentorCourseListPage() {
           }}
         >
           <Typography sx={globalStyles.textTitle}>Khoá học đã tạo</Typography>
+
           <Button
             onClick={handleNavigateCreateCourse}
-            customVariant="horizonForm"
+            variant="contained"
+            color="secondary"
+            sx={{ color: Color.white }}
           >
             Tạo khóa học
           </Button>
@@ -131,90 +182,32 @@ export default function MentorCourseListPage() {
           {chosenClassStatus?.content}
         </Typography>
       </Stack>
-      {/* <Stack
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="flex-end"
-      >
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            flexGrow: 1,
-          }}
+
+      <Grid container sx={{ width: '100%' }}>
+        <LoadingWrapper
+          error={error}
+          isLoading={isLoading}
+          isEmptyCourse={courses.length === 0}
         >
-          <Box sx={{ width: '300px' }}>
-            <FormInput
-              variant="dropdown"
-              name="filter"
-              control={control}
-              data={ClassStatusList}
-            />
-          </Box>
-        </Stack>
-      </Stack> */}
-      <Grid container>
-        {courses &&
-          courses?.items?.map((item) => (
+          {courses.map((item: any) => (
             <Grid
               item
               xs={12}
-              md={4}
+              md={3}
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
-              <MentorCourseItem
-                refetch={refetch}
-                onClick={() => {}}
-                item={item}
-                key={item.id}
-              />
+              <MentorCourseItem item={item} key={item.id} />
             </Grid>
           ))}
+        </LoadingWrapper>
       </Grid>
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >
-        {courses && courses.items.length === 0 && (
-          <Stack
-            sx={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '50vh',
-            }}
-          >
-            <Stack
-              sx={{
-                paddingY: '50px',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Box
-                sx={{
-                  width: '300px',
-                  height: '300px',
-                  objectFit: 'contain',
-                }}
-                component="img"
-                src={image.emptyCourseList}
-                alt="no course"
-              />
-              <Typography
-                sx={{
-                  fontSize: FontSize.medium_24,
-                  fontFamily: FontFamily.regular,
-                }}
-              >
-                Không có khóa học nào.
-              </Typography>
-            </Stack>
-          </Stack>
-        )}
         <CustomPagination
-          currentPage={courses?.currentPage}
-          totalPages={courses?.totalPages}
+          currentPage={currentPage}
+          totalPages={totalPages}
           onChange={handleChangePageNumber}
         />
       </Stack>

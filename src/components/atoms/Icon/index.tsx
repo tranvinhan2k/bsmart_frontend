@@ -17,6 +17,7 @@ import {
   BsBook,
   BsFilter,
   BsArrowBarUp,
+  BsArrowReturnLeft,
   BsArrowBarDown,
   BsFillClipboard2CheckFill,
   BsCheckCircle,
@@ -30,7 +31,7 @@ import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
-import { GrNext, GrPrevious } from 'react-icons/gr';
+import { GrNext, GrPrevious, GrReturn } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
 import {
@@ -38,6 +39,8 @@ import {
   MdCake,
   MdManageAccounts,
   MdFeedback,
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
 } from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
 import { VscTasklist } from 'react-icons/vsc';
@@ -95,7 +98,9 @@ export type IconName =
   | 'cake'
   | 'calendarMonth'
   | 'cart'
+  | 'return'
   | 'category'
+  | 'blankSquareCheckbox'
   | 'chat'
   | 'check'
   | 'class'
@@ -126,6 +131,7 @@ export type IconName =
   | 'keyboardArrowRight'
   | 'linkedin'
   | 'location'
+  | 'squareCheckbox'
   | 'mail'
   | 'male'
   | 'menu'
@@ -202,6 +208,18 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsFillInfoCircleFill />
         </Typography>
       );
+    case 'blankSquareCheckbox':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdCheckBoxOutlineBlank />
+        </Typography>
+      );
+    case 'squareCheckbox':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdCheckBox />
+        </Typography>
+      );
     case 'book':
       return (
         <Typography sx={STYLED_ICON}>
@@ -224,6 +242,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsArrowBarUp />
+        </Typography>
+      );
+    case 'return':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsArrowReturnLeft />
         </Typography>
       );
     case 'checkCircle':

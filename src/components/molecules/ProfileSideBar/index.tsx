@@ -26,6 +26,7 @@ import Button from '~/components/atoms/Button';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { Color, MetricSize } from '~/assets/variables';
 import { NavigationActionData } from '~/constants';
+import { NavigationLink } from '~/constants/routeLink';
 
 export interface ProfileSideBarProps {
   name: string;
@@ -79,9 +80,8 @@ export default function ProfileSideBar({
     },
   ];
 
-  const handleNavigateDashboard = () => {
-    navigate(`/${NavigationActionData[20].link}`);
-  };
+  const handleNavigateDashboard = () =>
+    navigate(`/${NavigationLink.dashboard}`);
 
   return (
     <>
