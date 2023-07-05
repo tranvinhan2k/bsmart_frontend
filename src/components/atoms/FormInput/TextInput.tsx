@@ -26,6 +26,7 @@ function TextInput({ controller, placeholder }: TextInputProps) {
         onChange={onChange}
         onBlur={onBlur}
         inputRef={ref}
+        inputProps={{ spellCheck: 'false' }}
         error={invalid}
         helperText={error?.message}
       />

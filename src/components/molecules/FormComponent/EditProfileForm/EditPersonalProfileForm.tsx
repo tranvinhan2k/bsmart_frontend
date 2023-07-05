@@ -5,47 +5,28 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
-import { EDIT_PERSONAL_PROFILE_FIELDS } from '~/form/schema';
 import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
-import { RootState } from '~/redux/store';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaEditPersonalProfile } from '~/form/validation';
-import { FontFamily } from '~/assets/variables';
 import {
   EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
+import { FontFamily } from '~/assets/variables';
+import { genderData } from '~/constants';
+import { selectProfile } from '~/redux/user/selector';
+import { useYupValidationResolver } from '~/hooks';
+import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
-
-const toastMsgLoading = 'Đang cập nhật ...';
-const toastMsgSuccess = 'Cập nhật thành công ...';
-const toastMsgError = (error: any): string => {
-  return `Cập nhật không thành công: ${error.message}`;
-};
+import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditPersonalProfileForm() {
-  const token =
-    useSelector((state: RootState) => state.user.token) ||
-    localStorage.getItem('token');
-  const queryKey = ['/loginUser'];
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const { data: dataGetProfile } = useQuery(
-    queryKey,
-    () => accountApi.getProfile(config),
-    {
-      enabled: Boolean(token),
-    }
-  );
+  const profile = useSelector(selectProfile);
 
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditPersonalProfile
@@ -55,30 +36,50 @@ export default function EditPersonalProfileForm() {
     resolver: resolverEditPersonalProfile,
   });
 
+  // const genderData: DropdownDynamicValueInputStringDataPayload[] =
+  //   useMemo(() => {
+  //     return [
+  //       { id: 0, label: 'Nam', value: 'MALE' },
+  //       { id: 1, label: 'Nữ', value: 'FEMALE' },
+  //     ];
+  //   }, []);
+
   useEffect(() => {
-    if (dataGetProfile) {
-      const defaults = defaultValueEditPersonalProfile;
-      if (dataGetProfile.fullName) defaults.fullName = dataGetProfile.fullName;
-      if (dataGetProfile.birthday) defaults.birthday = dataGetProfile.birthday;
-      if (dataGetProfile.address) defaults.address = dataGetProfile.address;
-      if (dataGetProfile.phone) defaults.phone = dataGetProfile.phone;
-      reset(defaults);
+    if (profile) {
+      if (profile.fullName)
+        defaultValueEditPersonalProfile.fullName = profile.fullName;
+      if (profile.birthday)
+        defaultValueEditPersonalProfile.birthday = profile.birthday;
+      if (profile.address)
+        defaultValueEditPersonalProfile.address = profile.address;
+      if (profile.phone) defaultValueEditPersonalProfile.phone = profile.phone;
+      if (profile.gender) {
+        defaultValueEditPersonalProfile.gender =
+          genderData.find((item) => item.value === profile.gender) ??
+          genderData[0];
+      }
+      reset(defaultValueEditPersonalProfile);
     }
-  }, [dataGetProfile, reset]);
+  }, [profile, reset]);
 
   const { mutateAsync: mutateEditPersonalProfile } = useMutation({
     mutationFn:
-      dataGetProfile && dataGetProfile.roles[0].code === 'TEACHER'
+      profile && profile.roles[0].code === 'TEACHER'
         ? accountApi.editMentorPersonalProfile
         : accountApi.editMemberPersonalProfile,
   });
 
+  const toastMsgLoading = 'Đang cập nhật ...';
+  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgError = (error: any): string =>
+    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
     const params: EditPersonalProfilePayload = {
       fullName: data.fullName,
       birthday: data.birthday,
       address: data.address,
       phone: data.phone,
+      gender: data.gender ? data.gender : genderData[0],
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -99,32 +100,32 @@ export default function EditPersonalProfileForm() {
 
   const formFieldsPersonal: FormFieldsPersonalProps[] = [
     {
-      name: EDIT_PERSONAL_PROFILE_FIELDS.fullName,
+      name: 'fullName',
       label: 'Họ tên',
       placeholder: 'Nhập họ tên',
       variant: 'text',
       size: 12,
     },
     {
-      name: EDIT_PERSONAL_PROFILE_FIELDS.birthday,
-      label: 'Ngày sinh',
-      placeholder: 'Nhập ngày sinh',
-      variant: 'date',
-      size: 12,
-    },
-    {
-      name: EDIT_PERSONAL_PROFILE_FIELDS.address,
+      name: 'address',
       label: 'Địa chỉ',
       placeholder: 'Nhập địa chỉ',
       variant: 'text',
       size: 12,
     },
     {
-      name: EDIT_PERSONAL_PROFILE_FIELDS.phone,
+      name: 'birthday',
+      label: 'Ngày sinh',
+      placeholder: 'Nhập ngày sinh',
+      variant: 'date',
+      size: 6,
+    },
+    {
+      name: 'phone',
       label: 'Số điện thoại',
       placeholder: 'Nhập số điện thoại',
       variant: 'text',
-      size: 12,
+      size: 6,
     },
   ];
 
@@ -134,7 +135,7 @@ export default function EditPersonalProfileForm() {
         Thông tin cá nhân
       </Typography>
       <Divider sx={{ marginY: 2 }} />
-      {dataGetProfile && (
+      {profile && (
         <form onSubmit={handleSubmit(handleSubmitSuccess)}>
           <Grid container columnSpacing={3}>
             {formFieldsPersonal.map((field) => (
@@ -148,6 +149,15 @@ export default function EditPersonalProfileForm() {
                 />
               </Grid>
             ))}
+            <Grid item xs={12}>
+              <Typography sx={SX_FORM_LABEL}>Giới tính</Typography>
+              <FormInput
+                dataDropdownDynamicValue={genderData}
+                variant="dropdownDynamicValue"
+                name="gender"
+                control={control}
+              />
+            </Grid>
           </Grid>
           <Box mt={4}>
             <MuiButton

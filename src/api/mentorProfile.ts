@@ -3,6 +3,12 @@ import { CheckMentorProfilesCompletenessReturnPayload } from '~/models/mentorPro
 
 const url = `/mentor-profiles`;
 
+export interface ProcessRegisterRequestPayload {
+  id: number;
+  status: string;
+  message: string;
+}
+
 const mentorProfilesApi = {
   checkMentorProfilesCompleteness(): Promise<
     CheckMentorProfilesCompletenessReturnPayload | undefined
