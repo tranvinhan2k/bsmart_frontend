@@ -1,7 +1,7 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { Stack } from '@mui/material';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
+import { getGender } from '~/utils/common';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -101,6 +101,16 @@ const registerRequestColumns: GridColDef[] = [
     flex: 1,
   },
   {
+    field: 'gender',
+    headerName: 'Giới tính',
+    minWidth: 100,
+    flex: 1,
+    renderCell: (params) => {
+      const { gender } = params.row;
+      return getGender(gender);
+    },
+  },
+  {
     field: 'phone',
     headerName: 'SĐT',
     minWidth: 100,
@@ -113,8 +123,7 @@ const registerRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { birthday } = params.row;
-      const formattedDate = formatISODateDateToDisplayDate(birthday);
-      return formattedDate;
+      return formatISODateDateToDisplayDate(birthday);
     },
   },
 ];
@@ -138,8 +147,7 @@ const courseCreateRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { price } = params.row;
-      const formattedDate = formatMoney(price);
-      return formattedDate;
+      return formatMoney(price);
     },
   },
   {
@@ -149,8 +157,7 @@ const courseCreateRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { startDateExpected } = params.row;
-      const formattedDate = formatISODateDateToDisplayDate(startDateExpected);
-      return formattedDate;
+      return formatISODateDateToDisplayDate(startDateExpected);
     },
   },
   {
@@ -160,8 +167,7 @@ const courseCreateRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { endDateExpected } = params.row;
-      const formattedDate = formatISODateDateToDisplayDate(endDateExpected);
-      return formattedDate;
+      return formatISODateDateToDisplayDate(endDateExpected);
     },
   },
 ];
