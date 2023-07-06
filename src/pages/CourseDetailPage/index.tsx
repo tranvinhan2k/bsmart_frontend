@@ -48,8 +48,12 @@ export default function CourseDetailPage() {
     name: string;
     description: string;
     knowledge: string;
+    categoryName: string;
+    subjectName: string;
   } = {
     image: image.mockClass,
+    categoryName: 'Front End',
+    subjectName: 'Java',
     name: 'Lập trình nhúng Python từ cở bản đến nâng cao',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit officiis ipsa ipsum magnam consequatur, sed nisi perspiciatis et a aliquid aliquam optio quos amet quod expedita odit facilis mollitia natus? ',
@@ -374,11 +378,7 @@ export default function CourseDetailPage() {
                     </Stack>
                     <Divider sx={{ marginY: 4 }} />
                   </>
-                  <Stack
-                    sx={{
-                      marginLeft: -1,
-                    }}
-                  >
+                  <Stack>
                     <CarouselCourse
                       label="Khóa học tiêu biểu"
                       items={CommonCourse}
@@ -388,7 +388,11 @@ export default function CourseDetailPage() {
               </Stack>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Sidebar classes={classes} />
+              <Sidebar
+                classes={classes}
+                categoryName={course.categoryName}
+                subjectName={course.subjectName}
+              />
             </Grid>
           </Grid>
         </Stack>

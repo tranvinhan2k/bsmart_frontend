@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Stack,
   Grid,
@@ -27,6 +27,8 @@ import { image } from '~/constants/image';
 import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse } from '~/constants';
 import IntroduceCodeInput from './IntroduceCodeInput';
+import globalStyles from '~/styles';
+import LoadingWrapper from '~/HOCs/LoadingWrapper';
 
 export default function CartPage() {
   const { cart, isLoading, handleDispatch, error } = useDispatchGetCart();
@@ -154,138 +156,47 @@ export default function CartPage() {
     scrollToTop();
   }, []);
 
-  if (error) {
-    return (
-      <Stack
-        sx={{
-          minHeight: MetricSize.fullHeight,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Typography
-          sx={{
-            paddingTop: MetricSize.medium_15,
-            fontSize: FontSize.small_18,
-            fontFamily: FontFamily.regular,
-            color: Color.red,
-          }}
-        >
-          Đã xảy ra lỗi. Vui lòng thử lại
-        </Typography>
-      </Stack>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <Stack
-        sx={{
-          minHeight: MetricSize.fullHeight,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        Đang tải...
-      </Stack>
-    );
-  }
-
   return (
     <Stack
       sx={{
-        minHeight: MetricSize.fullHeight,
+        borderRadius: MetricSize.small_5,
+        background: Color.white,
+        padding: 2,
+        marginY: 4,
+        marginX: { xs: 4, md: 10 },
       }}
     >
-      <Grid container>
-        <Grid
-          sx={{
-            paddingRight: MetricSize.medium_15,
-            paddingLeft: { xs: MetricSize.medium_15, md: '75px' },
-          }}
-          item
-          xs={12}
-          md={8}
-        >
-          <Typography
-            sx={{
-              paddingTop: MetricSize.medium_15,
-              fontSize: FontSize.large_35,
-              fontFamily: FontFamily.bold,
+      <Typography sx={globalStyles.textSubTitle}>Giỏ Hàng</Typography>
+      <Typography sx={globalStyles.textSmallLight}>{`Bạn đang có ${
+        cart?.totalItem || 0
+      } khóa học trong giỏ hàng`}</Typography>
+      <LoadingWrapper isLoading={isLoading} error={error} isEmptyCourse>
+        {cart && (
+          <DataGrid
+            loading={isLoading}
+            rowHeight={160}
+            components={{
+              NoRowsOverlay: renderNoRow,
+              NoResultsOverlay: renderNoRow,
             }}
-          >
-            Giỏ Hàng
-          </Typography>
-          <Typography
             sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.regular,
-              color: Color.grey,
+              marginY: MetricSize.medium_15,
+              height: 160 * 3 + 80,
+              '&.header': {
+                color: Color.blue,
+              },
             }}
-          >{`Bạn đang có ${cart?.totalItem} khóa học trong giỏ hàng`}</Typography>
-          {cart && (
-            <DataGrid
-              loading={isLoading}
-              rowHeight={160}
-              components={{
-                NoRowsOverlay: renderNoRow,
-                NoResultsOverlay: renderNoRow,
-              }}
-              sx={{
-                marginY: MetricSize.medium_15,
-                height: 160 * 3 + 80,
-                '&.header': {
-                  color: Color.blue,
-                },
-              }}
-              rows={cart?.cartItems}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  pageSize: 5,
-                },
-              }}
-            />
-          )}
-          <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
-        </Grid>
-        <Grid
-          sx={{
-            backgroundColor: Color.whiteSmoke,
-            paddingRight: { xs: MetricSize.medium_15, md: '75px' },
-          }}
-          item
-          xs={12}
-          md={4}
-        >
-          <Stack sx={{ padding: MetricSize.large_20 }}>
-            <Typography
-              sx={{
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.bold,
-              }}
-            >
-              Tổng giá tiền
-            </Typography>
-            <Typography
-              sx={{
-                paddingY: MetricSize.medium_15,
-                fontSize: FontSize.large_45,
-                fontFamily: FontFamily.bold,
-              }}
-            >
-              {formatMoney(cart?.totalPrice || 0)}
-            </Typography>
-            <Button onClick={handlePayCart} customVariant="normal">
-              Thanh Toán
-            </Button>
-            <Stack marginTop={3}>
-              <Divider />
-              <IntroduceCodeInput />
-            </Stack>
-          </Stack>
-        </Grid>
-      </Grid>
+            rows={cart?.cartItems}
+            columns={columns}
+            initialState={{
+              pagination: {
+                pageSize: 5,
+              },
+            }}
+          />
+        )}
+      </LoadingWrapper>
+      <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
     </Stack>
   );
 }

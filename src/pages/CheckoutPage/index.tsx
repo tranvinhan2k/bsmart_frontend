@@ -27,6 +27,7 @@ import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
 import { selectIntroduceCode } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
+import { useEffectScrollToTop } from '~/hooks';
 
 function CheckoutPage() {
   const { control, handleSubmit } = useForm();
@@ -40,6 +41,8 @@ function CheckoutPage() {
     slIntroduceCode
   );
   const [text, setText] = useState('');
+
+  useEffectScrollToTop();
 
   if (checkOutItem === null) {
     return <Navigate to="/homepage" />;

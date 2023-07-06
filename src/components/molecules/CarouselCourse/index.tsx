@@ -24,7 +24,7 @@ const breakPoints = [
   { width: 1, itemsToShow: 2 },
   { width: 550, itemsToShow: 3 },
   { width: 768, itemsToShow: 3 },
-  { width: 1200, itemsToShow: 3 },
+  { width: 1200, itemsToShow: 4 },
 ];
 interface CarouselCourseProps {
   label: string;
@@ -131,7 +131,7 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   };
   return (
     <Stack>
-      <Stack paddingX={1}>
+      <Stack>
         <Typography sx={globalStyles.textSmallLabel}>{label}</Typography>
       </Stack>
       <Stack
@@ -139,6 +139,8 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
           position: 'relative',
           justifyContent: 'center',
           alignItems: 'center',
+          marginLeft: -1,
+          marginRight: -2,
         }}
       >
         <Carousel
