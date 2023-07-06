@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
 import { CSSObject } from 'react-pro-sidebar';
-import { Color, FontSize, FontFamily, MetricSize } from '~/assets/variables';
+import { Color, FontSize, FontFamily } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
   position: 'relative',
