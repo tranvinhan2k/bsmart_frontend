@@ -4,24 +4,17 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
-import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse, mockLevelData } from '~/constants';
 import { image } from '~/constants/image';
-import CourseDetailBasicInformationSection from '~/containers/CourseDetailSection/CourseDetailBasicInformationSection';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
-import {
-  useEffectScrollToTop,
-  useQueryGetCourseDetailByCourseId,
-  useQueryGetMentorByMentorId,
-  useQueryGetSubCourseByCourseId,
-  useTimeOut,
-  useTryCatch,
-} from '~/hooks';
+import { useEffectScrollToTop, useTimeOut, useTryCatch } from '~/hooks';
 import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
-import { scrollToTop } from '~/utils/common';
+import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
+import Classes from '~/components/molecules/list/Classes';
+import { SectionPayload } from '~/models/section';
+import Content from '~/components/molecules/Content';
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -81,13 +74,79 @@ export default function CourseDetailPage() {
   const mentor: {
     name: string;
     imageUrl: string;
-    description;
+    description: string;
   } = {
     name: 'Trần Văn Anh',
     imageUrl: image.noAvatar,
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit officiis ipsa ipsum magnam consequatur, sed nisi perspiciatis et a aliquid aliquam optio quos amet quod expedita odit facilis mollitia natus? ',
   };
+
+  const classes: DetailCourseClassPayload[] = [
+    {
+      id: 0,
+      endDate: new Date().toISOString(),
+      imageAlt: 'logo',
+      imageUrl: image.mockClass,
+      level: mockLevelData[0],
+      maxStudent: 30,
+      minStudent: 15,
+      numberOfSlot: 30,
+      price: 120000,
+      startDate: new Date().toISOString(),
+      timeInWeekRequests: [
+        {
+          dayOfWeekId: 1,
+          slotId: 1,
+        },
+      ],
+    },
+    {
+      id: 0,
+      endDate: new Date().toISOString(),
+      imageAlt: 'logo',
+      imageUrl: image.mockClass,
+      level: mockLevelData[0],
+      maxStudent: 30,
+      minStudent: 15,
+      numberOfSlot: 30,
+      price: 120000,
+      startDate: new Date().toISOString(),
+      timeInWeekRequests: [
+        {
+          dayOfWeekId: 1,
+          slotId: 1,
+        },
+      ],
+    },
+  ];
+
+  const sections: SectionPayload[] = [
+    {
+      id: 0,
+      name: 'Giới thiệu kiểm thử 1',
+      modules: [
+        {
+          id: 0,
+          name: 'Giới thiệu kiểm thử 1',
+        },
+      ],
+    },
+    {
+      id: 1,
+      name: 'Giới thiệu kiểm thử 2',
+      modules: [
+        {
+          id: 0,
+          name: 'Giới thiệu kiểm thử 2',
+        },
+        {
+          id: 1,
+          name: 'Giới thiệu kiểm thử 3',
+        },
+      ],
+    },
+  ];
 
   useEffectScrollToTop();
 
@@ -205,9 +264,9 @@ export default function CourseDetailPage() {
                       }}
                       src="https://www.youtube.com/embed/ZaVG2p-T9O4"
                       title="YouTube video player"
-                      frameborder="0"
+                      frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowfullscreen
+                      allowFullScreen
                     />
                   </Stack>
                   {course.knowledge && (
@@ -231,20 +290,23 @@ export default function CourseDetailPage() {
                       <Stack
                         sx={{
                           marginTop: 1,
+                          paddingX: 2,
                           background: Color.white,
-                          padding: 2,
                           borderRadius: MetricSize.small_5,
                         }}
                       >
-                        Hello
+                        <Content sections={sections} />
                       </Stack>
                     </Stack>
-                    <Divider sx={{ marginY: 4 }} />
+                    <Divider sx={{ marginY: 3 }} />
                   </>
                   <Stack>
                     <Typography sx={globalStyles.textSmallLabel}>
                       Danh sách lớp học
                     </Typography>
+                    <Stack marginTop={1}>
+                      <Classes classes={classes} />
+                    </Stack>
                   </Stack>
                   <Divider sx={{ marginY: 4 }} />
                   <>
