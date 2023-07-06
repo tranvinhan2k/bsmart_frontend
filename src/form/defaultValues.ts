@@ -7,10 +7,9 @@ import {
   EditIdentityBackFormDataPayload,
   EditIdentityFrontFormDataPayload,
   EditMentorProfileFormDataPayload,
+  EditPersonalProfileFormDefault,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
-  RegisterMentorDataPayload,
-  RegisterStudentDataPayload,
   UpdateAnnouncementFormDataPayload,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
@@ -55,18 +54,20 @@ export const defaultValueEditIdentityBack: EditIdentityBackFormDataPayload = {
   identityBack: '',
 };
 
-export const defaultValueEditPersonalProfile = {
+export const defaultValueEditPersonalProfile: EditPersonalProfileFormDefault = {
   fullName: '',
   birthday: '',
   address: '',
   phone: '',
+  gender: null,
 };
 
-export const defaultValueEditMentorProfile: EditMentorProfileFormDataPayload = {
-  introduce: '',
-  mentorSkills: [{ id: 0, label: '', value: '' }],
-  workingExperience: '',
-};
+export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
+  {
+    introduce: '',
+    mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    workingExperience: '',
+  };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
   {

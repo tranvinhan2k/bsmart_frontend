@@ -27,6 +27,7 @@ import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { Color, MetricSize } from '~/assets/variables';
 import { NavigationActionData } from '~/constants';
 import { NavigationLink } from '~/constants/routeLink';
+import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
 
 export interface ProfileSideBarProps {
   name: string;
@@ -87,7 +88,7 @@ export default function ProfileSideBar({
     <>
       <Stack>
         <Box sx={SX_WRAPPER}>
-          <Stack sx={SX_BOX_ITEM_AVATAR}>
+          <Box sx={SX_BOX_ITEM_AVATAR}>
             <Stack
               direction="column"
               justifyContent="flex-start"
@@ -113,14 +114,26 @@ export default function ProfileSideBar({
               </Box>
             </Stack>
 
-            <Stack alignItems="center" mt={3}>
-              <Typography component="h4" sx={SX_ACCOUNT_NAME}>
-                {name}
-              </Typography>
-              <Typography component="p" sx={SX_ACCOUNT_ROLE}>
-                {ROLE_LABELS[role]}
-              </Typography>
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={2}
+              mt={3}
+            >
               <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
+                <Typography component="h4" sx={SX_ACCOUNT_NAME}>
+                  {name}
+                </Typography>
+                <Typography component="p" sx={SX_ACCOUNT_ROLE}>
+                  {ROLE_LABELS[role]}
+                </Typography>
+              </Stack>
+              {/* <Stack
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
@@ -148,35 +161,42 @@ export default function ProfileSideBar({
                     size="large"
                   />
                 </Stack>
-              )}
-              {displayFields.map((item) => {
-                return (
-                  <Stack
-                    key={item.id}
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={1}
-                    mt={2}
-                  >
-                    <Icon
-                      name={item.image as IconName}
-                      size="small"
-                      color="orange"
-                    />
-                    <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
-                      {item.text}
-                    </Typography>
-                  </Stack>
-                );
-              })}
+              )} */}
+              <Stack
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
+                {displayFields.map((item) => {
+                  return (
+                    <Stack
+                      key={item.id}
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      spacing={1}
+                      mt={2}
+                    >
+                      <Icon
+                        name={item.image as IconName}
+                        size="small"
+                        color="orange"
+                      />
+                      <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
+                        {item.text}
+                      </Typography>
+                    </Stack>
+                  );
+                })}
+              </Stack>
+              {role === 'TEACHER' && <MentorProfileCompleteProgress />}
             </Stack>
             <Stack
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
               spacing={1}
-              mt={1}
+              mt={3}
               sx={{ width: '100%' }}
             >
               {isVerified &&
@@ -205,7 +225,7 @@ export default function ProfileSideBar({
                 </Stack>
               </Button>
             </Stack>
-          </Stack>
+          </Box>
         </Box>
         <ActivityHistoryTopFive />
       </Stack>

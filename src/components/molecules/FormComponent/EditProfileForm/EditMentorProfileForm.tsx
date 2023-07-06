@@ -7,39 +7,27 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment, useEffect } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { RootState } from '~/redux/store';
-
-import { validationSchemaEditMentorProfile } from '~/form/validation';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
-
-import accountApi, { EditMentorProfilePayload } from '~/api/users';
+import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
+import { EditMentorProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
-import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
-import Icon from '~/components/atoms/Icon';
-import FormInput from '~/components/atoms/FormInput';
-
-import toast from '~/utils/toast';
-
+import { selectProfile } from '~/redux/user/selector';
 import { useDispatchGetAllSubjects, useYupValidationResolver } from '~/hooks';
-
+import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
+import { validationSchemaEditMentorProfile } from '~/form/validation';
+import FormInput from '~/components/atoms/FormInput';
+import Icon from '~/components/atoms/Icon';
+import toast from '~/utils/toast';
 import {
+  SX_FORM,
   SX_FORM_ITEM_LABEL,
   SX_FORM_LABEL,
   SX_FORM_TITLE,
-  SX_FORM,
 } from './style';
-import { selectProfile } from '~/redux/user/selector';
 
 export default function EditMentorProfileForm() {
   const profile = useSelector(selectProfile);
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
-  };
 
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { mutateAsync: mutateEditMentorProfile } =
@@ -49,29 +37,42 @@ export default function EditMentorProfileForm() {
     validationSchemaEditMentorProfile
   );
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
+    defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
   });
 
   useEffect(() => {
     if (profile && subjects) {
-      const defaults = defaultValueEditMentorProfile;
       if (profile.mentorProfile?.workingExperience)
-        defaults.workingExperience = profile.mentorProfile.workingExperience;
-      // if (profile.mentorProfile?.mentorSkills) {
-      //   defaults.mentorSkills = profile.mentorProfile.mentorSkills.map(
-      //     (item) => ({
-      //       skillId: subjects.find((subject) => subject.id === item.skillId),
-      //       yearOfExperiences: item.yearOfExperiences,
-      //     })
-      //   );
-      // }
+        defaultValuesEditMentorProfile.workingExperience =
+          profile.mentorProfile.workingExperience;
+      if (profile.mentorProfile.mentorSkills) {
+        defaultValuesEditMentorProfile.mentorSkills =
+          profile.mentorProfile.mentorSkills.map((item) => {
+            const subjectTmp = subjects.find(
+              (subject) => subject.id === item.skillId
+            );
+            return {
+              skillId: {
+                id: Number(subjectTmp?.id) ?? 0,
+                label: subjectTmp?.label ?? '',
+                value: Number(subjectTmp?.value) ?? 0,
+              },
+              yearOfExperiences: item.yearOfExperiences,
+            };
+          });
+      }
       if (profile.mentorProfile?.introduce)
-        defaults.introduce = profile.mentorProfile.introduce;
-      reset(defaults);
+        defaultValuesEditMentorProfile.introduce =
+          profile.mentorProfile.introduce;
+      reset(defaultValuesEditMentorProfile);
     }
   }, [profile, reset, subjects]);
 
+  const toastMsgLoading = 'Đang cập nhật ...';
+  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgError = (error: any): string =>
+    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,
@@ -120,9 +121,7 @@ export default function EditMentorProfileForm() {
   });
 
   const appendSkill = () => {
-    if (subjects) {
-      append({});
-    }
+    append({});
   };
   const removeSkill = (order: number) => {
     remove(order);
@@ -178,9 +177,9 @@ export default function EditMentorProfileForm() {
                     <Grid item xs={6}>
                       <FormInput
                         control={control}
-                        data={subjects}
+                        dataDropdownDynamicValue={subjects}
                         name={`mentorSkills.${index}.skillId`}
-                        variant="dropdown"
+                        variant="dropdownDynamicValue"
                         placeholder="Nhập kĩ năng"
                       />
                     </Grid>

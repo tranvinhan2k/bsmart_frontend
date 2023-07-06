@@ -3,6 +3,7 @@ import {
   DropdownDynamicValueInputNumberDataPayload,
   DropdownDynamicValueInputStringDataPayload,
 } from './common';
+import { SkillPayload } from './type';
 
 export interface LoginFormDataPayload {
   email: string;
@@ -55,9 +56,10 @@ export interface EditIdentityBackFormDataPayload {
 
 export interface EditPersonalProfileFormDefault {
   fullName: string;
-  birthday: Date;
+  birthday: string;
   address: string;
   phone: string;
+  gender: DropdownDynamicValueInputStringDataPayload | null;
 }
 
 export interface EditPasswordSectionDefault {
@@ -74,7 +76,18 @@ export interface EditSocialProfileFormDefault {
 
 export interface EditMentorProfileFormDataPayload {
   introduce: string;
-  mentorSkills: { id: number; label: string; value: string }[];
+  workingExperience: string;
+  mentorSkills?: {
+    skillId: DropdownDynamicValueInputNumberDataPayload | null;
+    yearOfExperiences: number;
+  }[];
+}
+
+export interface MentorProfile {
+  id: number;
+  introduce: string;
+  mentorSkills: SkillPayload[];
+  status: 'REQUESTING';
   workingExperience: string;
 }
 

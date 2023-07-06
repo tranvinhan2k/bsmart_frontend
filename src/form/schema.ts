@@ -87,13 +87,6 @@ export const EDIT_IMAGE_PROFILE_FIELDS = {
   identityBack: 'identityBack',
 };
 
-export const EDIT_PERSONAL_PROFILE_FIELDS = {
-  fullName: 'fullName',
-  birthday: 'birthday',
-  address: 'address',
-  phone: 'phone',
-};
-
 export const EDIT_MENTOR_PROFILE_FIELDS = {
   introduce: 'introduce',
   mentorSkills: 'mentorSkills',

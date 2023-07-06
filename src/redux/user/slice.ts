@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { CartDataPayload } from '~/models/api/cart';
+import { MentorProfile } from '~/models/form';
 import { Role } from '~/models/role';
 import { ProfilePayload } from '~/models/type';
 
@@ -12,6 +13,7 @@ export type UserStateType = {
   profile: ProfilePayload;
   cart: CartDataPayload | null;
   introduceCode: string | undefined;
+  mentorProfile: MentorProfile | null;
 };
 
 const initialState: UserStateType = {
@@ -49,6 +51,7 @@ const initialState: UserStateType = {
       previous_balance: 0,
     },
   },
+  mentorProfile: null,
 };
 
 const slice = createSlice({

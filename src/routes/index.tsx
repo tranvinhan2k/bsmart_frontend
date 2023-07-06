@@ -25,11 +25,11 @@ const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 const MemberDetailsPage = lazy(() => import('~/pages/MemberDetailsPage'));
 const MenuDashboardPage = lazy(() => import('~/pages/MenuDashboardPage'));
 const MentorClassListPage = lazy(() => import('~/pages/MentorClassListPage'));
-const MemberEditProfilePage = lazy(
-  () => import('~/pages/MemberEditProfilePage/MemberEditImgInfoPage')
-);
 const MemberEditPersonalInfoPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
+);
+const MemberEditImgInfoPage = lazy(
+  () => import('~/pages/MemberEditProfilePage/MemberEditImgInfoPage')
 );
 const MemberEditPasswordPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPasswordPage')
@@ -254,12 +254,12 @@ export const memberRoutes: RoutePayload[] = [
   },
   {
     path: MemberNavigationActionLink.edit_profile_personal_info,
-    main: () => <MemberEditProfilePage />,
+    main: () => <MemberEditPersonalInfoPage />,
     role: ['ROLE_STUDENT'],
   },
   {
     path: MemberNavigationActionLink.edit_profile_img,
-    main: () => <MemberEditPersonalInfoPage />,
+    main: () => <MemberEditImgInfoPage />,
     role: ['ROLE_STUDENT'],
   },
   {

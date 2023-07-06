@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import FormInput from '~/components/atoms/FormInput';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
+import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 
 export default function QuestionBankInnerCreate() {
@@ -10,7 +10,7 @@ export default function QuestionBankInnerCreate() {
     validationSchemaEditMentorProfile
   );
   const { control } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
+    defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
   });
 

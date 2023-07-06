@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { Grid } from '@mui/material';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
+import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import FormInput from '~/components/atoms/FormInput';
 import Button from '~/components/atoms/Button';
 
@@ -11,7 +11,7 @@ export default function QuestionBankInnerUpdate() {
     validationSchemaEditMentorProfile
   );
   const { control } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
+    defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
   });
 
