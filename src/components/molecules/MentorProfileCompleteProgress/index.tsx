@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
-import { useCheckMentorProfilesCompleteness } from '~/hooks/useManageProfile/checkMentorProfilesCompleteness';
+import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
 import CompleteProgressField from './CompleteProgressField';
 
 export default function MentorProfileCompleteProgress() {
-  const { mentorProfilesCompleteness } = useCheckMentorProfilesCompleteness();
+  const { mentorProfilesCompleteness } = useCheckCompleteness();
 
   return mentorProfilesCompleteness ? (
     <Grid container gap={2}>

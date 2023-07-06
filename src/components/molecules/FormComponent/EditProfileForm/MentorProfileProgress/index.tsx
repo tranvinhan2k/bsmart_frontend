@@ -8,15 +8,15 @@ import {
 import { useSelector } from 'react-redux';
 import { FontFamily } from '~/assets/variables';
 import { selectProfile } from '~/redux/user/selector';
-import { useCheckMentorProfilesCompleteness } from '~/hooks/useManageProfile/checkMentorProfilesCompleteness';
-import { useRequestApproval } from '~/hooks/useManageProfile/requestApproval';
+import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
+import { useRequestApproval } from '~/hooks/mentorProfile/useRequestApproval';
 import CompleteProgressField from '~/components/molecules/MentorProfileCompleteProgress/CompleteProgressField';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE } from '../style';
 
 export default function MentorProfileProgress() {
   const profile = useSelector(selectProfile);
-  const { mentorProfilesCompleteness } = useCheckMentorProfilesCompleteness();
+  const { mentorProfilesCompleteness } = useCheckCompleteness();
   const { mutateAsync: requestApproval } = useRequestApproval();
 
   const toastMsgLoading = 'Đang gửi hồ sơ...';
