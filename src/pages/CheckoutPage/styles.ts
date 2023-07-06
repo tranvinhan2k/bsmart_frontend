@@ -9,8 +9,7 @@ const view: SxProps<Theme> = {
   paddingX: { xs: MetricSize.medium_15, md: '100px' },
 };
 const viewLeft: SxProps<Theme> = {};
-const viewRight: SxProps<Theme> = {
-};
+const viewRight: SxProps<Theme> = {};
 const textMoney: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
   fontSize: FontSize.extraLarge_70,
