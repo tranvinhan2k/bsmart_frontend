@@ -178,7 +178,7 @@ export type IconName =
 interface IconProps {
   color?: ColorKeys;
   size: IconSizeKeys;
-  name: IconName;
+  name: IconName | undefined;
 }
 
 export default function Icon({ color = 'black', name, size }: IconProps) {

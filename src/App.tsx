@@ -28,7 +28,7 @@ import ManagerProfileLayout from '~/layouts/ManagerProfileLayout';
 
 import { Color } from './assets/variables';
 
-import routes, { adminRoutes, managerRoutes } from '~/routes';
+import { adminRoutes, managerRoutes, routes } from '~/routes';
 
 import { RoutePayload } from '~/models/routes';
 import { Role } from './models/role';

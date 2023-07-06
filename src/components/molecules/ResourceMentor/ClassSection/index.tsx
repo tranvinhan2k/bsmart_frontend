@@ -19,7 +19,7 @@ import {
   ClassUpdateClassSectionPayload,
 } from '~/models/class';
 import { defaultValueUpdateClassSections } from '~/form/defaultValues';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { UpdateClassSectionsFormDefault } from '~/models/form';
 import { useManageClass } from '~/hooks/useManageClass';
 import { useYupValidationResolver } from '~/hooks';

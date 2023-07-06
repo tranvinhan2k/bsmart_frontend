@@ -13,7 +13,6 @@ import {
   useMutationCreateCourse,
   useTryCatch,
 } from '~/hooks';
-import { useTimeOut } from '~/hooks/useTimeOut';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,

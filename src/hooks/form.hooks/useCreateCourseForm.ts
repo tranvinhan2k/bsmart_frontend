@@ -47,7 +47,6 @@ export const useCreateCourseForm = (
     description: string;
   }) {
     const params: PostCoursePayload = {
-      code: '0',
       name: data?.name || '',
       subjectId: data?.subjectId.id,
       categoryId: data?.categoryId.id,

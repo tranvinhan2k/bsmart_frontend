@@ -13,10 +13,9 @@ import { useMutationUploadImage } from '~/hooks';
 import CustomModal from '~/components/atoms/CustomModal';
 import UpdateMentorCourse from './UpdateMentorCourse';
 import {
-  MentorDashboardNavigationActionData,
-  MentorNavigationActionData,
   NavigationActionData,
-} from '~/constants';
+  MentorDashboardNavigationActionData,
+} from '~/routes/navigators';
 
 interface MentorCourseItemProps {
   item?: any;

@@ -4,16 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { ResponseProfilePayload } from '~/api/users';
 import MainHeader from '~/components/molecules/MainHeader';
 import LoginModal from '~/components/molecules/modals/LoginModal';
-import {
-  AuthorizationActionData,
-  HeaderContractDataList,
-  HeaderSocialDataList,
-} from '~/constants';
+import { HeaderContractDataList, HeaderSocialDataList } from '~/constants';
 import { useMutationProfile } from '~/hooks';
 import { Role } from '~/models/role';
 import { changeFilterParams } from '~/redux/courses/slice';
 import { selectToken } from '~/redux/user/selector';
 import { signIn } from '~/redux/user/slice';
+import { AuthorizationActionData } from '~/routes/navigators';
 import toast from '~/utils/toast';
 
 const SEARCH_BAR_LABEL = 'Tìm kiếm khóa học';

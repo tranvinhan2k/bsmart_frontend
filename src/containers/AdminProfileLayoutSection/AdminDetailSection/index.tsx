@@ -10,7 +10,6 @@ import { Stack, Typography, Box, IconButton } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import localEnvironment from '~/utils/localEnvironment';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import { ADMIN_SIDE_BAR_NAVIGATION } from '~/constants';
 import {
   STYLE_MENU,
   STYLE_SIDEBAR,
@@ -30,6 +29,7 @@ import {
   STYLE_SCROLLBAR,
 } from './style';
 import { Color, MetricSize } from '~/assets/variables';
+import { AdminNavigationActionData } from '~/routes/navigators';
 
 export default function AdminDetailSection() {
   const { toggled, collapsed, collapseSidebar, toggleSidebar } =
@@ -107,17 +107,17 @@ export default function AdminDetailSection() {
               )}
             </Stack>
 
-            {ADMIN_SIDE_BAR_NAVIGATION.map((mainItem) => (
-              <Stack key={mainItem.title}>
-                <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.title}</Typography>
+            {AdminNavigationActionData.map((mainItem) => (
+              <Stack key={mainItem.name}>
+                <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.name}</Typography>
 
-                {mainItem.items.map((item) => {
+                {mainItem?.items?.map((item) => {
                   if (item.items) {
                     return (
                       <SubMenu
                         key={item.link}
                         rootStyles={STYLE_SUB_MENU_ROOT}
-                        label={item.label}
+                        label={item.name}
                         icon={
                           <Icon
                             name={item.icon}
@@ -147,7 +147,7 @@ export default function AdminDetailSection() {
                               />
                             }
                           >
-                            {subItem.label}
+                            {subItem.name}
                           </MenuItem>
                         ))}
                       </SubMenu>
@@ -170,7 +170,7 @@ export default function AdminDetailSection() {
                         />
                       }
                     >
-                      {item.label}
+                      {item.name}
                     </MenuItem>
                   );
                 })}

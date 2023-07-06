@@ -9,7 +9,7 @@ import error from '~/assets/images/error.png';
 import mentor from '~/assets/images/mentor.png';
 import student from '~/assets/images/student.png';
 import notFound from '~/assets/images/404.png';
-import lms_logo from '~/assets/images/lms_logo.png';
+import lms_logo from '~/assets/images/icons8-study-96.png';
 import no_classes from '~/assets/images/no_classes.png';
 import mockClass from '~/assets/images/mockClass.png';
 import level1 from '~/assets/images/level1.png';

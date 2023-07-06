@@ -1,0 +1,143 @@
+import { MentorDashboardNavigationActionLink } from '~/constants/routeLink';
+import { ActionPayload } from '~/models';
+
+export const MentorDashboardNavigationActionData: ActionPayload[] = [
+  {
+    id: 0,
+    icon: 'course',
+    name: 'Danh sách khóa học',
+    link: MentorDashboardNavigationActionLink.mentor_course_list,
+  },
+  {
+    id: 1,
+    icon: 'class',
+    name: 'Danh sách lớp học',
+    link: MentorDashboardNavigationActionLink.mentor_class_list,
+  },
+  {
+    id: 2,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Khóa học',
+    items: [
+      {
+        id: 0,
+        name: 'Khóa học - Chi tiết khóa học (1)',
+        link: MentorDashboardNavigationActionLink.mentor_class_detail_1,
+      },
+      {
+        id: 1,
+        name: 'Khóa học - Chi tiết khóa học (2)',
+        link: MentorDashboardNavigationActionLink.mentor_class_detail_2,
+        isHide: true,
+      },
+    ],
+  },
+  {
+    id: 3,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Nội dung',
+    items: [
+      {
+        id: 0,
+        name: 'Nội dung - Tạo',
+        link: MentorDashboardNavigationActionLink.create_content,
+        isHide: true,
+      },
+    ],
+  },
+  {
+    id: 4,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Hoạt động',
+    items: [
+      {
+        id: 0,
+        name: 'Quiz - Xem chi tiết',
+        link: MentorDashboardNavigationActionLink.create_content,
+      },
+      {
+        id: 1,
+        name: 'Quiz - Tạo',
+        link: MentorDashboardNavigationActionLink.mentor_create_quiz,
+        isHide: true,
+      },
+      {
+        id: 2,
+        name: 'Assignment - Xem chi tiết (1)',
+        link: MentorDashboardNavigationActionLink.mentor_assignment_settings_1,
+        isHide: true,
+      },
+      {
+        id: 3,
+        name: 'Assignment - Tạo',
+        link: MentorDashboardNavigationActionLink.mentor_create_assignment,
+        isHide: true,
+      },
+      {
+        id: 4,
+        name: 'Assignment - Chỉnh sửa',
+        link: MentorDashboardNavigationActionLink.mentor_assignment_settings_2,
+        isHide: true,
+      },
+      {
+        id: 5,
+        name: 'Assignment - Xem chi tiết (2)',
+        link: MentorDashboardNavigationActionLink.mentor_assignment_details,
+        isHide: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Thông báo',
+    items: [
+      {
+        id: 0,
+        name: 'Announcement - Cập nhật',
+        link: MentorDashboardNavigationActionLink.mentor_announcement_settings,
+        isHide: true,
+      },
+      {
+        id: 1,
+        name: 'Announcement - Tạo',
+        link: MentorDashboardNavigationActionLink.mentor_create_announcement,
+        isHide: true,
+      },
+      {
+        id: 2,
+        name: 'Announcement - Cập nhật',
+        link: MentorDashboardNavigationActionLink.mentor_update_announcement,
+        isHide: true,
+      },
+    ],
+  },
+  {
+    id: 6,
+    icon: 'course',
+    link: '',
+    name: 'Trang tạm - Điểm danh',
+    items: [
+      {
+        id: 0,
+        name: 'Danh sách điểm danh (1)',
+        link: MentorDashboardNavigationActionLink.take_attendance_1,
+      },
+      {
+        id: 1,
+        name: 'Danh sách điểm danh (2)',
+        link: MentorDashboardNavigationActionLink.view_member_attendance,
+      },
+      {
+        id: 2,
+        name: 'Danh sách điểm danh (3)',
+        link: MentorDashboardNavigationActionLink.take_attendance_2,
+        isHide: true,
+      },
+    ],
+  },
+];

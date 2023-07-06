@@ -3,7 +3,6 @@ import { Stack, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import localEnvironment from '~/utils/localEnvironment';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import { MANAGER_SIDE_BAR_NAVIGATION } from '~/constants';
 import {
   STYLE_MENU,
   STYLE_SIDEBAR,
@@ -21,6 +20,7 @@ import {
   STYLE_SUB_MENU_ROOT,
   STYLE_MENU_LINK,
 } from './style';
+import { ManagerNavigationActionData } from '~/routes/navigators';
 
 export default function ManagerDetailSection() {
   const location = useLocation();
@@ -48,44 +48,48 @@ export default function ManagerDetailSection() {
             </Typography>
           </Stack>
 
-          {MANAGER_SIDE_BAR_NAVIGATION.map((mainItem) => (
-            <Stack key={mainItem.title}>
-              <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.title}</Typography>
-              {mainItem.items.map((item) => {
+          {ManagerNavigationActionData.map((mainItem) => (
+            <Stack key={mainItem.name}>
+              <Typography sx={SX_SIDEBAR_TITLE}>{mainItem.name}</Typography>
+              {mainItem?.items?.map((item) => {
                 if (item.items) {
                   return (
                     <SubMenu
                       key={item.link}
                       rootStyles={STYLE_SUB_MENU_ROOT}
-                      label={item.label}
+                      label={item.name}
                       icon={
                         <Icon
                           name={item.icon}
                           size="small_20"
                           color={
-                            pathName.includes(item.link) ? 'black' : 'white'
+                            pathName.includes(item.name) ? 'black' : 'white'
                           }
                         />
                       }
                     >
                       {item.items.map((subItem) => (
                         <MenuItem
-                          active={pathName.includes(subItem.link)}
+                          active={pathName.includes(subItem?.link || '')}
                           key={subItem.link}
                           component={
-                            <Link style={STYLE_MENU_LINK} to={subItem.link} />
+                            subItem.link && (
+                              <Link style={STYLE_MENU_LINK} to={subItem.link} />
+                            )
                           }
                           icon={
                             <Icon
                               name={subItem.icon}
                               size="small_20"
                               color={
-                                pathName.includes(item.link) ? 'white' : 'grey'
+                                pathName.includes(item?.link || '')
+                                  ? 'white'
+                                  : 'grey'
                               }
                             />
                           }
                         >
-                          {subItem.label}
+                          {subItem.name}
                         </MenuItem>
                       ))}
                     </SubMenu>
@@ -93,18 +97,24 @@ export default function ManagerDetailSection() {
                 }
                 return (
                   <MenuItem
-                    active={pathName.includes(item.link)}
+                    active={pathName.includes(item?.link || '')}
                     key={item.link}
-                    component={<Link style={STYLE_MENU_LINK} to={item.link} />}
+                    component={
+                      item?.link && (
+                        <Link style={STYLE_MENU_LINK} to={item.link} />
+                      )
+                    }
                     icon={
                       <Icon
                         name={item.icon}
                         size="small_20"
-                        color={pathName.includes(item.link) ? 'white' : 'grey'}
+                        color={
+                          pathName.includes(item?.link || '') ? 'white' : 'grey'
+                        }
                       />
                     }
                   >
-                    {item.label}
+                    {item.name}
                   </MenuItem>
                 );
               })}

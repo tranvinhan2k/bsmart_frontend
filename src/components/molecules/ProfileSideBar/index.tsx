@@ -24,8 +24,7 @@ import { ROLE_LABELS } from '~/constants/role';
 import { ActionPayload, SocialPayload } from '~/models';
 import Button from '~/components/atoms/Button';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
-import { Color, MetricSize } from '~/assets/variables';
-import { NavigationActionData } from '~/constants';
+import { MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
 
