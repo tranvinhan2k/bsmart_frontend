@@ -44,25 +44,11 @@ export default function CourseDetailPage() {
   // const classes;
 
   const course: {
-    price: number;
-    numOfSlot: number;
-    level: OptionPayload;
-    startDate: string;
-    endDate: string;
-    categoryName: string;
-    subjectName: string;
     image: string;
     name: string;
     description: string;
     knowledge: string;
   } = {
-    categoryName: 'Front End',
-    endDate: new Date().toISOString(),
-    level: mockLevelData[0],
-    numOfSlot: 30,
-    price: 120000,
-    startDate: new Date().toISOString(),
-    subjectName: 'Java',
     image: image.mockClass,
     name: 'Lập trình nhúng Python từ cở bản đến nâng cao',
     description:
@@ -84,7 +70,7 @@ export default function CourseDetailPage() {
 
   const classes: DetailCourseClassPayload[] = [
     {
-      id: 0,
+      id: '0',
       endDate: new Date().toISOString(),
       imageAlt: 'logo',
       imageUrl: image.mockClass,
@@ -102,11 +88,47 @@ export default function CourseDetailPage() {
       ],
     },
     {
-      id: 0,
+      id: '2',
       endDate: new Date().toISOString(),
       imageAlt: 'logo',
       imageUrl: image.mockClass,
-      level: mockLevelData[0],
+      level: mockLevelData[2],
+      maxStudent: 30,
+      minStudent: 15,
+      numberOfSlot: 30,
+      price: 120000,
+      startDate: new Date().toISOString(),
+      timeInWeekRequests: [
+        {
+          dayOfWeekId: 1,
+          slotId: 1,
+        },
+      ],
+    },
+    {
+      id: '3',
+      endDate: new Date().toISOString(),
+      imageAlt: 'logo',
+      imageUrl: image.mockClass,
+      level: mockLevelData[3],
+      maxStudent: 30,
+      minStudent: 15,
+      numberOfSlot: 30,
+      price: 120000,
+      startDate: new Date().toISOString(),
+      timeInWeekRequests: [
+        {
+          dayOfWeekId: 1,
+          slotId: 1,
+        },
+      ],
+    },
+    {
+      id: '1',
+      endDate: new Date().toISOString(),
+      imageAlt: 'logo',
+      imageUrl: image.mockClass,
+      level: mockLevelData[1],
       maxStudent: 30,
       minStudent: 15,
       numberOfSlot: 30,
@@ -366,15 +388,7 @@ export default function CourseDetailPage() {
               </Stack>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Sidebar
-                categoryName={course?.categoryName}
-                endDate={course?.endDate}
-                level={course?.level}
-                numOfSlot={course?.numOfSlot}
-                price={course?.price}
-                startDate={course?.startDate}
-                subjectName={course?.subjectName}
-              />
+              <Sidebar classes={classes} />
             </Grid>
           </Grid>
         </Stack>

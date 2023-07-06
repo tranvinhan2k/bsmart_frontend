@@ -33,7 +33,7 @@ export interface DetailCoursePayload {
 }
 
 export interface DetailCourseClassPayload {
-  id: 0;
+  id: string;
   level: OptionPayload;
   imageUrl: string;
   imageAlt: string;
@@ -67,7 +67,7 @@ export default function MentorCourseDetailPage() {
       endDate: new Date().toString(),
       imageAlt: 'Logo CLass',
       imageUrl: '',
-      id: 0,
+      id: '345',
       level: mockLevelData[0],
       maxStudent: 30,
       minStudent: 15,
