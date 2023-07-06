@@ -22,17 +22,16 @@ import SocialBar from '~/components/molecules/SocialBar';
 import ContractBar from '~/components/molecules/ContractBar';
 import AuthorizationBar from '../../MainHeader/AuthorizationBar';
 
-import { AuthorizationActionData } from '~/constants';
-
 import styles from './styles';
 import { Role } from '~/models/role';
 import { ResponseCartItem } from '~/api/cart';
-import { selectProfile, selectRole } from '~/redux/user/selector';
+import { selectProfile } from '~/redux/user/selector';
 import { ProfileImgType } from '~/constants/profile';
 import { image } from '~/constants/image';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
 import { CoursePayload } from '~/models/type';
+import { AuthorizationActionData } from '~/routes/navigators';
 
 interface NavigationProps {
   texts: {

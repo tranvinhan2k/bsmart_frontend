@@ -1,11 +1,12 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavigationActionData } from '~/constants';
+
 import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
 import ActivityHistory from '../ActivityHistory';
 import CustomFetchingStatus from '~/components/atoms/CustomFetchingStatus';
 import { SX_BUTTON, SX_FORM_LABEL_GRAY, SX_TITLE, SX_WRAPPER } from './style';
+import { NavigationActionData } from '~/routes/navigators';
 
 export default function ActivityHistoryTopFive() {
   const page = 0;

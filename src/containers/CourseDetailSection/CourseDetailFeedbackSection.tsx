@@ -23,7 +23,7 @@ import Icon from '~/components/atoms/Icon';
 import { FeedbackPayload } from '~/models/feedback';
 import { formatNumberFixedTwoDigit } from '~/utils/number';
 
-interface CourseDetailFeedbackSectionProps {
+interface CourseDetailFeedbackSectionPayload {
   feedbackData: FeedbackPayload;
 }
 
@@ -52,7 +52,7 @@ const StarData = [
 
 export default function CourseDetailFeedbackSection({
   feedbackData,
-}: CourseDetailFeedbackSectionProps) {
+}: CourseDetailFeedbackSectionPayload) {
   const { commentData, numOfRating, percentOfFeedback, starData } =
     feedbackData;
   const [ratingValue, setRatingValue] = useState<number>(0);

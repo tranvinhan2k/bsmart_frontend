@@ -136,7 +136,7 @@ export const defaultValueCreateSubCourse = {
 
 export const defaultValueTimetable = {
   slot: '',
-  dayInWeek: '',
+  dayOfWeek: '',
 };
 
 export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {

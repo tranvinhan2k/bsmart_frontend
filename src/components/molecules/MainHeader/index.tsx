@@ -16,13 +16,11 @@ import { ProfileImgType } from '~/constants/profile';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
 import AuthorizationBar from './AuthorizationBar';
-import ContractBar from '../ContractBar';
 import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '../SocialBar';
 import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import { NavigationActionData } from '~/constants';
 import { NavigationLink } from '~/constants/routeLink';
 
 interface MainHeaderProps {

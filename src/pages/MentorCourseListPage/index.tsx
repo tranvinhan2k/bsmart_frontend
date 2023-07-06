@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import LoadingWrapper from '~/HOCs/LoadingWrapper';
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';

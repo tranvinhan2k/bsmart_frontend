@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material';
-import SubCourseTimetable from '~/components/molecules/SubCourseTimetable';
+import Timetable from '~/components/molecules/Timetable';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface RequestCourseTimetableProps {
@@ -12,7 +12,7 @@ export default function RequestCourseTimetable({
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Typography sx={SX_FORM_LABEL}>Thời khóa biểu</Typography>
-      <SubCourseTimetable data={row.timeInWeek as any} />
+      <Timetable data={row.timeInWeek as any} />
     </Stack>
   );
 }

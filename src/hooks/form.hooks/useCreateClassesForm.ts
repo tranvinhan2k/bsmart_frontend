@@ -57,16 +57,16 @@ export const useCreateClassesForm = (
     endDate: string,
     numberOfSlot: number,
     timeInWeekRequests: {
-      dayInWeek: OptionPayload;
+      dayOfWeek: OptionPayload;
       slot: OptionPayload;
     }[]
   ) => {
     const sortArr = [...timeInWeekRequests];
     sortArr.sort((a, b) => {
-      if (a.dayInWeek.id === b.dayInWeek.id) {
+      if (a.dayOfWeek.id === b.dayOfWeek.id) {
         return a.slot.id - b.slot.id;
       }
-      return a.dayInWeek.id - b.dayInWeek.id;
+      return a.dayOfWeek.id - b.dayOfWeek.id;
     });
 
     const tmpStartDate = new Date(startDate);
@@ -80,7 +80,7 @@ export const useCreateClassesForm = (
     } else {
       endDateTime = sortArr[leftDay - 1];
     }
-    const numofLeftDate = endDateTime.dayInWeek.id - startDay - 1;
+    const numofLeftDate = endDateTime.dayOfWeek.id - startDay - 1;
 
     const numOfTotalDayCount = (numberOfWeek - 1) * 7 + numofLeftDate;
     const tmpEndDate = new Date();
@@ -119,7 +119,7 @@ export const useCreateClassesForm = (
     endDateExpected: string;
     numberOfSlot: number;
     timeInWeekRequests: {
-      dayInWeek: OptionPayload;
+      dayOfWeek: OptionPayload;
       slot: OptionPayload;
     }[];
   }) => {

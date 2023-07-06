@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { defaultValueUpdateAnnouncement } from '~/form/defaultValues';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { scrollToTop } from '~/utils/common';
 import { UpdateAnnouncementFormDataPayload } from '~/models/form';
 import { useDeleteAnnouncement } from '~/hooks/useManageAnnouncement/delete';

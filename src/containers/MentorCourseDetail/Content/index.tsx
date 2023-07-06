@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 
 import { Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { SectionProps } from '~/models/section';
+import { SectionPayload } from '~/models/section';
 import { useTimeOut, useTryCatch } from '~/hooks';
 import { useMutationCreateContent } from '~/hooks/useMutationCreateContent';
 import toast from '~/utils/toast';
 import Sections from '../Sections';
 import AddSection from '../AddSection';
-import LoadingWrapper from '~/HOCs/LoadingWrapper';
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 
 export default function Content() {
   const { onSleep } = useTimeOut(1000);
@@ -17,7 +17,7 @@ export default function Content() {
   const { id } = useParams();
   const createCourseContentMutation = useMutationCreateContent();
 
-  const [content, setContent] = useState<SectionProps[]>([
+  const [content, setContent] = useState<SectionPayload[]>([
     {
       id: 0,
       name: 'Giới thiệu',

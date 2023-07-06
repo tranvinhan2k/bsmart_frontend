@@ -7,11 +7,14 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
-import { MentorDashboardNavigationActionData } from '~/constants';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
 import { NavigationLink } from '~/constants/routeLink';
 import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import Button from '~/components/atoms/Button';
+import { image } from '~/constants/image';
+import localEnvironment from '~/utils/localEnvironment';
+import { MentorDashboardNavigationActionData } from '~/routes/navigators';
+import globalStyles from '~/styles';
 
 export default function DashboardPage() {
   React.useEffect(() => {
@@ -120,7 +123,18 @@ export default function DashboardPage() {
                 background: Color.navy,
               }}
             >
-              <Typography
+              <Box
+                alt="logo"
+                sx={{
+                  width: '50px',
+                  height: undefined,
+                  aspectRatio: 1,
+                  objectFit: 'contain',
+                }}
+                src={image.lms_logo}
+                component="img"
+              />
+              {/* <Typography
                 sx={{
                   fontSize: FontSize.small_18,
                   fontFamily: FontFamily.bold,
@@ -129,7 +143,7 @@ export default function DashboardPage() {
                 }}
               >
                 LMS
-              </Typography>
+              </Typography> */}
             </Stack>
             <Stack
               sx={{
@@ -143,6 +157,7 @@ export default function DashboardPage() {
               }}
             />
             {rows?.map((item, index) => {
+              if (item.isHide) return null;
               return (
                 <DashboardSidebarButton
                   isHover
@@ -236,18 +251,34 @@ export default function DashboardPage() {
             <Stack
               sx={{
                 paddingTop: 3,
+                paddingLeft: MetricSize.small_10,
                 background: Color.navy,
+                flexDirection: 'row',
+                alignItems: 'flex-start',
               }}
             >
+              <Box
+                alt="logo"
+                sx={{
+                  width: '30px',
+                  height: undefined,
+                  aspectRatio: 1,
+                  objectFit: 'contain',
+                }}
+                src={image.lms_logo}
+                component="img"
+              />
               <Typography
                 sx={{
-                  fontSize: FontSize.small_18,
-                  fontFamily: FontFamily.bold,
-                  color: Color.white,
+                  ...globalStyles.textWhiteSubTitle,
+                  marginLeft: 1,
+                  transition: 'all 1s ease',
                   textAlign: 'center',
+                  opacity: isHover ? 1 : 0,
+                  maxWidth: isHover ? '100%' : 0,
                 }}
               >
-                LMS
+                {`${localEnvironment.APP_NAME}`.toUpperCase()}
               </Typography>
             </Stack>
             <Stack
@@ -294,7 +325,6 @@ export default function DashboardPage() {
               <Stack
                 onClick={handleNavigateHomepage}
                 sx={{
-                  display: isHover ? 'flex' : 'none',
                   position: 'relative',
                   margin: 1,
                   flexDirection: 'row',
@@ -307,8 +337,9 @@ export default function DashboardPage() {
                   borderRadius: MetricSize.small_5,
                   fontFamily: FontFamily.light,
                   fontSize: FontSize.small_14,
-                  zIndex: 10,
+                  zIndex: 1,
                   color: Color.white,
+                  opacity: isHover ? 1 : 0,
 
                   ':hover': {
                     background: `${Color.orange}`,

@@ -13,10 +13,9 @@ import { useMutationUploadImage } from '~/hooks';
 import CustomModal from '~/components/atoms/CustomModal';
 import UpdateMentorCourse from './UpdateMentorCourse';
 import {
-  MentorDashboardNavigationActionData,
-  MentorNavigationActionData,
   NavigationActionData,
-} from '~/constants';
+  MentorDashboardNavigationActionData,
+} from '~/routes/navigators';
 
 interface MentorCourseItemProps {
   item?: any;
@@ -99,7 +98,7 @@ export default function MentorClassItem({
         level: data?.level?.id || 'BEGINNER',
         timeInWeekRequests: data.timeInWeekRequests.map(
           (timeInWeekItem: any) => ({
-            dayOfWeekId: timeInWeekItem.dayInWeek.id,
+            dayOfWeekId: timeInWeekItem.dayOfWeek.id,
             slotId: timeInWeekItem.slot.id,
           })
         ),

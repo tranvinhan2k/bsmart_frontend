@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbNavigation from '~/components/molecules/navigations/BreadcrumbNavigation';
-import { NavigationActionData } from '~/constants';
 import { ActionPayload } from '~/models';
+import { NavigationActionData } from '~/routes/navigators';
 
 export default function BreadcrumbNavigationSection() {
   const navigate = useNavigate();

@@ -88,7 +88,9 @@ export default function DashboardSidebarButton({
         )}
         <Stack
           sx={{
+            transition: 'all 1000ms ease',
             opacity: isHover ? '1' : 0,
+            width: isHover ? '100%' : '0',
             flexWrap: 'nowrap',
           }}
         >
@@ -145,6 +147,7 @@ export default function DashboardSidebarButton({
             sx={{
               transition: 'all 1000ms ease',
               opacity: isHover ? '1' : 0,
+              width: isHover ? '100%' : '0',
               flexWrap: 'nowrap',
             }}
           >

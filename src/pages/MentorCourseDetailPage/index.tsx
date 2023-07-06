@@ -3,16 +3,12 @@ import { useEffect, useState } from 'react';
 import { Grid, Stack, Typography, Divider } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
-import CustomStepper, {
-  StepPayload,
-} from '~/components/molecules/CustomStepper';
+import { StepPayload } from '~/components/molecules/CustomStepper';
 
 import {
   useDispatchGetAllCategories,
   useDispatchGetAllSubjects,
   useEffectScrollToTop,
-  useQueryGetAllDayInWeeks,
-  useQueryGetAllSlots,
 } from '~/hooks';
 import Button from '~/components/atoms/Button';
 import globalStyles from '~/styles';
@@ -23,10 +19,8 @@ import EditCourse from './EditCourse';
 import { OptionPayload } from '~/models';
 import TutorialRequestCourse from './TutorialRequestCourse';
 import CreateClassesForm from '~/components/molecules/FormComponent/CreateClassesForm';
-import { image } from '~/constants/image';
 import { mockLevelData } from '~/constants';
 import Content from '~/containers/MentorCourseDetail/Content';
-import { CourseStateType } from '~/redux/courses/slice';
 import { ClassStatusKeys } from '~/models/variables';
 
 export interface DetailCoursePayload {
@@ -39,7 +33,7 @@ export interface DetailCoursePayload {
 }
 
 export interface DetailCourseClassPayload {
-  id: 0;
+  id: string;
   level: OptionPayload;
   imageUrl: string;
   imageAlt: string;
@@ -59,8 +53,6 @@ export default function MentorCourseDetailPage() {
   const { id } = useParams();
   const { optionSubjects } = useDispatchGetAllSubjects();
   const { optionCategories } = useDispatchGetAllCategories();
-  const { slots } = useQueryGetAllSlots();
-  const { dayInWeeks } = useQueryGetAllDayInWeeks();
   const mockCourse: DetailCoursePayload = {
     name: 'Khóa học kiểm thử 1',
     description: 'Xin Chào Các Bạn',
@@ -75,7 +67,7 @@ export default function MentorCourseDetailPage() {
       endDate: new Date().toString(),
       imageAlt: 'Logo CLass',
       imageUrl: '',
-      id: 0,
+      id: '345',
       level: mockLevelData[0],
       maxStudent: 30,
       minStudent: 15,

@@ -3,13 +3,13 @@ import { Box, Stack, Typography } from '@mui/material';
 import { image } from '~/constants/image';
 import { Color, MetricSize } from '~/assets/variables';
 import AddModule from '../AddModule';
-import { SectionProps } from '~/models/section';
+import { SectionPayload } from '~/models/section';
 import { useTimeOut, useTryCatch } from '~/hooks';
 import Section from '../Section.ts';
 import Module from '../Module';
 
 interface Props {
-  content: SectionProps[] | undefined;
+  content: SectionPayload[] | undefined;
   onAddNew: (id: number, name: string) => void;
 }
 

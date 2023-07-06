@@ -15,7 +15,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { validationSchemaCreateAnnouncement } from '~/form/validation';
 import { defaultValueCreateAnnouncement } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 import { CreateAnnouncementFormDataPayload } from '~/models/form';
 import { useCreateAnnouncement } from '~/hooks/useManageAnnouncement/create';

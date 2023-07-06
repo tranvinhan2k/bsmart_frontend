@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import { MemberNavigationActionData, NavigationActionData } from '~/constants';
 import { selectProfile } from '~/redux/user/selector';
 import ProfileSideBar from '~/components/molecules/ProfileSideBar';
 import { openUrl } from '~/utils/window';
 import { SocialPayload } from '~/models';
 import { handleGetImageLink } from '~/utils/image';
+import {
+  MemberNavigationActionData,
+  NavigationActionData,
+} from '~/routes/navigators';
 
 export default function StudentSidebarProfile() {
   const profile = useSelector(selectProfile);

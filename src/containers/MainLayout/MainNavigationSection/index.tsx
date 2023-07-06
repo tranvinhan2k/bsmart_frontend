@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainNavigation from '~/components/molecules/navigations/MainNavigation';
-import {
-  HeaderContractDataList,
-  HeaderSocialDataList,
-  NavigationActionData,
-} from '~/constants';
+import { HeaderContractDataList, HeaderSocialDataList } from '~/constants';
 import { useQueryGetAllCourse, useDispatchGetCart } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
 import { toggleAddToCart } from '~/redux/user/slice';
+import { NavigationActionData } from '~/routes/navigators';
 import localEnvironment from '~/utils/localEnvironment';
 
 const texts = {

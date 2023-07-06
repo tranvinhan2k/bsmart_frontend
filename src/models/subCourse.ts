@@ -25,6 +25,6 @@ export interface SubCoursePayload {
 }
 
 export interface SubCourseTimeInWeekPayload {
-  dayInWeek: { label: string; id: string; code: string };
+  dayOfWeek: { label: string; id: string; code: string };
   slot: { label: string; id: string; code: string };
 }

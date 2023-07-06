@@ -17,24 +17,26 @@ export default function TextPropLine({ icon, label, value }: Props) {
         paddingY: MetricSize.small_5,
       }}
     >
-      <Icon name={icon} size="small" color="black" />
-      <Typography
-        sx={{
-          marginLeft: 1,
-          fontSize: FontSize.small_14,
-          fontFamily: FontFamily.light,
-        }}
-      >
-        {`${label}: `}
-        <span
-          style={{
+      <Icon name={icon} size="small_20" color="black" />
+      <Stack height="100%">
+        <Typography
+          sx={{
+            marginLeft: 1,
             fontSize: FontSize.small_14,
-            fontFamily: FontFamily.medium,
+            fontFamily: FontFamily.light,
           }}
         >
-          {value}
-        </span>
-      </Typography>
+          {`${label}: `}
+          <span
+            style={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.medium,
+            }}
+          >
+            {value}
+          </span>
+        </Typography>
+      </Stack>
     </Stack>
   );
 }

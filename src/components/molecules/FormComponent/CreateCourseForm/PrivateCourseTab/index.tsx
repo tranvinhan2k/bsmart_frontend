@@ -10,8 +10,6 @@ import { CREATE_COURSE_FIELDS } from '~/form/schema';
 
 import { OptionPayload } from '~/models';
 
-import globalStyles from '~/styles';
-
 export interface PrivateCourseTabProps {
   categories: OptionPayload[] | undefined;
   subjects: OptionPayload[] | undefined;

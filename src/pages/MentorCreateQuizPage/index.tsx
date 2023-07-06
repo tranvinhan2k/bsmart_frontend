@@ -15,7 +15,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 
 export default function MentorCreateQuizPage() {

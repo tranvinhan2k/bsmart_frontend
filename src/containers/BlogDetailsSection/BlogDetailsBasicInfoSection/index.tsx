@@ -19,13 +19,13 @@ import {
   SX_BLOG_COMMENT_NOTE,
 } from './style';
 
-interface BlogDetailsBasicInfoSectionProps {
+interface BlogDetailsBasicInfoSectionPayload {
   item: BlogPayload;
 }
 
 export default function BlogDetailsBasicInfoSection({
   item,
-}: BlogDetailsBasicInfoSectionProps) {
+}: BlogDetailsBasicInfoSectionPayload) {
   const {
     // id,
     img,
