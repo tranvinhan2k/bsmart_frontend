@@ -12,16 +12,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
+import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 
 export default function GeneralSettings() {
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditMentorProfile
   );
   const { control, handleSubmit } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
+    defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
   });
 

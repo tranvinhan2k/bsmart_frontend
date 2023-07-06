@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
-import { defaultValueEditMentorProfile } from '~/form/defaultValues';
+import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { useYupValidationResolver } from '~/hooks';
 import { MentorNavigationActionData } from '~/constants';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
@@ -23,7 +23,7 @@ export default function MentorCreateQuizPage() {
     validationSchemaEditMentorProfile
   );
   const { control, handleSubmit } = useForm({
-    defaultValues: defaultValueEditMentorProfile,
+    defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
   });
 
