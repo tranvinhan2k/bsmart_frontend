@@ -10,8 +10,6 @@ import {
   EditPersonalProfileFormDefault,
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
-  RegisterMentorDataPayload,
-  RegisterStudentDataPayload,
   UpdateAnnouncementFormDataPayload,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
