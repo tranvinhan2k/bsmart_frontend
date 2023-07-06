@@ -1,5 +1,5 @@
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
-import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
@@ -161,10 +161,10 @@ const accountApi = {
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
     return axiosClient.put(`/mentor-profiles`, data);
   },
-  editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
+  editMentorPersonalProfile(data: EditPersonalProfileFormSubmit): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);
   },
-  editMemberPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
+  editMemberPersonalProfile(data: EditPersonalProfileFormSubmit): Promise<any> {
     return axiosClient.put(`${url}/member-personal`, data);
   },
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {

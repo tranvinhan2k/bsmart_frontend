@@ -32,7 +32,7 @@ export const NAME_REQUIRED = 'Họ và tên không được để trống.';
 export const BIRTHDAY_REQUIRED = 'Ngày sinh không được để trống.';
 export const ADDRESS_REQUIRED = 'Địa chỉ không được để trống.';
 export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
-export const INTRODUCE_REQUIRED = 'Giới thiệu bản thân không được để trống.';
+export const GENDER_REQUIRED = 'Giới tính không được để trống.';
 
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const EMAIL_REQUIRED = 'Email không được để trống.';

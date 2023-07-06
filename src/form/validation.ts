@@ -24,7 +24,7 @@ import {
   generateRequiredText,
   IMAGE_FORMAT_NOT_SUPPORT,
   IMAGE_SIZE_TOO_BIG,
-  INTRODUCE_REQUIRED,
+  GENDER_REQUIRED,
   MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED,
   MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED,
   NAME_REQUIRED,
@@ -186,6 +186,7 @@ export const validationSchemaEditPersonalProfile = object({
     .required(BIRTHDAY_REQUIRED),
   address: string().required(ADDRESS_REQUIRED),
   phone: string().required(PHONE_REQUIRED),
+  gender: object().required(GENDER_REQUIRED),
 });
 
 export const validationSchemaEditMentorProfile = object({

@@ -1,4 +1,6 @@
-export const keyCheckMentorProfilesCompleteness = [
-  'mentorProfilesCompleteness',
+export const keyMentorProfileUseCheckCompleteness = [
+  'mentorProfileUseCheckCompleteness',
 ];
-export const keyRequestApproval = ['keyRequestApproval'];
+export const keyMentorProfileUseRequestApproval = [
+  'mentorProfileUseRequestApproval',
+];
