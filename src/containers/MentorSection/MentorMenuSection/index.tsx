@@ -16,13 +16,13 @@ import MentorItem from '~/components/molecules/MentorItem';
 import { MentorPayload, MentorQuickPayload } from '~/models/mentor';
 import { PagingFilterPayload } from '~/models';
 
-interface MentorMenuSectionProps {
+interface MentorMenuSectionPayload {
   error: any;
   data: PagingFilterPayload<MentorQuickPayload> | null | undefined;
   isLoading: boolean;
 }
 
-export default function MentorMenuSection(props: MentorMenuSectionProps) {
+export default function MentorMenuSection(props: MentorMenuSectionPayload) {
   const { data, error, isLoading } = props;
   const navigation = useNavigate();
   const [dropDownValue, setDropDownValue] = useState('');

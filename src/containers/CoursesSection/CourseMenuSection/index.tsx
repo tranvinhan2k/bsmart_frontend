@@ -13,13 +13,13 @@ import CustomPagination from '~/components/atoms/CustomPagination';
 import UserCourseItem from '~/components/molecules/UserCourseItem';
 import { CoursePayload } from '~/models/type';
 
-interface CourseMenuSectionProps {
+interface CourseMenuSectionPayload {
   error: any;
   data: PagingFilterPayload<CoursePayload> | null | undefined;
   isLoading: boolean;
 }
 
-export default function CourseMenuSection(props: CourseMenuSectionProps) {
+export default function CourseMenuSection(props: CourseMenuSectionPayload) {
   const { data, error, isLoading } = props;
   const navigation = useNavigate();
   const dispatch = useDispatch();

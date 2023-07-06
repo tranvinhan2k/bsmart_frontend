@@ -10,12 +10,12 @@ import { useTimeOut, useTryCatch, useYupValidationResolver } from '~/hooks';
 import { validationClassContentModule } from '~/form/validation';
 import AddSectionForm from '../AddSectionForm';
 
-interface CreateSectionModuleProps {
+interface CreateSectionModulePayload {
   id: number;
   onAdd: (id: number, name: string) => void;
 }
 
-export default function AddModule({ id, onAdd }: CreateSectionModuleProps) {
+export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
   const { handleTryCatch } = useTryCatch({
     loading: 'Đang thêm bài học mới...',
     success: 'Thêm bài học thành công',
