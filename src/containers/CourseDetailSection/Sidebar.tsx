@@ -168,7 +168,7 @@ export default function Sidebar({
             </span>
           </Typography>
         </Stack>
-        {/* <Stack
+        <Stack
           sx={{
             marginTop: 2,
             borderRadius: MetricSize.small_10,
@@ -215,7 +215,7 @@ export default function Sidebar({
               </Stack>
             );
           })}
-        </Stack> */}
+        </Stack>
         <Stack marginTop={2}>
           {textLineData.map((item) => (
             <TextPropLine

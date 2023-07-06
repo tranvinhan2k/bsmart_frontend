@@ -89,122 +89,131 @@ export default function ClassItem({
         flexWrap: 'wrap',
         borderRadius: MetricSize.small_5,
         // border: '0.5px solid grey',
+        justifyContent: 'space-between',
       }}
     >
-      <Stack
-        sx={{
-          justifyContentl: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          component="img"
-          src={classItem.imageUrl ? classItem.imageUrl : image.mockClass}
-          alt="course"
-          sx={{
-            borderRadius: MetricSize.small_5,
-            margin: 1,
-            background: Color.white,
-            objectFit: 'cover',
-            height: undefined,
-            width: '150px',
-            aspectRatio: 1,
-          }}
-        />
-      </Stack>
-      <Stack sx={{ flexGrow: 1, paddingX: 3, paddingY: 2 }}>
+      <Stack sx={{ flexGrow: 1 }}>
         <Collapse in={!open}>
-          <Stack>
-            <Box>
+          <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Stack
+              sx={{
+                justifyContentl: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Box
+                component="img"
+                src={classItem.imageUrl ? classItem.imageUrl : image.mockClass}
+                alt="course"
+                sx={{
+                  borderRadius: MetricSize.small_5,
+                  margin: 1,
+                  background: Color.white,
+                  objectFit: 'cover',
+                  height: undefined,
+                  width: '150px',
+                  aspectRatio: 1,
+                }}
+              />
+            </Stack>
+            <Stack sx={{ flexGrow: 1, paddingX: 3, paddingY: 2 }}>
+              <Box>
+                <Stack
+                  sx={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: FontSize.small_18,
+                      height: undefined,
+                      aspectRatio: 1,
+                      objectFit: 'contain',
+                      marginRight: 1,
+                    }}
+                    component="img"
+                    src={
+                      LEVEL_IMAGES[
+                        classItem.level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
+                      ]
+                    }
+                    alt="level"
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: FontSize.small_18,
+                      fontFamily: FontFamily.light,
+                      color: Color.black,
+                    }}
+                  >
+                    {`${classItem.level.label}`}
+                  </Typography>
+                </Stack>
+              </Box>
+              <Typography
+                sx={{
+                  fontFamily: FontFamily.bold,
+                  fontSize: FontSize.medium_28,
+                }}
+              >{`Lớp học #${classItem.id}`}</Typography>
+
               <Stack
                 sx={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'flex-start',
+                  marginTop: 2,
                 }}
               >
-                <Box
-                  sx={{
-                    width: FontSize.small_18,
-                    height: undefined,
-                    aspectRatio: 1,
-                    objectFit: 'contain',
-                    marginRight: 1,
-                  }}
-                  component="img"
-                  src={
-                    LEVEL_IMAGES[
-                      classItem.level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
-                    ]
-                  }
-                  alt="level"
-                />
-                <Typography
-                  sx={{
-                    fontSize: FontSize.small_18,
-                    fontFamily: FontFamily.light,
-                    color: Color.black,
-                  }}
-                >
-                  {`${classItem.level.label}`}
-                </Typography>
-              </Stack>
-            </Box>
-            <Typography
-              sx={{
-                fontFamily: FontFamily.bold,
-                fontSize: FontSize.medium_28,
-              }}
-            >{`Lớp học #${classItem.id}`}</Typography>
-
-            <Stack
-              sx={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: 2,
-              }}
-            >
-              {appBar.map((item) => (
-                <Stack
-                  key={item.icon}
-                  sx={{
-                    flexDirection: 'row',
-                    marginRight: 2,
-                  }}
-                >
-                  <Icon color="black" name={item.icon} size="small_20" />
-                  <Stack marginLeft={1}>
-                    <Typography
-                      sx={{
-                        fontSize: FontSize.small_14,
-                        fontFamily: FontFamily.bold,
-                      }}
-                    >
-                      {`${item.label} `}
-                    </Typography>
-                    <Typography sx={globalStyles.textLowSmallLight}>
-                      {`${item.variable} `}
-                    </Typography>
+                {appBar.map((item) => (
+                  <Stack
+                    key={item.icon}
+                    sx={{
+                      flexDirection: 'row',
+                      marginRight: 2,
+                    }}
+                  >
+                    <Icon color="black" name={item.icon} size="small_20" />
+                    <Stack marginLeft={1}>
+                      <Typography
+                        sx={{
+                          fontSize: FontSize.small_14,
+                          fontFamily: FontFamily.bold,
+                        }}
+                      >
+                        {`${item.label} `}
+                      </Typography>
+                      <Typography sx={globalStyles.textLowSmallLight}>
+                        {`${item.variable} `}
+                      </Typography>
+                    </Stack>
                   </Stack>
-                </Stack>
-              ))}
+                ))}
+              </Stack>
             </Stack>
           </Stack>
         </Collapse>
 
         <Collapse in={open}>
-          <Stack>
+          <Stack sx={{ padding: 1 }}>
             <Typography sx={globalStyles.textSmallLabel}>
               Thông tin giờ học
             </Typography>
-            <Stack marginY={1}>
+            <Stack marginTop={1}>
               <Timetable data={classItem.timeInWeekRequests} />
             </Stack>
           </Stack>
         </Collapse>
       </Stack>
       {onUpdate && onDeleteModal && (
-        <Stack>
+        <Stack
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+          }}
+        >
           <IconButton onClick={handleMenu}>
             <Icon name="moreVert" color="black" size="small_20" />
           </IconButton>
