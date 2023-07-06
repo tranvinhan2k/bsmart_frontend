@@ -42,6 +42,7 @@ import {
   MdFeedback,
   MdCheckBoxOutlineBlank,
   MdCheckBox,
+  MdNumbers,
   MdNavigateNext,
 } from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
@@ -103,6 +104,7 @@ export type IconName =
   | 'return'
   | 'category'
   | 'blankSquareCheckbox'
+  | 'number'
   | 'chat'
   | 'date'
   | 'check'
@@ -239,6 +241,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsFillClipboard2CheckFill />
+        </Typography>
+      );
+    case 'number':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdNumbers />
         </Typography>
       );
     case 'cake':

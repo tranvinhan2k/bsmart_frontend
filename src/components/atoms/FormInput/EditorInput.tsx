@@ -1,5 +1,4 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { TextField } from '@mui/material';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
 import localEnvironment from '~/utils/localEnvironment';
@@ -35,6 +34,7 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
     //   multiline
     // />
     <TinyMCEEditor
+      onBlur={onBlur}
       apiKey={localEnvironment.TINYMCE_KEY}
       onInit={(evt, editor) => {
         editorRef.current = editor;
