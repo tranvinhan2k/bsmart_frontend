@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useCreateClassesForm, useTimeOut, useTryCatch } from '~/hooks';
 import CreateClassModal from '../CreateCourseForm/CreateClassModal';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
-import LoadingWrapper from '~/HOCs/LoadingWrapper';
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import UpdateClassModal from '../CreateCourseForm/UpdateClassModal';
 import Classes from '../../list/Classes';

@@ -28,7 +28,7 @@ import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse } from '~/constants';
 import IntroduceCodeInput from './IntroduceCodeInput';
 import globalStyles from '~/styles';
-import LoadingWrapper from '~/HOCs/LoadingWrapper';
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 
 export default function CartPage() {
   const { cart, isLoading, handleDispatch, error } = useDispatchGetCart();

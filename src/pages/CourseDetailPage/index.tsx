@@ -2,7 +2,7 @@ import { Grid, Stack, Divider, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import LoadingWrapper from '~/HOCs/LoadingWrapper';
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse, mockLevelData } from '~/constants';

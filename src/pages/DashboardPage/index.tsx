@@ -14,6 +14,7 @@ import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
 import localEnvironment from '~/utils/localEnvironment';
 import { MentorDashboardNavigationActionData } from '~/routes/navigators';
+import globalStyles from '~/styles';
 
 export default function DashboardPage() {
   React.useEffect(() => {
@@ -269,11 +270,9 @@ export default function DashboardPage() {
               />
               <Typography
                 sx={{
+                  ...globalStyles.textWhiteSubTitle,
                   marginLeft: 1,
                   transition: 'all 1s ease',
-                  fontSize: FontSize.medium_24,
-                  fontFamily: FontFamily.bold,
-                  color: Color.white,
                   textAlign: 'center',
                   opacity: isHover ? 1 : 0,
                   maxWidth: isHover ? '100%' : 0,

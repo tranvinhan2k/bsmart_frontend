@@ -8,7 +8,7 @@ import { useMutationCreateContent } from '~/hooks/useMutationCreateContent';
 import toast from '~/utils/toast';
 import Sections from '../Sections';
 import AddSection from '../AddSection';
-import LoadingWrapper from '~/HOCs/LoadingWrapper';
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 
 export default function Content() {
   const { onSleep } = useTimeOut(1000);

@@ -15,15 +15,14 @@ export const SX_APP_NAME: SxProps<Theme> = {
 };
 
 export const SX_SIDEBAR_TITLE: SxProps<Theme> = {
-  color: Color.whiteSmoke,
-  fontFamily: FontFamily.medium,
+  color: Color.black,
+  fontFamily: FontFamily.light,
   fontSize: FontSize.small_14,
-  marginLeft: MetricSize.large_20,
-  marginTop: MetricSize.large_30,
 };
 
 export const STYLE_SIDEBAR: CSSProperties = {
-  background: Color.navy,
+  background: Color.white2,
+  zIndex: 999,
 };
 export const STYLE_SCROLLBAR: SxProps<Theme> = {
   overflowY: 'scroll',
@@ -33,44 +32,42 @@ export const STYLE_SCROLLBAR: SxProps<Theme> = {
 };
 
 export const STYLE_MENU: CSSProperties = {
-  background: Color.navy,
+  background: Color.white2,
+  color: Color.black,
   height: '100vh',
 };
 
 export const STYLE_MENU_ITEM_LABEL: CSSObject = {
-  fontSize: FontSize.small_16,
+  fontSize: FontSize.small_14,
   fontFamily: FontFamily.regular,
-  color: Color.whiteSmoke,
+  color: Color.black,
 };
 export const STYLE_MENU_ITEM_LABEL_ACTIVE: CSSObject = {
   ...STYLE_MENU_ITEM_LABEL,
-  color: Color.white,
 };
 
 export const STYLE_MENU_ITEM_ICO: CSSObject = {
-  color: Color.grey,
-  ':hover': {
-    color: Color.black,
-  },
+  color: Color.black,
+  fontSize: '5px',
 };
 export const STYLE_MENU_ITEM_ICO_ACTIVE: CSSObject = {
   ...STYLE_MENU_ITEM_ICO,
-  color: Color.white,
 };
 
 export const STYLE_MENU_ITEM_BUTTON: CSSObject = {
-  background: Color.navy,
+  transition: 'all 200ms ease',
+  background: Color.white2,
   ':hover': {
-    background: `${Color.orange}55`,
+    background: Color.grey3,
   },
 };
 export const STYLE_MENU_ITEM_BUTTON_ACTIVE: CSSObject = {
   ...STYLE_MENU_ITEM_BUTTON,
-  background: Color.orange,
+  background: `${Color.navy}33`,
 };
 
 export const STYLE_MENU_ITEM_ROOT: CSSObject = {
-  color: Color.navy,
+  color: Color.white2,
   ':hover': {
     color: `${Color.whiteSmoke}`,
   },
@@ -81,11 +78,11 @@ export const STYLE_MENU_ITEM_ROOT_ACTIVE: CSSObject = {
 };
 
 export const STYLE_SUB_MENU_ROOT: CSSObject = {
-  color: Color.white,
+  color: Color.black,
 };
 
 export const STYLE_MENU_LINK: CSSProperties = {
-  color: Color.grey,
+  color: Color.black,
   fontSize: FontSize.small_16,
   fontFamily: FontFamily.regular,
 };
