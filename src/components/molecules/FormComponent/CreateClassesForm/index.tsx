@@ -1,12 +1,12 @@
 import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
-import CreateCourseClassList from '../CreateCourseForm/CreateCourseClassList';
 import { useCreateClassesForm, useTimeOut, useTryCatch } from '~/hooks';
 import CreateClassModal from '../CreateCourseForm/CreateClassModal';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import LoadingWrapper from '~/HOCs/LoadingWrapper';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import UpdateClassModal from '../CreateCourseForm/UpdateClassModal';
+import Classes from '../../list/Classes';
 
 export interface CreateClassesFormProps {
   classes: DetailCourseClassPayload[];
@@ -48,7 +48,7 @@ export default function CreateClassesForm({
     <Box marginTop={2}>
       <Stack>
         <LoadingWrapper error={error} isLoading={isLoading}>
-          <CreateCourseClassList
+          <Classes
             classes={classes}
             onOpenAddModal={() => onTriggerModal('CREATE')}
             onOpenUpdateModal={() => onTriggerModal('UPDATE')}

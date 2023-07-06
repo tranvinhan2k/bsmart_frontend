@@ -17,6 +17,7 @@ import {
   BsBook,
   BsFilter,
   BsArrowBarUp,
+  BsCalendarDate,
   BsArrowReturnLeft,
   BsArrowBarDown,
   BsFillClipboard2CheckFill,
@@ -31,7 +32,7 @@ import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaShare } from 'react-icons/fa';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
-import { GrNext, GrPrevious, GrReturn } from 'react-icons/gr';
+import { GrNext, GrPrevious, GrFormPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
 import { IoMdPaper } from 'react-icons/io';
 import {
@@ -41,6 +42,8 @@ import {
   MdFeedback,
   MdCheckBoxOutlineBlank,
   MdCheckBox,
+  MdNumbers,
+  MdNavigateNext,
 } from 'react-icons/md';
 import { SiGoogleclassroom } from 'react-icons/si';
 import { VscTasklist } from 'react-icons/vsc';
@@ -101,7 +104,9 @@ export type IconName =
   | 'return'
   | 'category'
   | 'blankSquareCheckbox'
+  | 'number'
   | 'chat'
+  | 'date'
   | 'check'
   | 'class'
   | 'close'
@@ -202,6 +207,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsPostcardFill />
         </Typography>
       );
+    case 'date':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <BsCalendarDate />
+        </Typography>
+      );
     case 'viewDetail':
       return (
         <Typography sx={STYLED_ICON}>
@@ -230,6 +241,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsFillClipboard2CheckFill />
+        </Typography>
+      );
+    case 'number':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdNumbers />
         </Typography>
       );
     case 'cake':
@@ -425,7 +442,7 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     case 'next':
       return (
         <Typography sx={STYLED_ICON}>
-          <FcNext />
+          <MdNavigateNext />
         </Typography>
       );
     case 'next2':
@@ -457,7 +474,7 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     case 'previous':
       return (
         <Typography sx={STYLED_ICON}>
-          <GrPrevious />
+          <GrFormPrevious />
         </Typography>
       );
     case 'question':

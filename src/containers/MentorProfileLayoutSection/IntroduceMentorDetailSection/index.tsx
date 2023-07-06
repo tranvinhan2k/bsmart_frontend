@@ -20,13 +20,13 @@ import {
   SX_DISPLAY_FIELD_TEXT,
 } from './style';
 
-interface IntroduceMentorDetailSectionProps {
+interface IntroduceMentorDetailSectionPayload {
   mentor: ResponseProfilePayload | undefined;
 }
 
 export default function IntroduceMentorDetailSection({
   mentor,
-}: IntroduceMentorDetailSectionProps) {
+}: IntroduceMentorDetailSectionPayload) {
   const navigate = useNavigate();
 
   const profile = mentor;

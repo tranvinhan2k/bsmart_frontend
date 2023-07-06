@@ -5,6 +5,12 @@ import {
   RoleKeys,
 } from './variables';
 
+export interface RequestOptionPayload {
+  id: number;
+  code: string;
+  name: string;
+}
+
 export interface SubjectPayload {
   id: number;
   code: string;

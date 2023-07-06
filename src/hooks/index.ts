@@ -16,8 +16,6 @@ export * from './useQueryGetAllPublicCourses';
 export * from './useQueryGetAllMentors';
 export * from './useQueryGetAllMemberCourses';
 export * from './useQueryGetAllMentorCourses';
-export * from './useQueryGetAllDayInWeeks';
-export * from './useQueryGetAllSlots';
 export * from './useQueryGetAllMentorSubjects';
 
 export * from './useQueryVerifyEmail';
@@ -26,6 +24,8 @@ export * from './useDispatchGetCart';
 export * from './useDispatchProfile';
 export * from './useDispatchGetAllSubjects';
 export * from './useDispatchGetAllCategories';
+export * from './useDispatchGetAllDayOfWeeks';
+export * from './useDispatchGetAllSlots';
 
 export * from './useTryCatch';
 

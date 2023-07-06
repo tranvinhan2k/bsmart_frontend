@@ -12,7 +12,7 @@ export const SIGN_IN_FIELDS: LoginFormDataPayload = {
 };
 export const TIME_TABLE_FIELDS = {
   slot: 'slot',
-  dayInWeek: 'dayInWeek',
+  dayOfWeek: 'dayOfWeek',
 };
 export const CREATE_CATEGORY_FIELDS = {
   code: 'code',

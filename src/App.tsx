@@ -10,6 +10,8 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 
 import {
   useDispatchGetAllCategories,
+  useDispatchGetAllDayOfWeeks,
+  useDispatchGetAllSlots,
   useDispatchGetAllSubjects,
   useDispatchGetCart,
   useDispatchProfile,
@@ -109,6 +111,8 @@ function App() {
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { handleUpdateSubjects } = useDispatchGetAllSubjects();
   const { handleUpdateCategories } = useDispatchGetAllCategories();
+  const { handleUpdateDayOfWeeks } = useDispatchGetAllDayOfWeeks();
+  const { handleUpdateSlots } = useDispatchGetAllSlots();
 
   useEffect(() => {
     async function initGlobalValue() {
@@ -118,6 +122,8 @@ function App() {
       }
       await handleUpdateSubjects();
       await handleUpdateCategories();
+      await handleUpdateDayOfWeeks();
+      await handleUpdateSlots();
     }
     initGlobalValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps

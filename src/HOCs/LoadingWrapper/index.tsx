@@ -111,7 +111,7 @@ export default function LoadingWrapper({
             alt="no course"
           />
           <Typography sx={globalStyles.textSmallLight}>
-            Không có khóa học nào.
+            Chưa có dữ liệu.
           </Typography>
         </Stack>
       </Stack>

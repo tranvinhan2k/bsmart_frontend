@@ -7,50 +7,64 @@ import globalStyles from '~/styles';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import ClassItem from '~/components/molecules/items/ClassItem';
 
-interface CreateCourseClassListProps {
+interface Props {
   classes: DetailCourseClassPayload[];
-  onOpenUpdateModal: (index: number) => void;
-  onOpenAddModal: () => void;
-  onDeleteModal: (id: number) => void;
+  onOpenUpdateModal?: (index: number) => void;
+  onOpenAddModal?: () => void;
+  onDeleteModal?: (id: number) => void;
 }
-export default function CreateCourseClassList({
+export default function Classes({
   classes,
   onOpenAddModal,
   onOpenUpdateModal,
   onDeleteModal,
-}: CreateCourseClassListProps) {
+}: Props) {
+  const handleUpdate = (index: number) => {
+    if (onOpenUpdateModal) {
+      onOpenUpdateModal(index);
+    }
+  };
+
+  const handleDelete = (index: number) => {
+    if (onDeleteModal) {
+      onDeleteModal(index);
+    }
+  };
+
   return (
     <Stack
       marginBottom={2}
       sx={{
-        minHeight: '300px',
         borderRadius: MetricSize.small_5,
       }}
     >
       {classes?.length > 0 ? (
         <>
           {classes.map((item, index) => (
-            <ClassItem
-              key={item.id}
-              id={index}
-              onUpdate={() => onOpenUpdateModal(index)}
-              onDeleteModal={() => onDeleteModal(index)}
-              classItem={item}
-            />
+            <Stack key={item.id} marginTop={index === 0 ? 0 : 1}>
+              <ClassItem
+                id={index}
+                onUpdate={() => handleUpdate(index)}
+                onDeleteModal={() => handleDelete(index)}
+                classItem={item}
+              />
+            </Stack>
           ))}
-          <Box>
-            <Button
-              onClick={onOpenAddModal}
-              variant="contained"
-              color="secondary"
-              sx={{
-                color: Color.white,
-              }}
-              startIcon={<Icon name="add" size="small_20" color="white" />}
-            >
-              Thêm lớp học
-            </Button>
-          </Box>
+          {onOpenAddModal && (
+            <Box marginTop={1}>
+              <Button
+                onClick={onOpenAddModal}
+                variant="contained"
+                color="secondary"
+                sx={{
+                  color: Color.white,
+                }}
+                startIcon={<Icon name="add" size="small_20" color="white" />}
+              >
+                Thêm lớp học
+              </Button>
+            </Box>
+          )}
         </>
       ) : (
         <Stack

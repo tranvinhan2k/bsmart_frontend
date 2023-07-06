@@ -32,11 +32,11 @@ import Resource from '~/components/molecules/ResourceMentor/Resource';
 import toast from '~/utils/toast';
 import { SX_RESOURCE_TITTLE } from './style';
 
-interface ClassSectionProps {
+interface ClassSectionPayload {
   editMode: boolean;
 }
 
-export default function ClassSection({ editMode }: ClassSectionProps) {
+export default function ClassSection({ editMode }: ClassSectionPayload) {
   const id = 4;
   const { classDetails, updateClassSections, deleteClassSections } =
     useManageClass({ id });

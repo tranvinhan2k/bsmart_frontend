@@ -1,9 +1,9 @@
-export interface ModuleProps {
+export interface ModulePayload {
   id: number;
   name: string;
 }
-export interface SectionProps {
+export interface SectionPayload {
   id: number;
   name: string;
-  modules: ModuleProps[];
+  modules: ModulePayload[];
 }

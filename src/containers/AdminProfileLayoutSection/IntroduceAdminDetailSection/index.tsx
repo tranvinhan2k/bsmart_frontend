@@ -7,13 +7,13 @@ import { ROLE_LABELS } from '~/constants/role';
 import { RoleKeys } from '~/models/variables';
 import toast from '~/utils/toast';
 
-interface IntroduceAdminDetailSectionProps {
+interface IntroduceAdminDetailSectionPayload {
   mentor: ResponseProfilePayload | undefined;
 }
 
 export default function IntroduceAdminDetailSection({
   mentor,
-}: IntroduceAdminDetailSectionProps) {
+}: IntroduceAdminDetailSectionPayload) {
   const navigate = useNavigate();
 
   const profile = mentor;
