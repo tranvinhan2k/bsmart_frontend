@@ -67,10 +67,12 @@ export const enum MentorDashboardNavigationActionLink {
   mentor_create_announcement = 'mentor-create-announcement/:idClassSection',
   mentor_update_announcement = 'mentor-update-announcement/:idAnnouncement',
   // Trang tạm - Điểm danh
-  take_attendance_1 = 'mentor-profile/take-attendance',
+  attendance_list = 'attendance-list',
   view_member_attendance = 'view-member-attendance',
-  take_attendance_2 = 'take-attendance/:classId/:id',
+  take_attendance = 'take-attendance/:classId/:id',
+  schedule = 'schedule',
 }
+export const enum StudentDashboardNavigationActionLink {}
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',
   ViewCourseDetails = 'mentor-profile/take-attendance',

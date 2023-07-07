@@ -6,7 +6,6 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
-import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
 import { useQueryGetAllMentorClasses } from '~/hooks/useQueryGetAllMentorClasses';
