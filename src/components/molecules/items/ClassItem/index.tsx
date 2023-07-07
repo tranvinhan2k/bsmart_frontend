@@ -83,7 +83,8 @@ export default function ClassItem({
   return (
     <Stack
       sx={{
-        background: Color.grey3,
+        background: Color.white,
+        border: `0.5px solid ${Color.border}`,
         position: 'relative',
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -94,7 +95,7 @@ export default function ClassItem({
     >
       <Stack sx={{ flexGrow: 1 }}>
         <Collapse in={!open}>
-          <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Stack sx={{ flexDirection: 'row' }}>
             <Stack
               sx={{
                 justifyContentl: 'center',
@@ -163,6 +164,7 @@ export default function ClassItem({
                 sx={{
                   flexDirection: 'row',
                   alignItems: 'center',
+                  flexWrap: 'wrap',
                   marginTop: 2,
                 }}
               >

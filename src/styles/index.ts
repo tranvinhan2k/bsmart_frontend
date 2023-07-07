@@ -76,7 +76,7 @@ export const SX_SHADOW: SxProps<Theme> = {
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
   maxHeight: '50px',
   input: {
-    fontFamily: FontFamily.light,
+    fontFamily: FontFamily.regular,
     fontSize: FontSize.small_14,
     background: Color.white,
     height: MetricSize.formInputHeight,

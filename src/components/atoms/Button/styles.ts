@@ -112,7 +112,6 @@ export const SX_OUTLINED_BUTTON: SxProps<Theme> = {
 
 export const SX_FORM_INPUT_HORIZON_BUTTON: SxProps<Theme> = {
   transition: 'all 500ms ease',
-  height: MetricSize.formInputHeight,
   fontFamily: FontFamily.regular,
   paddingX: MetricSize.small_10,
   fontSize: FontSize.small_16,

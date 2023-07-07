@@ -39,12 +39,14 @@ export default function Timetable({ data }: Props) {
           field: 'slot',
           headerName: 'Khung giờ học',
           flex: 1,
+          minWidth: 120,
         },
       ];
 
       dayOfWeeks.map((item) => {
         tempColumns.push({
           headerName: item.name,
+          minWidth: 100,
           flex: 1,
           disableColumnMenu: true,
           sortable: false,
@@ -117,7 +119,7 @@ export default function Timetable({ data }: Props) {
     return <Typography>Lớp học chưa có thời khóa biẻu</Typography>;
 
   return (
-    <Box sx={{ background: Color.white }} height={400} width="100%">
+    <Box sx={{ background: '#F3F1F5' }} height={400}>
       {rows && columns && (
         <DataGrid
           rows={rows}

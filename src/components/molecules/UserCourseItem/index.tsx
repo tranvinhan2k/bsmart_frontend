@@ -186,7 +186,7 @@ export default function UserCourseItem({
         <Stack
           sx={{
             padding: MetricSize.medium_15,
-            borderTop: '0.5px solid #ddd',
+            borderTop: `0.5px solid ${Color.border}`,
           }}
         >
           {totalClass && totalClass !== 0 ? (
