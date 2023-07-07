@@ -14,14 +14,14 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         link: '',
         items: [
           {
-            id: 1,
+            id: 0,
             isHide: true,
             icon: 'groups',
             name: 'Danh sách người dùng',
             link: ManagerNavigationActionLink.account_search,
           },
           {
-            id: 2,
+            id: 1,
             isHide: true,
             icon: 'description',
             name: 'Yêu cầu tạo tài khoản',
@@ -36,14 +36,14 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         link: '',
         items: [
           {
-            id: 4,
+            id: 0,
             isHide: true,
             icon: 'class',
             name: 'Danh sách tất cả khóa học',
             link: ManagerNavigationActionLink.course_search,
           },
           {
-            id: 5,
+            id: 1,
             isHide: true,
             icon: 'description',
             name: 'Danh sách khóa học cần phê duyệt',

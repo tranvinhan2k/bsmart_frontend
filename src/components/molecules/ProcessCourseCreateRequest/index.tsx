@@ -142,8 +142,6 @@ export default function ProcessCourseCreateRequest({
         onSearch={handleSearchCourseCreateRequest}
         rows={filterRows}
         menuItemList={menuItemList}
-        //
-        getRowId={(row: any) => row?.subCourseId}
       />
       {renderItem}
     </>

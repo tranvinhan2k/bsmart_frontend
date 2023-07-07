@@ -152,7 +152,7 @@ const courseCreateRequestColumns: GridColDef[] = [
   },
   {
     field: 'startDateExpected',
-    headerName: 'Ngày bắt đầu dự kiến',
+    headerName: 'Dự kiến bắt đầu',
     minWidth: 100,
     flex: 1,
     renderCell: (params) => {
@@ -162,7 +162,7 @@ const courseCreateRequestColumns: GridColDef[] = [
   },
   {
     field: 'endDateExpected',
-    headerName: 'Ngày kết thúc dự kiến',
+    headerName: 'Dự kiến kết thúc',
     minWidth: 100,
     flex: 1,
     renderCell: (params) => {
