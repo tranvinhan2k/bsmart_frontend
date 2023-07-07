@@ -1,14 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import announcementApi from '~/api/announcement';
-import { keyDelete, keySearch } from './key';
+import { keyAnnouncementUseDelete, keyAnnouncementUseSearch } from './key';
 
 export const useDeleteAnnouncement = () => {
   const queryClient = useQueryClient();
 
   const deleteAnnouncement = useMutation({
-    mutationKey: [keyDelete],
+    mutationKey: [keyAnnouncementUseDelete],
     mutationFn: announcementApi.deleteAnnouncement,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [keySearch] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: [keyAnnouncementUseSearch] }),
   });
 
   return deleteAnnouncement;
