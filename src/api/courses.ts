@@ -301,18 +301,6 @@ const coursesApi = {
     const response: any = await axiosClient.put(`${url}/${params.id}`, params);
     return response;
   },
-  async createCourseContent(params: {
-    id: number;
-    data: RequestContentItem[];
-  }): Promise<any> {
-    const response: any = await axiosClient.post(
-      `${url}/${params.id}/content`,
-      {
-        params: params.data,
-      }
-    );
-    return response;
-  },
 };
 
 export default coursesApi;

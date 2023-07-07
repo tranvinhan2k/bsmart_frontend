@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Stack, Typography, Drawer, IconButton, Box } from '@mui/material';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { scrollToTop } from '~/utils/common';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
-import { NavigationLink } from '~/constants/routeLink';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+  StudentDashboardNavigationActionLink,
+} from '~/constants/routeLink';
 import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
 import localEnvironment from '~/utils/localEnvironment';
 import { MentorDashboardNavigationActionData } from '~/routes/navigators';
 import globalStyles from '~/styles';
+import { selectProfile } from '~/redux/user/selector';
+import { StudentDashboardNavigationActionData } from '~/routes/member/dashboard/navigation';
+import { studentLMSRoutes } from '~/routes/member/dashboard/routes';
 
 export default function DashboardPage() {
-  React.useEffect(() => {
-    scrollToTop();
-  }, []);
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const profile = useSelector(selectProfile);
+
+  const rows =
+    profile.roles?.[0]?.code === 'STUDENT'
+      ? StudentDashboardNavigationActionData
+      : MentorDashboardNavigationActionData;
+
+  const routes =
+    profile.roles?.[0]?.code === 'STUDENT' ? studentLMSRoutes : mentorLMSRoutes;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHover, setHover] = useState(false);
@@ -44,10 +58,10 @@ export default function DashboardPage() {
     navigate(`/${NavigationLink.homepage}`);
   };
 
-  const showDashboardMentorRoutes = () => {
+  const showDashboardRoutes = () => {
     let result = null;
 
-    if (mentorLMSRoutes.length > 0) {
+    if (routes.length > 0) {
       result = mentorLMSRoutes.map((route: RoutePayload) => {
         return (
           <Route key={route.path} path={route.path} element={route?.main()} />
@@ -58,7 +72,19 @@ export default function DashboardPage() {
     return result;
   };
 
-  const rows = MentorDashboardNavigationActionData;
+  useEffect(() => {
+    rows.map((item, index) => {
+      if (pathname.includes(item.link)) {
+        setActiveIndex(index);
+      }
+      return null;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <Stack
@@ -386,7 +412,7 @@ export default function DashboardPage() {
         }}
       >
         <DashboardBreadcrumbNavigation />
-        <Routes>{showDashboardMentorRoutes()}</Routes>
+        <Routes>{showDashboardRoutes()}</Routes>
       </Stack>
     </Stack>
   );

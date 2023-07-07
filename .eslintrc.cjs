@@ -23,6 +23,7 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 'off',
     'import/prefer-default-export': 'off',
+    'react/no-array-index-key': 'warn',
     'react/require-default-props': 'warn',
     'prettier/prettier': [
       'error',

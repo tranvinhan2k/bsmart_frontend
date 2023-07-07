@@ -132,23 +132,14 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             />
           )}
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={2}
-          sx={{ alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Stack
-            sx={{
-              justifyContent: 'center',
-              height: '100%',
-            }}
-          >
+        <Grid item xs={12} md={2}>
+          <Stack>
             <Button
               onClick={timetableHookForm.handleSubmit(onSubmit)}
-              customVariant="horizonForm"
+              variant="contained"
+              color="secondary"
             >
-              <Icon name="add" color="white" size="medium" />
+              <Icon name="add" color="white" size="small_20" />
             </Button>
           </Stack>
         </Grid>

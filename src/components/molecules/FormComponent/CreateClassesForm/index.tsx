@@ -9,11 +9,13 @@ import UpdateClassModal from '../CreateCourseForm/UpdateClassModal';
 import Classes from '../../list/Classes';
 
 export interface CreateClassesFormProps {
+  id: number;
   classes: DetailCourseClassPayload[];
   onChangeClasses: (params: DetailCourseClassPayload[]) => void;
 }
 
 export default function CreateClassesForm({
+  id,
   classes,
   onChangeClasses,
 }: CreateClassesFormProps) {
@@ -25,7 +27,7 @@ export default function CreateClassesForm({
     onTriggerModal,
     onAddNewClass,
     mode,
-  } = useCreateClassesForm(classes, onChangeClasses);
+  } = useCreateClassesForm(id, classes, onChangeClasses);
 
   const { error, handleTryCatch, isLoading } = useTryCatch();
   const deleteTryCatch = useTryCatch({

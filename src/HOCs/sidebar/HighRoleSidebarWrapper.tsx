@@ -72,7 +72,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
     >
       <Stack
         sx={{
-          borderRight: '0.5px solid #ddd',
+          borderRight: `0.5px solid ${Color.border}`,
         }}
       >
         <DefaultSidebarLeft data={actions} />
@@ -95,7 +95,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
             height: '52px',
             position: 'sticky',
             top: 0,
-            borderBottom: '1px solid #ddd',
+            borderBottom: `1px solid ${Color.border}`,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',

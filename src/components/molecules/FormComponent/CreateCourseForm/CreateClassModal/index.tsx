@@ -1,5 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
+import { MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
@@ -30,7 +31,7 @@ export default function CreateClassModal({
       <Stack
         sx={{
           background: 'white',
-          width: { xs: '100%', md: '60vw' },
+          // width: { xs: '100%', md: '60vw' },
           paddingX: 4,
         }}
       >
@@ -52,6 +53,7 @@ export default function CreateClassModal({
               label="Giá khóa học"
             />
           </Stack>
+          <Stack marginTop={2} />
           <FormInput
             data={types}
             variant="dropdown"
@@ -59,13 +61,14 @@ export default function CreateClassModal({
             control={hookForm.control}
             label="Hình thức khóa học"
           />
-
+          <Stack marginTop={2} />
           <FormInput
             variant="image"
             name={CREATE_SUB_COURSE_FIELDS.imageId}
             control={hookForm.control}
             label="Hình ảnh"
           />
+          <Stack marginTop={2} />
           <Stack
             sx={{
               flexDirection: 'row',
@@ -87,6 +90,7 @@ export default function CreateClassModal({
               label="Số học sinh tối đa"
             />
           </Stack>
+          <Stack marginTop={2} />
           <FormInput
             data={levels}
             variant="radioGroup"
@@ -94,6 +98,7 @@ export default function CreateClassModal({
             control={hookForm.control}
             label="Trình độ"
           />
+          <Stack marginTop={2} />
           <Typography sx={globalStyles.textSmallLabel}>
             Thông tin giờ học
           </Typography>
@@ -118,18 +123,21 @@ export default function CreateClassModal({
               label="Ngày kết thúc dự kiến"
             />
           </Stack>
+          <Stack marginTop={2} />
           <FormInput
             name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
             variant="number"
             control={hookForm.control}
             label="Số buổi học"
           />
+          <Stack marginTop={2} />
           <FormInput
             name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
             variant="timetable"
             control={hookForm.control}
             label="Thời khóa biểu"
           />
+          <Stack marginTop={2} />
           <Button
             onClick={hookForm.handleSubmit(onSubmit)}
             customVariant="horizonForm"

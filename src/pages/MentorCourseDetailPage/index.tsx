@@ -22,6 +22,7 @@ import CreateClassesForm from '~/components/molecules/FormComponent/CreateClasse
 import { mockLevelData } from '~/constants';
 import Content from '~/containers/MentorCourseDetail/Content';
 import { ClassStatusKeys } from '~/models/variables';
+import { formatStringToNumber } from '~/utils/number';
 
 export interface DetailCoursePayload {
   name: string;
@@ -161,7 +162,11 @@ export default function MentorCourseDetailPage() {
       name: 'Danh sách lớp học',
       icon: 'blankSquareCheckbox',
       component: (
-        <CreateClassesForm classes={mockClasses} onChangeClasses={() => {}} />
+        <CreateClassesForm
+          id={formatStringToNumber(id)}
+          classes={mockClasses}
+          onChangeClasses={() => {}}
+        />
       ),
     },
   ];

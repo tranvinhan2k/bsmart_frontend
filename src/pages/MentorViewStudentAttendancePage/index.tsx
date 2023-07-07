@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { Stack, Grid, Box, Typography, Chip } from '@mui/material';
 import { useEffect } from 'react';
-import { IconSize, MetricSize } from '~/assets/variables';
+import { Color, IconSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
 import globalStyles from '~/styles';
@@ -138,17 +138,17 @@ export default function MentorViewStudentAttendancePage() {
       </Grid>
       <Grid container marginTop={2}>
         <Grid item md={1}>
-          <Stack sx={{ padding: 1, background: '#ddd' }}>
+          <Stack sx={{ padding: 1, background: Color.border }}>
             <Typography>ID</Typography>
           </Stack>
         </Grid>
         <Grid item md={9}>
-          <Stack sx={{ padding: 1, background: '#ddd', marginLeft: 1 }}>
+          <Stack sx={{ padding: 1, background: Color.border, marginLeft: 1 }}>
             <Typography>Ngày</Typography>
           </Stack>
         </Grid>
         <Grid item md={2}>
-          <Stack sx={{ padding: 1, background: '#ddd', marginLeft: 1 }}>
+          <Stack sx={{ padding: 1, background: Color.border, marginLeft: 1 }}>
             <Typography>Trạng Thái</Typography>
           </Stack>
         </Grid>

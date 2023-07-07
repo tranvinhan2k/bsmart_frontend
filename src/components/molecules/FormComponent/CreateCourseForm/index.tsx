@@ -100,7 +100,7 @@ CreateCourseFormProps) {
       <Stack marginTop={2}>
         <Button
           onClick={createCourseHookForm.handleSubmit(handleCreateCourse)}
-          customVariant="form"
+          variant="contained"
         >
           tạo khóa học
         </Button>

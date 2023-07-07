@@ -18,6 +18,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { PostCoursePayload } from '~/models/request';
+import { PostCreateCoursePayload } from '~/models/response';
 
 export interface SelectedCoursePayload {
   id?: number;
@@ -40,11 +41,14 @@ export default function MentorCreateCoursePage() {
 
   const handleCreateCourse = async (paramCourse: PostCoursePayload) => {
     // ToDO: Goi api create course o day
-    const response = await handleTryCatch(() =>
+    const response: number = await handleTryCatch(async () =>
       mutationResult.mutateAsync(paramCourse)
     );
+
+    console.log('response', response);
+
     navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${response.id}`
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${response}`
     );
   };
 

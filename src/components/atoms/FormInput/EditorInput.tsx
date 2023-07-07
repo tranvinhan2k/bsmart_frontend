@@ -2,6 +2,7 @@ import { UseControllerReturn } from 'react-hook-form';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
 import localEnvironment from '~/utils/localEnvironment';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 interface EditorInputProps {
   controller: UseControllerReturn<any, string>;
@@ -21,18 +22,6 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
   };
 
   return (
-    // <TextField
-    //   placeholder={placeholder}
-    //   fullWidth
-    //   size="small"
-    //   value={value}
-    //   onChange={onChange}
-    //   onBlur={onBlur}
-    //   inputRef={ref}
-    //   error={invalid}
-    //   helperText={error?.message}
-    //   multiline
-    // />
     <TinyMCEEditor
       onBlur={onBlur}
       apiKey={localEnvironment.TINYMCE_KEY}
@@ -47,8 +36,7 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
         toolbar:
           'bold italic backcolor | alignleft aligncenter ' +
           'alignright alignjustify | bullist numlist outdent indent ',
-        content_style:
-          'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        content_style: `body { font-family:'Roboto', sans-serif; font-size:${FontSize.small_14} }`,
       }}
     />
   );

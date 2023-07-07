@@ -11,18 +11,17 @@ import {
 import { useState } from 'react';
 import Icon from '../Icon';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Button from '../Button';
 import globalStyles from '~/styles';
 
 interface ImageInputProps {
   controller: UseControllerReturn<any, string>;
-  previewImgHeight: number | '100%';
-  previewImgWidth: number | '100%';
+  previewImgHeight: number | string;
+  previewImgWidth: number | string;
 }
 export default function ImageInput({
   controller,
-  previewImgHeight,
-  previewImgWidth,
+  previewImgHeight = '100%',
+  previewImgWidth = '100%',
 }: ImageInputProps) {
   const {
     field: { value, onChange, onBlur },
@@ -61,22 +60,36 @@ export default function ImageInput({
       <TextField
         type="file"
         sx={{
+          height: previewUrl ? 0 : '100%',
+          opacity: previewUrl ? 0 : 1,
           ':hover': {
             cursor: 'pointer',
+            background: Color.white3,
           },
           input: {
+            paddingX: 0,
+            zIndex: 3,
             opacity: 0,
             ':hover': {
               cursor: 'pointer',
+              background: Color.white3,
             },
           },
         }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Stack
+                sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  zIndex: 2,
+                  left: 0,
+                }}
+              >
                 <IconButton sx={{ marginRight: 1 }} component="span">
-                  <Icon name="add-icon" size="medium" />
+                  <Icon name="add-icon" size="small_20" />
                 </IconButton>
                 <Typography sx={globalStyles.textLowSmallLight}>
                   Chưa có hình ảnh được chọn.
@@ -96,6 +109,8 @@ export default function ImageInput({
           <Stack
             sx={{
               position: 'relative',
+              width: previewImgWidth,
+              height: previewImgHeight,
             }}
             justifyContent="flex-start"
             alignItems="center"
@@ -103,6 +118,7 @@ export default function ImageInput({
             <Stack
               onClick={handleDeleteClick}
               sx={{
+                borderRadius: MetricSize.small_10,
                 transition: 'all 1s ease',
                 position: 'absolute',
                 justifyContent: 'center',
@@ -117,19 +133,28 @@ export default function ImageInput({
                 zIndex: 10,
                 ':hover': {
                   cursor: 'pointer',
-                  background: `${Color.navy}AA`,
+                  background: `${Color.red}99`,
                   backdropFilter: 'blur(10px)',
                   color: Color.white,
+                  svg: {
+                    color: Color.white,
+                  },
                 },
               }}
             >
+              <Icon name="delete" size="medium" color="transparent" />
               Xóa hình ảnh
             </Stack>
-            <Avatar
+            <Box
+              component="img"
               src={previewUrl}
               alt="Preview"
-              variant="rounded"
-              sx={{ width: previewImgWidth, height: previewImgHeight }}
+              sx={{
+                borderRadius: MetricSize.small_10,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
             />
           </Stack>
         </Stack>

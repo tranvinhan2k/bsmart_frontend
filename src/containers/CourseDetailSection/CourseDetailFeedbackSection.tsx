@@ -129,7 +129,7 @@ export default function CourseDetailFeedbackSection({
                     color: Color.orange,
                     borderRadius: '5px',
                     height: MetricSize.small_10,
-                    background: '#ddd',
+                    background: Color.border,
                     '&>.MuiLinearProgress-bar': {
                       background: Color.orange,
                     },

@@ -1,11 +1,15 @@
 export * from './useYupValidationResolver';
 
-export * from './useMutationUploadImage';
+export * from './image/useMutationUploadImage';
+export * from './image/useMutationUploadClassImage';
+
 export * from './useMutationCreateCourse';
 export * from './useMutationSignUp';
 export * from './useMutationLogin';
 export * from './useMutationProfile';
 export * from './useMutationAddCourseToCart';
+
+export * from './content/useMutationAddContent';
 
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';
@@ -38,3 +42,6 @@ export * from './useEffectPreventReload';
 export * from './useEffectScrollToTop';
 
 export * from './useTimeOut';
+
+export * from './useCustomMutation';
+export * from './useCustomQuery';

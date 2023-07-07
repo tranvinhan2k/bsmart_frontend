@@ -30,11 +30,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ paddingY: 2 }}>{children}</Box>}
     </div>
   );
 }
@@ -67,44 +63,24 @@ export default function CustomTab({ tabContentList = [] }: CustomTabProps) {
   }
 
   return (
-    <Box
-      sx={{
-        background: Color.white,
-        borderRadius: MetricSize.small_10,
-      }}
-    >
-      <AppBar
+    <Box>
+      <Tabs
         sx={{
-          borderTopLeftRadius: MetricSize.small_10,
-          borderTopRightRadius: MetricSize.small_10,
+          boxShadow: 0,
+          borderBottom: '0.5px solid #ddd',
         }}
-        position="static"
+        value={value}
+        onChange={handleChange}
       >
-        <Tabs
-          sx={{
-            borderTopLeftRadius: MetricSize.small_10,
-            borderTopRightRadius: MetricSize.small_10,
-          }}
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          {tabContentList.map((item, index) => (
-            <Tab
-              onClick={item.onClick}
-              sx={{
-                background: Color.orange,
-              }}
-              key={item.label}
-              label={item.label}
-              {...a11yProps(index)}
-            />
-          ))}
-        </Tabs>
-      </AppBar>
+        {tabContentList.map((item, index) => (
+          <Tab
+            onClick={item.onClick}
+            key={item.label}
+            label={item.label}
+            {...a11yProps(index)}
+          />
+        ))}
+      </Tabs>
       {tabContentList.map((item, index) => (
         <TabPanel
           key={item.label}

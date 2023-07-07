@@ -6,6 +6,6 @@ export const randomIntFromInterval = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const formatStringToNumber = (string: string) => {
+export const formatStringToNumber = (string: string | undefined) => {
   return parseInt(`${string}`, 10);
 };

@@ -27,18 +27,6 @@ export default function TextDeclareColumn({
         alignItems: 'center',
       }}
     >
-      <Typography
-        sx={{
-          position: 'absolute',
-          top: MetricSize.small_10,
-          left: MetricSize.small_10,
-          color: Color.white,
-          fontSize: FontSize.small_18,
-          fontFamily: FontFamily.light,
-        }}
-      >
-        {title}
-      </Typography>
       <Stack
         sx={{
           color: Color.white,
@@ -57,6 +45,15 @@ export default function TextDeclareColumn({
           {value || '0'}
         </Typography>
       </Stack>
+      <Typography
+        sx={{
+          color: Color.white,
+          fontSize: FontSize.small_18,
+          fontFamily: FontFamily.bold,
+        }}
+      >
+        {title}
+      </Typography>
     </Stack>
   );
 }

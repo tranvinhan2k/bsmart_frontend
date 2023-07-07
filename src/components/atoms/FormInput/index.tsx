@@ -9,7 +9,6 @@ import {
   DropdownDynamicValueInputStringDataPayload,
   OptionPayload,
 } from '~/models';
-import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
 import FileInput from './FileInput';
@@ -30,7 +29,6 @@ import FeedbackTypeInput from './FeedbackTypeInput';
 import DateTimePickerInput from './DateTimePickerInput';
 import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 import EditorInput from './EditorInput';
-import globalStyles from '~/styles';
 import { FontFamily, FontSize } from '~/assets/variables';
 
 interface FormInputProps {
@@ -48,8 +46,8 @@ interface FormInputProps {
   name: string;
   placeholder?: string;
   multilineRows?: number;
-  previewImgHeight?: number | '100%';
-  previewImgWidth?: number | '100%';
+  previewImgHeight?: number | string;
+  previewImgWidth?: number | string;
   variant?: FormInputVariant;
 }
 
@@ -65,8 +63,8 @@ const generateFormInput = (
   helperText: string,
   placeholder: string,
   multilineRows: number,
-  previewImgHeight: number | '100%',
-  previewImgWidth: number | '100%',
+  previewImgHeight: number | string,
+  previewImgWidth: number | string,
   variant: FormInputVariant
 ) => {
   switch (true) {

@@ -24,7 +24,7 @@ import {
   SchedulePage,
 } from '~/routes/components';
 
-export const mentorLMSRoutes: RoutePayload[] = [
+export const studentLMSRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => (
@@ -116,18 +116,8 @@ export const mentorLMSRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: MentorDashboardNavigationActionLink.attendance_list,
-    main: () => <MentorAttendanceListPage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
     path: MentorDashboardNavigationActionLink.view_member_attendance,
     main: () => <MentorViewStudentAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: MentorDashboardNavigationActionLink.take_attendance,
-    main: () => <MentorTakeAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {

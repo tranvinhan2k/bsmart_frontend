@@ -23,6 +23,7 @@ export const Color = {
   white3: '#f9f9f9',
   white4: '#eff3f6',
   white5: '#ebebeb',
+  border: '#dddddd',
 };
 
 export const BorderRadius = {
