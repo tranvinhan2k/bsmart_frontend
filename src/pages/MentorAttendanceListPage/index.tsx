@@ -5,6 +5,13 @@ import { scrollToTop } from '~/utils/common';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import columns from '~/constants/columns';
 import globalStyles from '~/styles';
+import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
+import CustomTab from '~/components/atoms/CustomTab';
+import Schedule from '~/components/molecules/Schedule';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 export default function MentorAttendanceListPage() {
   useEffect(() => {
@@ -35,7 +42,9 @@ export default function MentorAttendanceListPage() {
   ];
 
   const handleNavigateAttendance = () => {
-    navigate('/mentor-profile/take-attendance');
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.take_attendance}`
+    );
   };
 
   const menuList: MenuItemPayload[] = [
@@ -44,29 +53,44 @@ export default function MentorAttendanceListPage() {
       title: 'Điểm danh',
       onCLick: handleNavigateAttendance,
     },
-    {
-      icon: 'redo',
-      title: 'Điểm danh lại',
-      onCLick: handleNavigateAttendance,
-    },
-    {
-      icon: 'request',
-      title: 'Yêu cầu sửa điểm danh',
-      onCLick: () => {},
-    },
   ];
 
   return (
     <Stack>
-      <Typography sx={globalStyles.textSubTitle}>
-        Điểm danh lớp LTV-12
-      </Typography>
-      <Stack marginTop={1}>
-        <CRUDTable
-          title="Điếm danh lớp LTV12"
-          columns={columns.attendanceClassColumns}
-          rows={rows}
-          menuItemList={menuList}
+      <Typography sx={globalStyles.textTitle}>Điểm danh lớp LTV-12</Typography>
+      <Stack>
+        <CustomTab
+          tabContentList={[
+            {
+              label: 'Lịch học',
+              data: (
+                <Schedule
+                  data={[
+                    {
+                      className: 'Joker',
+                      date: new Date().toISOString(),
+                      dayOfWeekId: 1,
+                      id: 0,
+                      slotId: 1,
+                      isPresent: true,
+                      link: 'google.com',
+                    },
+                  ]}
+                />
+              ),
+            },
+            {
+              data: (
+                <CRUDTable
+                  title="Điếm danh lớp LTV12"
+                  columns={columns.attendanceClassColumns}
+                  rows={rows}
+                  menuItemList={menuList}
+                />
+              ),
+              label: 'Danh sách buổi học',
+            },
+          ]}
         />
       </Stack>
     </Stack>

@@ -26,32 +26,33 @@ import { useMutationTakeAttendance } from '~/hooks/useMutationTakeAttendance';
 import toast from '~/utils/toast';
 import { PresentStatusKeys } from '~/models/variables';
 import TextDeclareColumn from '~/components/atoms/TextDeclareColumn';
+import globalStyles from '~/styles';
 
-// const initRows = [
-//   {
-//     id: 0,
-//     image:
-//       'https://img2.thuthuatphanmem.vn/uploads/2019/05/06/anh-the-hoc-sinh_100828479.jpg',
-//     name: 'Trần Vĩ Nhân',
-//     note: 'Hello',
-//     isPresent: 'WAIT',
-//   },
-//   {
-//     id: 1,
-//     image:
-//       'https://khoinguonsangtao.vn/wp-content/uploads/2022/11/mau-anh-the-sac-net-nhat.jpeg',
-//     name: 'Nguyễn Văn A',
-//     note: 'Hello',
-//     isPresent: 'PRESENT',
-//   },
-//   {
-//     id: 2,
-//     image: 'https://www.uit.edu.vn/sites/vi/files/image_from_word/va.jpeg',
-//     name: 'Trần Văn B',
-//     note: 'Hello',
-//     isPresent: 'ABSENT',
-//   },
-// ];
+const initRows = [
+  {
+    id: 0,
+    image:
+      'https://img2.thuthuatphanmem.vn/uploads/2019/05/06/anh-the-hoc-sinh_100828479.jpg',
+    name: 'Trần Vĩ Nhân',
+    note: 'Hello',
+    isPresent: 'WAIT',
+  },
+  {
+    id: 1,
+    image:
+      'https://khoinguonsangtao.vn/wp-content/uploads/2022/11/mau-anh-the-sac-net-nhat.jpeg',
+    name: 'Nguyễn Văn A',
+    note: 'Hello',
+    isPresent: 'PRESENT',
+  },
+  {
+    id: 2,
+    image: 'https://www.uit.edu.vn/sites/vi/files/image_from_word/va.jpeg',
+    name: 'Trần Văn B',
+    note: 'Hello',
+    isPresent: 'ABSENT',
+  },
+];
 
 export default function MentorTakeAttendancePage() {
   const navigate = useNavigate();
@@ -191,25 +192,25 @@ export default function MentorTakeAttendancePage() {
       id: 0,
       name: 'Tổng số học sinh',
       value: `${attendances?.attendanceResponses?.totalItems || 0}`,
-      color: '#0079FF',
+      color: '#ddd',
     },
     {
       id: 1,
       name: 'Có mặt',
       value: `${totalPresentStudent || 0}`,
-      color: '#00DFA2',
+      color: '#ddd',
     },
     {
       id: 2,
       name: 'Vắng',
       value: `${totalAbsentStudent || 0}`,
-      color: '#FF0060',
+      color: '#ddd',
     },
     {
       id: 3,
       name: 'Chưa điểm danh',
       value: `${totalWaitStudent || 0}`,
-      color: '#F6FA70',
+      color: '#ddd',
     },
   ];
 
@@ -217,11 +218,11 @@ export default function MentorTakeAttendancePage() {
     <Stack
       sx={{
         paddingX: { xs: MetricSize.medium_15, md: MetricSize.large_20 },
-        background: Color.white,
         paddingY: MetricSize.large_20,
         borderRadius: MetricSize.small_5,
       }}
     >
+      <Typography sx={globalStyles.textTitle}>Điểm danh</Typography>
       <Stack
         sx={{
           justifyContent: 'space-between',
@@ -229,54 +230,13 @@ export default function MentorTakeAttendancePage() {
         }}
       >
         <Stack>
-          <Typography>Điểm danh</Typography>
           <Typography
             sx={{
-              fontSize: FontSize.medium_28,
-              fontFamily: FontFamily.regular,
-              color: Color.orange,
+              ...globalStyles.textSmallLight,
             }}
           >{`${attendanceInformation?.slot?.name} - Ngày ${formatDate(
             attendanceInformation?.date
           )}`}</Typography>
-          <FormControlLabel
-            control={
-              <Switch
-                color="secondary"
-                checked={showImage}
-                onChange={() => {
-                  setShowImage(!showImage);
-                }}
-              />
-            }
-            label="Hiển thị hình ảnh"
-          />
-        </Stack>
-        <Stack
-          sx={{
-            justifyContent: 'flex-start',
-            alignItems: { xs: 'flex-start', md: 'flex-end', marginTop: 2 },
-          }}
-        >
-          <Typography>Thời gian còn lại</Typography>
-          <Typography
-            sx={{
-              fontSize: FontSize.medium_28,
-              fontFamily: FontFamily.regular,
-              color: Color.black,
-              textAlign: 'end',
-            }}
-          >
-            {attendanceInformation && Date.now() <= timeSlotHour.getTime() ? (
-              Date.now() < timeStartSlotHour.getTime() ? (
-                <span>Chưa tới giờ điểm danh</span>
-              ) : (
-                <Countdown date={timeSlotHour.getTime()} />
-              )
-            ) : (
-              <span>Đã hết thời gian điểm danh</span>
-            )}
-          </Typography>
         </Stack>
       </Stack>
       <Stack

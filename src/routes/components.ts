@@ -122,3 +122,4 @@ export const MentorCourseDetailPage = lazy(
 export const MentorAttendanceListPage = lazy(
   () => import('~/pages/MentorAttendanceListPage')
 );
+export const SchedulePage = lazy(() => import('~/pages/SchedulePage'));
