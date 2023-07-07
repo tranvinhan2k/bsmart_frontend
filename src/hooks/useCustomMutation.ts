@@ -1,13 +1,19 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import coursesApi from '~/api/courses';
+import {
+  MutationFunction,
+  MutationKey,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 
-export const useMutationCreateContent = () => {
-  const key = 'create_content';
+export const useCustomMutation = (
+  key: MutationKey,
+  callback: MutationFunction<any, any> | undefined
+) => {
   const queryClient = useQueryClient();
 
   const mutationResult = useMutation({
     mutationKey: [key],
-    mutationFn: coursesApi.createCourseContent,
+    mutationFn: callback,
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: [key] });

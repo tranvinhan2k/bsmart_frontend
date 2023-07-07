@@ -6,10 +6,15 @@ import {
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
 } from '~/models/class';
+import { PostClassPayload } from '~/models/request';
 
 const url = '/classes';
 
 const classApi = {
+  addClassForCourse({ id, param }: { id: number; param: PostClassPayload }) {
+    return axiosClient.post(`${url}/course/${id}`, param);
+  },
+
   getClassDetails({
     id,
   }: ClassGetDetailsPayload): Promise<ClassDetailsPayload | undefined> {
