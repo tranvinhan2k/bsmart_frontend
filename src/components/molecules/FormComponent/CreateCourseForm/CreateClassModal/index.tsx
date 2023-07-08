@@ -7,6 +7,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
+import { handleConsoleError } from '~/utils/common';
 
 interface CreateClassModalProps {
   open: boolean;
@@ -73,7 +74,6 @@ export default function CreateClassModal({
             sx={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              alignItems: 'center',
               gap: 1,
             }}
           >
@@ -105,7 +105,6 @@ export default function CreateClassModal({
           <Stack
             sx={{
               justifyContent: 'space-between',
-              alignItems: 'center',
               flexDirection: 'row',
               gap: 1,
             }}
@@ -139,7 +138,7 @@ export default function CreateClassModal({
           />
           <Stack marginTop={2} />
           <Button
-            onClick={hookForm.handleSubmit(onSubmit)}
+            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
             customVariant="horizonForm"
           >
             Tạo giờ học

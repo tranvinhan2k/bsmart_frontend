@@ -141,30 +141,27 @@ export const useCreateClassesForm = (
       const imageId = await uploadImage(data.imageId);
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
-        const param: PostClassPayload[] = [
-          {
-            level: data.level.value,
-            endDate: data.endDateExpected,
-            imageId,
-            maxStudent: data.maxStudent,
-            minStudent: data.minStudent,
-            numberOfSlot: data.numberOfSlot,
-            price: data.price,
-            startDate: data.startDateExpected,
-            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-              dayOfWeekId: item.dayOfWeek.id,
-              slotId: item.slot.id,
-            })),
-          },
-        ];
-
-        const response = await handleTryCatch(async () =>
+        const param: PostClassPayload = {
+          level: data.level.value,
+          endDate: data.endDateExpected,
+          imageId,
+          maxStudent: data.maxStudent,
+          minStudent: data.minStudent,
+          numberOfSlot: data.numberOfSlot,
+          price: data.price,
+          startDate: data.startDateExpected,
+          timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+            dayOfWeekId: item.dayOfWeek.id,
+            slotId: item.slot.id,
+          })),
+        };
+        await handleTryCatch(async () =>
           mutation.mutateAsync({
             id,
             param,
           })
         );
-
+        createSubCourseHookForm.reset();
         // onChangeClass([...classes, param]);
       } else {
         toast.notifyErrorToast('Thêm hình ảnh không thành công !');

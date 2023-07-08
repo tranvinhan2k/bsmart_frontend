@@ -42,6 +42,11 @@ export default function CreateClassesForm({
     await deleteTryCatch.handleTryCatch(() => onSleep(true));
   };
 
+  const handleCreateClass = async (data: any) => {
+    await onAddNewClass(data);
+    onTriggerModal();
+  };
+
   return (
     <Box marginTop={2}>
       <Stack>
@@ -60,7 +65,7 @@ export default function CreateClassesForm({
             levels={levels}
             types={types}
             onClose={onTriggerModal}
-            onSubmit={onAddNewClass}
+            onSubmit={handleCreateClass}
           />
         )}
         {mode === 'UPDATE' && (

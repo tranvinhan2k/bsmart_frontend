@@ -3,7 +3,6 @@ export * from './useYupValidationResolver';
 export * from './image/useMutationUploadImage';
 export * from './image/useMutationUploadClassImage';
 
-export * from './useMutationCreateCourse';
 export * from './useMutationSignUp';
 export * from './useMutationLogin';
 export * from './useMutationProfile';
@@ -14,6 +13,7 @@ export * from './content/useMutationAddContent';
 export * from './course/useQueryGetMentorCourses';
 export * from './course/useMutationUpdateCourse';
 export * from './course/useMutationDeleteCourse';
+export * from './course/useMutationCreateCourse';
 
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';
@@ -48,3 +48,6 @@ export * from './useTimeOut';
 
 export * from './useCustomMutation';
 export * from './useCustomQuery';
+
+export * from './mock/useMockMutation';
+export * from './mock/useMockQuery';

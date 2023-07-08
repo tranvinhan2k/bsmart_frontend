@@ -198,7 +198,11 @@ export default function FormInput({
   const controller = useController({ name, defaultValue, control });
 
   return (
-    <Stack flexGrow={1}>
+    <Stack
+      sx={{
+        flex: '1 1 0',
+      }}
+    >
       <Typography
         sx={{
           fontSize: FontSize.small_14,

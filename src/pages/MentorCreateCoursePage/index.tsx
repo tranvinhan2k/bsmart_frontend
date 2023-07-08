@@ -35,12 +35,9 @@ export default function MentorCreateCoursePage() {
   const { handleTryCatch } = useTryCatch('tạo khóa học');
 
   const handleCreateCourse = async (paramCourse: PostCoursePayload) => {
-    // ToDO: Goi api create course o day
     const response: number = await handleTryCatch(async () =>
       mutationResult.mutateAsync(paramCourse)
     );
-
-    console.log('response', response);
 
     navigate(
       `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${response}`
