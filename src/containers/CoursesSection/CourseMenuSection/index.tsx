@@ -1,11 +1,8 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Grid, Stack, Typography } from '@mui/material';
-import Skeleton from 'react-loading-skeleton';
+import { Grid, Skeleton, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from '~/utils/toast';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import CourseItem from '~/components/molecules/CourseItem';
 import { PagingFilterPayload } from '~/models';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
@@ -67,9 +64,20 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
           alignContent="space-around"
           alignItems="stretch"
         >
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item) => (
-            <CourseItem isSkeleton key={item} />
-          ))}
+          {Array(24).fill(
+            <Stack
+              sx={{
+                marginBottom: MetricSize.medium_15,
+                marginLeft: '15px',
+                borderColor: Color.grey,
+                width: { xs: '100%', md: '23%' },
+                borderRadius: MetricSize.small_5,
+                justifyContent: 'space-between',
+              }}
+            >
+              <Skeleton height={400} />
+            </Stack>
+          )}
         </Stack>
       );
       break;

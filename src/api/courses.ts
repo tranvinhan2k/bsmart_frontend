@@ -213,18 +213,21 @@ const coursesApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
-    const result: CoursePayload[] = response.items.map((item: any) => ({
-      id: item.id,
-      content: item.content,
-      courseCode: item.courseCode,
-      courseDescription: item.courseDescription,
-      courseName: item.courseName,
-      images: item.images,
-      mentorName: item.mentorName,
-      subjectId: item.subjectId,
-      subjectName: item.subjectName,
-      totalClass: item.totalClass,
-    }));
+    const result: CoursePayload[] = (response.items as any[]).map(
+      (item: any) => ({
+        id: item.id,
+        content: item.content,
+        courseCode: item.courseCode,
+        courseDescription: item.courseDescription,
+        courseName: item.courseName,
+        images: item.images,
+        mentorName: item.mentorName,
+        subjectId: item.subjectId,
+        subjectName: item.subjectName,
+        totalClass: item.totalClass,
+        status: item.status,
+      })
+    );
     return { ...response, items: result };
   },
   async getMentorCourses(
@@ -235,18 +238,21 @@ const coursesApi = {
       paramsSerializer: { indexes: null },
     });
 
-    const result: CoursePayload[] = response.items.map((item: any) => ({
-      id: item.id,
-      content: item.content,
-      courseCode: item.courseCode,
-      courseDescription: item.courseDescription,
-      courseName: item.courseName,
-      images: item.images,
-      mentorName: item.mentorName,
-      subjectId: item.subjectId,
-      subjectName: item.subjectName,
-      totalClass: item.totalClass,
-    }));
+    const result: CoursePayload[] = (response.items as any[]).map(
+      (item: any) => ({
+        id: item.id,
+        content: item.content,
+        courseCode: item.courseCode,
+        courseDescription: item.courseDescription,
+        courseName: item.courseName,
+        images: item.images,
+        mentorName: item.mentorName,
+        subjectId: item.subjectId,
+        subjectName: item.subjectName,
+        totalClass: item.totalClass,
+        status: item.status,
+      })
+    );
 
     return { ...response, items: result };
   },

@@ -1,5 +1,7 @@
 import {
   AccountStatusKeys,
+  CourseStatusKeys,
+  CourseTypeKeys,
   GenderKeys,
   ImageKeys,
   RoleKeys,
@@ -86,4 +88,5 @@ export interface CoursePayload {
   courseDescription: string;
   totalClass: number;
   mentorName: string[];
+  status: CourseStatusKeys;
 }

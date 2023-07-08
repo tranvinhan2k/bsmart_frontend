@@ -7,14 +7,35 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import { CoursePayload } from '~/models/type';
+import { image } from '~/constants/image';
 
 interface MentorCourseItemProps {
-  item?: any;
+  item: CoursePayload;
   isSkeleton?: boolean;
 }
 
 export default function MentorCourseItem({
-  item,
+  item = {
+    courseCode: '',
+    courseDescription: '',
+    courseName: '',
+    id: 0,
+    images: [
+      {
+        id: 0,
+        name: 'hello',
+        status: true,
+        type: 'COURSE',
+        url: image.noCourse,
+      },
+    ],
+    mentorName: [''],
+    subjectId: 0,
+    subjectName: '',
+    totalClass: 0,
+    status: 'REQUESTING',
+  },
   isSkeleton = false,
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
@@ -47,8 +68,8 @@ export default function MentorCourseItem({
       courseDescription={item.courseDescription}
       courseName={item.courseName}
       imageAlt="Hình ảnh khóa học"
-      imageUrl={item.imageUrl}
-      courseType={item.courseType}
+      imageUrl={item.images?.[0]?.url}
+      courseType=""
       courseStatus={item.status}
       onClick={handleNavigateCourseDetail}
     />
@@ -57,5 +78,4 @@ export default function MentorCourseItem({
 
 MentorCourseItem.defaultProps = {
   isSkeleton: false,
-  item: undefined,
 };

@@ -13,9 +13,8 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useQueryGetMentorCourses, useTimeOut, useTryCatch } from '~/hooks';
+import { useQueryGetMentorCourses } from '~/hooks';
 import { PagingRequestPayload } from '~/models';
-import { CoursePayload } from '~/models/type';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
@@ -41,13 +40,11 @@ export default function MentorCourseListPage() {
     status: 'ALL',
     q: '',
   });
+
   const [value, setValue] = useState(0);
 
-  const { courses, error, isLoading } = useQueryGetMentorCourses(filterParams);
-
-  const totalPages = 10;
-
-  const currentPage = 0;
+  const { courses, error, isLoading, currentPage, totalPages } =
+    useQueryGetMentorCourses(filterParams);
 
   // parameters
   const chosenClassStatus = CourseStatusList.find(
@@ -154,14 +151,13 @@ export default function MentorCourseListPage() {
           {chosenClassStatus?.content}
         </Typography>
       </Stack>
-
-      <Grid container sx={{ width: '100%' }}>
-        <LoadingWrapper
-          error={error}
-          isLoading={isLoading}
-          isEmptyCourse={courses?.length === 0}
-        >
-          {courses?.map((item: any) => (
+      <LoadingWrapper
+        error={error}
+        isLoading={isLoading}
+        isEmptyCourse={courses?.length === 0}
+      >
+        <Grid container sx={{ width: '100%' }}>
+          {courses?.map((item) => (
             <Grid
               item
               xs={12}
@@ -172,8 +168,9 @@ export default function MentorCourseListPage() {
               <MentorCourseItem item={item} key={item.id} />
             </Grid>
           ))}
-        </LoadingWrapper>
-      </Grid>
+        </Grid>
+      </LoadingWrapper>
+
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >
