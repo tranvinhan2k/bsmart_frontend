@@ -9,7 +9,7 @@ export const SX_CHECKBOX_STACK: SxProps<Theme> = {
 };
 export const SX_CHECKBOX: SxProps<Theme> = {
   '&.Mui-checked': {
-    color: Color.orange,
+    color: Color.tertiary,
   },
 };
 export const SX_CHECKBOX_TYPOGRAPHY: SxProps<Theme> = {

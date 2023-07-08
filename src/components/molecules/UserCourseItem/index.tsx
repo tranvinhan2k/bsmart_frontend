@@ -100,7 +100,7 @@ export default function UserCourseItem({
             left: 0,
             right: 0,
             bottom: 0,
-
+            zIndex: 2,
             transition: 'all 500ms ease',
             backdropFilter: 'blur(0px)',
             borderRadius: MetricSize.small_5,
@@ -136,14 +136,15 @@ export default function UserCourseItem({
         <Box
           sx={{
             position: 'absolute',
-            top: MetricSize.small_10,
-            left: MetricSize.small_10,
-            padding: MetricSize.small_10,
+            top: MetricSize.small_5,
+            left: MetricSize.small_5,
+            padding: 1,
             borderRadius: MetricSize.small_5,
-            background: `${Color.blue}55`,
+            background: `${Color.tertiary}55`,
             backdropFilter: 'blur(10px)',
             color: Color.white,
-            fontFamily: FontFamily.bold,
+            fontFamily: FontFamily.regular,
+            fontSize: FontSize.small_14,
           }}
         >
           {CourseStatusList.find((item) => item.value === courseStatus)?.label}
@@ -226,7 +227,7 @@ export default function UserCourseItem({
                 }}
               >
                 {courseTeacherName.map((item, index) => (
-                  <span key={item}>{`${index !== 0 && ', '} ${item} `}</span>
+                  <span key={index}>{`${index !== 0 && ', '} ${item} `}</span>
                 ))}
               </Typography>
             )}
@@ -236,9 +237,8 @@ export default function UserCourseItem({
                 fontFamily: FontFamily.light,
                 color: Color.grey,
               }}
-            >
-              {courseDescription}
-            </Typography>
+              dangerouslySetInnerHTML={{ __html: courseDescription || '' }}
+            />
           </Stack>
           <Stack
             spacing={1}
@@ -254,7 +254,7 @@ export default function UserCourseItem({
               <Box>
                 <Tag
                   title={courseTypeData[courseType as CourseTypeDataKeys]}
-                  color="orange"
+                  color="tertiary"
                 />
               </Box>
             )}

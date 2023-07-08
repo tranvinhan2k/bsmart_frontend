@@ -21,7 +21,7 @@ export const SX_NAVIGATION_COVER_STACK: SxProps<Theme> = {
   width: '100%',
 };
 export const SX_MAIN_TITLE: SxProps<Theme> = {
-  color: Color.orange,
+  color: Color.tertiary,
   fontSize: FontSize.medium_24,
   fontFamily: FontFamily.bold,
 };
@@ -54,7 +54,7 @@ export const SX_NAVIGATION_STACK: SxProps<Theme> = {
 export const SX_NAVIGATION_TITLE: SxProps<Theme> = {
   fontSize: FontSize.large_45,
   fontFamily: FontFamily.medium,
-  color: Color.orange,
+  color: Color.tertiary,
   textAlign: 'center',
 };
 export const SX_BREADCRUMB_TITLE: SxProps<Theme> = {

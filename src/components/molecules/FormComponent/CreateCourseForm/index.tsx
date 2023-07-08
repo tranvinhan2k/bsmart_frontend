@@ -99,6 +99,8 @@ CreateCourseFormProps) {
       </Stack>
       <Stack marginTop={2}>
         <Button
+          color="secondary"
+          sx={{ color: Color.white }}
           onClick={createCourseHookForm.handleSubmit(handleCreateCourse)}
           variant="contained"
         >

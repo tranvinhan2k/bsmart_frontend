@@ -14,7 +14,7 @@ import Carousel, {
 } from 'react-elastic-carousel';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import { CoursePayload } from '~/models/courses';
+import { CoursePayload } from '~/models/type';
 import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
 import UserCourseItem from '../UserCourseItem';

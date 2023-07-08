@@ -57,7 +57,7 @@ export default function BlogItem({ item }: BlogItemProps) {
             gap={2}
             key={blogTag.id}
           >
-            <Icon name={blogTag.icon} size="medium" color="orange" />
+            <Icon name={blogTag.icon} size="medium" color="tertiary" />
             <Typography component="h3" sx={SX_CARD_LIST_TEXT}>
               {blogTag.tittle}
             </Typography>

@@ -22,7 +22,7 @@ const H2: SxProps<Theme> = {
 };
 
 const H4: SxProps<Theme> = {
-  color: Color.orange,
+  color: Color.tertiary,
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.semiBold,
   lineHeight: 1.3,

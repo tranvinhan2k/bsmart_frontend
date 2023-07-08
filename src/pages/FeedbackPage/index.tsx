@@ -23,7 +23,7 @@ export default function FeedbackPage() {
           fontSize: FontSize.medium_28,
           fontFamily: FontFamily.bold,
           textAlign: 'center',
-          color: Color.orange,
+          color: Color.tertiary,
           paddingY: MetricSize.small_5,
         }}
       >

@@ -217,8 +217,12 @@ export const validationSchemaEditSocialProfile = object({
   instagram: string(),
 });
 export const validationSchemaTimeTable = object({
-  slot: object().required('Hãy nhập khung giờ học của bạn'),
-  dayOfWeek: object().required('Hãy nhập thứ của bạn'),
+  slot: object()
+    .typeError('Ngày của tuần không hợp lệ')
+    .required('Hãy nhập khung giờ học của bạn'),
+  dayOfWeek: object()
+    .typeError('Giờ học không phù hợp')
+    .required('Hãy nhập thứ của bạn'),
 });
 
 export const validationSchemaFeedbackMentor = object({
@@ -278,7 +282,9 @@ export const validationSchemaCreateSubCourse = object({
   startDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống'),
-  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
+  timeInWeekRequests: array()
+    .min(1, 'Thời khóa biểu phải có ít nhất một giá trị')
+    .required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống')
@@ -330,7 +336,9 @@ export const validationSchemaUpdateWaitingCourse = object({
   startDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống'),
-  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
+  timeInWeekRequests: array()
+    .min(1, 'Thời khóa biểu phải có ít nhất một giá trị')
+    .required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống')

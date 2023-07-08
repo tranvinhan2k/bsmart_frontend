@@ -168,9 +168,9 @@ export default function ClassItem({
                   marginTop: 2,
                 }}
               >
-                {appBar.map((item) => (
+                {appBar.map((item, index) => (
                   <Stack
-                    key={item.icon}
+                    key={index}
                     sx={{
                       flexDirection: 'row',
                       marginRight: 2,

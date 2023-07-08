@@ -16,11 +16,7 @@ interface CreateSectionModulePayload {
 }
 
 export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang thêm bài học mới...',
-    success: 'Thêm bài học thành công',
-    error: 'Thêm bài học thất bại',
-  });
+  const { handleTryCatch } = useTryCatch('thêm bài học mới');
   const { onSleep } = useTimeOut(1000);
 
   const resolver = useYupValidationResolver(validationClassContentModule);

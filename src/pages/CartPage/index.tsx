@@ -119,7 +119,7 @@ export default function CartPage() {
                   handleDeleteCourseFromCart(Number(row.row.cartItemId))
                 }
               >
-                <Icon name="delete" size="medium" color="orange" />
+                <Icon name="delete" size="medium" color="tertiary" />
               </IconButton>
             </Tooltip>
           </Stack>

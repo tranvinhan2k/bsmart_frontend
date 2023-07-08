@@ -74,12 +74,15 @@ export const SX_SHADOW: SxProps<Theme> = {
   elevation: 4,
 };
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
-  maxHeight: '50px',
+  // maxHeight: '50px',
   input: {
     fontFamily: FontFamily.regular,
     fontSize: FontSize.small_14,
     background: Color.white,
     height: MetricSize.formInputHeight,
+  },
+  '.MuiFormHelperText-root': {
+    marginX: 0,
   },
 };
 export const SX_DATAGRID_CELL_TEXT: SxProps<Theme> = {

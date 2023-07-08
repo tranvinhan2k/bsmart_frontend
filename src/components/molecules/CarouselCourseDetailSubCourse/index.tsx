@@ -17,7 +17,7 @@ import Carousel, {
 } from 'react-elastic-carousel';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import { CoursePayload } from '~/models/courses';
+import { CoursePayload } from '~/models/type';
 import Button from '~/components/atoms/Button';
 import { SubCoursePayload } from '~/models/subCourse';
 import { formatDate } from '~/utils/date';
@@ -91,7 +91,7 @@ export default function CarouselCourseDetailSubCourse({
       <Stack
         sx={{
           background: '#eee',
-          borderColor: item.isChosen ? Color.orange : Color.transparent,
+          borderColor: item.isChosen ? Color.tertiary : Color.transparent,
           borderWidth: '2px',
           borderRadius: '5px',
           borderStyle: 'solid',

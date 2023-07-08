@@ -30,11 +30,7 @@ export default function CreateClassesForm({
   } = useCreateClassesForm(id, classes, onChangeClasses);
 
   const { error, handleTryCatch, isLoading } = useTryCatch();
-  const deleteTryCatch = useTryCatch({
-    error: 'Xóa lớp học thất bại',
-    loading: 'Đang xóa lớp học...',
-    success: 'Xóa lớp học thành công',
-  });
+  const deleteTryCatch = useTryCatch('xóa lớp học');
   const { onSleep } = useTimeOut(1000);
 
   useEffect(() => {
@@ -44,6 +40,11 @@ export default function CreateClassesForm({
 
   const handleDeleteClass = async () => {
     await deleteTryCatch.handleTryCatch(() => onSleep(true));
+  };
+
+  const handleCreateClass = async (data: any) => {
+    await onAddNewClass(data);
+    onTriggerModal();
   };
 
   return (
@@ -64,7 +65,7 @@ export default function CreateClassesForm({
             levels={levels}
             types={types}
             onClose={onTriggerModal}
-            onSubmit={onAddNewClass}
+            onSubmit={handleCreateClass}
           />
         )}
         {mode === 'UPDATE' && (

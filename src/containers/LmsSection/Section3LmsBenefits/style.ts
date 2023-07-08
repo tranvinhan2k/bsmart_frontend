@@ -23,7 +23,7 @@ const H3: SxProps<Theme> = {
 const H4: SxProps<Theme> = {
   paddingTop: MetricSize.large_20,
   marginBottom: MetricSize.large_20,
-  color: Color.orange,
+  color: Color.tertiary,
   lineHeight: '30px',
   letterSpacing: '2px',
   fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ const IMG: SxProps<Theme> = {
 const H3_BENEFIT: SxProps<Theme> = {
   paddingTop: MetricSize.large_20,
   fontSize: FontSize.medium_24,
-  color: Color.orange,
+  color: Color.tertiary,
   lineHeight: '30px',
   fontWeight: FontWeight.medium,
 };

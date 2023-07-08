@@ -6,6 +6,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
 import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
+import { handleConsoleError } from '~/utils/common';
 
 interface UpdateClassModalProps {
   open: boolean;
@@ -30,7 +31,7 @@ export default function UpdateClassModal({
       <Stack
         sx={{
           background: 'white',
-          width: { xs: '100%', md: '60vw' },
+          // width: { xs: '100%', md: '60vw' },
           paddingX: 4,
         }}
       >
@@ -52,30 +53,26 @@ export default function UpdateClassModal({
               label="Giá khóa học"
             />
           </Stack>
-          <Stack marginTop={2}>
-            <FormInput
-              data={types}
-              variant="dropdown"
-              name={CREATE_SUB_COURSE_FIELDS.type}
-              control={hookForm.control}
-              label="Hình thức khóa học"
-            />
-          </Stack>
-
-          <Stack marginTop={2}>
-            <FormInput
-              variant="image"
-              name={CREATE_SUB_COURSE_FIELDS.imageId}
-              control={hookForm.control}
-              label="Hình ảnh"
-            />
-          </Stack>
+          <Stack marginTop={2} />
+          <FormInput
+            data={types}
+            variant="dropdown"
+            name={CREATE_SUB_COURSE_FIELDS.type}
+            control={hookForm.control}
+            label="Hình thức khóa học"
+          />
+          <Stack marginTop={2} />
+          <FormInput
+            variant="image"
+            name={CREATE_SUB_COURSE_FIELDS.imageId}
+            control={hookForm.control}
+            label="Hình ảnh"
+          />
+          <Stack marginTop={2} />
           <Stack
-            marginTop={2}
             sx={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              alignItems: 'center',
               gap: 1,
             }}
           >
@@ -92,24 +89,21 @@ export default function UpdateClassModal({
               label="Số học sinh tối đa"
             />
           </Stack>
-          <Stack marginTop={2}>
-            <FormInput
-              data={levels}
-              variant="radioGroup"
-              name={CREATE_SUB_COURSE_FIELDS.level}
-              control={hookForm.control}
-              label="Trình độ"
-            />
-          </Stack>
-          <Stack marginTop={2}>
-            <Typography sx={globalStyles.textSmallLabel}>
-              Thông tin giờ học
-            </Typography>
-          </Stack>
+          <Stack marginTop={2} />
+          <FormInput
+            data={levels}
+            variant="radioGroup"
+            name={CREATE_SUB_COURSE_FIELDS.level}
+            control={hookForm.control}
+            label="Trình độ"
+          />
+          <Stack marginTop={2} />
+          <Typography sx={globalStyles.textSmallLabel}>
+            Thông tin giờ học
+          </Typography>
           <Stack
             sx={{
               justifyContent: 'space-between',
-              alignItems: 'center',
               flexDirection: 'row',
               gap: 1,
             }}
@@ -127,27 +121,26 @@ export default function UpdateClassModal({
               label="Ngày kết thúc dự kiến"
             />
           </Stack>
-          <Stack marginTop={2}>
-            <FormInput
-              name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
-              variant="number"
-              control={hookForm.control}
-              label="Số buổi học"
-            />
-          </Stack>
-          <Stack marginTop={2}>
-            <FormInput
-              name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
-              variant="timetable"
-              control={hookForm.control}
-              label="Thời khóa biểu"
-            />
-          </Stack>
+          <Stack marginTop={2} />
+          <FormInput
+            name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
+            variant="number"
+            control={hookForm.control}
+            label="Số buổi học"
+          />
+          <Stack marginTop={2} />
+          <FormInput
+            name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
+            variant="timetable"
+            control={hookForm.control}
+            label="Thời khóa biểu"
+          />
+          <Stack marginTop={2} />
           <Button
-            onClick={hookForm.handleSubmit(onSubmit)}
+            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
             customVariant="horizonForm"
           >
-            Cập nhật lớp học
+            Tạo giờ học
           </Button>
         </Stack>
       </Stack>

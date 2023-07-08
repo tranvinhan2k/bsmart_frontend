@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 import Icon from '../Icon';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import globalStyles from '~/styles';
+import globalStyles, { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface ImageInputProps {
   controller: UseControllerReturn<any, string>;
@@ -60,11 +60,11 @@ export default function ImageInput({
       <TextField
         type="file"
         sx={{
+          ...SX_TEXT_INPUT_FORM,
           height: previewUrl ? 0 : '100%',
           opacity: previewUrl ? 0 : 1,
           ':hover': {
             cursor: 'pointer',
-            background: Color.white3,
           },
           input: {
             paddingX: 0,
@@ -72,7 +72,7 @@ export default function ImageInput({
             opacity: 0,
             ':hover': {
               cursor: 'pointer',
-              background: Color.white3,
+              background: Color.grey,
             },
           },
         }}

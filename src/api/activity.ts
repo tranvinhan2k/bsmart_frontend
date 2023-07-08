@@ -18,8 +18,6 @@ const activityApi = {
     id: number;
     param: PostActivityCoursePayload;
   }): Promise<any> {
-    console.log(param);
-
     return axiosClient.post(`${url}/course/${id}`, param);
   },
 };

@@ -10,7 +10,7 @@ const WRAPPER: SxProps<Theme> = {
 };
 
 const H2: SxProps<Theme> = {
-  color: Color.orange,
+  color: Color.tertiary,
   fontSize: { xs: FontSize.medium_28, sm: '50px' },
   fontWeight: FontWeight.bold,
   marginBottom: MetricSize.large_20,

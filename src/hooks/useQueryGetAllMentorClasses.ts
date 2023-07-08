@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import coursesApi from '~/api/courses';
 import accountApi from '~/api/users';
-import { RequestPagingFilterPayload } from '~/models';
+import { PagingRequestPayload } from '~/models';
 
 export const useQueryGetAllMentorClasses = (
-  filterParams: RequestPagingFilterPayload
+  filterParams: PagingRequestPayload
 ) => {
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['member_class', filterParams],

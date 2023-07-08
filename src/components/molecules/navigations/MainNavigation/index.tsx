@@ -14,7 +14,13 @@ import {
 
 import { useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
+import {
+  ActionPayload,
+  ContractPayload,
+  PagingFilterPayload,
+  PagingRequestPayload,
+  SocialPayload,
+} from '~/models';
 
 import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
@@ -48,16 +54,7 @@ interface NavigationProps {
   cart: ResponseCartItem | undefined;
   courses: CoursePayload[] | undefined;
   role: Role | null;
-  filterParams: {
-    q: string | undefined;
-    categoryId: number[] | undefined;
-    subjectId: number[] | undefined;
-    page: number;
-    size: number;
-    sort: string[] | undefined;
-    provinces: number[] | undefined;
-    types: number[] | undefined;
-  } | null;
+  filterParams: PagingRequestPayload;
   pathName: string;
   pages: ActionPayload[];
   socials: SocialPayload[];
@@ -119,7 +116,7 @@ export default function MainNavigation({
                     fontFamily: FontFamily.bold,
                     fontSize: FontSize.small_16,
                     color: pathName.includes(item.link)
-                      ? Color.orange
+                      ? Color.tertiary
                       : Color.navy,
                   }}
                 >

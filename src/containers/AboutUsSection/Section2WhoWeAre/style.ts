@@ -20,7 +20,7 @@ const H5: SxProps<Theme> = {
   lineHeight: '26px',
   fontWeight: FontWeight.semiBold,
   textTransform: 'uppercase',
-  color: Color.orange,
+  color: Color.tertiary,
   letterSpacing: 1,
 };
 

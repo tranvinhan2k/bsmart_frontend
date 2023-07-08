@@ -30,11 +30,7 @@ export const useCreateClassesForm = (
   const mutation = useCreateCourseClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
-  const { handleTryCatch } = useTryCatch({
-    error: 'Thêm lớp học thất bại',
-    loading: 'Đang thêm lớp học...',
-    success: 'Thêm lớp học mới thành công',
-  });
+  const { handleTryCatch } = useTryCatch('thêm lớp học');
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse
@@ -145,30 +141,27 @@ export const useCreateClassesForm = (
       const imageId = await uploadImage(data.imageId);
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
-        const param: PostClassPayload[] = [
-          {
-            level: data.level.value,
-            endDate: data.endDateExpected,
-            imageId,
-            maxStudent: data.maxStudent,
-            minStudent: data.minStudent,
-            numberOfSlot: data.numberOfSlot,
-            price: data.price,
-            startDate: data.startDateExpected,
-            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-              dayOfWeekId: item.dayOfWeek.id,
-              slotId: item.slot.id,
-            })),
-          },
-        ];
-
-        const response = await handleTryCatch(async () =>
+        const param: PostClassPayload = {
+          level: data.level.value,
+          endDate: data.endDateExpected,
+          imageId,
+          maxStudent: data.maxStudent,
+          minStudent: data.minStudent,
+          numberOfSlot: data.numberOfSlot,
+          price: data.price,
+          startDate: data.startDateExpected,
+          timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+            dayOfWeekId: item.dayOfWeek.id,
+            slotId: item.slot.id,
+          })),
+        };
+        await handleTryCatch(async () =>
           mutation.mutateAsync({
             id,
             param,
           })
         );
-
+        createSubCourseHookForm.reset();
         // onChangeClass([...classes, param]);
       } else {
         toast.notifyErrorToast('Thêm hình ảnh không thành công !');

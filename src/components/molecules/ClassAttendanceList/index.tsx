@@ -68,7 +68,7 @@ export default function ClassAttendanceList({
           sx={{
             fontSize: FontSize.medium_28,
             fontFamily: FontFamily.bold,
-            color: Color.orange,
+            color: Color.tertiary,
           }}
         >
           Điểm danh

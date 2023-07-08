@@ -1,10 +1,5 @@
 import axiosClient from '~/api/axiosClient';
-import {
-  ImagePayload,
-  PagingFilterPayload,
-  RequestPagingFilterPayload,
-} from '~/models';
-import { image } from '~/constants/image';
+import { PagingFilterPayload, PagingRequestPayload } from '~/models';
 import { MentorPayload, MentorQuickPayload } from '~/models/mentor';
 import { ProfileImgType } from '~/constants/profile';
 
@@ -64,11 +59,6 @@ export interface ResponseGetMentorPayload {
   workingExperience: string;
 }
 
-export interface RequestGetMentorPayload extends RequestPagingFilterPayload {
-  q?: string | undefined;
-  skills?: number[] | undefined;
-}
-
 function handleResponseGetMentor(
   data?: PagingFilterPayload<ResponseGetMentorPayload>
 ): PagingFilterPayload<MentorQuickPayload> | null {
@@ -96,7 +86,7 @@ const mentorProfileApi = {
     return axiosClient.get(`${url}/${id}`);
   },
   async getAllMentor(
-    data: RequestGetMentorPayload
+    data: PagingRequestPayload
   ): Promise<PagingFilterPayload<MentorQuickPayload> | null> {
     const response: PagingFilterPayload<ResponseGetMentorPayload> =
       await axiosClient.get(url, {

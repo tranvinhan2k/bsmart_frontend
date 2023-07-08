@@ -51,7 +51,7 @@ export const text2: SxProps<Theme> = {
 export const badge: SxProps<Theme> = {
   '& .MuiBadge-badge': {
     color: Color.white,
-    backgroundColor: Color.orange,
+    backgroundColor: Color.tertiary,
   },
 };
 

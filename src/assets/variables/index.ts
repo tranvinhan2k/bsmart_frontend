@@ -13,7 +13,7 @@ export const Color = {
   navy: '#0e0a38',
   navy2: '#130f40',
   neutral: '#ccc',
-  orange: '#19A7CE',
+  tertiary: '#19A7CE',
   red: '#e74033',
   semiTransparent: '#ffffff22',
   transparent: '#00000000',

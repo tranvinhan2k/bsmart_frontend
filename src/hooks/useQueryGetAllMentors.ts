@@ -8,7 +8,7 @@ export const useQueryGetAllMentors = () => {
   const filterParams = useSelector(selectFilterParams);
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['mentors'],
-    queryFn: () => mentorsApi.getAllMentor({ ...filterParams }),
+    queryFn: () => mentorsApi.getAllMentor(filterParams),
   });
 
   useEffect(() => {

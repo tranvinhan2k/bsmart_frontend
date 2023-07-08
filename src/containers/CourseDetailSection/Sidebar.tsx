@@ -229,11 +229,11 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
                   sx={{
                     background:
                       chooseClass.id === item.id
-                        ? `${Color.orange}44`
+                        ? `${Color.tertiary}44`
                         : Color.white,
                     borderColor:
                       chooseClass.id === item.id
-                        ? `${Color.orange}`
+                        ? `${Color.tertiary}`
                         : Color.grey,
                     borderWidth: chooseClass.id === item.id ? '3px' : '1px',
                     borderStyle: 'solid',
@@ -280,7 +280,9 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
                           ? FontFamily.bold
                           : FontFamily.regular,
                       color:
-                        chooseClass.id === item.id ? Color.orange : Color.black,
+                        chooseClass.id === item.id
+                          ? Color.tertiary
+                          : Color.black,
                     }}
                   >
                     {`Lớp học #${item.id}`}

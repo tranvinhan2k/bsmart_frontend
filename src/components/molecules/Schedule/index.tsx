@@ -122,7 +122,7 @@ export default function Schedule({ data }: Props) {
                         margin: MetricSize.small_5,
                         padding: 2,
                         borderRadius: MetricSize.small_10,
-                        background: `${Color.orange}33`,
+                        background: `${Color.tertiary}33`,
                         flex: 1,
                         justifyContent: 'space-between',
                       }}
