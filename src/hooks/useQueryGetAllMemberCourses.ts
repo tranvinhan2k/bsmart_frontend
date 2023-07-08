@@ -1,11 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import coursesApi from '~/api/courses';
-import { RequestPagingFilterPayload } from '~/models';
+import { PagingRequestPayload } from '~/models';
 
 export const useQueryGetAllMemberCourses = (
-  filterParams: RequestPagingFilterPayload
+  filterParams: PagingRequestPayload
 ) => {
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['member_course', filterParams],

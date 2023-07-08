@@ -1,34 +1,23 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { CartItem, ResponseCartItem } from '~/api/cart';
-import { CourseDetailPayload } from '~/models/courses';
+import { CartItem } from '~/api/cart';
+import { PagingRequestPayload } from '~/models';
 import { SubCoursePayload } from '~/models/subCourse';
 
 export type CourseStateType = {
-  filterParams: {
-    q: string | undefined;
-    categoryId: number[] | undefined;
-    subjectId: number[] | undefined;
-    page: number;
-    size: number;
-    sort: string[] | undefined;
-    provinces: number[] | undefined;
-    types: number[] | undefined;
-  };
+  filterParams: PagingRequestPayload;
   checkOutCourses: CartItem[] | SubCoursePayload | null;
   totalAmount: number;
 };
 
 const initialState: CourseStateType = {
   filterParams: {
-    q: undefined,
+    q: '',
     categoryId: undefined,
     page: 0,
-    provinces: undefined,
     size: 24,
     sort: undefined,
     subjectId: undefined,
-    types: undefined,
   },
   checkOutCourses: null,
   totalAmount: 0,

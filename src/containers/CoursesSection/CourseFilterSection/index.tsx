@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
-import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
 import {
   useDispatchGetAllCategories,
   useDispatchGetAllSubjects,
@@ -26,12 +25,6 @@ export default function CourseFilterSection() {
   };
   const handleFilterSubjects = (subjectId: number[]) => {
     dispatch(changeFilterParams({ ...filterParams, subjectId }));
-  };
-  const handleFilterTypes = (types: number[]) => {
-    dispatch(changeFilterParams({ ...filterParams, types }));
-  };
-  const handleFilterProvinces = (provinces: number[]) => {
-    dispatch(changeFilterParams({ ...filterParams, provinces }));
   };
 
   return (
@@ -74,17 +67,12 @@ export default function CourseFilterSection() {
       />
       <Stack marginTop={2}>
         <FilterCheckboxList
-          type={filterParams.types}
           categoryId={filterParams.categoryId}
           subjectId={filterParams.subjectId}
           fields={categories}
           subjects={optionSubjects}
-          types={TypeOptionPayload}
-          provinces={ProvinceOptionPayload}
           onFields={handleFilterFields}
           onSubjects={handleFilterSubjects}
-          onTypes={handleFilterTypes}
-          onProvinces={handleFilterProvinces}
         />
       </Stack>
     </Stack>

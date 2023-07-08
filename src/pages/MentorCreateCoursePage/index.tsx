@@ -18,7 +18,6 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { PostCoursePayload } from '~/models/request';
-import { PostCreateCoursePayload } from '~/models/response';
 
 export interface SelectedCoursePayload {
   id?: number;

@@ -11,6 +11,8 @@ export * from './useMutationAddCourseToCart';
 
 export * from './content/useMutationAddContent';
 
+export * from './course/useQueryGetMentorCourses';
+
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';
 export * from './useQueryGetSubCourseByCourseId';
@@ -19,7 +21,6 @@ export * from './useQueryGetAllCourses';
 export * from './useQueryGetAllPublicCourses';
 export * from './useQueryGetAllMentors';
 export * from './useQueryGetAllMemberCourses';
-export * from './useQueryGetAllMentorCourses';
 export * from './useQueryGetAllMentorSubjects';
 
 export * from './useQueryVerifyEmail';

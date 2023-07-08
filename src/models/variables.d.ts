@@ -8,6 +8,7 @@ export type LevelKeys = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'EXPERT';
 export type RoleKeys = 'STUDENT' | 'TEACHER' | 'ADMIN';
 export type CRUDModes = 'CREATE' | 'READ' | 'UPDATE' | 'DELETE';
 export type ClassStatusKeys =
+  | 'ALL'
   | 'REQUESTING'
   | 'WAITING'
   | 'EDITREQUEST'

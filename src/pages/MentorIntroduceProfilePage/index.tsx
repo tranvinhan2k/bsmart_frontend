@@ -5,10 +5,7 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CourseItem from '~/components/molecules/CourseItem';
 import { image } from '~/constants/image';
-import {
-  useDispatchGetAllSubjects,
-  useQueryGetAllMentorCourses,
-} from '~/hooks';
+import { useDispatchGetAllSubjects, useQueryGetMentorCourses } from '~/hooks';
 import { MentorPayload } from '~/models/mentor';
 import { scrollToTop } from '~/utils/common';
 
@@ -21,7 +18,8 @@ export default function MentorIntroduceProfilePage({
 }: MentorIntroduceProfilePageProps) {
   const navigation = useNavigate();
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
-  const { courses } = useQueryGetAllMentorCourses({
+  const { courses } = useQueryGetMentorCourses({
+    q: '',
     page: 0,
     size: 4,
     sort: undefined,
@@ -187,7 +185,7 @@ export default function MentorIntroduceProfilePage({
         </Typography>
         <Stack flexDirection="row" justifyContent="space-between">
           {courses &&
-            courses.items.map((item: any) => {
+            courses.map((item: any) => {
               const params: any = {
                 content: item.courseDescription,
                 feedback: 5,

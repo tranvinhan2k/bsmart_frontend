@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import coursesApi from '~/api/courses';
-import accountApi from '~/api/users';
 import { PagingRequestPayload } from '~/models';
 
-export const useQueryGetAllMentorClasses = (
+export const useQueryGetMentorCourses = (
   filterParams: PagingRequestPayload
 ) => {
   const { error, data, isLoading, refetch } = useQuery({
-    queryKey: ['member_class', filterParams],
-    queryFn: () => accountApi.getMentorClasses(filterParams),
+    queryKey: ['member_course', filterParams],
+    queryFn: () => coursesApi.getMentorCourses(filterParams),
   });
 
   useEffect(() => {
@@ -18,8 +17,15 @@ export const useQueryGetAllMentorClasses = (
   }, [filterParams]);
   return {
     error,
-    classes: data,
     isLoading,
     refetch,
+    courses: data?.items,
+    first: data?.first,
+    last: data?.last,
+    totalPages: data?.totalPages,
+    totalItems: data?.totalItems,
+    currentPage: data?.currentPage,
+    pageItemSize: data?.pageItemSize,
+    pageSize: data?.pageSize,
   };
 };

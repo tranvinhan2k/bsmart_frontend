@@ -43,3 +43,21 @@ export function getGender(genderCode?: string) {
   }
   return result;
 }
+
+export function formatUndefinedValue(
+  value: any,
+  type?: 'string' | 'number' | 'boolean' | 'array'
+) {
+  switch (type) {
+    case 'string':
+      return '';
+    case 'number':
+      return 0;
+    case 'boolean':
+      return false;
+    case 'array':
+      return [];
+    default:
+      return null;
+  }
+}

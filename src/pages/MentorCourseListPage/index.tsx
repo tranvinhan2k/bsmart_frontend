@@ -13,8 +13,8 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useQueryGetAllMentorCourses, useTimeOut, useTryCatch } from '~/hooks';
-import { RequestPagingFilterPayload } from '~/models';
+import { useQueryGetMentorCourses, useTimeOut, useTryCatch } from '~/hooks';
+import { PagingRequestPayload } from '~/models';
 import { CoursePayload } from '~/models/type';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
@@ -34,48 +34,20 @@ export default function MentorCourseListPage() {
   const profile = useSelector(selectProfile);
 
   // useState
-  const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
+  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
     page: 0,
     size: 9,
     sort: undefined,
     status: 'ALL',
+    q: '',
   });
   const [value, setValue] = useState(0);
 
-  const { error, isLoading, handleTryCatch } = useTryCatch();
-  const { onSleep } = useTimeOut(1000);
-
-  useEffect(() => {
-    handleTryCatch(() => onSleep(1000));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { courses, error, isLoading } = useQueryGetMentorCourses(filterParams);
 
   const totalPages = 10;
 
   const currentPage = 0;
-
-  const courses: CoursePayload[] = [
-    {
-      id: 0,
-      courseCode: 'CODE1',
-      courseDescription:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit enim eveniet iste, possimus quidem in error id, placeat culpa quaerat quisquam mollitia natus reprehenderit dolores? Nihil praesentium magnam deserunt autem? ',
-      courseName: 'COURSE NAME TEST 1',
-      images: [
-        {
-          id: 0,
-          name: 'Hello',
-          url: '',
-          status: true,
-          type: 'AVATAR',
-        },
-      ],
-      mentorName: ['Hello'],
-      subjectId: 0,
-      subjectName: 'Hello',
-      totalClass: 5,
-    },
-  ];
 
   // parameters
   const chosenClassStatus = CourseStatusList.find(
@@ -187,9 +159,9 @@ export default function MentorCourseListPage() {
         <LoadingWrapper
           error={error}
           isLoading={isLoading}
-          isEmptyCourse={courses.length === 0}
+          isEmptyCourse={courses?.length === 0}
         >
-          {courses.map((item: any) => (
+          {courses?.map((item: any) => (
             <Grid
               item
               xs={12}

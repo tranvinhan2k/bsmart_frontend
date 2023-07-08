@@ -1,3 +1,5 @@
+import { ClassStatusKeys } from './variables';
+
 export interface PostCoursePayload {
   name: string;
   categoryId: number;
@@ -26,3 +28,15 @@ export type PostActivityCoursePayload = {
     description: string;
   }[];
 }[];
+
+export interface PagingRequestPayload {
+  q: string;
+  page: number;
+  size: number;
+
+  sort?: string[];
+  status?: ClassStatusKeys;
+  categoryId?: number[];
+  subjectId?: number[];
+  skills?: number[];
+}

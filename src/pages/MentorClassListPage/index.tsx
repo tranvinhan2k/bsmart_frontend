@@ -9,7 +9,7 @@ import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
 import { useQueryGetAllMentorClasses } from '~/hooks/useQueryGetAllMentorClasses';
-import { RequestPagingFilterPayload } from '~/models';
+import { PagingRequestPayload } from '~/models';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
 
@@ -30,7 +30,8 @@ export default function MentorClassListPage() {
   const navigate = useNavigate();
 
   // useState
-  const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
+  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
+    q: '',
     page: 0,
     size: 9,
     sort: undefined,

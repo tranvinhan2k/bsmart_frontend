@@ -2,24 +2,15 @@ import axiosClient from '~/api/axiosClient';
 import {
   ImagePayload,
   PagingFilterPayload,
-  RequestPagingFilterPayload,
+  PagingRequestPayload,
+  PostCoursePayload,
 } from '~/models';
 import { CourseDetailPayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
 import { CoursePayload } from '~/models/type';
-import { PostCoursePayload } from '~/models/request';
-
 // Define the request payload for fetching courses
-
-export interface RequestGetCoursePayload extends RequestPagingFilterPayload {
-  q?: string | undefined;
-  categoryId?: number[] | undefined;
-  subjectId?: number[] | undefined;
-  types?: string[] | undefined;
-  provinces?: number[] | undefined;
-}
 
 export interface ResponseMemberCoursePayload {
   id: number;
@@ -166,14 +157,6 @@ interface ResponseCourseDetailPayload {
   };
   mentorId: number;
 }
-interface RequestContentItem {
-  sections: {
-    name: string;
-    modules: {
-      name: string;
-    }[];
-  };
-}
 
 function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   if (!data) {
@@ -222,8 +205,9 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
 const url = '/courses';
 
 const coursesApi = {
+  // get
   async getAllCourse(
-    data: RequestGetCoursePayload
+    data: PagingRequestPayload
   ): Promise<PagingFilterPayload<CoursePayload> | null> {
     const response = await axiosClient.get(url, {
       params: data,
@@ -243,11 +227,34 @@ const coursesApi = {
     }));
     return { ...response, items: result };
   },
+  async getMentorCourses(
+    params: PagingRequestPayload
+  ): Promise<PagingFilterPayload<CoursePayload>> {
+    const response = await axiosClient.get(`${url}/mentor`, {
+      params,
+      paramsSerializer: { indexes: null },
+    });
+
+    const result: CoursePayload[] = response.items.map((item: any) => ({
+      id: item.id,
+      content: item.content,
+      courseCode: item.courseCode,
+      courseDescription: item.courseDescription,
+      courseName: item.courseName,
+      images: item.images,
+      mentorName: item.mentorName,
+      subjectId: item.subjectId,
+      subjectName: item.subjectName,
+      totalClass: item.totalClass,
+    }));
+
+    return { ...response, items: result };
+  },
   async getAllPublicCourse() {
     return axiosClient.get(`${url}/public`);
   },
   async getMemberCourse(
-    data: RequestPagingFilterPayload
+    data: PagingRequestPayload
   ): Promise<PagingFilterPayload<ResponseMemberCoursePayload>> {
     return axiosClient.get(`${url}/member`, {
       params: data,
@@ -255,7 +262,7 @@ const coursesApi = {
     });
   },
   async getMentorCourse(
-    data: RequestPagingFilterPayload
+    data: PagingRequestPayload
   ): Promise<PagingFilterPayload<ResponseMentorCoursePayload>> {
     return axiosClient.get(`${url}/mentor`, {
       params: data,
