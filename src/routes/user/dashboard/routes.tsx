@@ -74,7 +74,7 @@ export const routes: RoutePayload[] = [
     role: ['GUEST'],
   },
   {
-    path: NavigationLink.course_menu_details,
+    path: `${NavigationLink.course_menu_details}/:id`,
     main: () => <CourseDetailPage />,
     role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
   },

@@ -64,20 +64,23 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
           alignContent="space-around"
           alignItems="stretch"
         >
-          {Array(24).fill(
-            <Stack
-              sx={{
-                marginBottom: MetricSize.medium_15,
-                marginLeft: '15px',
-                borderColor: Color.grey,
-                width: { xs: '100%', md: '23%' },
-                borderRadius: MetricSize.small_5,
-                justifyContent: 'space-between',
-              }}
-            >
-              <Skeleton height={400} />
-            </Stack>
-          )}
+          {Array(24)
+            .fill(0)
+            .map((_, index) => (
+              <Stack
+                key={index}
+                sx={{
+                  marginBottom: MetricSize.medium_15,
+                  marginLeft: '15px',
+                  borderColor: Color.grey,
+                  width: { xs: '100%', md: '23%' },
+                  borderRadius: MetricSize.small_5,
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Skeleton height={400} />
+              </Stack>
+            ))}
         </Stack>
       );
       break;
@@ -105,8 +108,8 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
     case isLoading === false:
       courseData = (
         <Grid container>
-          {data?.items.map((item) => (
-            <Grid key={item.id} item xs={12} md={4} lg={3}>
+          {data?.items.map((item, index) => (
+            <Grid key={index} item xs={12} md={4} lg={3}>
               <UserCourseItem
                 key={item.id}
                 courseTeacherName={item.mentorName}

@@ -1,12 +1,23 @@
 import { useEffect, useState } from 'react';
 
-import { Grid, Stack, Typography, Divider } from '@mui/material';
+import {
+  Grid,
+  Stack,
+  Typography,
+  Divider,
+  Tooltip,
+  Alert,
+} from '@mui/material';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { StepPayload } from '~/components/molecules/CustomStepper';
 
-import { useEffectScrollToTop } from '~/hooks';
+import {
+  useDispatchGetAllCategories,
+  useDispatchGetAllSubjects,
+  useEffectScrollToTop,
+} from '~/hooks';
 import Button from '~/components/atoms/Button';
 import globalStyles from '~/styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
@@ -21,6 +32,8 @@ import Content from '~/containers/MentorCourseDetail/Content';
 import { ClassStatusKeys } from '~/models/variables';
 import { formatStringToNumber } from '~/utils/number';
 import { selectMentorCourse } from '~/redux/courses/selector';
+import { NavigationLink } from '~/constants/routeLink';
+import RequiredEdit from './RequiredEdit';
 
 export interface DetailCoursePayload {
   code: string;
@@ -49,17 +62,21 @@ export interface DetailCourseClassPayload {
 }
 
 export default function MentorCourseDetailPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const { optionCategories } = useDispatchGetAllCategories();
+  const { optionSubjects } = useDispatchGetAllSubjects();
 
-  const course = useSelector(selectMentorCourse);
-  // const mockCourse: DetailCoursePayload = {
-  //   code: '123',
-  //   name: 'Khóa học kiểm thử 1',
-  //   description: 'Xin Chào Các Bạn',
-  //   subjectId: optionSubjects[0],
-  //   categoryId: optionCategories[0],
-  //   status: 'REQUESTING',
-  // };
+  // const course = useSelector(selectMentorCourse);
+  const course: DetailCoursePayload = {
+    code: '123',
+    name: 'Khóa học kiểm thử 1',
+    description: 'Xin Chào Các Bạn',
+    subjectId: optionSubjects[0],
+    categoryId: optionCategories[0],
+    // status: 'REQUESTING',
+    status: 'EDITREQUEST',
+  };
 
   const mockClasses: DetailCourseClassPayload[] = [
     {
@@ -91,7 +108,13 @@ export default function MentorCourseDetailPage() {
     setTabIndex(param);
   };
 
-  const handleSubmitCourse = () => {};
+  const handleSubmitCourse = () => {
+    // TODO: Phe duyet khoa hoc
+  };
+
+  const handleNavigateCourseDetail = () => {
+    navigate(`/${NavigationLink.course_menu_details}/${id}`);
+  };
 
   useEffectScrollToTop();
 
@@ -138,25 +161,32 @@ export default function MentorCourseDetailPage() {
   }[] = [
     {
       id: 0,
+      name: 'Yêu cầu chỉnh sửa',
+      component: <RequiredEdit />,
+      icon: 'squareCheckbox',
+      isHide: course.status !== 'EDITREQUEST',
+    },
+    {
+      id: 1,
       name: 'Hướng dẫn',
       icon: 'squareCheckbox',
       isHide: course.status !== 'REQUESTING',
       component: <TutorialRequestCourse steps={steps} />,
     },
     {
-      id: 1,
+      id: 2,
       name: 'Thông tin khóa học',
       icon: 'squareCheckbox',
       component: <EditCourse id={formatStringToNumber(id)} course={course} />,
     },
     {
-      id: 2,
+      id: 3,
       name: 'Nội dung',
       icon: 'blankSquareCheckbox',
       component: <Content />,
     },
     {
-      id: 3,
+      id: 4,
       name: 'Danh sách lớp học',
       icon: 'blankSquareCheckbox',
       component: (
@@ -231,13 +261,41 @@ export default function MentorCourseDetailPage() {
               })}
             </Stack>
             <Stack margin={2}>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleSubmitCourse}
-              >
-                Phê duyệt khóa học
-              </Button>
+              {course.status === 'NOTSTART' && (
+                <Alert sx={{ marginY: 1 }} severity="success">
+                  Khóa học đã được phê duyệt thành công
+                </Alert>
+              )}
+              {course.status === 'REJECTED' && (
+                <Alert sx={{ marginY: 1 }} severity="error">
+                  Khóa học đã bị từ chối. Nội dung sẽ bị khóa vĩnh viễn
+                </Alert>
+              )}
+              {course.status === 'EDITREQUEST' && (
+                <Alert sx={{ marginY: 1 }} severity="warning">
+                  Hệ thống yêu cầu chỉnh sửa một số nội dung trước khi phê duyệt
+                  lại. Vui lòng xem mục{' '}
+                  <span
+                    style={{
+                      fontSize: FontSize.small_14,
+                      fontFamily: FontFamily.bold,
+                    }}
+                  >
+                    Yêu cầu chỉnh sửa
+                  </span>{' '}
+                  để biết thêm chi tiết.
+                </Alert>
+              )}
+              {(course.status === 'REQUESTING' ||
+                course.status === 'EDITREQUEST') && (
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={handleSubmitCourse}
+                >
+                  Phê duyệt khóa học
+                </Button>
+              )}
             </Stack>
           </Grid>
           <Grid item xs={12} md={10} paddingX={4}>

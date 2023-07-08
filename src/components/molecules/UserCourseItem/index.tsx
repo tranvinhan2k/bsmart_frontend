@@ -227,7 +227,7 @@ export default function UserCourseItem({
                 }}
               >
                 {courseTeacherName.map((item, index) => (
-                  <span key={item}>{`${index !== 0 && ', '} ${item} `}</span>
+                  <span key={index}>{`${index !== 0 && ', '} ${item} `}</span>
                 ))}
               </Typography>
             )}

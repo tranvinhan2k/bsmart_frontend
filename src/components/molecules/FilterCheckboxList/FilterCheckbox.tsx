@@ -6,6 +6,7 @@ import Button from '~/components/atoms/Button';
 import Checkbox from '~/components/atoms/Checkbox';
 import Icon from '~/components/atoms/Icon';
 import { OptionPayload } from '~/models';
+import globalStyles from '~/styles';
 
 interface FilterCheckboxProps {
   value: number[] | undefined;
@@ -106,46 +107,19 @@ export default function FilterCheckbox({
       </Stack>
       <Box>
         {data.length > 2 && (
-          <Button
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              paddingX: 0,
-              ':hover': {
-                background: Color.white,
-                textDecorationLine: 'underline',
-              },
-            }}
-            onClick={handleTriggerViewMore}
-          >
-            {isViewMore ? (
-              <Stack flexDirection="row" alignItems="center">
-                <Icon size="small" name="down" />
-                <Typography
-                  sx={{
-                    paddingLeft: MetricSize.medium_15,
-                    fontSize: FontSize.small_16,
-                    fontFamily: FontFamily.regular,
-                    ':hover': { cursor: 'pointer' },
-                  }}
-                >
-                  Xem thêm
-                </Typography>
-              </Stack>
-            ) : (
-              <Stack flexDirection="row" alignItems="center">
-                <Icon size="small" name="up" />
-                <Typography
-                  sx={{
-                    paddingLeft: MetricSize.medium_15,
-                    fontSize: FontSize.small_16,
-                    fontFamily: FontFamily.regular,
-                  }}
-                >
-                  Thu Gọn
-                </Typography>
-              </Stack>
-            )}
-          </Button>
+          <Stack marginY={1} flexDirection="row" alignItems="center">
+            <Icon size="small" name={isViewMore ? 'down' : 'up'} />
+            <Typography
+              onClick={handleTriggerViewMore}
+              sx={{
+                marginLeft: 1,
+                ...globalStyles.textLowSmallLight,
+                ':hover': { cursor: 'pointer', textDecoration: 'underline' },
+              }}
+            >
+              {isViewMore ? ' Xem thêm' : 'Thu Gọn'}
+            </Typography>
+          </Stack>
         )}
       </Box>
     </Stack>
