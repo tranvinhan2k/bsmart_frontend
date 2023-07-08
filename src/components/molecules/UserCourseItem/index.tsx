@@ -237,9 +237,8 @@ export default function UserCourseItem({
                 fontFamily: FontFamily.light,
                 color: Color.grey,
               }}
-            >
-              {courseDescription}
-            </Typography>
+              dangerouslySetInnerHTML={{ __html: courseDescription || '' }}
+            />
           </Stack>
           <Stack
             spacing={1}
