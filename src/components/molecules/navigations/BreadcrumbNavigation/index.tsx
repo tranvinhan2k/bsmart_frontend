@@ -58,7 +58,7 @@ export default function BreadcrumbNavigation({
             <Typography
               textAlign="center"
               sx={{
-                color: Color.orange,
+                color: Color.tertiary,
                 fontSize: FontSize.medium_24,
                 fontFamily: FontFamily.bold,
               }}

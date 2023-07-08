@@ -42,7 +42,7 @@ export const ANNOTATION_CONTENT_DATE: SxProps<Theme> = {
 
 export const ANNOTATION_CONTENT_TITLE: SxProps<Theme> = {
   paddingLeft: MetricSize.large_20,
-  color: Color.orange,
+  color: Color.tertiary,
   fontSize: FontSize.small_16,
   fontWeight: FontWeight.semiBold,
   textTransform: 'uppercase',

@@ -81,7 +81,7 @@ export default function IntroduceCodeInput() {
         />
         <input
           style={{
-            backgroundColor: Color.orange,
+            backgroundColor: Color.tertiary,
             borderWidth: 0,
             padding: MetricSize.small_10,
             width: '20%',

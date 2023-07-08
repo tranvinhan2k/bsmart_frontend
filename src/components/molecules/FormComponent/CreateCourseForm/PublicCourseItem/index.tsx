@@ -35,7 +35,7 @@ export default function PublicCourseItem({
           aspectRatio: 2 / 3,
           position: 'relative',
           transition: 'border 200ms',
-          border: `5px solid ${isSelected ? Color.orange : Color.transparent}`,
+          border: `5px solid ${isSelected ? Color.tertiary : Color.transparent}`,
         }}
       >
         <Checkbox isChecked={isSelected} onCheck={onSelectedItem} />

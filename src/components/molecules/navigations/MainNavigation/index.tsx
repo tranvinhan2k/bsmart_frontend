@@ -119,7 +119,7 @@ export default function MainNavigation({
                     fontFamily: FontFamily.bold,
                     fontSize: FontSize.small_16,
                     color: pathName.includes(item.link)
-                      ? Color.orange
+                      ? Color.tertiary
                       : Color.navy,
                   }}
                 >

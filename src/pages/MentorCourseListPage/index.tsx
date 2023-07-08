@@ -167,7 +167,7 @@ export default function MentorCourseListPage() {
           sx={{
             fontSize: FontSize.medium_28,
             fontFamily: FontFamily.bold,
-            color: Color.orange,
+            color: Color.tertiary,
           }}
         >
           {chosenClassStatus?.label}

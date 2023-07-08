@@ -26,7 +26,7 @@ export const SX_WITHDRAW_TITLE: SxProps<Theme> = {
   /* Display & Box Model */
   marginBottom: '20px',
   /* Color */
-  color: Color.orange,
+  color: Color.tertiary,
   /* Text */
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ export const SX_WITHDRAW_BALANCE_NUMBER: SxProps<Theme> = {
   /* Display & Box Model */
   paddingLeft: MetricSize.small_5,
   /* Color */
-  color: Color.orange,
+  color: Color.tertiary,
   /* Text */
   fontWeight: FontWeight.bold,
   fontSize: FontSize.medium_24,
@@ -62,7 +62,7 @@ export const SX_TITLE_NOTE: SxProps<Theme> = {
   /* Display & Box Model */
   marginBottom: '20px',
   /* Color */
-  color: Color.orange,
+  color: Color.tertiary,
   /* Text */
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.bold,

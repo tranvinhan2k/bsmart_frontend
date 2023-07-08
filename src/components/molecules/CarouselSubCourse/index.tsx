@@ -106,7 +106,7 @@ export default function CarouselSubCourse({
           background: Color.whiteSmoke,
           padding: MetricSize.small_10,
           boxShadow: 3,
-          borderColor: item.isChosen ? Color.orange : Color.transparent,
+          borderColor: item.isChosen ? Color.tertiary : Color.transparent,
           borderWidth: '2px',
           borderRadius: '5px',
           borderStyle: 'solid',

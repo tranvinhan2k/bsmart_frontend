@@ -32,7 +32,7 @@ export default function CRUDTableHeader({
           startIcon={<Icon name="add" color="white" size="small" />}
           onClick={onCreate}
           variant="contained"
-          sx={{ background: Color.orange }}
+          sx={{ background: Color.tertiary }}
         >
           {addButtonTitle}
         </Button>

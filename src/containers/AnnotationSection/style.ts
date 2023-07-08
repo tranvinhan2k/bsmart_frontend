@@ -16,7 +16,7 @@ export const ANNOTATION_H3: SxProps<Theme> = {
   marginBottom: '10px',
   padding: '10px 20px',
   /* Color */
-  color: Color.orange,
+  color: Color.tertiary,
   /* Text */
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.bold,

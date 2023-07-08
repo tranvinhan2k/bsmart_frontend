@@ -11,19 +11,19 @@ export const SX_TABS: SxProps<Theme> = {
   width: '100%',
 };
 export const SX_TAB: SxProps<Theme> = {
-  color: Color.orange,
+  color: Color.tertiary,
   background: '#eee',
-  borderColor: Color.orange,
+  borderColor: Color.tertiary,
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   '&:hover': {
     color: Color.white,
-    background: Color.orange,
+    background: Color.tertiary,
     opacity: 0.5,
   },
   '&.Mui-selected': {
     color: Color.white,
-    background: Color.orange,
+    background: Color.tertiary,
   },
   '&.Mui-focusVisible': {
     backgroundColor: '#d1eaff',

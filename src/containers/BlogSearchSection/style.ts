@@ -43,11 +43,11 @@ export const SX_FORM_SEARCH_INPUT_ICON_BUTTON: SxProps<Theme> = {
   /* Display & Box Model */
   borderRadius: 0,
   /* Color */
-  backgroundColor: Color.orange,
+  backgroundColor: Color.tertiary,
   /* Text */
   /* Other */
   '&:hover': {
-    backgroundColor: Color.orange,
+    backgroundColor: Color.tertiary,
   },
 };
 

@@ -56,7 +56,7 @@ export default function CourseLearningItem({ item, onClick }: CourseItemProps) {
             color="inherit"
             value={90}
             sx={{
-              color: Color.orange,
+              color: Color.tertiary,
               height: '1rem',
               borderRadius: MetricSize.small_5,
             }}

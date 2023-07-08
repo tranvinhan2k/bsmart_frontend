@@ -218,7 +218,7 @@ export default function DashboardPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   transition: 'all 1000ms ease',
-                  background: `${Color.orange}AA`,
+                  background: `${Color.tertiary}AA`,
                   padding: 1,
                   backdropFilter: 'blur(2px)',
                   borderRadius: MetricSize.small_5,
@@ -228,7 +228,7 @@ export default function DashboardPage() {
                   color: Color.white,
 
                   ':hover': {
-                    background: `${Color.orange}`,
+                    background: `${Color.tertiary}`,
                     backdropFilter: 'blur(0px)',
                     cursor: 'pointer',
                   },
@@ -357,7 +357,7 @@ export default function DashboardPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   transition: 'all 1000ms ease',
-                  background: `${Color.orange}AA`,
+                  background: `${Color.tertiary}AA`,
                   padding: 1,
                   backdropFilter: 'blur(2px)',
                   borderRadius: MetricSize.small_5,
@@ -368,7 +368,7 @@ export default function DashboardPage() {
                   opacity: isHover ? 1 : 0,
 
                   ':hover': {
-                    background: `${Color.orange}`,
+                    background: `${Color.tertiary}`,
                     backdropFilter: 'blur(0px)',
                     cursor: 'pointer',
                   },

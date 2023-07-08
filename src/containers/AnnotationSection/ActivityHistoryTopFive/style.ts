@@ -25,7 +25,7 @@ export const SX_PROFILE_DETAILS: SxProps<Theme> = {
 };
 
 export const SX_PROFILE_DETAILS_HIGHLIGHTED: SxProps<Theme> = {
-  color: Color.orange,
+  color: Color.tertiary,
   fontFamily: FontFamily.regular,
   fontSize: 16,
 };

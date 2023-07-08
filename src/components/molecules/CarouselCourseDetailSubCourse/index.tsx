@@ -91,7 +91,7 @@ export default function CarouselCourseDetailSubCourse({
       <Stack
         sx={{
           background: '#eee',
-          borderColor: item.isChosen ? Color.orange : Color.transparent,
+          borderColor: item.isChosen ? Color.tertiary : Color.transparent,
           borderWidth: '2px',
           borderRadius: '5px',
           borderStyle: 'solid',

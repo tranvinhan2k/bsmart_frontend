@@ -254,7 +254,7 @@ export default function UserCourseItem({
               <Box>
                 <Tag
                   title={courseTypeData[courseType as CourseTypeDataKeys]}
-                  color="orange"
+                  color="tertiary"
                 />
               </Box>
             )}

@@ -133,7 +133,7 @@ export default function MentorIntroduceProfilePage({
             <Typography
               sx={{
                 fontSize: FontSize.large_45,
-                color: Color.orange,
+                color: Color.tertiary,
                 fontFamily: FontFamily.bold,
               }}
             >
@@ -161,7 +161,7 @@ export default function MentorIntroduceProfilePage({
             <Typography
               sx={{
                 fontSize: FontSize.large_45,
-                color: Color.orange,
+                color: Color.tertiary,
                 fontFamily: FontFamily.bold,
               }}
             >

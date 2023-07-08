@@ -155,7 +155,7 @@ export default function ProfileSideBar({
               {gender && (
                 <Stack padding={2}>
                   <Icon
-                    color="orange"
+                    color="tertiary"
                     name={gender.toLowerCase() as IconName}
                     size="large"
                   />
@@ -179,7 +179,7 @@ export default function ProfileSideBar({
                       <Icon
                         name={item.image as IconName}
                         size="small"
-                        color="orange"
+                        color="tertiary"
                       />
                       <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
                         {item.text}

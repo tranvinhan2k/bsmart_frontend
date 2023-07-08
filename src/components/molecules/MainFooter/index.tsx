@@ -137,7 +137,7 @@ export default function MainFooter({
           >
             <Button
               style={{
-                background: Color.orange,
+                background: Color.tertiary,
                 fontFamily: FontFamily.bold,
                 fontSize: FontSize.small_16,
                 color: Color.white,

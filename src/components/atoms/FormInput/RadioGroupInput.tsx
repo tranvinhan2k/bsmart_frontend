@@ -30,7 +30,7 @@ function RadioGroupInput({ controller, data }: RadioGroupInputProps) {
         onChange={controllerOnChange}
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
-        color={Color.orange}
+        color={Color.tertiary}
       >
         {data.map((item) => (
           <FormControlLabel

@@ -32,7 +32,7 @@ function AuthorizationBar({
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
-              color: Color.orange,
+              color: Color.tertiary,
             },
           }}
         >
@@ -53,7 +53,7 @@ function AuthorizationBar({
             transitionDelay: '100ms',
             transitionProperty: 'color',
             '&:hover': {
-              color: Color.orange,
+              color: Color.tertiary,
             },
           }}
         >

@@ -32,7 +32,7 @@ export default function BuyCourseForm() {
       <Typography
         sx={{
           textAlign: 'center',
-          color: Color.orange,
+          color: Color.tertiary,
           fontFamily: FontFamily.medium,
           fontSize: FontSize.medium_24,
         }}
@@ -42,7 +42,7 @@ export default function BuyCourseForm() {
       <Divider sx={{ marginY: MetricSize.medium_15 }} />
       <Typography
         sx={{
-          color: Color.orange,
+          color: Color.tertiary,
           fontFamily: FontFamily.regular,
           fontSize: FontSize.small_18,
         }}
@@ -70,7 +70,7 @@ export default function BuyCourseForm() {
       </Stack>
       <Typography
         sx={{
-          color: Color.orange,
+          color: Color.tertiary,
           fontFamily: FontFamily.regular,
           fontSize: FontSize.small_18,
           marginTop: MetricSize.medium_15,
@@ -108,7 +108,7 @@ export default function BuyCourseForm() {
       </Stack>
       <Typography
         sx={{
-          color: Color.orange,
+          color: Color.tertiary,
           fontFamily: FontFamily.regular,
           fontSize: FontSize.small_18,
           marginTop: MetricSize.medium_15,

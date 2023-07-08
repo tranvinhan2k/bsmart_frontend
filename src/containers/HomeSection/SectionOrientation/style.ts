@@ -32,7 +32,7 @@ const H2: SxProps<Theme> = {
   lineHeight: '30px',
   fontWeight: FontWeight.semiBold,
   fontStyle: 'normal',
-  color: Color.orange,
+  color: Color.tertiary,
   marginBottom: '20px',
 };
 
