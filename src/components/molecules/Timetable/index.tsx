@@ -119,7 +119,7 @@ export default function Timetable({ data }: Props) {
     return <Typography>Lớp học chưa có thời khóa biẻu</Typography>;
 
   return (
-    <Box sx={{ background: '#F3F1F5' }} height={400}>
+    <Stack sx={{ background: '#F3F1F5' }} height={400}>
       {rows && columns && (
         <DataGrid
           rows={rows}
@@ -137,6 +137,6 @@ export default function Timetable({ data }: Props) {
           }}
         />
       )}
-    </Box>
+    </Stack>
   );
 }

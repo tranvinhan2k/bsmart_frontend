@@ -12,7 +12,7 @@ export const enum NavigationLink {
   recruitment = 'recruitment',
   register = 'register',
   login = 'login',
-  course_menu_details = 'course_menu/course-detail/:id',
+  course_menu_details = 'course_menu/course-detail',
   lms = 'lms',
   annotation = 'annotation',
   buy_course = 'buy-course',

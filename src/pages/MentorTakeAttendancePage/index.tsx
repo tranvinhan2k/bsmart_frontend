@@ -134,7 +134,7 @@ export default function MentorTakeAttendancePage() {
   }, []);
 
   useEffect(() => {
-    const initRows = attendances?.attendanceResponses?.items?.map(
+    const paramRows = attendances?.attendanceResponses?.items?.map(
       (studentSlot: any) => ({
         id: studentSlot.student.id,
         isPresent: studentSlot.attendance ? 'PRESENT' : 'WAIT',
@@ -144,7 +144,7 @@ export default function MentorTakeAttendancePage() {
       })
     );
 
-    setRows(initRows);
+    setRows(paramRows);
   }, [attendances]);
 
   const timeSlotHour = new Date(attendanceInformation?.date);

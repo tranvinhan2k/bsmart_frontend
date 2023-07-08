@@ -1,5 +1,5 @@
 import { UseControllerReturn, useForm } from 'react-hook-form';
-import { Grid } from '@mui/material';
+import { Grid, FormHelperText } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -74,6 +74,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
 
   const { optionSlots: slotOptions } = useDispatchGetAllSlots();
   const { optionDayOfWeeks: dayOfWeekOptions } = useDispatchGetAllDayOfWeeks();
+  console.log(error, invalid, value);
 
   return (
     <Stack>
@@ -109,7 +110,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             );
           })}
       </Stack>
-      <Grid container paddingBottom={2} spacing={1}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={5}>
           {slotOptions && (
             <FormInput
@@ -138,12 +139,14 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
               onClick={timetableHookForm.handleSubmit(onSubmit)}
               variant="contained"
               color="secondary"
+              sx={{ height: '36px' }}
             >
               <Icon name="add" color="white" size="small_20" />
             </Button>
           </Stack>
         </Grid>
       </Grid>
+      {invalid && <FormHelperText error>{`${error?.message}`}</FormHelperText>}
     </Stack>
   );
 }

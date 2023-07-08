@@ -1,19 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { PagingRequestPayload } from '~/models';
 
 export type MentorStateType = {
-  filterParams: {
-    q: string | undefined;
-    page: number;
-    size: number;
-    sort: string[] | undefined;
-    skills: number[] | undefined;
-  };
+  filterParams: PagingRequestPayload;
 };
 
 const initialState: MentorStateType = {
   filterParams: {
-    q: undefined,
+    q: '',
     page: 0,
     size: 9,
     sort: undefined,

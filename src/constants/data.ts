@@ -7,9 +7,10 @@ import {
 import { AddressDataPayload } from '~/models/address';
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
 import cousreImage from '~/assets/images/front-end-course.png';
-import { CourseDetailPayload, CoursePayload } from '~/models/courses';
+import { CourseDetailPayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 import { LEVEL_LABELS } from './level';
+import { CoursePayload } from '~/models/type';
 
 export const courseTypeData = {
   PRIVATE: 'Khóa học riêng tư',
@@ -75,13 +76,13 @@ export const ClassStatusList: OptionPayload[] = [
     value: 'ALL',
   },
   {
-    id: 0,
+    id: 1,
     label: 'Lớp đang dạy',
     content: 'Lớp đang được dạy.',
     value: 'STARTING',
   },
   {
-    id: 1,
+    id: 2,
     label: 'Lớp đã kết thúc',
     content: 'Lớp đã hết thời gian giảng dạy',
     value: 'CLOSE',
@@ -95,49 +96,49 @@ export const CourseStatusList: OptionPayload[] = [
     value: 'ALL',
   },
   {
-    id: 0,
+    id: 1,
     label: 'Lớp đang yêu cầu',
     content: 'Lớp được yêu cầu mở nhưng chưa được duyệt.',
     value: 'REQUESTING',
   },
   {
-    id: 1,
+    id: 2,
     label: 'Lớp đã sẵn được duyệt',
     content: 'Lớp đã sẵn được duyệt',
     value: 'WAITING',
   },
   {
-    id: 2,
+    id: 3,
     label: 'Lớp yêu cầu chỉnh sửa',
     content: 'Lớp không hợp lệ, yêu cầu chỉnh sửa lại.',
     value: 'EDITREQUEST',
   },
   {
-    id: 3,
+    id: 4,
     label: 'Lớp bị từ chối',
     content: 'Lớp bị từ chối phê duyệt do vi phạm điều khoản mở lớp.',
     value: 'REJECTED',
   },
   {
-    id: 4,
+    id: 5,
     label: 'Chưa bắt đầu',
     content: 'Lớp đã được duyệt và đang tuyển sinh.',
     value: 'NOTSTART',
   },
   {
-    id: 5,
+    id: 6,
     label: 'Đang dạy',
     content: 'Lớp đang được dạy.',
     value: 'STARTING',
   },
   {
-    id: 6,
+    id: 7,
     label: 'Đã kết thúc',
     content: 'Lớp đã kết thúc.',
     value: 'ENDED',
   },
   {
-    id: 7,
+    id: 8,
     label: 'Đã hủy bỏ',
     content: 'Lớp đã bị hủy bỏ.',
     value: 'CANCEL',
@@ -409,39 +410,6 @@ export const ProvinceOptionPayload: OptionPayload[] = [
   },
 ];
 
-export const MentorCourses: CoursePayload[] = [
-  {
-    id: 0,
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    images: [],
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-    typeLearn: ['OFFLINE'],
-  },
-  {
-    id: 1,
-    typeLearn: ['OFFLINE'],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    images: [],
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-  {
-    id: 2,
-    typeLearn: ['OFFLINE'],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện',
-    feedback: 5,
-    images: [],
-    mentor: 'Cuong',
-    title: 'Front End Basic',
-  },
-];
-
 export const CourseDetailData: CourseDetailPayload = {
   title: 'Front End Basic',
   content:
@@ -519,108 +487,20 @@ export const CourseDetailData: CourseDetailPayload = {
   },
 };
 
-export const CommonCourse: CoursePayload[] = [
-  {
-    id: 0,
-    typeLearn: ['OFFLINE'],
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    id: 1,
-    typeLearn: ['OFFLINE'],
+export const CommonCourse: CoursePayload[] = Array(5).fill({
+  id: 0,
+  images: [],
+  courseDescription:
+    'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
+  mentorName: ['Nhân Trần'],
+  courseName: 'Khóa học FrontEnd',
+  courseCode: '123',
+  status: 'NOTSTART',
+  subjectId: 0,
+  subjectName: 'Java',
+  totalClass: 10,
+});
 
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 2,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 3,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 4,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 5,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 6,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 7,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-  {
-    typeLearn: ['OFFLINE'],
-    id: 8,
-    images: [],
-    content:
-      'Khóa học Frontend là quy trình sử dụng các ngôn ngữ HTML, CSS, JavaScript để thiết kế, xây dựng giao diện cho trang web hoặc ứng dụng web, giúp người dùng có thể xem và tương tác trực tiếp trên đó. Mục tiêu của việc thiết kế trang web là giúp người dùng dễ dàng sử dụng khi mở trang web',
-    feedback: 5,
-    mentor: 'Mentor Cuong',
-    title: 'Khóa học Devops',
-    mentorImage: mentor,
-  },
-];
 export const mockMentorDetailsInformationData = {
   imageLink: mentor,
   name: 'Mentor Cuong',

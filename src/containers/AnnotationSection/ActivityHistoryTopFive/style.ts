@@ -3,7 +3,6 @@ import { Theme } from '@mui/material/styles';
 import { Color, FontFamily } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
-  boxShadow: 3,
   padding: 2,
   borderRadius: '5px',
   background: Color.white,

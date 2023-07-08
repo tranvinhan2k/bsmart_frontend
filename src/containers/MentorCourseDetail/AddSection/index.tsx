@@ -15,11 +15,7 @@ interface Props {
 }
 
 export default function AddSection({ onAdd }: Props) {
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang thêm học phần mới...',
-    success: 'Thêm học phần thành công',
-    error: 'Thêm học phần thất bại',
-  });
+  const { handleTryCatch } = useTryCatch('thêm học phần mới');
   const { onSleep } = useTimeOut(1000);
 
   const resolver = useYupValidationResolver(validationClassContentSection);

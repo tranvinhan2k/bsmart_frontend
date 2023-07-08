@@ -10,7 +10,7 @@ import { useQueryGetAllMemberCourses } from '~/hooks';
 import MemberCourseItem from '~/components/molecules/MemberCourseItem';
 import toast from '~/utils/toast';
 import { scrollToTop } from '~/utils/common';
-import { RequestPagingFilterPayload } from '~/models';
+import { PagingRequestPayload } from '~/models';
 import CustomPagination from '~/components/atoms/CustomPagination';
 
 const texts = {
@@ -20,7 +20,8 @@ const texts = {
 
 export default function MemberCourseListPage() {
   const navigate = useNavigate();
-  const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
+  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
+    q: '',
     page: 0,
     size: 9,
     sort: undefined,

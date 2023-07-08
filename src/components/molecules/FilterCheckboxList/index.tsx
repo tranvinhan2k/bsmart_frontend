@@ -3,33 +3,23 @@ import FilterCheckbox from './FilterCheckbox';
 import { OptionPayload } from '~/models';
 
 interface FilterCheckboxListProps {
-  type: number[] | undefined;
   categoryId: number[] | undefined;
   subjectId: number[] | undefined;
 
   fields: OptionPayload[] | undefined;
   subjects: OptionPayload[] | undefined;
-  types: OptionPayload[] | undefined;
-  provinces: OptionPayload[] | undefined;
 
   onFields: (data: number[]) => void;
   onSubjects: (data: number[]) => void;
-  onTypes: (data: number[]) => void;
-  onProvinces: (data: number[]) => void;
 }
 
 export default function FilterCheckboxList({
-  type,
   categoryId,
   subjectId,
   fields,
-  provinces,
   subjects,
-  types,
   onFields,
-  onProvinces,
   onSubjects,
-  onTypes,
 }: FilterCheckboxListProps) {
   return (
     <Stack marginTop={1}>
@@ -45,13 +35,6 @@ export default function FilterCheckboxList({
         data={subjects}
         onChange={onSubjects}
       />
-      <FilterCheckbox
-        value={type}
-        label="HÌNH THỨC"
-        data={types}
-        onChange={onTypes}
-      />
-      {/* <FilterCheckbox label="KHU VỰC" data={provinces} onChange={onProvinces} /> */}
     </Stack>
   );
 }

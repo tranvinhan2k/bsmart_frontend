@@ -13,9 +13,8 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useQueryGetAllMentorCourses, useTimeOut, useTryCatch } from '~/hooks';
-import { RequestPagingFilterPayload } from '~/models';
-import { CoursePayload } from '~/models/type';
+import { useQueryGetMentorCourses } from '~/hooks';
+import { PagingRequestPayload } from '~/models';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
@@ -34,48 +33,18 @@ export default function MentorCourseListPage() {
   const profile = useSelector(selectProfile);
 
   // useState
-  const [filterParams, setFilterParams] = useState<RequestPagingFilterPayload>({
+  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
     page: 0,
     size: 9,
     sort: undefined,
     status: 'ALL',
+    q: '',
   });
+
   const [value, setValue] = useState(0);
 
-  const { error, isLoading, handleTryCatch } = useTryCatch();
-  const { onSleep } = useTimeOut(1000);
-
-  useEffect(() => {
-    handleTryCatch(() => onSleep(1000));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const totalPages = 10;
-
-  const currentPage = 0;
-
-  const courses: CoursePayload[] = [
-    {
-      id: 0,
-      courseCode: 'CODE1',
-      courseDescription:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit enim eveniet iste, possimus quidem in error id, placeat culpa quaerat quisquam mollitia natus reprehenderit dolores? Nihil praesentium magnam deserunt autem? ',
-      courseName: 'COURSE NAME TEST 1',
-      images: [
-        {
-          id: 0,
-          name: 'Hello',
-          url: '',
-          status: true,
-          type: 'AVATAR',
-        },
-      ],
-      mentorName: ['Hello'],
-      subjectId: 0,
-      subjectName: 'Hello',
-      totalClass: 5,
-    },
-  ];
+  const { courses, error, isLoading, currentPage, totalPages } =
+    useQueryGetMentorCourses(filterParams);
 
   // parameters
   const chosenClassStatus = CourseStatusList.find(
@@ -182,14 +151,13 @@ export default function MentorCourseListPage() {
           {chosenClassStatus?.content}
         </Typography>
       </Stack>
-
-      <Grid container sx={{ width: '100%' }}>
-        <LoadingWrapper
-          error={error}
-          isLoading={isLoading}
-          isEmptyCourse={courses.length === 0}
-        >
-          {courses.map((item: any) => (
+      <LoadingWrapper
+        error={error}
+        isLoading={isLoading}
+        isEmptyCourse={courses?.length === 0}
+      >
+        <Grid container sx={{ width: '100%' }}>
+          {courses?.map((item) => (
             <Grid
               item
               xs={12}
@@ -200,8 +168,9 @@ export default function MentorCourseListPage() {
               <MentorCourseItem item={item} key={item.id} />
             </Grid>
           ))}
-        </LoadingWrapper>
-      </Grid>
+        </Grid>
+      </LoadingWrapper>
+
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >

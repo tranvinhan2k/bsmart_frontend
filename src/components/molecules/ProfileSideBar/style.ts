@@ -4,7 +4,6 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import overlay_bg from '~/assets/images/overlay-bg.jpg';
 
 export const SX_WRAPPER: SxProps<Theme> = {
-  boxShadow: 3,
   padding: MetricSize.medium_15,
   borderRadius: MetricSize.small_5,
   background: Color.white,
