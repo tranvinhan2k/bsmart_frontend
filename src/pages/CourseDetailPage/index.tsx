@@ -14,6 +14,7 @@ import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import Classes from '~/components/molecules/list/Classes';
 import { SectionPayload } from '~/models/section';
 import Content from '~/components/molecules/Content';
+import ImageSlider from '~/components/atoms/ImageSlider';
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -211,18 +212,12 @@ export default function CourseDetailPage() {
               {/* <CourseDetailFeedbackSection feedbackData={data.feedbackData} /> */}
 
               <Stack>
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: undefined,
-                    aspectRatio: 16 / 9,
-                    objectFit: 'cover',
-                    background: Color.grey,
-                    borderRadius: MetricSize.small_10,
-                  }}
-                  component="img"
-                  alt="ảnh nền khóa học"
-                  src={image.mockClass}
+                <ImageSlider
+                  slides={[
+                    'https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80',
+                    'https://images.unsplash.com/photo-1534643960519-11ad79bc19df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                    'https://images.unsplash.com/photo-1565598621680-94ac0c22b148?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                  ]}
                 />
                 <Stack
                   paddingX={5}
@@ -238,6 +233,7 @@ export default function CourseDetailPage() {
                       borderRadius: MetricSize.small_5,
                       background: Color.white,
                       boxShadow: 3,
+                      zIndex: 2,
                     }}
                     component="img"
                     alt="avatar"
