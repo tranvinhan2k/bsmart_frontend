@@ -128,7 +128,7 @@ export default function MentorCourseDetailPage() {
       id: 0,
       isCompleted: isCompletedInformationCourse,
       label: 'Thêm thông tin khóa học',
-      onClick: () => handleChangeTabIndex(1),
+      onClick: () => handleChangeTabIndex(2),
       description:
         'Xem lại khóa học vừa tạo của bạn. Khóa học này sẽ được hiển thị ra ngoài cho học sinh xem và đăng kí.',
     },
@@ -136,7 +136,7 @@ export default function MentorCourseDetailPage() {
       id: 1,
       isCompleted: isAddedContent,
       label: 'Thêm nội dung khóa học',
-      onClick: () => handleChangeTabIndex(2),
+      onClick: () => handleChangeTabIndex(3),
 
       description:
         'Thêm nội dung giảng dạy để học sinh có thể biết chương trình học của bạn thú vị ra sao.',
@@ -145,7 +145,7 @@ export default function MentorCourseDetailPage() {
       id: 2,
       isCompleted: isAddedClasses,
       label: 'Thêm danh sách lớp học',
-      onClick: () => handleChangeTabIndex(3),
+      onClick: () => handleChangeTabIndex(4),
 
       description:
         'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
@@ -183,7 +183,7 @@ export default function MentorCourseDetailPage() {
       id: 3,
       name: 'Nội dung',
       icon: 'blankSquareCheckbox',
-      component: <Content />,
+      component: <Content id={formatStringToNumber(id)} />,
     },
     {
       id: 4,

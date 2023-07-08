@@ -1,4 +1,5 @@
 import { OptionPayload } from './common';
+import { SectionPayload } from './section';
 import {
   AccountStatusKeys,
   CourseStatusKeys,
@@ -91,3 +92,5 @@ export interface CoursePayload {
   mentorName: string[];
   status: CourseStatusKeys;
 }
+
+export type ContentPayload = SectionPayload[];

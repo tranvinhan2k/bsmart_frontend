@@ -1,4 +1,5 @@
 import axiosClient from '~/api/axiosClient';
+import { PagingFilterPayload } from '~/models';
 import {
   ClassCreateClassSectionPayload,
   ClassDeleteClassSectionPayload,
@@ -6,11 +7,25 @@ import {
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
 } from '~/models/class';
-import { PostClassPayload } from '~/models/request';
+import { PagingRequestPayload, PostClassPayload } from '~/models/request';
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 
 const url = '/classes';
 
 const classApi = {
+  // get
+  getCourseClasses({
+    id,
+    filterParam,
+  }: {
+    id: number;
+    filterParam: PagingRequestPayload;
+  }): Promise<PagingFilterPayload<DetailCourseClassPayload>> {
+    return axiosClient.get(`${url}/course/${id}`, {
+      params: filterParam,
+      paramsSerializer: { indexes: null },
+    });
+  },
   addClassForCourse({ id, param }: { id: number; param: PostClassPayload }) {
     return axiosClient.post(`${url}/course/${id}`, param);
   },

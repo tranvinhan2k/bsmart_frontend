@@ -1,10 +1,10 @@
 import activityApi from '~/api/activity';
 import { useCustomMutation } from '../useCustomMutation';
 
-export const useMutationAddContent = () => {
+export const useMutationDeleteContent = () => {
   const mutation = useCustomMutation(
-    ['create_content'],
-    activityApi.addCourseContent
+    ['delete_content'],
+    activityApi.deleteCourseContent
   );
   return mutation;
 };

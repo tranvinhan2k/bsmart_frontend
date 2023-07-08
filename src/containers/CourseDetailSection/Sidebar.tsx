@@ -213,6 +213,8 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
               alignItems: 'center',
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
+              height: '250px',
+              overflowY: 'auto',
             }}
           >
             {classes.map((item, index) => (

@@ -283,7 +283,7 @@ export default function CourseDetailPage() {
                         height: undefined,
                         aspectRatio: 16 / 9,
                       }}
-                      src="https://www.youtube.com/embed/ZaVG2p-T9O4"
+                      src="https://www.youtube-nocookie.com/embed/ZaVG2p-T9O4"
                       title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
