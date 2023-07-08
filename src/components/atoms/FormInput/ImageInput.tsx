@@ -91,7 +91,12 @@ export default function ImageInput({
                 <IconButton sx={{ marginRight: 1 }} component="span">
                   <Icon name="add-icon" size="small_20" />
                 </IconButton>
-                <Typography sx={globalStyles.textLowSmallLight}>
+                <Typography
+                  sx={{
+                    ...globalStyles.textLowSmallLight,
+                    zIndex: -1,
+                  }}
+                >
                   Chưa có hình ảnh được chọn.
                 </Typography>
               </Stack>
