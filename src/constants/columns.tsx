@@ -1,7 +1,9 @@
 import { GridColDef } from '@mui/x-data-grid';
+import { CopyableCell } from '~/utils/commonComp';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
-import { getGender } from '~/utils/common';
+import { formatPhoneNumberVi } from '~/utils/phone';
+import { getGender, handleDefinedText } from '~/utils/common';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -87,18 +89,47 @@ const subjectColumns: GridColDef[] = [
     },
   },
 ];
+
 const registerRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
     minWidth: 100,
     flex: 1,
+    renderCell: (params) => {
+      const { email } = params.row;
+      return (
+        <CopyableCell
+          rawValue={email}
+          formattedValue={handleDefinedText(email)}
+        />
+      );
+    },
   },
   {
     field: 'fullName',
     headerName: 'Họ tên',
     minWidth: 100,
     flex: 1,
+    renderCell: (params) => {
+      const { fullName } = params.row;
+      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+    },
+  },
+  {
+    field: 'phone',
+    headerName: 'SĐT',
+    minWidth: 100,
+    flex: 1,
+    renderCell: (params) => {
+      const { phone } = params.row;
+      return (
+        <CopyableCell
+          rawValue={phone}
+          formattedValue={formatPhoneNumberVi(phone)}
+        />
+      );
+    },
   },
   {
     field: 'gender',
@@ -111,12 +142,6 @@ const registerRequestColumns: GridColDef[] = [
     },
   },
   {
-    field: 'phone',
-    headerName: 'SĐT',
-    minWidth: 100,
-    flex: 1,
-  },
-  {
     field: 'birthday',
     headerName: 'Ngày sinh',
     minWidth: 100,
@@ -127,6 +152,7 @@ const registerRequestColumns: GridColDef[] = [
     },
   },
 ];
+
 const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'courseCode',

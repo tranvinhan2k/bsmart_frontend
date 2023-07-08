@@ -86,6 +86,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import WarningIcon from '@mui/icons-material/Warning';
 import ImageIcon from '@mui/icons-material/Image';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -174,6 +175,7 @@ export type IconName =
   | 'sentimentVeryDissatisfiedIcon'
   | 'warningIcon'
   | 'imageIcon'
+  | 'contentCopyIcon'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -397,6 +399,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <WarningIcon sx={STYLED_ICON} />;
     case 'imageIcon':
       return <ImageIcon sx={STYLED_ICON} />;
+    case 'contentCopyIcon':
+      return <ContentCopyIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />

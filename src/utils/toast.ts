@@ -5,6 +5,15 @@ const loadToast = (label: string) => {
     position: 'top-left',
   });
 };
+const copyText = (label: string) => {
+  toast.success(label, {
+    position: 'bottom-center',
+    isLoading: false,
+    autoClose: 500,
+    closeOnClick: true,
+    closeButton: false,
+  });
+};
 
 const updateSuccessToast = (id: Id, label: string) => {
   toast.update(id, {
@@ -63,4 +72,5 @@ export default {
   notifyErrorToast,
   notifyWarningToast,
   notifySuccessToast,
+  copyText,
 };

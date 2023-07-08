@@ -82,6 +82,12 @@ export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
     height: MetricSize.formInputHeight,
   },
 };
+export const SX_DATAGRID_CELL_TEXT: SxProps<Theme> = {
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  fontSize: 14,
+};
 
 const globalStyles = {
   textTitle,

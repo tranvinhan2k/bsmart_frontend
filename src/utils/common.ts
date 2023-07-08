@@ -43,3 +43,11 @@ export function getGender(genderCode?: string) {
   }
   return result;
 }
+
+export const handleDefinedText = (
+  text: string | number | undefined | null
+): string | number => {
+  if (text) return text;
+  if (text === undefined) return 'Không tồn tại';
+  return 'Đã xảy ra lỗi';
+};

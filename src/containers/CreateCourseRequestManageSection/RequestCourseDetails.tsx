@@ -1,5 +1,5 @@
 import { Avatar, Divider, Grid, Stack, Typography } from '@mui/material';
-import { handleDefinedTextReturnComp } from '~/utils/checkDeined';
+import { handleDefinedTextReturnComp } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import {
@@ -128,7 +128,7 @@ export default function RequestCourseDetails({
                 alignItems="flex-start"
                 spacing={2}
               >
-                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
+                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:++</Typography>
                 <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
               </Stack>
             </Grid>
