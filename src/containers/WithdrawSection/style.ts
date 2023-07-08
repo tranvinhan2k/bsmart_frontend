@@ -16,7 +16,7 @@ export const SX_CONTAINER: SxProps<Theme> = {
   marginBottom: MetricSize.large_30,
   padding: MetricSize.large_20,
   /* Color */
-  boxShadow: '0 0 15px rgb(51 51 51 / 10%)',
+  background: Color.white,
   /* Text */
   /* Other */
 };

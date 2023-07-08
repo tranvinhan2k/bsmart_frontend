@@ -64,19 +64,19 @@ export interface DetailCourseClassPayload {
 export default function MentorCourseDetailPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { optionCategories } = useDispatchGetAllCategories();
-  const { optionSubjects } = useDispatchGetAllSubjects();
 
-  // const course = useSelector(selectMentorCourse);
-  const course: DetailCoursePayload = {
-    code: '123',
-    name: 'Khóa học kiểm thử 1',
-    description: 'Xin Chào Các Bạn',
-    subjectId: optionSubjects[0],
-    categoryId: optionCategories[0],
-    // status: 'REQUESTING',
-    status: 'EDITREQUEST',
-  };
+  const course = useSelector(selectMentorCourse);
+  // const { optionCategories } = useDispatchGetAllCategories();
+  // const { optionSubjects } = useDispatchGetAllSubjects();
+  // const course: DetailCoursePayload = {
+  //   code: '123',
+  //   name: 'Khóa học kiểm thử 1',
+  //   description: 'Xin Chào Các Bạn',
+  //   subjectId: optionSubjects[0],
+  //   categoryId: optionCategories[0],
+  //   // status: 'REQUESTING',
+  //   status: 'EDITREQUEST',
+  // };
 
   const mockClasses: DetailCourseClassPayload[] = [
     {
