@@ -1,3 +1,4 @@
+import { OptionPayload } from './common';
 import {
   AccountStatusKeys,
   CourseStatusKeys,
@@ -83,8 +84,8 @@ export interface CoursePayload {
   images: ImagePayload[];
   courseCode: string;
   courseName: string;
-  subjectId: number;
-  subjectName: string;
+  category: OptionPayload;
+  subject: OptionPayload;
   courseDescription: string;
   totalClass: number;
   mentorName: string[];

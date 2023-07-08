@@ -1,12 +1,17 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { Box, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface TextInputProps {
+  disabled?: boolean;
   controller: UseControllerReturn<any, string>;
   placeholder: string;
 }
-function TextInput({ controller, placeholder }: TextInputProps) {
+function TextInput({
+  disabled = false,
+  controller,
+  placeholder,
+}: TextInputProps) {
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
     fieldState: { invalid, error },
@@ -16,21 +21,20 @@ function TextInput({ controller, placeholder }: TextInputProps) {
   };
 
   return (
-    <Box mb={error ? 2 : 0}>
-      <TextField
-        sx={SX_TEXT_INPUT_FORM}
-        placeholder={placeholder}
-        fullWidth
-        size="small"
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        inputRef={ref}
-        inputProps={{ spellCheck: 'false' }}
-        error={invalid}
-        helperText={error?.message}
-      />
-    </Box>
+    <TextField
+      disabled={disabled}
+      sx={SX_TEXT_INPUT_FORM}
+      placeholder={placeholder}
+      fullWidth
+      size="small"
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      inputRef={ref}
+      inputProps={{ spellCheck: 'false' }}
+      error={invalid}
+      helperText={error?.message}
+    />
   );
 }
 export default TextInput;

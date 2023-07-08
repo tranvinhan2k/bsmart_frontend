@@ -30,11 +30,7 @@ export const useCreateClassesForm = (
   const mutation = useCreateCourseClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
-  const { handleTryCatch } = useTryCatch({
-    error: 'Thêm lớp học thất bại',
-    loading: 'Đang thêm lớp học...',
-    success: 'Thêm lớp học mới thành công',
-  });
+  const { handleTryCatch } = useTryCatch('thêm lớp học');
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse

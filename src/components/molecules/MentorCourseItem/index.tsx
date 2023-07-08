@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Color, MetricSize } from '~/assets/variables';
 import UserCourseItem from '../UserCourseItem';
 import {
@@ -9,6 +10,14 @@ import {
 } from '~/constants/routeLink';
 import { CoursePayload } from '~/models/type';
 import { image } from '~/constants/image';
+import { addMentorCourse } from '~/redux/courses/slice';
+import { DetailCoursePayload } from '~/pages/MentorCourseDetailPage';
+import {
+  useDispatchGetAllCategories,
+  useDispatchGetAllSubjects,
+} from '~/hooks';
+import { OptionPayload } from '~/models';
+import toast from '~/utils/toast';
 
 interface MentorCourseItemProps {
   item: CoursePayload;
@@ -31,19 +40,46 @@ export default function MentorCourseItem({
       },
     ],
     mentorName: [''],
-    subjectId: 0,
-    subjectName: '',
+    subject: {
+      id: 0,
+      label: '',
+      value: '',
+    },
     totalClass: 0,
     status: 'REQUESTING',
+    category: {
+      id: 0,
+      label: '',
+      value: '',
+    },
   },
   isSkeleton = false,
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { optionSubjects } = useDispatchGetAllSubjects();
 
   const handleNavigateCourseDetail = () => {
-    navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${item.id}`
+    const subject = optionSubjects.find(
+      (param) => param.id === item.subject.id
     );
+    if (!subject) {
+      toast.notifyErrorToast('Không tìm thấy môn học của khóa học này');
+    } else {
+      const params: DetailCoursePayload = {
+        code: item.courseCode,
+        name: item.courseName,
+        description: item.courseDescription,
+        status: item.status,
+        subjectId: subject,
+        categoryId: item.category,
+      };
+      dispatch(addMentorCourse(params));
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${item.id}`
+      );
+    }
   };
 
   if (isSkeleton) {

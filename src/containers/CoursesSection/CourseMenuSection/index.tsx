@@ -112,7 +112,7 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
                 courseTeacherName={item.mentorName}
                 courseDescription={item.courseDescription}
                 courseName={item.courseName}
-                subjectName={item.subjectName}
+                subjectName={item.subject.label}
                 imageAlt="course logo"
                 imageUrl={item.images?.[0]?.url}
                 onClick={() => handleNavigateCourseDetail(`${item.id}`)}

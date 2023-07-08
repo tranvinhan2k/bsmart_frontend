@@ -40,3 +40,10 @@ export interface PagingRequestPayload {
   subjectId?: number[];
   skills?: number[];
 }
+
+export interface PutCoursePayload {
+  name: string;
+  categoryId: number;
+  subjectId: number;
+  description: string;
+}

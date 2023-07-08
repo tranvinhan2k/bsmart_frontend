@@ -3,13 +3,10 @@ import { useEffect, useState } from 'react';
 import { Grid, Stack, Typography, Divider } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { StepPayload } from '~/components/molecules/CustomStepper';
 
-import {
-  useDispatchGetAllCategories,
-  useDispatchGetAllSubjects,
-  useEffectScrollToTop,
-} from '~/hooks';
+import { useEffectScrollToTop } from '~/hooks';
 import Button from '~/components/atoms/Button';
 import globalStyles from '~/styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
@@ -23,13 +20,14 @@ import { mockLevelData } from '~/constants';
 import Content from '~/containers/MentorCourseDetail/Content';
 import { ClassStatusKeys } from '~/models/variables';
 import { formatStringToNumber } from '~/utils/number';
+import { selectMentorCourse } from '~/redux/courses/selector';
 
 export interface DetailCoursePayload {
+  code: string;
   name: string;
   categoryId: OptionPayload;
   subjectId: OptionPayload;
   description: string;
-  image: string;
   status: ClassStatusKeys;
 }
 
@@ -52,16 +50,16 @@ export interface DetailCourseClassPayload {
 
 export default function MentorCourseDetailPage() {
   const { id } = useParams();
-  const { optionSubjects } = useDispatchGetAllSubjects();
-  const { optionCategories } = useDispatchGetAllCategories();
-  const mockCourse: DetailCoursePayload = {
-    name: 'Khóa học kiểm thử 1',
-    description: 'Xin Chào Các Bạn',
-    image: '',
-    subjectId: optionSubjects[0],
-    categoryId: optionCategories[0],
-    status: 'REQUESTING',
-  };
+
+  const course = useSelector(selectMentorCourse);
+  // const mockCourse: DetailCoursePayload = {
+  //   code: '123',
+  //   name: 'Khóa học kiểm thử 1',
+  //   description: 'Xin Chào Các Bạn',
+  //   subjectId: optionSubjects[0],
+  //   categoryId: optionCategories[0],
+  //   status: 'REQUESTING',
+  // };
 
   const mockClasses: DetailCourseClassPayload[] = [
     {
@@ -84,7 +82,7 @@ export default function MentorCourseDetailPage() {
     },
   ];
 
-  const course = mockCourse;
+  // const course = mockCourse;
   // const classes = mockClasses;
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -99,7 +97,7 @@ export default function MentorCourseDetailPage() {
 
   // TODO: Thêm validation cho các biến sau đây
   const isCompletedInformationCourse = true;
-  const isAddedContent = true;
+  const isAddedContent = false;
   const isAddedClasses = false;
 
   const steps: StepPayload[] = [
@@ -142,14 +140,14 @@ export default function MentorCourseDetailPage() {
       id: 0,
       name: 'Hướng dẫn',
       icon: 'squareCheckbox',
-      isHide: mockCourse.status !== 'REQUESTING',
+      isHide: course.status !== 'REQUESTING',
       component: <TutorialRequestCourse steps={steps} />,
     },
     {
       id: 1,
       name: 'Thông tin khóa học',
       icon: 'squareCheckbox',
-      component: <EditCourse course={course} />,
+      component: <EditCourse id={formatStringToNumber(id)} course={course} />,
     },
     {
       id: 2,

@@ -32,11 +32,7 @@ export default function MentorCreateCoursePage() {
 
   const { mutationResult } = useMutationCreateCourse();
 
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang tạo khóa học mới',
-    error: 'Tạo khóa học thất bại',
-    success: 'Tạo khóa học thành công',
-  });
+  const { handleTryCatch } = useTryCatch('tạo khóa học');
 
   const handleCreateCourse = async (paramCourse: PostCoursePayload) => {
     // ToDO: Goi api create course o day

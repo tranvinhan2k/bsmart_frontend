@@ -4,30 +4,30 @@ import { Stack, Box } from '@mui/material';
 // eslint-disable-next-line import/no-cycle
 import { DetailCoursePayload } from '..';
 import FormInput from '~/components/atoms/FormInput';
-import { useTryCatch, useUpdateCourseForm } from '~/hooks';
+import {
+  useMutationUpdateCourse,
+  useTryCatch,
+  useUpdateCourseForm,
+} from '~/hooks';
 import Button from '~/components/atoms/Button';
 import { Color } from '~/assets/variables';
 import { useTimeOut } from '~/hooks/useTimeOut';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { PutCoursePayload } from '~/models';
+import { handleConsoleError } from '~/utils/common';
 
 interface Props {
+  id: number;
   course: DetailCoursePayload;
 }
 
-export default function EditCourse({ course }: Props) {
+export default function EditCourse({ id, course }: Props) {
   const [open, setOpen] = useState(false);
 
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang cập nhật khóa học',
-    success: 'Cập nhật khóa học thành công',
-    error: 'Cập nhật khóa học thất bại',
-  });
+  const { handleTryCatch } = useTryCatch('cập nhật khóa học');
+  const { mutateAsync } = useMutationUpdateCourse();
 
-  const deleteCourse = useTryCatch({
-    loading: 'Đang xóa khóa học ...',
-    success: 'Xóa khóa học thành công.',
-    error: 'Xóa khóa học thất bại',
-  });
+  const deleteCourse = useTryCatch('xóa khóa học');
 
   const { onSleep } = useTimeOut(1000);
 
@@ -35,23 +35,30 @@ export default function EditCourse({ course }: Props) {
     setOpen(!open);
   };
 
-  const handleLoadUpdateApi = async () => {
-    await handleTryCatch(() => onSleep(true));
+  const handleUpdateCourse = async (param: PutCoursePayload) => {
+    await handleTryCatch(async () => mutateAsync({ id, param }));
   };
 
   const handleDeleteCourse = async () => {
     await deleteCourse.handleTryCatch(() => onSleep(true));
   };
 
-  const { hookForm, optionCategories, optionSubjects, handleUpdateCourse } =
-    useUpdateCourseForm(course, handleLoadUpdateApi);
+  const { hookForm, categories, filterSubjects, handleSubmit } =
+    useUpdateCourseForm(course, handleUpdateCourse);
   return (
     <Stack>
+      <FormInput
+        disabled
+        label="Mã khóa học"
+        control={hookForm.control}
+        name="code"
+      />
+      <Stack marginTop={2} />
       <FormInput label="Tên khóa học" control={hookForm.control} name="name" />
       <Stack marginTop={2} />
       <FormInput
         variant="dropdown"
-        data={optionSubjects}
+        data={categories}
         label="Lĩnh Vực"
         control={hookForm.control}
         name="categoryId"
@@ -59,7 +66,7 @@ export default function EditCourse({ course }: Props) {
       <Stack marginTop={2} />
       <FormInput
         variant="dropdown"
-        data={optionCategories}
+        data={filterSubjects}
         label="Môn học"
         control={hookForm.control}
         name="subjectId"
@@ -73,9 +80,7 @@ export default function EditCourse({ course }: Props) {
       />
       <Box marginTop={1}>
         <Button
-          onClick={hookForm.handleSubmit(handleUpdateCourse, (e) =>
-            console.log(e)
-          )}
+          onClick={hookForm.handleSubmit(handleSubmit, handleConsoleError)}
           disabled={!hookForm.formState.isDirty}
           sx={{
             color: Color.white,

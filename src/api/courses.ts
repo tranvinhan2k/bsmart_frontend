@@ -4,6 +4,7 @@ import {
   PagingFilterPayload,
   PagingRequestPayload,
   PostCoursePayload,
+  PutCoursePayload,
 } from '~/models';
 import { CourseDetailPayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
@@ -213,6 +214,7 @@ const coursesApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
+    // TODO : category sang object thi` chuyen ve object
     const result: CoursePayload[] = (response.items as any[]).map(
       (item: any) => ({
         id: item.id,
@@ -222,10 +224,19 @@ const coursesApi = {
         courseName: item.courseName,
         images: item.images,
         mentorName: item.mentorName,
-        subjectId: item.subjectId,
-        subjectName: item.subjectName,
         totalClass: item.totalClass,
         status: item.status,
+        category: {
+          id: item.categoryResponse.id,
+          label: item.categoryResponse.name,
+          value: item.categoryResponse.id,
+        },
+        subject: {
+          id: item.subjectResponse.id,
+          label: item.subjectResponse.name,
+          value: item.subjectResponse.id,
+          categoryIds: item.subjectResponse.categoryIds,
+        },
       })
     );
     return { ...response, items: result };
@@ -247,14 +258,27 @@ const coursesApi = {
         courseName: item.courseName,
         images: item.images,
         mentorName: item.mentorName,
-        subjectId: item.subjectId,
-        subjectName: item.subjectName,
         totalClass: item.totalClass,
         status: item.status,
+        category: {
+          id: item.categoryResponse.id,
+          label: item.categoryResponse.name,
+          value: item.categoryResponse.id,
+        },
+        subject: {
+          id: item.subjectResponse.id,
+          label: item.subjectResponse.name,
+          value: item.subjectResponse.id,
+          categoryIds: item.subjectResponse.categoryIds,
+        },
       })
     );
 
     return { ...response, items: result };
+  },
+  // put
+  async updateCourse({ id, param }: { id: number; param: PutCoursePayload }) {
+    axiosClient.put(`${url}/${id}`, param);
   },
   async getAllPublicCourse() {
     return axiosClient.get(`${url}/public`);

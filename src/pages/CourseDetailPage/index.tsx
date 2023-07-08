@@ -9,7 +9,6 @@ import { CommonCourse, mockLevelData } from '~/constants';
 import { image } from '~/constants/image';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
 import { useEffectScrollToTop, useTimeOut, useTryCatch } from '~/hooks';
-import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import Classes from '~/components/molecules/list/Classes';

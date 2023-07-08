@@ -12,6 +12,7 @@ export * from './useMutationAddCourseToCart';
 export * from './content/useMutationAddContent';
 
 export * from './course/useQueryGetMentorCourses';
+export * from './course/useMutationUpdateCourse';
 
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';
