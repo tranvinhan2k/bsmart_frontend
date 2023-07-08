@@ -79,12 +79,12 @@ export default function Content() {
     try {
       const params: { id: number; param: PostActivityCoursePayload } = {
         id: parseInt(`${id}`, 10),
-        param: content.map((item) => ({
-          name: item.name,
-          lessons: item.modules.map((lesson) => ({
+        param: {
+          name: content[0].name,
+          lessons: content[0].modules.map((lesson) => ({
             description: lesson.name,
           })),
-        })),
+        },
       };
 
       await createCourseContentMutation.mutateAsync(params);

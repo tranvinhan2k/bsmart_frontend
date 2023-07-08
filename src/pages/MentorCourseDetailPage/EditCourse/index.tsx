@@ -1,20 +1,25 @@
 import { useState } from 'react';
 
 import { Stack, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line import/no-cycle
 import { DetailCoursePayload } from '..';
 import FormInput from '~/components/atoms/FormInput';
 import {
+  useMutationDeleteCourse,
   useMutationUpdateCourse,
   useTryCatch,
   useUpdateCourseForm,
 } from '~/hooks';
 import Button from '~/components/atoms/Button';
 import { Color } from '~/assets/variables';
-import { useTimeOut } from '~/hooks/useTimeOut';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { PutCoursePayload } from '~/models';
 import { handleConsoleError } from '~/utils/common';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 interface Props {
   id: number;
@@ -22,14 +27,14 @@ interface Props {
 }
 
 export default function EditCourse({ id, course }: Props) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const { handleTryCatch } = useTryCatch('cập nhật khóa học');
   const { mutateAsync } = useMutationUpdateCourse();
+  const { mutateAsync: mutateDeleteAsync } = useMutationDeleteCourse();
 
   const deleteCourse = useTryCatch('xóa khóa học');
-
-  const { onSleep } = useTimeOut(1000);
 
   const handleClose = () => {
     setOpen(!open);
@@ -40,7 +45,10 @@ export default function EditCourse({ id, course }: Props) {
   };
 
   const handleDeleteCourse = async () => {
-    await deleteCourse.handleTryCatch(() => onSleep(true));
+    await deleteCourse.handleTryCatch(async () => mutateDeleteAsync(id));
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`
+    );
   };
 
   const { hookForm, categories, filterSubjects, handleSubmit } =

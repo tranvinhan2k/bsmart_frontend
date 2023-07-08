@@ -280,6 +280,11 @@ const coursesApi = {
   async updateCourse({ id, param }: { id: number; param: PutCoursePayload }) {
     axiosClient.put(`${url}/${id}`, param);
   },
+  // delete
+  async deleteCourse(id: number): Promise<boolean> {
+    const response = await axiosClient.delete(`${url}/${id}`);
+    return response;
+  },
   async getAllPublicCourse() {
     return axiosClient.get(`${url}/public`);
   },

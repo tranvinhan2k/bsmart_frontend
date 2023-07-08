@@ -13,6 +13,7 @@ export * from './content/useMutationAddContent';
 
 export * from './course/useQueryGetMentorCourses';
 export * from './course/useMutationUpdateCourse';
+export * from './course/useMutationDeleteCourse';
 
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';

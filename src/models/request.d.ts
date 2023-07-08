@@ -27,7 +27,7 @@ export type PostActivityCoursePayload = {
   lessons: {
     description: string;
   }[];
-}[];
+};
 
 export interface PagingRequestPayload {
   q: string;
