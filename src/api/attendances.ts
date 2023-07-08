@@ -7,7 +7,7 @@ const attendanceApi = {
     const urlGet = `${url}/${timetableId}`;
     return axiosClient.get(urlGet);
   },
-  takeAttendance(data: {
+  takeAttendance(param: {
     timeTableId: number;
     details: {
       studentClassId: number;
@@ -16,7 +16,7 @@ const attendanceApi = {
     }[];
   }): Promise<any> {
     const urlGet = `${url}`;
-    return axiosClient.post(urlGet, { ...data });
+    return axiosClient.post(urlGet, param);
   },
 };
 

@@ -280,7 +280,9 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
                           ? FontFamily.bold
                           : FontFamily.regular,
                       color:
-                        chooseClass.id === item.id ? Color.tertiary : Color.black,
+                        chooseClass.id === item.id
+                          ? Color.tertiary
+                          : Color.black,
                     }}
                   >
                     {`Lớp học #${item.id}`}

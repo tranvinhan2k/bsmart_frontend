@@ -229,7 +229,7 @@ const coursesApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
-    const result: CoursePayload[] = (response.items as any[]).map((item) => ({
+    const result: CoursePayload[] = response.items.map((item: any) => ({
       id: item.id,
       content: item.content,
       courseCode: item.courseCode,
