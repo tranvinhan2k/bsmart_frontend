@@ -2,13 +2,13 @@ import { ClassStatusKeys } from './variables';
 
 export interface PostCoursePayload {
   name: string;
+  level: string;
   categoryId: number;
   subjectId: number;
   description: string;
 }
 
 export interface PostClassPayload {
-  level: string;
   imageId: number;
   price: number;
   minStudent: number;
@@ -46,4 +46,5 @@ export interface PutCoursePayload {
   categoryId: number;
   subjectId: number;
   description: string;
+  level: string;
 }

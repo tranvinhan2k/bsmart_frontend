@@ -142,7 +142,6 @@ export const useCreateClassesForm = (
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
         const param: PostClassPayload = {
-          level: data.level.value,
           endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,

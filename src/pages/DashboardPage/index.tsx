@@ -9,11 +9,7 @@ import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
-import {
-  MentorDashboardNavigationActionLink,
-  NavigationLink,
-  StudentDashboardNavigationActionLink,
-} from '~/constants/routeLink';
+import { NavigationLink } from '~/constants/routeLink';
 import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
@@ -71,16 +67,6 @@ export default function DashboardPage() {
 
     return result;
   };
-
-  useEffect(() => {
-    rows.map((item, index) => {
-      if (pathname.includes(item.link)) {
-        setActiveIndex(index);
-      }
-      return null;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   React.useEffect(() => {
     scrollToTop();

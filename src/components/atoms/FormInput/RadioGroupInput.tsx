@@ -6,7 +6,7 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { OptionPayload } from '~/models';
-import { Color } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 interface RadioGroupInputProps {
   controller: UseControllerReturn<any, string>;
@@ -28,15 +28,17 @@ function RadioGroupInput({ controller, data }: RadioGroupInputProps) {
         row
         value={value}
         onChange={controllerOnChange}
-        aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
-        color={Color.tertiary}
       >
         {data.map((item) => (
           <FormControlLabel
             key={item.id}
+            sx={{
+              fontSize: FontSize.small_16,
+              fontFamily: FontFamily.medium,
+            }}
             value={item.value}
-            control={<Radio />}
+            control={<Radio color="secondary" />}
             label={item.label}
           />
         ))}

@@ -3,7 +3,7 @@ import { UseFormReturn } from 'react-hook-form';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
-import { CREATE_SUB_COURSE_FIELDS } from '~/form/schema';
+import { CREATE_CLASS_FIELDS } from '~/form/schema';
 import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
@@ -48,7 +48,7 @@ export default function UpdateClassModal({
           <Stack>
             <FormInput
               variant="number"
-              name={CREATE_SUB_COURSE_FIELDS.price}
+              name={CREATE_CLASS_FIELDS.price}
               control={hookForm.control}
               label="Giá khóa học"
             />
@@ -57,14 +57,14 @@ export default function UpdateClassModal({
           <FormInput
             data={types}
             variant="dropdown"
-            name={CREATE_SUB_COURSE_FIELDS.type}
+            name={CREATE_CLASS_FIELDS.type}
             control={hookForm.control}
             label="Hình thức khóa học"
           />
           <Stack marginTop={2} />
           <FormInput
             variant="image"
-            name={CREATE_SUB_COURSE_FIELDS.imageId}
+            name={CREATE_CLASS_FIELDS.imageId}
             control={hookForm.control}
             label="Hình ảnh"
           />
@@ -78,13 +78,13 @@ export default function UpdateClassModal({
           >
             <FormInput
               variant="number"
-              name={CREATE_SUB_COURSE_FIELDS.minStudent}
+              name={CREATE_CLASS_FIELDS.minStudent}
               control={hookForm.control}
               label="Số học sinh tối thiểu"
             />
             <FormInput
               variant="number"
-              name={CREATE_SUB_COURSE_FIELDS.maxStudent}
+              name={CREATE_CLASS_FIELDS.maxStudent}
               control={hookForm.control}
               label="Số học sinh tối đa"
             />
@@ -93,7 +93,7 @@ export default function UpdateClassModal({
           <FormInput
             data={levels}
             variant="radioGroup"
-            name={CREATE_SUB_COURSE_FIELDS.level}
+            name={CREATE_CLASS_FIELDS.level}
             control={hookForm.control}
             label="Trình độ"
           />
@@ -110,27 +110,27 @@ export default function UpdateClassModal({
           >
             <FormInput
               variant="date"
-              name={CREATE_SUB_COURSE_FIELDS.startDateExpected}
+              name={CREATE_CLASS_FIELDS.startDateExpected}
               control={hookForm.control}
               label="Ngày mở lớp dự kiến"
             />
             <FormInput
               variant="date"
-              name={CREATE_SUB_COURSE_FIELDS.endDateExpected}
+              name={CREATE_CLASS_FIELDS.endDateExpected}
               control={hookForm.control}
               label="Ngày kết thúc dự kiến"
             />
           </Stack>
           <Stack marginTop={2} />
           <FormInput
-            name={CREATE_SUB_COURSE_FIELDS.numberOfSlot}
+            name={CREATE_CLASS_FIELDS.numberOfSlot}
             variant="number"
             control={hookForm.control}
             label="Số buổi học"
           />
           <Stack marginTop={2} />
           <FormInput
-            name={CREATE_SUB_COURSE_FIELDS.timeInWeekRequests}
+            name={CREATE_CLASS_FIELDS.timeInWeekRequests}
             variant="timetable"
             control={hookForm.control}
             label="Thời khóa biểu"

@@ -42,11 +42,11 @@ export interface DetailCoursePayload {
   subjectId: OptionPayload;
   description: string;
   status: ClassStatusKeys;
+  level: OptionPayload;
 }
 
 export interface DetailCourseClassPayload {
   id: string;
-  level: OptionPayload;
   imageUrl: string;
   imageAlt: string;
   price: number;
@@ -70,6 +70,7 @@ export default function MentorCourseDetailPage() {
   // const { optionSubjects } = useDispatchGetAllSubjects();
   // const course: DetailCoursePayload = {
   //   code: '123',
+  //   level: mockLevelData[0],
   //   name: 'Khóa học kiểm thử 1',
   //   description: 'Xin Chào Các Bạn',
   //   subjectId: optionSubjects[0],
@@ -84,7 +85,6 @@ export default function MentorCourseDetailPage() {
       imageAlt: 'Logo CLass',
       imageUrl: '',
       id: '345',
-      level: mockLevelData[0],
       maxStudent: 30,
       minStudent: 15,
       numberOfSlot: 30,

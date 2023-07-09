@@ -16,6 +16,7 @@ import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import Timetable from '../../Timetable';
+import Button from '~/components/atoms/Button';
 
 interface Props {
   id: number;
@@ -94,32 +95,46 @@ export default function ClassItem({
       }}
     >
       <Stack sx={{ flexGrow: 1 }}>
-        <Collapse in={!open}>
-          <Stack sx={{ flexDirection: 'row' }}>
-            <Stack
+        {/* <Collapse in={!open}> */}
+        <Stack sx={{ flexDirection: 'row' }}>
+          <Stack
+            sx={{
+              justifyContentl: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component="img"
+              src={classItem.imageUrl ? classItem.imageUrl : image.mockClass}
+              alt="course"
               sx={{
-                justifyContentl: 'center',
-                alignItems: 'center',
+                borderRadius: MetricSize.small_5,
+                margin: 1,
+                background: Color.white,
+                objectFit: 'cover',
+                height: undefined,
+                width: '150px',
+                aspectRatio: 1,
               }}
-            >
-              <Box
-                component="img"
-                src={classItem.imageUrl ? classItem.imageUrl : image.mockClass}
-                alt="course"
-                sx={{
-                  borderRadius: MetricSize.small_5,
-                  margin: 1,
-                  background: Color.white,
-                  objectFit: 'cover',
-                  height: undefined,
-                  width: '150px',
-                  aspectRatio: 1,
-                }}
-              />
-            </Stack>
-            <Stack sx={{ flexGrow: 1, paddingX: 3, paddingY: 2 }}>
-              <Box>
-                <Stack
+            />
+          </Stack>
+
+          <Stack
+            sx={{
+              flexGrow: 1,
+              paddingX: 3,
+              paddingY: 2,
+              justifyContent: 'space-around',
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.medium_28,
+              }}
+            >{`Lớp học #${classItem.id}`}</Typography>
+            <Box>
+              {/* <Stack
                   sx={{
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -151,54 +166,62 @@ export default function ClassItem({
                   >
                     {`${classItem.level.label}`}
                   </Typography>
-                </Stack>
-              </Box>
-              <Typography
-                sx={{
-                  fontFamily: FontFamily.bold,
-                  fontSize: FontSize.medium_28,
-                }}
-              >{`Lớp học #${classItem.id}`}</Typography>
-
-              <Stack
-                sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  marginTop: 2,
-                }}
-              >
-                {appBar.map((item, index) => (
-                  <Stack
-                    key={index}
-                    sx={{
-                      flexDirection: 'row',
-                      marginRight: 2,
-                    }}
-                  >
-                    <Icon color="black" name={item.icon} size="small_20" />
-                    <Stack marginLeft={1}>
-                      <Typography
-                        sx={{
-                          fontSize: FontSize.small_14,
-                          fontFamily: FontFamily.bold,
-                        }}
-                      >
-                        {`${item.label} `}
-                      </Typography>
-                      <Typography sx={globalStyles.textLowSmallLight}>
-                        {`${item.variable} `}
-                      </Typography>
-                    </Stack>
+                </Stack> */}
+            </Box>
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                marginTop: 2,
+              }}
+            >
+              {appBar.map((item, index) => (
+                <Stack
+                  key={index}
+                  sx={{
+                    flexDirection: 'row',
+                    marginRight: 2,
+                  }}
+                >
+                  <Icon color="black" name={item.icon} size="small_20" />
+                  <Stack marginLeft={1}>
+                    <Typography
+                      sx={{
+                        fontSize: FontSize.small_14,
+                        fontFamily: FontFamily.bold,
+                      }}
+                    >
+                      {`${item.label} `}
+                    </Typography>
+                    <Typography sx={globalStyles.textLowSmallLight}>
+                      {`${item.variable} `}
+                    </Typography>
                   </Stack>
-                ))}
-              </Stack>
+                </Stack>
+              ))}
             </Stack>
+            <Box marginTop={1}>
+              <Button
+                onClick={handleOpen}
+                variant="text"
+                sx={{
+                  ':hover': {
+                    textDecoration: 'underline',
+                    background: Color.white,
+                  },
+                }}
+                color="primary"
+              >
+                {open ? 'Xem thông tin khóa học' : 'Xem lịch học'}
+              </Button>
+            </Box>
           </Stack>
-        </Collapse>
+        </Stack>
+        {/* </Collapse> */}
 
         <Collapse in={open}>
-          <Stack sx={{ padding: 1 }}>
+          <Stack sx={{ paddingX: 2, paddingBottom: 2 }}>
             <Typography sx={globalStyles.textSmallLabel}>
               Thông tin giờ học
             </Typography>
@@ -208,17 +231,19 @@ export default function ClassItem({
           </Stack>
         </Collapse>
       </Stack>
+
       {onUpdate && onDeleteModal && (
         <Stack
           sx={{
             position: 'absolute',
-            right: 0,
-            top: 0,
+            right: MetricSize.small_5,
+            top: MetricSize.small_5,
           }}
         >
           <IconButton onClick={handleMenu}>
             <Icon name="moreVert" color="black" size="small_20" />
           </IconButton>
+
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -231,9 +256,6 @@ export default function ClassItem({
             onClose={handleClose}
             onMouseLeave={handleClose}
           >
-            <MenuItem onClick={handleOpen}>
-              {open ? 'Xem thông tin khóa học' : 'Xem lịch học'}
-            </MenuItem>
             <MenuItem onClick={handleDelete}>Cập nhật </MenuItem>
             <MenuItem onClick={onDeleteModal}>Xóa</MenuItem>
           </Menu>

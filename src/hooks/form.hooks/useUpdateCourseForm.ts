@@ -4,6 +4,7 @@ import { validationSchemaCreateCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { OptionPayload, PutCoursePayload } from '~/models';
 import { useGetFilteredSubjectAndCategory } from '../course/useGetFilteredSubjectAndCategory';
+import { mockLevelData } from '~/constants';
 
 export const useUpdateCourseForm = (
   course: DetailCoursePayload,
@@ -26,12 +27,14 @@ export const useUpdateCourseForm = (
     subjectId: OptionPayload;
     categoryId: OptionPayload;
     description: string;
+    level: OptionPayload;
   }) {
     const params: PutCoursePayload = {
       name: data?.name || '',
       subjectId: data?.subjectId.id,
       categoryId: data?.categoryId.id,
       description: data?.description || '',
+      level: data?.level.value,
     };
     await onChangeCourse(params);
   }
@@ -41,5 +44,6 @@ export const useUpdateCourseForm = (
     categories,
     filterSubjects,
     handleSubmit,
+    levels: mockLevelData,
   };
 };

@@ -9,6 +9,7 @@ import { changeFilterParams } from '~/redux/courses/slice';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import UserCourseItem from '~/components/molecules/UserCourseItem';
 import { CoursePayload } from '~/models/type';
+import { LevelKeys } from '~/models/variables';
 
 interface CourseMenuSectionPayload {
   error: any;
@@ -73,7 +74,7 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
                   marginBottom: MetricSize.medium_15,
                   marginLeft: '15px',
                   borderColor: Color.grey,
-                  width: { xs: '100%', md: '23%' },
+                  width: { xs: '100%', md: '31%' },
                   borderRadius: MetricSize.small_5,
                   justifyContent: 'space-between',
                 }}
@@ -109,8 +110,9 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
       courseData = (
         <Grid container>
           {data?.items.map((item, index) => (
-            <Grid key={index} item xs={12} md={4} lg={3}>
+            <Grid key={index} item xs={12} md={6} lg={4}>
               <UserCourseItem
+                level={item.level.value as LevelKeys}
                 key={item.id}
                 courseTeacherName={item.mentorName}
                 courseDescription={item.courseDescription}

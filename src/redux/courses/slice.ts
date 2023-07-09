@@ -25,6 +25,11 @@ const initialState: CourseStateType = {
   checkOutCourses: null,
   totalAmount: 0,
   mentorCourse: {
+    level: {
+      id: 0,
+      label: '',
+      value: '',
+    },
     categoryId: {
       id: 0,
       label: '',

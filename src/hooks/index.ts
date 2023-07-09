@@ -17,6 +17,7 @@ export * from './course/useQueryGetMentorCourses';
 export * from './course/useMutationUpdateCourse';
 export * from './course/useMutationDeleteCourse';
 export * from './course/useMutationCreateCourse';
+export * from './course/useGetMentorCategories';
 
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';

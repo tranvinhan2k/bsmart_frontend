@@ -24,8 +24,11 @@ import toast from '~/utils/toast';
 import { NavigationLink } from '~/constants/routeLink';
 import { selectProfile } from '~/redux/user/selector';
 import { addCheckoutItem } from '~/redux/courses/slice';
+import { LevelKeys } from '~/models/variables';
 
 interface Props {
+  levelLabel: string;
+  level: LevelKeys;
   categoryName: string;
   subjectName: string;
   classes: DetailCourseClassPayload[];
@@ -45,7 +48,13 @@ const initClass = {
   timeInWeekRequests: [],
 };
 
-export default function Sidebar({ classes, categoryName, subjectName }: Props) {
+export default function Sidebar({
+  levelLabel,
+  level,
+  classes,
+  categoryName,
+  subjectName,
+}: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -54,8 +63,7 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
   const [chooseClass, setChooseClass] =
     useState<DetailCourseClassPayload>(initClass);
 
-  const levelImage =
-    LEVEL_IMAGES[chooseClass.level.value as keyof typeof LEVEL_IMAGES];
+  const levelImage = LEVEL_IMAGES[level as keyof typeof LEVEL_IMAGES];
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -92,7 +100,7 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
     },
     {
       id: 1,
-      image: !chooseClass.level ? (
+      image: !level ? (
         <Icon name="date" size="small_20" color="black" />
       ) : (
         <Box
@@ -107,7 +115,7 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
         />
       ),
       name: 'Độ khó',
-      value: chooseClass.level.label,
+      value: levelLabel,
     },
   ];
 
@@ -252,15 +260,11 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
                     },
                   }}
                 >
-                  <Stack padding={1}>
+                  {/* <Stack padding={1}>
                     <Box
                       component="img"
                       alt={item.imageAlt}
-                      src={
-                        LEVEL_IMAGES[
-                          item.level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
-                        ]
-                      }
+                      src={image.classSlot}
                       sx={{
                         transition: 'all 200ms ease',
                         filter:
@@ -273,21 +277,43 @@ export default function Sidebar({ classes, categoryName, subjectName }: Props) {
                         aspectRatio: 1,
                       }}
                     />
-                  </Stack>
+                  </Stack> */}
+                  {/* <Typography sx={globalStyles.textLowSmallLight}>
+                    Tháng Tám
+                  </Typography> */}
                   <Typography
                     sx={{
+                      textAlign: 'center',
                       fontSize: FontSize.small_14,
                       fontFamily:
                         chooseClass.id === item.id
-                          ? FontFamily.bold
-                          : FontFamily.regular,
+                          ? FontFamily.regular
+                          : FontFamily.light,
                       color:
                         chooseClass.id === item.id
                           ? Color.tertiary
                           : Color.black,
                     }}
                   >
-                    {`Lớp học #${item.id}`}
+                    {/* {`Lớp học #${item.id}`} */}
+                    Lớp học
+                  </Typography>
+                  <Typography
+                    sx={{
+                      textAlign: 'center',
+                      fontSize: FontSize.small_14,
+                      fontFamily:
+                        chooseClass.id === item.id
+                          ? FontFamily.bold
+                          : FontFamily.medium,
+                      color:
+                        chooseClass.id === item.id
+                          ? Color.tertiary
+                          : Color.black,
+                    }}
+                  >
+                    {/* {`Lớp học #${item.id}`} */}
+                    #HQ6YV9nt
                   </Typography>
                 </Stack>
               </Stack>

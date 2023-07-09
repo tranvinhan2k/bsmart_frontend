@@ -18,7 +18,7 @@ interface Props {
   }[];
 }
 
-export default function Schedule({ data }: Props) {
+export default function WeekSchedule({ data }: Props) {
   const { control } = useForm();
   const { dayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { slots } = useDispatchGetAllSlots();

@@ -15,6 +15,7 @@ import Classes from '~/components/molecules/list/Classes';
 import { SectionPayload } from '~/models/section';
 import Content from '~/components/molecules/Content';
 import ImageSlider from '~/components/atoms/ImageSlider';
+import { LevelKeys } from '~/models/variables';
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -78,7 +79,6 @@ export default function CourseDetailPage() {
       endDate: new Date().toISOString(),
       imageAlt: 'logo',
       imageUrl: image.mockClass,
-      level: mockLevelData[0],
       maxStudent: 30,
       minStudent: 15,
       numberOfSlot: 30,
@@ -96,7 +96,6 @@ export default function CourseDetailPage() {
       endDate: new Date().toISOString(),
       imageAlt: 'logo',
       imageUrl: image.mockClass,
-      level: mockLevelData[2],
       maxStudent: 30,
       minStudent: 15,
       numberOfSlot: 30,
@@ -114,7 +113,6 @@ export default function CourseDetailPage() {
       endDate: new Date().toISOString(),
       imageAlt: 'logo',
       imageUrl: image.mockClass,
-      level: mockLevelData[3],
       maxStudent: 30,
       minStudent: 15,
       numberOfSlot: 30,
@@ -132,7 +130,6 @@ export default function CourseDetailPage() {
       endDate: new Date().toISOString(),
       imageAlt: 'logo',
       imageUrl: image.mockClass,
-      level: mockLevelData[1],
       maxStudent: 30,
       minStudent: 15,
       numberOfSlot: 30,

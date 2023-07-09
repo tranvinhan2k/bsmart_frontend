@@ -1,24 +1,21 @@
 import { UseFormReturn } from 'react-hook-form';
-import { useEffect, useState } from 'react';
-import { useQueryGetAllMentorSubjects } from '../useQueryGetAllMentorSubjects';
-import { useDispatchGetAllCategories } from '../useDispatchGetAllCategories';
+import {
+  useDispatchGetAllSubjects,
+  useGetMentorCategories,
+  useQueryGetAllMentorSubjects,
+} from '~/hooks';
 
 export const useGetFilteredSubjectAndCategory = (
   hookForm: UseFormReturn,
   name: string
 ) => {
-  const [categoryId, setCategoriesId] = useState<number>();
   const categoryWatch = hookForm.watch(name);
-  const { subjects } = useQueryGetAllMentorSubjects();
-  const { optionCategories: categories } = useDispatchGetAllCategories();
+  const { data: categories } = useGetMentorCategories();
+  const { optionSubjects: subjects } = useDispatchGetAllSubjects();
 
-  const filterSubjects = subjects?.filter((item) => {
-    return item.categoryIds?.includes(categoryId || 0);
-  });
-
-  useEffect(() => {
-    setCategoriesId(categoryWatch?.id);
-  }, [categoryWatch]);
+  const filterSubjects = subjects?.filter((item) =>
+    item.categoryIds?.includes(categoryWatch.id)
+  );
 
   return {
     filterSubjects,

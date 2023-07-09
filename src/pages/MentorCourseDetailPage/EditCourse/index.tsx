@@ -51,7 +51,7 @@ export default function EditCourse({ id, course }: Props) {
     );
   };
 
-  const { hookForm, categories, filterSubjects, handleSubmit } =
+  const { hookForm, categories, filterSubjects, levels, handleSubmit } =
     useUpdateCourseForm(course, handleUpdateCourse);
   return (
     <Stack>
@@ -78,6 +78,14 @@ export default function EditCourse({ id, course }: Props) {
         label="Môn học"
         control={hookForm.control}
         name="subjectId"
+      />
+      <Stack marginTop={2} />
+      <FormInput
+        variant="radioGroup"
+        data={levels}
+        label="Trình độ"
+        control={hookForm.control}
+        name="level"
       />
       <Stack marginTop={2} />
       <FormInput

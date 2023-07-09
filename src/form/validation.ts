@@ -242,12 +242,12 @@ export const validationSchemaCreateCourse = object({
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
   description: string().required(COURSE_DESCRIPTION),
+  level: string().required(COURSE_LEVEL_REQUIRED),
 });
 export const validationSchemaCreateSubCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
     .test(

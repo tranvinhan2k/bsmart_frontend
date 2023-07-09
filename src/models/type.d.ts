@@ -91,6 +91,7 @@ export interface CoursePayload {
   totalClass: number;
   mentorName: string[];
   status: CourseStatusKeys;
+  level: OptionPayload;
 }
 
 export type ContentPayload = SectionPayload[];

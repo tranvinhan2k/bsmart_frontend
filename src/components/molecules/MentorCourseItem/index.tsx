@@ -18,6 +18,7 @@ import {
 } from '~/hooks';
 import { OptionPayload } from '~/models';
 import toast from '~/utils/toast';
+import { LevelKeys } from '~/models/variables';
 
 interface MentorCourseItemProps {
   item: CoursePayload;
@@ -26,6 +27,11 @@ interface MentorCourseItemProps {
 
 export default function MentorCourseItem({
   item = {
+    level: {
+      id: 0,
+      label: '',
+      value: '',
+    },
     courseCode: '',
     courseDescription: '',
     courseName: '',
@@ -68,6 +74,7 @@ export default function MentorCourseItem({
       toast.notifyErrorToast('Không tìm thấy môn học của khóa học này');
     } else {
       const params: DetailCoursePayload = {
+        level: item.level,
         code: item.courseCode,
         name: item.courseName,
         description: item.courseDescription,
@@ -101,11 +108,12 @@ export default function MentorCourseItem({
 
   return (
     <UserCourseItem
+      level={item?.level?.value as LevelKeys}
       courseDescription={item.courseDescription}
       courseName={item.courseName}
       imageAlt="Hình ảnh khóa học"
       imageUrl={item.images?.[0]?.url}
-      courseType=""
+      // courseType=""
       courseStatus={item.status}
       onClick={handleNavigateCourseDetail}
     />
