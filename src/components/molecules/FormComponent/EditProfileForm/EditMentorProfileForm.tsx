@@ -41,6 +41,14 @@ export default function EditMentorProfileForm() {
     resolver: resolverEditPersonalProfile,
   });
 
+  const { fields, append, remove } = useFieldArray({
+    name: 'mentorSkills',
+    control,
+    rules: {
+      required: 'Please append at least 1 item',
+    },
+  });
+
   useEffect(() => {
     if (profile && subjects) {
       if (profile.mentorProfile?.workingExperience)
@@ -111,14 +119,6 @@ export default function EditMentorProfileForm() {
     DESC1: 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
     BUTTON_TEXT: 'Cập nhật',
   };
-
-  const { fields, append, remove } = useFieldArray({
-    name: 'mentorSkills',
-    control,
-    rules: {
-      required: 'Please append at least 1 item',
-    },
-  });
 
   const appendSkill = () => {
     append({});

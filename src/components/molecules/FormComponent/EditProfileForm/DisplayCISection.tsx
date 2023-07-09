@@ -87,9 +87,9 @@ export default function DisplayCISection() {
           </Typography>
         </Box>
         <Stack
-          direction={{ lg: 'column', xl: 'row' }}
-          justifyContent={{ lg: 'flex-start', xl: 'center' }}
-          alignItems={{ lg: 'center', xl: 'flex-start' }}
+          direction={{ md: 'column', lg: 'row' }}
+          justifyContent={{ md: 'flex-start', lg: 'center' }}
+          alignItems={{ md: 'center', lg: 'flex-start' }}
           spacing={2}
         >
           {CI.map((item) => (
@@ -110,7 +110,12 @@ export default function DisplayCISection() {
                     alt="mentor avatar"
                     component="img"
                     src={item.img}
-                    sx={{ maxWidth: 400, height: 250, borderRadius: 5 }}
+                    sx={{
+                      width: '100%',
+                      maxWidth: 370,
+                      height: 250,
+                      borderRadius: 5,
+                    }}
                     onClick={item.onClickAction}
                   />
                 </Tooltip>

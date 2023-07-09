@@ -61,9 +61,8 @@ export default function ProcessCourseCreateRequest({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string => {
-    return `Đã xảy ra lỗi: ${errorMsg.message}`;
-  };
+  const toastMsgError = (errorMsg: any): string =>
+    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleApproveCourseCreateRequest = async (
     data: ProcessCreateCourseRequestFormDefault
   ) => {

@@ -1,24 +1,22 @@
-import { useForm } from 'react-hook-form';
 import {
   Button as MuiButton,
   Dialog,
   DialogContent,
   DialogTitle,
   Stack,
-  Typography,
 } from '@mui/material';
-import { defaultValueEditIdentityBack } from '~/form/defaultValues';
-import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
-import { EditIdentityBackFormDataPayload } from '~/models/form';
+import { useForm } from 'react-hook-form';
 import { EditImageProfilePayload } from '~/api/users';
-import { ProfileImgType } from '~/constants/profile';
-import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaEditIdentityBack } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
+import { ProfileImgType } from '~/constants/profile';
+import { defaultValueEditIdentityBack } from '~/form/defaultValues';
+import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
+import { validationSchemaEditIdentityBack } from '~/form/validation';
+import { useYupValidationResolver } from '~/hooks';
+import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
+import { EditIdentityBackFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
-import { SX_FORM_LABEL } from './style';
 
 interface DialogEditIdCardBackProps {
   open: boolean;
@@ -73,10 +71,9 @@ export default function DialogEditIdCardBack({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật Chứng minh thư</DialogTitle>
+      <DialogTitle>Cập nhật chứng minh thư (mặt sau)</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
-          <Typography sx={SX_FORM_LABEL}>Chứng minh thư (sau)</Typography>
           <FormInput
             control={controlEditIdentityBack}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityBack}
@@ -92,16 +89,6 @@ export default function DialogEditIdCardBack({
             mt={2}
           >
             <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Cập nhật
-            </MuiButton>
-            <MuiButton
               color="error"
               fullWidth
               size="large"
@@ -111,6 +98,16 @@ export default function DialogEditIdCardBack({
               sx={{ fontFamily: FontFamily.bold }}
             >
               Hủy
+            </MuiButton>
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Cập nhật
             </MuiButton>
           </Stack>
         </form>

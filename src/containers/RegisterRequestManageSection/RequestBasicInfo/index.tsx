@@ -1,7 +1,16 @@
-import { Avatar, Box, Grid, Stack, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
 import { getGender } from '~/utils/common';
 import { image } from '~/constants/image';
+import Icon from '~/components/atoms/Icon';
+import { handleCopyToClipboard } from '~/utils/commonComp';
 import { SX_BOX_ITEM_BG } from './style';
 import {
   SX_FORM_ITEM_VALUE,
@@ -21,14 +30,41 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     image.noAvatar;
 
   const tmpTitle = [
-    { id: 0, label: 'Mail', value: row.email },
+    {
+      id: -1,
+      label: 'Họ tên',
+      value: row.fullName,
+      valueDisplay: row.fullName,
+      isCopyable: true,
+    },
+    {
+      id: 0,
+      label: 'Mail',
+      value: row.email,
+      valueDisplay: row.email,
+      isCopyable: true,
+    },
     {
       id: 1,
-      label: 'Ngày sinh',
-      value: formatISODateDateToDisplayDate(row.birthday),
+      label: 'SĐT',
+      value: row.phone,
+      valueDisplay: formatPhoneNumberVi(row.phone),
+      isCopyable: true,
     },
-    { id: 2, label: 'Giới tính', value: getGender(row.gender) },
-    { id: 3, label: 'SĐT', value: formatPhoneNumberVi(row.phone) },
+    {
+      id: 2,
+      label: 'Ngày sinh',
+      value: row.birthday,
+      valueDisplay: formatISODateDateToDisplayDate(row.birthday),
+      isCopyable: false,
+    },
+    {
+      id: 3,
+      label: 'Giới tính',
+      value: row.gender,
+      valueDisplay: getGender(row.gender),
+      isCopyable: false,
+    },
   ];
 
   return (
@@ -46,8 +82,9 @@ export default function BasicInfo({ row }: BasicInfoProps) {
             />
           </Box>
           <Stack alignItems="center" mt={2}>
-            <Typography sx={SX_PROFILE_TITLE}>Lưu Quang Nhật</Typography>
-            <Typography sx={SX_PROFILE_TITLE_SUB}>Giáo viên</Typography>
+            <Typography sx={SX_PROFILE_TITLE}>Giáo viên</Typography>
+            {/* <Typography sx={SX_PROFILE_TITLE}>{row.fullName}</Typography>
+            <Typography sx={SX_PROFILE_TITLE_SUB}>Giáo viên</Typography> */}
           </Stack>
         </Stack>
         <Grid
@@ -67,7 +104,22 @@ export default function BasicInfo({ row }: BasicInfoProps) {
                 alignItems="flex-start"
               >
                 <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-                <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
+
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {item.isCopyable && (
+                    <IconButton
+                      size="small"
+                      onClick={() => handleCopyToClipboard(item.value)}
+                    >
+                      <Icon
+                        name="contentCopyIcon"
+                        size="small_20"
+                        color="blue"
+                      />
+                    </IconButton>
+                  )}
+                  {item.valueDisplay}
+                </Typography>
               </Stack>
             </Grid>
           ))}

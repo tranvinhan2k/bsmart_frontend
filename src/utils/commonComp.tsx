@@ -11,7 +11,7 @@ export const handleDefinedTextReturnComp = (
   return <b style={{ color: 'red' }}>Xảy ra lỗi</b>;
 };
 
-const handleCopyToClipboard = (text: string | number) => {
+export const handleCopyToClipboard = (text: string | number) => {
   navigator.clipboard.writeText(String(text));
   toast.copyText(`Đã sao chép: ${text}`);
 };

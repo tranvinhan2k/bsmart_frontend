@@ -1,12 +1,11 @@
-import { useForm } from 'react-hook-form';
 import {
   Button as MuiButton,
   Dialog,
   DialogContent,
   DialogTitle,
   Stack,
-  Typography,
 } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import { defaultValueEditIdentityFront } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
 import { EditIdentityFrontFormDataPayload } from '~/models/form';
@@ -18,7 +17,6 @@ import { validationSchemaEditIdentityFront } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { SX_FORM_LABEL } from './style';
 
 interface DialogEditIdCardFrontProps {
   open: boolean;
@@ -79,11 +77,12 @@ export default function DialogEditIdCardFront({
         <form
           onSubmit={handleSubmitEditIdentityFront(handleSubmitIdentityFront)}
         >
-          <Typography sx={SX_FORM_LABEL}>Chứng minh thư (trước)</Typography>
           <FormInput
             control={controlEditIdentityFront}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityFront}
             variant="image"
+            previewImgHeight={300}
+            previewImgWidth={500}
           />
           <Stack
             direction="row"
@@ -92,16 +91,6 @@ export default function DialogEditIdCardFront({
             spacing={2}
             mt={2}
           >
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Cập nhật
-            </MuiButton>
             <MuiButton
               color="error"
               fullWidth
@@ -112,6 +101,16 @@ export default function DialogEditIdCardFront({
               sx={{ fontFamily: FontFamily.bold }}
             >
               Hủy
+            </MuiButton>
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Cập nhật
             </MuiButton>
           </Stack>
         </form>
