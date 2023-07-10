@@ -68,20 +68,21 @@ export default function Sections({ content, onAddNew }: Props) {
 
   return (
     <Stack>
-      {content.map((section) => (
+      {content.map((section, index) => (
         <Stack
           sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}
-          key={section.id}
+          key={index}
         >
           <Section
+            index={index}
             section={section}
             onDelete={handleDeleteSection}
             onUpdate={handleUpdateSection}
           />
           <Stack sx={{ marginTop: 1, paddingY: 1 }}>
-            {section?.modules.map((module: any) => (
+            {section?.modules.map((module, idx) => (
               <Module
-                key={module}
+                key={idx}
                 module={module}
                 onDelete={handleDeleteModule}
                 onUpdate={handleUpdateModule}

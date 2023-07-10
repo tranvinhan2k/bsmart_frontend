@@ -5,9 +5,9 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-export const useCustomMutation = (
+export const useCustomMutation = <T>(
   key: MutationKey,
-  callback: MutationFunction<any, any> | undefined
+  callback: MutationFunction<T, any> | undefined
 ) => {
   const queryClient = useQueryClient();
 

@@ -72,8 +72,9 @@ export default function FilterCheckbox({
       </Button>
       <Typography
         sx={{
-          fontSize: FontSize.small_16,
-          fontFamily: FontFamily.bold,
+          fontSize: '12px',
+          fontFamily: FontFamily.medium,
+          color: Color.grey,
           display: { xs: 'none', md: 'block' },
         }}
       >

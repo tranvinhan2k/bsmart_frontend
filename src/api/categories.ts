@@ -30,6 +30,17 @@ const categoriesApi = {
     );
     return handleResponseGetCategories(response);
   },
+
+  async getMentorCategories(): Promise<OptionPayload[] | undefined> {
+    const response: any[] = await axiosClient.get(`${url}//mentor-skills`);
+    const formatResponse: OptionPayload[] = response.map((item) => ({
+      id: item.id,
+      label: item.name,
+      value: item.id,
+    }));
+    return formatResponse;
+  },
+
   async getCategory(id: number): Promise<any> {
     const response: any = await axiosClient.get(`${url}/${id}`);
     return response;

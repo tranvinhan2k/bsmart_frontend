@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Stack,
   Box,
@@ -7,7 +8,7 @@ import {
   MenuItem,
   Collapse,
 } from '@mui/material';
-import React, { useState } from 'react';
+
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
@@ -79,17 +80,16 @@ export default function ClassItem({
   onDeleteModal,
 }: Props) {
   const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleDelete = () => {
-    // setOpenDialog(!isOpenDialog);
     if (onUpdate) {
       onUpdate(id);
     }
   };
 
   const handleClose = () => {
-    setAnchorEl(() => null);
+    setAnchorEl(null);
   };
 
   const handleOpen = () => {
@@ -113,23 +113,23 @@ export default function ClassItem({
     },
     {
       icon: 'date',
-      label: 'Ngày bắt đầu',
-      variable: formatDate(classItem.startDate),
+      label: texts.startDateLabel,
+      variable: formatDate(startDate),
     },
     {
       icon: 'date',
-      label: 'Ngày kết thúc',
-      variable: formatDate(classItem.endDate),
+      label: texts.endDateLabel,
+      variable: formatDate(endDate),
     },
     {
       icon: 'number',
-      label: 'Số lượng tối thiểu',
-      variable: `${classItem.minStudent} học sinh`,
+      label: texts.minStudentLabel,
+      variable: `${minStudent} học sinh`,
     },
     {
       icon: 'number',
-      label: 'Số lượng tối đa',
-      variable: `${classItem.maxStudent} học sinh`,
+      label: texts.maxStudentLabel,
+      variable: `${maxStudent} học sinh`,
     },
   ];
 
@@ -143,7 +143,6 @@ export default function ClassItem({
         flexWrap: 'wrap',
         flexGrow: 1,
         borderRadius: MetricSize.small_5,
-        // border: '0.5px solid grey',
         justifyContent: 'space-between',
       }}
     >
@@ -209,7 +208,7 @@ export default function ClassItem({
                     component="img"
                     src={
                       LEVEL_IMAGES[
-                        classItem.level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
+                        level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
                       ]
                     }
                     alt="level"
@@ -221,76 +220,85 @@ export default function ClassItem({
                       color: Color.black,
                     }}
                   >
-                    {`${classItem.level.label}`}
+                    {`${level.label}`}
                   </Typography>
-                </Stack>
-              </Box>
-              <Typography
-                sx={{
-                  fontFamily: FontFamily.bold,
-                  fontSize: FontSize.medium_28,
-                }}
-              >{`Lớp học #${classItem.id}`}</Typography>
-
-              <Stack
-                sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  marginTop: 2,
-                }}
-              >
-                {appBar.map((item, index) => (
-                  <Stack
-                    key={index}
-                    sx={{
-                      flexDirection: 'row',
-                      marginRight: 2,
-                    }}
-                  >
-                    <Icon color="black" name={item.icon} size="small_20" />
-                    <Stack marginLeft={1}>
-                      <Typography
-                        sx={{
-                          fontSize: FontSize.small_14,
-                          fontFamily: FontFamily.bold,
-                        }}
-                      >
-                        {`${item.label} `}
-                      </Typography>
-                      <Typography sx={globalStyles.textLowSmallLight}>
-                        {`${item.variable} `}
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                ))}
-              </Stack>
+                </Stack> */}
             </Stack>
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                marginTop: 2,
+              }}
+            >
+              {appBar.map((item, index) => (
+                <Stack
+                  key={index}
+                  sx={{
+                    flexDirection: 'row',
+                    marginRight: 2,
+                  }}
+                >
+                  <Icon color="black" name={item.icon} size="small_20" />
+                  <Stack marginLeft={1}>
+                    <Typography
+                      sx={{
+                        fontSize: FontSize.small_14,
+                        fontFamily: FontFamily.bold,
+                      }}
+                    >
+                      {`${item.label} `}
+                    </Typography>
+                    <Typography sx={globalStyles.textLowSmallLight}>
+                      {`${item.variable} `}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              ))}
+            </Stack>
+            <Box marginTop={1}>
+              <Button
+                onClick={handleOpen}
+                variant="text"
+                sx={{
+                  ':hover': {
+                    textDecoration: 'underline',
+                    background: Color.white,
+                  },
+                }}
+                color="primary"
+              >
+                {open ? texts.viewCourseInfoButton : texts.viewTimetableButton}
+              </Button>
+            </Box>
           </Stack>
-        </Collapse>
+        </Stack>
 
         <Collapse in={open}>
-          <Stack sx={{ padding: 1 }}>
+          <Stack sx={{ paddingX: 2, paddingBottom: 2 }}>
             <Typography sx={globalStyles.textSmallLabel}>
-              Thông tin giờ học
+              {texts.classInfoTitle}
             </Typography>
             <Stack marginTop={1}>
-              <Timetable data={classItem.timeInWeekRequests} />
+              <Timetable data={timetable} />
             </Stack>
           </Stack>
         </Collapse>
       </Stack>
+
       {onUpdate && onDeleteModal && (
         <Stack
           sx={{
             position: 'absolute',
-            right: 0,
-            top: 0,
+            right: MetricSize.small_5,
+            top: MetricSize.small_5,
           }}
         >
           <IconButton onClick={handleMenu}>
             <Icon name="moreVert" color="black" size="small_20" />
           </IconButton>
+
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -303,11 +311,8 @@ export default function ClassItem({
             onClose={handleClose}
             onMouseLeave={handleClose}
           >
-            <MenuItem onClick={handleOpen}>
-              {open ? 'Xem thông tin khóa học' : 'Xem lịch học'}
-            </MenuItem>
-            <MenuItem onClick={handleDelete}>Cập nhật </MenuItem>
-            <MenuItem onClick={onDeleteModal}>Xóa</MenuItem>
+            <MenuItem onClick={handleDelete}>{texts.updateMenuItem}</MenuItem>
+            <MenuItem onClick={onDeleteModal}>{texts.deleteMenuItem}</MenuItem>
           </Menu>
         </Stack>
       )}

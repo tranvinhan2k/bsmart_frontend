@@ -5,10 +5,10 @@ export interface PostCoursePayload {
   categoryId: number;
   subjectId: number;
   description: string;
+  level: string;
 }
 
 export interface PostClassPayload {
-  level: string;
   imageId: number;
   price: number;
   minStudent: number;
@@ -46,4 +46,5 @@ export interface PutCoursePayload {
   categoryId: number;
   subjectId: number;
   description: string;
+  level: string;
 }

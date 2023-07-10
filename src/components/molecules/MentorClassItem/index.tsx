@@ -3,9 +3,6 @@ import ClassItem from '../items/ClassItem';
 
 interface Props {
   item?: any;
-  isSkeleton?: boolean;
-  onClick?: () => void;
-  refetch: () => void;
 }
 
 export default function MentorClassItem({ item }: Props) {
@@ -54,8 +51,4 @@ export default function MentorClassItem({ item }: Props) {
   );
 }
 
-MentorClassItem.defaultProps = {
-  isSkeleton: false,
-  item: undefined,
-  onClick: () => {},
-};
+MentorClassItem.defaultProps = {};

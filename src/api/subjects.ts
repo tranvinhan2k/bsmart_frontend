@@ -70,8 +70,10 @@ const subjectsApi = {
     }));
     return result;
   },
-  async getAllMentorSubjects(): Promise<OptionPayload[]> {
-    const response = await axiosClient.get<any[]>(`${url}/mentor-skills`);
+  async getAllMentorSubjects(id: number): Promise<OptionPayload[]> {
+    const response = await axiosClient.get<any[]>(
+      `${url}/category/${id}/mentor-skills`
+    );
 
     const result: OptionPayload[] = response.map((item: any) => ({
       id: item.id,

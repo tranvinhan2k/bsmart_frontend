@@ -1,16 +1,15 @@
 import { QueryFunction, useQuery } from '@tanstack/react-query';
-import { BankDataPayload } from '~/models/data';
 
-export const useCustomQuery = (
+export const useCustomQuery = <T>(
   key: string[] | undefined,
-  callback: QueryFunction<BankDataPayload[], string[]> | undefined
+  callback: QueryFunction<T, any> | undefined
 ) => {
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: key,
     queryFn: callback,
   });
   return {
-    banks: data,
+    data,
     error,
     isLoading,
     refetch,

@@ -1,5 +1,5 @@
+import { SxProps, Theme } from '@mui/material';
 import { IconName } from '~/components/atoms/Icon';
-import { Role } from './role';
 
 export interface SocialPayload {
   name: string;
@@ -73,3 +73,5 @@ export interface DropdownDynamicValueInputStringDataPayload {
   label: string;
   value: string;
 }
+
+export type StyleMUIType = SxProps<Theme>;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TextField, Stack } from '@mui/material';
+import { TextField, IconButton } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 
@@ -7,6 +7,7 @@ interface SearchBarProps {
   value: string;
   color: 'white' | 'black';
   placeholder: string;
+  size?: 'small' | 'medium';
   onSubmit: (searchValue: string) => void;
 }
 
@@ -14,6 +15,7 @@ export default function SearchBar({
   value,
   color = 'black',
   placeholder,
+  size = 'medium',
   onSubmit,
 }: SearchBarProps) {
   const [searchValue, setSearchValue] = useState<string>(value);
@@ -37,39 +39,28 @@ export default function SearchBar({
   }, [value]);
 
   return (
-    <Stack
+    <TextField
+      size="small"
+      color="primary"
       sx={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        flexGrow: 1,
+        borderRadius: MetricSize.small_5,
+        background: Color.white2,
+        fontFamily: FontFamily.regular,
+        fontSize: FontSize.small_16,
+        flex: 1,
+        marginX: 1,
       }}
-    >
-      <TextField
-        variant="outlined"
-        sx={{
-          borderRadius: MetricSize.small_10,
-          borderColor: Color.white,
-          flex: 1,
-          height: '50px',
-          paddingY: 0,
-          fontFamily: FontFamily.regular,
-          fontSize: FontSize.small_16,
-          background: Color.semiTransparent,
-          input: {
-            color: Color[color],
-          },
-          '&:placeholder': {
-            color: Color[color],
-          },
-        }}
-        value={searchValue}
-        onChange={handleChangeSearchValue}
-        onKeyDown={handleTextFieldKeyDown}
-        placeholder={placeholder}
-        InputProps={{
-          endAdornment: <Icon name="search" size="medium" color={color} />,
-        }}
-      />
-    </Stack>
+      value={searchValue}
+      onChange={handleChangeSearchValue}
+      onKeyDown={handleTextFieldKeyDown}
+      placeholder={placeholder}
+      InputProps={{
+        endAdornment: (
+          <IconButton onClick={() => onSubmit(searchValue)}>
+            <Icon name="search" size="small_20" color="black" />
+          </IconButton>
+        ),
+      }}
+    />
   );
 }

@@ -4,13 +4,13 @@ import { CartItem } from '~/api/cart';
 import { PagingRequestPayload } from '~/models';
 import { SubCoursePayload } from '~/models/subCourse';
 import { CoursePayload } from '~/models/type';
-import { DetailCoursePayload } from '~/pages/MentorCourseDetailPage';
+import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
 
 export type CourseStateType = {
   filterParams: PagingRequestPayload;
   checkOutCourses: CartItem[] | SubCoursePayload | null;
   totalAmount: number;
-  mentorCourse: DetailCoursePayload;
+  mentorCourse: MentorDetailCoursePayload;
 };
 
 const initialState: CourseStateType = {
@@ -25,6 +25,7 @@ const initialState: CourseStateType = {
   checkOutCourses: null,
   totalAmount: 0,
   mentorCourse: {
+    level: 'BEGINNER',
     categoryId: {
       id: 0,
       label: '',
@@ -55,9 +56,6 @@ const slice = createSlice({
       state.checkOutCourses = action.payload.checkOutCourses;
       state.totalAmount = action.payload.totalAmount;
     },
-    addMentorCourse: (state, action) => {
-      state.mentorCourse = action.payload;
-    },
   },
 });
 
@@ -65,5 +63,4 @@ const coursesReducer = slice.reducer;
 
 export default coursesReducer;
 
-export const { changeFilterParams, addCheckoutItem, addMentorCourse } =
-  slice.actions;
+export const { changeFilterParams, addCheckoutItem } = slice.actions;

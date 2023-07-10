@@ -3,6 +3,7 @@ import {
   TabPayload,
   ContractPayload,
   OptionPayload,
+  ImagePayload,
 } from '~/models';
 import { AddressDataPayload } from '~/models/address';
 import mentor from '~/assets/images/avatar-mentor-1.jpg';
@@ -16,6 +17,12 @@ export const courseTypeData = {
   PRIVATE: 'Khóa học riêng tư',
   PUBLIC: 'Khóa học cộng đồng',
 };
+
+export const mockImages: string[] = [
+  'https://images.pexels.com/photos/5427648/pexels-photo-5427648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  'https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+];
 
 export type CourseTypeDataKeys = keyof typeof courseTypeData;
 

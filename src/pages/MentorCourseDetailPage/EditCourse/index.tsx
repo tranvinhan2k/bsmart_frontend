@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Stack, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line import/no-cycle
-import { DetailCoursePayload } from '..';
+import { MentorDetailCoursePayload } from '..';
 import FormInput from '~/components/atoms/FormInput';
 import {
   useMutationDeleteCourse,
@@ -23,7 +23,7 @@ import {
 
 interface Props {
   id: number;
-  course: DetailCoursePayload;
+  course: MentorDetailCoursePayload | undefined;
 }
 
 export default function EditCourse({ id, course }: Props) {
@@ -51,7 +51,7 @@ export default function EditCourse({ id, course }: Props) {
     );
   };
 
-  const { hookForm, categories, filterSubjects, handleSubmit } =
+  const { hookForm, categories, filterSubjects, levels, handleSubmit } =
     useUpdateCourseForm(course, handleUpdateCourse);
   return (
     <Stack>
@@ -78,6 +78,14 @@ export default function EditCourse({ id, course }: Props) {
         label="Môn học"
         control={hookForm.control}
         name="subjectId"
+      />
+      <Stack marginTop={2} />
+      <FormInput
+        variant="radioGroup"
+        data={levels}
+        label="Trình độ"
+        control={hookForm.control}
+        name="level"
       />
       <Stack marginTop={2} />
       <FormInput

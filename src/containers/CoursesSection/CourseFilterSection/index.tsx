@@ -31,12 +31,10 @@ export default function CourseFilterSection() {
     <Stack
       sx={{
         transition: 'all 1s ease',
-        position: 'sticky',
-        top: '80px',
         zIndex: 9,
         marginX: 1,
         marginBottom: MetricSize.small_10,
-        padding: 4,
+        padding: 2,
         borderRadius: MetricSize.small_5,
         background: Color.white,
         boxShadow: 1,
@@ -53,7 +51,7 @@ export default function CourseFilterSection() {
         <Typography
           sx={{
             fontFamily: FontFamily.bold,
-            fontSize: FontSize.medium_24,
+            fontSize: FontSize.small_18,
           }}
         >
           Bộ lọc

@@ -12,22 +12,17 @@ import { useMutationUploadClassImage } from '../image/useMutationUploadClassImag
 import { PostClassPayload } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
 import { useCreateCourseClass } from '../class/useCreateCourseClass';
+import { useUpdateClass } from '../class/useUpdateClass';
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
-export const useCreateClassesForm = (
-  id: number,
-  classes: DetailCourseClassPayload[],
-  onChangeClass: (params: DetailCourseClassPayload[]) => void
-) => {
-  const levels = mockLevelData;
-  const types = typeData;
-
+export const useCreateClassesForm = (id: number) => {
   const [open, setOpen] = useState(false);
   const [recommendEndDate, setRecommendEndDate] = useState<string>('');
   const [mode, setMode] = useState<Status>('CREATE');
 
   const mutation = useCreateCourseClass();
+  const mutationUpdate = useUpdateClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
   const { handleTryCatch } = useTryCatch('thêm lớp học');
@@ -144,7 +139,6 @@ export const useCreateClassesForm = (
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
         const param: PostClassPayload = {
-          level: data.level.value,
           endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,
@@ -179,8 +173,6 @@ export const useCreateClassesForm = (
     createSubCourseHookForm,
     onTriggerModal,
     open,
-    levels,
-    types,
     onAddNewClass,
     mode,
   };
