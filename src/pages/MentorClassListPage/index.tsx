@@ -176,6 +176,7 @@ export default function MentorClassListPage() {
               />
             </Grid>
           ))}
+        <MentorClassItem item={0} />
       </Grid>
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}

@@ -4,49 +4,54 @@ import { useForm } from 'react-hook-form';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
-import { mockLevelData, typeData } from '~/constants';
 import { OptionPayload } from '~/models';
 import toast from '~/utils/toast';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { useMutationUploadClassImage } from '../image/useMutationUploadClassImage';
 import { PostClassPayload } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
-import { useCreateCourseClass } from '../class/useCreateCourseClass';
+import { useUpdateClass } from '../class/useUpdateClass';
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { useDispatchGetAllDayOfWeeks } from '../useDispatchGetAllDayOfWeeks';
+import { useDispatchGetAllSlots } from '../useDispatchGetAllSlots';
 
-type Status = 'CREATE' | 'UPDATE' | 'DELETE';
-
-export const useCreateClassesForm = (
+export const useUpdateMentorClassesForm = (
   id: number,
-  classes: DetailCourseClassPayload[],
-  onChangeClass: (params: DetailCourseClassPayload[]) => void
+  classes: DetailCourseClassPayload[] | undefined
 ) => {
-  const levels = mockLevelData;
-  const types = typeData;
-
-  const [open, setOpen] = useState(false);
   const [recommendEndDate, setRecommendEndDate] = useState<string>('');
-  const [mode, setMode] = useState<Status>('CREATE');
 
-  const mutation = useCreateCourseClass();
+  const { optionDayOfWeeks } = useDispatchGetAllDayOfWeeks();
+  const { optionSlots } = useDispatchGetAllSlots();
+
+  const mutationUpdate = useUpdateClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
-  const { handleTryCatch } = useTryCatch('thêm lớp học');
   const { handleTryCatch: handleUpdateTryCatch } =
     useTryCatch('cập nhật lớp học');
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse
   );
-  const createSubCourseHookForm = useForm({
+  const updateClassHookForm = useForm({
     defaultValues: defaultValueCreateSubCourse,
     resolver: resolverCreateSubCourse,
   });
 
-  const onTriggerModal = (modeParam?: Status) => {
-    setOpen(!open);
-    if (modeParam) {
-      setMode(modeParam);
-    }
+  const handleChangeDefaultValue = (index: number) => {
+    const tmpClass = classes?.[index];
+    updateClassHookForm.reset({
+      ...tmpClass,
+      numberOfSlot: tmpClass?.numberOfSlot,
+      startDateExpected: tmpClass?.startDate,
+      endDateExpected: tmpClass?.endDate,
+      imageId: tmpClass?.imageUrl,
+      timeInWeekRequests: tmpClass?.timeInWeekRequests.map((item) => ({
+        dayOfWeek: optionDayOfWeeks.find(
+          (subItem) => subItem.id === item.dayOfWeekId
+        ),
+        slot: optionSlots.find((subItem) => subItem.id === item.slotId),
+      })),
+    });
   };
 
   const uploadImage = async (imageId: string) => {
@@ -117,7 +122,7 @@ export const useCreateClassesForm = (
     return true;
   };
 
-  const onAddNewClass = async (data: {
+  const onUpdateClass = async (data: {
     price: number;
     type: OptionPayload;
     imageId: string;
@@ -144,7 +149,6 @@ export const useCreateClassesForm = (
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
         const param: PostClassPayload = {
-          level: data.level.value,
           endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,
@@ -157,13 +161,13 @@ export const useCreateClassesForm = (
             slotId: item.slot.id,
           })),
         };
-        await handleTryCatch(async () =>
-          mutation.mutateAsync({
+        await handleUpdateTryCatch(async () =>
+          mutationUpdate.mutateAsync({
             id,
             param,
           })
         );
-        createSubCourseHookForm.reset();
+        updateClassHookForm.reset();
         // onChangeClass([...classes, param]);
       } else {
         toast.notifyErrorToast('Thêm hình ảnh không thành công !');
@@ -176,12 +180,8 @@ export const useCreateClassesForm = (
   };
 
   return {
-    createSubCourseHookForm,
-    onTriggerModal,
-    open,
-    levels,
-    types,
-    onAddNewClass,
-    mode,
+    handleChangeDefaultValue,
+    updateClassHookForm,
+    onUpdateClass,
   };
 };

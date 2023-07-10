@@ -35,7 +35,7 @@ export default function UpdateModuleForm({ module, onSubmit }: Props) {
           marginBottom: 1,
         }}
       >
-        Cập nhập nội dung bài học
+        Cập nhật
       </Typography>
       <Stack
         sx={{
@@ -58,7 +58,7 @@ export default function UpdateModuleForm({ module, onSubmit }: Props) {
           onClick={hookForm.handleSubmit(onSubmit)}
           variant="contained"
         >
-          Cập nhập
+          Cập nhật
         </Button>
       </Stack>
     </Stack>

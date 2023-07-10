@@ -16,17 +16,65 @@ import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import Timetable from '../../Timetable';
+import Button from '~/components/atoms/Button';
+import { formatMoney } from '~/utils/money';
+import { ClassStatusKeys } from '~/models/variables';
+import Tag from '~/components/atoms/Tag';
+import { ClassStatusList } from '~/constants';
 
 interface Props {
   id: number;
-  classItem: DetailCourseClassPayload;
+  code: string;
+  startDate: string;
+  status: ClassStatusKeys;
+  endDate: string;
+  minStudent: number;
+  maxStudent: number;
+  timetable: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+  imageUrl: string;
+  price: number;
   onUpdate?: (id: number) => void;
   onDeleteModal?: () => void;
 }
 
+const texts = {
+  createClassTitle: 'Tạo lớp học mới',
+  createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
+  generalInfoTitle: 'Thông tin chung',
+  priceLabel: 'Giá khóa học',
+  courseTypeLabel: 'Hình thức khóa học',
+  imageLabel: 'Hình ảnh',
+  minStudentLabel: 'Số học sinh tối thiểu',
+  maxStudentLabel: 'Số học sinh tối đa',
+  levelInfoTitle: 'Trình độ',
+  classInfoTitle: 'Thông tin giờ học',
+  priceLabel: 'Giá tiền',
+  startDateLabel: 'Ngày mở lớp dự kiến',
+  endDateLabel: 'Ngày kết thúc dự kiến',
+  numberOfSlotLabel: 'Số buổi học',
+  timetableLabel: 'Thời khóa biểu',
+  createTimetableButton: 'Tạo thời khóa biểu',
+  viewCourseInfoButton: 'Thu gọn lịch học',
+  viewTimetableButton: 'Xem lịch học',
+  deleteConfirmation: 'Bạn có chắc chắn muốn xóa giờ học này?',
+  deleteConfirmationTitle: 'Xác nhận xóa giờ học',
+  updateMenuItem: 'Cập nhật',
+  deleteMenuItem: 'Xóa',
+};
+
 export default function ClassItem({
   id,
-  classItem,
+  code,
+  endDate,
+  imageUrl,
+  maxStudent,
+  price,
+  minStudent,
+  startDate,
+  timetable,
   onUpdate,
   onDeleteModal,
 }: Props) {
@@ -59,6 +107,11 @@ export default function ClassItem({
     variable: string;
   }[] = [
     {
+      icon: 'price',
+      label: texts.priceLabel,
+      variable: formatMoney(price),
+    },
+    {
       icon: 'date',
       label: 'Ngày bắt đầu',
       variable: formatDate(classItem.startDate),
@@ -88,38 +141,57 @@ export default function ClassItem({
         position: 'relative',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        flexGrow: 1,
         borderRadius: MetricSize.small_5,
         // border: '0.5px solid grey',
         justifyContent: 'space-between',
       }}
     >
       <Stack sx={{ flexGrow: 1 }}>
-        <Collapse in={!open}>
-          <Stack sx={{ flexDirection: 'row' }}>
-            <Stack
+        <Stack sx={{ flexDirection: 'row' }}>
+          <Stack
+            sx={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component="img"
+              src={imageUrl || image.mockClass}
+              alt="course"
               sx={{
-                justifyContentl: 'center',
-                alignItems: 'center',
+                borderRadius: MetricSize.small_5,
+                margin: 1,
+                background: Color.white,
+                objectFit: 'cover',
+                height: undefined,
+                width: '150px',
+                aspectRatio: 1,
+              }}
+            />
+          </Stack>
+
+          <Stack
+            sx={{
+              flexGrow: 1,
+              paddingX: 3,
+              paddingY: 2,
+              justifyContent: 'space-around',
+            }}
+          >
+            <Box>
+              <Tag color="whiteSmoke" title={ClassStatusList[0].label} />
+            </Box>
+            <Typography
+              sx={{
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.medium_28,
               }}
             >
-              <Box
-                component="img"
-                src={classItem.imageUrl ? classItem.imageUrl : image.mockClass}
-                alt="course"
-                sx={{
-                  borderRadius: MetricSize.small_5,
-                  margin: 1,
-                  background: Color.white,
-                  objectFit: 'cover',
-                  height: undefined,
-                  width: '150px',
-                  aspectRatio: 1,
-                }}
-              />
-            </Stack>
-            <Stack sx={{ flexGrow: 1, paddingX: 3, paddingY: 2 }}>
-              <Box>
-                <Stack
+              {`Lớp học #${code}`}
+            </Typography>
+            <Stack>
+              {/* <Stack
                   sx={{
                     flexDirection: 'row',
                     alignItems: 'center',
