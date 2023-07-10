@@ -7,13 +7,13 @@ const defaultTheme = createTheme({
       main: Color.navy,
     },
     secondary: {
-      main: Color.orange,
+      main: Color.tertiary,
     },
 
     miSmartOrange: {
-      main: Color.orange,
-      light: Color.orange,
-      dark: Color.orange,
+      main: Color.tertiary,
+      light: Color.tertiary,
+      dark: Color.tertiary,
       contrastText: Color.white,
     },
     miSmartWhite: {

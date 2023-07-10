@@ -59,7 +59,7 @@ export default function SidebarNavigationButton({
                 sx={{
                   background: pathname.includes(subItem.link)
                     ? '#b24509'
-                    : `${Color.orange}55`,
+                    : `${Color.tertiary}55`,
                   color: pathname.includes(subItem.link)
                     ? Color.white
                     : Color.black,

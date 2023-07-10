@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import { Grid, Stack, Typography, Divider } from '@mui/material';
+import { Grid, Stack, Typography, Divider, Alert } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
 import { StepPayload } from '~/components/molecules/CustomStepper';
 
 import {
-  useDispatchGetAllCategories,
-  useDispatchGetAllSubjects,
   useEffectScrollToTop,
+  useQueryGetAllCourse,
+  useQueryGetAllMemberCourses,
+  useQueryGetAllMentorClasses,
+  useQueryGetCourseContent,
+  useQueryGetMentorCourseClasses,
+  useQueryGetMentorCourses,
 } from '~/hooks';
 import Button from '~/components/atoms/Button';
 import globalStyles from '~/styles';
@@ -19,22 +23,26 @@ import EditCourse from './EditCourse';
 import { OptionPayload } from '~/models';
 import TutorialRequestCourse from './TutorialRequestCourse';
 import CreateClassesForm from '~/components/molecules/FormComponent/CreateClassesForm';
-import { mockLevelData } from '~/constants';
 import Content from '~/containers/MentorCourseDetail/Content';
-import { ClassStatusKeys } from '~/models/variables';
+import { ClassStatusKeys, LevelKeys } from '~/models/variables';
+import { formatStringToNumber } from '~/utils/number';
+import RequiredEdit from './RequiredEdit';
+import { LoadingWrapper } from '~/HOCs';
+import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 
-export interface DetailCoursePayload {
+export interface MentorDetailCoursePayload {
+  code: string;
   name: string;
   categoryId: OptionPayload;
   subjectId: OptionPayload;
   description: string;
-  image: string;
   status: ClassStatusKeys;
+  level: LevelKeys;
 }
 
 export interface DetailCourseClassPayload {
   id: string;
-  level: OptionPayload;
+  code: string;
   imageUrl: string;
   imageAlt: string;
   price: number;
@@ -51,39 +59,98 @@ export interface DetailCourseClassPayload {
 
 export default function MentorCourseDetailPage() {
   const { id } = useParams();
-  const { optionSubjects } = useDispatchGetAllSubjects();
-  const { optionCategories } = useDispatchGetAllCategories();
-  const mockCourse: DetailCoursePayload = {
-    name: 'Khóa học kiểm thử 1',
-    description: 'Xin Chào Các Bạn',
-    image: '',
-    subjectId: optionSubjects[0],
-    categoryId: optionCategories[0],
-    status: 'REQUESTING',
+
+  const {
+    data: dataCourse,
+    error,
+    isLoading,
+  } = useQueryGetDetailUserCourse(formatStringToNumber(id));
+  const tempCourse = dataCourse?.course;
+  const {
+    data,
+    error: classError,
+    isLoading: classLoading,
+    refetch: classRefetch,
+  } = useQueryGetMentorCourseClasses({
+    id: formatStringToNumber(id),
+    params: {
+      q: '',
+      page: 0,
+      size: 20000,
+    },
+  });
+  const classes = data?.items;
+  const currentPage = data?.currentPage;
+  const pageSize = data?.pageSize;
+
+  const course: MentorDetailCoursePayload | undefined = {
+    description: tempCourse?.courseDescription || '',
+    categoryId: tempCourse?.category || {
+      id: 0,
+      value: '',
+      label: '',
+    },
+    code: tempCourse?.courseCode || '',
+    level: tempCourse?.level || 'ADVANCED',
+    name: tempCourse?.courseName || '',
+    status: tempCourse?.status || 'REQUESTING',
+    subjectId: tempCourse?.subject || {
+      id: 0,
+      value: '',
+      label: '',
+    },
   };
 
-  const mockClasses: DetailCourseClassPayload[] = [
-    {
-      endDate: new Date().toString(),
-      imageAlt: 'Logo CLass',
-      imageUrl: '',
-      id: '345',
-      level: mockLevelData[0],
-      maxStudent: 30,
-      minStudent: 15,
-      numberOfSlot: 30,
-      price: 100000,
-      startDate: new Date().toString(),
-      timeInWeekRequests: [
-        {
-          dayOfWeekId: 1,
-          slotId: 1,
-        },
-      ],
-    },
-  ];
+  const {
+    data: content,
+    error: contentError,
+    isLoading: contentLoading,
+  } = useQueryGetCourseContent(formatStringToNumber(id));
 
-  const course = mockCourse;
+  // const {
+  //   data: mentorCourse,
+  //   error,
+  //   isLoading,
+  // } = useQueryGetDetailMentorCourse(formatStringToNumber(id));
+
+  // const course = mentorCourse?.course;
+  // const classes = mentorCourse?.classes;
+  // const content = mentorCourse?.content;
+
+  // const { optionCategories } = useDispatchGetAllCategories();
+  // const { optionSubjects } = useDispatchGetAllSubjects();
+  // const course: MentorDetailCoursePayload = {
+  //   code: '123',
+  //   level: mockLevelData[0],
+  //   name: 'Khóa học kiểm thử 1',
+  //   description: 'Xin Chào Các Bạn',
+  //   subjectId: optionSubjects[0],
+  //   categoryId: optionCategories[0],
+  //   // status: 'REQUESTING',
+  //   status: 'EDITREQUEST',
+  // };
+
+  // const mockClasses: DetailCourseClassPayload[] = [
+  //   {
+  //     endDate: new Date().toString(),
+  //     imageAlt: 'Logo CLass',
+  //     imageUrl: '',
+  //     id: '345',
+  //     maxStudent: 30,
+  //     minStudent: 15,
+  //     numberOfSlot: 30,
+  //     price: 100000,
+  //     startDate: new Date().toString(),
+  //     timeInWeekRequests: [
+  //       {
+  //         dayOfWeekId: 1,
+  //         slotId: 1,
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  // const course = mockCourse;
   // const classes = mockClasses;
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -92,21 +159,23 @@ export default function MentorCourseDetailPage() {
     setTabIndex(param);
   };
 
-  const handleSubmitCourse = () => {};
+  const handleSubmitCourse = () => {
+    // TODO: Phe duyet khoa hoc
+  };
 
   useEffectScrollToTop();
 
   // TODO: Thêm validation cho các biến sau đây
   const isCompletedInformationCourse = true;
-  const isAddedContent = true;
-  const isAddedClasses = false;
+  const isAddedContent = content?.length !== 0;
+  const isAddedClasses = classes?.length !== 0;
 
   const steps: StepPayload[] = [
     {
       id: 0,
       isCompleted: isCompletedInformationCourse,
       label: 'Thêm thông tin khóa học',
-      onClick: () => handleChangeTabIndex(1),
+      onClick: () => handleChangeTabIndex(2),
       description:
         'Xem lại khóa học vừa tạo của bạn. Khóa học này sẽ được hiển thị ra ngoài cho học sinh xem và đăng kí.',
     },
@@ -114,7 +183,7 @@ export default function MentorCourseDetailPage() {
       id: 1,
       isCompleted: isAddedContent,
       label: 'Thêm nội dung khóa học',
-      onClick: () => handleChangeTabIndex(2),
+      onClick: () => handleChangeTabIndex(3),
 
       description:
         'Thêm nội dung giảng dạy để học sinh có thể biết chương trình học của bạn thú vị ra sao.',
@@ -123,7 +192,7 @@ export default function MentorCourseDetailPage() {
       id: 2,
       isCompleted: isAddedClasses,
       label: 'Thêm danh sách lớp học',
-      onClick: () => handleChangeTabIndex(3),
+      onClick: () => handleChangeTabIndex(4),
 
       description:
         'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
@@ -139,29 +208,42 @@ export default function MentorCourseDetailPage() {
   }[] = [
     {
       id: 0,
-      name: 'Hướng dẫn',
+      name: 'Yêu cầu chỉnh sửa',
+      component: <RequiredEdit />,
       icon: 'squareCheckbox',
-      isHide: mockCourse.status !== 'REQUESTING',
-      component: <TutorialRequestCourse steps={steps} />,
+      isHide: course?.status !== 'EDITREQUEST',
     },
     {
       id: 1,
-      name: 'Thông tin khóa học',
+      name: 'Hướng dẫn',
       icon: 'squareCheckbox',
-      component: <EditCourse course={course} />,
+      isHide: course?.status !== 'REQUESTING',
+      component: <TutorialRequestCourse steps={steps} />,
     },
     {
       id: 2,
-      name: 'Nội dung',
-      icon: 'blankSquareCheckbox',
-      component: <Content />,
+      name: 'Thông tin khóa học',
+      icon: 'squareCheckbox',
+      component: <EditCourse id={formatStringToNumber(id)} course={course} />,
     },
     {
       id: 3,
+      name: 'Nội dung',
+      icon: isAddedContent ? 'squareCheckbox' : 'blankSquareCheckbox',
+      component: <Content id={formatStringToNumber(id)} />,
+    },
+    {
+      id: 4,
       name: 'Danh sách lớp học',
-      icon: 'blankSquareCheckbox',
+      icon: isAddedClasses ? 'squareCheckbox' : 'blankSquareCheckbox',
       component: (
-        <CreateClassesForm classes={mockClasses} onChangeClasses={() => {}} />
+        <CreateClassesForm
+          id={formatStringToNumber(id)}
+          classes={classes}
+          error={classError}
+          isLoading={classLoading}
+          refetch={classRefetch}
+        />
       ),
     },
   ];
@@ -171,7 +253,7 @@ export default function MentorCourseDetailPage() {
       setTabIndex(tabIndex + 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabIndex]);
+  }, [tabIndex, course]);
 
   return (
     <Stack>
@@ -179,87 +261,117 @@ export default function MentorCourseDetailPage() {
       <Typography sx={globalStyles.textLowSmallLight}>
         Nội dung chi tiết của khóa học
       </Typography>
-      <Stack
-        sx={{
-          marginTop: 1,
-          background: Color.white,
-          borderRadius: MetricSize.small_5,
-          paddingY: 4,
-        }}
-      >
-        <Grid container>
-          <Grid item xs={12} md={2}>
-            <Stack marginRight={2}>
+      <LoadingWrapper isLoading={isLoading} error={error}>
+        <Stack
+          sx={{
+            marginTop: 1,
+            background: Color.white,
+            borderRadius: MetricSize.small_5,
+            paddingY: 4,
+          }}
+        >
+          <Grid container>
+            <Grid item xs={12} md={2}>
+              <Stack marginRight={2}>
+                {navigationTabData.map((item) => {
+                  if (item.isHide) return null;
+                  return (
+                    <Stack
+                      onClick={() => handleChangeTabIndex(item.id)}
+                      key={item.id}
+                      sx={{
+                        position: 'relative',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        background: tabIndex === item.id ? Color.grey3 : 'none',
+                        paddingY: 2,
+                        paddingX: 2,
+                        borderTopRightRadius: MetricSize.small_5,
+                        borderBottomRightRadius: MetricSize.small_5,
+                        transition: 'all 500ms ease',
+                        fontSize: FontSize.small_14,
+                        fontFamily: FontFamily.light,
+                        color: tabIndex === item.id ? Color.black : Color.grey,
+                        ':hover': {
+                          background: Color.whiteSmoke,
+                          cursor: 'pointer',
+                        },
+                      }}
+                    >
+                      <Stack marginRight={1}>
+                        <Icon
+                          name={item.icon}
+                          size="small"
+                          color={tabIndex === item.id ? 'black' : 'grey'}
+                        />
+                      </Stack>
+                      {item.name}
+                    </Stack>
+                  );
+                })}
+              </Stack>
+              <Stack margin={2}>
+                {course?.status === 'NOTSTART' && (
+                  <Alert sx={{ marginY: 1 }} severity="success">
+                    Khóa học đã được phê duyệt thành công
+                  </Alert>
+                )}
+                {course?.status === 'REJECTED' && (
+                  <Alert sx={{ marginY: 1 }} severity="error">
+                    Khóa học đã bị từ chối. Nội dung sẽ bị khóa vĩnh viễn
+                  </Alert>
+                )}
+                {course?.status === 'EDITREQUEST' && (
+                  <Alert sx={{ marginY: 1 }} severity="warning">
+                    Hệ thống yêu cầu chỉnh sửa một số nội dung trước khi phê
+                    duyệt lại. Vui lòng xem mục{' '}
+                    <span
+                      style={{
+                        fontSize: FontSize.small_14,
+                        fontFamily: FontFamily.bold,
+                      }}
+                    >
+                      Yêu cầu chỉnh sửa
+                    </span>{' '}
+                    để biết thêm chi tiết.
+                  </Alert>
+                )}
+                {(course?.status === 'REQUESTING' ||
+                  course?.status === 'EDITREQUEST') && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={handleSubmitCourse}
+                  >
+                    Phê duyệt khóa học
+                  </Button>
+                )}
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={10} paddingX={4}>
               {navigationTabData.map((item) => {
                 if (item.isHide) return null;
                 return (
                   <Stack
-                    onClick={() => handleChangeTabIndex(item.id)}
-                    key={item.id}
                     sx={{
-                      position: 'relative',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      background: tabIndex === item.id ? Color.grey3 : 'none',
-                      paddingY: 2,
-                      paddingX: 2,
-                      borderTopRightRadius: MetricSize.small_5,
-                      borderBottomRightRadius: MetricSize.small_5,
-                      transition: 'all 500ms ease',
-                      fontSize: FontSize.small_14,
-                      fontFamily: FontFamily.light,
-                      color: tabIndex === item.id ? Color.black : Color.grey,
-                      ':hover': {
-                        background: Color.whiteSmoke,
-                        cursor: 'pointer',
-                      },
+                      display: tabIndex === item.id ? 'flex' : 'none',
                     }}
+                    key={item.id}
                   >
-                    <Stack marginRight={1}>
-                      <Icon
-                        name={item.icon}
-                        size="small"
-                        color={tabIndex === item.id ? 'black' : 'grey'}
-                      />
+                    <Stack>
+                      <Typography sx={globalStyles.textSubTitle}>
+                        {item.name}
+                      </Typography>
+                      <Divider />
                     </Stack>
-                    {item.name}
+                    <Stack marginTop={2}>{item.component}</Stack>
                   </Stack>
                 );
               })}
-            </Stack>
-            <Stack margin={2}>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleSubmitCourse}
-              >
-                Phê duyệt khóa học
-              </Button>
-            </Stack>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={10} paddingX={4}>
-            {navigationTabData.map((item) => {
-              if (item.isHide) return null;
-              return (
-                <Stack
-                  sx={{
-                    display: tabIndex === item.id ? 'flex' : 'none',
-                  }}
-                  key={item.id}
-                >
-                  <Stack>
-                    <Typography sx={globalStyles.textSubTitle}>
-                      {item.name}
-                    </Typography>
-                    <Divider />
-                  </Stack>
-                  <Stack marginTop={2}>{item.component}</Stack>
-                </Stack>
-              );
-            })}
-          </Grid>
-        </Grid>
-      </Stack>
+        </Stack>
+      </LoadingWrapper>
     </Stack>
   );
 }

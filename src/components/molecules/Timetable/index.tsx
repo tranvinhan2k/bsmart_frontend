@@ -39,12 +39,14 @@ export default function Timetable({ data }: Props) {
           field: 'slot',
           headerName: 'Khung giờ học',
           flex: 1,
+          minWidth: 120,
         },
       ];
 
       dayOfWeeks.map((item) => {
         tempColumns.push({
           headerName: item.name,
+          minWidth: 100,
           flex: 1,
           disableColumnMenu: true,
           sortable: false,
@@ -94,7 +96,7 @@ export default function Timetable({ data }: Props) {
   }, [dayOfWeeks, slots]);
 
   React.useEffect(() => {
-    if (data.length > 0) {
+    if (data?.length > 0) {
       data.map((slotTime) => {
         const { dayOfWeekId, slotId } = slotTime;
         const slot = slots.find((item) => item.id === slotId);
@@ -111,13 +113,13 @@ export default function Timetable({ data }: Props) {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows]);
+  }, [rows, data]);
 
-  if (data.length === 0)
-    return <Typography>Lớp học chưa có thời khóa biẻu</Typography>;
+  if (!data || data?.length === 0)
+    return <Typography>Lớp học chưa có thời khóa biểu</Typography>;
 
   return (
-    <Box sx={{ background: Color.white }} height={400} width="100%">
+    <Stack sx={{ background: '#F3F1F5' }} height={400}>
       {rows && columns && (
         <DataGrid
           rows={rows}
@@ -135,6 +137,6 @@ export default function Timetable({ data }: Props) {
           }}
         />
       )}
-    </Box>
+    </Stack>
   );
 }

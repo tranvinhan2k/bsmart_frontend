@@ -1,9 +1,6 @@
 import MainFooter from '~/components/molecules/MainFooter';
-import {
-  AddressData,
-  FooterContractDataList,
-  NavigationActionData,
-} from '~/constants';
+import { AddressData, FooterContractDataList } from '~/constants';
+import { NavigationActionData } from '~/routes/navigators';
 
 export default function MainFooterSection() {
   return (

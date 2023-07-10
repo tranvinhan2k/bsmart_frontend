@@ -3,26 +3,15 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import coursesApi from '~/api/courses';
 import { selectFilterParams } from '~/redux/courses/selector';
-import { TypeOptionPayload } from '~/constants';
 import { PagingFilterPayload } from '~/models';
-import { CoursePayload } from '~/models/type';
+import { CourseMenuItemPayload } from '~/models/type';
 
 export const useQueryGetAllCourse = () => {
   const filterParams = useSelector(selectFilterParams);
-  const typesValue: string[] | undefined = filterParams?.types?.map((type) => {
-    let result = '';
-    TypeOptionPayload.map((item) => {
-      if (type === item.id) {
-        result = item.value;
-      }
-      return '';
-    });
-    return result;
-  });
+
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['courses'],
-    queryFn: () =>
-      coursesApi.getAllCourse({ ...filterParams, types: typesValue }),
+    queryFn: () => coursesApi.getAllCourse(filterParams),
   });
 
   useEffect(() => {
@@ -30,7 +19,7 @@ export const useQueryGetAllCourse = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterParams]);
 
-  const courses: PagingFilterPayload<CoursePayload> = {
+  const courses: PagingFilterPayload<CourseMenuItemPayload> = {
     items: data?.items || [],
     currentPage: data?.currentPage || 0,
     pageSize: data?.pageSize || 0,

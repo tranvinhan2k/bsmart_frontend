@@ -13,7 +13,6 @@ import {
   useMutationCreateCourse,
   useTryCatch,
 } from '~/hooks';
-import { useTimeOut } from '~/hooks/useTimeOut';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
@@ -33,19 +32,15 @@ export default function MentorCreateCoursePage() {
 
   const { mutationResult } = useMutationCreateCourse();
 
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang tạo khóa học mới',
-    error: 'Tạo khóa học thất bại',
-    success: 'Tạo khóa học thành công',
-  });
+  const { handleTryCatch } = useTryCatch('tạo khóa học');
 
   const handleCreateCourse = async (paramCourse: PostCoursePayload) => {
-    // ToDO: Goi api create course o day
-    const response = await handleTryCatch(() =>
+    const response: number = await handleTryCatch(async () =>
       mutationResult.mutateAsync(paramCourse)
     );
+
     navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${response.id}`
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${response}`
     );
   };
 

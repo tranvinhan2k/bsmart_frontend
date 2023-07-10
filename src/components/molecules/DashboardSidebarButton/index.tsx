@@ -61,12 +61,12 @@ export default function DashboardSidebarButton({
         fontSize: FontSize.small_16,
         fontFamily:
           activeIndex === index ? FontFamily.bold : FontFamily.regular,
-        background:
-          activeIndex === index
-            ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.transparent} 80%)`
-            : Color.navy,
+        background: activeIndex === index ? Color.transparent : Color.navy,
         ':hover': {
-          background: `linear-gradient(153deg, ${Color.navy}CC 30%, ${Color.transparent} 75%)`,
+          background:
+            activeIndex === index
+              ? `linear-gradient(90deg, ${Color.white} 70%, ${Color.transparent} 100%)`
+              : `${Color.navy}AA`,
           cursor: 'pointer',
           color: Color.white,
         },
@@ -77,7 +77,9 @@ export default function DashboardSidebarButton({
         sx={{
           flexDirection: 'row',
           alignItems: 'center',
-
+          svg: {
+            color: activeIndex === index ? Color.black : Color.white,
+          },
           // justifyContent: 'space-between',
         }}
       >
@@ -88,11 +90,20 @@ export default function DashboardSidebarButton({
         )}
         <Stack
           sx={{
+            transition: 'all 1000ms ease',
             opacity: isHover ? '1' : 0,
+            width: isHover ? '100%' : '0',
             flexWrap: 'nowrap',
           }}
         >
-          <Typography noWrap>{item.name}</Typography>
+          <Typography
+            sx={{
+              color: activeIndex === index ? Color.black : Color.white,
+            }}
+            noWrap
+          >
+            {item.name}
+          </Typography>
         </Stack>
       </Stack>
     </Stack>
@@ -116,12 +127,12 @@ export default function DashboardSidebarButton({
           fontSize: FontSize.small_16,
           fontFamily:
             activeIndex === index ? FontFamily.bold : FontFamily.regular,
-          background:
-            activeIndex === index
-              ? `linear-gradient(90deg, ${Color.navy}99 30%, ${Color.transparent} 80%)`
-              : Color.navy,
+          background: activeIndex === index ? Color.transparent : Color.navy,
           ':hover': {
-            background: `linear-gradient(90deg, ${Color.navy}CC 30%, ${Color.transparent} 80%)`,
+            background:
+              activeIndex === index
+                ? `linear-gradient(153deg, ${Color.white} 30%, ${Color.transparent} 80%)`
+                : `${Color.navy}AA`,
             cursor: 'pointer',
             color: Color.white,
           },
@@ -132,7 +143,9 @@ export default function DashboardSidebarButton({
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
-
+            svg: {
+              color: activeIndex === index ? Color.black : Color.white,
+            },
             // justifyContent: 'space-between',
           }}
         >
@@ -145,10 +158,18 @@ export default function DashboardSidebarButton({
             sx={{
               transition: 'all 1000ms ease',
               opacity: isHover ? '1' : 0,
+              width: isHover ? '100%' : '0',
               flexWrap: 'nowrap',
             }}
           >
-            <Typography noWrap>{item.name}</Typography>
+            <Typography
+              sx={{
+                color: activeIndex === index ? Color.black : Color.white,
+              }}
+              noWrap
+            >
+              {item.name}
+            </Typography>
 
             <Stack
               sx={{

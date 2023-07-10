@@ -5,8 +5,6 @@ import {
   IconButton,
   Stack,
   Typography,
-  Menu,
-  MenuItem,
   Badge,
   Button,
   Drawer,
@@ -14,7 +12,12 @@ import {
 
 import { useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
+import {
+  ActionPayload,
+  ContractPayload,
+  PagingRequestPayload,
+  SocialPayload,
+} from '~/models';
 
 import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
@@ -22,17 +25,16 @@ import SocialBar from '~/components/molecules/SocialBar';
 import ContractBar from '~/components/molecules/ContractBar';
 import AuthorizationBar from '../../MainHeader/AuthorizationBar';
 
-import { AuthorizationActionData } from '~/constants';
-
 import styles from './styles';
 import { Role } from '~/models/role';
 import { ResponseCartItem } from '~/api/cart';
-import { selectProfile, selectRole } from '~/redux/user/selector';
+import { selectProfile } from '~/redux/user/selector';
 import { ProfileImgType } from '~/constants/profile';
 import { image } from '~/constants/image';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
 import { CoursePayload } from '~/models/type';
+import { AuthorizationActionData } from '~/routes/navigators';
 
 interface NavigationProps {
   texts: {
@@ -47,30 +49,17 @@ interface NavigationProps {
   isOpenDrawer: boolean;
   isOpenProfileDrawer: boolean;
   cart: ResponseCartItem | undefined;
-  courses: CoursePayload[] | undefined;
   role: Role | null;
-  filterParams: {
-    q: string | undefined;
-    categoryId: number[] | undefined;
-    subjectId: number[] | undefined;
-    page: number;
-    size: number;
-    sort: string[] | undefined;
-    provinces: number[] | undefined;
-    types: number[] | undefined;
-  } | null;
+  filterParams: PagingRequestPayload;
   pathName: string;
   pages: ActionPayload[];
   socials: SocialPayload[];
   contracts: ContractPayload[];
-  courseAnchorEl: HTMLElement | null;
   onToggleDrawer: () => void;
   onToggleProfileDrawer: () => void;
   onNavigationLink: (_link: string) => void;
-  onCloseCourseMenu: () => void;
   onSearchCourse: (searchValue: string) => void;
   onMouseEnterNavigation: (_event: any, _link: string) => void;
-  onMouseLeaveNavigation: () => void;
   onClickNavigation: (_link: string) => void;
   onClickCart: () => void;
 }
@@ -80,15 +69,12 @@ export default function MainNavigation({
   isOpenDrawer,
   isOpenProfileDrawer,
   cart,
-  courses,
   role,
   filterParams,
   pathName,
   pages,
   contracts,
   socials,
-  courseAnchorEl,
-  onCloseCourseMenu,
   onToggleDrawer,
   onToggleProfileDrawer,
   onNavigationLink,
@@ -96,7 +82,6 @@ export default function MainNavigation({
   onClickCart,
   onClickNavigation,
   onMouseEnterNavigation,
-  onMouseLeaveNavigation,
 }: NavigationProps) {
   const profile = useSelector(selectProfile);
 
@@ -120,7 +105,7 @@ export default function MainNavigation({
                     fontFamily: FontFamily.bold,
                     fontSize: FontSize.small_16,
                     color: pathName.includes(item.link)
-                      ? Color.orange
+                      ? Color.tertiary
                       : Color.navy,
                   }}
                 >
@@ -230,30 +215,6 @@ export default function MainNavigation({
           <MentorDetailSection />
         )}
       </Drawer>
-      <Menu
-        id="basic-menu"
-        anchorEl={courseAnchorEl}
-        open={Boolean(courseAnchorEl)}
-        onClose={onCloseCourseMenu}
-        onMouseLeave={onMouseLeaveNavigation}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        {courses &&
-          courses.map((course: any) => {
-            return (
-              <MenuItem
-                key={course.id}
-                onClick={() =>
-                  onClickNavigation(`/${texts.COURSE_MENU_LINK}/${course.id}`)
-                }
-              >
-                {course.title || `Tên khóa học ${course.id}`}
-              </MenuItem>
-            );
-          })}
-      </Menu>
     </Stack>
   );
 }

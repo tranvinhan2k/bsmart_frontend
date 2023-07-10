@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainNavigation from '~/components/molecules/navigations/MainNavigation';
-import {
-  HeaderContractDataList,
-  HeaderSocialDataList,
-  NavigationActionData,
-} from '~/constants';
+import { HeaderContractDataList, HeaderSocialDataList } from '~/constants';
 import { useQueryGetAllCourse, useDispatchGetCart } from '~/hooks';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { selectIsToggleAddToCart, selectRole } from '~/redux/user/selector';
 import { toggleAddToCart } from '~/redux/user/slice';
+import { NavigationActionData } from '~/routes/navigators';
 import localEnvironment from '~/utils/localEnvironment';
 
 const texts = {
@@ -35,16 +32,11 @@ export default function MainNavigationSection() {
   const filterParams = useSelector(selectFilterParams);
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
-  const { cart, error, handleDispatch, isLoading } = useDispatchGetCart();
-
-  const { courses } = useQueryGetAllCourse();
+  const { cart } = useDispatchGetCart();
 
   // useState
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
   const [isOpenProfileDrawer, setOpenProfileDrawer] = useState<boolean>(false);
-  const [courseAnchorEl, setCourseAnchorEl] = useState<null | HTMLElement>(
-    null
-  );
 
   // function
   function checkEqualValue(_value1: string, _value2: string) {
@@ -65,17 +57,8 @@ export default function MainNavigationSection() {
     //   return;
     // }
   };
-  const handleCloseCourseMenu = () => {
-    setCourseAnchorEl(null);
-  };
-
-  const handleMouseLeaveNavigation = () => {
-    setCourseAnchorEl(null);
-  };
 
   const handleClickNavigation = (_link: string) => {
-    setCourseAnchorEl(null);
-
     navigation(_link);
 
     if (isOpenDrawer) {
@@ -92,7 +75,6 @@ export default function MainNavigationSection() {
   };
 
   const navigationLink = (_link: string) => {
-    setCourseAnchorEl(null);
     navigation(_link);
   };
 
@@ -112,21 +94,17 @@ export default function MainNavigationSection() {
       isOpenDrawer={isOpenDrawer}
       isOpenProfileDrawer={isOpenProfileDrawer}
       cart={cart as any}
-      courses={courses?.items}
       role={role}
       filterParams={filterParams}
       pathName={pathName}
       pages={NavigationActionData}
       contracts={HeaderContractDataList}
       socials={HeaderSocialDataList}
-      courseAnchorEl={courseAnchorEl}
       onSearchCourse={handleSearchValue}
       onNavigationLink={navigationLink}
       onToggleDrawer={handleToggleDrawer}
       onToggleProfileDrawer={handleToggleProfileDrawer}
-      onCloseCourseMenu={handleCloseCourseMenu}
       onMouseEnterNavigation={handleMouseEnterNavigation}
-      onMouseLeaveNavigation={handleMouseLeaveNavigation}
       onClickNavigation={handleClickNavigation}
       onClickCart={handleNavigateCartPage}
     />

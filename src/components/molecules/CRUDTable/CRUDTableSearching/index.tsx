@@ -116,7 +116,7 @@ export default function CRUDTableSearching({
         >
           <Button
             onClick={searchControl.handleSubmit(onSearch)}
-            startIcon={<Icon name="search" color="white" size="medium" />}
+            startIcon={<Icon name="search" color="white" size="small_20" />}
             customVariant="horizonForm"
           >
             <Typography noWrap sx={{ display: { xs: 'none', lg: 'block' } }}>

@@ -13,7 +13,7 @@ export const Color = {
   navy: '#0e0a38',
   navy2: '#130f40',
   neutral: '#ccc',
-  orange: '#19A7CE',
+  tertiary: '#19A7CE',
   red: '#e74033',
   semiTransparent: '#ffffff22',
   transparent: '#00000000',
@@ -23,6 +23,7 @@ export const Color = {
   white3: '#f9f9f9',
   white4: '#eff3f6',
   white5: '#ebebeb',
+  border: '#dddddd',
 };
 
 export const BorderRadius = {
@@ -65,6 +66,7 @@ export const FontWeight = {
 
 export const IconSize = {
   small: '15px',
+  ex_small: '10px',
   small_20: '20px',
   medium: '30px',
   large: '35px',

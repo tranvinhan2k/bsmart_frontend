@@ -1,14 +1,12 @@
-import { Stack, Typography, LinearProgress, Grid } from '@mui/material';
+import { Stack, Typography, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import CourseItem from '~/components/molecules/CourseItem';
+import CarouselCourse from '~/components/molecules/CarouselCourse';
+import { CommonCourse } from '~/constants';
 import { image } from '~/constants/image';
-import {
-  useDispatchGetAllSubjects,
-  useQueryGetAllMentorCourses,
-} from '~/hooks';
+import { useDispatchGetAllSubjects, useQueryGetMentorCourses } from '~/hooks';
 import { MentorPayload } from '~/models/mentor';
 import { scrollToTop } from '~/utils/common';
 
@@ -21,7 +19,8 @@ export default function MentorIntroduceProfilePage({
 }: MentorIntroduceProfilePageProps) {
   const navigation = useNavigate();
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
-  const { courses } = useQueryGetAllMentorCourses({
+  const { courses } = useQueryGetMentorCourses({
+    q: '',
     page: 0,
     size: 4,
     sort: undefined,
@@ -133,7 +132,7 @@ export default function MentorIntroduceProfilePage({
             <Typography
               sx={{
                 fontSize: FontSize.large_45,
-                color: Color.orange,
+                color: Color.tertiary,
                 fontFamily: FontFamily.bold,
               }}
             >
@@ -161,7 +160,7 @@ export default function MentorIntroduceProfilePage({
             <Typography
               sx={{
                 fontSize: FontSize.large_45,
-                color: Color.orange,
+                color: Color.tertiary,
                 fontFamily: FontFamily.bold,
               }}
             >
@@ -179,36 +178,7 @@ export default function MentorIntroduceProfilePage({
           </Stack>
         </Stack> */}
       </Stack>
-      <Stack marginTop={2}>
-        <Typography
-          sx={{ fontSize: FontSize.medium_28, fontFamily: FontFamily.bold }}
-        >
-          Khóa học tiêu biểu
-        </Typography>
-        <Stack flexDirection="row" justifyContent="space-between">
-          {courses &&
-            courses.items.map((item: any) => {
-              const params: any = {
-                content: item.courseDescription,
-                feedback: 5,
-                id: item?.id,
-                image: item?.image?.url || image.noCourse,
-                mentor: item?.mentorName,
-                title: item.courseName,
-                typeLearn: [],
-                mentorImage: item?.imageUrl,
-              };
-              return (
-                <CourseItem onClick={() => {}} key={item.id} item={params} />
-              );
-            })}
-        </Stack>
-        <Stack marginTop={1}>
-          <Button onClick={handleNavigateLink} customVariant="outlined">
-            Xem Thêm
-          </Button>
-        </Stack>
-      </Stack>
+      <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
     </Stack>
   );
 }

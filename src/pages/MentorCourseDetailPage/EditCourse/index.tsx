@@ -1,57 +1,72 @@
 import { useState } from 'react';
 
 import { Stack, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line import/no-cycle
-import { DetailCoursePayload } from '..';
+import { MentorDetailCoursePayload } from '..';
 import FormInput from '~/components/atoms/FormInput';
-import { useTryCatch, useUpdateCourseForm } from '~/hooks';
+import {
+  useMutationDeleteCourse,
+  useMutationUpdateCourse,
+  useTryCatch,
+  useUpdateCourseForm,
+} from '~/hooks';
 import Button from '~/components/atoms/Button';
 import { Color } from '~/assets/variables';
-import { useTimeOut } from '~/hooks/useTimeOut';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { PutCoursePayload } from '~/models';
+import { handleConsoleError } from '~/utils/common';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 interface Props {
-  course: DetailCoursePayload;
+  id: number;
+  course: MentorDetailCoursePayload | undefined;
 }
 
-export default function EditCourse({ course }: Props) {
+export default function EditCourse({ id, course }: Props) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang cập nhật khóa học',
-    success: 'Cập nhật khóa học thành công',
-    error: 'Cập nhật khóa học thất bại',
-  });
+  const { handleTryCatch } = useTryCatch('cập nhật khóa học');
+  const { mutateAsync } = useMutationUpdateCourse();
+  const { mutateAsync: mutateDeleteAsync } = useMutationDeleteCourse();
 
-  const deleteCourse = useTryCatch({
-    loading: 'Đang xóa khóa học ...',
-    success: 'Xóa khóa học thành công.',
-    error: 'Xóa khóa học thất bại',
-  });
-
-  const { onSleep } = useTimeOut(1000);
+  const deleteCourse = useTryCatch('xóa khóa học');
 
   const handleClose = () => {
     setOpen(!open);
   };
 
-  const handleLoadUpdateApi = async () => {
-    await handleTryCatch(() => onSleep(true));
+  const handleUpdateCourse = async (param: PutCoursePayload) => {
+    await handleTryCatch(async () => mutateAsync({ id, param }));
   };
 
   const handleDeleteCourse = async () => {
-    await deleteCourse.handleTryCatch(() => onSleep(true));
+    await deleteCourse.handleTryCatch(async () => mutateDeleteAsync(id));
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`
+    );
   };
 
-  const { hookForm, optionCategories, optionSubjects, handleUpdateCourse } =
-    useUpdateCourseForm(course, handleLoadUpdateApi);
+  const { hookForm, categories, filterSubjects, levels, handleSubmit } =
+    useUpdateCourseForm(course, handleUpdateCourse);
   return (
     <Stack>
+      <FormInput
+        disabled
+        label="Mã khóa học"
+        control={hookForm.control}
+        name="code"
+      />
+      <Stack marginTop={2} />
       <FormInput label="Tên khóa học" control={hookForm.control} name="name" />
       <Stack marginTop={2} />
       <FormInput
         variant="dropdown"
-        data={optionSubjects}
+        data={categories}
         label="Lĩnh Vực"
         control={hookForm.control}
         name="categoryId"
@@ -59,10 +74,18 @@ export default function EditCourse({ course }: Props) {
       <Stack marginTop={2} />
       <FormInput
         variant="dropdown"
-        data={optionCategories}
+        data={filterSubjects}
         label="Môn học"
         control={hookForm.control}
         name="subjectId"
+      />
+      <Stack marginTop={2} />
+      <FormInput
+        variant="radioGroup"
+        data={levels}
+        label="Trình độ"
+        control={hookForm.control}
+        name="level"
       />
       <Stack marginTop={2} />
       <FormInput
@@ -73,9 +96,7 @@ export default function EditCourse({ course }: Props) {
       />
       <Box marginTop={1}>
         <Button
-          onClick={hookForm.handleSubmit(handleUpdateCourse, (e) =>
-            console.log(e)
-          )}
+          onClick={hookForm.handleSubmit(handleSubmit, handleConsoleError)}
           disabled={!hookForm.formState.isDirty}
           sx={{
             color: Color.white,

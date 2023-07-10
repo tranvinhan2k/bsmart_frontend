@@ -1,12 +1,13 @@
 import { Box, Button as MuiButton, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily } from '~/assets/variables';
-import { MentorNavigationActionData } from '~/constants';
+
 import { useSearchAnnouncements } from '~/hooks/useManageAnnouncement/search';
 import AnnouncementItem from './AnnouncementItem';
 import AnnouncementListFetchStatus from './AnnouncementListFetchStatus';
 import { SX_FORM_LABEL_EMPTY_LIST } from './style';
 import { NavigationLink } from '~/constants/routeLink';
+import { MentorNavigationActionData } from '~/routes/navigators';
 
 interface AnnouncementManagementProps {
   editMode: boolean;

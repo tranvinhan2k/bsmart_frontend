@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ActivityTypeCode } from '~/models/activity';
 import { defaultValueUpdateAssignment } from '~/form/defaultValues';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { UpdateAssignmentFormDataPayload } from '~/models/form';
 import { UpdateAssignmentPayload } from '~/api/assignments';
 import { useManageActivity } from '~/hooks/useManageActivity';

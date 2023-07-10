@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxList from '~/components/molecules/FilterCheckboxList';
-import { ProvinceOptionPayload, TypeOptionPayload } from '~/constants';
 import {
   useDispatchGetAllCategories,
   useDispatchGetAllSubjects,
@@ -27,23 +26,15 @@ export default function CourseFilterSection() {
   const handleFilterSubjects = (subjectId: number[]) => {
     dispatch(changeFilterParams({ ...filterParams, subjectId }));
   };
-  const handleFilterTypes = (types: number[]) => {
-    dispatch(changeFilterParams({ ...filterParams, types }));
-  };
-  const handleFilterProvinces = (provinces: number[]) => {
-    dispatch(changeFilterParams({ ...filterParams, provinces }));
-  };
 
   return (
     <Stack
       sx={{
         transition: 'all 1s ease',
-        position: 'sticky',
-        top: '80px',
         zIndex: 9,
         marginX: 1,
         marginBottom: MetricSize.small_10,
-        padding: 4,
+        padding: 2,
         borderRadius: MetricSize.small_5,
         background: Color.white,
         boxShadow: 1,
@@ -60,7 +51,7 @@ export default function CourseFilterSection() {
         <Typography
           sx={{
             fontFamily: FontFamily.bold,
-            fontSize: FontSize.medium_24,
+            fontSize: FontSize.small_18,
           }}
         >
           Bộ lọc
@@ -74,17 +65,12 @@ export default function CourseFilterSection() {
       />
       <Stack marginTop={2}>
         <FilterCheckboxList
-          type={filterParams.types}
           categoryId={filterParams.categoryId}
           subjectId={filterParams.subjectId}
           fields={categories}
           subjects={optionSubjects}
-          types={TypeOptionPayload}
-          provinces={ProvinceOptionPayload}
           onFields={handleFilterFields}
           onSubjects={handleFilterSubjects}
-          onTypes={handleFilterTypes}
-          onProvinces={handleFilterProvinces}
         />
       </Stack>
     </Stack>

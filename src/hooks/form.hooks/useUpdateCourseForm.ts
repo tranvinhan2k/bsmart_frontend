@@ -1,19 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { DetailCoursePayload } from '~/pages/MentorCourseDetailPage';
-import { useDispatchGetAllCategories } from '../useDispatchGetAllCategories';
-import { useDispatchGetAllSubjects } from '../useDispatchGetAllSubjects';
+import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
 import { validationSchemaCreateCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
-import { OptionPayload } from '~/models';
-import { SelectedCoursePayload } from '~/pages/MentorCreateCoursePage';
+import { OptionPayload, PutCoursePayload } from '~/models';
+import { useGetFilteredSubjectAndCategory } from '../course/useGetFilteredSubjectAndCategory';
+import { mockLevelData } from '~/constants';
 
 export const useUpdateCourseForm = (
-  course: DetailCoursePayload,
-  onChangeCourse: (data: SelectedCoursePayload) => void
+  course: MentorDetailCoursePayload | undefined,
+  onChangeCourse: (data: PutCoursePayload) => void
 ) => {
-  const { optionCategories } = useDispatchGetAllCategories();
-  const { optionSubjects } = useDispatchGetAllSubjects();
-
   const resolverUpdateCourse = useYupValidationResolver(
     validationSchemaCreateCourse
   );
@@ -21,26 +17,33 @@ export const useUpdateCourseForm = (
     defaultValues: course,
     resolver: resolverUpdateCourse,
   });
+  const { categories, filterSubjects } = useGetFilteredSubjectAndCategory(
+    hookForm,
+    'categoryId'
+  );
 
-  async function handleUpdateCourse(data: {
+  async function handleSubmit(data: {
     name: string;
     subjectId: OptionPayload;
     categoryId: OptionPayload;
     description: string;
+    level: OptionPayload;
   }) {
-    const params: SelectedCoursePayload = {
+    const params: PutCoursePayload = {
       name: data?.name || '',
       subjectId: data?.subjectId.id,
       categoryId: data?.categoryId.id,
       description: data?.description || '',
+      level: data?.level.value,
     };
     await onChangeCourse(params);
   }
 
   return {
     hookForm,
-    optionCategories,
-    optionSubjects,
-    handleUpdateCourse,
+    categories,
+    filterSubjects,
+    handleSubmit,
+    levels: mockLevelData,
   };
 };

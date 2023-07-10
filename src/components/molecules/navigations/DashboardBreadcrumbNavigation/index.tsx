@@ -8,11 +8,9 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import {
-  MentorDashboardNavigationActionData,
-  NavigationActionData,
-} from '~/constants';
+
 import { ActionPayload } from '~/models';
+import { MentorDashboardNavigationActionData } from '~/routes/navigators';
 
 export default function DashboardBreadcrumbNavigation() {
   const { pathname, state } = useLocation();

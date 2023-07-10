@@ -7,7 +7,7 @@ import columns from '~/constants/columns';
 import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import { MetricSize, FontSize, FontFamily, Color } from '~/assets/variables';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 
 interface ClassAttendanceListProps {
   name: string | undefined;
@@ -68,7 +68,7 @@ export default function ClassAttendanceList({
           sx={{
             fontSize: FontSize.medium_28,
             fontFamily: FontFamily.bold,
-            color: Color.orange,
+            color: Color.tertiary,
           }}
         >
           Điểm danh

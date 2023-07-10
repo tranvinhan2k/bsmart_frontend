@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { ActivityTypeCode } from '~/models/activity';
 import { SX_RESOURCE_ITEM_CONTAINER } from './style';
 

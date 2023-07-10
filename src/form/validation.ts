@@ -216,8 +216,12 @@ export const validationSchemaEditSocialProfile = object({
   instagram: string(),
 });
 export const validationSchemaTimeTable = object({
-  slot: object().required('Hãy nhập khung giờ học của bạn'),
-  dayOfWeek: object().required('Hãy nhập thứ của bạn'),
+  slot: object()
+    .typeError('Ngày của tuần không hợp lệ')
+    .required('Hãy nhập khung giờ học của bạn'),
+  dayOfWeek: object()
+    .typeError('Giờ học không phù hợp')
+    .required('Hãy nhập thứ của bạn'),
 });
 
 export const validationSchemaFeedbackMentor = object({
@@ -238,12 +242,12 @@ export const validationSchemaCreateCourse = object({
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
   description: string().required(COURSE_DESCRIPTION),
+  level: string().required(COURSE_LEVEL_REQUIRED),
 });
 export const validationSchemaCreateSubCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  level: string().required(COURSE_LEVEL_REQUIRED),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
     .test(
@@ -259,7 +263,6 @@ export const validationSchemaCreateSubCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
     .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
@@ -277,7 +280,9 @@ export const validationSchemaCreateSubCourse = object({
   startDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống'),
-  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
+  timeInWeekRequests: array()
+    .min(1, 'Thời khóa biểu phải có ít nhất một giá trị')
+    .required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống')
@@ -307,7 +312,6 @@ export const validationSchemaUpdateWaitingCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  level: string().required(COURSE_LEVEL_REQUIRED),
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
@@ -329,7 +333,9 @@ export const validationSchemaUpdateWaitingCourse = object({
   startDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống'),
-  timeInWeekRequests: array().required('Thời khóa biểu là bắt buộc.'),
+  timeInWeekRequests: array()
+    .min(1, 'Thời khóa biểu phải có ít nhất một giá trị')
+    .required('Thời khóa biểu là bắt buộc.'),
   endDateExpected: date()
     .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
     .required('Ngày không được để trống')

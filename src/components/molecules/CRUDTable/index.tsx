@@ -22,7 +22,7 @@ import CRUDTableSearching from './CRUDTableSearching';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
-import { Color, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 
 export type MenuItemPayload = {
   icon: IconName;
@@ -54,6 +54,15 @@ interface CRUDTableProps {
 
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
+  '.MuiDataGrid-columnHeadersInner': {
+    background: Color.white4,
+  },
+  '.MuiDataGrid-columnHeaderTitle': {
+    color: Color.navy,
+    textTransform: 'uppercase',
+    fontSize: FontSize.small_16,
+    fontFamily: FontFamily.bold,
+  },
   [`& .${gridClasses.row}.even`]: {
     backgroundColor: theme.palette.grey[200],
     '&:hover, &.Mui-hovered': {
@@ -126,7 +135,7 @@ export default function CRUDTable({
   const renderMoreVertMenuIcon = () => {
     return (
       <IconButton onClick={handleMenu}>
-        <Icon name="moreVert" size="medium" color="grey" />
+        <Icon name="moreVert" size="small_20" color="black" />
       </IconButton>
     );
   };
@@ -135,7 +144,8 @@ export default function CRUDTable({
     ...columns,
     {
       field: '',
-      flex: 1,
+      width: 150,
+      // flex: 1,
       headerName: 'Chức năng',
       renderCell() {
         return renderMoreVertMenuIcon();

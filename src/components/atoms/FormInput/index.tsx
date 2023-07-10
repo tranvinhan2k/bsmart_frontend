@@ -9,7 +9,6 @@ import {
   DropdownDynamicValueInputStringDataPayload,
   OptionPayload,
 } from '~/models';
-import { SX_INPUT_LABEL } from '~/components/atoms/FormInput/styles';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
 import FileInput from './FileInput';
@@ -30,10 +29,10 @@ import FeedbackTypeInput from './FeedbackTypeInput';
 import DateTimePickerInput from './DateTimePickerInput';
 import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 import EditorInput from './EditorInput';
-import globalStyles from '~/styles';
 import { FontFamily, FontSize } from '~/assets/variables';
 
 interface FormInputProps {
+  disabled?: boolean;
   banks?: BankLinking[];
   control: Control<any>;
   data?: OptionPayload[];
@@ -48,12 +47,13 @@ interface FormInputProps {
   name: string;
   placeholder?: string;
   multilineRows?: number;
-  previewImgHeight?: number | '100%';
-  previewImgWidth?: number | '100%';
+  previewImgHeight?: number | string;
+  previewImgWidth?: number | string;
   variant?: FormInputVariant;
 }
 
 const generateFormInput = (
+  disabled: boolean,
   banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
   data: OptionPayload[],
@@ -65,13 +65,19 @@ const generateFormInput = (
   helperText: string,
   placeholder: string,
   multilineRows: number,
-  previewImgHeight: number | '100%',
-  previewImgWidth: number | '100%',
+  previewImgHeight: number | string,
+  previewImgWidth: number | string,
   variant: FormInputVariant
 ) => {
   switch (true) {
     case variant === 'text':
-      return <TextInput controller={controller} placeholder={placeholder} />;
+      return (
+        <TextInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'feedbackQuestionChoice':
       return (
         <FeedbackQuestionChoiceInput
@@ -174,6 +180,7 @@ const generateFormInput = (
 };
 
 export default function FormInput({
+  disabled = false,
   banks = [],
   control,
   data = [],
@@ -191,7 +198,11 @@ export default function FormInput({
   const controller = useController({ name, defaultValue, control });
 
   return (
-    <Stack flexGrow={1}>
+    <Stack
+      sx={{
+        flex: '1 1 0',
+      }}
+    >
       <Typography
         sx={{
           fontSize: FontSize.small_14,
@@ -201,6 +212,7 @@ export default function FormInput({
         {label}
       </Typography>
       {generateFormInput(
+        disabled,
         banks,
         controller,
         data,

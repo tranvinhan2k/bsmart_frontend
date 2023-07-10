@@ -57,6 +57,12 @@ const textLowSmallLight: SxProps<Theme> = {
   fontSize: FontSize.small_14,
   color: Color.grey,
 };
+const textWhiteSubTitle: SxProps<Theme> = {
+  fontSize: FontSize.medium_24,
+  fontFamily: FontFamily.bold,
+  color: Color.white,
+};
+
 export const SX_SHADOW: SxProps<Theme> = {
   shadowColor: '#000000',
   shadowOffset: {
@@ -68,12 +74,15 @@ export const SX_SHADOW: SxProps<Theme> = {
   elevation: 4,
 };
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
-  maxHeight: '50px',
+  // maxHeight: '50px',
   input: {
-    fontFamily: FontFamily.light,
+    fontFamily: FontFamily.regular,
     fontSize: FontSize.small_14,
     background: Color.white,
     height: MetricSize.formInputHeight,
+  },
+  '.MuiFormHelperText-root': {
+    marginX: 0,
   },
 };
 
@@ -83,6 +92,7 @@ const globalStyles = {
   textSmallLabel,
   textSmallLight,
   textLowSmallLight,
+  textWhiteSubTitle,
 };
 
 export default globalStyles;

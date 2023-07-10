@@ -1,41 +1,60 @@
 import { useState } from 'react';
 import { Id } from 'react-toastify';
+import { formatLowercaseTrimText } from '~/utils/common';
 import toast from '~/utils/toast';
 
-export const useTryCatch = (texts?: {
-  loading: string;
-  success: string;
-  error: string;
-}) => {
+const initFormatTexts = {
+  loading: 'Đang {{name}}...',
+  error: 'Đã {{name}} thất bại',
+  success: 'Đã {{name}} thành công !',
+};
+
+function replaceFeatureName(name: string | undefined, text: string) {
+  return text.replace('{{name}}', formatLowercaseTrimText(name || ''));
+}
+
+export const useTryCatch = (featureName?: string) => {
+  const texts = {
+    loading: replaceFeatureName(featureName, initFormatTexts.loading),
+    error: replaceFeatureName(featureName, initFormatTexts.error),
+    success: replaceFeatureName(featureName, initFormatTexts.success),
+  };
   const [error, setError] = useState<Error>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const handleTryCatch = async (
-    callback: () => Promise<any>,
+  const handleTryCatch = async <T>(
+    callback: () => Promise<T>,
     onError?: () => void
-  ) => {
-    let id: Id = -1;
+  ): Promise<T | null> => {
     setLoading(true);
-    if (texts) {
-      id = toast.loadToast(texts?.loading);
+    let id: Id | undefined;
+
+    if (featureName) {
+      id = toast.loadToast(texts.loading);
     }
+
     try {
       const response = await callback();
-      if (texts && id) {
-        toast.updateSuccessToast(id, texts?.success);
+
+      if (featureName && id) {
+        toast.updateSuccessToast(id, texts.success);
       }
-      setLoading(false);
+
       return response;
     } catch (e: any) {
-      if (texts && id) {
-        toast.updateFailedToast(id, `${texts?.error}: ${e.message}`);
+      if (featureName && id) {
+        toast.updateFailedToast(id, `${texts.error}: ${e.message}`);
       }
+
       setError(e);
+
       if (onError) {
         onError();
       }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+
     return null;
   };
 

@@ -132,7 +132,7 @@ export default function IntroduceMentorDetailSection({
 
             {mentorDetails.gender && (
               <Icon
-                color="orange"
+                color="tertiary"
                 name={mentorDetails.gender as IconName}
                 size="ex_large"
               />
@@ -156,7 +156,7 @@ export default function IntroduceMentorDetailSection({
                 <Icon
                   name={item.image as IconName}
                   size="small"
-                  color="orange"
+                  color="tertiary"
                 />
                 <Typography sx={SX_DISPLAY_FIELD_TEXT}>{item.text}</Typography>
               </Stack>

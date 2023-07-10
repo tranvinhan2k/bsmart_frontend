@@ -8,7 +8,7 @@ import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import ClassItem from '~/components/molecules/items/ClassItem';
 
 interface Props {
-  classes: DetailCourseClassPayload[];
+  classes: DetailCourseClassPayload[] | undefined;
   onOpenUpdateModal?: (index: number) => void;
   onOpenAddModal?: () => void;
   onDeleteModal?: (id: number) => void;
@@ -38,15 +38,21 @@ export default function Classes({
         borderRadius: MetricSize.small_5,
       }}
     >
-      {classes?.length > 0 ? (
+      {classes && classes?.length > 0 ? (
         <>
-          {classes.map((item, index) => (
+          {classes?.map((item, index) => (
             <Stack key={item.id} marginTop={index === 0 ? 0 : 1}>
               <ClassItem
                 id={index}
                 onUpdate={() => handleUpdate(index)}
                 onDeleteModal={() => handleDelete(index)}
-                classItem={item}
+                code={item.code}
+                endDate={item.endDate}
+                imageUrl={item.imageUrl}
+                maxStudent={item.maxStudent}
+                minStudent={item.minStudent}
+                startDate={item.startDate}
+                timetable={item.timeInWeekRequests}
               />
             </Stack>
           ))}
@@ -90,17 +96,19 @@ export default function Classes({
             ngay.
           </Typography>
           <Box marginTop={2}>
-            <Button
-              onClick={onOpenAddModal}
-              variant="contained"
-              color="secondary"
-              sx={{
-                color: Color.white,
-              }}
-              startIcon={<Icon name="add" size="small_20" color="white" />}
-            >
-              Thêm lớp học
-            </Button>
+            {onOpenAddModal && (
+              <Button
+                onClick={onOpenAddModal}
+                variant="contained"
+                color="secondary"
+                sx={{
+                  color: Color.white,
+                }}
+                startIcon={<Icon name="add" size="small_20" color="white" />}
+              >
+                Thêm lớp học
+              </Button>
+            )}
           </Box>
         </Stack>
       )}

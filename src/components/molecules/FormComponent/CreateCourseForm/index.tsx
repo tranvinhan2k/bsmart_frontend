@@ -22,11 +22,12 @@ export default function CreateCourseForm({
 }: // onNextStep,
 CreateCourseFormProps) {
   const {
-    publicCourses,
+    // publicCourses,
     categories,
     filterSubjects,
     createCourseHookForm,
     handleCreateCourse,
+    levels,
   } = useCreateCourseForm(onChangeSelectedCourse);
 
   // TODO: Khóa học riêng tư chưa làm được tạm thời comment lại, đừng xóa
@@ -94,13 +95,16 @@ CreateCourseFormProps) {
         <PrivateCourseTab
           categories={categories}
           subjects={filterSubjects}
+          levels={levels}
           createCourseHookForm={createCourseHookForm}
         />
       </Stack>
       <Stack marginTop={2}>
         <Button
+          color="secondary"
+          sx={{ color: Color.white }}
           onClick={createCourseHookForm.handleSubmit(handleCreateCourse)}
-          customVariant="form"
+          variant="contained"
         >
           tạo khóa học
         </Button>

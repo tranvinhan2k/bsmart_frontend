@@ -16,11 +16,7 @@ interface CreateSectionModulePayload {
 }
 
 export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang thêm bài học mới...',
-    success: 'Thêm bài học thành công',
-    error: 'Thêm bài học thất bại',
-  });
+  // const { handleTryCatch } = useTryCatch('thêm bài học mới');
   const { onSleep } = useTimeOut(1000);
 
   const resolver = useYupValidationResolver(validationClassContentModule);
@@ -34,8 +30,8 @@ export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
   };
 
   const handleSubmit = async (data: { name: string }) => {
-    await handleTryCatch(() => onSleep(true));
-    onAdd(id, data.name);
+    // await handleTryCatch(() => onSleep(true));
+    await onAdd(id, data.name);
     hookForm.reset();
     handleTriggerFormCreateModule();
   };

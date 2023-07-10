@@ -15,7 +15,7 @@ import Button from '~/components/atoms/Button';
 import { CreateAssignmentFormDataPayload } from '~/models/form';
 import { CreateAssignmentPayload } from '~/api/assignments';
 import { defaultValueEditCreateAssignment } from '~/form/defaultValues';
-import { MentorNavigationActionData } from '~/constants';
+import { MentorNavigationActionData } from '~/routes/navigators';
 import { useMutationCreateAssignment } from '~/hooks/useManageAssignment';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaCreateAssignment } from '~/form/validation';

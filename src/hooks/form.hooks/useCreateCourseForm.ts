@@ -1,22 +1,18 @@
-import { useState, useEffect } from 'react';
-
 import { useForm } from 'react-hook-form';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { validationSchemaCreateCourse } from '~/form/validation';
 import { defaultValueCreateCourse } from '~/form/defaultValues';
-import { CREATE_COURSE_FIELDS } from '~/form/schema';
 import { OptionPayload } from '~/models';
-import { useDispatchGetAllCategories } from '../useDispatchGetAllCategories';
-import { useQueryGetAllMentorSubjects } from '../useQueryGetAllMentorSubjects';
-import { useQueryGetAllPublicCourses } from '../useQueryGetAllPublicCourses';
+// import { useQueryGetAllPublicCourses } from '../useQueryGetAllPublicCourses';
 import { PostCoursePayload } from '~/models/request';
+import { useGetFilteredSubjectAndCategory } from '../course/useGetFilteredSubjectAndCategory';
+import { CREATE_COURSE_FIELDS } from '~/form/schema';
+import { mockLevelData } from '~/constants';
 
 export const useCreateCourseForm = (
   onChangeCourse: (param: PostCoursePayload) => void
 ) => {
-  const [categoryId, setCategoriesId] = useState<number>();
-
-  const { publicCourses } = useQueryGetAllPublicCourses();
+  // const { publicCourses } = useQueryGetAllPublicCourses();
 
   const resolverCreateCourse = useYupValidationResolver(
     validationSchemaCreateCourse
@@ -25,29 +21,23 @@ export const useCreateCourseForm = (
     defaultValues: defaultValueCreateCourse,
     resolver: resolverCreateCourse,
   });
-  const categoryWatch = createCourseHookForm.watch(
+
+  const { categories, filterSubjects } = useGetFilteredSubjectAndCategory(
+    createCourseHookForm,
     CREATE_COURSE_FIELDS.categoryId
   );
-
-  const { subjects } = useQueryGetAllMentorSubjects();
-  const { optionCategories: categories } = useDispatchGetAllCategories();
-
-  useEffect(() => {
-    setCategoriesId(categoryWatch?.id);
-  }, [categoryWatch]);
-
-  const filterSubjects = subjects?.filter((item) => {
-    return item.categoryIds?.includes(categoryId || 0);
-  });
 
   async function handleCreateCourse(data: {
     name: string;
     subjectId: OptionPayload;
     categoryId: OptionPayload;
     description: string;
+    level: string;
   }) {
+    console.log(data);
+
     const params: PostCoursePayload = {
-      code: '0',
+      level: data.level,
       name: data?.name || '',
       subjectId: data?.subjectId.id,
       categoryId: data?.categoryId.id,
@@ -57,10 +47,11 @@ export const useCreateCourseForm = (
   }
 
   return {
-    publicCourses,
+    // publicCourses,
     categories,
     filterSubjects,
     createCourseHookForm,
     handleCreateCourse,
+    levels: mockLevelData,
   };
 };

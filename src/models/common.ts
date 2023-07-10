@@ -1,5 +1,5 @@
+import { SxProps, Theme } from '@mui/material';
 import { IconName } from '~/components/atoms/Icon';
-import { Role } from './role';
 
 export interface SocialPayload {
   name: string;
@@ -74,18 +74,4 @@ export interface DropdownDynamicValueInputStringDataPayload {
   value: string;
 }
 
-export interface RequestPagingFilterPayload {
-  page: number;
-  size: number;
-  sort: string[] | undefined;
-  status?:
-    | 'REQUESTING'
-    | 'WAITING'
-    | 'EDITREQUEST'
-    | 'REJECTED'
-    | 'NOTSTART'
-    | 'STARTING'
-    | 'ENDED'
-    | 'CANCEL'
-    | 'ALL';
-}
+export type StyleMUIType = SxProps<Theme>;

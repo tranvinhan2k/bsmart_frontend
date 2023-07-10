@@ -112,7 +112,7 @@ export default function CourseDetailFeedbackSection({
               }}
               key={star.id}
             >
-              <Icon size="small" color="orange" name="star" />
+              <Icon size="small" color="tertiary" name="star" />
               <Typography
                 sx={{
                   fontSize: FontSize.small_16,
@@ -126,12 +126,12 @@ export default function CourseDetailFeedbackSection({
                 <LinearProgress
                   variant="determinate"
                   sx={{
-                    color: Color.orange,
+                    color: Color.tertiary,
                     borderRadius: '5px',
                     height: MetricSize.small_10,
-                    background: '#ddd',
+                    background: Color.border,
                     '&>.MuiLinearProgress-bar': {
-                      background: Color.orange,
+                      background: Color.tertiary,
                     },
                   }}
                   value={(star.numOfRating / numOfRating) * 100}

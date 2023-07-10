@@ -6,7 +6,7 @@ import { Color } from '~/assets/variables';
 
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
-import { useTimeOut, useTryCatch, useYupValidationResolver } from '~/hooks';
+import { useYupValidationResolver } from '~/hooks';
 import { validationClassContentSection } from '~/form/validation';
 import AddSectionForm from '../AddSectionForm';
 
@@ -15,13 +15,6 @@ interface Props {
 }
 
 export default function AddSection({ onAdd }: Props) {
-  const { handleTryCatch } = useTryCatch({
-    loading: 'Đang thêm học phần mới...',
-    success: 'Thêm học phần thành công',
-    error: 'Thêm học phần thất bại',
-  });
-  const { onSleep } = useTimeOut(1000);
-
   const resolver = useYupValidationResolver(validationClassContentSection);
   const hookForm = useForm({
     resolver,
@@ -34,7 +27,6 @@ export default function AddSection({ onAdd }: Props) {
   };
 
   const handleSubmit = async (data: { name: string; introduce: string }) => {
-    await handleTryCatch(() => onSleep(true));
     onAdd(data.name, data.introduce);
     hookForm.reset();
     handleTriggerFormCreateSection();

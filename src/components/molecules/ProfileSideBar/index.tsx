@@ -24,8 +24,7 @@ import { ROLE_LABELS } from '~/constants/role';
 import { ActionPayload, SocialPayload } from '~/models';
 import Button from '~/components/atoms/Button';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
-import { Color, MetricSize } from '~/assets/variables';
-import { NavigationActionData } from '~/constants';
+import { MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
 
@@ -156,7 +155,7 @@ export default function ProfileSideBar({
               {gender && (
                 <Stack padding={2}>
                   <Icon
-                    color="orange"
+                    color="tertiary"
                     name={gender.toLowerCase() as IconName}
                     size="large"
                   />
@@ -180,7 +179,7 @@ export default function ProfileSideBar({
                       <Icon
                         name={item.image as IconName}
                         size="small"
-                        color="orange"
+                        color="tertiary"
                       />
                       <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
                         {item.text}

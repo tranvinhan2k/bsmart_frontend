@@ -3,7 +3,6 @@ import { Theme } from '@mui/material/styles';
 import { Color, FontFamily } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
-  boxShadow: 3,
   padding: 2,
   borderRadius: '5px',
   background: Color.white,
@@ -25,7 +24,7 @@ export const SX_PROFILE_DETAILS: SxProps<Theme> = {
 };
 
 export const SX_PROFILE_DETAILS_HIGHLIGHTED: SxProps<Theme> = {
-  color: Color.orange,
+  color: Color.tertiary,
   fontFamily: FontFamily.regular,
   fontSize: 16,
 };

@@ -1,21 +1,30 @@
-import { Stack } from '@mui/material';
-import Skeleton from 'react-loading-skeleton';
 import { useNavigate } from 'react-router-dom';
-import { Color, MetricSize } from '~/assets/variables';
 import UserCourseItem from '../UserCourseItem';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import { CourseMenuItemPayload, CoursePayload } from '~/models/type';
+import { image } from '~/constants/image';
+import { LevelKeys } from '~/models/variables';
 
 interface MentorCourseItemProps {
-  item?: any;
-  isSkeleton?: boolean;
+  item: CourseMenuItemPayload;
 }
 
 export default function MentorCourseItem({
-  item,
-  isSkeleton = false,
+  item = {
+    courseDescription: '',
+    courseName: '',
+    id: 0,
+    imageAlt: '',
+    imageUrl: image.noCourse,
+    level: 'BEGINNER',
+    courseStatus: 'ALL',
+    courseTeacherName: [''],
+    subjectName: '',
+    totalClass: 0,
+  },
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
 
@@ -25,37 +34,15 @@ export default function MentorCourseItem({
     );
   };
 
-  if (isSkeleton) {
-    return (
-      <Stack
-        sx={{
-          marginTop: MetricSize.medium_15,
-          marginLeft: '10px',
-          borderColor: Color.grey,
-          borderRadius: MetricSize.small_5,
-          justifyContent: 'space-between',
-          height: '100%',
-        }}
-      >
-        <Skeleton height={400} />
-      </Stack>
-    );
-  }
-
   return (
     <UserCourseItem
+      level={item?.level}
       courseDescription={item.courseDescription}
       courseName={item.courseName}
-      imageAlt="Hình ảnh khóa học"
+      imageAlt={item.imageAlt}
       imageUrl={item.imageUrl}
-      courseType={item.courseType}
-      courseStatus={item.status}
+      courseStatus={item.courseStatus}
       onClick={handleNavigateCourseDetail}
     />
   );
 }
-
-MentorCourseItem.defaultProps = {
-  isSkeleton: false,
-  item: undefined,
-};

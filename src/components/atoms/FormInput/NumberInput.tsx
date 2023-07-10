@@ -1,5 +1,5 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface NumberInputProps {
@@ -22,7 +22,6 @@ function NumberInput({ controller, placeholder }: NumberInputProps) {
       fullWidth
       type="number"
       size="small"
-      InputProps={{ inputProps: { min: 0 } }}
       value={value}
       onChange={onChange}
       onBlur={onBlur}

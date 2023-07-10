@@ -16,26 +16,10 @@ interface Props {
 export default function Sections({ content, onAddNew }: Props) {
   const { onSleep } = useTimeOut(1000);
 
-  const deleteSection = useTryCatch({
-    error: 'Xóa học phần thất bại',
-    loading: 'Đang xóa học phần',
-    success: 'Xóa học phần thành công',
-  });
-  const deleteModule = useTryCatch({
-    error: 'Xóa bài học thất bại',
-    loading: 'Đang xóa bài học',
-    success: 'Xóa bài học thành công',
-  });
-  const updateModule = useTryCatch({
-    error: 'Cập nhật bài học thất bại',
-    loading: 'Đang cập nhật bài học',
-    success: 'Cập nhật bài học thành công',
-  });
-  const { handleTryCatch } = useTryCatch({
-    error: 'Không cập nhật được nội dung học phần',
-    loading: 'Đang cập nhật nội dung học phần...',
-    success: 'Cập nhật thành công',
-  });
+  const deleteSection = useTryCatch('xóa học phần');
+  const deleteModule = useTryCatch('xóa bài học');
+  const updateModule = useTryCatch('cập nhật bài học');
+  const { handleTryCatch } = useTryCatch('cập nhật nội dung');
 
   if (content === undefined || content.length === 0) {
     return (
@@ -84,20 +68,21 @@ export default function Sections({ content, onAddNew }: Props) {
 
   return (
     <Stack>
-      {content.map((section) => (
+      {content.map((section, index) => (
         <Stack
           sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}
-          key={section.id}
+          key={index}
         >
           <Section
+            index={index}
             section={section}
             onDelete={handleDeleteSection}
             onUpdate={handleUpdateSection}
           />
           <Stack sx={{ marginTop: 1, paddingY: 1 }}>
-            {section?.modules.map((module: any) => (
+            {section?.modules.map((module, idx) => (
               <Module
-                key={module}
+                key={idx}
                 module={module}
                 onDelete={handleDeleteModule}
                 onUpdate={handleUpdateModule}

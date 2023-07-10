@@ -3,7 +3,7 @@ import { Color, FontSize, MetricSize } from '~/assets/variables';
 
 export const SX_CHECKBOX: SxProps<Theme> = {
   '&.Mui-checked': {
-    color: Color.orange,
+    color: Color.tertiary,
   },
 };
 

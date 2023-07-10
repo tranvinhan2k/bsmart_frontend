@@ -1,7 +1,13 @@
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { OptionPayload } from './common';
+import { SectionPayload } from './section';
 import {
   AccountStatusKeys,
+  CourseStatusKeys,
+  CourseTypeKeys,
   GenderKeys,
   ImageKeys,
+  LevelKeys,
   RoleKeys,
 } from './variables';
 
@@ -78,12 +84,31 @@ export interface MentorProfileIntroducePayload {
 
 export interface CoursePayload {
   id: number;
-  images: ImagePayload[];
+  images: string[];
   courseCode: string;
   courseName: string;
-  subjectId: number;
-  subjectName: string;
+  category: OptionPayload;
+  subject: OptionPayload;
   courseDescription: string;
   totalClass: number;
   mentorName: string[];
+  mentorAvatar: string;
+  mentorDescription: string;
+  status: CourseStatusKeys;
+  level: LevelKeys;
 }
+
+export interface CourseMenuItemPayload {
+  id: number;
+  imageUrl: string | undefined;
+  imageAlt: string | undefined;
+  courseTeacherName?: string[];
+  courseName: string | undefined;
+  subjectName?: string;
+  courseStatus?: CourseStatusKeys;
+  totalClass?: number;
+  level: LevelKeys;
+  courseDescription: string | undefined;
+}
+
+export type ContentPayload = SectionPayload[];
