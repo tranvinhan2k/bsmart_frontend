@@ -6,7 +6,6 @@ import CourseMenuSection from '~/containers/CoursesSection/CourseMenuSection';
 import { useQueryGetAllCourse } from '~/hooks';
 import { scrollToTop } from '~/utils/common';
 
-// TODO: add filter params
 export default function CoursesPage() {
   useEffect(() => {
     scrollToTop();

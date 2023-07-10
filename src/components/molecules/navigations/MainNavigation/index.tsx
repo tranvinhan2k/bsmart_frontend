@@ -5,8 +5,6 @@ import {
   IconButton,
   Stack,
   Typography,
-  Menu,
-  MenuItem,
   Badge,
   Button,
   Drawer,
@@ -17,7 +15,6 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import {
   ActionPayload,
   ContractPayload,
-  PagingFilterPayload,
   PagingRequestPayload,
   SocialPayload,
 } from '~/models';
@@ -52,21 +49,17 @@ interface NavigationProps {
   isOpenDrawer: boolean;
   isOpenProfileDrawer: boolean;
   cart: ResponseCartItem | undefined;
-  courses: CoursePayload[] | undefined;
   role: Role | null;
   filterParams: PagingRequestPayload;
   pathName: string;
   pages: ActionPayload[];
   socials: SocialPayload[];
   contracts: ContractPayload[];
-  courseAnchorEl: HTMLElement | null;
   onToggleDrawer: () => void;
   onToggleProfileDrawer: () => void;
   onNavigationLink: (_link: string) => void;
-  onCloseCourseMenu: () => void;
   onSearchCourse: (searchValue: string) => void;
   onMouseEnterNavigation: (_event: any, _link: string) => void;
-  onMouseLeaveNavigation: () => void;
   onClickNavigation: (_link: string) => void;
   onClickCart: () => void;
 }
@@ -76,15 +69,12 @@ export default function MainNavigation({
   isOpenDrawer,
   isOpenProfileDrawer,
   cart,
-  courses,
   role,
   filterParams,
   pathName,
   pages,
   contracts,
   socials,
-  courseAnchorEl,
-  onCloseCourseMenu,
   onToggleDrawer,
   onToggleProfileDrawer,
   onNavigationLink,
@@ -92,7 +82,6 @@ export default function MainNavigation({
   onClickCart,
   onClickNavigation,
   onMouseEnterNavigation,
-  onMouseLeaveNavigation,
 }: NavigationProps) {
   const profile = useSelector(selectProfile);
 
@@ -226,30 +215,6 @@ export default function MainNavigation({
           <MentorDetailSection />
         )}
       </Drawer>
-      <Menu
-        id="basic-menu"
-        anchorEl={courseAnchorEl}
-        open={Boolean(courseAnchorEl)}
-        onClose={onCloseCourseMenu}
-        onMouseLeave={onMouseLeaveNavigation}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        {courses &&
-          courses.map((course: any) => {
-            return (
-              <MenuItem
-                key={course.id}
-                onClick={() =>
-                  onClickNavigation(`/${texts.COURSE_MENU_LINK}/${course.id}`)
-                }
-              >
-                {course.title || `Tên khóa học ${course.id}`}
-              </MenuItem>
-            );
-          })}
-      </Menu>
     </Stack>
   );
 }

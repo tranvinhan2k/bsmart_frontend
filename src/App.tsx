@@ -8,6 +8,8 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   useDispatchGetAllCategories,
   useDispatchGetAllDayOfWeeks,
@@ -160,13 +162,17 @@ function Wrapper() {
         <Provider store={store}>
           <ThemeProvider theme={defaultTheme}>
             <BrowserRouter>
-              <ProSidebarProvider>
-                <React.StrictMode>
-                  <Stack sx={{ background: Color.white4, minHeight: '100vh' }}>
-                    <App />
-                  </Stack>
-                </React.StrictMode>
-              </ProSidebarProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <ProSidebarProvider>
+                  <React.StrictMode>
+                    <Stack
+                      sx={{ background: Color.white4, minHeight: '100vh' }}
+                    >
+                      <App />
+                    </Stack>
+                  </React.StrictMode>
+                </ProSidebarProvider>
+              </LocalizationProvider>
             </BrowserRouter>
           </ThemeProvider>
         </Provider>

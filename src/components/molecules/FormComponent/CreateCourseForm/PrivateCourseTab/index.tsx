@@ -12,6 +12,7 @@ import { OptionPayload } from '~/models';
 
 export interface PrivateCourseTabProps {
   categories: OptionPayload[] | undefined;
+  levels: OptionPayload[] | undefined;
   subjects: OptionPayload[] | undefined;
   createCourseHookForm: UseFormReturn<any, any>;
 }
@@ -19,6 +20,7 @@ export interface PrivateCourseTabProps {
 export default function PrivateCourseTab({
   categories,
   subjects,
+  levels,
   createCourseHookForm,
 }: PrivateCourseTabProps) {
   if (!categories && !subjects) return null;
@@ -59,6 +61,16 @@ export default function PrivateCourseTab({
           control={createCourseHookForm.control}
           label="Ngôn ngữ"
           placeholder="Nhập ngôn ngữ lập trình"
+        />
+      </Stack>
+      <Stack marginTop={1}>
+        <FormInput
+          data={levels}
+          variant="radioGroup"
+          name={CREATE_COURSE_FIELDS.level}
+          control={createCourseHookForm.control}
+          label="Trình độ"
+          placeholder="Nhập trình độ của bạn"
         />
       </Stack>
       <Stack marginTop={1}>

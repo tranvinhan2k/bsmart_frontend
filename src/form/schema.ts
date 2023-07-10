@@ -133,10 +133,11 @@ export const CREATE_COURSE_FIELDS = {
   categoryId: 'categoryId',
   subjectId: 'subjectId',
   description: 'description',
-};
-export const CREATE_SUB_COURSE_FIELDS = {
   level: 'level',
+};
+export const CREATE_CLASS_FIELDS = {
   imageId: 'imageId',
+  level: 'level',
   imageUrl: 'imageUrl',
   subjectId: 'subjectId',
   type: 'type',

@@ -1,106 +1,87 @@
 import { useEffect, useState } from 'react';
-
 import { Stack } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { SectionPayload } from '~/models/section';
-import { useMutationAddContent, useTimeOut, useTryCatch } from '~/hooks';
-import toast from '~/utils/toast';
+import { PostActivityCoursePayload } from '~/models';
+import { ContentPayload } from '~/models/type';
+import {
+  useMutationAddContent,
+  useMutationDeleteContent,
+  useMutationUpdateContent,
+  useQueryGetCourseContent,
+  useTryCatch,
+} from '~/hooks';
 import Sections from '../Sections';
 import AddSection from '../AddSection';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import Button from '~/components/atoms/Button';
+import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { Color } from '~/assets/variables';
-import { PostActivityCoursePayload } from '~/models/request';
 
-export default function Content() {
-  const { onSleep } = useTimeOut(1000);
-  const { error, isLoading, handleTryCatch } = useTryCatch();
+interface Props {
+  id: number;
+}
 
-  const { id } = useParams();
-  const createCourseContentMutation = useMutationAddContent();
+export default function Content({ id }: Props) {
+  const [open, setOpen] = useState(false);
+  const addCourseContent = useMutationAddContent();
+  const deleteCourseContent = useMutationDeleteContent();
+  const updateCourseContent = useMutationUpdateContent();
+  const addContentSection = useTryCatch('thêm học phần');
+  const updateContent = useTryCatch('cập nhật nội dung');
+  const deleteContent = useTryCatch('xóa nội dung');
 
-  // TODO: param nayf nếu tồn tại content cũ, thì chuyển sang mode update
-  const isExistedOldContent = false;
+  const {
+    data: content,
+    error,
+    isLoading,
+    refetch,
+  } = useQueryGetCourseContent(id);
 
-  const [content, setContent] = useState<SectionPayload[]>([
-    {
-      id: 0,
-      name: 'Giới thiệu',
-      modules: [
-        {
-          id: 0,
-          name: 'Giới thiệu',
-        },
-      ],
-    },
-  ]);
-
-  const handleAddNewSection = (name: string) => {
-    setContent([
-      ...content,
-      {
-        id: content?.length,
-        name,
-        modules: [],
-      },
-    ]);
-  };
-
-  const handleAddNewModule = (sectionId: number, name: string) => {
-    const tmpContent = content.map((section) => {
-      if (section.id === sectionId) {
-        return {
-          ...section,
-          modules: [
-            ...section.modules,
-            {
-              id: section.modules.length,
-              name,
-            },
-          ],
-        };
-      }
-      return section;
+  const handleAddNewSection = async (name: string) => {
+    const params: PostActivityCoursePayload = {
+      name,
+      lessons: [],
+    };
+    await addContentSection.handleTryCatch(async () => {
+      await addCourseContent.mutateAsync({ id, params });
     });
 
-    setContent(tmpContent);
+    await refetch();
+  };
+
+  const handleAddNewModule = async (sectionId: number, name: string) => {
+    const section: any = content?.find((item) => item.id === sectionId);
+    await updateContent.handleTryCatch(async () =>
+      updateCourseContent.mutateAsync({
+        id,
+        params: {
+          id: section.id,
+          // name: section.name,
+          lessons: [
+            ...section.modules.map((item: any) => ({
+              id: item.id,
+              description: item.name,
+            })),
+            {
+              id: 0,
+              description: name,
+            },
+          ],
+        },
+      })
+    );
+    await refetch();
+  };
+
+  const handleCloseConfirm = () => {
+    setOpen(!open);
   };
 
   const handleDeleteContent = () => {
-    // TODO: Xóa nội dung content
+    deleteContent.handleTryCatch(async () =>
+      deleteCourseContent.mutateAsync(id)
+    );
+    handleCloseConfirm();
   };
-
-  const handleUpdateContent = () => {
-    // TODO: Thêm api update content ở dây
-  };
-
-  const handleAddNewContent = async () => {
-    const idNotify = toast.loadToast('Đang thêm nội dung khóa học ...');
-    try {
-      const params: { id: number; param: PostActivityCoursePayload } = {
-        id: parseInt(`${id}`, 10),
-        param: {
-          name: content[0].name,
-          lessons: content[0].modules.map((lesson) => ({
-            description: lesson.name,
-          })),
-        },
-      };
-
-      await createCourseContentMutation.mutateAsync(params);
-      toast.updateSuccessToast(idNotify, 'Thêm nội dung khóa học thành công');
-    } catch (e: any) {
-      toast.updateFailedToast(
-        idNotify,
-        `Thêm nội dung khóa học không thành công: ${e.message}`
-      );
-    }
-  };
-
-  useEffect(() => {
-    handleTryCatch(() => onSleep(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
 
   return (
     <Stack>
@@ -108,32 +89,11 @@ export default function Content() {
         <Sections content={content} onAddNew={handleAddNewModule} />
       </LoadingWrapper>
       <AddSection onAdd={handleAddNewSection} />
-      <Stack
-        sx={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-        }}
-      >
+      {/* <Stack>
         <Button
-          onClick={
-            isExistedOldContent ? handleUpdateContent : handleAddNewContent
-          }
+          onClick={handleCloseConfirm}
           sx={{
-            color: Color.white,
-          }}
-          variant="contained"
-          color="secondary"
-        >
-          {isExistedOldContent
-            ? 'Lưu nội dung môn học'
-            : 'Thêm nội dung môn học'}
-        </Button>
-
-        <Button
-          onClick={handleDeleteContent}
-          sx={{
-            marginLeft: 1,
+            marginTop: 1,
             color: Color.white,
           }}
           variant="contained"
@@ -141,7 +101,14 @@ export default function Content() {
         >
           Xóa nội dung môn học
         </Button>
-      </Stack>
+        <ConfirmDialog
+          open={open}
+          title="Xác nhận xóa nội dung"
+          content="Bạn có chắc chắn xóa nội dung này không?"
+          handleClose={handleCloseConfirm}
+          handleAccept={handleDeleteContent}
+        />
+      </Stack> */}
     </Stack>
   );
 }

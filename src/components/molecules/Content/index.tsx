@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { SectionPayload } from '~/models/section';
 import Section from './Section';
 
@@ -9,14 +9,18 @@ interface Props {
 export default function Content({ sections }: Props) {
   return (
     <Stack>
-      {sections.map((section) => (
-        <Section
-          key={section.id}
-          id={section.id}
-          modules={section.modules}
-          name={section.name}
-        />
-      ))}
+      {sections.length !== 0 ? (
+        sections.map((section) => (
+          <Section
+            key={section.id}
+            id={section.id}
+            modules={section.modules}
+            name={section.name}
+          />
+        ))
+      ) : (
+        <Typography padding={1}>Chưa có học phần nào</Typography>
+      )}
     </Stack>
   );
 }

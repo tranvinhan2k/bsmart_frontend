@@ -1,18 +1,22 @@
 import { Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { LoadingWrapper } from '~/HOCs';
-import Schedule from '~/components/molecules/Schedule';
-import { useEffectScrollToTop, useTimeOut, useTryCatch } from '~/hooks';
+import MonthSchedule from '~/components/molecules/schedules/MonthSchedule';
+import WeekSchedule from '~/components/molecules/schedules/WeekSchedule';
+import {
+  useDispatchGetAllSlots,
+  useEffectScrollToTop,
+  useTimeOut,
+  useTryCatch,
+} from '~/hooks';
 import globalStyles from '~/styles';
 
 export default function SchedulePage() {
   const { onSleep } = useTimeOut(1000);
   const { error, handleTryCatch, isLoading } = useTryCatch();
-  useEffectScrollToTop();
 
-  useEffect(() => {
-    handleTryCatch(() => onSleep(true));
-  });
+  const { optionSlots } = useDispatchGetAllSlots();
+  useEffectScrollToTop();
 
   return (
     <Stack>
@@ -20,7 +24,7 @@ export default function SchedulePage() {
         Lịch làm việc của tuần
       </Typography>
       <LoadingWrapper isLoading={isLoading} error={error}>
-        <Schedule
+        {/* <WeekSchedule
           data={[
             {
               className: 'Joker',
@@ -30,6 +34,35 @@ export default function SchedulePage() {
               slotId: 1,
               isPresent: true,
               link: 'google.com',
+            },
+          ]}
+        /> */}
+        <MonthSchedule
+          data={[
+            {
+              id: 0,
+              date: new Date(),
+              slots: [optionSlots[0], optionSlots[1]],
+            },
+            {
+              id: 1,
+              date: new Date('08/09/2023'),
+              slots: [optionSlots[0], optionSlots[1]],
+            },
+            {
+              id: 2,
+              date: new Date('08/10/2023'),
+              slots: [optionSlots[0], optionSlots[1]],
+            },
+            {
+              id: 3,
+              date: new Date('08/11/2023'),
+              slots: [...optionSlots],
+            },
+            {
+              id: 4,
+              date: new Date('08/12/2023'),
+              slots: [optionSlots[0], optionSlots[1]],
             },
           ]}
         />

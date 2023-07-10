@@ -105,8 +105,8 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   }: RenderPaginationProps) => {
     return (
       <Stack flexDirection="row">
-        {pages.map((page) => (
-          <Box key={page}>
+        {pages.map((page, index) => (
+          <Box key={index}>
             <IconButton onClick={() => onClick(`${page}`)}>
               <Icon
                 name="dot"
@@ -123,9 +123,9 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   const renderItem = (item: CoursePayload) => {
     return (
       <UserCourseItem
-        courseName={item.title}
-        courseDescription={item.content}
-        imageUrl={image.mockClass}
+        courseName={item.courseName}
+        courseDescription={item.courseDescription}
+        imageUrl={item.images[0]}
       />
     );
   };
@@ -148,8 +148,8 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
           renderArrow={renderArrow}
           renderPagination={renderNavigationDot}
         >
-          {items.map((item) => (
-            <div key={item.id}>{renderItem(item)}</div>
+          {items.map((item, index) => (
+            <div key={index}>{renderItem(item)}</div>
           ))}
         </Carousel>
       </Stack>

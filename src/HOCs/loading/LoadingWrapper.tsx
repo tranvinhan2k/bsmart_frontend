@@ -6,8 +6,8 @@ import globalStyles from '~/styles';
 
 interface Props {
   isEmptyCourse?: boolean;
-  isLoading: boolean;
-  error: any;
+  isLoading?: boolean;
+  error?: any;
   children: React.ReactNode;
 }
 

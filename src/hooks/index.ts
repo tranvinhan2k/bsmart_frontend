@@ -9,11 +9,20 @@ export * from './useMutationProfile';
 export * from './useMutationAddCourseToCart';
 
 export * from './content/useMutationAddContent';
+export * from './content/useQueryGetCourseContent';
+export * from './content/useMutationDeleteContent';
+export * from './content/useMutationUpdateContent';
 
 export * from './course/useQueryGetMentorCourses';
 export * from './course/useMutationUpdateCourse';
 export * from './course/useMutationDeleteCourse';
 export * from './course/useMutationCreateCourse';
+export * from './course/useGetMentorCategories';
+
+export * from './class/useCreateCourseClass';
+export * from './class/useUpdateClass';
+export * from './class/useQueryGetAllMentorClasses';
+export * from './class/useQueryGetMentorCourseClasses';
 
 export * from './useQueryGetImage';
 export * from './useQueryGetCourseDetailByCourseId';
@@ -40,6 +49,7 @@ export * from './useTryCatch';
 export * from './form.hooks/useCreateCourseForm';
 export * from './form.hooks/useCreateClassesForm';
 export * from './form.hooks/useUpdateCourseForm';
+export * from './form.hooks/useUpdateMentorClassesForm';
 
 export * from './useEffectPreventReload';
 export * from './useEffectScrollToTop';

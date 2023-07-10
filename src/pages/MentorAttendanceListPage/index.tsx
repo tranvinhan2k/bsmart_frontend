@@ -7,7 +7,7 @@ import columns from '~/constants/columns';
 import globalStyles from '~/styles';
 import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import CustomTab from '~/components/atoms/CustomTab';
-import Schedule from '~/components/molecules/Schedule';
+import Schedule from '~/components/molecules/schedules/WeekSchedule';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,

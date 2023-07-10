@@ -4,7 +4,7 @@ import { useCustomMutation } from '../useCustomMutation';
 export const useMutationAddContent = () => {
   const mutation = useCustomMutation(
     ['create_content'],
-    activityApi.addActivityCourse
+    activityApi.addCourseContent
   );
   return mutation;
 };
