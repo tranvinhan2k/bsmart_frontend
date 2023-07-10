@@ -10,7 +10,7 @@ import { CourseDetailPayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
-import { CoursePayload } from '~/models/type';
+import { CourseMenuItemPayload } from '~/models/type';
 // Define the request payload for fetching courses
 
 export interface ResponseMemberCoursePayload {
@@ -27,71 +27,6 @@ export interface ResponseMemberCoursePayload {
   courseDescription: string;
   totalSubCourse: number;
   learns: TypeLearnKeys[];
-}
-export interface ResponseMentorCoursePayload {
-  id: number;
-  status: string;
-  level: string;
-  referenceDiscount: number;
-  subject: {
-    id: number;
-    code: string;
-    name: string;
-    categoryId: number;
-  };
-  mentorId: number;
-  mentor: {
-    id: number;
-    introduce: string;
-    fullName: string;
-    email: string;
-    birthday: string;
-    address: string;
-    phone: string;
-    status: true;
-    roles: [
-      {
-        id: number;
-        name: string;
-        code: string;
-      }
-    ];
-    twitterLink: string;
-    facebookLink: string;
-    instagramLink: string;
-    userImages: [
-      {
-        id: number;
-        name: string;
-        url: string;
-        type: string;
-      }
-    ];
-    wallet: {
-      id: number;
-      balance: number;
-      previous_balance: number;
-      owner_id: number;
-    };
-    mentorProfile: {
-      id: number;
-      introduce: string;
-      workingExperience: string;
-      userId: number;
-      mentorSkills: [
-        {
-          skillId: number;
-          yearOfExperiences: number;
-        }
-      ];
-    };
-  };
-  image: {
-    id: number;
-    name: string;
-    url: string;
-    type: string;
-  };
 }
 
 export interface RequestUpdateCoursePayload {
@@ -209,68 +144,50 @@ const coursesApi = {
   // get
   async getAllCourse(
     data: PagingRequestPayload
-  ): Promise<PagingFilterPayload<CoursePayload> | null> {
+  ): Promise<PagingFilterPayload<CourseMenuItemPayload> | null> {
     const response = await axiosClient.get(url, {
       params: data,
       paramsSerializer: { indexes: null },
     });
     // TODO : category sang object thi` chuyen ve object
-    const result: CoursePayload[] = (response.items as any[]).map(
+    const result: CourseMenuItemPayload[] = (response.items as any[]).map(
       (item: any) => ({
         id: item.id,
-        content: item.content,
-        courseCode: item.courseCode,
+        imageAlt: item.images?.[0]?.url,
+        imageUrl: item.images?.[0]?.alt,
+        courseStatus: item.status,
+        courseTeacherName: item.mentorName,
+        subjectName: item.subjectResponse.name,
         courseDescription: item.courseDescription,
+        courseCode: item.courseCode,
         courseName: item.courseName,
-        images: item.images,
-        mentorName: item.mentorName,
+        level: item.level,
         totalClass: item.totalClass,
-        status: item.status,
-        category: {
-          id: item.categoryResponse.id,
-          label: item.categoryResponse.name,
-          value: item.categoryResponse.id,
-        },
-        subject: {
-          id: item.subjectResponse.id,
-          label: item.subjectResponse.name,
-          value: item.subjectResponse.id,
-          categoryIds: item.subjectResponse.categoryIds,
-        },
       })
     );
     return { ...response, items: result };
   },
   async getMentorCourses(
     params: PagingRequestPayload
-  ): Promise<PagingFilterPayload<CoursePayload>> {
+  ): Promise<PagingFilterPayload<CourseMenuItemPayload>> {
     const response = await axiosClient.get(`${url}/mentor`, {
       params,
       paramsSerializer: { indexes: null },
     });
 
-    const result: CoursePayload[] = (response.items as any[]).map(
+    const result: CourseMenuItemPayload[] = (response.items as any[]).map(
       (item: any) => ({
         id: item.id,
-        content: item.content,
-        courseCode: item.courseCode,
+        imageAlt: item.images?.[0]?.url,
+        imageUrl: item.images?.[0]?.alt,
+        courseStatus: item.status,
+        courseTeacherName: item.mentorName,
+        subjectName: item.subjectResponse.name,
         courseDescription: item.courseDescription,
+        courseCode: item.courseCode,
         courseName: item.courseName,
-        images: item.images,
-        mentorName: item.mentorName,
+        level: item.level,
         totalClass: item.totalClass,
-        status: item.status,
-        category: {
-          id: item.categoryResponse.id,
-          label: item.categoryResponse.name,
-          value: item.categoryResponse.id,
-        },
-        subject: {
-          id: item.subjectResponse.id,
-          label: item.subjectResponse.name,
-          value: item.subjectResponse.id,
-          categoryIds: item.subjectResponse.categoryIds,
-        },
       })
     );
 
@@ -296,14 +213,6 @@ const coursesApi = {
       paramsSerializer: { indexes: null },
     });
   },
-  async getMentorCourse(
-    data: PagingRequestPayload
-  ): Promise<PagingFilterPayload<ResponseMentorCoursePayload>> {
-    return axiosClient.get(`${url}/mentor`, {
-      params: data,
-      paramsSerializer: { indexes: null },
-    });
-  },
   async getDetailCourse(id: number): Promise<CourseDetailPayload | null> {
     const response: ResponseCourseDetailPayload = await axiosClient.get(
       `${url}/${id}`
@@ -318,6 +227,8 @@ const coursesApi = {
     return response;
   },
   async createCourse(params: PostCoursePayload): Promise<any> {
+    console.log('params', params);
+
     const response: any = await axiosClient.post(url, params);
     return response;
   },

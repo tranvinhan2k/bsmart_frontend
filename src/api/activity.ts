@@ -2,23 +2,19 @@ import axiosClient from '~/api/axiosClient';
 import { ActivityAssignment } from '~/models/activity';
 import { PostActivityCoursePayload } from '~/models/request';
 import { ContentPayload } from '~/models/type';
+import { formatToLocalContent } from '~/utils/common';
 
 const url = '/activity';
 
 const activityApi = {
   // get
   async getCourseContent(id: number): Promise<ContentPayload> {
-    const response = await axiosClient.get(`${url}/${id}`);
-    console.log('response', response);
-    if (!response.data || response.data === null) return [];
-    return (response as any[])?.map((item) => ({
-      id: item.id,
-      name: item.name,
-      modules: (item.lessons as any[]).map((subItem) => ({
-        id: subItem.id,
-        name: subItem.description,
-      })),
-    }));
+    const response = await axiosClient.get(`${url}/course/${id}`);
+    return (
+      (response as any[])?.map((item) => {
+        return formatToLocalContent(item);
+      }) || null
+    );
   },
   // post
   addCourseContent({
@@ -43,7 +39,7 @@ const activityApi = {
     id: number;
     params: PostActivityCoursePayload;
   }) {
-    return axiosClient.put(`${url}/${id}`, params);
+    return axiosClient.put(`${url}/course/${id}`, params);
   },
 
   getActivityDetails({

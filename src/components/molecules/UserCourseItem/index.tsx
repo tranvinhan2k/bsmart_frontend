@@ -13,7 +13,6 @@ interface UserCourseItemProps {
   courseTeacherName?: string[];
   courseName: string | undefined;
   subjectName?: string;
-  // courseType?: string;
   courseStatus?: CourseStatusKeys;
   totalClass?: number;
   level: LevelKeys;
@@ -23,7 +22,6 @@ interface UserCourseItemProps {
 export default function UserCourseItem({
   courseDescription,
   courseName,
-  // courseType,
   subjectName,
   courseTeacherName,
   totalClass,

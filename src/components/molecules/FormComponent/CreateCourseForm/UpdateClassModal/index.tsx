@@ -4,15 +4,12 @@ import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import { CREATE_CLASS_FIELDS } from '~/form/schema';
-import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
 interface UpdateClassModalProps {
   open: boolean;
   hookForm: UseFormReturn<any, any>;
-  levels: OptionPayload[];
-  types: OptionPayload[];
   onClose: () => void;
   onSubmit: (data: any) => void;
 }
@@ -20,9 +17,6 @@ interface UpdateClassModalProps {
 export default function UpdateClassModal({
   open,
   hookForm,
-  levels,
-  types,
-
   onClose,
   onSubmit,
 }: UpdateClassModalProps) {
@@ -55,14 +49,6 @@ export default function UpdateClassModal({
           </Stack>
           <Stack marginTop={2} />
           <FormInput
-            data={types}
-            variant="dropdown"
-            name={CREATE_CLASS_FIELDS.type}
-            control={hookForm.control}
-            label="Hình thức khóa học"
-          />
-          <Stack marginTop={2} />
-          <FormInput
             variant="image"
             name={CREATE_CLASS_FIELDS.imageId}
             control={hookForm.control}
@@ -89,14 +75,6 @@ export default function UpdateClassModal({
               label="Số học sinh tối đa"
             />
           </Stack>
-          <Stack marginTop={2} />
-          <FormInput
-            data={levels}
-            variant="radioGroup"
-            name={CREATE_CLASS_FIELDS.level}
-            control={hookForm.control}
-            label="Trình độ"
-          />
           <Stack marginTop={2} />
           <Typography sx={globalStyles.textSmallLabel}>
             Thông tin giờ học

@@ -32,10 +32,12 @@ export const useCreateCourseForm = (
     subjectId: OptionPayload;
     categoryId: OptionPayload;
     description: string;
-    level: OptionPayload;
+    level: string;
   }) {
+    console.log(data);
+
     const params: PostCoursePayload = {
-      level: data.level.value,
+      level: data.level,
       name: data?.name || '',
       subjectId: data?.subjectId.id,
       categoryId: data?.categoryId.id,

@@ -8,7 +8,7 @@ import CustomPagination from '~/components/atoms/CustomPagination';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
-import { useQueryGetAllMentorClasses } from '~/hooks/useQueryGetAllMentorClasses';
+import { useQueryGetAllMentorClasses } from '~/hooks/class/useQueryGetAllMentorClasses';
 import { PagingRequestPayload } from '~/models';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
@@ -168,12 +168,7 @@ export default function MentorClassListPage() {
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
-              <MentorClassItem
-                refetch={refetch}
-                onClick={() => {}}
-                item={item}
-                key={item.id}
-              />
+              <MentorClassItem item={item} />
             </Grid>
           ))}
       </Grid>

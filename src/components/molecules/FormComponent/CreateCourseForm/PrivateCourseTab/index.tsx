@@ -70,7 +70,7 @@ export default function PrivateCourseTab({
           name={CREATE_COURSE_FIELDS.level}
           control={createCourseHookForm.control}
           label="Trình độ"
-          placeholder="Nhập ngôn ngữ lập trình"
+          placeholder="Nhập trình độ của bạn"
         />
       </Stack>
       <Stack marginTop={1}>

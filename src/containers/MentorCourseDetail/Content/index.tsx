@@ -1,25 +1,20 @@
 import { useEffect, useState } from 'react';
-
 import { Stack } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { SectionPayload } from '~/models/section';
+import { PostActivityCoursePayload } from '~/models';
+import { ContentPayload } from '~/models/type';
 import {
-  useCustomQuery,
   useMutationAddContent,
   useMutationDeleteContent,
+  useMutationUpdateContent,
   useQueryGetCourseContent,
-  useTimeOut,
   useTryCatch,
 } from '~/hooks';
-import toast from '~/utils/toast';
 import Sections from '../Sections';
 import AddSection from '../AddSection';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import Button from '~/components/atoms/Button';
-import { Color } from '~/assets/variables';
-import { PostActivityCoursePayload } from '~/models';
-import CustomModal from '~/components/atoms/CustomModal';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { Color } from '~/assets/variables';
 
 interface Props {
   id: number;
@@ -27,11 +22,11 @@ interface Props {
 
 export default function Content({ id }: Props) {
   const [open, setOpen] = useState(false);
-
-  const createCourseContentMutation = useMutationAddContent();
   const addCourseContent = useMutationAddContent();
   const deleteCourseContent = useMutationDeleteContent();
+  const updateCourseContent = useMutationUpdateContent();
   const addContentSection = useTryCatch('thêm học phần');
+  const updateContent = useTryCatch('cập nhật nội dung');
   const deleteContent = useTryCatch('xóa nội dung');
 
   const {
@@ -41,22 +36,40 @@ export default function Content({ id }: Props) {
     refetch,
   } = useQueryGetCourseContent(id);
 
-  // TODO: param nayf nếu tồn tại content cũ, thì chuyển sang mode update
-  const isExistedOldContent = false;
-
   const handleAddNewSection = async (name: string) => {
     const params: PostActivityCoursePayload = {
       name,
       lessons: [],
     };
-    addContentSection.handleTryCatch(async () =>
-      addCourseContent.mutateAsync({ id, params })
-    );
+    await addContentSection.handleTryCatch(async () => {
+      await addCourseContent.mutateAsync({ id, params });
+    });
+
     await refetch();
   };
 
-  const handleAddNewModule = (sectionId: number, name: string) => {
-    // TODO: add new module
+  const handleAddNewModule = async (sectionId: number, name: string) => {
+    const section: any = content?.find((item) => item.id === sectionId);
+    await updateContent.handleTryCatch(async () =>
+      updateCourseContent.mutateAsync({
+        id,
+        params: {
+          id: section.id,
+          // name: section.name,
+          lessons: [
+            ...section.modules.map((item: any) => ({
+              id: item.id,
+              description: item.name,
+            })),
+            {
+              id: 0,
+              description: name,
+            },
+          ],
+        },
+      })
+    );
+    await refetch();
   };
 
   const handleCloseConfirm = () => {
@@ -70,21 +83,13 @@ export default function Content({ id }: Props) {
     handleCloseConfirm();
   };
 
-  const handleUpdateContent = () => {
-    // TODO: Thêm api update content ở dây
-  };
-
   return (
     <Stack>
-      <LoadingWrapper
-        error={error}
-        isLoading={isLoading}
-        isEmptyCourse={content?.length === 0}
-      >
+      <LoadingWrapper error={error} isLoading={isLoading}>
         <Sections content={content} onAddNew={handleAddNewModule} />
       </LoadingWrapper>
       <AddSection onAdd={handleAddNewSection} />
-      <Stack>
+      {/* <Stack>
         <Button
           onClick={handleCloseConfirm}
           sx={{
@@ -99,11 +104,11 @@ export default function Content({ id }: Props) {
         <ConfirmDialog
           open={open}
           title="Xác nhận xóa nội dung"
-          content="Bạn có chắc chắn xóa nội dung này không ?"
+          content="Bạn có chắc chắn xóa nội dung này không?"
           handleClose={handleCloseConfirm}
           handleAccept={handleDeleteContent}
         />
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 }

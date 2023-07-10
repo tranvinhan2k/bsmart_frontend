@@ -8,12 +8,12 @@ import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import UserCourseItem from '~/components/molecules/UserCourseItem';
-import { CoursePayload } from '~/models/type';
-import { LevelKeys } from '~/models/variables';
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { CourseMenuItemPayload } from '~/models/type';
 
 interface CourseMenuSectionPayload {
   error: any;
-  data: PagingFilterPayload<CoursePayload> | null | undefined;
+  data: PagingFilterPayload<CourseMenuItemPayload> | null | undefined;
   isLoading: boolean;
 }
 
@@ -112,14 +112,14 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
           {data?.items.map((item, index) => (
             <Grid key={index} item xs={12} md={6} lg={4}>
               <UserCourseItem
-                level={item.level.value as LevelKeys}
+                level={item.level}
                 key={item.id}
-                courseTeacherName={item.mentorName}
+                courseTeacherName={item.courseTeacherName}
                 courseDescription={item.courseDescription}
                 courseName={item.courseName}
-                subjectName={item.subject.label}
-                imageAlt="course logo"
-                imageUrl={item.images?.[0]?.url}
+                subjectName={item.subjectName}
+                imageAlt={item.imageAlt}
+                imageUrl={item.imageUrl}
                 onClick={() => handleNavigateCourseDetail(`${item.id}`)}
               />
             </Grid>

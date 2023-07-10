@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Stack, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line import/no-cycle
-import { DetailCoursePayload } from '..';
+import { MentorDetailCoursePayload } from '..';
 import FormInput from '~/components/atoms/FormInput';
 import {
   useMutationDeleteCourse,
@@ -23,7 +23,7 @@ import {
 
 interface Props {
   id: number;
-  course: DetailCoursePayload;
+  course: MentorDetailCoursePayload | undefined;
 }
 
 export default function EditCourse({ id, course }: Props) {

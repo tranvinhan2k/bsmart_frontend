@@ -19,6 +19,7 @@ import level3 from '~/assets/images/level3.png';
 import level4 from '~/assets/images/level4.png';
 import guide from '~/assets/images/guide.png';
 import classSlot from '~/assets/images/class.png';
+import mockTeacherAvatar from '~/assets/images/mockTeacherAvatar.jpg';
 
 export const image = {
   noAvatar,
@@ -42,4 +43,5 @@ export const image = {
   level3,
   level4,
   classSlot,
+  mockTeacherAvatar,
 };

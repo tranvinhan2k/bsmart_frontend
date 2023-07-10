@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { DetailCoursePayload } from '~/pages/MentorCourseDetailPage';
+import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
 import { validationSchemaCreateCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { OptionPayload, PutCoursePayload } from '~/models';
@@ -7,7 +7,7 @@ import { useGetFilteredSubjectAndCategory } from '../course/useGetFilteredSubjec
 import { mockLevelData } from '~/constants';
 
 export const useUpdateCourseForm = (
-  course: DetailCoursePayload,
+  course: MentorDetailCoursePayload | undefined,
   onChangeCourse: (data: PutCoursePayload) => void
 ) => {
   const resolverUpdateCourse = useYupValidationResolver(

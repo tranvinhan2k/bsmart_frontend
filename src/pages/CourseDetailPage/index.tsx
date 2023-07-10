@@ -8,7 +8,13 @@ import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse, mockLevelData } from '~/constants';
 import { image } from '~/constants/image';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
-import { useEffectScrollToTop, useTimeOut, useTryCatch } from '~/hooks';
+import {
+  useDispatchGetAllCategories,
+  useDispatchGetAllSubjects,
+  useEffectScrollToTop,
+  useTimeOut,
+  useTryCatch,
+} from '~/hooks';
 import globalStyles from '~/styles';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import Classes from '~/components/molecules/list/Classes';
@@ -16,167 +22,172 @@ import { SectionPayload } from '~/models/section';
 import Content from '~/components/molecules/Content';
 import ImageSlider from '~/components/atoms/ImageSlider';
 import { LevelKeys } from '~/models/variables';
+import { CoursePayload } from '~/models/type';
+import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
+import { formatStringToNumber } from '~/utils/number';
 
 export default function CourseDetailPage() {
   const params = useParams();
   const { id } = params;
 
-  const { onSleep } = useTimeOut(1000);
-  const { handleTryCatch, error, isLoading } = useTryCatch();
-
-  // const { error, courseDetail, isLoading } =
-  //   useQueryGetCourseDetailByCourseId(id);
-  // const { subCourses } = useQueryGetSubCourseByCourseId(id);
-  // const { mentor } = useQueryGetMentorByMentorId(
-  //   courseDetail?.mentorData.id,
-  //   Boolean(courseDetail?.mentorData.id)
-  // );
-
-  // const course = {
-  //   percentOfFeedback={courseDetail?.feedbackData.percentOfFeedback}
-  //   numOfRating={courseDetail?.feedbackData.numOfRating}
-  //   numOfRegisterStudent={courseDetail?.numOfRegisterStudent}
-  //   numOfOpenClass={courseDetail?.numOfOpenClass}
-  //   openDate={courseDetail?.openDate}
-  //   description={courseDetail?.content}
-  //   field={courseDetail?.field}
-  // }
-  // const mentor ;
-  // const classes;
-
-  const course: {
-    image: string;
-    name: string;
-    description: string;
-    knowledge: string;
-    categoryName: string;
-    subjectName: string;
-  } = {
-    image: image.mockClass,
-    categoryName: 'Front End',
-    subjectName: 'Java',
-    name: 'Lập trình nhúng Python từ cở bản đến nâng cao',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit officiis ipsa ipsum magnam consequatur, sed nisi perspiciatis et a aliquid aliquam optio quos amet quod expedita odit facilis mollitia natus? ',
-    knowledge:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit officiis ipsa ipsum magnam consequatur, sed nisi perspiciatis et a aliquid aliquam optio quos amet quod expedita odit facilis mollitia natus? ',
-  };
+  const { data, error, isLoading } = useQueryGetDetailUserCourse(
+    formatStringToNumber(id)
+  );
+  const course = data?.course;
+  // const course: CoursePayload = {
+  //   images: [
+  //     {
+  //       id: 0,
+  //       name: 'image',
+  //       status: true,
+  //       type: 'COURSE',
+  //       url: image.mockClass,
+  //     },
+  //     {
+  //       id: 1,
+  //       name: 'image',
+  //       status: true,
+  //       type: 'COURSE',
+  //       url: image.mockClass,
+  //     },
+  //     {
+  //       id: 2,
+  //       name: 'image',
+  //       status: true,
+  //       type: 'COURSE',
+  //       url: image.mockClass,
+  //     },
+  //   ],
+  //   id: 0,
+  //   level: 'ADVANCED',
+  //   mentorName: ['Lưu Quang Nhật'],
+  //   status: 'NOTSTART',
+  //   subject: optionSubjects[0],
+  //   totalClass: 30,
+  //   category: optionCategories[0],
+  //   courseCode: 'asdsa321',
+  //   courseName: 'Lập trình nhúng Python từ cở bản đến nâng cao',
+  //   courseDescription:
+  //     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit officiis ipsa ipsum magnam consequatur, sed nisi perspiciatis et a aliquid aliquam optio quos amet quod expedita odit facilis mollitia natus? ',
+  // };
 
   const mentor: {
     name: string;
     imageUrl: string;
     description: string;
   } = {
-    name: 'Trần Văn Anh',
-    imageUrl: image.noAvatar,
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit officiis ipsa ipsum magnam consequatur, sed nisi perspiciatis et a aliquid aliquam optio quos amet quod expedita odit facilis mollitia natus? ',
+    name: course?.mentorName[0] || '',
+    imageUrl: course?.mentorAvatar || '',
+    description: course?.courseDescription || '',
   };
+  const classes = data?.classes;
+  // const classes: DetailCourseClassPayload[] = [
+  //   {
+  //     id: '0',
+  //     code: 'hhhh',
+  //     endDate: new Date().toISOString(),
+  //     imageAlt: 'logo',
+  //     imageUrl: image.mockClass,
+  //     maxStudent: 30,
+  //     minStudent: 15,
+  //     numberOfSlot: 30,
+  //     price: 120000,
+  //     startDate: new Date().toISOString(),
+  //     timeInWeekRequests: [
+  //       {
+  //         dayOfWeekId: 1,
+  //         slotId: 1,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: '2',
+  //     code: 'hhhh',
+  //     endDate: new Date().toISOString(),
+  //     imageAlt: 'logo',
+  //     imageUrl: image.mockClass,
+  //     maxStudent: 30,
+  //     minStudent: 15,
+  //     numberOfSlot: 30,
+  //     price: 120000,
+  //     startDate: new Date().toISOString(),
+  //     timeInWeekRequests: [
+  //       {
+  //         dayOfWeekId: 1,
+  //         slotId: 1,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: '3',
+  //     code: 'hhhh',
+  //     endDate: new Date().toISOString(),
+  //     imageAlt: 'logo',
+  //     imageUrl: image.mockClass,
+  //     maxStudent: 30,
+  //     minStudent: 15,
+  //     numberOfSlot: 30,
+  //     price: 120000,
+  //     startDate: new Date().toISOString(),
+  //     timeInWeekRequests: [
+  //       {
+  //         dayOfWeekId: 1,
+  //         slotId: 1,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: '4',
+  //     code: 'hhhh',
+  //     endDate: new Date().toISOString(),
+  //     imageAlt: 'logo',
+  //     imageUrl: image.mockClass,
+  //     maxStudent: 30,
+  //     minStudent: 15,
+  //     numberOfSlot: 30,
+  //     price: 120000,
+  //     startDate: new Date().toISOString(),
+  //     timeInWeekRequests: [
+  //       {
+  //         dayOfWeekId: 1,
+  //         slotId: 1,
+  //       },
+  //     ],
+  //   },
+  // ];
+  const sections = data?.content;
+  // const sections: SectionPayload[] = [
+  //   {
+  //     id: 0,
+  //     name: 'Giới thiệu kiểm thử 1',
+  //     modules: [
+  //       {
+  //         id: 0,
+  //         name: 'Giới thiệu kiểm thử 1',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 1,
+  //     name: 'Giới thiệu kiểm thử 2',
+  //     modules: [
+  //       {
+  //         id: 0,
+  //         name: 'Giới thiệu kiểm thử 2',
+  //       },
+  //       {
+  //         id: 1,
+  //         name: 'Giới thiệu kiểm thử 3',
+  //       },
+  //     ],
+  //   },
+  // ];
 
-  const classes: DetailCourseClassPayload[] = [
-    {
-      id: '0',
-      endDate: new Date().toISOString(),
-      imageAlt: 'logo',
-      imageUrl: image.mockClass,
-      maxStudent: 30,
-      minStudent: 15,
-      numberOfSlot: 30,
-      price: 120000,
-      startDate: new Date().toISOString(),
-      timeInWeekRequests: [
-        {
-          dayOfWeekId: 1,
-          slotId: 1,
-        },
-      ],
-    },
-    {
-      id: '2',
-      endDate: new Date().toISOString(),
-      imageAlt: 'logo',
-      imageUrl: image.mockClass,
-      maxStudent: 30,
-      minStudent: 15,
-      numberOfSlot: 30,
-      price: 120000,
-      startDate: new Date().toISOString(),
-      timeInWeekRequests: [
-        {
-          dayOfWeekId: 1,
-          slotId: 1,
-        },
-      ],
-    },
-    {
-      id: '3',
-      endDate: new Date().toISOString(),
-      imageAlt: 'logo',
-      imageUrl: image.mockClass,
-      maxStudent: 30,
-      minStudent: 15,
-      numberOfSlot: 30,
-      price: 120000,
-      startDate: new Date().toISOString(),
-      timeInWeekRequests: [
-        {
-          dayOfWeekId: 1,
-          slotId: 1,
-        },
-      ],
-    },
-    {
-      id: '1',
-      endDate: new Date().toISOString(),
-      imageAlt: 'logo',
-      imageUrl: image.mockClass,
-      maxStudent: 30,
-      minStudent: 15,
-      numberOfSlot: 30,
-      price: 120000,
-      startDate: new Date().toISOString(),
-      timeInWeekRequests: [
-        {
-          dayOfWeekId: 1,
-          slotId: 1,
-        },
-      ],
-    },
-  ];
-
-  const sections: SectionPayload[] = [
-    {
-      id: 0,
-      name: 'Giới thiệu kiểm thử 1',
-      modules: [
-        {
-          id: 0,
-          name: 'Giới thiệu kiểm thử 1',
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: 'Giới thiệu kiểm thử 2',
-      modules: [
-        {
-          id: 0,
-          name: 'Giới thiệu kiểm thử 2',
-        },
-        {
-          id: 1,
-          name: 'Giới thiệu kiểm thử 3',
-        },
-      ],
-    },
-  ];
+  const levelOptionPayload = mockLevelData.find(
+    (item) => item.value === course?.level
+  );
 
   useEffectScrollToTop();
-
-  useEffect(() => {
-    handleTryCatch(() => onSleep(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Stack
@@ -209,13 +220,7 @@ export default function CourseDetailPage() {
               {/* <CourseDetailFeedbackSection feedbackData={data.feedbackData} /> */}
 
               <Stack>
-                <ImageSlider
-                  slides={[
-                    'https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80',
-                    'https://images.unsplash.com/photo-1534643960519-11ad79bc19df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-                    'https://images.unsplash.com/photo-1565598621680-94ac0c22b148?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-                  ]}
-                />
+                <ImageSlider slides={course?.images || []} />
                 <Stack
                   paddingX={5}
                   sx={{
@@ -231,6 +236,7 @@ export default function CourseDetailPage() {
                       background: Color.white,
                       boxShadow: 3,
                       zIndex: 2,
+                      objectFit: 'cover',
                     }}
                     component="img"
                     alt="avatar"
@@ -258,11 +264,11 @@ export default function CourseDetailPage() {
                         fontFamily: FontFamily.regular,
                       }}
                     >
-                      {course.name}
+                      {course?.courseName}
                     </Typography>
                     <Stack marginY={3}>
                       <Typography sx={globalStyles.textSmallLight}>
-                        {course.description}
+                        {course?.courseDescription}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -273,7 +279,7 @@ export default function CourseDetailPage() {
                     marginTop: 2,
                   }}
                 >
-                  <Stack marginBottom={3}>
+                  {/* <Stack marginBottom={3}>
                     <iframe
                       style={{
                         width: '100%',
@@ -287,19 +293,18 @@ export default function CourseDetailPage() {
                       allowFullScreen
                     />
                   </Stack>
-                  {course.knowledge && (
-                    <>
-                      <Stack marginTop={1}>
-                        <Typography sx={globalStyles.textSmallLabel}>
-                          Kiến thức học được
-                        </Typography>
-                        <Typography sx={globalStyles.textSmallLight}>
-                          {course.knowledge}
-                        </Typography>
-                      </Stack>
-                      <Divider sx={{ marginY: 4 }} />
-                    </>
-                  )}
+                  <Stack marginTop={1}>
+                    <Typography sx={globalStyles.textSmallLabel}>
+                      Kiến thức học được
+                    </Typography>
+                    <Typography sx={globalStyles.textSmallLight}>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Fugit officiis ipsa ipsum magnam consequatur, sed nisi
+                      perspiciatis et a aliquid aliquam optio quos amet quod
+                      expedita odit facilis mollitia natus?
+                    </Typography>
+                  </Stack>
+                  <Divider sx={{ marginY: 4 }} /> */}
                   <>
                     <Stack>
                       <Typography sx={globalStyles.textSmallLabel}>
@@ -313,7 +318,7 @@ export default function CourseDetailPage() {
                           borderRadius: MetricSize.small_5,
                         }}
                       >
-                        <Content sections={sections} />
+                        <Content sections={sections || []} />
                       </Stack>
                     </Stack>
                     <Divider sx={{ marginY: 3 }} />
@@ -349,7 +354,7 @@ export default function CourseDetailPage() {
                               width: '50px',
                               aspectRatio: 1,
                               height: undefined,
-                              objectFit: 'contain',
+                              objectFit: 'cover',
                               background: Color.white,
                               marginRight: 1,
                             }}
@@ -381,9 +386,11 @@ export default function CourseDetailPage() {
             </Grid>
             <Grid item xs={12} md={4}>
               <Sidebar
-                classes={classes}
-                categoryName={course.categoryName}
-                subjectName={course.subjectName}
+                level={course?.level || 'BEGINNER'}
+                levelLabel={levelOptionPayload?.label || ''}
+                classes={classes || []}
+                categoryName={course?.category.label || ''}
+                subjectName={course?.subject.label || ''}
               />
             </Grid>
           </Grid>

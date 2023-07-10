@@ -123,9 +123,9 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
   const renderItem = (item: CoursePayload) => {
     return (
       <UserCourseItem
-        courseName={item.title}
-        courseDescription={item.content}
-        imageUrl={image.mockClass}
+        courseName={item.courseName}
+        courseDescription={item.courseDescription}
+        imageUrl={item.images[0]}
       />
     );
   };

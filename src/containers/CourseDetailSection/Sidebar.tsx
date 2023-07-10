@@ -34,18 +34,18 @@ interface Props {
   classes: DetailCourseClassPayload[];
 }
 
-const initClass = {
+const initClass: DetailCourseClassPayload = {
   endDate: '',
   id: '',
   imageAlt: '',
   imageUrl: image.mockClass,
-  level: mockLevelData[0],
   maxStudent: 0,
   minStudent: 0,
   numberOfSlot: 0,
   price: 0,
   startDate: '',
   timeInWeekRequests: [],
+  code: '',
 };
 
 export default function Sidebar({
@@ -225,42 +225,43 @@ export default function Sidebar({
               overflowY: 'auto',
             }}
           >
-            {classes.map((item, index) => (
-              <Stack
-                sx={{
-                  marginTop: 1,
-                  marginLeft: index % 3 === 0 ? 0 : 1,
-                  width: '31%',
-                }}
-                key={item.id}
-              >
+            {classes?.length !== 0 ? (
+              classes.map((item, index) => (
                 <Stack
-                  onClick={() => handleChangeClass(item)}
                   sx={{
-                    background:
-                      chooseClass.id === item.id
-                        ? `${Color.tertiary}44`
-                        : Color.white,
-                    borderColor:
-                      chooseClass.id === item.id
-                        ? `${Color.tertiary}`
-                        : Color.grey,
-                    borderWidth: chooseClass.id === item.id ? '3px' : '1px',
-                    borderStyle: 'solid',
-                    transition: 'all 200ms ease',
-                    height: undefined,
-                    aspectRatio: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: MetricSize.small_5,
-                    ':hover': {
-                      cursor: 'pointer',
-                      background: Color.grey3,
-                      border: Color.transparent,
-                    },
+                    marginTop: 1,
+                    marginLeft: index % 3 === 0 ? 0 : 1,
+                    width: '31%',
                   }}
+                  key={item.id}
                 >
-                  {/* <Stack padding={1}>
+                  <Stack
+                    onClick={() => handleChangeClass(item)}
+                    sx={{
+                      background:
+                        chooseClass.id === item.id
+                          ? `${Color.tertiary}44`
+                          : Color.white,
+                      borderColor:
+                        chooseClass.id === item.id
+                          ? `${Color.tertiary}`
+                          : Color.grey,
+                      borderWidth: chooseClass.id === item.id ? '3px' : '1px',
+                      borderStyle: 'solid',
+                      transition: 'all 200ms ease',
+                      height: undefined,
+                      aspectRatio: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: MetricSize.small_5,
+                      ':hover': {
+                        cursor: 'pointer',
+                        background: Color.grey3,
+                        border: Color.transparent,
+                      },
+                    }}
+                  >
+                    {/* <Stack padding={1}>
                     <Box
                       component="img"
                       alt={item.imageAlt}
@@ -278,46 +279,49 @@ export default function Sidebar({
                       }}
                     />
                   </Stack> */}
-                  {/* <Typography sx={globalStyles.textLowSmallLight}>
+                    {/* <Typography sx={globalStyles.textLowSmallLight}>
                     Tháng Tám
                   </Typography> */}
-                  <Typography
-                    sx={{
-                      textAlign: 'center',
-                      fontSize: FontSize.small_14,
-                      fontFamily:
-                        chooseClass.id === item.id
-                          ? FontFamily.regular
-                          : FontFamily.light,
-                      color:
-                        chooseClass.id === item.id
-                          ? Color.tertiary
-                          : Color.black,
-                    }}
-                  >
-                    {/* {`Lớp học #${item.id}`} */}
-                    Lớp học
-                  </Typography>
-                  <Typography
-                    sx={{
-                      textAlign: 'center',
-                      fontSize: FontSize.small_14,
-                      fontFamily:
-                        chooseClass.id === item.id
-                          ? FontFamily.bold
-                          : FontFamily.medium,
-                      color:
-                        chooseClass.id === item.id
-                          ? Color.tertiary
-                          : Color.black,
-                    }}
-                  >
-                    {/* {`Lớp học #${item.id}`} */}
-                    #HQ6YV9nt
-                  </Typography>
+                    <Typography
+                      sx={{
+                        textAlign: 'center',
+                        fontSize: FontSize.small_14,
+                        fontFamily:
+                          chooseClass.id === item.id
+                            ? FontFamily.regular
+                            : FontFamily.light,
+                        color:
+                          chooseClass.id === item.id
+                            ? Color.tertiary
+                            : Color.black,
+                      }}
+                    >
+                      {/* {`Lớp học #${item.id}`} */}
+                      Lớp học
+                    </Typography>
+                    <Typography
+                      sx={{
+                        textAlign: 'center',
+                        fontSize: FontSize.small_14,
+                        fontFamily:
+                          chooseClass.id === item.id
+                            ? FontFamily.bold
+                            : FontFamily.medium,
+                        color:
+                          chooseClass.id === item.id
+                            ? Color.tertiary
+                            : Color.black,
+                      }}
+                    >
+                      {/* {`Lớp học #${item.id}`} */}
+                      {`#${item.code}`}
+                    </Typography>
+                  </Stack>
                 </Stack>
-              </Stack>
-            ))}
+              ))
+            ) : (
+              <Typography>Chưa có lớp học nào</Typography>
+            )}
           </Stack>
         </Collapse>
         <Collapse in={open}>

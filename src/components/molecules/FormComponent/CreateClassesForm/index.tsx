@@ -1,49 +1,59 @@
 import { Box, Stack } from '@mui/material';
-import { useEffect } from 'react';
-import { useCreateClassesForm, useTimeOut, useTryCatch } from '~/hooks';
+
+// Custom Hooks
+import {
+  RefetchOptions,
+  RefetchQueryFilters,
+  QueryObserverResult,
+} from '@tanstack/react-query';
+import { useCreateClassesForm, useUpdateMentorClassesForm } from '~/hooks';
+
+// CreateCourseForm
 import CreateClassModal from '../CreateCourseForm/CreateClassModal';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
-import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
-import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import UpdateClassModal from '../CreateCourseForm/UpdateClassModal';
+
+// MentorCourseDetailPage
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+
+// HOCs
+import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
+
+// Components
+import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import Classes from '../../list/Classes';
+import { PagingFilterPayload } from '~/models';
 
 export interface CreateClassesFormProps {
   id: number;
-  classes: DetailCourseClassPayload[];
-  onChangeClasses: (params: DetailCourseClassPayload[]) => void;
+  classes: DetailCourseClassPayload[] | undefined;
+  isLoading: boolean;
+  error: any;
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<
+    QueryObserverResult<PagingFilterPayload<DetailCourseClassPayload>, unknown>
+  >;
 }
 
 export default function CreateClassesForm({
   id,
   classes,
-  onChangeClasses,
+  error,
+  isLoading,
 }: CreateClassesFormProps) {
-  const {
-    open,
-    levels,
-    types,
-    createSubCourseHookForm,
-    onTriggerModal,
-    onAddNewClass,
-    mode,
-  } = useCreateClassesForm(id, classes, onChangeClasses);
+  const { open, createSubCourseHookForm, onTriggerModal, onAddNewClass, mode } =
+    useCreateClassesForm(id);
+  const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
+    useUpdateMentorClassesForm(id, classes);
 
-  const { error, handleTryCatch, isLoading } = useTryCatch();
-  const deleteTryCatch = useTryCatch('xóa lớp học');
-  const { onSleep } = useTimeOut(1000);
-
-  useEffect(() => {
-    handleTryCatch(() => onSleep(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleDeleteClass = async () => {
-    await deleteTryCatch.handleTryCatch(() => onSleep(true));
-  };
+  const handleDeleteClass = async () => {};
 
   const handleCreateClass = async (data: any) => {
     await onAddNewClass(data);
+    onTriggerModal();
+  };
+  const handleUpdateClass = async (data: any) => {
+    await onUpdateClass(data);
     onTriggerModal();
   };
 
@@ -54,7 +64,10 @@ export default function CreateClassesForm({
           <Classes
             classes={classes}
             onOpenAddModal={() => onTriggerModal('CREATE')}
-            onOpenUpdateModal={() => onTriggerModal('UPDATE')}
+            onOpenUpdateModal={(index: number) => {
+              onTriggerModal('UPDATE');
+              handleChangeDefaultValue(index);
+            }}
             onDeleteModal={() => onTriggerModal('DELETE')}
           />
         </LoadingWrapper>
@@ -62,8 +75,6 @@ export default function CreateClassesForm({
           <CreateClassModal
             open={open}
             hookForm={createSubCourseHookForm}
-            levels={levels}
-            types={types}
             onClose={onTriggerModal}
             onSubmit={handleCreateClass}
           />
@@ -71,11 +82,9 @@ export default function CreateClassesForm({
         {mode === 'UPDATE' && (
           <UpdateClassModal
             open={open}
-            hookForm={createSubCourseHookForm}
-            levels={levels}
-            types={types}
+            hookForm={updateClassHookForm}
             onClose={onTriggerModal}
-            onSubmit={onAddNewClass}
+            onSubmit={handleUpdateClass}
           />
         )}
         {mode === 'DELETE' && (

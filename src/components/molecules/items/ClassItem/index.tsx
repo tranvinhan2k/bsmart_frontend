@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Stack,
   Box,
@@ -7,7 +8,7 @@ import {
   MenuItem,
   Collapse,
 } from '@mui/material';
-import React, { useState } from 'react';
+
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
@@ -20,29 +21,67 @@ import Button from '~/components/atoms/Button';
 
 interface Props {
   id: number;
-  classItem: DetailCourseClassPayload;
+  code: string;
+  startDate: string;
+  endDate: string;
+  minStudent: number;
+  maxStudent: number;
+  timetable: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+  imageUrl: string;
   onUpdate?: (id: number) => void;
   onDeleteModal?: () => void;
 }
 
+const texts = {
+  createClassTitle: 'Tạo lớp học mới',
+  createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
+  generalInfoTitle: 'Thông tin chung',
+  priceLabel: 'Giá khóa học',
+  courseTypeLabel: 'Hình thức khóa học',
+  imageLabel: 'Hình ảnh',
+  minStudentLabel: 'Số học sinh tối thiểu',
+  maxStudentLabel: 'Số học sinh tối đa',
+  levelInfoTitle: 'Trình độ',
+  classInfoTitle: 'Thông tin giờ học',
+  startDateLabel: 'Ngày mở lớp dự kiến',
+  endDateLabel: 'Ngày kết thúc dự kiến',
+  numberOfSlotLabel: 'Số buổi học',
+  timetableLabel: 'Thời khóa biểu',
+  createTimetableButton: 'Tạo thời khóa biểu',
+  viewCourseInfoButton: 'Thu gọn lịch học',
+  viewTimetableButton: 'Xem lịch học',
+  deleteConfirmation: 'Bạn có chắc chắn muốn xóa giờ học này?',
+  deleteConfirmationTitle: 'Xác nhận xóa giờ học',
+  updateMenuItem: 'Cập nhật',
+  deleteMenuItem: 'Xóa',
+};
+
 export default function ClassItem({
   id,
-  classItem,
+  code,
+  endDate,
+  imageUrl,
+  maxStudent,
+  minStudent,
+  startDate,
+  timetable,
   onUpdate,
   onDeleteModal,
 }: Props) {
   const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleDelete = () => {
-    // setOpenDialog(!isOpenDialog);
     if (onUpdate) {
       onUpdate(id);
     }
   };
 
   const handleClose = () => {
-    setAnchorEl(() => null);
+    setAnchorEl(null);
   };
 
   const handleOpen = () => {
@@ -61,23 +100,23 @@ export default function ClassItem({
   }[] = [
     {
       icon: 'date',
-      label: 'Ngày bắt đầu',
-      variable: formatDate(classItem.startDate),
+      label: texts.startDateLabel,
+      variable: formatDate(startDate),
     },
     {
       icon: 'date',
-      label: 'Ngày kết thúc',
-      variable: formatDate(classItem.endDate),
+      label: texts.endDateLabel,
+      variable: formatDate(endDate),
     },
     {
       icon: 'number',
-      label: 'Số lượng tối thiểu',
-      variable: `${classItem.minStudent} học sinh`,
+      label: texts.minStudentLabel,
+      variable: `${minStudent} học sinh`,
     },
     {
       icon: 'number',
-      label: 'Số lượng tối đa',
-      variable: `${classItem.maxStudent} học sinh`,
+      label: texts.maxStudentLabel,
+      variable: `${maxStudent} học sinh`,
     },
   ];
 
@@ -90,22 +129,20 @@ export default function ClassItem({
         flexDirection: 'row',
         flexWrap: 'wrap',
         borderRadius: MetricSize.small_5,
-        // border: '0.5px solid grey',
         justifyContent: 'space-between',
       }}
     >
       <Stack sx={{ flexGrow: 1 }}>
-        {/* <Collapse in={!open}> */}
         <Stack sx={{ flexDirection: 'row' }}>
           <Stack
             sx={{
-              justifyContentl: 'center',
+              justifyContent: 'center',
               alignItems: 'center',
             }}
           >
             <Box
               component="img"
-              src={classItem.imageUrl ? classItem.imageUrl : image.mockClass}
+              src={imageUrl || image.mockClass}
               alt="course"
               sx={{
                 borderRadius: MetricSize.small_5,
@@ -132,8 +169,10 @@ export default function ClassItem({
                 fontFamily: FontFamily.bold,
                 fontSize: FontSize.medium_28,
               }}
-            >{`Lớp học #${classItem.id}`}</Typography>
-            <Box>
+            >
+              {`Lớp học #${code}`}
+            </Typography>
+            <Stack>
               {/* <Stack
                   sx={{
                     flexDirection: 'row',
@@ -152,7 +191,7 @@ export default function ClassItem({
                     component="img"
                     src={
                       LEVEL_IMAGES[
-                        classItem.level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
+                        level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
                       ]
                     }
                     alt="level"
@@ -164,10 +203,10 @@ export default function ClassItem({
                       color: Color.black,
                     }}
                   >
-                    {`${classItem.level.label}`}
+                    {`${level.label}`}
                   </Typography>
                 </Stack> */}
-            </Box>
+            </Stack>
             <Stack
               sx={{
                 flexDirection: 'row',
@@ -213,20 +252,19 @@ export default function ClassItem({
                 }}
                 color="primary"
               >
-                {open ? 'Xem thông tin khóa học' : 'Xem lịch học'}
+                {open ? texts.viewCourseInfoButton : texts.viewTimetableButton}
               </Button>
             </Box>
           </Stack>
         </Stack>
-        {/* </Collapse> */}
 
         <Collapse in={open}>
           <Stack sx={{ paddingX: 2, paddingBottom: 2 }}>
             <Typography sx={globalStyles.textSmallLabel}>
-              Thông tin giờ học
+              {texts.classInfoTitle}
             </Typography>
             <Stack marginTop={1}>
-              <Timetable data={classItem.timeInWeekRequests} />
+              <Timetable data={timetable} />
             </Stack>
           </Stack>
         </Collapse>
@@ -256,8 +294,8 @@ export default function ClassItem({
             onClose={handleClose}
             onMouseLeave={handleClose}
           >
-            <MenuItem onClick={handleDelete}>Cập nhật </MenuItem>
-            <MenuItem onClick={onDeleteModal}>Xóa</MenuItem>
+            <MenuItem onClick={handleDelete}>{texts.updateMenuItem}</MenuItem>
+            <MenuItem onClick={onDeleteModal}>{texts.deleteMenuItem}</MenuItem>
           </Menu>
         </Stack>
       )}

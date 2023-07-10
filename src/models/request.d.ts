@@ -2,10 +2,10 @@ import { ClassStatusKeys } from './variables';
 
 export interface PostCoursePayload {
   name: string;
-  level: string;
   categoryId: number;
   subjectId: number;
   description: string;
+  level: string;
 }
 
 export interface PostClassPayload {

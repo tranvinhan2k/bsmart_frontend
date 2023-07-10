@@ -14,12 +14,13 @@ import Icon from '~/components/atoms/Icon';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 
 interface Props {
+  index: number;
   section: any;
   onUpdate: () => void;
   onDelete: () => void;
 }
 
-export default function Section({ section, onDelete, onUpdate }: Props) {
+export default function Section({ index, section, onDelete, onUpdate }: Props) {
   const [fixOpen, setFixOpen] = useState(false);
   const [clearOpen, setClearOpen] = useState(false);
 
@@ -57,7 +58,7 @@ export default function Section({ section, onDelete, onUpdate }: Props) {
                 fontFamily: FontFamily.bold,
                 fontSize: FontSize.small_16,
               }}
-            >{`Học phần ${section.id + 1}: `}</span>
+            >{`Học phần ${index + 1}: `}</span>
             {section.name}
           </Typography>
 

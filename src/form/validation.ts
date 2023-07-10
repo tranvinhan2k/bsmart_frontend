@@ -263,7 +263,6 @@ export const validationSchemaCreateSubCourse = object({
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
-  type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
     .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
@@ -313,7 +312,6 @@ export const validationSchemaUpdateWaitingCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  level: string().required(COURSE_LEVEL_REQUIRED),
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
     .required('Giá tiền là bắt buộc'),
