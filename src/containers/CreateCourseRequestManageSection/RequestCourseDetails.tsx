@@ -128,7 +128,7 @@ export default function RequestCourseDetails({
                 alignItems="flex-start"
                 spacing={2}
               >
-                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:++</Typography>
+                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
                 <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
               </Stack>
             </Grid>
