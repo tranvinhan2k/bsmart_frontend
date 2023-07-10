@@ -15,9 +15,14 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
   } = controller;
 
   const editorRef = useRef<any>(null);
+
+  function removeParagraphTag(text: string) {
+    return text.replace(/^<p>/, '').replace(/<\/p>$/, '');
+  }
+
   const handleChangeText = () => {
     if (editorRef.current) {
-      onChange(editorRef.current.getContent());
+      onChange(removeParagraphTag(editorRef.current.getContent()));
     }
   };
 

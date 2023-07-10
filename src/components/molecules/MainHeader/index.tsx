@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect, MouseEvent } from 'react';
+import { useState, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -22,6 +22,7 @@ import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
+import CustomMenu from '~/components/atoms/CustomMenu';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -68,18 +69,19 @@ export default function MainHeader({
   };
 
   const handleNavigateProfile = () => {
-    window.location.pathname =
+    navigate(
       role !== 'ROLE_STUDENT'
         ? NavigationLink.mentor_profile
-        : NavigationLink.member_details;
+        : NavigationLink.member_details
+    );
   };
 
   const handleNavigateDashboard = () => {
-    window.location.pathname = `/${NavigationLink.dashboard}`;
+    navigate(`/${NavigationLink.dashboard}`);
   };
 
   const handleHomepage = () => {
-    window.location.pathname = `/${NavigationLink.homepage}`;
+    navigate(`/${NavigationLink.homepage}`);
   };
 
   return (
@@ -138,24 +140,32 @@ export default function MainHeader({
               />
             </IconButton>
           </Stack>
-          <Menu
+          <CustomMenu
             anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            keepMounted
-            open={Boolean(anchorEl)}
+            menuItemData={[
+              {
+                icon: 'home',
+                name: 'Trang chủ',
+                onClick: handleHomepage,
+              },
+              {
+                icon: 'account',
+                name: 'Hồ sơ',
+                onClick: handleNavigateProfile,
+              },
+              {
+                icon: 'course',
+                name: 'Quản lí học tập',
+                onClick: handleNavigateDashboard,
+              },
+              {
+                icon: 'logOut',
+                name: 'Đăng Xuất',
+                onClick: handleLogOut,
+              },
+            ]}
             onClose={handleClose}
-            onMouseLeave={handleClose}
-          >
-            <MenuItem onClick={handleHomepage}>Trang Chủ</MenuItem>
-            <MenuItem onClick={handleNavigateProfile}>Hồ sơ</MenuItem>
-            <MenuItem onClick={handleNavigateDashboard}>
-              Quản lí học tập
-            </MenuItem>
-            <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
-          </Menu>
+          />
         </>
       )}
     </Stack>

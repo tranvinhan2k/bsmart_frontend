@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Stack, Typography, Drawer, IconButton, Box } from '@mui/material';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { scrollToTop } from '~/utils/common';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
-import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
-import {
-  MentorDashboardNavigationActionLink,
-  NavigationLink,
-  StudentDashboardNavigationActionLink,
-} from '~/constants/routeLink';
+import { NavigationLink } from '~/constants/routeLink';
 import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import Button from '~/components/atoms/Button';
-import { image } from '~/constants/image';
-import localEnvironment from '~/utils/localEnvironment';
 import { MentorDashboardNavigationActionData } from '~/routes/navigators';
-import globalStyles from '~/styles';
 import { selectProfile } from '~/redux/user/selector';
 import { StudentDashboardNavigationActionData } from '~/routes/member/dashboard/navigation';
 import { studentLMSRoutes } from '~/routes/member/dashboard/routes';
+import DashboardSidebar from './DashboardSidebar';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const profile = useSelector(selectProfile);
 
@@ -44,6 +36,10 @@ export default function DashboardPage() {
 
   const handleOpen = () => {
     setOpen(!open);
+  };
+
+  const handleChangeHover = (param: boolean) => {
+    setHover(param);
   };
 
   const handleSetActiveIndex = (idx: number) => {
@@ -71,16 +67,6 @@ export default function DashboardPage() {
 
     return result;
   };
-
-  useEffect(() => {
-    rows.map((item, index) => {
-      if (pathname.includes(item.link)) {
-        setActiveIndex(index);
-      }
-      return null;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   React.useEffect(() => {
     scrollToTop();
@@ -126,279 +112,43 @@ export default function DashboardPage() {
               </Typography>
             </Button>
           </Box>
-        </Stack>
-        <Drawer
-          sx={{
-            ':-webkit-scrollbar': {
-              display: 'none',
-            },
-          }}
-          anchor="left"
-          open={open}
-          onClose={handleOpen}
-        >
-          <Stack
+          <Drawer
             sx={{
-              background: Color.navy,
-              flex: 1,
+              ':-webkit-scrollbar': {
+                display: 'none',
+              },
             }}
+            anchor="left"
+            open={open}
+            onClose={handleOpen}
           >
-            <Stack
-              sx={{
-                paddingTop: 3,
-                background: Color.navy,
-              }}
-            >
-              <Box
-                alt="logo"
-                sx={{
-                  width: '50px',
-                  height: undefined,
-                  aspectRatio: 1,
-                  objectFit: 'contain',
-                }}
-                src={image.lms_logo}
-                component="img"
-              />
-              {/* <Typography
-                sx={{
-                  fontSize: FontSize.small_18,
-                  fontFamily: FontFamily.bold,
-                  color: Color.white,
-                  textAlign: 'center',
-                }}
-              >
-                LMS
-              </Typography> */}
-            </Stack>
-            <Stack
-              sx={{
-                transition: 'all 1000ms ease',
-                borderBottomRightRadius:
-                  activeIndex === 0 ? MetricSize.small_10 : 0,
-                padding: MetricSize.medium_15,
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-                background: Color.navy,
-              }}
+            <DashboardSidebar
+              isMobile
+              activeIndex={activeIndex}
+              isHover={isHover}
+              onChangeActiveIndex={handleSetActiveIndex}
+              onNavigateHomepage={handleNavigateHomepage}
+              onNavigateLink={handleNavigateLink}
+              onTriggerHover={handleChangeHover}
+              rows={rows}
             />
-            {rows?.map((item, index) => {
-              if (item.isHide) return null;
-              return (
-                <DashboardSidebarButton
-                  isHover
-                  activeIndex={activeIndex}
-                  index={index}
-                  item={item}
-                  onNavigateLink={handleNavigateLink}
-                  onSetActive={handleSetActiveIndex}
-                  key={item.id}
-                />
-              );
-            })}
-            <Stack
-              sx={{
-                transition: 'background 1000ms',
-                borderTopRightRadius:
-                  activeIndex === rows.length - 1 ? MetricSize.small_10 : 0,
-                padding: MetricSize.medium_15,
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-                background: Color.navy,
-              }}
-            />
-            <Stack sx={{ background: Color.navy }}>
-              <Stack
-                onClick={handleNavigateHomepage}
-                sx={{
-                  display: isHover ? 'flex' : 'none',
-                  position: 'relative',
-                  margin: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 1000ms ease',
-                  background: `${Color.tertiary}AA`,
-                  padding: 1,
-                  backdropFilter: 'blur(2px)',
-                  borderRadius: MetricSize.small_5,
-                  fontFamily: FontFamily.light,
-                  fontSize: FontSize.small_14,
-                  zIndex: 10,
-                  color: Color.white,
+          </Drawer>
+        </Stack>
 
-                  ':hover': {
-                    background: `${Color.tertiary}`,
-                    backdropFilter: 'blur(0px)',
-                    cursor: 'pointer',
-                  },
-                }}
-              >
-                <Stack
-                  sx={{
-                    position: 'absolute',
-                    left: MetricSize.small_10,
-                  }}
-                >
-                  <Icon name="return" size="small_20" color="white" />
-                </Stack>
-                <Typography
-                  sx={{
-                    marginLeft: 1,
-                  }}
-                >
-                  Trở về trang chủ
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
-        </Drawer>
         <Stack
           sx={{
             display: { xs: 'none', md: 'flex' },
-            marginLeft: '60px',
           }}
         >
-          <Stack
-            onMouseOut={() => setHover(false)}
-            onMouseOver={() => setHover(true)}
-            sx={{
-              transition: 'all 1000ms ease',
-              background: Color.white4,
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              zIndex: 9,
-              shadow: 3,
-              maxWidth: isHover ? '100%' : '60px',
-              height: '100vh',
-            }}
-          >
-            <Stack
-              sx={{
-                paddingTop: 3,
-                paddingLeft: MetricSize.small_10,
-                background: Color.navy,
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-              }}
-            >
-              <Box
-                alt="logo"
-                sx={{
-                  width: '30px',
-                  height: undefined,
-                  aspectRatio: 1,
-                  objectFit: 'contain',
-                }}
-                src={image.lms_logo}
-                component="img"
-              />
-              <Typography
-                sx={{
-                  ...globalStyles.textWhiteSubTitle,
-                  marginLeft: 1,
-                  transition: 'all 1s ease',
-                  textAlign: 'center',
-                  opacity: isHover ? 1 : 0,
-                  maxWidth: isHover ? '100%' : 0,
-                }}
-              >
-                {`${localEnvironment.APP_NAME}`.toUpperCase()}
-              </Typography>
-            </Stack>
-            <Stack
-              sx={{
-                transition: 'all 1000ms ease',
-                borderBottomRightRadius: {
-                  xs: 0,
-                  md: activeIndex === 0 ? MetricSize.small_10 : 0,
-                },
-                padding: MetricSize.medium_15,
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-                background: Color.navy,
-              }}
-            />
-            {rows?.map((item, index) => {
-              return (
-                <DashboardSidebarButton
-                  isHover={isHover}
-                  activeIndex={activeIndex}
-                  index={index}
-                  item={item}
-                  onNavigateLink={handleNavigateLink}
-                  onSetActive={handleSetActiveIndex}
-                  key={item.id}
-                />
-              );
-            })}
-            <Stack
-              sx={{
-                transition: 'background 1000ms',
-                borderTopRightRadius: {
-                  xs: 0,
-                  md: activeIndex === rows.length - 1 ? MetricSize.small_10 : 0,
-                },
-
-                padding: MetricSize.medium_15,
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
-                background: Color.navy,
-              }}
-            />
-            <Stack sx={{ background: Color.navy }}>
-              <Stack
-                onClick={handleNavigateHomepage}
-                sx={{
-                  position: 'relative',
-                  margin: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 1000ms ease',
-                  background: `${Color.tertiary}AA`,
-                  padding: 1,
-                  backdropFilter: 'blur(2px)',
-                  borderRadius: MetricSize.small_5,
-                  fontFamily: FontFamily.light,
-                  fontSize: FontSize.small_14,
-                  zIndex: 1,
-                  color: Color.white,
-                  opacity: isHover ? 1 : 0,
-
-                  ':hover': {
-                    background: `${Color.tertiary}`,
-                    backdropFilter: 'blur(0px)',
-                    cursor: 'pointer',
-                  },
-                }}
-              >
-                <Stack
-                  sx={{
-                    position: 'absolute',
-                    left: MetricSize.small_10,
-                  }}
-                >
-                  <Icon name="return" size="small_20" color="white" />
-                </Stack>
-                <Typography
-                  sx={{
-                    marginLeft: 1,
-                  }}
-                >
-                  Trở về trang chủ
-                </Typography>
-              </Stack>
-            </Stack>
-            <Stack
-              sx={{
-                flex: 1,
-                background: Color.navy,
-                flexGrow: 1,
-              }}
-            />
-          </Stack>
+          <DashboardSidebar
+            activeIndex={activeIndex}
+            isHover={isHover}
+            onChangeActiveIndex={handleSetActiveIndex}
+            onNavigateHomepage={handleNavigateHomepage}
+            onNavigateLink={handleNavigateLink}
+            onTriggerHover={handleChangeHover}
+            rows={rows}
+          />
         </Stack>
       </>
 

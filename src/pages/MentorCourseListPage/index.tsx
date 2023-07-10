@@ -1,4 +1,12 @@
-import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
+import {
+  Stack,
+  Typography,
+  Box,
+  Tabs,
+  Tab,
+  TextField,
+  InputAdornment,
+} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,6 +15,8 @@ import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import Icon from '~/components/atoms/Icon';
+import SearchBar from '~/components/atoms/SearchBar';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { CourseStatusList } from '~/constants';
 import {
@@ -35,7 +45,7 @@ export default function MentorCourseListPage() {
   // useState
   const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
     page: 0,
-    size: 9,
+    size: 24,
     sort: undefined,
     status: 'ALL',
     q: '',
@@ -59,6 +69,12 @@ export default function MentorCourseListPage() {
     setFilterParams({
       ...filterParams,
       page: pageNumber - 1,
+    });
+  };
+  const handleChangeSearch = (searchValue: string) => {
+    setFilterParams({
+      ...filterParams,
+      q: searchValue,
     });
   };
   const handleNavigateCreateCourse = () => {
@@ -90,20 +106,41 @@ export default function MentorCourseListPage() {
         <Stack
           sx={{
             flexDirection: 'row',
-            alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
-          <Typography sx={globalStyles.textTitle}>Khoá học đã tạo</Typography>
+          <Stack sx={{ flexGrow: 1 }}>
+            <Typography sx={globalStyles.textTitle}>Khoá học đã tạo</Typography>
+          </Stack>
 
           <Button
             onClick={handleNavigateCreateCourse}
             variant="contained"
             color="secondary"
-            sx={{ color: Color.white }}
+            sx={{ color: Color.white, marginLeft: 1, height: '40px' }}
           >
             Tạo khóa học
           </Button>
+        </Stack>
+        <Stack
+          marginY={1}
+          sx={{
+            background: Color.white,
+          }}
+        >
+          <TextField
+            value={filterParams.q}
+            onChange={(e) => handleChangeSearch(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon name="search" size="small_20" color="black" />
+                </InputAdornment>
+              ),
+            }}
+            size="small"
+            placeholder="Nhập tên khóa học cần tìm kiếm.."
+          />
         </Stack>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs

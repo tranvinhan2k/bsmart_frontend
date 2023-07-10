@@ -14,6 +14,7 @@ import { logOut } from '~/redux/user/slice';
 
 import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
+import CustomMenu from '~/components/atoms/CustomMenu';
 
 interface Props {
   children: React.ReactNode;
@@ -129,19 +130,27 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
                 alt={mappingData.altImage}
               />
             </IconButton>
-            <Menu
-              id="basic-menu"
+            <CustomMenu
               anchorEl={anchorEl}
-              open={open}
               onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem onClick={handleHomePage}>Trang Chủ</MenuItem>
-              <MenuItem onClick={handleProfile}>Hồ Sơ</MenuItem>
-              <MenuItem onClick={handleLogOut}>Đăng Xuất</MenuItem>
-            </Menu>
+              menuItemData={[
+                {
+                  icon: 'home',
+                  name: 'Trang chủ',
+                  onClick: handleHomePage,
+                },
+                {
+                  icon: 'account',
+                  name: 'Hồ sơ',
+                  onClick: handleProfile,
+                },
+                {
+                  icon: 'logOut',
+                  name: 'Đăng xuất',
+                  onClick: handleLogOut,
+                },
+              ]}
+            />
           </Stack>
         </Stack>
         <Stack sx={{ width: '100%' }}>{children}</Stack>

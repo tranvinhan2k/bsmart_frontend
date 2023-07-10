@@ -3,6 +3,7 @@ import {
   AiOutlineStar,
   AiFillSetting,
   AiOutlineRedo,
+  AiOutlineLogout,
 } from 'react-icons/ai';
 import { BiCategoryAlt } from 'react-icons/bi';
 import {
@@ -104,6 +105,7 @@ export type IconName =
   | 'cart'
   | 'return'
   | 'category'
+  | 'logOut'
   | 'blankSquareCheckbox'
   | 'number'
   | 'chat'
@@ -213,6 +215,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsCalendarDate />
+        </Typography>
+      );
+    case 'logOut':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiOutlineLogout />
         </Typography>
       );
     case 'viewDetail':

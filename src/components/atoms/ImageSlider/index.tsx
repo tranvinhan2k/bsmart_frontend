@@ -86,6 +86,7 @@ export default function ImageSlider({ slides }: Props) {
               height: undefined,
               aspectRatio: 1,
               background: activeIndex === index ? Color.white : Color.grey,
+              tranforms: activeIndex === index ? Color.white : Color.grey,
               ':hover': {
                 cursor: 'pointer',
               },

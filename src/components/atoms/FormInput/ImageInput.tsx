@@ -33,12 +33,77 @@ export default function ImageInput({
   );
   const [error, setError] = useState<string | null>(null);
 
-  const handleFileChange = (e: any) => {
-    const selectedFile = e.target.files[0];
+  function dataURLtoFile(dataUrl: string, filename: string): File {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)?.[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    // eslint-disable-next-line no-plusplus
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target?.files?.[0];
+
     if (selectedFile && selectedFile.type.includes('image')) {
       setError(null);
-      setPreviewUrl(URL.createObjectURL(selectedFile));
-      onChange(selectedFile);
+
+      const reader = new FileReader();
+
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        const image = new Image();
+        image.onload = () => {
+          let targetWidth = image.width;
+          let targetHeight = image.height;
+
+          if (
+            typeof previewImgWidth === 'number' &&
+            typeof previewImgHeight === 'number'
+          ) {
+            targetWidth = Math.round(image.width * 0.7);
+            targetHeight = Math.round(
+              (targetWidth * previewImgHeight) / previewImgWidth
+            );
+          }
+
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+
+          ctx?.drawImage(
+            image,
+            0,
+            0,
+            image.width,
+            image.height,
+            0,
+            0,
+            targetWidth,
+            targetHeight
+          );
+
+          const resizedDataUrl = canvas.toDataURL(selectedFile.type);
+
+          const previewImage = new Image();
+          previewImage.src = resizedDataUrl;
+          previewImage.style.objectFit = 'cover';
+
+          setPreviewUrl(previewImage.src);
+          onChange(dataURLtoFile(resizedDataUrl, selectedFile.name));
+        };
+
+        image.src = event.target?.result as string;
+      };
+
+      reader.readAsDataURL(selectedFile);
     } else {
       setError('Xin hãy chọn lại định dạng ảnh phù hợp (JPEG, PNG, or GIF)');
       onChange(null);
@@ -91,7 +156,12 @@ export default function ImageInput({
                 <IconButton sx={{ marginRight: 1 }} component="span">
                   <Icon name="add-icon" size="small_20" />
                 </IconButton>
-                <Typography sx={globalStyles.textLowSmallLight}>
+                <Typography
+                  sx={{
+                    ...globalStyles.textLowSmallLight,
+                    zIndex: -1,
+                  }}
+                >
                   Chưa có hình ảnh được chọn.
                 </Typography>
               </Stack>

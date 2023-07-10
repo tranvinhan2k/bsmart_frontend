@@ -8,11 +8,12 @@ import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import UserCourseItem from '~/components/molecules/UserCourseItem';
-import { CoursePayload } from '~/models/type';
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { CourseMenuItemPayload } from '~/models/type';
 
 interface CourseMenuSectionPayload {
   error: any;
-  data: PagingFilterPayload<CoursePayload> | null | undefined;
+  data: PagingFilterPayload<CourseMenuItemPayload> | null | undefined;
   isLoading: boolean;
 }
 
@@ -73,7 +74,7 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
                   marginBottom: MetricSize.medium_15,
                   marginLeft: '15px',
                   borderColor: Color.grey,
-                  width: { xs: '100%', md: '23%' },
+                  width: { xs: '100%', md: '31%' },
                   borderRadius: MetricSize.small_5,
                   justifyContent: 'space-between',
                 }}
@@ -109,15 +110,16 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
       courseData = (
         <Grid container>
           {data?.items.map((item, index) => (
-            <Grid key={index} item xs={12} md={4} lg={3}>
+            <Grid key={index} item xs={12} md={6} lg={4}>
               <UserCourseItem
+                level={item.level}
                 key={item.id}
-                courseTeacherName={item.mentorName}
+                courseTeacherName={item.courseTeacherName}
                 courseDescription={item.courseDescription}
                 courseName={item.courseName}
-                subjectName={item.subject.label}
-                imageAlt="course logo"
-                imageUrl={item.images?.[0]?.url}
+                subjectName={item.subjectName}
+                imageAlt={item.imageAlt}
+                imageUrl={item.imageUrl}
                 onClick={() => handleNavigateCourseDetail(`${item.id}`)}
               />
             </Grid>
