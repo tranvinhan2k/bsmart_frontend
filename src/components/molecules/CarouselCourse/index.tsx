@@ -17,7 +17,7 @@ import Icon from '~/components/atoms/Icon';
 import { CoursePayload } from '~/models/type';
 import Button from '~/components/atoms/Button';
 import { image } from '~/constants/image';
-import UserCourseItem from '../UserCourseItem';
+import UserCourseItem from '../items/UserCourseItem';
 import globalStyles from '~/styles';
 
 const breakPoints = [

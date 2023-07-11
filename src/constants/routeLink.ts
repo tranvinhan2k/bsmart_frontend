@@ -47,12 +47,12 @@ export const enum MentorNavigationLink {
 export const enum MentorDashboardNavigationActionLink {
   mentor_menu_dashboard = 'mentor-menu',
   // Quản lí học tập
-  mentor_course_list = 'mentor-course-list',
+  mentor_course_list = 'courses',
+  mentor_course_detail = 'courses/detail',
   create_course = 'create-course',
-  mentor_class_list = 'mentor-class-list',
+  mentor_class_list = 'classes',
   // Trang tạm - Khóa học
-  mentor_class_detail_1 = 'mentor-class-detail',
-  mentor_class_detail_2 = 'mentor_course_detail/:id',
+  mentor_class_detail = 'classes/detail',
   // Trang tạm - Nội dung
   create_content = 'create-content',
   // Trang tạm - Hoạt động
@@ -72,7 +72,13 @@ export const enum MentorDashboardNavigationActionLink {
   take_attendance = 'take-attendance/:classId/:id',
   schedule = 'schedule',
 }
-export const enum StudentDashboardNavigationActionLink {}
+export const enum StudentDashboardNavigationActionLink {
+  course_list = 'courses',
+  course_detail = 'courses/detail',
+  class_list = 'classes',
+  class_detail = 'classes/detail',
+  schedule = 'schedule',
+}
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',
   ViewCourseDetails = 'mentor-profile/take-attendance',

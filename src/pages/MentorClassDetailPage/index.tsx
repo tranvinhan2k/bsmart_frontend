@@ -1,160 +1,217 @@
-import { Box, Tab, Tabs, Stack, Typography } from '@mui/material';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ResourceMentorMain from '~/components/molecules/ResourceManagement/ResourceMentorMain';
-import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_WRAPPER, SX_FORM_ITEM_LABEL, SX_FORM_ITEM_VALUE } from './style';
+import { Grid, Stack, Typography, IconButton, Drawer } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { scrollToTop } from '~/utils/common';
-import { useManageClass } from '~/hooks/useManageClass';
-import CustomSwitch from '~/components/atoms/Switch';
-import ClassAttendanceList from '~/components/molecules/ClassAttendanceList';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
+import DashboardNavigationTabs from '~/components/atoms/tabs/DashboardNavigationTabs';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import Sidebar from './Sidebar';
+import {
+  MentorAssignmentDetailsPage,
+  MentorAttendanceListPage,
+  MentorQuizSettingsPage,
+} from '~/routes/components';
+
+export interface DetailMemberClassPayload {
+  code: string;
+  courseName: string;
+}
 
 export default function MentorClassDetailPage() {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const memberClass: DetailMemberClassPayload = {
+    code: '#ada43c',
+    courseName: 'Khóa học kiểm thử #12',
+  };
+
   useEffect(() => {
     scrollToTop();
   }, []);
 
-  const [tabValue, setTabValue] = useState(0);
-  const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
-
-  const [editMode, setEditMode] = useState(false);
-  const handleSetEditMode = (event: ChangeEvent<HTMLInputElement>) => {
-    setEditMode(event.target.checked);
-  };
-  const [expandAll, setExpandAll] = useState(false);
-  const handleSetExpandAll = (event: ChangeEvent<HTMLInputElement>) => {
-    setExpandAll(event.target.checked);
+  const handleClose = () => {
+    setOpen(!open);
   };
 
-  const { id } = useParams();
-  const { classDetails, attendanceQueryData } = useManageClass({
-    id: parseInt(`${id}`, 10),
-  });
-
-  const tabEl = [
+  const navigationTabs: {
+    id: number;
+    link: string;
+    name: string;
+    icon: IconName;
+    component: React.ReactNode;
+    isHide?: boolean | undefined;
+  }[] = [
     {
       id: 0,
-      text: 'Tài nguyên',
-      component: <ResourceMentorMain editMode={editMode} />,
+      icon: 'class',
+      link: 'information',
+      name: 'Thông tin lớp học',
+      component: <div>Thong Tin Khoa hoc</div>,
     },
     {
       id: 1,
-      text: 'Điểm danh',
-      component: (
-        <ClassAttendanceList
-          classId={classDetails?.id}
-          name={classDetails?.subCourseName}
-          attendancesList={attendanceQueryData}
-        />
-      ),
+      icon: 'person',
+      link: 'students',
+      name: 'Danh sách học sinh',
+      component: <MentorAttendanceListPage />,
+    },
+    {
+      id: 1,
+      icon: 'date',
+      link: 'schedule',
+      name: 'Lịch làm việc',
+      component: <MentorAttendanceListPage />,
+    },
+    {
+      id: 1,
+      icon: 'attendance',
+      link: 'attendance',
+      name: 'Điểm danh',
+      component: <MentorAttendanceListPage />,
     },
     {
       id: 2,
-      text: 'Nội dung khóa học',
-      component: <h1>Điểm </h1>,
+      icon: 'book',
+      link: 'resource',
+      name: 'Tài nguyên',
+      component: <div>Tài Nguyên</div>,
     },
     {
       id: 3,
-      text: 'Thông báo',
-      component: <h1>Thông báo</h1>,
+      icon: 'quiz',
+      link: 'exercise',
+      name: 'Kiểm tra',
+      component: <MentorQuizSettingsPage />,
+    },
+    {
+      id: 3,
+      icon: 'assignment',
+      link: 'assignment',
+      name: 'Bài tập',
+      component: <MentorAssignmentDetailsPage />,
+    },
+    {
+      id: 4,
+      icon: 'account',
+      link: 'notification',
+      name: 'Thông báo',
+      component: <MentorAssignmentDetailsPage />,
     },
   ];
 
-  interface DisplayTextListProps {
-    id: number;
-    label: string;
-    value: string | number;
-    icon: IconName;
-  }
+  const showRoutes = () => {
+    let result = null;
+    const showNavigationTabData = navigationTabs.filter((item) => !item.isHide);
+    result = (
+      <>
+        <Route
+          key="/"
+          path="/"
+          element={
+            <Navigate
+              to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${id}/${showNavigationTabData[0].link}`}
+            />
+          }
+        />
+        {showNavigationTabData.map((route) => {
+          if (route.isHide) return null;
+          return (
+            <Route
+              key={route.link}
+              path={route.link}
+              element={route.component}
+            />
+          );
+        })}
+      </>
+    );
 
-  const displayTextList: DisplayTextListProps[] = [
-    {
-      id: 0,
-      label: 'Ngày bắt đầu - kết thúc',
-      value: classDetails
-        ? `${formatISODateStringToDisplayDate(
-            classDetails.startDate
-          )} -  ${formatISODateStringToDisplayDate(classDetails.endDate)}`
-        : '',
-      icon: 'calendarMonth',
-    },
-    {
-      id: 2,
-      label: 'Đánh giá (?) ',
-      value: '5 / 5',
-      icon: 'star',
-    },
-  ];
+    return result;
+  };
 
   return (
-    <>
-      <Box sx={SX_WRAPPER}>
-        <Box mt={2} px={2}>
-          <Typography sx={SX_FORM_ITEM_LABEL}>
-            {classDetails ? classDetails.subCourseName : ''}
-          </Typography>
-        </Box>
-
-        <Box mt={4} mb={1} px={2}>
-          {displayTextList.map((item) => (
-            <Stack
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing={1}
-              key={item.id}
-              py={1}
-            >
-              <Icon name={item.icon} size="small" />
-              <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
-            </Stack>
-          ))}
-        </Box>
-      </Box>
+    <Stack>
       <Stack
-        direction={{ sm: 'column', md: 'row' }}
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={{ sm: 2, md: 0 }}
-        sx={{ borderBottom: 1, borderColor: 'divider' }}
-        pb={{ sm: 2, md: 0 }}
-        mt={2}
+        sx={{
+          background: Color.navy,
+          paddingY: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
       >
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
+        <IconButton
+          onClick={() =>
+            navigate(
+              `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_list}`
+            )
+          }
         >
-          <Tabs
-            variant="scrollable"
-            value={tabValue}
-            onChange={handleSetTabValue}
+          <Icon name="left" size="large" color="white" />
+        </IconButton>
+        <Typography
+          noWrap
+          sx={{
+            flexGrow: 1,
+            fontSize: FontSize.small_18,
+            fontFamily: FontFamily.regular,
+            color: Color.white,
+          }}
+        >
+          {`Lớp học ${memberClass.code} - `}
+          <span
+            style={{
+              color: Color.grey,
+              fontFamily: FontFamily.light,
+            }}
           >
-            {tabEl.map((tab) => (
-              <Tab label={tab.text} key={tab.id} />
-            ))}
-          </Tabs>
-        </Stack>
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
+            {memberClass.courseName}
+          </span>
+        </Typography>
+        <IconButton
+          sx={{
+            display: { xs: 'flex', md: 'none' },
+          }}
+          onClick={handleClose}
         >
-          <CustomSwitch
-            text="Chế độ chỉnh sửa"
-            editMode={editMode}
-            handleSetEditMode={handleSetEditMode}
-          />
-        </Stack>
+          <Icon name="menu" size="large" color="white" />
+        </IconButton>
       </Stack>
-      {tabEl.map((tab) => (
-        <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-          <Box>{tab.component}</Box>
-        </TabPanel>
-      ))}
-    </>
+      <Grid container sx={{ background: Color.white, minHeight: '100vh' }}>
+        <Grid
+          sx={{
+            paddingY: 2,
+            background: Color.white4,
+            borderRight: '1px solid #ddd',
+            display: { xs: 'none', md: 'flex' },
+          }}
+          item
+          xs={12}
+          md={2}
+        >
+          <Sidebar navigationTabs={navigationTabs} />
+        </Grid>
+        <Grid item xs={12} md={10} paddingY={2} paddingX={4}>
+          <Routes>{showRoutes()}</Routes>
+        </Grid>
+      </Grid>
+      <Drawer open={open} onClose={handleClose}>
+        <Stack paddingRight={2}>
+          <Sidebar navigationTabs={navigationTabs} />
+        </Stack>
+      </Drawer>
+    </Stack>
   );
 }

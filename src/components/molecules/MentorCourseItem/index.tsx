@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import UserCourseItem from '../UserCourseItem';
+import UserCourseItem from '../items/UserCourseItem';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
@@ -30,7 +30,7 @@ export default function MentorCourseItem({
 
   const handleNavigateCourseDetail = () => {
     navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${item.id}`
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${item.id}`
     );
   };
 

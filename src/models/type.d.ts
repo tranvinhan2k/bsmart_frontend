@@ -110,5 +110,14 @@ export interface CourseMenuItemPayload {
   level: LevelKeys;
   courseDescription: string | undefined;
 }
+export interface ClassMenuItemPayload {
+  id: number;
+  imageUrl: string | undefined;
+  imageAlt: string | undefined;
+  teacherName?: string[];
+  name: string | undefined;
+  progressValue: number;
+  status: ClassStatusKeys;
+}
 
 export type ContentPayload = SectionPayload[];

@@ -1,52 +1,36 @@
+import { useNavigate } from 'react-router-dom';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
-import ClassItem from '../items/ClassItem';
+import UserClassItem from '../items/UserClassItem';
+import { image } from '~/constants/image';
+import { ClassMenuItemPayload } from '~/models/type';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 interface Props {
-  item?: any;
+  item?: ClassMenuItemPayload;
 }
 
 export default function MentorClassItem({ item }: Props) {
-  const tmpItem: DetailCourseClassPayload = {
-    code: '',
-    endDate: '',
-    id: '0',
-    imageAlt: '',
-    imageUrl: '',
-    maxStudent: 0,
-    minStudent: 0,
-    numberOfSlot: 10,
-    price: 0,
-    startDate: '',
-    timeInWeekRequests: [
-      {
-        dayOfWeekId: 0,
-        slotId: 0,
-      },
-    ],
+  const navigate = useNavigate();
+  const handleNavigateDetailClass = () => {
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${item?.id}`
+    );
   };
-  const {
-    code,
-    endDate,
-    id,
-    imageAlt,
-    imageUrl,
-    maxStudent,
-    minStudent,
-    numberOfSlot,
-    price,
-    startDate,
-    timeInWeekRequests,
-  } = tmpItem;
+  const handleAddFeedback = () => {};
+  const handleUpdateFeedback = () => {};
   return (
-    <ClassItem
-      code={code}
-      endDate={endDate}
-      id={0}
-      imageUrl={imageUrl}
-      maxStudent={maxStudent}
-      minStudent={minStudent}
-      startDate={startDate}
-      timetable={timeInWeekRequests}
+    <UserClassItem
+      imageAlt={item?.imageAlt}
+      imageUrl={item?.imageUrl}
+      name={item?.name}
+      onClick={handleNavigateDetailClass}
+      progressValue={item?.progressValue}
+      status={item?.status}
+      onAddFeedback={item?.id === 1 ? handleAddFeedback : undefined}
+      teacherName={['Trần Vĩ Nhân']}
     />
   );
 }

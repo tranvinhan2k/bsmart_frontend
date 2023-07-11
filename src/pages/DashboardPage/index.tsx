@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
 
 import { Stack, Typography, Drawer, IconButton, Box } from '@mui/material';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { scrollToTop } from '~/utils/common';
 import { Color, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
-import { NavigationLink } from '~/constants/routeLink';
-import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 import Button from '~/components/atoms/Button';
 import { MentorDashboardNavigationActionData } from '~/routes/navigators';
-import { selectProfile } from '~/redux/user/selector';
 import { StudentDashboardNavigationActionData } from '~/routes/member/dashboard/navigation';
 import { studentLMSRoutes } from '~/routes/member/dashboard/routes';
 import DashboardSidebar from './DashboardSidebar';
-import globalStyles from '~/styles';
 
 export default function DashboardPage() {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const profile = useSelector(selectProfile);
+  const roles = localStorage.getItem('roles');
+  const isStudentRole = roles === 'ROLE_STUDENT';
+  const rows = isStudentRole
+    ? StudentDashboardNavigationActionData
+    : MentorDashboardNavigationActionData;
 
-  const rows =
-    profile.roles?.[0]?.code === 'STUDENT'
-      ? StudentDashboardNavigationActionData
-      : MentorDashboardNavigationActionData;
+  const routes = isStudentRole ? studentLMSRoutes : mentorLMSRoutes;
 
-  const routes =
-    profile.roles?.[0]?.code === 'STUDENT' ? studentLMSRoutes : mentorLMSRoutes;
-
-  const [activeIndex, setActiveIndex] = useState(0);
   const [isHover, setHover] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -47,10 +44,6 @@ export default function DashboardPage() {
     navigate(-1);
   };
 
-  const handleSetActiveIndex = (idx: number) => {
-    setActiveIndex(idx);
-  };
-
   const handleNavigateLink = (link: string) => {
     navigate(link);
   };
@@ -63,7 +56,7 @@ export default function DashboardPage() {
     let result = null;
 
     if (routes.length > 0) {
-      result = mentorLMSRoutes.map((route: RoutePayload) => {
+      result = routes.map((route: RoutePayload) => {
         return (
           <Route key={route.path} path={route.path} element={route?.main()} />
         );
@@ -77,6 +70,10 @@ export default function DashboardPage() {
     scrollToTop();
   }, []);
 
+  const isClassDetailPage = pathname.includes(
+    MentorDashboardNavigationActionLink.mentor_class_detail
+  );
+
   return (
     <Stack
       sx={{
@@ -86,83 +83,83 @@ export default function DashboardPage() {
         background: Color.white4,
       }}
     >
-      <>
-        <Stack
-          sx={{
-            background: Color.navy,
-            padding: 1,
-            display: { xs: 'flex', md: 'none' },
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Box>
-            <IconButton onClick={handleOpen}>
-              <Icon name="menu" size="medium" color="white" />
-            </IconButton>
-          </Box>
-          <Box>
-            <Button
-              onClick={handleNavigateHomepage}
-              customVariant="form"
-              startIcon={<Icon name="return" size="small_20" color="white" />}
-            >
-              <Typography
-                sx={{
-                  marginLeft: 1,
-                }}
-              >
-                Trở về trang chủ
-              </Typography>
-            </Button>
-          </Box>
-          <Drawer
+      {!isClassDetailPage && (
+        <>
+          <Stack
             sx={{
-              ':-webkit-scrollbar': {
-                display: 'none',
-              },
+              background: Color.navy,
+              padding: 1,
+              display: { xs: 'flex', md: 'none' },
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
             }}
-            anchor="left"
-            open={open}
-            onClose={handleOpen}
+          >
+            <Box>
+              <IconButton onClick={handleOpen}>
+                <Icon name="menu" size="medium" color="white" />
+              </IconButton>
+            </Box>
+            <Box>
+              <Button
+                onClick={handleNavigateHomepage}
+                customVariant="form"
+                startIcon={<Icon name="return" size="small_20" color="white" />}
+              >
+                <Typography
+                  sx={{
+                    marginLeft: 1,
+                  }}
+                >
+                  Trở về trang chủ
+                </Typography>
+              </Button>
+            </Box>
+            <Drawer
+              sx={{
+                ':-webkit-scrollbar': {
+                  display: 'none',
+                },
+              }}
+              anchor="left"
+              open={open}
+              onClose={handleOpen}
+            >
+              <DashboardSidebar
+                isMobile
+                isHover={isHover}
+                onNavigateHomepage={handleNavigateHomepage}
+                onNavigateLink={handleNavigateLink}
+                onTriggerHover={handleChangeHover}
+                rows={rows}
+              />
+            </Drawer>
+          </Stack>
+
+          <Stack
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+            }}
           >
             <DashboardSidebar
-              isMobile
-              activeIndex={activeIndex}
               isHover={isHover}
-              onChangeActiveIndex={handleSetActiveIndex}
               onNavigateHomepage={handleNavigateHomepage}
               onNavigateLink={handleNavigateLink}
               onTriggerHover={handleChangeHover}
               rows={rows}
             />
-          </Drawer>
-        </Stack>
-
-        <Stack
-          sx={{
-            display: { xs: 'none', md: 'flex' },
-          }}
-        >
-          <DashboardSidebar
-            activeIndex={activeIndex}
-            isHover={isHover}
-            onChangeActiveIndex={handleSetActiveIndex}
-            onNavigateHomepage={handleNavigateHomepage}
-            onNavigateLink={handleNavigateLink}
-            onTriggerHover={handleChangeHover}
-            rows={rows}
-          />
-        </Stack>
-      </>
+          </Stack>
+        </>
+      )}
 
       <Stack
         sx={{
-          padding: {
-            xs: MetricSize.small_10,
-            md: 5,
-          },
+          padding: !isClassDetailPage
+            ? {
+                xs: MetricSize.small_10,
+                md: 5,
+              }
+            : 'none',
           flexGrow: 1,
         }}
       >

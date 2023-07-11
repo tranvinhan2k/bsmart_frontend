@@ -57,7 +57,7 @@ export default function MentorAssignmentDetailsPage() {
         {
           id: 2,
           label: 'Mô tả',
-          value: activity.activityDetail.description,
+          value: activity.activityDetail?.description,
           icon: 'description',
         },
       ]
@@ -69,7 +69,7 @@ export default function MentorAssignmentDetailsPage() {
           id: 0,
           label: 'Ngày bắt đầu',
           value: formatISODateStringToDisplayDateTime(
-            activity.activityDetail.startDate
+            activity.activityDetail?.startDate
           ),
           icon: 'calendarMonth',
         },
@@ -77,26 +77,26 @@ export default function MentorAssignmentDetailsPage() {
           id: 1,
           label: 'Ngày kết thúc',
           value: formatISODateStringToDisplayDateTime(
-            activity.activityDetail.endDate
+            activity.activityDetail?.endDate
           ),
           icon: 'calendarMonth',
         },
         {
           id: 2,
           label: 'editBeForSubmitMin',
-          value: activity.activityDetail.editBeForSubmitMin,
+          value: activity.activityDetail?.editBeForSubmitMin,
           icon: 'groups',
         },
         {
           id: 3,
           label: 'Số file tối đa nộp',
-          value: activity.activityDetail.maxFileSubmit,
+          value: activity.activityDetail?.maxFileSubmit,
           icon: 'groups',
         },
         {
           id: 4,
           label: 'Dung lượng tối đa mỗi file (MB)',
-          value: activity.activityDetail.maxFileSize,
+          value: activity.activityDetail?.maxFileSize,
           icon: 'groups',
         },
       ]

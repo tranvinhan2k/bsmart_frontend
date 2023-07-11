@@ -66,17 +66,17 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.register,
     main: () => <RegisterPage />,
-    role: ['GUEST'],
+    role: [],
   },
   {
     path: NavigationLink.login,
     main: () => <LoginPage />,
-    role: ['GUEST'],
+    role: [],
   },
   {
     path: `${NavigationLink.course_menu_details}/:id`,
     main: () => <CourseDetailPage />,
-    role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
     path: NavigationLink.lms,
@@ -96,7 +96,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.blog_details,
     main: () => <BlogDetailsPage />,
-    role: ['GUEST', 'ROLE_TEACHER', 'ROLE_STUDENT'],
+    role: ['ROLE_TEACHER', 'ROLE_STUDENT'],
   },
   {
     path: `/${NavigationLink.member_details}/*`,
@@ -111,7 +111,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.mentor_menu,
     main: () => <MentorsPage />,
-    role: ['GUEST', 'ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
     path: NavigationLink.cart,
@@ -131,7 +131,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.confirm_email,
     main: () => <ConfirmEmailPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER', 'GUEST'],
+    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
     path: `/${NavigationLink.dashboard}/*`,

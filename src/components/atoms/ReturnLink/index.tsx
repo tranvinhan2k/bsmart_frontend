@@ -1,12 +1,15 @@
 import { Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import globalStyles from '~/styles';
 import Icon from '../Icon';
 
-export default function ReturnLink() {
+interface Props {
+  to: string;
+}
+
+export default function ReturnLink({ to }: Props) {
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate(-1);
+    navigate(to, { state: { id: 0, name: '/' } });
   };
   return (
     <Box sx={{ marginBottom: 1 }}>
