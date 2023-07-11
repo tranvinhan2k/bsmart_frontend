@@ -39,7 +39,7 @@ export default function ActivityHistoryTopFive() {
           color="miSmartOrange"
           size="small"
           sx={SX_BUTTON}
-          disabled={!(activityHistories && activityHistories.items.length < 0)}
+          disabled={activityHistories && activityHistories.items.length <= 0}
           onClick={handleSeeAllActivityHistory}
         >
           Tất cả
