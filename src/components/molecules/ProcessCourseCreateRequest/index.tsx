@@ -137,7 +137,7 @@ export default function ProcessCourseCreateRequest({
         addItemButtonLabel="Thêm môn học"
         columns={columns.courseCreateRequestColumns}
         // onAdd={}
-        searchPlaceholder="Tìm kiếm môn học"
+        searchPlaceholder="Tìm kiếm khóa học..."
         onSearch={handleSearchCourseCreateRequest}
         rows={filterRows}
         menuItemList={menuItemList}

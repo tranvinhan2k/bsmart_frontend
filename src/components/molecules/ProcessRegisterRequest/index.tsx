@@ -137,7 +137,7 @@ export default function ProcessRegisterRequest({
         addItemButtonLabel="Thêm môn học"
         columns={columns.registerRequestColumns}
         // onAdd={}
-        searchPlaceholder="Tìm kiếm môn học"
+        searchPlaceholder="Tìm kiếm giáo viên..."
         onSearch={handleSearchRegisterRequest}
         rows={filterRows}
         menuItemList={menuItemList}
