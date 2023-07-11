@@ -1,7 +1,6 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
 import { OptionPayload } from '~/models';
 import { SectionPayload } from '~/models/section';
-import { ContentPayload } from '~/models/type';
 
 export function scrollToTop() {
   window.scrollTo({

@@ -1,30 +1,19 @@
 import { Grid, Stack, Divider, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CarouselCourse from '~/components/molecules/CarouselCourse';
 import { CommonCourse, mockLevelData } from '~/constants';
-import { image } from '~/constants/image';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
-import {
-  useDispatchGetAllCategories,
-  useDispatchGetAllSubjects,
-  useEffectScrollToTop,
-  useTimeOut,
-  useTryCatch,
-} from '~/hooks';
+import { useEffectScrollToTop } from '~/hooks';
 import globalStyles from '~/styles';
-import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import Classes from '~/components/molecules/list/Classes';
-import { SectionPayload } from '~/models/section';
 import Content from '~/components/molecules/Content';
 import ImageSlider from '~/components/atoms/ImageSlider';
-import { LevelKeys } from '~/models/variables';
-import { CoursePayload } from '~/models/type';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import { formatStringToNumber } from '~/utils/number';
+import CourseDetail from '~/components/molecules/CourseDetail';
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -219,170 +208,16 @@ export default function CourseDetailPage() {
               /> */}
               {/* <CourseDetailFeedbackSection feedbackData={data.feedbackData} /> */}
 
-              <Stack>
-                <ImageSlider slides={course?.images || []} />
-                <Stack
-                  paddingX={5}
-                  sx={{
-                    marginTop: '-60px',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: '120px',
-                      height: undefined,
-                      aspectRatio: 1,
-                      borderRadius: MetricSize.small_5,
-                      background: Color.white,
-                      boxShadow: 3,
-                      zIndex: 2,
-                      objectFit: 'cover',
-                    }}
-                    component="img"
-                    alt="avatar"
-                    src={mentor.imageUrl}
-                  />
-                  <Stack marginTop={2}>
-                    <Typography sx={globalStyles.textLowSmallLight}>
-                      Khóa học của
-                      <span
-                        style={{
-                          fontFamily: FontFamily.medium,
-                          fontSize: FontSize.small_14,
-                          color: Color.black,
-                        }}
-                      >
-                        {` ${mentor.name}`}
-                      </span>
-                    </Typography>
-                  </Stack>
-                  <Stack marginTop={2}>
-                    <Typography
-                      sx={{
-                        lineHeight: 0.98,
-                        fontSize: FontSize.large_45,
-                        fontFamily: FontFamily.regular,
-                      }}
-                    >
-                      {course?.courseName}
-                    </Typography>
-                    <Stack marginY={3}>
-                      <Typography sx={globalStyles.textSmallLight}>
-                        {course?.courseDescription}
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                </Stack>
-                <Stack
-                  paddingX={5}
-                  sx={{
-                    marginTop: 2,
-                  }}
-                >
-                  {/* <Stack marginBottom={3}>
-                    <iframe
-                      style={{
-                        width: '100%',
-                        height: undefined,
-                        aspectRatio: 16 / 9,
-                      }}
-                      src="https://www.youtube-nocookie.com/embed/ZaVG2p-T9O4"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                  </Stack>
-                  <Stack marginTop={1}>
-                    <Typography sx={globalStyles.textSmallLabel}>
-                      Kiến thức học được
-                    </Typography>
-                    <Typography sx={globalStyles.textSmallLight}>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Fugit officiis ipsa ipsum magnam consequatur, sed nisi
-                      perspiciatis et a aliquid aliquam optio quos amet quod
-                      expedita odit facilis mollitia natus?
-                    </Typography>
-                  </Stack>
-                  <Divider sx={{ marginY: 4 }} /> */}
-                  <>
-                    <Stack>
-                      <Typography sx={globalStyles.textSmallLabel}>
-                        Khung chương trình
-                      </Typography>
-                      <Stack
-                        sx={{
-                          marginTop: 1,
-                          paddingX: 2,
-                          background: Color.white,
-                          borderRadius: MetricSize.small_5,
-                        }}
-                      >
-                        <Content sections={sections || []} />
-                      </Stack>
-                    </Stack>
-                    <Divider sx={{ marginY: 3 }} />
-                  </>
-                  <Stack>
-                    <Typography sx={globalStyles.textSmallLabel}>
-                      Danh sách lớp học
-                    </Typography>
-                    <Stack marginTop={1}>
-                      <Classes classes={classes} />
-                    </Stack>
-                  </Stack>
-                  <Divider sx={{ marginY: 4 }} />
-                  <>
-                    <Stack>
-                      <Typography sx={globalStyles.textSmallLabel}>
-                        Về giáo viên
-                      </Typography>
-                      <Stack
-                        sx={{
-                          marginTop: 1,
-                        }}
-                      >
-                        <Stack
-                          sx={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              borderRadius: 1000,
-                              width: '50px',
-                              aspectRatio: 1,
-                              height: undefined,
-                              objectFit: 'cover',
-                              background: Color.white,
-                              marginRight: 1,
-                            }}
-                            component="img"
-                            alt="giao vien"
-                            src={mentor.imageUrl}
-                          />
-                          <Typography sx={globalStyles.textSmallLight}>
-                            {mentor.name}
-                          </Typography>
-                        </Stack>
-                        <Stack marginY={1}>
-                          <Typography sx={globalStyles.textSmallLight}>
-                            {mentor.description}
-                          </Typography>
-                        </Stack>
-                      </Stack>
-                    </Stack>
-                    <Divider sx={{ marginY: 4 }} />
-                  </>
-                  <Stack>
-                    <CarouselCourse
-                      label="Khóa học tiêu biểu"
-                      items={CommonCourse}
-                    />
-                  </Stack>
-                </Stack>
-              </Stack>
+              <CourseDetail
+                classes={classes || []}
+                courseDescription={course?.courseDescription || ''}
+                courseName={course?.courseName || ''}
+                images={course?.images || []}
+                mentorDescription={mentor.description}
+                mentorImageUrl={mentor.imageUrl}
+                mentorName={mentor.name}
+                sections={sections || []}
+              />
             </Grid>
             <Grid item xs={12} md={4}>
               <Sidebar

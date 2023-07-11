@@ -4,7 +4,6 @@ import {
   MemberNavigationActionLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
-import MemberCourseListPage from '~/pages/MemberCourseListPage';
 import WalletManagementPage from '~/pages/WalletManagementPage';
 import WithdrawPage from '~/pages/WithdrawPage';
 import {
@@ -46,11 +45,6 @@ export const memberRoutes: RoutePayload[] = [
   {
     path: MemberNavigationActionLink.withdraw,
     main: () => <WithdrawPage />,
-    role: ['ROLE_STUDENT'],
-  },
-  {
-    path: MemberNavigationActionLink.member_course_list,
-    main: () => <MemberCourseListPage />,
     role: ['ROLE_STUDENT'],
   },
 ];

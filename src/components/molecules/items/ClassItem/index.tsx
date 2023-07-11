@@ -12,8 +12,6 @@ import {
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
-import { LEVEL_IMAGES } from '~/constants/level';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import Timetable from '../../Timetable';
@@ -27,7 +25,7 @@ interface Props {
   id: number;
   code: string;
   startDate: string;
-  status: ClassStatusKeys;
+  status: ClassStatusKeys | undefined;
   endDate: string;
   minStudent: number;
   maxStudent: number;
@@ -52,7 +50,6 @@ const texts = {
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
   classInfoTitle: 'Thông tin giờ học',
-  priceLabel: 'Giá tiền',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',
@@ -69,6 +66,7 @@ const texts = {
 export default function ClassItem({
   id,
   code,
+  status,
   endDate,
   imageUrl,
   maxStudent,
@@ -178,9 +176,17 @@ export default function ClassItem({
               justifyContent: 'space-around',
             }}
           >
-            <Box>
-              <Tag color="whiteSmoke" title={ClassStatusList[0].label} />
-            </Box>
+            {status && (
+              <Box>
+                <Tag
+                  color="whiteSmoke"
+                  title={
+                    ClassStatusList.find((item) => item.value === status)
+                      ?.label || ''
+                  }
+                />
+              </Box>
+            )}
             <Typography
               sx={{
                 fontFamily: FontFamily.bold,

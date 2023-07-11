@@ -178,8 +178,8 @@ const coursesApi = {
     const result: CourseMenuItemPayload[] = (response.items as any[]).map(
       (item: any) => ({
         id: item.id,
-        imageAlt: item.images?.[0]?.url,
-        imageUrl: item.images?.[0]?.alt,
+        imageAlt: item.images?.[0]?.name,
+        imageUrl: item.images?.[0]?.url,
         courseStatus: item.status,
         courseTeacherName: item.mentorName,
         subjectName: item.subjectResponse.name,

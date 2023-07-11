@@ -1,33 +1,23 @@
-import {
-  Stack,
-  Typography,
-  Box,
-  Tabs,
-  Tab,
-  TextField,
-  InputAdornment,
-} from '@mui/material';
+import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
-import Icon from '~/components/atoms/Icon';
-import SearchBar from '~/components/atoms/SearchBar';
+import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { CourseStatusList } from '~/constants';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useQueryGetMentorCourses } from '~/hooks';
+import { useEffectScrollToTop, useQueryGetMentorCourses } from '~/hooks';
 import { PagingRequestPayload } from '~/models';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
-import { scrollToTop } from '~/utils/common';
 import toast from '~/utils/toast';
 
 function a11yProps(index: number) {
@@ -50,7 +40,6 @@ export default function MentorCourseListPage() {
     status: 'ALL',
     q: '',
   });
-
   const [value, setValue] = useState(0);
 
   const { courses, error, isLoading, currentPage, totalPages } =
@@ -96,10 +85,7 @@ export default function MentorCourseListPage() {
   };
 
   // useEffect
-  useEffect(() => {
-    scrollToTop();
-  }, []);
-
+  useEffectScrollToTop();
   return (
     <Stack>
       <Stack>
@@ -128,18 +114,9 @@ export default function MentorCourseListPage() {
             background: Color.white,
           }}
         >
-          <TextField
+          <SearchTextField
             value={filterParams.q}
             onChange={(e) => handleChangeSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Icon name="search" size="small_20" color="black" />
-                </InputAdornment>
-              ),
-            }}
-            size="small"
-            placeholder="Nhập tên khóa học cần tìm kiếm.."
           />
         </Stack>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

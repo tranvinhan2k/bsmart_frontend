@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { Grid, Stack, Typography, Divider, Alert } from '@mui/material';
 
-import { useParams } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { StepPayload } from '~/components/molecules/CustomStepper';
 
 import {
@@ -30,6 +37,11 @@ import RequiredEdit from './RequiredEdit';
 import { LoadingWrapper } from '~/HOCs';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import ReturnLink from '~/components/atoms/ReturnLink';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import DashboardNavigationTabs from '~/components/atoms/tabs/DashboardNavigationTabs';
 
 export interface MentorDetailCoursePayload {
   code: string;
@@ -60,6 +72,8 @@ export interface DetailCourseClassPayload {
 
 export default function MentorCourseDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const {
     data: dataCourse,
@@ -154,17 +168,33 @@ export default function MentorCourseDetailPage() {
   // const course = mockCourse;
   // const classes = mockClasses;
 
-  const [tabIndex, setTabIndex] = useState(0);
-
-  const handleChangeTabIndex = (param: number) => {
-    setTabIndex(param);
-  };
-
   const handleSubmitCourse = () => {
     // TODO: Phe duyet khoa hoc
   };
 
+  const handleNavigateLink = (link: string) => {
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${id}/${link}`
+    );
+  };
+
   useEffectScrollToTop();
+
+  useEffect(() => {
+    const handleBrowserBackButton = (event: any) => {
+      event.preventDefault();
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`,
+        { replace: true }
+      );
+    };
+
+    window.addEventListener('popstate', handleBrowserBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBrowserBackButton);
+    };
+  }, [navigate]);
 
   // TODO: Thêm validation cho các biến sau đây
   const isCompletedInformationCourse = true;
@@ -176,7 +206,6 @@ export default function MentorCourseDetailPage() {
       id: 0,
       isCompleted: isCompletedInformationCourse,
       label: 'Thêm thông tin khóa học',
-      onClick: () => handleChangeTabIndex(2),
       description:
         'Xem lại khóa học vừa tạo của bạn. Khóa học này sẽ được hiển thị ra ngoài cho học sinh xem và đăng kí.',
     },
@@ -184,8 +213,6 @@ export default function MentorCourseDetailPage() {
       id: 1,
       isCompleted: isAddedContent,
       label: 'Thêm nội dung khóa học',
-      onClick: () => handleChangeTabIndex(3),
-
       description:
         'Thêm nội dung giảng dạy để học sinh có thể biết chương trình học của bạn thú vị ra sao.',
     },
@@ -193,8 +220,6 @@ export default function MentorCourseDetailPage() {
       id: 2,
       isCompleted: isAddedClasses,
       label: 'Thêm danh sách lớp học',
-      onClick: () => handleChangeTabIndex(4),
-
       description:
         'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },
@@ -202,6 +227,7 @@ export default function MentorCourseDetailPage() {
 
   const navigationTabData: {
     id: number;
+    link: string;
     name: string;
     icon: IconName;
     isHide?: boolean;
@@ -209,6 +235,7 @@ export default function MentorCourseDetailPage() {
   }[] = [
     {
       id: 0,
+      link: 'edit',
       name: 'Yêu cầu chỉnh sửa',
       component: <RequiredEdit />,
       icon: 'squareCheckbox',
@@ -216,6 +243,7 @@ export default function MentorCourseDetailPage() {
     },
     {
       id: 1,
+      link: 'tutorial',
       name: 'Hướng dẫn',
       icon: 'squareCheckbox',
       isHide: course?.status !== 'REQUESTING',
@@ -223,18 +251,21 @@ export default function MentorCourseDetailPage() {
     },
     {
       id: 2,
+      link: 'information',
       name: 'Thông tin khóa học',
       icon: 'squareCheckbox',
       component: <EditCourse id={formatStringToNumber(id)} course={course} />,
     },
     {
       id: 3,
+      link: 'content',
       name: 'Nội dung',
       icon: isAddedContent ? 'squareCheckbox' : 'blankSquareCheckbox',
       component: <Content id={formatStringToNumber(id)} />,
     },
     {
       id: 4,
+      link: 'classes',
       name: 'Danh sách lớp học',
       icon: isAddedClasses ? 'squareCheckbox' : 'blankSquareCheckbox',
       component: (
@@ -248,17 +279,45 @@ export default function MentorCourseDetailPage() {
       ),
     },
   ];
+  console.log('pathname', pathname);
 
-  useEffect(() => {
-    if (navigationTabData[tabIndex].isHide) {
-      setTabIndex(tabIndex + 1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabIndex, course]);
+  const showRoutes = () => {
+    let result = null;
+    const showNavigationTabData = navigationTabData.filter(
+      (item) => !item.isHide
+    );
+    result = (
+      <>
+        <Route
+          key="/"
+          path="/"
+          element={
+            <Navigate
+              to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${id}/${showNavigationTabData[0].link}`}
+            />
+          }
+        />
+        {showNavigationTabData.map((route) => {
+          if (route.isHide) return null;
+          return (
+            <Route
+              key={route.link}
+              path={route.link}
+              element={route.component}
+            />
+          );
+        })}
+      </>
+    );
+
+    return result;
+  };
 
   return (
     <Stack>
-      <ReturnLink />
+      <ReturnLink
+        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
+      />
       <Typography sx={globalStyles.textSubTitle}>Chi tiết khóa học</Typography>
       <Typography sx={globalStyles.textLowSmallLight}>
         Nội dung chi tiết của khóa học
@@ -275,40 +334,16 @@ export default function MentorCourseDetailPage() {
           <Grid container>
             <Grid item xs={12} md={2}>
               <Stack marginRight={2}>
-                {navigationTabData.map((item) => {
-                  if (item.isHide) return null;
+                {navigationTabData.map((item, index) => {
                   return (
-                    <Stack
-                      onClick={() => handleChangeTabIndex(item.id)}
-                      key={item.id}
-                      sx={{
-                        position: 'relative',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        background: tabIndex === item.id ? Color.grey3 : 'none',
-                        paddingY: 2,
-                        paddingX: 2,
-                        borderTopRightRadius: MetricSize.small_5,
-                        borderBottomRightRadius: MetricSize.small_5,
-                        transition: 'all 500ms ease',
-                        fontSize: FontSize.small_14,
-                        fontFamily: FontFamily.light,
-                        color: tabIndex === item.id ? Color.black : Color.grey,
-                        ':hover': {
-                          background: Color.whiteSmoke,
-                          cursor: 'pointer',
-                        },
-                      }}
-                    >
-                      <Stack marginRight={1}>
-                        <Icon
-                          name={item.icon}
-                          size="small"
-                          color={tabIndex === item.id ? 'black' : 'grey'}
-                        />
-                      </Stack>
-                      {item.name}
-                    </Stack>
+                    <DashboardNavigationTabs
+                      key={index}
+                      icon={item.icon}
+                      isActive={pathname.includes(item.link)}
+                      link={item.link}
+                      name={item.name}
+                      isHide={item.isHide}
+                    />
                   );
                 })}
               </Stack>
@@ -351,7 +386,8 @@ export default function MentorCourseDetailPage() {
               </Stack>
             </Grid>
             <Grid item xs={12} md={10} paddingX={4}>
-              {navigationTabData.map((item) => {
+              <Routes>{showRoutes()}</Routes>
+              {/* {navigationTabData.map((item) => {
                 if (item.isHide) return null;
                 return (
                   <Stack
@@ -369,7 +405,7 @@ export default function MentorCourseDetailPage() {
                     <Stack marginTop={2}>{item.component}</Stack>
                   </Stack>
                 );
-              })}
+              })} */}
             </Grid>
           </Grid>
         </Stack>
