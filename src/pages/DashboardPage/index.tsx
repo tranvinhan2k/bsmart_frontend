@@ -16,6 +16,7 @@ import { selectProfile } from '~/redux/user/selector';
 import { StudentDashboardNavigationActionData } from '~/routes/member/dashboard/navigation';
 import { studentLMSRoutes } from '~/routes/member/dashboard/routes';
 import DashboardSidebar from './DashboardSidebar';
+import globalStyles from '~/styles';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -40,6 +41,10 @@ export default function DashboardPage() {
 
   const handleChangeHover = (param: boolean) => {
     setHover(param);
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   const handleSetActiveIndex = (idx: number) => {
@@ -161,7 +166,7 @@ export default function DashboardPage() {
           flexGrow: 1,
         }}
       >
-        <DashboardBreadcrumbNavigation />
+        {/* <DashboardBreadcrumbNavigation /> */}
         <Routes>{showDashboardRoutes()}</Routes>
       </Stack>
     </Stack>

@@ -56,6 +56,7 @@ export default function DashboardSidebar({
             background: Color.navy,
             flexDirection: 'row',
             alignItems: 'flex-start',
+            overflow: 'hidden',
           }}
         >
           <Box

@@ -45,10 +45,14 @@ export default function UserCourseItem({
         position: 'relative',
         background: Color.white,
         filter: 'contrast(1)',
+        WebkitFontSmoothing: 'subpixel-antialiased',
+        backfaceVisibility: 'hidden',
         ':hover': {
           cursor: 'pointer',
-          boxShadow: 5,
-          transform: 'scale(1.03)',
+          boxShadow: 10,
+          // transform: 'scale(1.005)',
+          transformOrigin: '100% 0',
+          WebkitFontSmoothing: 'subpixel-antialiased',
         },
       }}
     >

@@ -35,7 +35,7 @@ export default function UpdateSectionForm({ section, onSubmit }: Props) {
           marginBottom: 1,
         }}
       >
-        Cập nhập nội dung học phần
+        Cập nhật
       </Typography>
       <Stack
         sx={{
@@ -58,7 +58,7 @@ export default function UpdateSectionForm({ section, onSubmit }: Props) {
           onClick={hookForm.handleSubmit(onSubmit)}
           variant="contained"
         >
-          Cập nhập học phần
+          Cập nhật
         </Button>
       </Stack>
     </Stack>

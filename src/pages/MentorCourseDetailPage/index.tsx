@@ -29,6 +29,7 @@ import { formatStringToNumber } from '~/utils/number';
 import RequiredEdit from './RequiredEdit';
 import { LoadingWrapper } from '~/HOCs';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
+import ReturnLink from '~/components/atoms/ReturnLink';
 
 export interface MentorDetailCoursePayload {
   code: string;
@@ -257,6 +258,7 @@ export default function MentorCourseDetailPage() {
 
   return (
     <Stack>
+      <ReturnLink />
       <Typography sx={globalStyles.textSubTitle}>Chi tiết khóa học</Typography>
       <Typography sx={globalStyles.textLowSmallLight}>
         Nội dung chi tiết của khóa học

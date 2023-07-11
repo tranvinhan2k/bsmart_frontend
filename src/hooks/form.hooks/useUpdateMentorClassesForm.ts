@@ -27,7 +27,7 @@ export const useUpdateMentorClassesForm = (
 
   const uploadImageMutation = useMutationUploadClassImage();
   const { handleTryCatch: handleUpdateTryCatch } =
-    useTryCatch('cập nhập lớp học');
+    useTryCatch('cập nhật lớp học');
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse

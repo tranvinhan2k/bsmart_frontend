@@ -42,14 +42,16 @@ export default function AddSection({ onAdd }: Props) {
       <Box>
         <Button
           variant="contained"
-          color="secondary"
+          color={open ? 'error' : 'secondary'}
           sx={{
             color: Color.white,
           }}
           onClick={handleTriggerFormCreateSection}
-          startIcon={<Icon name="add" size="small_20" color="white" />}
+          startIcon={
+            <Icon name={open ? 'close' : 'add'} size="small_20" color="white" />
+          }
         >
-          Học phần
+          {open ? 'Hủy' : 'Học phần'}
         </Button>
       </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>

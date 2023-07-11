@@ -18,11 +18,16 @@ import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import Timetable from '../../Timetable';
 import Button from '~/components/atoms/Button';
+import { formatMoney } from '~/utils/money';
+import { ClassStatusKeys } from '~/models/variables';
+import Tag from '~/components/atoms/Tag';
+import { ClassStatusList } from '~/constants';
 
 interface Props {
   id: number;
   code: string;
   startDate: string;
+  status: ClassStatusKeys;
   endDate: string;
   minStudent: number;
   maxStudent: number;
@@ -31,6 +36,7 @@ interface Props {
     slotId: number;
   }[];
   imageUrl: string;
+  price: number;
   onUpdate?: (id: number) => void;
   onDeleteModal?: () => void;
 }
@@ -46,6 +52,7 @@ const texts = {
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
   classInfoTitle: 'Thông tin giờ học',
+  priceLabel: 'Giá tiền',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',
@@ -65,6 +72,7 @@ export default function ClassItem({
   endDate,
   imageUrl,
   maxStudent,
+  price,
   minStudent,
   startDate,
   timetable,
@@ -99,6 +107,11 @@ export default function ClassItem({
     variable: string;
   }[] = [
     {
+      icon: 'price',
+      label: texts.priceLabel,
+      variable: formatMoney(price),
+    },
+    {
       icon: 'date',
       label: texts.startDateLabel,
       variable: formatDate(startDate),
@@ -128,6 +141,7 @@ export default function ClassItem({
         position: 'relative',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        flexGrow: 1,
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
       }}
@@ -164,6 +178,9 @@ export default function ClassItem({
               justifyContent: 'space-around',
             }}
           >
+            <Box>
+              <Tag color="whiteSmoke" title={ClassStatusList[0].label} />
+            </Box>
             <Typography
               sx={{
                 fontFamily: FontFamily.bold,

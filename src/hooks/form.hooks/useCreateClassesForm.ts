@@ -27,7 +27,7 @@ export const useCreateClassesForm = (id: number) => {
   const uploadImageMutation = useMutationUploadClassImage();
   const { handleTryCatch } = useTryCatch('thêm lớp học');
   const { handleTryCatch: handleUpdateTryCatch } =
-    useTryCatch('cập nhập lớp học');
+    useTryCatch('cập nhật lớp học');
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse

@@ -41,12 +41,14 @@ export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
       <Box>
         <Button
           variant="contained"
-          color="secondary"
+          color={open ? 'error' : 'secondary'}
           onClick={handleTriggerFormCreateModule}
           sx={{ color: Color.white }}
-          startIcon={<Icon name="add" size="small_20" color="white" />}
+          startIcon={
+            <Icon name={open ? 'close' : 'add'} size="small_20" color="white" />
+          }
         >
-          <Typography>Thêm bài học</Typography>
+          <Typography>{open ? 'Hủy' : 'Thêm bài học'}</Typography>
         </Button>
       </Box>
       <Collapse in={open}>
