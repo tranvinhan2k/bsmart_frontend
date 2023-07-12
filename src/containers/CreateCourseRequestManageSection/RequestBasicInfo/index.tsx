@@ -1,14 +1,17 @@
 import {
   Avatar,
-  Box,
   Button as MuiButton,
+  Box,
   Grid,
   Stack,
   Typography,
+  IconButton,
 } from '@mui/material';
 import { formatISODateDateToDisplayDate } from '~/utils/date';
+import { getGender } from '~/utils/common';
 import { image } from '~/constants/image';
-import { FontFamily } from '~/assets/variables';
+import Icon from '~/components/atoms/Icon';
+import { handleCopyToClipboard } from '~/utils/commonComp';
 import { SX_BOX_ITEM_BG } from './style';
 import {
   SX_FORM_ITEM_VALUE,
@@ -17,26 +20,36 @@ import {
   SX_PROFILE_TITLE,
   SX_WRAPPER,
 } from '../style';
+import { formatPhoneNumberVi } from '~/utils/phone';
+import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
+import { FontFamily } from '~/assets/variables';
 
 interface BasicInfoProps {
   row: any;
 }
 export default function BasicInfo({ row }: BasicInfoProps) {
-  const tmpTitle = [
-    { id: 0, label: 'Mail', value: 'Mail' },
-    { id: 1, label: 'Chứng minh thư', value: 'Chứng minh thư' },
-    {
-      id: 2,
-      label: 'Ngày sinh',
-      value: 'Ngày sinh',
-    },
-    { id: 3, label: 'Giới tính', value: 'Giới tính' },
-    { id: 4, label: 'SĐT', value: 'SĐT' },
-  ];
-  // const userAvatar =
-  //   row.userImages.find((item: any) => item.type === 'AVATAR')?.url ??
-  //   image.noAvatar;
   const userAvatar = image.noAvatar;
+
+  const idCourse = row.id;
+  const { classesOfCourseWithCourseDetails, isLoading } =
+    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
+
+  const tmpTitle = [
+    {
+      id: -1,
+      label: 'Họ tên',
+      value: 'Lưu Nhật',
+      valueDisplay: 'Lưu Nhật',
+      isCopyable: true,
+    },
+    {
+      id: 0,
+      label: 'Mail',
+      value: 'nhatgv@gmail.com',
+      valueDisplay: 'nhatgv@gmail.com',
+      isCopyable: true,
+    },
+  ];
 
   return (
     <Stack sx={SX_WRAPPER}>
@@ -53,8 +66,9 @@ export default function BasicInfo({ row }: BasicInfoProps) {
             />
           </Box>
           <Stack alignItems="center" mt={2}>
-            <Typography sx={SX_PROFILE_TITLE}>Lưu Quang Nhật</Typography>
-            <Typography sx={SX_PROFILE_TITLE_SUB}>Giáo viên</Typography>
+            <Typography sx={SX_PROFILE_TITLE}>Giáo viên</Typography>
+            {/* <Typography sx={SX_PROFILE_TITLE}>{row.fullName}</Typography>
+            <Typography sx={SX_PROFILE_TITLE_SUB}>Giáo viên</Typography> */}
           </Stack>
         </Stack>
         <Grid
@@ -74,7 +88,22 @@ export default function BasicInfo({ row }: BasicInfoProps) {
                 alignItems="flex-start"
               >
                 <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-                <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
+
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {item.isCopyable && (
+                    <IconButton
+                      size="small"
+                      onClick={() => handleCopyToClipboard(item.value)}
+                    >
+                      <Icon
+                        name="contentCopyIcon"
+                        size="small_20"
+                        color="blue"
+                      />
+                    </IconButton>
+                  )}
+                  {item.valueDisplay}
+                </Typography>
               </Stack>
             </Grid>
           ))}

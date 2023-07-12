@@ -12,7 +12,7 @@ export default function RequestCourseTimetable({
 }: RequestCourseTimetableProps) {
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
-      <Typography sx={SX_FORM_LABEL}>Thời khóa biểu</Typography>
+      <Typography sx={SX_FORM_LABEL}>Danh sách lớp</Typography>
       {row.timeInWeek ? (
         <Timetable data={row.timeInWeek as any} />
       ) : (
