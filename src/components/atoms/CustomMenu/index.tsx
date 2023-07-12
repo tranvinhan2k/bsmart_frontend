@@ -44,7 +44,7 @@ export default function CustomMenu({
           key={index}
           onClick={() => {
             item.onClick();
-            onClose();
+            // onClose();
           }}
         >
           <ListItemIcon>

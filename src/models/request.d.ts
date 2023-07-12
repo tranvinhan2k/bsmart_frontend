@@ -52,7 +52,6 @@ export interface PutCourseRequest {
 
 export interface PostActivityRequest {
   name: string;
-
   visible?: boolean;
   parentActivityId?: number;
   courseId?: number;

@@ -22,6 +22,11 @@ import {
   MentorAttendanceListPage,
   MentorQuizSettingsPage,
 } from '~/routes/components';
+import MentorClassInformationPage from '../MentorClassInformationPage';
+import MentorTakeAttendancePage from '../MentorTakeAttendancePage';
+import MentorTakeAttendance from '~/components/molecules/AttendanceManagement/MentorTakeAttendance';
+import MentorStudentListPage from '../MentorStudentListPage';
+import MentorSchedulePage from '../MentorSchedulePage';
 
 export interface DetailMemberClassPayload {
   code: string;
@@ -59,21 +64,21 @@ export default function MentorClassDetailPage() {
       icon: 'class',
       link: 'information',
       name: 'Thông tin lớp học',
-      component: <div>Thong Tin Khoa hoc</div>,
+      component: <MentorClassInformationPage />,
     },
     {
       id: 1,
       icon: 'person',
       link: 'students',
       name: 'Danh sách học sinh',
-      component: <MentorAttendanceListPage />,
+      component: <MentorStudentListPage />,
     },
     {
       id: 1,
       icon: 'date',
       link: 'schedule',
       name: 'Lịch làm việc',
-      component: <MentorAttendanceListPage />,
+      component: <MentorSchedulePage />,
     },
     {
       id: 1,
