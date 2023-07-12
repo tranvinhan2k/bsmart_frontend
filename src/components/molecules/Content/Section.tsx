@@ -6,12 +6,20 @@ import {
   Divider,
 } from '@mui/material';
 import { useState } from 'react';
-import { SectionPayload } from '~/models/section';
 import Module from './Module';
 import Icon from '~/components/atoms/Icon';
 import { FontFamily, FontSize } from '~/assets/variables';
+import { ActivityPayload } from '~/models/type';
 
-export default function Section({ id, modules, name }: SectionPayload) {
+export default function Section({
+  id,
+  subActivities,
+  name,
+}: {
+  id: number;
+  name: string;
+  subActivities: ActivityPayload[];
+}) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -51,7 +59,7 @@ export default function Section({ id, modules, name }: SectionPayload) {
 
         <Collapse in={open}>
           <Stack marginLeft={2} marginY={2}>
-            {modules.map((module) => (
+            {subActivities.map((module) => (
               <Module key={module.id} id={module.id} name={module.name} />
             ))}
           </Stack>

@@ -10,9 +10,10 @@ import { MetricSize, Color, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import UpdateModuleForm from '../UpdateModuleForm';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { ActivityPayload } from '~/models/type';
 
 interface Props {
-  module: any;
+  module: ActivityPayload;
   onUpdate: () => void;
   onDelete: () => void;
 }

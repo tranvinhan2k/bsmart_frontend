@@ -1,13 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { CartItem } from '~/api/cart';
-import { PagingRequestPayload } from '~/models';
+import { PagingFilterRequest } from '~/models';
 import { SubCoursePayload } from '~/models/subCourse';
 import { CoursePayload } from '~/models/type';
 import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
 
 export type CourseStateType = {
-  filterParams: PagingRequestPayload;
+  filterParams: PagingFilterRequest;
   checkOutCourses: CartItem[] | SubCoursePayload | null;
   totalAmount: number;
   mentorCourse: MentorDetailCoursePayload;

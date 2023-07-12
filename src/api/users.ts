@@ -6,7 +6,7 @@ import { ProfileImgType } from '~/constants/profile';
 import { RequestRole, Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
-import { PagingRequestPayload } from '~/models';
+import { PagingFilterRequest } from '~/models';
 import { ProfilePayload } from '~/models/type';
 
 const url = `/users`;
@@ -173,7 +173,7 @@ const accountApi = {
   async getMentorData(id: string): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
   },
-  async getMentorClasses(data: PagingRequestPayload): Promise<any> {
+  async getMentorClasses(data: PagingFilterRequest): Promise<any> {
     return axiosClient.get(`${url}/classes`, {
       params: data,
       paramsSerializer: { indexes: null },

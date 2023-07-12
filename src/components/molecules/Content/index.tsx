@@ -1,9 +1,9 @@
 import { Stack, Typography } from '@mui/material';
-import { SectionPayload } from '~/models/section';
 import Section from './Section';
+import { ActivityPayload } from '~/models/type';
 
 interface Props {
-  sections: SectionPayload[];
+  sections: ActivityPayload[];
 }
 
 export default function Content({ sections }: Props) {
@@ -14,7 +14,7 @@ export default function Content({ sections }: Props) {
           <Section
             key={section.id}
             id={section.id}
-            modules={section.modules}
+            subActivities={section.subActivities}
             name={section.name}
           />
         ))

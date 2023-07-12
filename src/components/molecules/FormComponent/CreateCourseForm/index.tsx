@@ -8,11 +8,11 @@ import PublicCourseTab from './PublicCourseTab';
 import PrivateCourseTab from './PrivateCourseTab';
 import { useCreateCourseForm } from '~/hooks';
 import { Color, MetricSize } from '~/assets/variables';
-import { PostCoursePayload } from '~/models/request';
+import { PostCourseRequest } from '~/models/request';
 
 export interface CreateCourseFormProps {
   // selectedCourse: any;
-  onChangeSelectedCourse: (param: PostCoursePayload) => void;
+  onChangeSelectedCourse: (param: PostCourseRequest) => void;
   // onNextStep: () => void;
 }
 

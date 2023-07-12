@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { PagingRequestPayload } from '~/models';
+import { PagingFilterRequest } from '~/models';
 
 export type MentorStateType = {
-  filterParams: PagingRequestPayload;
+  filterParams: PagingFilterRequest;
 };
 
 const initialState: MentorStateType = {

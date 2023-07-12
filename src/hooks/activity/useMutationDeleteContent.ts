@@ -4,7 +4,7 @@ import { useCustomMutation } from '../useCustomMutation';
 export const useMutationDeleteContent = () => {
   const mutation = useCustomMutation(
     ['delete_content'],
-    activityApi.deleteCourseContent
+    activityApi.deleteContent
   );
   return mutation;
 };
