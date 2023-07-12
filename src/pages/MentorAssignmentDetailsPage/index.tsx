@@ -1,31 +1,7 @@
-import { useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button as MuiButton,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useEffect } from 'react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ActivityTypeCode } from '~/models/activity';
-import { defaultValueUpdateAssignment } from '~/form/defaultValues';
-import { MentorNavigationActionData } from '~/routes/navigators';
-import { UpdateAssignmentFormDataPayload } from '~/models/form';
-import { UpdateAssignmentPayload } from '~/api/assignments';
+import { useParams } from 'react-router-dom';
+import { Box, Button as MuiButton, Stack, Typography } from '@mui/material';
 import { useManageActivity } from '~/hooks/useManageActivity';
-import { useMutationCreateAssignment } from '~/hooks/useManageAssignment';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaUpdateAssignment } from '~/form/validation';
-import Button from '~/components/atoms/Button';
-import FormInput from '~/components/atoms/FormInput';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import toast from '~/utils/toast';
 import {
   SX_WRAPPER,
   SX_HEADER_TITLE,
@@ -33,11 +9,11 @@ import {
   SX_FORM_ITEM_VALUE,
 } from './style';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
+import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorAssignmentDetailsPage() {
   const { id } = useParams();
-  const idActivity: number = id ? +id : 0;
-  const { activity } = useManageActivity({ id: idActivity });
+  const { activity } = useManageActivity(formatStringToNumber(id));
 
   interface DisplayTextListProps {
     id: number;
@@ -46,61 +22,61 @@ export default function MentorAssignmentDetailsPage() {
     icon: IconName;
   }
 
-  const displayTextList1: DisplayTextListProps[] = activity
-    ? [
-        {
-          id: 0,
-          label: 'Ngày tạo',
-          value: formatISODateStringToDisplayDateTime(activity.created),
-          icon: 'calendarMonth',
-        },
-        {
-          id: 2,
-          label: 'Mô tả',
-          value: activity.activityDetail?.description,
-          icon: 'description',
-        },
-      ]
-    : [];
+  // const displayTextList1: DisplayTextListProps[] = activity
+  //   ? [
+  //       {
+  //         id: 0,
+  //         label: 'Ngày tạo',
+  //         value: formatISODateStringToDisplayDateTime(activity.created),
+  //         icon: 'calendarMonth',
+  //       },
+  //       {
+  //         id: 2,
+  //         label: 'Mô tả',
+  //         value: activity.activityDetail?.description,
+  //         icon: 'description',
+  //       },
+  //     ]
+  //   : [];
 
-  const displayTextList2: DisplayTextListProps[] = activity
-    ? [
-        {
-          id: 0,
-          label: 'Ngày bắt đầu',
-          value: formatISODateStringToDisplayDateTime(
-            activity.activityDetail?.startDate
-          ),
-          icon: 'calendarMonth',
-        },
-        {
-          id: 1,
-          label: 'Ngày kết thúc',
-          value: formatISODateStringToDisplayDateTime(
-            activity.activityDetail?.endDate
-          ),
-          icon: 'calendarMonth',
-        },
-        {
-          id: 2,
-          label: 'editBeForSubmitMin',
-          value: activity.activityDetail?.editBeForSubmitMin,
-          icon: 'groups',
-        },
-        {
-          id: 3,
-          label: 'Số file tối đa nộp',
-          value: activity.activityDetail?.maxFileSubmit,
-          icon: 'groups',
-        },
-        {
-          id: 4,
-          label: 'Dung lượng tối đa mỗi file (MB)',
-          value: activity.activityDetail?.maxFileSize,
-          icon: 'groups',
-        },
-      ]
-    : [];
+  // const displayTextList2: DisplayTextListProps[] = activity
+  //   ? [
+  //       {
+  //         id: 0,
+  //         label: 'Ngày bắt đầu',
+  //         value: formatISODateStringToDisplayDateTime(
+  //           activity.activityDetail?.startDate
+  //         ),
+  //         icon: 'calendarMonth',
+  //       },
+  //       {
+  //         id: 1,
+  //         label: 'Ngày kết thúc',
+  //         value: formatISODateStringToDisplayDateTime(
+  //           activity.activityDetail?.endDate
+  //         ),
+  //         icon: 'calendarMonth',
+  //       },
+  //       {
+  //         id: 2,
+  //         label: 'editBeForSubmitMin',
+  //         value: activity.activityDetail?.editBeForSubmitMin,
+  //         icon: 'groups',
+  //       },
+  //       {
+  //         id: 3,
+  //         label: 'Số file tối đa nộp',
+  //         value: activity.activityDetail?.maxFileSubmit,
+  //         icon: 'groups',
+  //       },
+  //       {
+  //         id: 4,
+  //         label: 'Dung lượng tối đa mỗi file (MB)',
+  //         value: activity.activityDetail?.maxFileSize,
+  //         icon: 'groups',
+  //       },
+  //     ]
+  //   : [];
   return (
     <Stack>
       <Stack
@@ -116,7 +92,7 @@ export default function MentorAssignmentDetailsPage() {
           </Typography>
         </Box>
         <Box mt={4} mb={1} px={2}>
-          {displayTextList1.map((item) => (
+          {/* {displayTextList1.map((item) => (
             <Stack
               direction="row"
               justifyContent="center"
@@ -129,10 +105,10 @@ export default function MentorAssignmentDetailsPage() {
               <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
               <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
             </Stack>
-          ))}
+          ))} */}
         </Box>
         <Box mt={4} mb={1} px={2}>
-          {displayTextList2.map((item) => (
+          {/* {displayTextList2.map((item) => (
             <Stack
               direction="row"
               justifyContent="center"
@@ -145,7 +121,7 @@ export default function MentorAssignmentDetailsPage() {
               <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
               <Typography sx={SX_FORM_ITEM_VALUE}>{item.value}</Typography>
             </Stack>
-          ))}
+          ))} */}
         </Box>
         <Stack
           direction="row"

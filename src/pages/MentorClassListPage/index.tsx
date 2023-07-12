@@ -13,7 +13,7 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { PagingRequestPayload } from '~/models';
+import { PagingFilterRequest } from '~/models';
 import { ClassMenuItemPayload } from '~/models/type';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
@@ -65,7 +65,7 @@ export default function MentorClassListPage() {
   ];
 
   // useState
-  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
+  const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     q: '',
     page: 0,
     size: 9,

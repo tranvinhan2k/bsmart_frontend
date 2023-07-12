@@ -10,10 +10,10 @@ import {
   ClassUpdateClassSectionPayload,
 } from '~/models/class';
 import { ClassesOfCourseWithCourseDetails } from '~/models/courses';
-import { PagingRequestPayload, PostClassPayload } from '~/models/request';
+import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import { ResponseMentorCoursePayload } from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
-import { formatOptionPayload, formatToLocalContent } from '~/utils/common';
+import { formatOptionPayload } from '~/utils/common';
 
 const url = '/classes';
 
@@ -39,8 +39,7 @@ const classApi = {
         totalClass: 0,
       },
       classes: response.classes || [],
-      content:
-        response.sections?.map((item: any) => formatToLocalContent(item)) || [],
+      content: response.sections,
     };
     return result;
   },
@@ -49,7 +48,7 @@ const classApi = {
     filterParam,
   }: {
     id: number;
-    filterParam: PagingRequestPayload;
+    filterParam: PagingFilterRequest;
   }): Promise<PagingFilterPayload<DetailCourseClassPayload>> {
     return axiosClient.get(`${url}/course/${id}/mentor`, {
       params: filterParam,
@@ -61,7 +60,7 @@ const classApi = {
     params,
   }: {
     id: number;
-    params: PagingRequestPayload;
+    params: PagingFilterRequest;
   }): Promise<PagingFilterPayload<DetailCourseClassPayload>> {
     const response = await axiosClient.get(`${url}/course/${id}/mentor`, {
       params,
@@ -89,11 +88,11 @@ const classApi = {
     return { ...response, items: result };
   },
   // post
-  addClassForCourse({ id, param }: { id: number; param: PostClassPayload }) {
+  addClassForCourse({ id, param }: { id: number; param: PostClassRequest }) {
     return axiosClient.post(`${url}/course/${id}`, param);
   },
   // put
-  updateClassForCourse({ id, param }: { id: number; param: PostClassPayload }) {
+  updateClassForCourse({ id, param }: { id: number; param: PostClassRequest }) {
     return axiosClient.put(`${url}/course/${id}`, param);
   },
 

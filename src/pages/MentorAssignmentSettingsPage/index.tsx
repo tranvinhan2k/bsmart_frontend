@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ActivityTypeCode } from '~/models/activity';
 import { defaultValueUpdateAssignment } from '~/form/defaultValues';
 import { MentorNavigationActionData } from '~/routes/navigators';
 import { UpdateAssignmentFormDataPayload } from '~/models/form';
@@ -24,8 +23,8 @@ import { validationSchemaUpdateAssignment } from '~/form/validation';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
-import toast from '~/utils/toast';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
+import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorUpdateAssignmentPage() {
   const resolverUpdateAssignment = useYupValidationResolver(
@@ -38,32 +37,31 @@ export default function MentorUpdateAssignmentPage() {
 
   const { mutateAsync: mutateUpdateAssignment } = useMutationCreateAssignment();
   const { id } = useParams();
-  const idActivity: number = id ? +id : 0;
-  const { activity } = useManageActivity({ id: idActivity });
+  const { activity } = useManageActivity(formatStringToNumber(id));
 
   useEffect(() => {
     if (activity) {
       const defaults = defaultValueUpdateAssignment;
-      switch (activity.type.code) {
-        case ActivityTypeCode.ASSIGNMENT:
-          defaults.name = activity.name;
-          // defaults.isVisible = activity.isVisible;
-          // defaults.classSectionId = activity.classSectionId;
-          defaults.description = activity.activityDetail.description;
-          defaults.startDate = activity.activityDetail.startDate;
-          defaults.endDate = activity.activityDetail.endDate;
-          defaults.editBeForSubmitMin =
-            activity.activityDetail.editBeForSubmitMin;
-          defaults.maxFileSubmit = activity.activityDetail.maxFileSubmit;
-          defaults.maxFileSize = activity.activityDetail.maxFileSize;
-          // defaults.attachFiles = activity.activityDetail.assignmentFiles;
-          defaults.isOverWriteAttachFile = true;
-          reset(defaults);
-          break;
+      // switch (activity.type.code) {
+      //   case ActivityTypeCode.ASSIGNMENT:
+      //     defaults.name = activity.name;
+      //     // defaults.isVisible = activity.isVisible;
+      //     // defaults.classSectionId = activity.classSectionId;
+      //     defaults.description = activity.activityDetail.description;
+      //     defaults.startDate = activity.activityDetail.startDate;
+      //     defaults.endDate = activity.activityDetail.endDate;
+      //     defaults.editBeForSubmitMin =
+      //       activity.activityDetail.editBeForSubmitMin;
+      //     defaults.maxFileSubmit = activity.activityDetail.maxFileSubmit;
+      //     defaults.maxFileSize = activity.activityDetail.maxFileSize;
+      //     // defaults.attachFiles = activity.activityDetail.assignmentFiles;
+      //     defaults.isOverWriteAttachFile = true;
+      //     reset(defaults);
+      //     break;
 
-        default:
-          break;
-      }
+      //   default:
+      //     break;
+      // }
     }
   }, [activity, reset]);
 

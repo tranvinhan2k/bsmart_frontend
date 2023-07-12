@@ -14,7 +14,7 @@ import {
 import Button from '~/components/atoms/Button';
 import { Color } from '~/assets/variables';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
-import { PutCoursePayload } from '~/models';
+import { PutCourseRequest } from '~/models';
 import { handleConsoleError } from '~/utils/common';
 import {
   MentorDashboardNavigationActionLink,
@@ -40,7 +40,7 @@ export default function EditCourse({ id, course }: Props) {
     setOpen(!open);
   };
 
-  const handleUpdateCourse = async (param: PutCoursePayload) => {
+  const handleUpdateCourse = async (param: PutCourseRequest) => {
     await handleTryCatch(async () => mutateAsync({ id, param }));
   };
 

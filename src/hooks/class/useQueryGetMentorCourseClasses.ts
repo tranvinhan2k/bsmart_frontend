@@ -1,10 +1,10 @@
 import classApi from '~/api/class';
 import { useCustomQuery } from '../useCustomQuery';
-import { PagingRequestPayload } from '~/models';
+import { PagingFilterRequest } from '~/models';
 
 export const useQueryGetMentorCourseClasses = (props: {
   id: number;
-  params: PagingRequestPayload;
+  params: PagingFilterRequest;
 }) => {
   return useCustomQuery(['mentor_course_classes'], () =>
     classApi.getMentorCourseCLasses(props)

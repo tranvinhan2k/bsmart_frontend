@@ -1,10 +1,8 @@
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { OptionPayload } from './common';
-import { SectionPayload } from './section';
 import {
   AccountStatusKeys,
+  ActivityKeys,
   CourseStatusKeys,
-  CourseTypeKeys,
   GenderKeys,
   ImageKeys,
   LevelKeys,
@@ -120,4 +118,22 @@ export interface ClassMenuItemPayload {
   status: ClassStatusKeys;
 }
 
-export type ContentPayload = SectionPayload[];
+export type ContentPayload = ActivityPayload[];
+
+export interface ActivityPayload {
+  id: number;
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  name: string;
+  type: ActivityKeys;
+  parentActivityId: number;
+  subActivities: ActivityPayload[];
+  visible: boolean;
+}
+
+export interface ActivityDetailPayload
+  extends Omit<ActivityPayload, 'subActivities'> {
+  detail: any;
+}

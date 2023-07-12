@@ -15,7 +15,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { useEffectScrollToTop, useQueryGetMentorCourses } from '~/hooks';
-import { PagingRequestPayload } from '~/models';
+import { PagingFilterRequest } from '~/models';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
 import toast from '~/utils/toast';
@@ -33,7 +33,7 @@ export default function MentorCourseListPage() {
   const profile = useSelector(selectProfile);
 
   // useState
-  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
+  const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     page: 0,
     size: 24,
     sort: undefined,

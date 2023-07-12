@@ -3,13 +3,13 @@ import { Box, Stack, Typography } from '@mui/material';
 import { image } from '~/constants/image';
 import { Color, MetricSize } from '~/assets/variables';
 import AddModule from '../AddModule';
-import { SectionPayload } from '~/models/section';
 import { useTimeOut, useTryCatch } from '~/hooks';
 import Section from '../Section.ts';
 import Module from '../Module';
+import { ActivityPayload } from '~/models/type';
 
 interface Props {
-  content: SectionPayload[] | undefined;
+  content: ActivityPayload[] | undefined;
   onAddNew: (id: number, name: string) => void;
 }
 
@@ -80,7 +80,7 @@ export default function Sections({ content, onAddNew }: Props) {
             onUpdate={handleUpdateSection}
           />
           <Stack sx={{ marginTop: 1, paddingY: 1 }}>
-            {section?.modules.map((module, idx) => (
+            {section?.subActivities.map((module, idx) => (
               <Module
                 key={idx}
                 module={module}
