@@ -8,10 +8,10 @@ export * from './useMutationLogin';
 export * from './useMutationProfile';
 export * from './useMutationAddCourseToCart';
 
-export * from './content/useMutationAddContent';
-export * from './content/useQueryGetCourseContent';
-export * from './content/useMutationDeleteContent';
-export * from './content/useMutationUpdateContent';
+export * from './activity/useMutationAddSection';
+export * from './activity/useQueryGetCourseContent';
+export * from './activity/useMutationDeleteContent';
+export * from './activity/useMutationUpdateContent';
 
 export * from './course/useQueryGetMentorCourses';
 export * from './course/useMutationUpdateCourse';

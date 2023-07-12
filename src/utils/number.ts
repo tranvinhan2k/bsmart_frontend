@@ -7,5 +7,6 @@ export const randomIntFromInterval = (min: number, max: number) => {
 };
 
 export const formatStringToNumber = (string: string | undefined) => {
+  if (!string) return 0;
   return parseInt(`${string}`, 10);
 };

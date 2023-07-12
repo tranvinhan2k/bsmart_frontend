@@ -4,13 +4,13 @@ import { validationSchemaCreateCourse } from '~/form/validation';
 import { defaultValueCreateCourse } from '~/form/defaultValues';
 import { OptionPayload } from '~/models';
 // import { useQueryGetAllPublicCourses } from '../useQueryGetAllPublicCourses';
-import { PostCoursePayload } from '~/models/request';
+import { PostCourseRequest } from '~/models/request';
 import { useGetFilteredSubjectAndCategory } from '../course/useGetFilteredSubjectAndCategory';
 import { CREATE_COURSE_FIELDS } from '~/form/schema';
 import { mockLevelData } from '~/constants';
 
 export const useCreateCourseForm = (
-  onChangeCourse: (param: PostCoursePayload) => void
+  onChangeCourse: (param: PostCourseRequest) => void
 ) => {
   // const { publicCourses } = useQueryGetAllPublicCourses();
 
@@ -36,7 +36,7 @@ export const useCreateCourseForm = (
   }) {
     console.log(data);
 
-    const params: PostCoursePayload = {
+    const params: PostCourseRequest = {
       level: data.level,
       name: data?.name || '',
       subjectId: data?.subjectId.id,

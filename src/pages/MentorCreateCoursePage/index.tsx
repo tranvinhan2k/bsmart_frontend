@@ -17,7 +17,7 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { PostCoursePayload } from '~/models/request';
+import { PostCourseRequest } from '~/models/request';
 
 export interface SelectedCoursePayload {
   id?: number;
@@ -34,7 +34,7 @@ export default function MentorCreateCoursePage() {
 
   const { handleTryCatch } = useTryCatch('tạo khóa học');
 
-  const handleCreateCourse = async (paramCourse: PostCoursePayload) => {
+  const handleCreateCourse = async (paramCourse: PostCourseRequest) => {
     const response: number = await handleTryCatch(async () =>
       mutationResult.mutateAsync(paramCourse)
     );

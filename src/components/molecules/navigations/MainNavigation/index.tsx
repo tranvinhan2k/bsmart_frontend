@@ -15,7 +15,7 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import {
   ActionPayload,
   ContractPayload,
-  PagingRequestPayload,
+  PagingFilterRequest,
   SocialPayload,
 } from '~/models';
 
@@ -50,7 +50,7 @@ interface NavigationProps {
   isOpenProfileDrawer: boolean;
   cart: ResponseCartItem | undefined;
   role: Role | null;
-  filterParams: PagingRequestPayload;
+  filterParams: PagingFilterRequest;
   pathName: string;
   pages: ActionPayload[];
   socials: SocialPayload[];

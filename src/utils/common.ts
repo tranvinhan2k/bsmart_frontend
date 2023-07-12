@@ -1,6 +1,5 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
 import { OptionPayload } from '~/models';
-import { SectionPayload } from '~/models/section';
 
 export function scrollToTop() {
   window.scrollTo({
@@ -89,22 +88,5 @@ export function formatOptionPayload(params: {
     label: params.name,
     value: params.code,
     categoryIds: params.categoryIds,
-  };
-}
-
-export function formatToLocalContent(params: {
-  id: number;
-  name: string;
-  lessons: {
-    description: string;
-  }[];
-}): SectionPayload {
-  return {
-    id: params.id,
-    name: params.name,
-    modules: (params.lessons as any[]).map((subItem) => ({
-      id: subItem.id,
-      name: subItem.description,
-    })),
   };
 }

@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Stack } from '@mui/material';
 import { PostActivityCoursePayload } from '~/models';
-import { ContentPayload } from '~/models/type';
 import {
-  useMutationAddContent,
+  useMutationAddSection,
   useMutationDeleteContent,
   useMutationUpdateContent,
   useQueryGetCourseContent,
@@ -12,9 +11,6 @@ import {
 import Sections from '../Sections';
 import AddSection from '../AddSection';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
-import Button from '~/components/atoms/Button';
-import ConfirmDialog from '~/components/atoms/ConfirmDialog';
-import { Color } from '~/assets/variables';
 
 interface Props {
   id: number;
@@ -22,7 +18,13 @@ interface Props {
 
 export default function Content({ id }: Props) {
   const [open, setOpen] = useState(false);
-  const addCourseContent = useMutationAddContent();
+  const addCourseContent = useMutationAddSection({
+    authorizeClasses: [],
+    courseId: 0,
+    name: '',
+    parentActivityId: 0,
+    visible: false,
+  });
   const deleteCourseContent = useMutationDeleteContent();
   const updateCourseContent = useMutationUpdateContent();
   const addContentSection = useTryCatch('thêm học phần');
@@ -49,26 +51,7 @@ export default function Content({ id }: Props) {
   };
 
   const handleAddNewModule = async (sectionId: number, name: string) => {
-    const section: any = content?.find((item) => item.id === sectionId);
-    await updateContent.handleTryCatch(async () =>
-      updateCourseContent.mutateAsync({
-        id,
-        params: {
-          id: section.id,
-          // name: section.name,
-          lessons: [
-            ...section.modules.map((item: any) => ({
-              id: item.id,
-              description: item.name,
-            })),
-            {
-              id: 0,
-              description: name,
-            },
-          ],
-        },
-      })
-    );
+    const section = content?.find((item) => item.id === sectionId);
     await refetch();
   };
 

@@ -9,7 +9,7 @@ import { OptionPayload } from '~/models';
 import toast from '~/utils/toast';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { useMutationUploadClassImage } from '../image/useMutationUploadClassImage';
-import { PostClassPayload } from '~/models/request';
+import { PostClassRequest } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
 import { useCreateCourseClass } from '../class/useCreateCourseClass';
 import { useUpdateClass } from '../class/useUpdateClass';
@@ -138,7 +138,7 @@ export const useCreateClassesForm = (id: number) => {
       const imageId = await uploadImage(data.imageId);
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
-        const param: PostClassPayload = {
+        const param: PostClassRequest = {
           endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,

@@ -6,8 +6,8 @@ import globalStyles from '~/styles';
 import CarouselCourse from '../CarouselCourse';
 import Content from '../Content';
 import Classes from '../list/Classes';
-import { SectionPayload } from '~/models/section';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { ActivityPayload } from '~/models/type';
 
 interface Props {
   images: string[];
@@ -16,7 +16,7 @@ interface Props {
   mentorDescription: string;
   courseName: string;
   courseDescription: string;
-  sections: SectionPayload[];
+  sections: ActivityPayload[];
   classes: DetailCourseClassPayload[];
 }
 

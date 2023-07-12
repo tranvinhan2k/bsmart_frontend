@@ -7,7 +7,7 @@ import { defaultValueCreateSubCourse } from '~/form/defaultValues';
 import { OptionPayload } from '~/models';
 import toast from '~/utils/toast';
 import { useMutationUploadClassImage } from '../image/useMutationUploadClassImage';
-import { PostClassPayload } from '~/models/request';
+import { PostClassRequest } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
 import { useUpdateClass } from '../class/useUpdateClass';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
@@ -148,7 +148,7 @@ export const useUpdateMentorClassesForm = (
       const imageId = await uploadImage(data.imageId);
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
-        const param: PostClassPayload = {
+        const param: PostClassRequest = {
           endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,
