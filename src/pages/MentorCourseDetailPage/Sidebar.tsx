@@ -21,7 +21,7 @@ export default function Sidebar({ status }: Props) {
             isActive={pathname.includes(item.link)}
             link={item.link}
             name={item.name}
-            isHide={item.classStatus !== status || item.classStatus === 'ALL'}
+            isHide={item.classStatus !== status && item.classStatus !== 'ALL'}
           />
         );
       })}
