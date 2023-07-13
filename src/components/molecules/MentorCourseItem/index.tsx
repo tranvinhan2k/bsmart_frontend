@@ -24,6 +24,17 @@ export default function MentorCourseItem({
     courseTeacherName: [''],
     subjectName: '',
     totalClass: 0,
+    category: {
+      id: 0,
+      label: '',
+      value: '',
+    },
+    courseCode: '',
+    subject: {
+      id: 0,
+      label: '',
+      value: '',
+    },
   },
 }: MentorCourseItemProps) {
   const navigate = useNavigate();

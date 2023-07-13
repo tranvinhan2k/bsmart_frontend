@@ -87,7 +87,13 @@ const classApi = {
     return { ...response, items: result };
   },
   // post
-  addClassForCourse({ id, param }: { id: number; param: PostClassRequest }) {
+  addClassForCourse({
+    id,
+    param,
+  }: {
+    id: number;
+    param: PostClassRequest;
+  }): Promise<number> {
     return axiosClient.post(`${url}/course/${id}`, param);
   },
   // put

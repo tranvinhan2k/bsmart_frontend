@@ -12,6 +12,7 @@ import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
 import { ActivityPayload, CourseMenuItemPayload } from '~/models/type';
 import { GetAllActivitiesResponse } from '~/models/response';
+import { formatOptionPayload } from '~/utils/common';
 // Define the request payload for fetching courses
 
 export interface ResponseMemberCoursePayload {
@@ -167,7 +168,6 @@ const coursesApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
-    // TODO : category sang object thi` chuyen ve object
     const result: CourseMenuItemPayload[] = (response.items as any[]).map(
       (item: any) => ({
         id: item.id,
@@ -181,6 +181,8 @@ const coursesApi = {
         courseName: item.courseName,
         level: item.level,
         totalClass: item.totalClass,
+        category: formatOptionPayload(item.categoryResponse),
+        subject: formatOptionPayload(item.subjectResponse),
       })
     );
     return { ...response, items: result };
@@ -194,7 +196,7 @@ const coursesApi = {
     });
 
     const result: CourseMenuItemPayload[] = (response.items as any[]).map(
-      (item: any) => ({
+      (item) => ({
         id: item.id,
         imageAlt: item.images?.[0]?.name,
         imageUrl: item.images?.[0]?.url,
@@ -206,6 +208,8 @@ const coursesApi = {
         courseName: item.courseName,
         level: item.level,
         totalClass: item.totalClass,
+        category: formatOptionPayload(item.categoryResponse),
+        subject: formatOptionPayload(item.subjectResponse),
       })
     );
 
@@ -217,6 +221,10 @@ const coursesApi = {
     );
     const result: ActivityPayload[] = handleResponseGetActivities(response);
     return result;
+  },
+  // post
+  async createCourse(params: PostCourseRequest): Promise<number> {
+    return axiosClient.post(url, params);
   },
   // put
   async updateCourse({ id, param }: { id: number; param: PutCourseRequest }) {
@@ -251,12 +259,7 @@ const coursesApi = {
       await axiosClient.get(`${url}/${id}/sub-courses`);
     return response;
   },
-  async createCourse(params: PostCourseRequest): Promise<any> {
-    console.log('params', params);
 
-    const response: any = await axiosClient.post(url, params);
-    return response;
-  },
   // TODO: tạm thời đóng chức năng public course, có thể mở lại
   // async createPublicCourse(params: PostCourseRequest): Promise<any> {
   //   const { id, ...newParams } = params;

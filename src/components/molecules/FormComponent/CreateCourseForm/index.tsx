@@ -1,10 +1,6 @@
-import { useState } from 'react';
-
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import Button from '~/components/atoms/Button';
 
-import CustomTab from '~/components/atoms/CustomTab';
-import PublicCourseTab from './PublicCourseTab';
 import PrivateCourseTab from './PrivateCourseTab';
 import { useCreateCourseForm } from '~/hooks';
 import { Color, MetricSize } from '~/assets/variables';

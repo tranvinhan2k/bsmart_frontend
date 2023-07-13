@@ -61,3 +61,13 @@ export interface PostSubmitActivityRequest {
   submittedFiles: string[];
   note: string;
 }
+
+export interface PostTimetableRequest {
+  startDate: string;
+  endDate: string;
+  numberOfSlot: number;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+}

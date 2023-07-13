@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PickersDay, StaticDatePicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { useDispatchGetAllDayOfWeeks } from '~/hooks';
@@ -9,10 +9,7 @@ import globalStyles from '~/styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import DayOfWeekCell from './DayOfWeekCell';
 
-function getDaysOfMonth(
-  monthIndex: number,
-  data: TimeSlotPayload[]
-): ConfigTimeSlotPayload[] {
+function getDaysOfMonth(monthIndex: number): ConfigTimeSlotPayload[] {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
 
@@ -36,25 +33,17 @@ function getDaysOfMonth(
   ) {
     const dayOfMonth = date.getDate();
     const isCurrentMonth = date >= firstDayOfMonth && date <= lastDayOfMonth;
-    const formattedDate = date.toLocaleDateString('vi-VI', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-    let slots: OptionPayload[] = [];
-    data.map((item) => {
-      if (item.date.getTime() === date.getTime()) {
-        slots = item.slots;
-      }
-      return null;
-    });
 
     days.push({
       id: dayOfMonth,
       data: date,
       label: `${date.getDate()}`,
       isCurrentMonth,
-      slots,
+      date: {
+        d: date.getDate(),
+        m: date.getMonth(),
+        y: date.getFullYear(),
+      },
     });
   }
 
@@ -72,7 +61,11 @@ interface ConfigTimeSlotPayload {
   data: Date;
   label: string;
   isCurrentMonth: boolean;
-  slots: OptionPayload[];
+  date: {
+    d: number;
+    m: number;
+    y: number;
+  };
 }
 
 interface Props {
@@ -81,21 +74,18 @@ interface Props {
 
 export default function MonthSchedule({ data }: Props) {
   const initMonth: ConfigTimeSlotPayload[] = getDaysOfMonth(
-    new Date().getMonth(),
-    data
+    new Date().getMonth()
   );
 
   const { dayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const [dayOfMonths, setDayOfMonths] =
     useState<ConfigTimeSlotPayload[]>(initMonth);
-  const [selectedDay, setSelectedDay] = useState<Dayjs | null>(
-    dayjs('2023-09-17')
-  );
+  const [selectedDay, setSelectedDay] = useState<Dayjs | null>(dayjs());
 
   const handleChangeSelectedDay = (value: Dayjs | null) => {
     if (value) {
       setSelectedDay(value);
-      const params = getDaysOfMonth(value.month(), data);
+      const params = getDaysOfMonth(value.month());
       setDayOfMonths(params);
     }
   };
@@ -104,18 +94,18 @@ export default function MonthSchedule({ data }: Props) {
     let result = false;
     data.map((item) => {
       if (
-        day.diff(item.date, 'date') === 0 &&
+        day.get('date') === item.date.getDate() &&
         day.diff(item.date, 'month') === 0 &&
         day.diff(item.date, 'year') === 0
       ) {
-        console.log(day);
-
         result = true;
       }
       return false;
     });
     return result;
   };
+
+  console.log(data);
 
   if (!data) return null;
 
@@ -170,16 +160,30 @@ export default function MonthSchedule({ data }: Props) {
             }}
           >
             {dayOfMonths.map((item, index) => {
-              const isTimeSlot = item.slots.length !== 0;
+              let slots: OptionPayload[] = [];
+
+              data.map((timeSlot) => {
+                if (
+                  item.date.d === timeSlot.date.getDate() &&
+                  item.date.m === timeSlot.date.getMonth() &&
+                  item.date.y === timeSlot.date.getFullYear()
+                ) {
+                  slots = timeSlot.slots;
+                }
+                return null;
+              });
+
+              const isTimeSlot = slots?.length !== 0;
+
               return (
                 <Stack
                   sx={{
                     ...styles.view3,
                     // eslint-disable-next-line no-nested-ternary
-                    background: isTimeSlot
-                      ? `${Color.tertiary}22`
-                      : item.isCurrentMonth
-                      ? Color.white
+                    background: item.isCurrentMonth
+                      ? isTimeSlot
+                        ? `${Color.tertiary}22`
+                        : Color.white
                       : Color.white2,
                   }}
                   key={index}
@@ -204,39 +208,40 @@ export default function MonthSchedule({ data }: Props) {
                     >
                       {item.label}
                     </Typography>
-                    {item.slots.map((subItem) => (
-                      <Stack
-                        key={subItem.id}
-                        sx={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          marginTop: 1,
-                        }}
-                      >
+                    {slots.length !== 0 &&
+                      slots.map((subItem) => (
                         <Stack
+                          key={subItem.id}
                           sx={{
-                            width: '5px',
-                            height: '5px',
-                            borderRadius: 1000,
-                            background: Color.tertiary,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: 1,
                           }}
-                        />
-                        <Typography
-                          sx={{
-                            marginLeft: 1,
-                            fontSize: '10px',
-                            fontFamily: FontFamily.bold,
-                          }}
-                        >{`Slot ${subItem.id}`}</Typography>
-                        <Typography
-                          sx={{
-                            marginLeft: 1,
-                            fontSize: '10px',
-                            fontFamily: FontFamily.light,
-                          }}
-                        >{` ${subItem.label}`}</Typography>
-                      </Stack>
-                    ))}
+                        >
+                          <Stack
+                            sx={{
+                              width: '5px',
+                              height: '5px',
+                              borderRadius: 1000,
+                              background: Color.tertiary,
+                            }}
+                          />
+                          <Typography
+                            sx={{
+                              marginLeft: 1,
+                              fontSize: '10px',
+                              fontFamily: FontFamily.bold,
+                            }}
+                          >{`Slot ${subItem.id}`}</Typography>
+                          <Typography
+                            sx={{
+                              marginLeft: 1,
+                              fontSize: '10px',
+                              fontFamily: FontFamily.light,
+                            }}
+                          >{` ${subItem.label}`}</Typography>
+                        </Stack>
+                      ))}
                   </Stack>
                 </Stack>
               );
