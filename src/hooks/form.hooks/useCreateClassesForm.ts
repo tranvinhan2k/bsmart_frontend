@@ -196,11 +196,23 @@ export const useCreateClassesForm = (id: number) => {
         params: timetable?.raw,
       })
     );
+    setTimetable(undefined);
+    createSubCourseHookForm.reset();
+  };
+
+  const handleBackCreateCourse = () => {
+    setTimetable(undefined);
+  };
+  const handleResetCreateCourse = () => {
+    setTimetable(undefined);
+    createSubCourseHookForm.reset();
   };
 
   return {
     timetable: timetable?.timetable,
     handleAddTimetable,
+    handleResetCreateCourse,
+    handleBackCreateCourse,
     createSubCourseHookForm,
     onTriggerModal,
     open,
