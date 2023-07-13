@@ -100,6 +100,7 @@ export interface CourseMenuItemPayload {
   id: number;
   imageUrl: string | undefined;
   imageAlt: string | undefined;
+  courseCode: string | undefined;
   courseTeacherName?: string[];
   courseName: string | undefined;
   subjectName?: string;
@@ -107,6 +108,8 @@ export interface CourseMenuItemPayload {
   totalClass?: number;
   level: LevelKeys;
   courseDescription: string | undefined;
+  category: OptionPayload;
+  subject: OptionPayload;
 }
 export interface ClassMenuItemPayload {
   id: number;

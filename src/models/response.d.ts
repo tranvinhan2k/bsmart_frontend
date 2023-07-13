@@ -56,3 +56,30 @@ export type GetAllActivitiesResponse = Partial<{
     subActivities: [];
   }[];
 }>[];
+
+export type PostTimeTableResponse = Partial<{
+  date: string;
+  numberOfSlot: number;
+  dayOfWeek: Partial<{
+    id: number;
+    name: string;
+    code: string;
+  }>;
+  slot: Partial<{
+    id: number;
+    name: string;
+    code: string;
+    startTime: Partial<{
+      hour: number;
+      minute: number;
+      second: number;
+      nano: number;
+    }>;
+    endTime: Partial<{
+      hour: number;
+      minute: number;
+      second: number;
+      nano: number;
+    }>;
+  }>;
+}>[];

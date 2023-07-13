@@ -36,7 +36,6 @@ export default function CustomMenu({
       keepMounted
       open={Boolean(anchorEl)}
       onClose={onClose}
-      onBlur={onClose}
       onMouseLeave={onClose}
     >
       {menuItemData.map((item, index) => (
@@ -44,7 +43,7 @@ export default function CustomMenu({
           key={index}
           onClick={() => {
             item.onClick();
-            // onClose();
+            onClose();
           }}
         >
           <ListItemIcon>

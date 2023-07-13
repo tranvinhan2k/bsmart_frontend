@@ -101,3 +101,11 @@ export const enum ManagerNavigationActionLink {
   process_create_course_request_search = 'process_create_course_request_search',
   process_create_course_request_details = 'process_create_course_request_details/:id',
 }
+
+export const enum MentorCourseActionLink {
+  tutorial = 'tutorial',
+  edit_request = 'edit-request',
+  classes = 'classlist',
+  information = 'information',
+  content = 'content',
+}

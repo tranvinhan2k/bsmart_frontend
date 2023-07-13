@@ -121,3 +121,20 @@ export const MentorAttendanceListPage = lazy(
   () => import('~/pages/MentorAttendanceListPage')
 );
 export const SchedulePage = lazy(() => import('~/pages/SchedulePage'));
+
+// class
+export const MentorCourseRequiedEditPage = lazy(
+  () => import('~/pages/mentor_course/MentorCourseRequiedEditPage')
+);
+export const MentorCourseInformationPage = lazy(
+  () => import('~/pages/mentor_course/MentorCourseInformationPage')
+);
+export const MentorCourseTutorialPage = lazy(
+  () => import('~/pages/mentor_course/MentorCourseTutorialPage')
+);
+export const MentorCourseContentPage = lazy(
+  () => import('~/pages/mentor_course/MentorCourseContentPage')
+);
+export const MentorCourseClassesPage = lazy(
+  () => import('~/pages/mentor_course/MentorCourseClassesPage')
+);

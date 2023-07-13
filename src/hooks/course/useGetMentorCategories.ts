@@ -1,5 +1,5 @@
 import categoriesApi from '~/api/categories';
-import { useCustomQuery } from '../useCustomQuery';
+import { useCustomQuery } from '../custom/useCustomQuery';
 
 export const useGetMentorCategories = () => {
   return useCustomQuery(
