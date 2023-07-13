@@ -133,7 +133,7 @@ export default function ProcessCourseCreateRequest({
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Phê duyệt yêu cầu tạo tài khoản giáo viên"
+        title="Phê duyệt yêu cầu tạo khóa học của giáo viên"
         addItemButtonLabel="Thêm môn học"
         columns={columns.courseCreateRequestColumns}
         // onAdd={}
