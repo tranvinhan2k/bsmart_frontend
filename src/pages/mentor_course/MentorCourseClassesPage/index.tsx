@@ -51,6 +51,8 @@ export default function MentorCourseClassesPage() {
     mode,
     timetable,
     handleAddTimetable,
+    handleResetCreateCourse,
+    handleBackCreateCourse,
   } = useCreateClassesForm(courseId);
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
@@ -132,6 +134,8 @@ export default function MentorCourseClassesPage() {
             hookForm={createSubCourseHookForm}
             onClose={onTriggerModal}
             onSubmit={handleCreateClass}
+            onBack={handleBackCreateCourse}
+            onReset={handleResetCreateCourse}
             onConfirmTimetable={handleConfirmTimetable}
           />
         )}

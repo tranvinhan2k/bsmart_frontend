@@ -95,8 +95,8 @@ export default function MonthSchedule({ data }: Props) {
     data.map((item) => {
       if (
         day.get('date') === item.date.getDate() &&
-        day.diff(item.date, 'month') === 0 &&
-        day.diff(item.date, 'year') === 0
+        day.get('month') === item.date.getMonth() &&
+        day.get('year') === item.date.getFullYear()
       ) {
         result = true;
       }
