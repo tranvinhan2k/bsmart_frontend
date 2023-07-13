@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { scrollToTop } from '~/utils/common';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import columns from '~/constants/columns';
 import globalStyles from '~/styles';
-import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
-import CustomTab from '~/components/atoms/CustomTab';
-import Schedule from '~/components/molecules/schedules/WeekSchedule';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
@@ -58,39 +55,12 @@ export default function MentorAttendanceListPage() {
   return (
     <Stack>
       <Typography sx={globalStyles.textTitle}>Điểm danh lớp LTV-12</Typography>
-      <Stack>
-        <CustomTab
-          tabContentList={[
-            {
-              label: 'Lịch học',
-              data: (
-                <Schedule
-                  data={[
-                    {
-                      className: 'Joker',
-                      date: new Date().toISOString(),
-                      dayOfWeekId: 1,
-                      id: 0,
-                      slotId: 1,
-                      isPresent: true,
-                      link: 'google.com',
-                    },
-                  ]}
-                />
-              ),
-            },
-            {
-              data: (
-                <CRUDTable
-                  title="Điếm danh lớp LTV12"
-                  columns={columns.attendanceClassColumns}
-                  rows={rows}
-                  menuItemList={menuList}
-                />
-              ),
-              label: 'Danh sách buổi học',
-            },
-          ]}
+      <Divider />
+      <Stack marginTop={1}>
+        <CRUDTable
+          columns={columns.attendanceClassColumns}
+          rows={rows}
+          menuItemList={menuList}
         />
       </Stack>
     </Stack>

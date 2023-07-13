@@ -1,5 +1,6 @@
 import { SxProps, Theme } from '@mui/material';
 import { IconName } from '~/components/atoms/Icon';
+import { ClassStatusKeys, CourseStatusKeys } from './variables';
 
 export interface SocialPayload {
   name: string;
@@ -20,6 +21,8 @@ export interface ActionPayload {
   link: string;
   icon?: IconName;
   items?: ActionPayload[];
+  courseStatus?: CourseStatusKeys;
+  classStatus?: ClassStatusKeys;
 }
 
 export interface TabPayload {

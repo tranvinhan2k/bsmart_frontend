@@ -7,7 +7,7 @@ import { PagingFilterPayload } from '~/models';
 import { selectFilterParams } from '~/redux/courses/selector';
 import { changeFilterParams } from '~/redux/courses/slice';
 import CustomPagination from '~/components/atoms/CustomPagination';
-import UserCourseItem from '~/components/molecules/UserCourseItem';
+import UserCourseItem from '~/components/molecules/items/UserCourseItem';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { CourseMenuItemPayload } from '~/models/type';
 

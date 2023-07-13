@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import UserCourseItem from '../UserCourseItem';
+import UserCourseItem from '../items/UserCourseItem';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
@@ -24,13 +24,24 @@ export default function MentorCourseItem({
     courseTeacherName: [''],
     subjectName: '',
     totalClass: 0,
+    category: {
+      id: 0,
+      label: '',
+      value: '',
+    },
+    courseCode: '',
+    subject: {
+      id: 0,
+      label: '',
+      value: '',
+    },
   },
 }: MentorCourseItemProps) {
   const navigate = useNavigate();
 
   const handleNavigateCourseDetail = () => {
     navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}/${item.id}`
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${item.id}`
     );
   };
 

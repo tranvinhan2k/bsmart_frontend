@@ -1,4 +1,5 @@
 import { Stack, Box, Typography } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
@@ -10,24 +11,30 @@ import localEnvironment from '~/utils/localEnvironment';
 interface Props {
   isMobile?: boolean;
   rows: ActionPayload[];
-  activeIndex: number;
   isHover: boolean;
   onTriggerHover: (param: boolean) => void;
   onNavigateLink: (link: string) => void;
-  onChangeActiveIndex: (index: number) => void;
   onNavigateHomepage: () => void;
 }
 
 export default function DashboardSidebar({
   isMobile = false,
   rows,
-  activeIndex,
   isHover,
   onNavigateLink,
   onTriggerHover,
-  onChangeActiveIndex,
   onNavigateHomepage,
 }: Props) {
+  const { pathname } = useLocation();
+  let activeIndex = -1;
+
+  const filterRows = rows.filter((item) => {
+    return !item.isHide;
+  });
+  filterRows.map((item, index) => {
+    if (pathname.includes(item.link)) activeIndex = index;
+    return null;
+  });
   return (
     <Stack
       sx={{
@@ -56,6 +63,7 @@ export default function DashboardSidebar({
             background: Color.navy,
             flexDirection: 'row',
             alignItems: 'flex-start',
+            overflow: 'hidden',
           }}
         >
           <Box
@@ -84,10 +92,11 @@ export default function DashboardSidebar({
         </Stack>
         <Stack
           sx={{
-            transition: 'all 1000ms ease',
             borderBottomRightRadius: {
               xs: 0,
-              md: activeIndex === 0 ? MetricSize.small_10 : 0,
+              md: pathname.includes(filterRows[0].link)
+                ? MetricSize.small_10
+                : 0,
             },
             padding: MetricSize.medium_15,
             fontSize: FontSize.small_18,
@@ -95,7 +104,7 @@ export default function DashboardSidebar({
             background: Color.navy,
           }}
         />
-        {rows?.map((item, index) => {
+        {filterRows?.map((item, index) => {
           return (
             <DashboardSidebarButton
               isHover={isHover || isMobile}
@@ -103,17 +112,17 @@ export default function DashboardSidebar({
               index={index}
               item={item}
               onNavigateLink={onNavigateLink}
-              onSetActive={onChangeActiveIndex}
               key={item.id}
             />
           );
         })}
         <Stack
           sx={{
-            transition: 'background 1000ms',
             borderTopRightRadius: {
               xs: 0,
-              md: activeIndex === rows.length - 1 ? MetricSize.small_10 : 0,
+              md: pathname.includes(filterRows[filterRows.length - 1].link)
+                ? MetricSize.small_10
+                : 0,
             },
 
             padding: MetricSize.medium_15,

@@ -1,5 +1,5 @@
 import axiosClient from '~/api/axiosClient';
-import { PagingFilterPayload, PagingRequestPayload } from '~/models';
+import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import { MentorPayload, MentorQuickPayload } from '~/models/mentor';
 import { ProfileImgType } from '~/constants/profile';
 
@@ -86,7 +86,7 @@ const mentorProfileApi = {
     return axiosClient.get(`${url}/${id}`);
   },
   async getAllMentor(
-    data: PagingRequestPayload
+    data: PagingFilterRequest
   ): Promise<PagingFilterPayload<MentorQuickPayload> | null> {
     const response: PagingFilterPayload<ResponseGetMentorPayload> =
       await axiosClient.get(url, {

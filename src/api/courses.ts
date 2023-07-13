@@ -2,15 +2,17 @@ import axiosClient from '~/api/axiosClient';
 import {
   ImagePayload,
   PagingFilterPayload,
-  PagingRequestPayload,
-  PostCoursePayload,
-  PutCoursePayload,
+  PagingFilterRequest,
+  PostCourseRequest,
+  PutCourseRequest,
 } from '~/models';
 import { CourseDetailPayload } from '~/models/courses';
 import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
-import { CourseMenuItemPayload } from '~/models/type';
+import { ActivityPayload, CourseMenuItemPayload } from '~/models/type';
+import { GetAllActivitiesResponse } from '~/models/response';
+import { formatOptionPayload } from '~/utils/common';
 // Define the request payload for fetching courses
 
 export interface ResponseMemberCoursePayload {
@@ -138,18 +140,34 @@ function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
   return responseData;
 }
 
+function handleResponseGetActivities(
+  data: GetAllActivitiesResponse
+): ActivityPayload[] {
+  return data.map((item) => ({
+    created: item?.created || '',
+    createdBy: item?.createdBy || '',
+    id: item?.id || -1,
+    visible: item?.visible || false,
+    lastModified: item?.lastModified || '',
+    lastModifiedBy: item?.lastModifiedBy || '',
+    name: item?.name || '',
+    parentActivityId: item?.parentActivityId || 0,
+    subActivities: handleResponseGetActivities(item?.subActivities || []),
+    type: item?.type || 'SECTION',
+  }));
+}
+
 const url = '/courses';
 
 const coursesApi = {
   // get
   async getAllCourse(
-    data: PagingRequestPayload
+    data: PagingFilterRequest
   ): Promise<PagingFilterPayload<CourseMenuItemPayload> | null> {
     const response = await axiosClient.get(url, {
       params: data,
       paramsSerializer: { indexes: null },
     });
-    // TODO : category sang object thi` chuyen ve object
     const result: CourseMenuItemPayload[] = (response.items as any[]).map(
       (item: any) => ({
         id: item.id,
@@ -163,12 +181,14 @@ const coursesApi = {
         courseName: item.courseName,
         level: item.level,
         totalClass: item.totalClass,
+        category: formatOptionPayload(item.categoryResponse),
+        subject: formatOptionPayload(item.subjectResponse),
       })
     );
     return { ...response, items: result };
   },
   async getMentorCourses(
-    params: PagingRequestPayload
+    params: PagingFilterRequest
   ): Promise<PagingFilterPayload<CourseMenuItemPayload>> {
     const response = await axiosClient.get(`${url}/mentor`, {
       params,
@@ -176,10 +196,10 @@ const coursesApi = {
     });
 
     const result: CourseMenuItemPayload[] = (response.items as any[]).map(
-      (item: any) => ({
+      (item) => ({
         id: item.id,
-        imageAlt: item.images?.[0]?.url,
-        imageUrl: item.images?.[0]?.alt,
+        imageAlt: item.images?.[0]?.name,
+        imageUrl: item.images?.[0]?.url,
         courseStatus: item.status,
         courseTeacherName: item.mentorName,
         subjectName: item.subjectResponse.name,
@@ -188,13 +208,26 @@ const coursesApi = {
         courseName: item.courseName,
         level: item.level,
         totalClass: item.totalClass,
+        category: formatOptionPayload(item.categoryResponse),
+        subject: formatOptionPayload(item.subjectResponse),
       })
     );
 
     return { ...response, items: result };
   },
+  async getAllCourseActivities(id: number): Promise<ActivityPayload[]> {
+    const response: GetAllActivitiesResponse = await axiosClient.get(
+      `${url}/${id}/activities`
+    );
+    const result: ActivityPayload[] = handleResponseGetActivities(response);
+    return result;
+  },
+  // post
+  async createCourse(params: PostCourseRequest): Promise<number> {
+    return axiosClient.post(url, params);
+  },
   // put
-  async updateCourse({ id, param }: { id: number; param: PutCoursePayload }) {
+  async updateCourse({ id, param }: { id: number; param: PutCourseRequest }) {
     axiosClient.put(`${url}/${id}`, param);
   },
   // delete
@@ -206,7 +239,7 @@ const coursesApi = {
     return axiosClient.get(`${url}/public`);
   },
   async getMemberCourse(
-    data: PagingRequestPayload
+    data: PagingFilterRequest
   ): Promise<PagingFilterPayload<ResponseMemberCoursePayload>> {
     return axiosClient.get(`${url}/member`, {
       params: data,
@@ -226,14 +259,9 @@ const coursesApi = {
       await axiosClient.get(`${url}/${id}/sub-courses`);
     return response;
   },
-  async createCourse(params: PostCoursePayload): Promise<any> {
-    console.log('params', params);
 
-    const response: any = await axiosClient.post(url, params);
-    return response;
-  },
   // TODO: tạm thời đóng chức năng public course, có thể mở lại
-  // async createPublicCourse(params: PostCoursePayload): Promise<any> {
+  // async createPublicCourse(params: PostCourseRequest): Promise<any> {
   //   const { id, ...newParams } = params;
   //   const response: any = await axiosClient.post(`${url}/public-course/${id}`, {
   //     ...newParams,

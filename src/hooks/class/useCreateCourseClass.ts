@@ -1,10 +1,23 @@
 import classApi from '~/api/class';
-import { useCustomMutation } from '../useCustomMutation';
+import { useCustomMutation } from '../custom/useCustomMutation';
+import timetableApi from '~/api/timetable';
 
 export const useCreateCourseClass = () => {
-  const result = useCustomMutation(
+  const { mutateAsync: handleCreateClass } = useCustomMutation(
     ['create_course_class'],
     classApi.addClassForCourse
   );
-  return result;
+  const { mutateAsync: handleGetTimetable } = useCustomMutation(
+    ['get_timetable'],
+    timetableApi.getTimetable
+  );
+  const { mutateAsync: handleAddTimetableToClass } = useCustomMutation(
+    ['add_timetable'],
+    timetableApi.addTimetableToClass
+  );
+  return {
+    handleCreateClass,
+    handleGetTimetable,
+    handleAddTimetableToClass,
+  };
 };

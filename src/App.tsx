@@ -72,11 +72,7 @@ const showRoutes = (currentRole: Role | null) => {
           <Route key={route.path} path={route.path} element={route?.main()} />
         );
       }
-      if (currentRole === null && route.role.includes('GUEST')) {
-        return (
-          <Route key={route.path} path={route.path} element={route?.main()} />
-        );
-      }
+
       if (currentRole === 'ROLE_STUDENT' || currentRole === 'ROLE_TEACHER') {
         return (
           <Route
@@ -86,7 +82,7 @@ const showRoutes = (currentRole: Role | null) => {
           />
         );
       }
-      if (currentRole === 'GUEST') {
+      if (currentRole === null) {
         return (
           <Route
             key={route.path}

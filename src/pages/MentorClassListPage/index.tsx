@@ -5,11 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
-import { useQueryGetAllMentorClasses } from '~/hooks/class/useQueryGetAllMentorClasses';
-import { PagingRequestPayload } from '~/models';
+import {
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import { PagingFilterRequest } from '~/models';
+import { ClassMenuItemPayload } from '~/models/type';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
 
@@ -29,8 +34,38 @@ function a11yProps(index: number) {
 export default function MentorClassListPage() {
   const navigate = useNavigate();
 
+  const classes: ClassMenuItemPayload[] = [
+    {
+      id: 0,
+      imageAlt: '',
+      imageUrl: image.mockCourse,
+      name: 'Lớp Kiểm Thử',
+      progressValue: 50,
+      status: '',
+      teacherName: ['Trần Vĩ Nhân'],
+    },
+    {
+      id: 1,
+      imageAlt: '',
+      imageUrl: image.mockCourse,
+      name: 'Lớp Kiểm Thử',
+      progressValue: 60,
+      status: '',
+      teacherName: ['Trần Vĩ Nhân'],
+    },
+    {
+      id: 2,
+      imageAlt: '',
+      imageUrl: image.mockCourse,
+      name: 'Lớp Kiểm Thử',
+      progressValue: 40,
+      status: '',
+      teacherName: ['Trần Vĩ Nhân'],
+    },
+  ];
+
   // useState
-  const [filterParams, setFilterParams] = useState<PagingRequestPayload>({
+  const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     q: '',
     page: 0,
     size: 9,
@@ -38,8 +73,6 @@ export default function MentorClassListPage() {
     status: 'ALL',
   });
   const [value, setValue] = useState(0);
-
-  const { classes, refetch } = useQueryGetAllMentorClasses(filterParams);
 
   // parameters
   const chosenClassStatus = ClassStatusList.find(
@@ -56,9 +89,13 @@ export default function MentorClassListPage() {
       page: pageNumber - 1,
     });
   };
-  const handleNavigateCreateCourse = () => {
-    navigate('/mentor-profile/create-course');
+  const handleChangeSearch = (searchValue: string) => {
+    setFilterParams({
+      ...filterParams,
+      q: searchValue,
+    });
   };
+
   const handleChangeClassStatus = (classStatus: string) => {
     setFilterParams({
       ...filterParams,
@@ -82,12 +119,12 @@ export default function MentorClassListPage() {
           }}
         >
           <Typography sx={globalStyles.textTitle}>{TEXTS.title_1}</Typography>
-          <Button
-            onClick={handleNavigateCreateCourse}
-            customVariant="horizonForm"
-          >
-            {TEXTS.button_title_1}
-          </Button>
+        </Stack>
+        <Stack marginTop={1}>
+          <SearchTextField
+            value={filterParams.q}
+            onChange={(e) => handleChangeSearch(e.target.value)}
+          />
         </Stack>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
@@ -135,36 +172,15 @@ export default function MentorClassListPage() {
           {chosenClassStatus?.content}
         </Typography>
       </Stack>
-      {/* <Stack
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="flex-end"
-      >
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            flexGrow: 1,
-          }}
-        >
-          <Box sx={{ width: '300px' }}>
-            <FormInput
-              variant="dropdown"
-              name="filter"
-              control={control}
-              data={ClassStatusList}
-            />
-          </Box>
-        </Stack>
-      </Stack> */}
+
       <Grid container>
         {classes &&
-          classes?.items?.map((item: any) => (
+          classes?.length !== 0 &&
+          classes.map((item) => (
             <Grid
               item
               xs={12}
-              md={4}
+              md={3}
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
@@ -175,45 +191,9 @@ export default function MentorClassListPage() {
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >
-        {classes && classes.items.length === 0 && (
-          <Stack
-            sx={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '50vh',
-            }}
-          >
-            <Stack
-              sx={{
-                paddingY: '50px',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Box
-                sx={{
-                  width: '300px',
-                  height: '300px',
-                  objectFit: 'contain',
-                }}
-                component="img"
-                src={image.emptyCourseList}
-                alt="no course"
-              />
-              <Typography
-                sx={{
-                  fontSize: FontSize.medium_24,
-                  fontFamily: FontFamily.regular,
-                }}
-              >
-                {TEXTS.title_2}
-              </Typography>
-            </Stack>
-          </Stack>
-        )}
         <CustomPagination
-          currentPage={classes?.currentPage}
-          totalPages={classes?.totalPages}
+          currentPage={1}
+          totalPages={20}
           onChange={handleChangePageNumber}
         />
       </Stack>

@@ -247,7 +247,7 @@ export const validationSchemaCreateCourse = object({
 export const validationSchemaCreateSubCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
-    .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
+    .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
     .test(

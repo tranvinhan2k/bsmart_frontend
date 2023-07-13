@@ -1,6 +1,6 @@
 import { ClassStatusKeys } from './variables';
 
-export interface PostCoursePayload {
+export interface PostCourseRequest {
   name: string;
   categoryId: number;
   subjectId: number;
@@ -8,7 +8,7 @@ export interface PostCoursePayload {
   level: string;
 }
 
-export interface PostClassPayload {
+export interface PostClassRequest {
   imageId: number;
   price: number;
   minStudent: number;
@@ -29,7 +29,7 @@ export type PostActivityCoursePayload = {
   }[];
 };
 
-export interface PagingRequestPayload {
+export interface PagingFilterRequest {
   q: string;
   page: number;
   size: number;
@@ -41,10 +41,33 @@ export interface PagingRequestPayload {
   skills?: number[];
 }
 
-export interface PutCoursePayload {
+export interface PutCourseRequest {
   name: string;
   categoryId: number;
   subjectId: number;
+
   description: string;
   level: string;
+}
+
+export interface PostActivityRequest {
+  name: string;
+  visible?: boolean;
+  parentActivityId?: number;
+  courseId?: number;
+  authorizeClasses?: number[];
+}
+export interface PostSubmitActivityRequest {
+  submittedFiles: string[];
+  note: string;
+}
+
+export interface PostTimetableRequest {
+  startDate: string;
+  endDate: string;
+  numberOfSlot: number;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
 }

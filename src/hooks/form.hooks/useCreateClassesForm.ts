@@ -4,15 +4,14 @@ import { useForm } from 'react-hook-form';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
-import { mockLevelData, typeData } from '~/constants';
 import { OptionPayload } from '~/models';
 import toast from '~/utils/toast';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { useMutationUploadClassImage } from '../image/useMutationUploadClassImage';
-import { PostClassPayload } from '~/models/request';
+import { PostClassRequest, PostTimetableRequest } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
 import { useCreateCourseClass } from '../class/useCreateCourseClass';
-import { useUpdateClass } from '../class/useUpdateClass';
+import { PostTimeTableResponse } from '~/models/response';
+import { TimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
@@ -20,14 +19,19 @@ export const useCreateClassesForm = (id: number) => {
   const [open, setOpen] = useState(false);
   const [recommendEndDate, setRecommendEndDate] = useState<string>('');
   const [mode, setMode] = useState<Status>('CREATE');
+  const [selectClassId, setSelectClassId] = useState<number>(-1);
+  const [timetable, setTimetable] = useState<{
+    raw: PostTimeTableResponse;
+    timetable: TimeSlotPayload[];
+  }>();
 
-  const mutation = useCreateCourseClass();
-  const mutationUpdate = useUpdateClass();
+  const { handleAddTimetableToClass, handleCreateClass, handleGetTimetable } =
+    useCreateCourseClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
-  const { handleTryCatch } = useTryCatch('thêm lớp học');
-  const { handleTryCatch: handleUpdateTryCatch } =
-    useTryCatch('cập nhập lớp học');
+  const { handleTryCatch: handleTryCatchTimetable } = useTryCatch(
+    'thêm thời khóa biểu cho lớp học'
+  );
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse
@@ -135,32 +139,48 @@ export const useCreateClassesForm = (id: number) => {
         data.timeInWeekRequests
       )
     ) {
-      const imageId = await uploadImage(data.imageId);
-      if (imageId) {
-        // TODO: Thêm api create class o day khi mà be xong
-        const param: PostClassPayload = {
-          endDate: data.endDateExpected,
-          imageId,
-          maxStudent: data.maxStudent,
-          minStudent: data.minStudent,
-          numberOfSlot: data.numberOfSlot,
-          price: data.price,
-          startDate: data.startDateExpected,
-          timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-            dayOfWeekId: item.dayOfWeek.id,
-            slotId: item.slot.id,
-          })),
-        };
-        await handleTryCatch(async () =>
-          mutation.mutateAsync({
+      try {
+        const imageId = await uploadImage(data.imageId);
+
+        if (imageId) {
+          // TODO: Thêm api create class o day khi mà be xong
+          const param: PostClassRequest = {
+            endDate: data.endDateExpected,
+            imageId,
+            maxStudent: data.maxStudent,
+            minStudent: data.minStudent,
+            numberOfSlot: data.numberOfSlot,
+            price: data.price,
+            startDate: data.startDateExpected,
+            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+              dayOfWeekId: item.dayOfWeek.id,
+              slotId: item.slot.id,
+            })),
+          };
+          const classId = await handleCreateClass({
             id,
             param,
-          })
-        );
-        createSubCourseHookForm.reset();
-        // onChangeClass([...classes, param]);
-      } else {
-        toast.notifyErrorToast('Thêm hình ảnh không thành công !');
+          });
+          if (classId) {
+            const result: PostTimetableRequest = {
+              endDate: data.endDateExpected,
+              numberOfSlot: data.numberOfSlot,
+              startDate: data.startDateExpected,
+              timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+                dayOfWeekId: item.dayOfWeek.id,
+                slotId: item.slot.id,
+              })),
+            };
+            const responseTimetable = await handleGetTimetable(result);
+
+            setSelectClassId(classId);
+            setTimetable(responseTimetable);
+          }
+        } else {
+          toast.notifyErrorToast('Thêm hình ảnh không thành công !');
+        }
+      } catch (e: any) {
+        toast.notifyErrorToast(`Thêm khóa học không thành công: ${e.message}`);
       }
     } else {
       toast.notifyErrorToast(
@@ -169,7 +189,18 @@ export const useCreateClassesForm = (id: number) => {
     }
   };
 
+  const handleAddTimetable = async () => {
+    const response = handleTryCatchTimetable(() =>
+      handleAddTimetableToClass({
+        id: selectClassId,
+        params: timetable?.raw,
+      })
+    );
+  };
+
   return {
+    timetable: timetable?.timetable,
+    handleAddTimetable,
     createSubCourseHookForm,
     onTriggerModal,
     open,

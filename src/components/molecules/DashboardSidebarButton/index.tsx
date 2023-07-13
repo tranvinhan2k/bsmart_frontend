@@ -11,14 +11,12 @@ export default function DashboardSidebarButton({
   activeIndex,
   index,
   isHover,
-  onSetActive,
   onNavigateLink,
 }: {
   item: ActionPayload;
   activeIndex: number;
   index: number;
   isHover: boolean;
-  onSetActive: (index: number) => void;
   onNavigateLink: (link: string) => void;
 }) {
   const location = useLocation();
@@ -26,12 +24,10 @@ export default function DashboardSidebarButton({
   const [open, setOpen] = useState(false);
 
   const handleOpenCollapse = () => {
-    onSetActive(index);
     setOpen(!open);
   };
 
   const handleSingleNavigate = () => {
-    onSetActive(index);
     onNavigateLink(item.link);
   };
 

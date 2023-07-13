@@ -12,17 +12,20 @@ import {
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
-import { LEVEL_IMAGES } from '~/constants/level';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import Timetable from '../../Timetable';
 import Button from '~/components/atoms/Button';
+import { formatMoney } from '~/utils/money';
+import { ClassStatusKeys } from '~/models/variables';
+import Tag from '~/components/atoms/Tag';
+import { ClassStatusList } from '~/constants';
 
 interface Props {
   id: number;
   code: string;
   startDate: string;
+  status: ClassStatusKeys | undefined;
   endDate: string;
   minStudent: number;
   maxStudent: number;
@@ -31,6 +34,7 @@ interface Props {
     slotId: number;
   }[];
   imageUrl: string;
+  price: number;
   onUpdate?: (id: number) => void;
   onDeleteModal?: () => void;
 }
@@ -62,9 +66,11 @@ const texts = {
 export default function ClassItem({
   id,
   code,
+  status,
   endDate,
   imageUrl,
   maxStudent,
+  price,
   minStudent,
   startDate,
   timetable,
@@ -99,6 +105,11 @@ export default function ClassItem({
     variable: string;
   }[] = [
     {
+      icon: 'price',
+      label: texts.priceLabel,
+      variable: formatMoney(price),
+    },
+    {
       icon: 'date',
       label: texts.startDateLabel,
       variable: formatDate(startDate),
@@ -128,6 +139,7 @@ export default function ClassItem({
         position: 'relative',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        flexGrow: 1,
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
       }}
@@ -164,6 +176,17 @@ export default function ClassItem({
               justifyContent: 'space-around',
             }}
           >
+            {status && (
+              <Box>
+                <Tag
+                  color="whiteSmoke"
+                  title={
+                    ClassStatusList.find((item) => item.value === status)
+                      ?.label || ''
+                  }
+                />
+              </Box>
+            )}
             <Typography
               sx={{
                 fontFamily: FontFamily.bold,

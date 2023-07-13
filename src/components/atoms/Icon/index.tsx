@@ -35,7 +35,7 @@ import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious, GrFormPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
-import { IoMdPaper } from 'react-icons/io';
+import { IoMdPaper, IoMdPricetag } from 'react-icons/io';
 import {
   MdPayments,
   MdCake,
@@ -171,6 +171,7 @@ export type IconName =
   | 'description'
   | 'coPresent'
   | 'dynamicFeed'
+  | 'price'
   | 'clear'
   | 'update'
   | 'sentimentVeryDissatisfiedIcon'
@@ -207,6 +208,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsPostcardFill />
+        </Typography>
+      );
+    case 'price':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <IoMdPricetag />
         </Typography>
       );
     case 'date':
