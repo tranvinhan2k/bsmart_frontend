@@ -3,7 +3,7 @@ import { FontFamily, FontSize } from '~/assets/variables';
 
 interface TextLineProps {
   label: string;
-  variable: string;
+  variable: string | undefined;
 }
 
 export default function TextLine({ label, variable }: TextLineProps) {

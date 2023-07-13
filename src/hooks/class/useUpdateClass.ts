@@ -1,5 +1,5 @@
 import classApi from '~/api/class';
-import { useCustomMutation } from '../useCustomMutation';
+import { useCustomMutation } from '../custom/useCustomMutation';
 
 export const useUpdateClass = () => {
   const result = useCustomMutation(

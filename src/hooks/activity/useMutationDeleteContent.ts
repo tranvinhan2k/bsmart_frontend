@@ -1,5 +1,5 @@
 import activityApi from '~/api/activity';
-import { useCustomMutation } from '../useCustomMutation';
+import { useCustomMutation } from '../custom/useCustomMutation';
 
 export const useMutationDeleteContent = () => {
   const mutation = useCustomMutation(

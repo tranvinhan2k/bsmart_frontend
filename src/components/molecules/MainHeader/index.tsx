@@ -77,11 +77,11 @@ export default function MainHeader({
   };
 
   const handleNavigateDashboard = () => {
-    navigate(`/${NavigationLink.dashboard}`);
+    navigate(NavigationLink.dashboard);
   };
 
   const handleHomepage = () => {
-    navigate(`/${NavigationLink.homepage}`);
+    navigate(NavigationLink.homepage);
   };
 
   return (

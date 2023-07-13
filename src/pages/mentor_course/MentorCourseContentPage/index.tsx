@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Stack } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { PostActivityCoursePayload } from '~/models';
 import {
   useMutationAddSection,
@@ -8,15 +9,15 @@ import {
   useQueryGetCourseContent,
   useTryCatch,
 } from '~/hooks';
-import Sections from '../Sections';
-import AddSection from '../AddSection';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
+import { formatStringToNumber } from '~/utils/number';
+import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
+import Sections from '~/containers/MentorCourseDetailSection/Sections';
 
-interface Props {
-  id: number;
-}
+export default function MentorCourseContentPage() {
+  const { id } = useParams();
+  const courseId = formatStringToNumber(id);
 
-export default function Content({ id }: Props) {
   const [open, setOpen] = useState(false);
   const addCourseContent = useMutationAddSection({
     authorizeClasses: [],
@@ -25,10 +26,8 @@ export default function Content({ id }: Props) {
     parentActivityId: 0,
     visible: false,
   });
+
   const deleteCourseContent = useMutationDeleteContent();
-  const updateCourseContent = useMutationUpdateContent();
-  const addContentSection = useTryCatch('thêm học phần');
-  const updateContent = useTryCatch('cập nhật nội dung');
   const deleteContent = useTryCatch('xóa nội dung');
 
   const {
@@ -36,7 +35,8 @@ export default function Content({ id }: Props) {
     error,
     isLoading,
     refetch,
-  } = useQueryGetCourseContent(id);
+  } = useQueryGetCourseContent(courseId);
+  const addContentSection = useTryCatch('thêm học phần');
 
   const handleAddNewSection = async (name: string) => {
     const params: PostActivityCoursePayload = {
@@ -72,26 +72,6 @@ export default function Content({ id }: Props) {
         <Sections content={content} onAddNew={handleAddNewModule} />
       </LoadingWrapper>
       <AddSection onAdd={handleAddNewSection} />
-      {/* <Stack>
-        <Button
-          onClick={handleCloseConfirm}
-          sx={{
-            marginTop: 1,
-            color: Color.white,
-          }}
-          variant="contained"
-          color="error"
-        >
-          Xóa nội dung môn học
-        </Button>
-        <ConfirmDialog
-          open={open}
-          title="Xác nhận xóa nội dung"
-          content="Bạn có chắc chắn xóa nội dung này không?"
-          handleClose={handleCloseConfirm}
-          handleAccept={handleDeleteContent}
-        />
-      </Stack> */}
     </Stack>
   );
 }

@@ -52,7 +52,6 @@ export interface PutCourseRequest {
 
 export interface PostActivityRequest {
   name: string;
-
   visible?: boolean;
   parentActivityId?: number;
   courseId?: number;
@@ -61,4 +60,14 @@ export interface PostActivityRequest {
 export interface PostSubmitActivityRequest {
   submittedFiles: string[];
   note: string;
+}
+
+export interface PostTimetableRequest {
+  startDate: string;
+  endDate: string;
+  numberOfSlot: number;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
 }

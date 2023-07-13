@@ -13,6 +13,7 @@ export const useMutationCreateCourse = () => {
       queryClient.invalidateQueries({ queryKey: [key] });
     },
   });
+
   // const mutationPublicResult = useMutation({
   //   mutationKey: [key],
   //   mutationFn: coursesApi.createPublicCourse,

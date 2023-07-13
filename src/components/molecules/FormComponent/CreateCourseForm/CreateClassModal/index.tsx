@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
-import MonthSchedule from '~/components/molecules/schedules/MonthSchedule';
+import MonthSchedule, {
+  TimeSlotPayload,
+} from '~/components/molecules/schedules/MonthSchedule';
 
-import { useDispatchGetAllSlots } from '~/hooks';
-import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
@@ -37,25 +36,22 @@ interface CreateClassModalProps {
   hookForm: UseFormReturn<any, any>;
   onClose: () => void;
   onSubmit: (data: any) => void;
+  timetable: TimeSlotPayload[] | undefined;
+  onConfirmTimetable: () => void;
 }
 
 export default function CreateClassModal({
   open,
+  timetable,
   hookForm,
   onClose,
   onSubmit,
+  onConfirmTimetable,
 }: CreateClassModalProps) {
-  const { optionSlots } = useDispatchGetAllSlots();
-  const [openCalendar, setOpenCalendar] = useState(false);
-
-  const handleOpenCalendar = () => {
-    setOpenCalendar(!openCalendar);
-  };
-
   return (
     <CustomModal open={open} onClose={onClose}>
       <Stack sx={{ background: 'white', paddingX: 4, flexDirection: 'row' }}>
-        {!openCalendar ? (
+        {!timetable ? (
           <Stack>
             <Typography sx={globalStyles.textSubTitle}>
               {texts.createClassTitle}
@@ -163,35 +159,12 @@ export default function CreateClassModal({
           </Stack>
         ) : (
           <Stack sx={{ height: '100vh' }}>
-            <MonthSchedule
-              data={[
-                {
-                  id: 0,
-                  date: new Date(),
-                  slots: [optionSlots[0], optionSlots[1]],
-                },
-                {
-                  id: 1,
-                  date: new Date('08/09/2023'),
-                  slots: [optionSlots[0], optionSlots[1]],
-                },
-                {
-                  id: 2,
-                  date: new Date('08/10/2023'),
-                  slots: [optionSlots[0], optionSlots[1]],
-                },
-                {
-                  id: 3,
-                  date: new Date('08/11/2023'),
-                  slots: [...optionSlots],
-                },
-                {
-                  id: 4,
-                  date: new Date('08/12/2023'),
-                  slots: [optionSlots[0], optionSlots[1]],
-                },
-              ]}
-            />
+            <MonthSchedule data={timetable || []} />
+            <Box marginTop={1}>
+              <Button variant="contained" onClick={onConfirmTimetable}>
+                Xác nhận
+              </Button>
+            </Box>
           </Stack>
         )}
       </Stack>

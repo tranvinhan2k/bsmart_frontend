@@ -5,6 +5,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from '@mui/material';
 import {
   DataGrid as MuiDataGrid,
@@ -23,6 +24,7 @@ import Icon, { IconName } from '~/components/atoms/Icon';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import globalStyles from '~/styles';
 
 export type MenuItemPayload = {
   icon: IconName;
@@ -37,7 +39,7 @@ export type SearchFilterFormInput = {
   data: OptionPayload[];
 };
 interface CRUDTableProps {
-  title: string;
+  title?: string;
   columns: GridColDef[];
   isLoading?: boolean;
   error?: any;
@@ -96,7 +98,7 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
 }));
 
 export default function CRUDTable({
-  title,
+  title = '',
   isLoading = false,
   error = null,
   columns,
@@ -157,16 +159,17 @@ export default function CRUDTable({
     <Stack
       sx={{
         background: Color.white,
-        padding: 2,
         borderRadius: MetricSize.small_5,
       }}
     >
-      {onAdd && (
+      {onAdd ? (
         <CRUDTableHeader
-          title={texts.title}
+          title={texts.title || ''}
           addButtonTitle={addItemButtonLabel}
           onCreate={onAdd}
         />
+      ) : (
+        <Typography sx={globalStyles.textTitle}>{title}</Typography>
       )}
       {onSearch && (
         <CRUDTableSearching

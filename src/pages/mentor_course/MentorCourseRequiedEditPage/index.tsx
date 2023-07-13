@@ -2,7 +2,7 @@ import { Stack, Typography, Box } from '@mui/material';
 import Button from '~/components/atoms/Button';
 import globalStyles from '~/styles';
 
-export default function RequiredEdit() {
+export default function MentorCourseRequiedEditPage() {
   return (
     <Stack>
       <Typography
