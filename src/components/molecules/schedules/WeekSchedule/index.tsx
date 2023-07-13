@@ -64,7 +64,7 @@ export default function WeekSchedule({ data }: Props) {
       }))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dayOfWeeks, slots]);
+  }, [dayOfWeeks, slots, chooseDay]);
 
   useEffect(() => {
     const tmpDayOfWeek = [...dayOfWeekData];
@@ -104,7 +104,7 @@ export default function WeekSchedule({ data }: Props) {
       return null;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chooseDay]);
+  }, [chooseDay, dayOfWeekData]);
 
   return (
     <Stack>
