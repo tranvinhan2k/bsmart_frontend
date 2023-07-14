@@ -11,7 +11,10 @@ import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
 import { ActivityPayload, CourseMenuItemPayload } from '~/models/type';
-import { GetAllActivitiesResponse } from '~/models/response';
+import {
+  GetAllActivitiesResponse,
+  GetCoursePercentResponse,
+} from '~/models/response';
 import { formatOptionPayload } from '~/utils/common';
 // Define the request payload for fetching courses
 
@@ -222,6 +225,9 @@ const coursesApi = {
     const result: ActivityPayload[] = handleResponseGetActivities(response);
     return result;
   },
+  getCoursePercent(id: number): Promise<GetCoursePercentResponse | null> {
+    return axiosClient.get(`${url}/${id}/completeness`);
+  },
   // post
   async createCourse(params: PostCourseRequest): Promise<number> {
     return axiosClient.post(url, params);
@@ -229,6 +235,9 @@ const coursesApi = {
   // put
   async updateCourse({ id, param }: { id: number; param: PutCourseRequest }) {
     axiosClient.put(`${url}/${id}`, param);
+  },
+  putRequestApproval(id: number): Promise<number[]> {
+    return axiosClient.put(`${url}/${id}/request-approval`);
   },
   // delete
   async deleteCourse(id: number): Promise<boolean> {

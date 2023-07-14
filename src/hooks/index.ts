@@ -1,6 +1,7 @@
 export * from './useYupValidationResolver';
 export * from './useTimeOut';
 export * from './useTryCatch';
+export * from './useSubmitForReviewCourse';
 
 // effect
 export * from './useEffectPreventReload';

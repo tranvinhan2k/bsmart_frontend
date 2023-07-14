@@ -83,3 +83,8 @@ export type PostTimeTableResponse = Partial<{
     }>;
   }>;
 }>[];
+
+export interface GetCoursePercentResponse {
+  allowSendingApproval: boolean;
+  percentComplete: number;
+}
