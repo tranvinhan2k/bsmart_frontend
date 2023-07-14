@@ -10,6 +10,12 @@ export const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 export const MentorClassListPage = lazy(
   () => import('~/pages/MentorClassListPage')
 );
+export const MemberClassListPage = lazy(
+  () => import('~/pages/MemberClassListPage')
+);
+export const MemberAttendanceListPage = lazy(
+  () => import('~/pages/MemberAttendanceListPage')
+);
 export const MemberEditPersonalInfoPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
 );

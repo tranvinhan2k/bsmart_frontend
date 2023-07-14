@@ -661,3 +661,25 @@ export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
     ],
   },
 ];
+
+export const ClassMemberStatusList: OptionPayload[] = [
+  // ClassStatusList
+  {
+    id: 0,
+    label: 'Đang theo',
+    content: 'Lớp đang tham gia',
+    value: 'ALL',
+  },
+  {
+    id: 1,
+    label: 'Hoàn thành',
+    content: 'Lớp đã tham gia.',
+    value: 'FINISHED',
+  },
+  {
+    id: 2,
+    label: 'Bị Hủy',
+    content: 'Lớp đã không thể mở',
+    value: 'CLOSE',
+  },
+];

@@ -78,6 +78,7 @@ export const enum StudentDashboardNavigationActionLink {
   class_list = 'classes',
   class_detail = 'classes/detail',
   schedule = 'schedule',
+  attendance = 'attendance',
 }
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',

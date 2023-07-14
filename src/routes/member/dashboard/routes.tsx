@@ -4,9 +4,10 @@ import {
   StudentDashboardNavigationActionLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import MemberAttendanceListPage from '~/pages/MemberAttendanceListPage';
 import {
   MentorCourseDetailPage,
-  MentorClassListPage,
+  MemberClassListPage,
   NotFoundPage,
   SchedulePage,
   MentorClassDetailPage,
@@ -24,7 +25,7 @@ export const studentLMSRoutes: RoutePayload[] = [
   },
   {
     path: StudentDashboardNavigationActionLink.class_list,
-    main: () => <MentorClassListPage />,
+    main: () => <MemberClassListPage />,
     role: ['ROLE_STUDENT'],
   },
   {
@@ -35,6 +36,11 @@ export const studentLMSRoutes: RoutePayload[] = [
   {
     path: StudentDashboardNavigationActionLink.schedule,
     main: () => <SchedulePage />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: StudentDashboardNavigationActionLink.attendance,
+    main: () => <MemberAttendanceListPage />,
     role: ['ROLE_STUDENT'],
   },
   {
