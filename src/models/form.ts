@@ -69,9 +69,9 @@ export interface EditPasswordSectionDefault {
 }
 
 export interface EditSocialProfileFormDefault {
+  website: string;
+  linkedinLink: string;
   facebookLink: string;
-  twitterLink: string;
-  instagramLink: string;
 }
 
 export interface EditMentorProfileFormDataPayload {

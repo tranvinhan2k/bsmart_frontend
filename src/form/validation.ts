@@ -212,9 +212,9 @@ export const validationSchemaEditAccountProfile = object({
 });
 
 export const validationSchemaEditSocialProfile = object({
-  facebook: string(),
-  twitter: string(),
-  instagram: string(),
+  website: string(),
+  linkedinLink: string(),
+  facebookLink: string(),
 });
 export const validationSchemaTimeTable = object({
   slot: object()

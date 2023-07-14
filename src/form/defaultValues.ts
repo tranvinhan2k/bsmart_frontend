@@ -89,9 +89,9 @@ export const defaultValueEditAccountProfile = {
 };
 
 export const defaultValueEditSocialProfile = {
+  website: '',
+  linkedinLink: '',
   facebookLink: '',
-  twitterLink: '',
-  instagramLink: '',
 };
 
 export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {

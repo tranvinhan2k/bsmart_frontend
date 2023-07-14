@@ -30,14 +30,13 @@ export default function EditSocialProfileForm() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
-  };
+  const toastMsgError = (error: any): string =>
+    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {};
+    if (data.website) params.website = data.website;
+    if (data.linkedinLink) params.linkedinLink = data.linkedinLink;
     if (data.facebookLink) params.facebookLink = data.facebookLink;
-    if (data.twitterLink) params.twitterLink = data.twitterLink;
-    if (data.instagramLink) params.instagramLink = data.instagramLink;
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditSocialProfile(params);
@@ -72,33 +71,32 @@ export default function EditSocialProfileForm() {
   useEffect(() => {
     if (dataGetProfile) {
       const defaults = defaultValueEditSocialProfile;
+      if (dataGetProfile.website) defaults.website = dataGetProfile.website;
+      if (dataGetProfile.linkedinLink)
+        defaults.linkedinLink = dataGetProfile.linkedinLink;
       if (dataGetProfile.facebookLink)
         defaults.facebookLink = dataGetProfile.facebookLink;
-      if (dataGetProfile.twitterLink)
-        defaults.twitterLink = dataGetProfile.twitterLink;
-      if (dataGetProfile.instagramLink)
-        defaults.instagramLink = dataGetProfile.instagramLink;
       reset(defaults);
     }
   }, [dataGetProfile, reset]);
 
   const formFieldsSocial: FormFieldsSocialProps[] = [
     {
+      name: EDIT_SOCIAL_PROFILE_FIELDS.website,
+      label: 'Trang web cá nhân',
+      placeholder: 'Nhập link trang web riêng',
+      variant: 'text',
+    },
+    {
+      name: EDIT_SOCIAL_PROFILE_FIELDS.linkedinLink,
+      label: 'LinkedIn',
+      placeholder: 'Nhập link LinkedIn',
+      variant: 'text',
+    },
+    {
       name: EDIT_SOCIAL_PROFILE_FIELDS.facebookLink,
       label: 'Facebook',
       placeholder: 'Nhập link Facebook',
-      variant: 'text',
-    },
-    {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.twitterLink,
-      label: 'Twitter',
-      placeholder: 'Nhập link Twitter',
-      variant: 'text',
-    },
-    {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.instagramLink,
-      label: 'Instagram',
-      placeholder: 'Nhập link Instagram',
       variant: 'text',
     },
   ];

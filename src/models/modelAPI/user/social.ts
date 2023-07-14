@@ -1,5 +1,5 @@
 export interface EditSocialProfilePayload {
-  twitterLink?: string;
+  website?: string;
+  linkedinLink?: string;
   facebookLink?: string;
-  instagramLink?: string;
 }
