@@ -36,6 +36,8 @@ interface CreateClassModalProps {
   hookForm: UseFormReturn<any, any>;
   onClose: () => void;
   onSubmit: (data: any) => void;
+  onBack: () => void;
+  onReset: () => void;
   timetable: TimeSlotPayload[] | undefined;
   onConfirmTimetable: () => void;
 }
@@ -46,13 +48,15 @@ export default function CreateClassModal({
   hookForm,
   onClose,
   onSubmit,
+  onBack,
+  onReset,
   onConfirmTimetable,
 }: CreateClassModalProps) {
   return (
     <CustomModal open={open} onClose={onClose}>
       <Stack sx={{ background: 'white', paddingX: 4, flexDirection: 'row' }}>
         {!timetable ? (
-          <Stack>
+          <Stack sx={{ minWidth: { xs: '100%', md: '60vw' } }}>
             <Typography sx={globalStyles.textSubTitle}>
               {texts.createClassTitle}
             </Typography>
@@ -160,11 +164,35 @@ export default function CreateClassModal({
         ) : (
           <Stack sx={{ height: '100vh' }}>
             <MonthSchedule data={timetable || []} />
-            <Box marginTop={1}>
-              <Button variant="contained" onClick={onConfirmTimetable}>
+            <Stack
+              marginTop={1}
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                sx={{ marginLeft: 1 }}
+                variant="contained"
+                onClick={onConfirmTimetable}
+              >
                 Xác nhận
               </Button>
-            </Box>
+              <Button
+                sx={{ marginLeft: 1 }}
+                variant="contained"
+                onClick={onBack}
+              >
+                Trở lại
+              </Button>
+              <Button
+                sx={{ marginLeft: 1 }}
+                variant="contained"
+                onClick={onReset}
+              >
+                Hủy tạo lớp
+              </Button>
+            </Stack>
           </Stack>
         )}
       </Stack>
