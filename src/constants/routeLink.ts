@@ -87,6 +87,7 @@ export const enum MentorLink {
 
 export const enum AdminNavigationActionLink {
   admin = 'admin',
+  user_manager = 'user_manager',
   wallet_management = 'wallet-management',
   feedback_manager = 'feedback_manager',
   subject_manager = 'subject_manager',

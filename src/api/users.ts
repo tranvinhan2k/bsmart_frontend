@@ -4,9 +4,13 @@ import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
 import { RequestRole, Role } from '~/models/role';
-import { UserPayload } from '~/models/user';
+import {
+  GetAllUserPayload,
+  GetAllUserReturnPayload,
+  UserPayload,
+} from '~/models/user';
 import axiosClient from '~/api/axiosClient';
-import { PagingFilterRequest } from '~/models';
+import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import { ProfilePayload } from '~/models/type';
 
 const url = `/users`;
@@ -178,6 +182,17 @@ const accountApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
+  },
+  getAllUser({
+    q,
+    role,
+    isVerified,
+    page,
+    size,
+    sort,
+  }: GetAllUserPayload): Promise<PagingFilterPayload<GetAllUserReturnPayload> | null> {
+    const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(urlSearch);
   },
 };
 

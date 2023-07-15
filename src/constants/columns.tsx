@@ -1,9 +1,12 @@
 import { Chip } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { RenderAttendanceStatus } from '~/utils/attendance';
+import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import { getGender, handleDefinedText } from '~/utils/common';
-import { CopyableCell } from '~/utils/commonComp';
-import { formatISODateDateToDisplayDate } from '~/utils/date';
+import { RenderAttendanceStatus } from '~/utils/attendance';
+import {
+  formatISODateDateToDisplayDate,
+  formatISODateStringToDisplayDate,
+} from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
 
 const templateColumns: GridColDef[] = [
@@ -288,6 +291,85 @@ const attendanceStudentColumns: GridColDef[] = [
   },
 ];
 
+const userColumns: GridColDef[] = [
+  {
+    field: 'email',
+    headerName: 'Mail',
+    minWidth: 150,
+    flex: 1.5,
+    renderCell: (params) => (
+      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+    ),
+  },
+  {
+    field: 'fullName',
+    headerName: 'Họ tên',
+    minWidth: 150,
+    flex: 1.5,
+    renderCell: (params) => (
+      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+    ),
+  },
+  {
+    field: 'phone',
+    headerName: 'SĐT',
+    minWidth: 150,
+    flex: 1,
+    renderCell: (params) => (
+      <CopyableCell
+        rawValue={params.value}
+        formattedValue={formatPhoneNumberVi(params.value)}
+      />
+    ),
+  },
+  {
+    field: 'birthday',
+    headerName: 'Ngày sinh',
+    minWidth: 130,
+    flex: 1,
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
+  },
+  {
+    field: 'gender',
+    headerName: 'Giới tính',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+    valueFormatter: (params) => getGender(params.value),
+  },
+  {
+    field: 'isVerified',
+    headerName: 'Trạng thái',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+    renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
+  },
+];
+const userMemberColumns = userColumns.concat({
+  field: 'attended',
+  headerName: 'Đã học',
+  flex: 1,
+  minWidth: 100,
+  sortable: false,
+});
+const userMentorColumns = userColumns.concat(
+  {
+    field: 'taught',
+    headerName: 'Đã dạy',
+    minWidth: 90,
+    flex: 1,
+    sortable: false,
+  },
+  {
+    field: 'rating',
+    headerName: 'Đánh giá',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+  }
+);
+
 const columns = {
   templateColumns,
   feedbackQuestionColumns,
@@ -297,6 +379,8 @@ const columns = {
   courseCreateRequestColumns,
   attendanceClassColumns,
   attendanceStudentColumns,
+  userMemberColumns,
+  userMentorColumns,
 };
 
 export default columns;

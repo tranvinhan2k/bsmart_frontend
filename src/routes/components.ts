@@ -110,7 +110,7 @@ export const MemberProfilePage = lazy(
   () => import('~/pages/MemberProfilePage')
 );
 export const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
-
+export const UserManagerPage = lazy(() => import('~/pages/UserManagerPage'));
 export const FeedbackManagerPage = lazy(
   () => import('~/pages/FeedbackManagerPage')
 );
