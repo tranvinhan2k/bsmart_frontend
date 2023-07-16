@@ -41,6 +41,11 @@ import {
   CRATE_ANNOUNCEMENT_TITLE,
   UPDATE_ANNOUNCEMENT_TITLE,
   UPDATE_ANNOUNCEMENT_CONTENT,
+  WORKING_EXPERIENCE_REQUIRED,
+  INTRODUCE_REQUIRED,
+  YEAR_OF_EXPERIENCES_MINIMUM,
+  YEAR_OF_EXPERIENCES_REQUIRED,
+  SKILL_REQUIRED,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -190,9 +195,17 @@ export const validationSchemaEditPersonalProfile = object({
 });
 
 export const validationSchemaEditMentorProfile = object({
-  introduce: string().required(),
-  mentorSkills: array(),
-  workingExperience: string(),
+  introduce: string().required(INTRODUCE_REQUIRED),
+  mentorSkills: array(
+    object({
+      skillId: object().typeError(SKILL_REQUIRED).required(SKILL_REQUIRED),
+      yearOfExperiences: number()
+        .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+        .required(YEAR_OF_EXPERIENCES_REQUIRED)
+        .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+    })
+  ),
+  workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
 });
 
 export const validationSchemaEditCertificateProfile = object({

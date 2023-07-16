@@ -34,6 +34,12 @@ export const ADDRESS_REQUIRED = 'Địa chỉ không được để trống.';
 export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
 export const GENDER_REQUIRED = 'Giới tính không được để trống.';
 
+export const INTRODUCE_REQUIRED = 'Giới thiệu không được để trống';
+export const WORKING_EXPERIENCE_REQUIRED = 'Kinh nghiệm không được để trống';
+export const SKILL_REQUIRED = 'Kĩ năng không được để trống';
+export const YEAR_OF_EXPERIENCES_REQUIRED = 'Số năm không được để trống';
+export const YEAR_OF_EXPERIENCES_MINIMUM = 'Nhập số năm > 0.';
+
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const EMAIL_REQUIRED = 'Email không được để trống.';
 

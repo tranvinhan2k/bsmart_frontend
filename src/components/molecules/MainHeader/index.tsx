@@ -136,6 +136,7 @@ export default function MainHeader({
                   width: 40,
                   height: 40,
                   background: Color.white4,
+                  boxShadow: 3,
                 }}
               />
             </IconButton>

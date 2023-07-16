@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Typography, Stack } from '@mui/material';
-import { Fragment } from 'react';
+import { FontFamily } from '~/assets/variables';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
@@ -26,15 +26,19 @@ export default function MentorDegree({ row }: BasicInfoProps) {
         {title.map((item) => (
           <Grid item xs={12} key={item.id}>
             <Typography sx={SX_FORM_LABEL}>{item.label}</Typography>
-            <Box mt={2}>
-              <pre
+            <Box my={2}>
+              {/* <pre
                 style={{
                   fontFamily: 'inherit',
                   whiteSpace: 'break-spaces',
                 }}
               >
                 <Typography sx={SX_FORM_VALUE}>{item.value}</Typography>
-              </pre>
+              </pre> */}
+              <Box
+                sx={{ fontFamily: FontFamily.regular }}
+                dangerouslySetInnerHTML={{ __html: item.value }}
+              />
             </Box>
             <Divider />
           </Grid>

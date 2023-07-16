@@ -36,7 +36,7 @@ export default function EditMentorProfileForm() {
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditMentorProfile
   );
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, formState } = useForm({
     defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
   });
@@ -93,6 +93,8 @@ export default function EditMentorProfileForm() {
         yearOfExperiences: item.yearOfExperiences,
       });
     });
+    console.log('data', data);
+    console.log('params', params);
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditMentorProfile(params);
@@ -144,8 +146,7 @@ export default function EditMentorProfileForm() {
               <FormInput
                 control={control}
                 name="introduce"
-                variant="multiline"
-                multilineRows={6}
+                variant="editor"
                 placeholder="Nhập giới thiệu"
               />
             </Grid>
@@ -154,62 +155,67 @@ export default function EditMentorProfileForm() {
               <FormInput
                 control={control}
                 name="workingExperience"
-                variant="multiline"
-                multilineRows={6}
+                variant="editor"
                 placeholder="Nhập kinh nghiệm"
               />
             </Grid>
+
             <Grid item xs={12}>
               <Typography sx={SX_FORM_LABEL}>Chuyên môn</Typography>
-              <Grid container spacing={2} mt={2} mb={1}>
-                <Grid item xs={6}>
-                  <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography sx={SX_FORM_ITEM_LABEL}>
-                    Số năm kinh nghiệm
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid item container spacing={2} mb={2}>
-                {fields.map((field, index) => (
-                  <Fragment key={field.id}>
+              {fields.length > 0 && (
+                <>
+                  <Grid container spacing={2} mt={2} mb={1}>
                     <Grid item xs={6}>
-                      <FormInput
-                        control={control}
-                        dataDropdownDynamicValue={subjects}
-                        name={`mentorSkills.${index}.skillId`}
-                        variant="dropdownDynamicValue"
-                        placeholder="Nhập kĩ năng"
-                      />
+                      <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        spacing={2}
-                      >
-                        <FormInput
-                          control={control}
-                          name={`mentorSkills.${index}.yearOfExperiences`}
-                          variant="number"
-                          placeholder="Nhập số năm kinh nghiệm"
-                        />
-                        <MuiButton
-                          color="error"
-                          size="small"
-                          variant="outlined"
-                          onClick={() => removeSkill(index)}
-                        >
-                          <Icon name="delete" size="medium" />
-                        </MuiButton>
-                      </Stack>
+                      <Typography sx={SX_FORM_ITEM_LABEL}>
+                        Số năm kinh nghiệm
+                      </Typography>
                     </Grid>
-                  </Fragment>
-                ))}
-              </Grid>
+                  </Grid>
+                  <Grid item container spacing={2} mb={2}>
+                    {fields.map((field, index) => (
+                      <Fragment key={field.id}>
+                        <Grid item xs={6}>
+                          <FormInput
+                            control={control}
+                            dataDropdownDynamicValue={subjects}
+                            name={`mentorSkills[${index}].skillId`}
+                            variant="dropdownDynamicValue"
+                            placeholder="Nhập kĩ năng"
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Stack
+                            direction="row"
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            spacing={2}
+                          >
+                            <FormInput
+                              control={control}
+                              name={`mentorSkills[${index}].yearOfExperiences`}
+                              variant="number"
+                              placeholder="Nhập số năm kinh nghiệm"
+                            />
+                            <MuiButton
+                              color="error"
+                              size="small"
+                              variant="outlined"
+                              onClick={() => removeSkill(index)}
+                            >
+                              <Icon name="delete" size="medium" />
+                            </MuiButton>
+                          </Stack>
+                        </Grid>
+                      </Fragment>
+                    ))}
+                  </Grid>
+                </>
+              )}
             </Grid>
+
             <Grid item xs={6} lg={3}>
               <MuiButton
                 color="success"
@@ -229,6 +235,7 @@ export default function EditMentorProfileForm() {
               type="submit"
               variant="contained"
               sx={{ fontFamily: FontFamily.bold }}
+              disabled={!formState.isDirty}
             >
               Cập nhật
             </MuiButton>

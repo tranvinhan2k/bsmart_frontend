@@ -36,11 +36,10 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
       onChange={handleChangeText}
       initialValue={value}
       init={{
-        height: 200,
+        height: 300,
         menubar: false,
         toolbar:
-          'bold italic backcolor | alignleft aligncenter ' +
-          'alignright alignjustify | bullist numlist outdent indent ',
+          'bold italic forecolor backcolor undo redo alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
         content_style: `body { font-family:'Roboto', sans-serif; font-size:${FontSize.small_14} }`,
       }}
     />

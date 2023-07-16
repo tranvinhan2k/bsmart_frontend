@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import {
 } from '~/models/form';
 import { FontFamily } from '~/assets/variables';
 import { genderData } from '~/constants';
+import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
 import { selectProfile } from '~/redux/user/selector';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
@@ -62,11 +63,18 @@ export default function EditPersonalProfileForm() {
     }
   }, [profile, reset]);
 
+  const queryClient = useQueryClient();
   const { mutateAsync: mutateEditPersonalProfile } = useMutation({
     mutationFn:
       profile && profile.roles[0].code === 'TEACHER'
         ? accountApi.editMentorPersonalProfile
         : accountApi.editMemberPersonalProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/loginUser'] });
+      queryClient.invalidateQueries({
+        queryKey: [keyMentorProfileUseCheckCompleteness],
+      });
+    },
   });
 
   const toastMsgLoading = 'Đang cập nhật ...';
