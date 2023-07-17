@@ -41,6 +41,7 @@ export default function MentorCourseClassesPage() {
     error,
     isLoading,
     filterParam,
+    refetch,
   } = useQueryGetMentorCourseClasses(courseId);
 
   const {
@@ -76,6 +77,7 @@ export default function MentorCourseClassesPage() {
   };
   const handleConfirmTimetable = async () => {
     await handleAddTimetable();
+    await refetch();
     onTriggerModal();
   };
   const handleUpdateClass = async (data: any) => {

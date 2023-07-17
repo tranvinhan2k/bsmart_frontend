@@ -40,9 +40,11 @@ export default function MentorCreateCoursePage() {
       mutationResult.mutateAsync(paramCourse)
     );
 
-    navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${response}/${MentorCourseActionLink.tutorial}`
-    );
+    if (response) {
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${response}/${MentorCourseActionLink.tutorial}`
+      );
+    }
   };
 
   useEffectScrollToTop();

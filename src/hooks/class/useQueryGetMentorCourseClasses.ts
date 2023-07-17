@@ -32,5 +32,6 @@ export const useQueryGetMentorCourseClasses = (id: number) => {
     filterParam,
     error,
     isLoading,
+    refetch,
   };
 };
