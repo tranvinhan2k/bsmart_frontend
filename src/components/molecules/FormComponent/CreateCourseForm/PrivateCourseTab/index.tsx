@@ -76,7 +76,7 @@ export default function PrivateCourseTab({
       <Stack marginTop={1}>
         <FormInput
           name={CREATE_COURSE_FIELDS.description}
-          variant="multiline"
+          variant="editor"
           control={createCourseHookForm.control}
           label="Mô tả khóa học"
           placeholder="Nhập mô tả khóa học"

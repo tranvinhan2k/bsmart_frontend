@@ -14,6 +14,7 @@ import {
   useTryCatch,
 } from '~/hooks';
 import {
+  MentorCourseActionLink,
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
@@ -40,7 +41,7 @@ export default function MentorCreateCoursePage() {
     );
 
     navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${response}`
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${response}/${MentorCourseActionLink.tutorial}`
     );
   };
 

@@ -101,6 +101,7 @@ export default function MentorCourseDetailPage() {
       window.removeEventListener('popstate', handleBrowserBackButton);
     };
   }, [navigate]);
+  console.log('course status', course.status);
 
   const showRoutes = () => {
     return mentorCourseRoutes.map((route, index) => {
