@@ -29,6 +29,7 @@ const texts = {
   numberOfSlotLabel: 'Số buổi học',
   timetableLabel: 'Thời khóa biểu',
   createClassButton: 'Tạo lớp học',
+  Button: 'Xem chi tiết lịch dạy của cả một kỉ học',
 };
 
 interface CreateClassModalProps {
@@ -153,6 +154,12 @@ export default function CreateClassModal({
               >
                 Tạo thời khóa biểu
               </Button> */}
+              <Button
+                onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
+                customVariant="horizonForm"
+              >
+                {texts.createClassButton}
+              </Button>
               <Button
                 onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
                 customVariant="horizonForm"
