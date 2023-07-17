@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
 import { useCustomMutation } from './custom/useCustomMutation';
 import coursesApi from '~/api/courses';
 import { useTryCatch } from './useTryCatch';

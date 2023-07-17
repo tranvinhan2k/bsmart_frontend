@@ -1,15 +1,22 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CustomStepper, {
   StepPayload,
 } from '~/components/molecules/CustomStepper';
 import { image } from '~/constants/image';
+import {
+  MentorCourseActionLink,
+  MentorDashboardNavigationActionLink,
+  MentorNavigationLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorCourseTutorialPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
   const [activeStep, setActiveStep] = useState(0);
@@ -25,6 +32,10 @@ export default function MentorCourseTutorialPage() {
       id: 0,
       isCompleted: Boolean(data?.course),
       label: 'Thêm thông tin khóa học',
+      onClick: () =>
+        navigate(
+          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.information}`
+        ),
       description:
         'Xem lại khóa học vừa tạo của bạn. Khóa học này sẽ được hiển thị ra ngoài cho học sinh xem và đăng kí.',
     },
@@ -32,6 +43,11 @@ export default function MentorCourseTutorialPage() {
       id: 1,
       isCompleted: Boolean(data?.content),
       label: 'Thêm nội dung khóa học',
+      onClick: () =>
+        navigate(
+          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
+        ),
+
       description:
         'Thêm nội dung giảng dạy để học sinh có thể biết chương trình học của bạn thú vị ra sao.',
     },
@@ -39,6 +55,11 @@ export default function MentorCourseTutorialPage() {
       id: 2,
       isCompleted: Boolean(data?.classes),
       label: 'Thêm danh sách lớp học',
+      onClick: () =>
+        navigate(
+          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.classes}`
+        ),
+
       description:
         'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },

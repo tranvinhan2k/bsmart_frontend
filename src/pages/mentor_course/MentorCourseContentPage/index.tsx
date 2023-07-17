@@ -19,13 +19,7 @@ export default function MentorCourseContentPage() {
   const courseId = formatStringToNumber(id);
 
   const [open, setOpen] = useState(false);
-  const addCourseContent = useMutationAddSection({
-    authorizeClasses: [],
-    courseId: 0,
-    name: '',
-    parentActivityId: 0,
-    visible: false,
-  });
+  const addCourseSection = useMutationAddSection();
 
   const deleteCourseContent = useMutationDeleteContent();
   const deleteContent = useTryCatch('xóa nội dung');
@@ -39,12 +33,14 @@ export default function MentorCourseContentPage() {
   const addContentSection = useTryCatch('thêm học phần');
 
   const handleAddNewSection = async (name: string) => {
-    const params: PostActivityCoursePayload = {
-      name,
-      lessons: [],
-    };
     await addContentSection.handleTryCatch(async () => {
-      await addCourseContent.mutateAsync({ id, params });
+      await addCourseSection.mutateAsync({
+        courseId,
+        name,
+        visible: true,
+        parentActivityId: undefined,
+        authorizeClasses: [],
+      });
     });
 
     await refetch();

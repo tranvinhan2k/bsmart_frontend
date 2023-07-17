@@ -49,7 +49,7 @@ export const enum MentorDashboardNavigationActionLink {
   // Quản lí học tập
   mentor_course_list = 'courses',
   mentor_course_detail = 'courses/detail',
-  create_course = 'create-course',
+  create_course = 'courses/create-course',
   mentor_class_list = 'classes',
   // Trang tạm - Khóa học
   mentor_class_detail = 'classes/detail',

@@ -11,13 +11,9 @@ export const useCreateCourseClass = () => {
     ['get_timetable'],
     timetableApi.getTimetable
   );
-  const { mutateAsync: handleAddTimetableToClass } = useCustomMutation(
-    ['add_timetable'],
-    timetableApi.addTimetableToClass
-  );
+
   return {
     handleCreateClass,
     handleGetTimetable,
-    handleAddTimetableToClass,
   };
 };
