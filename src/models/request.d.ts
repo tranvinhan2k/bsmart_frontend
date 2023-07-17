@@ -1,3 +1,4 @@
+import { PostTimeTableResponse } from './response';
 import { ClassStatusKeys } from './variables';
 
 export interface PostCourseRequest {
@@ -16,10 +17,7 @@ export interface PostClassRequest {
   startDate: string;
   endDate: string;
   numberOfSlot: number;
-  timeInWeekRequests: {
-    dayOfWeekId: number;
-    slotId: number;
-  }[];
+  timeTableRequest: PostTimeTableResponse;
 }
 
 export type PostActivityCoursePayload = {

@@ -25,13 +25,14 @@ export const useCreateClassesForm = (id: number) => {
     timetable: TimeSlotPayload[];
   }>();
 
-  const { handleAddTimetableToClass, handleCreateClass, handleGetTimetable } =
-    useCreateCourseClass();
+  const { handleCreateClass, handleGetTimetable } = useCreateCourseClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
   const { handleTryCatch: handleTryCatchTimetable } = useTryCatch(
     'thêm thời khóa biểu cho lớp học'
   );
+  const { handleTryCatch: handleTryCatchCreateClass } =
+    useTryCatch('tạo lớp học');
 
   const resolverCreateSubCourse = useYupValidationResolver(
     validationSchemaCreateSubCourse
@@ -152,30 +153,16 @@ export const useCreateClassesForm = (id: number) => {
             numberOfSlot: data.numberOfSlot,
             price: data.price,
             startDate: data.startDateExpected,
-            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-              dayOfWeekId: item.dayOfWeek.id,
-              slotId: item.slot.id,
-            })),
+            timeTableRequest: timetable?.raw || [],
           };
-          const classId = await handleCreateClass({
-            id,
-            param,
-          });
-          if (classId) {
-            const result: PostTimetableRequest = {
-              endDate: data.endDateExpected,
-              numberOfSlot: data.numberOfSlot,
-              startDate: data.startDateExpected,
-              timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-                dayOfWeekId: item.dayOfWeek.id,
-                slotId: item.slot.id,
-              })),
-            };
-            const responseTimetable = await handleGetTimetable(result);
-
-            setSelectClassId(classId);
-            setTimetable(responseTimetable);
-          }
+          await handleTryCatchCreateClass(async () =>
+            handleCreateClass({
+              id,
+              param,
+            })
+          );
+          setTimetable(undefined);
+          createSubCourseHookForm.reset();
         } else {
           toast.notifyErrorToast('Thêm hình ảnh không thành công !');
         }
@@ -189,15 +176,34 @@ export const useCreateClassesForm = (id: number) => {
     }
   };
 
-  const handleAddTimetable = async () => {
-    const response = handleTryCatchTimetable(() =>
-      handleAddTimetableToClass({
-        id: selectClassId,
-        params: timetable?.raw,
-      })
+  const handleAddTimetable = async (data: {
+    price: number;
+    type: OptionPayload;
+    imageId: string;
+    minStudent: number;
+    maxStudent: number;
+    level: OptionPayload;
+    startDateExpected: string;
+    endDateExpected: string;
+    numberOfSlot: number;
+    timeInWeekRequests: {
+      dayOfWeek: OptionPayload;
+      slot: OptionPayload;
+    }[];
+  }) => {
+    const result: PostTimetableRequest = {
+      endDate: data.endDateExpected,
+      numberOfSlot: data.numberOfSlot,
+      startDate: data.startDateExpected,
+      timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+        dayOfWeekId: item.dayOfWeek.id,
+        slotId: item.slot.id,
+      })),
+    };
+    const responseTimetable = await handleTryCatchTimetable(() =>
+      handleGetTimetable(result)
     );
-    setTimetable(undefined);
-    createSubCourseHookForm.reset();
+    setTimetable(responseTimetable || undefined);
   };
 
   const handleBackCreateCourse = () => {

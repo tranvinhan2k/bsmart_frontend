@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 
+import { useState } from 'react';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
@@ -12,6 +13,7 @@ import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
 import { CREATE_CLASS_FIELDS } from '~/form/schema';
+import { Color } from '~/assets/variables';
 
 const texts = {
   createClassTitle: 'Tạo lớp học mới',
@@ -40,7 +42,7 @@ interface CreateClassModalProps {
   onBack: () => void;
   onReset: () => void;
   timetable: TimeSlotPayload[] | undefined;
-  onConfirmTimetable: () => void;
+  onViewSchedule: (data: any) => void;
 }
 
 export default function CreateClassModal({
@@ -51,12 +53,26 @@ export default function CreateClassModal({
   onSubmit,
   onBack,
   onReset,
-  onConfirmTimetable,
+  onViewSchedule,
 }: CreateClassModalProps) {
+  const [openSchedule, setOpenSchedule] = useState(false);
+
+  const handleOpenSchedule = () => {
+    setOpenSchedule(!openSchedule);
+  };
+
+  const handleTriggerSchedule = async (data: any) => {
+    if (timetable) {
+      handleOpenSchedule();
+    } else {
+      await onViewSchedule(data);
+    }
+  };
+
   return (
     <CustomModal open={open} onClose={onClose}>
       <Stack sx={{ background: 'white', paddingX: 4, flexDirection: 'row' }}>
-        {!timetable ? (
+        {!openSchedule ? (
           <Stack sx={{ minWidth: { xs: '100%', md: '60vw' } }}>
             <Typography sx={globalStyles.textSubTitle}>
               {texts.createClassTitle}
@@ -155,21 +171,32 @@ export default function CreateClassModal({
                 Tạo thời khóa biểu
               </Button> */}
               <Button
-                onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-                customVariant="horizonForm"
+                onClick={hookForm.handleSubmit(
+                  handleTriggerSchedule,
+                  handleConsoleError
+                )}
+                sx={{
+                  color: Color.white,
+                }}
+                color="secondary"
+                variant="contained"
               >
-                {texts.createClassButton}
+                {!timetable ? 'Tạo lịch học' : 'Xem thời khóa biểu một kì học'}
               </Button>
               <Button
+                disabled={!timetable}
+                sx={{
+                  marginTop: 1,
+                }}
                 onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-                customVariant="horizonForm"
+                variant="contained"
               >
                 {texts.createClassButton}
               </Button>
             </Stack>
           </Stack>
         ) : (
-          <Stack sx={{ height: '100vh' }}>
+          <Stack>
             <MonthSchedule data={timetable || []} />
             <Stack
               marginTop={1}
@@ -181,20 +208,15 @@ export default function CreateClassModal({
               <Button
                 sx={{ marginLeft: 1 }}
                 variant="contained"
-                onClick={onConfirmTimetable}
-              >
-                Xác nhận
-              </Button>
-              <Button
-                sx={{ marginLeft: 1 }}
-                variant="contained"
-                onClick={onBack}
+                onClick={handleOpenSchedule}
+                color="success"
               >
                 Trở lại
               </Button>
               <Button
                 sx={{ marginLeft: 1 }}
                 variant="contained"
+                color="error"
                 onClick={onReset}
               >
                 Hủy tạo lớp

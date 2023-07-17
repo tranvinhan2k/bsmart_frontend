@@ -74,11 +74,11 @@ export default function MentorCourseClassesPage() {
   const handleDeleteClass = async () => {};
   const handleCreateClass = async (data: any) => {
     await onAddNewClass(data);
-  };
-  const handleConfirmTimetable = async () => {
-    await handleAddTimetable();
     await refetch();
     onTriggerModal();
+  };
+  const handleConfirmTimetable = async (data: any) => {
+    await handleAddTimetable(data);
   };
   const handleUpdateClass = async (data: any) => {
     await onUpdateClass(data);
@@ -138,7 +138,7 @@ export default function MentorCourseClassesPage() {
             onSubmit={handleCreateClass}
             onBack={handleBackCreateCourse}
             onReset={handleResetCreateCourse}
-            onConfirmTimetable={handleConfirmTimetable}
+            onViewSchedule={handleConfirmTimetable}
           />
         )}
         {mode === 'UPDATE' && (
