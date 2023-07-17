@@ -217,6 +217,7 @@ export default function MentorCourseDetailPage() {
                       }}
                       variant="contained"
                       color="secondary"
+                      disabled={Math.round(coursePercent || 0) < 100}
                       onClick={handleSubmitCourse}
                     >
                       Phê duyệt khóa học
