@@ -104,14 +104,14 @@ export const CourseStatusList: OptionPayload[] = [
   },
   {
     id: 1,
-    label: 'Chưa yêu cầu',
+    label: 'Chưa yêu cầu phê duyệt',
     content: 'Lớp chưa gửi yêu cầu.',
     value: 'REQUESTING',
   },
   {
     id: 2,
-    label: 'Đã duyệt',
-    content: 'Lớp đã sẵn được duyệt',
+    label: 'Chờ phê duyệt',
+    content: 'Lớp đã gửi yêu cầu phê duyệt',
     value: 'WAITING',
   },
   {
@@ -128,8 +128,8 @@ export const CourseStatusList: OptionPayload[] = [
   },
   {
     id: 5,
-    label: 'Chưa bắt đầu',
-    content: 'Lớp đã được duyệt và đang tuyển sinh.',
+    label: 'Đã phê duyệt',
+    content: 'Lớp đã được phê duyệt thành công và đang tuyển sinh.',
     value: 'NOTSTART',
   },
   {
