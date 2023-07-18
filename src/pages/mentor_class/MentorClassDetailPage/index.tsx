@@ -4,29 +4,20 @@ import {
   Navigate,
   Route,
   Routes,
-  useLocation,
   useNavigate,
   useParams,
 } from 'react-router-dom';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import { scrollToTop } from '~/utils/common';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
-import DashboardNavigationTabs from '~/components/atoms/tabs/DashboardNavigationTabs';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
 import Sidebar from './Sidebar';
-import {
-  MentorAssignmentDetailsPage,
-  MentorAttendanceListPage,
-  MentorQuizSettingsPage,
-} from '~/routes/components';
+import { MentorClassAttendanceListPage } from '~/routes/components';
 import MentorClassInformationPage from '../MentorClassInformationPage';
-import MentorTakeAttendancePage from '../MentorTakeAttendancePage';
-import MentorTakeAttendance from '~/components/molecules/AttendanceManagement/MentorTakeAttendance';
-import MentorStudentListPage from '../MentorStudentListPage';
-import MentorSchedulePage from '../MentorSchedulePage';
+import { mentorClassRoutes } from '~/routes/mentor/class/routes';
 
 export interface DetailMemberClassPayload {
   code: string;
@@ -51,98 +42,14 @@ export default function MentorClassDetailPage() {
     setOpen(!open);
   };
 
-  const navigationTabs: {
-    id: number;
-    link: string;
-    name: string;
-    icon: IconName;
-    component: React.ReactNode;
-    isHide?: boolean | undefined;
-  }[] = [
-    {
-      id: 0,
-      icon: 'class',
-      link: 'information',
-      name: 'Thông tin lớp học',
-      component: <MentorClassInformationPage />,
-    },
-    {
-      id: 1,
-      icon: 'person',
-      link: 'students',
-      name: 'Danh sách học sinh',
-      component: <MentorStudentListPage />,
-    },
-    {
-      id: 1,
-      icon: 'date',
-      link: 'schedule',
-      name: 'Lịch làm việc',
-      component: <MentorSchedulePage />,
-    },
-    {
-      id: 1,
-      icon: 'attendance',
-      link: 'attendance',
-      name: 'Điểm danh',
-      component: <MentorAttendanceListPage />,
-    },
-    {
-      id: 2,
-      icon: 'book',
-      link: 'resource',
-      name: 'Tài nguyên',
-      component: <div>Tài Nguyên</div>,
-    },
-    {
-      id: 3,
-      icon: 'quiz',
-      link: 'exercise',
-      name: 'Kiểm tra',
-      component: <MentorQuizSettingsPage />,
-    },
-    {
-      id: 3,
-      icon: 'assignment',
-      link: 'assignment',
-      name: 'Bài tập',
-      component: <MentorAssignmentDetailsPage />,
-    },
-    {
-      id: 4,
-      icon: 'account',
-      link: 'notification',
-      name: 'Thông báo',
-      component: <MentorAssignmentDetailsPage />,
-    },
-  ];
-
   const showRoutes = () => {
     let result = null;
-    const showNavigationTabData = navigationTabs.filter((item) => !item.isHide);
-    result = (
-      <>
-        <Route
-          key="/"
-          path="/"
-          element={
-            <Navigate
-              to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${id}/${showNavigationTabData[0].link}`}
-            />
-          }
-        />
-        {showNavigationTabData.map((route) => {
-          if (route.isHide) return null;
-          return (
-            <Route
-              key={route.link}
-              path={route.link}
-              element={route.component}
-            />
-          );
-        })}
-      </>
-    );
+
+    result = mentorClassRoutes.map((route) => {
+      return (
+        <Route key={route.path} path={route.path} element={route.main()} />
+      );
+    });
 
     return result;
   };
@@ -206,7 +113,7 @@ export default function MentorClassDetailPage() {
           xs={12}
           md={2}
         >
-          <Sidebar navigationTabs={navigationTabs} />
+          <Sidebar />
         </Grid>
         <Grid item xs={12} md={10} paddingY={2} paddingX={4}>
           <Routes>{showRoutes()}</Routes>
@@ -214,7 +121,7 @@ export default function MentorClassDetailPage() {
       </Grid>
       <Drawer open={open} onClose={handleClose}>
         <Stack paddingRight={2}>
-          <Sidebar navigationTabs={navigationTabs} />
+          <Sidebar />
         </Stack>
       </Drawer>
     </Stack>

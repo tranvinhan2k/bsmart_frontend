@@ -17,7 +17,7 @@ import {
   MentorAssignmentDetailsPage,
   MentorCreateAnnouncementPage,
   MentorUpdateAnnouncementPage,
-  MentorAttendanceListPage,
+  MentorClassAttendanceListPage,
   MentorViewStudentAttendancePage,
   MentorTakeAttendancePage,
   NotFoundPage,
@@ -106,7 +106,7 @@ export const mentorLMSRoutes: RoutePayload[] = [
   },
   {
     path: MentorDashboardNavigationActionLink.attendance_list,
-    main: () => <MentorAttendanceListPage />,
+    main: () => <MentorClassAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {

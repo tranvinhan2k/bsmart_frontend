@@ -10,7 +10,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 
-export default function MentorAttendanceListPage() {
+export default function MentorClassAttendanceListPage() {
   useEffect(() => {
     scrollToTop();
   }, []);

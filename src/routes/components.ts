@@ -7,9 +7,6 @@ export const LmsPage = lazy(() => import('~/pages/LmsPage'));
 export const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 export const BlogPage = lazy(() => import('~/pages/BlogPage'));
 export const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
-export const MentorClassListPage = lazy(
-  () => import('~/pages/MentorClassListPage')
-);
 export const MemberEditPersonalInfoPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
 );
@@ -85,9 +82,7 @@ export const ManagerProcessCourseCreateRequestPage = lazy(
 export const ManagerProcessCourseCreateRequestDetailsPage = lazy(
   () => import('~/pages/ManagerProcessCourseCreateRequestDetailsPage')
 );
-export const MentorClassDetailPage = lazy(
-  () => import('~/pages/MentorClassDetailPage')
-);
+
 export const MentorQuizSettingsPage = lazy(
   () => import('~/pages/MentorQuizSettingsPage')
 );
@@ -117,12 +112,9 @@ export const CategoryManagerPage = lazy(
 export const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
 );
-export const MentorAttendanceListPage = lazy(
-  () => import('~/pages/MentorAttendanceListPage')
-);
 export const SchedulePage = lazy(() => import('~/pages/SchedulePage'));
 
-// class
+// course
 export const MentorCourseRequiedEditPage = lazy(
   () => import('~/pages/mentor_course/MentorCourseRequiedEditPage')
 );
@@ -137,4 +129,27 @@ export const MentorCourseContentPage = lazy(
 );
 export const MentorCourseClassesPage = lazy(
   () => import('~/pages/mentor_course/MentorCourseClassesPage')
+);
+
+// class
+export const MentorClassInformationPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassInformationPage')
+);
+export const MentorClassContentPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassContentPage')
+);
+export const MentorClassDetailPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassDetailPage')
+);
+export const MentorClassNotificationPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassNotificationPage')
+);
+export const MentorClassSchedulePage = lazy(
+  () => import('~/pages/mentor_class/MentorClassSchedulePage')
+);
+export const MentorClassStudentListPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassStudentListPage')
+);
+export const MentorClassAttendanceListPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassAttendanceListPage')
 );

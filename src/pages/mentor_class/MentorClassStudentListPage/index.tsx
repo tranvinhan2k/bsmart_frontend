@@ -18,7 +18,7 @@ export interface MentorClassMemberDetailPayload {
   phone: string;
 }
 
-export default function MentorStudentListPage() {
+export default function MentorClassStudentListPage() {
   const [row, setRow] = useState<MentorClassMemberDetailPayload | undefined>();
   const [open, setOpen] = useState(false);
   const handleOpenDetailModal = () => {

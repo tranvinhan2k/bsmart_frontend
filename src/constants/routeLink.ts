@@ -109,3 +109,11 @@ export const enum MentorCourseActionLink {
   information = 'information',
   content = 'content',
 }
+export const enum MentorClassActionLink {
+  information = 'information',
+  students = 'students',
+  schedule = 'schedule',
+  attendance = 'attendance',
+  activity = 'activity',
+  notification = 'notification',
+}
