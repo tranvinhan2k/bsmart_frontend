@@ -58,6 +58,7 @@ export default function EditCertificateProfileForm() {
   const { control, reset, handleSubmit, getValues, formState } = useForm({
     defaultValues: defaultValueEditCertificateProfile,
     resolver: resolverEditCertificateProfile,
+    mode: 'onChange',
   });
   const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
 
@@ -134,7 +135,8 @@ export default function EditCertificateProfileForm() {
       'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
     DESC3: 'Không đặt mật khẩu bảo vệ file của bạn.',
     DESC4: 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
-    DESC5: 'Hãy chụp 2 mặt bằng cấp/chứng chỉ',
+    DESC5_1: 'Định dạng hỗ trợ:',
+    DESC5_2: '.pdf, .doc, .docx',
     BUTTON_TEXT: 'Cập nhật',
   };
 
@@ -164,16 +166,12 @@ export default function EditCertificateProfileForm() {
       <Typography component="h3">
         - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC4}
       </Typography>
+      <Typography component="h3">
+        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC5_1}{' '}
+        <b>{EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC5_2}</b>
+      </Typography>
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
         <Grid container columnSpacing={3}>
-          <Grid item xs={12}>
-            <FormInput
-              control={control}
-              name="userImages"
-              variant="arrayHelperText"
-              placeholder="a"
-            />
-          </Grid>
           {certificateFields.map((field, index) => (
             <Fragment key={field.id}>
               <Grid item xs={12}>
@@ -211,7 +209,15 @@ export default function EditCertificateProfileForm() {
               </Grid>
             </Fragment>
           ))}
-          <Grid item xs={12} lg={3} mt={2}>
+          <Grid item xs={12} my={2}>
+            <FormInput
+              control={control}
+              name="userImages"
+              variant="arrayHelperText"
+              placeholder="a"
+            />
+          </Grid>
+          <Grid item xs={12} lg={3}>
             <MuiButton
               color="success"
               size="large"
@@ -231,7 +237,7 @@ export default function EditCertificateProfileForm() {
             variant="contained"
             sx={{ fontFamily: FontFamily.bold }}
             // disabled={!(formState.isDirty && formState.isValid)}
-            disabled={!formState.isDirty}
+            disabled={!(formState.isDirty && formState.isValid)}
           >
             Cập nhật
           </MuiButton>

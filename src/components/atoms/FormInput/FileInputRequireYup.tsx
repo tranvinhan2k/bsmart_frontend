@@ -29,7 +29,7 @@ function FileInputRequireYup({
   };
 
   const handleDeleteClick = () => {
-    onChange('');
+    onChange(null);
   };
 
   return (

@@ -39,6 +39,7 @@ export default function EditMentorProfileForm() {
   const { control, handleSubmit, reset, formState } = useForm({
     defaultValues: defaultValuesEditMentorProfile,
     resolver: resolverEditPersonalProfile,
+    // mode: 'onChange',
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -121,6 +122,7 @@ export default function EditMentorProfileForm() {
   };
 
   const appendSkill = () => {
+    // append({ skillId: null, yearOfExperiences: 1 });
     append({});
   };
   const removeSkill = (order: number) => {
@@ -213,8 +215,17 @@ export default function EditMentorProfileForm() {
                 </>
               )}
             </Grid>
-
-            <Grid item xs={6} lg={3}>
+            {Boolean(Object.keys(formState.errors).length === 1) && (
+              <Grid item xs={12}>
+                <FormInput
+                  control={control}
+                  name="mentorSkills"
+                  variant="arrayHelperText"
+                  placeholder="a"
+                />
+              </Grid>
+            )}
+            <Grid item xs={6} lg={3} mt={2}>
               <MuiButton
                 color="success"
                 size="large"

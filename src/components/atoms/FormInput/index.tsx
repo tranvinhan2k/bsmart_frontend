@@ -81,13 +81,7 @@ const generateFormInput = (
         />
       );
     case variant === 'arrayHelperText':
-      return (
-        <ArrayHelperText
-          disabled={disabled}
-          controller={controller}
-          placeholder={placeholder}
-        />
-      );
+      return <ArrayHelperText controller={controller} />;
     case variant === 'feedbackQuestionChoice':
       return (
         <FeedbackQuestionChoiceInput

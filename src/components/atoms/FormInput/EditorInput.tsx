@@ -1,8 +1,9 @@
+import { Box, Typography } from '@mui/material';
 import { UseControllerReturn } from 'react-hook-form';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
 import localEnvironment from '~/utils/localEnvironment';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { FontSize } from '~/assets/variables';
 
 interface EditorInputProps {
   controller: UseControllerReturn<any, string>;
@@ -27,22 +28,28 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
   };
 
   return (
-    <TinyMCEEditor
-      onBlur={onBlur}
-      apiKey={localEnvironment.TINYMCE_KEY}
-      onInit={(evt, editor) => {
-        editorRef.current = editor;
-      }}
-      onChange={handleChangeText}
-      initialValue={value}
-      init={{
-        height: 300,
-        menubar: false,
-        toolbar:
-          'bold italic forecolor backcolor undo redo alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-        content_style: `body { font-family:'Roboto', sans-serif; font-size:${FontSize.small_14} }`,
-      }}
-    />
+    <>
+      <TinyMCEEditor
+        onBlur={onBlur}
+        apiKey={localEnvironment.TINYMCE_KEY}
+        onInit={(evt, editor) => {
+          editorRef.current = editor;
+        }}
+        onChange={handleChangeText}
+        initialValue={value}
+        init={{
+          height: 300,
+          menubar: false,
+          elementpath: false,
+          toolbar:
+            'bold italic forecolor backcolor undo redo alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+          content_style: `body { font-family:'Roboto', sans-serif; font-size:${FontSize.small_14} }`,
+        }}
+      />
+      <Box mt={1}>
+        <Typography color="red">{error?.message}</Typography>
+      </Box>
+    </>
   );
 }
 export default EditorInput;

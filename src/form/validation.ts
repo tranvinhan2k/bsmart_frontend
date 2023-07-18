@@ -50,6 +50,8 @@ import {
   CERTIFICATE_FORMAT_INCORRECT,
   CERTIFICATE_REQUIRED,
   CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
+  MENTOR_SKILLS_REQUIRED_ONE,
+  SKILL_UNIQUE,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -60,6 +62,12 @@ const PASSWORD_REGEX =
 const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
 const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+const SUPPORTED_FILE_DEGREE_FORMAT = [
+  'application/pdf',
+  'application/docx',
+  'application/doc',
+];
+const FILE_DEGREE_SIZE_BYTES = 2000000; // 1 is 1bytes
 
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -202,54 +210,60 @@ export const validationSchemaEditMentorProfile = object({
   introduce: string().required(INTRODUCE_REQUIRED),
   mentorSkills: array(
     object({
-      skillId: object().typeError(SKILL_REQUIRED).required(SKILL_REQUIRED),
+      skillId: object({
+        id: number().required('Thiếu Id'),
+      })
+        .typeError(SKILL_REQUIRED)
+        .required(SKILL_REQUIRED),
       yearOfExperiences: number()
         .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
         .required(YEAR_OF_EXPERIENCES_REQUIRED)
         .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
     })
-  ),
+  )
+    .test('Unique', SKILL_UNIQUE, (value) => {
+      try {
+        if (value) {
+          const skillList = value.map((item) => item.skillId.id);
+          return new Set(skillList).size === value?.length;
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    })
+    .required()
+    .min(1, MENTOR_SKILLS_REQUIRED_ONE),
   workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
 });
 
-const SUPPORTED_FILE_FORMAT = ['application/pdf'];
-const FILE_SIZE_BYTES = 2000000; // 1 is 1bytes
 export const validationSchemaEditCertificateProfile = object({
   userImages: array(
     mixed()
-      .typeError('Hello')
-      // .nullable()
-      // .notRequired()
-      // .defined()
       .test(
         'FILE_PRE',
         CERTIFICATE_MAX_SIZE,
         (value: any) =>
           !value ||
-          (value && value?.size <= FILE_SIZE_BYTES) ||
+          (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
           (value && value?.type === 'DEGREE')
       )
-      // .test(
-      //   'FILE_SIZE',
-      //   CERTIFICATE_MAX_SIZE,
-      //   (value) => !value || (value && value?.size <= FILE_SIZE_BYTES)
-      // )
       .test(
         'FILE_FORMAT',
         CERTIFICATE_FORMAT_INCORRECT,
         (value: any) =>
           !value ||
-          (value && SUPPORTED_FILE_FORMAT.includes(value?.type)) ||
+          (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
           (value && value?.type === 'DEGREE')
       )
-      .test(
-        'FILE_EXIST',
-        'Hãy nhập file',
-        (value: any) => !value || (value && value?.name)
-      )
-  ),
-  // .required()
-  // .min(1, CERTIFICATE_REQUIRED),
+    // .test('FILE_EXIST', 'Hãy nhập file', (value: any) => {
+    //   if (value.name) return true;
+    //   return false;
+    // })
+  )
+    .required()
+    // .min(1, 'CERTIFICATE_REQUIRED'),
+    .min(1, CERTIFICATE_REQUIRED),
 });
 
 export const validationSchemaEditAccountProfile = object({
