@@ -10,9 +10,9 @@ export default function Content({ sections }: Props) {
   return (
     <Stack>
       {sections.length !== 0 ? (
-        sections.map((section) => (
+        sections.map((section, index) => (
           <Section
-            key={section.id}
+            key={index}
             id={section.id}
             subActivities={section.subActivities}
             name={section.name}

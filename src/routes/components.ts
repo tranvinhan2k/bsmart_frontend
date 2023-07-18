@@ -147,6 +147,9 @@ export const MentorClassNotificationPage = lazy(
 export const MentorClassSchedulePage = lazy(
   () => import('~/pages/mentor_class/MentorClassSchedulePage')
 );
+export const MentorClassListPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassListPage')
+);
 export const MentorClassStudentListPage = lazy(
   () => import('~/pages/mentor_class/MentorClassStudentListPage')
 );
