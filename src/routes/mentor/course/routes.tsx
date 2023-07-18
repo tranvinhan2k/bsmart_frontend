@@ -5,6 +5,9 @@ import {
   MentorCourseActionLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import MentorCourseAddModulePage from '~/pages/MentorCourseAddModulePage';
+import MentorCourseModulesPage from '~/pages/MentorCourseModulesPage';
+import MentorCourseSectionsPage from '~/pages/MentorCourseSectionsPage';
 import {
   MentorCourseClassesPage,
   MentorCourseContentPage,
@@ -33,8 +36,26 @@ export const mentorCourseRoutes: RoutePayload[] = [
     courseStatus: 'ALL',
   },
   {
-    path: MentorCourseActionLink.content,
+    path: `${MentorCourseActionLink.content}`,
     main: () => <MentorCourseContentPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorCourseActionLink.content}/:sectionId/`,
+    main: () => <MentorCourseSectionsPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorCourseActionLink.content}/:sectionId/:moduleId`,
+    main: () => <MentorCourseModulesPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorCourseActionLink.content}/:sectionId/add/:type`,
+    main: () => <MentorCourseAddModulePage />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },

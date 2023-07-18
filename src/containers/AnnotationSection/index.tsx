@@ -1,6 +1,6 @@
 import { Box, Grid, Pagination, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
+import { useManagerHistory } from '~/hooks/useManagerHistory';
 import ActivityHistoryDetails from './ActivityHistoryDetails';
 import { ANNOTATION_BOX, ANNOTATION_H3, SX_FORM_LABEL_GRAY } from './style';
 
@@ -8,7 +8,7 @@ export default function AnnotationSection() {
   const [page, setPage] = useState<number>(0);
   const size = 5;
 
-  const { activityHistories, refetch } = useManageActivityHistory({
+  const { activityHistories, refetch } = useManagerHistory({
     page,
     size,
   });

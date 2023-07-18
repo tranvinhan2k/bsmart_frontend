@@ -62,7 +62,7 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   '.MuiDataGrid-columnHeaderTitle': {
     color: Color.navy,
     textTransform: 'uppercase',
-    fontSize: FontSize.small_16,
+    fontSize: FontSize.small_14,
     fontFamily: FontFamily.bold,
   },
   [`& .${gridClasses.row}.even`]: {
@@ -206,7 +206,13 @@ export default function CRUDTable({
         onMouseLeave={handleClose}
       >
         {menuItemList?.map((item) => (
-          <MenuItem key={item.title} onClick={item.onCLick}>
+          <MenuItem
+            key={item.title}
+            onClick={() => {
+              item.onCLick();
+              handleClose();
+            }}
+          >
             <ListItemIcon>
               <Icon name={item.icon} size="small" color="black" />
             </ListItemIcon>

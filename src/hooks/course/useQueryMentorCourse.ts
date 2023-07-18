@@ -5,7 +5,7 @@ export default function useQueryMentorCourse(id: number) {
   const { courses, error, isLoading } = useQueryGetMentorCourses({
     q: '',
     page: 0,
-    size: 200000,
+    size: 2000,
   });
   const tmpCourse = courses?.find((item) => item.id === id);
   const course: MentorDetailCoursePayload = {

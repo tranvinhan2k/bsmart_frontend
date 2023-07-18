@@ -36,7 +36,12 @@ export default function CourseAlert({ status }: Props) {
           Khóa học đã được phê duyệt thành công
         </Alert>
       );
-
+    case 'WAITING':
+      return (
+        <Alert sx={{ marginY: 1 }} severity="info">
+          Khóa học đang được phê duyệt. Quản lí sẽ phê duyệt khóa học trong 48h tới. 
+        </Alert>
+      );
     default:
       return null;
       break;

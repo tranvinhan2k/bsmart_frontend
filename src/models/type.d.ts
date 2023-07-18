@@ -134,9 +134,11 @@ export interface ActivityPayload {
   parentActivityId: number;
   subActivities: ActivityPayload[];
   visible: boolean;
+  authorizeClasses: number[];
 }
 
 export interface ActivityDetailPayload
   extends Omit<ActivityPayload, 'subActivities'> {
   detail: any;
+  description?: string;
 }

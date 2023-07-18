@@ -157,6 +157,7 @@ function handleResponseGetActivities(
     parentActivityId: item?.parentActivityId || 0,
     subActivities: handleResponseGetActivities(item?.subActivities || []),
     type: item?.type || 'SECTION',
+    authorizeClasses: item?.authorizeClasses || [],
   }));
 }
 
@@ -236,8 +237,16 @@ const coursesApi = {
   async updateCourse({ id, param }: { id: number; param: PutCourseRequest }) {
     axiosClient.put(`${url}/${id}`, param);
   },
-  putRequestApproval(id: number): Promise<number[]> {
-    return axiosClient.put(`${url}/${id}/request-approval`);
+  putRequestApproval({
+    id,
+    params,
+  }: {
+    id: number;
+    params: number[];
+  }): Promise<number[]> {
+    return axiosClient.put(`${url}/${id}/request-approval`, params, {
+      paramsSerializer: { indexes: null },
+    });
   },
   // delete
   async deleteCourse(id: number): Promise<boolean> {

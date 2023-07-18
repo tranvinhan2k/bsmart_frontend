@@ -18,18 +18,19 @@ function MultiSelectInput({ controller, data }: MultiSelectInputProps) {
           key={option.id}
           control={
             <Checkbox
-              name={`${option.id}`}
-              value={option.id}
-              checked={value.includes(option.id)}
+              name={`${option.value}`}
+              value={option.value}
+              checked={value.includes(option.value)}
               onChange={(e) => {
-                const { checked, value: eventValue } = e.target;
-                const values = new Set(eventValue);
-                if (checked) {
-                  values.add(value);
+                const eventValue = e.target.value;
+                let tmpValue = [...value];
+                if (e.target.checked) {
+                  tmpValue = [...tmpValue, eventValue];
                 } else {
-                  values.delete(value);
+                  tmpValue = tmpValue.filter((item) => item !== eventValue);
                 }
-                controllerOnChange(Array.from(values));
+
+                controllerOnChange(tmpValue);
               }}
             />
           }

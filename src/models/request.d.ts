@@ -50,11 +50,25 @@ export interface PutCourseRequest {
 
 export interface PostActivityRequest {
   name: string;
-  visible?: boolean;
+  visible: boolean;
   parentActivityId?: number;
-  courseId?: number;
-  authorizeClasses?: number[];
+  courseId: number;
+  authorizeClasses: number[];
+  file?: string | Blob;
+  description?: string;
 }
+export interface PostAssignmentRequest extends PostActivityRequest {
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  attachFiles: Blob[];
+  isOverWriteAttachFile: boolean;
+  passPoint: number;
+  overWriteAttachFile: boolean;
+}
+
 export interface PostSubmitActivityRequest {
   submittedFiles: string[];
   note: string;

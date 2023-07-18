@@ -2,6 +2,7 @@ import {
   AiOutlineClose,
   AiOutlineStar,
   AiFillSetting,
+  AiOutlineInfoCircle,
   AiOutlineRedo,
   AiOutlineLogout,
 } from 'react-icons/ai';
@@ -113,6 +114,7 @@ export type IconName =
   | 'class'
   | 'close'
   | 'arrowUp'
+  | 'info'
   | 'arrowDown'
   | 'arrowRight'
   | 'course'
@@ -214,6 +216,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <IoMdPricetag />
+        </Typography>
+      );
+    case 'info':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <AiOutlineInfoCircle />
         </Typography>
       );
     case 'date':

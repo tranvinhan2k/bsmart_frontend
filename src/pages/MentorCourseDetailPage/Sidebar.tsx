@@ -32,7 +32,7 @@ export default function Sidebar({ status }: Props) {
           (item.link === MentorCourseActionLink.classes &&
             classes &&
             classes?.length > 0) ||
-          (item.link === MentorCourseActionLink.classes &&
+          (item.link === MentorCourseActionLink.content &&
             data &&
             data?.length > 0)
         ) {

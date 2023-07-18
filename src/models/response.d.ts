@@ -15,10 +15,12 @@ export type GetActivityResponse = Partial<{
   lastModifiedBy: string;
   id: number;
   name: string;
+  description: string;
   type: ActivityKeys;
   visible: boolean;
   detail: any;
   parentActivityId: number;
+  authorizeClasses: number[];
   subActivities: {
     created: string;
     lastModified: string;
@@ -43,6 +45,7 @@ export type GetAllActivitiesResponse = Partial<{
   type: ActivityKeys;
   visible: boolean;
   parentActivityId: number;
+  authorizeClasses: number[];
   subActivities: {
     created: string;
     lastModified: string;
