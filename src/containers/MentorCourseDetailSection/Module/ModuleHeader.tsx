@@ -13,7 +13,12 @@ export default function ModuleHeader({
     case 'RESOURCE':
       texts = 'Tài nguyên';
       break;
-
+    case 'ASSIGNMENT':
+      texts = 'Bài tập';
+      break;
+    case 'QUIZ':
+      texts = 'Kiểm tra trắc nghiệm';
+      break;
     default:
       texts = 'Bài học';
       break;

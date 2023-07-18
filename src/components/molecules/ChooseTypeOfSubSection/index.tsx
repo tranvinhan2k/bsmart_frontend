@@ -16,26 +16,31 @@ export default function ChooseTypeOfSubSection({ sectionId }: Props) {
     id: number;
     name: string;
     type: ActivityKeys;
+    image: string;
   }[] = [
     {
       id: 0,
       name: 'Bài học',
       type: 'LESSON',
+      image: image.study,
     },
     {
       id: 0,
       name: 'Tài nguyên',
       type: 'RESOURCE',
+      image: image.resource,
     },
     {
       id: 0,
       name: 'Kiểm tra',
       type: 'QUIZ',
+      image: image.quiz,
     },
     {
       id: 0,
       name: 'Bài tập',
       type: 'ASSIGNMENT',
+      image: image.asg,
     },
   ];
 
@@ -73,7 +78,7 @@ export default function ChooseTypeOfSubSection({ sectionId }: Props) {
           >
             <Box
               component="img"
-              src={image.study}
+              src={item.image}
               sx={{
                 padding: 1,
                 width: '50px',
