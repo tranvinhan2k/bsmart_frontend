@@ -61,7 +61,36 @@ const activityApi = {
       },
     });
   },
-  addQuizActivity(params: PostAssignmentRequest): Promise<boolean> {
+  addQuizActivity(params: PostActivityRequest): Promise<boolean> {
+    const requestData = new FormData();
+    requestData.append('name', params.name);
+    requestData.append('visible', String(params.visible));
+    requestData.append('parentActivityId', String(params.parentActivityId));
+    requestData.append('courseId', String(params.courseId));
+
+    if (!(params.authorizeClasses?.length > 0)) {
+      requestData.append('authorizeClasses', String(-1));
+    } else {
+      params.authorizeClasses.map((item) => {
+        requestData.append('authorizeClasses', String(item));
+        return null;
+      });
+    }
+
+    if (params.file) {
+      requestData.append('file', params.file);
+    }
+
+    return axiosClient.post(`${url}/quiz`, requestData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+  addLessonActivity(params: PostActivityRequest): Promise<boolean> {
+    return axiosClient.post(`${url}/lesson`, params);
+  },
+  addAssignmentActivity(params: PostAssignmentRequest): Promise<boolean> {
     const requestData = new FormData();
     requestData.append('name', params.name);
     requestData.append('visible', String(params.visible));
@@ -94,22 +123,16 @@ const activityApi = {
 
     if (params.attachFiles) {
       params.attachFiles.map((item) => {
-        requestData.append('file', item);
+        requestData.append('attachFiles', item);
         return null;
       });
     }
 
-    return axiosClient.post(`${url}/quiz`, requestData, {
+    return axiosClient.post(`${url}/assignment`, requestData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-  },
-  addLessonActivity(params: PostActivityRequest): Promise<boolean> {
-    return axiosClient.post(`${url}/lesson`, params);
-  },
-  addAssignmentActivity(params: PostActivityRequest): Promise<boolean> {
-    return axiosClient.post(`${url}/assignment`, params);
   },
   addAnnouncementActivity(params: PostActivityRequest): Promise<boolean> {
     return axiosClient.post(`${url}/announcement`, params);

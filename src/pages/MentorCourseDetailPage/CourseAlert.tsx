@@ -39,7 +39,8 @@ export default function CourseAlert({ status }: Props) {
     case 'WAITING':
       return (
         <Alert sx={{ marginY: 1 }} severity="info">
-          Khóa học đang được phê duyệt. Quản lí sẽ phê duyệt khóa học trong 48h tới. 
+          Khóa học đang được phê duyệt. Quản lí sẽ phê duyệt khóa học trong 48h
+          tới.
         </Alert>
       );
     default:
