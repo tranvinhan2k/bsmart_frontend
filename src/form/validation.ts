@@ -46,6 +46,9 @@ import {
   YEAR_OF_EXPERIENCES_MINIMUM,
   YEAR_OF_EXPERIENCES_REQUIRED,
   SKILL_REQUIRED,
+  CERTIFICATE_MAX_SIZE,
+  CERTIFICATE_FORMAT_INCORRECT,
+  CERTIFICATE_REQUIRED,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -208,8 +211,44 @@ export const validationSchemaEditMentorProfile = object({
   workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
 });
 
+const SUPPORTED_FILE_FORMAT = ['application/pdf'];
+const FILE_SIZE_BYTES = 2000000; // 1 is 1bytes
 export const validationSchemaEditCertificateProfile = object({
-  userImages: array(),
+  userImages: array(
+    mixed()
+      .typeError('Hello')
+      // .nullable()
+      // .notRequired()
+      // .defined()
+      .test(
+        'FILE_PRE',
+        CERTIFICATE_MAX_SIZE,
+        (value: any) =>
+          !value ||
+          (value && value?.size <= FILE_SIZE_BYTES) ||
+          (value && value?.type === 'DEGREE')
+      )
+      // .test(
+      //   'FILE_SIZE',
+      //   CERTIFICATE_MAX_SIZE,
+      //   (value) => !value || (value && value?.size <= FILE_SIZE_BYTES)
+      // )
+      .test(
+        'FILE_FORMAT',
+        CERTIFICATE_FORMAT_INCORRECT,
+        (value: any) =>
+          !value ||
+          (value && SUPPORTED_FILE_FORMAT.includes(value?.type)) ||
+          (value && value?.type === 'DEGREE')
+      )
+      .test(
+        'FILE_EXIST',
+        'Hãy nhập file',
+        (value: any) => !value || (value && value?.name)
+      )
+  ),
+  // .required()
+  // .min(1, CERTIFICATE_REQUIRED),
 });
 
 export const validationSchemaEditAccountProfile = object({

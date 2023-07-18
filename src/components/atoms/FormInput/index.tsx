@@ -30,6 +30,8 @@ import DateTimePickerInput from './DateTimePickerInput';
 import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 import EditorInput from './EditorInput';
 import { FontFamily, FontSize } from '~/assets/variables';
+import ArrayHelperText from './ArrayHelperText';
+import FileInputRequireYup from './FileInputRequireYup';
 
 interface FormInputProps {
   disabled?: boolean;
@@ -78,6 +80,14 @@ const generateFormInput = (
           placeholder={placeholder}
         />
       );
+    case variant === 'arrayHelperText':
+      return (
+        <ArrayHelperText
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'feedbackQuestionChoice':
       return (
         <FeedbackQuestionChoiceInput
@@ -119,6 +129,13 @@ const generateFormInput = (
       );
     case variant === 'file':
       return <FileInput controller={controller} placeholder={placeholder} />;
+    case variant === 'fileRequireYup':
+      return (
+        <FileInputRequireYup
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'radioGroup':
       return <RadioGroupInput controller={controller} data={data} />;
     case variant === 'multiSelect':

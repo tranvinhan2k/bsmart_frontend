@@ -42,6 +42,9 @@ export const YEAR_OF_EXPERIENCES_MINIMUM = 'Nhập số năm > 0.';
 
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const EMAIL_REQUIRED = 'Email không được để trống.';
+export const CERTIFICATE_REQUIRED = 'File không được để trống';
+export const CERTIFICATE_MAX_SIZE = 'File tối đa 2MB';
+export const CERTIFICATE_FORMAT_INCORRECT = 'File sai định dạng';
 
 export const PHONE_INVALID = 'Số điện thoại không hợp lệ.';
 export const MENTOR_REQUIRED = 'Giáo viên cần đánh giá không được để trống.';

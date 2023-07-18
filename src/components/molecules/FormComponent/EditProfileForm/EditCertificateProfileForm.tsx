@@ -55,7 +55,7 @@ export default function EditCertificateProfileForm() {
   const resolverEditCertificateProfile = useYupValidationResolver(
     validationSchemaEditCertificateProfile
   );
-  const { control, reset, handleSubmit, getValues } = useForm({
+  const { control, reset, handleSubmit, getValues, formState } = useForm({
     defaultValues: defaultValueEditCertificateProfile,
     resolver: resolverEditCertificateProfile,
   });
@@ -72,6 +72,30 @@ export default function EditCertificateProfileForm() {
       reset(defaults);
     }
   }, [dataGetProfile, reset]);
+
+  const {
+    fields: certificateFields,
+    append,
+    remove,
+  } = useFieldArray({
+    name: 'userImages',
+    control,
+    rules: {
+      required: 'Hãy nhập ít nhất 1 bằng',
+    },
+  });
+
+  const appendCertificate = () => {
+    append(null);
+  };
+  const removeCertificate = (index: number, certificate: any) => {
+    remove(index);
+    if (certificate.type === 'DEGREE') {
+      setDegreeIdsToDelete((prev) => {
+        return [...prev, certificate.id];
+      });
+    }
+  };
 
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
@@ -118,32 +142,8 @@ export default function EditCertificateProfileForm() {
     name: EDIT_CERTIFICATE_PROFILE_FIELDS.userImages,
     label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.USERIMAGES.LABEL,
     placeholder: '',
-    variant: 'file',
+    variant: 'fileRequireYup',
     size: 12,
-  };
-
-  const {
-    fields: certificateFields,
-    append,
-    remove,
-  } = useFieldArray({
-    name: 'userImages',
-    control,
-    rules: {
-      required: 'Hãy nhập ít nhất 1 bằng',
-    },
-  });
-
-  const appendCertificate = () => {
-    append('');
-  };
-  const removeCertificate = (index: number, certificate: any) => {
-    remove(index);
-    if (certificate.type === 'DEGREE') {
-      setDegreeIdsToDelete((prev) => {
-        return [...prev, certificate.id];
-      });
-    }
   };
 
   return (
@@ -166,6 +166,14 @@ export default function EditCertificateProfileForm() {
       </Typography>
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
         <Grid container columnSpacing={3}>
+          <Grid item xs={12}>
+            <FormInput
+              control={control}
+              name="userImages"
+              variant="arrayHelperText"
+              placeholder="a"
+            />
+          </Grid>
           {certificateFields.map((field, index) => (
             <Fragment key={field.id}>
               <Grid item xs={12}>
@@ -182,7 +190,7 @@ export default function EditCertificateProfileForm() {
                 >
                   <FormInput
                     control={control}
-                    name={`${formFieldsCertificate.name}.${index}`}
+                    name={`${formFieldsCertificate.name}[${index}]`}
                     variant={formFieldsCertificate.variant}
                     placeholder={formFieldsCertificate.placeholder}
                   />
@@ -193,7 +201,7 @@ export default function EditCertificateProfileForm() {
                     onClick={() =>
                       removeCertificate(
                         index,
-                        getValues(`${formFieldsCertificate.name}.${index}`)
+                        getValues(`${formFieldsCertificate.name}[${index}]`)
                       )
                     }
                   >
@@ -222,6 +230,8 @@ export default function EditCertificateProfileForm() {
             type="submit"
             variant="contained"
             sx={{ fontFamily: FontFamily.bold }}
+            // disabled={!(formState.isDirty && formState.isValid)}
+            disabled={!formState.isDirty}
           >
             Cập nhật
           </MuiButton>

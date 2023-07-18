@@ -95,13 +95,7 @@ export interface EditCertificateProfileFormDataPayload {
   userImages: (string | Blob)[];
 }
 export interface EditCertificateProfileDefaultValuePayload {
-  userImages: {
-    id: number;
-    name: string;
-    status: boolean;
-    type: string;
-    url: string;
-  }[];
+  userImages: (string | Blob)[];
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;
@@ -198,6 +192,7 @@ export interface UpdateClassSectionsFormDefault {
 
 export type FormInputVariant =
   | 'text'
+  | 'arrayHelperText'
   | 'number'
   | 'editor'
   | 'multiline'
@@ -210,6 +205,7 @@ export type FormInputVariant =
   | 'multiSelect'
   | 'time'
   | 'file'
+  | 'fileRequireYup'
   | 'tags'
   | 'modules'
   | 'password'

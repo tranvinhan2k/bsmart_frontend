@@ -93,8 +93,6 @@ export default function EditMentorProfileForm() {
         yearOfExperiences: item.yearOfExperiences,
       });
     });
-    console.log('data', data);
-    console.log('params', params);
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditMentorProfile(params);
