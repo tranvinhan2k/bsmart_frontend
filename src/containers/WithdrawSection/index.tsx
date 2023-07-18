@@ -1,4 +1,10 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button as MuiButton,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -17,7 +23,8 @@ import transactionsApi, {
 } from '~/api/transactions';
 import { validationSchemaWithdrawMoney } from '~/form/validation';
 import { useYupValidationResolver } from '~/hooks';
-import Button from '~/components/atoms/Button';
+import { FontFamily } from '~/assets/variables';
+import { scrollToTop } from '~/utils/common';
 import {
   SX_CONTAINER,
   SX_WITHDRAW_TITLE,
@@ -26,10 +33,15 @@ import {
   SX_TITLE_NOTE,
   SX_DESC_NOTE,
   SX_NOTE,
+  SX_FORM_LABEL,
 } from './style';
 import { useQueryGetAllBanks } from '~/hooks/useQueryGetAllBanks';
 
 export default function WithdrawSection() {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   const { banks } = useQueryGetAllBanks();
   const { mutateAsync: mutateWithdrawMoney } = useMutation({
     mutationFn: transactionsApi.withdrawMoney,
@@ -54,17 +66,19 @@ export default function WithdrawSection() {
   useEffect(() => {
     if (banks) {
       const defaults = defaultValueWithdrawMoney;
-      defaults.bankLinking = {
-        id: banks[0].id,
-        bin: banks[0].bin,
-        code: banks[0].code,
-        logo: banks[0].logo,
-        lookupSupported: banks[0].lookupSupported,
-        name: banks[0].name,
-        shortName: banks[0].shortName,
-        transferSupported: banks[0].transferSupported,
-      };
-      reset(defaults);
+      if (banks && banks.length > 0) {
+        defaults.bankLinking = {
+          id: banks[0].id,
+          bin: banks[0].bin,
+          code: banks[0].code,
+          logo: banks[0].logo,
+          lookupSupported: banks[0].lookupSupported,
+          name: banks[0].name,
+          shortName: banks[0].shortName,
+          transferSupported: banks[0].transferSupported,
+        };
+        reset(defaults);
+      }
     }
   }, [banks, reset]);
 
@@ -137,7 +151,9 @@ export default function WithdrawSection() {
           <form onSubmit={handleSubmit(handleSubmitSuccess)}>
             <Grid container columnSpacing={3}>
               <Grid item xs={12}>
-                <Typography>{WITHDRAW_MONEY_FORM_TEXT.AMOUNT.LABEL}</Typography>
+                <Typography sx={SX_FORM_LABEL}>
+                  {WITHDRAW_MONEY_FORM_TEXT.AMOUNT.LABEL}
+                </Typography>
                 <FormInput
                   control={control}
                   name={WITHDRAW_MONEY_FIELDS.amount}
@@ -146,7 +162,7 @@ export default function WithdrawSection() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography>
+                <Typography sx={SX_FORM_LABEL}>
                   {WITHDRAW_MONEY_FORM_TEXT.BANK_LINKING.LABEL}
                 </Typography>
                 <FormInput
@@ -160,7 +176,7 @@ export default function WithdrawSection() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography>
+                <Typography sx={SX_FORM_LABEL}>
                   {WITHDRAW_MONEY_FORM_TEXT.BANK_ACCOUNT.LABEL}
                 </Typography>
                 <FormInput
@@ -173,7 +189,7 @@ export default function WithdrawSection() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography>
+                <Typography sx={SX_FORM_LABEL}>
                   {WITHDRAW_MONEY_FORM_TEXT.BANK_ACCOUNT_OWNER.LABEL}
                 </Typography>
                 <FormInput
@@ -186,7 +202,9 @@ export default function WithdrawSection() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography>{WITHDRAW_MONEY_FORM_TEXT.NOTE.LABEL}</Typography>
+                <Typography sx={SX_FORM_LABEL}>
+                  {WITHDRAW_MONEY_FORM_TEXT.NOTE.LABEL}
+                </Typography>
                 <FormInput
                   control={control}
                   name={WITHDRAW_MONEY_FIELDS.note}
@@ -195,9 +213,18 @@ export default function WithdrawSection() {
                 />
               </Grid>
             </Grid>
-            <Button customVariant="normal" type="submit">
-              Rút tiền
-            </Button>
+            <Box mt={4}>
+              <MuiButton
+                color="miSmartOrange"
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                sx={{ fontFamily: FontFamily.bold }}
+              >
+                Rút tiền
+              </MuiButton>
+            </Box>
           </form>
         )}
         {!banks && (

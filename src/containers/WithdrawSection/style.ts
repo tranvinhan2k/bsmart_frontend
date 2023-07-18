@@ -3,6 +3,7 @@ import { Theme } from '@mui/material/styles';
 import {
   BorderRadius,
   Color,
+  FontFamily,
   FontSize,
   FontWeight,
   MetricSize,
@@ -101,4 +102,11 @@ export const SX_OUTSTANDING_TITLE: SxProps<Theme> = {
   fontSize: FontSize.medium_24,
   fontWeight: FontWeight.bold,
   /* Other */
+};
+
+export const SX_FORM_LABEL: SxProps<Theme> = {
+  color: '#0e0a38',
+  fontFamily: FontFamily.bold,
+  fontWeight: 700,
+  margin: '1rem 0 0.5rem 0',
 };

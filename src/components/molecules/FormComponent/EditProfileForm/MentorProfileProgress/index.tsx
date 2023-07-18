@@ -44,7 +44,7 @@ export default function MentorProfileProgress() {
         <>
           {mentorProfilesCompleteness.allowSendingApproval ? (
             <Typography component="h3">
-              Hồ sơ đã sẳn sàng gửi cho quản trị viên phê duyệt
+              Hồ sơ giảng dạy đã sẳn sàng gửi cho quản trị viên phê duyệt
             </Typography>
           ) : (
             <Typography component="h3">

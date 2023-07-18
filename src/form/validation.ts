@@ -49,6 +49,7 @@ import {
   CERTIFICATE_MAX_SIZE,
   CERTIFICATE_FORMAT_INCORRECT,
   CERTIFICATE_REQUIRED,
+  CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -257,7 +258,8 @@ export const validationSchemaEditAccountProfile = object({
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
   newPassword: string()
     .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .notOneOf([ref('oldPassword')], CONFIRM_PASSWORD_NOT_MATCH_PASSWORD),
   newPasswordConfirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),

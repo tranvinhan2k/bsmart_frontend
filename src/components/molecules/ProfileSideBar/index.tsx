@@ -220,7 +220,7 @@ export default function ProfileSideBar({
                   >
                     <Icon name="book" size="medium" color="white" />
                   </Stack>
-                  Quản lí học tập
+                  {role === 'TEACHER' ? 'Quản lí giảng dạy' : 'Quản lí học tập'}
                 </Stack>
               </Button>
             </Stack>

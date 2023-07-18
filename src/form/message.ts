@@ -5,8 +5,10 @@ export const PASSWORD_MATCHED =
   'Mật khẩu phải từ 8 chữ cái trở lên, có ít nhất 1 chữ cái viết hoa, 1 chữ cái thường, 1 số và 1 kí tự đặt biệt.';
 export const CONFIRM_PASSWORD_REQUIRED =
   'Xác nhận mật khẩu không được để trống.';
+export const CONFIRM_PASSWORD_NOT_MATCH_PASSWORD =
+  'Xác nhận mật khẩu mới không được trùng mật cũ';
 export const CONFIRM_PASSWORD_NOT_MATCH =
-  'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
+  'Xác nhận mật khẩu mới không giống nhau';
 export const MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED =
   'Hãy nhập tin nhắn tới người dùng';
 export const CRATE_ASSIGNMENT_NAME = 'Hãy nhập tên assignment';

@@ -7,13 +7,8 @@ import { ActionPayload } from '~/models';
 export const MemberNavigationActionData: ActionPayload[] = [
   {
     id: 0,
-    name: 'Thông tin chung',
+    name: 'Hồ sơ cá nhân',
     link: MemberNavigationActionLink.edit_profile_personal_info,
-  },
-  {
-    id: 1,
-    name: 'Chứng minh thư',
-    link: MentorNavigationLink.edit_profile_img,
   },
   {
     id: 2,
@@ -22,17 +17,7 @@ export const MemberNavigationActionData: ActionPayload[] = [
   },
   {
     id: 3,
-    name: 'Quản lý ví tiền',
+    name: 'Giao dịch',
     link: MemberNavigationActionLink.wallet_management,
-  },
-  {
-    id: 4,
-    name: 'Rút tiền',
-    link: MemberNavigationActionLink.withdraw,
-  },
-  {
-    id: 5,
-    name: 'Danh sách khóa học',
-    link: MemberNavigationActionLink.member_course_list,
   },
 ];

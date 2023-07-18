@@ -32,7 +32,6 @@ export const enum MemberNavigationActionLink {
   edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   wallet_management = 'wallet-management',
-  withdraw = 'withdraw',
   member_course_list = 'member-course-list',
 }
 

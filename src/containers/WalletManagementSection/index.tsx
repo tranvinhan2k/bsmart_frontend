@@ -16,10 +16,11 @@ import { useQueryGetTransactions } from '~/hooks/useQueryGetTransactions';
 import DataGrid from '~/components/atoms/DataGrid';
 import Icon from '~/components/atoms/Icon';
 import {
-  SX_WRAPPER_TITLE,
+  SX_FORM,
+  SX_FORM_LABEL,
+  SX_FORM_TITLE,
   SX_CONTAINER,
   SX_FORM_SEARCH_INPUT,
-  SX_TITLE,
   SX_FORM_SEARCH_INPUT_ICON_BUTTON,
   SX_WALLET_DATAGRID,
 } from './style';
@@ -37,32 +38,30 @@ export default function WalletManagementSection() {
   const isLoading = false;
 
   return (
-    <>
-      <Box sx={SX_WRAPPER_TITLE}>
-        <Typography component="h3" sx={SX_TITLE}>
-          Lịch sử giao dịch
-        </Typography>
-        <Box sx={SX_CONTAINER}>
-          <FormControl size="small" fullWidth>
-            <TextField
-              placeholder="Tìm kiếm giao dịch..."
-              size="small"
-              sx={SX_FORM_SEARCH_INPUT}
-              InputProps={{
-                sx: { padding: 0 },
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton sx={SX_FORM_SEARCH_INPUT_ICON_BUTTON}>
-                      <Icon name="search" size="medium" color="white" />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
-        </Box>
+    <Box sx={SX_FORM}>
+      <Typography component="h3" sx={SX_FORM_TITLE}>
+        Lịch sử giao dịch
+      </Typography>
+      <Box mt={5}>
+        <FormControl size="small" fullWidth>
+          <TextField
+            placeholder="Tìm kiếm giao dịch..."
+            size="small"
+            sx={SX_FORM_SEARCH_INPUT}
+            InputProps={{
+              sx: { padding: 0 },
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton sx={SX_FORM_SEARCH_INPUT_ICON_BUTTON}>
+                    <Icon name="search" size="medium" color="white" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </FormControl>
       </Box>
-      <Box sx={SX_CONTAINER}>
+      <Box mt={4}>
         {transactions && (
           <DataGrid
             columns={transactionColumns}
@@ -89,11 +88,11 @@ export default function WalletManagementSection() {
           />
         )}
         {!transactions && (
-          <Typography component="h3" sx={SX_TITLE}>
+          <Typography component="h3" sx={SX_FORM_TITLE}>
             Đang tải bảng
           </Typography>
         )}
       </Box>
-    </>
+    </Box>
   );
 }
