@@ -7,7 +7,10 @@ import { RequestRole, Role } from '~/models/role';
 import { UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterRequest } from '~/models';
-import { ProfilePayload } from '~/models/type';
+import { ProfilePayload, WeekTimeSlotPayload } from '~/models/type';
+import { GetUserSchedule } from '~/models/response';
+import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
+import { compareDate } from '~/utils/date';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -113,6 +116,77 @@ export interface UserResponsePayload {
   };
 }
 
+const formatScheduleToWeekSchedule = (response: GetUserSchedule) => {
+  let result: WeekTimeSlotPayload[] = [];
+  response.map((date) => {
+    date.timeTableResponse?.map((timetable) => {
+      result = [
+        ...result,
+        {
+          id: timetable.id || -1,
+          className: date.workingClass?.course?.code || '',
+          date: timetable.date || '',
+          dayOfWeekId: new Date(timetable.date || '').getDay() + 1,
+          isPresent: true,
+          link: timetable.classURL || '',
+          slotId: timetable.slot?.id || 0,
+          attendanceSlotId: 0,
+        },
+      ];
+      return null;
+    });
+    return null;
+  });
+  return result;
+};
+
+const formatScheduleToMonthSchedule = (response: GetUserSchedule) => {
+  let result: MonthTimeSlotPayload[] = [];
+  response.map((date) => {
+    date.timeTableResponse?.map((timetable) => {
+      const isExisted = result.findIndex((item) =>
+        compareDate(item.date, new Date(timetable.date || ''))
+      );
+      if (isExisted !== -1) {
+        const isSlotExisted = result[isExisted].slots.findIndex(
+          (item) => item.id === timetable?.slot?.id || -1
+        );
+        if (isSlotExisted === -1) {
+          result[isExisted] = {
+            ...result[isExisted],
+            slots: [
+              ...result[isExisted].slots,
+              {
+                id: timetable.slot?.id || 0,
+                label: `${timetable.slot?.startTime} - ${timetable.slot?.endTime}`,
+                value: `${date.workingClass?.course?.code}`,
+              },
+            ],
+          };
+        }
+      } else {
+        result = [
+          ...result,
+          {
+            id: timetable.id || 0,
+            date: new Date(timetable.date || ''),
+            slots: [
+              {
+                id: timetable.slot?.id || 0,
+                label: `${timetable.slot?.startTime} - ${timetable.slot?.endTime}`,
+                value: `${date.workingClass?.course?.code}`,
+              },
+            ],
+          },
+        ];
+      }
+      return null;
+    });
+    return null;
+  });
+  return result;
+};
+
 const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
@@ -178,6 +252,21 @@ const accountApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
+  },
+  async getUserSchedule(): Promise<{
+    week: WeekTimeSlotPayload[];
+    month: MonthTimeSlotPayload[];
+  }> {
+    const response: GetUserSchedule = await axiosClient.get(
+      `${url}/timetables`
+    );
+
+    const result = {
+      week: formatScheduleToWeekSchedule(response),
+      month: formatScheduleToMonthSchedule(response),
+    };
+
+    return result;
   },
 };
 

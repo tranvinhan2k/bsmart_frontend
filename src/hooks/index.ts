@@ -4,6 +4,9 @@ export * from './useTryCatch';
 export * from './useSubmitForReviewCourse';
 export * from './useGetIdFromUrl';
 
+// user
+export * from './useQueryGetSchedule';
+
 // effect
 export * from './useEffectPreventReload';
 export * from './useEffectScrollToTop';

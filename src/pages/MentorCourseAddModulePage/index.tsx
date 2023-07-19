@@ -161,8 +161,6 @@ export default function MentorCourseAddModulePage() {
     hookFormResource.reset();
   };
   const handleSubmitAssignment = async (data: any) => {
-    console.log(data);
-
     await handleTryCatch(async () => {
       await mutationAssignment.mutateAsync({
         ...data,
@@ -202,8 +200,6 @@ export default function MentorCourseAddModulePage() {
     }>
   ) => {
     await handleTryCatch(async () => {
-      console.log(data);
-
       await mutationQuiz.mutateAsync({
         name: data.name,
         visible: data.visible,

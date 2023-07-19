@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Color, FontFamily, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
 import { ActivityKeys } from '~/models/variables';
 import globalStyles from '~/styles';
@@ -49,13 +49,18 @@ export default function ChooseTypeOfSubSection({ sectionId }: Props) {
   };
 
   return (
-    <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Stack
+      sx={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' }}
+    >
       {data.map((item, index) => {
         return (
           <Stack
             onClick={() => onChooseType(item.type)}
             key={index}
             sx={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.light,
+              color: Color.grey,
               filter: 'grayscale(1)',
               transition: 'all 200ms ease',
               border: '2px solid transparent',
@@ -73,6 +78,7 @@ export default function ChooseTypeOfSubSection({ sectionId }: Props) {
                 background: `${Color.tertiary}22`,
                 cursor: 'pointer',
                 filter: 'none',
+                fontFamily: FontFamily.medium,
               },
             }}
           >
@@ -87,16 +93,7 @@ export default function ChooseTypeOfSubSection({ sectionId }: Props) {
                 objectFit: 'contain',
               }}
             />
-            <Typography
-              sx={{
-                ...globalStyles.textLowSmallLight,
-                fontFamily: FontFamily.regular,
-                color: Color.black,
-              }}
-              textAlign="center"
-            >
-              {item.name}
-            </Typography>
+            <Typography textAlign="center">{item.name}</Typography>
           </Stack>
         );
       })}

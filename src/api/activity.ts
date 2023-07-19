@@ -62,30 +62,7 @@ const activityApi = {
     });
   },
   addQuizActivity(params: PostActivityRequest): Promise<boolean> {
-    const requestData = new FormData();
-    requestData.append('name', params.name);
-    requestData.append('visible', String(params.visible));
-    requestData.append('parentActivityId', String(params.parentActivityId));
-    requestData.append('courseId', String(params.courseId));
-
-    if (!(params.authorizeClasses?.length > 0)) {
-      requestData.append('authorizeClasses', String(-1));
-    } else {
-      params.authorizeClasses.map((item) => {
-        requestData.append('authorizeClasses', String(item));
-        return null;
-      });
-    }
-
-    if (params.file) {
-      requestData.append('file', params.file);
-    }
-
-    return axiosClient.post(`${url}/quiz`, requestData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    return axiosClient.post(`${url}/quiz`, params);
   },
   addLessonActivity(params: PostActivityRequest): Promise<boolean> {
     return axiosClient.post(`${url}/lesson`, params);

@@ -50,7 +50,7 @@ function getDaysOfMonth(monthIndex: number): ConfigTimeSlotPayload[] {
   return days;
 }
 
-export interface TimeSlotPayload {
+export interface MonthTimeSlotPayload {
   id: number;
   date: Date;
   slots: OptionPayload[];
@@ -69,7 +69,7 @@ interface ConfigTimeSlotPayload {
 }
 
 interface Props {
-  data: TimeSlotPayload[];
+  data: MonthTimeSlotPayload[];
 }
 
 export default function MonthSchedule({ data }: Props) {
@@ -104,8 +104,6 @@ export default function MonthSchedule({ data }: Props) {
     });
     return result;
   };
-
-  console.log(data);
 
   if (!data) return null;
 
@@ -229,14 +227,14 @@ export default function MonthSchedule({ data }: Props) {
                           <Typography
                             sx={{
                               marginLeft: 1,
-                              fontSize: '10px',
+                              fontSize: '8px',
                               fontFamily: FontFamily.bold,
                             }}
-                          >{`Slot ${subItem.id}`}</Typography>
+                          >{`${subItem.value.toUpperCase()}`}</Typography>
                           <Typography
                             sx={{
                               marginLeft: 1,
-                              fontSize: '10px',
+                              fontSize: '8px',
                               fontFamily: FontFamily.light,
                             }}
                           >{` ${subItem.label}`}</Typography>
