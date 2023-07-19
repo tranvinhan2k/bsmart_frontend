@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import {
+  MemberDashboardNavigationActionLink,
   NavigationLink,
-  StudentDashboardNavigationActionLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
@@ -17,23 +17,23 @@ export const studentLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.dashboard}/${StudentDashboardNavigationActionLink.class_list}`}
+        to={`/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.class_list}`}
       />
     ),
     role: ['ROLE_STUDENT'],
   },
   {
-    path: StudentDashboardNavigationActionLink.class_list,
+    path: MemberDashboardNavigationActionLink.class_list,
     main: () => <MentorClassListPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `${StudentDashboardNavigationActionLink.class_detail}/:id/*`,
+    path: `${MemberDashboardNavigationActionLink.class_detail}/:id/*`,
     main: () => <MentorClassDetailPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: StudentDashboardNavigationActionLink.schedule,
+    path: MemberDashboardNavigationActionLink.schedule,
     main: () => <SchedulePage />,
     role: ['ROLE_STUDENT'],
   },

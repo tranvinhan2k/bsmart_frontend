@@ -1,4 +1,4 @@
-import { StudentDashboardNavigationActionLink } from '~/constants/routeLink';
+import { MemberDashboardNavigationActionLink } from '~/constants/routeLink';
 import { ActionPayload } from '~/models';
 
 export const StudentDashboardNavigationActionData: ActionPayload[] = [
@@ -6,11 +6,11 @@ export const StudentDashboardNavigationActionData: ActionPayload[] = [
     id: 0,
     icon: 'class',
     name: 'Danh sách lớp học',
-    link: StudentDashboardNavigationActionLink.class_list,
+    link: MemberDashboardNavigationActionLink.class_list,
   },
   {
     id: 1,
-    link: StudentDashboardNavigationActionLink.schedule,
+    link: MemberDashboardNavigationActionLink.schedule,
     name: 'Lịch học',
     icon: 'date',
   },

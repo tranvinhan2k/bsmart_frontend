@@ -19,7 +19,6 @@ import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import Button from '~/components/atoms/Button';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { image } from '~/constants/image';
-import { mockLevelData } from '~/constants';
 import toast from '~/utils/toast';
 import { NavigationLink } from '~/constants/routeLink';
 import { selectProfile } from '~/redux/user/selector';
@@ -37,6 +36,7 @@ interface Props {
 const initClass: DetailCourseClassPayload = {
   endDate: '',
   id: 0,
+  status: 'ALL',
   imageAlt: '',
   imageUrl: image.mockClass,
   maxStudent: 0,
