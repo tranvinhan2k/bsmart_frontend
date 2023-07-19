@@ -88,7 +88,7 @@ export default function AddQuizForm({ hookForm, onSubmit }: Props) {
     },
     {
       name: 'time',
-      label: 'Thời gian làm bài',
+      label: 'Thời gian làm bài (phút)',
       placeholder: 'Nhập thời gian làm bài',
       variant: 'number',
     },
@@ -112,7 +112,7 @@ export default function AddQuizForm({ hookForm, onSubmit }: Props) {
     },
     {
       name: 'allowReviewAfterMin',
-      label: 'Thời gian chờ xem lại',
+      label: 'Thời gian chờ xem lại (phút)',
       placeholder: 'Thời gian được xem lại bài',
       variant: 'number',
     },

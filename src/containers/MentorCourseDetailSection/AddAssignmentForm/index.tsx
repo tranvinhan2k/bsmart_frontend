@@ -90,7 +90,7 @@ export default function AddAssignmentForm({
       variant: 'datetime',
     },
     {
-      label: 'Thời gian được chỉnh sửa',
+      label: 'Thời gian được chỉnh sửa (phút)',
       name: 'editBeForSubmitMin',
       placeholder: 'Nhập thời gian được chỉnh sửa',
       variant: 'number',
@@ -102,7 +102,7 @@ export default function AddAssignmentForm({
       variant: 'number',
     },
     {
-      label: 'Dung Lượng tệp cho phép',
+      label: 'Dung Lượng tệp cho phép (MB)',
       name: 'maxFileSize',
       placeholder: 'Thêm dung lượng tệp cho phép',
       variant: 'number',

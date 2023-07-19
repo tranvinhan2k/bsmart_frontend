@@ -19,7 +19,7 @@ const texts = {
   createClassTitle: 'Tạo lớp học mới',
   createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
   generalInfoTitle: 'Thông tin chung',
-  priceLabel: 'Giá khóa học',
+  priceLabel: 'Giá khóa học (VND)',
   courseTypeLabel: 'Hình thức khóa học',
   imageLabel: 'Hình ảnh',
   minStudentLabel: 'Số học sinh tối thiểu',
@@ -86,7 +86,7 @@ export default function CreateClassModal({
               </Stack>
               <Stack>
                 <FormInput
-                  variant="number"
+                  variant="price"
                   name={CREATE_CLASS_FIELDS.price}
                   control={hookForm.control}
                   label={texts.priceLabel}

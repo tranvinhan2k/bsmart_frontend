@@ -101,8 +101,7 @@ export default function Sections({ content, refetch }: Props) {
             section={section}
             onOpenContentSection={() => setOpen(open !== index ? index : -1)}
           />
-          {/* <Collapse in={open === index}> */}
-          <Collapse in>
+          <Collapse in={open === index}>
             <Stack sx={{ marginTop: 1, paddingY: 1 }}>
               {section?.subActivities.map((module, idx) => (
                 <Module

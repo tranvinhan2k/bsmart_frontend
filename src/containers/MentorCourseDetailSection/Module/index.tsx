@@ -1,9 +1,10 @@
 import { Stack, Typography, Tooltip, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { MetricSize, Color } from '~/assets/variables';
+import { MetricSize, Color, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { ActivityPayload } from '~/models/type';
 import ModuleHeader from './ModuleHeader';
+import globalStyles from '~/styles';
 
 interface Props {
   index: number;
@@ -21,10 +22,9 @@ export default function Module({ index, sectionId, module }: Props) {
   return (
     <Stack
       sx={{
+        padding: 1,
         marginBottom: 1,
         borderRadius: MetricSize.small_5,
-        paddingY: 1,
-        paddingX: 2,
         background: Color.white,
       }}
       key={module.id}
@@ -33,13 +33,22 @@ export default function Module({ index, sectionId, module }: Props) {
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
         <Stack sx={{ flexGrow: 1 }}>
-          <Typography>
+          <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
             <ModuleHeader type={module.type} index={index} />
-            {module.name}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.medium,
+                marginLeft: 1,
+              }}
+            >
+              {module.name}
+            </Typography>
+          </Stack>
         </Stack>
         <Stack
           sx={{

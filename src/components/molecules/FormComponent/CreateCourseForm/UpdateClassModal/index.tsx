@@ -41,10 +41,10 @@ export default function UpdateClassModal({
           </Stack>
           <Stack>
             <FormInput
-              variant="number"
+              variant="price"
               name={CREATE_CLASS_FIELDS.price}
               control={hookForm.control}
-              label="Giá khóa học"
+              label="Giá khóa học (VND)"
             />
           </Stack>
           <Stack marginTop={2} />

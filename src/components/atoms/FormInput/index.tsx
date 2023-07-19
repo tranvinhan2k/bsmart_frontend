@@ -35,6 +35,7 @@ import QuizInput from './QuizInput';
 import AnswerInput from './AnswerInput';
 import { QuizQuestionTypeKeys } from '~/models/variables';
 import FileListInput from './FileListInput';
+import PriceInput from './PriceInput';
 
 interface FormInputProps {
   disabled?: boolean;
@@ -116,6 +117,8 @@ const generateFormInput = (
       );
     case variant === 'number':
       return <NumberInput controller={controller} placeholder={placeholder} />;
+    case variant === 'price':
+      return <PriceInput controller={controller} placeholder={placeholder} />;
     case variant === 'image':
       return (
         <ImageInput
