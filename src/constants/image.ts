@@ -17,6 +17,10 @@ import level1 from '~/assets/images/level1.png';
 import level2 from '~/assets/images/level2.png';
 import level3 from '~/assets/images/level3.png';
 import level4 from '~/assets/images/level4.png';
+import study from '~/assets/images/study.png';
+import asg from '~/assets/images/asg.png';
+import quiz from '~/assets/images/quiz.png';
+import resource from '~/assets/images/resrc.png';
 import guide from '~/assets/images/guide.png';
 import classSlot from '~/assets/images/class.png';
 import mockTeacherAvatar from '~/assets/images/mockTeacherAvatar.jpg';
@@ -39,6 +43,10 @@ export const image = {
   mockClass,
   mockCourse,
   guide,
+  study,
+  asg,
+  resource,
+  quiz,
   level1,
   level2,
   level3,

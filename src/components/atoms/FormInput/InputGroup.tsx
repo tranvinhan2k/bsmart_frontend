@@ -23,6 +23,7 @@ export default function InputGroup({ control, inputList }: Props) {
       {inputList.map((item, index) => (
         <Stack key={item.name} marginTop={index !== 0 ? 2 : 0}>
           <FormInput
+            label={item.label}
             data={item?.data}
             control={control}
             name={item.name}

@@ -36,7 +36,7 @@ interface Props {
 
 const initClass: DetailCourseClassPayload = {
   endDate: '',
-  id: '',
+  id: 0,
   imageAlt: '',
   imageUrl: image.mockClass,
   maxStudent: 0,
@@ -78,7 +78,7 @@ export default function Sidebar({
   };
 
   const handleCheckOut = () => {
-    if (chooseClass.id !== '') {
+    if (chooseClass.id !== 0) {
       dispatch(addCheckoutItem(chooseClass));
       navigate(`/${NavigationLink.check_out}`);
     } else {
@@ -129,7 +129,7 @@ export default function Sidebar({
       id: 4,
       icon: 'number',
       label: 'Mã lớp',
-      value: chooseClass.id,
+      value: `${chooseClass.id}`,
     },
     {
       id: 0,

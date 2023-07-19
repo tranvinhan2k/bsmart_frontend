@@ -2,6 +2,10 @@ export * from './useYupValidationResolver';
 export * from './useTimeOut';
 export * from './useTryCatch';
 export * from './useSubmitForReviewCourse';
+export * from './useGetIdFromUrl';
+
+// user
+export * from './useQueryGetSchedule';
 
 // effect
 export * from './useEffectPreventReload';
@@ -42,6 +46,8 @@ export * from './activity/useMutationAddSection';
 export * from './activity/useQueryGetCourseContent';
 export * from './activity/useMutationDeleteContent';
 export * from './activity/useMutationUpdateContent';
+export * from './activity/useMutationAddSubSection';
+export * from './activity/useGetDetailActivity';
 
 // course
 export * from './course/useQueryGetMentorCourses';
@@ -55,6 +61,10 @@ export * from './class/useCreateCourseClass';
 export * from './class/useUpdateClass';
 export * from './class/useQueryGetAllMentorClasses';
 export * from './class/useQueryGetMentorCourseClasses';
+export * from './class/useQueryGetOptionMentorCourseClasses';
+
+// quiz question
+export * from './quizQuestion/useGetAllQuizQuestion';
 
 // form
 export * from './form.hooks/useCreateCourseForm';

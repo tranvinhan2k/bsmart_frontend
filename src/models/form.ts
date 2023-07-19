@@ -205,6 +205,7 @@ export type FormInputVariant =
   | 'multiSelect'
   | 'time'
   | 'file'
+  | 'files'
   | 'fileRequireYup'
   | 'tags'
   | 'modules'
@@ -212,4 +213,7 @@ export type FormInputVariant =
   | 'feedbackQuestionChoice'
   | 'feedbackTypeChoose'
   | 'datetime'
+  | 'boolean'
+  | 'quizPicker'
+  | 'answerPicker'
   | 'date';

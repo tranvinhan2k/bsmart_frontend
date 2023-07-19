@@ -140,9 +140,22 @@ export interface ActivityPayload {
   parentActivityId: number;
   subActivities: ActivityPayload[];
   visible: boolean;
+  authorizeClasses: number[];
 }
 
 export interface ActivityDetailPayload
   extends Omit<ActivityPayload, 'subActivities'> {
   detail: any;
+  description?: string;
+}
+
+export interface WeekTimeSlotPayload {
+  id: number;
+  link: string;
+  className: string;
+  slotId: number;
+  dayOfWeekId: number;
+  attendanceSlotId?: number;
+  isPresent: boolean;
+  date: string;
 }

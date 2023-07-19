@@ -1,6 +1,6 @@
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { ContentPayload, CoursePayload } from './type';
-import { ActivityKeys } from './variables';
+import { ActivityKeys, RoleKeys } from './variables';
 
 export interface ResponseMentorCoursePayload {
   course: CoursePayload;
@@ -15,10 +15,12 @@ export type GetActivityResponse = Partial<{
   lastModifiedBy: string;
   id: number;
   name: string;
+  description: string;
   type: ActivityKeys;
   visible: boolean;
   detail: any;
   parentActivityId: number;
+  authorizeClasses: number[];
   subActivities: {
     created: string;
     lastModified: string;
@@ -43,6 +45,7 @@ export type GetAllActivitiesResponse = Partial<{
   type: ActivityKeys;
   visible: boolean;
   parentActivityId: number;
+  authorizeClasses: number[];
   subActivities: {
     created: string;
     lastModified: string;
@@ -88,3 +91,48 @@ export interface GetCoursePercentResponse {
   allowSendingApproval: boolean;
   percentComplete: number;
 }
+
+export type GetUserSchedule = Partial<{
+  workingClass: Partial<{
+    id: number;
+    startDate: string;
+    endDate: string;
+    numberOfStudent: number;
+    course: {
+      id: number;
+      code: string;
+      name: string;
+      description: string;
+      subject: {
+        id: number;
+        code: string;
+        name: string;
+        categoryIds: number[];
+      };
+    };
+    mentorName: string;
+  }>;
+  role?: RoleKeys;
+  timeTableResponse: Partial<{
+    id: number;
+    date: string;
+    classURL: string;
+    slot: {
+      id: number;
+      name: string;
+      code: string;
+      startTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+      endTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+    };
+  }>[];
+}>[];

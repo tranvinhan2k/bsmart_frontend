@@ -94,6 +94,30 @@ export const ClassStatusList: OptionPayload[] = [
     content: 'Lớp đã hết thời gian giảng dạy',
     value: 'CLOSE',
   },
+  {
+    id: 3,
+    label: 'Lớp chưa phê duyệt',
+    content: 'Lớp đang chờ phê duyệt',
+    value: 'REQUESTING',
+  },
+  {
+    id: 4,
+    label: 'Lớp đợi phê duyệt',
+    content: 'Lớp đang chờ phê duyệt',
+    value: 'WAITING',
+  },
+  {
+    id: 5,
+    label: 'Lớp đã phê duyệt',
+    content: 'Lớp đang chờ phê duyệt',
+    value: 'NOTSTART',
+  },
+  {
+    id: 6,
+    label: 'Lớp đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy',
+    value: 'CLOSE',
+  },
 ];
 export const CourseStatusList: OptionPayload[] = [
   {
@@ -104,14 +128,14 @@ export const CourseStatusList: OptionPayload[] = [
   },
   {
     id: 1,
-    label: 'Chưa yêu cầu',
+    label: 'Chưa yêu cầu phê duyệt',
     content: 'Lớp chưa gửi yêu cầu.',
     value: 'REQUESTING',
   },
   {
     id: 2,
-    label: 'Đã duyệt',
-    content: 'Lớp đã sẵn được duyệt',
+    label: 'Chờ phê duyệt',
+    content: 'Lớp đã gửi yêu cầu phê duyệt',
     value: 'WAITING',
   },
   {
@@ -128,8 +152,8 @@ export const CourseStatusList: OptionPayload[] = [
   },
   {
     id: 5,
-    label: 'Chưa bắt đầu',
-    content: 'Lớp đã được duyệt và đang tuyển sinh.',
+    label: 'Đã phê duyệt',
+    content: 'Lớp đã được phê duyệt thành công và đang tuyển sinh.',
     value: 'NOTSTART',
   },
   {

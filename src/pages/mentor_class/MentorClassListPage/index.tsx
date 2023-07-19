@@ -32,8 +32,6 @@ function a11yProps(index: number) {
 }
 
 export default function MentorClassListPage() {
-  const navigate = useNavigate();
-
   const classes: ClassMenuItemPayload[] = [
     {
       id: 0,

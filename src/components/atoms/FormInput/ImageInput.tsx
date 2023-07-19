@@ -2,6 +2,7 @@ import { UseControllerReturn } from 'react-hook-form';
 import {
   Avatar,
   Box,
+  FormHelperText,
   IconButton,
   InputAdornment,
   Stack,
@@ -171,7 +172,6 @@ export default function ImageInput({
         onBlur={onBlur}
         onChange={handleFileChange}
         error={invalid}
-        helperText={fieldError?.message || error}
       />
 
       {previewUrl && (
@@ -234,6 +234,10 @@ export default function ImageInput({
             />
           </Stack>
         </Stack>
+      )}
+
+      {invalid && (
+        <FormHelperText error>{`${(error as any).message}`}</FormHelperText>
       )}
     </Stack>
   );

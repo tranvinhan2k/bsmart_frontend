@@ -88,6 +88,12 @@ export const validationSchemaCreateCategories = object({
   code: string().required('Mã môn học không được để trống.'),
   name: string().required('Tên môn học không được để trống.'),
 });
+export const validationSchemaFile = object({
+  file: mixed().required('Tệp đính kèm không được để trống.'),
+});
+export const validationSchemaAnswer = object({
+  answer: string().required('Tên câu trả lời không được để trống.'),
+});
 export const validationSchemaCreateSubjects = object({
   code: string().required('Mã ngôn ngữ không được để trống.'),
   name: string().required('Tên ngôn ngữ không được để trống.'),
@@ -112,6 +118,12 @@ export const validationClassContentSection = object({
 export const validationClassContentModule = object({
   name: string().required('Tên bài học không được để trống.'),
 });
+export const validationClassContentResource = object({
+  name: string().required('Tên tài nguyên không được để trống.'),
+  file: mixed().required('Nội dung tài nguyên không được để trống.'),
+});
+export const validationClassContentQuiz = object({});
+export const validationClassContentAssignment = object({});
 
 export const validationSchemaRegisterStudent = object({
   name: string()

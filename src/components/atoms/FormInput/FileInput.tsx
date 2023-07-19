@@ -6,6 +6,7 @@ import {
   InputAdornment,
   Button as MuiButton,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
@@ -26,6 +27,8 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
       setError(null);
+      console.log(selectedFile);
+
       onChange(selectedFile);
     } else {
       setError('Hãy nhập định dạng file đúng (PDF, Word, or Excel)');

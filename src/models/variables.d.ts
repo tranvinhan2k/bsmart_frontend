@@ -33,4 +33,11 @@ export type PresentStatusKeys = 'WAIT' | 'PRESENT' | 'ABSENT';
 export type GenderKeys = 'MALE' | 'FEMALE';
 export type ImageKeys = 'AVATAR' | 'FRONTCI' | 'BACKCI' | 'COURSE';
 export type CourseTypeKeys = 'PRIVATE' | 'PUBLIC';
-export type ActivityKeys = 'QUIZ' | 'SECTION' | 'LESSON' | 'ASSIGNMENT';
+export type ActivityKeys =
+  | 'QUIZ'
+  | 'SECTION'
+  | 'LESSON'
+  | 'ASSIGNMENT'
+  | 'RESOURCE'
+  | 'ANNOUNCEMENT';
+export type QuizQuestionTypeKeys = 'SINGLE' | 'MULTIPLE';

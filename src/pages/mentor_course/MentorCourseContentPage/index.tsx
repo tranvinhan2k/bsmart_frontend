@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { PostActivityCoursePayload } from '~/models';
+import { PostActivityRequest } from '~/models';
 import {
   useMutationAddSection,
   useMutationDeleteContent,
-  useMutationUpdateContent,
   useQueryGetCourseContent,
   useTryCatch,
 } from '~/hooks';
@@ -13,19 +12,14 @@ import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { formatStringToNumber } from '~/utils/number';
 import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
 import Sections from '~/containers/MentorCourseDetailSection/Sections';
+import { ActivityKeys } from '~/models/variables';
 
 export default function MentorCourseContentPage() {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
 
   const [open, setOpen] = useState(false);
-  const addCourseContent = useMutationAddSection({
-    authorizeClasses: [],
-    courseId: 0,
-    name: '',
-    parentActivityId: 0,
-    visible: false,
-  });
+  const addCourseSection = useMutationAddSection();
 
   const deleteCourseContent = useMutationDeleteContent();
   const deleteContent = useTryCatch('xóa nội dung');
@@ -39,19 +33,32 @@ export default function MentorCourseContentPage() {
   const addContentSection = useTryCatch('thêm học phần');
 
   const handleAddNewSection = async (name: string) => {
-    const params: PostActivityCoursePayload = {
-      name,
-      lessons: [],
-    };
     await addContentSection.handleTryCatch(async () => {
-      await addCourseContent.mutateAsync({ id, params });
+      await addCourseSection.mutateAsync({
+        courseId,
+        name,
+        visible: true,
+        parentActivityId: undefined,
+        authorizeClasses: [],
+      });
     });
 
     await refetch();
   };
 
-  const handleAddNewModule = async (sectionId: number, name: string) => {
-    const section = content?.find((item) => item.id === sectionId);
+  const handleAddNewModule = async (
+    sectionId: number,
+    name: string,
+    type: ActivityKeys
+  ) => {
+    const params: PostActivityRequest = {
+      name,
+      authorizeClasses: [],
+      courseId,
+      parentActivityId: sectionId,
+      visible: true,
+    };
+
     await refetch();
   };
 
@@ -69,7 +76,7 @@ export default function MentorCourseContentPage() {
   return (
     <Stack>
       <LoadingWrapper error={error} isLoading={isLoading}>
-        <Sections content={content} onAddNew={handleAddNewModule} />
+        <Sections content={content} refetch={refetch} />
       </LoadingWrapper>
       <AddSection onAdd={handleAddNewSection} />
     </Stack>

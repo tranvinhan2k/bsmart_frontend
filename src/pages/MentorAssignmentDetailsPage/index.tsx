@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Box, Button as MuiButton, Stack, Typography } from '@mui/material';
-import { useManageActivity } from '~/hooks/useManageActivity';
+import { useGetDetailActivity } from '~/hooks/activity/useGetDetailActivity';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import {
   SX_WRAPPER,
@@ -13,7 +13,7 @@ import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorAssignmentDetailsPage() {
   const { id } = useParams();
-  const { activity } = useManageActivity(formatStringToNumber(id));
+  const { activity } = useGetDetailActivity(formatStringToNumber(id));
 
   interface DisplayTextListProps {
     id: number;

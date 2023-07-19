@@ -48,7 +48,7 @@ export const enum MentorDashboardNavigationActionLink {
   // Quản lí học tập
   mentor_course_list = 'courses',
   mentor_course_detail = 'courses/detail',
-  create_course = 'create-course',
+  create_course = 'courses/create-course',
   mentor_class_list = 'classes',
   // Trang tạm - Khóa học
   mentor_class_detail = 'classes/detail',
@@ -91,6 +91,7 @@ export const enum AdminNavigationActionLink {
   feedback_manager = 'feedback_manager',
   subject_manager = 'subject_manager',
   category_manager = 'category_manager',
+  questions_bank = 'questions_bank_manager',
 }
 
 export const enum ManagerNavigationActionLink {
@@ -109,4 +110,12 @@ export const enum MentorCourseActionLink {
   classes = 'classlist',
   information = 'information',
   content = 'content',
+}
+export const enum MentorClassActionLink {
+  information = 'information',
+  students = 'students',
+  schedule = 'schedule',
+  attendance = 'attendance',
+  activity = 'activity',
+  notification = 'notification',
 }

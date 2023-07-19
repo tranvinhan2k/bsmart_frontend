@@ -14,6 +14,7 @@ import {
   useTryCatch,
 } from '~/hooks';
 import {
+  MentorCourseActionLink,
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
@@ -39,9 +40,11 @@ export default function MentorCreateCoursePage() {
       mutationResult.mutateAsync(paramCourse)
     );
 
-    navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${response}`
-    );
+    if (response) {
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${response}/${MentorCourseActionLink.tutorial}`
+      );
+    }
   };
 
   useEffectScrollToTop();

@@ -30,6 +30,11 @@ import DateTimePickerInput from './DateTimePickerInput';
 import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 import EditorInput from './EditorInput';
 import { FontFamily, FontSize } from '~/assets/variables';
+import BooleanInput from './BooleanInput';
+import QuizInput from './QuizInput';
+import AnswerInput from './AnswerInput';
+import { QuizQuestionTypeKeys } from '~/models/variables';
+import FileListInput from './FileListInput';
 import ArrayHelperText from './ArrayHelperText';
 import FileInputRequireYup from './FileInputRequireYup';
 
@@ -51,6 +56,7 @@ interface FormInputProps {
   multilineRows?: number;
   previewImgHeight?: number | string;
   previewImgWidth?: number | string;
+  answerType?: QuizQuestionTypeKeys;
   variant?: FormInputVariant;
 }
 
@@ -69,6 +75,7 @@ const generateFormInput = (
   multilineRows: number,
   previewImgHeight: number | string,
   previewImgWidth: number | string,
+  answerType: QuizQuestionTypeKeys,
   variant: FormInputVariant
 ) => {
   switch (true) {
@@ -123,6 +130,8 @@ const generateFormInput = (
       );
     case variant === 'file':
       return <FileInput controller={controller} placeholder={placeholder} />;
+    case variant === 'files':
+      return <FileListInput controller={controller} />;
     case variant === 'fileRequireYup':
       return (
         <FileInputRequireYup
@@ -185,6 +194,24 @@ const generateFormInput = (
           placeholder={placeholder}
         />
       );
+    case variant === 'boolean':
+      return (
+        <BooleanInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
+    case variant === 'quizPicker':
+      return (
+        <QuizInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
+    case variant === 'answerPicker':
+      return <AnswerInput answerType={answerType} controller={controller} />;
     default:
       return null;
   }
@@ -204,6 +231,7 @@ export default function FormInput({
   multilineRows = 4,
   previewImgHeight = '100%',
   previewImgWidth = '100%',
+  answerType = 'MULTIPLE',
   variant = 'text',
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });
@@ -233,6 +261,7 @@ export default function FormInput({
         multilineRows,
         previewImgHeight,
         previewImgWidth,
+        answerType,
         variant
       )}
     </Stack>

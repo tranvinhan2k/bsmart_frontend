@@ -40,6 +40,13 @@ export const AdminNavigationActionData: ActionPayload[] = [
         name: 'Quản lí ngôn ngũ lập trình',
         link: AdminNavigationActionLink.category_manager,
       },
+      {
+        id: 5,
+        icon: 'question',
+        isHide: true,
+        name: 'Ngân hàng câu hỏi',
+        link: AdminNavigationActionLink.questions_bank,
+      },
     ],
   },
 ];

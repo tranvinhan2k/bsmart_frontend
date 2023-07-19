@@ -1,39 +1,22 @@
 import { useState } from 'react';
 
 import { Box, Stack, Typography, Collapse } from '@mui/material';
-import { useForm } from 'react-hook-form';
 import { Color } from '~/assets/variables';
 
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
-import { useTimeOut, useTryCatch, useYupValidationResolver } from '~/hooks';
-import { validationClassContentModule } from '~/form/validation';
-import AddSectionForm from '../AddSectionForm';
+import ChooseTypeOfSubSection from '~/components/molecules/ChooseTypeOfSubSection';
 
 interface CreateSectionModulePayload {
   id: number;
-  onAdd: (id: number, name: string) => void;
+  refetch: any;
 }
 
-export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
-  // const { handleTryCatch } = useTryCatch('thêm bài học mới');
-  const { onSleep } = useTimeOut(1000);
-
-  const resolver = useYupValidationResolver(validationClassContentModule);
-  const hookForm = useForm({
-    resolver,
-  });
+export default function AddModule({ id, refetch }: CreateSectionModulePayload) {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleTriggerFormCreateModule = () => {
     setOpen(!open);
-  };
-
-  const handleSubmit = async (data: { name: string }) => {
-    // await handleTryCatch(() => onSleep(true));
-    await onAdd(id, data.name);
-    hookForm.reset();
-    handleTriggerFormCreateModule();
   };
 
   return (
@@ -48,12 +31,12 @@ export default function AddModule({ id, onAdd }: CreateSectionModulePayload) {
             <Icon name={open ? 'close' : 'add'} size="small_20" color="white" />
           }
         >
-          <Typography>{open ? 'Hủy' : 'Thêm bài học'}</Typography>
+          <Typography>{open ? 'Hủy' : 'Thêm nội dung học phần'}</Typography>
         </Button>
       </Box>
       <Collapse in={open}>
         <Stack marginTop={1}>
-          <AddSectionForm hookForm={hookForm} onSubmit={handleSubmit} />
+          <ChooseTypeOfSubSection sectionId={id} />
         </Stack>
       </Collapse>
     </Stack>

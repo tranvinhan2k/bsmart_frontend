@@ -2,7 +2,7 @@ import { Button, Stack, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
+import { useManagerHistory } from '~/hooks/useManagerHistory';
 import ActivityHistory from '../ActivityHistory';
 import CustomFetchingStatus from '~/components/atoms/CustomFetchingStatus';
 import { SX_BUTTON, SX_FORM_LABEL_GRAY, SX_TITLE, SX_WRAPPER } from './style';
@@ -12,11 +12,10 @@ export default function ActivityHistoryTopFive() {
   const page = 0;
   const size = 5;
 
-  const { activityHistories, isLoading, isError, error } =
-    useManageActivityHistory({
-      page,
-      size,
-    });
+  const { activityHistories, isLoading, isError, error } = useManagerHistory({
+    page,
+    size,
+  });
 
   const navigate = useNavigate();
 

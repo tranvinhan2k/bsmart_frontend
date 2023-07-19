@@ -1,27 +1,16 @@
 import { Stack } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { IconName } from '~/components/atoms/Icon';
 import DashboardNavigationTabs from '~/components/atoms/tabs/DashboardNavigationTabs';
+import { MentorClassNavigationActionData } from '~/routes/mentor/class/navigation';
 
-interface Props {
-  navigationTabs: {
-    id: number;
-    link: string;
-    name: string;
-    icon: IconName;
-    component: React.ReactNode;
-    isHide?: boolean | undefined;
-  }[];
-}
-
-export default function Sidebar({ navigationTabs }: Props) {
+export default function Sidebar() {
   const { pathname } = useLocation();
   return (
     <Stack sx={{ flexGrow: 1, marginRight: 2 }}>
-      {navigationTabs.map((item) => (
+      {MentorClassNavigationActionData.map((item) => (
         <DashboardNavigationTabs
           key={item.id}
-          icon={item.icon}
+          icon={item.icon || 'course'}
           isActive={pathname.includes(item.link)}
           link={item.link}
           name={item.name}

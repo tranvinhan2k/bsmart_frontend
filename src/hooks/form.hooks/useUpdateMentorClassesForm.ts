@@ -148,25 +148,25 @@ export const useUpdateMentorClassesForm = (
       const imageId = await uploadImage(data.imageId);
       if (imageId) {
         // TODO: Thêm api create class o day khi mà be xong
-        const param: PostClassRequest = {
-          endDate: data.endDateExpected,
-          imageId,
-          maxStudent: data.maxStudent,
-          minStudent: data.minStudent,
-          numberOfSlot: data.numberOfSlot,
-          price: data.price,
-          startDate: data.startDateExpected,
-          timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-            dayOfWeekId: item.dayOfWeek.id,
-            slotId: item.slot.id,
-          })),
-        };
-        await handleUpdateTryCatch(async () =>
-          mutationUpdate.mutateAsync({
-            id,
-            param,
-          })
-        );
+        // const param: PostClassRequest = {
+        //   endDate: data.endDateExpected,
+        //   imageId,
+        //   maxStudent: data.maxStudent,
+        //   minStudent: data.minStudent,
+        //   numberOfSlot: data.numberOfSlot,
+        //   price: data.price,
+        //   startDate: data.startDateExpected,
+        //   timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+        //     dayOfWeekId: item.dayOfWeek.id,
+        //     slotId: item.slot.id,
+        //   })),
+        // };
+        // await handleUpdateTryCatch(async () =>
+        //   mutationUpdate.mutateAsync({
+        //     id,
+        //     param,
+        //   })
+        // );
         updateClassHookForm.reset();
         // onChangeClass([...classes, param]);
       } else {

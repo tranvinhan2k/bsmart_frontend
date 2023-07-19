@@ -43,7 +43,7 @@ export default function Classes({
           {classes?.map((item, index) => (
             <Stack key={item.id} marginTop={index === 0 ? 0 : 1}>
               <ClassItem
-                status={undefined}
+                status={item.status}
                 price={item.price}
                 id={index}
                 onUpdate={() => handleUpdate(index)}

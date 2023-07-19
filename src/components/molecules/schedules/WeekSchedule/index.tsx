@@ -1,28 +1,20 @@
-import { Stack, Typography, Box, TextField } from '@mui/material';
+import { Stack, Typography, Box, TextField, Tooltip } from '@mui/material';
 import { DatePicker, PickersDay } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
+import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import FormInput from '~/components/atoms/FormInput';
 import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
 import globalStyles from '~/styles';
+import { WeekTimeSlotPayload } from '~/models/type';
 
 dayjs.extend(weekOfYear);
 
 interface Props {
-  data: {
-    id: number;
-    link: string;
-    className: string;
-    slotId: number;
-    dayOfWeekId: number;
-    attendanceSlotId?: number;
-    isPresent: boolean;
-    date: string;
-  }[];
+  data: WeekTimeSlotPayload[];
 }
 
 interface DayOfWeekDataPayload {
@@ -40,6 +32,7 @@ interface DayOfWeekDataPayload {
 }
 
 export default function WeekSchedule({ data }: Props) {
+  const navigate = useNavigate();
   const [chooseDay, setChooseDay] = useState<Dayjs>(dayjs());
   const [dayOfWeekData, setDayOfWeekData] = useState<DayOfWeekDataPayload[]>(
     []
@@ -53,6 +46,8 @@ export default function WeekSchedule({ data }: Props) {
   };
 
   useEffect(() => {
+    console.log('hello dayofweek');
+
     setDayOfWeekData(
       dayOfWeeks.map((item, index) => ({
         id: item.id,
@@ -69,18 +64,11 @@ export default function WeekSchedule({ data }: Props) {
   useEffect(() => {
     const tmpDayOfWeek = [...dayOfWeekData];
     data.map((item) => {
-      console.log('hello0', item.className);
       if (dayjs(item.date).week() === chooseDay.week()) {
         dayOfWeekData.map((subItem, dayOfWeekIndex) => {
-          console.log('hello1', item.className);
-
           if (item.dayOfWeekId === subItem.id) {
-            console.log('hello2', item.className);
-
             subItem.slotIds.map((slot, slotIndex) => {
               if (slot.id === item.slotId) {
-                console.log('hello3', item.className, slot.id);
-
                 const tmpTmpDayOfWeek = tmpDayOfWeek[dayOfWeekIndex];
                 const finalSlot = slots.find(
                   (subSlot) => subSlot.id === slot.id
@@ -144,6 +132,7 @@ export default function WeekSchedule({ data }: Props) {
           background: Color.white,
           borderRadius: MetricSize.small_5,
           flexDirection: 'row',
+          overflowX: 'auto',
         }}
         marginTop={1}
       >
@@ -213,16 +202,17 @@ export default function WeekSchedule({ data }: Props) {
                       sx={{
                         border: '1px solid grey',
                         borderRadius: MetricSize.small_10,
-                        height: '175px',
+                        height: '180px',
+                        minWidth: '150px',
                       }}
                       key={idx}
                     >
                       {subItem.slotName && (
                         <Stack
                           sx={{
-                            height: '100%',
                             margin: MetricSize.small_5,
                             padding: 2,
+                            flex: 1,
                             borderRadius: MetricSize.small_10,
                             background: `${Color.tertiary}33`,
                             justifyContent: 'space-between',
@@ -232,11 +222,11 @@ export default function WeekSchedule({ data }: Props) {
                             <Typography
                               sx={{
                                 color: Color.black,
-                                fontSize: FontSize.small_18,
+                                fontSize: FontSize.small_14,
                                 fontFamily: FontFamily.bold,
                               }}
                             >
-                              PRJ123
+                              {subItem.className?.toUpperCase()}
                             </Typography>
                             <Typography
                               sx={{
@@ -245,38 +235,46 @@ export default function WeekSchedule({ data }: Props) {
                                 fontFamily: FontFamily.light,
                               }}
                             >
-                              8AM - 9AM
+                              {subItem.slotName}
                             </Typography>
                             <Typography
                               sx={{
-                                color: Color.red,
-                                fontSize: FontSize.small_14,
+                                color: subItem.isPresent
+                                  ? Color.red
+                                  : Color.green,
+                                fontSize: '14px',
                                 fontFamily: FontFamily.bold,
                               }}
                             >
-                              Đã diểm danh
+                              {subItem.isPresent
+                                ? 'Đã điểm danh'
+                                : 'Chưa điểm danh'}
                             </Typography>
                           </Stack>
-                          <Button
-                            sx={{
-                              fontSize: '10px',
-                            }}
-                            variant="contained"
-                            color="primary"
-                          >
-                            Link Meet
-                          </Button>
-                          <Button
-                            sx={{
-                              marginTop: 1,
-                              fontSize: '10px',
-                            }}
-                            size="small"
-                            variant="contained"
-                            color="secondary"
-                          >
-                            Điểm danh
-                          </Button>
+                          <Stack>
+                            <Button
+                              sx={{
+                                fontSize: '10px',
+                              }}
+                              onClick={() => navigate(subItem.googleLink || '')}
+                              variant="contained"
+                              color="primary"
+                            >
+                              Link Meet
+                            </Button>
+                            <Button
+                              sx={{
+                                marginTop: 1,
+                                fontSize: '10px',
+                                color: Color.white,
+                              }}
+                              size="small"
+                              variant="contained"
+                              color="secondary"
+                            >
+                              Điểm danh
+                            </Button>
+                          </Stack>
                         </Stack>
                       )}
                     </Stack>

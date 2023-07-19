@@ -7,7 +7,7 @@ export interface UseManageActivityHistoryPayload {
   sort?: string;
 }
 
-export const useManageActivityHistory = ({
+export const useManagerHistory = ({
   page,
   size,
   sort,

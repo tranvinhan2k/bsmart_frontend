@@ -1,5 +1,9 @@
 import { UseFormReturn } from 'react-hook-form';
-import { useDispatchGetAllSubjects, useGetMentorCategories } from '~/hooks';
+import {
+  useDispatchGetAllSubjects,
+  useGetMentorCategories,
+  useQueryGetAllMentorSubjects,
+} from '~/hooks';
 
 export const useGetFilteredSubjectAndCategory = (
   hookForm: UseFormReturn,
@@ -7,14 +11,10 @@ export const useGetFilteredSubjectAndCategory = (
 ) => {
   const categoryWatch = hookForm.watch(name);
   const { data: categories } = useGetMentorCategories();
-  const { optionSubjects: subjects } = useDispatchGetAllSubjects();
-
-  const filterSubjects = subjects?.filter((item) =>
-    item.categoryIds?.includes(categoryWatch?.id)
-  );
+  const { subjects } = useQueryGetAllMentorSubjects();
 
   return {
-    filterSubjects,
+    filterSubjects: subjects,
     categories,
   };
 };
