@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { MentorProfileStatusType } from '~/constants/profile';
 import { CartDataPayload } from '~/models/api/cart';
 import { MentorProfile } from '~/models/form';
 import { Role } from '~/models/role';
@@ -37,7 +38,7 @@ const initialState: UserStateType = {
       id: 0,
       introduce: '',
       mentorSkills: [],
-      status: 'REQUESTING',
+      status: MentorProfileStatusType.REQUESTING,
       workingExperience: '',
     },
     phone: '',
