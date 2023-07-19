@@ -11,6 +11,7 @@ import {
   MentorNavigationLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import { useQueryGetCourseContent } from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
@@ -22,6 +23,7 @@ export default function MentorCourseTutorialPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   const { data } = useQueryGetDetailUserCourse(courseId);
+  const { data: content } = useQueryGetCourseContent(courseId);
 
   const handleChangeStep = (step: number) => {
     setActiveStep(step);
@@ -41,7 +43,7 @@ export default function MentorCourseTutorialPage() {
     },
     {
       id: 1,
-      isCompleted: Boolean(data?.content),
+      isCompleted: Boolean(content),
       label: 'Thêm nội dung khóa học',
       onClick: () =>
         navigate(

@@ -1,53 +1,33 @@
-import { UseControllerReturn, useFieldArray, useForm } from 'react-hook-form';
+import { UseControllerReturn } from 'react-hook-form';
 import {
   Box,
   Button,
-  Checkbox,
-  Collapse,
-  FormControlLabel,
   IconButton,
   Stack,
-  Tooltip,
   Typography,
+  FormHelperText,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MetricSize, Color } from '~/assets/variables';
 // eslint-disable-next-line import/no-cycle
-import FormInput from '.';
 import Icon from '../Icon';
-import { QuizQuestionTypeKeys } from '~/models/variables';
-import { useYupValidationResolver } from '~/hooks';
-import {
-  validationSchemaAnswer,
-  validationSchemaFile,
-} from '~/form/validation';
 import globalStyles from '~/styles';
-import { handleConsoleError } from '~/utils/common';
 
 interface FileListInputProps {
   controller: UseControllerReturn<any, string>;
 }
 function FileListInput({ controller }: FileListInputProps) {
+  const [customError, setCustomError] = useState<string | null>(null);
+
   const {
     field: { value, onChange: controllerOnChange },
+    fieldState: { invalid, error },
   } = controller;
-
-  const resolver = useYupValidationResolver(validationSchemaFile);
-  const hookForm = useForm({
-    resolver,
-  });
 
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
-  };
-
-  const handleSubmit = (data: { file: Blob[] }) => {
-    const tmpValue = [...value, data.file[0]];
-    controllerOnChange(tmpValue);
-    hookForm.reset();
-    handleOpen();
   };
 
   const handleDelete = (paramIndex: number) => {
@@ -57,127 +37,98 @@ function FileListInput({ controller }: FileListInputProps) {
     controllerOnChange(tmpValue);
   };
 
-  const handleChangeRightAnswer = (index: number) => {
-    const tmpValue = value.map((subItem: any, subIndex: number) => {
-      if (index === subIndex) {
-        return {
-          answer: subItem.answer,
-          right: !subItem.right,
-        };
-      }
-      return subItem;
-    });
-    controllerOnChange(tmpValue);
+  const handleFileChange = (e: any) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.type.includes('application')) {
+      setCustomError(null);
+
+      controllerOnChange([...value, selectedFile]);
+    } else {
+      setCustomError('Hãy nhập định dạng file đúng (PDF, Word, or Excel)');
+    }
   };
 
-  const {
-    fields: attachFields,
-    append,
-    remove,
-  } = useFieldArray({
-    name: 'userImages',
-    control: hookForm.control,
-    rules: {
-      required: 'Hãy nhập ít nhất 1 bằng',
-    },
-  });
-
   return (
-    <Stack
-      sx={{
-        border: '0.5px solid grey',
-        borderRadius: MetricSize.small_5,
-        padding: 1,
-        background: Color.white,
-      }}
-    >
-      <Stack>
-        {value && value?.length > 0 ? (
-          value?.map((item: any, index: number) => {
-            return (
-              <Stack
-                sx={{
-                  marginBottom: 1,
-                  background: Color.white4,
-                  borderRadius: MetricSize.small_5,
-                  padding: 1,
-                }}
-                key={index}
-              >
+    <Stack>
+      <Stack
+        sx={{
+          border: `0.5px solid ${
+            customError || invalid ? Color.red : Color.grey
+          }`,
+          borderRadius: MetricSize.small_5,
+          padding: 1,
+          background: Color.white,
+        }}
+      >
+        <Stack>
+          {value && value?.length > 0 ? (
+            value?.map((item: any, index: number) => {
+              return (
                 <Stack
                   sx={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                    marginBottom: 1,
+                    background: Color.white4,
+                    borderRadius: MetricSize.small_5,
+                    padding: 1,
                   }}
+                  key={index}
                 >
-                  <Typography>{item.name}</Typography>
-                  <IconButton onClick={() => handleDelete(index)}>
-                    <Icon name="delete" size="small_20" color="red" />
-                  </IconButton>
+                  <Stack
+                    sx={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Typography>{item.name}</Typography>
+                    <IconButton onClick={() => handleDelete(index)}>
+                      <Icon name="delete" size="small_20" color="red" />
+                    </IconButton>
+                  </Stack>
                 </Stack>
-              </Stack>
-            );
-          })
-        ) : (
-          <Stack
-            padding={2}
-            sx={{
-              background: Color.white4,
-              marginBottom: 1,
-            }}
-          >
-            <Typography textAlign="center" sx={globalStyles.textLowSmallLight}>
-              Chưa thêm tệp đính kèm nào.
-            </Typography>
-          </Stack>
-        )}
-      </Stack>
-      <Box>
-        <Button
-          startIcon={
-            <Icon
-              name={!open ? 'add' : 'close'}
-              size="small_20"
-              color="white"
-            />
-          }
-          variant="contained"
-          color={!open ? 'info' : 'error'}
-          onClick={handleOpen}
-        >
-          {!open ? 'Thêm tệp đính kèm' : 'Hủy'}
-        </Button>
-      </Box>
-      <Collapse in={open}>
-        <Stack
-          sx={{
-            marginTop: 1,
-          }}
-        >
-          <Stack sx={{ flexGrow: 1 }}>
-            <FormInput
-              control={hookForm.control}
-              name="file.0"
-              placeholder="Tệp đính kèm"
-              variant="file"
-            />
-          </Stack>
-          <Box>
-            <Button
+              );
+            })
+          ) : (
+            <Stack
+              padding={2}
               sx={{
-                marginTop: 1,
-                color: Color.white,
+                background: Color.white4,
+                marginBottom: 1,
               }}
-              variant="contained"
-              color="secondary"
-              onClick={hookForm.handleSubmit(handleSubmit, handleConsoleError)}
             >
-              Thêm tệp đính kèm
-            </Button>
-          </Box>
+              <Typography
+                textAlign="center"
+                sx={globalStyles.textLowSmallLight}
+              >
+                Chưa thêm tệp đính kèm nào.
+              </Typography>
+            </Stack>
+          )}
         </Stack>
-      </Collapse>
+        <Box>
+          <Button
+            component="label"
+            startIcon={<Icon name="add" size="small_20" color="white" />}
+            variant="contained"
+            color={customError || invalid ? 'error' : 'info'}
+            onClick={handleOpen}
+          >
+            Thêm tệp đính kèm
+            <input
+              hidden
+              accept="application/*"
+              multiple
+              type="file"
+              onChange={handleFileChange}
+            />
+          </Button>
+        </Box>
+      </Stack>
+      {(customError || invalid) && (
+        <FormHelperText error>
+          {customError || (error as any).message}
+        </FormHelperText>
+      )}
     </Stack>
   );
 }

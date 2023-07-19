@@ -10,8 +10,23 @@ export const useMutationUpdateContent = () => {
     ['update_lesson'],
     activityApi.updateLesson
   );
+  const { mutateAsync: handleMutationUpdateAssignment } = useCustomMutation(
+    ['update_assignment'],
+    activityApi.updateAssignment
+  );
+  const { mutateAsync: handleMutationUpdateResource } = useCustomMutation(
+    ['update_resource'],
+    activityApi.updateResource
+  );
+  const { mutateAsync: handleMutationUpdateQuiz } = useCustomMutation(
+    ['update_quiz'],
+    activityApi.updateQuiz
+  );
   return {
     handleMutationUpdateSection,
     handleMutationUpdateLesson,
+    handleMutationUpdateAssignment,
+    handleMutationUpdateResource,
+    handleMutationUpdateQuiz,
   };
 };

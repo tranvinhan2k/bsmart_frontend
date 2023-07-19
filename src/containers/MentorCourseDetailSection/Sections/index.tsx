@@ -1,4 +1,4 @@
-import { Box, Collapse, Stack, Typography } from '@mui/material';
+import { Box, Collapse, Stack, Switch, Typography } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
@@ -101,7 +101,8 @@ export default function Sections({ content, refetch }: Props) {
             section={section}
             onOpenContentSection={() => setOpen(open !== index ? index : -1)}
           />
-          <Collapse in={open === index}>
+          {/* <Collapse in={open === index}> */}
+          <Collapse in>
             <Stack sx={{ marginTop: 1, paddingY: 1 }}>
               {section?.subActivities.map((module, idx) => (
                 <Module

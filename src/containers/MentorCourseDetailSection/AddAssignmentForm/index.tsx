@@ -1,7 +1,6 @@
 import { Stack, Typography, Button } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
-import FormInput from '~/components/atoms/FormInput';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
@@ -41,19 +40,18 @@ export type AddSubSectionFormPayload =
 interface Props {
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
+  onDelete?: () => void;
 }
 
-export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
+export default function AddAssignmentForm({
+  hookForm,
+  onSubmit,
+  onDelete,
+}: Props) {
   const courseId = useGetIdFromUrl('id');
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
 
   const inputList: InputData[] = [
-    {
-      label: 'Tên bài tập',
-      name: 'name',
-      placeholder: 'Nhập tên bài tập',
-      variant: 'text',
-    },
     {
       label: 'Hiển thị',
       name: 'visible',
@@ -65,6 +63,13 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
       name: 'authorizeClasses',
       placeholder: '',
       variant: 'multiSelect',
+      data: optionClasses,
+    },
+    {
+      label: 'Tên bài tập',
+      name: 'name',
+      placeholder: 'Nhập tên bài tập',
+      variant: 'text',
     },
     {
       label: 'Mô tả bài tập',
@@ -85,9 +90,9 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
       variant: 'datetime',
     },
     {
-      label: 'Giới hạn thời gian',
+      label: 'Thời gian được chỉnh sửa',
       name: 'editBeForSubmitMin',
-      placeholder: 'Nhập giới hạn thời gian',
+      placeholder: 'Nhập thời gian được chỉnh sửa',
       variant: 'number',
     },
     {
@@ -143,17 +148,36 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
         }}
       >
         <InputGroup control={hookForm.control} inputList={inputList} />
-        <Button
-          color="secondary"
+        <Stack
           sx={{
             marginTop: 1,
-            color: Color.white,
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
-          onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-          variant="contained"
         >
-          Thêm bài kiểm tra tự luận
-        </Button>
+          <Button
+            disabled={!hookForm.formState.isDirty}
+            color="secondary"
+            sx={{
+              color: Color.white,
+            }}
+            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
+            variant="contained"
+          >
+            {onDelete ? 'Lưu thay đổi' : 'Thêm bài kiểm tra tự luận'}
+          </Button>
+          {Boolean(onDelete) && (
+            <Button
+              sx={{
+                marginLeft: 1,
+              }}
+              variant="contained"
+              color="error"
+            >
+              Xóa bài tập
+            </Button>
+          )}
+        </Stack>
       </Stack>
     </Stack>
   );

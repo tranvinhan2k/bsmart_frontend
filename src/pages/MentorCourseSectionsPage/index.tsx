@@ -61,6 +61,7 @@ export default function MentorCourseSectionsPage() {
       })
     );
     await refetch();
+    navigate(-1);
   };
 
   const handleDeleteSection = async () => {

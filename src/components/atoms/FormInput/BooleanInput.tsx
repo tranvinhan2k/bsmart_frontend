@@ -21,7 +21,7 @@ function BooleanInput({
   };
 
   useEffect(() => {
-    if (value === undefined) {
+    if (value === undefined || value === '') {
       controllerOnChange(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
