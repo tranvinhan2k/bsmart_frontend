@@ -12,7 +12,11 @@ import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness
 import { useRequestApproval } from '~/hooks/mentorProfile/useRequestApproval';
 import CompleteProgressField from '~/components/molecules/MentorProfileCompleteProgress/CompleteProgressField';
 import toast from '~/utils/toast';
-import { SX_FORM, SX_FORM_TITLE } from '../style';
+import {
+  MentorProfileStatusLabel,
+  MentorProfileStatusType,
+} from '~/constants/profile';
+import { SX_FORM_TITLE, SX_FORM, SX_STATUS } from '../style';
 
 export default function MentorProfileProgress() {
   const profile = useSelector(selectProfile);
@@ -34,24 +38,46 @@ export default function MentorProfileProgress() {
     }
   };
 
+  let statusStyle = SX_STATUS.REQUESTING;
+  let statusLabel = 'Đã xảy ra lỗi';
+  switch (profile.mentorProfile.status) {
+    case MentorProfileStatusType.REQUESTING:
+      statusStyle = SX_STATUS.REQUESTING;
+      statusLabel = MentorProfileStatusLabel.REQUESTING;
+      break;
+    case MentorProfileStatusType.WAITING:
+      statusStyle = SX_STATUS.WAITING;
+      statusLabel = MentorProfileStatusLabel.WAITING;
+      break;
+    case MentorProfileStatusType.EDITREQUEST:
+      statusStyle = SX_STATUS.EDITREQUEST;
+      statusLabel = MentorProfileStatusLabel.EDITREQUEST;
+      break;
+    case MentorProfileStatusType.REJECTED:
+      statusStyle = SX_STATUS.REJECTED;
+      statusLabel = MentorProfileStatusLabel.REJECTED;
+      break;
+    case MentorProfileStatusType.STARTING:
+      statusStyle = SX_STATUS.STARTING;
+      statusLabel = MentorProfileStatusLabel.STARTING;
+      break;
+    default:
+      break;
+  }
+
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
         Hoàn tất hồ sơ giảng dạy
       </Typography>
       <Divider sx={{ marginY: 2 }} />
+      <Typography component="h3">
+        Để có thể nộp hồ sơ, hãy hoàn tất các thông tin bắt buộc
+      </Typography>
+      <Typography display="inline">Trạng thái của hồ sơ: </Typography>
+      <Typography sx={statusStyle}>{statusLabel}</Typography>
       {mentorProfilesCompleteness && (
         <>
-          {mentorProfilesCompleteness.allowSendingApproval ? (
-            <Typography component="h3">
-              Hồ sơ giảng dạy đã sẳn sàng gửi cho quản trị viên phê duyệt
-            </Typography>
-          ) : (
-            <Typography component="h3">
-              Hãy hoàn tất các <strong>Thông tin bắt buộc</strong> để có thể nộp
-              hồ sơ
-            </Typography>
-          )}
           <Box mt={2} />
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -85,7 +111,13 @@ export default function MentorProfileProgress() {
               fullWidth
               size="large"
               variant="contained"
-              disabled={!mentorProfilesCompleteness.allowSendingApproval}
+              disabled={
+                !mentorProfilesCompleteness.allowSendingApproval ||
+                profile.mentorProfile.status ===
+                  MentorProfileStatusType.WAITING ||
+                profile.mentorProfile.status ===
+                  MentorProfileStatusType.REJECTED
+              }
               onClick={handleSubmitSuccess}
               sx={{ fontFamily: FontFamily.bold }}
             >
