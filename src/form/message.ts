@@ -40,7 +40,7 @@ export const INTRODUCE_REQUIRED = 'Giới thiệu không được để trống'
 export const WORKING_EXPERIENCE_REQUIRED = 'Kinh nghiệm không được để trống';
 export const MENTOR_SKILLS_REQUIRED_ONE = 'Tối thiểu một chuyên môn';
 export const SKILL_REQUIRED = 'Kĩ năng không được để trống';
-export const SKILL_UNIQUE = 'Có kĩ năng trùng lặp';
+export const SKILL_UNIQUE = 'Có kĩ năng trùng lặp. Hãy chọn lại';
 export const YEAR_OF_EXPERIENCES_REQUIRED = 'Số năm không được để trống';
 export const YEAR_OF_EXPERIENCES_MINIMUM = 'Số năm lớn hơn 0';
 

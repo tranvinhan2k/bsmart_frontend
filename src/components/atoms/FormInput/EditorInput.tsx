@@ -35,8 +35,8 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
         onInit={(evt, editor) => {
           editorRef.current = editor;
         }}
-        onChange={handleChangeText}
-        initialValue={value}
+        onEditorChange={onChange}
+        value={value}
         init={{
           height: 300,
           menubar: false,
