@@ -19,7 +19,7 @@ import { FontFamily } from '~/assets/variables';
 import { genderData } from '~/constants';
 import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
 import { selectProfile } from '~/redux/user/selector';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
@@ -76,6 +76,7 @@ export default function EditPersonalProfileForm() {
       });
     },
   });
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
   const toastMsgLoading = 'Đang cập nhật ...';
   const toastMsgSuccess = 'Cập nhật thành công ...';
@@ -92,6 +93,7 @@ export default function EditPersonalProfileForm() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditPersonalProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));

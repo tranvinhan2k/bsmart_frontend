@@ -13,7 +13,7 @@ import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
 import { EditPasswordSectionDefault, FormInputVariant } from '~/models/form';
 import { FontFamily } from '~/assets/variables';
 import { useMutationEditAccountProfile } from '~/hooks/useMutationEditAccountProfile';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditAccountProfile } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
@@ -28,6 +28,7 @@ export default function DisplayEditPasswordSection() {
     resolver: resolverEditAccountProfile,
   });
 
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditAccountProfile } =
     useMutationEditAccountProfile();
 
@@ -45,6 +46,7 @@ export default function DisplayEditPasswordSection() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditAccountProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
       reset();
     } catch (error: any) {

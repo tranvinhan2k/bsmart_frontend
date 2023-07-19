@@ -12,7 +12,7 @@ import { EditIdentityFrontFormDataPayload } from '~/models/form';
 import { EditImageProfilePayload } from '~/api/users';
 import { ProfileImgType } from '~/constants/profile';
 import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditIdentityFront } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
@@ -40,6 +40,7 @@ export default function DialogEditIdCardFront({
     resolver: resolverEditIdentityFront,
   });
 
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditIdentityFront } =
     useMutationEditIdentityFront();
 
@@ -59,7 +60,9 @@ export default function DialogEditIdCardFront({
     try {
       await mutateEditIdentityFront(params);
       handleOnClose();
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
+      resetEditIdentityFront();
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
@@ -72,7 +75,7 @@ export default function DialogEditIdCardFront({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật mặt trước Chứng minh thư</DialogTitle>
+      <DialogTitle>Cập nhật chứng minh thư (Mặt trước)</DialogTitle>
       <DialogContent>
         <form
           onSubmit={handleSubmitEditIdentityFront(handleSubmitIdentityFront)}

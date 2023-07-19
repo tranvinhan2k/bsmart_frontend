@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { FontFamily } from '~/assets/variables';
 import { selectProfile } from '~/redux/user/selector';
 import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
+import { useDispatchProfile } from '~/hooks';
 import { useRequestApproval } from '~/hooks/mentorProfile/useRequestApproval';
 import CompleteProgressField from '~/components/molecules/MentorProfileCompleteProgress/CompleteProgressField';
 import toast from '~/utils/toast';
@@ -19,6 +20,7 @@ import {
 import { SX_FORM_TITLE, SX_FORM, SX_STATUS } from '../style';
 
 export default function MentorProfileProgress() {
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const profile = useSelector(selectProfile);
   const { mentorProfilesCompleteness } = useCheckCompleteness();
   const { mutateAsync: requestApproval } = useRequestApproval();
@@ -32,6 +34,7 @@ export default function MentorProfileProgress() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await requestApproval(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));

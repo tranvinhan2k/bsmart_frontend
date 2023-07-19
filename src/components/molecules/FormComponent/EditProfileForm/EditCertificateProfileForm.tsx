@@ -21,7 +21,7 @@ import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import accountApi, { EditCertificateProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import Icon from '~/components/atoms/Icon';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
@@ -48,7 +48,7 @@ export default function EditCertificateProfileForm() {
       enabled: Boolean(token),
     }
   );
-
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditCertificateProfile } =
     useMutationEditCertificateProfile();
 
@@ -113,6 +113,7 @@ export default function EditCertificateProfileForm() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditCertificateProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));

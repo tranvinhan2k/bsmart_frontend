@@ -13,7 +13,11 @@ import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { EditMentorProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { selectProfile } from '~/redux/user/selector';
-import { useDispatchGetAllSubjects, useYupValidationResolver } from '~/hooks';
+import {
+  useDispatchGetAllSubjects,
+  useDispatchProfile,
+  useYupValidationResolver,
+} from '~/hooks';
 import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
@@ -32,6 +36,7 @@ export default function EditMentorProfileForm() {
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { mutateAsync: mutateEditMentorProfile } =
     useMutationEditMentorProfile();
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditMentorProfile
@@ -97,6 +102,7 @@ export default function EditMentorProfileForm() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditMentorProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));
@@ -118,6 +124,9 @@ export default function EditMentorProfileForm() {
       PLACEHOLDER: 'Nhập kinh nghiệm bản thân',
     },
     DESC1: 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
+    DESC2: 'Mục giới thiệu giáo viên hãy viết về bản thân mình',
+    DESC3:
+      'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn',
     BUTTON_TEXT: 'Cập nhật',
   };
 
@@ -137,6 +146,12 @@ export default function EditMentorProfileForm() {
       <Divider sx={{ marginY: 2 }} />
       <Typography component="h3">
         - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC1}
+      </Typography>
+      <Typography component="h3">
+        - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC2}
+      </Typography>
+      <Typography component="h3">
+        - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC3}
       </Typography>
       {profile && subjects && (
         <form onSubmit={handleSubmit(handleSubmitSuccess)}>

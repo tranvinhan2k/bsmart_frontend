@@ -8,7 +8,7 @@ import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
 import { EditSocialProfileFormDefault, FormInputVariant } from '~/models/form';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { RootState } from '~/redux/store';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import accountApi from '~/api/users';
@@ -24,6 +24,8 @@ export default function EditSocialProfileForm() {
     defaultValues: defaultValueEditSocialProfile,
     resolver: resolverEditSocialProfile,
   });
+
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditSocialProfile } = useMutation({
     mutationFn: accountApi.editSocialProfile,
   });
@@ -40,6 +42,7 @@ export default function EditSocialProfileForm() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditSocialProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));

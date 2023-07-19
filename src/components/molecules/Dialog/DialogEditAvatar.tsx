@@ -6,8 +6,8 @@ import { EditAvatarFormDataPayload } from '~/models/form';
 import { EditImageProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { ProfileImgType } from '~/constants/profile';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useMutationEditAvatar } from '~/hooks/useMutationEditAvatar';
-import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditAvatar } from '~/form/validation';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import FormInput from '~/components/atoms/FormInput';
@@ -31,8 +31,8 @@ export default function DialogUpdateAvatar({
     resolver: resolverEditAvatar,
   });
 
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditAvatar } = useMutationEditAvatar();
-
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string =>
@@ -46,7 +46,9 @@ export default function DialogUpdateAvatar({
     try {
       await mutateEditAvatar(params);
       handleOnClose();
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
+      reset();
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }

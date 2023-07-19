@@ -13,7 +13,7 @@ import { ProfileImgType } from '~/constants/profile';
 import { defaultValueEditIdentityBack } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
 import { validationSchemaEditIdentityBack } from '~/form/validation';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
 import { EditIdentityBackFormDataPayload } from '~/models/form';
 import toast from '~/utils/toast';
@@ -40,6 +40,7 @@ export default function DialogEditIdCardBack({
     resolver: resolverEditIdentityBack,
   });
 
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditIdentityBack } = useMutationEditIdentityBack();
 
   const toastMsgLoading = 'Đang cập nhật...';
@@ -58,7 +59,9 @@ export default function DialogEditIdCardBack({
     try {
       await mutateEditIdentityBack(params);
       handleOnClose();
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
+      resetEditIdentityBack();
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
@@ -71,7 +74,7 @@ export default function DialogEditIdCardBack({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật chứng minh thư (mặt sau)</DialogTitle>
+      <DialogTitle>Cập nhật chứng minh thư (Mặt sau)</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
           <FormInput
