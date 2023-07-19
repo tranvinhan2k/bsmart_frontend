@@ -21,7 +21,11 @@ import globalStyles from '~/styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 // eslint-disable-next-line import/no-cycle
 import { OptionPayload } from '~/models';
-import { ClassStatusKeys, LevelKeys } from '~/models/variables';
+import {
+  ClassStatusKeys,
+  CourseStatusKeys,
+  LevelKeys,
+} from '~/models/variables';
 import { formatStringToNumber } from '~/utils/number';
 import { LoadingWrapper } from '~/HOCs';
 import ReturnLink from '~/components/atoms/ReturnLink';
@@ -58,6 +62,7 @@ export interface DetailCourseClassPayload {
   minStudent: number;
   maxStudent: number;
   startDate: string;
+  status: CourseStatusKeys;
   endDate: string;
   numberOfSlot: number;
   timeInWeekRequests: {

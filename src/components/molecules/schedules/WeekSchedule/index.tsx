@@ -132,7 +132,7 @@ export default function WeekSchedule({ data }: Props) {
           background: Color.white,
           borderRadius: MetricSize.small_5,
           flexDirection: 'row',
-          overflowX: 'scroll',
+          overflowX: 'auto',
         }}
         marginTop={1}
       >

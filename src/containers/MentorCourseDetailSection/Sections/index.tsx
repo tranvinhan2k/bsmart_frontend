@@ -1,6 +1,7 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Collapse, Stack, Typography } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { image } from '~/constants/image';
 import { Color, MetricSize } from '~/assets/variables';
 import AddModule from '../AddModule';
@@ -23,6 +24,12 @@ interface Props {
 export default function Sections({ content, refetch }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
+
+  const [open, setOpen] = useState<number>(-1);
+
+  const handleOpen = () => {
+    setOpen(-1);
+  };
 
   const updateModule = useTryCatch('cập nhật bài học');
 
@@ -88,18 +95,25 @@ export default function Sections({ content, refetch }: Props) {
           sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}
           key={index}
         >
-          <Section index={index} section={section} />
-          <Stack sx={{ marginTop: 1, paddingY: 1 }}>
-            {section?.subActivities.map((module, idx) => (
-              <Module
-                key={idx}
-                index={idx}
-                sectionId={section.id}
-                module={module}
-              />
-            ))}
-          </Stack>
-          <AddModule id={section.id} refetch={refetch} />
+          <Section
+            open={open === index}
+            index={index}
+            section={section}
+            onOpenContentSection={() => setOpen(open !== index ? index : -1)}
+          />
+          <Collapse in={open === index}>
+            <Stack sx={{ marginTop: 1, paddingY: 1 }}>
+              {section?.subActivities.map((module, idx) => (
+                <Module
+                  key={idx}
+                  index={idx}
+                  sectionId={section.id}
+                  module={module}
+                />
+              ))}
+            </Stack>
+            <AddModule id={section.id} refetch={refetch} />
+          </Collapse>
         </Stack>
       ))}
     </Stack>

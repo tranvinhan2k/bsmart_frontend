@@ -48,9 +48,9 @@ export default function Module({ index, sectionId, module }: Props) {
             justifyContent: 'flex-end',
           }}
         >
-          <Tooltip title="Xem nội dung học phần">
+          <Tooltip title="Xem chi tiết">
             <IconButton onClick={handleViewOpen}>
-              <Icon name="right" color="black" size="small_20" />
+              <Icon name="search" color="black" size="small_20" />
             </IconButton>
           </Tooltip>
         </Stack>

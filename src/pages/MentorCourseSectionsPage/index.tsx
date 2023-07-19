@@ -5,6 +5,7 @@ import { LoadingWrapper } from '~/HOCs';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import CustomBreadcrumbs from '~/components/atoms/CustomBreadcrumbs';
 import { InputData } from '~/components/atoms/FormInput/InputGroup';
+import ReturnLink from '~/components/atoms/ReturnLink';
 import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import {
   MentorCourseActionLink,
@@ -75,17 +76,8 @@ export default function MentorCourseSectionsPage() {
   return (
     <LoadingWrapper error={error} isLoading={isLoading}>
       <Stack>
-        <CustomBreadcrumbs
-          data={[
-            {
-              label: 'Nội dung học phần',
-              link: `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`,
-            },
-            {
-              label: `Học phần ${activity?.name}`,
-              link: `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}/${sectionId}`,
-            },
-          ]}
+        <ReturnLink
+          to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`}
         />
         <Stack>
           <Typography sx={globalStyles.textSubTitle}>

@@ -5,11 +5,18 @@ import Icon from '~/components/atoms/Icon';
 import { ActivityPayload } from '~/models/type';
 
 interface Props {
+  open: boolean;
   index: number;
   section: ActivityPayload;
+  onOpenContentSection: () => void;
 }
 
-export default function Section({ index, section }: Props) {
+export default function Section({
+  open,
+  index,
+  section,
+  onOpenContentSection,
+}: Props) {
   const navigate = useNavigate();
 
   const handleViewOpen = () => {
@@ -25,6 +32,17 @@ export default function Section({ index, section }: Props) {
           alignItems: 'center',
         }}
       >
+        <Tooltip title="Xem nội dung học phần">
+          <IconButton
+            sx={{
+              transition: 'all 500ms ease',
+              transform: open ? 'rotate(90deg)' : 'none',
+            }}
+            onClick={onOpenContentSection}
+          >
+            <Icon name="right" color="black" size="small_20" />
+          </IconButton>
+        </Tooltip>
         <Typography>
           <span
             style={{
@@ -43,9 +61,9 @@ export default function Section({ index, section }: Props) {
             flexDirection: 'row',
           }}
         >
-          <Tooltip title="Xem thông tin học phần">
+          <Tooltip title="Xem chi tiết">
             <IconButton onClick={handleViewOpen}>
-              <Icon name="right" color="black" size="small_20" />
+              <Icon name="search" color="black" size="small_20" />
             </IconButton>
           </Tooltip>
         </Stack>

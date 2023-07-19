@@ -146,7 +146,7 @@ function FileListInput({ controller }: FileListInputProps) {
           color={!open ? 'info' : 'error'}
           onClick={handleOpen}
         >
-          {!open ? 'Thêm câu trả lời' : 'Hủy'}
+          {!open ? 'Thêm tệp đính kèm' : 'Hủy'}
         </Button>
       </Box>
       <Collapse in={open}>

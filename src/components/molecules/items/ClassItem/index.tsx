@@ -131,6 +131,10 @@ export default function ClassItem({
     },
   ];
 
+  const statusLabel = ClassStatusList.find((item) => {
+    return item.value === status;
+  })?.label;
+
   return (
     <Stack
       sx={{
@@ -178,13 +182,7 @@ export default function ClassItem({
           >
             {status && (
               <Box>
-                <Tag
-                  color="whiteSmoke"
-                  title={
-                    ClassStatusList.find((item) => item.value === status)
-                      ?.label || ''
-                  }
-                />
+                <Tag color="whiteSmoke" title={statusLabel || ''} />
               </Box>
             )}
             <Typography
