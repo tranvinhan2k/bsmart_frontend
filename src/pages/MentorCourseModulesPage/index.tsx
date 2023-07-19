@@ -107,7 +107,6 @@ export default function MentorCourseModulesPage() {
     handleMutationUpdateAssignment,
     handleMutationUpdateQuiz,
     handleMutationUpdateResource,
-    handleMutationUpdateSection,
   } = useMutationUpdateContent();
 
   const handleClearOpen = () => {
@@ -167,6 +166,7 @@ export default function MentorCourseModulesPage() {
 
   const handleSubmitQuiz = async (
     data: Partial<{
+      id: number;
       name: string;
       visible: boolean;
       parentActivityId: number;
@@ -194,24 +194,27 @@ export default function MentorCourseModulesPage() {
   ) => {
     await handleTryCatch(async () => {
       await handleMutationUpdateQuiz({
-        name: data.name,
-        visible: data.visible,
-        parentActivityId: data.parentActivityId,
-        courseId: data.courseId,
-        authorizeClasses: data.authorizeClasses,
-        code: data.code,
-        startDate: data.startDate,
-        endDate: data.endDate,
-        time: data.time,
-        defaultPoint: data.defaultPoint,
-        isSuffleQuestion: !!data.isSuffleQuestion,
-        isAllowReview: !!data.isAllowReview,
-        allowReviewAfterMin: data.allowReviewAfterMin,
-        password: data.password,
-        quizQuestions: data.quizQuestions?.map((item) => {
-          const { id, ...props } = item;
-          return props;
-        }),
+        id: data.id,
+        params: {
+          name: data.name,
+          visible: data.visible,
+          parentActivityId: data.parentActivityId,
+          courseId: data.courseId,
+          authorizeClasses: data.authorizeClasses,
+          code: data.code,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          time: data.time,
+          defaultPoint: data.defaultPoint,
+          isSuffleQuestion: !!data.isSuffleQuestion,
+          isAllowReview: !!data.isAllowReview,
+          allowReviewAfterMin: data.allowReviewAfterMin,
+          password: data.password,
+          quizQuestions: data.quizQuestions?.map((item) => {
+            const { id, ...props } = item;
+            return props;
+          }),
+        },
       });
       hookFormLesson.reset();
       navigate(
