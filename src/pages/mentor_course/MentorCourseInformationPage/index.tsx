@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Stack, Box } from '@mui/material';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
@@ -78,6 +78,11 @@ export default function MentorCourseInformationPage() {
 
   const { hookForm, categories, filterSubjects, levels, handleSubmit } =
     useUpdateCourseForm(course, handleUpdateCourse);
+
+  useEffect(() => {
+    hookForm.reset(course);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course]);
 
   return (
     <LoadingWrapper isLoading={isLoading} error={error}>

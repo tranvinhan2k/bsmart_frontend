@@ -149,7 +149,9 @@ const formatScheduleToMonthSchedule = (response: GetUserSchedule) => {
       );
       if (isExisted !== -1) {
         const isSlotExisted = result[isExisted].slots.findIndex(
-          (item) => item.id === timetable?.slot?.id || -1
+          (item) =>
+            (item.id === timetable?.slot?.id || -1) &&
+            item.value === date.workingClass?.course?.code
         );
         if (isSlotExisted === -1) {
           result[isExisted] = {

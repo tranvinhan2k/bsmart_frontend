@@ -146,8 +146,8 @@ export default function MonthSchedule({ data }: Props) {
         }}
       >
         <Stack sx={styles.view2}>
-          {dayOfWeeks.map((item) => (
-            <DayOfWeekCell key={item.id} name={item.name} />
+          {dayOfWeeks.map((item, index) => (
+            <DayOfWeekCell key={index} name={item.name} />
           ))}
           <Stack
             sx={{
@@ -207,9 +207,9 @@ export default function MonthSchedule({ data }: Props) {
                       {item.label}
                     </Typography>
                     {slots.length !== 0 &&
-                      slots.map((subItem) => (
+                      slots.map((subItem, subIndex) => (
                         <Stack
-                          key={subItem.id}
+                          key={subIndex}
                           sx={{
                             flexDirection: 'row',
                             alignItems: 'center',

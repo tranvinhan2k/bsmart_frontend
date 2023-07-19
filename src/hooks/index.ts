@@ -63,6 +63,9 @@ export * from './class/useQueryGetAllMentorClasses';
 export * from './class/useQueryGetMentorCourseClasses';
 export * from './class/useQueryGetOptionMentorCourseClasses';
 
+// quiz question
+export * from './quizQuestion/useGetAllQuizQuestion';
+
 // form
 export * from './form.hooks/useCreateCourseForm';
 export * from './form.hooks/useCreateClassesForm';

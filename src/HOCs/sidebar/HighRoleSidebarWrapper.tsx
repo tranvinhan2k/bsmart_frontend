@@ -96,6 +96,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
             height: '52px',
             position: 'sticky',
             top: 0,
+            zIndex: 10,
             borderBottom: `1px solid ${Color.border}`,
             flexDirection: 'row',
             alignItems: 'center',
@@ -124,6 +125,8 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
                   height: IconSize.large,
                   objectFit: 'contain',
                   borderRadius: 1000,
+                  border: '1px solid #ddd',
+                  background: Color.white,
                 }}
                 component="img"
                 src={mappingData.srcImage}

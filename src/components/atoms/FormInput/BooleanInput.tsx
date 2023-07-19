@@ -30,7 +30,9 @@ function BooleanInput({
   return (
     <FormControlLabel
       disabled={disabled}
-      control={<Switch checked={!!value} onChange={onChange} />}
+      control={
+        <Switch color="secondary" checked={!!value} onChange={onChange} />
+      }
       label={placeholder}
     />
   );

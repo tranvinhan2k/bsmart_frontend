@@ -18,6 +18,7 @@ function MultiSelectInput({ controller, data }: MultiSelectInputProps) {
           key={option.id}
           control={
             <Checkbox
+              color="secondary"
               name={`${option.value}`}
               value={option.value}
               checked={value.includes(option.value)}

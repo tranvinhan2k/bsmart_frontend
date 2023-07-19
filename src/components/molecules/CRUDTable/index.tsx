@@ -62,8 +62,14 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   '.MuiDataGrid-columnHeaderTitle': {
     color: Color.navy,
     textTransform: 'uppercase',
-    fontSize: FontSize.small_14,
+    fontSize: '12px',
     fontFamily: FontFamily.bold,
+  },
+  '.MuiDataGrid-overlay': {
+    ...globalStyles.textLowSmallLight,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   [`& .${gridClasses.row}.even`]: {
     backgroundColor: theme.palette.grey[200],

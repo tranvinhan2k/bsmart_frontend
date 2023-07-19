@@ -1,5 +1,5 @@
 import { PostTimeTableResponse } from './response';
-import { ClassStatusKeys } from './variables';
+import { ClassStatusKeys, QuizQuestionTypeKeys } from './variables';
 
 export interface PostCourseRequest {
   name: string;
@@ -30,7 +30,7 @@ export type PostActivityCoursePayload = {
 export interface PagingFilterRequest {
   q: string;
   page: number;
-  size: number;
+  size?: number;
 
   sort?: string[];
   status?: ClassStatusKeys;
@@ -48,6 +48,7 @@ export interface PutCourseRequest {
   level: string;
 }
 
+// post
 export interface PostActivityRequest {
   name: string;
   visible: boolean;
@@ -81,5 +82,17 @@ export interface PostTimetableRequest {
   timeInWeekRequests: {
     dayOfWeekId: number;
     slotId: number;
+  }[];
+}
+
+export interface PostQuizQuestionPayload {
+  subjectId: number;
+  question: string;
+  questionType: QuizQuestionTypeKeys;
+  isShared: boolean;
+  answers: {
+    answer: string;
+    isRight: boolean;
+    key: string;
   }[];
 }

@@ -90,6 +90,7 @@ export const enum AdminNavigationActionLink {
   feedback_manager = 'feedback_manager',
   subject_manager = 'subject_manager',
   category_manager = 'category_manager',
+  questions_bank = 'questions_bank_manager',
 }
 
 export const enum ManagerNavigationActionLink {

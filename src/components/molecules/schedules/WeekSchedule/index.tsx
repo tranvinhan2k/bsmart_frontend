@@ -46,6 +46,8 @@ export default function WeekSchedule({ data }: Props) {
   };
 
   useEffect(() => {
+    console.log('hello dayofweek');
+
     setDayOfWeekData(
       dayOfWeeks.map((item, index) => ({
         id: item.id,
@@ -130,6 +132,7 @@ export default function WeekSchedule({ data }: Props) {
           background: Color.white,
           borderRadius: MetricSize.small_5,
           flexDirection: 'row',
+          overflowX: 'scroll',
         }}
         marginTop={1}
       >
@@ -199,7 +202,8 @@ export default function WeekSchedule({ data }: Props) {
                       sx={{
                         border: '1px solid grey',
                         borderRadius: MetricSize.small_10,
-                        height: '175px',
+                        height: '180px',
+                        minWidth: '150px',
                       }}
                       key={idx}
                     >
@@ -248,20 +252,16 @@ export default function WeekSchedule({ data }: Props) {
                             </Typography>
                           </Stack>
                           <Stack>
-                            <Tooltip title={subItem.googleLink}>
-                              <Button
-                                sx={{
-                                  fontSize: '10px',
-                                }}
-                                onClick={() =>
-                                  navigate(subItem.googleLink || '')
-                                }
-                                variant="contained"
-                                color="primary"
-                              >
-                                Link Meet
-                              </Button>
-                            </Tooltip>
+                            <Button
+                              sx={{
+                                fontSize: '10px',
+                              }}
+                              onClick={() => navigate(subItem.googleLink || '')}
+                              variant="contained"
+                              color="primary"
+                            >
+                              Link Meet
+                            </Button>
                             <Button
                               sx={{
                                 marginTop: 1,
