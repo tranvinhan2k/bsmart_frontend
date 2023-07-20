@@ -10,6 +10,8 @@ import {
   NotFoundPage,
   SchedulePage,
   MentorClassDetailPage,
+  MemberClassListPage,
+  MemberClassDetailPage,
 } from '~/routes/components';
 
 export const studentLMSRoutes: RoutePayload[] = [
@@ -24,12 +26,12 @@ export const studentLMSRoutes: RoutePayload[] = [
   },
   {
     path: MemberDashboardNavigationActionLink.class_list,
-    main: () => <MentorClassListPage />,
+    main: () => <MemberClassListPage />,
     role: ['ROLE_STUDENT'],
   },
   {
     path: `${MemberDashboardNavigationActionLink.class_detail}/:id/*`,
-    main: () => <MentorClassDetailPage />,
+    main: () => <MemberClassDetailPage />,
     role: ['ROLE_STUDENT'],
   },
   {
