@@ -65,8 +65,8 @@ const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_FILE_DEGREE_FORMAT = [
   'application/pdf',
-  'application/docx',
-  'application/doc',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
 const FILE_DEGREE_SIZE_BYTES = 2000000; // 1 is 1bytes
 
