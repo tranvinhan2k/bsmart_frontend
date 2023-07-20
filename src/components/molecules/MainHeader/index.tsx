@@ -1,14 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Avatar,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Avatar, IconButton, Stack, Typography } from '@mui/material';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { image } from '~/constants/image';
 import { logOut } from '~/redux/user/slice';
@@ -23,6 +16,7 @@ import { SX_HEADER_CONTAINER } from './styles';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
 import CustomMenu from '~/components/atoms/CustomMenu';
+import { useLogOut, useMenuItem } from '~/hooks';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -44,43 +38,39 @@ export default function MainHeader({
   onRegisterClick,
 }: MainHeaderProps) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const profile = useSelector(selectProfile);
   const token = useSelector(selectToken);
-  const role = useSelector(selectRole);
+  const role = profile?.roles?.[0]?.code;
   const filterParams = useSelector(selectFilterParams);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { handleClose, handleToggle, open, anchorRef } = useMenuItem();
+  const { handleHookLogOut } = useLogOut();
 
   const nameSplit = profile?.fullName?.split(' ') || [];
 
-  const handleClose = () => {
-    setAnchorEl(() => null);
-  };
   const handleLogOut = async () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('roles');
-    dispatch(logOut());
-    handleClose();
-    navigate('/homepage');
-    toast.notifySuccessToast('Đăng xuất thành công');
-  };
-  const handleMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    handleHookLogOut();
+    handleToggle();
   };
 
   const handleNavigateProfile = () => {
-    navigate(
-      role !== 'ROLE_STUDENT'
+    handleToggle();
+
+    window.location.href = `/${
+      role !== 'STUDENT'
         ? NavigationLink.mentor_profile
         : NavigationLink.member_details
-    );
+    }`;
   };
 
   const handleNavigateDashboard = () => {
+    handleToggle();
+
     navigate(NavigationLink.dashboard);
   };
 
   const handleHomepage = () => {
+    handleToggle();
+
     navigate(NavigationLink.homepage);
   };
 
@@ -124,7 +114,7 @@ export default function MainHeader({
                 {nameSplit?.[nameSplit.length - 1] || ''}
               </span>
             </Typography>
-            <IconButton onClick={handleMenu}>
+            <IconButton ref={anchorRef} onClick={handleToggle}>
               <Avatar
                 alt="Avatar"
                 src={
@@ -142,7 +132,10 @@ export default function MainHeader({
             </IconButton>
           </Stack>
           <CustomMenu
-            anchorEl={anchorEl}
+            open={open}
+            anchorEl={anchorRef.current}
+            onClose={handleClose}
+            onToggleOpen={handleToggle}
             menuItemData={[
               {
                 icon: 'home',
@@ -165,7 +158,6 @@ export default function MainHeader({
                 onClick: handleLogOut,
               },
             ]}
-            onClose={handleClose}
           />
         </>
       )}

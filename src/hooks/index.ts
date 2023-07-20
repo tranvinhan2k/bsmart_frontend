@@ -3,6 +3,8 @@ export * from './useTimeOut';
 export * from './useTryCatch';
 export * from './useSubmitForReviewCourse';
 export * from './useGetIdFromUrl';
+export * from './useMenuItem';
+export * from './useLogOut';
 
 // user
 export * from './useQueryGetSchedule';

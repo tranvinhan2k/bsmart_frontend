@@ -22,8 +22,6 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
         inputFormat="DD/MM/YYYY"
         value={value}
         onChange={(newValue) => {
-          console.log(newValue);
-
           if (isValidDate(newValue)) onChange(newValue?.toISOString());
         }}
         renderInput={(params) => (

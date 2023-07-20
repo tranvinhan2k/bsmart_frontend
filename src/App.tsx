@@ -82,6 +82,7 @@ const showRoutes = (currentRole: Role | null) => {
           />
         );
       }
+
       if (currentRole === null) {
         return (
           <Route

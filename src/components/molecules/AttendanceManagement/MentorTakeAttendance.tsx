@@ -34,7 +34,6 @@ const attendanceCheckByMentor = {
 
 export default function MentorTakeAttendance() {
   const param = useParams();
-  console.log('param', param);
 
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);

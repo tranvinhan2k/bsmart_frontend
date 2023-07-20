@@ -15,6 +15,7 @@ import { logOut } from '~/redux/user/slice';
 import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
 import CustomMenu from '~/components/atoms/CustomMenu';
+import { useLogOut, useMenuItem } from '~/hooks';
 
 interface Props {
   children: React.ReactNode;
@@ -23,35 +24,17 @@ interface Props {
 
 export default function HighRoleSidebarWrapper({ children, actions }: Props) {
   const navigate = useNavigate();
-  const { toggleSidebar, collapsed, collapseSidebar } = useProSidebar();
-  const dispatch = useDispatch();
+  const { handleHookLogOut } = useLogOut();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleToggle = () => {
-    toggleSidebar();
-    if (collapsed) {
-      collapseSidebar();
-    }
-  };
+  const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
 
   const handleLogOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('roles');
-    dispatch(logOut());
-    navigate(`/${NavigationLink.homepage}`);
-    handleClose();
+    handleHookLogOut();
+    handleToggle();
   };
 
   const handleProfile = () => {
-    handleClose();
+    handleToggle();
   };
 
   const handleHomePage = () => {
@@ -118,7 +101,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
           </Box>
           <Stack sx={{ flexGrow: 1 }} />
           <Stack>
-            <IconButton onClick={handleClick}>
+            <IconButton ref={anchorRef} onClick={handleToggle}>
               <Box
                 sx={{
                   width: IconSize.large,
@@ -134,8 +117,10 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
               />
             </IconButton>
             <CustomMenu
-              anchorEl={anchorEl}
+              open={open}
+              anchorEl={anchorRef.current}
               onClose={handleClose}
+              onToggleOpen={handleToggle}
               menuItemData={[
                 {
                   icon: 'home',

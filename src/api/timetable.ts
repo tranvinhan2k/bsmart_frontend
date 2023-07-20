@@ -27,8 +27,6 @@ const timetableApi = {
       if (isExisted !== -1) {
         result = result.map((subItem, subItemIndex) => {
           if (subItemIndex === isExisted) {
-            console.log('hello', subItem);
-
             return {
               ...subItem,
               slots: [

@@ -36,15 +36,7 @@ export default function AdminManageUser({ userRole }: AdminManageUserProps) {
     sort,
   });
 
-  // console.log('userList', userList);
   const filterRows = userList.items;
-  // const filterRows =
-  //   userList?.filter((item: any) => {
-  //     if (searchValue) {
-  //       return item?.name?.toLowerCase().includes(searchValue.toLowerCase());
-  //     }
-  //     return item;
-  //   }) || [];
 
   const handleTriggerModal = () => {
     setOpen(!open);

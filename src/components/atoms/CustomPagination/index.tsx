@@ -1,5 +1,6 @@
 import Pagination from '@mui/material/Pagination';
 import { useEffect } from 'react';
+import { Color } from '~/assets/variables';
 import { scrollToTop } from '~/utils/common';
 
 interface CustomPaginationProps {
@@ -25,6 +26,20 @@ export default function CustomPagination({
 
   return (
     <Pagination
+      sx={{
+        button: {
+          background: Color.white,
+        },
+        '.Mui-selected': {
+          background: `${Color.tertiary} !important`,
+          color: `${Color.white} !important`,
+        },
+        '.MuiPaginationItem-previousNext': {
+          background: `${Color.grey} !important`,
+          borderColor: `${Color.grey} !important`,
+          color: `${Color.white} !important`,
+        },
+      }}
       variant="outlined"
       shape="rounded"
       color="secondary"

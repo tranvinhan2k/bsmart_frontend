@@ -16,7 +16,7 @@ export const StudentDashboardNavigationActionData: ActionPayload[] = [
   },
   {
     id: 2,
-    link: StudentDashboardNavigationActionLink.attendance,
+    link: MemberDashboardNavigationActionLink.attendance,
     name: 'Điểm danh - Tạm',
     icon: 'date',
   },

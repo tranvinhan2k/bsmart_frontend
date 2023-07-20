@@ -74,7 +74,6 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
 
   const { optionSlots: slotOptions } = useDispatchGetAllSlots();
   const { optionDayOfWeeks: dayOfWeekOptions } = useDispatchGetAllDayOfWeeks();
-  console.log(error, invalid, value);
 
   return (
     <Stack>
