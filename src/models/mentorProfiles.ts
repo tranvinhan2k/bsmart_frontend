@@ -1,4 +1,4 @@
-export interface CheckMentorProfilesCompletenessReturnPayload {
+export interface CheckCompletenessReturnPayload {
   percentComplete: number;
   missingInformation: [
     {

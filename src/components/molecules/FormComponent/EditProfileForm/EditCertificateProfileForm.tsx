@@ -21,7 +21,7 @@ import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import accountApi, { EditCertificateProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import Icon from '~/components/atoms/Icon';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
@@ -48,16 +48,17 @@ export default function EditCertificateProfileForm() {
       enabled: Boolean(token),
     }
   );
-
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditCertificateProfile } =
     useMutationEditCertificateProfile();
 
   const resolverEditCertificateProfile = useYupValidationResolver(
     validationSchemaEditCertificateProfile
   );
-  const { control, reset, handleSubmit, getValues } = useForm({
+  const { control, reset, handleSubmit, getValues, formState } = useForm({
     defaultValues: defaultValueEditCertificateProfile,
     resolver: resolverEditCertificateProfile,
+    mode: 'onChange',
   });
   const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
 
@@ -72,6 +73,30 @@ export default function EditCertificateProfileForm() {
       reset(defaults);
     }
   }, [dataGetProfile, reset]);
+
+  const {
+    fields: certificateFields,
+    append,
+    remove,
+  } = useFieldArray({
+    name: 'userImages',
+    control,
+    rules: {
+      required: 'Hãy nhập ít nhất 1 bằng',
+    },
+  });
+
+  const appendCertificate = () => {
+    append(null);
+  };
+  const removeCertificate = (index: number, certificate: any) => {
+    remove(index);
+    if (certificate.type === 'DEGREE') {
+      setDegreeIdsToDelete((prev) => {
+        return [...prev, certificate.id];
+      });
+    }
+  };
 
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
@@ -88,6 +113,7 @@ export default function EditCertificateProfileForm() {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditCertificateProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
@@ -110,7 +136,8 @@ export default function EditCertificateProfileForm() {
       'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
     DESC3: 'Không đặt mật khẩu bảo vệ file của bạn.',
     DESC4: 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
-    DESC5: 'Hãy chụp 2 mặt bằng cấp/chứng chỉ',
+    DESC5_1: 'Định dạng hỗ trợ:',
+    DESC5_2: '.pdf, .doc, .docx',
     BUTTON_TEXT: 'Cập nhật',
   };
 
@@ -118,32 +145,8 @@ export default function EditCertificateProfileForm() {
     name: EDIT_CERTIFICATE_PROFILE_FIELDS.userImages,
     label: EDIT_CERTIFICATE_PROFILE_FORM_TEXT.USERIMAGES.LABEL,
     placeholder: '',
-    variant: 'file',
+    variant: 'fileRequireYup',
     size: 12,
-  };
-
-  const {
-    fields: certificateFields,
-    append,
-    remove,
-  } = useFieldArray({
-    name: 'userImages',
-    control,
-    rules: {
-      required: 'Hãy nhập ít nhất 1 bằng',
-    },
-  });
-
-  const appendCertificate = () => {
-    append('');
-  };
-  const removeCertificate = (index: number, certificate: any) => {
-    remove(index);
-    if (certificate.type === 'DEGREE') {
-      setDegreeIdsToDelete((prev) => {
-        return [...prev, certificate.id];
-      });
-    }
   };
 
   return (
@@ -164,6 +167,10 @@ export default function EditCertificateProfileForm() {
       <Typography component="h3">
         - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC4}
       </Typography>
+      <Typography component="h3">
+        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC5_1}{' '}
+        <b>{EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC5_2}</b>
+      </Typography>
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
         <Grid container columnSpacing={3}>
           {certificateFields.map((field, index) => (
@@ -182,7 +189,7 @@ export default function EditCertificateProfileForm() {
                 >
                   <FormInput
                     control={control}
-                    name={`${formFieldsCertificate.name}.${index}`}
+                    name={`${formFieldsCertificate.name}[${index}]`}
                     variant={formFieldsCertificate.variant}
                     placeholder={formFieldsCertificate.placeholder}
                   />
@@ -193,7 +200,7 @@ export default function EditCertificateProfileForm() {
                     onClick={() =>
                       removeCertificate(
                         index,
-                        getValues(`${formFieldsCertificate.name}.${index}`)
+                        getValues(`${formFieldsCertificate.name}[${index}]`)
                       )
                     }
                   >
@@ -203,7 +210,15 @@ export default function EditCertificateProfileForm() {
               </Grid>
             </Fragment>
           ))}
-          <Grid item xs={12} lg={3} mt={2}>
+          <Grid item xs={12} my={2}>
+            <FormInput
+              control={control}
+              name="userImages"
+              variant="arrayHelperText"
+              placeholder="a"
+            />
+          </Grid>
+          <Grid item xs={12} lg={3}>
             <MuiButton
               color="success"
               size="large"
@@ -222,6 +237,8 @@ export default function EditCertificateProfileForm() {
             type="submit"
             variant="contained"
             sx={{ fontFamily: FontFamily.bold }}
+            // disabled={!(formState.isDirty && formState.isValid)}
+            disabled={!(formState.isDirty && formState.isValid)}
           >
             Cập nhật
           </MuiButton>

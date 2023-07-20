@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import mentorProfilesApi from '~/api/mentorProfile';
-import { keyCheckMentorProfilesCompleteness } from './key';
+import { keyMentorProfileUseCheckCompleteness } from './key';
 
-export const useCheckMentorProfilesCompleteness = () => {
+export const useCheckCompleteness = () => {
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: [keyCheckMentorProfilesCompleteness],
-    queryFn: () => mentorProfilesApi.checkMentorProfilesCompleteness(),
+    queryKey: [keyMentorProfileUseCheckCompleteness],
+    queryFn: () => mentorProfilesApi.checkCompleteness(),
     keepPreviousData: true,
   });
 

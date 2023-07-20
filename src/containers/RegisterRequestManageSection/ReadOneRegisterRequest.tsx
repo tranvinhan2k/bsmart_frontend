@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Tab, Tabs, Stack } from '@mui/material';
+import { Box, Button, Grid, Tab, Tabs, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ProcessRegisterRequestFormDefault } from '~/models/form';
@@ -11,7 +11,7 @@ import RequestMentorDegree from './RequestMentorDegree';
 import RequestMentorInfo from './RequestMentorInfo';
 import RequestCI from './RequestCI';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_BOX_ITEM_WRAPPER } from './style';
+import { SX_BOX_ITEM_WRAPPER, SX_REQUEST_TITLE } from './style';
 
 interface ReadOneRegisterRequestProps {
   onSubmit: (data: ProcessRegisterRequestFormDefault) => Promise<void>;
@@ -152,12 +152,17 @@ export default function ReadOneRegisterRequest({
   ];
 
   return (
-    <Box p={2}>
+    <>
+      <Box mx={2}>
+        <Typography sx={SX_REQUEST_TITLE}>Chi tiết giáo viên</Typography>
+      </Box>
       <Grid
         container
         justifyContent="flex-start"
         alignItems="stretch"
-        spacing={5}
+        columnSpacing={5}
+        rowSpacing={2}
+        p={2}
       >
         <Grid item sm={12} md={5} lg={4}>
           <Stack
@@ -215,6 +220,6 @@ export default function ReadOneRegisterRequest({
           </Stack>
         </Grid>
       </Grid>
-    </Box>
+    </>
   );
 }

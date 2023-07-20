@@ -32,7 +32,6 @@ export const enum MemberNavigationActionLink {
   edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   wallet_management = 'wallet-management',
-  withdraw = 'withdraw',
   member_course_list = 'member-course-list',
 }
 
@@ -78,6 +77,7 @@ export const enum MemberDashboardNavigationActionLink {
   class_list = 'classes',
   class_detail = 'classes/detail',
   schedule = 'schedule',
+  attendance = 'attendance',
 }
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',
@@ -86,6 +86,7 @@ export const enum MentorLink {
 
 export const enum AdminNavigationActionLink {
   admin = 'admin',
+  user_manager = 'user_manager',
   wallet_management = 'wallet-management',
   feedback_manager = 'feedback_manager',
   subject_manager = 'subject_manager',

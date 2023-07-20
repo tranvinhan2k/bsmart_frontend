@@ -1,6 +1,6 @@
+import { MentorProfileStatusType } from '~/constants/profile';
 import { OptionPayload } from './common';
 import {
-  AccountStatusKeys,
   ActivityKeys,
   CourseStatusKeys,
   GenderKeys,
@@ -76,9 +76,15 @@ export interface MentorProfileIntroducePayload {
   id: number;
   introduce: string;
   workingExperience: string;
-  status: AccountStatusKeys;
+  status: MentorProfileStatus;
   mentorSkills: SkillPayload[];
 }
+export type MentorProfileStatus =
+  | MentorProfileStatusType.REQUESTING
+  | MentorProfileStatusType.WAITING
+  | MentorProfileStatusType.EDITREQUEST
+  | MentorProfileStatusType.REJECTED
+  | MentorProfileStatusType.STARTING;
 
 export interface CoursePayload {
   id: number;

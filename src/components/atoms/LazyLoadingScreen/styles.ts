@@ -1,5 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
-import { Color, MetricSize } from '~/assets/variables';
+import { Color, FontFamily } from '~/assets/variables';
 
 export const SX_LOADING_STACK: SxProps<Theme> = {
   justifyContent: 'center',
@@ -13,6 +13,17 @@ export const SX_LOADING_IMG: SxProps<Theme> = {
   height: undefined,
   aspectRatio: 1,
   objectFit: 'contain',
+};
+export const SX_LOADING_TITLE: SxProps<Theme> = {
+  fontSize: 26,
+  fontFamily: FontFamily.bold,
+  color: Color.white,
+};
+export const SX_LOADING_DESC: SxProps<Theme> = {
+  fontSize: 20,
+  fontFamily: FontFamily.medium,
+  color: Color.white,
+  boxShadow: 3,
 };
 
 export default {};

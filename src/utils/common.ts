@@ -90,3 +90,19 @@ export function formatOptionPayload(params: {
     categoryIds: params.categoryIds,
   };
 }
+
+export const handleDefinedText = (
+  text: string | number | undefined | null
+): string | number => {
+  if (text) return text;
+  if (text === undefined) return 'Không tồn tại';
+  return 'Đã xảy ra lỗi';
+};
+
+export const restrictNumberDisplay = (
+  input: number | undefined
+): string | number => {
+  if (input === undefined) return 0;
+  if (input > 999) return '999+';
+  return input;
+};

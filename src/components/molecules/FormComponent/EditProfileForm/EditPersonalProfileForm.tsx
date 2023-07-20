@@ -5,20 +5,21 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
-import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import {
   EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
 import { FontFamily } from '~/assets/variables';
 import { genderData } from '~/constants';
+import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
 import { selectProfile } from '~/redux/user/selector';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
@@ -62,28 +63,37 @@ export default function EditPersonalProfileForm() {
     }
   }, [profile, reset]);
 
+  const queryClient = useQueryClient();
   const { mutateAsync: mutateEditPersonalProfile } = useMutation({
     mutationFn:
       profile && profile.roles[0].code === 'TEACHER'
         ? accountApi.editMentorPersonalProfile
         : accountApi.editMemberPersonalProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/loginUser'] });
+      queryClient.invalidateQueries({
+        queryKey: [keyMentorProfileUseCheckCompleteness],
+      });
+    },
   });
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
   const toastMsgLoading = 'Đang cập nhật ...';
   const toastMsgSuccess = 'Cập nhật thành công ...';
   const toastMsgError = (error: any): string =>
     `Cập nhật không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
-    const params: EditPersonalProfilePayload = {
+    const params: EditPersonalProfileFormSubmit = {
       fullName: data.fullName,
       birthday: data.birthday,
       address: data.address,
       phone: data.phone,
-      gender: data.gender ? data.gender : genderData[0],
+      gender: data.gender ? data.gender.value : genderData[0].value,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditPersonalProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));

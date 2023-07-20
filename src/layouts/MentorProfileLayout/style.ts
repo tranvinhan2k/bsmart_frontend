@@ -4,10 +4,7 @@ import { Color, MetricSize } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
   paddingTop: MetricSize.large_30,
-  paddingX: {
-    xs: '10px',
-    md: `${MetricSize.extraLarge_90} ${MetricSize.none} ${MetricSize.extraLarge_100}`,
-  },
+  paddingX: 10,
   backgroundColor: Color.white4,
 };
 

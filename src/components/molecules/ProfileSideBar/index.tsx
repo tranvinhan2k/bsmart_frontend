@@ -27,6 +27,8 @@ import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
+import { MentorProfileStatus } from '~/models/type';
+import { MentorProfileStatusType } from '~/constants/profile';
 
 export interface ProfileSideBarProps {
   name: string;
@@ -37,6 +39,7 @@ export interface ProfileSideBarProps {
   birth: string;
   phone: string;
   isVerified: boolean;
+  isMentorVerified?: MentorProfileStatus;
   openAvatar: boolean;
   socials: SocialPayload[];
   navigationData: ActionPayload[];
@@ -55,6 +58,7 @@ export default function ProfileSideBar({
   phone,
   openAvatar,
   isVerified,
+  isMentorVerified,
   socials,
   navigationData,
   onOpenUpdateAvatar,
@@ -92,6 +96,7 @@ export default function ProfileSideBar({
               direction="column"
               justifyContent="flex-start"
               alignItems="center"
+              spacing={3}
             >
               <Box pt={{ xs: 10, sm: 30, md: 14 }}>
                 <IconButton onClick={onOpenUpdateAvatar}>
@@ -166,6 +171,22 @@ export default function ProfileSideBar({
                 justifyContent="flex-start"
                 alignItems="center"
               >
+                {role === 'TEACHER' && (
+                  <Stack
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={1}
+                    mt={2}
+                  >
+                    <Icon name="cancelIcon" size="small" color="red" />
+                    <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
+                      {isMentorVerified === MentorProfileStatusType.STARTING
+                        ? 'Hồ sơ giảng dạy đã duyệt'
+                        : 'Hồ sơ giảng dạy chưa được duyệt'}
+                    </Typography>
+                  </Stack>
+                )}
                 {displayFields.map((item) => {
                   return (
                     <Stack
@@ -206,13 +227,6 @@ export default function ProfileSideBar({
                     onNavigateLink={onNavigateLink}
                   />
                 ))}
-            </Stack>
-            <Stack
-              marginTop={1}
-              sx={{
-                width: '100%',
-              }}
-            >
               <Button onClick={handleNavigateDashboard} customVariant="linear">
                 <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Stack
@@ -220,7 +234,7 @@ export default function ProfileSideBar({
                   >
                     <Icon name="book" size="medium" color="white" />
                   </Stack>
-                  Quản lí học tập
+                  {role === 'TEACHER' ? 'Quản lí giảng dạy' : 'Quản lí học tập'}
                 </Stack>
               </Button>
             </Stack>

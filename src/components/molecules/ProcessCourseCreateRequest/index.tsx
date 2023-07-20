@@ -61,9 +61,8 @@ export default function ProcessCourseCreateRequest({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string => {
-    return `Đã xảy ra lỗi: ${errorMsg.message}`;
-  };
+  const toastMsgError = (errorMsg: any): string =>
+    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleApproveCourseCreateRequest = async (
     data: ProcessCreateCourseRequestFormDefault
   ) => {
@@ -134,16 +133,14 @@ export default function ProcessCourseCreateRequest({
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Phê duyệt yêu cầu tạo tài khoản giáo viên"
+        title="Phê duyệt yêu cầu tạo khóa học của giáo viên"
         addItemButtonLabel="Thêm môn học"
         columns={columns.courseCreateRequestColumns}
         // onAdd={}
-        searchPlaceholder="Tìm kiếm môn học"
+        searchPlaceholder="Tìm kiếm khóa học..."
         onSearch={handleSearchCourseCreateRequest}
         rows={filterRows}
         menuItemList={menuItemList}
-        //
-        getRowId={(row: any) => row?.subCourseId}
       />
       {renderItem}
     </>

@@ -1,12 +1,16 @@
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
-import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
 import { RequestRole, Role } from '~/models/role';
-import { UserPayload } from '~/models/user';
+import {
+  GetAllUserPayload,
+  GetAllUserReturnPayload,
+  UserPayload,
+} from '~/models/user';
 import axiosClient from '~/api/axiosClient';
-import { PagingFilterRequest } from '~/models';
+import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import { ProfilePayload, WeekTimeSlotPayload } from '~/models/type';
 import { GetUserSchedule } from '~/models/response';
 import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
@@ -237,10 +241,10 @@ const accountApi = {
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
     return axiosClient.put(`/mentor-profiles`, data);
   },
-  editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
+  editMentorPersonalProfile(data: EditPersonalProfileFormSubmit): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);
   },
-  editMemberPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
+  editMemberPersonalProfile(data: EditPersonalProfileFormSubmit): Promise<any> {
     return axiosClient.put(`${url}/member-personal`, data);
   },
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
@@ -269,6 +273,17 @@ const accountApi = {
     };
 
     return result;
+  },
+  getAllUser({
+    q,
+    role,
+    isVerified,
+    page,
+    size,
+    sort,
+  }: GetAllUserPayload): Promise<PagingFilterPayload<GetAllUserReturnPayload> | null> {
+    const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(urlSearch);
   },
 };
 

@@ -9,6 +9,7 @@ import {
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
 } from '~/models/class';
+import { ClassesOfCourseWithCourseDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import { ResponseMentorCoursePayload } from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
@@ -130,6 +131,13 @@ const classApi = {
   }: ClassDeleteClassSectionPayload): Promise<any> {
     const urlDelete = `${url}/${id}/class-sections/${classSectionId}`;
     return axiosClient.delete(urlDelete);
+  },
+
+  getClassesOfCourseWithCourseDetails(
+    idCourse: number
+  ): Promise<ClassesOfCourseWithCourseDetails | undefined> {
+    const urlGet = `${url}/course/${idCourse}`;
+    return axiosClient.get(urlGet);
   },
 
   async getMentorClassAttendances({

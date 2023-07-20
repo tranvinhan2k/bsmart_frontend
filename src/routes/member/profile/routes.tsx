@@ -42,9 +42,4 @@ export const memberRoutes: RoutePayload[] = [
     main: () => <WalletManagementPage />,
     role: ['ROLE_STUDENT'],
   },
-  {
-    path: MemberNavigationActionLink.withdraw,
-    main: () => <WithdrawPage />,
-    role: ['ROLE_STUDENT'],
-  },
 ];

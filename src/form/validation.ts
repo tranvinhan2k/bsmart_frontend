@@ -25,7 +25,7 @@ import {
   generateRequiredText,
   IMAGE_FORMAT_NOT_SUPPORT,
   IMAGE_SIZE_TOO_BIG,
-  INTRODUCE_REQUIRED,
+  GENDER_REQUIRED,
   MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED,
   MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED,
   NAME_REQUIRED,
@@ -42,6 +42,17 @@ import {
   CRATE_ANNOUNCEMENT_TITLE,
   UPDATE_ANNOUNCEMENT_TITLE,
   UPDATE_ANNOUNCEMENT_CONTENT,
+  WORKING_EXPERIENCE_REQUIRED,
+  INTRODUCE_REQUIRED,
+  YEAR_OF_EXPERIENCES_MINIMUM,
+  YEAR_OF_EXPERIENCES_REQUIRED,
+  SKILL_REQUIRED,
+  CERTIFICATE_MAX_SIZE,
+  CERTIFICATE_FORMAT_INCORRECT,
+  CERTIFICATE_REQUIRED,
+  CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
+  MENTOR_SKILLS_REQUIRED_ONE,
+  SKILL_UNIQUE,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -52,6 +63,12 @@ const PASSWORD_REGEX =
 const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
 const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+const SUPPORTED_FILE_DEGREE_FORMAT = [
+  'application/pdf',
+  'application/docx',
+  'application/doc',
+];
+const FILE_DEGREE_SIZE_BYTES = 2000000; // 1 is 1bytes
 
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -279,16 +296,67 @@ export const validationSchemaEditPersonalProfile = object({
     .required(BIRTHDAY_REQUIRED),
   address: string().required(ADDRESS_REQUIRED),
   phone: string().required(PHONE_REQUIRED),
+  gender: object().required(GENDER_REQUIRED),
 });
 
 export const validationSchemaEditMentorProfile = object({
-  introduce: string().required(),
-  mentorSkills: array(),
-  workingExperience: string(),
+  introduce: string().required(INTRODUCE_REQUIRED),
+  mentorSkills: array(
+    object({
+      skillId: object({
+        id: number().required('Thiếu Id'),
+      })
+        .typeError(SKILL_REQUIRED)
+        .required(SKILL_REQUIRED),
+      yearOfExperiences: number()
+        .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+        .required(YEAR_OF_EXPERIENCES_REQUIRED)
+        .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+    })
+  )
+    .test('Unique', SKILL_UNIQUE, (value) => {
+      try {
+        if (value) {
+          const skillList = value.map((item) => item.skillId.id);
+          return new Set(skillList).size === value?.length;
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    })
+    .required()
+    .min(1, MENTOR_SKILLS_REQUIRED_ONE),
+  workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
 });
 
 export const validationSchemaEditCertificateProfile = object({
-  userImages: array(),
+  userImages: array(
+    mixed()
+      .test(
+        'FILE_PRE',
+        CERTIFICATE_MAX_SIZE,
+        (value: any) =>
+          !value ||
+          (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
+          (value && value?.type === 'DEGREE')
+      )
+      .test(
+        'FILE_FORMAT',
+        CERTIFICATE_FORMAT_INCORRECT,
+        (value: any) =>
+          !value ||
+          (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
+          (value && value?.type === 'DEGREE')
+      )
+    // .test('FILE_EXIST', 'Hãy nhập file', (value: any) => {
+    //   if (value.name) return true;
+    //   return false;
+    // })
+  )
+    .required()
+    // .min(1, 'CERTIFICATE_REQUIRED'),
+    .min(1, CERTIFICATE_REQUIRED),
 });
 
 export const validationSchemaEditAccountProfile = object({
@@ -297,16 +365,17 @@ export const validationSchemaEditAccountProfile = object({
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
   newPassword: string()
     .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .notOneOf([ref('oldPassword')], CONFIRM_PASSWORD_NOT_MATCH_PASSWORD),
   newPasswordConfirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),
 });
 
 export const validationSchemaEditSocialProfile = object({
-  facebook: string(),
-  twitter: string(),
-  instagram: string(),
+  website: string(),
+  linkedinLink: string(),
+  facebookLink: string(),
 });
 export const validationSchemaTimeTable = object({
   slot: object()

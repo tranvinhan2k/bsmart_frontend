@@ -8,7 +8,7 @@ import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
 import { EditSocialProfileFormDefault, FormInputVariant } from '~/models/form';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { RootState } from '~/redux/store';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import accountApi from '~/api/users';
@@ -24,23 +24,25 @@ export default function EditSocialProfileForm() {
     defaultValues: defaultValueEditSocialProfile,
     resolver: resolverEditSocialProfile,
   });
+
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditSocialProfile } = useMutation({
     mutationFn: accountApi.editSocialProfile,
   });
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
-  };
+  const toastMsgError = (error: any): string =>
+    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {};
+    if (data.website) params.website = data.website;
+    if (data.linkedinLink) params.linkedinLink = data.linkedinLink;
     if (data.facebookLink) params.facebookLink = data.facebookLink;
-    if (data.twitterLink) params.twitterLink = data.twitterLink;
-    if (data.instagramLink) params.instagramLink = data.instagramLink;
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditSocialProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));
@@ -72,33 +74,32 @@ export default function EditSocialProfileForm() {
   useEffect(() => {
     if (dataGetProfile) {
       const defaults = defaultValueEditSocialProfile;
+      if (dataGetProfile.website) defaults.website = dataGetProfile.website;
+      if (dataGetProfile.linkedinLink)
+        defaults.linkedinLink = dataGetProfile.linkedinLink;
       if (dataGetProfile.facebookLink)
         defaults.facebookLink = dataGetProfile.facebookLink;
-      if (dataGetProfile.twitterLink)
-        defaults.twitterLink = dataGetProfile.twitterLink;
-      if (dataGetProfile.instagramLink)
-        defaults.instagramLink = dataGetProfile.instagramLink;
       reset(defaults);
     }
   }, [dataGetProfile, reset]);
 
   const formFieldsSocial: FormFieldsSocialProps[] = [
     {
+      name: EDIT_SOCIAL_PROFILE_FIELDS.website,
+      label: 'Trang web cá nhân',
+      placeholder: 'Nhập link trang web riêng',
+      variant: 'text',
+    },
+    {
+      name: EDIT_SOCIAL_PROFILE_FIELDS.linkedinLink,
+      label: 'LinkedIn',
+      placeholder: 'Nhập link LinkedIn',
+      variant: 'text',
+    },
+    {
       name: EDIT_SOCIAL_PROFILE_FIELDS.facebookLink,
       label: 'Facebook',
       placeholder: 'Nhập link Facebook',
-      variant: 'text',
-    },
-    {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.twitterLink,
-      label: 'Twitter',
-      placeholder: 'Nhập link Twitter',
-      variant: 'text',
-    },
-    {
-      name: EDIT_SOCIAL_PROFILE_FIELDS.instagramLink,
-      label: 'Instagram',
-      placeholder: 'Nhập link Instagram',
       variant: 'text',
     },
   ];

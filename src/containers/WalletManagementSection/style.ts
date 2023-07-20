@@ -3,13 +3,34 @@ import { Theme } from '@mui/material/styles';
 import {
   BorderRadius,
   Color,
-  FontSize,
-  FontWeight,
+  FontFamily,
   MetricSize,
 } from '~/assets/variables';
 
-export const SX_WRAPPER_TITLE: SxProps<Theme> = {
-  paddingTop: '100px',
+export const SX_FORM: SxProps<Theme> = {
+  padding: 3,
+  borderRadius: 3,
+  backgroundColor: Color.white,
+  marginBottom: 3,
+};
+
+export const SX_FORM_TITLE: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontWeight: 700,
+  fontSize: '36px',
+  lineHeight: '46px',
+};
+
+export const SX_FORM_LABEL: SxProps<Theme> = {
+  color: '#0e0a38',
+  fontFamily: FontFamily.bold,
+  fontWeight: 700,
+  margin: '1rem 0 0.5rem 0',
+};
+
+export const SX_FORM_ITEM_LABEL: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: 16,
 };
 
 export const SX_CONTAINER: SxProps<Theme> = {
@@ -23,20 +44,6 @@ export const SX_CONTAINER: SxProps<Theme> = {
   boxShadow: '0 0 15px rgb(51 51 51 / 10%)',
   /* Text */
   /* Other */
-};
-
-export const SX_TITLE: SxProps<Theme> = {
-  /* Positioning */
-  /* Display & Box Model */
-  marginBottom: '20px',
-  /* Color */
-  color: Color.tertiary,
-  /* Text */
-  fontSize: FontSize.large_35,
-  fontWeight: FontWeight.bold,
-  letterSpacing: 2,
-  lineHeight: '30px',
-  textTransform: 'uppercase',
 };
 
 export const SX_FORM_SEARCH_INPUT: SxProps<Theme> = {
@@ -69,34 +76,6 @@ export const SX_FORM_SEARCH_INPUT_ICON_BUTTON: SxProps<Theme> = {
 
 export const SX_FORM_SEARCH_INPUT_ICON: SxProps<Theme> = {
   color: Color.white,
-};
-
-export const SX_OUTSTANDING_TITLE: SxProps<Theme> = {
-  /* Positioning */
-  /* Display & Box Model */
-  paddingBottom: MetricSize.medium_15,
-  /* Color */
-  color: Color.navy2,
-  /* Text */
-  fontSize: FontSize.medium_24,
-  fontWeight: FontWeight.bold,
-  /* Other */
-};
-
-export const SX_OUTSTANDING_POST_TITLE: SxProps<Theme> = {
-  /* Positioning */
-  /* Display & Box Model */
-  marginBottom: MetricSize.small_10,
-  /* Color */
-  color: Color.navy,
-  /* Text */
-  fontSize: '1rem',
-  fontWeight: FontWeight.bold,
-  /* Other */
-};
-
-export const SX_OUTSTANDING_POST_DATE: SxProps<Theme> = {
-  color: Color.grey2,
 };
 
 export const SX_WALLET_DATAGRID: SxProps<Theme> = {

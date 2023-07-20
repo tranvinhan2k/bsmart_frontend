@@ -3,11 +3,12 @@ import { Theme } from '@mui/material/styles';
 import { Color, MetricSize } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
-  padding: `${MetricSize.extraLarge_90} ${MetricSize.none} ${MetricSize.extraLarge_100}`,
-  backgroundColor: Color.white,
+  paddingTop: MetricSize.large_30,
+  paddingX: 10,
+  backgroundColor: Color.white4,
 };
 
 export const SX_CONTAINER: SxProps<Theme> = {
-  width: MetricSize.centeredContainer1,
+  width: { xs: '100%', md: MetricSize.centeredContainer1 },
   marginX: 'auto',
 };

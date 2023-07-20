@@ -1,5 +1,5 @@
 import axiosClient from '~/api/axiosClient';
-import { CheckMentorProfilesCompletenessReturnPayload } from '~/models/mentorProfiles';
+import { CheckCompletenessReturnPayload } from '~/models/mentorProfiles';
 
 const url = `/mentor-profiles`;
 
@@ -10,9 +10,7 @@ export interface ProcessRegisterRequestPayload {
 }
 
 const mentorProfilesApi = {
-  checkMentorProfilesCompleteness(): Promise<
-    CheckMentorProfilesCompletenessReturnPayload | undefined
-  > {
+  checkCompleteness(): Promise<CheckCompletenessReturnPayload | undefined> {
     const urlGet = `${url}/completeness`;
     return axiosClient.get(urlGet);
   },

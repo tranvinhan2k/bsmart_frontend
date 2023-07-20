@@ -27,3 +27,36 @@ export const SX_FORM_ITEM_LABEL: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
   fontSize: 16,
 };
+
+const REQUESTING: SxProps<Theme> = {
+  display: 'inline',
+  fontFamily: FontFamily.bold,
+  color: Color.grey2,
+};
+const WAITING: SxProps<Theme> = {
+  display: 'inline',
+  fontFamily: FontFamily.bold,
+  color: Color.brown,
+};
+const EDITREQUEST: SxProps<Theme> = {
+  display: 'inline',
+  fontFamily: FontFamily.bold,
+  color: Color.brown,
+};
+const REJECTED: SxProps<Theme> = {
+  display: 'inline',
+  fontFamily: FontFamily.bold,
+  color: Color.red,
+};
+const STARTING: SxProps<Theme> = {
+  display: 'inline',
+  fontFamily: FontFamily.bold,
+  color: Color.green,
+};
+export const SX_STATUS = {
+  REQUESTING,
+  WAITING,
+  EDITREQUEST,
+  REJECTED,
+  STARTING,
+};

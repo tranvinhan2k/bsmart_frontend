@@ -35,6 +35,8 @@ import QuizInput from './QuizInput';
 import AnswerInput from './AnswerInput';
 import { QuizQuestionTypeKeys } from '~/models/variables';
 import FileListInput from './FileListInput';
+import ArrayHelperText from './ArrayHelperText';
+import FileInputRequireYup from './FileInputRequireYup';
 import PriceInput from './PriceInput';
 
 interface FormInputProps {
@@ -86,6 +88,8 @@ const generateFormInput = (
           placeholder={placeholder}
         />
       );
+    case variant === 'arrayHelperText':
+      return <ArrayHelperText controller={controller} />;
     case variant === 'feedbackQuestionChoice':
       return (
         <FeedbackQuestionChoiceInput
@@ -131,6 +135,13 @@ const generateFormInput = (
       return <FileInput controller={controller} placeholder={placeholder} />;
     case variant === 'files':
       return <FileListInput controller={controller} />;
+    case variant === 'fileRequireYup':
+      return (
+        <FileInputRequireYup
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'radioGroup':
       return <RadioGroupInput controller={controller} data={data} />;
     case variant === 'multiSelect':

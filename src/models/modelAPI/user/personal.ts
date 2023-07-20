@@ -1,9 +1,7 @@
-import { DropdownDynamicValueInputStringDataPayload } from '~/models/common';
-
-export interface EditPersonalProfilePayload {
+export interface EditPersonalProfileFormSubmit {
   fullName: string;
   birthday: string;
   address: string;
   phone: string;
-  gender: DropdownDynamicValueInputStringDataPayload;
+  gender: string;
 }

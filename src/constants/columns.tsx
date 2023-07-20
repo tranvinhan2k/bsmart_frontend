@@ -1,7 +1,13 @@
+import { Chip } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { Stack } from '@mui/material';
-import { formatISODateDateToDisplayDate } from '~/utils/date';
-import { formatMoney } from '~/utils/money';
+import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
+import { getGender, handleDefinedText } from '~/utils/common';
+import { RenderAttendanceStatus } from '~/utils/attendance';
+import {
+  formatISODateDateToDisplayDate,
+  formatISODateStringToDisplayDate,
+} from '~/utils/date';
+import { formatPhoneNumberVi } from '~/utils/phone';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -87,82 +93,122 @@ const subjectColumns: GridColDef[] = [
     },
   },
 ];
+
 const registerRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
     minWidth: 100,
     flex: 1,
+    renderCell: (params) => {
+      const { email } = params.row;
+      return (
+        <CopyableCell
+          rawValue={email}
+          formattedValue={handleDefinedText(email)}
+        />
+      );
+    },
   },
   {
     field: 'fullName',
     headerName: 'Họ tên',
     minWidth: 100,
     flex: 1,
+    renderCell: (params) => {
+      const { fullName } = params.row;
+      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+    },
   },
   {
     field: 'phone',
     headerName: 'SĐT',
     minWidth: 100,
     flex: 1,
+    renderCell: (params) => {
+      const { phone } = params.row;
+      return (
+        <CopyableCell
+          rawValue={phone}
+          formattedValue={formatPhoneNumberVi(phone)}
+        />
+      );
+    },
+  },
+  {
+    field: 'gender',
+    headerName: 'Giới tính',
+    minWidth: 100,
+    flex: 1,
+    valueFormatter: (params) => getGender(params.value),
   },
   {
     field: 'birthday',
     headerName: 'Ngày sinh',
     minWidth: 100,
     flex: 1,
-    renderCell: (params) => {
-      const { birthday } = params.row;
-      const formattedDate = formatISODateDateToDisplayDate(birthday);
-      return formattedDate;
-    },
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
   },
 ];
+
 const courseCreateRequestColumns: GridColDef[] = [
   {
-    field: 'courseCode',
-    headerName: 'Mã khóa học',
-    minWidth: 50,
+    field: 'code',
+    headerName: 'Mã',
+    minWidth: 150,
     flex: 1,
+    renderCell: (params) => {
+      const { code } = params.row;
+      return <CopyableCell rawValue={code} formattedValue={code} />;
+    },
   },
   {
-    field: 'courseName',
+    field: 'name',
     headerName: 'Tên khóa học',
-    minWidth: 100,
-    flex: 2,
-  },
-  {
-    field: 'price',
-    headerName: 'Giá tiền (vnđ)',
-    minWidth: 50,
-    flex: 1,
+    minWidth: 300,
+    flex: 3,
     renderCell: (params) => {
-      const { price } = params.row;
-      const formattedDate = formatMoney(price);
-      return formattedDate;
+      const { name } = params.row;
+      return <CopyableCell rawValue={name} formattedValue={name} />;
     },
   },
   {
-    field: 'startDateExpected',
-    headerName: 'Ngày bắt đầu dự kiến',
+    field: 'categoryResponse',
+    headerName: 'phân loại',
     minWidth: 100,
     flex: 1,
+    valueGetter: (params) => params.value.name,
     renderCell: (params) => {
-      const { startDateExpected } = params.row;
-      const formattedDate = formatISODateDateToDisplayDate(startDateExpected);
-      return formattedDate;
+      return (
+        <Chip
+          color="default"
+          label={`${params.row.categoryResponse.name || ''}`}
+          title={`${params.row.categoryResponse.name || ''}`}
+        />
+      );
     },
   },
   {
-    field: 'endDateExpected',
-    headerName: 'Ngày kết thúc dự kiến',
+    field: 'subjectResponse',
+    headerName: 'Môn học',
     minWidth: 100,
     flex: 1,
+    valueFormatter: (params) => params.value.name,
     renderCell: (params) => {
-      const { endDateExpected } = params.row;
-      const formattedDate = formatISODateDateToDisplayDate(endDateExpected);
-      return formattedDate;
+      return (
+        <Chip
+          color="default"
+          label={`${params.row.subjectResponse.name || ''}`}
+          title={`${params.row.subjectResponse.name || ''}`}
+        />
+      );
     },
+  },
+  {
+    field: 'dateFirstClassExpectToOpen',
+    headerName: 'Bắt đầu sớm nhất',
+    minWidth: 200,
+    flex: 1,
   },
 ];
 const attendanceClassColumns: GridColDef[] = [
@@ -180,6 +226,149 @@ const attendanceClassColumns: GridColDef[] = [
     editable: true,
   },
 ];
+const attendanceStudentColumns: GridColDef[] = [
+  {
+    field: 'no',
+    headerName: 'STT',
+    minWidth: 25,
+    flex: 0.6,
+    sortable: false,
+  },
+  {
+    field: 'date',
+    headerName: 'Ngày học',
+    minWidth: 100,
+    flex: 2,
+    sortable: false,
+    renderCell: (params) => {
+      return (
+        <Chip
+          color="info"
+          size="small"
+          label={formatISODateDateToDisplayDate(params.row.date)}
+          title={formatISODateDateToDisplayDate(params.row.date)}
+        />
+      );
+    },
+  },
+  {
+    field: 'slot',
+    headerName: 'Giờ học',
+    minWidth: 100,
+    flex: 2,
+    sortable: false,
+    renderCell: (params) => {
+      return (
+        <Chip
+          color="warning"
+          size="small"
+          label={`${params.row.slot || ''}`}
+          title={`${params.row.slot || ''}`}
+        />
+      );
+    },
+  },
+  {
+    field: 'attendanceStatus',
+    headerName: 'Trang thái điểm danh',
+    minWidth: 150,
+    flex: 2,
+    sortable: false,
+    renderCell: (params) => {
+      return (
+        <RenderAttendanceStatus
+          input={`${params.row.attendanceStatus || ''}`}
+        />
+      );
+    },
+  },
+  {
+    field: 'mentorComment',
+    headerName: 'Giảng viên ghi chú',
+    minWidth: 100,
+    sortable: false,
+    flex: 4,
+  },
+];
+
+const userColumns: GridColDef[] = [
+  {
+    field: 'email',
+    headerName: 'Mail',
+    minWidth: 150,
+    flex: 1.5,
+    renderCell: (params) => (
+      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+    ),
+  },
+  {
+    field: 'fullName',
+    headerName: 'Họ tên',
+    minWidth: 150,
+    flex: 1.5,
+    renderCell: (params) => (
+      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+    ),
+  },
+  {
+    field: 'phone',
+    headerName: 'SĐT',
+    minWidth: 150,
+    flex: 1,
+    renderCell: (params) => (
+      <CopyableCell
+        rawValue={params.value}
+        formattedValue={formatPhoneNumberVi(params.value)}
+      />
+    ),
+  },
+  {
+    field: 'birthday',
+    headerName: 'Ngày sinh',
+    minWidth: 130,
+    flex: 1,
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
+  },
+  {
+    field: 'gender',
+    headerName: 'Giới tính',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+    valueFormatter: (params) => getGender(params.value),
+  },
+  {
+    field: 'isVerified',
+    headerName: 'Trạng thái',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+    renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
+  },
+];
+const userMemberColumns = userColumns.concat({
+  field: 'attended',
+  headerName: 'Đã học',
+  flex: 1,
+  minWidth: 100,
+  sortable: false,
+});
+const userMentorColumns = userColumns.concat(
+  {
+    field: 'taught',
+    headerName: 'Đã dạy',
+    minWidth: 90,
+    flex: 1,
+    sortable: false,
+  },
+  {
+    field: 'rating',
+    headerName: 'Đánh giá',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+  }
+);
 
 const columns = {
   templateColumns,
@@ -189,6 +378,9 @@ const columns = {
   registerRequestColumns,
   courseCreateRequestColumns,
   attendanceClassColumns,
+  attendanceStudentColumns,
+  userMemberColumns,
+  userMentorColumns,
 };
 
 export default columns;

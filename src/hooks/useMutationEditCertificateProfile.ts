@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { keyMentorProfileUseCheckCompleteness } from './mentorProfile/key';
 import accountApi from '~/api/users';
 
 export const useMutationEditCertificateProfile = () => {
@@ -11,6 +12,9 @@ export const useMutationEditCertificateProfile = () => {
     mutationFn: accountApi.editCertificateProfile,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [keyGetProfile] });
+      queryClient.invalidateQueries({
+        queryKey: [keyMentorProfileUseCheckCompleteness],
+      });
     },
   });
   return mutationResult;

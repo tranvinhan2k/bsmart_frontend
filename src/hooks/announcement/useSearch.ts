@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import announcementApi from '~/api/announcement';
 import { UseSearchAnnouncementsPayload } from '~/models/announcement';
-import { keySearch } from './key';
+import { keyAnnouncementUseSearch } from './key';
 
 export const useSearchAnnouncements = ({
   idClassSection,
@@ -10,7 +10,7 @@ export const useSearchAnnouncements = ({
   sort,
 }: UseSearchAnnouncementsPayload) => {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: [keySearch, idClassSection, page, size, sort],
+    queryKey: [keyAnnouncementUseSearch, idClassSection, page, size, sort],
     queryFn: () =>
       announcementApi.searchAnnouncement({
         idClassSection,

@@ -175,7 +175,13 @@ export default function ImageInput({
       />
 
       {previewUrl && (
-        <Stack marginTop={1}>
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+          marginTop={1}
+        >
           <Stack
             sx={{
               position: 'relative',

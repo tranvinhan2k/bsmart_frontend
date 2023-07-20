@@ -49,6 +49,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           sx={{
             minHeight: '20vh',
           }}
+          mt={12}
         >
           <MainFooterSection />
         </Stack>

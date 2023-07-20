@@ -5,8 +5,10 @@ export const PASSWORD_MATCHED =
   'Mật khẩu phải từ 8 chữ cái trở lên, có ít nhất 1 chữ cái viết hoa, 1 chữ cái thường, 1 số và 1 kí tự đặt biệt.';
 export const CONFIRM_PASSWORD_REQUIRED =
   'Xác nhận mật khẩu không được để trống.';
+export const CONFIRM_PASSWORD_NOT_MATCH_PASSWORD =
+  'Xác nhận mật khẩu mới không được trùng mật cũ';
 export const CONFIRM_PASSWORD_NOT_MATCH =
-  'Xác nhận mật khẩu không giống với mật khẩu bạn đã nhập.';
+  'Xác nhận mật khẩu mới không giống nhau';
 export const MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED =
   'Hãy nhập tin nhắn tới người dùng';
 export const CRATE_ASSIGNMENT_NAME = 'Hãy nhập tên assignment';
@@ -32,10 +34,21 @@ export const NAME_REQUIRED = 'Họ và tên không được để trống.';
 export const BIRTHDAY_REQUIRED = 'Ngày sinh không được để trống.';
 export const ADDRESS_REQUIRED = 'Địa chỉ không được để trống.';
 export const PHONE_REQUIRED = 'Số điện thoại không được để trống.';
-export const INTRODUCE_REQUIRED = 'Giới thiệu bản thân không được để trống.';
+export const GENDER_REQUIRED = 'Giới tính không được để trống.';
+
+export const INTRODUCE_REQUIRED = 'Giới thiệu không được để trống';
+export const WORKING_EXPERIENCE_REQUIRED = 'Kinh nghiệm không được để trống';
+export const MENTOR_SKILLS_REQUIRED_ONE = 'Tối thiểu một chuyên môn';
+export const SKILL_REQUIRED = 'Kĩ năng không được để trống';
+export const SKILL_UNIQUE = 'Có kĩ năng trùng lặp. Hãy chọn lại';
+export const YEAR_OF_EXPERIENCES_REQUIRED = 'Số năm không được để trống';
+export const YEAR_OF_EXPERIENCES_MINIMUM = 'Số năm lớn hơn 0';
 
 export const EMAIL_INVALID = 'Email không hợp lệ.';
 export const EMAIL_REQUIRED = 'Email không được để trống.';
+export const CERTIFICATE_REQUIRED = 'File không được để trống';
+export const CERTIFICATE_MAX_SIZE = 'File tối đa 2MB';
+export const CERTIFICATE_FORMAT_INCORRECT = 'File sai định dạng';
 
 export const PHONE_INVALID = 'Số điện thoại không hợp lệ.';
 export const MENTOR_REQUIRED = 'Giáo viên cần đánh giá không được để trống.';

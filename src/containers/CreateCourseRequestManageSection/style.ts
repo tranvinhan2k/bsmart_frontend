@@ -39,3 +39,8 @@ export const SX_WRAPPER: SxProps<Theme> = {
   borderRadius: 1.25,
   boxShadow: 3,
 };
+
+export const SX_REQUEST_TITLE: SxProps<Theme> = {
+  fontSize: 24,
+  fontWeight: 600,
+};

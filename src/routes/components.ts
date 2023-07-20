@@ -7,6 +7,12 @@ export const LmsPage = lazy(() => import('~/pages/LmsPage'));
 export const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 export const BlogPage = lazy(() => import('~/pages/BlogPage'));
 export const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
+export const MemberClassListPage = lazy(
+  () => import('~/pages/MemberClassListPage')
+);
+export const MemberAttendanceListPage = lazy(
+  () => import('~/pages/MemberAttendanceListPage')
+);
 export const MemberEditPersonalInfoPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
 );
@@ -99,7 +105,7 @@ export const MemberProfilePage = lazy(
   () => import('~/pages/MemberProfilePage')
 );
 export const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
-
+export const UserManagerPage = lazy(() => import('~/pages/UserManagerPage'));
 export const FeedbackManagerPage = lazy(
   () => import('~/pages/FeedbackManagerPage')
 );

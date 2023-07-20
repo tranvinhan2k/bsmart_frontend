@@ -16,8 +16,8 @@ export const AdminNavigationActionData: ActionPayload[] = [
       {
         id: 1,
         icon: 'payment',
-        name: 'Quản lý ví tiền',
-        link: AdminNavigationActionLink.wallet_management,
+        name: 'Quản lý người dùng',
+        link: AdminNavigationActionLink.user_manager,
       },
       {
         id: 2,
