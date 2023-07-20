@@ -67,7 +67,7 @@ export default function ProcessCourseCreateRequest({
     data: ProcessCreateCourseRequestFormDefault
   ) => {
     const params: ProcessCreateCourseRequestPayload = {
-      id: data.id,
+      id: selectedRow.id,
       status: data.status,
       message: data.message,
     };

@@ -137,7 +137,6 @@ export interface ProcessRegisterRequestFormDefault {
   message: string;
 }
 export interface ProcessCreateCourseRequestFormDefault {
-  id: number;
   status: string;
   message: string;
 }

@@ -57,7 +57,7 @@ export default function MentorDegree({ row }: BasicInfoProps) {
             </Grid>
           </Grid>
           {skills.map((item: any) => (
-            <Grid container key={item.id}>
+            <Grid container key={item.skillId}>
               <Grid item xs={6}>
                 <Typography sx={SX_FORM_VALUE}>{item.name}</Typography>
               </Grid>

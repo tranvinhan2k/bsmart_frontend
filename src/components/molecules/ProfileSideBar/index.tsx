@@ -179,7 +179,11 @@ export default function ProfileSideBar({
                     spacing={1}
                     mt={2}
                   >
-                    <Icon name="cancelIcon" size="small" color="red" />
+                    {isMentorVerified === MentorProfileStatusType.STARTING ? (
+                      <Icon name="check" size="small" color="tertiary" />
+                    ) : (
+                      <Icon name="cancelIcon" size="small" color="red" />
+                    )}
                     <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
                       {isMentorVerified === MentorProfileStatusType.STARTING
                         ? 'Hồ sơ giảng dạy đã duyệt'

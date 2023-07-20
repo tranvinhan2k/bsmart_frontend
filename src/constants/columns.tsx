@@ -1,8 +1,8 @@
 import { Chip } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
-import { getGender, handleDefinedText } from '~/utils/common';
 import { RenderAttendanceStatus } from '~/utils/attendance';
+import { getGender, handleDefinedText } from '~/utils/common';
+import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import {
   formatISODateDateToDisplayDate,
   formatISODateStringToDisplayDate,
@@ -148,6 +148,19 @@ const registerRequestColumns: GridColDef[] = [
     minWidth: 100,
     flex: 1,
     valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'submitDate',
+    headerName: 'Ngày gửi',
+    minWidth: 100,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'noOfSubmit',
+    headerName: 'Lần gửi',
+    minWidth: 100,
+    flex: 1,
   },
 ];
 
