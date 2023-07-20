@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 
 interface FileInputProps {
   controller: UseControllerReturn<any, string>;
@@ -27,7 +27,6 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
       setError(null);
-      console.log(selectedFile);
 
       onChange(selectedFile);
     } else {
@@ -45,7 +44,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     <Stack
       sx={{
         borderRadius: '5px',
-        border: '1px solid grey',
+        border: `1px solid ${Color.grey}`,
         padding: MetricSize.medium_15,
       }}
     >

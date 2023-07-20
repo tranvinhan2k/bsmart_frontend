@@ -74,8 +74,8 @@ const activityApi = {
     requestData.append('parentActivityId', String(params.parentActivityId));
     requestData.append('courseId', String(params.courseId));
     requestData.append('description', String(params.description));
-    requestData.append('startDate', String(params.startDate));
-    requestData.append('endDate', String(params.endDate));
+    requestData.append('startDate', params.startDate);
+    requestData.append('endDate', params.endDate);
     requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
     requestData.append('maxFileSubmit', String(params.maxFileSubmit));
     requestData.append('maxFileSize', String(params.maxFileSize));
@@ -146,6 +146,115 @@ const activityApi = {
     params: PostActivityRequest;
   }) {
     return axiosClient.put(`${url}/${id}/lesson`, params);
+  },
+  async updateResource({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostActivityRequest;
+  }) {
+    const requestData = new FormData();
+    requestData.append('name', params.name);
+    requestData.append('visible', String(params.visible));
+    requestData.append('parentActivityId', String(params.parentActivityId));
+    requestData.append('courseId', String(params.courseId));
+
+    if (!(params.authorizeClasses?.length > 0)) {
+      requestData.append('authorizeClasses', String(-1));
+    } else {
+      params.authorizeClasses.map((item) => {
+        requestData.append('authorizeClasses', String(item));
+        return null;
+      });
+    }
+    if (params.file) {
+      const blob = await fetch((params?.file as any)?.url).then((r) =>
+        r.blob().then(
+          (blobFile) =>
+            new File([blobFile], (params.file as any).name, {
+              type: 'ACTACH',
+            })
+        )
+      );
+
+      requestData.append('file', blob);
+    }
+
+    return axiosClient.put(`${url}/${id}/resource`, requestData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+  async updateAssignment({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostAssignmentRequest;
+  }) {
+    const requestData = new FormData();
+    requestData.append('name', params.name);
+    requestData.append('visible', String(params.visible));
+    requestData.append('parentActivityId', String(params.parentActivityId));
+    requestData.append('courseId', String(params.courseId));
+    requestData.append('description', String(params.description));
+    requestData.append('startDate', params.startDate);
+    requestData.append('endDate', params.endDate);
+    requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
+    requestData.append('maxFileSubmit', String(params.maxFileSubmit));
+    requestData.append('maxFileSize', String(params.maxFileSize));
+    requestData.append(
+      'isOverWriteAttachFile',
+      String(!!params.isOverWriteAttachFile)
+    );
+    requestData.append('passPoint', String(params.passPoint));
+    requestData.append(
+      'overWriteAttachFile',
+      String(!!params.overWriteAttachFile)
+    );
+
+    if (!(params.authorizeClasses?.length > 0)) {
+      requestData.append('authorizeClasses', String(-1));
+    } else {
+      params.authorizeClasses.map((item) => {
+        requestData.append('authorizeClasses', String(item));
+        return null;
+      });
+    }
+
+    if (params.attachFiles) {
+      await Promise.all(
+        params.attachFiles.map(async (item) => {
+          const blob = await fetch((item as any)?.url).then((r) =>
+            r.blob().then(
+              (blobFile) =>
+                new File([blobFile], (item as any).name, {
+                  type: 'ACTTACH',
+                })
+            )
+          );
+          requestData.append('attachFiles', blob);
+          return null;
+        })
+      );
+    }
+
+    return axiosClient.put(`${url}/${id}/assignment`, requestData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+  async updateQuiz({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostActivityRequest;
+  }) {
+    return axiosClient.put(`${url}/${id}/quiz`, params);
   },
 };
 

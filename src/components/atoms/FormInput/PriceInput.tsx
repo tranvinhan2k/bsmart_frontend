@@ -1,34 +1,35 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { Box, TextField } from '@mui/material';
+import { useState } from 'react';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
-interface NumberInputProps {
+interface PriceInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
 }
-function NumberInput({ controller, placeholder }: NumberInputProps) {
+function PriceInput({ controller, placeholder }: PriceInputProps) {
   const {
     field: { value, onChange: controllerOnChange, onBlur, ref },
     fieldState: { invalid, error },
   } = controller;
+  const [price, setPrice] = useState(value);
+
   const onChange = (e: any) => {
-    controllerOnChange(e.target.value);
+    let input = e.target.value.replace(/[\D\s._-]+/g, '');
+    input = input ? parseInt(input, 10) : 0;
+    controllerOnChange(input);
+    setPrice(input === 0 ? '' : input.toLocaleString('en-US'));
   };
+
   return (
     <TextField
       sx={SX_TEXT_INPUT_FORM}
       placeholder={placeholder}
       onWheel={(e: any) => e.target.blur()}
       fullWidth
-      type="number"
       size="small"
       InputProps={{ inputProps: { min: 0 } }}
-      value={value}
-      onFocus={() => {
-        if (value === 0) {
-          controllerOnChange('');
-        }
-      }}
+      value={price}
       onChange={onChange}
       onBlur={onBlur}
       inputRef={ref}
@@ -37,4 +38,4 @@ function NumberInput({ controller, placeholder }: NumberInputProps) {
     />
   );
 }
-export default NumberInput;
+export default PriceInput;

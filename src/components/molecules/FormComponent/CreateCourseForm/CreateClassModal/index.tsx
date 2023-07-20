@@ -6,7 +6,7 @@ import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import MonthSchedule, {
-  TimeSlotPayload,
+  MonthTimeSlotPayload,
 } from '~/components/molecules/schedules/MonthSchedule';
 
 import globalStyles from '~/styles';
@@ -19,7 +19,7 @@ const texts = {
   createClassTitle: 'Tạo lớp học mới',
   createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
   generalInfoTitle: 'Thông tin chung',
-  priceLabel: 'Giá khóa học',
+  priceLabel: 'Giá khóa học (VND)',
   courseTypeLabel: 'Hình thức khóa học',
   imageLabel: 'Hình ảnh',
   minStudentLabel: 'Số học sinh tối thiểu',
@@ -41,7 +41,7 @@ interface CreateClassModalProps {
   onSubmit: (data: any) => void;
   onBack: () => void;
   onReset: () => void;
-  timetable: TimeSlotPayload[] | undefined;
+  timetable: MonthTimeSlotPayload[] | undefined;
   onViewSchedule: (data: any) => void;
 }
 
@@ -62,11 +62,9 @@ export default function CreateClassModal({
   };
 
   const handleTriggerSchedule = async (data: any) => {
-    if (timetable) {
-      handleOpenSchedule();
-    } else {
-      await onViewSchedule(data);
-    }
+    await onViewSchedule(data);
+
+    if (!timetable) handleOpenSchedule();
   };
 
   return (
@@ -88,7 +86,7 @@ export default function CreateClassModal({
               </Stack>
               <Stack>
                 <FormInput
-                  variant="number"
+                  variant="price"
                   name={CREATE_CLASS_FIELDS.price}
                   control={hookForm.control}
                   label={texts.priceLabel}
@@ -181,7 +179,7 @@ export default function CreateClassModal({
                 color="secondary"
                 variant="contained"
               >
-                {!timetable ? 'Tạo lịch học' : 'Xem thời khóa biểu một kì học'}
+                Xem thời khóa biểu
               </Button>
               <Button
                 disabled={!timetable}

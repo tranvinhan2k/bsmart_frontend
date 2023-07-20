@@ -1,5 +1,6 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { TextField } from '@mui/material';
+import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface MultilineInputProps {
   controller: UseControllerReturn<any, string>;
@@ -18,6 +19,7 @@ function MultilineInput({
 
   return (
     <TextField
+      sx={SX_TEXT_INPUT_FORM}
       placeholder={placeholder}
       fullWidth
       size="small"

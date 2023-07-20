@@ -7,7 +7,7 @@ import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
 import { OptionPayload } from '~/models';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
-import { formatDate, formatISODateDateToDisplayDate } from '~/utils/date';
+import { formatDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 
 export interface MentorClassInformationPayload {

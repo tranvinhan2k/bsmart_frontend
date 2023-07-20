@@ -1,16 +1,15 @@
 import { Navigate } from 'react-router-dom';
 import {
+  MemberDashboardNavigationActionLink,
   NavigationLink,
-  StudentDashboardNavigationActionLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import MemberAttendanceListPage from '~/pages/MemberAttendanceListPage';
 import {
-  MentorCourseDetailPage,
-  MemberClassListPage,
   NotFoundPage,
   SchedulePage,
-  MentorClassDetailPage,
+  MemberClassListPage,
+  MemberClassDetailPage,
 } from '~/routes/components';
 
 export const studentLMSRoutes: RoutePayload[] = [
@@ -18,28 +17,28 @@ export const studentLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.dashboard}/${StudentDashboardNavigationActionLink.class_list}`}
+        to={`/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.class_list}`}
       />
     ),
     role: ['ROLE_STUDENT'],
   },
   {
-    path: StudentDashboardNavigationActionLink.class_list,
+    path: MemberDashboardNavigationActionLink.class_list,
     main: () => <MemberClassListPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: `${StudentDashboardNavigationActionLink.class_detail}/:id/*`,
-    main: () => <MentorClassDetailPage />,
+    path: `${MemberDashboardNavigationActionLink.class_detail}/:id/*`,
+    main: () => <MemberClassDetailPage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: StudentDashboardNavigationActionLink.schedule,
+    path: MemberDashboardNavigationActionLink.schedule,
     main: () => <SchedulePage />,
     role: ['ROLE_STUDENT'],
   },
   {
-    path: StudentDashboardNavigationActionLink.attendance,
+    path: MemberDashboardNavigationActionLink.attendance,
     main: () => <MemberAttendanceListPage />,
     role: ['ROLE_STUDENT'],
   },

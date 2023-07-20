@@ -14,6 +14,7 @@ import {
   GridColDef,
   GridRowIdGetter,
   GridValidRowModel,
+  DataGridProps,
 } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -38,7 +39,7 @@ export type SearchFilterFormInput = {
   placeholder: string;
   data: OptionPayload[];
 };
-interface CRUDTableProps {
+interface CRUDTableProps extends DataGridProps {
   title?: string;
   columns: GridColDef[];
   isLoading?: boolean;
@@ -72,6 +73,7 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
     alignItems: 'center',
   },
   [`& .${gridClasses.row}.even`]: {
+    transition: 'all 500ms ease',
     backgroundColor: theme.palette.grey[200],
     '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
@@ -117,6 +119,7 @@ export default function CRUDTable({
   onAdd,
   onSearch,
   getRowId,
+  ...props
 }: CRUDTableProps) {
   const searchValueForm = useForm();
 
@@ -191,6 +194,7 @@ export default function CRUDTable({
         }}
       >
         <StripedDataGrid
+          {...props}
           onRowClick={handleSelectedRow}
           error={error}
           loading={isLoading}

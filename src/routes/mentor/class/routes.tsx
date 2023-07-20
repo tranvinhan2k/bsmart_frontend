@@ -13,7 +13,7 @@ import {
 export const mentorClassRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={MentorClassActionLink.information} />,
+    main: () => <Navigate to={MentorClassActionLink.schedule} />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },

@@ -1,7 +1,6 @@
 import { Stack, Typography, Button, FormHelperText } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
-import FormInput from '~/components/atoms/FormInput';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
@@ -41,9 +40,14 @@ export type AddSubSectionFormPayload =
 interface Props {
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
+  onDelete?: () => void;
 }
 
-export default function AddQuizForm({ hookForm, onSubmit }: Props) {
+export default function AddResourceForm({
+  hookForm,
+  onSubmit,
+  onDelete,
+}: Props) {
   const courseId = useGetIdFromUrl('id');
 
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
@@ -97,17 +101,38 @@ export default function AddQuizForm({ hookForm, onSubmit }: Props) {
             hookForm.getFieldState('file')?.error?.message
           }`}</FormHelperText>
         )}
-        <Button
-          color="secondary"
+        <Stack
           sx={{
             marginTop: 1,
-            color: Color.white,
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
-          onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-          variant="contained"
         >
-          Tạo tài nguyên
-        </Button>
+          <Button
+            disabled={!hookForm.formState.isDirty}
+            color="secondary"
+            sx={{
+              color: Color.white,
+            }}
+            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
+            variant="contained"
+          >
+            {!onDelete ? 'Tạo tài nguyên' : 'Lưu thay đổi'}
+          </Button>
+          {Boolean(onDelete) && (
+            <Button
+              color="error"
+              sx={{
+                marginLeft: 1,
+                color: Color.white,
+              }}
+              onClick={onDelete}
+              variant="contained"
+            >
+              Xóa bài học
+            </Button>
+          )}
+        </Stack>
       </Stack>
     </Stack>
   );

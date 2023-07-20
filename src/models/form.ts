@@ -204,6 +204,7 @@ export type FormInputVariant =
   | 'image'
   | 'multiSelect'
   | 'time'
+  | 'price'
   | 'file'
   | 'files'
   | 'fileRequireYup'

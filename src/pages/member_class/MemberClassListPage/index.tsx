@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
+import MemberClassItem from '~/components/molecules/MemberClassItem';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
@@ -13,7 +14,7 @@ import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
 
 const TEXTS = {
-  title_1: 'Lớp học đã tạo',
+  title_1: 'Lớp học đã đăng kí',
   button_title_1: 'Tạo khóa học',
   title_2: 'Không có lớp học nào.',
 };
@@ -25,7 +26,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function MentorClassListPage() {
+export default function MemberClassListPage() {
   const classes: ClassMenuItemPayload[] = [
     {
       id: 0,
@@ -176,7 +177,7 @@ export default function MentorClassListPage() {
               key={item.id}
               sx={{ alignItems: 'stretch' }}
             >
-              <MentorClassItem item={item} />
+              <MemberClassItem item={item} />
             </Grid>
           ))}
       </Grid>

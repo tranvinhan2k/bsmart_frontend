@@ -1,3 +1,5 @@
+import { date, mixed } from 'yup';
+
 export const Color = {
   aquamarine: '#7fffd4',
   black: '#000',
@@ -88,6 +90,31 @@ export const MetricSize = {
   halfWidth: '50vw',
   none: 0,
   formInputHeight: '20px',
+};
+
+export const YupValidationForm = {
+  startDate: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .required('Ngày không được để trống'),
+  endDate: (text: string, name: string) =>
+    date()
+      .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+      .required('Ngày không được để trống')
+      .test('is-greater', text, function (endDate: Date) {
+        const startDateExpected = this.parent[name];
+
+        if (!startDateExpected || !endDate) {
+          return true;
+        }
+
+        return (
+          new Date(endDate).getTime() > new Date(startDateExpected).getTime()
+        );
+      }),
+  notEmptyString: (text: string) =>
+    mixed().test('required', text, (data: any) => {
+      return data?.[0] !== '' && data !== '' && data?.length > 0;
+    }),
 };
 
 /* Positioning */

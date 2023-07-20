@@ -1,5 +1,6 @@
-import { array, date, mixed, number, object, ref, string } from 'yup';
+import { array, boolean, date, mixed, number, object, ref, string } from 'yup';
 import 'yup-phone';
+import { YupValidationForm } from '~/assets/variables';
 import {
   ADDRESS_REQUIRED,
   BIRTHDAY_REQUIRED,
@@ -108,6 +109,26 @@ export const validationSchemaUpdateSubjects = object({
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
 });
+export const validationQuizInput = object({
+  question: string().required('Tên câu hỏi không được để trống'),
+  questionType: string().required('Loại câu hỏi không được để trống'),
+  answers: mixed()
+    .test(
+      'required',
+      'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
+      (data: any) => {
+        return data?.[0] !== '' && data !== '' && data?.length >= 2;
+      }
+    )
+    .test(
+      'haveRightAnswer',
+      'Danh sách câu trả lời phài có 1 câu trả lời đúng',
+      (data: any) => {
+        const isRight = data.findIndex((item: any) => item.right);
+        return isRight !== -1;
+      }
+    ),
+});
 export const validationSchemaUpdateCategories = object({
   code: string().required('Mã môn học không được để trống.'),
   name: string().required('Tên môn học không được để trống.'),
@@ -117,13 +138,73 @@ export const validationClassContentSection = object({
 });
 export const validationClassContentModule = object({
   name: string().required('Tên bài học không được để trống.'),
+  description: string().required('Tên bài học không được để trống.'),
 });
 export const validationClassContentResource = object({
   name: string().required('Tên tài nguyên không được để trống.'),
-  file: mixed().required('Nội dung tài nguyên không được để trống.'),
+  file: YupValidationForm.notEmptyString('Tệp đính kèm không được để trống'),
 });
-export const validationClassContentQuiz = object({});
-export const validationClassContentAssignment = object({});
+export const validationClassContentQuiz = object({
+  name: string().required('Tên bài kiểm tra không được để trống.'),
+  code: string().required('Mã bài kiểm tra không được để trống.'),
+  startDate: YupValidationForm.startDate,
+  endDate: YupValidationForm.endDate(
+    'Ngày kết thúc không được để trống',
+    'startDate'
+  ),
+  time: number()
+    .required('Thời gian không được để trống')
+    .min(5, 'Thời gian làm bài phài lớn hơn 5 phút'),
+  allowReviewAfterMin: number()
+    .required('Thời gian không được để trống')
+    .typeError('Thời gian không được để trống')
+    .min(1, 'Thời gian chờ phài lớn hơn 1 phút'),
+  defaultPoint: number()
+    .required('Điểm không được để trống')
+    .typeError('Điểm không được để trống')
+    .min(2, 'Điểm làm bài phài lớn hơn 2 điểm'),
+  quizQuestions: mixed().test(
+    'required',
+    'Danh sách câu hỏi phải có ít nhất 10 câu hỏi',
+    (data: any) => {
+      return data?.[0] !== '' && data !== '' && data?.length >= 10;
+    }
+  ),
+  password: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+  confirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
+});
+export const validationClassContentAssignment = object({
+  name: string().required('Tên bài tập không được để trống.'),
+  description: string().required('Tên bài tập không được để trống.'),
+  startDate: YupValidationForm.startDate,
+  endDate: YupValidationForm.endDate(
+    'Ngày kết thúc không được để trống',
+    'startDate'
+  ),
+  editBeForSubmitMin: number()
+    .required('Thời gian cho phép không được để trống')
+    .typeError('Thời gian cho phép không được để trống')
+    .min(5, 'Thời gian cho phép làm bài phài lớn hơn 5 phút'),
+  maxFileSubmit: number()
+    .typeError('Số lượng không được để trống')
+    .required('Số lượng không được để trống')
+    .min(1, 'Số lượng phài lớn hơn 1'),
+  maxFileSize: number()
+    .typeError('Dung lượng không được để trống')
+    .required('Dung lượng không được để trống')
+    .min(100, 'Dung lượng phài lớn hơn 100MB'),
+  passPoint: number()
+    .typeError('Điểm đạt yêu cầu không được để trống')
+    .required('Điểm đạt yêu cầu không được để trống')
+    .min(1, 'Điểm đạt yêu cầu lớn hơn 1'),
+  attachFiles: YupValidationForm.notEmptyString(
+    'Tệp đính kèm không được để trống'
+  ),
+});
 
 export const validationSchemaRegisterStudent = object({
   name: string()

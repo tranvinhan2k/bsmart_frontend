@@ -71,7 +71,7 @@ export const enum MentorDashboardNavigationActionLink {
   take_attendance = 'take-attendance/:classId/:id',
   schedule = 'schedule',
 }
-export const enum StudentDashboardNavigationActionLink {
+export const enum MemberDashboardNavigationActionLink {
   course_list = 'courses',
   course_detail = 'courses/detail',
   class_list = 'classes',
@@ -112,6 +112,14 @@ export const enum MentorCourseActionLink {
   content = 'content',
 }
 export const enum MentorClassActionLink {
+  information = 'information',
+  students = 'students',
+  schedule = 'schedule',
+  attendance = 'attendance',
+  activity = 'activity',
+  notification = 'notification',
+}
+export const enum MemberClassActionLink {
   information = 'information',
   students = 'students',
   schedule = 'schedule',

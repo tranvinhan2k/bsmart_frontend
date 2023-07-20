@@ -2,6 +2,7 @@ import { Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomBreadcrumbs from '~/components/atoms/CustomBreadcrumbs';
+import ReturnLink from '~/components/atoms/ReturnLink';
 import {
   NavigationLink,
   MentorDashboardNavigationActionLink,
@@ -49,7 +50,6 @@ export default function MentorCourseAddModulePage() {
       courseId,
       description: '',
       authorizeClasses: [],
-      file: [],
     },
     resolver: resolverLesson,
   });
@@ -63,6 +63,7 @@ export default function MentorCourseAddModulePage() {
       parentActivityId: sectionId,
       courseId,
       authorizeClasses: [],
+      file: [],
     },
     resolver: resolverResource,
   });
@@ -163,7 +164,21 @@ export default function MentorCourseAddModulePage() {
   const handleSubmitAssignment = async (data: any) => {
     await handleTryCatch(async () => {
       await mutationAssignment.mutateAsync({
-        ...data,
+        name: data.name,
+        visible: data.visible,
+        parentActivityId: sectionId,
+        courseId,
+        authorizeClasses: data.authorizeClasses,
+        description: data.description,
+        startDate: data.startDate.toISOString(),
+        endDate: data.endDate.toISOString(),
+        editBeForSubmitMin: data.editBeForSubmitMin,
+        maxFileSubmit: data.maxFileSubmit,
+        maxFileSize: data.maxFileSize,
+        attachFiles: data.attachFiles,
+        isOverWriteAttachFile: data.isOverWriteAttachFile,
+        passPoint: data.passPoint,
+        overWriteAttachFile: data.overWriteAttachFile,
       });
       hookFormLesson.reset();
       navigate(
@@ -235,17 +250,8 @@ export default function MentorCourseAddModulePage() {
   const moduleType: ActivityKeys = type?.toUpperCase() as ActivityKeys;
   return (
     <Stack>
-      <CustomBreadcrumbs
-        data={[
-          {
-            label: 'Nội dung học phần',
-            link: `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`,
-          },
-          {
-            label: `Thêm nội dung cho học phần ${activity?.name}`,
-            link: `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}/${sectionId}`,
-          },
-        ]}
+      <ReturnLink
+        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`}
       />
       <Stack marginTop={1}>
         {moduleType === 'LESSON' && (

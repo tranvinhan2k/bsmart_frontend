@@ -9,6 +9,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { MetricSize, Color } from '~/assets/variables';
@@ -27,6 +28,7 @@ interface AnswerInputProps {
 function AnswerInput({ answerType, controller }: AnswerInputProps) {
   const {
     field: { value, onChange: controllerOnChange },
+    fieldState: { invalid, error },
   } = controller;
 
   const [open, setOpen] = useState(false);
@@ -41,7 +43,14 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
   });
 
   useEffect(() => {
-    controllerOnChange([]);
+    controllerOnChange(
+      value
+        ? value?.map((item: any) => ({
+            ...item,
+            right: false,
+          }))
+        : []
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answerType]);
 
@@ -99,112 +108,120 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
   };
 
   return (
-    <Stack
-      sx={{
-        border: '0.5px solid grey',
-        borderRadius: MetricSize.small_5,
-        padding: 1,
-        background: Color.white,
-      }}
-    >
-      <Stack>
-        {value && value?.length > 0 ? (
-          value?.map((item: any, index: number) => {
-            return (
-              <Stack
-                sx={{
-                  marginBottom: 1,
-                  background: Color.white4,
-                  borderRadius: MetricSize.small_5,
-                  padding: 1,
-                }}
-                key={index}
-              >
+    <Stack>
+      <Stack
+        sx={{
+          border: `1px solid ${invalid ? Color.red : Color.grey}`,
+          borderRadius: MetricSize.small_5,
+          padding: 1,
+          background: Color.white,
+        }}
+      >
+        <Stack>
+          {value && value?.length > 0 ? (
+            value?.map((item: any, index: number) => {
+              return (
                 <Stack
                   sx={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                    marginBottom: 1,
+                    background: Color.white4,
+                    borderRadius: MetricSize.small_5,
+                    padding: 1,
                   }}
+                  key={index}
                 >
-                  <Tooltip title="Chọn câu trả lời đúng">
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={item.right}
-                          onChange={() => handleChangeRightAnswer(index)}
-                        />
-                      }
-                      label=""
-                    />
-                  </Tooltip>
-                  <IconButton onClick={() => handleDelete(index)}>
-                    <Icon name="delete" size="small_20" color="red" />
-                  </IconButton>
+                  <Stack
+                    sx={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Tooltip title="Chọn câu trả lời đúng">
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={item.right}
+                            onChange={() => handleChangeRightAnswer(index)}
+                          />
+                        }
+                        label=""
+                      />
+                    </Tooltip>
+                    <IconButton onClick={() => handleDelete(index)}>
+                      <Icon name="delete" size="small_20" color="red" />
+                    </IconButton>
+                  </Stack>
+                  <Typography>{item.answer}</Typography>
                 </Stack>
-                <Typography>{item.answer}</Typography>
-              </Stack>
-            );
-          })
-        ) : (
-          <Stack
-            padding={2}
-            sx={{
-              background: Color.white4,
-              marginBottom: 1,
-            }}
-          >
-            <Typography textAlign="center" sx={globalStyles.textLowSmallLight}>
-              Chưa thêm câu trả lời nào.
-            </Typography>
-          </Stack>
-        )}
-      </Stack>
-      <Box>
-        <Button
-          startIcon={
-            <Icon
-              name={!open ? 'add' : 'close'}
-              size="small_20"
-              color="white"
-            />
-          }
-          variant="contained"
-          color={!open ? 'info' : 'error'}
-          onClick={handleOpen}
-        >
-          {!open ? 'Thêm câu trả lời' : 'Hủy'}
-        </Button>
-      </Box>
-      <Collapse in={open}>
-        <Stack
-          sx={{
-            marginTop: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Stack sx={{ flexGrow: 1 }}>
-            <FormInput
-              control={addAnswer.control}
-              name="answer"
-              placeholder="Tên câu hỏi"
-            />
-          </Stack>
-          <Button
-            sx={{
-              marginLeft: 1,
-              color: Color.white,
-              height: '35px',
-            }}
-            variant="contained"
-            color="secondary"
-            onClick={addAnswer.handleSubmit(handleSubmit)}
-          >
-            Thêm câu trả lời
-          </Button>
+              );
+            })
+          ) : (
+            <Stack
+              padding={2}
+              sx={{
+                background: Color.white4,
+                marginBottom: 1,
+              }}
+            >
+              <Typography
+                textAlign="center"
+                sx={globalStyles.textLowSmallLight}
+              >
+                Chưa thêm câu trả lời nào.
+              </Typography>
+            </Stack>
+          )}
         </Stack>
-      </Collapse>
+        <Box>
+          <Button
+            startIcon={
+              <Icon
+                name={!open ? 'add' : 'close'}
+                size="small_20"
+                color="white"
+              />
+            }
+            variant="contained"
+            color={!open ? 'info' : 'error'}
+            onClick={handleOpen}
+          >
+            {!open ? 'Thêm câu trả lời' : 'Hủy'}
+          </Button>
+        </Box>
+        <Collapse in={open}>
+          <Stack
+            sx={{
+              marginTop: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Stack sx={{ flexGrow: 1 }}>
+              <FormInput
+                control={addAnswer.control}
+                name="answer"
+                placeholder="Tên câu hỏi"
+              />
+            </Stack>
+            <Button
+              sx={{
+                marginLeft: 1,
+                color: Color.white,
+                height: '35px',
+              }}
+              variant="contained"
+              color="secondary"
+              onClick={addAnswer.handleSubmit(handleSubmit)}
+            >
+              Thêm câu trả lời
+            </Button>
+          </Stack>
+        </Collapse>
+      </Stack>
+      {invalid && (
+        <FormHelperText error>{(error as any).message}</FormHelperText>
+      )}
     </Stack>
   );
 }

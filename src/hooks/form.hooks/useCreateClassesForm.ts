@@ -11,7 +11,7 @@ import { PostClassRequest, PostTimetableRequest } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
 import { useCreateCourseClass } from '../class/useCreateCourseClass';
 import { PostTimeTableResponse } from '~/models/response';
-import { TimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
+import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
@@ -22,7 +22,7 @@ export const useCreateClassesForm = (id: number) => {
   const [selectClassId, setSelectClassId] = useState<number>(-1);
   const [timetable, setTimetable] = useState<{
     raw: PostTimeTableResponse;
-    timetable: TimeSlotPayload[];
+    timetable: MonthTimeSlotPayload[];
   }>();
 
   const { handleCreateClass, handleGetTimetable } = useCreateCourseClass();

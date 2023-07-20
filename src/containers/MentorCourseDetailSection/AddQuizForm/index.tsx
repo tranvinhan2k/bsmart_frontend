@@ -2,7 +2,6 @@ import { Stack, Typography, Button } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
-import FormInput from '~/components/atoms/FormInput';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
@@ -45,17 +44,11 @@ interface Props {
   onSubmit: (data: any) => void;
 }
 
-export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
+export default function AddQuizForm({ hookForm, onSubmit }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
   const inputList: InputData[] = [
-    {
-      name: 'name',
-      label: 'Tên bài trắc nghiệm',
-      placeholder: 'Nhập tên bài trắc nghiệm',
-      variant: 'text',
-    },
     {
       name: 'visible',
       label: 'Hiển thị',
@@ -68,6 +61,12 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
       placeholder: 'Thêm danh sách lớp',
       variant: 'multiSelect',
       data: optionClasses,
+    },
+    {
+      name: 'name',
+      label: 'Tên bài trắc nghiệm',
+      placeholder: 'Nhập tên bài trắc nghiệm',
+      variant: 'text',
     },
     {
       name: 'code',
@@ -89,7 +88,7 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
     },
     {
       name: 'time',
-      label: 'Thời gian làm bài',
+      label: 'Thời gian làm bài (phút)',
       placeholder: 'Nhập thời gian làm bài',
       variant: 'number',
     },
@@ -113,7 +112,7 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
     },
     {
       name: 'allowReviewAfterMin',
-      label: 'Thời gian chờ xem lại',
+      label: 'Thời gian chờ xem lại (phút)',
       placeholder: 'Thời gian được xem lại bài',
       variant: 'number',
     },
@@ -121,6 +120,12 @@ export default function AddAssignmentForm({ hookForm, onSubmit }: Props) {
       name: 'password',
       label: 'Mật khẩu',
       placeholder: 'Nhập mật khẩu cho bài kiểm tra',
+      variant: 'password',
+    },
+    {
+      name: 'confirm',
+      label: 'Xác nhận mật khẩu',
+      placeholder: 'Xác nhận mật khẩu cho bài kiểm tra',
       variant: 'password',
     },
     {
