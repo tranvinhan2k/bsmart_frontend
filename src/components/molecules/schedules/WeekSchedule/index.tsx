@@ -37,7 +37,6 @@ export default function WeekSchedule({ data }: Props) {
   const [dayOfWeekData, setDayOfWeekData] = useState<DayOfWeekDataPayload[]>(
     []
   );
-  const { control } = useForm();
   const { dayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { slots } = useDispatchGetAllSlots();
 
@@ -46,8 +45,6 @@ export default function WeekSchedule({ data }: Props) {
   };
 
   useEffect(() => {
-    console.log('hello dayofweek');
-
     setDayOfWeekData(
       dayOfWeeks.map((item, index) => ({
         id: item.id,
@@ -100,7 +97,6 @@ export default function WeekSchedule({ data }: Props) {
         <Box
           sx={{
             width: '300px',
-            background: Color.white,
           }}
         >
           <DatePicker

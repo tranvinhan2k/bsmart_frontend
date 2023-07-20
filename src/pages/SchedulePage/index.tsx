@@ -22,19 +22,15 @@ export default function SchedulePage() {
   const { optionSlots } = useDispatchGetAllSlots();
   useEffectScrollToTop();
 
-  console.log('schedule', data);
-
   return (
-    <Stack
-      sx={{
-        margin: 1,
-        borderRadius: MetricSize.small_10,
-        padding: 2,
-        background: Color.white,
-      }}
-    >
+    <Stack>
       <Typography sx={globalStyles.textSubTitle}>Lịch làm việc</Typography>
-      <Stack marginTop={1}>
+
+      <Stack
+        sx={{
+          marginTop: 1,
+        }}
+      >
         <LoadingWrapper isLoading={isLoading} error={error}>
           <CustomTab
             tabContentList={[
