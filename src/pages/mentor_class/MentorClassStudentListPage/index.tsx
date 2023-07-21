@@ -38,7 +38,7 @@ export default function MentorClassStudentListPage() {
     {
       id: 0,
       name: 'Trần Vĩ Nhân',
-      avatar: image.studentAvatar,
+      avatar: image.mockStudent,
       dayOfBirth: new Date().toString(),
       email: 'tranvinhan2k@gmail.com',
       phone: '0362017512',

@@ -7,7 +7,8 @@ export * from './useMenuItem';
 export * from './useLogOut';
 
 // user
-export * from './useQueryGetSchedule';
+export * from './schedule/useQueryGetSchedule';
+export * from './schedule/useQueryGetDetailSchedule';
 
 // effect
 export * from './useEffectPreventReload';

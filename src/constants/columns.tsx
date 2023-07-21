@@ -212,10 +212,16 @@ const courseCreateRequestColumns: GridColDef[] = [
   },
 ];
 const attendanceClassColumns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id', headerName: 'ID', width: 50 },
   {
     field: 'slotName',
-    headerName: 'Tên slot',
+    headerName: 'Tên buổi học',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'time',
+    headerName: 'Thời gian',
     flex: 1,
     editable: true,
   },

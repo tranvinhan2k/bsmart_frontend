@@ -8,6 +8,7 @@ import {
   MentorClassNotificationPage,
   MentorClassSchedulePage,
   MentorClassStudentListPage,
+  MentorTakeAttendancePage,
 } from '~/routes/components';
 
 export const mentorClassRoutes: RoutePayload[] = [
@@ -34,6 +35,11 @@ export const mentorClassRoutes: RoutePayload[] = [
     main: () => <MentorClassAttendanceListPage />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorClassActionLink.take_attendance}/:timetableId`,
+    main: () => <MentorTakeAttendancePage />,
+    role: ['ROLE_TEACHER'],
   },
   {
     path: MentorClassActionLink.notification,

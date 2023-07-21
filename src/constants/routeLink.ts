@@ -116,6 +116,7 @@ export const enum MentorClassActionLink {
   students = 'students',
   schedule = 'schedule',
   attendance = 'attendance',
+  take_attendance = 'take_attendance',
   activity = 'activity',
   notification = 'notification',
 }

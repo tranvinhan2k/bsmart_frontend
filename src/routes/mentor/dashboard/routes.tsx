@@ -115,11 +115,6 @@ export const mentorLMSRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: MentorDashboardNavigationActionLink.take_attendance,
-    main: () => <MentorTakeAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
     path: MentorDashboardNavigationActionLink.schedule,
     main: () => <SchedulePage />,
     role: ['ROLE_TEACHER'],

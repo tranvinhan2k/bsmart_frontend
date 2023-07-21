@@ -7,13 +7,22 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
+import {
+  useDispatchGetAllDayOfWeeks,
+  useDispatchGetAllSlots,
+  useGetIdFromUrl,
+} from '~/hooks';
 import globalStyles from '~/styles';
 import { WeekTimeSlotPayload } from '~/models/type';
 import SLotName from './SlotName';
 import DayName from './DayName';
 import { LoadingWrapper } from '~/HOCs';
 import { compareDate } from '~/utils/date';
+import {
+  MentorClassActionLink,
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 dayjs.extend(weekOfYear);
 
@@ -31,6 +40,7 @@ interface DayOfWeekDataPayload {
     date: Date;
     slotName: string;
     className: string;
+    classId: number;
     googleLink: string;
     isPresent: boolean;
     isTakeAttendance: boolean;
@@ -96,6 +106,7 @@ export default function WeekSchedule({ data }: Props) {
                 ? `${item.startTime} - ${item.endTime}`
                 : '',
               className: `${subItemTimeSlot?.className}`,
+              classId: subItemTimeSlot?.classId || 0,
               googleLink: `${subItemTimeSlot?.link}`,
               isPresent: subItemTimeSlot?.isPresent || false,
               isTakeAttendance: subItemTimeSlot?.isPresent || false,
@@ -250,6 +261,11 @@ export default function WeekSchedule({ data }: Props) {
                                 size="small"
                                 variant="contained"
                                 color="secondary"
+                                onClick={() =>
+                                  navigate(
+                                    `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.id}`
+                                  )
+                                }
                               >
                                 Điểm danh
                               </Button>

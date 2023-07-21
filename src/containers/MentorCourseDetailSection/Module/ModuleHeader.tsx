@@ -26,17 +26,25 @@ export default function ModuleHeader({
           }}
         >
           <Icon name="course" size="small_20" color="white" />
-          <Typography
+          <Stack
             sx={{
               marginLeft: 1,
-              textAlign: 'center',
-              color: Color.white,
-              fontFamily: FontFamily.medium,
-              fontSize: FontSize.small_14,
+              flexGrow: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            Tài nguyên
-          </Typography>
+            <Typography
+              sx={{
+                textAlign: 'center',
+                color: Color.white,
+                fontFamily: FontFamily.medium,
+                fontSize: FontSize.small_14,
+              }}
+            >
+              Tài nguyên
+            </Typography>
+          </Stack>
         </Stack>
       );
       break;

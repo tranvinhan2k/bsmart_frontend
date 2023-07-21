@@ -155,6 +155,7 @@ export interface WeekTimeSlotPayload {
   id: number;
   link: string;
   className: string;
+  classId: number;
   slotId: number;
   dayOfWeekId: number;
   attendanceSlotId?: number;
