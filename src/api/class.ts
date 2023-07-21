@@ -13,6 +13,7 @@ import { ClassesOfCourseWithCourseDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import { ResponseMentorCoursePayload } from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { mentorClassRoutes } from '~/routes/mentor/class/routes';
 import { formatOptionPayload } from '~/utils/common';
 
 const url = '/classes';
@@ -28,17 +29,29 @@ const classApi = {
         courseCode: response.code,
         courseDescription: response.description,
         courseName: response.name,
-        images: mockImages,
-        mentorAvatar:
-          'https://images.pexels.com/photos/5212353/pexels-photo-5212353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        mentorDescription: 'Description teachr',
-        mentorName: ['Nguyễn Văn A'],
+        images: response.classes.map((item: any) => item.image.url),
+        mentorAvatar: response.mentor.avatar.url,
+        mentorDescription: response.mentor.introduce,
+        mentorName: [response.mentor.name],
         status: response.status,
         level: response.level,
         subject: formatOptionPayload(response.subjectResponse),
         totalClass: 0,
       },
-      classes: response.classes || [],
+      classes: (response.classes as any[]).map((item) => ({
+        id: item.id,
+        code: item.code,
+        startDate: item.startDate,
+        endDate: item.endDate,
+        imageAlt: item.image.alt,
+        imageUrl: item.image.url,
+        maxStudent: item.maxStudent,
+        minStudent: item.minStudent,
+        numberOfSlot: item.numberOfSlot,
+        price: item.price,
+        status: item.status,
+        timeInWeekRequests: item.timeInWeeks,
+      })),
       content: response.sections,
     };
     return result;

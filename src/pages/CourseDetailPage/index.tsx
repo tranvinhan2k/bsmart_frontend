@@ -67,7 +67,7 @@ export default function CourseDetailPage() {
   } = {
     name: course?.mentorName[0] || '',
     imageUrl: course?.mentorAvatar || '',
-    description: course?.courseDescription || '',
+    description: course?.mentorDescription || '',
   };
   const classes = data?.classes;
   // const classes: DetailCourseClassPayload[] = [
