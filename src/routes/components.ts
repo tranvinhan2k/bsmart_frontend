@@ -55,9 +55,7 @@ export const MentorCourseListPage = lazy(
 export const MentorCreateCoursePage = lazy(
   () => import('~/pages/MentorCreateCoursePage')
 );
-export const MentorTakeAttendancePage = lazy(
-  () => import('~/pages/MentorTakeAttendancePage')
-);
+
 export const MentorViewStudentAttendancePage = lazy(
   () => import('~/pages/MentorViewStudentAttendancePage')
 );
@@ -159,6 +157,12 @@ export const MentorClassStudentListPage = lazy(
 );
 export const MentorClassAttendanceListPage = lazy(
   () => import('~/pages/mentor_class/MentorClassAttendanceListPage')
+);
+export const MentorTakeAttendancePage = lazy(
+  () => import('~/pages/mentor_class/MentorTakeAttendancePage')
+);
+export const MentorClassStudentDetailPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassStudentDetailPage')
 );
 
 // member class

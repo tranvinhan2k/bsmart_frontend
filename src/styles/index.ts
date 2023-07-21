@@ -91,6 +91,12 @@ export const SX_DATAGRID_CELL_TEXT: SxProps<Theme> = {
   textOverflow: 'ellipsis',
   fontSize: 14,
 };
+export const textTwoLineEllipsis: SxProps<Theme> = {
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitLineClamp: '2',
+  WebkitBoxOrient: 'vertical',
+};
 
 const globalStyles = {
   textTitle,
@@ -99,6 +105,7 @@ const globalStyles = {
   textSmallLight,
   textLowSmallLight,
   textWhiteSubTitle,
+  textTwoLineEllipsis,
 };
 
 export default globalStyles;

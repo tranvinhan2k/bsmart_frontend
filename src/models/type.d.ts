@@ -2,6 +2,7 @@ import { MentorProfileStatusType } from '~/constants/profile';
 import { OptionPayload } from './common';
 import {
   ActivityKeys,
+  ClassStatusKeys,
   CourseStatusKeys,
   GenderKeys,
   ImageKeys,
@@ -124,6 +125,7 @@ export interface ClassMenuItemPayload {
   teacherName?: string[];
   name: string | undefined;
   progressValue: number;
+  subjectId: number;
   status: ClassStatusKeys;
 }
 
@@ -153,6 +155,7 @@ export interface WeekTimeSlotPayload {
   id: number;
   link: string;
   className: string;
+  classId: number;
   slotId: number;
   dayOfWeekId: number;
   attendanceSlotId?: number;

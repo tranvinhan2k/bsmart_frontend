@@ -14,6 +14,7 @@ import { headerCell } from './style';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { PresentStatusKeys } from '~/models/variables';
+import globalStyles from '~/styles';
 
 interface AttendanceListProps {
   item: any;
@@ -50,36 +51,37 @@ export default function AttendanceList({
       sx={{
         alignItems: 'center',
         transition: 'background 1s, height 1s',
-        borderBottom: '3px solid #eee',
+        borderBottom: '0.5px solid #ddd',
         background:
           item.isPresent === 'PRESENT'
-            ? `${Color.green}55`
+            ? `${Color.tertiary}22`
             : item.isPresent === 'ABSENT'
-            ? `${Color.red}55`
-            : index % 2 === 0
-            ? Color.white2
-            : Color.whiteSmoke,
+            ? `${Color.red}22`
+            : Color.white3,
       }}
       container
     >
-      <Grid sx={headerCell} item xs={1}>
-        {item.id}
+      <Grid item xs={1}>
+        <Typography padding={2} sx={globalStyles.textLowSmallLight}>
+          {item.id}
+        </Typography>
       </Grid>
-      <Grid sx={headerCell} item xs={3}>
+      <Grid item xs={3}>
         <Button
           sx={{
-            padding: MetricSize.medium_15,
-            borderRadius: isShowImage ? MetricSize.medium_15 : 1000,
+            padding: 1,
+            borderRadius: isShowImage ? MetricSize.small_5 : 1000,
           }}
           onClick={() => onZoomImage(index)}
         >
           <Tooltip title="Nhấn để phóng to hình ảnh">
             <Box
               sx={{
-                height: isShowImage ? '240px' : '50px',
-                width: isShowImage ? '180px' : '50px',
+                height: isShowImage ? '120px' : '50px',
+                width: undefined,
+                aspectRatio: 3 / 4,
                 objectFit: 'fill',
-                borderRadius: isShowImage ? MetricSize.medium_15 : 1000,
+                borderRadius: isShowImage ? MetricSize.small_5 : 1000,
               }}
               component="img"
               alt="avatar"
@@ -88,25 +90,29 @@ export default function AttendanceList({
           </Tooltip>
         </Button>
       </Grid>
-      <Grid md={2}>
+      <Grid xs={3}>
         <Typography
           sx={{
-            marginLeft: '10px',
-            fontSize: FontSize.small_18,
-            fontFamily: FontFamily.medium,
+            paddingX: 2,
+            fontSize: FontSize.small_16,
+            fontFamily: FontFamily.regular,
             color: Color.black,
           }}
         >
           {item.name}
         </Typography>
       </Grid>
-      <Grid sx={headerCell} item xs={4}>
+      <Grid item xs={3}>
         <Stack
-          sx={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}
+          sx={{
+            paddingX: 2,
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+          }}
         >
           <Stack
             sx={{
-              width: '80%',
               padding: MetricSize.small_10,
               overflowX: 'hidden',
               height: '100%',
@@ -134,7 +140,7 @@ export default function AttendanceList({
           </IconButton>
         </Stack>
       </Grid>
-      <Grid sx={headerCell} item xs={2}>
+      <Grid item xs={2}>
         <Stack
           sx={{
             flexDirection: 'row',
@@ -149,8 +155,8 @@ export default function AttendanceList({
                     ? 'checkCircleFill'
                     : 'checkCircle'
                 }
-                color="green"
-                size="medium"
+                color="tertiary"
+                size="small_20"
               />
             </IconButton>
           </Tooltip>
@@ -159,13 +165,13 @@ export default function AttendanceList({
               <Icon
                 name={item.isPresent === 'ABSENT' ? 'xCircleFill' : 'xCircle'}
                 color="red"
-                size="medium"
+                size="small_20"
               />
             </IconButton>
           </Tooltip>
           <Tooltip title="Xem chi tiết">
             <IconButton onClick={onViewDetail}>
-              <Icon name="viewDetail" color="black" size="medium" />
+              <Icon name="viewDetail" color="black" size="small_20" />
             </IconButton>
           </Tooltip>
         </Stack>

@@ -79,7 +79,12 @@ export default function Sidebar({
 
   const handleCheckOut = () => {
     if (chooseClass.id !== 0) {
-      dispatch(addCheckoutItem(chooseClass));
+      dispatch(
+        addCheckoutItem({
+          checkOutCourses: chooseClass,
+          totalAmount: chooseClass.price,
+        })
+      );
       navigate(`/${NavigationLink.check_out}`);
     } else {
       toast.notifyErrorToast('Hãy chọn lớp học bạn cần !');

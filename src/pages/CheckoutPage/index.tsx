@@ -28,6 +28,9 @@ import toast from '~/utils/toast';
 import { selectIntroduceCode } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
 import { useEffectScrollToTop } from '~/hooks';
+import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
+import { CartItem } from '~/api/cart';
+import localEnvironment from '~/utils/localEnvironment';
 
 function CheckoutPage() {
   const { control, handleSubmit } = useForm();
@@ -54,19 +57,19 @@ function CheckoutPage() {
       if (Array.isArray(checkOutItem)) {
         await mutateAsync(
           checkOutItem.map((item) => ({
-            cartItemId: item.cartItemId,
-            referralCode: introduceCode,
+            clazzId: item.id,
+            returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/`,
           }))
         );
       } else {
         const response = await mutatePayQuick({
-          subCourseId: checkOutItem?.id || 0,
-          referralCode: introduceCode,
+          clazzId: checkOutItem?.id || 0,
+          returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/detail/0/information`,
         });
         const url = response.paymentUrl;
-        window.open(url);
+        window.open(url, '_self');
       }
-      toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
+      // toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {
       toast.updateFailedToast(
         id,
@@ -90,27 +93,11 @@ function CheckoutPage() {
   const values: {
     totalAmount: string;
     totalQuantity: number;
-    courseList: any;
+    courseList: DetailCourseClassPayload[];
   } = {
     totalAmount: formatMoney(slTotalAmount, true),
     totalQuantity: Array.isArray(checkOutItem) ? checkOutItem.length : 1,
-    courseList: Array.isArray(checkOutItem)
-      ? checkOutItem.map(
-          (item) =>
-            item.subCourses.find((subCourse) => subCourse.isChosen) || null
-        ) || []
-      : [
-          {
-            id: checkOutItem?.subjectId || 0,
-            endDateExpected: checkOutItem?.endDateExpected || '',
-            isChosen: true,
-            level: checkOutItem?.level || '',
-            price: checkOutItem?.price || 0,
-            startDateExpected: checkOutItem?.startDateExpected || '',
-            status: '',
-            typeLearn: checkOutItem?.type || '',
-          },
-        ],
+    courseList: Array.isArray(checkOutItem) ? [] : [checkOutItem],
   };
 
   return (
@@ -155,7 +142,7 @@ function CheckoutPage() {
             <Icon name="down" size="small" color="grey" />
           </Stack>
           <Box sx={{ width: '500px' }}>
-            {values.courseList.map((item: any) => (
+            {values.courseList.map((item) => (
               <Box key={item.id}>
                 <Stack
                   sx={{
@@ -166,8 +153,8 @@ function CheckoutPage() {
                   <Stack>
                     <Box
                       component="img"
-                      src={image.noCourse}
-                      alt={item?.id}
+                      src={item.imageUrl}
+                      alt={item?.imageAlt}
                       sx={{
                         alignSelf: 'center',
                         width: '50px',
@@ -192,15 +179,7 @@ function CheckoutPage() {
                         fontSize: FontSize.small_18,
                       }}
                     >
-                      {'Khóa học dạy lập trình '}
-                    </Stack>
-                    <Stack
-                      sx={{
-                        fontFamily: FontFamily.regular,
-                        fontSize: FontSize.small_16,
-                      }}
-                    >
-                      thầy Trung Hiếu
+                      {item.code}
                     </Stack>
                   </Stack>
                   <Stack>

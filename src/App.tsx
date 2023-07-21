@@ -46,6 +46,8 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 
+window.global ||= window;
+
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (
     <Route key={route.path} path={route.path} element={route?.main()} />

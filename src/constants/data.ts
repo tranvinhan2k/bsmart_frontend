@@ -112,12 +112,6 @@ export const ClassStatusList: OptionPayload[] = [
     content: 'Lớp đang chờ phê duyệt',
     value: 'NOTSTART',
   },
-  {
-    id: 6,
-    label: 'Lớp đã kết thúc',
-    content: 'Lớp đã hết thời gian giảng dạy',
-    value: 'CLOSE',
-  },
 ];
 export const CourseStatusList: OptionPayload[] = [
   {

@@ -7,7 +7,8 @@ export * from './useMenuItem';
 export * from './useLogOut';
 
 // user
-export * from './useQueryGetSchedule';
+export * from './schedule/useQueryGetSchedule';
+export * from './schedule/useQueryGetDetailSchedule';
 
 // effect
 export * from './useEffectPreventReload';
@@ -64,6 +65,7 @@ export * from './class/useUpdateClass';
 export * from './class/useQueryGetAllMentorClasses';
 export * from './class/useQueryGetMentorCourseClasses';
 export * from './class/useQueryGetOptionMentorCourseClasses';
+export * from './class/useQueryGetUserClass';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';

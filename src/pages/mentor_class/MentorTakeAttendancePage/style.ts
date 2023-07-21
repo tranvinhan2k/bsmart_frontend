@@ -3,7 +3,7 @@ import { Theme } from '@mui/material/styles';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 export const headerCell: SxProps<Theme> = {
-  padding: '20px',
+  padding: 2,
   fontFamily: FontFamily.bold,
-  fontSize: FontSize.small_18,
+  fontSize: FontSize.small_14,
 };

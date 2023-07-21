@@ -8,6 +8,51 @@ export interface ResponseMentorCoursePayload {
   content: ContentPayload;
 }
 
+export type GetAttendanceTimeSLotResponse = Partial<{
+  timeTableResponse: {
+    id: number;
+    date: string;
+    classURL: string;
+    slot: {
+      id: number;
+      name: string;
+      code: string;
+      startTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+      endTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+    };
+  };
+  attendanceResponses: {
+    totalPages: number;
+    totalItems: number;
+    currentPage: number;
+    first: boolean;
+    last: boolean;
+    pageItemSize: number;
+    pageSize: number;
+    items: {
+      id: number;
+      student: {
+        id: number;
+        email: string;
+        name: string;
+      };
+      attendance: boolean;
+      note: string;
+      hasTookAttendance: boolean;
+    }[];
+  };
+}>;
+
 export type GetActivityResponse = Partial<{
   created: string;
   lastModified: string;
@@ -136,3 +181,23 @@ export type GetUserSchedule = Partial<{
     };
   }>[];
 }>[];
+
+export type ResponseUserClasses = Partial<{
+  id: number;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  course: {
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+    subject: {
+      id: number;
+      code: string;
+      name: string;
+      categoryIds: number[];
+    };
+  };
+  mentorName: string;
+}>;

@@ -9,12 +9,19 @@ import {
 } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Color, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import TextLine from '~/components/atoms/TextLine';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { image } from '~/constants/image';
+import {
+  MentorClassActionLink,
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import { useGetIdFromUrl } from '~/hooks';
 import globalStyles from '~/styles';
 
 export interface MentorClassMemberDetailPayload {
@@ -27,18 +34,23 @@ export interface MentorClassMemberDetailPayload {
 }
 
 export default function MentorClassStudentListPage() {
+  const id = useGetIdFromUrl('id');
+  const navigate = useNavigate();
   const [isShowImage, setShowImage] = useState(true);
   const [row, setRow] = useState<MentorClassMemberDetailPayload | undefined>();
-  const [open, setOpen] = useState(false);
   const [search, setSearchValue] = useState('');
   const handleOpenDetailModal = () => {
-    setOpen(!open);
+    if (row) {
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${id}/${MentorClassActionLink.student_detail}/${row.id}`
+      );
+    }
   };
   const rows: MentorClassMemberDetailPayload[] = [
     {
       id: 0,
       name: 'Trần Vĩ Nhân',
-      avatar: image.studentAvatar,
+      avatar: image.mockStudent,
       dayOfBirth: new Date().toString(),
       email: 'tranvinhan2k@gmail.com',
       phone: '0362017512',
@@ -129,48 +141,6 @@ export default function MentorClassStudentListPage() {
           },
         ]}
       />
-      <CustomModal open={open} onClose={handleOpenDetailModal}>
-        <Stack sx={{ width: '30vw', padding: 1 }}>
-          <Box
-            sx={{
-              paddingX: 3,
-              alignSelf: 'center',
-              width: '200px',
-              height: undefined,
-              aspectRatio: 3 / 4,
-              objectFit: 'cover',
-              borderRadius: MetricSize.small_10,
-            }}
-            component="img"
-            alt="hinh hoc sinh"
-            src={row?.avatar || image.noAvatar}
-          />
-          <Stack paddingY={2}>
-            <Typography>Thông tin học viên</Typography>
-            <TextLine label="Mã học sinh" variable={`${row?.id}`} />
-            <TextLine label="Tên học sinh" variable={row?.name || ''} />
-            <TextLine label="Ngày sinh" variable={row?.dayOfBirth || ''} />
-            <TextLine label="Email" variable={row?.email || ''} />
-          </Stack>
-          <Stack
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 1,
-            }}
-          >
-            <Button variant="contained">Xem kết quả học tập</Button>
-            <Button
-              sx={{
-                marginLeft: 1,
-              }}
-              variant="contained"
-            >
-              Xem điểm danh
-            </Button>
-          </Stack>
-        </Stack>
-      </CustomModal>
     </Stack>
   );
 }

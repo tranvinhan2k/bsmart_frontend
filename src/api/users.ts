@@ -11,10 +11,16 @@ import {
 } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
-import { ProfilePayload, WeekTimeSlotPayload } from '~/models/type';
-import { GetUserSchedule } from '~/models/response';
+import {
+  ClassMenuItemPayload,
+  ProfilePayload,
+  WeekTimeSlotPayload,
+} from '~/models/type';
+import { GetUserSchedule, ResponseUserClasses } from '~/models/response';
 import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
-import { compareDate } from '~/utils/date';
+import { compareDate, formatDate } from '~/utils/date';
+import { image } from '~/constants/image';
+import { AttendanceTimeSlotPayload } from '~/pages/mentor_class/MentorClassAttendanceListPage';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -128,6 +134,7 @@ const formatScheduleToWeekSchedule = (response: GetUserSchedule) => {
         ...result,
         {
           id: timetable.id || -1,
+          classId: date.workingClass?.id || -1,
           className: date.workingClass?.course?.code || '',
           date: timetable.date || '',
           dayOfWeekId: new Date(timetable.date || '').getDay() + 1,
@@ -200,6 +207,8 @@ const accountApi = {
   signIn(data: LoginRequestPayload): Promise<any> {
     return axiosClient.post(`${urlAuth}/login`, data);
   },
+
+  // get
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
   },
@@ -210,6 +219,26 @@ const accountApi = {
     const response = await axiosClient.get(`${url}/profile`);
     const result: ProfilePayload = response;
     return result;
+  },
+  async getUserClass(
+    params: PagingFilterRequest
+  ): Promise<PagingFilterPayload<ClassMenuItemPayload>> {
+    const response: PagingFilterPayload<ResponseUserClasses> =
+      await axiosClient.get(`${url}/classes`, {
+        params,
+        paramsSerializer: { indexes: null },
+      });
+    const result: ClassMenuItemPayload[] = response.items.map((item) => ({
+      id: item.id || 0,
+      imageAlt: 'class image', // TODO: chua co
+      imageUrl: image.mockClass, // TODO: chua co
+      name: item.course?.name,
+      progressValue: 50, // TODO: chua co
+      status: 'NOTSTART', // TODO: chua co
+      subjectId: 1,
+      teacherName: [item.mentorName || ''],
+    }));
+    return { ...response, items: result };
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);
@@ -258,6 +287,26 @@ const accountApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
+  },
+  async getClassAttendance(id: number): Promise<AttendanceTimeSlotPayload[]> {
+    const response: GetUserSchedule = await axiosClient.get(
+      `${url}/timetables`
+    );
+
+    const selectedClassResponse = response.find(
+      (item) => item.workingClass?.id === id
+    );
+
+    const result: AttendanceTimeSlotPayload[] =
+      selectedClassResponse?.timeTableResponse?.map((timeSlot) => ({
+        id: timeSlot.id || 0,
+        date: formatDate(timeSlot.date || '') || '',
+        slotName: timeSlot.slot?.name || '',
+        time: `${timeSlot.slot?.startTime} - ${timeSlot.slot?.endTime}`,
+        isPresent: true,
+      })) || [];
+
+    return result;
   },
   async getUserSchedule(): Promise<{
     week: WeekTimeSlotPayload[];

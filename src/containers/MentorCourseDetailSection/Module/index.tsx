@@ -1,4 +1,4 @@
-import { Stack, Typography, Tooltip, IconButton } from '@mui/material';
+import { Stack, Typography, Tooltip, IconButton, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { MetricSize, Color, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
@@ -38,7 +38,9 @@ export default function Module({ index, sectionId, module }: Props) {
       >
         <Stack sx={{ flexGrow: 1 }}>
           <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
-            <ModuleHeader type={module.type} index={index} />
+            <Box>
+              <ModuleHeader type={module.type} index={index} />
+            </Box>
             <Typography
               sx={{
                 fontSize: FontSize.small_14,

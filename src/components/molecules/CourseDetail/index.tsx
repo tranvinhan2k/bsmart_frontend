@@ -79,9 +79,12 @@ export default function CourseDetail({
             {courseName}
           </Typography>
           <Stack marginY={3}>
-            <Typography sx={globalStyles.textSmallLight}>
-              {courseDescription}
-            </Typography>
+            <Typography
+              sx={globalStyles.textSmallLight}
+              dangerouslySetInnerHTML={{
+                __html: courseDescription,
+              }}
+            />
           </Stack>
         </Stack>
       </Stack>
@@ -179,9 +182,12 @@ export default function CourseDetail({
                 </Typography>
               </Stack>
               <Stack marginY={1}>
-                <Typography sx={globalStyles.textSmallLight}>
-                  {mentorDescription}
-                </Typography>
+                <Typography
+                  sx={globalStyles.textSmallLight}
+                  dangerouslySetInnerHTML={{
+                    __html: mentorDescription,
+                  }}
+                />
               </Stack>
             </Stack>
           </Stack>

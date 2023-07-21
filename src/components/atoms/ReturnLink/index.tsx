@@ -3,13 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import Icon from '../Icon';
 
 interface Props {
-  to: string;
+  to?: string;
 }
 
 export default function ReturnLink({ to }: Props) {
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate(to, { state: { id: 0, name: '/' } });
+    if (to) {
+      navigate(to, { state: { id: 0, name: '/' } });
+    } else {
+      navigate(-1);
+    }
   };
   return (
     <Box sx={{ marginBottom: 1 }}>
