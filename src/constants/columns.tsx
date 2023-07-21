@@ -382,11 +382,28 @@ const userMentorColumns = userColumns.concat(
     sortable: false,
   }
 );
+const courseClassListColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã',
+    minWidth: 90,
+    flex: 1,
+    sortable: false,
+  },
+  {
+    field: 'name',
+    headerName: 'Tên lớp',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+  },
+];
 
 const columns = {
   templateColumns,
   feedbackQuestionColumns,
   categoryColumns,
+  courseClassListColumns,
   subjectColumns,
   registerRequestColumns,
   courseCreateRequestColumns,

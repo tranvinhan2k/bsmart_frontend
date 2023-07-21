@@ -231,29 +231,27 @@ export default function RequestCourseDetails({
             <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography sx={SX_FORM_ITEM_VALUE} align="right">
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Stack
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  spacing={1}
-                >
-                  <Chip
-                    color="default"
-                    label={`${title0[2].value}`}
-                    title={`${title0[2].value}`}
-                  />
-                  <Chip
-                    color="default"
-                    label={`${title0[3].value}`}
-                    title={`${title0[3].value}`}
-                  />
-                </Stack>
-              )}
-            </Typography>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <Stack
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                spacing={1}
+              >
+                <Chip
+                  color="default"
+                  label={`${title0[2].value}`}
+                  title={`${title0[2].value}`}
+                />
+                <Chip
+                  color="default"
+                  label={`${title0[3].value}`}
+                  title={`${title0[3].value}`}
+                />
+              </Stack>
+            )}
           </Grid>
           {/* <Grid item xs={12}>
             <Stack

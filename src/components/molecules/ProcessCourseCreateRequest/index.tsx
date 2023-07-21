@@ -98,7 +98,7 @@ export default function ProcessCourseCreateRequest({
     {
       icon: 'edit',
       title: 'Cập nhật',
-      onCLick: () => console.log('Hello'),
+      onCLick: () => console.log('Cập nhật'),
     },
   ];
   let menuItemList = null;
@@ -133,7 +133,6 @@ export default function ProcessCourseCreateRequest({
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Phê duyệt yêu cầu tạo khóa học của giáo viên"
         addItemButtonLabel="Thêm môn học"
         columns={columns.courseCreateRequestColumns}
         // onAdd={}

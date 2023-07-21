@@ -1,20 +1,32 @@
-import { MouseEvent, useState } from 'react';
-import { IconButton, MenuList, Popover, MenuItem } from '@mui/material';
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Popover,
+} from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
 import {
   DataGrid as MuiDataGrid,
   DataGridProps,
-  GridColumns,
-  viVN,
   gridClasses,
   GridColDef,
+  GridColumns,
+  viVN,
 } from '@mui/x-data-grid';
-import MenuIcon from '@mui/icons-material/Menu';
-import { alpha, styled } from '@mui/material/styles';
+import { MouseEvent, useState } from 'react';
+import Icon, { IconName } from '../Icon';
 
+export type MenuItemPayload = {
+  icon: IconName;
+  title: string;
+  onCLick: () => void;
+};
 interface MyDataGridProps extends DataGridProps {
   columns: GridColumns<object>;
   rows: object[];
-  popoverOptions?: { id: number; label: string; optionFunc: () => void }[];
+  popoverOptions?: MenuItemPayload[];
 }
 
 const ODD_OPACITY = 0.2;
@@ -58,38 +70,21 @@ export default function DataGrid({
   ...rest
 }: MyDataGridProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  // const [rowData, setRowData] = useState();
-  const openPopover = Boolean(anchorEl);
-  const handleActionCellClick = (
-    event: MouseEvent<HTMLButtonElement>,
-    params: any
-  ) => {
-    setAnchorEl(event.currentTarget);
-    // setRowData(params.row);
-  };
-  const handleClosePopover = () => {
-    setAnchorEl(null);
-  };
+  const handleOpen = (e: MouseEvent<HTMLButtonElement>) =>
+    setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(() => null);
 
-  // popover view details
-  const [displayRowData, setDisplayRowData] = useState(false);
-  const handleDisplayProfile = () => {
-    setDisplayRowData(true);
-    setAnchorEl(null);
-  };
-
-  // popover extra column
-  const actionColumn: GridColDef[] = [
+  const extraActionColumn: GridColDef[] = [
     {
       field: 'action',
-      headerName: 'Hành động',
+      headerName: '',
+      minWidth: 50,
+      flex: 1,
       filterable: false,
-      renderCell: (params: any) => (
-        <IconButton
-          onClick={(e: any) => handleActionCellClick(e, params)}
-          size="small"
-        >
-          <MenuIcon />
+      sortable: false,
+      renderCell: () => (
+        <IconButton onClick={handleOpen}>
+          <Icon name="moreVert" size="small_20" color="black" />
         </IconButton>
       ),
     },
@@ -99,29 +94,42 @@ export default function DataGrid({
     <>
       <StripedDataGrid
         autoHeight
-        columns={popoverOptions ? actionColumn.concat(columns) : columns}
+        columns={popoverOptions ? columns.concat(extraActionColumn) : columns}
         localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
         rows={rows}
+        getRowClassName={(params) =>
+          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        }
         {...rest}
       />
       <Popover
-        open={openPopover}
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onClose={handleClosePopover}
+        onClose={handleClose}
+        keepMounted
         anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'right',
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: 'center',
-          horizontal: 'left',
+          vertical: 'top',
+          horizontal: 'center',
         }}
       >
         <MenuList>
           {popoverOptions &&
-            popoverOptions.map((option) => (
-              <MenuItem onClick={option.optionFunc} key={option.id}>
-                {option.label}
+            popoverOptions.map((item) => (
+              <MenuItem
+                key={item.title}
+                onClick={() => {
+                  item.onCLick();
+                  handleClose();
+                }}
+              >
+                <ListItemIcon>
+                  <Icon name={item.icon} size="small" color="black" />
+                </ListItemIcon>
+                <ListItemText>{item.title}</ListItemText>
               </MenuItem>
             ))}
         </MenuList>

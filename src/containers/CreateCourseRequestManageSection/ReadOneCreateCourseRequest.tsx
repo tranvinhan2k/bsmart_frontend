@@ -6,6 +6,7 @@ import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import RequestBasicInfo from './RequestBasicInfo';
+import RequestCourseClassList from './RequestCourseClassList';
 import RequestCourseDetails from './RequestCourseDetails';
 import RequestCourseTimetable from './RequestCourseTimetable';
 import RequestDate from './RequestDate';
@@ -172,6 +173,7 @@ export default function ReadOneCreateCourseRequest({
           >
             <RequestBasicInfo row={row} />
             <RequestDate row={row} />
+            <RequestCourseClassList row={row} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={7} lg={8}>
@@ -182,7 +184,6 @@ export default function ReadOneCreateCourseRequest({
             spacing={2}
           >
             <RequestCourseDetails row={row} />
-            <RequestCourseTimetable row={row} />
             <Box sx={SX_BOX_ITEM_WRAPPER}>
               <Stack
                 direction={{ sm: 'column', md: 'row' }}
