@@ -17,15 +17,15 @@ export interface WithdrawMoneyProfilePayload {
 
 const transactionsApi = {
   async payQuick(data: {
-    subCourseId: number;
-    referralCode: string | undefined;
+    clazzId: number;
+    returnURL: string | undefined;
   }): Promise<any> {
     return axiosClient.post(`${url}/pay-quick`, data);
   },
   async pay(
     data: {
-      cartItemId: number;
-      referralCode: string | undefined;
+      clazzId: number;
+      returnURL: string | undefined;
     }[]
   ): Promise<any> {
     return axiosClient.post(`${url}/pay`, data);
