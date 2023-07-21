@@ -7,6 +7,7 @@ import {
   MentorClassInformationPage,
   MentorClassNotificationPage,
   MentorClassSchedulePage,
+  MentorClassStudentDetailPage,
   MentorClassStudentListPage,
   MentorTakeAttendancePage,
 } from '~/routes/components';
@@ -56,6 +57,18 @@ export const mentorClassRoutes: RoutePayload[] = [
   {
     path: MentorClassActionLink.students,
     main: () => <MentorClassStudentListPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: MentorClassActionLink.points,
+    main: () => <MentorClassStudentListPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorClassActionLink.student_detail}/:studentId`,
+    main: () => <MentorClassStudentDetailPage />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },

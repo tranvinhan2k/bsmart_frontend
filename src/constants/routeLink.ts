@@ -113,12 +113,14 @@ export const enum MentorCourseActionLink {
 }
 export const enum MentorClassActionLink {
   information = 'information',
-  students = 'students',
+  students = 'student',
+  student_detail = 'student-detail',
   schedule = 'schedule',
   attendance = 'attendance',
-  take_attendance = 'take_attendance',
+  take_attendance = 'take-attendance',
   activity = 'activity',
   notification = 'notification',
+  points = 'points',
 }
 export const enum MemberClassActionLink {
   information = 'information',

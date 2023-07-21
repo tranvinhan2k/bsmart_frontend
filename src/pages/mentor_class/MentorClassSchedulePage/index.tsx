@@ -18,6 +18,8 @@ export default function MentorSchedulePage() {
               isPresent: true,
               link: 'google.com',
               slotId: 1,
+              classId: 0,
+              attendanceSlotId: 0,
             },
           ]}
         />

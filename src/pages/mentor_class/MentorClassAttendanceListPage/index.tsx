@@ -17,6 +17,7 @@ export interface AttendanceTimeSlotPayload {
   slotName: string;
   time: string;
   date: string;
+  isPresent: boolean;
 }
 
 export default function MentorClassAttendanceListPage() {

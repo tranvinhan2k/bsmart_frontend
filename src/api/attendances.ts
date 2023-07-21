@@ -24,6 +24,7 @@ const attendanceApi = {
       slots:
         response.attendanceResponses?.items.map((item) => ({
           id: item.id,
+          studentId: item.student.id,
           image: image.mockStudent,
           isPresent: item.attendance ? 'PRESENT' : 'ABSENT',
           name: item.student.name,

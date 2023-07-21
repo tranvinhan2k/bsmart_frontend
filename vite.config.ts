@@ -13,12 +13,15 @@ export default defineConfig({
     host: true,
     port: 3000,
     proxy: {
-      '/our-websocket': {
-        target: 'ws://103.173.155.221:8080',
+      '/websocket': {
+        target: 'http://103.173.155.221:8080',
         ws: true,
       },
     },
   },
+  // define: {
+  //   global: {},
+  // },
   test: {
     globals: true,
     environment: 'jsdom',

@@ -1,4 +1,4 @@
-import { Chip } from '@mui/material';
+import { Chip, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import { getGender, handleDefinedText } from '~/utils/common';
@@ -8,6 +8,7 @@ import {
   formatISODateStringToDisplayDate,
 } from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -229,6 +230,25 @@ const attendanceClassColumns: GridColDef[] = [
     field: 'date',
     headerName: 'Ngày',
     flex: 5,
+    editable: true,
+  },
+  {
+    field: 'isPresent',
+    headerName: 'Trạng thái',
+    flex: 1,
+    renderCell: (params) => {
+      return (
+        <Typography
+          sx={{
+            fontSize: FontSize.small_14,
+            fontFamily: FontFamily.medium,
+            color: params.row.isPresent ? Color.green : Color.red,
+          }}
+        >
+          {params.row.isPresent ? 'Đã điểm danh' : ' Chưa điểm danh'}
+        </Typography>
+      );
+    },
     editable: true,
   },
 ];

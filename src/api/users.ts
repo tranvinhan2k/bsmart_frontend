@@ -303,6 +303,7 @@ const accountApi = {
         date: formatDate(timeSlot.date || '') || '',
         slotName: timeSlot.slot?.name || '',
         time: `${timeSlot.slot?.startTime} - ${timeSlot.slot?.endTime}`,
+        isPresent: true,
       })) || [];
 
     return result;

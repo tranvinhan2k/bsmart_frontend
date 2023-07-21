@@ -100,7 +100,7 @@ export default function WeekSchedule({ data }: Props) {
             );
             return {
               id: subItem.id,
-              timetableId: 0,
+              timetableId: subItemTimeSlot?.id || 0,
               date: slotDate,
               slotName: subItemTimeSlot
                 ? `${item.startTime} - ${item.endTime}`
@@ -263,7 +263,7 @@ export default function WeekSchedule({ data }: Props) {
                                 color="secondary"
                                 onClick={() =>
                                   navigate(
-                                    `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.id}`
+                                    `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
                                   )
                                 }
                               >

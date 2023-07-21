@@ -31,10 +31,16 @@ import globalStyles from '~/styles';
 import { useGetIdFromUrl } from '~/hooks';
 import { LoadingWrapper } from '~/HOCs';
 import ReturnLink from '~/components/atoms/ReturnLink';
+import {
+  MentorClassActionLink,
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 
 const initattendances: AttendanceMemberTimeSlotPayload[] = [
   {
     id: 0,
+    studentId: 2,
     image:
       'https://img2.thuthuatphanmem.vn/uploads/2019/05/06/anh-the-hoc-sinh_100828479.jpg',
     name: 'Trần Vĩ Nhân',
@@ -44,6 +50,7 @@ const initattendances: AttendanceMemberTimeSlotPayload[] = [
   },
   {
     id: 1,
+    studentId: 2,
     image:
       'https://khoinguonsangtao.vn/wp-content/uploads/2022/11/mau-anh-the-sac-net-nhat.jpeg',
     name: 'Nguyễn Văn A',
@@ -53,6 +60,7 @@ const initattendances: AttendanceMemberTimeSlotPayload[] = [
   },
   {
     id: 2,
+    studentId: 2,
     image: 'https://www.uit.edu.vn/sites/vi/files/image_from_word/va.jpeg',
     name: 'Trần Văn B',
     note: 'Hello',
@@ -63,6 +71,7 @@ const initattendances: AttendanceMemberTimeSlotPayload[] = [
 
 export interface AttendanceMemberTimeSlotPayload {
   id: number;
+  studentId: number;
   image: string;
   name: string;
   note: string;
@@ -80,27 +89,31 @@ export interface AttendanceMemberResponse {
 }
 
 export default function MentorTakeAttendancePage() {
+  const classId = useGetIdFromUrl('id');
   const navigate = useNavigate();
   const timetableId = useGetIdFromUrl('timetableId');
 
   // const { attendances, error, isLoading } = useQueryGetAttendance(
-  const { error, isLoading } = useQueryGetAttendance(`${timetableId}`);
+  const { attendances, error, isLoading } = useQueryGetAttendance(
+    `${timetableId}`
+  );
 
-  const attendances: AttendanceMemberResponse = {
-    date: new Date().toISOString(),
-    startTime: '01:00:00',
-    endTime: '02:00:00',
-    name: 'Khóa học dạy lập trình',
-    slots: initattendances,
-    total: 10,
-  };
+  // const attendances: AttendanceMemberResponse = {
+  //   date: new Date().toISOString(),
+  //   startTime: '01:00:00',
+  //   endTime: '02:00:00',
+  //   name: 'Khóa học dạy lập trình',
+  //   slots: initattendances,
+  //   total: 10,
+  // };
 
   const mutationResult = useMutationTakeAttendance();
 
   const [open, setOpen] = useState<boolean>(false);
   const [index, setIndex] = useState<number>(-1);
   const [showImage, setShowImage] = useState(true);
-  const [rows, setRows] = useState<AttendanceMemberTimeSlotPayload[]>(initattendances);
+  const [rows, setRows] =
+    useState<AttendanceMemberTimeSlotPayload[]>(initattendances);
   const [searchValue, setSearchValue] = useState('');
 
   const handleOpenImage = (iparam: number) => {
@@ -126,8 +139,10 @@ export default function MentorTakeAttendancePage() {
     setSearchValue(e.target.value);
   };
 
-  const handleNavigateViewDetail = () => {
-    navigate('/mentor-profile/view-member-attendance');
+  const handleNavigateViewDetail = (studentId: number) => {
+    navigate(
+      `${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${classId}/${MentorClassActionLink.student_detail}/${studentId}`
+    );
   };
 
   const handleAddNote = (note: string, id: number) => {
@@ -334,7 +349,7 @@ export default function MentorTakeAttendancePage() {
             </Grid>
             <Stack>
               {filterattendances?.length !== 0 && filterattendances ? (
-                filterattendances?.map((item: any, rowIndex: any) => {
+                filterattendances?.map((item, rowIndex: any) => {
                   return (
                     <AttendanceList
                       key={item.id}
@@ -342,7 +357,7 @@ export default function MentorTakeAttendancePage() {
                       index={rowIndex}
                       isShowImage={showImage}
                       onSetPresent={handleSetPresent}
-                      onViewDetail={handleNavigateViewDetail}
+                      onViewDetail={() => handleNavigateViewDetail(item.id)}
                       onZoomImage={handleOpenImage}
                       onAddNote={handleAddNote}
                     />

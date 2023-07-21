@@ -34,8 +34,9 @@ export default function MemberClassListPage() {
       imageUrl: image.mockCourse,
       name: 'Lớp Kiểm Thử',
       progressValue: 50,
-      status: '',
+      status: 'ALL',
       teacherName: ['Trần Vĩ Nhân'],
+      subjectId: 1,
     },
     {
       id: 1,
@@ -43,8 +44,9 @@ export default function MemberClassListPage() {
       imageUrl: image.mockCourse,
       name: 'Lớp Kiểm Thử',
       progressValue: 60,
-      status: '',
+      status: 'ALL',
       teacherName: ['Trần Vĩ Nhân'],
+      subjectId: 1,
     },
     {
       id: 2,
@@ -52,8 +54,9 @@ export default function MemberClassListPage() {
       imageUrl: image.mockCourse,
       name: 'Lớp Kiểm Thử',
       progressValue: 40,
-      status: '',
+      status: 'ALL',
       teacherName: ['Trần Vĩ Nhân'],
+      subjectId: 1,
     },
   ];
 
@@ -65,6 +68,7 @@ export default function MemberClassListPage() {
     sort: undefined,
     status: 'ALL',
   });
+
   const [value, setValue] = useState(0);
 
   // parameters

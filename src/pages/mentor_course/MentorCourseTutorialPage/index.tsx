@@ -43,7 +43,7 @@ export default function MentorCourseTutorialPage() {
     },
     {
       id: 1,
-      isCompleted: Boolean(content),
+      isCompleted: content?.length !== 0,
       label: 'Thêm nội dung khóa học',
       onClick: () =>
         navigate(

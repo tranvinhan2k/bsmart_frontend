@@ -39,4 +39,10 @@ export const MentorClassNavigationActionData: ActionPayload[] = [
     name: 'Thông báo lớp học',
     icon: 'account',
   },
+  {
+    id: 6,
+    link: MentorClassActionLink.points,
+    name: 'Điểm số',
+    icon: 'add',
+  },
 ];
