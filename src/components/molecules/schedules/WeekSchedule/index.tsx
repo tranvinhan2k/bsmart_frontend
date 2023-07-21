@@ -134,7 +134,7 @@ export default function WeekSchedule({ data }: Props) {
       >
         <Stack
           sx={{
-            width: '100px',
+            width: '80px',
             justifyContent: 'space-around',
             marginTop: '60px',
           }}
@@ -143,27 +143,27 @@ export default function WeekSchedule({ data }: Props) {
             return (
               <Stack
                 sx={{
-                  width: '100px',
                   textAlign: 'center',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 2,
+                  flex: 1,
+                  flexDirection: 'row',
                 }}
                 key={index}
               >
                 <Typography
                   sx={{
-                    ...globalStyles.textSmallLabel,
+                    fontSize: '12px',
+                    fontFamily: FontFamily.regular,
                   }}
                 >
-                  {item.name.toUpperCase()}
-                </Typography>
-                <Typography
-                  sx={{
-                    ...globalStyles.textLowSmallLight,
-                  }}
-                >
-                  {`${item.startTime} - ${item.endTime}`}
+                  <span
+                    style={{
+                      fontFamily: FontFamily.bold,
+                    }}
+                  >
+                    {item.name.toUpperCase()}
+                  </span>
+                  {/* {` ${item.startTime} - ${item.endTime}`} */}
                 </Typography>
               </Stack>
             );
@@ -196,9 +196,14 @@ export default function WeekSchedule({ data }: Props) {
                   return (
                     <Stack
                       sx={{
-                        border: '1px solid grey',
-                        borderRadius: MetricSize.small_10,
-                        height: '180px',
+                        borderRight: '0.5px solid grey',
+                        borderLeft: index === 0 ? '0.5px solid grey' : 'none',
+                        borderBottom:
+                          idx === item.slotIds.length - 1
+                            ? '0.5px solid grey'
+                            : 'none',
+                        borderTop: '0.5px solid grey',
+                        minHeight: '30px',
                         minWidth: '150px',
                       }}
                       key={idx}
@@ -209,7 +214,6 @@ export default function WeekSchedule({ data }: Props) {
                             margin: MetricSize.small_5,
                             padding: 2,
                             flex: 1,
-                            borderRadius: MetricSize.small_10,
                             background: `${Color.tertiary}33`,
                             justifyContent: 'space-between',
                           }}
