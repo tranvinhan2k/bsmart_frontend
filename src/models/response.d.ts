@@ -136,3 +136,23 @@ export type GetUserSchedule = Partial<{
     };
   }>[];
 }>[];
+
+export type ResponseUserClasses = Partial<{
+  id: number;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  course: {
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+    subject: {
+      id: number;
+      code: string;
+      name: string;
+      categoryIds: number[];
+    };
+  };
+  mentorName: string;
+}>;

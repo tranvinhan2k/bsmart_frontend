@@ -177,6 +177,31 @@ export const validationClassContentQuiz = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
 });
+
+export const validationClassListFilter = object({
+  startDate: date().typeError('Ngày phải hợp lệ (DD/MM/YYYY)'),
+  endDate: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .test(
+      'is-greater',
+      'Ngày kết thúc phài lớn hơn ngày bắt đầu',
+      function (endDate) {
+        const startDateExpected = this.parent.startDate;
+
+        if (!startDateExpected || !endDate) {
+          return true;
+        }
+
+        return (
+          new Date(endDate).getTime() > new Date(startDateExpected).getTime()
+        );
+      }
+    ),
+  subjectId: YupValidationForm.notEmptyString(
+    'Danh sách môn học không đươc để trống'
+  ),
+});
+
 export const validationClassContentAssignment = object({
   name: string().required('Tên bài tập không được để trống.'),
   description: string().required('Tên bài tập không được để trống.'),

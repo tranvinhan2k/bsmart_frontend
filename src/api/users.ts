@@ -11,10 +11,15 @@ import {
 } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
-import { ProfilePayload, WeekTimeSlotPayload } from '~/models/type';
-import { GetUserSchedule } from '~/models/response';
+import {
+  ClassMenuItemPayload,
+  ProfilePayload,
+  WeekTimeSlotPayload,
+} from '~/models/type';
+import { GetUserSchedule, ResponseUserClasses } from '~/models/response';
 import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
 import { compareDate } from '~/utils/date';
+import { image } from '~/constants/image';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -200,6 +205,8 @@ const accountApi = {
   signIn(data: LoginRequestPayload): Promise<any> {
     return axiosClient.post(`${urlAuth}/login`, data);
   },
+
+  // get
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
   },
@@ -210,6 +217,26 @@ const accountApi = {
     const response = await axiosClient.get(`${url}/profile`);
     const result: ProfilePayload = response;
     return result;
+  },
+  async getUserClass(
+    params: PagingFilterRequest
+  ): Promise<PagingFilterPayload<ClassMenuItemPayload>> {
+    const response: PagingFilterPayload<ResponseUserClasses> =
+      await axiosClient.get(`${url}/classes`, {
+        params,
+        paramsSerializer: { indexes: null },
+      });
+    const result: ClassMenuItemPayload[] = response.items.map((item) => ({
+      id: item.id || 0,
+      imageAlt: 'class image', // TODO: chua co
+      imageUrl: image.mockClass, // TODO: chua co
+      name: item.course?.name,
+      progressValue: 50, // TODO: chua co
+      status: 'NOTSTART', // TODO: chua co
+      subjectId: 1,
+      teacherName: [item.mentorName || ''],
+    }));
+    return { ...response, items: result };
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);

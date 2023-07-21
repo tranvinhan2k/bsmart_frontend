@@ -28,8 +28,9 @@ export default function MentorClassItem({ item }: Props) {
       name={item?.name}
       onClick={handleNavigateDetailClass}
       progressValue={item?.progressValue}
-      status={item?.status}
-      onAddFeedback={item?.id === 1 ? handleAddFeedback : undefined}
+      status={item?.status || 'ALL'}
+      subjectId={item?.subjectId || -1}
+      // onAddFeedback={item?.id === 1 ? handleAddFeedback : undefined}
       teacherName={['Trần Vĩ Nhân']}
     />
   );

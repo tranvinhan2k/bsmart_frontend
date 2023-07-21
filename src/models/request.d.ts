@@ -31,12 +31,18 @@ export interface PagingFilterRequest {
   q: string;
   page: number;
   size?: number;
-
   sort?: string[];
-  status?: ClassStatusKeys;
+
   categoryId?: number[];
   subjectId?: number[];
   skills?: number[];
+
+  startDate?: string;
+  endDate?: string;
+  status?: ClassStatusKeys;
+
+  // STUDENT 1 |TEACHER 0
+  asRole?: 1 | 0;
 }
 
 export interface PutCourseRequest {
