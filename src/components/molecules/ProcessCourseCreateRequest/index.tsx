@@ -3,7 +3,7 @@ import { useManageCourseCreateRequest } from '~/hooks/useManageCourseCreateReque
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import ReadOneCreateCourseRequest from '~/containers/CreateCourseRequestManageSection/ReadOneCreateCourseRequest';
+import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
 import toast from '~/utils/toast';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
@@ -111,7 +111,7 @@ export default function ProcessCourseCreateRequest({
     case 'READ':
       renderItem = (
         <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
-          <ReadOneCreateCourseRequest
+          <CourseCreateRequestDetails
             row={selectedRow}
             onSubmit={handleApproveCourseCreateRequest}
           />

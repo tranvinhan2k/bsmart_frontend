@@ -18,15 +18,15 @@ import {
   SX_REQUEST_TITLE,
 } from './style';
 
-interface ReadOneCreateCourseRequestProps {
+interface CourseCreateRequestDetailsProps {
   onSubmit: (data: ProcessCreateCourseRequestFormDefault) => Promise<void>;
   row: any;
 }
 
-export default function ReadOneCreateCourseRequest({
+export default function CourseCreateRequestDetails({
   onSubmit,
   row,
-}: ReadOneCreateCourseRequestProps) {
+}: CourseCreateRequestDetailsProps) {
   const resolverApproveCreateCourseRequest = useYupValidationResolver(
     validationSchemaApproveCreateCourseRequest
   );
