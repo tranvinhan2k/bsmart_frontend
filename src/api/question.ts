@@ -6,7 +6,7 @@ const url = 'question';
 const questionApi = {
   // get
   async getAllQuizQuestion(params: PagingFilterRequest): Promise<any> {
-    const response = await axiosClient.get(url, {
+    const response = await axiosClient.get(`${url}/filters`, {
       params,
     });
     // TODO: format this quiz question

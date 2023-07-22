@@ -7,6 +7,7 @@ export const useGetAllQuizQuestion = () => {
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     q: '',
     page: 0,
+    size: 12000,
   });
 
   const { data, error, isLoading, refetch } = useCustomQuery(
