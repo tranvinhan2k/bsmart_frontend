@@ -9,7 +9,7 @@ import { OptionPayload } from '~/models';
 import { SubjectPayload } from '~/models/type';
 
 const transformOptionData = (subjects: SubjectPayload[]) => {
-  const transformData: OptionPayload[] = subjects.map((item) => ({
+  const transformData: OptionPayload[] = subjects?.map((item) => ({
     id: item.id,
     label: item.name,
     value: `${item.id}`,

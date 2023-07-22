@@ -23,14 +23,17 @@ import {
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
-export default function MentorCourseSectionsPage() {
+interface Props {
+  refetchGetPercent: () => Promise<void>;
+}
+
+export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
   const [clearOpen, setClearOpen] = useState(false);
 
-  const { activity, isLoading, error, refetch } =
-    useGetDetailActivity(sectionId);
+  const { activity, isLoading, error } = useGetDetailActivity(sectionId);
 
   const { handleTryCatch } = useTryCatch('cập nhật nội dung');
   const deleteSection = useTryCatch('xóa học phần');
@@ -47,8 +50,8 @@ export default function MentorCourseSectionsPage() {
     visible: boolean;
     authorizeClasses: string[];
   }) => {
-    await handleTryCatch(async () =>
-      handleMutationUpdateSection({
+    await handleTryCatch(async () => {
+      await handleMutationUpdateSection({
         id: data.id,
         params: {
           name: data.name,
@@ -58,9 +61,8 @@ export default function MentorCourseSectionsPage() {
             [],
           courseId,
         },
-      })
-    );
-    await refetch();
+      });
+    });
     navigate(-1);
   };
 
@@ -70,6 +72,7 @@ export default function MentorCourseSectionsPage() {
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
+      await refetchGetPercent();
     });
     handleClearOpen();
   };

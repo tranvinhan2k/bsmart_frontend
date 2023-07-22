@@ -120,10 +120,8 @@ export default function MentorCourseModulesPage() {
     authorizeClasses: string[];
     description?: string;
   }) => {
-    console.log('id', data);
-
-    await handleTryCatch(async () =>
-      handleMutationUpdateLesson({
+    await handleTryCatch(async () => {
+      await handleMutationUpdateLesson({
         id: data.id,
         params: {
           name: data.name,
@@ -135,9 +133,8 @@ export default function MentorCourseModulesPage() {
           courseId,
           description: data?.description,
         },
-      })
-    );
-    await refetch();
+      });
+    });
   };
 
   const handleSubmitResource = async (data: {
@@ -222,7 +219,6 @@ export default function MentorCourseModulesPage() {
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
     });
-    hookFormResource.reset();
   };
 
   const handleSubmitAssignment = async (data: any) => {

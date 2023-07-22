@@ -9,7 +9,7 @@ import { OptionPayload } from '~/models';
 import { SlotPayload } from '~/models/slot';
 
 const transformOptionData = (slots: SlotPayload[]) => {
-  const transformData: OptionPayload[] = slots.map((item) => ({
+  const transformData: OptionPayload[] = slots?.map((item) => ({
     id: item.id,
     label: `${item.startTime} - ${item.endTime}`,
     value: `${item.id}`,

@@ -9,10 +9,9 @@ import ChooseTypeOfSubSection from '~/components/molecules/ChooseTypeOfSubSectio
 
 interface CreateSectionModulePayload {
   id: number;
-  refetch: any;
 }
 
-export default function AddModule({ id, refetch }: CreateSectionModulePayload) {
+export default function AddModule({ id }: CreateSectionModulePayload) {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleTriggerFormCreateModule = () => {

@@ -40,7 +40,7 @@ export const mentorCourseRoutes = (refetch: any): RoutePayload[] => {
     },
     {
       path: `${MentorCourseActionLink.content}/:sectionId/`,
-      main: () => <MentorCourseSectionsPage />,
+      main: () => <MentorCourseSectionsPage refetchGetPercent={refetch} />,
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },
