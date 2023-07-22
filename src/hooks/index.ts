@@ -5,6 +5,7 @@ export * from './useSubmitForReviewCourse';
 export * from './useGetIdFromUrl';
 export * from './useMenuItem';
 export * from './useLogOut';
+export * from './useScrollIntoView';
 
 // user
 export * from './schedule/useQueryGetSchedule';

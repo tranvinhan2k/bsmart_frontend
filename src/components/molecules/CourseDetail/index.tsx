@@ -16,6 +16,10 @@ interface Props {
   mentorDescription: string;
   courseName: string;
   courseDescription: string;
+  introduceRef: any;
+  contentRef: any;
+  classesRef: any;
+  mentorRef: any;
   sections: ActivityPayload[];
   classes: DetailCourseClassPayload[];
 }
@@ -28,10 +32,14 @@ export default function CourseDetail({
   mentorDescription,
   mentorImageUrl,
   mentorName,
+  introduceRef,
+  contentRef,
+  classesRef,
+  mentorRef,
   sections,
 }: Props) {
   return (
-    <Stack>
+    <Stack ref={introduceRef}>
       <ImageSlider slides={images || []} />
       <Stack
         paddingX={5}
@@ -120,25 +128,25 @@ export default function CourseDetail({
         </Typography>
       </Stack>
       <Divider sx={{ marginY: 4 }} /> */}
-        <>
-          <Stack>
-            <Typography sx={globalStyles.textSmallLabel}>
-              Khung chương trình
-            </Typography>
-            <Stack
-              sx={{
-                marginTop: 1,
-                paddingX: 2,
-                background: Color.white,
-                borderRadius: MetricSize.small_5,
-              }}
-            >
-              <Content sections={sections || []} />
-            </Stack>
+
+        <Stack ref={contentRef}>
+          <Typography sx={globalStyles.textSmallLabel}>
+            Khung chương trình
+          </Typography>
+          <Stack
+            sx={{
+              marginTop: 1,
+              paddingX: 2,
+              background: Color.white,
+              borderRadius: MetricSize.small_5,
+            }}
+          >
+            <Content sections={sections || []} />
           </Stack>
-          <Divider sx={{ marginY: 3 }} />
-        </>
-        <Stack>
+        </Stack>
+        <Divider sx={{ marginY: 3 }} />
+
+        <Stack ref={classesRef}>
           <Typography sx={globalStyles.textSmallLabel}>
             Danh sách lớp học
           </Typography>
@@ -147,52 +155,50 @@ export default function CourseDetail({
           </Stack>
         </Stack>
         <Divider sx={{ marginY: 4 }} />
-        <>
-          <Stack>
-            <Typography sx={globalStyles.textSmallLabel}>
-              Về giáo viên
-            </Typography>
+
+        <Stack ref={mentorRef}>
+          <Typography sx={globalStyles.textSmallLabel}>Về giáo viên</Typography>
+          <Stack
+            sx={{
+              marginTop: 1,
+            }}
+          >
             <Stack
               sx={{
-                marginTop: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
-              <Stack
+              <Box
                 sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  borderRadius: 1000,
+                  width: '50px',
+                  aspectRatio: 1,
+                  height: undefined,
+                  objectFit: 'cover',
+                  background: Color.white,
+                  marginRight: 1,
                 }}
-              >
-                <Box
-                  sx={{
-                    borderRadius: 1000,
-                    width: '50px',
-                    aspectRatio: 1,
-                    height: undefined,
-                    objectFit: 'cover',
-                    background: Color.white,
-                    marginRight: 1,
-                  }}
-                  component="img"
-                  alt="giao vien"
-                  src={mentorImageUrl}
-                />
-                <Typography sx={globalStyles.textSmallLight}>
-                  {mentorName}
-                </Typography>
-              </Stack>
-              <Stack marginY={1}>
-                <Typography
-                  sx={globalStyles.textSmallLight}
-                  dangerouslySetInnerHTML={{
-                    __html: mentorDescription,
-                  }}
-                />
-              </Stack>
+                component="img"
+                alt="giao vien"
+                src={mentorImageUrl}
+              />
+              <Typography sx={globalStyles.textSmallLight}>
+                {mentorName}
+              </Typography>
+            </Stack>
+            <Stack marginY={1}>
+              <Typography
+                sx={globalStyles.textSmallLight}
+                dangerouslySetInnerHTML={{
+                  __html: mentorDescription,
+                }}
+              />
             </Stack>
           </Stack>
-          <Divider sx={{ marginY: 4 }} />
-        </>
+        </Stack>
+        <Divider sx={{ marginY: 4 }} />
+
         <Stack>
           <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
         </Stack>

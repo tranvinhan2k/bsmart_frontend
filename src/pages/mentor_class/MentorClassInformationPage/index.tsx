@@ -1,5 +1,6 @@
 import { Stack, Typography, Divider, Box } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import TextTitle from '~/components/atoms/texts/TextTitle';
 import Timetable from '~/components/molecules/Timetable';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
@@ -78,6 +79,12 @@ export default function MentorClassInformationPage() {
     },
     {
       id: 0,
+      name: 'Thời khóa biểu',
+      timetable: detailClass.timetable,
+      type: 'timetable',
+    },
+    {
+      id: 0,
       name: 'Hình ảnh',
       value: detailClass.imageUrl,
       alt: detailClass.imageAlt,
@@ -125,22 +132,13 @@ export default function MentorClassInformationPage() {
         ClassStatusList.find((item) => item.value === detailClass.status)?.label
       }`,
     },
-    {
-      id: 0,
-      name: 'Thời khóa biểu',
-      timetable: detailClass.timetable,
-      type: 'timetable',
-    },
   ];
 
   return (
     <Stack>
-      <Stack>
-        <Typography sx={globalStyles.textTitle}>Thông tin khóa học</Typography>
-        <Divider />
-      </Stack>
+      <TextTitle title="Nội dung khóa học" />
       {displayLineData.map((item, index) => (
-        <Stack key={index} sx={{ marginTop: 2 }}>
+        <Stack key={index}>
           <Typography
             sx={{
               fontSize: FontSize.small_14,
@@ -152,10 +150,8 @@ export default function MentorClassInformationPage() {
           <Typography
             sx={{
               marginTop: 1,
-              ...globalStyles.textSmallLight,
-              padding: 1,
-              borderRadius: MetricSize.small_5,
-              background: Color.whiteSmoke,
+              ...globalStyles.textLowSmallLight,
+              color: Color.black,
             }}
           >
             {item.type === 'image' && (

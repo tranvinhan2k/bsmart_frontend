@@ -6,6 +6,7 @@ import {
   MentorClassContentPage,
   MentorClassInformationPage,
   MentorClassNotificationPage,
+  MentorClassPointsPage,
   MentorClassSchedulePage,
   MentorClassStudentDetailPage,
   MentorClassStudentListPage,
@@ -62,7 +63,7 @@ export const mentorClassRoutes: RoutePayload[] = [
   },
   {
     path: MentorClassActionLink.points,
-    main: () => <MentorClassStudentListPage />,
+    main: () => <MentorClassPointsPage />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },

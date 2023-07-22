@@ -31,6 +31,10 @@ interface Props {
   categoryName: string;
   subjectName: string;
   classes: DetailCourseClassPayload[];
+  scrollIntroduce: () => void;
+  scrollContent: () => void;
+  scrollClasses: () => void;
+  scrollMentor: () => void;
 }
 
 const initClass: DetailCourseClassPayload = {
@@ -54,6 +58,10 @@ export default function Sidebar({
   classes,
   categoryName,
   subjectName,
+  scrollClasses,
+  scrollContent,
+  scrollIntroduce,
+  scrollMentor,
 }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -169,23 +177,23 @@ export default function Sidebar({
   }[] = [
     {
       id: 0,
-      name: 'Kiến thức học được',
-      onClick: () => {},
+      name: 'Giới thiệu khóa học',
+      onClick: scrollIntroduce,
     },
     {
       id: 1,
       name: 'Khung chương trình',
-      onClick: () => {},
+      onClick: scrollContent,
     },
     {
       id: 2,
       name: 'Danh sách lớp học',
-      onClick: () => {},
+      onClick: scrollClasses,
     },
     {
       id: 3,
       name: 'Về giáo viên',
-      onClick: () => {},
+      onClick: scrollMentor,
     },
   ];
 

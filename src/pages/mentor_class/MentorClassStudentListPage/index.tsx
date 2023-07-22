@@ -14,6 +14,7 @@ import { Color, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import TextLine from '~/components/atoms/TextLine';
+import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { image } from '~/constants/image';
 import {
@@ -109,9 +110,8 @@ export default function MentorClassStudentListPage() {
 
   return (
     <Stack>
-      <Typography sx={globalStyles.textTitle}>Danh sách học viên</Typography>
-      <Divider />
-      <Stack marginTop={1}>
+      <TextTitle title="Danh sách học sinh" />
+      <Stack>
         <FormControlLabel
           control={
             <Switch

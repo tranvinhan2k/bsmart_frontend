@@ -11,6 +11,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { useGetIdFromUrl, useQueryGetDetailSchedule } from '~/hooks';
+import TextTitle from '~/components/atoms/texts/TextTitle';
 
 export interface AttendanceTimeSlotPayload {
   id: number;
@@ -74,9 +75,8 @@ export default function MentorClassAttendanceListPage() {
 
   return (
     <Stack>
-      <Typography sx={globalStyles.textTitle}>Điểm danh</Typography>
-      <Divider />
-      <Stack marginTop={1}>
+      <TextTitle title="Điểm danh lớp học" />
+      <Stack>
         <CRUDTable
           columns={columns.attendanceClassColumns}
           rows={rows}

@@ -1,17 +1,11 @@
 import { Stack } from '@mui/material';
-import { MetricSize } from '~/assets/variables';
+import TextTitle from '~/components/atoms/texts/TextTitle';
 import Content from '~/components/molecules/Content';
 
 export default function MentorClassContentPage() {
   return (
-    <Stack
-      sx={{
-        background: '#ddd',
-        borderRadius: MetricSize.small_5,
-        paddingY: 1,
-        paddingX: 2,
-      }}
-    >
+    <Stack>
+      <TextTitle title="Nội dung lớp học" />
       <Content
         sections={[
           {
