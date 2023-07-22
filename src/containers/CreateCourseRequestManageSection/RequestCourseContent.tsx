@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface RequestCourseContentProps {
@@ -18,8 +18,8 @@ interface RequestCourseContentProps {
 export default function RequestCourseContent({
   idCourse,
 }: RequestCourseContentProps) {
-  const { classesOfCourseWithCourseDetails, isLoading } =
-    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
+  const { courseCreateRequestDetails, isLoading } =
+    useGetCourseCreateRequestDetails(idCourse);
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
@@ -35,7 +35,7 @@ export default function RequestCourseContent({
           <Box mb={4}>
             <Typography sx={SX_FORM_LABEL}>Nội dung khóa học</Typography>
           </Box>
-          {classesOfCourseWithCourseDetails?.activities.map((item) => (
+          {courseCreateRequestDetails?.activities.map((item) => (
             // <Accordion defaultExpanded key={item.id}>
             <Accordion key={item.id}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>

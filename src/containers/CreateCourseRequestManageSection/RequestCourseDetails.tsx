@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Fragment } from 'react';
 import { FontFamily } from '~/assets/variables';
-import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleDefinedTextReturnComp } from '~/utils/commonComp';
 import { formatMoney } from '~/utils/money';
 import {
@@ -30,51 +30,45 @@ export default function RequestCourseDetails({
   // const userAvatar = row.imageUrl;
 
   // const idCourse = row.id;
-  const { classesOfCourseWithCourseDetails, isLoading } =
-    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
+  const { courseCreateRequestDetails, isLoading } =
+    useGetCourseCreateRequestDetails(idCourse);
 
-  const title0 = classesOfCourseWithCourseDetails
+  const title0 = courseCreateRequestDetails
     ? [
         {
           id: 0,
           label: 'Mã khóa học',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.code
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.code),
         },
         {
           id: 1,
           label: 'Tên khóa học',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.name
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.name),
         },
         {
           id: 2,
           label: 'Category',
           value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.categoryResponse.name
+            courseCreateRequestDetails.categoryResponse.name
           ),
         },
         {
           id: 3,
           label: 'Subject',
           value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.subjectResponse.name
+            courseCreateRequestDetails.subjectResponse.name
           ),
         },
         {
           id: 4,
           label: 'Trình độ',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.level
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
         },
         {
           id: 5,
           label: 'Mô tả',
           value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.description
+            courseCreateRequestDetails.description
           ),
         },
       ]
@@ -111,14 +105,12 @@ export default function RequestCourseDetails({
         },
       ];
 
-  const title1 = classesOfCourseWithCourseDetails
+  const title1 = courseCreateRequestDetails
     ? [
         {
           id: 0,
           label: 'Trình độ',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.level
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
         },
       ]
     : [
@@ -129,7 +121,7 @@ export default function RequestCourseDetails({
         },
       ];
 
-  // const title2 = classesOfCourseWithCourseDetails
+  // const title2 = courseCreateRequestDetails
   //   ? [
   //       {
   //         id: 0,

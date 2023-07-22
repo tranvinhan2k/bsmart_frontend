@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
@@ -14,14 +14,14 @@ interface RequestCourseTimetableProps {
 export default function RequestCourseClassList({
   idCourse,
 }: RequestCourseTimetableProps) {
-  const { classesOfCourseWithCourseDetails, isLoading, error } =
-    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
-  // const classesOfCourseWithCourseDetails = undefined;
+  const { courseCreateRequestDetails, isLoading, error } =
+    useGetCourseCreateRequestDetails(idCourse);
+  // const courseCreateRequestDetails = undefined;
   // const isLoading = undefined;
   // const error = undefined;
 
-  const rows = classesOfCourseWithCourseDetails
-    ? classesOfCourseWithCourseDetails?.classes
+  const rows = courseCreateRequestDetails
+    ? courseCreateRequestDetails?.classes
     : [];
 
   const [mode, setMode] = useState<'READ' | ''>('');

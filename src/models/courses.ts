@@ -24,7 +24,7 @@ export interface CourseModulePayload {
   topic: { id: number; label: string }[];
 }
 
-export interface ClassesOfCourseWithCourseDetails {
+export interface CourseCreateRequestDetails {
   id: number;
   code: string;
   name: string;
