@@ -4,7 +4,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
-import MemberAttendanceListPage from '~/pages/MemberAttendanceListPage';
+import MemberAttendanceListPage from '~/pages/member_class/MemberAttendanceListPage';
 import {
   NotFoundPage,
   SchedulePage,

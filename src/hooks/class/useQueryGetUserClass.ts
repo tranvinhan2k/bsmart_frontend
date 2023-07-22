@@ -3,14 +3,14 @@ import { PagingFilterRequest } from '~/models';
 import { useCustomQuery } from '../custom/useCustomQuery';
 import accountApi from '~/api/users';
 import { ClassStatusKeys } from '~/models/variables';
-import { ClassStatusList } from '~/constants';
 
-export const useQueryGetUserClass = () => {
+export const useQueryGetUserClass = (role: 'STUDENT' | 'TEACHER') => {
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     q: '',
     page: 0,
     size: 24,
     status: 'ALL',
+    asRole: role === 'STUDENT' ? 1 : 0,
   });
 
   const handleChangeSearchValue = (q: string) => {
@@ -24,14 +24,17 @@ export const useQueryGetUserClass = () => {
     setFilterParams((prev) => ({ ...prev, page }));
   };
 
-  const handleChangeStartDate = (startDate: string) => {
-    setFilterParams((prev) => ({ ...prev, startDate }));
-  };
-  const handleChangeEndDate = (endDate: string) => {
-    setFilterParams((prev) => ({ ...prev, endDate }));
-  };
-  const handleChangeSubjectId = (subjectId: number[]) => {
-    setFilterParams((prev) => ({ ...prev, subjectId }));
+  const handleFilter = (params: {
+    startDate: string;
+    endDate: string;
+    subjectId: number[];
+  }) => {
+    setFilterParams((prev) => ({
+      ...prev,
+      startDate: params.startDate,
+      endDate: params.endDate,
+      subjectId: params.subjectId,
+    }));
   };
 
   const { data, error, isLoading, refetch } = useCustomQuery(
@@ -51,11 +54,9 @@ export const useQueryGetUserClass = () => {
     error,
     isLoading,
     filterParams,
-    handleChangeEndDate,
     handleChangePage,
     handleChangeSearchValue,
-    handleChangeStartDate,
-    handleChangeSubjectId,
+    handleFilter,
     handleChangeStatus,
   };
 };

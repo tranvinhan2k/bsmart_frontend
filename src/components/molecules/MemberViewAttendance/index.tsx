@@ -4,6 +4,7 @@ import { FontFamily } from '~/assets/variables';
 import columns from '~/constants/columns';
 import DataGrid from '~/components/atoms/DataGrid';
 import globalStyles from '~/styles';
+import TextTitle from '~/components/atoms/texts/TextTitle';
 
 export default function MemberViewAttendance() {
   const tmpTextList1 = [
@@ -23,8 +24,7 @@ export default function MemberViewAttendance() {
 
   return (
     <Stack>
-      <Typography sx={globalStyles.textTitle}>Điểm danh</Typography>
-      <Box mt={4}>
+      <Box>
         <Grid
           container
           direction="row"

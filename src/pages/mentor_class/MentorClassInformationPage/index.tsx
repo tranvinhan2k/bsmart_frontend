@@ -1,6 +1,7 @@
 import { Stack, Typography, Divider, Box } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import TextTitle from '~/components/atoms/texts/TextTitle';
+import ClassInformationList from '~/components/molecules/ClassInformationList';
 import Timetable from '~/components/molecules/Timetable';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
@@ -56,131 +57,24 @@ export default function MentorClassInformationPage() {
     ],
   };
 
-  const displayLineData: {
-    id: number;
-    name: string;
-    value?: string;
-    alt?: string;
-    type?: 'text' | 'image' | 'timetable';
-    timetable?: {
-      slot: OptionPayload;
-      dayOfWeek: OptionPayload;
-    }[];
-  }[] = [
-    {
-      id: 0,
-      name: 'Mã khóa học',
-      value: detailClass.code,
-    },
-    {
-      id: 0,
-      name: 'Tên lớp học',
-      value: detailClass.name,
-    },
-    {
-      id: 0,
-      name: 'Thời khóa biểu',
-      timetable: detailClass.timetable,
-      type: 'timetable',
-    },
-    {
-      id: 0,
-      name: 'Hình ảnh',
-      value: detailClass.imageUrl,
-      alt: detailClass.imageAlt,
-      type: 'image',
-    },
-    {
-      id: 0,
-      name: 'Ngày bắt đầu',
-      value: formatDate(detailClass.startDate),
-    },
-    {
-      id: 0,
-      name: 'Ngày kết thúc',
-      value: formatDate(detailClass.endDate),
-    },
-    {
-      id: 0,
-      name: 'Lĩnh vực',
-      value: detailClass.categoryName,
-    },
-    {
-      id: 0,
-      name: 'Môn học',
-      value: detailClass.subjectName,
-    },
-    {
-      id: 0,
-      name: 'Sớ buổi học',
-      value: `${detailClass.numberOfSlot}`,
-    },
-    {
-      id: 0,
-      name: 'Số học sinh',
-      value: `${detailClass.numberOfStudent}`,
-    },
-    {
-      id: 0,
-      name: 'Giá lớp học',
-      value: formatMoney(detailClass.price),
-    },
-    {
-      id: 0,
-      name: 'Trạng thái',
-      value: `${
-        ClassStatusList.find((item) => item.value === detailClass.status)?.label
-      }`,
-    },
-  ];
-
   return (
     <Stack>
       <TextTitle title="Nội dung khóa học" />
-      {displayLineData.map((item, index) => (
-        <Stack key={index}>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_14,
-              fontFamily: FontFamily.bold,
-            }}
-          >
-            {item.name}
-          </Typography>
-          <Typography
-            sx={{
-              marginTop: 1,
-              ...globalStyles.textLowSmallLight,
-              color: Color.black,
-            }}
-          >
-            {item.type === 'image' && (
-              <Box
-                component="img"
-                src={item.value}
-                alt={item.alt}
-                sx={{
-                  width: '50%',
-                  height: undefined,
-                  aspectRatio: 16 / 9,
-                  objectFit: 'cover',
-                }}
-              />
-            )}
-            {item.type === 'timetable' && (
-              <Timetable
-                data={
-                  item.timetable?.map((time) => ({
-                    dayOfWeekId: time.dayOfWeek.id,
-                    slotId: time.slot.id,
-                  })) || []
-                }
-              />
-            )}
-            {!item.type && item.value}
-          </Typography>
-        </Stack>
-      ))}
+      <ClassInformationList
+        categoryName={detailClass.categoryName}
+        code={detailClass.code}
+        endDate={detailClass.endDate}
+        imageAlt={detailClass.imageAlt}
+        imageUrl={detailClass.imageUrl}
+        name={detailClass.name}
+        numberOfSlot={detailClass.numberOfSlot}
+        numberOfStudent={detailClass.numberOfStudent}
+        price={detailClass.price}
+        startDate={detailClass.startDate}
+        status={detailClass.status}
+        subjectName={detailClass.subjectName}
+        timetable={detailClass.timetable}
+      />
     </Stack>
   );
 }

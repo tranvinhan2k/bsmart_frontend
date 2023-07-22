@@ -24,7 +24,7 @@ export default function SchedulePage() {
 
   return (
     <Stack>
-      <Typography sx={globalStyles.textSubTitle}>Lịch làm việc</Typography>
+      <Typography sx={globalStyles.textSubTitle}>Lịch học</Typography>
 
       <Stack
         sx={{

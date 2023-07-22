@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import Content from '~/components/molecules/Content';
 
-export default function MemberClassContentPage() {
+export default function MentorClassContentPage() {
   return (
     <Stack>
       <TextTitle title="Nội dung lớp học" />

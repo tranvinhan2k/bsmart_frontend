@@ -2,6 +2,7 @@ import { Stack, Typography, Divider, Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import ReturnLink from '~/components/atoms/ReturnLink';
+import UserDetailInformation from '~/components/molecules/UserDetailInformation';
 import { image } from '~/constants/image';
 import globalStyles from '~/styles';
 
@@ -11,6 +12,7 @@ export interface MentorClassDetailPayload {
   email: string;
   phone: string;
   imageUrl: string;
+  imageAlt: string;
   attendanceInformation: {
     timeSlotOff: number;
     timeSlotLeft: number;
@@ -33,6 +35,7 @@ export default function MentorClassStudentDetailPage() {
     },
     id: 0,
     imageUrl: image.mockStudent,
+    imageAlt: 'hinh anh hoc sinh',
     points: [
       {
         id: 0,
@@ -52,65 +55,13 @@ export default function MentorClassStudentDetailPage() {
       <ReturnLink />
       <Typography sx={globalStyles.textSubTitle}>Chi tiết học sinh</Typography>
       <Divider />
-      <Stack marginTop={2}>
-        <Typography sx={globalStyles.textSmallLabel}>
-          Thông tin học sinh
-        </Typography>
-
-        <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Stack>
-            <Box
-              component="img"
-              sx={{
-                width: '100px',
-                aspectRatio: 3 / 4,
-                borderRadius: MetricSize.small_5,
-              }}
-              src={student.imageUrl}
-              alt="anh hoc sinh"
-            />
-          </Stack>
-          <Stack
-            sx={{
-              marginLeft: 1,
-            }}
-          >
-            {[
-              { label: 'Tên học sinh', value: student.name },
-              { label: 'Email', value: student.email },
-              { label: 'Số điện thoại', value: student.phone },
-            ].map((item, index) => (
-              <Stack marginTop={1} key={index}>
-                <Typography
-                  sx={{
-                    fontFamily: FontFamily.bold,
-                    fontSize: FontSize.small_14,
-                    color: Color.black,
-                  }}
-                >
-                  {item.label}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: FontFamily.regular,
-                    fontSize: FontSize.small_16,
-                    color: Color.black,
-                  }}
-                >
-                  {item.value}
-                </Typography>
-              </Stack>
-            ))}
-          </Stack>
-        </Stack>
-        <Typography sx={globalStyles.textSmallLabel}>
-          Thông tin điểm số
-        </Typography>
-
-        <Typography sx={globalStyles.textSmallLabel}>
-          Thông tin điểm danh
-        </Typography>
-      </Stack>
+      <UserDetailInformation
+        email={student.email}
+        imageAlt={student.imageAlt}
+        imageUrl={student.imageUrl}
+        name={student.name}
+        phone={student.phone}
+      />
     </Stack>
   );
 }

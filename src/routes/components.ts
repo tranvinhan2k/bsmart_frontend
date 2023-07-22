@@ -7,9 +7,7 @@ export const LmsPage = lazy(() => import('~/pages/LmsPage'));
 export const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 export const BlogPage = lazy(() => import('~/pages/BlogPage'));
 export const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
-export const MemberAttendanceListPage = lazy(
-  () => import('~/pages/MemberAttendanceListPage')
-);
+
 export const MemberEditPersonalInfoPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
 );
@@ -167,6 +165,9 @@ export const MentorClassStudentDetailPage = lazy(
 export const MentorClassPointsPage = lazy(
   () => import('~/pages/mentor_class/MentorClassPointsPage')
 );
+export const MentorClassFeedbacksPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassFeedbacksPage')
+);
 
 // member class
 export const MemberClassDetailPage = lazy(
@@ -174,4 +175,19 @@ export const MemberClassDetailPage = lazy(
 );
 export const MemberClassListPage = lazy(
   () => import('~/pages/member_class/MemberClassListPage')
+);
+export const MemberClassContentPage = lazy(
+  () => import('~/pages/member_class/MemberClassContentPage')
+);
+export const MemberClassInformationPage = lazy(
+  () => import('~/pages/member_class/MemberClassInformationPage')
+);
+export const MemberClassSchedulePage = lazy(
+  () => import('~/pages/member_class/MemberClassSchedulePage')
+);
+export const MemberAttendanceListPage = lazy(
+  () => import('~/pages/member_class/MemberAttendanceListPage')
+);
+export const MemberClassMentorDetailPage = lazy(
+  () => import('~/pages/member_class/MemberClassMentorDetailPage')
 );
