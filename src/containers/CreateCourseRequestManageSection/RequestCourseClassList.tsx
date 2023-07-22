@@ -5,8 +5,10 @@ import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
 import columns from '~/constants/columns';
+import CustomDialog from '~/components/atoms/CustomDialog';
 import Timetable from '~/components/molecules/Timetable';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
+import RequestCourseClassDetails from './RequestCourseClassDetails';
 
 interface RequestCourseTimetableProps {
   row: any;
@@ -50,8 +52,11 @@ export default function RequestCourseClassList({
   const [rowSelectionModel, setRowSelectionModel] =
     useState<GridSelectionModel>([]);
 
+  const [open, setOpen] = useState<boolean>(false);
+  const handleTriggerDialog = () => setOpen(!open);
+
   const handleViewDetails = () => {
-    console.log('Xem chi tiết');
+    handleTriggerDialog();
   };
 
   const popoverOptions: MenuItemPayload[] = [
@@ -107,6 +112,9 @@ export default function RequestCourseClassList({
           Phê duyệt các lớp đã chọn
         </Button>
       </Stack>
+      <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="md">
+        <RequestCourseClassDetails onClose={handleTriggerDialog} />
+      </CustomDialog>
     </Stack>
   );
 }

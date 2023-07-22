@@ -7,11 +7,16 @@ import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import RequestBasicInfo from './RequestBasicInfo';
 import RequestCourseClassList from './RequestCourseClassList';
+import RequestCourseContent from './RequestCourseContent';
 import RequestCourseDetails from './RequestCourseDetails';
 import RequestCourseTimetable from './RequestCourseTimetable';
 import RequestDate from './RequestDate';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_BOX_ITEM_WRAPPER, SX_REQUEST_TITLE } from './style';
+import {
+  SX_BOX_ITEM_WRAPPER_NO_PADDING,
+  SX_BOX_STICKY,
+  SX_REQUEST_TITLE,
+} from './style';
 
 interface ReadOneCreateCourseRequestProps {
   onSubmit: (data: ProcessCreateCourseRequestFormDefault) => Promise<void>;
@@ -170,10 +175,27 @@ export default function ReadOneCreateCourseRequest({
             justifyContent="flex-start"
             alignItems="stretch"
             spacing={2}
+            sx={SX_BOX_STICKY}
           >
             <RequestBasicInfo row={row} />
-            <RequestDate row={row} />
-            <RequestCourseClassList row={row} />
+            <Box pt={2} sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
+              <Tabs
+                variant="scrollable"
+                scrollButtons="auto"
+                value={tabValue}
+                onChange={handleSetTabValue}
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
+              >
+                {tabEl.map((tab) => (
+                  <Tab label={tab.text} key={tab.id} />
+                ))}
+              </Tabs>
+              {tabEl.map((tab) => (
+                <TabPanel value={tabValue} index={tab.id} key={tab.id}>
+                  <Box p={2}>{tab.component}</Box>
+                </TabPanel>
+              ))}
+            </Box>
           </Stack>
         </Grid>
         <Grid item sm={12} md={7} lg={8}>
@@ -184,37 +206,9 @@ export default function ReadOneCreateCourseRequest({
             spacing={2}
           >
             <RequestCourseDetails row={row} />
-            <Box sx={SX_BOX_ITEM_WRAPPER}>
-              <Stack
-                direction={{ sm: 'column', md: 'row' }}
-                justifyContent="space-between"
-                alignItems="center"
-                spacing={{ sm: 2, md: 0 }}
-                sx={{ borderBottom: 1, borderColor: 'divider' }}
-                pb={{ sm: 2, md: 0 }}
-              >
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Tabs
-                    variant="scrollable"
-                    value={tabValue}
-                    onChange={handleSetTabValue}
-                  >
-                    {tabEl.map((tab) => (
-                      <Tab label={tab.text} key={tab.id} />
-                    ))}
-                  </Tabs>
-                </Stack>
-              </Stack>
-              {tabEl.map((tab) => (
-                <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-                  <Box py={2}>{tab.component}</Box>
-                </TabPanel>
-              ))}
-            </Box>
+            <RequestDate row={row} />
+            <RequestCourseContent row={row} />
+            <RequestCourseClassList row={row} />
           </Stack>
         </Grid>
       </Grid>

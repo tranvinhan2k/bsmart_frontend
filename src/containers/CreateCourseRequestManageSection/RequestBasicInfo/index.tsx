@@ -85,7 +85,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
               <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="flex-start"
+                alignItems="center"
               >
                 <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
 

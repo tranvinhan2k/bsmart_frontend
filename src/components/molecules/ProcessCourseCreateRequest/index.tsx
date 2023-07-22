@@ -95,11 +95,6 @@ export default function ProcessCourseCreateRequest({
       title: 'Xem chi tiết',
       onCLick: handleOpenDetailCourseCreateRequest,
     },
-    {
-      icon: 'edit',
-      title: 'Cập nhật',
-      onCLick: () => console.log('Cập nhật'),
-    },
   ];
   let menuItemList = null;
   switch (status) {

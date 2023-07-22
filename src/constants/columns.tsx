@@ -221,6 +221,18 @@ const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'dateFirstClassExpectToOpen',
     headerName: 'Bắt đầu sớm nhất',
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: 'requestDate',
+    headerName: 'Ngày gửi',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'noOfSubmit',
+    headerName: 'Lần gửi',
     minWidth: 200,
     flex: 1,
   },
@@ -413,15 +425,32 @@ const courseClassListColumns: GridColDef[] = [
     field: 'code',
     headerName: 'Mã',
     minWidth: 90,
-    flex: 1,
-    sortable: false,
+    flex: 2,
   },
   {
     field: 'name',
     headerName: 'Tên lớp',
     minWidth: 100,
+    flex: 2,
+  },
+  {
+    field: 'noOfStudent',
+    headerName: 'Số học sinh',
+    minWidth: 100,
+    flex: 2,
+    renderCell: () => '10 / 30',
+  },
+  {
+    field: 'noOfSlot',
+    headerName: 'Số buổi học',
+    minWidth: 100,
     flex: 1,
-    sortable: false,
+  },
+  {
+    field: 'price',
+    headerName: 'Giá tiền',
+    minWidth: 100,
+    flex: 1,
   },
 ];
 

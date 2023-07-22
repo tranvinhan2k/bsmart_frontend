@@ -19,7 +19,7 @@ export default function CustomDialog({
   return (
     <Dialog
       fullWidth
-      scroll="body"
+      // scroll="body"
       maxWidth={maxWidth}
       onClose={onClose}
       open={open}
