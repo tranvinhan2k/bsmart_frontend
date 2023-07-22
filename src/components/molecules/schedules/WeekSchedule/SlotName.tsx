@@ -10,7 +10,7 @@ export default function SLotName({ name, time }: Props) {
   return (
     <Stack
       sx={{
-        width: '150px',
+        width: { xs: '70px', md: '150px' },
         justifyContent: 'space-around',
       }}
     >
@@ -25,17 +25,19 @@ export default function SLotName({ name, time }: Props) {
         <Typography
           sx={{
             fontSize: '12px',
-            fontFamily: FontFamily.light,
+            fontFamily: FontFamily.bold,
+            marginRight: 1,
           }}
         >
-          <span
-            style={{
-              fontFamily: FontFamily.bold,
-              marginRight: 2,
-            }}
-          >
-            {name.toUpperCase()}
-          </span>
+          {name.toUpperCase()}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: '12px',
+            fontFamily: FontFamily.light,
+            display: { xs: 'none', md: 'flex' },
+          }}
+        >
           {` (${time})`}
         </Typography>
       </Stack>
