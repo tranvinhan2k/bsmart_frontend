@@ -7,6 +7,7 @@ import { formatDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import Timetable from '../Timetable';
 import { ClassStatusKeys } from '~/models/variables';
+import TextList, { TextListPayload } from '~/components/atoms/texts/TextList';
 
 interface Props {
   code: string;
@@ -42,17 +43,7 @@ export default function ClassInformationList({
   subjectName,
   timetable,
 }: Props) {
-  const displayLineData: {
-    id: number;
-    name: string;
-    value?: string;
-    alt?: string;
-    type?: 'text' | 'image' | 'timetable';
-    timetable?: {
-      slot: OptionPayload;
-      dayOfWeek: OptionPayload;
-    }[];
-  }[] = [
+  const displayLineData: TextListPayload[] = [
     {
       id: 0,
       name: 'Mã khóa học',
@@ -120,50 +111,7 @@ export default function ClassInformationList({
 
   return (
     <Stack>
-      {displayLineData.map((item, index) => (
-        <Stack key={index}>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_14,
-              fontFamily: FontFamily.bold,
-            }}
-          >
-            {item.name}
-          </Typography>
-          <Typography
-            sx={{
-              marginY: 1,
-              ...globalStyles.textLowSmallLight,
-              color: Color.black,
-            }}
-          >
-            {item.type === 'image' && (
-              <Box
-                component="img"
-                src={item.value}
-                alt={item.alt}
-                sx={{
-                  width: '50%',
-                  height: undefined,
-                  aspectRatio: 16 / 9,
-                  objectFit: 'cover',
-                }}
-              />
-            )}
-            {item.type === 'timetable' && (
-              <Timetable
-                data={
-                  item.timetable?.map((time) => ({
-                    dayOfWeekId: time.dayOfWeek.id,
-                    slotId: time.slot.id,
-                  })) || []
-                }
-              />
-            )}
-            {!item.type && `${item.value}`}
-          </Typography>
-        </Stack>
-      ))}
+      <TextList items={displayLineData} />
     </Stack>
   );
 }
