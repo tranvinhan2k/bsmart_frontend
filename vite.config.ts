@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    port: 3000,
+    port: 8443,
     proxy: {
       '/websocket': {
         target: 'http://103.173.155.221:8080',
