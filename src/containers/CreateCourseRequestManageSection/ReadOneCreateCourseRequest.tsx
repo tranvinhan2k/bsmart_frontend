@@ -205,10 +205,10 @@ export default function ReadOneCreateCourseRequest({
             alignItems="stretch"
             spacing={2}
           >
-            <RequestCourseDetails row={row} />
+            <RequestCourseDetails idCourse={row.id} />
             <RequestDate row={row} />
-            <RequestCourseContent row={row} />
-            <RequestCourseClassList row={row} />
+            <RequestCourseContent idCourse={row.id} />
+            <RequestCourseClassList idCourse={row.id} />
           </Stack>
         </Grid>
       </Grid>

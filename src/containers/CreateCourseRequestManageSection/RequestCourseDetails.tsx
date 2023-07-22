@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Chip,
   Divider,
   Grid,
@@ -8,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment } from 'react';
+import { FontFamily } from '~/assets/variables';
 import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
 import { handleDefinedTextReturnComp } from '~/utils/commonComp';
 import { formatMoney } from '~/utils/money';
@@ -19,15 +21,15 @@ import {
 } from './style';
 
 interface RequestCourseDetailsProps {
-  row: any;
+  idCourse: number;
 }
 
 export default function RequestCourseDetails({
-  row,
+  idCourse,
 }: RequestCourseDetailsProps) {
-  const userAvatar = row.imageUrl;
+  // const userAvatar = row.imageUrl;
 
-  const idCourse = row.id;
+  // const idCourse = row.id;
   const { classesOfCourseWithCourseDetails, isLoading } =
     useQueryGetClassesOfCourseWithCourseDetails(idCourse);
 
@@ -127,21 +129,21 @@ export default function RequestCourseDetails({
         },
       ];
 
-  const title2 = classesOfCourseWithCourseDetails
-    ? [
-        {
-          id: 0,
-          label: 'Học phí',
-          value: handleDefinedTextReturnComp(formatMoney(row.price)),
-        },
-      ]
-    : [
-        {
-          id: 0,
-          label: 'Học phí',
-          value: '',
-        },
-      ];
+  // const title2 = classesOfCourseWithCourseDetails
+  //   ? [
+  //       {
+  //         id: 0,
+  //         label: 'Học phí',
+  //         value: handleDefinedTextReturnComp(formatMoney(row.price)),
+  //       },
+  //     ]
+  //   : [
+  //       {
+  //         id: 0,
+  //         label: 'Học phí',
+  //         value: '',
+  //       },
+  //     ];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
@@ -157,7 +159,7 @@ export default function RequestCourseDetails({
         </Grid>
         <Grid item xs={12} lg={6}>
           <Avatar
-            src={userAvatar}
+            src=""
             variant="rounded"
             sx={{
               width: 300,
@@ -306,12 +308,16 @@ export default function RequestCourseDetails({
             direction="column"
             justifyContent="flex-start"
             alignItems="stretch"
-            spacing={2}
           >
             <Typography sx={SX_FORM_ITEM_LABEL}>Mô tả:</Typography>
-            <Typography sx={SX_FORM_ITEM_VALUE}>
-              {isLoading ? <Skeleton /> : title0[5].value}
-            </Typography>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <Box
+                sx={{ fontFamily: FontFamily.regular }}
+                dangerouslySetInnerHTML={{ __html: `${title0[5].value}` }}
+              />
+            )}
           </Stack>
         </Grid>
       </Grid>

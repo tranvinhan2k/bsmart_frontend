@@ -1,52 +1,35 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
+import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
+import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
 import RequestCourseClassDetails from './RequestCourseClassDetails';
+import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface RequestCourseTimetableProps {
-  row: any;
+  idCourse: number;
 }
 
 export default function RequestCourseClassList({
-  row,
+  idCourse,
 }: RequestCourseTimetableProps) {
-  const isLoading = false;
-  const error = undefined;
+  const { classesOfCourseWithCourseDetails, isLoading, error } =
+    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
+  // const classesOfCourseWithCourseDetails = undefined;
+  // const isLoading = undefined;
+  // const error = undefined;
 
-  const courseClassListRow = {
-    // totalPages: 1,
-    // totalItems: 3,
-    // currentPage: 0,
-    // first: true,
-    // last: true,
-    items: [
-      {
-        id: 1,
-        code: 'At46vf2',
-        name: 'Lớp số 1',
-        schedule: {},
-        price: 1000,
-      },
-      {
-        id: 2,
-        code: 'At46vf4',
-        name: 'Lớp số 2',
-        schedule: {},
-        price: 1000,
-      },
-    ],
-  };
+  const rows = classesOfCourseWithCourseDetails
+    ? classesOfCourseWithCourseDetails?.classes
+    : [];
 
-  // const [rowSelectionModel, setRowSelectionModel] =
-  //   useState<GridSelectionModel>([]);
-
+  const [mode, setMode] = useState<'READ' | ''>('');
   const [open, setOpen] = useState<boolean>(false);
   const handleTriggerDialog = () => setOpen(!open);
 
   const handleViewDetails = () => {
+    setMode('READ');
     handleTriggerDialog();
   };
 
@@ -58,15 +41,28 @@ export default function RequestCourseClassList({
     },
   ];
 
+  let renderItem;
+  switch (mode) {
+    case 'READ':
+      renderItem = (
+        <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="md">
+          <RequestCourseClassDetails onClose={handleTriggerDialog} />
+        </CustomDialog>
+      );
+      break;
+    default:
+      renderItem = null;
+      break;
+  }
+
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Box sx={SX_BOX_ITEM_WRAPPER}>
       <Typography sx={SX_FORM_LABEL}>Danh sách lớp</Typography>
       <Box mt={2} />
       <DataGrid
-        rows={courseClassListRow.items}
+        rows={rows}
         columns={columns.courseClassListColumns}
         //
-        // checkboxSelection
         disableSelectionOnClick
         hideFooterPagination
         density="compact"
@@ -74,31 +70,8 @@ export default function RequestCourseClassList({
         loading={isLoading}
         popoverOptions={popoverOptions}
         rowsPerPageOptions={[]}
-        // selectionModel={rowSelectionModel}
-        // onSelectionModelChange={(newRowSelectionModel) => {
-        //   setRowSelectionModel(newRowSelectionModel);
-        // }}
       />
-      {/* <Stack
-        direction="row"
-        justifyContent="flex-end"
-        alignItems="flex-start"
-        mt={2}
-      >
-        <Button
-          color="miSmartOrange"
-          fullWidth
-          type="submit"
-          variant="contained"
-          sx={{ fontFamily: FontFamily.bold }}
-          disabled={rowSelectionModel.length <= 0}
-        >
-          Phê duyệt các lớp đã chọn
-        </Button>
-      </Stack> */}
-      <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="md">
-        <RequestCourseClassDetails onClose={handleTriggerDialog} />
-      </CustomDialog>
-    </Stack>
+      {renderItem}
+    </Box>
   );
 }

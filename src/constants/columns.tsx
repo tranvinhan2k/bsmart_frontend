@@ -7,6 +7,7 @@ import {
   formatISODateDateToDisplayDate,
   formatISODateStringToDisplayDate,
 } from '~/utils/date';
+import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 
@@ -233,7 +234,7 @@ const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'noOfSubmit',
     headerName: 'Lần gửi',
-    minWidth: 200,
+    minWidth: 90,
     flex: 1,
   },
 ];
@@ -428,29 +429,29 @@ const courseClassListColumns: GridColDef[] = [
     flex: 2,
   },
   {
-    field: 'name',
-    headerName: 'Tên lớp',
-    minWidth: 100,
-    flex: 2,
+    field: 'minStudent',
+    headerName: 'HS tối thiểu',
+    minWidth: 90,
+    flex: 1,
   },
   {
-    field: 'noOfStudent',
-    headerName: 'Số học sinh',
-    minWidth: 100,
-    flex: 2,
-    renderCell: () => '10 / 30',
+    field: 'maxStudent',
+    headerName: 'HS tối đa',
+    minWidth: 90,
+    flex: 1,
   },
   {
-    field: 'noOfSlot',
-    headerName: 'Số buổi học',
-    minWidth: 100,
+    field: 'numberOfSlot',
+    headerName: 'Số buổi',
+    minWidth: 90,
     flex: 1,
   },
   {
     field: 'price',
     headerName: 'Giá tiền',
-    minWidth: 100,
+    minWidth: 120,
     flex: 1,
+    valueFormatter: (params) => formatMoney(params.value),
   },
 ];
 

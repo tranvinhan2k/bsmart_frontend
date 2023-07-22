@@ -149,7 +149,7 @@ const classApi = {
   getClassesOfCourseWithCourseDetails(
     idCourse: number
   ): Promise<ClassesOfCourseWithCourseDetails | undefined> {
-    const urlGet = `${url}/course/${idCourse}`;
+    const urlGet = `${url}/pending/course/${idCourse}`;
     return axiosClient.get(urlGet);
   },
 
