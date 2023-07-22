@@ -4,7 +4,7 @@ import courseCreateRequestApi from '~/api/courseCreateRequest';
 export interface UseManageCourseCreateRequestPayload {
   status?: string;
   q?: string;
-  size?: number;
+  size?: number | null;
   sort?: string;
 }
 
