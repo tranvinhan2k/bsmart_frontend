@@ -15,12 +15,14 @@ export default function Section({
   id,
   subActivities,
   name,
+  readOnly = false,
 }: {
   id: number;
   name: string;
   subActivities: ActivityPayload[];
+  readOnly: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -65,7 +67,14 @@ export default function Section({
         <Collapse in={open}>
           <Stack marginTop={1}>
             {subActivities.map((module) => (
-              <Module key={module.id} id={module.id} name={module.name} />
+              <Module
+                readOnly={readOnly}
+                sectionId={id}
+                key={module.id}
+                id={module.id}
+                name={module.name}
+                status={module.type}
+              />
             ))}
           </Stack>
         </Collapse>

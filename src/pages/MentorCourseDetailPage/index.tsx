@@ -262,7 +262,7 @@ export default function MentorCourseDetailPage() {
                             textAlign: 'center',
                           }}
                         >
-                          Chọn khóa học để phê duyệt
+                          Chọn lớp học để phê duyệt
                         </Typography>
                         <Stack
                           sx={{

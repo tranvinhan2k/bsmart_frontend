@@ -153,6 +153,10 @@ export const useCreateClassesForm = (id: number) => {
             numberOfSlot: data.numberOfSlot,
             price: data.price,
             startDate: data.startDateExpected,
+            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+              dayOfWeekId: item.dayOfWeek.id || 0,
+              slotId: item.slot.id || 0,
+            })),
             timeTableRequest: timetable?.raw || [],
           };
           await handleTryCatchCreateClass(async () =>

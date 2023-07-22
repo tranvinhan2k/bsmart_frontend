@@ -6,6 +6,7 @@ import {
   MemberClassContentPage,
   MemberClassInformationPage,
   MemberClassMentorDetailPage,
+  MemberClassModulesPage,
   MemberClassSchedulePage,
 } from '~/routes/components';
 
@@ -44,6 +45,12 @@ export const memberClassRoutes: RoutePayload[] = [
     path: MemberClassActionLink.mentor,
     main: () => <MemberClassMentorDetailPage />,
     role: ['ROLE_STUDENT'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MemberClassActionLink.activity}/:moduleId`,
+    main: () => <MemberClassModulesPage />,
+    role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },
 ];

@@ -17,6 +17,10 @@ export interface PostClassRequest {
   startDate: string;
   endDate: string;
   numberOfSlot: number;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
   timeTableRequest: PostTimeTableResponse;
 }
 

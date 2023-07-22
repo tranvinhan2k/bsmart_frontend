@@ -22,6 +22,7 @@ import { mentorClassRoutes } from '~/routes/mentor/class/routes';
 export interface DetailMemberClassPayload {
   code: string;
   courseName: string;
+  courseId: number;
 }
 
 export default function MentorClassDetailPage() {
@@ -32,6 +33,7 @@ export default function MentorClassDetailPage() {
   const memberClass: DetailMemberClassPayload = {
     code: '#ada43c',
     courseName: 'Khóa học kiểm thử #12',
+    courseId: 23,
   };
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function MentorClassDetailPage() {
   const showRoutes = () => {
     let result = null;
 
-    result = mentorClassRoutes.map((route) => {
+    result = mentorClassRoutes(23).map((route) => {
       return (
         <Route key={route.path} path={route.path} element={route.main()} />
       );

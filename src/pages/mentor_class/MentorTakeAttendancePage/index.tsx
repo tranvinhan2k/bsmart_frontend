@@ -263,7 +263,7 @@ export default function MentorTakeAttendancePage() {
       }}
     >
       <ReturnLink />
-      <Typography sx={globalStyles.textTitle}>{`Điểm danh ${formatDate(
+      <Typography sx={globalStyles.textSubTitle}>{`Điểm danh ${formatDate(
         attendances?.date || ''
       )}`}</Typography>
 

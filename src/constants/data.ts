@@ -11,7 +11,42 @@ import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 import { LEVEL_LABELS } from './level';
-import { CoursePayload } from '~/models/type';
+import { ActivityPayload, CoursePayload } from '~/models/type';
+import { IconName } from '~/components/atoms/Icon';
+import { ActivityKeys } from '~/models/variables';
+import { ActivityLink } from './routeLink';
+
+export const ActivityData: {
+  type: ActivityKeys;
+  icon: IconName;
+  label: string;
+  link: string;
+}[] = [
+  {
+    type: 'LESSON',
+    icon: 'lesson',
+    label: 'Bài học',
+    link: ActivityLink.lesson,
+  },
+  {
+    type: 'ASSIGNMENT',
+    icon: 'assignment',
+    label: 'Bài tập',
+    link: ActivityLink.assignment,
+  },
+  {
+    type: 'QUIZ',
+    icon: 'quiz',
+    label: 'Kiểm tra',
+    link: ActivityLink.quiz,
+  },
+  {
+    type: 'RESOURCE',
+    icon: 'resource',
+    label: 'Tài nguyên',
+    link: ActivityLink.resource,
+  },
+];
 
 export const courseTypeData = {
   PRIVATE: 'Khóa học riêng tư',

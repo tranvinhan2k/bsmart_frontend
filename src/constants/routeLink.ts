@@ -131,3 +131,10 @@ export const enum MemberClassActionLink {
   activity = 'activity',
   notification = 'notification',
 }
+
+export const enum ActivityLink {
+  lesson = 'lesson',
+  quiz = 'quiz',
+  assignment = 'assignment',
+  resource = 'resource',
+}

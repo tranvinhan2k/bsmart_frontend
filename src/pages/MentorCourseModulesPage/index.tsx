@@ -69,7 +69,7 @@ export default function MentorCourseModulesPage() {
       name: '',
       visible: false,
       courseId,
-      description: activity?.detail.description,
+      description: activity?.detail?.description,
       authorizeClasses: [],
     },
     resolver: resolverLesson,

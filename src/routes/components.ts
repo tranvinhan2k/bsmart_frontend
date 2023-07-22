@@ -191,3 +191,6 @@ export const MemberAttendanceListPage = lazy(
 export const MemberClassMentorDetailPage = lazy(
   () => import('~/pages/member_class/MemberClassMentorDetailPage')
 );
+export const MemberClassModulesPage = lazy(
+  () => import('~/pages/member_class/MemberClassModulesPage')
+);
