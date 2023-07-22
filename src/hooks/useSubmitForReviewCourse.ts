@@ -5,7 +5,7 @@ import { useCustomQuery } from './custom/useCustomQuery';
 
 export const useSubmitForReviewCourse = (id: number) => {
   const { handleTryCatch } = useTryCatch('gửi yêu cầu phê duyệt');
-  const { data, isLoading } = useCustomQuery(['course_percent'], () =>
+  const { data, isLoading, refetch } = useCustomQuery(['course_percent'], () =>
     coursesApi.getCoursePercent(id)
   );
 
@@ -17,6 +17,7 @@ export const useSubmitForReviewCourse = (id: number) => {
   return {
     handleTryCatch,
     isCanSubmitted: data?.allowSendingApproval,
+    refetchGetCoursePercent: refetch,
     coursePercent: data?.percentComplete,
     isLoading,
     handleSubmitForReview,

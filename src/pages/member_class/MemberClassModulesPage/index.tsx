@@ -61,17 +61,17 @@ export default function MemberClassModulesPage() {
         size: 100,
       },
     ],
-    editBeForSubmitMin: 100,
+    editBeForSubmitMin: 100, // phút, submit r, thời gian giới hạn chỉnh sửa lại
     endDate: '',
-    isOverWriteAttachFile: true,
-    maxFileSize: 10,
-    maxFileSubmit: 2,
+    isOverWriteAttachFile: true, // có cho update file không ?
+    maxFileSize: 10, // số MB trong 1 lần nộp
+    maxFileSubmit: 2, // số lượng file submit
     passPoint: 10,
     startDate: '',
     type: 'ASSIGNMENT',
   };
 
-  const detail = detailQuiz;
+  const detail = detailAssignment;
 
   const activity: ActivityDetailPayload = {
     id: 0,
@@ -93,22 +93,24 @@ export default function MemberClassModulesPage() {
 
   let data: ReactNode = null;
 
-  switch (detail?.type) {
-    case 'LESSON':
-      data = <ModuleLessonPage name={activity.name} item={detail} />;
-      break;
-    case 'ASSIGNMENT':
-      data = <ModuleAssignmentPage item={detail} />;
-      break;
-    case 'QUIZ':
-      data = <ModuleQuizPage item={detail} />;
-      break;
-    case 'RESOURCE':
-      data = <ModuleResourcePage name={activity.name} item={detail} />;
-      break;
-    default:
-      data = null;
-  }
+  data = <ModuleResourcePage name={activity.name} item={detailResource} />;
+
+  // switch (detail?.type) {
+  //   case 'LESSON':
+  //     data = <ModuleLessonPage name={activity.name} item={detail} />;
+  //     break;
+  //   case 'ASSIGNMENT':
+  //     data = <ModuleAssignmentPage item={detail} />;
+  //     break;
+  //   case 'QUIZ':
+  //     data = <ModuleQuizPage item={detail} />;
+  //     break;
+  //   case 'RESOURCE':
+  //     data = <ModuleResourcePage name={activity.name} item={detail} />;
+  //     break;
+  //   default:
+  //     data = null;
+  // }
 
   return (
     <Stack>

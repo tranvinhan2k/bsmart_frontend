@@ -22,7 +22,10 @@ const activityApi = {
       lastModified: response?.lastModified || '',
       lastModifiedBy: response?.lastModifiedBy || '',
       name: response?.name || '',
-      detail: response.detail,
+      detail: {
+        ...response.detail,
+        type: response.type,
+      },
       parentActivityId: response?.parentActivityId || -1,
       type: response?.type || 'SECTION',
       authorizeClasses: response?.authorizeClasses || [],

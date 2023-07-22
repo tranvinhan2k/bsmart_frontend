@@ -52,7 +52,19 @@ const classApi = {
         status: item.status,
         timeInWeekRequests: item.timeInWeeks,
       })),
-      content: response.sections,
+      content: (response.activities as any[]).map((item) => ({
+        id: item.id,
+        authorizeClasses: item.authorizeClasses,
+        created: item.created,
+        createdBy: item.createBy,
+        lastModified: item.lastModified,
+        lastModifiedBy: item.lastModifiedBy,
+        name: item.name,
+        parentActivityId: item.parentActivityId,
+        subActivities: item.subActivities,
+        type: item.type,
+        visible: item.visible,
+      })),
     };
     return result;
   },

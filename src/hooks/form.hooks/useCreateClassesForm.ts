@@ -15,7 +15,7 @@ import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSche
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
-export const useCreateClassesForm = (id: number) => {
+export const useCreateClassesForm = (id: number, refetch: any) => {
   const [open, setOpen] = useState(false);
   const [recommendEndDate, setRecommendEndDate] = useState<string>('');
   const [mode, setMode] = useState<Status>('CREATE');
@@ -165,6 +165,7 @@ export const useCreateClassesForm = (id: number) => {
               param,
             })
           );
+          await refetch();
           setTimetable(undefined);
           createSubCourseHookForm.reset();
         } else {

@@ -14,7 +14,11 @@ import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
 import Sections from '~/containers/MentorCourseDetailSection/Sections';
 import { ActivityKeys } from '~/models/variables';
 
-export default function MentorCourseContentPage() {
+interface Props {
+  refetchGetPercent: any;
+}
+
+export default function MentorCourseContentPage({ refetchGetPercent }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
 
@@ -41,9 +45,9 @@ export default function MentorCourseContentPage() {
         parentActivityId: undefined,
         authorizeClasses: [],
       });
+      await refetchGetPercent();
+      await refetch();
     });
-
-    await refetch();
   };
 
   const handleAddNewModule = async (

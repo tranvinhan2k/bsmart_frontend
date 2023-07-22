@@ -69,7 +69,8 @@ export default function MentorCourseModulesPage() {
       name: '',
       visible: false,
       courseId,
-      description: activity?.detail?.description,
+      description:
+        activity?.detail.type === 'LESSON' ? activity?.detail?.description : '',
       authorizeClasses: [],
     },
     resolver: resolverLesson,
@@ -263,32 +264,30 @@ export default function MentorCourseModulesPage() {
       hookFormLesson.reset({
         ...activity,
         ...activity.detail,
-        'file.0': {
-          name: activity?.detail?.url?.replace(
-            'http://103.173.155.221:9000/bsmart/',
-            ''
-          ),
-          url: activity?.detail?.url,
-          type: 'ATTACH',
-        },
       });
       hookFormResource.reset({
         ...activity,
         'file.0': {
-          name: activity?.detail?.url?.replace(
-            'http://103.173.155.221:9000/bsmart/',
-            ''
-          ),
-          url: activity?.detail?.url,
+          name:
+            activity.detail.type === 'RESOURCE'
+              ? activity?.detail?.file?.name
+              : '',
+          url:
+            activity.detail.type === 'RESOURCE'
+              ? activity?.detail?.file?.url
+              : '',
         },
       });
       hookFormAssignment.reset({
         ...activity,
         ...activity.detail,
-        attachFiles: activity?.detail?.assignmentFiles?.map((item: any) => ({
-          name: item.name,
-          url: item.url,
-        })),
+        attachFiles:
+          activity.detail.type === 'ASSIGNMENT'
+            ? activity?.detail?.attachFiles?.map((item: any) => ({
+                name: item.name,
+                url: item.url,
+              }))
+            : [],
       });
       hookFormQuiz.reset({
         ...activity,

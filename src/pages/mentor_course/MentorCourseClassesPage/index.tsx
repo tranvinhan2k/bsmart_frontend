@@ -27,7 +27,11 @@ const TEXTS = {
   DELETE_TITLE: 'Xác nhận xóa giờ học',
 };
 
-export default function MentorCourseClassesPage() {
+interface Props {
+  refetchGetPercent: any;
+}
+
+export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
 
@@ -54,7 +58,7 @@ export default function MentorCourseClassesPage() {
     handleAddTimetable,
     handleResetCreateCourse,
     handleBackCreateCourse,
-  } = useCreateClassesForm(courseId);
+  } = useCreateClassesForm(courseId, refetchGetPercent);
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
 
