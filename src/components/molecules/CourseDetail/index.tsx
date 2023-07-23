@@ -1,4 +1,5 @@
 import { Stack, Box, Typography, Divider } from '@mui/material';
+import { useState } from 'react';
 import { MetricSize, Color, FontFamily, FontSize } from '~/assets/variables';
 import ImageSlider from '~/components/atoms/ImageSlider';
 import { CommonCourse } from '~/constants';
@@ -8,6 +9,7 @@ import Content from '../Content';
 import Classes from '../list/Classes';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { ActivityPayload } from '~/models/type';
+import Button from '~/components/atoms/Button';
 
 interface Props {
   images: string[];
@@ -38,6 +40,7 @@ export default function CourseDetail({
   mentorRef,
   sections,
 }: Props) {
+  const [openDescription, setOpenDescription] = useState(false);
   return (
     <Stack ref={introduceRef}>
       <ImageSlider slides={images || []} />
@@ -86,14 +89,40 @@ export default function CourseDetail({
           >
             {courseName}
           </Typography>
-          <Stack marginY={3}>
-            <Typography
-              sx={globalStyles.textSmallLight}
-              dangerouslySetInnerHTML={{
-                __html: courseDescription,
+          <Stack
+            sx={{
+              position: 'relative',
+              height: !openDescription ? '300px' : '100%',
+              overflow: 'hidden',
+            }}
+            marginY={3}
+          >
+            <Stack
+              sx={{
+                display: openDescription ? 'none' : 'flex',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: `linear-gradient(0deg, ${Color.white4} 0%, rgba(253,187,45,0) 100%)`,
               }}
             />
+            <Stack>
+              <Typography
+                sx={globalStyles.textSmallLight}
+                dangerouslySetInnerHTML={{
+                  __html: courseDescription,
+                }}
+              />
+            </Stack>
           </Stack>
+          <Button
+            onClick={() => setOpenDescription(!openDescription)}
+            variant="text"
+          >
+            {openDescription ? 'Thu Gọn' : 'Xem Thêm'}
+          </Button>
         </Stack>
       </Stack>
       <Stack

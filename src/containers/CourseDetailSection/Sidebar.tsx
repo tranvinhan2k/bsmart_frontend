@@ -127,7 +127,7 @@ export default function Sidebar({
           src={levelImage}
         />
       ),
-      name: 'Độ khó',
+      name: 'Trình độ',
       value: levelLabel,
     },
   ];
@@ -310,12 +310,12 @@ export default function Sidebar({
                       }}
                     >
                       {/* {`Lớp học #${item.id}`} */}
-                      Lớp học
+                      Mã lớp
                     </Typography>
                     <Typography
                       sx={{
                         textAlign: 'center',
-                        fontSize: FontSize.small_14,
+                        fontSize: FontSize.small_16,
                         fontFamily:
                           chooseClass.id === item.id
                             ? FontFamily.bold
@@ -328,6 +328,22 @@ export default function Sidebar({
                     >
                       {/* {`Lớp học #${item.id}`} */}
                       {`#${item.code}`}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        textAlign: 'center',
+                        fontSize: FontSize.small_14,
+                        fontFamily:
+                          chooseClass.id === item.id
+                            ? FontFamily.regular
+                            : FontFamily.light,
+                        color:
+                          chooseClass.id === item.id
+                            ? Color.tertiary
+                            : Color.black,
+                      }}
+                    >
+                      {formatMoney(item.price)}
                     </Typography>
                   </Stack>
                 </Stack>
