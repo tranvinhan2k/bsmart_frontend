@@ -245,7 +245,11 @@ export const validationSchemaRegisterStudent = object({
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
   gender: object().required('Giới tính không được để trống'),
-  birthDay: string().required(BIRTHDAY_REQUIRED),
+  birthDay: string()
+    .required(BIRTHDAY_REQUIRED)
+    .test('greater', 'Ngày sinh không hợp lệ', (value: any) => {
+      return new Date().getFullYear() - new Date(value).getFullYear() > 10;
+    }),
 });
 
 export const validationSchemaRegisterMentor = object({
@@ -262,7 +266,11 @@ export const validationSchemaRegisterMentor = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   gender: object().required('Giới tính không được để trống'),
-  birthDay: string().required(BIRTHDAY_REQUIRED),
+  birthDay: string()
+    .required(BIRTHDAY_REQUIRED)
+    .test('greater', 'Ngày sinh không hợp lệ', (value: any) => {
+      return new Date().getFullYear() - new Date(value).getFullYear() > 10;
+    }),
 });
 export const validationSchemaBuyCourse = object({
   name: string().required(USERNAME_REQUIRED),

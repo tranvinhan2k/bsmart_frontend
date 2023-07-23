@@ -1,46 +1,31 @@
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
 import { useState } from 'react';
+import { Stack } from '@mui/material';
+import SockJS from 'sockjs-client';
+
+const SOCKET_URL = 'http://103.173.155.221:8080/websocket';
+const topics = '/topics/messages';
 
 export default function TextSection() {
-  const [text, setText] = useState('');
-  let stompClient: any = null;
+  const [message, setMessage] = useState('You server message here.');
+  const sock = new SockJS(SOCKET_URL);
+  sock.onopen = () => {
+    console.log('Connected!!');
+    sock.send('SUBSCRIBE /topics/messages');
+  };
+  sock.onmessage = (e: any) => {
+    setMessage(e.data);
+  };
+  sock.onclose = () => {
+    console.log('Closed');
+  };
 
-  const socket = new SockJS('http://103.173.155.221:8080/websocket');
-  stompClient = Stomp.over(socket);
-  stompClient.connect({}, function (frame: any) {
-    console.log(`Connected: ${frame}`);
-    stompClient.subscribe('/topic/greeting', function (messageOutput: any) {
-      console.log(messageOutput.body);
-      setText(JSON.parse(messageOutput.body));
-    });
-  });
-
-  // const stompClient = Stomp.over(sock);
-
-  // stompClient.connect({}, () => {
-  //   stompClient.subscribe('/topic/messages', (message) => {
-  //     console.log('Hello', message.body);
-  //     setText(message.body);
-  //   });
-  // });
-
-  // sock.onopen = function () {
-  //   console.log('open');
-  //   setText(`${text} \n Connected`);
-  //   sock.send('test');
-  // };
-
-  // sock.onmessage = function (e) {
-  //   console.log('message', e.data);
-  //   setText(`${text} \n Message ${e.data}`);
-
-  //   sock.close();
-  // };
-
-  // sock.onclose = function () {
-  //   setText(`${text} \n Close `);
-  // };
-
-  return <div>{`Wed Socket \n ${text}`}</div>;
+  return (
+    <Stack
+      sx={{
+        minHeight: '100vh',
+      }}
+    >
+      {message}
+    </Stack>
+  );
 }
