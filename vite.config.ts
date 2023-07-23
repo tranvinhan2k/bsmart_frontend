@@ -12,12 +12,6 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    proxy: {
-      '/websocket': {
-        target: 'http://103.173.155.221:8080',
-        ws: true,
-      },
-    },
   },
   // define: {
   //   global: {},

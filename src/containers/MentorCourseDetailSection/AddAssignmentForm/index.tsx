@@ -114,12 +114,6 @@ export default function AddAssignmentForm({
       variant: 'boolean',
     },
     {
-      label: 'Cho phép ghi đè tệp',
-      name: 'overWriteAttachFile',
-      placeholder: 'Cho phép ghi đè tệp',
-      variant: 'boolean',
-    },
-    {
       label: 'Điểm đạt yêu cầu',
       name: 'passPoint',
       placeholder: 'Nhập điểm đạt yêu cầu',

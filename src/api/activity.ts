@@ -22,7 +22,10 @@ const activityApi = {
       lastModified: response?.lastModified || '',
       lastModifiedBy: response?.lastModifiedBy || '',
       name: response?.name || '',
-      detail: response.detail,
+      detail: {
+        ...response.detail,
+        type: response.type,
+      },
       parentActivityId: response?.parentActivityId || -1,
       type: response?.type || 'SECTION',
       authorizeClasses: response?.authorizeClasses || [],
@@ -84,10 +87,6 @@ const activityApi = {
       String(params.isOverWriteAttachFile)
     );
     requestData.append('passPoint', String(params.passPoint));
-    requestData.append(
-      'overWriteAttachFile',
-      String(params.overWriteAttachFile)
-    );
 
     if (!(params.authorizeClasses?.length > 0)) {
       requestData.append('authorizeClasses', String(-1));
@@ -210,10 +209,6 @@ const activityApi = {
       String(!!params.isOverWriteAttachFile)
     );
     requestData.append('passPoint', String(params.passPoint));
-    requestData.append(
-      'overWriteAttachFile',
-      String(!!params.overWriteAttachFile)
-    );
 
     if (!(params.authorizeClasses?.length > 0)) {
       requestData.append('authorizeClasses', String(-1));

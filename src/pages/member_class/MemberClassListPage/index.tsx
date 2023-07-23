@@ -1,17 +1,23 @@
 import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
+import { LoadingWrapper } from '~/HOCs';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
 import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MemberClassItem from '~/components/molecules/MemberClassItem';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
+import { useQueryGetUserClass } from '~/hooks';
 import { PagingFilterRequest } from '~/models';
 import { ClassMenuItemPayload } from '~/models/type';
+import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
+import { formatStringToNumber } from '~/utils/number';
+import toast from '~/utils/toast';
 
 const TEXTS = {
   title_1: 'Lớp học đã đăng kí',
@@ -27,49 +33,20 @@ function a11yProps(index: number) {
 }
 
 export default function MemberClassListPage() {
-  const classes: ClassMenuItemPayload[] = [
-    {
-      id: 0,
-      imageAlt: '',
-      imageUrl: image.mockCourse,
-      name: 'Lớp Kiểm Thử',
-      progressValue: 50,
-      status: 'ALL',
-      teacherName: ['Trần Vĩ Nhân'],
-      subjectId: 1,
-    },
-    {
-      id: 1,
-      imageAlt: '',
-      imageUrl: image.mockCourse,
-      name: 'Lớp Kiểm Thử',
-      progressValue: 60,
-      status: 'ALL',
-      teacherName: ['Trần Vĩ Nhân'],
-      subjectId: 1,
-    },
-    {
-      id: 2,
-      imageAlt: '',
-      imageUrl: image.mockCourse,
-      name: 'Lớp Kiểm Thử',
-      progressValue: 40,
-      status: 'ALL',
-      teacherName: ['Trần Vĩ Nhân'],
-      subjectId: 1,
-    },
-  ];
-
-  // useState
-  const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
-    q: '',
-    page: 0,
-    size: 9,
-    sort: undefined,
-    status: 'ALL',
-  });
-
   const [value, setValue] = useState(0);
+
+  const {
+    classes,
+    currentPage,
+    error,
+    filterParams,
+    handleChangePage,
+    handleChangeSearchValue,
+    handleChangeStatus,
+    handleFilter,
+    isLoading,
+    totalPage,
+  } = useQueryGetUserClass('STUDENT');
 
   // parameters
   const chosenClassStatus = ClassStatusList.find(
@@ -81,25 +58,31 @@ export default function MemberClassListPage() {
     setValue(newValue);
   };
   const handleChangePageNumber = (e: any, pageNumber: number) => {
-    setFilterParams({
-      ...filterParams,
-      page: pageNumber - 1,
-    });
+    handleChangePage(pageNumber);
   };
   const handleChangeSearch = (searchValue: string) => {
-    setFilterParams({
-      ...filterParams,
-      q: searchValue,
-    });
+    handleChangeSearchValue(searchValue);
   };
 
   const handleChangeClassStatus = (classStatus: string) => {
-    setFilterParams({
-      ...filterParams,
-      status: classStatus as any,
-    });
+    handleChangeStatus(classStatus as ClassStatusKeys);
   };
 
+  const onSubmit = (data: {
+    startDate: Date;
+    endDate: Date;
+    subjectId: string[];
+  }) => {
+    const params = {
+      startDate: data.startDate.toISOString(),
+      endDate: data.endDate.toISOString(),
+      subjectId: data.subjectId.map((item) => formatStringToNumber(item)),
+    };
+
+    handleFilter(params);
+
+    toast.notifySuccessToast('Đã lọc kết quả');
+  };
   // useEffect
   useEffect(() => {
     scrollToTop();
@@ -117,12 +100,14 @@ export default function MemberClassListPage() {
         >
           <Typography sx={globalStyles.textTitle}>{TEXTS.title_1}</Typography>
         </Stack>
-        <Stack marginTop={1}>
-          <SearchTextField
-            value={filterParams.q}
-            onChange={(e) => handleChangeSearch(e.target.value)}
-          />
-        </Stack>
+        <SearchFilterClasses
+          searchValue={filterParams.q}
+          startDate={filterParams.startDate || ''}
+          subjectId={filterParams.subjectId || []}
+          endDate={filterParams.endDate || ''}
+          onFilter={onSubmit}
+          onSearchValue={handleChangeSearch}
+        />
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             sx={{
@@ -170,27 +155,33 @@ export default function MemberClassListPage() {
         </Typography>
       </Stack>
 
-      <Grid container>
-        {classes &&
-          classes?.length !== 0 &&
-          classes.map((item) => (
-            <Grid
-              item
-              xs={12}
-              md={3}
-              key={item.id}
-              sx={{ alignItems: 'stretch' }}
-            >
-              <MemberClassItem item={item} />
-            </Grid>
-          ))}
-      </Grid>
+      <LoadingWrapper
+        isLoading={isLoading}
+        error={error}
+        isEmptyCourse={classes?.length !== 0}
+      >
+        <Grid container>
+          {classes &&
+            classes?.length !== 0 &&
+            classes.map((item) => (
+              <Grid
+                item
+                xs={12}
+                md={3}
+                key={item.id}
+                sx={{ alignItems: 'stretch' }}
+              >
+                <MemberClassItem item={item} />
+              </Grid>
+            ))}
+        </Grid>
+      </LoadingWrapper>
       <Stack
         sx={{ justifyContent: 'center', alignItems: 'center', marginTop: 2 }}
       >
         <CustomPagination
-          currentPage={1}
-          totalPages={20}
+          currentPage={currentPage}
+          totalPages={totalPage}
           onChange={handleChangePageNumber}
         />
       </Stack>

@@ -1,4 +1,5 @@
 import { Stack, Box, Typography, Divider } from '@mui/material';
+import { useState } from 'react';
 import { MetricSize, Color, FontFamily, FontSize } from '~/assets/variables';
 import ImageSlider from '~/components/atoms/ImageSlider';
 import { CommonCourse } from '~/constants';
@@ -8,6 +9,7 @@ import Content from '../Content';
 import Classes from '../list/Classes';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { ActivityPayload } from '~/models/type';
+import Button from '~/components/atoms/Button';
 
 interface Props {
   images: string[];
@@ -16,6 +18,10 @@ interface Props {
   mentorDescription: string;
   courseName: string;
   courseDescription: string;
+  introduceRef: any;
+  contentRef: any;
+  classesRef: any;
+  mentorRef: any;
   sections: ActivityPayload[];
   classes: DetailCourseClassPayload[];
 }
@@ -28,10 +34,15 @@ export default function CourseDetail({
   mentorDescription,
   mentorImageUrl,
   mentorName,
+  introduceRef,
+  contentRef,
+  classesRef,
+  mentorRef,
   sections,
 }: Props) {
+  const [openDescription, setOpenDescription] = useState(false);
   return (
-    <Stack>
+    <Stack ref={introduceRef}>
       <ImageSlider slides={images || []} />
       <Stack
         paddingX={5}
@@ -78,14 +89,40 @@ export default function CourseDetail({
           >
             {courseName}
           </Typography>
-          <Stack marginY={3}>
-            <Typography
-              sx={globalStyles.textSmallLight}
-              dangerouslySetInnerHTML={{
-                __html: courseDescription,
+          <Stack
+            sx={{
+              position: 'relative',
+              height: !openDescription ? '300px' : '100%',
+              overflow: 'hidden',
+            }}
+            marginY={3}
+          >
+            <Stack
+              sx={{
+                display: openDescription ? 'none' : 'flex',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: `linear-gradient(0deg, ${Color.white4} 0%, rgba(253,187,45,0) 100%)`,
               }}
             />
+            <Stack>
+              <Typography
+                sx={globalStyles.textSmallLight}
+                dangerouslySetInnerHTML={{
+                  __html: courseDescription,
+                }}
+              />
+            </Stack>
           </Stack>
+          <Button
+            onClick={() => setOpenDescription(!openDescription)}
+            variant="text"
+          >
+            {openDescription ? 'Thu Gọn' : 'Xem Thêm'}
+          </Button>
         </Stack>
       </Stack>
       <Stack
@@ -120,25 +157,25 @@ export default function CourseDetail({
         </Typography>
       </Stack>
       <Divider sx={{ marginY: 4 }} /> */}
-        <>
-          <Stack>
-            <Typography sx={globalStyles.textSmallLabel}>
-              Khung chương trình
-            </Typography>
-            <Stack
-              sx={{
-                marginTop: 1,
-                paddingX: 2,
-                background: Color.white,
-                borderRadius: MetricSize.small_5,
-              }}
-            >
-              <Content sections={sections || []} />
-            </Stack>
+
+        <Stack ref={contentRef}>
+          <Typography sx={globalStyles.textSmallLabel}>
+            Khung chương trình
+          </Typography>
+          <Stack
+            sx={{
+              marginTop: 1,
+              paddingX: 2,
+              background: Color.white,
+              borderRadius: MetricSize.small_5,
+            }}
+          >
+            <Content sections={sections || []} />
           </Stack>
-          <Divider sx={{ marginY: 3 }} />
-        </>
-        <Stack>
+        </Stack>
+        <Divider sx={{ marginY: 3 }} />
+
+        <Stack ref={classesRef}>
           <Typography sx={globalStyles.textSmallLabel}>
             Danh sách lớp học
           </Typography>
@@ -147,52 +184,50 @@ export default function CourseDetail({
           </Stack>
         </Stack>
         <Divider sx={{ marginY: 4 }} />
-        <>
-          <Stack>
-            <Typography sx={globalStyles.textSmallLabel}>
-              Về giáo viên
-            </Typography>
+
+        <Stack ref={mentorRef}>
+          <Typography sx={globalStyles.textSmallLabel}>Về giáo viên</Typography>
+          <Stack
+            sx={{
+              marginTop: 1,
+            }}
+          >
             <Stack
               sx={{
-                marginTop: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
-              <Stack
+              <Box
                 sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  borderRadius: 1000,
+                  width: '50px',
+                  aspectRatio: 1,
+                  height: undefined,
+                  objectFit: 'cover',
+                  background: Color.white,
+                  marginRight: 1,
                 }}
-              >
-                <Box
-                  sx={{
-                    borderRadius: 1000,
-                    width: '50px',
-                    aspectRatio: 1,
-                    height: undefined,
-                    objectFit: 'cover',
-                    background: Color.white,
-                    marginRight: 1,
-                  }}
-                  component="img"
-                  alt="giao vien"
-                  src={mentorImageUrl}
-                />
-                <Typography sx={globalStyles.textSmallLight}>
-                  {mentorName}
-                </Typography>
-              </Stack>
-              <Stack marginY={1}>
-                <Typography
-                  sx={globalStyles.textSmallLight}
-                  dangerouslySetInnerHTML={{
-                    __html: mentorDescription,
-                  }}
-                />
-              </Stack>
+                component="img"
+                alt="giao vien"
+                src={mentorImageUrl}
+              />
+              <Typography sx={globalStyles.textSmallLight}>
+                {mentorName}
+              </Typography>
+            </Stack>
+            <Stack marginY={1}>
+              <Typography
+                sx={globalStyles.textSmallLight}
+                dangerouslySetInnerHTML={{
+                  __html: mentorDescription,
+                }}
+              />
             </Stack>
           </Stack>
-          <Divider sx={{ marginY: 4 }} />
-        </>
+        </Stack>
+        <Divider sx={{ marginY: 4 }} />
+
         <Stack>
           <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
         </Stack>

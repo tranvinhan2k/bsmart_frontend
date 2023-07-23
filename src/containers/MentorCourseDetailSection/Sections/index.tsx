@@ -1,40 +1,19 @@
-import { Box, Collapse, Stack, Switch, Typography } from '@mui/material';
+import { Box, Collapse, Stack, Typography } from '@mui/material';
 
-import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { image } from '~/constants/image';
 import { Color, MetricSize } from '~/assets/variables';
 import AddModule from '../AddModule';
-import {
-  useMutationDeleteContent,
-  useMutationUpdateContent,
-  useTimeOut,
-  useTryCatch,
-} from '~/hooks';
 import Section from '../Section.ts';
 import Module from '../Module';
 import { ActivityPayload } from '~/models/type';
-import { formatStringToNumber } from '~/utils/number';
 
 interface Props {
   content: ActivityPayload[] | undefined;
-  refetch: any;
 }
 
-export default function Sections({ content, refetch }: Props) {
-  const { id } = useParams();
-  const courseId = formatStringToNumber(id);
-
+export default function Sections({ content }: Props) {
   const [open, setOpen] = useState<number>(-1);
-
-  const handleOpen = () => {
-    setOpen(-1);
-  };
-
-  const updateModule = useTryCatch('cập nhật bài học');
-
-  const { mutateAsync: handleDeleteContent } = useMutationDeleteContent();
-  const { handleMutationUpdateLesson } = useMutationUpdateContent();
 
   if (content === undefined || content.length === 0) {
     return (
@@ -60,34 +39,6 @@ export default function Sections({ content, refetch }: Props) {
     );
   }
 
-  const handleUpdateModule = async (
-    sectionId: number,
-    data: {
-      id: number;
-      name: string;
-      description: string;
-      visible: boolean;
-      authorizeClasses: string[];
-    }
-  ) => {
-    await updateModule.handleTryCatch(async () =>
-      handleMutationUpdateLesson({
-        id: data.id,
-        params: {
-          name: data.name,
-          description: data.description,
-          visible: data.visible,
-          parentActivityId: sectionId,
-          authorizeClasses:
-            data.authorizeClasses?.map((item) => formatStringToNumber(item)) ||
-            [],
-          courseId,
-        },
-      })
-    );
-    await refetch();
-  };
-
   return (
     <Stack>
       {content.map((section, index) => (
@@ -112,7 +63,7 @@ export default function Sections({ content, refetch }: Props) {
                 />
               ))}
             </Stack>
-            <AddModule id={section.id} refetch={refetch} />
+            <AddModule id={section.id} />
           </Collapse>
         </Stack>
       ))}

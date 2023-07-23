@@ -8,6 +8,7 @@ import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import InputGroup from '~/components/atoms/FormInput/InputGroup';
 import Icon from '~/components/atoms/Icon';
+import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
 import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
@@ -37,42 +38,26 @@ function a11yProps(index: number) {
 }
 
 export default function MentorClassListPage() {
-  const resolver = useYupValidationResolver(validationClassListFilter);
-  const { control, handleSubmit } = useForm({
-    resolver,
-    defaultValues: {
-      startDate: new Date('01/01/2000'),
-      endDate: new Date('01/01/2099'),
-      subjectId: [],
-    },
-  });
-  const { optionSubjects } = useDispatchGetAllSubjects();
   // useState
   const [value, setValue] = useState(0);
-  const [open, setOpen] = useState(false);
   const {
     filterParams,
     classes,
     currentPage,
     error,
     handleChangeStatus,
-    handleChangeEndDate,
     handleChangePage,
     handleChangeSearchValue,
-    handleChangeStartDate,
-    handleChangeSubjectId,
+    handleFilter,
     isLoading,
     totalPage,
-  } = useQueryGetUserClass();
+  } = useQueryGetUserClass('TEACHER');
   // parameters
   const chosenClassStatus = ClassStatusList.find(
     (item) => item.value === filterParams.status
   );
 
   // functions
-  const handleOpen = () => {
-    setOpen(!open);
-  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -85,15 +70,18 @@ export default function MentorClassListPage() {
   };
 
   const onSubmit = (data: {
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
     subjectId: string[];
   }) => {
-    handleChangeStartDate(data.startDate);
-    handleChangeEndDate(data.endDate);
-    handleChangeSubjectId(
-      data.subjectId.map((item) => formatStringToNumber(item))
-    );
+    const params = {
+      startDate: data.startDate.toISOString(),
+      endDate: data.endDate.toISOString(),
+      subjectId: data.subjectId.map((item) => formatStringToNumber(item)),
+    };
+
+    handleFilter(params);
+
     toast.notifySuccessToast('Đã lọc kết quả');
   };
 
@@ -118,75 +106,14 @@ export default function MentorClassListPage() {
         >
           <Typography sx={globalStyles.textTitle}>{TEXTS.title_1}</Typography>
         </Stack>
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-          marginTop={1}
-        >
-          <Stack sx={{ flexGrow: 1 }}>
-            <SearchTextField
-              value={filterParams.q}
-              onChange={(e) => handleChangeSearch(e.target.value)}
-            />
-          </Stack>
-          <Stack
-            sx={{
-              marginLeft: 1,
-            }}
-          >
-            <Button
-              onClick={handleOpen}
-              sx={{
-                height: '38px',
-              }}
-              variant="contained"
-            >
-              <Icon name="filter" size="small_20" color="white" />
-            </Button>
-          </Stack>
-        </Stack>
-        <Collapse in={open}>
-          <Stack
-            sx={{
-              alignItems: 'flex-start',
-              marginY: 1,
-            }}
-          >
-            <InputGroup
-              control={control}
-              inputList={[
-                {
-                  label: 'Ngày bắt đầu',
-                  name: 'startDate',
-                  placeholder: 'Nhập ngày bắt đầu',
-                  variant: 'date',
-                },
-                {
-                  label: 'Ngày kết thúc',
-                  name: 'endDate',
-                  placeholder: 'Nhập ngày kết thúc',
-                  variant: 'date',
-                },
-                {
-                  label: 'Danh sách môn học',
-                  name: 'subjectId',
-                  placeholder: 'Nhập môn học',
-                  variant: 'multiSelect',
-                  data: optionSubjects,
-                },
-              ]}
-            />
-            <Button
-              sx={{ marginTop: 1 }}
-              onClick={handleSubmit(onSubmit, handleConsoleError)}
-              variant="contained"
-            >
-              Lọc kết quả tìm kiếm
-            </Button>
-          </Stack>
-        </Collapse>
+        <SearchFilterClasses
+          endDate={filterParams.endDate || ''}
+          searchValue={filterParams.q}
+          onFilter={onSubmit}
+          onSearchValue={handleChangeSearch}
+          startDate={filterParams.startDate || ''}
+          subjectId={filterParams.subjectId || []}
+        />
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             sx={{

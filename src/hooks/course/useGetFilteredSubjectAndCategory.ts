@@ -1,9 +1,6 @@
+import { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import {
-  useDispatchGetAllSubjects,
-  useGetMentorCategories,
-  useQueryGetAllMentorSubjects,
-} from '~/hooks';
+import { useGetMentorCategories, useQueryGetAllMentorSubjects } from '~/hooks';
 
 export const useGetFilteredSubjectAndCategory = (
   hookForm: UseFormReturn,
@@ -11,10 +8,19 @@ export const useGetFilteredSubjectAndCategory = (
 ) => {
   const categoryWatch = hookForm.watch(name);
   const { data: categories } = useGetMentorCategories();
-  const { subjects } = useQueryGetAllMentorSubjects();
+  const { subjects, refetch } = useQueryGetAllMentorSubjects();
+
+  const filterSubjects = subjects?.filter((item) =>
+    item.categoryIds?.includes(categoryWatch.id)
+  );
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryWatch]);
 
   return {
-    filterSubjects: subjects,
+    filterSubjects,
     categories,
   };
 };

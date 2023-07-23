@@ -8,19 +8,21 @@ import {
 import { useState } from 'react';
 import Module from './Module';
 import Icon from '~/components/atoms/Icon';
-import { FontFamily, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { ActivityPayload } from '~/models/type';
 
 export default function Section({
   id,
   subActivities,
   name,
+  readOnly = false,
 }: {
   id: number;
   name: string;
   subActivities: ActivityPayload[];
+  readOnly: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -28,9 +30,14 @@ export default function Section({
 
   return (
     <Stack>
-      {id !== 0 && <Divider />}
-
-      <Stack paddingY={2}>
+      <Stack
+        sx={{
+          background: Color.white4,
+          paddingX: 2,
+          paddingY: 1,
+          marginY: 1,
+        }}
+      >
         <Stack
           sx={{
             flexDirection: 'row',
@@ -58,9 +65,16 @@ export default function Section({
         </Stack>
 
         <Collapse in={open}>
-          <Stack marginLeft={2} marginY={2}>
+          <Stack marginTop={1}>
             {subActivities.map((module) => (
-              <Module key={module.id} id={module.id} name={module.name} />
+              <Module
+                readOnly={readOnly}
+                sectionId={id}
+                key={module.id}
+                id={module.id}
+                name={module.name}
+                status={module.type}
+              />
             ))}
           </Stack>
         </Collapse>

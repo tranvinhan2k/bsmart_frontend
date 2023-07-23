@@ -10,7 +10,7 @@ import { RequestOptionPayload } from '~/models/type';
 import { DayOfWeekPayload } from '~/models/dayOfWeek';
 
 const transformOptionData = (dayOfWeeks: DayOfWeekPayload[]) => {
-  const transformData: OptionPayload[] = dayOfWeeks.map((item) => ({
+  const transformData: OptionPayload[] = dayOfWeeks?.map((item) => ({
     id: item.id,
     label: item.name,
     value: `${item.id}`,

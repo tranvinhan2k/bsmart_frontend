@@ -17,7 +17,11 @@ export interface PostClassRequest {
   startDate: string;
   endDate: string;
   numberOfSlot: number;
-  timeTableRequest: PostTimeTableResponse;
+  timeInWeekRequests: {
+    dayOfWeekId: number;
+    slotId: number;
+  }[];
+  // timeTableRequest: PostTimeTableResponse;
 }
 
 export type PostActivityCoursePayload = {
@@ -73,7 +77,6 @@ export interface PostAssignmentRequest extends PostActivityRequest {
   attachFiles: Blob[];
   isOverWriteAttachFile: boolean;
   passPoint: number;
-  overWriteAttachFile: boolean;
 }
 
 export interface PostSubmitActivityRequest {

@@ -69,7 +69,8 @@ export default function MentorCourseModulesPage() {
       name: '',
       visible: false,
       courseId,
-      description: activity?.detail.description,
+      description:
+        activity?.detail.type === 'LESSON' ? activity?.detail?.description : '',
       authorizeClasses: [],
     },
     resolver: resolverLesson,
@@ -119,10 +120,8 @@ export default function MentorCourseModulesPage() {
     authorizeClasses: string[];
     description?: string;
   }) => {
-    console.log('id', data);
-
-    await handleTryCatch(async () =>
-      handleMutationUpdateLesson({
+    await handleTryCatch(async () => {
+      await handleMutationUpdateLesson({
         id: data.id,
         params: {
           name: data.name,
@@ -134,9 +133,8 @@ export default function MentorCourseModulesPage() {
           courseId,
           description: data?.description,
         },
-      })
-    );
-    await refetch();
+      });
+    });
   };
 
   const handleSubmitResource = async (data: {
@@ -221,7 +219,6 @@ export default function MentorCourseModulesPage() {
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
     });
-    hookFormResource.reset();
   };
 
   const handleSubmitAssignment = async (data: any) => {
@@ -263,32 +260,30 @@ export default function MentorCourseModulesPage() {
       hookFormLesson.reset({
         ...activity,
         ...activity.detail,
-        'file.0': {
-          name: activity?.detail?.url?.replace(
-            'http://103.173.155.221:9000/bsmart/',
-            ''
-          ),
-          url: activity?.detail?.url,
-          type: 'ATTACH',
-        },
       });
       hookFormResource.reset({
         ...activity,
         'file.0': {
-          name: activity?.detail?.url?.replace(
-            'http://103.173.155.221:9000/bsmart/',
-            ''
-          ),
-          url: activity?.detail?.url,
+          name:
+            activity.detail.type === 'RESOURCE'
+              ? activity?.detail?.file?.name
+              : '',
+          url:
+            activity.detail.type === 'RESOURCE'
+              ? activity?.detail?.file?.url
+              : '',
         },
       });
       hookFormAssignment.reset({
         ...activity,
         ...activity.detail,
-        attachFiles: activity?.detail?.assignmentFiles?.map((item: any) => ({
-          name: item.name,
-          url: item.url,
-        })),
+        attachFiles:
+          activity.detail.type === 'ASSIGNMENT'
+            ? activity?.detail?.attachFiles?.map((item: any) => ({
+                name: item.name,
+                url: item.url,
+              }))
+            : [],
       });
       hookFormQuiz.reset({
         ...activity,

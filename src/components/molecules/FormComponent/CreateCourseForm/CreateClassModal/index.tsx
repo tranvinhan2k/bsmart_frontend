@@ -182,7 +182,6 @@ export default function CreateClassModal({
                 Xem thời khóa biểu
               </Button>
               <Button
-                disabled={!timetable}
                 sx={{
                   marginTop: 1,
                 }}
@@ -191,6 +190,14 @@ export default function CreateClassModal({
               >
                 {texts.createClassButton}
               </Button>
+              {/* <Button
+                sx={{ marginTop: 1 }}
+                variant="contained"
+                color="error"
+                onClick={onReset}
+              >
+                Hủy tạo lớp
+              </Button> */}
             </Stack>
           </Stack>
         ) : (

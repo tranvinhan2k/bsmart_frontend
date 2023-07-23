@@ -31,6 +31,10 @@ interface Props {
   categoryName: string;
   subjectName: string;
   classes: DetailCourseClassPayload[];
+  scrollIntroduce: () => void;
+  scrollContent: () => void;
+  scrollClasses: () => void;
+  scrollMentor: () => void;
 }
 
 const initClass: DetailCourseClassPayload = {
@@ -54,6 +58,10 @@ export default function Sidebar({
   classes,
   categoryName,
   subjectName,
+  scrollClasses,
+  scrollContent,
+  scrollIntroduce,
+  scrollMentor,
 }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -119,7 +127,7 @@ export default function Sidebar({
           src={levelImage}
         />
       ),
-      name: 'Độ khó',
+      name: 'Trình độ',
       value: levelLabel,
     },
   ];
@@ -169,23 +177,23 @@ export default function Sidebar({
   }[] = [
     {
       id: 0,
-      name: 'Kiến thức học được',
-      onClick: () => {},
+      name: 'Giới thiệu khóa học',
+      onClick: scrollIntroduce,
     },
     {
       id: 1,
       name: 'Khung chương trình',
-      onClick: () => {},
+      onClick: scrollContent,
     },
     {
       id: 2,
       name: 'Danh sách lớp học',
-      onClick: () => {},
+      onClick: scrollClasses,
     },
     {
       id: 3,
       name: 'Về giáo viên',
-      onClick: () => {},
+      onClick: scrollMentor,
     },
   ];
 
@@ -302,12 +310,12 @@ export default function Sidebar({
                       }}
                     >
                       {/* {`Lớp học #${item.id}`} */}
-                      Lớp học
+                      Mã lớp
                     </Typography>
                     <Typography
                       sx={{
                         textAlign: 'center',
-                        fontSize: FontSize.small_14,
+                        fontSize: FontSize.small_16,
                         fontFamily:
                           chooseClass.id === item.id
                             ? FontFamily.bold
@@ -320,6 +328,22 @@ export default function Sidebar({
                     >
                       {/* {`Lớp học #${item.id}`} */}
                       {`#${item.code}`}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        textAlign: 'center',
+                        fontSize: FontSize.small_14,
+                        fontFamily:
+                          chooseClass.id === item.id
+                            ? FontFamily.regular
+                            : FontFamily.light,
+                        color:
+                          chooseClass.id === item.id
+                            ? Color.tertiary
+                            : Color.black,
+                      }}
+                    >
+                      {formatMoney(item.price)}
                     </Typography>
                   </Stack>
                 </Stack>

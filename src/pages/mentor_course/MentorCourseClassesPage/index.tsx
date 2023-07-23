@@ -2,8 +2,11 @@ import { Box, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 // hooks
+import { useState } from 'react';
 import {
+  useMutationDeleteClass,
   useQueryGetMentorCourseClasses,
+  useTryCatch,
   useUpdateMentorClassesForm,
 } from '~/hooks';
 
@@ -27,9 +30,15 @@ const TEXTS = {
   DELETE_TITLE: 'Xác nhận xóa giờ học',
 };
 
-export default function MentorCourseClassesPage() {
+interface Props {
+  refetchGetPercent: any;
+}
+
+export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
+
+  const [deleteId, setDeleteId] = useState(-1);
 
   // hooks
 
@@ -54,9 +63,14 @@ export default function MentorCourseClassesPage() {
     handleAddTimetable,
     handleResetCreateCourse,
     handleBackCreateCourse,
-  } = useCreateClassesForm(courseId);
+  } = useCreateClassesForm(courseId, refetchGetPercent);
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
+  const { handleTryCatch: handleTryCatchUpdate } =
+    useTryCatch('cập nhật lớp học');
+
+  const { handleTryCatch: handleTryCatchDelete } = useTryCatch('xóa lớp học');
+  const { mutateAsync: handleMutationDeleteClass } = useMutationDeleteClass();
 
   // functions
   const handleChangePage = (e: any, page: number) => {
@@ -71,7 +85,13 @@ export default function MentorCourseClassesPage() {
       q: searchValue,
     });
   };
-  const handleDeleteClass = async () => {};
+  const handleDeleteClass = async () => {
+    await handleTryCatchDelete(async () => {
+      await handleMutationDeleteClass(deleteId);
+      await refetch();
+      onTriggerModal();
+    });
+  };
   const handleCreateClass = async (data: any) => {
     await onAddNewClass(data);
     await refetch();
@@ -81,8 +101,11 @@ export default function MentorCourseClassesPage() {
     await handleAddTimetable(data);
   };
   const handleUpdateClass = async (data: any) => {
-    await onUpdateClass(data);
-    onTriggerModal();
+    await handleTryCatchUpdate(async () => {
+      await onUpdateClass(data);
+      await refetch();
+      onTriggerModal();
+    });
   };
   const handleOpenAddModal = () => {
     onTriggerModal('CREATE');
@@ -91,7 +114,8 @@ export default function MentorCourseClassesPage() {
     onTriggerModal('UPDATE');
     handleChangeDefaultValue(index);
   };
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (paramId: number) => {
+    setDeleteId(paramId);
     onTriggerModal('DELETE');
   };
 

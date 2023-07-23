@@ -35,8 +35,9 @@ import { FaShare } from 'react-icons/fa';
 import { FcNext } from 'react-icons/fc';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrPrevious, GrFormPrevious } from 'react-icons/gr';
-import { HiLocationMarker } from 'react-icons/hi';
+import { HiLocationMarker, HiDocumentText } from 'react-icons/hi';
 import { IoMdPaper, IoMdPricetag } from 'react-icons/io';
+import { IoDocuments } from 'react-icons/io5';
 import {
   MdPayments,
   MdCake,
@@ -44,6 +45,7 @@ import {
   MdFeedback,
   MdCheckBoxOutlineBlank,
   MdCheckBox,
+  MdPlayLesson,
   MdNumbers,
   MdNavigateNext,
 } from 'react-icons/md';
@@ -100,52 +102,58 @@ import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
   | 'account'
-  | 'attendance'
   | 'add-icon'
   | 'add'
-  | 'assignment'
-  | 'blog'
-  | 'cake'
-  | 'calendarMonth'
-  | 'cart'
-  | 'return'
-  | 'category'
-  | 'logOut'
-  | 'blankSquareCheckbox'
-  | 'number'
-  | 'chat'
-  | 'date'
-  | 'check'
-  | 'class'
-  | 'close'
-  | 'arrowUp'
-  | 'info'
   | 'arrowDown'
   | 'arrowRight'
+  | 'arrowUp'
+  | 'assignment'
+  | 'attendance'
+  | 'blankSquareCheckbox'
+  | 'blog'
+  | 'book'
+  | 'cake'
+  | 'calendarMonth'
+  | 'cancelIcon'
+  | 'cart'
+  | 'category'
+  | 'chat'
+  | 'check'
+  | 'checkCircle'
+  | 'checkCircleFill'
+  | 'class'
+  | 'clear'
+  | 'close'
+  | 'contentCopyIcon'
+  | 'coPresent'
   | 'course'
-  | 'viewDetail'
+  | 'date'
   | 'delete'
+  | 'description'
   | 'dot'
   | 'down'
-  | 'checkCircle'
-  | 'xCircle'
-  | 'checkCircleFill'
-  | 'xCircleFill'
   | 'dribbble'
+  | 'dynamicFeed'
   | 'edit'
   | 'eye-off'
   | 'eye'
   | 'facebook'
-  | 'female'
   | 'feedback'
+  | 'female'
   | 'filter'
   | 'google'
+  | 'groups'
   | 'home'
+  | 'helpIcon'
+  | 'imageIcon'
+  | 'info'
   | 'instagram'
   | 'keyboardArrowRight'
+  | 'left'
+  | 'lesson'
   | 'linkedin'
   | 'location'
-  | 'squareCheckbox'
+  | 'logOut'
   | 'mail'
   | 'male'
   | 'menu'
@@ -154,42 +162,38 @@ export type IconName =
   | 'nearMe'
   | 'next'
   | 'next2'
+  | 'number'
   | 'payment'
-  | 'book'
   | 'person'
   | 'phone'
   | 'pinterest'
   | 'previous'
+  | 'price'
   | 'question'
   | 'quiz'
-  | 'right'
   | 'redo'
+  | 'resource'
   | 'request'
-  | 'left'
+  | 'return'
+  | 'right'
   | 'search'
+  | 'sentimentVeryDissatisfiedIcon'
+  | 'sendIcon'
   | 'setting'
   | 'share'
+  | 'squareCheckbox'
   | 'star'
   | 'subject'
   | 'teacher'
   | 'twitter'
   | 'up'
-  | 'groups'
-  | 'description'
-  | 'coPresent'
-  | 'dynamicFeed'
-  | 'price'
-  | 'clear'
-  | 'update'
-  | 'sentimentVeryDissatisfiedIcon'
-  | 'warningIcon'
-  | 'imageIcon'
-  | 'contentCopyIcon'
-  | 'cancelIcon'
-  | 'sendIcon'
   | 'undoIcon'
-  | 'helpIcon'
-  | 'user';
+  | 'update'
+  | 'user'
+  | 'viewDetail'
+  | 'warningIcon'
+  | 'xCircle'
+  | 'xCircleFill';
 interface IconProps {
   color?: ColorKeys;
   size: IconSizeKeys;
@@ -222,6 +226,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsPostcardFill />
         </Typography>
       );
+    case 'lesson':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <MdPlayLesson />
+        </Typography>
+      );
     case 'price':
       return (
         <Typography sx={STYLED_ICON}>
@@ -238,6 +248,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Typography sx={STYLED_ICON}>
           <BsCalendarDate />
+        </Typography>
+      );
+    case 'resource':
+      return (
+        <Typography sx={STYLED_ICON}>
+          <IoDocuments />
         </Typography>
       );
     case 'logOut':

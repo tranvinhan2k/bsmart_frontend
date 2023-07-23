@@ -52,7 +52,7 @@ function CheckoutPage() {
   }
 
   const handleCheckOut = async () => {
-    const id = toast.loadToast('Đang thanh toán khóa học');
+    // const id = toast.loadToast('Đang thanh toán khóa học');
     try {
       if (Array.isArray(checkOutItem)) {
         await mutateAsync(
@@ -67,14 +67,11 @@ function CheckoutPage() {
           returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/detail/0/information`,
         });
         const url = response.paymentUrl;
-        window.open(url, '_self');
+        window.open(url, '_blank', 'location=yes,height=500,width=500');
       }
       // toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Thanh toán khóa học thất bại: ${error.message}`
-      );
+      toast.notifyErrorToast(`Thanh toán khóa học thất bại: ${error.message}`);
     }
   };
 

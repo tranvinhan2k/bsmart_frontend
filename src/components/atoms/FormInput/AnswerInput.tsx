@@ -220,7 +220,7 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
         </Collapse>
       </Stack>
       {invalid && (
-        <FormHelperText error>{(error as any).message}</FormHelperText>
+        <FormHelperText error>{(error as any)?.message}</FormHelperText>
       )}
     </Stack>
   );

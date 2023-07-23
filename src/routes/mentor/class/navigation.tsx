@@ -45,4 +45,10 @@ export const MentorClassNavigationActionData: ActionPayload[] = [
     name: 'Điểm số',
     icon: 'add',
   },
+  {
+    id: 7,
+    link: MentorClassActionLink.feedback,
+    name: 'Đánh giá từ học sinh',
+    icon: 'feedback',
+  },
 ];

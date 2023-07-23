@@ -15,7 +15,7 @@ import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSche
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
-export const useCreateClassesForm = (id: number) => {
+export const useCreateClassesForm = (id: number, refetch: any) => {
   const [open, setOpen] = useState(false);
   const [recommendEndDate, setRecommendEndDate] = useState<string>('');
   const [mode, setMode] = useState<Status>('CREATE');
@@ -28,9 +28,7 @@ export const useCreateClassesForm = (id: number) => {
   const { handleCreateClass, handleGetTimetable } = useCreateCourseClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
-  const { handleTryCatch: handleTryCatchTimetable } = useTryCatch(
-    'thêm thời khóa biểu cho lớp học'
-  );
+
   const { handleTryCatch: handleTryCatchCreateClass } =
     useTryCatch('tạo lớp học');
 
@@ -96,24 +94,6 @@ export const useCreateClassesForm = (id: number) => {
     const endDatetExpected = new Date(endDate);
     tmpEndDate.setDate(tmpStartDate.getDate() + numOfTotalDayCount);
 
-    console.log(
-      'sortArr',
-      sortArr,
-      startDay,
-      numberOfWeek,
-      leftDay,
-      endDateTime,
-      numofLeftDate,
-      tmpEndDate
-    );
-
-    // if (tmpEndDate.getTime() > endDatetExpected.getTime()) {
-    //   setRecommendEndDate(formatDate(tmpEndDate.toISOString()));
-    //   return false;
-    // } else {
-    //   return true;
-    // }
-
     return true;
   };
 
@@ -153,7 +133,11 @@ export const useCreateClassesForm = (id: number) => {
             numberOfSlot: data.numberOfSlot,
             price: data.price,
             startDate: data.startDateExpected,
-            timeTableRequest: timetable?.raw || [],
+            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+              dayOfWeekId: item.dayOfWeek.id || 0,
+              slotId: item.slot.id || 0,
+            })),
+            // timeTableRequest: timetable?.raw || [],
           };
           await handleTryCatchCreateClass(async () =>
             handleCreateClass({
@@ -161,6 +145,7 @@ export const useCreateClassesForm = (id: number) => {
               param,
             })
           );
+          await refetch();
           setTimetable(undefined);
           createSubCourseHookForm.reset();
         } else {
@@ -200,9 +185,7 @@ export const useCreateClassesForm = (id: number) => {
         slotId: item.slot.id,
       })),
     };
-    const responseTimetable = await handleTryCatchTimetable(() =>
-      handleGetTimetable(result)
-    );
+    const responseTimetable = await handleGetTimetable(result);
     setTimetable(responseTimetable || undefined);
   };
 

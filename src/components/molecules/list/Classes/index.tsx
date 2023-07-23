@@ -6,6 +6,7 @@ import { image } from '~/constants/image';
 import globalStyles from '~/styles';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import ClassItem from '~/components/molecules/items/ClassItem';
+import toast from '~/utils/toast';
 
 interface Props {
   classes: DetailCourseClassPayload[] | undefined;
@@ -46,8 +47,26 @@ export default function Classes({
                 status={item.status}
                 price={item.price}
                 id={index}
-                onUpdate={() => handleUpdate(index)}
-                onDeleteModal={() => handleDelete(index)}
+                onUpdate={() => {
+                  if (
+                    item.status !== 'EDITREQUEST' &&
+                    item.status !== 'REQUESTING'
+                  ) {
+                    toast.notifyErrorToast('Lớp không được phép xóa');
+                  } else {
+                    handleUpdate(item.id);
+                  }
+                }}
+                onDeleteModal={() => {
+                  if (
+                    item.status !== 'EDITREQUEST' &&
+                    item.status !== 'REQUESTING'
+                  ) {
+                    toast.notifyErrorToast('Lớp không được phép xóa');
+                  } else {
+                    handleDelete(item.id);
+                  }
+                }}
                 code={item.code}
                 endDate={item.endDate}
                 imageUrl={item.imageUrl}

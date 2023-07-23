@@ -150,139 +150,150 @@ export default function WeekSchedule({ data }: Props) {
           />
         </Box>
       </Stack>
-      <Stack
-        sx={{
-          padding: 3,
-          background: Color.white,
-          borderRadius: MetricSize.small_5,
-          overflowX: 'auto',
-        }}
-        marginTop={1}
-      >
-        <Stack sx={{ flexDirection: 'row', marginLeft: '150px' }}>
-          {dayOfWeeks.map((item) => (
-            <DayName
-              key={item.id}
-              day={weekDay[item.id - 1].getDate()}
-              dayOfWeek={item.name}
-            />
-          ))}
-        </Stack>
-        <LoadingWrapper error={error} isLoading={slotList.length === 0}>
-          <Stack>
-            {slotList.map((item, index) => {
-              return (
-                <Stack
-                  sx={{
-                    flexDirection: 'row',
-                  }}
-                  key={index}
-                >
-                  <SLotName name={item.slotName} time={item.slotTime} />
+      <LoadingWrapper error={error} isLoading={slotList.length === 0}>
+        <Stack
+          sx={{
+            padding: 3,
+            background: Color.white,
+            borderRadius: MetricSize.small_5,
+            overflowX: 'auto',
+          }}
+          marginTop={1}
+        >
+          <Stack
+            sx={{
+              minWidth: '1200px',
+            }}
+          >
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                marginLeft: { xs: '80px', md: '150px' },
+              }}
+            >
+              {dayOfWeeks.map((item) => (
+                <DayName
+                  key={item.id}
+                  day={weekDay[item.id - 1].getDate()}
+                  dayOfWeek={item.name}
+                />
+              ))}
+            </Stack>
+            <Stack>
+              {slotList.map((item, index) => {
+                return (
+                  <Stack
+                    sx={{
+                      flexDirection: 'row',
+                    }}
+                    key={index}
+                  >
+                    <SLotName name={item.slotName} time={item.slotTime} />
 
-                  {item.timeSlots.map((subItem, idx) => {
-                    return (
-                      <Stack
-                        sx={{
-                          borderRight: '0.5px solid grey',
-                          borderLeft: idx === 0 ? '0.5px solid grey' : 'none',
-                          borderBottom:
-                            index === slotList.length - 1
-                              ? '0.5px solid grey'
-                              : 'none',
-                          borderTop: '0.5px solid grey',
-                          minHeight: '30px',
-                          flex: 1,
-                          flexGrow: 1,
-                        }}
-                        key={idx}
-                      >
-                        {subItem.slotName !== '' ? (
-                          <Stack
-                            sx={{
-                              margin: MetricSize.small_5,
-                              padding: 2,
-                              background: `${Color.tertiary}33`,
-                              justifyContent: 'space-between',
-                            }}
-                          >
-                            <Stack>
-                              <Typography
-                                sx={{
-                                  color: Color.black,
-                                  fontSize: FontSize.small_14,
-                                  fontFamily: FontFamily.bold,
-                                }}
-                              >
-                                {subItem.className?.toUpperCase()}
-                              </Typography>
-                              <Typography
-                                sx={{
-                                  color: Color.black,
-                                  fontSize: FontSize.small_14,
-                                  fontFamily: FontFamily.light,
-                                }}
-                              >
-                                {subItem.slotName}
-                              </Typography>
-                              <Typography
-                                sx={{
-                                  color: subItem.isPresent
-                                    ? Color.red
-                                    : Color.green,
-                                  fontSize: '14px',
-                                  fontFamily: FontFamily.bold,
-                                }}
-                              >
-                                {subItem.isPresent
-                                  ? 'Đã điểm danh'
-                                  : 'Chưa điểm danh'}
-                              </Typography>
+                    {item.timeSlots.map((subItem, idx) => {
+                      return (
+                        <Stack
+                          sx={{
+                            borderRight: '0.5px solid grey',
+                            borderLeft: idx === 0 ? '0.5px solid grey' : 'none',
+                            borderBottom:
+                              index === slotList.length - 1
+                                ? '0.5px solid grey'
+                                : 'none',
+                            borderTop: '0.5px solid grey',
+                            minHeight: '30px',
+                            flex: 1,
+                            flexGrow: 1,
+                          }}
+                          key={idx}
+                        >
+                          {subItem.slotName !== '' ? (
+                            <Stack
+                              sx={{
+                                margin: MetricSize.small_5,
+                                padding: 2,
+                                background: `${Color.tertiary}33`,
+                                justifyContent: 'space-between',
+                              }}
+                            >
+                              <Stack>
+                                <Typography
+                                  sx={{
+                                    color: Color.black,
+                                    fontSize: FontSize.small_14,
+                                    fontFamily: FontFamily.bold,
+                                  }}
+                                >
+                                  {subItem.className?.toUpperCase()}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    color: Color.black,
+                                    fontSize: FontSize.small_14,
+                                    fontFamily: FontFamily.light,
+                                  }}
+                                >
+                                  {subItem.slotName}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    color: subItem.isPresent
+                                      ? Color.red
+                                      : Color.green,
+                                    fontSize: '14px',
+                                    fontFamily: FontFamily.bold,
+                                  }}
+                                >
+                                  {subItem.isPresent
+                                    ? 'Đã điểm danh'
+                                    : 'Chưa điểm danh'}
+                                </Typography>
+                              </Stack>
+                              <Stack>
+                                <Button
+                                  sx={{
+                                    fontSize: '10px',
+                                  }}
+                                  onClick={() =>
+                                    navigate(subItem.googleLink || '')
+                                  }
+                                  variant="contained"
+                                  color="primary"
+                                >
+                                  Link Meet
+                                </Button>
+                                <Button
+                                  sx={{
+                                    marginTop: 1,
+                                    fontSize: '10px',
+                                    color: Color.white,
+                                  }}
+                                  size="small"
+                                  variant="contained"
+                                  color="secondary"
+                                  onClick={() =>
+                                    navigate(
+                                      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
+                                    )
+                                  }
+                                >
+                                  Điểm danh
+                                </Button>
+                              </Stack>
                             </Stack>
-                            <Stack>
-                              <Button
-                                sx={{
-                                  fontSize: '10px',
-                                }}
-                                onClick={() =>
-                                  navigate(subItem.googleLink || '')
-                                }
-                                variant="contained"
-                                color="primary"
-                              >
-                                Link Meet
-                              </Button>
-                              <Button
-                                sx={{
-                                  marginTop: 1,
-                                  fontSize: '10px',
-                                  color: Color.white,
-                                }}
-                                size="small"
-                                variant="contained"
-                                color="secondary"
-                                onClick={() =>
-                                  navigate(
-                                    `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
-                                  )
-                                }
-                              >
-                                Điểm danh
-                              </Button>
-                            </Stack>
-                          </Stack>
-                        ) : (
-                          ''
-                        )}
-                      </Stack>
-                    );
-                  })}
-                </Stack>
-              );
-            })}
+                          ) : (
+                            ''
+                          )}
+                        </Stack>
+                      );
+                    })}
+                  </Stack>
+                );
+              })}
+            </Stack>
           </Stack>
-        </LoadingWrapper>
-      </Stack>
+        </Stack>
+      </LoadingWrapper>
     </Stack>
   );
 }

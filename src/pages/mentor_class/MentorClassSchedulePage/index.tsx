@@ -1,13 +1,13 @@
 import { Stack, Typography, Divider } from '@mui/material';
+import TextTitle from '~/components/atoms/texts/TextTitle';
 import WeekSchedule from '~/components/molecules/schedules/WeekSchedule';
 import globalStyles from '~/styles';
 
 export default function MentorSchedulePage() {
   return (
     <Stack>
-      <Typography sx={globalStyles.textTitle}>Lịch làm việc</Typography>
-      <Divider />
-      <Stack marginTop={2}>
+      <TextTitle title="Lịch làm việc" />
+      <Stack>
         <WeekSchedule
           data={[
             {

@@ -147,8 +147,56 @@ export interface ActivityPayload {
 
 export interface ActivityDetailPayload
   extends Omit<ActivityPayload, 'subActivities'> {
-  detail: any;
+  detail:
+    | ActivityAssignmentPayload
+    | ActivityResourcePayload
+    | ActivityLessonPayload
+    | ActivityQuizPayload;
   description?: string;
+}
+
+export interface ActivityLessonPayload {
+  type: 'LESSON';
+  description: string;
+}
+
+export interface ActivityResourcePayload {
+  type: 'RESOURCE';
+  file: {
+    name: string;
+    url: string;
+    size: number;
+  };
+}
+
+export interface ActivityQuizPayload {
+  type: 'QUIZ';
+  code: string;
+  startDate: string;
+  endDate: string;
+  time: number;
+  defaultPoint: number;
+  isSuffleQuestion: boolean;
+  isAllowReview: boolean;
+  allowReviewAfterMin: number;
+  password: string;
+}
+
+export interface ActivityAssignmentPayload {
+  type: 'ASSIGNMENT';
+  description: string;
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  attachFiles: {
+    name: string;
+    url: string;
+    size: number;
+  }[];
+  isOverWriteAttachFile: boolean;
+  passPoint: number;
 }
 
 export interface WeekTimeSlotPayload {

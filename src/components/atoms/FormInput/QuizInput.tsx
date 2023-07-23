@@ -187,7 +187,7 @@ function QuizInput({
         </CustomModal>
       </Stack>
       {invalid && (
-        <FormHelperText error>{`${(error as any).message}`}</FormHelperText>
+        <FormHelperText error>{`${(error as any)?.message}`}</FormHelperText>
       )}
     </Stack>
   );

@@ -80,11 +80,13 @@ export default function MentorCourseDetailPage() {
     formatStringToNumber(id)
   );
   const { classes } = useQueryGetMentorCourseClasses(formatStringToNumber(id));
+
   const data: OptionPayload[] | undefined = classes?.map((item, index) => ({
     id: index,
     label: `Lớp ${item.code}`,
     value: `${item.id}`,
   }));
+
   const hookForm = useForm<{ classes: string[] }>();
 
   const {
@@ -92,6 +94,7 @@ export default function MentorCourseDetailPage() {
     isCanSubmitted,
     handleSubmitForReview,
     handleTryCatch,
+    refetchGetCoursePercent,
     isLoading: isCoursePercentLoading,
   } = useSubmitForReviewCourse(formatStringToNumber(id));
 
@@ -135,7 +138,7 @@ export default function MentorCourseDetailPage() {
   }, [navigate]);
 
   const showRoutes = () => {
-    return mentorCourseRoutes.map((route, index) => {
+    return mentorCourseRoutes(refetchGetCoursePercent).map((route, index) => {
       if (
         course.status !== route.courseStatus &&
         route.courseStatus !== 'ALL'
@@ -262,7 +265,7 @@ export default function MentorCourseDetailPage() {
                             textAlign: 'center',
                           }}
                         >
-                          Chọn khóa học để phê duyệt
+                          Chọn lớp học để phê duyệt
                         </Typography>
                         <Stack
                           sx={{

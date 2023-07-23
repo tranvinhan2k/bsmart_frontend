@@ -5,6 +5,7 @@ export * from './useSubmitForReviewCourse';
 export * from './useGetIdFromUrl';
 export * from './useMenuItem';
 export * from './useLogOut';
+export * from './useScrollIntoView';
 
 // user
 export * from './schedule/useQueryGetSchedule';
@@ -66,6 +67,7 @@ export * from './class/useQueryGetAllMentorClasses';
 export * from './class/useQueryGetMentorCourseClasses';
 export * from './class/useQueryGetOptionMentorCourseClasses';
 export * from './class/useQueryGetUserClass';
+export * from './class/useMutationDeleteClass';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';
@@ -83,3 +85,6 @@ export * from './custom/useCustomQuery';
 // mock
 export * from './mock/useMockMutation';
 export * from './mock/useMockQuery';
+
+// subject
+export * from './useQueryGetAllSubjectByCategoryId';
