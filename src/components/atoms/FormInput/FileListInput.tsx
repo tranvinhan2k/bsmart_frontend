@@ -126,7 +126,7 @@ function FileListInput({ controller }: FileListInputProps) {
       </Stack>
       {(customError || invalid) && (
         <FormHelperText error>
-          {customError || (error as any).message}
+          {customError || (error as any)?.message}
         </FormHelperText>
       )}
     </Stack>
