@@ -1,23 +1,31 @@
 import { useState } from 'react';
 import { Stack } from '@mui/material';
 import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 const SOCKET_URL = 'http://103.173.155.221:8080/websocket';
-const topics = '/topics/messages';
+const topic = '/topics/messages';
 
 export default function TextSection() {
   const [message, setMessage] = useState('You server message here.');
   const sock = new SockJS(SOCKET_URL);
-  sock.onopen = () => {
-    console.log('Connected!!');
-    sock.send('SUBSCRIBE /topics/messages');
+  const stompClient = Stomp.over(sock);
+
+  const onMessageReceived = (payload: any) => {
+    console.log(`onMessageReceived ${payload}`);
   };
-  sock.onmessage = (e: any) => {
-    setMessage(e.data);
+
+  const onConnected = () => {
+    console.log('onConnected');
+    // Subscribe to the Public Topic
+    stompClient.subscribe(topic, onMessageReceived);
   };
-  sock.onclose = () => {
-    console.log('Closed');
+
+  const onError = (error: any) => {
+    console.log(error);
   };
+
+  stompClient.connect({}, onConnected, onError);
 
   return (
     <Stack

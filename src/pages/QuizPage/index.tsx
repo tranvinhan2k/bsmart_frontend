@@ -1,10 +1,9 @@
 import { Stack } from '@mui/material';
 import { useState } from 'react';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import { useEffectScrollToTop } from '~/hooks';
-import globalStyles from '~/styles';
 import DoQuizQuestion, { DoQuizAnswerPayload } from './DoQuizQuestion';
 
 export interface DoQuizQuestionPayload {
@@ -39,7 +38,7 @@ const initQuiz: {
     },
     {
       questionContent: 'Con gà hay con vịt có trước ?',
-      isMultipleAnswer: true,
+      isMultipleAnswer: false,
       answers: [
         {
           id: 0,
@@ -54,7 +53,7 @@ const initQuiz: {
     },
     {
       questionContent: 'Con gà hay con vịt có trước ?',
-      isMultipleAnswer: true,
+      isMultipleAnswer: false,
       answers: [
         {
           id: 0,
@@ -93,7 +92,19 @@ export default function QuizPage() {
   }>(initQuiz);
   useEffectScrollToTop();
 
-  const handleChangeAnswer = () => {};
+  const handleChangeAnswer = (questionIndex: number, answerId: number[]) => {
+    const params = quiz.questions.map((item, index) => {
+      if (index === questionIndex) {
+        return {
+          ...item,
+          correctAnswerId: answerId,
+        };
+      }
+      return item;
+    });
+
+    setQuiz({ ...quiz, questions: params });
+  };
 
   return (
     <Stack

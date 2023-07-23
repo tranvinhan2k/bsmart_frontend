@@ -13,18 +13,34 @@ interface Props {
   question: string;
   correctAnswerId: number[];
   answers: DoQuizAnswerPayload[];
-  onChangeAnswer: () => void;
+  onChangeAnswer: (questionIndex: number, answerId: number[]) => void;
 }
 
 export default function DoQuizQuestion({
   answers,
-  isMultipleAnswer = false,
+  isMultipleAnswer,
   index,
   onChangeAnswer,
   question,
   correctAnswerId,
   total,
 }: Props) {
+  const handleCheckbox = (id: number) => {
+    let params = [...correctAnswerId];
+
+    const isExisted = params.findIndex((item) => item === id);
+    if (isExisted === -1) {
+      if (!isMultipleAnswer) {
+        params = [id];
+      } else {
+        params = [...params, id];
+      }
+    } else {
+      params = params.filter((item) => item !== id);
+    }
+    onChangeAnswer(index, params);
+  };
+
   return (
     <Stack marginTop={4}>
       <Stack
@@ -59,9 +75,15 @@ export default function DoQuizQuestion({
               }}
             >
               {isMultipleAnswer ? (
-                <Checkbox checked={correctAnswerId.includes(item.id)} />
+                <Checkbox
+                  onChange={() => handleCheckbox(item.id)}
+                  checked={correctAnswerId.includes(item.id)}
+                />
               ) : (
-                <Radio checked={correctAnswerId.includes(item.id)} />
+                <Radio
+                  onChange={() => handleCheckbox(item.id)}
+                  checked={correctAnswerId.includes(item.id)}
+                />
               )}
               <Typography>{item.value}</Typography>
             </Stack>

@@ -269,7 +269,7 @@ export const validationSchemaRegisterMentor = object({
   birthDay: string()
     .required(BIRTHDAY_REQUIRED)
     .test('greater', 'Ngày sinh không hợp lệ', (value: any) => {
-      return new Date().getFullYear() - new Date(value).getFullYear() > 10;
+      return new Date().getFullYear() - new Date(value).getFullYear() > 17;
     }),
 });
 export const validationSchemaBuyCourse = object({
