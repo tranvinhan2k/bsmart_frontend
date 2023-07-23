@@ -48,6 +48,8 @@ export const FontFamily = {
   bold: 'Roboto-Bold',
   medium: 'Roboto-Medium',
   thin: 'Roboto-Thin',
+  sidebar: 'Roboto-Regular',
+  title: 'Varela Round',
 };
 
 export const FontSize = {

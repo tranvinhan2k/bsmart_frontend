@@ -97,6 +97,11 @@ export const textTwoLineEllipsis: SxProps<Theme> = {
   WebkitLineClamp: '2',
   WebkitBoxOrient: 'vertical',
 };
+export const viewRoundedWhiteBody: SxProps<Theme> = {
+  background: Color.white,
+  padding: 3,
+  borderRadius: MetricSize.small_5,
+};
 
 const globalStyles = {
   textTitle,
@@ -106,6 +111,7 @@ const globalStyles = {
   textLowSmallLight,
   textWhiteSubTitle,
   textTwoLineEllipsis,
+  viewRoundedWhiteBody,
 };
 
 export default globalStyles;

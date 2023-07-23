@@ -37,7 +37,7 @@ export default function DashboardNavigationTabs({
           : `3px solid ${Color.transparent}`,
         transition: 'all 200ms ease',
         fontSize: FontSize.small_14,
-        fontFamily: FontFamily.medium,
+        fontFamily: FontFamily.sidebar,
         color: isActive ? Color.tertiary : Color.black,
         ':hover': {
           background: Color.whiteSmoke,
@@ -45,7 +45,7 @@ export default function DashboardNavigationTabs({
         },
       }}
     >
-      <Stack marginRight={1}>
+      <Stack marginRight={3}>
         <Icon
           name={icon}
           size="small"

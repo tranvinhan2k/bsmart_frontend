@@ -9,6 +9,7 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import globalStyles from '~/styles';
 
 interface Props {
   courseId: number;
@@ -25,140 +26,142 @@ export default function MemberClassContentPage({ courseId }: Props) {
   return (
     <Stack>
       <TextTitle title="Nội dung lớp học" />
-      <Content
-        courseId={courseId}
-        sections={[
-          {
-            id: 0,
-            name: 'Giới thiệu',
-            authorizeClasses: [],
-            created: '',
-            createdBy: '',
-            lastModified: '',
-            lastModifiedBy: '',
-            parentActivityId: 1,
-            subActivities: [
-              {
-                id: 0,
-                name: 'Giới thiệu',
-                authorizeClasses: [],
-                created: '',
-                createdBy: '',
-                lastModified: '',
-                lastModifiedBy: '',
-                parentActivityId: 1,
-                subActivities: [],
-                type: 'LESSON',
-                visible: true,
-              },
-              {
-                id: 1,
-                name: 'Kiểm tra 15 phút',
-                authorizeClasses: [],
-                created: '',
-                createdBy: '',
-                lastModified: '',
-                lastModifiedBy: '',
-                parentActivityId: 1,
-                subActivities: [],
-                type: 'QUIZ',
-                visible: true,
-              },
-              {
-                id: 2,
-                name: 'Tài liệu về pointer trong C#',
-                authorizeClasses: [],
-                created: '',
-                createdBy: '',
-                lastModified: '',
-                lastModifiedBy: '',
-                parentActivityId: 1,
-                subActivities: [],
-                type: 'RESOURCE',
-                visible: true,
-              },
-              {
-                id: 3,
-                name: 'Tính số nguyên bằng ngôn ngữ C#',
-                authorizeClasses: [],
-                created: '',
-                createdBy: '',
-                lastModified: '',
-                lastModifiedBy: '',
-                parentActivityId: 1,
-                subActivities: [],
-                type: 'ASSIGNMENT',
-                visible: true,
-              },
-            ],
-            type: 'LESSON',
-            visible: true,
-          },
-          {
-            id: 0,
-            name: 'Giới thiệu',
-            authorizeClasses: [],
-            created: '',
-            createdBy: '',
-            lastModified: '',
-            lastModifiedBy: '',
-            parentActivityId: 1,
-            subActivities: [
-              {
-                id: 0,
-                name: 'Giới thiệu',
-                authorizeClasses: [],
-                created: '',
-                createdBy: '',
-                lastModified: '',
-                lastModifiedBy: '',
-                parentActivityId: 1,
-                subActivities: [],
-                type: 'LESSON',
-                visible: true,
-              },
-            ],
-            type: 'LESSON',
-            visible: true,
-          },
-          {
-            id: 0,
-            name: 'Giới thiệu',
-            authorizeClasses: [],
-            created: '',
-            createdBy: '',
-            lastModified: '',
-            lastModifiedBy: '',
-            parentActivityId: 1,
-            subActivities: [
-              {
-                id: 0,
-                name: 'Giới thiệu',
-                authorizeClasses: [],
-                created: '',
-                createdBy: '',
-                lastModified: '',
-                lastModifiedBy: '',
-                parentActivityId: 1,
-                subActivities: [],
-                type: 'LESSON',
-                visible: true,
-              },
-            ],
-            type: 'LESSON',
-            visible: true,
-          },
-        ]}
-      />
-      <Box>
-        <Button
-          onClick={handleNavigateCourseContent}
-          startIcon={<Icon name="edit" size="small_20" color="white" />}
-          variant="contained"
-        >
-          Sửa nội dung khóa học
-        </Button>
-      </Box>
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <Content
+          courseId={courseId}
+          sections={[
+            {
+              id: 0,
+              name: 'Giới thiệu',
+              authorizeClasses: [],
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              parentActivityId: 1,
+              subActivities: [
+                {
+                  id: 0,
+                  name: 'Giới thiệu',
+                  authorizeClasses: [],
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  parentActivityId: 1,
+                  subActivities: [],
+                  type: 'LESSON',
+                  visible: true,
+                },
+                {
+                  id: 1,
+                  name: 'Kiểm tra 15 phút',
+                  authorizeClasses: [],
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  parentActivityId: 1,
+                  subActivities: [],
+                  type: 'QUIZ',
+                  visible: true,
+                },
+                {
+                  id: 2,
+                  name: 'Tài liệu về pointer trong C#',
+                  authorizeClasses: [],
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  parentActivityId: 1,
+                  subActivities: [],
+                  type: 'RESOURCE',
+                  visible: true,
+                },
+                {
+                  id: 3,
+                  name: 'Tính số nguyên bằng ngôn ngữ C#',
+                  authorizeClasses: [],
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  parentActivityId: 1,
+                  subActivities: [],
+                  type: 'ASSIGNMENT',
+                  visible: true,
+                },
+              ],
+              type: 'LESSON',
+              visible: true,
+            },
+            {
+              id: 0,
+              name: 'Giới thiệu',
+              authorizeClasses: [],
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              parentActivityId: 1,
+              subActivities: [
+                {
+                  id: 0,
+                  name: 'Giới thiệu',
+                  authorizeClasses: [],
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  parentActivityId: 1,
+                  subActivities: [],
+                  type: 'LESSON',
+                  visible: true,
+                },
+              ],
+              type: 'LESSON',
+              visible: true,
+            },
+            {
+              id: 0,
+              name: 'Giới thiệu',
+              authorizeClasses: [],
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              parentActivityId: 1,
+              subActivities: [
+                {
+                  id: 0,
+                  name: 'Giới thiệu',
+                  authorizeClasses: [],
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  parentActivityId: 1,
+                  subActivities: [],
+                  type: 'LESSON',
+                  visible: true,
+                },
+              ],
+              type: 'LESSON',
+              visible: true,
+            },
+          ]}
+        />
+        <Box>
+          <Button
+            onClick={handleNavigateCourseContent}
+            startIcon={<Icon name="edit" size="small_20" color="white" />}
+            variant="contained"
+          >
+            Sửa nội dung khóa học
+          </Button>
+        </Box>
+      </Stack>
     </Stack>
   );
 }

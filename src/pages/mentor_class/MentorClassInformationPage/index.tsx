@@ -60,21 +60,23 @@ export default function MentorClassInformationPage() {
   return (
     <Stack>
       <TextTitle title="Nội dung khóa học" />
-      <ClassInformationList
-        categoryName={detailClass.categoryName}
-        code={detailClass.code}
-        endDate={detailClass.endDate}
-        imageAlt={detailClass.imageAlt}
-        imageUrl={detailClass.imageUrl}
-        name={detailClass.name}
-        numberOfSlot={detailClass.numberOfSlot}
-        numberOfStudent={detailClass.numberOfStudent}
-        price={detailClass.price}
-        startDate={detailClass.startDate}
-        status={detailClass.status}
-        subjectName={detailClass.subjectName}
-        timetable={detailClass.timetable}
-      />
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <ClassInformationList
+          categoryName={detailClass.categoryName}
+          code={detailClass.code}
+          endDate={detailClass.endDate}
+          imageAlt={detailClass.imageAlt}
+          imageUrl={detailClass.imageUrl}
+          name={detailClass.name}
+          numberOfSlot={detailClass.numberOfSlot}
+          numberOfStudent={detailClass.numberOfStudent}
+          price={detailClass.price}
+          startDate={detailClass.startDate}
+          status={detailClass.status}
+          subjectName={detailClass.subjectName}
+          timetable={detailClass.timetable}
+        />
+      </Stack>
     </Stack>
   );
 }
