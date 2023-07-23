@@ -27,15 +27,18 @@ export default function DashboardNavigationTabs({
         position: 'relative',
         flexDirection: 'row',
         alignItems: 'center',
-        background: isActive ? Color.grey3 : 'none',
+        background: isActive ? `${Color.tertiary}22` : 'none',
         paddingY: 2,
         paddingX: 2,
         borderTopRightRadius: MetricSize.small_5,
         borderBottomRightRadius: MetricSize.small_5,
-        transition: 'all 500ms ease',
+        borderLeft: isActive
+          ? `3px solid ${Color.tertiary}`
+          : `3px solid ${Color.transparent}`,
+        transition: 'all 200ms ease',
         fontSize: FontSize.small_14,
-        fontFamily: FontFamily.light,
-        color: isActive ? Color.black : Color.grey,
+        fontFamily: FontFamily.medium,
+        color: isActive ? Color.tertiary : Color.black,
         ':hover': {
           background: Color.whiteSmoke,
           cursor: 'pointer',
@@ -43,7 +46,11 @@ export default function DashboardNavigationTabs({
       }}
     >
       <Stack marginRight={1}>
-        <Icon name={icon} size="small" color={isActive ? 'black' : 'grey'} />
+        <Icon
+          name={icon}
+          size="small"
+          color={isActive ? 'tertiary' : 'black'}
+        />
       </Stack>
       {name}
     </Stack>

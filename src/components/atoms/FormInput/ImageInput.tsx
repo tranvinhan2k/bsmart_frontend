@@ -236,10 +236,10 @@ export default function ImageInput({
         </Stack>
       )}
 
-      {invalid && (
-        <FormHelperText error>{`${
-          error ? (error as any)?.message : 'Hình ảnh không hợp lệ'
-        }`}</FormHelperText>
+      {(invalid || error) && (
+        <FormHelperText error>{` ${
+          error || fieldError?.message
+        }}`}</FormHelperText>
       )}
     </Stack>
   );
