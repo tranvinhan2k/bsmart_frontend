@@ -1,4 +1,4 @@
-import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
+import { Stack, Typography, Box, Tabs, Tab, Alert, Badge } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import Tag from '~/components/atoms/Tag';
 import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { CourseStatusList } from '~/constants';
@@ -138,7 +139,28 @@ export default function MentorCourseListPage() {
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
-                label={item.label}
+                label={
+                  <Stack sx={{ alignItems: 'center', flexDirection: 'row' }}>
+                    <Typography>{item.label}</Typography>
+                    <Stack sx={{ marginLeft: 1, position: 'relative' }}>
+                      <Badge
+                        sx={{ marginLeft: 1 }}
+                        color="default"
+                        badgeContent={courses?.reduce(
+                          (totalValue: number, subItem) => {
+                            if (
+                              subItem.courseStatus === item.value ||
+                              item.value === 'ALL'
+                            )
+                              return totalValue + 1;
+                            return totalValue;
+                          },
+                          0
+                        )}
+                      />
+                    </Stack>
+                  </Stack>
+                }
                 {...a11yProps(index)}
               />
             ))}
