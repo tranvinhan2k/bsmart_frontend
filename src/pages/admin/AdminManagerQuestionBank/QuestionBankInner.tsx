@@ -82,28 +82,29 @@ export default function QuestionBankInner() {
   const isLoading = false;
 
   return (
-    <DataGrid
-      columns={questionBankInnerColumns}
-      loading={isLoading}
-      onPageChange={handleNewPage}
-      onPageSizeChange={handleNewSize}
-      page={page}
-      pageSize={size}
-      pagination
-      paginationMode="server"
-      rowCount={questionBankInners.totalItems}
-      rows={questionBankInners.items}
-      rowsPerPageOptions={rowsPerPageOptionsDefault}
-      /*  */
-      density="compact"
-      disableSelectionOnClick
-      getRowClassName={(params) =>
-        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-      }
-      getRowHeight={() => 'auto'}
-      popoverOptions={popoverOptions}
-      rowHeight={rowHeightDefault}
-      /*  */
-    />
+    <h1>Tạm xóa sửa lỗi popoverOptions</h1>
+    // <DataGrid
+    //   columns={questionBankInnerColumns}
+    //   loading={isLoading}
+    //   onPageChange={handleNewPage}
+    //   onPageSizeChange={handleNewSize}
+    //   page={page}
+    //   pageSize={size}
+    //   pagination
+    //   paginationMode="server"
+    //   rowCount={questionBankInners.totalItems}
+    //   rows={questionBankInners.items}
+    //   rowsPerPageOptions={rowsPerPageOptionsDefault}
+    //   /*  */
+    //   density="compact"
+    //   disableSelectionOnClick
+    //   getRowClassName={(params) =>
+    //     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+    //   }
+    //   getRowHeight={() => 'auto'}
+    //   popoverOptions={popoverOptions}
+    //   rowHeight={rowHeightDefault}
+    //   /*  */
+    // />
   );
 }
