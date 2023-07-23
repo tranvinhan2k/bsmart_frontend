@@ -18,6 +18,7 @@ export const Color = {
   neutral: '#ccc',
   tertiary: '#19A7CE',
   red: '#e74033',
+  orange: '#ed6c02',
   semiTransparent: '#ffffff22',
   transparent: '#00000000',
   white: '#ffffff',

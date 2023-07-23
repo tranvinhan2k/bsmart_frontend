@@ -52,8 +52,8 @@ export default function MentorDetailSection() {
       birth={profile.birthday}
       gender={profile.gender}
       isVerified={profile.isVerified}
-      isMentorVerified={profile.mentorProfile.status}
       mail={profile.email}
+      mentorProfileStatus={profile.mentorProfile.status}
       name={profile.fullName}
       phone={profile.phone}
       role={profile.roles?.[0]?.code}
