@@ -3,6 +3,7 @@ import {
   Button as MuiButton,
   Divider,
   Grid,
+  Stack,
   Typography,
 } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -33,7 +34,7 @@ export default function EditPersonalProfileForm() {
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditPersonalProfile
   );
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, formState } = useForm({
     defaultValues: defaultValueEditPersonalProfile,
     resolver: resolverEditPersonalProfile,
   });
@@ -173,7 +174,8 @@ export default function EditPersonalProfileForm() {
           <Box mt={4}>
             <UpdateProfileButton
               role={profile.roles[0].code}
-              mentorProfileStatus={profile.mentorProfile.status}
+              isFormDisabled={!formState.isDirty}
+              mentorProfileStatus={profile?.mentorProfile?.status}
             />
           </Box>
         </form>

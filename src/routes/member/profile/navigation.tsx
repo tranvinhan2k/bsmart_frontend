@@ -17,7 +17,7 @@ export const MemberNavigationActionData: ActionPayload[] = [
   },
   {
     id: 3,
-    name: 'Giao dịch',
+    name: 'Lịch sử giao dịch',
     link: MemberNavigationActionLink.wallet_management,
   },
 ];

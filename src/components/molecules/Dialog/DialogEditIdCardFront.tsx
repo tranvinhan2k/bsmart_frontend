@@ -6,6 +6,7 @@ import {
   Stack,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { defaultValueEditIdentityFront } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
 import { EditIdentityFrontFormDataPayload } from '~/models/form';
@@ -13,8 +14,10 @@ import { EditImageProfilePayload } from '~/api/users';
 import { ProfileImgType } from '~/constants/profile';
 import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { selectProfile } from '~/redux/user/selector';
 import { validationSchemaEditIdentityFront } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 
@@ -27,6 +30,7 @@ export default function DialogEditIdCardFront({
   open,
   handleOnClose,
 }: DialogEditIdCardFrontProps) {
+  const profile = useSelector(selectProfile);
   const resolverEditIdentityFront = useYupValidationResolver(
     validationSchemaEditIdentityFront
   );
@@ -35,6 +39,7 @@ export default function DialogEditIdCardFront({
     control: controlEditIdentityFront,
     handleSubmit: handleSubmitEditIdentityFront,
     reset: resetEditIdentityFront,
+    formState,
   } = useForm({
     defaultValues: defaultValueEditIdentityFront,
     resolver: resolverEditIdentityFront,
@@ -105,16 +110,11 @@ export default function DialogEditIdCardFront({
             >
               Hủy
             </MuiButton>
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Cập nhật
-            </MuiButton>
+            <UpdateProfileButton
+              role={profile.roles[0].code}
+              isFormDisabled={!formState.isDirty}
+              mentorProfileStatus={profile?.mentorProfile?.status}
+            />
           </Stack>
         </form>
       </DialogContent>

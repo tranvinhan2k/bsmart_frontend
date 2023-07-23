@@ -6,17 +6,24 @@ import MentorUpdateProfileButton from './MentorUpdateProfileButton';
 interface UpdateProfileButtonProps {
   role: string;
   mentorProfileStatus: MentorProfileStatusType;
+  isFormDisabled: boolean;
 }
 
 export default function UpdateProfileButton({
   role,
   mentorProfileStatus,
+  isFormDisabled,
 }: UpdateProfileButtonProps) {
   switch (role) {
     case 'TEACHER':
-      return <MentorUpdateProfileButton status={mentorProfileStatus} />;
+      return (
+        <MentorUpdateProfileButton
+          isFormDisabled={isFormDisabled}
+          status={mentorProfileStatus}
+        />
+      );
     case 'STUDENT':
-      return <MemberUpdateProfileButton />;
+      return <MemberUpdateProfileButton isFormDisabled={isFormDisabled} />;
     default:
       return <Typography color="red">Đã xảy ra lỗi</Typography>;
   }

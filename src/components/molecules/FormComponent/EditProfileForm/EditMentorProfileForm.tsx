@@ -11,7 +11,6 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { EditMentorProfilePayload } from '~/api/users';
-import { FontFamily } from '~/assets/variables';
 import { selectProfile } from '~/redux/user/selector';
 import {
   useDispatchGetAllSubjects,
@@ -22,7 +21,7 @@ import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfi
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
-import UpdateMentorProfileButton from '~/components/atoms/Button/UpdateMentorProfileButton';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import { MentorProfileStatusType } from '~/constants/profile';
 import toast from '~/utils/toast';
 import {
@@ -270,9 +269,10 @@ export default function EditMentorProfileForm() {
             </Grid>
           </Grid>
           <Box mt={4}>
-            <UpdateMentorProfileButton
+            <UpdateProfileButton
+              role={profile.roles[0].code}
               isFormDisabled={!formState.isDirty}
-              status={profile.mentorProfile.status}
+              mentorProfileStatus={profile?.mentorProfile?.status}
             />
           </Box>
         </form>

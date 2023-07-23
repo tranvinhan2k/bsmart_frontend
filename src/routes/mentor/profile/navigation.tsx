@@ -24,12 +24,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 4,
-    name: 'Giao dịch',
+    name: 'Lịch sử giao dịch',
     link: MentorNavigationLink.wallet_management,
   },
   {
     id: 5,
-    name: 'Rút tiền',
+    name: 'Yêu cầu rút tiền',
     link: MentorNavigationLink.withdraw,
   },
 ];

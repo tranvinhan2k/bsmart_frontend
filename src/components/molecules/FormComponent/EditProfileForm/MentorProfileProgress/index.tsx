@@ -92,6 +92,9 @@ export default function MentorProfileProgress() {
       <Typography component="h3">
         Để có thể nộp hồ sơ, hãy hoàn tất các thông tin bắt buộc
       </Typography>
+      <Typography component="h3">
+        Giáo viên không thể thay đổi thông tin sau khi được phê duyệt
+      </Typography>
       <Typography display="inline">Trạng thái của hồ sơ: </Typography>
       <Typography sx={statusStyle}>{statusLabel}</Typography>
       {mentorProfilesCompleteness && (

@@ -106,7 +106,7 @@ export default function WithdrawSection() {
   };
 
   const WITHDRAW_MONEY_FORM_TEXT = {
-    TITLE: 'Rút tiền',
+    TITLE: 'Yêu cầu rút tiền',
     AMOUNT: {
       LABEL: 'Số tiền muốn rút (vnđ)',
       PLACEHOLDER: 'Nhập Số tiền muốn rút',
@@ -222,7 +222,7 @@ export default function WithdrawSection() {
                 variant="contained"
                 sx={{ fontFamily: FontFamily.bold }}
               >
-                Rút tiền
+                Gửi yêu cầu
               </MuiButton>
             </Box>
           </form>
