@@ -29,7 +29,7 @@ export default function ReadOneRegisterRequest({
     useForm({
       defaultValues: {
         id: row.id,
-        status: 'NOTSTART',
+        status: 'STARTING',
         message: '',
       },
       resolver: resolverVerifyRegisterRequest,
