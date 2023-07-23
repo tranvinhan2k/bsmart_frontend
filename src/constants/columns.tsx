@@ -197,6 +197,7 @@ const courseCreateRequestColumns: GridColDef[] = [
       return (
         <Chip
           color="default"
+          size="small"
           label={`${params.row.categoryResponse.name || ''}`}
           title={`${params.row.categoryResponse.name || ''}`}
         />
@@ -206,24 +207,19 @@ const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'subjectResponse',
     headerName: 'Môn học',
-    minWidth: 100,
+    minWidth: 120,
     flex: 1,
     valueFormatter: (params) => params.value.name,
     renderCell: (params) => {
       return (
         <Chip
           color="default"
+          size="small"
           label={`${params.row.subjectResponse.name || ''}`}
           title={`${params.row.subjectResponse.name || ''}`}
         />
       );
     },
-  },
-  {
-    field: 'dateFirstClassExpectToOpen',
-    headerName: 'Bắt đầu sớm nhất',
-    minWidth: 150,
-    flex: 1,
   },
   {
     field: 'requestDate',

@@ -110,7 +110,7 @@ export default function ProcessCourseCreateRequest({
   switch (mode) {
     case 'READ':
       renderItem = (
-        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
+        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth={false}>
           <CourseCreateRequestDetails
             row={selectedRow}
             onSubmit={handleApproveCourseCreateRequest}
