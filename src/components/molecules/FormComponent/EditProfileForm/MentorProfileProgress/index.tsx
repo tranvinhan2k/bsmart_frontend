@@ -3,6 +3,7 @@ import {
   Button as MuiButton,
   Divider,
   Grid,
+  Stack,
   Typography,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -68,6 +69,20 @@ export default function MentorProfileProgress() {
       break;
   }
 
+  console.log(
+    'yêu cầu',
+    profile.mentorProfile.status !== MentorProfileStatusType.WAITING &&
+      profile.mentorProfile.status !== MentorProfileStatusType.EDITREQUEST
+  );
+  console.log(
+    'WAITING',
+    profile.mentorProfile.status !== MentorProfileStatusType.WAITING
+  );
+  console.log(
+    'EDITREQUEST',
+    profile.mentorProfile.status !== MentorProfileStatusType.EDITREQUEST
+  );
+
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
@@ -108,7 +123,13 @@ export default function MentorProfileProgress() {
             </Grid>
           </Grid>
 
-          <Box mt={4}>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="flex-start"
+            spacing={2}
+            mt={4}
+          >
             <MuiButton
               color="miSmartOrange"
               fullWidth
@@ -126,7 +147,24 @@ export default function MentorProfileProgress() {
             >
               Nộp hồ sơ
             </MuiButton>
-          </Box>
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              variant="contained"
+              disabled={
+                !(
+                  profile.mentorProfile.status ===
+                    MentorProfileStatusType.STARTING ||
+                  profile.mentorProfile.status ===
+                    MentorProfileStatusType.REJECTED
+                )
+              }
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Yêu cầu sửa hồ sơ
+            </MuiButton>
+          </Stack>
         </>
       )}
     </Box>
