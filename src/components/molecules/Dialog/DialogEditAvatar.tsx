@@ -1,5 +1,6 @@
 import { Button as MuiButton, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { defaultValueEditAvatar } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
 import { EditAvatarFormDataPayload } from '~/models/form';
@@ -7,10 +8,12 @@ import { EditImageProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { ProfileImgType } from '~/constants/profile';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { selectProfile } from '~/redux/user/selector';
 import { useMutationEditAvatar } from '~/hooks/useMutationEditAvatar';
 import { validationSchemaEditAvatar } from '~/form/validation';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import FormInput from '~/components/atoms/FormInput';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 
 interface DialogEditAvatarProps {
@@ -22,11 +25,13 @@ export default function DialogUpdateAvatar({
   open,
   handleOnClose,
 }: DialogEditAvatarProps) {
+  const profile = useSelector(selectProfile);
+
   const resolverEditAvatar = useYupValidationResolver(
     validationSchemaEditAvatar
   );
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, formState } = useForm({
     defaultValues: defaultValueEditAvatar,
     resolver: resolverEditAvatar,
   });
@@ -91,16 +96,11 @@ export default function DialogUpdateAvatar({
           >
             Hủy
           </MuiButton>
-          <MuiButton
-            color="miSmartOrange"
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            sx={{ fontFamily: FontFamily.bold }}
-          >
-            Cập nhật
-          </MuiButton>
+          <UpdateProfileButton
+            role={profile.roles[0].code}
+            isFormDisabled={!formState.isDirty}
+            mentorProfileStatus={profile?.mentorProfile?.status}
+          />
         </Stack>
       </form>
     </CustomDialog>

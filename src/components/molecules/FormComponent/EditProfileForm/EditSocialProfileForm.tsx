@@ -21,7 +21,7 @@ export default function EditSocialProfileForm() {
   const resolverEditSocialProfile = useYupValidationResolver(
     validationSchemaEditSocialProfile
   );
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, formState } = useForm({
     defaultValues: defaultValueEditSocialProfile,
     resolver: resolverEditSocialProfile,
   });
@@ -124,10 +124,17 @@ export default function EditSocialProfileForm() {
           </Fragment>
         ))}
         <Box mt={4}>
-          <UpdateProfileButton
-            role={dataGetProfile?.roles[0]?.code}
-            mentorProfileStatus={dataGetProfile?.mentorProfile?.status}
-          />
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            disabled={!formState.isDirty}
+            sx={{ fontFamily: FontFamily.bold }}
+          >
+            Cập nhật
+          </MuiButton>
         </Box>
       </form>
     </Box>

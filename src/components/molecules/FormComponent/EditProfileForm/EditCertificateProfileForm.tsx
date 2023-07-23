@@ -19,13 +19,12 @@ import {
 } from '~/models/form';
 import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import accountApi, { EditCertificateProfilePayload } from '~/api/users';
-import { FontFamily } from '~/assets/variables';
 import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import Icon from '~/components/atoms/Icon';
 import FormInput from '~/components/atoms/FormInput';
 import { MentorProfileStatusType } from '~/constants/profile';
-import UpdateMentorProfileButton from '~/components/atoms/Button/UpdateMentorProfileButton';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
@@ -248,9 +247,10 @@ export default function EditCertificateProfileForm() {
           </Grid>
         </Grid>
         <Box mt={4}>
-          <UpdateMentorProfileButton
+          <UpdateProfileButton
+            role={dataGetProfile?.roles[0].code}
             isFormDisabled={!formState.isDirty}
-            status={dataGetProfile?.mentorProfile?.status}
+            mentorProfileStatus={dataGetProfile?.mentorProfile?.status}
           />
         </Box>
       </form>
