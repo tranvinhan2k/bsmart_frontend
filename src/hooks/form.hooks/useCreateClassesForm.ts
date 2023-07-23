@@ -157,7 +157,7 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
               dayOfWeekId: item.dayOfWeek.id || 0,
               slotId: item.slot.id || 0,
             })),
-            timeTableRequest: timetable?.raw || [],
+            // timeTableRequest: timetable?.raw || [],
           };
           await handleTryCatchCreateClass(async () =>
             handleCreateClass({

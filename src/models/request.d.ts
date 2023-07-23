@@ -21,7 +21,7 @@ export interface PostClassRequest {
     dayOfWeekId: number;
     slotId: number;
   }[];
-  timeTableRequest: PostTimeTableResponse;
+  // timeTableRequest: PostTimeTableResponse;
 }
 
 export type PostActivityCoursePayload = {
