@@ -8,7 +8,7 @@ import {
 import { useState } from 'react';
 import Module from './Module';
 import Icon from '~/components/atoms/Icon';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ActivityPayload } from '~/models/type';
 
 export default function Section({
@@ -32,9 +32,11 @@ export default function Section({
     <Stack>
       <Stack
         sx={{
-          background: Color.white4,
-          paddingX: 2,
-          paddingY: 1,
+          position: 'relative',
+          background: Color.white,
+          border: '1px solid #ddd',
+          borderRadius: MetricSize.small_5,
+          padding: 2,
           marginY: 1,
         }}
       >
@@ -57,6 +59,8 @@ export default function Section({
             sx={{
               transition: 'all 1s ease',
               transform: open ? 'rotate(90deg)' : 'none',
+              width: '25px',
+              height: '25px',
             }}
             onClick={handleOpen}
           >
@@ -65,18 +69,16 @@ export default function Section({
         </Stack>
 
         <Collapse in={open}>
-          <Stack marginTop={1}>
-            {subActivities.map((module) => (
-              <Module
-                readOnly={readOnly}
-                sectionId={id}
-                key={module.id}
-                id={module.id}
-                name={module.name}
-                status={module.type}
-              />
-            ))}
-          </Stack>
+          {subActivities.map((module) => (
+            <Module
+              readOnly={readOnly}
+              sectionId={id}
+              key={module.id}
+              id={module.id}
+              name={module.name}
+              status={module.type}
+            />
+          ))}
         </Collapse>
       </Stack>
     </Stack>

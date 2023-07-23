@@ -71,7 +71,7 @@ export default function MemberClassModulesPage() {
     type: 'ASSIGNMENT',
   };
 
-  const detail = detailAssignment;
+  const detail = detailQuiz;
 
   const activity: ActivityDetailPayload = {
     id: 0,
@@ -83,7 +83,7 @@ export default function MemberClassModulesPage() {
     lastModified: '',
     lastModifiedBy: '',
     parentActivityId: 0,
-    type: 'LESSON',
+    type: 'QUIZ',
     visible: true,
   };
 
@@ -93,7 +93,7 @@ export default function MemberClassModulesPage() {
 
   let data: ReactNode = null;
 
-  data = <ModuleResourcePage name={activity.name} item={detailResource} />;
+  data = <ModuleQuizPage name={activity.name} item={detailQuiz} />;
 
   // switch (detail?.type) {
   //   case 'LESSON':
@@ -116,11 +116,12 @@ export default function MemberClassModulesPage() {
     <Stack>
       <ReturnLink />
       <LoadingWrapper>
-        <Typography sx={globalStyles.textSubTitle}>
+        <Typography sx={globalStyles.textSmallLabel}>
           {activityData?.label}
         </Typography>
-        <Divider />
-        <Stack marginTop={1}>{data}</Stack>
+        <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+          {data}
+        </Stack>
       </LoadingWrapper>
     </Stack>
   );

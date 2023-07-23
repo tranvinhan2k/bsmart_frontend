@@ -1,9 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FontSize, FontFamily } from '~/assets/variables';
+import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
+import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import TextList from '~/components/atoms/texts/TextList';
+import { image } from '~/constants/image';
 import { ActivityQuizPayload } from '~/models/type';
 import globalStyles from '~/styles';
 import { formatDate, formatISODateDateToDisplayDateTime } from '~/utils/date';
@@ -14,47 +17,149 @@ interface Props {
 }
 
 export default function ModuleQuizPage({ name, item }: Props) {
+  const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm();
+
+  const isQuizOpen = true;
+  const isAttemptedQuiz = false;
+  const isPassed = true;
+
+  const point = 10;
+  const passPoint = 100;
 
   const onSubmit = (data: any) => {};
 
+  const onClose = () => {
+    setOpen(!open);
+  };
+
+  const onReview = () => {};
+
   return (
-    <Stack marginTop={1}>
-      <Typography sx={globalStyles.textSmallLabel}>{name}</Typography>
-      <Stack marginTop={1} />
-      <TextList
-        items={[
-          {
-            name: 'Mã bài kiểm tra',
-            value: item.code,
-          },
-          {
-            name: 'Ngày bắt đầu ',
-            value: formatISODateDateToDisplayDateTime(item.startDate),
-          },
-          {
-            name: 'Ngày kết thúc',
-            value: formatISODateDateToDisplayDateTime(item.endDate),
-          },
-          {
-            name: 'Thời gian làm bài',
-            value: `${item.time} phút`,
-          },
-        ]}
-      />
+    <Stack
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      marginTop={1}
+    >
       <Typography
+        textAlign="center"
         sx={{
-          fontSize: FontSize.small_14,
-          fontFamily: FontFamily.bold,
+          fontSize: FontSize.medium_24,
+          fontFamily: FontFamily.medium,
         }}
       >
-        Mật khẩu
+        {name}
       </Typography>
-      <FormInput control={control} name="password" variant="password" />
+      <Stack textAlign="center" margin={2}>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Mã bài kiểm tra: ${item.code}`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Bài kiểm tra này sẽ được mở vào ngày ${formatISODateDateToDisplayDateTime(
+          item.startDate
+        )}`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${formatISODateDateToDisplayDateTime(
+          item.endDate
+        )}`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Thời gian làm bài: ${item.time} phút`}</Typography>
+      </Stack>
+      {!isAttemptedQuiz && (
+        <Button disabled={!isQuizOpen} onClick={onClose} variant="contained">
+          Vào làm bài
+        </Button>
+      )}
+      {isAttemptedQuiz && (
+        <Stack>
+          <Stack sx={globalStyles.viewCenter} padding={2}>
+            <Stack sx={globalStyles.textSmallLabel}>Điểm số</Stack>
+            <Stack
+              padding={1}
+              sx={{
+                fontSize: FontSize.large_35,
+                fontFamily: FontFamily.light,
+                color: Color.black,
+              }}
+            >
+              {`${point}/${passPoint}`}
+            </Stack>
+            <Stack
+              sx={{
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.small_14,
+                color: isPassed ? Color.green : Color.red,
+              }}
+            >
+              Đã đậu
+            </Stack>
+          </Stack>
+          <Button
+            disabled={!item.isAllowReview}
+            onClick={onReview}
+            color="success"
+            variant="contained"
+          >
+            Xem lại kết quả
+          </Button>
+        </Stack>
+      )}
 
-      <Box marginTop={1}>
-        <Button variant="contained">Xác nhận</Button>
-      </Box>
+      <CustomModal open={open} onClose={onClose}>
+        <Stack
+          padding={1}
+          sx={{
+            maxWidth: { xs: '100%', md: '50vw' },
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: FontSize.small_16,
+              fontFamily: FontFamily.bold,
+            }}
+          >
+            Xác nh̉ận tham gia làm bài kiểm tra
+          </Typography>
+          <Typography
+            sx={{
+              marginTop: 1,
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.light,
+            }}
+          >
+            Vui lòng nhập mật khẩu để vào làm bài kiểm tra. Khi mà bạn đã nhập
+            mật khẩu, hệ thống sẽ điều hướng bạn tới trang làm kiểm tra. Bạn có
+            chắc chắn muốn làm bài kiểm tra không ?
+          </Typography>
+          <Stack marginY={2}>
+            <FormInput control={control} name="password" variant="password" />
+          </Stack>
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+            marginTop={1}
+          >
+            <Button variant="contained">Xác nhận</Button>
+            <Button
+              onClick={onClose}
+              sx={{
+                marginLeft: 1,
+              }}
+              variant="contained"
+              color="error"
+            >
+              Hủy bỏ
+            </Button>
+          </Stack>
+        </Stack>
+      </CustomModal>
     </Stack>
   );
 }

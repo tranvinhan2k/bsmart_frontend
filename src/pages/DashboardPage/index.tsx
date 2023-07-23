@@ -8,6 +8,7 @@ import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import {
+  MemberDashboardNavigationActionLink,
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
@@ -70,9 +71,10 @@ export default function DashboardPage() {
     scrollToTop();
   }, []);
 
-  const isClassDetailPage = pathname.includes(
-    MentorDashboardNavigationActionLink.mentor_class_detail
-  );
+  const isClassDetailPage =
+    pathname.includes(
+      MentorDashboardNavigationActionLink.mentor_class_detail
+    ) || pathname.includes(MemberDashboardNavigationActionLink.quiz);
 
   return (
     <Stack

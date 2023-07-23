@@ -34,7 +34,13 @@ export default function CustomModal({
         }}
       >
         <Box sx={{ alignSelf: 'flex-end' }}>
-          <IconButton onClick={onClose}>
+          <IconButton
+            sx={{
+              width: '30px',
+              height: '30px',
+            }}
+            onClick={onClose}
+          >
             <Icon name="close" size="small_20" color="black" />
           </IconButton>
         </Box>

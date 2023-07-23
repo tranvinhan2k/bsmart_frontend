@@ -25,6 +25,7 @@ export const enum NavigationLink {
   check_out = 'check_out',
   confirm_email = 'confirm_email/:code',
   dashboard = 'dashboard',
+  quiz = 'quiz',
 }
 
 export const enum MemberNavigationActionLink {
@@ -78,6 +79,7 @@ export const enum MemberDashboardNavigationActionLink {
   class_detail = 'classes/detail',
   schedule = 'schedule',
   attendance = 'attendance',
+  quiz = 'quiz',
 }
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',

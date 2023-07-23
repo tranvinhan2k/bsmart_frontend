@@ -10,6 +10,7 @@ import {
   SchedulePage,
   MemberClassListPage,
   MemberClassDetailPage,
+  QuizPage,
 } from '~/routes/components';
 
 export const studentLMSRoutes: RoutePayload[] = [
@@ -40,6 +41,11 @@ export const studentLMSRoutes: RoutePayload[] = [
   {
     path: MemberDashboardNavigationActionLink.attendance,
     main: () => <MemberAttendanceListPage />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: `${MemberDashboardNavigationActionLink.quiz}/:quizId`,
+    main: () => <QuizPage />,
     role: ['ROLE_STUDENT'],
   },
   {

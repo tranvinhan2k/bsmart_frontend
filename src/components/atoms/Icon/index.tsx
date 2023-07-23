@@ -6,7 +6,7 @@ import {
   AiOutlineRedo,
   AiOutlineLogout,
 } from 'react-icons/ai';
-import { BiCategoryAlt } from 'react-icons/bi';
+import { BiCategoryAlt, BiTimeFive } from 'react-icons/bi';
 import {
   BsDribbble,
   BsInstagram,
@@ -115,6 +115,7 @@ export type IconName =
   | 'calendarMonth'
   | 'cancelIcon'
   | 'cart'
+  | 'time'
   | 'category'
   | 'chat'
   | 'check'
@@ -241,6 +242,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Stack sx={STYLED_ICON}>
           <AiOutlineInfoCircle />
+        </Stack>
+      );
+    case 'time':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <BiTimeFive />
         </Stack>
       );
     case 'date':
