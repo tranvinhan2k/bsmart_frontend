@@ -24,7 +24,7 @@ export interface CourseModulePayload {
   topic: { id: number; label: string }[];
 }
 
-export interface ClassesOfCourseWithCourseDetails {
+export interface CourseCreateRequestDetails {
   id: number;
   code: string;
   name: string;
@@ -36,22 +36,33 @@ export interface ClassesOfCourseWithCourseDetails {
   subjectResponse: SubjectPayload;
   status: string;
   mentor: Mentor;
-  classes: any[];
-  sections: any[];
+  classes: ClassOfProcessCourseCreateRequest[];
+  activities: ActivityOfProcessCourseCreateRequest[];
 }
-// //Test
-// interface CategoryResponse {
-//   id: number;
-//   code: string;
-//   name: string;
-// }
-// //Test
-// interface SubjectResponse {
-//   id: number;
-//   code: string;
-//   name: string;
-//   categoryIds: number[];
-// }
+
+interface ClassOfProcessCourseCreateRequest {
+  id: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  numberOfSlot: number;
+  status: string;
+  price: number;
+  minStudent: number;
+  maxStudent: number;
+  image: ImgClassOfProcessCourseCreateRequest;
+  timeInWeeks: any;
+  purchase: any;
+}
+interface ImgClassOfProcessCourseCreateRequest {
+  id: number;
+  name: string;
+  url: string;
+  status: boolean;
+  type: string;
+}
+
 interface Mentor {
   id: number;
   introduce: string;
@@ -70,4 +81,30 @@ interface Avatar {
   url: string;
   status: boolean;
   type: string;
+}
+
+export interface ActivityOfProcessCourseCreateRequest {
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  name: string;
+  type: string;
+  visible: boolean;
+  parentActivityId: any;
+  subActivities: SubActivityOfProcessCourseCreateRequest[];
+}
+
+export interface SubActivityOfProcessCourseCreateRequest {
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  name: string;
+  type: string;
+  visible: boolean;
+  parentActivityId: number;
+  subActivities: any[];
 }

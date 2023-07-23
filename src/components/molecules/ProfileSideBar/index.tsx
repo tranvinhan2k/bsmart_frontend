@@ -29,6 +29,7 @@ import { NavigationLink } from '~/constants/routeLink';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
 import { MentorProfileStatus } from '~/models/type';
 import { MentorProfileStatusType } from '~/constants/profile';
+import MentorProfileStatusProfileSideBar from '../MentorProfileStatusProfileSideBar';
 
 export interface ProfileSideBarProps {
   name: string;
@@ -39,7 +40,7 @@ export interface ProfileSideBarProps {
   birth: string;
   phone: string;
   isVerified: boolean;
-  isMentorVerified?: MentorProfileStatus;
+  mentorProfileStatus?: MentorProfileStatus;
   openAvatar: boolean;
   socials: SocialPayload[];
   navigationData: ActionPayload[];
@@ -58,7 +59,7 @@ export default function ProfileSideBar({
   phone,
   openAvatar,
   isVerified,
-  isMentorVerified,
+  mentorProfileStatus,
   socials,
   navigationData,
   onOpenUpdateAvatar,
@@ -172,20 +173,9 @@ export default function ProfileSideBar({
                 alignItems="center"
               >
                 {role === 'TEACHER' && (
-                  <Stack
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={1}
-                    mt={2}
-                  >
-                    <Icon name="cancelIcon" size="small" color="red" />
-                    <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
-                      {isMentorVerified === MentorProfileStatusType.STARTING
-                        ? 'Hồ sơ giảng dạy đã duyệt'
-                        : 'Hồ sơ giảng dạy chưa được duyệt'}
-                    </Typography>
-                  </Stack>
+                  <MentorProfileStatusProfileSideBar
+                    status={mentorProfileStatus}
+                  />
                 )}
                 {displayFields.map((item) => {
                   return (

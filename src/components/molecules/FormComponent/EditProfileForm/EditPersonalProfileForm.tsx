@@ -24,6 +24,7 @@ import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditPersonalProfileForm() {
@@ -170,16 +171,10 @@ export default function EditPersonalProfileForm() {
             </Grid>
           </Grid>
           <Box mt={4}>
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Cập nhật
-            </MuiButton>
+            <UpdateProfileButton
+              role={profile.roles[0].code}
+              mentorProfileStatus={profile.mentorProfile.status}
+            />
           </Box>
         </form>
       )}

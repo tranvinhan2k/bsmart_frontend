@@ -133,7 +133,6 @@ export default function ProcessRegisterRequest({
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Phê duyệt yêu cầu tạo tài khoản giáo viên"
         addItemButtonLabel="Thêm môn học"
         columns={columns.registerRequestColumns}
         // onAdd={}

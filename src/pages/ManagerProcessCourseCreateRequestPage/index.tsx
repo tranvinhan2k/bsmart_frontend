@@ -14,7 +14,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
   const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
 
   const q = '';
-  const size = 0;
+  const size = null;
   const sort = '';
   const statusWaiting = 'WAITING';
   const statusStarting = 'STARTING';

@@ -24,6 +24,8 @@ import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertif
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import Icon from '~/components/atoms/Icon';
 import FormInput from '~/components/atoms/FormInput';
+import { MentorProfileStatusType } from '~/constants/profile';
+import UpdateMentorProfileButton from '~/components/atoms/Button/UpdateMentorProfileButton';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
@@ -197,6 +199,14 @@ export default function EditCertificateProfileForm() {
                     color="error"
                     size="small"
                     variant="outlined"
+                    disabled={
+                      !(
+                        dataGetProfile?.mentorProfile?.status ===
+                          MentorProfileStatusType.REQUESTING ||
+                        dataGetProfile?.mentorProfile?.status ===
+                          MentorProfileStatusType.EDITREQUEST
+                      )
+                    }
                     onClick={() =>
                       removeCertificate(
                         index,
@@ -223,6 +233,14 @@ export default function EditCertificateProfileForm() {
               color="success"
               size="large"
               variant="outlined"
+              disabled={
+                !(
+                  dataGetProfile?.mentorProfile?.status ===
+                    MentorProfileStatusType.REQUESTING ||
+                  dataGetProfile?.mentorProfile?.status ===
+                    MentorProfileStatusType.EDITREQUEST
+                )
+              }
               onClick={() => appendCertificate()}
             >
               <Icon name="add" size="medium" />
@@ -230,18 +248,10 @@ export default function EditCertificateProfileForm() {
           </Grid>
         </Grid>
         <Box mt={4}>
-          <MuiButton
-            color="miSmartOrange"
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            sx={{ fontFamily: FontFamily.bold }}
-            // disabled={!(formState.isDirty && formState.isValid)}
-            disabled={!(formState.isDirty && formState.isValid)}
-          >
-            Cập nhật
-          </MuiButton>
+          <UpdateMentorProfileButton
+            isFormDisabled={!formState.isDirty}
+            status={dataGetProfile?.mentorProfile?.status}
+          />
         </Box>
       </form>
     </Box>

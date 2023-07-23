@@ -1,12 +1,13 @@
 import { Chip, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
-import { getGender, handleDefinedText } from '~/utils/common';
 import { RenderAttendanceStatus } from '~/utils/attendance';
+import { getGender, handleDefinedText } from '~/utils/common';
+import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import {
   formatISODateDateToDisplayDate,
   formatISODateStringToDisplayDate,
 } from '~/utils/date';
+import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 
@@ -150,6 +151,19 @@ const registerRequestColumns: GridColDef[] = [
     flex: 1,
     valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
   },
+  {
+    field: 'submitDate',
+    headerName: 'Ngày gửi',
+    minWidth: 100,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'noOfSubmit',
+    headerName: 'Lần gửi',
+    minWidth: 100,
+    flex: 1,
+  },
 ];
 
 const courseCreateRequestColumns: GridColDef[] = [
@@ -208,7 +222,19 @@ const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'dateFirstClassExpectToOpen',
     headerName: 'Bắt đầu sớm nhất',
-    minWidth: 200,
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: 'requestDate',
+    headerName: 'Ngày gửi',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'noOfSubmit',
+    headerName: 'Lần gửi',
+    minWidth: 90,
     flex: 1,
   },
 ];
@@ -395,11 +421,45 @@ const userMentorColumns = userColumns.concat(
     sortable: false,
   }
 );
+const courseClassListColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã',
+    minWidth: 90,
+    flex: 2,
+  },
+  {
+    field: 'minStudent',
+    headerName: 'HS tối thiểu',
+    minWidth: 90,
+    flex: 1,
+  },
+  {
+    field: 'maxStudent',
+    headerName: 'HS tối đa',
+    minWidth: 90,
+    flex: 1,
+  },
+  {
+    field: 'numberOfSlot',
+    headerName: 'Số buổi',
+    minWidth: 90,
+    flex: 1,
+  },
+  {
+    field: 'price',
+    headerName: 'Giá tiền',
+    minWidth: 120,
+    flex: 1,
+    valueFormatter: (params) => formatMoney(params.value),
+  },
+];
 
 const columns = {
   templateColumns,
   feedbackQuestionColumns,
   categoryColumns,
+  courseClassListColumns,
   subjectColumns,
   registerRequestColumns,
   courseCreateRequestColumns,

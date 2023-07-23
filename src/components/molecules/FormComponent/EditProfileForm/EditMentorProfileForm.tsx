@@ -22,6 +22,8 @@ import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfi
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
+import UpdateMentorProfileButton from '~/components/atoms/Button/UpdateMentorProfileButton';
+import { MentorProfileStatusType } from '~/constants/profile';
 import toast from '~/utils/toast';
 import {
   SX_FORM,
@@ -218,6 +220,14 @@ export default function EditMentorProfileForm() {
                               color="error"
                               size="small"
                               variant="outlined"
+                              disabled={
+                                !(
+                                  profile.mentorProfile.status ===
+                                    MentorProfileStatusType.REQUESTING ||
+                                  profile.mentorProfile.status ===
+                                    MentorProfileStatusType.EDITREQUEST
+                                )
+                              }
                               onClick={() => removeSkill(index)}
                             >
                               <Icon name="delete" size="medium" />
@@ -245,6 +255,14 @@ export default function EditMentorProfileForm() {
                 color="success"
                 size="large"
                 variant="outlined"
+                disabled={
+                  !(
+                    profile.mentorProfile.status ===
+                      MentorProfileStatusType.REQUESTING ||
+                    profile.mentorProfile.status ===
+                      MentorProfileStatusType.EDITREQUEST
+                  )
+                }
                 onClick={() => appendSkill()}
               >
                 <Icon name="add" size="medium" />
@@ -252,17 +270,10 @@ export default function EditMentorProfileForm() {
             </Grid>
           </Grid>
           <Box mt={4}>
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-              disabled={!formState.isDirty}
-            >
-              Cập nhật
-            </MuiButton>
+            <UpdateMentorProfileButton
+              isFormDisabled={!formState.isDirty}
+              status={profile.mentorProfile.status}
+            />
           </Box>
         </form>
       )}

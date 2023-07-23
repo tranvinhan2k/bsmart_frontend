@@ -9,7 +9,7 @@ import {
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
 } from '~/models/class';
-import { ClassesOfCourseWithCourseDetails } from '~/models/courses';
+import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import { ResponseMentorCoursePayload } from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
@@ -158,10 +158,10 @@ const classApi = {
     return axiosClient.delete(urlDelete);
   },
 
-  getClassesOfCourseWithCourseDetails(
+  getCourseCreateRequestDetails(
     idCourse: number
-  ): Promise<ClassesOfCourseWithCourseDetails | undefined> {
-    const urlGet = `${url}/course/${idCourse}`;
+  ): Promise<CourseCreateRequestDetails | undefined> {
+    const urlGet = `${url}/pending/course/${idCourse}`;
     return axiosClient.get(urlGet);
   },
 

@@ -105,7 +105,7 @@ export default function AdminManageUser({ userRole }: AdminManageUserProps) {
     {
       icon: 'edit',
       title: 'Cập nhật',
-      onCLick: () => console.log('Hello'),
+      onCLick: () => console.log('Cập nhật'),
     },
   ];
   let menuItemList = null;
@@ -124,17 +124,15 @@ export default function AdminManageUser({ userRole }: AdminManageUserProps) {
   return (
     <>
       <CRUDTable
-        setSelectedRow={setSelectedRow}
-        isLoading={isLoading}
-        error={error}
-        // title="Danh sách người dùng"
         addItemButtonLabel="Thêm môn học"
-        columns={selectedColumns}
-        // onAdd={}
         searchPlaceholder="Tìm kiếm giáo viên..."
+        columns={selectedColumns}
+        error={error}
+        isLoading={isLoading}
+        menuItemList={menuItemList}
         onSearch={handleSearchRegisterRequest}
         rows={filterRows}
-        menuItemList={menuItemList}
+        setSelectedRow={setSelectedRow}
       />
       {/* {renderItem} */}
     </>

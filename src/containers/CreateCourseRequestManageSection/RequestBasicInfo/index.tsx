@@ -21,7 +21,7 @@ import {
   SX_WRAPPER,
 } from '../style';
 import { formatPhoneNumberVi } from '~/utils/phone';
-import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { FontFamily } from '~/assets/variables';
 
 interface BasicInfoProps {
@@ -31,8 +31,8 @@ export default function BasicInfo({ row }: BasicInfoProps) {
   const userAvatar = image.noAvatar;
 
   const idCourse = row.id;
-  const { classesOfCourseWithCourseDetails, isLoading } =
-    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
+  const { courseCreateRequestDetails, isLoading } =
+    useGetCourseCreateRequestDetails(idCourse);
 
   const tmpTitle = [
     {
@@ -85,7 +85,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
               <Stack
                 direction="row"
                 justifyContent="space-between"
-                alignItems="flex-start"
+                alignItems="center"
               >
                 <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
 

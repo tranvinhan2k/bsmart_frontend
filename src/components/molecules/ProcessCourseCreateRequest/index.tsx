@@ -3,7 +3,7 @@ import { useManageCourseCreateRequest } from '~/hooks/useManageCourseCreateReque
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import ReadOneCreateCourseRequest from '~/containers/CreateCourseRequestManageSection/ReadOneCreateCourseRequest';
+import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
 import toast from '~/utils/toast';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
@@ -67,7 +67,7 @@ export default function ProcessCourseCreateRequest({
     data: ProcessCreateCourseRequestFormDefault
   ) => {
     const params: ProcessCreateCourseRequestPayload = {
-      id: data.id,
+      id: selectedRow.id,
       status: data.status,
       message: data.message,
     };
@@ -95,11 +95,6 @@ export default function ProcessCourseCreateRequest({
       title: 'Xem chi tiết',
       onCLick: handleOpenDetailCourseCreateRequest,
     },
-    {
-      icon: 'edit',
-      title: 'Cập nhật',
-      onCLick: () => console.log('Hello'),
-    },
   ];
   let menuItemList = null;
   switch (status) {
@@ -116,7 +111,7 @@ export default function ProcessCourseCreateRequest({
     case 'READ':
       renderItem = (
         <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
-          <ReadOneCreateCourseRequest
+          <CourseCreateRequestDetails
             row={selectedRow}
             onSubmit={handleApproveCourseCreateRequest}
           />
@@ -133,7 +128,6 @@ export default function ProcessCourseCreateRequest({
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Phê duyệt yêu cầu tạo khóa học của giáo viên"
         addItemButtonLabel="Thêm môn học"
         columns={columns.courseCreateRequestColumns}
         // onAdd={}

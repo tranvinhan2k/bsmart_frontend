@@ -13,6 +13,7 @@ import { validationSchemaEditSocialProfile } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
 
@@ -123,16 +124,10 @@ export default function EditSocialProfileForm() {
           </Fragment>
         ))}
         <Box mt={4}>
-          <MuiButton
-            color="miSmartOrange"
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            sx={{ fontFamily: FontFamily.bold }}
-          >
-            Cập nhật
-          </MuiButton>
+          <UpdateProfileButton
+            role={dataGetProfile?.roles[0]?.code}
+            mentorProfileStatus={dataGetProfile?.mentorProfile?.status}
+          />
         </Box>
       </form>
     </Box>

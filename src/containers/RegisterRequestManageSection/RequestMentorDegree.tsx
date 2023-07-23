@@ -18,7 +18,7 @@ export default function MentorInfo({ row }: BasicInfoProps) {
         </Grid>
         {userDegreeList.map((item: any) => (
           <Grid item xs={12} key={item.id}>
-            <Link href={item.url}>
+            <Link href={item.url} target="_blank">
               <Typography noWrap>{item.name}</Typography>
             </Link>
           </Grid>

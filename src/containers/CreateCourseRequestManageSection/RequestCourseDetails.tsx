@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Chip,
   Divider,
   Grid,
@@ -8,7 +9,8 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment } from 'react';
-import { useQueryGetClassesOfCourseWithCourseDetails } from '~/hooks/class/useQueryGetClassesWithCourseDetails';
+import { FontFamily } from '~/assets/variables';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleDefinedTextReturnComp } from '~/utils/commonComp';
 import { formatMoney } from '~/utils/money';
 import {
@@ -19,60 +21,54 @@ import {
 } from './style';
 
 interface RequestCourseDetailsProps {
-  row: any;
+  idCourse: number;
 }
 
 export default function RequestCourseDetails({
-  row,
+  idCourse,
 }: RequestCourseDetailsProps) {
-  const userAvatar = row.imageUrl;
+  // const userAvatar = row.imageUrl;
 
-  const idCourse = row.id;
-  const { classesOfCourseWithCourseDetails, isLoading } =
-    useQueryGetClassesOfCourseWithCourseDetails(idCourse);
+  // const idCourse = row.id;
+  const { courseCreateRequestDetails, isLoading } =
+    useGetCourseCreateRequestDetails(idCourse);
 
-  const title0 = classesOfCourseWithCourseDetails
+  const title0 = courseCreateRequestDetails
     ? [
         {
           id: 0,
           label: 'Mã khóa học',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.code
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.code),
         },
         {
           id: 1,
           label: 'Tên khóa học',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.name
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.name),
         },
         {
           id: 2,
           label: 'Category',
           value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.categoryResponse.name
+            courseCreateRequestDetails.categoryResponse.name
           ),
         },
         {
           id: 3,
           label: 'Subject',
           value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.subjectResponse.name
+            courseCreateRequestDetails.subjectResponse.name
           ),
         },
         {
           id: 4,
           label: 'Trình độ',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.level
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
         },
         {
           id: 5,
           label: 'Mô tả',
           value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.description
+            courseCreateRequestDetails.description
           ),
         },
       ]
@@ -109,14 +105,12 @@ export default function RequestCourseDetails({
         },
       ];
 
-  const title1 = classesOfCourseWithCourseDetails
+  const title1 = courseCreateRequestDetails
     ? [
         {
           id: 0,
           label: 'Trình độ',
-          value: handleDefinedTextReturnComp(
-            classesOfCourseWithCourseDetails.level
-          ),
+          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
         },
       ]
     : [
@@ -127,21 +121,21 @@ export default function RequestCourseDetails({
         },
       ];
 
-  const title2 = classesOfCourseWithCourseDetails
-    ? [
-        {
-          id: 0,
-          label: 'Học phí',
-          value: handleDefinedTextReturnComp(formatMoney(row.price)),
-        },
-      ]
-    : [
-        {
-          id: 0,
-          label: 'Học phí',
-          value: '',
-        },
-      ];
+  // const title2 = courseCreateRequestDetails
+  //   ? [
+  //       {
+  //         id: 0,
+  //         label: 'Học phí',
+  //         value: handleDefinedTextReturnComp(formatMoney(row.price)),
+  //       },
+  //     ]
+  //   : [
+  //       {
+  //         id: 0,
+  //         label: 'Học phí',
+  //         value: '',
+  //       },
+  //     ];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
@@ -157,7 +151,7 @@ export default function RequestCourseDetails({
         </Grid>
         <Grid item xs={12} lg={6}>
           <Avatar
-            src={userAvatar}
+            src=""
             variant="rounded"
             sx={{
               width: 300,
@@ -231,29 +225,27 @@ export default function RequestCourseDetails({
             <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography sx={SX_FORM_ITEM_VALUE} align="right">
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Stack
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  spacing={1}
-                >
-                  <Chip
-                    color="default"
-                    label={`${title0[2].value}`}
-                    title={`${title0[2].value}`}
-                  />
-                  <Chip
-                    color="default"
-                    label={`${title0[3].value}`}
-                    title={`${title0[3].value}`}
-                  />
-                </Stack>
-              )}
-            </Typography>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <Stack
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                spacing={1}
+              >
+                <Chip
+                  color="default"
+                  label={`${title0[2].value}`}
+                  title={`${title0[2].value}`}
+                />
+                <Chip
+                  color="default"
+                  label={`${title0[3].value}`}
+                  title={`${title0[3].value}`}
+                />
+              </Stack>
+            )}
           </Grid>
           {/* <Grid item xs={12}>
             <Stack
@@ -308,12 +300,16 @@ export default function RequestCourseDetails({
             direction="column"
             justifyContent="flex-start"
             alignItems="stretch"
-            spacing={2}
           >
             <Typography sx={SX_FORM_ITEM_LABEL}>Mô tả:</Typography>
-            <Typography sx={SX_FORM_ITEM_VALUE}>
-              {isLoading ? <Skeleton /> : title0[5].value}
-            </Typography>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <Box
+                sx={{ fontFamily: FontFamily.regular }}
+                dangerouslySetInnerHTML={{ __html: `${title0[5].value}` }}
+              />
+            )}
           </Stack>
         </Grid>
       </Grid>
