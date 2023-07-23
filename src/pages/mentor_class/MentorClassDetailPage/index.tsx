@@ -18,6 +18,7 @@ import Sidebar from './Sidebar';
 import { MentorClassAttendanceListPage } from '~/routes/components';
 import MentorClassInformationPage from '../MentorClassInformationPage';
 import { mentorClassRoutes } from '~/routes/mentor/class/routes';
+import ClassHeader from '~/components/molecules/header/ClassHeader';
 
 export interface DetailMemberClassPayload {
   code: string;
@@ -31,7 +32,7 @@ export default function MentorClassDetailPage() {
   const { id } = useParams();
 
   const memberClass: DetailMemberClassPayload = {
-    code: '#ada43c',
+    code: 'ada43c',
     courseName: 'Khóa học kiểm thử #12',
     courseId: 23,
   };
@@ -56,58 +57,25 @@ export default function MentorClassDetailPage() {
     return result;
   };
 
+  const returnClassList = () => {
+    navigate(
+      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_list}`
+    );
+  };
+
   return (
     <Stack>
-      <Stack
-        sx={{
-          background: Color.navy,
-          paddingY: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <IconButton
-          onClick={() =>
-            navigate(
-              `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_list}`
-            )
-          }
-        >
-          <Icon name="left" size="large" color="white" />
-        </IconButton>
-        <Typography
-          noWrap
-          sx={{
-            flexGrow: 1,
-            fontSize: FontSize.small_18,
-            fontFamily: FontFamily.regular,
-            color: Color.white,
-          }}
-        >
-          {`Lớp học ${memberClass.code} - `}
-          <span
-            style={{
-              color: Color.grey,
-              fontFamily: FontFamily.light,
-            }}
-          >
-            {memberClass.courseName}
-          </span>
-        </Typography>
-        <IconButton
-          sx={{
-            display: { xs: 'flex', md: 'none' },
-          }}
-          onClick={handleClose}
-        >
-          <Icon name="menu" size="large" color="white" />
-        </IconButton>
-      </Stack>
-      <Grid container sx={{ background: Color.white, minHeight: '100vh' }}>
+      <ClassHeader
+        classCode={memberClass.code}
+        courseName={memberClass.courseName}
+        onCloseDrawerMenu={handleClose}
+        onReturnClassList={returnClassList}
+      />
+      <Grid container sx={{ background: Color.white4, minHeight: '100vh' }}>
         <Grid
           sx={{
             paddingY: 2,
-            background: Color.white4,
+            background: Color.white,
             borderRight: '1px solid #ddd',
             display: { xs: 'none', md: 'flex' },
           }}

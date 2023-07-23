@@ -7,7 +7,7 @@ export default function MentorSchedulePage() {
   return (
     <Stack>
       <TextTitle title="Lịch làm việc" />
-      <Stack>
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <WeekSchedule
           data={[
             {

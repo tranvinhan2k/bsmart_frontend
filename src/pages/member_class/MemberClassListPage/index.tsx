@@ -158,7 +158,7 @@ export default function MemberClassListPage() {
       <LoadingWrapper
         isLoading={isLoading}
         error={error}
-        isEmptyCourse={classes?.length !== 0}
+        isEmptyCourse={classes?.length === 0}
       >
         <Grid container>
           {classes &&

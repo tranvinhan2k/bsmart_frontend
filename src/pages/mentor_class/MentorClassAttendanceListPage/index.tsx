@@ -76,7 +76,7 @@ export default function MentorClassAttendanceListPage() {
   return (
     <Stack>
       <TextTitle title="Điểm danh lớp học" />
-      <Stack>
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <CRUDTable
           columns={columns.attendanceClassColumns}
           rows={rows}

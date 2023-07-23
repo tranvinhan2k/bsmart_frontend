@@ -87,7 +87,7 @@ export default function WeekSchedule({ data }: Props) {
   useEffect(() => {
     if (data) {
       setSlotList(
-        slots.map((item) => ({
+        slots.map((item: any) => ({
           id: item.id,
           slotName: item.name,
           slotTime: `${item.startTime} - ${item.endTime}`,

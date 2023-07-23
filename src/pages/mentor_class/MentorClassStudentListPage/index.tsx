@@ -82,7 +82,7 @@ export default function MentorClassStudentListPage() {
               padding: 1,
               height: isShowImage ? '100%' : 0,
               opacity: isShowImage ? 1 : 0,
-              transition: 'all 500ms ease',
+              transition: 'height 500ms ease',
             }}
           >
             <Box
@@ -111,7 +111,7 @@ export default function MentorClassStudentListPage() {
   return (
     <Stack>
       <TextTitle title="Danh sách học sinh" />
-      <Stack>
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <FormControlLabel
           control={
             <Switch
@@ -123,24 +123,25 @@ export default function MentorClassStudentListPage() {
           }
           label="Hiển thị hình ảnh"
         />
+
+        <CRUDTable
+          searchPlaceholder="Nhập tên học sinh cần tìm"
+          onSearch={({ searchValue }: { searchValue: string }) =>
+            setSearchValue(searchValue)
+          }
+          rowHeight={isShowImage ? 200 : 60}
+          setSelectedRow={setRow}
+          columns={columns}
+          rows={filterRows}
+          menuItemList={[
+            {
+              title: 'Xem chi tiết',
+              icon: 'search',
+              onCLick: handleOpenDetailModal,
+            },
+          ]}
+        />
       </Stack>
-      <CRUDTable
-        searchPlaceholder="Nhập tên học sinh cần tìm"
-        onSearch={({ searchValue }: { searchValue: string }) =>
-          setSearchValue(searchValue)
-        }
-        rowHeight={isShowImage ? 200 : 60}
-        setSelectedRow={setRow}
-        columns={columns}
-        rows={filterRows}
-        menuItemList={[
-          {
-            title: 'Xem chi tiết',
-            icon: 'search',
-            onCLick: handleOpenDetailModal,
-          },
-        ]}
-      />
     </Stack>
   );
 }
