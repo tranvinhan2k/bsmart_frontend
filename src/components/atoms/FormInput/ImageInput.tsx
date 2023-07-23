@@ -237,7 +237,9 @@ export default function ImageInput({
       )}
 
       {invalid && (
-        <FormHelperText error>{`${(error as any)?.message}`}</FormHelperText>
+        <FormHelperText error>{`${
+          error ? (error as any)?.message : 'Hình ảnh không hợp lệ'
+        }`}</FormHelperText>
       )}
     </Stack>
   );

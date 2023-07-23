@@ -28,9 +28,7 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
   const { handleCreateClass, handleGetTimetable } = useCreateCourseClass();
 
   const uploadImageMutation = useMutationUploadClassImage();
-  const { handleTryCatch: handleTryCatchTimetable } = useTryCatch(
-    'thêm thời khóa biểu cho lớp học'
-  );
+
   const { handleTryCatch: handleTryCatchCreateClass } =
     useTryCatch('tạo lớp học');
 
@@ -95,24 +93,6 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
     const tmpEndDate = new Date();
     const endDatetExpected = new Date(endDate);
     tmpEndDate.setDate(tmpStartDate.getDate() + numOfTotalDayCount);
-
-    console.log(
-      'sortArr',
-      sortArr,
-      startDay,
-      numberOfWeek,
-      leftDay,
-      endDateTime,
-      numofLeftDate,
-      tmpEndDate
-    );
-
-    // if (tmpEndDate.getTime() > endDatetExpected.getTime()) {
-    //   setRecommendEndDate(formatDate(tmpEndDate.toISOString()));
-    //   return false;
-    // } else {
-    //   return true;
-    // }
 
     return true;
   };
@@ -205,9 +185,7 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
         slotId: item.slot.id,
       })),
     };
-    const responseTimetable = await handleTryCatchTimetable(() =>
-      handleGetTimetable(result)
-    );
+    const responseTimetable = await handleGetTimetable(result);
     setTimetable(responseTimetable || undefined);
   };
 
