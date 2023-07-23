@@ -84,3 +84,6 @@ export * from './custom/useCustomQuery';
 // mock
 export * from './mock/useMockMutation';
 export * from './mock/useMockQuery';
+
+// subject
+export * from './useQueryGetAllSubjectByCategoryId';

@@ -81,6 +81,17 @@ const subjectsApi = {
     }));
     return result;
   },
+  async getSubjectByCategoryId(id: number): Promise<OptionPayload[]> {
+    const response = await axiosClient.get<any[]>(`${url}/category/${id}`);
+
+    const result: OptionPayload[] = response.map((item: any) => ({
+      id: item.id,
+      label: item.name,
+      value: item.id,
+      categoryIds: item.categoryIds,
+    }));
+    return result;
+  },
 };
 
 export default subjectsApi;
