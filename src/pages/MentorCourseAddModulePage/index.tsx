@@ -106,7 +106,6 @@ export default function MentorCourseAddModulePage() {
       attachFiles: [],
       isOverWriteAttachFile: false,
       passPoint: 0,
-      overWriteAttachFile: false,
     },
     resolver: resolverAssignment,
   });
@@ -178,7 +177,6 @@ export default function MentorCourseAddModulePage() {
         attachFiles: data.attachFiles,
         isOverWriteAttachFile: data.isOverWriteAttachFile,
         passPoint: data.passPoint,
-        overWriteAttachFile: data.overWriteAttachFile,
       });
       hookFormLesson.reset();
       navigate(

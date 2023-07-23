@@ -87,10 +87,6 @@ const activityApi = {
       String(params.isOverWriteAttachFile)
     );
     requestData.append('passPoint', String(params.passPoint));
-    requestData.append(
-      'overWriteAttachFile',
-      String(params.overWriteAttachFile)
-    );
 
     if (!(params.authorizeClasses?.length > 0)) {
       requestData.append('authorizeClasses', String(-1));
@@ -213,10 +209,6 @@ const activityApi = {
       String(!!params.isOverWriteAttachFile)
     );
     requestData.append('passPoint', String(params.passPoint));
-    requestData.append(
-      'overWriteAttachFile',
-      String(!!params.overWriteAttachFile)
-    );
 
     if (!(params.authorizeClasses?.length > 0)) {
       requestData.append('authorizeClasses', String(-1));

@@ -6,7 +6,6 @@ import {
   InputAdornment,
   Button as MuiButton,
   Typography,
-  FormHelperText,
 } from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
@@ -14,9 +13,8 @@ import { Color, MetricSize } from '~/assets/variables';
 
 interface FileInputProps {
   controller: UseControllerReturn<any, string>;
-  placeholder: string;
 }
-function FileInput({ controller, placeholder }: FileInputProps) {
+function FileInput({ controller }: FileInputProps) {
   const [error, setError] = useState<string | null>(null);
   const {
     field: { value, onChange, onBlur },
