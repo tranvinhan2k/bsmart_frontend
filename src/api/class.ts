@@ -176,6 +176,11 @@ const classApi = {
     });
     return response;
   },
+
+  // delete
+  deleteCourseClass(id: number) {
+    return axiosClient.delete(`${url}/${id}`);
+  },
 };
 
 export default classApi;

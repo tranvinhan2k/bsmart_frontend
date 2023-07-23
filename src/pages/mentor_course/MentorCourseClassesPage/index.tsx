@@ -2,8 +2,11 @@ import { Box, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 // hooks
+import { useState } from 'react';
 import {
+  useMutationDeleteClass,
   useQueryGetMentorCourseClasses,
+  useTryCatch,
   useUpdateMentorClassesForm,
 } from '~/hooks';
 
@@ -35,6 +38,8 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
 
+  const [deleteId, setDeleteId] = useState(-1);
+
   // hooks
 
   const {
@@ -62,6 +67,9 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
 
+  const { handleTryCatch: handleTryCatchDelete } = useTryCatch('xóa lớp học');
+  const { mutateAsync: handleMutationDeleteClass } = useMutationDeleteClass();
+
   // functions
   const handleChangePage = (e: any, page: number) => {
     setFilterParam({
@@ -75,7 +83,13 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
       q: searchValue,
     });
   };
-  const handleDeleteClass = async () => {};
+  const handleDeleteClass = async () => {
+    await handleTryCatchDelete(async () => {
+      await handleMutationDeleteClass(deleteId);
+      await refetch();
+      onTriggerModal();
+    });
+  };
   const handleCreateClass = async (data: any) => {
     await onAddNewClass(data);
     await refetch();
@@ -95,7 +109,8 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
     onTriggerModal('UPDATE');
     handleChangeDefaultValue(index);
   };
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (paramId: number) => {
+    setDeleteId(paramId);
     onTriggerModal('DELETE');
   };
 
