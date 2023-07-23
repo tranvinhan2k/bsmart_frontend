@@ -66,6 +66,8 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
   } = useCreateClassesForm(courseId, refetchGetPercent);
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
+  const { handleTryCatch: handleTryCatchUpdate } =
+    useTryCatch('cập nhật lớp học');
 
   const { handleTryCatch: handleTryCatchDelete } = useTryCatch('xóa lớp học');
   const { mutateAsync: handleMutationDeleteClass } = useMutationDeleteClass();
@@ -99,8 +101,11 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
     await handleAddTimetable(data);
   };
   const handleUpdateClass = async (data: any) => {
-    await onUpdateClass(data);
-    onTriggerModal();
+    await handleTryCatchUpdate(async () => {
+      await onUpdateClass(data);
+      await refetch();
+      onTriggerModal();
+    });
   };
   const handleOpenAddModal = () => {
     onTriggerModal('CREATE');

@@ -47,7 +47,16 @@ export default function Classes({
                 status={item.status}
                 price={item.price}
                 id={index}
-                onUpdate={() => handleUpdate(item.id)}
+                onUpdate={() => {
+                  if (
+                    item.status !== 'EDITREQUEST' &&
+                    item.status !== 'REQUESTING'
+                  ) {
+                    toast.notifyErrorToast('Lớp không được phép xóa');
+                  } else {
+                    handleUpdate(item.id);
+                  }
+                }}
                 onDeleteModal={() => {
                   if (
                     item.status !== 'EDITREQUEST' &&
