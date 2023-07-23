@@ -69,20 +69,6 @@ export default function MentorProfileProgress() {
       break;
   }
 
-  console.log(
-    'yêu cầu',
-    profile.mentorProfile.status !== MentorProfileStatusType.WAITING &&
-      profile.mentorProfile.status !== MentorProfileStatusType.EDITREQUEST
-  );
-  console.log(
-    'WAITING',
-    profile.mentorProfile.status !== MentorProfileStatusType.WAITING
-  );
-  console.log(
-    'EDITREQUEST',
-    profile.mentorProfile.status !== MentorProfileStatusType.EDITREQUEST
-  );
-
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
@@ -139,7 +125,7 @@ export default function MentorProfileProgress() {
               size="large"
               variant="contained"
               disabled={
-                mentorProfilesCompleteness.allowSendingApproval ||
+                !mentorProfilesCompleteness.allowSendingApproval ||
                 profile.mentorProfile.status ===
                   MentorProfileStatusType.WAITING ||
                 profile.mentorProfile.status ===
@@ -149,23 +135,6 @@ export default function MentorProfileProgress() {
               sx={{ fontFamily: FontFamily.bold }}
             >
               Nộp hồ sơ
-            </MuiButton>
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              variant="contained"
-              disabled={
-                !(
-                  profile.mentorProfile.status ===
-                    MentorProfileStatusType.STARTING ||
-                  profile.mentorProfile.status ===
-                    MentorProfileStatusType.REJECTED
-                )
-              }
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Yêu cầu sửa hồ sơ
             </MuiButton>
           </Stack>
         </>
