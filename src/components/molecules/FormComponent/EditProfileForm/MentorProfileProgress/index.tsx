@@ -69,6 +69,20 @@ export default function MentorProfileProgress() {
       break;
   }
 
+  // console.log(
+  //   'mentorProfilesCompleteness.allowSendingApproval',
+  //   mentorProfilesCompleteness &&
+  //     mentorProfilesCompleteness?.allowSendingApproval
+  // );
+  // console.log(
+  //   'WAITING',
+  //   profile.mentorProfile.status === MentorProfileStatusType.WAITING
+  // );
+  // console.log(
+  //   'EDITREQUEST',
+  //   profile.mentorProfile.status === MentorProfileStatusType.EDITREQUEST
+  // );
+
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
@@ -125,10 +139,10 @@ export default function MentorProfileProgress() {
               size="large"
               variant="contained"
               disabled={
-                !mentorProfilesCompleteness.allowSendingApproval ||
-                profile.mentorProfile.status ===
-                  MentorProfileStatusType.WAITING ||
-                profile.mentorProfile.status ===
+                mentorProfilesCompleteness.allowSendingApproval &&
+                profile.mentorProfile.status !==
+                  MentorProfileStatusType.WAITING &&
+                profile.mentorProfile.status !==
                   MentorProfileStatusType.EDITREQUEST
               }
               onClick={handleSubmitSuccess}
