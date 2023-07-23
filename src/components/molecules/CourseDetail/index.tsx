@@ -165,8 +165,6 @@ export default function CourseDetail({
           <Stack
             sx={{
               marginTop: 1,
-              paddingX: 2,
-              background: Color.white,
               borderRadius: MetricSize.small_5,
             }}
           >

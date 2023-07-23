@@ -4,6 +4,7 @@ import { NavigationLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import CartPage from '~/pages/CartPage';
 import CheckoutPage from '~/pages/CheckoutPage';
+import QuizPage from '~/pages/QuizPage';
 import {
   AboutUsPage,
   AnnotationPage,

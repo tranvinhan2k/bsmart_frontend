@@ -40,7 +40,7 @@ export default function DashboardNavigationTabs({
         fontFamily: FontFamily.sidebar,
         color: isActive ? Color.tertiary : Color.black,
         ':hover': {
-          background: Color.whiteSmoke,
+          background: isActive ? `${Color.tertiary}55` : Color.whiteSmoke,
           cursor: 'pointer',
         },
       }}

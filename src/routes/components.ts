@@ -21,6 +21,7 @@ export const WalletManagementPage = lazy(
   () => import('~/pages/WalletManagementPage')
 );
 export const DashboardPage = lazy(() => import('~/pages/DashboardPage'));
+export const QuizPage = lazy(() => import('~/pages/QuizPage'));
 export const WithdrawPage = lazy(() => import('~/pages/WithdrawPage'));
 export const TestPage = lazy(() => import('~/pages/TestPage'));
 export const RegisterPage = lazy(() => import('~/pages/RegisterPage'));

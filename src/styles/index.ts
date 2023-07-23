@@ -38,7 +38,7 @@ const textTitle: SxProps<Theme> = {
   color: Color.black,
 };
 const textSubTitle: SxProps<Theme> = {
-  fontFamily: FontFamily.regular,
+  fontFamily: FontFamily.title,
   fontSize: FontSize.medium_24,
   color: Color.black,
 };
@@ -102,6 +102,17 @@ export const viewRoundedWhiteBody: SxProps<Theme> = {
   padding: 3,
   borderRadius: MetricSize.small_5,
 };
+export const viewIllustration: SxProps<Theme> = {
+  width: '300px',
+  height: '300px',
+  objectFit: 'contain',
+  alignSelf: 'center',
+  padding: 1,
+};
+export const viewCenter: SxProps<Theme> = {
+  justifyContent: 'center',
+  alignItems: 'center',
+};
 
 const globalStyles = {
   textTitle,
@@ -112,6 +123,8 @@ const globalStyles = {
   textWhiteSubTitle,
   textTwoLineEllipsis,
   viewRoundedWhiteBody,
+  viewIllustration,
+  viewCenter,
 };
 
 export default globalStyles;

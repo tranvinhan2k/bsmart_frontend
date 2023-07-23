@@ -21,6 +21,7 @@ import study from '~/assets/images/study.png';
 import asg from '~/assets/images/asg.png';
 import file from '~/assets/images/file.png';
 import quiz from '~/assets/images/quiz.png';
+import quiz_illustration from '~/assets/images/quiz_illustration.png';
 import resource from '~/assets/images/resrc.png';
 import guide from '~/assets/images/guide.png';
 import classSlot from '~/assets/images/class.png';
@@ -48,6 +49,7 @@ export const image = {
   asg,
   resource,
   quiz,
+  quiz_illustration,
   level1,
   level2,
   level3,
