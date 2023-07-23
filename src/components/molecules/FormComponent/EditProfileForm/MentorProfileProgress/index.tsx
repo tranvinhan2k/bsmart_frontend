@@ -115,11 +115,11 @@ export default function MentorProfileProgress() {
               size="large"
               variant="contained"
               disabled={
-                !mentorProfilesCompleteness.allowSendingApproval ||
+                mentorProfilesCompleteness.allowSendingApproval ||
                 profile.mentorProfile.status ===
                   MentorProfileStatusType.WAITING ||
                 profile.mentorProfile.status ===
-                  MentorProfileStatusType.REJECTED
+                  MentorProfileStatusType.EDITREQUEST
               }
               onClick={handleSubmitSuccess}
               sx={{ fontFamily: FontFamily.bold }}

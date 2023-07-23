@@ -92,6 +92,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SendIcon from '@mui/icons-material/Send';
 import UndoIcon from '@mui/icons-material/Undo';
+import HelpIcon from '@mui/icons-material/Help';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { Color, IconSize } from '~/assets/variables';
 import { ColorKeys, IconSizeKeys } from '~/models/variables';
@@ -187,6 +188,7 @@ export type IconName =
   | 'cancelIcon'
   | 'sendIcon'
   | 'undoIcon'
+  | 'helpIcon'
   | 'user';
 interface IconProps {
   color?: ColorKeys;
@@ -436,6 +438,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <SendIcon sx={STYLED_ICON} />;
     case 'undoIcon':
       return <UndoIcon sx={STYLED_ICON} />;
+    case 'helpIcon':
+      return <HelpIcon sx={STYLED_ICON} />;
     case 'google':
       return (
         <Box component="img" src={google} sx={STYLED_ICON} alt="google icon" />
