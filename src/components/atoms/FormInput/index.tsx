@@ -132,7 +132,7 @@ const generateFormInput = (
         />
       );
     case variant === 'file':
-      return <FileInput controller={controller} placeholder={placeholder} />;
+      return <FileInput controller={controller} />;
     case variant === 'files':
       return <FileListInput controller={controller} />;
     case variant === 'fileRequireYup':
