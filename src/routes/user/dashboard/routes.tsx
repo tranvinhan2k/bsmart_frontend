@@ -132,7 +132,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.confirm_email,
     main: () => <ConfirmEmailPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: [],
   },
   {
     path: `/${NavigationLink.dashboard}/*`,

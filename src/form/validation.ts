@@ -233,7 +233,10 @@ export const validationClassContentAssignment = object({
 
 export const validationSchemaRegisterStudent = object({
   name: string()
-    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .matches(
+      FULL_NAME_REGEX,
+      'Họ và tên phải có chữ đầu viết hoa và là tên Tiếng Việt.'
+    )
     .max(40)
     .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
