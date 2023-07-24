@@ -118,18 +118,6 @@ export const ClassStatusList: OptionPayload[] = [
     value: 'ALL',
   },
   {
-    id: 1,
-    label: 'Lớp đang dạy',
-    content: 'Lớp đang được dạy.',
-    value: 'STARTING',
-  },
-  {
-    id: 2,
-    label: 'Lớp đã kết thúc',
-    content: 'Lớp đã hết thời gian giảng dạy',
-    value: 'CLOSE',
-  },
-  {
     id: 3,
     label: 'Lớp chưa phê duyệt',
     content: 'Lớp đang chờ phê duyệt',
@@ -143,9 +131,21 @@ export const ClassStatusList: OptionPayload[] = [
   },
   {
     id: 5,
-    label: 'Lớp đã phê duyệt',
+    label: 'Lớp đang chiêu sinh',
     content: 'Lớp đang chờ phê duyệt',
     value: 'NOTSTART',
+  },
+  {
+    id: 1,
+    label: 'Lớp đang dạy',
+    content: 'Lớp đang được dạy.',
+    value: 'STARTING',
+  },
+  {
+    id: 2,
+    label: 'Lớp đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy',
+    value: 'CLOSE',
   },
 ];
 export const CourseStatusList: OptionPayload[] = [

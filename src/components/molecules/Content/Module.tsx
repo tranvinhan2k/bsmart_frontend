@@ -63,7 +63,7 @@ export default function Module({
         borderRadius: MetricSize.small_5,
 
         ':hover': {
-          cursor: 'pointer',
+          cursor: !readOnly ? 'pointer' : 'auto',
           background: !readOnly ? '#ddd' : Color.white,
         },
 

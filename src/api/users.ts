@@ -231,7 +231,7 @@ const accountApi = {
     const result: ClassMenuItemPayload[] = response.items.map((item) => ({
       id: item.id || 0,
       imageAlt: 'class image', // TODO: chua co
-      imageUrl: image.mockClass, // TODO: chua co
+      imageUrl: '', // TODO: chua co
       name: item.course?.name,
       progressValue: 50, // TODO: chua co
       status: 'NOTSTART', // TODO: chua co
@@ -300,7 +300,7 @@ const accountApi = {
     const result: AttendanceTimeSlotPayload[] =
       selectedClassResponse?.timeTableResponse?.map((timeSlot) => ({
         id: timeSlot.id || 0,
-        date: formatDate(timeSlot.date || '') || '',
+        date: timeSlot?.date || '',
         slotName: timeSlot.slot?.name || '',
         time: `${timeSlot.slot?.startTime} - ${timeSlot.slot?.endTime}`,
         isPresent: true,

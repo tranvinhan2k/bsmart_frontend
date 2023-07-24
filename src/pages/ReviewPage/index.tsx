@@ -88,11 +88,11 @@ const initQuiz: {
   ],
 };
 
-export default function QuizPage() {
+export default function ReviewPage() {
   useEffectScrollToTop();
   return (
     <Stack>
-      <DoQuizReviewList initData={initQuiz} />
+      <DoQuizReviewList isReview initData={initQuiz} />
     </Stack>
   );
 }

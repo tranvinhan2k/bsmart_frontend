@@ -61,7 +61,7 @@ export type GetActivityResponse = Partial<{
   id: number;
   name: string;
   description: string;
-  type: ActivityKeys;
+  type: any;
   visible: boolean;
   detail: any;
   parentActivityId: number;

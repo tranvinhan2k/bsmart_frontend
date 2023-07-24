@@ -15,22 +15,62 @@ const activityApi = {
   async getActivity(id: number): Promise<ActivityDetailPayload> {
     const response: GetActivityResponse = await axiosClient.get(`${url}/${id}`);
     const result: ActivityDetailPayload = {
-      created: response.created || '',
+      created: response?.created || '',
       createdBy: response?.createdBy || '',
       id: response?.id || -1,
       visible: response?.visible || false,
       lastModified: response?.lastModified || '',
       lastModifiedBy: response?.lastModifiedBy || '',
       name: response?.name || '',
-      detail: {
-        ...response.detail,
-        type: response.type,
-      },
       parentActivityId: response?.parentActivityId || -1,
-      type: response?.type || 'SECTION',
+      type: response?.type || 'LESSON',
       authorizeClasses: response?.authorizeClasses || [],
-      description: response?.description || '',
+      detail: response?.detail,
     };
+    switch (result.type) {
+      case 'LESSON':
+        result.detail = {
+          description: response?.detail?.description || '',
+        };
+        break;
+      case 'ASSIGNMENT':
+        result.detail = {
+          description: response?.detail.description || '',
+          attachFiles: response?.detail?.assignmentFiles,
+          editBeForSubmitMin: response?.detail?.editBeForSubmitMin,
+          endDate: response?.detail?.endDate,
+          isOverWriteAttachFile: response?.detail?.isOverWriteAttachFile,
+          maxFileSize: response?.detail?.maxFileSize,
+          maxFileSubmit: response?.detail?.maxFileSubmit,
+          passPoint: response?.detail?.passPoint,
+          startDate: response?.detail?.startDate,
+        };
+        break;
+      case 'RESOURCE':
+        result.detail = {
+          file: {
+            name: response?.detail?.url,
+            url: response?.detail?.url,
+            size: 0,
+          },
+        };
+        break;
+      case 'QUIZ':
+        result.detail = {
+          code: response?.detail?.code,
+          allowReviewAfterMin: response?.detail?.allowReviewAfterMin,
+          defaultPoint: response?.detail?.defaultPoint,
+          endDate: response?.detail?.endDate,
+          isAllowReview: response?.detail?.isAllowReview,
+          isSuffleQuestion: response?.detail?.isSuffleQuestion,
+          password: response?.detail?.password,
+          startDate: response?.detail?.startDate,
+          time: response?.detail?.time,
+        };
+        break;
+      default:
+        break;
+    }
     return result;
   },
 

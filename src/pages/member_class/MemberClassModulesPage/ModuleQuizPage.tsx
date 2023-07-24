@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
@@ -9,7 +10,11 @@ import TextList from '~/components/atoms/texts/TextList';
 import { image } from '~/constants/image';
 import { ActivityQuizPayload } from '~/models/type';
 import globalStyles from '~/styles';
-import { formatDate, formatISODateDateToDisplayDateTime } from '~/utils/date';
+import {
+  formatDate,
+  formatISODateDateToDisplayDateTime,
+  formatTime,
+} from '~/utils/date';
 
 interface Props {
   name: string;
@@ -17,8 +22,21 @@ interface Props {
 }
 
 export default function ModuleQuizPage({ name, item }: Props) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm();
+
+  const id = 9;
+
+  const quiz = {
+    isQuizOpen: true,
+    isAttemptedQuiz: true,
+    isPassed: true,
+    code: 'hsau678',
+    startDate: formatISODateDateToDisplayDateTime(new Date()),
+    endDate: formatISODateDateToDisplayDateTime(new Date()),
+    time: formatTime(120),
+  };
 
   const isQuizOpen = true;
   const isAttemptedQuiz = false;
@@ -27,7 +45,9 @@ export default function ModuleQuizPage({ name, item }: Props) {
   const point = 10;
   const passPoint = 100;
 
-  const onSubmit = (data: any) => {};
+  const onSubmit = (data: any) => {
+    navigate(`/dashboard/quiz/${id}`);
+  };
 
   const onClose = () => {
     setOpen(!open);
@@ -55,20 +75,16 @@ export default function ModuleQuizPage({ name, item }: Props) {
       <Stack textAlign="center" margin={2}>
         <Typography
           sx={globalStyles.textLowSmallLight}
-        >{`Mã bài kiểm tra: ${item.code}`}</Typography>
+        >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
-        >{`Bài kiểm tra này sẽ được mở vào ngày ${formatISODateDateToDisplayDateTime(
-          item.startDate
-        )}`}</Typography>
+        >{`Bài kiểm tra này sẽ được mở vào ngày ${quiz.startDate}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
-        >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${formatISODateDateToDisplayDateTime(
-          item.endDate
-        )}`}</Typography>
+        >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${quiz.endDate}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
-        >{`Thời gian làm bài: ${item.time} phút`}</Typography>
+        >{`Thời gian làm bài: ${quiz.time} phút`}</Typography>
       </Stack>
       {!isAttemptedQuiz && (
         <Button disabled={!isQuizOpen} onClick={onClose} variant="contained">
@@ -146,7 +162,9 @@ export default function ModuleQuizPage({ name, item }: Props) {
             }}
             marginTop={1}
           >
-            <Button variant="contained">Xác nhận</Button>
+            <Button onClick={onSubmit} variant="contained">
+              Xác nhận
+            </Button>
             <Button
               onClick={onClose}
               sx={{

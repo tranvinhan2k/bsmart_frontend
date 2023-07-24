@@ -3,17 +3,17 @@ import { ActionPayload } from '~/models';
 
 export const MentorClassNavigationActionData: ActionPayload[] = [
   {
-    id: 2,
-    link: MentorClassActionLink.schedule,
-    name: 'Lịch làm việc',
-    icon: 'date',
-  },
-  {
     id: 0,
     link: MentorClassActionLink.information,
     name: 'Thông tin lớp học',
     icon: 'class',
     classStatus: 'ALL',
+  },
+  {
+    id: 2,
+    link: MentorClassActionLink.schedule,
+    name: 'Lịch làm việc',
+    icon: 'date',
   },
   {
     id: 1,

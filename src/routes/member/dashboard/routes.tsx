@@ -11,6 +11,7 @@ import {
   MemberClassListPage,
   MemberClassDetailPage,
   QuizPage,
+  ReviewPage,
 } from '~/routes/components';
 
 export const studentLMSRoutes: RoutePayload[] = [
@@ -46,6 +47,11 @@ export const studentLMSRoutes: RoutePayload[] = [
   {
     path: `${MemberDashboardNavigationActionLink.quiz}/:quizId`,
     main: () => <QuizPage />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: `${MemberDashboardNavigationActionLink.review}/:quizId`,
+    main: () => <ReviewPage />,
     role: ['ROLE_STUDENT'],
   },
   {

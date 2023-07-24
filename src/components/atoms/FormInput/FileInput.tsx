@@ -10,6 +10,8 @@ import {
 import { useState } from 'react';
 import Icon from '../Icon';
 import { Color, MetricSize } from '~/assets/variables';
+import globalStyles from '~/styles';
+import { openUrl } from '~/utils/window';
 
 interface FileInputProps {
   controller: UseControllerReturn<any, string>;
@@ -20,6 +22,8 @@ function FileInput({ controller }: FileInputProps) {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error: fieldError },
   } = controller;
+
+  console.log('file', value);
 
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
@@ -73,34 +77,22 @@ function FileInput({ controller }: FileInputProps) {
           alignItems="center"
           spacing={2}
         >
-          <Typography>{value.name}</Typography>
+          <Typography sx={globalStyles.textLowSmallLight} noWrap>
+            {value.name}
+          </Typography>
           <Stack
             direction={{ md: 'column', lg: 'row' }}
             justifyContent={{ md: 'flex-start', lg: 'space-between' }}
             alignItems={{ md: 'center', lg: 'flex-start' }}
-            spacing={2}
           >
             {value.url && (
-              <MuiButton
-                variant="outlined"
-                color="success"
-                fullWidth
-                href={value.url}
-                target="_blank"
-                size="small"
-              >
-                <Icon name="eye" size="medium" />
-              </MuiButton>
+              <IconButton onClick={() => openUrl(value.url)}>
+                <Icon name="download" size="small_20" color="tertiary" />
+              </IconButton>
             )}
-            <MuiButton
-              variant="outlined"
-              color="error"
-              fullWidth
-              size="small"
-              onClick={handleDeleteClick}
-            >
-              <Icon name="clear" size="medium" />
-            </MuiButton>
+            <IconButton onClick={handleDeleteClick}>
+              <Icon name="clear" size="small_20" color="red" />
+            </IconButton>
           </Stack>
         </Stack>
       )}

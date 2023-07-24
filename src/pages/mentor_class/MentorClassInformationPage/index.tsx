@@ -1,16 +1,12 @@
-import { Stack, Typography, Divider, Box } from '@mui/material';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Alert, Box, FormHelperText, Stack } from '@mui/material';
+import Button from '~/components/atoms/Button';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import ClassInformationList from '~/components/molecules/ClassInformationList';
-import Timetable from '~/components/molecules/Timetable';
-import { ClassStatusList } from '~/constants';
 import { image } from '~/constants/image';
 import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
 import { OptionPayload } from '~/models';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
-import { formatDate } from '~/utils/date';
-import { formatMoney } from '~/utils/money';
 
 export interface MentorClassInformationPayload {
   id: number;
@@ -61,6 +57,54 @@ export default function MentorClassInformationPage() {
     <Stack>
       <TextTitle title="Nội dung khóa học" />
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <Alert severity="warning">
+          Lớp học chưa được phê duyệt. Vui lòng phê duyệt lớp để thao tác với
+          lớp học.
+        </Alert>
+        <Alert severity="info">
+          Lớp học đã kết thúc. Mọi thao tác sẽ bị hủy bỏ
+        </Alert>
+        <Alert severity="info">
+          Lớp học đang chiêu sinh và sẽ mở vào ngày 12/10/2023 vào lúc 12:00
+        </Alert>
+        <Alert severity="warning">
+          Lớp học đã tới thời gian bắt đầu. Tuy nhiên, số lượng học sinh chưa đủ
+          để tự động mở lớp. Vui lòng tùy chọn thao tác với lớp học nếu không
+          lớp học sẽ tự động hủy trong 48h tiếp theo.
+        </Alert>
+        <Box marginTop={1}>
+          <Stack sx={globalStyles.viewFlexRowCenter}>
+            <Button variant="contained" color="primary">
+              danh sách học sinh đã đăng kí
+            </Button>
+            <Button
+              sx={{
+                marginLeft: 1,
+              }}
+              variant="contained"
+              color="success"
+            >
+              Mở lớp
+            </Button>
+            <Button
+              sx={{
+                marginLeft: 1,
+              }}
+              variant="contained"
+              color="error"
+            >
+              Hủy mở lớp học
+            </Button>
+          </Stack>
+          <FormHelperText>
+            {' '}
+            Lưu ý: Lớp học hiện tại chưa đủ số lượng học sinh tối thiểu mặc dù
+            đã đủ tới thời gian nhập học. Khi bấm vào nút trên lớp bạn sẽ được
+            phép mở với số lượng học sinh hiện tại
+          </FormHelperText>
+        </Box>
+      </Stack>
+      <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
         <ClassInformationList
           categoryName={detailClass.categoryName}
           code={detailClass.code}

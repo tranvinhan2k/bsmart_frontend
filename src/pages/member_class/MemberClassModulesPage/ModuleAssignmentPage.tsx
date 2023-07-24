@@ -17,10 +17,21 @@ interface Props {
 export default function ModuleAssignmentPage({ name, item }: Props) {
   const { control, handleSubmit, formState } = useForm();
 
+  const isMarked = true;
+
   const onSubmit = (data: any) => {};
 
   return (
     <Stack marginTop={1}>
+      <Typography
+        textAlign="center"
+        sx={{
+          fontSize: FontSize.medium_24,
+          fontFamily: FontFamily.medium,
+        }}
+      >
+        {name}
+      </Typography>
       <Stack>
         <Typography
           sx={{
@@ -56,24 +67,30 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
           },
         ]}
       />
-      <Typography
-        sx={{
-          fontSize: FontSize.small_14,
-          fontFamily: FontFamily.bold,
-        }}
-      >
-        Nộp bài làm
-      </Typography>
-      <FormInput control={control} name="files" variant="files" />
-      <Box marginTop={1}>
-        <Button
-          disabled={!formState.isDirty}
-          onClick={handleSubmit(onSubmit, handleConsoleError)}
-          variant="contained"
-        >
-          Thêm bài làm
-        </Button>
-      </Box>
+      {isMarked ? (
+        <Stack>Hiển thị điểm số của bài assignment</Stack>
+      ) : (
+        <Stack>
+          <Typography
+            sx={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.bold,
+            }}
+          >
+            Nộp bài làm
+          </Typography>
+          <FormInput control={control} name="files" variant="files" />
+          <Box marginTop={1}>
+            <Button
+              disabled={!formState.isDirty}
+              onClick={handleSubmit(onSubmit, handleConsoleError)}
+              variant="contained"
+            >
+              Thêm bài làm
+            </Button>
+          </Box>
+        </Stack>
+      )}
     </Stack>
   );
 }

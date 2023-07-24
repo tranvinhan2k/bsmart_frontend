@@ -4,39 +4,62 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 export interface DoQuizAnswerPayload {
   id: number;
   value: string;
+  isChosen: boolean;
+  isRight?: boolean;
 }
 
 interface Props {
+  isReview: boolean;
   isMultipleAnswer: boolean;
   index: number;
   total: number;
   question: string;
-  correctAnswerId: number[];
   answers: DoQuizAnswerPayload[];
-  onChangeAnswer: (questionIndex: number, answerId: number[]) => void;
+  onChangeAnswer: (
+    questionIndex: number,
+    answers: DoQuizAnswerPayload[]
+  ) => void;
 }
 
 export default function DoQuizQuestion({
   answers,
   isMultipleAnswer,
   index,
+  isReview,
   onChangeAnswer,
   question,
-  correctAnswerId,
   total,
 }: Props) {
   const handleCheckbox = (id: number) => {
-    let params = [...correctAnswerId];
+    let params = [...answers];
 
-    const isExisted = params.findIndex((item) => item === id);
-    if (isExisted === -1) {
-      if (!isMultipleAnswer) {
-        params = [id];
-      } else {
-        params = [...params, id];
-      }
+    const answer = params.find((item) => item.id === id);
+    if (answer?.isChosen === false) {
+      params = params.map((item) => {
+        if (item.id === answer.id) {
+          return {
+            ...item,
+            isChosen: true,
+          };
+        }
+        if (isMultipleAnswer) {
+          return item;
+        }
+        return {
+          ...item,
+          isChosen: false,
+        };
+      });
     } else {
-      params = params.filter((item) => item !== id);
+      params = params.map((item) => {
+        if (item.id === answer?.id) {
+          return {
+            ...item,
+            isChosen: false,
+          };
+        }
+        return item;
+      });
     }
     onChangeAnswer(index, params);
   };
@@ -52,8 +75,8 @@ export default function DoQuizQuestion({
       >{`Câu thứ ${index + 1} trên ${total} câu `}</Stack>
       <Stack
         sx={{
-          marginTop: 2,
-          fontSize: FontSize.small_16,
+          marginTop: 1,
+          fontSize: FontSize.small_18,
           fontFamily: FontFamily.regular,
           color: Color.black,
         }}
@@ -68,7 +91,16 @@ export default function DoQuizQuestion({
               sx={{
                 padding: 1,
                 borderRadius: MetricSize.small_5,
-                background: Color.white,
+                border: '1px solid #ddd',
+                // eslint-disable-next-line no-nested-ternary
+                background: isReview
+                  ? // eslint-disable-next-line no-nested-ternary
+                    item.isRight
+                    ? Color.green
+                    : item.isChosen
+                    ? Color.red
+                    : Color.white
+                  : Color.white,
                 marginTop: 1,
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -76,13 +108,15 @@ export default function DoQuizQuestion({
             >
               {isMultipleAnswer ? (
                 <Checkbox
+                  disabled={isReview}
                   onChange={() => handleCheckbox(item.id)}
-                  checked={correctAnswerId.includes(item.id)}
+                  checked={item.isChosen}
                 />
               ) : (
                 <Radio
+                  disabled={isReview}
                   onChange={() => handleCheckbox(item.id)}
-                  checked={correctAnswerId.includes(item.id)}
+                  checked={item.isChosen}
                 />
               )}
               <Typography>{item.value}</Typography>

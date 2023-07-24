@@ -6,7 +6,7 @@ import {
   AiOutlineRedo,
   AiOutlineLogout,
 } from 'react-icons/ai';
-import { BiCategoryAlt, BiTimeFive } from 'react-icons/bi';
+import { BiCategoryAlt, BiDownload, BiTimeFive } from 'react-icons/bi';
 import {
   BsDribbble,
   BsInstagram,
@@ -132,6 +132,7 @@ export type IconName =
   | 'description'
   | 'dot'
   | 'down'
+  | 'download'
   | 'dribbble'
   | 'dynamicFeed'
   | 'edit'
@@ -230,6 +231,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Stack sx={STYLED_ICON}>
           <MdPlayLesson />
+        </Stack>
+      );
+    case 'download':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <BiDownload />
         </Stack>
       );
     case 'price':

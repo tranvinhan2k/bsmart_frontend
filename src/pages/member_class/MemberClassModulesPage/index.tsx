@@ -33,17 +33,14 @@ export default function MemberClassModulesPage() {
     password: '123456',
     startDate: new Date().toISOString(),
     time: 100,
-    type: 'QUIZ',
   };
 
   const detailLesson: ActivityLessonPayload = {
-    type: 'LESSON',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. At, reiciendis numquam obcaecati saepe tempora officiis delectus esse. Exercitationem aperiam, magnam, laboriosam ipsum mollitia tempora nesciunt voluptates voluptate quae iusto accusamus. ',
   };
 
   const detailResource: ActivityResourcePayload = {
-    type: 'RESOURCE',
     file: {
       name: 'tai_lieu_lap_trinh.pdf',
       url: 'http://dulieu.tailieuhoctap.vn/books/cong-nghe-thong-tin/lap-trinh-ung-dung/file_goc_778233.pdf',
@@ -68,7 +65,6 @@ export default function MemberClassModulesPage() {
     maxFileSubmit: 2, // số lượng file submit
     passPoint: 10,
     startDate: '',
-    type: 'ASSIGNMENT',
   };
 
   const detail = detailQuiz;
@@ -93,7 +89,7 @@ export default function MemberClassModulesPage() {
 
   let data: ReactNode = null;
 
-  data = <ModuleQuizPage name={activity.name} item={detailQuiz} />;
+  data = <ModuleAssignmentPage name={activity.name} item={detailAssignment} />;
 
   // switch (detail?.type) {
   //   case 'LESSON':

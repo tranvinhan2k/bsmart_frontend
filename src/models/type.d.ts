@@ -145,23 +145,34 @@ export interface ActivityPayload {
   authorizeClasses: number[];
 }
 
-export interface ActivityDetailPayload
-  extends Omit<ActivityPayload, 'subActivities'> {
-  detail:
-    | ActivityAssignmentPayload
-    | ActivityResourcePayload
-    | ActivityLessonPayload
-    | ActivityQuizPayload;
-  description?: string;
-}
+export type ActivityDetailPayload = Omit<
+  ActivityPayload,
+  'subActivities' | 'type'
+> &
+  (
+    | {
+        type: 'QUIZ';
+        detail: ActivityQuizPayload;
+      }
+    | {
+        type: 'LESSON';
+        detail: ActivityLessonPayload;
+      }
+    | {
+        type: 'RESOURCE';
+        detail: ActivityResourcePayload;
+      }
+    | {
+        type: 'ASSIGNMENT';
+        detail: ActivityAssignmentPayload;
+      }
+  );
 
 export interface ActivityLessonPayload {
-  type: 'LESSON';
   description: string;
 }
 
 export interface ActivityResourcePayload {
-  type: 'RESOURCE';
   file: {
     name: string;
     url: string;
@@ -170,7 +181,6 @@ export interface ActivityResourcePayload {
 }
 
 export interface ActivityQuizPayload {
-  type: 'QUIZ';
   code: string;
   startDate: string;
   endDate: string;
@@ -183,7 +193,6 @@ export interface ActivityQuizPayload {
 }
 
 export interface ActivityAssignmentPayload {
-  type: 'ASSIGNMENT';
   description: string;
   startDate: string;
   endDate: string;

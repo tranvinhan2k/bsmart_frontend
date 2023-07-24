@@ -168,7 +168,7 @@ export default function CourseDetail({
               borderRadius: MetricSize.small_5,
             }}
           >
-            <Content sections={sections || []} />
+            <Content readOnly sections={sections || []} />
           </Stack>
         </Stack>
         <Divider sx={{ marginY: 3 }} />

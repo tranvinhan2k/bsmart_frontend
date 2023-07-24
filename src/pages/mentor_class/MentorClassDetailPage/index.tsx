@@ -1,22 +1,13 @@
-import { Grid, Stack, Typography, IconButton, Drawer } from '@mui/material';
+import { Grid, Stack, Drawer } from '@mui/material';
 import { useEffect, useState } from 'react';
-import {
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
-import Icon, { IconName } from '~/components/atoms/Icon';
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { scrollToTop } from '~/utils/common';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { Color } from '~/assets/variables';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
 import Sidebar from './Sidebar';
-import { MentorClassAttendanceListPage } from '~/routes/components';
-import MentorClassInformationPage from '../MentorClassInformationPage';
 import { mentorClassRoutes } from '~/routes/mentor/class/routes';
 import ClassHeader from '~/components/molecules/header/ClassHeader';
 

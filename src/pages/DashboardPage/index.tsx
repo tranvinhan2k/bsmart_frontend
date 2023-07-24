@@ -74,7 +74,9 @@ export default function DashboardPage() {
   const isClassDetailPage =
     pathname.includes(
       MentorDashboardNavigationActionLink.mentor_class_detail
-    ) || pathname.includes(MemberDashboardNavigationActionLink.quiz);
+    ) ||
+    pathname.includes(MemberDashboardNavigationActionLink.quiz) ||
+    pathname.includes(MemberDashboardNavigationActionLink.review);
 
   return (
     <Stack

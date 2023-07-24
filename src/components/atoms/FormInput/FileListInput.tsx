@@ -8,10 +8,12 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MetricSize, Color } from '~/assets/variables';
 // eslint-disable-next-line import/no-cycle
 import Icon from '../Icon';
 import globalStyles from '~/styles';
+import { openUrl } from '~/utils/window';
 
 interface FileListInputProps {
   controller: UseControllerReturn<any, string>;
@@ -52,9 +54,7 @@ function FileListInput({ controller }: FileListInputProps) {
     <Stack>
       <Stack
         sx={{
-          border: `0.5px solid ${
-            customError || invalid ? Color.red : Color.grey
-          }`,
+          border: `0.5px solid ${customError || invalid ? Color.red : '#ddd'}`,
           borderRadius: MetricSize.small_5,
           padding: 1,
           background: Color.white,
@@ -80,10 +80,21 @@ function FileListInput({ controller }: FileListInputProps) {
                       justifyContent: 'space-between',
                     }}
                   >
-                    <Typography>{item.name}</Typography>
-                    <IconButton onClick={() => handleDelete(index)}>
-                      <Icon name="delete" size="small_20" color="red" />
-                    </IconButton>
+                    <Typography noWrap>{item.name}</Typography>
+                    <Stack sx={globalStyles.viewFlexRowCenter}>
+                      {item.url && (
+                        <IconButton onClick={() => openUrl(item?.url)}>
+                          <Icon
+                            name="download"
+                            size="small_20"
+                            color="tertiary"
+                          />
+                        </IconButton>
+                      )}
+                      <IconButton onClick={() => handleDelete(index)}>
+                        <Icon name="delete" size="small_20" color="red" />
+                      </IconButton>
+                    </Stack>
                   </Stack>
                 </Stack>
               );

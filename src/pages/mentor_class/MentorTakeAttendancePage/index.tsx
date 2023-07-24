@@ -255,153 +255,149 @@ export default function MentorTakeAttendancePage() {
   ];
 
   return (
-    <Stack
-      sx={{
-        paddingX: { xs: MetricSize.medium_15, md: MetricSize.large_20 },
-        paddingY: MetricSize.large_20,
-        borderRadius: MetricSize.small_5,
-      }}
-    >
+    <Stack>
       <ReturnLink />
-      <Typography sx={globalStyles.textSubTitle}>{`Điểm danh ${formatDate(
-        attendances?.date || ''
-      )}`}</Typography>
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <Typography sx={globalStyles.textSubTitle}>{`Điểm danh ${formatDate(
+          attendances?.date || ''
+        )}`}</Typography>
 
-      <Stack
-        sx={{
-          paddingY: MetricSize.small_5,
-        }}
-      >
-        <TextField
-          value={searchValue}
-          onChange={handleSearchValue}
-          placeholder="Thêm tên học sinh cần tìm kiếm"
-          InputProps={{
-            startAdornment: (
-              <Icon name="search" size="small_20" color="black" />
-            ),
-          }}
-        />
-      </Stack>
-      <Box>
         <Stack
           sx={{
-            flexDirection: 'row',
+            paddingY: MetricSize.small_5,
           }}
         >
-          {takeAttendanceAnalysts.map((item) => {
-            return (
-              <Stack
-                key={item.id}
-                sx={{
-                  marginY: 1,
-                  marginRight: 1,
-                }}
-              >
-                <TextDeclareColumn
-                  color={item.color}
-                  title={item.name}
-                  value={item.value}
-                />
-              </Stack>
-            );
-          })}
+          <TextField
+            value={searchValue}
+            onChange={handleSearchValue}
+            placeholder="Thêm tên học sinh cần tìm kiếm"
+            InputProps={{
+              startAdornment: (
+                <Icon name="search" size="small_20" color="black" />
+              ),
+            }}
+          />
         </Stack>
-      </Box>
-      <LoadingWrapper
-        error={error}
-        isLoading={isLoading}
-        isEmptyCourse={attendances?.total === 0}
-      >
-        <Stack
-          sx={{
-            marginTop: 1,
-            width: '100%',
-            overflow: 'auto',
-          }}
+        <Box>
+          <Stack
+            sx={{
+              flexDirection: 'row',
+            }}
+          >
+            {takeAttendanceAnalysts.map((item) => {
+              return (
+                <Stack
+                  key={item.id}
+                  sx={{
+                    marginY: 1,
+                    marginRight: 1,
+                  }}
+                >
+                  <TextDeclareColumn
+                    color={item.color}
+                    title={item.name}
+                    value={item.value}
+                  />
+                </Stack>
+              );
+            })}
+          </Stack>
+        </Box>
+        <LoadingWrapper
+          error={error}
+          isLoading={isLoading}
+          isEmptyCourse={attendances?.total === 0}
         >
           <Stack
             sx={{
-              minWidth: '700px',
+              marginTop: 1,
+              width: '100%',
+              overflow: 'auto',
             }}
           >
-            <Grid
+            <Stack
               sx={{
-                border: '0.5px solid #eee',
+                minWidth: '700px',
               }}
-              container
             >
-              <Grid item xs={1}>
-                <Typography sx={headerCell}>Id</Typography>
+              <Grid
+                sx={{
+                  border: '0.5px solid #eee',
+                }}
+                container
+              >
+                <Grid item xs={1}>
+                  <Typography sx={headerCell}>Id</Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography sx={headerCell}>Ảnh</Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography sx={headerCell}>Tên</Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography sx={headerCell}>Ghi Chú</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography sx={headerCell}>Điểm danh</Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={3}>
-                <Typography sx={headerCell}>Ảnh</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography sx={headerCell}>Tên</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography sx={headerCell}>Ghi Chú</Typography>
-              </Grid>
-              <Grid item xs={2}>
-                <Typography sx={headerCell}>Điểm danh</Typography>
-              </Grid>
-            </Grid>
-            <Stack>
-              {filterattendances?.length !== 0 && filterattendances ? (
-                filterattendances?.map((item, rowIndex: any) => {
-                  return (
-                    <AttendanceList
-                      key={item.id}
-                      item={item}
-                      index={rowIndex}
-                      isShowImage={showImage}
-                      onSetPresent={handleSetPresent}
-                      onViewDetail={() => handleNavigateViewDetail(item.id)}
-                      onZoomImage={handleOpenImage}
-                      onAddNote={handleAddNote}
-                    />
-                  );
-                })
-              ) : (
-                <Stack
-                  sx={{
-                    padding: MetricSize.medium_15,
-                    border: '0.5px solid #eee',
-                  }}
-                >
-                  <Typography>Không có học sinh nào phù hợp.</Typography>
-                </Stack>
-              )}
+              <Stack>
+                {filterattendances?.length !== 0 && filterattendances ? (
+                  filterattendances?.map((item, rowIndex: any) => {
+                    return (
+                      <AttendanceList
+                        key={item.id}
+                        item={item}
+                        index={rowIndex}
+                        isShowImage={showImage}
+                        onSetPresent={handleSetPresent}
+                        onViewDetail={() => handleNavigateViewDetail(item.id)}
+                        onZoomImage={handleOpenImage}
+                        onAddNote={handleAddNote}
+                      />
+                    );
+                  })
+                ) : (
+                  <Stack
+                    sx={{
+                      padding: MetricSize.medium_15,
+                      border: '0.5px solid #eee',
+                    }}
+                  >
+                    <Typography>Không có học sinh nào phù hợp.</Typography>
+                  </Stack>
+                )}
+              </Stack>
             </Stack>
           </Stack>
-        </Stack>
-        <CustomModal open={open} onClose={() => setOpen(!open)}>
-          <Box
-            component="img"
-            alt="preview_image"
-            src={rows[index]?.image}
-            sx={{
-              height: '90vh',
-              width: undefined,
-              aspectRatio: 3 / 4,
-              objectFit: 'cover',
-            }}
-          />
-        </CustomModal>
+          <CustomModal open={open} onClose={() => setOpen(!open)}>
+            <Box
+              component="img"
+              alt="preview_image"
+              src={rows[index]?.image}
+              sx={{
+                height: '90vh',
+                width: undefined,
+                aspectRatio: 3 / 4,
+                objectFit: 'cover',
+              }}
+            />
+          </CustomModal>
 
-        <Stack
-          marginTop={2}
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Button onClick={handleTakeAttendance} variant="contained">
-            Điểm danh khóa học
-          </Button>
-        </Stack>
-      </LoadingWrapper>
+          <Stack
+            marginTop={2}
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Button onClick={handleTakeAttendance} variant="contained">
+              Điểm danh khóa học
+            </Button>
+          </Stack>
+        </LoadingWrapper>
+      </Stack>
     </Stack>
   );
 }

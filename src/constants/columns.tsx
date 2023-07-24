@@ -4,8 +4,11 @@ import { RenderAttendanceStatus } from '~/utils/attendance';
 import { getGender, handleDefinedText } from '~/utils/common';
 import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import {
+  formatDate,
   formatISODateDateToDisplayDate,
+  formatISODateDateToDisplayDateTime,
   formatISODateStringToDisplayDate,
+  formatISODateStringToDisplayDateTime,
 } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
@@ -244,19 +247,19 @@ const attendanceClassColumns: GridColDef[] = [
     field: 'slotName',
     headerName: 'Tên buổi học',
     flex: 1,
-    editable: true,
   },
   {
     field: 'time',
     headerName: 'Thời gian',
     flex: 1,
-    editable: true,
   },
   {
     field: 'date',
     headerName: 'Ngày',
     flex: 5,
-    editable: true,
+    renderCell: (params) => {
+      return formatISODateDateToDisplayDate(params?.row?.date);
+    },
   },
   {
     field: 'isPresent',
