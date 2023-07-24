@@ -61,7 +61,7 @@ export default function MentorClassInformationPage() {
       <TextTitle title="Nội dung khóa học" />
       {detailClass.status !== 'STARTING' && (
         <Stack sx={globalStyles.viewRoundedWhiteBody}>
-          {detailClass.status === 'EDITREQUEST' && (
+          {detailClass.status === 'REQUESTING' && (
             <Alert severity="warning">
               Lớp học chưa được phê duyệt. Vui lòng phê duyệt lớp để thao tác
               với lớp học.
