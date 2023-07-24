@@ -1,5 +1,5 @@
 import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
@@ -30,6 +30,13 @@ export default function RequestCourseProcess({
   const { processCourseCreateRequestMutation } =
     useMutationProcessCourseCreateRequest();
 
+  const { control, handleSubmit, formState } = useForm({
+    defaultValues: {
+      message: '',
+    },
+    resolver: resolverApproveCreateCourseRequest,
+  });
+
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
   const toastMsgError = (errorMsg: any): string =>
@@ -37,21 +44,16 @@ export default function RequestCourseProcess({
   const handleApproveCourseCreateRequest = async (
     data: ProcessCreateCourseRequestFormDefault
   ) => {
-    // const classIds = courseCreateRequestDetails?.classes
-    //   ? courseCreateRequestDetails?.classes.map((item) => item.id)
-    //   : [];
-
     let classIds: number[] = [];
     if (courseCreateRequestDetails) {
       classIds = courseCreateRequestDetails.classes
         ? courseCreateRequestDetails.classes.map((item) => item.id)
         : [];
     }
-
     const params: ProcessCreateCourseRequestPayload = {
       id: idCourse,
       classIds,
-      status: data.status,
+      status: 'STARTING',
       message: data.message,
     };
     const id = toast.loadToast(toastMsgLoading);
@@ -64,44 +66,70 @@ export default function RequestCourseProcess({
     }
   };
 
-  const { control: controlApprove, handleSubmit: handleSubmitApprove } =
-    useForm({
-      defaultValues: {
-        id: idCourse,
-        status: 'NOTSTART',
-        message: '',
-      },
-      resolver: resolverApproveCreateCourseRequest,
-    });
-  const { control: controlReject, handleSubmit: handleSubmitReject } = useForm({
-    defaultValues: {
+  const handleRejectCourseCreateRequest = async (
+    data: ProcessCreateCourseRequestFormDefault
+  ) => {
+    let classIds: number[] = [];
+    if (courseCreateRequestDetails) {
+      classIds = courseCreateRequestDetails.classes
+        ? courseCreateRequestDetails.classes.map((item) => item.id)
+        : [];
+    }
+    const params: ProcessCreateCourseRequestPayload = {
       id: idCourse,
+      classIds,
       status: 'REJECTED',
-      message: '',
-    },
-    resolver: resolverApproveCreateCourseRequest,
-  });
-  const { control: controlEditRequest, handleSubmit: handleSubmitEditRequest } =
-    useForm({
-      defaultValues: {
-        id: idCourse,
-        status: 'EDITREQUEST',
-        message: '',
-      },
-      resolver: resolverApproveCreateCourseRequest,
-    });
+      message: data.message,
+    };
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await processCourseCreateRequestMutation.mutateAsync(params);
+      toast.updateSuccessToast(id, toastMsgSuccess);
+      onClose();
+    } catch (e: any) {
+      toast.updateFailedToast(id, toastMsgError(e.message));
+    }
+  };
+
+  const handleEditRequestCourseCreateRequest = async (
+    data: ProcessCreateCourseRequestFormDefault
+  ) => {
+    let classIds: number[] = [];
+    if (courseCreateRequestDetails) {
+      classIds = courseCreateRequestDetails.classes
+        ? courseCreateRequestDetails.classes.map((item) => item.id)
+        : [];
+    }
+    const params: ProcessCreateCourseRequestPayload = {
+      id: idCourse,
+      classIds,
+      status: 'EDITREQUEST',
+      message: data.message,
+    };
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await processCourseCreateRequestMutation.mutateAsync(params);
+      toast.updateSuccessToast(id, toastMsgSuccess);
+      onClose();
+    } catch (e: any) {
+      toast.updateFailedToast(id, toastMsgError(e.message));
+    }
+  };
 
   const [tabValue, setTabValue] = useState(0);
-  const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
+  const handleSetTabValue = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: number
+  ) => setTabValue(newValue);
 
   const tabEl = [
     {
       id: 0,
       text: 'Phê duyệt',
       component: (
-        <form onSubmit={handleSubmitApprove(handleApproveCourseCreateRequest)}>
+        <form onSubmit={handleSubmit(handleApproveCourseCreateRequest)}>
           <FormInput
-            control={controlApprove}
+            control={control}
             name="message"
             variant="multiline"
             multilineRows={6}
@@ -119,6 +147,7 @@ export default function RequestCourseProcess({
               type="submit"
               size="medium"
               color="success"
+              disabled={!formState.isDirty}
             >
               Phê duyệt
             </Button>
@@ -130,9 +159,9 @@ export default function RequestCourseProcess({
       id: 1,
       text: 'Từ chối',
       component: (
-        <form onSubmit={handleSubmitReject(handleApproveCourseCreateRequest)}>
+        <form onSubmit={handleSubmit(handleRejectCourseCreateRequest)}>
           <FormInput
-            control={controlReject}
+            control={control}
             name="message"
             variant="multiline"
             multilineRows={6}
@@ -150,6 +179,7 @@ export default function RequestCourseProcess({
               type="submit"
               size="medium"
               color="error"
+              disabled={!formState.isDirty}
             >
               Từ chối
             </Button>
@@ -161,11 +191,9 @@ export default function RequestCourseProcess({
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: (
-        <form
-          onSubmit={handleSubmitEditRequest(handleApproveCourseCreateRequest)}
-        >
+        <form onSubmit={handleSubmit(handleEditRequestCourseCreateRequest)}>
           <FormInput
-            control={controlEditRequest}
+            control={control}
             name="message"
             variant="multiline"
             multilineRows={6}
@@ -183,6 +211,7 @@ export default function RequestCourseProcess({
               type="submit"
               size="medium"
               color="warning"
+              disabled={!formState.isDirty}
             >
               Yêu cầu chỉnh sửa
             </Button>
