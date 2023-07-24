@@ -35,11 +35,13 @@ export default function RequestCourseContent({
           <Box mb={4}>
             <Typography sx={SX_FORM_LABEL}>Nội dung khóa học</Typography>
           </Box>
-          {courseCreateRequestDetails?.activities.map((item) => (
+          {courseCreateRequestDetails?.activities.map((item, i) => (
             // <Accordion defaultExpanded key={item.id}>
             <Accordion key={item.id}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography>{item.name}</Typography>
+                <Typography>
+                  <b>Học phần {i + 1}</b>: {item.name}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>Nội dung</Typography>

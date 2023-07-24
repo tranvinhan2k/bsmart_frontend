@@ -20,9 +20,9 @@ export default function ManagerProcessCourseCreateRequestPage() {
     useSearchCourseCreateRequest({
       status: 'WAITING',
     });
-  const { courseCreateRequestList: courseListStarting } =
+  const { courseCreateRequestList: courseListNotStart } =
     useSearchCourseCreateRequest({
-      status: 'STARTING',
+      status: 'NOTSTART',
     });
   const { courseCreateRequestList: courseListEditRequest } =
     useSearchCourseCreateRequest({
@@ -44,7 +44,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
       id: 1,
       text: 'Đã duyệt',
       component: <ManageTableCourseCreateRequest status="NOTSTART" />,
-      noOfRequest: restrictNumberDisplay(courseListStarting?.items.length),
+      noOfRequest: restrictNumberDisplay(courseListNotStart?.items.length),
     },
     {
       id: 2,

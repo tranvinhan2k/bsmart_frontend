@@ -15,11 +15,13 @@ import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 interface RequestCourseProcessProps {
   idCourse: number;
   onClose: () => void;
+  refetch: () => void;
 }
 
 export default function RequestCourseProcess({
   idCourse,
   onClose,
+  refetch,
 }: RequestCourseProcessProps) {
   const { courseCreateRequestDetails } =
     useGetCourseCreateRequestDetails(idCourse);
@@ -56,10 +58,12 @@ export default function RequestCourseProcess({
       status: 'NOTSTART',
       message: data.message,
     };
+    refetch();
     const id = toast.loadToast(toastMsgLoading);
     try {
       await processCourseCreateRequestMutation.mutateAsync(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
+      refetch();
       onClose();
     } catch (e: any) {
       toast.updateFailedToast(id, toastMsgError(e.message));
@@ -85,6 +89,7 @@ export default function RequestCourseProcess({
     try {
       await processCourseCreateRequestMutation.mutateAsync(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
+      refetch();
       onClose();
     } catch (e: any) {
       toast.updateFailedToast(id, toastMsgError(e.message));
@@ -110,6 +115,7 @@ export default function RequestCourseProcess({
     try {
       await processCourseCreateRequestMutation.mutateAsync(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
+      refetch();
       onClose();
     } catch (e: any) {
       toast.updateFailedToast(id, toastMsgError(e.message));

@@ -29,7 +29,7 @@ export default function ManageTableCourseCreateRequest({
   const [size, setSize] = useState<number>(10);
   const [sort, setSort] = useState<string[]>([]);
 
-  const { error, courseCreateRequestList, isLoading } =
+  const { error, courseCreateRequestList, isLoading, refetch } =
     useSearchCourseCreateRequest({ status, q, page, size, sort });
 
   // const filterRows =
@@ -90,6 +90,7 @@ export default function ManageTableCourseCreateRequest({
           <CourseCreateRequestDetails
             row={selectedRow}
             onClose={handleTriggerDialog}
+            refetch={refetch}
           />
         </CustomDialog>
       );
