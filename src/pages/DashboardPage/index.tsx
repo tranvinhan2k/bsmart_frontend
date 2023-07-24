@@ -85,6 +85,10 @@ export default function DashboardPage() {
         position: 'relative',
         minHeight: '100vh',
         background: Color.white4,
+        ':-webkit-scrollbar': {
+          display: 'none',
+        },
+        overflow: 'auto',
       }}
     >
       {!isClassDetailPage && (

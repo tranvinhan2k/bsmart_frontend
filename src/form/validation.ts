@@ -462,20 +462,22 @@ export const validationSchemaCreateSubCourse = object({
       (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
     ),
   price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
+    .min(1000, 'Giá tiền phải lớn hơn 50,000 VNĐ')
     .required('Giá tiền là bắt buộc'),
   minStudent: number()
+    .typeError('Số học sinh tối thiểu không được bỏ trống')
     .required('Số học sinh tối thiểu không được bỏ trống')
-    .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
+    .min(1, 'Học sinh tối thiểu phải lớn hơn 0'),
   maxStudent: number()
+    .typeError('Số học sinh tối đa không được bỏ trống')
     .required('Số học sinh tối đa không được bỏ trống')
-    .min(5, 'Học sinh tối thiểu phải lớn hơn 5')
+    .min(1, 'Học sinh tối đa phải lớn hơn 0')
     .test(
       'is-greater',
       'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',
       function (value) {
         const { minStudent } = this.parent;
-        return value > minStudent;
+        return value >= minStudent;
       }
     ),
   startDateExpected: date()

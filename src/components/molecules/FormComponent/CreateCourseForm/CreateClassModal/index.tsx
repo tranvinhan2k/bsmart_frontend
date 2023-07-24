@@ -84,15 +84,6 @@ export default function CreateClassModal({
                   {texts.generalInfoTitle}
                 </Typography>
               </Stack>
-              <Stack>
-                <FormInput
-                  variant="price"
-                  name={CREATE_CLASS_FIELDS.price}
-                  control={hookForm.control}
-                  label={texts.priceLabel}
-                />
-              </Stack>
-              <Stack marginTop={2} />
               <FormInput
                 variant="image"
                 previewImgHeight={250}
@@ -101,6 +92,16 @@ export default function CreateClassModal({
                 control={hookForm.control}
                 label={texts.imageLabel}
               />
+              <Stack marginTop={2} />
+              <Stack>
+                <FormInput
+                  variant="price"
+                  name={CREATE_CLASS_FIELDS.price}
+                  control={hookForm.control}
+                  label={texts.priceLabel}
+                />
+              </Stack>
+
               <Stack marginTop={2} />
               <Stack
                 sx={{
@@ -161,26 +162,6 @@ export default function CreateClassModal({
                 label={texts.timetableLabel}
               />
               <Stack marginTop={2} />
-              {/* <Button
-                disabled
-                onClick={handleOpenCalendar}
-                customVariant="horizonForm"
-              >
-                Tạo thời khóa biểu
-              </Button> */}
-              <Button
-                onClick={hookForm.handleSubmit(
-                  handleTriggerSchedule,
-                  handleConsoleError
-                )}
-                sx={{
-                  color: Color.white,
-                }}
-                color="secondary"
-                variant="contained"
-              >
-                Xem thời khóa biểu
-              </Button>
               <Button
                 sx={{
                   marginTop: 1,

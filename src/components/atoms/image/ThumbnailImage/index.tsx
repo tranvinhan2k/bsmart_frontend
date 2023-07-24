@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { useState } from 'react';
 import { image } from '~/constants/image';
 
 interface Props {
@@ -6,6 +7,8 @@ interface Props {
   alt: string | undefined;
 }
 export default function ThumbnailImage({ alt, url }: Props) {
+  const [error, setError] = useState(false);
+
   return (
     <Box
       loading="lazy"
@@ -18,7 +21,8 @@ export default function ThumbnailImage({ alt, url }: Props) {
         backgroundColor: '#0093E9',
         background: '#F5F5F5',
       }}
-      src={url || image.noCourse}
+      onError={() => setError(true)}
+      src={!error ? url : image.noCourse}
       alt={alt}
     />
   );

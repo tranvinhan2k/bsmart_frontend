@@ -6,6 +6,7 @@ import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
 import { ClassStatusKeys } from '~/models/variables';
 import { ClassStatusList } from '~/constants';
 import { useDispatchGetAllSubjects } from '~/hooks';
+import { useState } from 'react';
 
 interface UserClassItemProps {
   code: string | undefined;

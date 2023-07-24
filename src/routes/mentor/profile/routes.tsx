@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { MentorNavigationLink, NavigationLink } from '~/constants/routeLink';
+import { MentorNavigationLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import WalletManagementPage from '~/pages/WalletManagementPage';
 import WithdrawPage from '~/pages/WithdrawPage';
@@ -14,9 +14,7 @@ export const mentorRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => (
-      <Navigate
-        to={`/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_personal_info}`}
-      />
+      <Navigate to={MentorNavigationLink.edit_profile_personal_info} replace />
     ),
     role: ['ROLE_TEACHER'],
   },

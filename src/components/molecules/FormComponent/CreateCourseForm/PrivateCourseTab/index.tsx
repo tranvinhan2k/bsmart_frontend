@@ -1,6 +1,6 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { Stack, Typography } from '@mui/material';
+import { Alert, Stack, Typography } from '@mui/material';
 
 import { Color } from '~/assets/variables';
 
@@ -23,7 +23,13 @@ export default function PrivateCourseTab({
   levels,
   createCourseHookForm,
 }: PrivateCourseTabProps) {
-  if (!categories && !subjects) return null;
+  if (!categories && !subjects)
+    return (
+      <Alert severity="error">
+        Tài khoản đang dùng chưa phải là giáo viên chính thức hoăc tài khoản
+        chưa hợp lệ. Nên không được phép tạo khóa học
+      </Alert>
+    );
   return (
     <Stack
       sx={{

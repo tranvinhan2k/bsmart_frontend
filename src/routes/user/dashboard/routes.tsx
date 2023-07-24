@@ -31,7 +31,7 @@ import {
 export const routes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={NavigationLink.homepage} />,
+    main: () => <Navigate to={NavigationLink.homepage} replace />,
     role: [],
   },
   {
@@ -135,7 +135,7 @@ export const routes: RoutePayload[] = [
     role: [],
   },
   {
-    path: `/${NavigationLink.dashboard}/*`,
+    path: `${NavigationLink.dashboard}/*`,
     main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },

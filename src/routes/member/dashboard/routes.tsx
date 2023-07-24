@@ -18,9 +18,7 @@ export const studentLMSRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => (
-      <Navigate
-        to={`/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.class_list}`}
-      />
+      <Navigate to={MemberDashboardNavigationActionLink.class_list} replace />
     ),
     role: ['ROLE_STUDENT'],
   },
