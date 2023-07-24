@@ -2,7 +2,6 @@ import { Stack, Box, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import Icon from '~/components/atoms/Icon';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
 import { image } from '~/constants/image';
 import { ActionPayload } from '~/models';
@@ -78,6 +77,7 @@ export default function DashboardSidebar({
             src={image.lms_logo}
             component="img"
           />
+
           <Typography
             sx={{
               ...globalStyles.textWhiteSubTitle,

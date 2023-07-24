@@ -5,6 +5,7 @@ import {
   AiOutlineInfoCircle,
   AiOutlineRedo,
   AiOutlineLogout,
+  AiFillBell,
 } from 'react-icons/ai';
 import { BiCategoryAlt, BiDownload, BiTimeFive } from 'react-icons/bi';
 import {
@@ -31,7 +32,7 @@ import {
   BsFillCaretRightFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
-import { FaShare } from 'react-icons/fa';
+import { FaBell, FaShare } from 'react-icons/fa';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrFormPrevious } from 'react-icons/gr';
 import { HiLocationMarker } from 'react-icons/hi';
@@ -120,6 +121,7 @@ export type IconName =
   | 'chat'
   | 'check'
   | 'checkCircle'
+  | 'bell'
   | 'checkCircleFill'
   | 'class'
   | 'clear'
@@ -231,6 +233,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Stack sx={STYLED_ICON}>
           <MdPlayLesson />
+        </Stack>
+      );
+    case 'bell':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <FaBell />
         </Stack>
       );
     case 'download':

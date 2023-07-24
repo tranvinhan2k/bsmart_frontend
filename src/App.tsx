@@ -45,6 +45,7 @@ import AuthorizePage from '~/pages/AuthorizePage';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
+import NotificationContextProvider from './HOCs/context/NotificationContext';
 
 window.global ||= window;
 
@@ -133,21 +134,23 @@ function App() {
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer />
-      {role === 'ROLE_ADMIN' && Boolean(token) && (
-        <AdminProfileLayout>
-          <Routes>{showAdminRoutes()}</Routes>
-        </AdminProfileLayout>
-      )}
-      {role === 'ROLE_MANAGER' && Boolean(token) && (
-        <ManagerProfileLayout>
-          <Routes>{showManagerRoutes()}</Routes>
-        </ManagerProfileLayout>
-      )}
-      {role !== 'ROLE_ADMIN' && role !== 'ROLE_MANAGER' && (
-        <MainLayout>
-          <Routes>{showRoutes(role)}</Routes>
-        </MainLayout>
-      )}
+      <NotificationContextProvider>
+        {role === 'ROLE_ADMIN' && Boolean(token) && (
+          <AdminProfileLayout>
+            <Routes>{showAdminRoutes()}</Routes>
+          </AdminProfileLayout>
+        )}
+        {role === 'ROLE_MANAGER' && Boolean(token) && (
+          <ManagerProfileLayout>
+            <Routes>{showManagerRoutes()}</Routes>
+          </ManagerProfileLayout>
+        )}
+        {role !== 'ROLE_ADMIN' && role !== 'ROLE_MANAGER' && (
+          <MainLayout>
+            <Routes>{showRoutes(role)}</Routes>
+          </MainLayout>
+        )}
+      </NotificationContextProvider>
     </Suspense>
   );
 }
