@@ -250,14 +250,17 @@ export const validationSchemaRegisterStudent = object({
   gender: object().required('Giới tính không được để trống'),
   birthDay: string()
     .required(BIRTHDAY_REQUIRED)
-    .test('greater', 'Ngày sinh không hợp lệ', (value: any) => {
+    .test('greater', 'Học sinh phải lớn hơn 10 tuổi', (value: any) => {
       return new Date().getFullYear() - new Date(value).getFullYear() > 10;
     }),
 });
 
 export const validationSchemaRegisterMentor = object({
   name: string()
-    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .matches(
+      FULL_NAME_REGEX,
+      'Họ và tên phải có chữ đầu viết hoa và là tên Tiếng Việt.'
+    )
     .max(40)
     .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -271,7 +274,7 @@ export const validationSchemaRegisterMentor = object({
   gender: object().required('Giới tính không được để trống'),
   birthDay: string()
     .required(BIRTHDAY_REQUIRED)
-    .test('greater', 'Ngày sinh không hợp lệ', (value: any) => {
+    .test('greater', 'Giáo viên phải lớn hơn 18 tuổi', (value: any) => {
       return new Date().getFullYear() - new Date(value).getFullYear() > 17;
     }),
 });
