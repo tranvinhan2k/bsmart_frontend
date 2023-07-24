@@ -1,11 +1,13 @@
 import { Box, Typography, Stack } from '@mui/material';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
-interface RequestDateProps {
-  row: any;
+interface RequestCourseDateProps {
+  idCourse: number;
 }
 
-export default function RequestDate({ row }: RequestDateProps) {
+export default function RequestCourseDate({
+  idCourse,
+}: RequestCourseDateProps) {
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Box mb={4}>

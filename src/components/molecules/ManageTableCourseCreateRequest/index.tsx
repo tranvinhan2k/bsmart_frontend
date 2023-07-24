@@ -5,7 +5,7 @@ import columns from '~/constants/columns';
 import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 
-interface ProcessCourseCreateRequestProps {
+interface ManageTableCourseCreateRequestProps {
   status:
     | 'WAITING'
     | 'REQUESTING'
@@ -15,9 +15,9 @@ interface ProcessCourseCreateRequestProps {
     | 'REJECTED';
 }
 
-export default function ProcessCourseCreateRequest({
+export default function ManageTableCourseCreateRequest({
   status,
-}: ProcessCourseCreateRequestProps) {
+}: ManageTableCourseCreateRequestProps) {
   const [searchValue, setSearchValue] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');

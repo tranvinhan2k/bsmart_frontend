@@ -1,10 +1,10 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import RequestBasicInfo from './RequestBasicInfo';
 import RequestCourseClassList from './RequestCourseClassList';
 import RequestCourseContent from './RequestCourseContent';
+import RequestCourseDate from './RequestCourseDate';
 import RequestCourseDetails from './RequestCourseDetails';
+import RequestCourseMentorInfo from './RequestCourseMentorInfo';
 import RequestCourseProcess from './RequestCourseProcess';
-import RequestDate from './RequestDate';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface CourseCreateRequestDetailsProps {
@@ -37,7 +37,7 @@ export default function CourseCreateRequestDetails({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <RequestBasicInfo row={row} />
+            <RequestCourseMentorInfo idCourse={row.id} />
             <RequestCourseProcess idCourse={row.id} onClose={onClose} />
           </Stack>
         </Grid>
@@ -49,7 +49,7 @@ export default function CourseCreateRequestDetails({
             spacing={2}
           >
             <RequestCourseDetails idCourse={row.id} />
-            <RequestDate row={row} />
+            <RequestCourseDate idCourse={row.id} />
             <RequestCourseContent idCourse={row.id} />
             <RequestCourseClassList idCourse={row.id} />
           </Stack>

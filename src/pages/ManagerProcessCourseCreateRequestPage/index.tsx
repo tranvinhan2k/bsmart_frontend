@@ -2,7 +2,7 @@ import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
-import ProcessCourseCreateRequest from '~/components/molecules/ProcessCourseCreateRequest';
+import ManageTableCourseCreateRequest from '~/components/molecules/ManageTableCourseCreateRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManagerProcessCourseCreateRequestPage() {
@@ -37,25 +37,25 @@ export default function ManagerProcessCourseCreateRequestPage() {
     {
       id: 0,
       text: 'Chờ duyệt',
-      component: <ProcessCourseCreateRequest status="WAITING" />,
+      component: <ManageTableCourseCreateRequest status="WAITING" />,
       noOfRequest: restrictNumberDisplay(courseListWaiting?.items.length),
     },
     {
       id: 1,
       text: 'Đã duyệt',
-      component: <ProcessCourseCreateRequest status="NOTSTART" />,
+      component: <ManageTableCourseCreateRequest status="NOTSTART" />,
       noOfRequest: restrictNumberDisplay(courseListStarting?.items.length),
     },
     {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
-      component: <ProcessCourseCreateRequest status="EDITREQUEST" />,
+      component: <ManageTableCourseCreateRequest status="EDITREQUEST" />,
       noOfRequest: restrictNumberDisplay(courseListEditRequest?.items.length),
     },
     {
       id: 3,
       text: 'Đã từ chối',
-      component: <ProcessCourseCreateRequest status="REJECTED" />,
+      component: <ManageTableCourseCreateRequest status="REJECTED" />,
       noOfRequest: restrictNumberDisplay(courseListRejected?.items.length),
     },
   ];
