@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
-import columns from '~/constants/columns';
-import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import CustomDialog from '~/components/atoms/CustomDialog';
+import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
+import columns from '~/constants/columns';
 import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
-import toast from '~/utils/toast';
-import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
-import { ProcessCreateCourseRequestPayload } from '~/api/courses';
+import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 
 interface ProcessCourseCreateRequestProps {
   status:
@@ -32,7 +29,7 @@ export default function ProcessCourseCreateRequest({
   const [size, setSize] = useState<number>(10);
   const [sort, setSort] = useState<string[]>([]);
 
-  const { error, courseCreateRequestList, isLoading, refetch } =
+  const { error, courseCreateRequestList, isLoading } =
     useSearchCourseCreateRequest({ status, q, page, size, sort });
 
   // const filterRows =
