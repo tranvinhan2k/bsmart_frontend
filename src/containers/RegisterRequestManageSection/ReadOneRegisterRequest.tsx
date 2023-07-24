@@ -11,7 +11,7 @@ import RequestMentorDegree from './RequestMentorDegree';
 import RequestMentorInfo from './RequestMentorInfo';
 import RequestCI from './RequestCI';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_BOX_ITEM_WRAPPER, SX_REQUEST_TITLE } from './style';
+import { SX_BOX_ITEM_WRAPPER, SX_REQUEST_TITLE, SX_BOX_STICKY } from './style';
 
 interface ReadOneRegisterRequestProps {
   onSubmit: (data: ProcessRegisterRequestFormDefault) => Promise<void>;
@@ -170,22 +170,9 @@ export default function ReadOneRegisterRequest({
             justifyContent="flex-start"
             alignItems="stretch"
             spacing={2}
+            sx={SX_BOX_STICKY}
           >
             <RequestBasicInfo row={row} />
-            <RequestDate row={row} />
-          </Stack>
-        </Grid>
-        <Grid item sm={12} md={7} lg={8}>
-          <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="stretch"
-            spacing={2}
-          >
-            <RequestCI row={row} />
-            <RequestMentorInfo row={row} />
-            <RequestMentorDegree row={row} />
-
             <Box sx={SX_BOX_ITEM_WRAPPER}>
               <Stack
                 direction={{ sm: 'column', md: 'row' }}
@@ -217,6 +204,19 @@ export default function ReadOneRegisterRequest({
                 </TabPanel>
               ))}
             </Box>
+          </Stack>
+        </Grid>
+        <Grid item sm={12} md={7} lg={8}>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="stretch"
+            spacing={2}
+          >
+            <RequestDate row={row} />
+            <RequestCI row={row} />
+            <RequestMentorDegree row={row} />
+            <RequestMentorInfo row={row} />
           </Stack>
         </Grid>
       </Grid>

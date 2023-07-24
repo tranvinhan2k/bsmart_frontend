@@ -53,7 +53,7 @@ export default function RequestCourseProcess({
     const params: ProcessCreateCourseRequestPayload = {
       id: idCourse,
       classIds,
-      status: 'STARTING',
+      status: 'NOTSTART',
       message: data.message,
     };
     const id = toast.loadToast(toastMsgLoading);

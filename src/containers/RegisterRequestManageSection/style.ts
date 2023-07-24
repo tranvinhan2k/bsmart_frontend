@@ -2,6 +2,11 @@ import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { Color, FontFamily } from '~/assets/variables';
 
+export const SX_BOX_STICKY: SxProps<Theme> = {
+  position: 'sticky',
+  top: 0,
+};
+
 export const SX_BOX_ITEM_WRAPPER: SxProps<Theme> = {
   borderRadius: 1.25,
   boxShadow: 3,

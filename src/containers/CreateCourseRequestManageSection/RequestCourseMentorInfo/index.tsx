@@ -61,7 +61,7 @@ export default function RequestCourseMentorInfo({
           isCopyable: true,
         },
         {
-          id: 0,
+          id: 1,
           label: 'Mail',
           value: '',
           valueDisplay: '',
