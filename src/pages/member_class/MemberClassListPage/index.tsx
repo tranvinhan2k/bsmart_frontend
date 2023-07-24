@@ -5,14 +5,9 @@ import { LoadingWrapper } from '~/HOCs';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
-import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MemberClassItem from '~/components/molecules/MemberClassItem';
-import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
-import { image } from '~/constants/image';
 import { useQueryGetUserClass } from '~/hooks';
-import { PagingFilterRequest } from '~/models';
-import { ClassMenuItemPayload } from '~/models/type';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
 import { scrollToTop } from '~/utils/common';
@@ -33,8 +28,6 @@ function a11yProps(index: number) {
 }
 
 export default function MemberClassListPage() {
-  const [value, setValue] = useState(0);
-
   const {
     classes,
     currentPage,
@@ -48,13 +41,20 @@ export default function MemberClassListPage() {
     totalPage,
   } = useQueryGetUserClass('STUDENT');
 
+  const [value, setValue] = useState<ClassStatusKeys>(
+    filterParams.status || 'ALL'
+  );
+
   // parameters
   const chosenClassStatus = ClassStatusList.find(
     (item) => item.value === filterParams.status
   );
 
   // functions
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newValue: ClassStatusKeys
+  ) => {
     setValue(newValue);
   };
   const handleChangePageNumber = (e: any, pageNumber: number) => {
@@ -128,6 +128,7 @@ export default function MemberClassListPage() {
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
                 label={item.label}
+                value={item.value}
                 {...a11yProps(index)}
               />
             ))}

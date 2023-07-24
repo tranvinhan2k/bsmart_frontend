@@ -270,7 +270,7 @@ export default function EditMentorProfileForm() {
           </Grid>
           <Box mt={4}>
             <UpdateProfileButton
-              role={profile.roles[0].code}
+              role={profile.roles?.[0]?.code}
               isFormDisabled={!formState.isDirty}
               mentorProfileStatus={profile?.mentorProfile?.status}
             />

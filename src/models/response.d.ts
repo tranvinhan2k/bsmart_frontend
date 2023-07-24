@@ -1,6 +1,11 @@
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { ContentPayload, CoursePayload } from './type';
-import { ActivityKeys, RoleKeys } from './variables';
+import {
+  ActivityKeys,
+  ClassStatusKeys,
+  ImageKeys,
+  RoleKeys,
+} from './variables';
 
 export interface ResponseMentorCoursePayload {
   course: CoursePayload;
@@ -61,7 +66,7 @@ export type GetActivityResponse = Partial<{
   id: number;
   name: string;
   description: string;
-  type: ActivityKeys;
+  type: any;
   visible: boolean;
   detail: any;
   parentActivityId: number;
@@ -191,13 +196,70 @@ export type ResponseUserClasses = Partial<{
     id: number;
     code: string;
     name: string;
-    description: string;
+    description: number;
     subject: {
       id: number;
-      code: string;
-      name: string;
+      code: number;
+      name: number;
       categoryIds: number[];
     };
   };
-  mentorName: string;
+  mentor: {
+    id: number;
+    name: string;
+    email: number;
+    introduce: number;
+    mentorSkills: [
+      {
+        skillId: number;
+        name: number;
+        yearOfExperiences: number;
+      }
+    ];
+    avatar: {
+      id: number;
+      name: number;
+      url: number;
+      status: true;
+      type: 'COURSE';
+    };
+  };
+  numberOfSlot: number;
+  status: ClassStatusKeys;
+  price: number;
+  minStudent: number;
+  maxStudent: number;
+  image: {
+    id: number;
+    name: string;
+    url: string;
+    status: true;
+    type: ImageKeys;
+  };
+  timeInWeeks: [
+    {
+      dayOfWeek: {
+        id: number;
+        name: number;
+        code: string;
+      };
+      slot: {
+        id: number;
+        name: number;
+        code: number;
+        startTime: {
+          hour: number;
+          minute: number;
+          second: number;
+          nano: number;
+        };
+        endTime: {
+          hour: number;
+          minute: number;
+          second: number;
+          nano: number;
+        };
+      };
+    }
+  ];
 }>;

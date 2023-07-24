@@ -233,7 +233,10 @@ export const validationClassContentAssignment = object({
 
 export const validationSchemaRegisterStudent = object({
   name: string()
-    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .matches(
+      FULL_NAME_REGEX,
+      'Họ và tên phải có chữ đầu viết hoa và là tên Tiếng Việt.'
+    )
     .max(40)
     .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -245,12 +248,19 @@ export const validationSchemaRegisterStudent = object({
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
   gender: object().required('Giới tính không được để trống'),
-  birthDay: string().required(BIRTHDAY_REQUIRED),
+  birthDay: string()
+    .required(BIRTHDAY_REQUIRED)
+    .test('greater', 'Học sinh phải lớn hơn 10 tuổi', (value: any) => {
+      return new Date().getFullYear() - new Date(value).getFullYear() > 10;
+    }),
 });
 
 export const validationSchemaRegisterMentor = object({
   name: string()
-    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .matches(
+      FULL_NAME_REGEX,
+      'Họ và tên phải có chữ đầu viết hoa và là tên Tiếng Việt.'
+    )
     .max(40)
     .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -262,7 +272,11 @@ export const validationSchemaRegisterMentor = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   gender: object().required('Giới tính không được để trống'),
-  birthDay: string().required(BIRTHDAY_REQUIRED),
+  birthDay: string()
+    .required(BIRTHDAY_REQUIRED)
+    .test('greater', 'Giáo viên phải lớn hơn 18 tuổi', (value: any) => {
+      return new Date().getFullYear() - new Date(value).getFullYear() > 17;
+    }),
 });
 export const validationSchemaBuyCourse = object({
   name: string().required(USERNAME_REQUIRED),
@@ -448,20 +462,22 @@ export const validationSchemaCreateSubCourse = object({
       (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
     ),
   price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
+    .min(1000, 'Giá tiền phải lớn hơn 50,000 VNĐ')
     .required('Giá tiền là bắt buộc'),
   minStudent: number()
+    .typeError('Số học sinh tối thiểu không được bỏ trống')
     .required('Số học sinh tối thiểu không được bỏ trống')
-    .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
+    .min(1, 'Học sinh tối thiểu phải lớn hơn 0'),
   maxStudent: number()
+    .typeError('Số học sinh tối đa không được bỏ trống')
     .required('Số học sinh tối đa không được bỏ trống')
-    .min(5, 'Học sinh tối thiểu phải lớn hơn 5')
+    .min(1, 'Học sinh tối đa phải lớn hơn 0')
     .test(
       'is-greater',
       'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',
       function (value) {
         const { minStudent } = this.parent;
-        return value > minStudent;
+        return value >= minStudent;
       }
     ),
   startDateExpected: date()

@@ -87,11 +87,11 @@ export default function WeekSchedule({ data }: Props) {
   useEffect(() => {
     if (data) {
       setSlotList(
-        slots.map((item: any) => ({
+        slots?.map((item: any) => ({
           id: item.id,
           slotName: item.name,
           slotTime: `${item.startTime} - ${item.endTime}`,
-          timeSlots: dayOfWeeks.map((subItem, index) => {
+          timeSlots: dayOfWeeks?.map((subItem, index) => {
             const slotDate = weekDay[index];
             const subItemTimeSlot = data.find(
               (day) =>
@@ -150,7 +150,7 @@ export default function WeekSchedule({ data }: Props) {
           />
         </Box>
       </Stack>
-      <LoadingWrapper error={error} isLoading={slotList.length === 0}>
+      <LoadingWrapper error={error} isLoading={slotList?.length === 0}>
         <Stack
           sx={{
             padding: 3,
@@ -171,7 +171,7 @@ export default function WeekSchedule({ data }: Props) {
                 marginLeft: { xs: '80px', md: '150px' },
               }}
             >
-              {dayOfWeeks.map((item) => (
+              {dayOfWeeks?.map((item) => (
                 <DayName
                   key={item.id}
                   day={weekDay[item.id - 1].getDate()}
@@ -180,7 +180,7 @@ export default function WeekSchedule({ data }: Props) {
               ))}
             </Stack>
             <Stack>
-              {slotList.map((item, index) => {
+              {slotList?.map((item, index) => {
                 return (
                   <Stack
                     sx={{
@@ -190,14 +190,14 @@ export default function WeekSchedule({ data }: Props) {
                   >
                     <SLotName name={item.slotName} time={item.slotTime} />
 
-                    {item.timeSlots.map((subItem, idx) => {
+                    {item.timeSlots?.map((subItem, idx) => {
                       return (
                         <Stack
                           sx={{
                             borderRight: '0.5px solid grey',
                             borderLeft: idx === 0 ? '0.5px solid grey' : 'none',
                             borderBottom:
-                              index === slotList.length - 1
+                              index === slotList?.length || 0 - 1
                                 ? '0.5px solid grey'
                                 : 'none',
                             borderTop: '0.5px solid grey',

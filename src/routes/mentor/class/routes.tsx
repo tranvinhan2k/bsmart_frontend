@@ -18,7 +18,7 @@ export const mentorClassRoutes = (courseId?: number): RoutePayload[] => {
   return [
     {
       path: '/',
-      main: () => <Navigate to={MentorClassActionLink.schedule} />,
+      main: () => <Navigate to={MentorClassActionLink.information} replace />,
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },

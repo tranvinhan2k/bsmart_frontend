@@ -97,7 +97,7 @@ export default function DialogUpdateAvatar({
             Hủy
           </MuiButton>
           <UpdateProfileButton
-            role={profile.roles[0].code}
+            role={profile.roles?.[0]?.code}
             isFormDisabled={!formState.isDirty}
             mentorProfileStatus={profile?.mentorProfile?.status}
           />

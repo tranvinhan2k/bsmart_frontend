@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { Color, FontFamily, MetricSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
@@ -18,7 +18,15 @@ export default function ModuleResourcePage({ name, item }: Props) {
 
   return (
     <Stack marginTop={1}>
-      <Typography sx={globalStyles.textSmallLabel}>{name}</Typography>
+      <Typography
+        textAlign="center"
+        sx={{
+          fontSize: FontSize.medium_24,
+          fontFamily: FontFamily.medium,
+        }}
+      >
+        {name}
+      </Typography>
       <Stack marginTop={1} />
       <Stack
         sx={{

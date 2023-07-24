@@ -1,0 +1,15 @@
+diff --git a/node_modules/react-stomp/dist/client.js b/node_modules/react-stomp/dist/client.js
+index 03d6db0..4e37c55 100644
+--- a/node_modules/react-stomp/dist/client.js
++++ b/node_modules/react-stomp/dist/client.js
+@@ -230,8 +230,8 @@ function (_React$Component) {
+     /* eslint camelcase: ["error", {allow: ["UNSAFE_componentWillReceiveProps"]}] */
+ 
+   }, {
+-    key: "UNSAFE_componentWillReceiveProps",
+-    value: function UNSAFE_componentWillReceiveProps(nextProps) {
++    key: "componentDidUpdate",
++    value: function componentDidUpdate(nextProps) {
+       var _this2 = this;
+ 
+       if (this.state.connected) {

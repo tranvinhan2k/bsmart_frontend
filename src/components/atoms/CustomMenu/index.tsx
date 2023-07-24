@@ -9,7 +9,7 @@ import {
   Paper,
   Popper,
 } from '@mui/material';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Icon, { IconName } from '../Icon';
 
 export interface CustomMenuItemPayload {
@@ -18,19 +18,20 @@ export interface CustomMenuItemPayload {
   onClick: () => void;
 }
 
-interface Props extends Omit<MenuProps, 'open'> {
+type Props = Omit<MenuProps, 'open'> & {
   open: boolean;
   anchorEl: HTMLElement | null;
   onClose: (event: Event | React.SyntheticEvent) => void;
-  menuItemData: CustomMenuItemPayload[];
   onToggleOpen: () => void;
-}
+  menuItemData?: CustomMenuItemPayload[];
+};
 
 export default function CustomMenu({
   open,
   anchorEl,
   onClose,
   menuItemData,
+  children,
   onToggleOpen,
 }: Props) {
   const handleListKeyDown = (event: React.KeyboardEvent) => {
@@ -81,20 +82,26 @@ export default function CustomMenu({
                 aria-labelledby="composition-button"
                 onKeyDown={handleListKeyDown}
               >
-                {menuItemData.map((item, index) => (
-                  <MenuItem
-                    key={index}
-                    onClick={(e: any) => {
-                      item.onClick();
-                      onClose(e);
-                    }}
-                  >
-                    <ListItemIcon>
-                      <Icon name={item.icon} size="small_20" color="black" />
-                    </ListItemIcon>
-                    <ListItemText>{item.name}</ListItemText>
-                  </MenuItem>
-                ))}
+                {menuItemData
+                  ? menuItemData.map((item, index) => (
+                      <MenuItem
+                        key={index}
+                        onClick={(e: any) => {
+                          item.onClick();
+                          onClose(e);
+                        }}
+                      >
+                        <ListItemIcon>
+                          <Icon
+                            name={item.icon}
+                            size="small_20"
+                            color="black"
+                          />
+                        </ListItemIcon>
+                        <ListItemText>{item.name}</ListItemText>
+                      </MenuItem>
+                    ))
+                  : children}
               </MenuList>
             </ClickAwayListener>
           </Paper>

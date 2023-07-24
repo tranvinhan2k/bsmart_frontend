@@ -79,7 +79,7 @@ export default function ClassItem({
 }: Props) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  const [loaded, setLoaded] = useState(false);
   const handleDelete = () => {
     if (onUpdate) {
       onUpdate(id);
@@ -141,7 +141,7 @@ export default function ClassItem({
         background: Color.white,
         border: `0.5px solid ${Color.border}`,
         position: 'relative',
-        flexDirection: 'row',
+        flexDirection: { xs: 'column', md: 'row' },
         flexWrap: 'wrap',
         flexGrow: 1,
         borderRadius: MetricSize.small_5,
@@ -149,19 +149,16 @@ export default function ClassItem({
       }}
     >
       <Stack sx={{ flexGrow: 1 }}>
-        <Stack sx={{ flexDirection: 'row' }}>
-          <Stack
-            sx={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+        <Stack sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
+          <Stack>
             <Box
               component="img"
-              src={imageUrl || image.mockClass}
+              src={!loaded ? imageUrl : image.noCourse}
+              onError={() => setLoaded(true)}
               alt="course"
               sx={{
                 borderRadius: MetricSize.small_5,
+                border: '1px solid #eee',
                 margin: 1,
                 background: Color.white,
                 objectFit: 'cover',
@@ -191,7 +188,7 @@ export default function ClassItem({
                 fontSize: FontSize.medium_28,
               }}
             >
-              {`Lớp học #${code}`}
+              {`Lớp học mã ${code}`}
             </Typography>
             <Stack>
               {/* <Stack

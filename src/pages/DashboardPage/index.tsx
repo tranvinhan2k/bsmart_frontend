@@ -74,7 +74,9 @@ export default function DashboardPage() {
   const isClassDetailPage =
     pathname.includes(
       MentorDashboardNavigationActionLink.mentor_class_detail
-    ) || pathname.includes(MemberDashboardNavigationActionLink.quiz);
+    ) ||
+    pathname.includes(MemberDashboardNavigationActionLink.quiz) ||
+    pathname.includes(MemberDashboardNavigationActionLink.review);
 
   return (
     <Stack
@@ -83,6 +85,10 @@ export default function DashboardPage() {
         position: 'relative',
         minHeight: '100vh',
         background: Color.white4,
+        ':-webkit-scrollbar': {
+          display: 'none',
+        },
+        overflow: 'auto',
       }}
     >
       {!isClassDetailPage && (

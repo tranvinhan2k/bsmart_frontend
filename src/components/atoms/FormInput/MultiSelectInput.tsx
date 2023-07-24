@@ -19,7 +19,7 @@ function MultiSelectInput({ controller, data }: MultiSelectInputProps) {
 
   return (
     <Stack>
-      <Stack flexDirection="row">
+      <Stack flexDirection="row" flexWrap="wrap">
         {data.map((option) => (
           <FormControlLabel
             key={option.id}

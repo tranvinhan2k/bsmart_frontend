@@ -13,7 +13,7 @@ import {
 export const memberClassRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={MemberClassActionLink.information} />,
+    main: () => <Navigate to={MemberClassActionLink.information} replace />,
     role: ['ROLE_STUDENT'],
     courseStatus: 'ALL',
   },

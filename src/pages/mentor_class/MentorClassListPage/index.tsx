@@ -5,27 +5,22 @@ import { useForm } from 'react-hook-form';
 import { LoadingWrapper } from '~/HOCs';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
+import ClassStatusLabel from '~/components/atoms/ClassStatusLabel';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import InputGroup from '~/components/atoms/FormInput/InputGroup';
 import Icon from '~/components/atoms/Icon';
 import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
-import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
-import { validationClassListFilter } from '~/form/validation';
-import {
-  useDispatchGetAllSubjects,
-  useQueryGetUserClass,
-  useYupValidationResolver,
-} from '~/hooks';
+import { useQueryGetUserClass } from '~/hooks';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
-import { handleConsoleError, scrollToTop } from '~/utils/common';
+import { scrollToTop } from '~/utils/common';
 import { formatStringToNumber } from '~/utils/number';
 import toast from '~/utils/toast';
 
 const TEXTS = {
-  title_1: 'Lớp học đã tạo',
+  title_1: 'Danh sách lớp học',
   button_title_1: 'Tạo khóa học',
   title_2: 'Không có lớp học nào.',
 };
@@ -39,7 +34,6 @@ function a11yProps(index: number) {
 
 export default function MentorClassListPage() {
   // useState
-  const [value, setValue] = useState(0);
   const {
     filterParams,
     classes,
@@ -52,6 +46,9 @@ export default function MentorClassListPage() {
     isLoading,
     totalPage,
   } = useQueryGetUserClass('TEACHER');
+  const [classStatus, setClassStatus] = useState<ClassStatusKeys>(
+    filterParams.status || 'ALL'
+  );
   // parameters
   const chosenClassStatus = ClassStatusList.find(
     (item) => item.value === filterParams.status
@@ -59,8 +56,11 @@ export default function MentorClassListPage() {
 
   // functions
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newValue: ClassStatusKeys
+  ) => {
+    setClassStatus(newValue);
   };
   const handleChangePageNumber = (e: any, pageNumber: number) => {
     handleChangePage(pageNumber - 1);
@@ -85,8 +85,8 @@ export default function MentorClassListPage() {
     toast.notifySuccessToast('Đã lọc kết quả');
   };
 
-  const handleChangeClassStatus = (classStatus: string) => {
-    handleChangeStatus(classStatus as ClassStatusKeys);
+  const handleChangeClassStatus = (param: string) => {
+    handleChangeStatus(param as ClassStatusKeys);
   };
 
   // useEffect
@@ -125,7 +125,7 @@ export default function MentorClassListPage() {
             }}
             scrollButtons={false}
             variant="scrollable"
-            value={value}
+            value={classStatus}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
@@ -133,7 +133,23 @@ export default function MentorClassListPage() {
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
-                label={item.label}
+                label={
+                  <ClassStatusLabel
+                    label={item.label}
+                    numberOfItem={
+                      classes?.reduce((total: number, subItem) => {
+                        if (
+                          item.value === 'ALL' ||
+                          subItem.status === item.value
+                        ) {
+                          return total + 1;
+                        }
+                        return total;
+                      }, 0) || 0
+                    }
+                  />
+                }
+                value={item.value}
                 {...a11yProps(index)}
               />
             ))}

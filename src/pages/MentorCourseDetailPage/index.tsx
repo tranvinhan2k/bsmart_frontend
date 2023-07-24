@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Grid, Stack, Typography, CircularProgress, Box } from '@mui/material';
 
@@ -87,7 +87,11 @@ export default function MentorCourseDetailPage() {
     value: `${item.id}`,
   }));
 
-  const hookForm = useForm<{ classes: string[] }>();
+  const hookForm = useForm<{ classes: string[] }>({
+    defaultValues: {
+      classes: useMemo(() => classes?.map((item) => `${item.id}`), [classes]),
+    },
+  });
 
   const {
     coursePercent,
@@ -198,10 +202,11 @@ export default function MentorCourseDetailPage() {
                 <CourseAlert status={course.status || 'ALL'} />
                 {(course?.status === 'REQUESTING' ||
                   course?.status === 'EDITREQUEST') && (
-                  <Stack>
+                  <Stack sx={globalStyles.viewCenter}>
                     <Typography
                       textAlign="center"
                       sx={{
+                        width: '170px',
                         color: Color.black,
                         fontSize: FontSize.small_14,
                         fontFamily: FontFamily.bold,
@@ -255,7 +260,7 @@ export default function MentorCourseDetailPage() {
                       disabled={Math.round(coursePercent || 0) < 100}
                       onClick={handleOpen}
                     >
-                      Phê duyệt khóa học
+                      Gửi yêu cầu phê duyệt
                     </Button>
                     <CustomModal open={open} onClose={handleOpen}>
                       <Stack sx={{ padding: 1, width: '60vw' }}>
@@ -286,7 +291,7 @@ export default function MentorCourseDetailPage() {
                           )}
                           variant="contained"
                         >
-                          Phê duyệt khóa học
+                          Gửi yêu cầu phê duyệt
                         </Button>
                       </Stack>
                     </CustomModal>

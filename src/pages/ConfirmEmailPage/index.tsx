@@ -18,7 +18,7 @@ export default function ConfirmEmailPage() {
   const mutationProfile = useMutationProfile();
   const profile = useSelector(selectProfile);
 
-  const { data, error, isLoading, reverifyMutation } = useQueryVerifyEmail(
+  const { error, isLoading, reverifyMutation } = useQueryVerifyEmail(
     params?.code
   );
   const handleNavigateMainPage = async () => {

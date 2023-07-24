@@ -52,7 +52,9 @@ export default function DashboardSidebarButton({
           xs: 0,
           md: activeIndex + 1 === index ? MetricSize.small_10 : 0,
         },
-        padding: MetricSize.medium_15,
+        paddingY: MetricSize.medium_15,
+        paddingLeft: MetricSize.medium_15,
+        paddingRight: 4,
         color: Color.white,
         fontSize: FontSize.small_16,
         fontFamily:

@@ -19,6 +19,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { PostCourseRequest } from '~/models/request';
+import ReturnLink from '~/components/atoms/ReturnLink';
 
 export interface SelectedCoursePayload {
   id?: number;
@@ -57,7 +58,8 @@ export default function MentorCreateCoursePage() {
         width: '100%',
       }}
     >
-      <Typography sx={globalStyles.textTitle}>Tạo khóa học mới</Typography>
+      <ReturnLink />
+      <Typography sx={globalStyles.textSubTitle}>Tạo khóa học mới</Typography>
       <CreateCourseForm
         // selectedCourse={course}
         // onNextStep={handleNextStep}

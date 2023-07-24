@@ -68,7 +68,7 @@ export default function EditPersonalProfileForm() {
   const queryClient = useQueryClient();
   const { mutateAsync: mutateEditPersonalProfile } = useMutation({
     mutationFn:
-      profile && profile.roles[0].code === 'TEACHER'
+      profile && profile.roles?.[0]?.code === 'TEACHER'
         ? accountApi.editMentorPersonalProfile
         : accountApi.editMemberPersonalProfile,
     onSuccess: () => {
@@ -173,7 +173,7 @@ export default function EditPersonalProfileForm() {
           </Grid>
           <Box mt={4}>
             <UpdateProfileButton
-              role={profile.roles[0].code}
+              role={profile.roles?.[0]?.code}
               isFormDisabled={!formState.isDirty}
               mentorProfileStatus={profile?.mentorProfile?.status}
             />

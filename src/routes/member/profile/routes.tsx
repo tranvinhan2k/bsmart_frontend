@@ -17,7 +17,8 @@ export const memberRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.member_details}/${MemberNavigationActionLink.edit_profile_personal_info}`}
+        replace
+        to={MemberNavigationActionLink.edit_profile_personal_info}
       />
     ),
     role: ['ROLE_STUDENT'],

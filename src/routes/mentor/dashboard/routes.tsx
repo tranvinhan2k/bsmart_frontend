@@ -19,7 +19,6 @@ import {
   MentorUpdateAnnouncementPage,
   MentorClassAttendanceListPage,
   MentorViewStudentAttendancePage,
-  MentorTakeAttendancePage,
   NotFoundPage,
   SchedulePage,
 } from '~/routes/components';
@@ -29,7 +28,8 @@ export const mentorLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
+        to={MentorDashboardNavigationActionLink.mentor_course_list}
+        replace
       />
     ),
     role: ['ROLE_TEACHER'],

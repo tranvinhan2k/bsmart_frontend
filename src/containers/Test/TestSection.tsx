@@ -1,46 +1,39 @@
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
 import { useState } from 'react';
+import { Stack } from '@mui/material';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
+const SOCKET_URL = 'http://103.173.155.221:8080/websocket';
+const topic = '/topics/messages';
 
 export default function TextSection() {
-  const [text, setText] = useState('');
-  let stompClient: any = null;
+  const [message, setMessage] = useState('You server message here.');
+  const sock = new SockJS(SOCKET_URL);
+  const stompClient = Stomp.over(sock);
 
-  const socket = new SockJS('http://103.173.155.221:8080/websocket');
-  stompClient = Stomp.over(socket);
-  stompClient.connect({}, function (frame: any) {
-    console.log(`Connected: ${frame}`);
-    stompClient.subscribe('/topic/greeting', function (messageOutput: any) {
-      console.log(messageOutput.body);
-      setText(JSON.parse(messageOutput.body));
-    });
-  });
+  const onMessageReceived = (payload: any) => {
+    console.log(`onMessageReceived ${payload}`);
+  };
 
-  // const stompClient = Stomp.over(sock);
+  const onConnected = () => {
+    console.log('onConnected');
+    // Subscribe to the Public Topic
+    stompClient.subscribe(topic, onMessageReceived);
+  };
 
-  // stompClient.connect({}, () => {
-  //   stompClient.subscribe('/topic/messages', (message) => {
-  //     console.log('Hello', message.body);
-  //     setText(message.body);
-  //   });
-  // });
+  const onError = (error: any) => {
+    console.log(error);
+  };
 
-  // sock.onopen = function () {
-  //   console.log('open');
-  //   setText(`${text} \n Connected`);
-  //   sock.send('test');
-  // };
+  stompClient.connect({}, onConnected, onError);
 
-  // sock.onmessage = function (e) {
-  //   console.log('message', e.data);
-  //   setText(`${text} \n Message ${e.data}`);
-
-  //   sock.close();
-  // };
-
-  // sock.onclose = function () {
-  //   setText(`${text} \n Close `);
-  // };
-
-  return <div>{`Wed Socket \n ${text}`}</div>;
+  return (
+    <Stack
+      sx={{
+        minHeight: '100vh',
+      }}
+    >
+      {message}
+    </Stack>
+  );
 }

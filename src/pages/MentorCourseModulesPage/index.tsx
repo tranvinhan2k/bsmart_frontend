@@ -70,7 +70,7 @@ export default function MentorCourseModulesPage() {
       visible: false,
       courseId,
       description:
-        activity?.detail.type === 'LESSON' ? activity?.detail?.description : '',
+        activity?.type === 'LESSON' ? activity?.detail?.description : '',
       authorizeClasses: [],
     },
     resolver: resolverLesson,
@@ -265,20 +265,15 @@ export default function MentorCourseModulesPage() {
         ...activity,
         'file.0': {
           name:
-            activity.detail.type === 'RESOURCE'
-              ? activity?.detail?.file?.name
-              : '',
-          url:
-            activity.detail.type === 'RESOURCE'
-              ? activity?.detail?.file?.url
-              : '',
+            activity.type === 'RESOURCE' ? activity?.detail?.file?.name : '',
+          url: activity.type === 'RESOURCE' ? activity?.detail?.file?.url : '',
         },
       });
       hookFormAssignment.reset({
         ...activity,
         ...activity.detail,
         attachFiles:
-          activity.detail.type === 'ASSIGNMENT'
+          activity.type === 'ASSIGNMENT'
             ? activity?.detail?.attachFiles?.map((item: any) => ({
                 name: item.name,
                 url: item.url,

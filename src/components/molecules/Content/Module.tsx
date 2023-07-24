@@ -31,7 +31,7 @@ export default function Module({
   readOnly,
 }: Props) {
   const profile = useSelector(selectProfile);
-  const role = profile.roles[0].code;
+  const role = profile.roles?.[0]?.code;
   const classId = useGetIdFromUrl('id');
 
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ export default function Module({
         borderRadius: MetricSize.small_5,
 
         ':hover': {
-          cursor: 'pointer',
+          cursor: !readOnly ? 'pointer' : 'auto',
           background: !readOnly ? '#ddd' : Color.white,
         },
 

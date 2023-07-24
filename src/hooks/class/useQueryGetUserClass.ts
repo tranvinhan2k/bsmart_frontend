@@ -9,7 +9,7 @@ export const useQueryGetUserClass = (role: 'STUDENT' | 'TEACHER') => {
     q: '',
     page: 0,
     size: 24,
-    status: 'ALL',
+    status: 'STARTING',
     asRole: role === 'STUDENT' ? 1 : 0,
   });
 

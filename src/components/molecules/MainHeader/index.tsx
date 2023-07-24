@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, IconButton, Stack, Typography } from '@mui/material';
+import { Avatar, Badge, IconButton, Stack, Typography } from '@mui/material';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
 import { image } from '~/constants/image';
 import { logOut } from '~/redux/user/slice';
@@ -17,6 +17,8 @@ import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
 import CustomMenu from '~/components/atoms/CustomMenu';
 import { useLogOut, useMenuItem } from '~/hooks';
+import { NotificationContext } from '~/HOCs/context/NotificationContext';
+import Icon from '~/components/atoms/Icon';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -44,6 +46,8 @@ export default function MainHeader({
   const filterParams = useSelector(selectFilterParams);
   const { handleClose, handleToggle, open, anchorRef } = useMenuItem();
   const { handleHookLogOut } = useLogOut();
+  const { onOpenNotification, numberOfNotification, ref } =
+    useContext(NotificationContext);
 
   const nameSplit = profile?.fullName?.split(' ') || [];
 
@@ -114,6 +118,7 @@ export default function MainHeader({
                 {nameSplit?.[nameSplit.length - 1] || ''}
               </span>
             </Typography>
+
             <IconButton ref={anchorRef} onClick={handleToggle}>
               <Avatar
                 alt="Avatar"
@@ -129,6 +134,12 @@ export default function MainHeader({
                   boxShadow: 3,
                 }}
               />
+            </IconButton>
+
+            <IconButton ref={ref} onClick={onOpenNotification}>
+              <Badge color="error" badgeContent={numberOfNotification}>
+                <Icon name="bell" size="small_20" color="white" />
+              </Badge>
             </IconButton>
           </Stack>
           <CustomMenu

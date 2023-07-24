@@ -6,8 +6,10 @@ import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
 import { ClassStatusKeys } from '~/models/variables';
 import { ClassStatusList } from '~/constants';
 import { useDispatchGetAllSubjects } from '~/hooks';
+import { useState } from 'react';
 
 interface UserClassItemProps {
+  code: string | undefined;
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   teacherName?: string[];
@@ -20,6 +22,7 @@ interface UserClassItemProps {
   status: ClassStatusKeys;
 }
 export default function UserClassItem({
+  code,
   name,
   imageAlt,
   imageUrl,
@@ -97,7 +100,9 @@ export default function UserClassItem({
               ...globalStyles.textTwoLineEllipsis,
             }}
           >
-            {name?.toUpperCase() || ''}
+            {`${code ? `${code?.toUpperCase()} - ` : ''} ${
+              name ? name?.toUpperCase() : ''
+            }` || ''}
           </Typography>
           <Typography
             noWrap
@@ -113,77 +118,79 @@ export default function UserClassItem({
               ))}
           </Typography>
         </Stack>
-        <Stack
-          sx={{
-            alignItem: 'center',
-            justifyContent: 'space-between',
-            paddingBottom: 1,
-            marginTop: 1,
-            flexGrow: 1,
-          }}
-        >
-          <LinearProgress
-            variant="determinate"
-            color="secondary"
-            value={progressValue || 0 * 100}
-          />
+        {progressValue !== -1 && (
           <Stack
             sx={{
-              marginTop: 1,
-              flexDirection: 'row',
+              alignItem: 'center',
               justifyContent: 'space-between',
-              height: '35px',
+              paddingBottom: 1,
+              marginTop: 1,
+              flexGrow: 1,
             }}
           >
-            <Typography
+            <LinearProgress
+              variant="determinate"
+              color="secondary"
+              value={progressValue || 0 * 100}
+            />
+            <Stack
               sx={{
-                fontSize: '12px',
-                color: Color.black,
+                marginTop: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                height: '35px',
               }}
             >
-              {progressValue !== 0 ? (
-                <>
-                  <span style={{ fontFamily: FontFamily.medium }}>
-                    {`${progressValue || 0 * 100}%`}
-                  </span>{' '}
-                  hoàn thành
-                </>
-              ) : (
-                `Chưa bắt đầu`
-              )}
-            </Typography>
-
-            {onAddFeedback && (
-              <Stack
+              <Typography
                 sx={{
-                  alignItems: 'flex-end',
+                  fontSize: '12px',
+                  color: Color.black,
                 }}
               >
-                <Rating
-                  size="small"
-                  name="half-rating-read"
-                  defaultValue={2.5}
-                  precision={0.5}
-                  readOnly
-                />
-                <Typography
-                  onClick={onAddFeedback}
+                {progressValue !== 0 ? (
+                  <>
+                    <span style={{ fontFamily: FontFamily.medium }}>
+                      {`${progressValue || 0 * 100}%`}
+                    </span>{' '}
+                    hoàn thành
+                  </>
+                ) : (
+                  `Chưa bắt đầu`
+                )}
+              </Typography>
+
+              {onAddFeedback && (
+                <Stack
                   sx={{
-                    fontSize: '12px',
-                    color: Color.black,
-                    ':hover': {
-                      cursor: 'pointer',
-                      textDecoration: 'underline',
-                      color: Color.tertiary,
-                    },
+                    alignItems: 'flex-end',
                   }}
                 >
-                  Đánh giá khóa học
-                </Typography>
-              </Stack>
-            )}
+                  <Rating
+                    size="small"
+                    name="half-rating-read"
+                    defaultValue={2.5}
+                    precision={0.5}
+                    readOnly
+                  />
+                  <Typography
+                    onClick={onAddFeedback}
+                    sx={{
+                      fontSize: '12px',
+                      color: Color.black,
+                      ':hover': {
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        color: Color.tertiary,
+                      },
+                    }}
+                  >
+                    Đánh giá khóa học
+                  </Typography>
+                </Stack>
+              )}
+            </Stack>
           </Stack>
-        </Stack>
+        )}
       </Stack>
     </HoverableStack>
   );

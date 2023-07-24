@@ -230,15 +230,35 @@ const accountApi = {
       });
     const result: ClassMenuItemPayload[] = response.items.map((item) => ({
       id: item.id || 0,
-      imageAlt: 'class image', // TODO: chua co
-      imageUrl: image.mockClass, // TODO: chua co
+      code: item.course?.code || '',
+      imageAlt: item.image?.name || '',
+      imageUrl: item.image?.url || '',
       name: item.course?.name,
-      progressValue: 50, // TODO: chua co
-      status: 'NOTSTART', // TODO: chua co
-      subjectId: 1,
-      teacherName: [item.mentorName || ''],
+      progressValue: -1, // TODO: chua co
+      status: item?.status || 'ALL',
+      subjectId: item.course?.subject?.id || 0,
+      teacherName: [item.mentor?.name || ''],
     }));
     return { ...response, items: result };
+  },
+  async getDetailUserClass(id: number): Promise<ClassMenuItemPayload> {
+    const response: PagingFilterPayload<ResponseUserClasses> =
+      await axiosClient.get(`${url}/classes`, {
+        paramsSerializer: { indexes: null },
+      });
+    const responseClass = response.items.find((item) => item.id === id);
+    const result: ClassMenuItemPayload = {
+      id: responseClass?.id || 0,
+      code: responseClass?.course?.code || '',
+      imageAlt: responseClass?.image?.name || '',
+      imageUrl: responseClass?.image?.url || '',
+      name: responseClass?.course?.name,
+      progressValue: -1, // TODO: chua co
+      status: responseClass?.status || 'ALL',
+      subjectId: responseClass?.course?.subject?.id || 0,
+      teacherName: [responseClass?.mentor?.name || ''],
+    };
+    return result;
   },
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);
@@ -300,7 +320,7 @@ const accountApi = {
     const result: AttendanceTimeSlotPayload[] =
       selectedClassResponse?.timeTableResponse?.map((timeSlot) => ({
         id: timeSlot.id || 0,
-        date: formatDate(timeSlot.date || '') || '',
+        date: timeSlot?.date || '',
         slotName: timeSlot.slot?.name || '',
         time: `${timeSlot.slot?.startTime} - ${timeSlot.slot?.endTime}`,
         isPresent: true,

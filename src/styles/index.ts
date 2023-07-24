@@ -74,6 +74,7 @@ export const SX_SHADOW: SxProps<Theme> = {
   elevation: 4,
 };
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
+  borderColor: '#ddd',
   // maxHeight: '50px',
   input: {
     fontFamily: FontFamily.regular,
@@ -113,6 +114,14 @@ export const viewCenter: SxProps<Theme> = {
   justifyContent: 'center',
   alignItems: 'center',
 };
+export const viewBorder: SxProps<Theme> = {
+  border: '1px solid black',
+  padding: 1,
+};
+export const viewFlexRowCenter: SxProps<Theme> = {
+  flexDirection: { xs: 'column', md: 'row' },
+  alignItems: 'center',
+};
 const displayEditorTextShowMore: SxProps<Theme> = {
   fontFamily: FontFamily.regular,
 };
@@ -139,6 +148,8 @@ const globalStyles = {
   viewRoundedWhiteBody,
   viewIllustration,
   viewCenter,
+  viewBorder,
+  viewFlexRowCenter,
 };
 
 export default globalStyles;

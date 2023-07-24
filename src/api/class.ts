@@ -1,6 +1,4 @@
 import axiosClient from '~/api/axiosClient';
-import { mockImages, mockLevelData } from '~/constants';
-import { image } from '~/constants/image';
 import { PagingFilterPayload } from '~/models';
 import {
   ClassCreateClassSectionPayload,
@@ -13,7 +11,6 @@ import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import { ResponseMentorCoursePayload } from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
-import { mentorClassRoutes } from '~/routes/mentor/class/routes';
 import { formatOptionPayload } from '~/utils/common';
 
 const url = '/classes';

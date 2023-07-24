@@ -1,5 +1,5 @@
 import { Stack, Typography, Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
@@ -17,15 +17,11 @@ import toast from '~/utils/toast';
 import {
   useDispatchProfile,
   useMutationLogin,
-  useMutationProfile,
   useYupValidationResolver,
 } from '~/hooks';
 import { Role } from '~/models/role';
 import { LoginRequestPayload } from '~/models/api/auth';
-import { ResponseProfilePayload } from '~/api/users';
 import { signIn } from '~/redux/user/slice';
-import { selectProfile } from '~/redux/user/selector';
-import { ProfilePayload } from '~/models/type';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -76,23 +72,25 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
       email: data.email.toLowerCase(),
       password: data.password,
     };
-
+    const id = toast.loadToast('Đang đăng nhập...');
     try {
       const signInData = await mutateAsync(params);
-      localStorage.setItem('token', signInData.token);
-      localStorage.setItem('roles', signInData.roles[0]);
+      if (signInData) {
+        localStorage.setItem('token', signInData.token);
+        localStorage.setItem('roles', signInData.roles[0]);
 
-      await handleDispatch();
+        await handleDispatch();
 
-      const requestProfile: {
-        token: string;
-        roles: Role;
-      } = {
-        token: signInData.token,
-        roles: signInData.roles[0],
-      };
+        const requestProfile: {
+          token: string;
+          roles: Role;
+        } = {
+          token: signInData.token,
+          roles: signInData.roles[0],
+        };
 
-      dispatch(signIn(requestProfile));
+        dispatch(signIn(requestProfile));
+      }
 
       if (isRememberPassword) {
         localStorage.setItem('username', data.email);
@@ -104,10 +102,13 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
         localStorage.setItem('isRememberPassword', 'false');
       }
       signInHookForm.reset();
-      toast.notifySuccessToast('Đăng nhập thành công!');
+      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
       navigate('/homepage');
     } catch (error: any) {
-      toast.notifyErrorToast(`Đăng nhập không thành công: ${error.message}`);
+      toast.updateFailedToast(
+        id,
+        `Đăng nhập không thành công: ${error.message}`
+      );
     }
   };
   // const token = useSelector((state: RootState) => state.user.token);

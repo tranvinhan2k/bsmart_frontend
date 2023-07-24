@@ -16,7 +16,7 @@ export const mentorCourseRoutes = (refetch: any): RoutePayload[] => {
   return [
     {
       path: '/',
-      main: () => <Navigate to={MentorCourseActionLink.information} />,
+      main: () => <Navigate to={MentorCourseActionLink.information} replace />,
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },

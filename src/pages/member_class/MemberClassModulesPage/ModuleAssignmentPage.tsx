@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
+import MarkDisplay from '~/components/atoms/MarkDisplay';
 import TextList from '~/components/atoms/texts/TextList';
 import { ActivityAssignmentPayload } from '~/models/type';
 import globalStyles from '~/styles';
@@ -17,63 +18,74 @@ interface Props {
 export default function ModuleAssignmentPage({ name, item }: Props) {
   const { control, handleSubmit, formState } = useForm();
 
+  const isMarked = true;
+
   const onSubmit = (data: any) => {};
 
   return (
     <Stack marginTop={1}>
-      <Stack>
-        <Typography
-          sx={{
-            fontSize: FontSize.small_14,
-            fontFamily: FontFamily.bold,
-          }}
-        >
-          Mô tả bài tập
-        </Typography>
-        <Typography
-          sx={{
-            marginY: 1,
-            ...globalStyles.textLowSmallLight,
-            color: Color.black,
-          }}
-        >
-          {item.description}
-        </Typography>
-      </Stack>
-      <TextList
-        items={[
-          {
-            name: 'Ngày bắt đầu',
-            value: formatDate(item.startDate),
-          },
-          {
-            name: 'Ngày kết thúc',
-            value: formatDate(item.endDate),
-          },
-          {
-            name: 'Thời gian cho phép chỉnh sửa sau khi submit',
-            value: `${item.editBeForSubmitMin} phút`,
-          },
-        ]}
-      />
       <Typography
+        textAlign="center"
         sx={{
-          fontSize: FontSize.small_14,
-          fontFamily: FontFamily.bold,
+          fontSize: FontSize.medium_24,
+          fontFamily: FontFamily.medium,
         }}
       >
-        Nộp bài làm
+        {name}
       </Typography>
-      <FormInput control={control} name="files" variant="files" />
-      <Box marginTop={1}>
-        <Button
-          disabled={!formState.isDirty}
-          onClick={handleSubmit(onSubmit, handleConsoleError)}
-          variant="contained"
-        >
-          Thêm bài làm
-        </Button>
-      </Box>
+
+      <Typography
+        marginTop={1}
+        textAlign="center"
+        sx={globalStyles.textSmallLabel}
+      >
+        Mô tả bài tập
+      </Typography>
+      <Stack paddingBottom={2}>
+        <Typography
+          dangerouslySetInnerHTML={{
+            __html: item.description,
+          }}
+          textAlign="center"
+          sx={globalStyles.textSmallLight}
+        />
+      </Stack>
+      <Typography
+        textAlign="center"
+        sx={globalStyles.textLowSmallLight}
+      >{`Bài tập này sẽ được mở vào ngày ${item.startDate}`}</Typography>
+      <Typography
+        textAlign="center"
+        sx={globalStyles.textLowSmallLight}
+      >{`Bài tập sẽ sẽ kết thúc vào ngày ${item.endDate}`}</Typography>
+      <Typography
+        textAlign="center"
+        sx={globalStyles.textLowSmallLight}
+      >{`Thời gian cho chỉnh sửa: ${item.editBeForSubmitMin} phút`}</Typography>
+      {isMarked ? (
+        <MarkDisplay point={7} passPoint={8} total={10} />
+      ) : (
+        <Stack>
+          <Typography
+            sx={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.bold,
+            }}
+          >
+            Nộp bài làm
+          </Typography>
+          <FormInput control={control} name="files" variant="files" />
+          <Box marginTop={1}>
+            <Button
+              disabled={!formState.isDirty}
+              onClick={handleSubmit(onSubmit, handleConsoleError)}
+              variant="contained"
+            >
+              Thêm bài làm
+            </Button>
+          </Box>
+        </Stack>
+      )}
     </Stack>
   );
 }
