@@ -1,7 +1,7 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
-import { useManageCourseCreateRequest } from '~/hooks/useManageCourseCreateRequest';
+import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import ProcessCourseCreateRequest from '~/components/molecules/ProcessCourseCreateRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
@@ -11,43 +11,26 @@ export default function ManagerProcessCourseCreateRequestPage() {
   }, []);
 
   const [tabValue, setTabValue] = useState(0);
-  const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
+  const handleSetTabValue = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: number
+  ) => setTabValue(newValue);
 
-  const q = '';
-  const size = null;
-  const sort = '';
-  const statusWaiting = 'WAITING';
-  const statusStarting = 'STARTING';
-  const statusEditRequest = 'EDITREQUEST';
-  const statusRejected = 'REJECTED';
-
-  const { courseCreateRequest: courseCreateRequestWaiting } =
-    useManageCourseCreateRequest({
-      status: statusWaiting,
-      q,
-      size,
-      sort,
+  const { courseCreateRequestList: courseListWaiting } =
+    useSearchCourseCreateRequest({
+      status: 'WAITING',
     });
-  const { courseCreateRequest: courseCreateRequestStarting } =
-    useManageCourseCreateRequest({
-      status: statusStarting,
-      q,
-      size,
-      sort,
+  const { courseCreateRequestList: courseListStarting } =
+    useSearchCourseCreateRequest({
+      status: 'STARTING',
     });
-  const { courseCreateRequest: courseCreateRequestEditRequest } =
-    useManageCourseCreateRequest({
-      status: statusEditRequest,
-      q,
-      size,
-      sort,
+  const { courseCreateRequestList: courseListEditRequest } =
+    useSearchCourseCreateRequest({
+      status: 'EDITREQUEST',
     });
-  const { courseCreateRequest: courseCreateRequestRejected } =
-    useManageCourseCreateRequest({
-      status: statusRejected,
-      q,
-      size,
-      sort,
+  const { courseCreateRequestList: courseListRejected } =
+    useSearchCourseCreateRequest({
+      status: 'REJECTED',
     });
 
   const tabEl = [
@@ -55,27 +38,25 @@ export default function ManagerProcessCourseCreateRequestPage() {
       id: 0,
       text: 'Chờ duyệt',
       component: <ProcessCourseCreateRequest status="WAITING" />,
-      noOfRequest: restrictNumberDisplay(courseCreateRequestWaiting?.length),
+      noOfRequest: restrictNumberDisplay(courseListWaiting?.items.length),
     },
     {
       id: 1,
       text: 'Đã duyệt',
       component: <ProcessCourseCreateRequest status="NOTSTART" />,
-      noOfRequest: restrictNumberDisplay(courseCreateRequestStarting?.length),
+      noOfRequest: restrictNumberDisplay(courseListStarting?.items.length),
     },
     {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: <ProcessCourseCreateRequest status="EDITREQUEST" />,
-      noOfRequest: restrictNumberDisplay(
-        courseCreateRequestEditRequest?.length
-      ),
+      noOfRequest: restrictNumberDisplay(courseListEditRequest?.items.length),
     },
     {
       id: 3,
       text: 'Đã từ chối',
       component: <ProcessCourseCreateRequest status="REJECTED" />,
-      noOfRequest: restrictNumberDisplay(courseCreateRequestRejected?.length),
+      noOfRequest: restrictNumberDisplay(courseListRejected?.items.length),
     },
   ];
 

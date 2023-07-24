@@ -57,6 +57,7 @@ export interface RequestUpdateCoursePayload {
 }
 export interface ProcessCreateCourseRequestPayload {
   id: number;
+  classIds: number[];
   status: string;
   message: string;
 }

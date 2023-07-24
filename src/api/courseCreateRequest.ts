@@ -1,35 +1,40 @@
 import axiosClient from '~/api/axiosClient';
-import { ProcessRegisterRequestPayload } from './mentorProfile';
+import { CourseCreateRequestDetails } from '~/models/courses';
+import { PagingFilterPayload } from '~/models';
+import { ProcessCreateCourseRequestPayload } from './courses';
 
 const url = '/courses';
 
 const courseCreateRequestApi = {
-  async searchCourseCreateRequest({
+  searchCourseCreateRequest({
     status,
-    q,
-    size,
-    sort,
-  }: SearchCourseCreateRequestProps): Promise<any> {
-    const urlSearch = `${url}/pending?status=${status}&page=${0}&size=${size}`;
-    const response: any = await axiosClient.get(`${urlSearch}`);
-    return response.items;
+    q = '',
+    page = 0,
+    size = null,
+    sort = [],
+  }: SearchCourseCreateRequestProps): Promise<
+    PagingFilterPayload<CourseCreateRequestDetails>
+  > {
+    const urlSearch = `${url}/pending?status=${status}&p=${q}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(`${urlSearch}`);
   },
-  async approveCourseCreateRequest(
-    data: ProcessRegisterRequestPayload
-  ): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${data.id}/approval`, {
+  approveCourseCreateRequest(
+    data: ProcessCreateCourseRequestPayload
+  ): Promise<boolean> {
+    return axiosClient.put(`${url}/${data.id}/approval`, {
+      classIds: data.classIds,
       status: data.status,
       message: data.message,
     });
-    return response;
   },
 };
 
 interface SearchCourseCreateRequestProps {
-  status?: string;
-  q?: string;
+  status: string;
+  q?: string | null;
+  page?: number;
   size?: number | null;
-  sort?: string;
+  sort?: string[];
 }
 
 export default courseCreateRequestApi;

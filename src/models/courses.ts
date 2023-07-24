@@ -36,11 +36,11 @@ export interface CourseCreateRequestDetails {
   subjectResponse: SubjectPayload;
   status: string;
   mentor: Mentor;
-  classes: ClassOfProcessCourseCreateRequest[];
-  activities: ActivityOfProcessCourseCreateRequest[];
+  classes: ClassOfCourseCreateRequestDetails[];
+  activities: ActivityOfCourseCreateRequestDetails[];
 }
 
-interface ClassOfProcessCourseCreateRequest {
+interface ClassOfCourseCreateRequestDetails {
   id: number;
   code: string;
   startDate: string;
@@ -83,7 +83,7 @@ interface Avatar {
   type: string;
 }
 
-export interface ActivityOfProcessCourseCreateRequest {
+export interface ActivityOfCourseCreateRequestDetails {
   created: string;
   lastModified: string;
   createdBy: string;
@@ -93,10 +93,10 @@ export interface ActivityOfProcessCourseCreateRequest {
   type: string;
   visible: boolean;
   parentActivityId: any;
-  subActivities: SubActivityOfProcessCourseCreateRequest[];
+  subActivities: SubActivityOfCourseCreateRequestDetails[];
 }
 
-export interface SubActivityOfProcessCourseCreateRequest {
+export interface SubActivityOfCourseCreateRequestDetails {
   created: string;
   lastModified: string;
   createdBy: string;

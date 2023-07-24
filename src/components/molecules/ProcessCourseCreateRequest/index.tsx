@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useManageCourseCreateRequest } from '~/hooks/useManageCourseCreateRequest';
+import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import columns from '~/constants/columns';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import CustomDialog from '~/components/atoms/CustomDialog';
@@ -28,58 +28,33 @@ export default function ProcessCourseCreateRequest({
 
   // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
+  const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(10);
-  const [sort, setSort] = useState<string>('');
+  const [sort, setSort] = useState<string[]>([]);
 
-  const {
-    error,
-    courseCreateRequest,
-    isLoading,
-    refetch,
-    approveCourseCreateRequestMutation,
-  } = useManageCourseCreateRequest({ status, q, size, sort });
+  const { error, courseCreateRequestList, isLoading, refetch } =
+    useSearchCourseCreateRequest({ status, q, page, size, sort });
 
-  const filterRows =
-    courseCreateRequest?.filter((item: any) => {
-      if (searchValue) {
-        return item?.name?.toLowerCase().includes(searchValue.toLowerCase());
-      }
-      return item;
-    }) || [];
+  // const filterRows =
+  //   courseCreateRequestList?.filter((item: any) => {
+  //     if (searchValue) {
+  //       return item?.name?.toLowerCase().includes(searchValue.toLowerCase());
+  //     }
+  //     return item;
+  //   }) || [];
 
-  const handleTriggerModal = () => {
-    setOpen(!open);
-  };
+  // console.log('courseCreateRequestList', courseCreateRequestList.items);
+
+  const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
+
+  const handleTriggerDialog = () => setOpen(!open);
 
   const handleSearchCourseCreateRequest = (data: any) => {
     setSearchValue(data.searchValue);
   };
   const handleOpenDetailCourseCreateRequest = () => {
-    handleTriggerModal();
+    handleTriggerDialog();
     setMode(() => 'READ');
-  };
-
-  const toastMsgLoading = 'Đang xử lý...';
-  const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
-  const handleApproveCourseCreateRequest = async (
-    data: ProcessCreateCourseRequestFormDefault
-  ) => {
-    const params: ProcessCreateCourseRequestPayload = {
-      id: selectedRow.id,
-      status: data.status,
-      message: data.message,
-    };
-    const id = toast.loadToast(toastMsgLoading);
-    try {
-      await approveCourseCreateRequestMutation.mutateAsync(params);
-      refetch();
-      handleTriggerModal();
-      toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
-    }
   };
 
   const menuItemListDefault: MenuItemPayload[] = [
@@ -110,10 +85,14 @@ export default function ProcessCourseCreateRequest({
   switch (mode) {
     case 'READ':
       renderItem = (
-        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth={false}>
+        <CustomDialog
+          open={open}
+          onClose={handleTriggerDialog}
+          maxWidth={false}
+        >
           <CourseCreateRequestDetails
             row={selectedRow}
-            onSubmit={handleApproveCourseCreateRequest}
+            onClose={handleTriggerDialog}
           />
         </CustomDialog>
       );
@@ -133,7 +112,7 @@ export default function ProcessCourseCreateRequest({
         // onAdd={}
         searchPlaceholder="Tìm kiếm khóa học..."
         onSearch={handleSearchCourseCreateRequest}
-        rows={filterRows}
+        rows={rows}
         menuItemList={menuItemList}
       />
       {renderItem}
