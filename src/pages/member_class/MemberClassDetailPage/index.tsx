@@ -11,6 +11,7 @@ import {
 import Sidebar from './Sidebar';
 import { memberClassRoutes } from '~/routes/member/class/routes';
 import ClassHeader from '~/components/molecules/header/ClassHeader';
+import { ClassContextProvider } from '~/HOCs';
 
 export interface DetailMemberClassPayload {
   code: string;
@@ -55,35 +56,35 @@ export default function MemberClassDetailPage() {
 
   return (
     <Stack>
-      <ClassHeader
-        classCode={memberClass.code}
-        courseName={memberClass.courseName}
-        onCloseDrawerMenu={handleClose}
-        onReturnClassList={navigateMemberClass}
-      />
-      <Grid container sx={{ background: Color.white4, minHeight: '100vh' }}>
-        <Grid
-          sx={{
-            paddingY: 2,
-            background: Color.white,
-            borderRight: '1px solid #ddd',
-            display: { xs: 'none', md: 'flex' },
-          }}
-          item
-          xs={12}
-          md={2}
-        >
-          <Sidebar />
+      <ClassContextProvider>
+        <ClassHeader
+          onCloseDrawerMenu={handleClose}
+          onReturnClassList={navigateMemberClass}
+        />
+        <Grid container sx={{ background: Color.white4, minHeight: '100vh' }}>
+          <Grid
+            sx={{
+              paddingY: 2,
+              background: Color.white,
+              borderRight: '1px solid #ddd',
+              display: { xs: 'none', md: 'flex' },
+            }}
+            item
+            xs={12}
+            md={2}
+          >
+            <Sidebar />
+          </Grid>
+          <Grid item xs={12} md={10} paddingY={2} paddingX={4}>
+            <Routes>{showRoutes()}</Routes>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={10} paddingY={2} paddingX={4}>
-          <Routes>{showRoutes()}</Routes>
-        </Grid>
-      </Grid>
-      <Drawer open={open} onClose={handleClose}>
-        <Stack paddingRight={2}>
-          <Sidebar />
-        </Stack>
-      </Drawer>
+        <Drawer open={open} onClose={handleClose}>
+          <Stack paddingRight={2}>
+            <Sidebar />
+          </Stack>
+        </Drawer>
+      </ClassContextProvider>
     </Stack>
   );
 }

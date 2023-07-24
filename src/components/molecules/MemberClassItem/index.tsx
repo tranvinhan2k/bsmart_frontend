@@ -20,6 +20,7 @@ export default function MemberClassItem({ item }: Props) {
   const handleAddFeedback = () => {};
   return (
     <UserClassItem
+      code={item?.code}
       imageAlt={item?.imageAlt}
       imageUrl={item?.imageUrl}
       name={item?.name}
@@ -28,7 +29,7 @@ export default function MemberClassItem({ item }: Props) {
       status={item?.status || 'ALL'}
       subjectId={item?.subjectId || -1}
       onAddFeedback={item?.id === 1 ? handleAddFeedback : undefined}
-      teacherName={['Trần Vĩ Nhân']}
+      teacherName={item?.teacherName}
     />
   );
 }

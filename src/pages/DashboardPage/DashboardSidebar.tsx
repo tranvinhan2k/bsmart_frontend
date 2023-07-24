@@ -1,6 +1,7 @@
 import { Stack, Box, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
+import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
 import { image } from '~/constants/image';
@@ -132,48 +133,18 @@ export default function DashboardSidebar({
           }}
         />
         <Stack sx={{ background: Color.navy }}>
-          <Stack
-            onClick={onNavigateHomepage}
+          <Button
             sx={{
-              position: 'relative',
-              margin: 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 1000ms ease',
-              background: `${Color.tertiary}AA`,
-              padding: 1,
-              backdropFilter: 'blur(2px)',
-              borderRadius: MetricSize.small_5,
-              fontFamily: FontFamily.light,
-              fontSize: FontSize.small_14,
-              zIndex: 1,
-              color: Color.white,
-              opacity: isHover || isMobile ? 1 : 0,
-
-              ':hover': {
-                background: `${Color.tertiary}`,
-                backdropFilter: 'blur(0px)',
-                cursor: 'pointer',
-              },
+              margin: 2,
+              transition: 'all 200ms ease',
+              opacity: isHover ? 1 : 0,
             }}
+            color="info"
+            variant="contained"
+            onClick={onNavigateHomepage}
           >
-            <Stack
-              sx={{
-                position: 'absolute',
-                left: MetricSize.small_10,
-              }}
-            >
-              <Icon name="return" size="small_20" color="white" />
-            </Stack>
-            <Typography
-              sx={{
-                marginLeft: 1,
-              }}
-            >
-              Trở về trang chủ
-            </Typography>
-          </Stack>
+            <Typography noWrap>Trở về trang chủ</Typography>
+          </Button>
         </Stack>
         <Stack
           sx={{

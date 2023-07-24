@@ -1,25 +1,22 @@
 import { Stack, IconButton, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { Color, FontSize, FontFamily, IconSize } from '~/assets/variables';
+import { useContext } from 'react';
+import { ClassContext } from '~/HOCs/context/ClassContext';
+import { Color, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import {
-  NavigationLink,
-  MentorDashboardNavigationActionLink,
-} from '~/constants/routeLink';
 
 interface Props {
-  classCode: string;
-  courseName: string;
   onReturnClassList: () => void;
   onCloseDrawerMenu: () => void;
 }
 
 export default function ClassHeader({
-  classCode,
-  courseName,
   onCloseDrawerMenu,
   onReturnClassList,
 }: Props) {
+  const { detailClass } = useContext(ClassContext);
+  const classCode = detailClass?.code;
+  const courseName = detailClass?.name;
+
   return (
     <Stack
       sx={{
@@ -52,7 +49,7 @@ export default function ClassHeader({
           color: Color.white,
         }}
       >
-        {`Lớp học #${classCode} - `}
+        {`Lớp học #${classCode || ''} - `}
         <span
           style={{
             color: Color.grey,

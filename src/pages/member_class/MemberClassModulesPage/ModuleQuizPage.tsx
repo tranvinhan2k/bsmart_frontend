@@ -6,6 +6,7 @@ import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
+import MarkDisplay from '~/components/atoms/MarkDisplay';
 import TextList from '~/components/atoms/texts/TextList';
 import { image } from '~/constants/image';
 import { ActivityQuizPayload } from '~/models/type';
@@ -93,28 +94,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
       )}
       {isAttemptedQuiz && (
         <Stack>
-          <Stack sx={globalStyles.viewCenter} padding={2}>
-            <Stack sx={globalStyles.textSmallLabel}>Điểm số</Stack>
-            <Stack
-              padding={1}
-              sx={{
-                fontSize: FontSize.large_35,
-                fontFamily: FontFamily.light,
-                color: Color.black,
-              }}
-            >
-              {`${point}/${passPoint}`}
-            </Stack>
-            <Stack
-              sx={{
-                fontFamily: FontFamily.bold,
-                fontSize: FontSize.small_14,
-                color: isPassed ? Color.green : Color.red,
-              }}
-            >
-              Đã đậu
-            </Stack>
-          </Stack>
+          <MarkDisplay point={7} passPoint={8} total={10} />
           <Button
             disabled={!item.isAllowReview}
             onClick={onReview}

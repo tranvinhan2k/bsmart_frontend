@@ -120,25 +120,25 @@ export const ClassStatusList: OptionPayload[] = [
   {
     id: 3,
     label: 'Lớp chưa phê duyệt',
-    content: 'Lớp đang chờ phê duyệt',
+    content: 'Lớp mới tạo và chưa yêu cầu phê duyệt',
     value: 'REQUESTING',
   },
   {
     id: 4,
     label: 'Lớp đợi phê duyệt',
-    content: 'Lớp đang chờ phê duyệt',
+    content: 'Lớp đang đợi đội ngũ quản lí phê duyệt.',
     value: 'WAITING',
   },
   {
     id: 5,
     label: 'Lớp đang chiêu sinh',
-    content: 'Lớp đang chờ phê duyệt',
+    content: 'Lớp đang chờ học sinh đăng kí và học.',
     value: 'NOTSTART',
   },
   {
     id: 1,
-    label: 'Lớp đang dạy',
-    content: 'Lớp đang được dạy.',
+    label: 'Lớp đang bắt đầu',
+    content: 'Lớp đang trong quá trình giảng dạy.',
     value: 'STARTING',
   },
   {

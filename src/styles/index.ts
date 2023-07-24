@@ -119,7 +119,7 @@ export const viewBorder: SxProps<Theme> = {
   padding: 1,
 };
 export const viewFlexRowCenter: SxProps<Theme> = {
-  flexDirection: 'row',
+  flexDirection: { xs: 'column', md: 'row' },
   alignItems: 'center',
 };
 

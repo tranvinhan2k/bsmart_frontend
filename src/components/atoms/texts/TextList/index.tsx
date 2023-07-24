@@ -57,8 +57,8 @@ export default function TextList({ items }: Props) {
               <Timetable
                 data={
                   item.timetable?.map((time) => ({
-                    dayOfWeekId: time.dayOfWeek.id,
-                    slotId: time.slot.id,
+                    dayOfWeekId: time.dayOfWeek?.id,
+                    slotId: time.slot?.id,
                   })) || []
                 }
               />

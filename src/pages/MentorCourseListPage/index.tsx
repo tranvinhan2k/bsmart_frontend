@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
+import ClassStatusLabel from '~/components/atoms/ClassStatusLabel';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import Tag from '~/components/atoms/Tag';
 import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
@@ -91,23 +92,28 @@ export default function MentorCourseListPage() {
     <Stack>
       <Stack>
         <Stack
+          spacing={1}
           sx={{
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
           }}
         >
           <Stack sx={{ flexGrow: 1 }}>
-            <Typography sx={globalStyles.textTitle}>Khoá học đã tạo</Typography>
+            <Typography sx={globalStyles.textTitle}>
+              Danh sách khóa học
+            </Typography>
           </Stack>
 
-          <Button
-            onClick={handleNavigateCreateCourse}
-            variant="contained"
-            color="secondary"
-            sx={{ color: Color.white, marginLeft: 1, height: '40px' }}
-          >
-            Tạo khóa học
-          </Button>
+          <Box>
+            <Button
+              onClick={handleNavigateCreateCourse}
+              variant="contained"
+              color="secondary"
+              sx={{ color: Color.white, height: '40px' }}
+            >
+              Tạo khóa học
+            </Button>
+          </Box>
         </Stack>
         <Stack
           marginY={1}
@@ -140,26 +146,20 @@ export default function MentorCourseListPage() {
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
                 label={
-                  <Stack sx={{ alignItems: 'center', flexDirection: 'row' }}>
-                    <Typography>{item.label}</Typography>
-                    <Stack sx={{ marginLeft: 1, position: 'relative' }}>
-                      <Badge
-                        sx={{ marginLeft: 1 }}
-                        color="default"
-                        badgeContent={courses?.reduce(
-                          (totalValue: number, subItem) => {
-                            if (
-                              subItem.courseStatus === item.value ||
-                              item.value === 'ALL'
-                            )
-                              return totalValue + 1;
-                            return totalValue;
-                          },
-                          0
-                        )}
-                      />
-                    </Stack>
-                  </Stack>
+                  <ClassStatusLabel
+                    label={item.label}
+                    numberOfItem={
+                      courses?.reduce((total: number, subItem) => {
+                        if (
+                          item.value === 'ALL' ||
+                          subItem.courseStatus === item.value
+                        ) {
+                          return total + 1;
+                        }
+                        return total;
+                      }, 0) || 0
+                    }
+                  />
                 }
                 {...a11yProps(index)}
               />

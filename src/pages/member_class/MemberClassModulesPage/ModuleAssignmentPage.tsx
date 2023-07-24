@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
+import MarkDisplay from '~/components/atoms/MarkDisplay';
 import TextList from '~/components/atoms/texts/TextList';
 import { ActivityAssignmentPayload } from '~/models/type';
 import globalStyles from '~/styles';
@@ -32,43 +33,37 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
       >
         {name}
       </Typography>
-      <Stack>
+
+      <Typography
+        marginTop={1}
+        textAlign="center"
+        sx={globalStyles.textSmallLabel}
+      >
+        Mô tả bài tập
+      </Typography>
+      <Stack paddingBottom={2}>
         <Typography
-          sx={{
-            fontSize: FontSize.small_14,
-            fontFamily: FontFamily.bold,
+          dangerouslySetInnerHTML={{
+            __html: item.description,
           }}
-        >
-          Mô tả bài tập
-        </Typography>
-        <Typography
-          sx={{
-            marginY: 1,
-            ...globalStyles.textLowSmallLight,
-            color: Color.black,
-          }}
-        >
-          {item.description}
-        </Typography>
+          textAlign="center"
+          sx={globalStyles.textSmallLight}
+        />
       </Stack>
-      <TextList
-        items={[
-          {
-            name: 'Ngày bắt đầu',
-            value: formatDate(item.startDate),
-          },
-          {
-            name: 'Ngày kết thúc',
-            value: formatDate(item.endDate),
-          },
-          {
-            name: 'Thời gian cho phép chỉnh sửa sau khi submit',
-            value: `${item.editBeForSubmitMin} phút`,
-          },
-        ]}
-      />
+      <Typography
+        textAlign="center"
+        sx={globalStyles.textLowSmallLight}
+      >{`Bài tập này sẽ được mở vào ngày ${item.startDate}`}</Typography>
+      <Typography
+        textAlign="center"
+        sx={globalStyles.textLowSmallLight}
+      >{`Bài tập sẽ sẽ kết thúc vào ngày ${item.endDate}`}</Typography>
+      <Typography
+        textAlign="center"
+        sx={globalStyles.textLowSmallLight}
+      >{`Thời gian cho chỉnh sửa: ${item.editBeForSubmitMin} phút`}</Typography>
       {isMarked ? (
-        <Stack>Hiển thị điểm số của bài assignment</Stack>
+        <MarkDisplay point={7} passPoint={8} total={10} />
       ) : (
         <Stack>
           <Typography

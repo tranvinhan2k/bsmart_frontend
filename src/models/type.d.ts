@@ -119,6 +119,7 @@ export interface CourseMenuItemPayload {
   subject: OptionPayload;
 }
 export interface ClassMenuItemPayload {
+  code: string;
   id: number;
   imageUrl: string | undefined;
   imageAlt: string | undefined;
