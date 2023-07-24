@@ -11,7 +11,11 @@ import RequestMentorDegree from './RequestMentorDegree';
 import RequestMentorInfo from './RequestMentorInfo';
 import RequestCI from './RequestCI';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_BOX_ITEM_WRAPPER, SX_REQUEST_TITLE, SX_BOX_STICKY } from './style';
+import {
+  SX_BOX_ITEM_WRAPPER_NO_PADDING,
+  SX_REQUEST_TITLE,
+  SX_BOX_STICKY,
+} from './style';
 
 interface ReadOneRegisterRequestProps {
   onSubmit: (data: ProcessRegisterRequestFormDefault) => Promise<void>;
@@ -173,34 +177,21 @@ export default function ReadOneRegisterRequest({
             sx={SX_BOX_STICKY}
           >
             <RequestBasicInfo row={row} />
-            <Box sx={SX_BOX_ITEM_WRAPPER}>
-              <Stack
-                direction={{ sm: 'column', md: 'row' }}
-                justifyContent="space-between"
-                alignItems="center"
-                spacing={{ sm: 2, md: 0 }}
+            <Box pt={2} sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
+              <Tabs
+                variant="scrollable"
+                scrollButtons="auto"
+                value={tabValue}
+                onChange={handleSetTabValue}
                 sx={{ borderBottom: 1, borderColor: 'divider' }}
-                pb={{ sm: 2, md: 0 }}
               >
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Tabs
-                    variant="scrollable"
-                    value={tabValue}
-                    onChange={handleSetTabValue}
-                  >
-                    {tabEl.map((tab) => (
-                      <Tab label={tab.text} key={tab.id} />
-                    ))}
-                  </Tabs>
-                </Stack>
-              </Stack>
+                {tabEl.map((tab) => (
+                  <Tab label={tab.text} key={tab.id} />
+                ))}
+              </Tabs>
               {tabEl.map((tab) => (
                 <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-                  <Box py={2}>{tab.component}</Box>
+                  <Box p={2}>{tab.component}</Box>
                 </TabPanel>
               ))}
             </Box>

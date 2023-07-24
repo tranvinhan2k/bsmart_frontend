@@ -12,6 +12,10 @@ export const SX_BOX_ITEM_WRAPPER: SxProps<Theme> = {
   boxShadow: 3,
   padding: 2.5,
 };
+export const SX_BOX_ITEM_WRAPPER_NO_PADDING: SxProps<Theme> = {
+  borderRadius: 1.25,
+  boxShadow: 3,
+};
 
 export const SX_FORM_LABEL: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
