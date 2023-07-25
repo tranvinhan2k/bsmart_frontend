@@ -441,7 +441,7 @@ const courseClassListColumns: GridColDef[] = [
   },
   {
     field: 'numberOfSlot',
-    headerName: 'Số buổi',
+    headerName: 'Tổng buổi',
     minWidth: 90,
     flex: 1,
   },

@@ -41,12 +41,18 @@ export default function RequestCourseClassList({
     },
   ];
 
+  const [selectedRow, setSelectedRow] = useState<any>();
+  const handleSelectedRow = (data: any) => setSelectedRow(data.row);
+
   let renderItem;
   switch (mode) {
     case 'READ':
       renderItem = (
-        <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="md">
-          <RequestCourseClassDetails onClose={handleTriggerDialog} />
+        <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="lg">
+          <RequestCourseClassDetails
+            onClose={handleTriggerDialog}
+            classDetails={selectedRow}
+          />
         </CustomDialog>
       );
       break;
@@ -70,6 +76,7 @@ export default function RequestCourseClassList({
         loading={isLoading}
         popoverOptions={popoverOptions}
         rowsPerPageOptions={[]}
+        onRowClick={handleSelectedRow}
       />
       {renderItem}
     </Box>

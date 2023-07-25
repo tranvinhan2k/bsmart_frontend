@@ -54,7 +54,6 @@ export const formatISODateDateToDisplayDate = (inputDate: Date) => {
   }
   return result;
 };
-
 export const formatISODateDateToDisplayDateTime = (
   inputDate: Date | string
 ) => {

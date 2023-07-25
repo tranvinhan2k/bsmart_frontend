@@ -40,7 +40,7 @@ export interface CourseCreateRequestDetails {
   activities: ActivityOfCourseCreateRequestDetails[];
 }
 
-interface ClassOfCourseCreateRequestDetails {
+export interface ClassOfCourseCreateRequestDetails {
   id: number;
   code: string;
   startDate: string;
@@ -52,8 +52,8 @@ interface ClassOfCourseCreateRequestDetails {
   minStudent: number;
   maxStudent: number;
   image: ImgClassOfProcessCourseCreateRequest;
-  timeInWeeks: any;
-  purchase: any;
+  timeInWeeks: TimeInWeeks[];
+  purchase: boolean;
 }
 interface ImgClassOfProcessCourseCreateRequest {
   id: number;
@@ -61,6 +61,25 @@ interface ImgClassOfProcessCourseCreateRequest {
   url: string;
   status: boolean;
   type: string;
+}
+
+interface TimeInWeeks {
+  dayOfWeek: DayOfWeek;
+  slot: Slot;
+}
+
+interface DayOfWeek {
+  id: number;
+  name: string;
+  code: string;
+}
+
+interface Slot {
+  id: number;
+  name: string;
+  code: string;
+  startTime: string;
+  endTime: string;
 }
 
 interface Mentor {
@@ -92,7 +111,7 @@ export interface ActivityOfCourseCreateRequestDetails {
   name: string;
   type: string;
   visible: boolean;
-  parentActivityId: any;
+  parentActivityId: number | null;
   subActivities: SubActivityOfCourseCreateRequestDetails[];
 }
 

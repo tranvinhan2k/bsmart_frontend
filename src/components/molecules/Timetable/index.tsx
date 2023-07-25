@@ -124,12 +124,14 @@ export default function Timetable({ data }: Props) {
     return <Typography>Lớp học chưa có thời khóa biểu</Typography>;
 
   return (
-    <Stack sx={{ background: '#F3F1F5' }} height={400}>
+    <Box sx={{ background: '#F3F1F5' }}>
       {rows && columns && (
         <DataGrid
           rows={rows}
           columns={columns}
+          autoHeight
           hideFooter
+          density="compact"
           sx={{
             'MuiDataGrid-cell': {
               padding: 0,
@@ -142,6 +144,6 @@ export default function Timetable({ data }: Props) {
           }}
         />
       )}
-    </Stack>
+    </Box>
   );
 }
