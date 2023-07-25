@@ -70,6 +70,7 @@ export * from './class/useQueryGetUserClass';
 export * from './class/useQueryGetDetailUserClass';
 export * from './class/useMutationDeleteClass';
 export * from './class/useQueryStudentList';
+export * from './class/useMutationOpenNotStartClass';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';

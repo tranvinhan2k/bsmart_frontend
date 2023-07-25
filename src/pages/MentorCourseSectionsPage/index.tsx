@@ -1,7 +1,8 @@
 import { Stack, Breadcrumbs, Link, Typography, Divider } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoadingWrapper } from '~/HOCs';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import CustomBreadcrumbs from '~/components/atoms/CustomBreadcrumbs';
 import { InputData } from '~/components/atoms/FormInput/InputGroup';
@@ -28,6 +29,8 @@ interface Props {
 }
 
 export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
+  const { onScrollToComponent } = useContext(CourseContext);
+
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -62,8 +65,12 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
           courseId,
         },
       });
+      navigate(-1);
+
+      if (onScrollToComponent) {
+        onScrollToComponent(sectionId);
+      }
     });
-    navigate(-1);
   };
 
   const handleDeleteSection = async () => {
@@ -73,8 +80,12 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
       await refetchGetPercent();
+      handleClearOpen();
+
+      if (onScrollToComponent) {
+        onScrollToComponent(sectionId);
+      }
     });
-    handleClearOpen();
   };
 
   return (

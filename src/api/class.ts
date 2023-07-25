@@ -10,7 +10,11 @@ import {
 } from '~/models/class';
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
-import { GetStudentList, ResponseMentorCoursePayload } from '~/models/response';
+import {
+  GetStudentList,
+  PostTimeTableResponse,
+  ResponseMentorCoursePayload,
+} from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
 import { formatOptionPayload } from '~/utils/common';
@@ -155,6 +159,9 @@ const classApi = {
   // put
   updateClassForCourse({ id, param }: { id: number; param: PostClassRequest }) {
     return axiosClient.put(`${url}/course/${id}`, param);
+  },
+  openClass({ id, params }: { id: number; params: PostTimeTableResponse }) {
+    return axiosClient.put(`${url}/${id}/open`, params);
   },
 
   getClassDetails({

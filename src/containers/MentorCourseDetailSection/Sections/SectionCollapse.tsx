@@ -11,16 +11,29 @@ interface Props {
   status: CourseStatusKeys;
   index: number;
   section: ActivityPayload;
+  ref:
+    | ((instance: HTMLDivElement | null) => void)
+    | React.RefObject<HTMLDivElement>
+    | null
+    | undefined;
 }
 
-export default function SectionCollapse({ index, section, status }: Props) {
+export default function SectionCollapse({
+  index,
+  section,
+  status,
+  ref,
+}: Props) {
   const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
     setOpen(!open);
   };
   return (
-    <Stack sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}>
+    <Stack
+      ref={ref}
+      sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}
+    >
       <Section
         open={open}
         index={index}

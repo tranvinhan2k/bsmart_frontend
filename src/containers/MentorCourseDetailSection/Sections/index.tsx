@@ -1,10 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material';
 
+import { useContext } from 'react';
 import { image } from '~/constants/image';
 import { MetricSize } from '~/assets/variables';
 import { ActivityPayload } from '~/models/type';
 import SectionCollapse from './SectionCollapse';
 import { CourseStatusKeys } from '~/models/variables';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 interface Props {
   content: ActivityPayload[] | undefined;
@@ -12,6 +14,8 @@ interface Props {
 }
 
 export default function Sections({ content, status }: Props) {
+  const { itemRefs } = useContext(CourseContext);
+
   if (content === undefined || content.length === 0) {
     return (
       <Stack
@@ -38,14 +42,17 @@ export default function Sections({ content, status }: Props) {
 
   return (
     <Stack>
-      {content.map((section, index) => (
-        <SectionCollapse
-          status={status}
-          key={index}
-          index={index}
-          section={section}
-        />
-      ))}
+      {itemRefs?.current
+        ? content.map((section, index) => (
+            <SectionCollapse
+              ref={itemRefs?.current?.[index]}
+              status={status}
+              key={index}
+              index={index}
+              section={section}
+            />
+          ))
+        : null}
     </Stack>
   );
 }

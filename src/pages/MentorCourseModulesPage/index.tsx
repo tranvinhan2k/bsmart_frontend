@@ -1,8 +1,9 @@
 import { Stack, Typography, Divider } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { LoadingWrapper } from '~/HOCs';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import ReturnLink from '~/components/atoms/ReturnLink';
 import {
@@ -32,6 +33,7 @@ import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorCourseModulesPage() {
+  const { onScrollToComponent } = useContext(CourseContext);
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -134,6 +136,9 @@ export default function MentorCourseModulesPage() {
           description: data?.description,
         },
       });
+      if (onScrollToComponent) {
+        onScrollToComponent(sectionId);
+      }
     });
   };
 
@@ -292,6 +297,7 @@ export default function MentorCourseModulesPage() {
     <LoadingWrapper error={error} isLoading={isLoading}>
       <Stack>
         <ReturnLink
+          sectionId={sectionId}
           to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`}
         />
         <Stack>

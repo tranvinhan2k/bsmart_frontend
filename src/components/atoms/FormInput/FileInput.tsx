@@ -23,8 +23,6 @@ function FileInput({ controller }: FileInputProps) {
     fieldState: { invalid, error: fieldError },
   } = controller;
 
-  console.log('file', value);
-
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
