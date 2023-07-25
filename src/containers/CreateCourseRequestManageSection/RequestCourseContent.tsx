@@ -1,13 +1,10 @@
+import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
-  Skeleton,
-  Stack,
-  Typography,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+} from '~/components/atoms/Accordion';
+import SubActivityProcessCourseCreateRequest from '~/components/molecules/SubActivity';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
@@ -36,15 +33,19 @@ export default function RequestCourseContent({
             <Typography sx={SX_FORM_LABEL}>Nội dung khóa học</Typography>
           </Box>
           {courseCreateRequestDetails?.activities.map((item, i) => (
-            // <Accordion defaultExpanded key={item.id}>
             <Accordion key={item.id}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <AccordionSummary>
                 <Typography>
                   <b>Học phần {i + 1}</b>: {item.name}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>Nội dung</Typography>
+                {item.subActivities.map((subActivity) => (
+                  <SubActivityProcessCourseCreateRequest
+                    key={subActivity.id}
+                    subActivity={subActivity}
+                  />
+                ))}
               </AccordionDetails>
             </Accordion>
           ))}
