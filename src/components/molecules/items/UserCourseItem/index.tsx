@@ -10,6 +10,7 @@ import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
 interface UserCourseItemProps {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
+  courseCode?: string;
   courseTeacherName?: string[];
   courseName: string | undefined;
   subjectName?: string;
@@ -22,6 +23,7 @@ interface UserCourseItemProps {
 export default function UserCourseItem({
   courseDescription,
   courseName,
+  courseCode,
   subjectName,
   courseTeacherName,
   totalClass,
@@ -49,9 +51,20 @@ export default function UserCourseItem({
             overflow: 'hidden',
           }}
         >
-          <Typography sx={globalStyles.textLowSmallLight}>
-            {subjectName || ''}
-          </Typography>
+          <Stack sx={globalStyles.viewFlexRowCenter}>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.bold,
+                color: Color.tertiary,
+              }}
+            >
+              {courseCode || ''}
+            </Typography>
+            <Typography marginLeft={1} sx={globalStyles.textLowSmallLight}>
+              {subjectName || ''}
+            </Typography>
+          </Stack>
           <Typography
             sx={{
               fontSize: FontSize.small_14,

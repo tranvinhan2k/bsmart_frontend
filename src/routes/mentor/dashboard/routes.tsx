@@ -1,8 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import {
-  NavigationLink,
-  MentorDashboardNavigationActionLink,
-} from '~/constants/routeLink';
+import { MentorDashboardNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
   MentorCourseListPage,

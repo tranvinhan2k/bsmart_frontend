@@ -14,10 +14,4 @@ export const StudentDashboardNavigationActionData: ActionPayload[] = [
     name: 'Lịch học',
     icon: 'date',
   },
-  {
-    id: 2,
-    link: MemberDashboardNavigationActionLink.attendance,
-    name: 'Điểm danh - Tạm',
-    icon: 'date',
-  },
 ];

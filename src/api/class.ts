@@ -49,7 +49,10 @@ const classApi = {
         numberOfSlot: item.numberOfSlot,
         price: item.price,
         status: item.status,
-        timeInWeekRequests: item.timeInWeeks,
+        timeInWeekRequests: item.timeInWeeks.map((subItem: any) => ({
+          dayOfWeekId: subItem.dayOfWeek.id,
+          slotId: subItem.slot.id,
+        })),
       })),
       content: (response.activities as any[]).map((item) => ({
         id: item.id,

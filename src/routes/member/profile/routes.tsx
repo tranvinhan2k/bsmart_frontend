@@ -1,11 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import {
-  NavigationLink,
-  MemberNavigationActionLink,
-} from '~/constants/routeLink';
+import { MemberNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import WalletManagementPage from '~/pages/WalletManagementPage';
-import WithdrawPage from '~/pages/WithdrawPage';
 import {
   MemberEditPersonalInfoPage,
   MemberEditImgInfoPage,
