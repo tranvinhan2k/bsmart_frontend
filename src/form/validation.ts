@@ -138,7 +138,7 @@ export const validationClassContentSection = object({
 });
 export const validationClassContentModule = object({
   name: string().required('Tên bài học không được để trống.'),
-  description: string().required('Tên bài học không được để trống.'),
+  description: string().required('Mô tả bài học không được để trống.'),
 });
 export const validationClassContentResource = object({
   name: string().required('Tên tài nguyên không được để trống.'),
