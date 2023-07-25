@@ -95,17 +95,22 @@ export default function UserCourseItem({
             }}
           />
         </Stack>
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItem: 'center',
-            justifyContent: 'space-between',
-            paddingBottom: 1,
-            marginTop: 1,
-          }}
-        >
-          {Boolean(totalClass) && (
+        {totalClass !== 0 && (
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              alignItem: 'center',
+              justifyContent: 'space-between',
+              position: 'fixed',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              background: '#ddd',
+              padding: 1,
+              borderTop: '1px solid #ddd',
+            }}
+          >
             <Box
               sx={{
                 fontFamily: FontFamily.medium,
@@ -114,8 +119,8 @@ export default function UserCourseItem({
             >
               {`${totalClass} lớp đang mở` || ''}
             </Box>
-          )}
-          {/* {courseType && (
+
+            {/* {courseType && (
               <Box>
                 <Tag
                   title={courseTypeData[courseType as CourseTypeDataKeys]}
@@ -123,7 +128,8 @@ export default function UserCourseItem({
                 />
               </Box>
             )} */}
-        </Stack>
+          </Stack>
+        )}
       </Stack>
     </HoverableStack>
   );

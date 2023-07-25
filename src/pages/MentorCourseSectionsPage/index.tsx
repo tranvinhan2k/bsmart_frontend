@@ -1,7 +1,8 @@
 import { Stack, Breadcrumbs, Link, Typography, Divider } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoadingWrapper } from '~/HOCs';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import CustomBreadcrumbs from '~/components/atoms/CustomBreadcrumbs';
 import { InputData } from '~/components/atoms/FormInput/InputGroup';
@@ -62,8 +63,8 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
           courseId,
         },
       });
+      navigate(-1);
     });
-    navigate(-1);
   };
 
   const handleDeleteSection = async () => {
@@ -73,8 +74,8 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
       await refetchGetPercent();
+      handleClearOpen();
     });
-    handleClearOpen();
   };
 
   return (

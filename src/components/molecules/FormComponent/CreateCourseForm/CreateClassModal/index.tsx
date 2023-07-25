@@ -24,7 +24,7 @@ const texts = {
   minStudentLabel: 'Số học sinh tối thiểu',
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
-  classInfoTitle: 'Thông tin giờ học',
+  classInfoTitle: 'Thời khóa biểu',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',

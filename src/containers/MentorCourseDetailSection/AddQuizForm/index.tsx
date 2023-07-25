@@ -7,6 +7,7 @@ import { Color, FontSize, FontFamily } from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
+import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 import { formatStringToNumber } from '~/utils/number';
 
@@ -44,9 +45,10 @@ export type AddSubSectionFormPayload =
 interface Props {
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
+  onDelete?: () => void;
 }
 
-export default function AddQuizForm({ hookForm, onSubmit }: Props) {
+export default function AddQuizForm({ hookForm, onSubmit, onDelete }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
   const { course } = useContext(CourseContext);
@@ -94,7 +96,7 @@ export default function AddQuizForm({ hookForm, onSubmit }: Props) {
       name: 'time',
       label: 'Thời gian làm bài (phút)',
       placeholder: 'Nhập thời gian làm bài',
-      variant: 'number',
+      variant: 'time',
     },
     {
       name: 'defaultPoint',
@@ -155,22 +157,41 @@ export default function AddQuizForm({ hookForm, onSubmit }: Props) {
         }}
       >
         <InputGroup control={hookForm.control} inputList={inputList} />
-        <Button
-          color="secondary"
+        <Stack
           sx={{
             marginTop: 1,
-            color: Color.white,
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'center',
           }}
-          disabled={
-            !hookForm.formState.isDirty ||
-            (course?.status !== 'EDITREQUEST' &&
-              course?.status !== 'REQUESTING')
-          }
-          onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-          variant="contained"
         >
-          Tạo bài trắc nghiệm
-        </Button>
+          <Button
+            color="secondary"
+            sx={{
+              color: Color.white,
+            }}
+            disabled={
+              !hookForm.formState.isDirty ||
+              (course?.status !== 'EDITREQUEST' &&
+                course?.status !== 'REQUESTING')
+            }
+            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
+            variant="contained"
+          >
+            {onDelete ? 'Cập nhật bài kiểm tra' : 'Tạo bài trắc nghiệm'}
+          </Button>
+          {onDelete && (
+            <Button
+              sx={{
+                marginLeft: 1,
+              }}
+              onClick={onDelete}
+              variant="contained"
+              color="error"
+            >
+              Hủy bài kiểm tra
+            </Button>
+          )}
+        </Stack>
       </Stack>
     </Stack>
   );

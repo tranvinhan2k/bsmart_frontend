@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
   Collapse,
+  FormHelperText,
 } from '@mui/material';
 
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
@@ -49,7 +50,7 @@ const texts = {
   minStudentLabel: 'Số học sinh tối thiểu',
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
-  classInfoTitle: 'Thông tin giờ học',
+  classInfoTitle: 'Thời khóa biểu',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',
@@ -281,6 +282,9 @@ export default function ClassItem({
             <Typography sx={globalStyles.textSmallLabel}>
               {texts.classInfoTitle}
             </Typography>
+            <FormHelperText>
+              Thông tin các buổi học trong một tuần bất kì của bạn
+            </FormHelperText>
             <Stack marginTop={1}>
               <Timetable data={timetable} />
             </Stack>

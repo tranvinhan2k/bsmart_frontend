@@ -1,12 +1,22 @@
 import { Alert, Box, FormHelperText, Stack } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ClassContext } from '~/HOCs/context/ClassContext';
 import Button from '~/components/atoms/Button';
+import ClassStatusAlert from '~/components/atoms/ClassStatusAlert';
+import CustomModal from '~/components/atoms/CustomModal';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import ClassInformationList from '~/components/molecules/ClassInformationList';
-import { image } from '~/constants/image';
-import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
-import { OptionPayload } from '~/models';
+import MonthSchedule, {
+  MonthTimeSlotPayload,
+} from '~/components/molecules/schedules/MonthSchedule';
+import {
+  useCreateCourseClass,
+  useDispatchGetAllDayOfWeeks,
+  useDispatchGetAllSlots,
+  useMutationOpenNotStartClass,
+  useTryCatch,
+} from '~/hooks';
+import { PostTimeTableResponse } from '~/models/response';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
@@ -29,9 +39,22 @@ export interface MentorClassInformationPayload {
 }
 
 export default function MentorClassInformationPage() {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const [timetable, setTimeTable] = useState<{
+    raw: PostTimeTableResponse;
+    timetable: MonthTimeSlotPayload[];
+  }>();
+
   const { optionSlots } = useDispatchGetAllSlots();
   const { optionDayOfWeeks } = useDispatchGetAllDayOfWeeks();
-  const { detailClass: contextDetailClass } = useContext(ClassContext);
+  const { detailClass: contextDetailClass, refetch } = useContext(ClassContext);
+
+  const { mutateAsync: handleMutationOpenClass } =
+    useMutationOpenNotStartClass();
+
+  const { handleTryCatch } = useTryCatch('mở lớp');
+
   const detailClass: MentorClassInformationPayload = {
     categoryName: 'Front End',
     code: `#${contextDetailClass?.code}`,
@@ -49,86 +72,81 @@ export default function MentorClassInformationPage() {
     timetable: contextDetailClass?.timeTablesRequest || [],
   };
 
+  const handleTriggerModal = async () => {
+    setOpen(!open);
+  };
+
+  const { handleGetTimetable: handleMutationGetTimetable } =
+    useCreateCourseClass();
+
+  const handleGetTimetable = async () => {
+    const response = await handleMutationGetTimetable({
+      startDate: detailClass.startDate,
+      endDate: detailClass.endDate,
+      numberOfSlot: detailClass.numberOfSlot,
+      timeInWeekRequests: detailClass.timetable,
+    });
+    handleTriggerModal();
+
+    setTimeTable(response);
+  };
+
+  const handleAddTimetable = async () => {
+    await handleTryCatch(async () => {
+      await handleMutationOpenClass({
+        id: detailClass.id,
+        params: timetable?.raw,
+      });
+      handleTriggerModal();
+      if (refetch) {
+        await refetch();
+      }
+    });
+  };
+
   return (
     <Stack>
       <TextTitle title="Nội dung khóa học" />
-      {detailClass.status !== 'STARTING' && detailClass.status !== 'ALL' && (
-        <Stack sx={globalStyles.viewRoundedWhiteBody}>
-          {detailClass.status === 'REQUESTING' && (
-            <Alert severity="warning">
-              Lớp học chưa được phê duyệt. Vui lòng phê duyệt lớp để thao tác
-              với lớp học.
-            </Alert>
-          )}
-          {detailClass.status === 'CANCEL' && (
-            <Alert severity="info">
-              Lớp học đã kết thúc. Mọi thao tác sẽ bị hủy bỏ
-            </Alert>
-          )}
-          {detailClass.status === 'WAITING' && (
-            <Alert severity="info">
-              Lớp học đang được đội ngũ quản lí phê duyệt.
-            </Alert>
-          )}
-          {detailClass.status === 'EDITREQUEST' && (
-            <Alert severity="info">
-              Lớp học đang bị yêu cầu chỉnh sửa. Vui lòng sang phần khóa học để
-              chỉnh sửa.
-            </Alert>
-          )}
-          {detailClass.status === 'NOTSTART' &&
-            new Date(detailClass.startDate).getTime() >
-              new Date().getTime() && (
-              <Alert severity="info">
-                {`Lớp học đang chiêu sinh và sẽ mở vào ${formatISODateDateToDisplayDateTime(
-                  detailClass.startDate
-                )}`}
-              </Alert>
-            )}
-          {detailClass.status === 'NOTSTART' &&
-            new Date(detailClass.startDate).getTime() <=
-              new Date().getTime() && (
-              <Stack>
-                <Alert severity="warning">
-                  Lớp học đã tới thời gian bắt đầu. Tuy nhiên, số lượng học sinh
-                  chưa đủ để tự động mở lớp. Vui lòng tùy chọn thao tác với lớp
-                  học nếu không lớp học sẽ tự động hủy trong 48h tiếp theo.
-                </Alert>
-                <Box marginTop={1}>
-                  <Stack sx={globalStyles.viewFlexRowCenter}>
-                    <Button variant="contained" color="primary">
-                      danh sách học sinh đã đăng kí
-                    </Button>
-                    <Button
-                      sx={{
-                        marginLeft: 1,
-                      }}
-                      variant="contained"
-                      color="success"
-                    >
-                      Mở lớp
-                    </Button>
-                    <Button
-                      sx={{
-                        marginLeft: 1,
-                      }}
-                      variant="contained"
-                      color="error"
-                    >
-                      Hủy mở lớp học
-                    </Button>
-                  </Stack>
-                  <FormHelperText>
-                    {' '}
-                    Lưu ý: Lớp học hiện tại chưa đủ số lượng học sinh tối thiểu
-                    mặc dù đã đủ tới thời gian nhập học. Khi bấm vào nút trên
-                    lớp bạn sẽ được phép mở với số lượng học sinh hiện tại
-                  </FormHelperText>
-                </Box>
-              </Stack>
-            )}
-        </Stack>
+      {detailClass.status === 'NOTSTART' ? (
+        <ClassStatusAlert
+          status={detailClass.status}
+          startDate={new Date().toISOString()}
+          onGetClassSchedule={handleGetTimetable}
+        />
+      ) : (
+        <ClassStatusAlert
+          status={detailClass.status}
+          startDate={detailClass.startDate}
+        />
       )}
+      <CustomModal open={open} onClose={handleTriggerModal}>
+        <Stack
+          sx={{
+            height: '92vh',
+          }}
+        >
+          <Stack sx={{ height: '85%', overflow: 'auto' }}>
+            <MonthSchedule data={timetable?.timetable || []} />
+          </Stack>
+          <Stack>
+            <Button
+              sx={{
+                marginTop: 1,
+              }}
+              onClick={handleAddTimetable}
+              variant="contained"
+              color="success"
+            >
+              Xác nhận mở lớp
+            </Button>
+            <FormHelperText>
+              Lưu ý: Lớp học hiện tại chưa đủ số lượng học sinh tối thiểu mặc dù
+              đã đủ tới thời gian nhập học. Khi bấm vào nút trên lớp bạn sẽ được
+              phép mở với số lượng học sinh hiện tại
+            </FormHelperText>
+          </Stack>
+        </Stack>
+      </CustomModal>
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
         <ClassInformationList
           categoryName={detailClass.categoryName}

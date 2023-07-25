@@ -1,7 +1,6 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
-import { appendFile } from 'fs';
 import { OptionPayload } from '~/models';
-import { formatISODateDateToDisplayDateTime } from './date';
+import { appendLogFile } from './file';
 
 export function scrollToTop() {
   window.scrollTo({
@@ -109,23 +108,11 @@ export const restrictNumberDisplay = (
   return input;
 };
 
-// const appendLogFile = (text: string) => {
-//   const filePath = './log.txt';
-
-//   appendFile(filePath, text, (err) => {
-//     if (err) {
-//       console.error('Error writing to the file:', err);
-//     } else {
-//       console.log('Text added to the file successfully.');
-//     }
-//   });
-// };
-
 export const formatError = (e: string) => {
-  // appendLogFile(
-  //   `[${formatISODateDateToDisplayDateTime(new Date().toISOString())}] ${e}`
-  // );
+  // await appendLogFile(e);
+
   const defaultMessage = 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+
   if (e.includes('n/a')) {
     return defaultMessage;
   }

@@ -59,6 +59,7 @@ export default function ImageInput({
 
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const image = new Image();
+
         image.onload = () => {
           let targetWidth = image.width;
           let targetHeight = image.height;

@@ -1,11 +1,12 @@
-import { ReactNode, createContext, useMemo } from 'react';
-import {
-  RefetchOptions,
-  RefetchQueryFilters,
-  QueryObserverResult,
-} from '@tanstack/react-query';
-import { useGetIdFromUrl } from '~/hooks';
-import { CourseMenuItemPayload } from '~/models/type';
+import React, {
+  ReactNode,
+  createContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useGetIdFromUrl, useQueryGetCourseContent } from '~/hooks';
 import LoadingWrapper from '../loading/LoadingWrapper';
 import useQueryMentorCourse from '~/hooks/course/useQueryMentorCourse';
 import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
@@ -15,22 +16,49 @@ interface Props {
 }
 
 interface CourseContextProps {
-  course: MentorDetailCoursePayload | undefined;
+  sectionId: number | 0;
+  course: MentorDetailCoursePayload;
+  onChangeSection: (id: number) => void;
 }
 
 export const CourseContext = createContext<CourseContextProps>({
-  course: undefined,
+  course: {
+    categoryId: {
+      id: 0,
+      label: '',
+      value: '',
+    },
+    code: '',
+    description: '',
+    level: 'ADVANCED',
+    name: '',
+    status: 'ALL',
+    subjectId: {
+      id: 0,
+      label: '',
+      value: '',
+    },
+  },
+  sectionId: 0,
+  onChangeSection: () => {},
 });
 
 export default function CourseContextProvider({ children }: Props) {
-  const CourseId = useGetIdFromUrl('id');
-  const { course, error, isLoading } = useQueryMentorCourse(CourseId);
+  const [sectionId, setSectionId] = useState(0);
+  const courseId = useGetIdFromUrl('id');
+  const { course, error, isLoading } = useQueryMentorCourse(courseId);
+
+  const handleSetScrollSection = (id: number) => {
+    setSectionId(id);
+  };
 
   const value: CourseContextProps = useMemo(
     () => ({
       course,
+      sectionId,
+      onChangeSection: handleSetScrollSection,
     }),
-    [course]
+    [course, sectionId]
   );
 
   return (

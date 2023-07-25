@@ -1,8 +1,9 @@
 import { Stack, Typography, Divider } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { LoadingWrapper } from '~/HOCs';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import ReturnLink from '~/components/atoms/ReturnLink';
 import {
@@ -11,6 +12,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import AddAssignmentForm from '~/containers/MentorCourseDetailSection/AddAssignmentForm';
+import AddQuizForm from '~/containers/MentorCourseDetailSection/AddQuizForm';
 import AddResourceForm from '~/containers/MentorCourseDetailSection/AddResourceForm';
 import AddSubSectionForm from '~/containers/MentorCourseDetailSection/AddSubSectionForm';
 import {
@@ -238,9 +240,8 @@ export default function MentorCourseModulesPage() {
           maxFileSubmit: data.maxFileSubmit,
           maxFileSize: data.maxFileSize,
           attachFiles: data.attachFiles,
-          isOverWriteAttachFile: data.isOverWriteAttachFile,
-          passPoint: data.passPoint,
           overWriteAttachFile: data.overWriteAttachFile,
+          passPoint: data.passPoint,
         },
       });
     });
@@ -288,10 +289,13 @@ export default function MentorCourseModulesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activity]);
 
+  console.log('module', type);
+
   return (
     <LoadingWrapper error={error} isLoading={isLoading}>
       <Stack>
         <ReturnLink
+          sectionId={sectionId}
           to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`}
         />
         <Stack>
@@ -314,7 +318,7 @@ export default function MentorCourseModulesPage() {
             />
           )}
           {type === 'QUIZ' && (
-            <AddResourceForm
+            <AddQuizForm
               hookForm={hookFormQuiz}
               onSubmit={handleSubmitQuiz}
               onDelete={handleClearOpen}

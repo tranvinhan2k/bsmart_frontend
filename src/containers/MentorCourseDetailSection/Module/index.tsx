@@ -1,10 +1,11 @@
 import { Stack, Typography, Tooltip, IconButton, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import { MetricSize, Color, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { ActivityPayload } from '~/models/type';
 import ModuleHeader from './ModuleHeader';
-import globalStyles from '~/styles';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 interface Props {
   index: number;
@@ -15,7 +16,10 @@ interface Props {
 export default function Module({ index, sectionId, module }: Props) {
   const navigate = useNavigate();
 
+  const { onChangeSection } = useContext(CourseContext);
+
   const handleViewOpen = () => {
+    onChangeSection(sectionId);
     navigate(`${sectionId}/${module.id}`);
   };
 

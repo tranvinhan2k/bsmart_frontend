@@ -6,6 +6,7 @@ import { PagingFilterRequest } from '~/models';
 export const useQueryStudentList = (id: number) => {
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     page: 0,
+    size: 24,
   });
 
   const handleChangePageNumber = (paramPageNumber: number) => {
@@ -30,5 +31,6 @@ export const useQueryStudentList = (id: number) => {
     error,
     isLoading,
     handleChangePageNumber,
+    filterParams,
   };
 };

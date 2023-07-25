@@ -12,7 +12,6 @@ import {
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import {
-  ClassDetailPayload,
   ClassMenuItemPayload,
   ProfilePayload,
   WeekTimeSlotPayload,
@@ -241,41 +240,7 @@ const accountApi = {
     }));
     return { ...response, items: result };
   },
-  async getDetailUserClass(
-    id: number,
-    role: number
-  ): Promise<ClassDetailPayload> {
-    const response: PagingFilterPayload<ResponseUserClasses> =
-      await axiosClient.get(`${url}/classes`, {
-        params: {
-          asRole: role,
-        },
-        paramsSerializer: { indexes: null },
-      });
-    const responseClass = response.items.find((item) => item.id === id);
-    const result: ClassDetailPayload = {
-      id: responseClass?.id || 0,
-      code: responseClass?.course?.code || '',
-      imageAlt: responseClass?.image?.name || '',
-      imageUrl: responseClass?.image?.url || '',
-      name: responseClass?.course?.name,
-      progressValue: -1, // TODO: chua co
-      status: responseClass?.status || 'ALL',
-      subjectId: responseClass?.course?.subject?.id || 0,
-      teacherName: [responseClass?.mentor?.name || ''],
-      endDate: responseClass?.endDate || '',
-      startDate: responseClass?.startDate || '',
-      numberOfSlot: responseClass?.numberOfSlot || 0,
-      numberOfStudent: 12,
-      price: responseClass?.price || 0,
-      timeTablesRequest:
-        responseClass?.timeInWeeks?.map((item) => ({
-          dayOfWeekId: item.dayOfWeek.id,
-          slotId: item.slot.id,
-        })) || [],
-    };
-    return result;
-  },
+
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);
   },

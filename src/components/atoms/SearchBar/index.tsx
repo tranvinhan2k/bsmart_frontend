@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { TextField, IconButton } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
+import { useDebounce } from '~/hooks/useDebounce';
 
 interface SearchBarProps {
   value: string;
@@ -19,6 +20,7 @@ export default function SearchBar({
   onSubmit,
 }: SearchBarProps) {
   const [searchValue, setSearchValue] = useState<string>(value);
+  const debounceValue = useDebounce(searchValue, 1000);
 
   const handleChangeSearchValue = (event: any) => {
     setSearchValue(event.target.value);
@@ -37,6 +39,13 @@ export default function SearchBar({
       setSearchValue(value);
     }
   }, [value]);
+
+  useEffect(() => {
+    if (debounceValue) {
+      onSubmit(debounceValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debounceValue]);
 
   return (
     <TextField
