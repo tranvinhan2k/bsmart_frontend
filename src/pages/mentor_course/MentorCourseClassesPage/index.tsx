@@ -128,7 +128,7 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
               color="white"
               onSubmit={handleChangeSearchValue}
               placeholder="Tìm lớp học cùa bạn"
-              value={filterParam.q}
+              value={filterParam.q || ''}
             />
           </Stack>
           <Stack marginTop={1}>

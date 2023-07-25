@@ -63,7 +63,7 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
         sx={globalStyles.textLowSmallLight}
       >{`Thời gian cho chỉnh sửa: ${item.editBeForSubmitMin} phút`}</Typography>
       {isMarked ? (
-        <MarkDisplay point={7} passPoint={8} total={10} />
+        <MarkDisplay point={7} total={10} />
       ) : (
         <Stack>
           <Typography

@@ -21,16 +21,8 @@ export default function MemberClassInformationPage() {
     subjectName: '',
     timetable: [
       {
-        dayOfWeek: {
-          id: 0,
-          label: '',
-          value: '',
-        },
-        slot: {
-          id: 0,
-          label: '',
-          value: '',
-        },
+        dayOfWeekId: 0,
+        slotId: 0,
       },
     ],
   };
