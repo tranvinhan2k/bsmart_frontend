@@ -80,8 +80,8 @@ export default function MentorCourseAddModulePage() {
       authorizeClasses: [],
       courseId,
       code: '',
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
+      startDate: '',
+      endDate: '',
       time: 0,
       defaultPoint: 0,
       isSuffleQuestion: false,
@@ -108,7 +108,7 @@ export default function MentorCourseAddModulePage() {
       maxFileSubmit: 0,
       maxFileSize: 0,
       attachFiles: [],
-      isOverWriteAttachFile: false,
+      overWriteAttachFile: false,
       passPoint: 0,
     },
     resolver: resolverAssignment,
@@ -185,7 +185,7 @@ export default function MentorCourseAddModulePage() {
         maxFileSubmit: data.maxFileSubmit,
         maxFileSize: data.maxFileSize,
         attachFiles: data.attachFiles,
-        isOverWriteAttachFile: data.isOverWriteAttachFile,
+        overWriteAttachFile: data.overWriteAttachFile,
         passPoint: data.passPoint,
       });
       hookFormLesson.reset();
@@ -261,13 +261,11 @@ export default function MentorCourseAddModulePage() {
 
   if (!type) return null;
 
-  console.log('>:)', sectionId);
-
   const moduleType: ActivityKeys = type?.toUpperCase() as ActivityKeys;
+
   return (
     <Stack>
       <ReturnLink
-        sectionId={sectionId}
         to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`}
       />
       <Stack marginTop={1}>

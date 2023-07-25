@@ -55,7 +55,7 @@ export default function MentorUpdateAssignmentPage() {
       //     defaults.maxFileSubmit = activity.activityDetail.maxFileSubmit;
       //     defaults.maxFileSize = activity.activityDetail.maxFileSize;
       //     // defaults.attachFiles = activity.activityDetail.assignmentFiles;
-      //     defaults.isOverWriteAttachFile = true;
+      //     defaults.overWriteAttachFile = true;
       //     reset(defaults);
       //     break;
 
@@ -83,7 +83,7 @@ export default function MentorUpdateAssignmentPage() {
       maxFileSubmit: data.maxFileSubmit,
       maxFileSize: data.maxFileSize,
       attachFiles: data.attachFiles,
-      isOverWriteAttachFile: data.isOverWriteAttachFile,
+      overWriteAttachFile: data.overWriteAttachFile,
     };
 
     console.log('params', params);

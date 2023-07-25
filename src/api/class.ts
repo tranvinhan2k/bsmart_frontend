@@ -13,8 +13,10 @@ import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import {
   GetStudentList,
   PostTimeTableResponse,
+  ResponseDetailClass,
   ResponseMentorCoursePayload,
 } from '~/models/response';
+import { ClassDetailPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
 import { formatOptionPayload } from '~/utils/common';
@@ -162,6 +164,35 @@ const classApi = {
   },
   openClass({ id, params }: { id: number; params: PostTimeTableResponse }) {
     return axiosClient.put(`${url}/${id}/open`, params);
+  },
+
+  async getDetailUserClass(
+    id: number,
+    role: number
+  ): Promise<ClassDetailPayload> {
+    const response: ResponseDetailClass = await axiosClient.get(`${url}/${id}`);
+    const result: ClassDetailPayload = {
+      id: response?.id || 0,
+      code: response?.code || '',
+      imageAlt: response?.classImage?.name || '',
+      imageUrl: response?.classImage?.url || '',
+      name: '',
+      progressValue: -1, // TODO: chua co
+      status: response?.status || 'ALL',
+      subjectId: 0,
+      teacherName: [response?.mentor?.fullName || ''],
+      endDate: response?.endDate || '',
+      startDate: response?.startDate || '',
+      numberOfSlot: response?.numberOfSlot || 0,
+      numberOfStudent: 12,
+      price: response?.price || 0,
+      timeTablesRequest: [],
+      // response?.timeInWeeks?.map((item) => ({
+      //   dayOfWeekId: item.dayOfWeek.id,
+      //   slotId: item.slot.id,
+      // })) || [],
+    };
+    return result;
   },
 
   getClassDetails({

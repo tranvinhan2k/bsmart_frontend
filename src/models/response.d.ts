@@ -3,6 +3,8 @@ import { ContentPayload, CoursePayload } from './type';
 import {
   ActivityKeys,
   ClassStatusKeys,
+  CourseStatusKeys,
+  GenderKeys,
   ImageKeys,
   RoleKeys,
 } from './variables';
@@ -220,7 +222,7 @@ export type ResponseUserClasses = Partial<{
       id: number;
       name: number;
       url: number;
-      status: true;
+      status: boolean;
       type: 'COURSE';
     };
   };
@@ -233,7 +235,7 @@ export type ResponseUserClasses = Partial<{
     id: number;
     name: string;
     url: string;
-    status: true;
+    status: boolean;
     type: ImageKeys;
   };
   timeInWeeks: [
@@ -264,8 +266,90 @@ export type ResponseUserClasses = Partial<{
   ];
 }>;
 
+export type ResponseDetailClass = Partial<{
+  id: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  status: ClassStatusKeys;
+  price: number;
+  minStudent: number;
+  maxStudent: number;
+  numberOfSlot: number;
+  hasReferralCode: boolean;
+  numberReferralCode: number;
+  classImage: {
+    id: number;
+    name: string;
+    url: string;
+    status: boolean;
+    type: CourseStatusKeys;
+  };
+  mentor: {
+    id: number;
+    fullName: string;
+    email: string;
+    birthday: string;
+    address: string;
+    phone: string;
+    status: boolean;
+    gender: GenderKeys;
+    roles: [
+      {
+        id: number;
+        name: string;
+        code: RoleKeys;
+      }
+    ];
+    linkedinLink: string;
+    facebookLink: string;
+    website: string;
+    userImages: [
+      {
+        id: number;
+        name: string;
+        url: string;
+        status: boolean;
+        type: CourseStatusKeys;
+      }
+    ];
+    wallet: {
+      id: number;
+      balance: number;
+      previous_balance: number;
+      owner_id: number;
+    };
+    mentorProfile: {
+      id: number;
+      introduce: string;
+      workingExperience: string;
+      status: string;
+      mentorSkills: {
+        skillId: number;
+        name: string;
+        yearOfExperiences: number;
+      }[];
+    };
+    isVerified: boolean;
+  };
+  activities: [
+    {
+      created: string;
+      lastModified: string;
+      createdBy: string;
+      lastModifiedBy: string;
+      id: number;
+      name: string;
+      type: ActivityKeys;
+      visible: boolean;
+      parentActivityId: number;
+      subActivities: [];
+    }
+  ];
+}>;
+
 export type GetStudentList = Partial<{
-  id: 0;
-  email: 'string';
-  name: 'string';
+  id: number;
+  email: string;
+  name: string;
 }>;

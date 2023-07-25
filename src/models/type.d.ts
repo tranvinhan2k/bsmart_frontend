@@ -222,7 +222,7 @@ export interface ActivityAssignmentPayload {
     url: string;
     size: number;
   }[];
-  isOverWriteAttachFile: boolean;
+  overWriteAttachFile: boolean;
   passPoint: number;
 }
 

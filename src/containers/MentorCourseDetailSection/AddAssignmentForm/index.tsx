@@ -112,7 +112,7 @@ export default function AddAssignmentForm({
     },
     {
       label: 'Cho phép ghi đè tệp',
-      name: 'isOverWriteAttachFile',
+      name: 'overWriteAttachFile',
       placeholder: 'Cho phép ghi đè tệp',
       variant: 'boolean',
     },

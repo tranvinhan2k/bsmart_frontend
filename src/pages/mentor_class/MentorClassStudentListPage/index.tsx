@@ -44,6 +44,7 @@ export default function MentorClassStudentListPage() {
     isLoading,
     studentList,
     totalPages,
+    filterParams,
   } = useQueryStudentList(id);
 
   const rows = studentList;
@@ -125,6 +126,12 @@ export default function MentorClassStudentListPage() {
         />
 
         <CRUDTable
+          page={currentPage}
+          pagination
+          pageSize={filterParams.size || 0}
+          onPageChange={handleChangePageNumber}
+          paginationMode="server"
+          rowCount={totalPages}
           isLoading={isLoading}
           error={error}
           searchPlaceholder="Nhập tên học sinh cần tìm"

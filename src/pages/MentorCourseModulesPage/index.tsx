@@ -12,6 +12,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import AddAssignmentForm from '~/containers/MentorCourseDetailSection/AddAssignmentForm';
+import AddQuizForm from '~/containers/MentorCourseDetailSection/AddQuizForm';
 import AddResourceForm from '~/containers/MentorCourseDetailSection/AddResourceForm';
 import AddSubSectionForm from '~/containers/MentorCourseDetailSection/AddSubSectionForm';
 import {
@@ -243,9 +244,8 @@ export default function MentorCourseModulesPage() {
           maxFileSubmit: data.maxFileSubmit,
           maxFileSize: data.maxFileSize,
           attachFiles: data.attachFiles,
-          isOverWriteAttachFile: data.isOverWriteAttachFile,
-          passPoint: data.passPoint,
           overWriteAttachFile: data.overWriteAttachFile,
+          passPoint: data.passPoint,
         },
       });
     });
@@ -293,6 +293,8 @@ export default function MentorCourseModulesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activity]);
 
+  console.log('module', type);
+
   return (
     <LoadingWrapper error={error} isLoading={isLoading}>
       <Stack>
@@ -320,7 +322,7 @@ export default function MentorCourseModulesPage() {
             />
           )}
           {type === 'QUIZ' && (
-            <AddResourceForm
+            <AddQuizForm
               hookForm={hookFormQuiz}
               onSubmit={handleSubmitQuiz}
               onDelete={handleClearOpen}

@@ -77,7 +77,7 @@ export default function UpdateClassModal({
           </Stack>
           <Stack marginTop={2} />
           <Typography sx={globalStyles.textSmallLabel}>
-            Thông tin giờ học
+            Thời khóa biểu
           </Typography>
           <Stack
             sx={{
