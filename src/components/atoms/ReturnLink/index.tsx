@@ -10,27 +10,14 @@ interface Props {
 }
 
 export default function ReturnLink({ sectionId, to }: Props) {
-  const { onScrollToComponent } = useContext(CourseContext);
-  console.log('section return o ngoai', sectionId);
-
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    console.log('sectionId return link', sectionId);
-
-    if (sectionId) {
-      console.log('j z ta', sectionId);
-
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
+    if (to) {
+      navigate(to, { state: { id: 0, name: '/' } });
+    } else {
+      navigate(-1);
     }
-
-    // if (to) {
-    //   navigate(to, { state: { id: 0, name: '/' } });
-    // } else {
-    //   navigate(-1);
-    // }
   };
 
   return (
