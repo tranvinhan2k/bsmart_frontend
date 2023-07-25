@@ -10,7 +10,7 @@ export const useQueryGetUserClass = (role: 'STUDENT' | 'TEACHER') => {
     page: 0,
     size: 24,
     status: 'STARTING',
-    asRole: role === 'STUDENT' ? 1 : 0,
+    asRole: role === 'STUDENT' ? 1 : 2,
   });
 
   const handleChangeSearchValue = (q: string) => {

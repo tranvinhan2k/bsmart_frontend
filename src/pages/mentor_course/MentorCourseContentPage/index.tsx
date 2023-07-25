@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import { useContext } from 'react';
 import {
   useMutationAddSection,
   useQueryGetCourseContent,
@@ -9,6 +10,7 @@ import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { formatStringToNumber } from '~/utils/number';
 import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
 import Sections from '~/containers/MentorCourseDetailSection/Sections';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 interface Props {
   refetchGetPercent: any;
@@ -17,6 +19,9 @@ interface Props {
 export default function MentorCourseContentPage({ refetchGetPercent }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
+
+  const { course } = useContext(CourseContext);
+  const status = course?.status || 'ALL';
   const addCourseSection = useMutationAddSection();
 
   const {
@@ -48,9 +53,11 @@ export default function MentorCourseContentPage({ refetchGetPercent }: Props) {
   return (
     <Stack>
       <LoadingWrapper error={error} isLoading={isLoading}>
-        <Sections content={content} />
+        <Sections status={status} content={content} />
       </LoadingWrapper>
-      <AddSection onAdd={handleAddNewSection} />
+      {(status === 'REQUESTING' || status === 'EDITREQUEST') && (
+        <AddSection onAdd={handleAddNewSection} />
+      )}
     </Stack>
   );
 }

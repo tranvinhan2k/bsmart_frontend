@@ -129,6 +129,23 @@ export interface ClassMenuItemPayload {
   subjectId: number;
   status: ClassStatusKeys;
 }
+export interface ClassDetailPayload {
+  code: string;
+  id: number;
+  imageUrl: string | undefined;
+  imageAlt: string | undefined;
+  teacherName?: string[];
+  name: string | undefined;
+  progressValue: number;
+  subjectId: number;
+  status: ClassStatusKeys;
+  startDate: string;
+  endDate: string;
+  numberOfSlot: number;
+  numberOfStudent: number;
+  price: number;
+  timeTablesRequest: { dayOfWeekId: number; slotId: number }[];
+}
 
 export type ContentPayload = ActivityPayload[];
 

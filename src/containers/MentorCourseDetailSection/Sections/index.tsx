@@ -4,12 +4,14 @@ import { image } from '~/constants/image';
 import { MetricSize } from '~/assets/variables';
 import { ActivityPayload } from '~/models/type';
 import SectionCollapse from './SectionCollapse';
+import { CourseStatusKeys } from '~/models/variables';
 
 interface Props {
   content: ActivityPayload[] | undefined;
+  status: CourseStatusKeys;
 }
 
-export default function Sections({ content }: Props) {
+export default function Sections({ content, status }: Props) {
   if (content === undefined || content.length === 0) {
     return (
       <Stack
@@ -37,7 +39,12 @@ export default function Sections({ content }: Props) {
   return (
     <Stack>
       {content.map((section, index) => (
-        <SectionCollapse key={index} index={index} section={section} />
+        <SectionCollapse
+          status={status}
+          key={index}
+          index={index}
+          section={section}
+        />
       ))}
     </Stack>
   );

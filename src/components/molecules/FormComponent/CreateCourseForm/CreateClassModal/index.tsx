@@ -13,13 +13,12 @@ import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
 import { CREATE_CLASS_FIELDS } from '~/form/schema';
-import { Color } from '~/assets/variables';
 
 const texts = {
   createClassTitle: 'Tạo lớp học mới',
   createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
   generalInfoTitle: 'Thông tin chung',
-  priceLabel: 'Giá khóa học (VND)',
+  priceLabel: 'Giá khóa học trên một học sinh (VND)',
   courseTypeLabel: 'Hình thức khóa học',
   imageLabel: 'Hình ảnh',
   minStudentLabel: 'Số học sinh tối thiểu',

@@ -1,5 +1,7 @@
 import { Stack, Typography, Button } from '@mui/material';
+import { useContext } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
@@ -50,6 +52,7 @@ export default function AddAssignmentForm({
 }: Props) {
   const courseId = useGetIdFromUrl('id');
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
+  const { course } = useContext(CourseContext);
 
   const inputList: InputData[] = [
     {
@@ -150,7 +153,11 @@ export default function AddAssignmentForm({
           }}
         >
           <Button
-            disabled={!hookForm.formState.isDirty}
+            disabled={
+              !hookForm.formState.isDirty ||
+              (course?.status !== 'EDITREQUEST' &&
+                course?.status !== 'REQUESTING')
+            }
             color="secondary"
             sx={{
               color: Color.white,
@@ -162,6 +169,10 @@ export default function AddAssignmentForm({
           </Button>
           {Boolean(onDelete) && (
             <Button
+              disabled={
+                course?.status !== 'EDITREQUEST' &&
+                course?.status !== 'REQUESTING'
+              }
               sx={{
                 marginLeft: 1,
               }}

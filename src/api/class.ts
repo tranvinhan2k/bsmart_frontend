@@ -1,4 +1,5 @@
 import axiosClient from '~/api/axiosClient';
+import { image } from '~/constants/image';
 import { PagingFilterPayload } from '~/models';
 import {
   ClassCreateClassSectionPayload,
@@ -9,8 +10,9 @@ import {
 } from '~/models/class';
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
-import { ResponseMentorCoursePayload } from '~/models/response';
+import { GetStudentList, ResponseMentorCoursePayload } from '~/models/response';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
 import { formatOptionPayload } from '~/utils/common';
 
 const url = '/classes';
@@ -26,7 +28,7 @@ const classApi = {
         courseCode: response.code,
         courseDescription: response.description,
         courseName: response.name,
-        images: response.classes.map((item: any) => item.image.url),
+        images: response.classes?.map((item: any) => item?.image?.url),
         mentorAvatar: response.mentor.avatar.url,
         mentorDescription: response.mentor.introduce,
         mentorName: [response.mentor.name],
@@ -76,6 +78,32 @@ const classApi = {
       params: filterParam,
       paramsSerializer: { indexes: null },
     });
+  },
+  async getMentorClassStudentList({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PagingFilterRequest;
+  }) {
+    const response: PagingFilterPayload<GetStudentList> = await axiosClient.get(
+      `${url}/${id}/members`,
+      {
+        params,
+      }
+    );
+    const result: MentorClassMemberDetailPayload[] = response.items.map(
+      (item) => ({
+        id: item?.id || 0,
+        avatar: image.mockStudent,
+        dayOfBirth: new Date('01/01/2000').toISOString(),
+        email: item?.email || '',
+        name: item?.name || '',
+        phone: '',
+      })
+    );
+
+    return { ...response, items: result };
   },
   async getMentorCourseCLasses({
     id,

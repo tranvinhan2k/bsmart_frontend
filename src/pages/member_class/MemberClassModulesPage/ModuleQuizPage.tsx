@@ -94,7 +94,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
       )}
       {isAttemptedQuiz && (
         <Stack>
-          <MarkDisplay point={7} passPoint={8} total={10} />
+          <MarkDisplay point={7} total={10} />
           <Button
             disabled={!item.isAllowReview}
             onClick={onReview}

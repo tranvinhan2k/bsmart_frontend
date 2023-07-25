@@ -1,19 +1,8 @@
-import {
-  Box,
-  Stack,
-  Typography,
-  Divider,
-  FormControlLabel,
-  Checkbox,
-  Switch,
-} from '@mui/material';
+import { Box, Stack, FormControlLabel, Switch } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Color, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
-import CustomModal from '~/components/atoms/CustomModal';
-import TextLine from '~/components/atoms/TextLine';
+import { MetricSize } from '~/assets/variables';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { image } from '~/constants/image';
@@ -22,7 +11,7 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useGetIdFromUrl } from '~/hooks';
+import { useGetIdFromUrl, useQueryStudentList } from '~/hooks';
 import globalStyles from '~/styles';
 
 export interface MentorClassMemberDetailPayload {
@@ -47,18 +36,29 @@ export default function MentorClassStudentListPage() {
       );
     }
   };
-  const rows: MentorClassMemberDetailPayload[] = [
-    {
-      id: 0,
-      name: 'Trần Vĩ Nhân',
-      avatar: image.mockStudent,
-      dayOfBirth: new Date().toString(),
-      email: 'tranvinhan2k@gmail.com',
-      phone: '0362017512',
-    },
-  ];
 
-  const filterRows = rows.filter((item) =>
+  const {
+    currentPage,
+    error,
+    handleChangePageNumber,
+    isLoading,
+    studentList,
+    totalPages,
+  } = useQueryStudentList(id);
+
+  const rows = studentList;
+  // const rows: MentorClassMemberDetailPayload[] = [
+  //   {
+  //     id: 0,
+  //     name: 'Trần Vĩ Nhân',
+  //     avatar: image.mockStudent,
+  //     dayOfBirth: new Date().toString(),
+  //     email: 'tranvinhan2k@gmail.com',
+  //     phone: '0362017512',
+  //   },
+  // ];
+
+  const filterRows = rows?.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -125,6 +125,8 @@ export default function MentorClassStudentListPage() {
         />
 
         <CRUDTable
+          isLoading={isLoading}
+          error={error}
           searchPlaceholder="Nhập tên học sinh cần tìm"
           onSearch={({ searchValue }: { searchValue: string }) =>
             setSearchValue(searchValue)

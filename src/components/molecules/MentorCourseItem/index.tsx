@@ -54,6 +54,7 @@ export default function MentorCourseItem({
       imageUrl={item.imageUrl}
       courseStatus={item.courseStatus}
       onClick={handleNavigateCourseDetail}
+      totalClass={item.totalClass}
     />
   );
 }

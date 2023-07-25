@@ -1,4 +1,5 @@
 import { Stack, Rating, Typography, LinearProgress } from '@mui/material';
+import { useState } from 'react';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import globalStyles from '~/styles';
 import HoverableStack from '~/components/atoms/HoverableStack';
@@ -6,7 +7,6 @@ import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
 import { ClassStatusKeys } from '~/models/variables';
 import { ClassStatusList } from '~/constants';
 import { useDispatchGetAllSubjects } from '~/hooks';
-import { useState } from 'react';
 
 interface UserClassItemProps {
   code: string | undefined;

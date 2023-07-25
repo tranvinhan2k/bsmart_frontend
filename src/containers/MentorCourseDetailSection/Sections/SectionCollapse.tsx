@@ -5,13 +5,15 @@ import AddModule from '../AddModule';
 import Module from '../Module';
 import Section from '../Section.ts';
 import { ActivityPayload } from '~/models/type';
+import { CourseStatusKeys } from '~/models/variables';
 
 interface Props {
+  status: CourseStatusKeys;
   index: number;
   section: ActivityPayload;
 }
 
-export default function SectionCollapse({ index, section }: Props) {
+export default function SectionCollapse({ index, section, status }: Props) {
   const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
@@ -26,7 +28,11 @@ export default function SectionCollapse({ index, section }: Props) {
         onOpenContentSection={handleOpen}
       />
       <Collapse in={open}>
-        <Stack sx={{ marginTop: 1, paddingY: 1 }}>
+        <Stack
+          sx={{
+            marginTop: section.subActivities.length !== 0 ? 1 : 0,
+          }}
+        >
           {section?.subActivities.map((module, idx) => (
             <Module
               key={idx}
@@ -36,7 +42,9 @@ export default function SectionCollapse({ index, section }: Props) {
             />
           ))}
         </Stack>
-        <AddModule id={section.id} />
+        {(status === 'EDITREQUEST' || status === 'REQUESTING') && (
+          <AddModule id={section.id} />
+        )}
       </Collapse>
     </Stack>
   );

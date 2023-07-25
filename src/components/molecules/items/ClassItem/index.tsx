@@ -43,7 +43,7 @@ const texts = {
   createClassTitle: 'Tạo lớp học mới',
   createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
   generalInfoTitle: 'Thông tin chung',
-  priceLabel: 'Giá khóa học',
+  priceLabel: 'Giá khóa học trên một học sinh',
   courseTypeLabel: 'Hình thức khóa học',
   imageLabel: 'Hình ảnh',
   minStudentLabel: 'Số học sinh tối thiểu',

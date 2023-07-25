@@ -44,7 +44,7 @@ export default function UpdateClassModal({
               variant="price"
               name={CREATE_CLASS_FIELDS.price}
               control={hookForm.control}
-              label="Giá khóa học (VND)"
+              label="Giá khóa học trên một học sinh (VND)"
             />
           </Stack>
           <Stack marginTop={2} />

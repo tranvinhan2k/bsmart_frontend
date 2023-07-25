@@ -263,3 +263,9 @@ export type ResponseUserClasses = Partial<{
     }
   ];
 }>;
+
+export type GetStudentList = Partial<{
+  id: 0;
+  email: 'string';
+  name: 'string';
+}>;

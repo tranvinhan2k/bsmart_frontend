@@ -69,6 +69,7 @@ export * from './class/useQueryGetOptionMentorCourseClasses';
 export * from './class/useQueryGetUserClass';
 export * from './class/useQueryGetDetailUserClass';
 export * from './class/useMutationDeleteClass';
+export * from './class/useQueryStudentList';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';

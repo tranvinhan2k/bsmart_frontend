@@ -5,8 +5,13 @@ import { useEffect, useState } from 'react';
 import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 
+export interface TimetablePayload {
+  dayOfWeekId: number;
+  slotId: number;
+}
+
 interface Props {
-  data: { dayOfWeekId: number; slotId: number }[];
+  data: TimetablePayload[];
 }
 
 export default function Timetable({ data }: Props) {

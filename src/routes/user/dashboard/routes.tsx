@@ -77,7 +77,7 @@ export const routes: RoutePayload[] = [
   {
     path: `${NavigationLink.course_menu_details}/:id`,
     main: () => <CourseDetailPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: [],
   },
   {
     path: NavigationLink.lms,
@@ -97,7 +97,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.blog_details,
     main: () => <BlogDetailsPage />,
-    role: ['ROLE_TEACHER', 'ROLE_STUDENT'],
+    role: [],
   },
   {
     path: `/${NavigationLink.member_details}/*`,
@@ -112,7 +112,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.mentor_menu,
     main: () => <MentorsPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: [],
   },
   {
     path: NavigationLink.cart,

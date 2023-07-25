@@ -108,7 +108,7 @@ export default function MentorClassListPage() {
         </Stack>
         <SearchFilterClasses
           endDate={filterParams.endDate || ''}
-          searchValue={filterParams.q}
+          searchValue={filterParams.q || ''}
           onFilter={onSubmit}
           onSearchValue={handleChangeSearch}
           startDate={filterParams.startDate || ''}

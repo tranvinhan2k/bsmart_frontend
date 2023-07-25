@@ -1,5 +1,7 @@
 import { Stack, Typography, Button, FormHelperText } from '@mui/material';
+import { useContext } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
@@ -49,6 +51,7 @@ export default function AddResourceForm({
   onDelete,
 }: Props) {
   const courseId = useGetIdFromUrl('id');
+  const { course } = useContext(CourseContext);
 
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
 
@@ -109,7 +112,11 @@ export default function AddResourceForm({
           }}
         >
           <Button
-            disabled={!hookForm.formState.isDirty}
+            disabled={
+              !hookForm.formState.isDirty ||
+              (course?.status !== 'EDITREQUEST' &&
+                course?.status !== 'REQUESTING')
+            }
             color="secondary"
             sx={{
               color: Color.white,
@@ -121,6 +128,10 @@ export default function AddResourceForm({
           </Button>
           {Boolean(onDelete) && (
             <Button
+              disabled={
+                course?.status !== 'EDITREQUEST' &&
+                course?.status !== 'REQUESTING'
+              }
               color="error"
               sx={{
                 marginLeft: 1,

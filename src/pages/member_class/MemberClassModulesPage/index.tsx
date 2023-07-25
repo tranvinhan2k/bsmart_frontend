@@ -89,7 +89,7 @@ export default function MemberClassModulesPage() {
 
   let data: ReactNode = null;
 
-  data = <ModuleAssignmentPage name={activity.name} item={detailAssignment} />;
+  data = <ModuleQuizPage name={activity.name} item={detailQuiz} />;
 
   // switch (detail?.type) {
   //   case 'LESSON':

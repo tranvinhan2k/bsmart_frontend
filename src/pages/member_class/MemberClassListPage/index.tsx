@@ -101,7 +101,7 @@ export default function MemberClassListPage() {
           <Typography sx={globalStyles.textTitle}>{TEXTS.title_1}</Typography>
         </Stack>
         <SearchFilterClasses
-          searchValue={filterParams.q}
+          searchValue={filterParams.q || ''}
           startDate={filterParams.startDate || ''}
           subjectId={filterParams.subjectId || []}
           endDate={filterParams.endDate || ''}

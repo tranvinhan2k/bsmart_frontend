@@ -1,6 +1,6 @@
 import { Stack, Typography, Box } from '@mui/material';
 import { FontSize, FontFamily, Color } from '~/assets/variables';
-import Timetable from '~/components/molecules/Timetable';
+import Timetable, { TimetablePayload } from '~/components/molecules/Timetable';
 import { OptionPayload } from '~/models';
 import globalStyles from '~/styles';
 
@@ -10,10 +10,7 @@ export interface TextListPayload {
   value?: string;
   alt?: string;
   type?: 'text' | 'image' | 'timetable';
-  timetable?: {
-    slot: OptionPayload;
-    dayOfWeek: OptionPayload;
-  }[];
+  timetable?: TimetablePayload[];
 }
 
 interface Props {
@@ -54,14 +51,7 @@ export default function TextList({ items }: Props) {
               />
             )}
             {item.type === 'timetable' && (
-              <Timetable
-                data={
-                  item.timetable?.map((time) => ({
-                    dayOfWeekId: time.dayOfWeek?.id,
-                    slotId: time.slot?.id,
-                  })) || []
-                }
-              />
+              <Timetable data={item?.timetable || []} />
             )}
             {!item.type && `${item.value}`}
           </Typography>

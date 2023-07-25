@@ -4,20 +4,22 @@ import {
   RefetchQueryFilters,
   QueryObserverResult,
 } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 import { useGetIdFromUrl, useQueryGetDetailUserClass } from '~/hooks';
-import { ClassMenuItemPayload } from '~/models/type';
+import { ClassDetailPayload, ClassMenuItemPayload } from '~/models/type';
 import LoadingWrapper from '../loading/LoadingWrapper';
+import { selectProfile } from '~/redux/user/selector';
 
 interface Props {
   children: ReactNode;
 }
 
 interface ClassContextProps {
-  detailClass: ClassMenuItemPayload | undefined;
+  detailClass: ClassDetailPayload | undefined;
   refetch:
     | (<TPageData>(
         options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
-      ) => Promise<QueryObserverResult<ClassMenuItemPayload, unknown>>)
+      ) => Promise<QueryObserverResult<ClassDetailPayload, unknown>>)
     | undefined;
 }
 
@@ -27,9 +29,14 @@ export const ClassContext = createContext<ClassContextProps>({
 });
 
 export default function ClassContextProvider({ children }: Props) {
+  const profile = useSelector(selectProfile);
+  const role = profile.roles?.[0]?.code;
   const classId = useGetIdFromUrl('id');
-  const { detailClass, error, isLoading, refetch } =
-    useQueryGetDetailUserClass(classId);
+
+  const { detailClass, error, isLoading, refetch } = useQueryGetDetailUserClass(
+    classId,
+    role
+  );
 
   const value: ClassContextProps = useMemo(
     () => ({

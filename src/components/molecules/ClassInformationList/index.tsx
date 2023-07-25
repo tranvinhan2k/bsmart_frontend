@@ -1,21 +1,15 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { FontSize, FontFamily, Color } from '~/assets/variables';
+import { Stack } from '@mui/material';
 import { ClassStatusList } from '~/constants';
-import { OptionPayload } from '~/models';
-import globalStyles from '~/styles';
 import { formatDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
-import Timetable from '../Timetable';
+import { TimetablePayload } from '../Timetable';
 import { ClassStatusKeys } from '~/models/variables';
 import TextList, { TextListPayload } from '~/components/atoms/texts/TextList';
 
 interface Props {
   code: string;
   name: string;
-  timetable: {
-    slot: OptionPayload;
-    dayOfWeek: OptionPayload;
-  }[];
+  timetable: TimetablePayload[];
   imageUrl: string;
   imageAlt: string;
   startDate: string;

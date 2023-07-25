@@ -1,6 +1,7 @@
 import { Stack, Typography, Button } from '@mui/material';
-import { useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { validationClassContentSection } from '~/form/validation';
@@ -22,6 +23,7 @@ export default function UpdateSectionForm({
   onSubmit,
   onDelete,
 }: Props) {
+  const { course } = useContext(CourseContext);
   const courseId = useGetIdFromUrl('id');
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
 
@@ -72,7 +74,11 @@ export default function UpdateSectionForm({
         <InputGroup control={hookForm.control} inputList={inputList} />
         <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
           <Button
-            disabled={!hookForm.formState.isDirty}
+            disabled={
+              !hookForm.formState.isDirty ||
+              (course?.status !== 'EDITREQUEST' &&
+                course?.status !== 'REQUESTING')
+            }
             color="secondary"
             sx={{
               color: Color.white,
@@ -86,6 +92,10 @@ export default function UpdateSectionForm({
             Lưu thay đổi
           </Button>
           <Button
+            disabled={
+              course?.status !== 'EDITREQUEST' &&
+              course?.status !== 'REQUESTING'
+            }
             onClick={onDelete}
             sx={{
               marginLeft: 1,

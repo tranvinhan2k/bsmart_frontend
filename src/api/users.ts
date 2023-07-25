@@ -3,7 +3,7 @@ import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
-import { RequestRole, Role } from '~/models/role';
+import { RequestRole } from '~/models/role';
 import {
   GetAllUserPayload,
   GetAllUserReturnPayload,
@@ -12,14 +12,14 @@ import {
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import {
+  ClassDetailPayload,
   ClassMenuItemPayload,
   ProfilePayload,
   WeekTimeSlotPayload,
 } from '~/models/type';
 import { GetUserSchedule, ResponseUserClasses } from '~/models/response';
 import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
-import { compareDate, formatDate } from '~/utils/date';
-import { image } from '~/constants/image';
+import { compareDate } from '~/utils/date';
 import { AttendanceTimeSlotPayload } from '~/pages/mentor_class/MentorClassAttendanceListPage';
 
 const url = `/users`;
@@ -241,13 +241,19 @@ const accountApi = {
     }));
     return { ...response, items: result };
   },
-  async getDetailUserClass(id: number): Promise<ClassMenuItemPayload> {
+  async getDetailUserClass(
+    id: number,
+    role: number
+  ): Promise<ClassDetailPayload> {
     const response: PagingFilterPayload<ResponseUserClasses> =
       await axiosClient.get(`${url}/classes`, {
+        params: {
+          asRole: role,
+        },
         paramsSerializer: { indexes: null },
       });
     const responseClass = response.items.find((item) => item.id === id);
-    const result: ClassMenuItemPayload = {
+    const result: ClassDetailPayload = {
       id: responseClass?.id || 0,
       code: responseClass?.course?.code || '',
       imageAlt: responseClass?.image?.name || '',
@@ -257,6 +263,16 @@ const accountApi = {
       status: responseClass?.status || 'ALL',
       subjectId: responseClass?.course?.subject?.id || 0,
       teacherName: [responseClass?.mentor?.name || ''],
+      endDate: responseClass?.endDate || '',
+      startDate: responseClass?.startDate || '',
+      numberOfSlot: responseClass?.numberOfSlot || 0,
+      numberOfStudent: 12,
+      price: responseClass?.price || 0,
+      timeTablesRequest:
+        responseClass?.timeInWeeks?.map((item) => ({
+          dayOfWeekId: item.dayOfWeek.id,
+          slotId: item.slot.id,
+        })) || [],
     };
     return result;
   },

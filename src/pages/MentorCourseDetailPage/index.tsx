@@ -42,6 +42,7 @@ import toast from '~/utils/toast';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import { handleConsoleError } from '~/utils/common';
+import CourseContextProvider from '~/HOCs/context/CourseContext';
 
 export interface MentorDetailCoursePayload {
   code: string;
@@ -176,135 +177,139 @@ export default function MentorCourseDetailPage() {
   };
 
   return (
-    <Stack>
-      <ReturnLink
-        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
-      />
-      <Typography sx={globalStyles.textSubTitle}>Chi tiết khóa học</Typography>
-      <Typography sx={globalStyles.textLowSmallLight}>
-        Nội dung chi tiết của khóa học
-      </Typography>
-      <LoadingWrapper isLoading={isLoading} error={error}>
-        <Stack
-          sx={{
-            marginTop: 1,
-            background: Color.white,
-            borderRadius: MetricSize.small_5,
-            paddingY: 4,
-          }}
-        >
-          <Grid container>
-            <Grid item xs={12} md={2}>
-              <Stack marginRight={2}>
-                <Sidebar status={course.status} />
-              </Stack>
-              <Stack margin={2}>
-                <CourseAlert status={course.status || 'ALL'} />
-                {(course?.status === 'REQUESTING' ||
-                  course?.status === 'EDITREQUEST') && (
-                  <Stack sx={globalStyles.viewCenter}>
-                    <Typography
-                      textAlign="center"
-                      sx={{
-                        width: '170px',
-                        color: Color.black,
-                        fontSize: FontSize.small_14,
-                        fontFamily: FontFamily.bold,
-                      }}
-                    >
-                      Phần trăm hoàn thành các bước phê duyệt
-                    </Typography>
-                    <Stack
-                      sx={{
-                        position: 'relative',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: 2,
-                      }}
-                    >
-                      <CircularProgress
-                        color="secondary"
-                        variant={
-                          isCoursePercentLoading
-                            ? 'indeterminate'
-                            : 'determinate'
-                        }
-                        value={coursePercent}
-                      />
-                      <Box
+    <CourseContextProvider>
+      <Stack>
+        <ReturnLink
+          to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
+        />
+        <Typography sx={globalStyles.textSubTitle}>
+          Chi tiết khóa học
+        </Typography>
+        <Typography sx={globalStyles.textLowSmallLight}>
+          Nội dung chi tiết của khóa học
+        </Typography>
+        <LoadingWrapper isLoading={isLoading} error={error}>
+          <Stack
+            sx={{
+              marginTop: 1,
+              background: Color.white,
+              borderRadius: MetricSize.small_5,
+              paddingY: 4,
+            }}
+          >
+            <Grid container>
+              <Grid item xs={12} md={2}>
+                <Stack marginRight={2}>
+                  <Sidebar status={course.status} />
+                </Stack>
+                <Stack margin={2}>
+                  <CourseAlert status={course.status || 'ALL'} />
+                  {(course?.status === 'REQUESTING' ||
+                    course?.status === 'EDITREQUEST') && (
+                    <Stack sx={globalStyles.viewCenter}>
+                      <Typography
+                        textAlign="center"
                         sx={{
-                          top: 0,
-                          left: 0,
-                          bottom: 0,
-                          right: 0,
-                          position: 'absolute',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          width: '170px',
+                          color: Color.black,
+                          fontSize: FontSize.small_14,
+                          fontFamily: FontFamily.bold,
                         }}
                       >
-                        <Typography
-                          variant="caption"
-                          component="div"
-                          color="text.secondary"
-                        >{`${Math.round(coursePercent || 0)}%`}</Typography>
-                      </Box>
-                    </Stack>
-                    <Button
-                      sx={{
-                        marginTop: 1,
-                        color: Color.white,
-                      }}
-                      variant="contained"
-                      color="secondary"
-                      disabled={Math.round(coursePercent || 0) < 100}
-                      onClick={handleOpen}
-                    >
-                      Gửi yêu cầu phê duyệt
-                    </Button>
-                    <CustomModal open={open} onClose={handleOpen}>
-                      <Stack sx={{ padding: 1, width: '60vw' }}>
-                        <Typography
+                        Phần trăm hoàn thành các bước phê duyệt
+                      </Typography>
+                      <Stack
+                        sx={{
+                          position: 'relative',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          padding: 2,
+                        }}
+                      >
+                        <CircularProgress
+                          color="secondary"
+                          variant={
+                            isCoursePercentLoading
+                              ? 'indeterminate'
+                              : 'determinate'
+                          }
+                          value={coursePercent}
+                        />
+                        <Box
                           sx={{
-                            ...globalStyles.textSubTitle,
-                            textAlign: 'center',
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            position: 'absolute',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
                         >
-                          Chọn lớp học để phê duyệt
-                        </Typography>
-                        <Stack
-                          sx={{
-                            paddingY: 2,
-                          }}
-                        >
-                          <FormInput
-                            control={hookForm.control}
-                            name="classes"
-                            data={data}
-                            variant="multiSelect"
-                          />
-                        </Stack>
-                        <Button
-                          onClick={hookForm.handleSubmit(
-                            handleSubmitCourse,
-                            handleConsoleError
-                          )}
-                          variant="contained"
-                        >
-                          Gửi yêu cầu phê duyệt
-                        </Button>
+                          <Typography
+                            variant="caption"
+                            component="div"
+                            color="text.secondary"
+                          >{`${Math.round(coursePercent || 0)}%`}</Typography>
+                        </Box>
                       </Stack>
-                    </CustomModal>
-                  </Stack>
-                )}
-              </Stack>
+                      <Button
+                        sx={{
+                          marginTop: 1,
+                          color: Color.white,
+                        }}
+                        variant="contained"
+                        color="secondary"
+                        disabled={Math.round(coursePercent || 0) < 100}
+                        onClick={handleOpen}
+                      >
+                        Gửi yêu cầu phê duyệt
+                      </Button>
+                      <CustomModal open={open} onClose={handleOpen}>
+                        <Stack sx={{ padding: 1, width: '60vw' }}>
+                          <Typography
+                            sx={{
+                              ...globalStyles.textSubTitle,
+                              textAlign: 'center',
+                            }}
+                          >
+                            Chọn lớp học để phê duyệt
+                          </Typography>
+                          <Stack
+                            sx={{
+                              paddingY: 2,
+                            }}
+                          >
+                            <FormInput
+                              control={hookForm.control}
+                              name="classes"
+                              data={data}
+                              variant="multiSelect"
+                            />
+                          </Stack>
+                          <Button
+                            onClick={hookForm.handleSubmit(
+                              handleSubmitCourse,
+                              handleConsoleError
+                            )}
+                            variant="contained"
+                          >
+                            Gửi yêu cầu phê duyệt
+                          </Button>
+                        </Stack>
+                      </CustomModal>
+                    </Stack>
+                  )}
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={10} paddingX={4}>
+                <Routes>{showRoutes()}</Routes>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={10} paddingX={4}>
-              <Routes>{showRoutes()}</Routes>
-            </Grid>
-          </Grid>
-        </Stack>
-      </LoadingWrapper>
-    </Stack>
+          </Stack>
+        </LoadingWrapper>
+      </Stack>
+    </CourseContextProvider>
   );
 }

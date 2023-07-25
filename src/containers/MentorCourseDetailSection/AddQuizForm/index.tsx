@@ -1,6 +1,8 @@
 import { Stack, Typography, Button } from '@mui/material';
+import { useContext } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useQueryGetOptionMentorCourseClasses } from '~/hooks';
@@ -47,6 +49,8 @@ interface Props {
 export default function AddQuizForm({ hookForm, onSubmit }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
+  const { course } = useContext(CourseContext);
+
   const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
   const inputList: InputData[] = [
     {
@@ -157,6 +161,11 @@ export default function AddQuizForm({ hookForm, onSubmit }: Props) {
             marginTop: 1,
             color: Color.white,
           }}
+          disabled={
+            !hookForm.formState.isDirty ||
+            (course?.status !== 'EDITREQUEST' &&
+              course?.status !== 'REQUESTING')
+          }
           onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
           variant="contained"
         >

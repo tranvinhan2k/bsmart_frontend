@@ -32,7 +32,7 @@ export type PostActivityCoursePayload = {
 };
 
 export interface PagingFilterRequest {
-  q: string;
+  q?: string;
   page: number;
   size?: number;
   sort?: string[];
@@ -45,8 +45,8 @@ export interface PagingFilterRequest {
   endDate?: string;
   status?: ClassStatusKeys;
 
-  // STUDENT 1 |TEACHER 0
-  asRole?: 1 | 0;
+  // STUDENT 1 |TEACHER 2
+  asRole?: 1 | 2;
 }
 
 export interface PutCourseRequest {
