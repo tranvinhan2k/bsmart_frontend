@@ -4,6 +4,7 @@ import emptyCart from '~/assets/images/empty_cart.png';
 import emptyCourseList from '~/assets/images/emptyListCourseIllustration.png';
 import loadingIcon from '~/assets/gifs/loading.gif';
 import loadingIcon2 from '~/assets/gifs/loading2.gif';
+import loadingButton from '~/assets/gifs/buttonLoading.gif';
 import success from '~/assets/images/Celebration-amico.png';
 import error from '~/assets/images/error.png';
 import mentor from '~/assets/images/mentor.png';
@@ -58,4 +59,5 @@ export const image = {
   classSlot,
   mockTeacherAvatar,
   file,
+  loadingButton,
 };

@@ -22,6 +22,7 @@ import {
 import { Role } from '~/models/role';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { signIn } from '~/redux/user/slice';
+import { image } from '~/constants/image';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -45,6 +46,7 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
     defaultValues: defaultValueSignIn,
     resolver: resolverSignIn,
   });
+  const [isLoading, setLoading] = useState(false);
   const [isRememberPassword, setRememberPassword] = useState<boolean>(
     localStorage.getItem('isRememberPassword') === 'true'
   );
@@ -72,7 +74,7 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
       email: data.email.toLowerCase(),
       password: data.password,
     };
-    const id = toast.loadToast('Đang đăng nhập...');
+    setLoading(true);
     try {
       const signInData = await mutateAsync(params);
       if (signInData) {
@@ -102,14 +104,12 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
         localStorage.setItem('isRememberPassword', 'false');
       }
       signInHookForm.reset();
-      toast.updateSuccessToast(id, 'Đăng nhập thành công!');
+      toast.notifySuccessToast('Đăng nhập thành công!');
       navigate('/homepage');
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Đăng nhập không thành công: ${error.message}`
-      );
+      toast.notifyErrorToast(`Đăng nhập không thành công: ${error.message}`);
     }
+    setLoading(false);
   };
   // const token = useSelector((state: RootState) => state.user.token);
   // ('token', token);
@@ -160,7 +160,24 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
 
             <Link to="/forgot_password">{LoginTexts.FORGOT_PASSWORD}</Link>
           </Stack>
-          <Button marginTop="small_10" customVariant="form" type="submit">
+          <Button
+            startIcon={
+              isLoading ? (
+                <Box
+                  component="img"
+                  src={image.loadingButton}
+                  sx={{
+                    width: '50px',
+                    height: '50px',
+                    objectFit: 'contain',
+                  }}
+                />
+              ) : undefined
+            }
+            marginTop="small_10"
+            customVariant="form"
+            type="submit"
+          >
             {LoginTexts.LOGIN_BUTTON}
           </Button>
           <Button
