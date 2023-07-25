@@ -1,4 +1,5 @@
 import {
+  Box,
   IconButton,
   ListItemIcon,
   ListItemText,
@@ -12,15 +13,38 @@ import {
   DataGridProps,
   gridClasses,
   GridColDef,
-  GridColumns,
+  GridRowIdGetter,
+  GridValidRowModel,
   viVN,
 } from '@mui/x-data-grid';
 import { MouseEvent, useState } from 'react';
-import Icon, { IconName } from '../Icon';
+import { useForm } from 'react-hook-form';
+import { Color, FontFamily } from '~/assets/variables';
+import Icon, { IconName } from '~/components/atoms/Icon';
+import { OptionPayload } from '~/models';
+import { FormInputVariant } from '~/models/form';
+import globalStyles from '~/styles';
+import ManageTableSearching from './ManageTableSearching';
 
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
+  '.MuiDataGrid-columnHeadersInner': {
+    background: Color.white4,
+  },
+  '.MuiDataGrid-columnHeaderTitle': {
+    color: Color.navy,
+    textTransform: 'uppercase',
+    fontSize: '12px',
+    fontFamily: FontFamily.bold,
+  },
+  '.MuiDataGrid-overlay': {
+    ...globalStyles.textLowSmallLight,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   [`& .${gridClasses.row}.even`]: {
+    transition: 'all 500ms ease',
     backgroundColor: theme.palette.grey[200],
     '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
@@ -57,22 +81,64 @@ export type MenuItemPayload = {
   title: string;
   onCLick: () => void;
 };
-interface StyledDataGridProps extends DataGridProps {
-  columns: GridColumns<object>;
-  rows: object[];
+
+export type SearchFilterFormInput = {
+  variant: FormInputVariant;
+  name: string;
+  placeholder: string;
+  data: OptionPayload[];
+};
+interface CRUDTableProps extends DataGridProps {
+  columns: GridColDef[];
+  isLoading?: boolean;
+  error?: any;
+  rows: any;
+  menuItemList?: MenuItemPayload[];
+  searchFilterFormInputList?: SearchFilterFormInput[];
+  setSelectedRow?: (selectedRow: any) => void;
+  onSearch?: (data: any) => void;
+  getRowId?: GridRowIdGetter<GridValidRowModel>;
   popoverOptions?: MenuItemPayload[];
+  searchHandler: {
+    searchPlaceholder: string;
+    searchButtonLabel: string;
+  };
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  handleNewPage: (data: number) => void;
+  handleNewSize: (data: number) => void;
 }
 
-export default function DataGrid({
+export default function CRUDTable({
+  isLoading = false,
+  error = null,
   columns,
-  rows,
+  rows = [],
+  menuItemList,
+  searchFilterFormInputList,
+  setSelectedRow,
+  onSearch,
+  getRowId,
   popoverOptions,
-  ...rest
-}: StyledDataGridProps) {
+  searchHandler,
+  page,
+  pageSize,
+  totalItems,
+  handleNewPage,
+  handleNewSize,
+  ...props
+}: CRUDTableProps) {
+  const searchValueForm = useForm();
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleOpen = (e: MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(() => null);
+
+  const handleSelectedRow = (data: any) => {
+    if (setSelectedRow) setSelectedRow(data.row);
+  };
 
   const extraActionColumn: GridColDef[] = [
     {
@@ -92,16 +158,36 @@ export default function DataGrid({
   ];
 
   return (
-    <>
+    <Box
+      sx={{
+        background: Color.white,
+      }}
+    >
+      {onSearch && (
+        <ManageTableSearching
+          searchPlaceholder={searchHandler.searchPlaceholder}
+          searchControl={searchValueForm}
+          onSearch={onSearch}
+          filterFormInputList={searchFilterFormInputList}
+        />
+      )}
       <StripedDataGrid
+        {...props}
         autoHeight
         columns={popoverOptions ? extraActionColumn.concat(columns) : columns}
-        localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
+        loading={isLoading}
+        // error={error}
+        onPageChange={handleNewPage}
+        onPageSizeChange={handleNewSize}
+        page={page}
+        pageSize={pageSize}
+        pagination
+        paginationMode="server"
+        rowCount={totalItems}
+        // rowHeight={rowHeightDefault}
         rows={rows}
-        getRowClassName={(params) =>
-          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-        }
-        {...rest}
+        localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
+        onRowClick={handleSelectedRow}
       />
       <Popover
         keepMounted
@@ -135,10 +221,17 @@ export default function DataGrid({
             ))}
         </MenuList>
       </Popover>
-    </>
+    </Box>
   );
 }
 
-DataGrid.defaultProps = {
-  popoverOptions: undefined,
+CRUDTable.defaultProps = {
+  menuItemList: [],
+  searchFilterFormInputList: [],
+  getRowId: undefined,
+  isLoading: false,
+  error: null,
+  onSearch: () => {},
+  setSelectedRow: undefined,
+  popoverOptions: [],
 };

@@ -173,7 +173,7 @@ const courseCreateRequestColumns: GridColDef[] = [
   {
     field: 'code',
     headerName: 'Mã',
-    minWidth: 150,
+    minWidth: 130,
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
@@ -191,10 +191,20 @@ const courseCreateRequestColumns: GridColDef[] = [
     },
   },
   {
+    field: 'mentor',
+    headerName: 'Giáo viên',
+    minWidth: 100,
+    flex: 2,
+    renderCell: (params) => {
+      const { name } = params.row.mentor;
+      return <CopyableCell rawValue={name} formattedValue={name} />;
+    },
+  },
+  {
     field: 'categoryResponse',
     headerName: 'phân loại',
     minWidth: 100,
-    flex: 1,
+    flex: 1.5,
     valueGetter: (params) => params.value.name,
     renderCell: (params) => {
       return (

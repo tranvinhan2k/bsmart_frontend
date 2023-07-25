@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
+import ManageTable, {
+  MenuItemPayload,
+} from '~/components/molecules/ManageTable';
 import columns from '~/constants/columns';
 import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
@@ -18,6 +20,13 @@ interface ManageTableCourseCreateRequestProps {
 export default function ManageTableCourseCreateRequest({
   status,
 }: ManageTableCourseCreateRequestProps) {
+  const enum Text {
+    searchPlaceholder = 'Tìm kiếm khóa học...',
+    searchButtonLabel = 'Tìm kiếm',
+    popoverOptionViewDetails = 'Xem chi tiết',
+    popoverOptionNotSupport = 'Chưa hỗ trợ',
+  }
+
   const [searchValue, setSearchValue] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
@@ -43,7 +52,8 @@ export default function ManageTableCourseCreateRequest({
   // console.log('courseCreateRequestList', courseCreateRequestList.items);
 
   const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
-
+  const handleNewPage = (params: number) => setPage(params);
+  const handleNewSize = (params: number) => setSize(params);
   const handleTriggerDialog = () => setOpen(!open);
 
   const handleSearchCourseCreateRequest = (data: any) => {
@@ -54,27 +64,27 @@ export default function ManageTableCourseCreateRequest({
     setMode(() => 'READ');
   };
 
-  const menuItemListDefault: MenuItemPayload[] = [
+  const popoverOptionsDefault: MenuItemPayload[] = [
     {
       icon: 'question',
-      title: 'Chưa hỗ trợ',
-      onCLick: () => console.log('Chưa hỗ trợ'),
+      title: Text.popoverOptionNotSupport,
+      onCLick: () => console.log(Text.popoverOptionNotSupport),
     },
   ];
-  const menuItemListRead: MenuItemPayload[] = [
+  const optionsViewDetails: MenuItemPayload[] = [
     {
       icon: 'category',
-      title: 'Xem chi tiết',
+      title: Text.popoverOptionViewDetails,
       onCLick: handleOpenDetailCourseCreateRequest,
     },
   ];
-  let menuItemList = null;
+  let popoverOptions = null;
   switch (status) {
     case 'WAITING':
-      menuItemList = menuItemListRead;
+      popoverOptions = optionsViewDetails;
       break;
     default:
-      menuItemList = menuItemListDefault;
+      popoverOptions = popoverOptionsDefault;
       break;
   }
 
@@ -101,17 +111,27 @@ export default function ManageTableCourseCreateRequest({
 
   return (
     <>
-      <CRUDTable
-        setSelectedRow={setSelectedRow}
-        isLoading={isLoading}
-        error={error}
-        addItemButtonLabel="Thêm môn học"
+      <ManageTable
         columns={columns.courseCreateRequestColumns}
-        // onAdd={}
-        searchPlaceholder="Tìm kiếm khóa học..."
-        onSearch={handleSearchCourseCreateRequest}
         rows={rows}
-        menuItemList={menuItemList}
+        page={page}
+        pageSize={size}
+        totalItems={courseCreateRequestList?.totalItems ?? 0}
+        onPageChange={handleNewPage}
+        onPageSizeChange={handleNewSize}
+        handleNewPage={handleNewPage}
+        handleNewSize={handleNewSize}
+        //
+        error={error}
+        isLoading={isLoading}
+        // menuItemList={menuItemList}
+        onSearch={handleSearchCourseCreateRequest}
+        popoverOptions={popoverOptions}
+        setSelectedRow={setSelectedRow}
+        searchHandler={{
+          searchPlaceholder: Text.searchPlaceholder,
+          searchButtonLabel: Text.searchPlaceholder,
+        }}
       />
       {renderItem}
     </>
