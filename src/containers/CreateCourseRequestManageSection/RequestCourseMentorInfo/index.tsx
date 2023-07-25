@@ -24,32 +24,50 @@ import { formatPhoneNumberVi } from '~/utils/phone';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { FontFamily } from '~/assets/variables';
 
-interface BasicInfoProps {
-  row: any;
+interface RequestCourseMentorInfoProps {
+  idCourse: number;
 }
-export default function BasicInfo({ row }: BasicInfoProps) {
+export default function RequestCourseMentorInfo({
+  idCourse,
+}: RequestCourseMentorInfoProps) {
   const userAvatar = image.noAvatar;
 
-  const idCourse = row.id;
-  const { courseCreateRequestDetails, isLoading } =
+  const { courseCreateRequestDetails } =
     useGetCourseCreateRequestDetails(idCourse);
 
-  const tmpTitle = [
-    {
-      id: -1,
-      label: 'Họ tên',
-      value: 'Lưu Nhật',
-      valueDisplay: 'Lưu Nhật',
-      isCopyable: true,
-    },
-    {
-      id: 0,
-      label: 'Mail',
-      value: 'nhatgv@gmail.com',
-      valueDisplay: 'nhatgv@gmail.com',
-      isCopyable: true,
-    },
-  ];
+  const tmpTitle = courseCreateRequestDetails
+    ? [
+        {
+          id: 0,
+          label: 'Họ tên',
+          value: 'Lưu Nhật',
+          valueDisplay: 'Lưu Nhật',
+          isCopyable: true,
+        },
+        {
+          id: 1,
+          label: 'Mail',
+          value: 'nhatgv@gmail.com',
+          valueDisplay: 'nhatgv@gmail.com',
+          isCopyable: true,
+        },
+      ]
+    : [
+        {
+          id: 0,
+          label: 'Họ tên',
+          value: '',
+          valueDisplay: '',
+          isCopyable: true,
+        },
+        {
+          id: 1,
+          label: 'Mail',
+          value: '',
+          valueDisplay: '',
+          isCopyable: true,
+        },
+      ];
 
   return (
     <Stack sx={SX_WRAPPER}>

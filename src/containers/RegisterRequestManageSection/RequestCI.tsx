@@ -46,9 +46,9 @@ export default function RequestCI({ row }: RequestCIProps) {
         </Grid>
         <Grid item xs={12}>
           <Stack
-            direction={{ lg: 'column', xl: 'row' }}
-            justifyContent={{ lg: 'flex-start', xl: 'center' }}
-            alignItems={{ lg: 'center', xl: 'flex-start' }}
+            direction={{ md: 'column', lg: 'row' }}
+            justifyContent={{ md: 'flex-start', lg: 'center' }}
+            alignItems={{ md: 'center', lg: 'flex-start' }}
             spacing={2}
           >
             {CI.map((item) => (

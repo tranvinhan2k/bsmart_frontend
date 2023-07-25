@@ -1,6 +1,6 @@
 import {
   Avatar,
-  Box,
+  Button,
   Chip,
   Divider,
   Grid,
@@ -8,11 +8,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Fragment } from 'react';
-import { FontFamily } from '~/assets/variables';
+import { Fragment, useState } from 'react';
+import Icon from '~/components/atoms/Icon';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleDefinedTextReturnComp } from '~/utils/commonComp';
-import { formatMoney } from '~/utils/money';
+import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
@@ -27,9 +27,11 @@ interface RequestCourseDetailsProps {
 export default function RequestCourseDetails({
   idCourse,
 }: RequestCourseDetailsProps) {
-  // const userAvatar = row.imageUrl;
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const handleIsDescriptionExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-  // const idCourse = row.id;
   const { courseCreateRequestDetails, isLoading } =
     useGetCourseCreateRequestDetails(idCourse);
 
@@ -64,13 +66,6 @@ export default function RequestCourseDetails({
           label: 'Trình độ',
           value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
         },
-        {
-          id: 5,
-          label: 'Mô tả',
-          value: handleDefinedTextReturnComp(
-            courseCreateRequestDetails.description
-          ),
-        },
       ]
     : [
         {
@@ -98,12 +93,11 @@ export default function RequestCourseDetails({
           label: 'Subject',
           value: '',
         },
-        {
-          id: 5,
-          label: 'Mô tả',
-          value: '',
-        },
       ];
+
+  const courseDesc = courseCreateRequestDetails
+    ? courseCreateRequestDetails.description
+    : '';
 
   const title1 = courseCreateRequestDetails
     ? [
@@ -184,39 +178,7 @@ export default function RequestCourseDetails({
               </Typography>
             </Stack>
           </Grid>
-          {/* <Grid item xs={12}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-            >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  <>
-                    {title0[2].value} - {title0[3].value}
-                  </>
-                )}
-              </Typography>
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-            >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Trình độ</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? <Skeleton /> : title0[4].value}
-              </Typography>
-            </Stack>
-          </Grid> */}
         </Grid>
-
-        {/*  */}
         <Grid item xs={12}>
           <Divider />
         </Grid>
@@ -247,24 +209,6 @@ export default function RequestCourseDetails({
               </Stack>
             )}
           </Grid>
-          {/* <Grid item xs={12}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-            >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  <>
-                    {title0[2].value} - {title0[3].value}
-                  </>
-                )}
-              </Typography>
-            </Stack>
-          </Grid> */}
           {title1.map((item) => (
             <Fragment key={item.id}>
               <Grid item xs={6}>
@@ -278,20 +222,6 @@ export default function RequestCourseDetails({
             </Fragment>
           ))}
         </Grid>
-        {/* <Grid item container xs={12} lg={6} spacing={1}>
-          {title2.map((item) => (
-            <Fragment key={item.id}>
-              <Grid item xs={6}>
-                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography sx={SX_FORM_ITEM_VALUE} align="right">
-                  {isLoading ? <Skeleton /> : item.value}
-                </Typography>
-              </Grid>
-            </Fragment>
-          ))}
-        </Grid> */}
         <Grid item xs={12}>
           <Divider />
         </Grid>
@@ -299,16 +229,62 @@ export default function RequestCourseDetails({
           <Stack
             direction="column"
             justifyContent="flex-start"
-            alignItems="stretch"
+            alignItems="start"
           >
             <Typography sx={SX_FORM_ITEM_LABEL}>Mô tả:</Typography>
             {isLoading ? (
               <Skeleton />
             ) : (
-              <Box
-                sx={{ fontFamily: FontFamily.regular }}
-                dangerouslySetInnerHTML={{ __html: `${title0[5].value}` }}
-              />
+              <>
+                {courseDesc.length > 200 ? (
+                  <Typography
+                    sx={
+                      isExpanded
+                        ? globalStyles.displayEditorTextShowMore
+                        : globalStyles.displayEditorTextShowLess
+                    }
+                    dangerouslySetInnerHTML={{
+                      __html: `${
+                        isExpanded
+                          ? courseDesc
+                          : `${courseDesc.slice(0, 200)}...`
+                      }`,
+                    }}
+                  />
+                ) : (
+                  <Typography
+                    sx={globalStyles.displayEditorTextShowLess}
+                    dangerouslySetInnerHTML={{
+                      __html: `${courseDesc}`,
+                    }}
+                  />
+                )}
+
+                <Button
+                  color="miSmartOrange"
+                  size="small"
+                  disableRipple
+                  endIcon={
+                    isExpanded ? (
+                      <Icon
+                        name="expandLessIcon"
+                        size="small"
+                        color="tertiary"
+                      />
+                    ) : (
+                      <Icon
+                        name="expandMoreIcon"
+                        size="small"
+                        color="tertiary"
+                      />
+                    )
+                  }
+                  sx={globalStyles.displayEditorExpandButton}
+                  onClick={handleIsDescriptionExpanded}
+                >
+                  {isExpanded ? 'Thu gọn' : 'Mở rộng'}
+                </Button>
+              </>
             )}
           </Stack>
         </Grid>

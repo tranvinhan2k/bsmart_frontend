@@ -11,7 +11,11 @@ import RequestMentorDegree from './RequestMentorDegree';
 import RequestMentorInfo from './RequestMentorInfo';
 import RequestCI from './RequestCI';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { SX_BOX_ITEM_WRAPPER, SX_REQUEST_TITLE } from './style';
+import {
+  SX_BOX_ITEM_WRAPPER_NO_PADDING,
+  SX_REQUEST_TITLE,
+  SX_BOX_STICKY,
+} from './style';
 
 interface ReadOneRegisterRequestProps {
   onSubmit: (data: ProcessRegisterRequestFormDefault) => Promise<void>;
@@ -170,9 +174,27 @@ export default function ReadOneRegisterRequest({
             justifyContent="flex-start"
             alignItems="stretch"
             spacing={2}
+            sx={SX_BOX_STICKY}
           >
             <RequestBasicInfo row={row} />
-            <RequestDate row={row} />
+            <Box pt={2} sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
+              <Tabs
+                variant="scrollable"
+                scrollButtons="auto"
+                value={tabValue}
+                onChange={handleSetTabValue}
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
+              >
+                {tabEl.map((tab) => (
+                  <Tab label={tab.text} key={tab.id} />
+                ))}
+              </Tabs>
+              {tabEl.map((tab) => (
+                <TabPanel value={tabValue} index={tab.id} key={tab.id}>
+                  <Box p={2}>{tab.component}</Box>
+                </TabPanel>
+              ))}
+            </Box>
           </Stack>
         </Grid>
         <Grid item sm={12} md={7} lg={8}>
@@ -182,41 +204,10 @@ export default function ReadOneRegisterRequest({
             alignItems="stretch"
             spacing={2}
           >
+            <RequestDate row={row} />
             <RequestCI row={row} />
-            <RequestMentorInfo row={row} />
             <RequestMentorDegree row={row} />
-
-            <Box sx={SX_BOX_ITEM_WRAPPER}>
-              <Stack
-                direction={{ sm: 'column', md: 'row' }}
-                justifyContent="space-between"
-                alignItems="center"
-                spacing={{ sm: 2, md: 0 }}
-                sx={{ borderBottom: 1, borderColor: 'divider' }}
-                pb={{ sm: 2, md: 0 }}
-              >
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Tabs
-                    variant="scrollable"
-                    value={tabValue}
-                    onChange={handleSetTabValue}
-                  >
-                    {tabEl.map((tab) => (
-                      <Tab label={tab.text} key={tab.id} />
-                    ))}
-                  </Tabs>
-                </Stack>
-              </Stack>
-              {tabEl.map((tab) => (
-                <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-                  <Box py={2}>{tab.component}</Box>
-                </TabPanel>
-              ))}
-            </Box>
+            <RequestMentorInfo row={row} />
           </Stack>
         </Grid>
       </Grid>

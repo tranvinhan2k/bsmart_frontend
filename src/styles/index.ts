@@ -122,8 +122,22 @@ export const viewFlexRowCenter: SxProps<Theme> = {
   flexDirection: { xs: 'column', md: 'row' },
   alignItems: 'center',
 };
-
+const displayEditorTextShowMore: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+};
+const displayEditorTextShowLess: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+  maskImage: 'linear-gradient(#ffffff,#ffffff,rgba(255,255,255,0))',
+};
+const displayEditorExpandButton: SxProps<Theme> = {
+  backgroundColor: 'transparent',
+  textTransform: 'none',
+  '&:hover': { backgroundColor: 'transparent' },
+};
 const globalStyles = {
+  displayEditorTextShowMore,
+  displayEditorTextShowLess,
+  displayEditorExpandButton,
   textTitle,
   textSubTitle,
   textSmallLabel,

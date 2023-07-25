@@ -1,11 +1,12 @@
-import { Box, Divider, Grid, Typography, Stack } from '@mui/material';
-import { FontFamily } from '~/assets/variables';
+import { Box, Button, Divider, Grid, Typography, Stack } from '@mui/material';
+import { useState } from 'react';
+import Icon from '~/components/atoms/Icon';
+import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_LABEL,
   SX_FORM_VALUE,
-  SX_FORM_ITEM_VALUE,
 } from './style';
 
 interface BasicInfoProps {
@@ -13,36 +14,113 @@ interface BasicInfoProps {
 }
 
 export default function MentorDegree({ row }: BasicInfoProps) {
-  const title = [
-    { id: 0, label: 'Giới thiệu', value: row.mentorProfile.introduce },
-    { id: 1, label: 'Kinh nghiệm', value: row.mentorProfile.workingExperience },
-  ];
+  const [isIntroduceExpanded, setIsIntroduceExpanded] =
+    useState<boolean>(false);
+  const [isWorkingExperienceExpanded, setIsWorkingExperienceExpanded] =
+    useState<boolean>(false);
+  const handleExpandIntroduce = () => {
+    setIsIntroduceExpanded(!isIntroduceExpanded);
+  };
+  const handleExpandWorkingExperience = () => {
+    setIsWorkingExperienceExpanded(!isWorkingExperienceExpanded);
+  };
 
+  const { introduce, workingExperience } = row.mentorProfile;
   const skills = row.mentorProfile.mentorSkills;
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid container spacing={2} mb={4}>
-        {title.map((item) => (
-          <Grid item xs={12} key={item.id}>
-            <Typography sx={SX_FORM_LABEL}>{item.label}</Typography>
-            <Box my={2}>
-              {/* <pre
-                style={{
-                  fontFamily: 'inherit',
-                  whiteSpace: 'break-spaces',
+        <Grid item xs={12}>
+          <Typography sx={SX_FORM_LABEL}>Giới thiệu</Typography>
+          <Box my={2}>
+            {introduce.length > 0 ? (
+              <Typography
+                sx={
+                  isIntroduceExpanded
+                    ? globalStyles.displayEditorTextShowMore
+                    : globalStyles.displayEditorTextShowLess
+                }
+                dangerouslySetInnerHTML={{
+                  __html: `${
+                    isIntroduceExpanded
+                      ? introduce
+                      : `${introduce.slice(0, 200)}...`
+                  }`,
                 }}
-              >
-                <Typography sx={SX_FORM_VALUE}>{item.value}</Typography>
-              </pre> */}
-              <Box
-                sx={{ fontFamily: FontFamily.regular }}
-                dangerouslySetInnerHTML={{ __html: item.value }}
               />
-            </Box>
-            <Divider />
-          </Grid>
-        ))}
+            ) : (
+              <Typography
+                sx={globalStyles.displayEditorTextShowLess}
+                dangerouslySetInnerHTML={{
+                  __html: `${introduce}`,
+                }}
+              />
+            )}
+            <Button
+              color="miSmartOrange"
+              size="small"
+              disableRipple
+              endIcon={
+                isIntroduceExpanded ? (
+                  <Icon name="expandLessIcon" size="small" color="tertiary" />
+                ) : (
+                  <Icon name="expandMoreIcon" size="small" color="tertiary" />
+                )
+              }
+              sx={globalStyles.displayEditorExpandButton}
+              onClick={handleExpandIntroduce}
+            >
+              {isIntroduceExpanded ? 'Thu gọn' : 'Mở rộng'}
+            </Button>
+          </Box>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography sx={SX_FORM_LABEL}>Kinh nghiệm</Typography>
+          <Box my={2}>
+            {workingExperience.length > 0 ? (
+              <Typography
+                sx={
+                  isWorkingExperienceExpanded
+                    ? globalStyles.displayEditorTextShowMore
+                    : globalStyles.displayEditorTextShowLess
+                }
+                dangerouslySetInnerHTML={{
+                  __html: `${
+                    isWorkingExperienceExpanded
+                      ? workingExperience
+                      : `${workingExperience.slice(0, 200)}...`
+                  }`,
+                }}
+              />
+            ) : (
+              <Typography
+                sx={globalStyles.displayEditorTextShowLess}
+                dangerouslySetInnerHTML={{
+                  __html: `${workingExperience}`,
+                }}
+              />
+            )}
+            <Button
+              color="miSmartOrange"
+              size="small"
+              disableRipple
+              endIcon={
+                isWorkingExperienceExpanded ? (
+                  <Icon name="expandLessIcon" size="small" color="tertiary" />
+                ) : (
+                  <Icon name="expandMoreIcon" size="small" color="tertiary" />
+                )
+              }
+              sx={globalStyles.displayEditorExpandButton}
+              onClick={handleExpandWorkingExperience}
+            >
+              {isWorkingExperienceExpanded ? 'Thu gọn' : 'Mở rộng'}
+            </Button>
+          </Box>
+          <Divider />
+        </Grid>
 
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>Chuyên môn</Typography>

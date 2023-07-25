@@ -21,7 +21,6 @@ export default function RequestDate({ mentorRequest }: RequestDateProps) {
     },
   ];
 
-  console.log('mentorRequest', mentorRequest);
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid mb={4} container>

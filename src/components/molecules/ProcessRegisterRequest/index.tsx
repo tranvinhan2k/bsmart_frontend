@@ -86,7 +86,7 @@ export default function ProcessRegisterRequest({
   switch (mode) {
     case 'READ':
       renderItem = (
-        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth="lg">
+        <CustomDialog open={open} onClose={handleTriggerModal} maxWidth={false}>
           <ReadOneRegisterRequest
             row={selectedRow}
             onSubmit={handleApproveRegisterRequest}
