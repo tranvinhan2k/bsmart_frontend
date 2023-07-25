@@ -1,5 +1,7 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
+import { appendFile } from 'fs';
 import { OptionPayload } from '~/models';
+import { formatISODateDateToDisplayDateTime } from './date';
 
 export function scrollToTop() {
   window.scrollTo({
@@ -84,9 +86,9 @@ export function formatOptionPayload(params: {
   categoryIds?: number[];
 }): OptionPayload {
   return {
-    id: params.id,
-    label: params.name,
-    value: params.code,
+    id: params?.id,
+    label: params?.name,
+    value: params?.code,
     categoryIds: params.categoryIds,
   };
 }
@@ -105,4 +107,28 @@ export const restrictNumberDisplay = (
   if (input === undefined) return 0;
   if (input > 999) return '999+';
   return input;
+};
+
+// const appendLogFile = (text: string) => {
+//   const filePath = './log.txt';
+
+//   appendFile(filePath, text, (err) => {
+//     if (err) {
+//       console.error('Error writing to the file:', err);
+//     } else {
+//       console.log('Text added to the file successfully.');
+//     }
+//   });
+// };
+
+export const formatError = (e: string) => {
+  // appendLogFile(
+  //   `[${formatISODateDateToDisplayDateTime(new Date().toISOString())}] ${e}`
+  // );
+  const defaultMessage = 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+  if (e.includes('n/a')) {
+    return defaultMessage;
+  }
+
+  return e;
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import { FontSize, FontFamily } from '~/assets/variables';
 import { image } from '~/constants/image';
 import globalStyles from '~/styles';
+import { formatError } from '~/utils/common';
 
 interface Props {
   isEmptyCourse?: boolean;
@@ -78,7 +79,7 @@ export default function LoadingWrapper({
             alt="no course"
           />
           <Typography sx={globalStyles.textSmallLight}>
-            {error.message}
+            {formatError(error.message)}
           </Typography>
         </Stack>
       </Stack>

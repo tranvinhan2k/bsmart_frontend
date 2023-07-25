@@ -47,6 +47,7 @@ const classApi = {
         maxStudent: item.maxStudent,
         minStudent: item.minStudent,
         numberOfSlot: item.numberOfSlot,
+        purchase: item.purchase || false,
         price: item.price,
         status: item.status,
         timeInWeekRequests: item.timeInWeeks.map((subItem: any) => ({
@@ -127,6 +128,7 @@ const classApi = {
         numberOfSlot: item.numberOfStudent,
         level: item.level,
         status: item.status,
+        purchase: item?.purchase || false,
         imageAlt: item.image.name,
         imageUrl: item.image.url,
         maxStudent: item.maxStudent,

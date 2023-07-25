@@ -10,6 +10,7 @@ import Classes from '../list/Classes';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { ActivityPayload } from '~/models/type';
 import Button from '~/components/atoms/Button';
+import { image } from '~/constants/image';
 
 interface Props {
   images: string[];
@@ -40,6 +41,7 @@ export default function CourseDetail({
   mentorRef,
   sections,
 }: Props) {
+  const [error, setError] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
   return (
     <Stack ref={introduceRef}>
@@ -63,7 +65,8 @@ export default function CourseDetail({
           }}
           component="img"
           alt="avatar"
-          src={mentorImageUrl}
+          onError={() => setError(true)}
+          src={!error ? mentorImageUrl : image.noAvatar}
         />
         <Stack marginTop={2}>
           <Typography sx={globalStyles.textLowSmallLight}>
@@ -208,7 +211,8 @@ export default function CourseDetail({
                 }}
                 component="img"
                 alt="giao vien"
-                src={mentorImageUrl}
+                onError={() => setError(true)}
+                src={!error ? mentorImageUrl : image.noAvatar}
               />
               <Typography sx={globalStyles.textSmallLight}>
                 {mentorName}

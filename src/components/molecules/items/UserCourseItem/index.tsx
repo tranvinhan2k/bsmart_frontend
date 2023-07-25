@@ -17,7 +17,7 @@ interface UserCourseItemProps {
   courseStatus?: CourseStatusKeys;
   totalClass?: number;
   level: LevelKeys;
-  courseDescription: string | undefined;
+  courseDescription?: string | undefined;
   onClick?: () => void;
 }
 export default function UserCourseItem({

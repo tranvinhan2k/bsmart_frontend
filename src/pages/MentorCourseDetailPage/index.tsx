@@ -66,6 +66,7 @@ export interface DetailCourseClassPayload {
   status: CourseStatusKeys;
   endDate: string;
   numberOfSlot: number;
+  purchase: boolean;
   timeInWeekRequests: {
     dayOfWeekId: number;
     slotId: number;
