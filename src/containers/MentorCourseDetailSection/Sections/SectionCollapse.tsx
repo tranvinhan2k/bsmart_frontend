@@ -1,5 +1,5 @@
 import { Stack, Collapse } from '@mui/material';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { Color } from '~/assets/variables';
 import AddModule from '../AddModule';
 import Module from '../Module';
@@ -11,19 +11,10 @@ interface Props {
   status: CourseStatusKeys;
   index: number;
   section: ActivityPayload;
-  ref:
-    | ((instance: HTMLDivElement | null) => void)
-    | React.RefObject<HTMLDivElement>
-    | null
-    | undefined;
 }
 
-export default function SectionCollapse({
-  index,
-  section,
-  status,
-  ref,
-}: Props) {
+// eslint-disable-next-line react/display-name
+const SectionCollapse = forwardRef(({ index, section, status }: Props, ref) => {
   const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
@@ -31,7 +22,7 @@ export default function SectionCollapse({
   };
   return (
     <Stack
-      ref={ref}
+      ref={ref as any}
       sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}
     >
       <Section
@@ -61,4 +52,6 @@ export default function SectionCollapse({
       </Collapse>
     </Stack>
   );
-}
+});
+
+export default SectionCollapse;

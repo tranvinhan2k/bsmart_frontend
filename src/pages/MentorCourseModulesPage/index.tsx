@@ -34,7 +34,6 @@ import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorCourseModulesPage() {
-  const { onScrollToComponent } = useContext(CourseContext);
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -137,9 +136,6 @@ export default function MentorCourseModulesPage() {
           description: data?.description,
         },
       });
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
   };
 

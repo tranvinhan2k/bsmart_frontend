@@ -1,9 +1,6 @@
 import { Stack } from '@mui/material';
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CourseContext } from '~/HOCs/context/CourseContext';
-import CustomBreadcrumbs from '~/components/atoms/CustomBreadcrumbs';
 import ReturnLink from '~/components/atoms/ReturnLink';
 import {
   NavigationLink,
@@ -32,8 +29,6 @@ import { ActivityKeys, QuizQuestionTypeKeys } from '~/models/variables';
 import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorCourseAddModulePage() {
-  const { onScrollToComponent } = useContext(CourseContext);
-
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -137,9 +132,6 @@ export default function MentorCourseAddModulePage() {
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
   };
 
@@ -164,9 +156,6 @@ export default function MentorCourseAddModulePage() {
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
     hookFormResource.reset();
   };
@@ -192,9 +181,6 @@ export default function MentorCourseAddModulePage() {
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
     hookFormResource.reset();
   };
@@ -250,9 +236,6 @@ export default function MentorCourseAddModulePage() {
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
     hookFormResource.reset();
   };

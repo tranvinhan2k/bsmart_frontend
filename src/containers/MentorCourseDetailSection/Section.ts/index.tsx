@@ -1,5 +1,7 @@
 import { Stack, Typography, Tooltip, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import { FontFamily, FontSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { ActivityPayload } from '~/models/type';
@@ -19,7 +21,10 @@ export default function Section({
 }: Props) {
   const navigate = useNavigate();
 
+  const { onChangeSection } = useContext(CourseContext);
+
   const handleViewOpen = () => {
+    onChangeSection(section.id);
     navigate(`${section.id}`);
   };
 

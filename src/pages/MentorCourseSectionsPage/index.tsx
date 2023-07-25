@@ -29,8 +29,6 @@ interface Props {
 }
 
 export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
-  const { onScrollToComponent } = useContext(CourseContext);
-
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -66,10 +64,6 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
         },
       });
       navigate(-1);
-
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
   };
 
@@ -81,10 +75,6 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
       );
       await refetchGetPercent();
       handleClearOpen();
-
-      if (onScrollToComponent) {
-        onScrollToComponent(sectionId);
-      }
     });
   };
 
