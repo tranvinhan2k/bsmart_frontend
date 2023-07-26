@@ -237,3 +237,23 @@ export interface WeekTimeSlotPayload {
   isPresent: boolean;
   date: string;
 }
+
+export interface QuizReportStudentPayload {
+  id: number;
+  name: string;
+  point: number;
+  correctNumber: number;
+  totalNumber;
+  submitAt: string;
+}
+export interface FeedbackReportStudentPayload {
+  id: number;
+  name: string;
+  point: number;
+  report: string;
+}
+export interface NotificationPayload {
+  id: number;
+  type: string;
+  message: string;
+}

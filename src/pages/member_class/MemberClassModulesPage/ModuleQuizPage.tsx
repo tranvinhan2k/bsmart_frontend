@@ -9,6 +9,10 @@ import FormInput from '~/components/atoms/FormInput';
 import MarkDisplay from '~/components/atoms/MarkDisplay';
 import TextList from '~/components/atoms/texts/TextList';
 import { image } from '~/constants/image';
+import {
+  MemberDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 import { ActivityQuizPayload } from '~/models/type';
 import globalStyles from '~/styles';
 import {
@@ -47,7 +51,9 @@ export default function ModuleQuizPage({ name, item }: Props) {
   const passPoint = 100;
 
   const onSubmit = (data: any) => {
-    navigate(`/dashboard/quiz/${id}`);
+    navigate(
+      `/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.quiz}/${id}`
+    );
   };
 
   const onClose = () => {

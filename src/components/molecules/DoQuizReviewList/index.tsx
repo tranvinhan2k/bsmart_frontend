@@ -11,7 +11,7 @@ import QuizHeader from './QuizHeader';
 
 export interface QuizPayload {
   name: string;
-  time: string;
+  time: number;
   questions: DoQuizQuestionPayload[];
 }
 
