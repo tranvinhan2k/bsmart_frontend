@@ -80,6 +80,9 @@ export const ManagerProcessRegisterRequestDetailsPage = lazy(
 export const ManagerProcessCourseCreateRequestPage = lazy(
   () => import('~/pages/ManagerProcessCourseCreateRequestPage')
 );
+export const ManagerManageCoursePage = lazy(
+  () => import('~/pages/ManagerManageCoursePage')
+);
 export const ManagerProcessCourseCreateRequestDetailsPage = lazy(
   () => import('~/pages/ManagerProcessCourseCreateRequestDetailsPage')
 );

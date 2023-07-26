@@ -4,6 +4,7 @@ import { RoutePayload } from '~/models/routes';
 import {
   ManagerProcessCourseCreateRequestDetailsPage,
   ManagerProcessCourseCreateRequestPage,
+  ManagerManageCoursePage,
   ManagerProcessRegisterRequestDetailsPage,
   ManagerProcessRegisterRequestPage,
   NotFoundPage,
@@ -32,7 +33,7 @@ export const managerRoutes: RoutePayload[] = [
   },
   {
     path: ManagerNavigationActionLink.course_search,
-    main: () => <h1>Manager xem tất khóa học</h1>,
+    main: () => <ManagerManageCoursePage />,
     role: ['ROLE_MANAGER'],
   },
   {

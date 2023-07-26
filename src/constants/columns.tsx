@@ -464,6 +464,79 @@ const courseClassListColumns: GridColDef[] = [
   },
 ];
 
+const manageCourseColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã',
+    minWidth: 130,
+    flex: 1,
+    renderCell: (params) => {
+      const { code } = params.row;
+      return <CopyableCell rawValue={code} formattedValue={code} />;
+    },
+  },
+  {
+    field: 'name',
+    headerName: 'Tên khóa học',
+    minWidth: 300,
+    flex: 3,
+    renderCell: (params) => {
+      const { name } = params.row;
+      return <CopyableCell rawValue={name} formattedValue={name} />;
+    },
+  },
+  {
+    field: 'mentor',
+    headerName: 'Giáo viên',
+    minWidth: 100,
+    flex: 2,
+    renderCell: (params) => {
+      const { name } = params.row.mentor;
+      return <CopyableCell rawValue={name} formattedValue={name} />;
+    },
+  },
+  {
+    field: 'categoryResponse',
+    headerName: 'phân loại',
+    minWidth: 100,
+    flex: 1.5,
+    valueGetter: (params) => params.value.name,
+    renderCell: (params) => {
+      return (
+        <Chip
+          color="default"
+          size="small"
+          label={`${params.row.categoryResponse.name || ''}`}
+          title={`${params.row.categoryResponse.name || ''}`}
+        />
+      );
+    },
+  },
+  {
+    field: 'subjectResponse',
+    headerName: 'Môn học',
+    minWidth: 120,
+    flex: 1,
+    valueFormatter: (params) => params.value.name,
+    renderCell: (params) => {
+      return (
+        <Chip
+          color="default"
+          size="small"
+          label={`${params.row.subjectResponse.name || ''}`}
+          title={`${params.row.subjectResponse.name || ''}`}
+        />
+      );
+    },
+  },
+  {
+    field: 'earliestClass',
+    headerName: 'Bắt đầu từ',
+    minWidth: 100,
+    flex: 1,
+  },
+];
+
 const columns = {
   templateColumns,
   feedbackQuestionColumns,
@@ -476,6 +549,7 @@ const columns = {
   attendanceStudentColumns,
   userMemberColumns,
   userMentorColumns,
+  manageCourseColumns,
 };
 
 export default columns;

@@ -117,27 +117,7 @@ export default function ManageTableCourseCreateRequest({
   return (
     <>
       <ManageTable
-        // columns={columns.courseCreateRequestColumns}
-        // rows={rows}
-        // page={page}
-        // pageSize={size}
-        // totalItems={courseCreateRequestList?.totalItems ?? 0}
-        // onPageChange={handleNewPage}
-        // onPageSizeChange={handleNewSize}
-        // handleNewPage={handleNewPage}
-        // handleNewSize={handleNewSize}
-        // //
-        // error={error}
-        // isLoading={isLoading}
-        // // menuItemList={menuItemList}
-        // onSearch={handleSearchCourseCreateRequest}
-        // popoverOptions={popoverOptions}
-        // setSelectedRow={setSelectedRow}
-        // searchHandler={{
-        //   searchPlaceholder: Text.searchPlaceholder,
-        //   searchButtonLabel: Text.searchPlaceholder,
-        // }}
-        columns={columns.courseCreateRequestColumns}
+        columns={columns.manageCourseColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}
