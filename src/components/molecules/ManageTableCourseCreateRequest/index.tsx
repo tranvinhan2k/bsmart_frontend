@@ -16,10 +16,12 @@ interface ManageTableCourseCreateRequestProps {
     | 'STARTING'
     | 'EDITREQUEST'
     | 'REJECTED';
+  refetchGetNoOfRequest: () => void;
 }
 
 export default function ManageTableCourseCreateRequest({
   status,
+  refetchGetNoOfRequest,
 }: ManageTableCourseCreateRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
@@ -93,6 +95,7 @@ export default function ManageTableCourseCreateRequest({
             row={selectedRow}
             onClose={handleTriggerDialog}
             refetch={refetch}
+            refetchGetNoOfRequest={refetchGetNoOfRequest}
           />
         </CustomDialog>
       );

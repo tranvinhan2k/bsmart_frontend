@@ -8,7 +8,7 @@ import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest'
 import columns from '~/constants/columns';
 import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
 
-interface ProcessRegisterRequestProps {
+interface ManageRegisterRequestProps {
   status:
     | 'WAITING'
     | 'REQUESTING'
@@ -19,10 +19,10 @@ interface ProcessRegisterRequestProps {
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ProcessRegisterRequest({
+export default function ManageRegisterRequest({
   status,
   refetchGetNoOfRequest,
-}: ProcessRegisterRequestProps) {
+}: ManageRegisterRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
     popoverOptionViewDetails = 'Xem chi tiết',

@@ -16,12 +16,14 @@ interface RequestCourseProcessProps {
   idCourse: number;
   onClose: () => void;
   refetch: () => void;
+  refetchGetNoOfRequest: () => void;
 }
 
 export default function RequestCourseProcess({
   idCourse,
   onClose,
   refetch,
+  refetchGetNoOfRequest,
 }: RequestCourseProcessProps) {
   const { courseCreateRequestDetails } =
     useGetCourseCreateRequestDetails(idCourse);
@@ -81,6 +83,7 @@ export default function RequestCourseProcess({
       await processCourseCreateRequestMutation.mutateAsync(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
       refetch();
+      refetchGetNoOfRequest();
       onClose();
     } catch (e: any) {
       toast.updateFailedToast(id, toastMsgError(e.message));

@@ -2,7 +2,7 @@ import { Box, Chip, Tab, Tabs, Typography, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
-import ProcessRegisterRequest from '~/components/molecules/ProcessRegisterRequest';
+import ManageRegisterRequest from '~/components/molecules/ManageRegisterRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManagerProcessRegisterRequestPage() {
@@ -39,7 +39,7 @@ export default function ManagerProcessRegisterRequestPage() {
       id: 0,
       text: 'Chờ duyệt',
       component: (
-        <ProcessRegisterRequest
+        <ManageRegisterRequest
           status={statusWaiting}
           refetchGetNoOfRequest={refetchListWaiting}
         />
@@ -50,7 +50,7 @@ export default function ManagerProcessRegisterRequestPage() {
       id: 1,
       text: 'Đã duyệt',
       component: (
-        <ProcessRegisterRequest
+        <ManageRegisterRequest
           status={statusStarting}
           refetchGetNoOfRequest={refetchListStarting}
         />
@@ -61,7 +61,7 @@ export default function ManagerProcessRegisterRequestPage() {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: (
-        <ProcessRegisterRequest
+        <ManageRegisterRequest
           status={statusEditRequest}
           refetchGetNoOfRequest={refetchListEditRequest}
         />
@@ -72,7 +72,7 @@ export default function ManagerProcessRegisterRequestPage() {
       id: 3,
       text: 'Từ chối',
       component: (
-        <ProcessRegisterRequest
+        <ManageRegisterRequest
           status={statusRejected}
           refetchGetNoOfRequest={refetchListRejected}
         />

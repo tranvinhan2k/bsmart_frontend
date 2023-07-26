@@ -11,12 +11,14 @@ interface CourseCreateRequestDetailsProps {
   row: any;
   onClose: () => void;
   refetch: () => void;
+  refetchGetNoOfRequest: () => void;
 }
 
 export default function CourseCreateRequestDetails({
   row,
   onClose,
   refetch,
+  refetchGetNoOfRequest,
 }: CourseCreateRequestDetailsProps) {
   return (
     <>
@@ -44,6 +46,7 @@ export default function CourseCreateRequestDetails({
               idCourse={row.id}
               onClose={onClose}
               refetch={refetch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
             />
           </Stack>
         </Grid>

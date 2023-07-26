@@ -179,6 +179,7 @@ export default function ProcessRegisterRequest({
       ),
     },
   ];
+
   return (
     <Box pt={2} sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
       <Tabs
