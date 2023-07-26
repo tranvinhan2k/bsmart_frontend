@@ -6,6 +6,8 @@ import {
   CourseStatusKeys,
   GenderKeys,
   ImageKeys,
+  QuizKeys,
+  QuizQuestionTypeKeys,
   RoleKeys,
 } from './variables';
 
@@ -352,4 +354,62 @@ export type GetStudentList = Partial<{
   id: number;
   email: string;
   name: string;
+}>;
+
+export type PostDoQuizResponse = Partial<{
+  id: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  time: number;
+  questionCount: number;
+  status: QuizKeys;
+  defaultPoint: number;
+  isSuffleQuestion: true;
+  isAllowReview: true;
+  allowReviewAfterMin: number;
+  password: string;
+  activityId: number;
+  quizQuestions: Partial<{
+    id: number;
+    question: string;
+    type: QuizQuestionTypeKeys;
+    answers: Partial<{
+      id: number;
+      answer: string;
+    }>[];
+  }>[];
+}>;
+
+export type GetReviewQuizResponse = Partial<{
+  id: number;
+  quizId: number;
+  correctNumber: number;
+  incorrectNumber: number;
+  point: number;
+  status: QuizKeys;
+  questions: Partial<{
+    id: number;
+    question: string;
+    type: QuizQuestionTypeKeys;
+    answers: Partial<{
+      id: number;
+      answer: string;
+      isRight: true;
+      isChosen: true;
+    }>[];
+  }>[];
+}>;
+
+export type GetMentorQuizzesResponse = Partial<{
+  id: number;
+  submitBy: {
+    id: number;
+    name: string;
+  };
+  submitAt: string;
+  point: number;
+  correctNumber: number;
+  totalQuestion: number;
+  status: QuizKeys;
 }>;

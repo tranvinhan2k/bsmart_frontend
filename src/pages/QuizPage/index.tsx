@@ -9,13 +9,15 @@ export interface DoQuizQuestionPayload {
   answers: DoQuizAnswerPayload[];
 }
 
-const initQuiz: {
+export interface DoQuizPayload {
   name: string;
-  time: string;
+  time: number;
   questions: DoQuizQuestionPayload[];
-} = {
+}
+
+const initQuiz: DoQuizPayload = {
   name: 'Kiểm tra kiểm thử 1',
-  time: new Date('7/24/2023').toISOString(),
+  time: 123,
   questions: [
     {
       questionContent: 'Con gà hay con vịt có trước ?',

@@ -123,6 +123,7 @@ export const enum MentorClassActionLink {
   activity = 'activity',
   notification = 'notification',
   points = 'points',
+  assignments = 'assignments',
   feedback = 'feedback',
 }
 export const enum MemberClassActionLink {

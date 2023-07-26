@@ -2,6 +2,7 @@ import { Stack } from '@mui/material';
 import { useEffectScrollToTop } from '~/hooks';
 import { DoQuizAnswerPayload } from '../../components/molecules/DoQuizReviewList/DoQuizQuestion';
 import DoQuizReviewList from '~/components/molecules/DoQuizReviewList';
+import { DoQuizPayload } from '../QuizPage';
 
 export interface DoQuizQuestionPayload {
   questionContent: string;
@@ -9,13 +10,9 @@ export interface DoQuizQuestionPayload {
   answers: DoQuizAnswerPayload[];
 }
 
-const initQuiz: {
-  name: string;
-  time: string;
-  questions: DoQuizQuestionPayload[];
-} = {
+const initQuiz: DoQuizPayload = {
   name: 'Kiểm tra kiểm thử 1',
-  time: new Date('7/24/2023').toISOString(),
+  time: 123,
   questions: [
     {
       questionContent: 'Con gà hay con vịt có trước ?',

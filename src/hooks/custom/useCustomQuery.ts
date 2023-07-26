@@ -7,6 +7,7 @@ export const useCustomQuery = <T>(
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: key,
     queryFn: callback,
+    refetchOnWindowFocus: false,
   });
   return {
     data,

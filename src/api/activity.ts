@@ -1,12 +1,19 @@
 import axiosClient from '~/api/axiosClient';
+import { PagingFilterPayload } from '~/models';
 import {
-  PostActivityCoursePayload,
+  PagingFilterRequest,
   PostActivityRequest,
   PostAssignmentRequest,
   PostSubmitActivityRequest,
 } from '~/models/request';
-import { GetActivityResponse } from '~/models/response';
-import { ActivityDetailPayload } from '~/models/type';
+import {
+  GetActivityResponse,
+  GetMentorQuizzesResponse,
+  GetReviewQuizResponse,
+  PostDoQuizResponse,
+} from '~/models/response';
+import { ActivityDetailPayload, QuizReportStudentPayload } from '~/models/type';
+import { DoQuizPayload } from '~/pages/QuizPage';
 
 const url = '/activity';
 
@@ -74,7 +81,102 @@ const activityApi = {
     return result;
   },
 
+  async getResultQuiz(id: number) {
+    const response: GetMentorQuizzesResponse = await axiosClient.get(
+      `${url}/quiz/result/${id}`
+    );
+
+    const result: QuizReportStudentPayload = {
+      name: response?.submitBy?.name || '',
+      correctNumber: response?.correctNumber || 0,
+      point: response?.point || 0,
+      submitAt: response?.submitAt || '',
+      totalNumber: response?.totalQuestion || 0,
+    };
+
+    return result;
+  },
+
+  async getMentorQuizzes({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PagingFilterRequest;
+  }): Promise<PagingFilterPayload<QuizReportStudentPayload>> {
+    const response: PagingFilterPayload<GetMentorQuizzesResponse> =
+      await axiosClient.get(`${url}/quiz/${id}/result`, {
+        params,
+      });
+    const result: QuizReportStudentPayload[] = response.items.map((item) => ({
+      name: item?.submitBy?.name || '',
+      correctNumber: item?.correctNumber || 0,
+      point: item?.point || 0,
+      submitAt: item?.submitAt || '',
+      totalNumber: item?.totalQuestion || 0,
+    }));
+    return { ...response, items: result };
+  },
+
+  async getReviewQuiz(id: number) {
+    const response: GetReviewQuizResponse = await axiosClient.get(
+      `${url}/review/${id}`
+    );
+    const result: DoQuizPayload = {
+      name: '',
+      time: 123,
+      questions:
+        response.questions?.map((item) => ({
+          questionContent: item?.question || '',
+          isMultipleAnswer: item?.type === 'MULTIPLE',
+          answers:
+            item?.answers?.map((subItem) => ({
+              id: subItem?.id || 0,
+              value: subItem?.answer || '',
+              isChosen: !!subItem?.isChosen,
+              isRight: !!subItem?.isRight,
+            })) || [],
+        })) || [],
+    };
+
+    return result;
+  },
+
   // post
+  async postDoQuiz({
+    id,
+    password,
+  }: {
+    id: number;
+    password: string;
+  }): Promise<DoQuizPayload> {
+    const response: PostDoQuizResponse = await axiosClient.post(
+      `${url}/${id}/quiz/attempt`,
+      {
+        password,
+      }
+    );
+
+    const result: DoQuizPayload = {
+      name: response?.code || '',
+      time: response?.time || 0,
+      questions:
+        response?.quizQuestions?.map((item) => ({
+          isMultipleAnswer: item?.type === 'MULTIPLE',
+          questionContent: item?.question || '',
+          answers:
+            item?.answers?.map((subItem) => ({
+              id: subItem?.id || 0,
+              value: subItem?.answer || '',
+              isChosen: false,
+              isRight: false,
+            })) || [],
+        })) || [],
+    };
+
+    return result;
+  },
+
   addSectionActivity(params: PostActivityRequest): Promise<boolean> {
     return axiosClient.post(`${url}/section`, params);
   },
