@@ -132,7 +132,6 @@ export interface MentorSkills {
 }
 
 export interface ProcessRegisterRequestFormDefault {
-  id: number;
   status: string;
   message: string;
 }

@@ -17,42 +17,66 @@ export default function ManagerProcessRegisterRequestPage() {
   const statusStarting = 'STARTING';
   const statusEditRequest = 'EDITREQUEST';
   const statusRejected = 'REJECTED';
-  const { registerRequest: listWaiting } = useSearchRegisterRequest({
-    status: 'WAITING',
-  });
-  const { registerRequest: listStarting } = useSearchRegisterRequest({
-    status: 'STARTING',
-  });
-  const { registerRequest: listEditRequest } = useSearchRegisterRequest({
-    status: 'EDITREQUEST',
-  });
-  const { registerRequest: listRejected } = useSearchRegisterRequest({
-    status: 'REJECTED',
-  });
+  const { registerRequest: listWaiting, refetch: refetchListWaiting } =
+    useSearchRegisterRequest({
+      status: 'WAITING',
+    });
+  const { registerRequest: listStarting, refetch: refetchListStarting } =
+    useSearchRegisterRequest({
+      status: 'STARTING',
+    });
+  const { registerRequest: listEditRequest, refetch: refetchListEditRequest } =
+    useSearchRegisterRequest({
+      status: 'EDITREQUEST',
+    });
+  const { registerRequest: listRejected, refetch: refetchListRejected } =
+    useSearchRegisterRequest({
+      status: 'REJECTED',
+    });
 
   const tabEl = [
     {
       id: 0,
       text: 'Chờ duyệt',
-      component: <ProcessRegisterRequest status={statusWaiting} />,
+      component: (
+        <ProcessRegisterRequest
+          status={statusWaiting}
+          refetchGetNoOfRequest={refetchListWaiting}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(listWaiting?.totalItems),
     },
     {
       id: 1,
       text: 'Đã duyệt',
-      component: <ProcessRegisterRequest status={statusStarting} />,
+      component: (
+        <ProcessRegisterRequest
+          status={statusStarting}
+          refetchGetNoOfRequest={refetchListStarting}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(listStarting?.totalItems),
     },
     {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
-      component: <ProcessRegisterRequest status={statusEditRequest} />,
+      component: (
+        <ProcessRegisterRequest
+          status={statusEditRequest}
+          refetchGetNoOfRequest={refetchListEditRequest}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(listEditRequest?.totalItems),
     },
     {
       id: 3,
       text: 'Từ chối',
-      component: <ProcessRegisterRequest status={statusRejected} />,
+      component: (
+        <ProcessRegisterRequest
+          status={statusRejected}
+          refetchGetNoOfRequest={refetchListRejected}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(listRejected?.totalItems),
     },
   ];

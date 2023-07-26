@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { ProcessRegisterRequestFormDefault } from '~/models/form';
-import { ProcessRegisterRequestPayload } from '~/api/mentorProfile';
-import { useManageRegisterRequest } from '~/hooks/useManageRegisterRequest';
-import columns from '~/constants/columns';
-import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
-import toast from '~/utils/toast';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
-import ManageTableCourseCreateRequest from '../ManageTableCourseCreateRequest';
 import ManageTable, {
   MenuItemPayload,
 } from '~/components/molecules/ManageTable';
+import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
+import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
+import columns from '~/constants/columns';
+import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
 
 interface ProcessRegisterRequestProps {
   status:
@@ -20,10 +16,12 @@ interface ProcessRegisterRequestProps {
     | 'STARTING'
     | 'EDITREQUEST'
     | 'REJECTED';
+  refetchGetNoOfRequest: () => void;
 }
 
 export default function ProcessRegisterRequest({
   status,
+  refetchGetNoOfRequest,
 }: ProcessRegisterRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
@@ -31,7 +29,6 @@ export default function ProcessRegisterRequest({
     popoverOptionNotSupport = 'Chưa hỗ trợ',
   }
 
-  const [searchValue, setSearchValue] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
   const [selectedRow, setSelectedRow] = useState<any>();
@@ -42,13 +39,13 @@ export default function ProcessRegisterRequest({
   const [size, setSize] = useState<number>(10);
   const [sort, setSort] = useState<string[]>([]);
 
-  const { error, registerRequest, isLoading, refetch } =
-    useSearchRegisterRequest({ status, q, page, size, sort });
-
-  const rows = registerRequest ? registerRequest.items : [];
   const handleNewPage = (params: number) => setPage(params);
   const handleNewSize = (params: number) => setSize(params);
   const handleTriggerDialog = () => setOpen(!open);
+
+  const { error, registerRequest, isLoading, refetch } =
+    useSearchRegisterRequest({ status, q, page, size, sort });
+  const rows = registerRequest ? registerRequest.items : [];
 
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
@@ -95,12 +92,12 @@ export default function ProcessRegisterRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <h1>Hello</h1>
-          {/* <ReadOneRegisterRequest
+          <ReadOneRegisterRequest
             row={selectedRow}
             onClose={handleTriggerDialog}
-            refetch={refetch}
-          /> */}
+            refetchSearch={refetch}
+            refetchGetNoOfRequest={refetchGetNoOfRequest}
+          />
         </CustomDialog>
       );
       break;
@@ -120,12 +117,14 @@ export default function ProcessRegisterRequest({
         page={page}
         pageSize={size}
         popoverOptions={popoverOptions}
+        rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
         totalItems={registerRequest?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
           onSearch: handleSearch,
         }}
+        hideFooterSelectedRowCount
       />
       {renderItem}
     </>
