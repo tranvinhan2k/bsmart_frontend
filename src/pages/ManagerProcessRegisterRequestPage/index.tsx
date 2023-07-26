@@ -1,7 +1,7 @@
 import { Box, Chip, Tab, Tabs, Typography, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
-import { useManageRegisterRequest } from '~/hooks/useManageRegisterRequest';
+import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import ProcessRegisterRequest from '~/components/molecules/ProcessRegisterRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
@@ -13,67 +13,47 @@ export default function ManagerProcessRegisterRequestPage() {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
 
-  const q = '';
-  const size = 0;
-  const sort = '';
   const statusWaiting = 'WAITING';
   const statusStarting = 'STARTING';
   const statusEditRequest = 'EDITREQUEST';
   const statusRejected = 'REJECTED';
-  const { registerRequest: registerRequestWaiting } = useManageRegisterRequest({
-    status: statusWaiting,
-    q,
-    size,
-    sort,
+  const { registerRequest: listWaiting } = useSearchRegisterRequest({
+    status: 'WAITING',
   });
-  const { registerRequest: registerRequestStarting } = useManageRegisterRequest(
-    {
-      status: statusStarting,
-      q,
-      size,
-      sort,
-    }
-  );
-  const { registerRequest: registerRequestEditRequest } =
-    useManageRegisterRequest({
-      status: statusEditRequest,
-      q,
-      size,
-      sort,
-    });
-  const { registerRequest: registerRequestRejected } = useManageRegisterRequest(
-    {
-      status: statusRejected,
-      q,
-      size,
-      sort,
-    }
-  );
+  const { registerRequest: listStarting } = useSearchRegisterRequest({
+    status: 'STARTING',
+  });
+  const { registerRequest: listEditRequest } = useSearchRegisterRequest({
+    status: 'EDITREQUEST',
+  });
+  const { registerRequest: listRejected } = useSearchRegisterRequest({
+    status: 'REJECTED',
+  });
 
   const tabEl = [
     {
       id: 0,
       text: 'Chờ duyệt',
       component: <ProcessRegisterRequest status={statusWaiting} />,
-      noOfRequest: restrictNumberDisplay(registerRequestWaiting?.length),
+      noOfRequest: restrictNumberDisplay(listWaiting?.totalItems),
     },
     {
       id: 1,
       text: 'Đã duyệt',
       component: <ProcessRegisterRequest status={statusStarting} />,
-      noOfRequest: restrictNumberDisplay(registerRequestStarting?.length),
+      noOfRequest: restrictNumberDisplay(listStarting?.totalItems),
     },
     {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: <ProcessRegisterRequest status={statusEditRequest} />,
-      noOfRequest: restrictNumberDisplay(registerRequestEditRequest?.length),
+      noOfRequest: restrictNumberDisplay(listEditRequest?.totalItems),
     },
     {
       id: 3,
       text: 'Từ chối',
       component: <ProcessRegisterRequest status={statusRejected} />,
-      noOfRequest: restrictNumberDisplay(registerRequestRejected?.length),
+      noOfRequest: restrictNumberDisplay(listRejected?.totalItems),
     },
   ];
 

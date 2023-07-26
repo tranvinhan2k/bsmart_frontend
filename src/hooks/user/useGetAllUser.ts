@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetAllUserReturnPayload } from '~/models/user';
+import { User } from '~/models/user';
 import { PagingFilterPayload } from '~/models';
 import accountApi from '~/api/users';
 
@@ -33,7 +33,7 @@ export const useGetAllUser = ({
     keepPreviousData: true,
   });
 
-  const userList: PagingFilterPayload<GetAllUserReturnPayload> = {
+  const userList: PagingFilterPayload<User> = {
     items: data?.items || [],
     currentPage: data?.currentPage || 0,
     pageSize: data?.pageSize || 0,

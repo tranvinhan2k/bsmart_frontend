@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export interface ActivityAssignment {
   created: string;
   lastModified: string;
@@ -132,47 +134,4 @@ interface AssignmentFile {
   note: string;
   user: User;
   name: string;
-}
-
-interface User {
-  id: number;
-  fullName: string;
-  email: string;
-  birthday: string;
-  address: string;
-  phone: string;
-  status: boolean;
-  roles: Role[];
-  twitterLink: string;
-  facebookLink: string;
-  instagramLink: string;
-  userImages: UserImage[];
-  wallet: Wallet;
-  mentorProfile: MentorProfile;
-  isVerified: boolean;
-}
-interface Role {
-  id: number;
-  name: string;
-  code: string;
-}
-interface UserImage {
-  id: number;
-  name: string;
-  url: string;
-  status: boolean;
-  type: string;
-}
-interface Wallet {
-  id: number;
-  balance: number;
-  previous_balance: number;
-  owner_id: number;
-}
-interface MentorProfile {
-  id: number;
-  introduce: string;
-  workingExperience: string;
-  status: string;
-  mentorSkills: any[];
 }

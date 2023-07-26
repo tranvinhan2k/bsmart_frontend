@@ -88,47 +88,45 @@ export type SearchFilterFormInput = {
   placeholder: string;
   data: OptionPayload[];
 };
-interface CRUDTableProps extends DataGridProps {
+interface ManageTableProps extends DataGridProps {
   columns: GridColDef[];
-  isLoading?: boolean;
-  error?: any;
   rows: any;
-  menuItemList?: MenuItemPayload[];
-  searchFilterFormInputList?: SearchFilterFormInput[];
-  setSelectedRow?: (selectedRow: any) => void;
-  onSearch?: (data: any) => void;
-  getRowId?: GridRowIdGetter<GridValidRowModel>;
-  popoverOptions?: MenuItemPayload[];
-  searchHandler: {
-    searchPlaceholder: string;
-    searchButtonLabel: string;
-  };
+  error?: any;
+  isLoading?: boolean;
+  onPageChange: (data: number) => void;
+  onPageSizeChange: (data: number) => void;
   page: number;
   pageSize: number;
+  popoverOptions?: MenuItemPayload[];
+  setSelectedRow?: (selectedRow: any) => void;
   totalItems: number;
-  handleNewPage: (data: number) => void;
-  handleNewSize: (data: number) => void;
+  searchHandler: {
+    searchPlaceholder: string;
+    onSearch: (data: any) => void;
+  };
+  getRowId?: GridRowIdGetter<GridValidRowModel>;
+  menuItemList?: MenuItemPayload[];
+  searchFilterFormInputList?: SearchFilterFormInput[];
 }
 
-export default function CRUDTable({
-  isLoading = false,
-  error = null,
+export default function ManageTable({
   columns,
   rows = [],
-  menuItemList,
-  searchFilterFormInputList,
-  setSelectedRow,
-  onSearch,
-  getRowId,
-  popoverOptions,
-  searchHandler,
+  error = null,
+  onPageChange,
+  onPageSizeChange,
+  isLoading = false,
   page,
   pageSize,
+  popoverOptions,
+  setSelectedRow,
   totalItems,
-  handleNewPage,
-  handleNewSize,
+  searchHandler: { searchPlaceholder, onSearch },
+  getRowId,
+  menuItemList,
+  searchFilterFormInputList,
   ...props
-}: CRUDTableProps) {
+}: ManageTableProps) {
   const searchValueForm = useForm();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -165,7 +163,7 @@ export default function CRUDTable({
     >
       {onSearch && (
         <ManageTableSearching
-          searchPlaceholder={searchHandler.searchPlaceholder}
+          searchPlaceholder={searchPlaceholder}
           searchControl={searchValueForm}
           onSearch={onSearch}
           filterFormInputList={searchFilterFormInputList}
@@ -174,20 +172,21 @@ export default function CRUDTable({
       <StripedDataGrid
         {...props}
         autoHeight
-        columns={popoverOptions ? extraActionColumn.concat(columns) : columns}
-        loading={isLoading}
-        // error={error}
-        onPageChange={handleNewPage}
-        onPageSizeChange={handleNewSize}
-        page={page}
-        pageSize={pageSize}
+        localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
         pagination
         paginationMode="server"
-        rowCount={totalItems}
-        // rowHeight={rowHeightDefault}
+        //
+        columns={popoverOptions ? extraActionColumn.concat(columns) : columns}
         rows={rows}
-        localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
+        //
+        error={error}
+        loading={isLoading}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
         onRowClick={handleSelectedRow}
+        page={page}
+        pageSize={pageSize}
+        rowCount={totalItems}
       />
       <Popover
         keepMounted
@@ -225,13 +224,12 @@ export default function CRUDTable({
   );
 }
 
-CRUDTable.defaultProps = {
+ManageTable.defaultProps = {
   menuItemList: [],
   searchFilterFormInputList: [],
   getRowId: undefined,
-  isLoading: false,
   error: null,
-  onSearch: () => {},
-  setSelectedRow: undefined,
+  isLoading: false,
   popoverOptions: [],
+  setSelectedRow: undefined,
 };
