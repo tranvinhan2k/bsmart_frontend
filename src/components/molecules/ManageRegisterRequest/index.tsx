@@ -6,7 +6,7 @@ import ManageTable, {
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import columns from '~/constants/columns';
-import ReadOneRegisterRequest from '~/containers/RegisterRequestManageSection/ReadOneRegisterRequest';
+import RegisterRequestDetails from '~/containers/RegisterRequestManageSection/RegisterRequestDetails';
 
 interface ManageRegisterRequestProps {
   status:
@@ -36,7 +36,7 @@ export default function ManageRegisterRequest({
   // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
-  const [size, setSize] = useState<number>(10);
+  const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
   const [sort, setSort] = useState<string[]>([]);
 
   const handleNewPage = (params: number) => setPage(params);
@@ -92,7 +92,7 @@ export default function ManageRegisterRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <ReadOneRegisterRequest
+          <RegisterRequestDetails
             row={selectedRow}
             onClose={handleTriggerDialog}
             refetchSearch={refetch}

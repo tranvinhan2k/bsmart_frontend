@@ -105,10 +105,11 @@ export default function ProcessRegisterRequest({
             mt={2}
           >
             <Button
-              variant="outlined"
-              type="submit"
-              size="medium"
               color="success"
+              fullWidth
+              size="medium"
+              type="submit"
+              variant="outlined"
             >
               Phê duyệt
             </Button>
@@ -136,10 +137,11 @@ export default function ProcessRegisterRequest({
             mt={2}
           >
             <Button
-              variant="outlined"
-              type="submit"
-              size="medium"
               color="error"
+              fullWidth
+              size="medium"
+              type="submit"
+              variant="outlined"
             >
               Từ chối
             </Button>
@@ -167,10 +169,11 @@ export default function ProcessRegisterRequest({
             mt={2}
           >
             <Button
-              variant="outlined"
-              type="submit"
-              size="medium"
               color="warning"
+              fullWidth
+              size="medium"
+              type="submit"
+              variant="outlined"
             >
               Yêu cầu chỉnh sửa
             </Button>
@@ -181,7 +184,7 @@ export default function ProcessRegisterRequest({
   ];
 
   return (
-    <Box pt={2} sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
+    <Box sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
       <Tabs
         variant="scrollable"
         scrollButtons="auto"

@@ -142,8 +142,7 @@ export default function ManageTable({
     {
       field: 'action',
       headerName: '',
-      minWidth: 50,
-      flex: 0.5,
+      width: 50,
       align: 'center',
       filterable: false,
       sortable: false,

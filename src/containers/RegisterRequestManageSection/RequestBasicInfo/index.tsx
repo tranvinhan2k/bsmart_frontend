@@ -83,8 +83,6 @@ export default function BasicInfo({ row }: BasicInfoProps) {
           </Box>
           <Stack alignItems="center" mt={2}>
             <Typography sx={SX_PROFILE_TITLE}>Giáo viên</Typography>
-            {/* <Typography sx={SX_PROFILE_TITLE}>{row.fullName}</Typography>
-            <Typography sx={SX_PROFILE_TITLE_SUB}>Giáo viên</Typography> */}
           </Stack>
         </Stack>
         <Grid

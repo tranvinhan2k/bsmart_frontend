@@ -155,14 +155,14 @@ const registerRequestColumns: GridColDef[] = [
     valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
   },
   {
-    field: 'submitDate',
+    field: 'timeSendRequest',
     headerName: 'Ngày gửi',
     minWidth: 100,
     flex: 1,
     valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
   },
   {
-    field: 'noOfSubmit',
+    field: 'count',
     headerName: 'Lần gửi',
     minWidth: 100,
     flex: 1,

@@ -13,10 +13,6 @@ export default function ManagerProcessRegisterRequestPage() {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
 
-  const statusWaiting = 'WAITING';
-  const statusStarting = 'STARTING';
-  const statusEditRequest = 'EDITREQUEST';
-  const statusRejected = 'REJECTED';
   const { registerRequest: listWaiting, refetch: refetchListWaiting } =
     useSearchRegisterRequest({
       status: 'WAITING',
@@ -40,7 +36,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Chờ duyệt',
       component: (
         <ManageRegisterRequest
-          status={statusWaiting}
+          status="WAITING"
           refetchGetNoOfRequest={refetchListWaiting}
         />
       ),
@@ -51,7 +47,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Đã duyệt',
       component: (
         <ManageRegisterRequest
-          status={statusStarting}
+          status="STARTING"
           refetchGetNoOfRequest={refetchListStarting}
         />
       ),
@@ -62,7 +58,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Yêu cầu chỉnh sửa',
       component: (
         <ManageRegisterRequest
-          status={statusEditRequest}
+          status="EDITREQUEST"
           refetchGetNoOfRequest={refetchListEditRequest}
         />
       ),
@@ -73,7 +69,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Từ chối',
       component: (
         <ManageRegisterRequest
-          status={statusRejected}
+          status="REJECTED"
           refetchGetNoOfRequest={refetchListRejected}
         />
       ),

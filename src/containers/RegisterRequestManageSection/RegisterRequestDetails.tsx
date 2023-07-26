@@ -7,19 +7,19 @@ import RequestMentorInfo from './RequestMentorInfo';
 import RequestRegisterProcess from './RequestRegisterProcess';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
-interface ReadOneRegisterRequestProps {
+interface RegisterRequestDetailsProps {
   row: any;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ReadOneRegisterRequest({
+export default function RegisterRequestDetails({
   row,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: ReadOneRegisterRequestProps) {
+}: RegisterRequestDetailsProps) {
   return (
     <>
       <Box mx={2}>
@@ -33,6 +33,19 @@ export default function ReadOneRegisterRequest({
         rowSpacing={2}
         p={2}
       >
+        <Grid item sm={12} md={7} lg={8}>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="stretch"
+            spacing={2}
+          >
+            <RequestBasicInfo row={row} />
+            <RequestCI row={row} />
+            <RequestMentorDegree row={row} />
+            <RequestMentorInfo row={row} />
+          </Stack>
+        </Grid>
         <Grid item sm={12} md={5} lg={4}>
           <Stack
             direction="column"
@@ -41,26 +54,13 @@ export default function ReadOneRegisterRequest({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <RequestBasicInfo row={row} />
+            <RequestDate row={row} />
             <RequestRegisterProcess
               idMentorProfile={row.mentorProfile.id}
               onClose={onClose}
               refetchSearch={refetchSearch}
               refetchGetNoOfRequest={refetchGetNoOfRequest}
             />
-          </Stack>
-        </Grid>
-        <Grid item sm={12} md={7} lg={8}>
-          <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="stretch"
-            spacing={2}
-          >
-            <RequestDate row={row} />
-            <RequestCI row={row} />
-            <RequestMentorDegree row={row} />
-            <RequestMentorInfo row={row} />
           </Stack>
         </Grid>
       </Grid>

@@ -36,7 +36,7 @@ export default function ManageTableCourseCreateRequest({
   // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
-  const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[1]);
+  const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
   const [sort, setSort] = useState<string[]>([]);
 
   const handleNewPage = (params: number) => setPage(params);
