@@ -10,6 +10,8 @@ export * from './useScrollIntoView';
 // user
 export * from './schedule/useQueryGetSchedule';
 export * from './schedule/useQueryGetDetailSchedule';
+export * from './user/useGetPromoCode';
+export * from './user/useGetNotifications';
 
 // effect
 export * from './useEffectPreventReload';
@@ -71,9 +73,14 @@ export * from './class/useQueryGetDetailUserClass';
 export * from './class/useMutationDeleteClass';
 export * from './class/useQueryStudentList';
 export * from './class/useMutationOpenNotStartClass';
+export * from './class/useGetClassSchedule';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';
+
+// assignment
+export * from './assignment/useGetAssignment';
+export * from './assignment/useMutationSubmitPointAssignment';
 
 // form
 export * from './form.hooks/useCreateCourseForm';
@@ -91,3 +98,8 @@ export * from './mock/useMockQuery';
 
 // subject
 export * from './useQueryGetAllSubjectByCategoryId';
+
+// feedback
+export * from './feedback/useMutationSendFeedback';
+export * from './feedback/useQueryMemberFeedback';
+export * from './feedback/useQueryMentorFeedback';

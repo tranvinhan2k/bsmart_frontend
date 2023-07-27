@@ -15,6 +15,10 @@ export type UserStateType = {
   cart: CartDataPayload | null;
   introduceCode: string | undefined;
   mentorProfile: MentorProfile | null;
+  quizPassword: string | undefined;
+  quizId: number | undefined;
+  quizName: string | undefined;
+  quizTime: number | undefined;
 };
 
 const initialState: UserStateType = {
@@ -53,6 +57,10 @@ const initialState: UserStateType = {
     },
   },
   mentorProfile: null,
+  quizPassword: undefined,
+  quizId: undefined,
+  quizName: undefined,
+  quizTime: undefined,
 };
 
 const slice = createSlice({
@@ -74,6 +82,17 @@ const slice = createSlice({
     },
     updateUserCart: (state, action) => {
       state.cart = action.payload;
+    },
+    saveDataQuiz: (state, action) => {
+      state.quizId = action.payload.quizId;
+      state.quizName = action.payload.quizName;
+      state.quizPassword = action.payload.quizPassword;
+      state.quizTime = action.payload.quizTime;
+    },
+    reviewQuiz: (state, action) => {
+      state.quizId = action.payload.quizId;
+      state.quizName = action.payload.quizName;
+      state.quizTime = action.payload.quizTime;
     },
     logOut: (state) => {
       state.token = null;
@@ -98,4 +117,6 @@ export const {
   logOut,
   updateUserCart,
   addIntroduceCode,
+  saveDataQuiz,
+  reviewQuiz,
 } = slice.actions;

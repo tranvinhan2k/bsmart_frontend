@@ -1,26 +1,14 @@
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react';
-import {
-  Stack,
-  Typography,
-  Grid,
-  Box,
-  Switch,
-  FormControlLabel,
-  TextField,
-  Divider,
-} from '@mui/material';
-import Countdown from 'react-countdown';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Stack, Typography, Grid, Box, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { headerCell } from './style';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import { scrollToTop } from '~/utils/common';
 import { useQueryGetAttendance } from '~/hooks/useQueryGetAttendance';
-import { image } from '~/constants/image';
-import { useManageClass } from '~/hooks/useManageClass';
 import { formatDate } from '~/utils/date';
 import AttendanceList from './AttendanceList';
 import { useMutationTakeAttendance } from '~/hooks/useMutationTakeAttendance';
@@ -37,7 +25,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 
-const initattendances: AttendanceMemberTimeSlotPayload[] = [
+const initAttendances: AttendanceMemberTimeSlotPayload[] = [
   {
     id: 0,
     studentId: 2,
@@ -113,7 +101,7 @@ export default function MentorTakeAttendancePage() {
   const [index, setIndex] = useState<number>(-1);
   const [showImage, setShowImage] = useState(true);
   const [rows, setRows] =
-    useState<AttendanceMemberTimeSlotPayload[]>(initattendances);
+    useState<AttendanceMemberTimeSlotPayload[]>(initAttendances);
   const [searchValue, setSearchValue] = useState('');
 
   const handleOpenImage = (iparam: number) => {
@@ -182,11 +170,11 @@ export default function MentorTakeAttendancePage() {
     scrollToTop();
   }, []);
 
-  // useEffect(() => {
-  //   if (attendances) {
-  //     setRows(attendances.slots);
-  //   }
-  // }, [attendances]);
+  useEffect(() => {
+    if (attendances) {
+      setRows(attendances?.slots || []);
+    }
+  }, [attendances]);
 
   const timeSlotHour = new Date(attendances?.date || '');
   const timeStartSlotHour = new Date(attendances?.date || '');
@@ -223,7 +211,7 @@ export default function MentorTakeAttendancePage() {
       return total;
     }, 0) || 0;
 
-  const filterattendances = rows.filter((item: any) =>
+  const filterAttendances = rows.filter((item: any) =>
     item.name.toLowerCase().includes(searchValue)
   );
 
@@ -343,8 +331,8 @@ export default function MentorTakeAttendancePage() {
                 </Grid>
               </Grid>
               <Stack>
-                {filterattendances?.length !== 0 && filterattendances ? (
-                  filterattendances?.map((item, rowIndex: any) => {
+                {filterAttendances?.length !== 0 && filterAttendances ? (
+                  filterAttendances?.map((item, rowIndex: any) => {
                     return (
                       <AttendanceList
                         key={item.id}

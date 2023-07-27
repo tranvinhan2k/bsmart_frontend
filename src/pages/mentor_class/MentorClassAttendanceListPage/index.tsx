@@ -79,7 +79,7 @@ export default function MentorClassAttendanceListPage() {
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <CRUDTable
           columns={columns.attendanceClassColumns}
-          rows={rows}
+          rows={rows || []}
           error={error}
           isLoading={isLoading}
           menuItemList={menuList}

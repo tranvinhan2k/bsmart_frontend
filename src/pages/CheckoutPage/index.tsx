@@ -1,11 +1,4 @@
-import {
-  Box,
-  Grid,
-  Stack,
-  Typography,
-  Divider,
-  TextField,
-} from '@mui/material';
+import { Box, Grid, Stack, Typography, Divider } from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -13,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import styles from './styles';
 import globalStyles from '~/styles';
 import { formatMoney } from '~/utils/money';
-import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import TextLine from '~/components/atoms/TextLine';
@@ -27,13 +19,16 @@ import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
 import { selectIntroduceCode } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
-import { useEffectScrollToTop } from '~/hooks';
+import { useEffectScrollToTop, useYupValidationResolver } from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
-import { CartItem } from '~/api/cart';
 import localEnvironment from '~/utils/localEnvironment';
+import { validationIntroduce } from '~/form/validation';
 
 function CheckoutPage() {
-  const { control, handleSubmit } = useForm();
+  const resolver = useYupValidationResolver(validationIntroduce);
+  const { control, handleSubmit } = useForm({
+    resolver,
+  });
   const { mutateAsync } = useMutationPay();
   const { mutateAsync: mutatePayQuick } = useMutationPayQuick();
   const checkOutItem = useSelector(selectCheckoutItem);
@@ -43,13 +38,16 @@ function CheckoutPage() {
   const [introduceCode, setIntroduceCode] = useState<string | undefined>(
     slIntroduceCode
   );
-  const [text, setText] = useState('');
 
   useEffectScrollToTop();
 
   if (checkOutItem === null) {
     return <Navigate to="/homepage" />;
   }
+
+  const onSubmit = (data: any) => {
+    setIntroduceCode(data.introduce);
+  };
 
   const handleCheckOut = async () => {
     // const id = toast.loadToast('Đang thanh toán khóa học');
@@ -237,9 +235,10 @@ function CheckoutPage() {
                 <Button
                   sx={{
                     marginLeft: 1,
+                    height: '35px',
                   }}
                   variant="contained"
-                  onClick={() => setIntroduceCode(text)}
+                  onClick={handleSubmit(onSubmit)}
                 >
                   {texts.introduceCodeButton}
                 </Button>

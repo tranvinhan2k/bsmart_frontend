@@ -254,21 +254,28 @@ export default function MentorCourseAddModulePage() {
       <Stack marginTop={1}>
         {moduleType === 'LESSON' && (
           <AddSubSectionForm
+            isFixed={!!activity?.isFixed}
             hookForm={hookFormLesson}
             onSubmit={handleSubmitLesson}
           />
         )}
         {moduleType === 'RESOURCE' && (
           <AddResourceForm
+            isFixed={!!activity?.isFixed}
             hookForm={hookFormResource}
             onSubmit={handleSubmitResource}
           />
         )}
         {moduleType === 'QUIZ' && (
-          <AddQuizForm hookForm={hookFormQuiz} onSubmit={handleSubmitQuiz} />
+          <AddQuizForm
+            isFixed={!!activity?.isFixed}
+            hookForm={hookFormQuiz}
+            onSubmit={handleSubmitQuiz}
+          />
         )}
         {moduleType === 'ASSIGNMENT' && (
           <AddAssignmentForm
+            isFixed={!!activity?.isFixed}
             hookForm={hookFormAssignment}
             onSubmit={handleSubmitAssignment}
           />

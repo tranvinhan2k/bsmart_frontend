@@ -1,6 +1,6 @@
 import { Stack, Collapse } from '@mui/material';
 import { forwardRef, useState } from 'react';
-import { Color } from '~/assets/variables';
+import { Color, isAllowUpdateActivity } from '~/assets/variables';
 import AddModule from '../AddModule';
 import Module from '../Module';
 import Section from '../Section.ts';
@@ -46,9 +46,7 @@ const SectionCollapse = forwardRef(({ index, section, status }: Props, ref) => {
             />
           ))}
         </Stack>
-        {(status === 'EDITREQUEST' || status === 'REQUESTING') && (
-          <AddModule id={section.id} />
-        )}
+        {isAllowUpdateActivity(status) && <AddModule id={section.id} />}
       </Collapse>
     </Stack>
   );

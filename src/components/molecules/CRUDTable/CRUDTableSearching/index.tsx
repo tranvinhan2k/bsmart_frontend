@@ -16,7 +16,7 @@ interface CRUDTableSearchingProps {
     variant: FormInputVariant;
     name: string;
     placeholder: string;
-    data: OptionPayload[];
+    data?: OptionPayload[];
   }[];
   onSearch: (data: any) => void;
 }
@@ -85,7 +85,6 @@ export default function CRUDTableSearching({
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            onMouseLeave={handleClose}
           >
             <Stack
               sx={{

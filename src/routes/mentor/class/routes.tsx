@@ -3,6 +3,7 @@ import { MentorClassActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import MentorClassAttendanceListPage from '~/pages/mentor_class/MentorClassAttendanceListPage';
 import {
+  MentorClassAssignmentPage,
   MentorClassContentPage,
   MentorClassFeedbacksPage,
   MentorClassInformationPage,
@@ -66,6 +67,12 @@ export const mentorClassRoutes = (courseId?: number): RoutePayload[] => {
     {
       path: MentorClassActionLink.points,
       main: () => <MentorClassPointsPage />,
+      role: ['ROLE_TEACHER'],
+      courseStatus: 'ALL',
+    },
+    {
+      path: MentorClassActionLink.assignments,
+      main: () => <MentorClassAssignmentPage />,
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },

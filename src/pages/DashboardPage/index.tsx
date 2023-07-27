@@ -135,7 +135,7 @@ export default function DashboardPage() {
             >
               <DashboardSidebar
                 isMobile
-                isHover={isHover}
+                isHover
                 onNavigateHomepage={handleNavigateHomepage}
                 onNavigateLink={handleNavigateLink}
                 onTriggerHover={handleChangeHover}
@@ -147,6 +147,7 @@ export default function DashboardPage() {
           <Stack
             sx={{
               display: { xs: 'none', md: 'flex' },
+              background: Color.navy,
             }}
           >
             <DashboardSidebar

@@ -2,7 +2,12 @@ import { Stack, Typography, Button } from '@mui/material';
 import { useContext } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { CourseContext } from '~/HOCs/context/CourseContext';
-import { Color, FontSize, FontFamily } from '~/assets/variables';
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  isAllowUpdateActivity,
+} from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
@@ -40,12 +45,14 @@ export type AddSubSectionFormPayload =
     };
 
 interface Props {
+  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: () => void;
 }
 
 export default function AddAssignmentForm({
+  isFixed,
   hookForm,
   onSubmit,
   onDelete,
@@ -155,8 +162,8 @@ export default function AddAssignmentForm({
           <Button
             disabled={
               !hookForm.formState.isDirty ||
-              (course?.status !== 'EDITREQUEST' &&
-                course?.status !== 'REQUESTING')
+              !isAllowUpdateActivity(course.status) ||
+              !isFixed
             }
             color="secondary"
             sx={{
@@ -169,10 +176,7 @@ export default function AddAssignmentForm({
           </Button>
           {Boolean(onDelete) && (
             <Button
-              disabled={
-                course?.status !== 'EDITREQUEST' &&
-                course?.status !== 'REQUESTING'
-              }
+              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
               sx={{
                 marginLeft: 1,
               }}

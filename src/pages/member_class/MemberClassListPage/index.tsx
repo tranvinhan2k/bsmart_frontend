@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
 import { LoadingWrapper } from '~/HOCs';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import ClassStatusLabel from '~/components/atoms/ClassStatusLabel';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
 import MemberClassItem from '~/components/molecules/MemberClassItem';
@@ -38,6 +39,7 @@ export default function MemberClassListPage() {
     handleChangeStatus,
     handleFilter,
     isLoading,
+    allClasses,
     totalPage,
   } = useQueryGetUserClass('STUDENT');
 
@@ -127,7 +129,22 @@ export default function MemberClassListPage() {
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
-                label={item.label}
+                label={
+                  <ClassStatusLabel
+                    label={item.label}
+                    numberOfItem={
+                      allClasses?.reduce((total: number, subItem) => {
+                        if (
+                          item.value === 'ALL' ||
+                          subItem.status === item.value
+                        ) {
+                          return total + 1;
+                        }
+                        return total;
+                      }, 0) || 0
+                    }
+                  />
+                }
                 value={item.value}
                 {...a11yProps(index)}
               />

@@ -38,6 +38,7 @@ import FileListInput from './FileListInput';
 import ArrayHelperText from './ArrayHelperText';
 import FileInputRequireYup from './FileInputRequireYup';
 import PriceInput from './PriceInput';
+import RatingInput from './RatingInput';
 
 interface FormInputProps {
   disabled?: boolean;
@@ -83,6 +84,14 @@ const generateFormInput = (
     case variant === 'text':
       return (
         <TextInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
+    case variant === 'rating':
+      return (
+        <RatingInput
           disabled={disabled}
           controller={controller}
           placeholder={placeholder}

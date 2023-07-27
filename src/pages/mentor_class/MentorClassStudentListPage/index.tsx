@@ -141,7 +141,7 @@ export default function MentorClassStudentListPage() {
           rowHeight={isShowImage ? 200 : 60}
           setSelectedRow={setRow}
           columns={columns}
-          rows={filterRows}
+          rows={filterRows || []}
           menuItemList={[
             {
               title: 'Xem chi tiết',

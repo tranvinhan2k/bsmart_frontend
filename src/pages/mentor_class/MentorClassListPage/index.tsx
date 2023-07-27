@@ -1,14 +1,10 @@
-import { Stack, Typography, Box, Tabs, Tab, Collapse } from '@mui/material';
+import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { LoadingWrapper } from '~/HOCs';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
 import ClassStatusLabel from '~/components/atoms/ClassStatusLabel';
 import CustomPagination from '~/components/atoms/CustomPagination';
-import InputGroup from '~/components/atoms/FormInput/InputGroup';
-import Icon from '~/components/atoms/Icon';
 import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
 import MentorClassItem from '~/components/molecules/MentorClassItem';
 import { ClassStatusList } from '~/constants';
@@ -44,6 +40,7 @@ export default function MentorClassListPage() {
     handleChangeSearchValue,
     handleFilter,
     isLoading,
+    allClasses,
     totalPage,
   } = useQueryGetUserClass('TEACHER');
   const [classStatus, setClassStatus] = useState<ClassStatusKeys>(
@@ -137,7 +134,7 @@ export default function MentorClassListPage() {
                   <ClassStatusLabel
                     label={item.label}
                     numberOfItem={
-                      classes?.reduce((total: number, subItem) => {
+                      allClasses?.reduce((total: number, subItem) => {
                         if (
                           item.value === 'ALL' ||
                           subItem.status === item.value

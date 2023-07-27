@@ -36,23 +36,16 @@ export default function DashboardSidebar({
     return null;
   });
   return (
-    <Stack
-      sx={{
-        marginLeft: '60px',
-      }}
-    >
+    <Stack>
       <Stack
-        onMouseOut={() => onTriggerHover(false)}
-        onMouseOver={() => onTriggerHover(true)}
         sx={{
           transition: 'all 1000ms ease',
           background: Color.white4,
-          position: 'fixed',
           top: 0,
           left: 0,
           zIndex: 9,
           shadow: 3,
-          maxWidth: isHover || isMobile ? '100%' : '60px',
+          // maxWidth: isHover || isMobile ? '100%' : '60px',
           height: '100vh',
         }}
       >
@@ -84,8 +77,6 @@ export default function DashboardSidebar({
               marginLeft: 1,
               transition: 'all 1s ease',
               textAlign: 'center',
-              opacity: isHover || isMobile ? 1 : 0,
-              maxWidth: isHover || isMobile ? '100%' : 0,
             }}
           >
             {`${localEnvironment.APP_NAME}`.toUpperCase()}
@@ -108,7 +99,7 @@ export default function DashboardSidebar({
         {filterRows?.map((item, index) => {
           return (
             <DashboardSidebarButton
-              isHover={isHover || isMobile}
+              isHover
               activeIndex={activeIndex}
               index={index}
               item={item}
@@ -136,14 +127,12 @@ export default function DashboardSidebar({
           <Button
             sx={{
               margin: 2,
-              transition: 'all 200ms ease',
-              opacity: isHover ? 1 : 0,
             }}
             color="info"
             variant="contained"
             onClick={onNavigateHomepage}
           >
-            <Typography noWrap>Trở về trang chủ</Typography>
+            Trở về trang chủ
           </Button>
         </Stack>
         <Stack

@@ -37,23 +37,23 @@ export type SearchFilterFormInput = {
   variant: FormInputVariant;
   name: string;
   placeholder: string;
-  data: OptionPayload[];
+  data?: OptionPayload[];
 };
-interface CRUDTableProps extends DataGridProps {
+type CRUDTableProps<T> = DataGridProps & {
   title?: string;
   columns: GridColDef[];
   isLoading?: boolean;
   error?: any;
-  rows: any;
+  rows: T[];
   addItemButtonLabel?: string;
   menuItemList?: MenuItemPayload[];
   searchPlaceholder?: string;
   searchFilterFormInputList?: SearchFilterFormInput[];
-  setSelectedRow?: (selectedRow: any) => void;
+  setSelectedRow?: (selectedRow: T) => void;
   onAdd?: () => void;
   onSearch?: (data: any) => void;
   getRowId?: GridRowIdGetter<GridValidRowModel>;
-}
+};
 
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
@@ -105,7 +105,7 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   },
 }));
 
-export default function CRUDTable({
+export default function CRUDTable<T>({
   title = '',
   isLoading = false,
   error = null,
@@ -120,7 +120,7 @@ export default function CRUDTable({
   onSearch,
   getRowId,
   ...props
-}: CRUDTableProps) {
+}: CRUDTableProps<T>) {
   const searchValueForm = useForm();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -151,18 +151,21 @@ export default function CRUDTable({
     );
   };
 
-  const addMoreVertColumns: GridColDef[] = [
-    ...columns,
-    {
-      field: '',
-      width: 150,
-      // flex: 1,
-      headerName: 'Chức năng',
-      renderCell() {
-        return renderMoreVertMenuIcon();
-      },
-    },
-  ];
+  const addMoreVertColumns: GridColDef[] =
+    menuItemList?.length !== 0
+      ? [
+          ...columns,
+          {
+            field: '',
+            width: 150,
+            // flex: 1,
+            headerName: 'Chức năng',
+            renderCell() {
+              return renderMoreVertMenuIcon();
+            },
+          },
+        ]
+      : columns;
 
   return (
     <Stack
@@ -243,6 +246,6 @@ CRUDTable.defaultProps = {
   error: null,
   addItemButtonLabel: '',
   searchPlaceholder: '',
-  onSearch: () => {},
+  onSearch: undefined,
   setSelectedRow: undefined,
 };

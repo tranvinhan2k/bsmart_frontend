@@ -11,6 +11,7 @@ import { formatStringToNumber } from '~/utils/number';
 import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
 import Sections from '~/containers/MentorCourseDetailSection/Sections';
 import { CourseContext } from '~/HOCs/context/CourseContext';
+import { isAllowUpdateActivity } from '~/assets/variables';
 
 interface Props {
   refetchGetPercent: any;
@@ -55,7 +56,7 @@ export default function MentorCourseContentPage({ refetchGetPercent }: Props) {
       <LoadingWrapper error={error} isLoading={isLoading}>
         <Sections status={status} content={content} />
       </LoadingWrapper>
-      {(status === 'REQUESTING' || status === 'EDITREQUEST') && (
+      {isAllowUpdateActivity(status) && (
         <AddSection onAdd={handleAddNewSection} />
       )}
     </Stack>

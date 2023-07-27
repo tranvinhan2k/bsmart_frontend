@@ -305,6 +305,7 @@ export default function MentorCourseModulesPage() {
           <Divider />
           {type === 'LESSON' && (
             <AddSubSectionForm
+              isFixed={!!activity?.isFixed}
               hookForm={hookFormLesson}
               onSubmit={handleUpdateModule}
               onDelete={handleClearOpen}
@@ -312,6 +313,7 @@ export default function MentorCourseModulesPage() {
           )}
           {type === 'RESOURCE' && (
             <AddResourceForm
+              isFixed={!!activity?.isFixed}
               hookForm={hookFormResource}
               onSubmit={handleSubmitResource}
               onDelete={handleClearOpen}
@@ -319,6 +321,7 @@ export default function MentorCourseModulesPage() {
           )}
           {type === 'QUIZ' && (
             <AddQuizForm
+              isFixed={!!activity?.isFixed}
               hookForm={hookFormQuiz}
               onSubmit={handleSubmitQuiz}
               onDelete={handleClearOpen}
@@ -326,6 +329,7 @@ export default function MentorCourseModulesPage() {
           )}
           {type === 'ASSIGNMENT' && (
             <AddAssignmentForm
+              isFixed={!!activity?.isFixed}
               hookForm={hookFormAssignment}
               onSubmit={handleSubmitAssignment}
               onDelete={handleClearOpen}

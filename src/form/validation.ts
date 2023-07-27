@@ -140,6 +140,11 @@ export const validationClassContentModule = object({
   name: string().required('Tên bài học không được để trống.'),
   description: string().required('Mô tả bài học không được để trống.'),
 });
+export const validationPassword = object({
+  password: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+});
 export const validationClassContentResource = object({
   name: string().required('Tên tài nguyên không được để trống.'),
   file: YupValidationForm.notEmptyString('Tệp đính kèm không được để trống'),
@@ -200,6 +205,17 @@ export const validationClassListFilter = object({
   subjectId: YupValidationForm.notEmptyString(
     'Danh sách môn học không đươc để trống'
   ),
+});
+
+export const validationRating = object({
+  ratingPoint: number()
+    .typeError('Số điểm đánh giá không được để trống')
+    .required('Số điểm đánh giá không được để trống'),
+  description: string().required('Nhận xét không được để trống'),
+});
+
+export const validationIntroduce = object({
+  introduce: string().required('Mã giới thiệu chưa nhập vào để thêm'),
 });
 
 export const validationClassContentAssignment = object({

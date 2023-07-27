@@ -4,6 +4,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import BuildComponentPage from '~/pages/BuildComponentPage';
 import MemberAttendanceListPage from '~/pages/member_class/MemberAttendanceListPage';
 import {
   NotFoundPage,
@@ -12,6 +13,7 @@ import {
   MemberClassDetailPage,
   QuizPage,
   ReviewPage,
+  MemberPromoCode,
 } from '~/routes/components';
 
 export const studentLMSRoutes: RoutePayload[] = [
@@ -50,6 +52,16 @@ export const studentLMSRoutes: RoutePayload[] = [
   {
     path: `${MemberDashboardNavigationActionLink.review}/:quizId`,
     main: () => <ReviewPage />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: MemberDashboardNavigationActionLink.promo,
+    main: () => <MemberPromoCode />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: MemberDashboardNavigationActionLink.ask_ai,
+    main: () => <BuildComponentPage />,
     role: ['ROLE_STUDENT'],
   },
   {

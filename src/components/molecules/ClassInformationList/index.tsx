@@ -14,7 +14,6 @@ interface Props {
   imageAlt: string;
   startDate: string;
   endDate: string;
-  categoryName: string;
   subjectName: string;
   numberOfSlot: number;
   numberOfStudent: number;
@@ -23,7 +22,6 @@ interface Props {
 }
 
 export default function ClassInformationList({
-  categoryName,
   code,
   endDate,
   imageAlt,
@@ -42,11 +40,13 @@ export default function ClassInformationList({
       id: 0,
       name: 'Mã khóa học',
       value: code,
+      type: 'text',
     },
     {
       id: 0,
       name: 'Tên lớp học',
       value: name,
+      type: 'text',
     },
     {
       id: 0,
@@ -65,41 +65,43 @@ export default function ClassInformationList({
       id: 0,
       name: 'Ngày bắt đầu',
       value: formatDate(startDate),
+      type: 'text',
     },
     {
       id: 0,
       name: 'Ngày kết thúc',
       value: formatDate(endDate),
-    },
-    {
-      id: 0,
-      name: 'Lĩnh vực',
-      value: categoryName,
+      type: 'text',
     },
     {
       id: 0,
       name: 'Môn học',
       value: subjectName,
+      type: 'text',
     },
     {
       id: 0,
       name: 'Sớ buổi học',
       value: `${numberOfSlot}`,
+      type: 'text',
     },
     {
       id: 0,
       name: 'Số học sinh',
       value: `${numberOfStudent}`,
+      type: 'text',
     },
     {
       id: 0,
       name: 'Giá lớp học',
       value: formatMoney(price),
+      type: 'text',
     },
     {
       id: 0,
       name: 'Trạng thái',
       value: `${ClassStatusList.find((item) => item.value === status)?.label}`,
+      type: 'text',
     },
   ];
 
