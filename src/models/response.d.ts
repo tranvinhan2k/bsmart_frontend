@@ -97,6 +97,7 @@ export type GetAllActivitiesResponse = Partial<{
   id: number;
   name: string;
   type: ActivityKeys;
+  fixed: boolean;
   visible: boolean;
   parentActivityId: number;
   authorizeClasses: number[];
@@ -149,6 +150,7 @@ export interface GetCoursePercentResponse {
 export type GetUserSchedule = Partial<{
   workingClass: Partial<{
     id: number;
+    code: string;
     startDate: string;
     endDate: string;
     numberOfStudent: number;
@@ -164,9 +166,66 @@ export type GetUserSchedule = Partial<{
         categoryIds: number[];
       };
     };
-    mentorName: string;
+    mentor: {
+      id: number;
+      name: string;
+      email: string;
+      introduce: string;
+      mentorSkills: [
+        {
+          skillId: number;
+          name: string;
+          yearOfExperiences: number;
+        }
+      ];
+      avatar: {
+        id: number;
+        name: string;
+        url: string;
+        status: true;
+        type: ImageKeys;
+      };
+    };
+    numberOfSlot: number;
+    status: ClassStatusKeys;
+    price: number;
+    minStudent: number;
+    maxStudent: number;
+    image: {
+      id: number;
+      name: string;
+      url: string;
+      status: true;
+      type: ImageKeys;
+    };
+    timeInWeeks: [
+      {
+        dayOfWeek: {
+          id: number;
+          name: string;
+          code: string;
+        };
+        slot: {
+          id: number;
+          name: string;
+          code: string;
+          startTime: {
+            hour: number;
+            minute: number;
+            second: number;
+            nano: number;
+          };
+          endTime: {
+            hour: number;
+            minute: number;
+            second: number;
+            nano: number;
+          };
+        };
+      }
+    ];
   }>;
-  role?: RoleKeys;
+  role: 'ANONYMOUS';
   timeTableResponse: Partial<{
     id: number;
     date: string;
@@ -193,6 +252,7 @@ export type GetUserSchedule = Partial<{
 
 export type ResponseUserClasses = Partial<{
   id: number;
+  code: string;
   startDate: string;
   endDate: string;
   numberOfStudent: number;
@@ -200,32 +260,32 @@ export type ResponseUserClasses = Partial<{
     id: number;
     code: string;
     name: string;
-    description: number;
+    description: string;
     subject: {
       id: number;
-      code: number;
-      name: number;
+      code: string;
+      name: string;
       categoryIds: number[];
     };
   };
   mentor: {
     id: number;
     name: string;
-    email: number;
-    introduce: number;
+    email: string;
+    introduce: string;
     mentorSkills: [
       {
         skillId: number;
-        name: number;
+        name: string;
         yearOfExperiences: number;
       }
     ];
     avatar: {
       id: number;
-      name: number;
-      url: number;
-      status: boolean;
-      type: 'COURSE';
+      name: string;
+      url: string;
+      status: true;
+      type: ImageKeys;
     };
   };
   numberOfSlot: number;
@@ -237,20 +297,20 @@ export type ResponseUserClasses = Partial<{
     id: number;
     name: string;
     url: string;
-    status: boolean;
+    status: true;
     type: ImageKeys;
   };
   timeInWeeks: [
     {
       dayOfWeek: {
         id: number;
-        name: number;
+        name: string;
         code: string;
       };
       slot: {
         id: number;
-        name: number;
-        code: number;
+        name: string;
+        code: string;
         startTime: {
           hour: number;
           minute: number;
@@ -278,29 +338,29 @@ export type ResponseDetailClass = Partial<{
   minStudent: number;
   maxStudent: number;
   numberOfSlot: number;
-  hasReferralCode: boolean;
+  hasReferralCode: true;
   numberReferralCode: number;
-  classImage: {
+  classImage: Partial<{
     id: number;
     name: string;
     url: string;
-    status: boolean;
-    type: CourseStatusKeys;
-  };
-  mentor: {
+    status: true;
+    type: 'COURSE';
+  }>;
+  mentor: Partial<{
     id: number;
     fullName: string;
     email: string;
     birthday: string;
     address: string;
     phone: string;
-    status: boolean;
-    gender: GenderKeys;
+    status: true;
+    gender: 'MALE';
     roles: [
       {
         id: number;
         name: string;
-        code: RoleKeys;
+        code: 'ANONYMOUS';
       }
     ];
     linkedinLink: string;
@@ -311,8 +371,8 @@ export type ResponseDetailClass = Partial<{
         id: number;
         name: string;
         url: string;
-        status: boolean;
-        type: CourseStatusKeys;
+        status: true;
+        type: 'COURSE';
       }
     ];
     wallet: {
@@ -325,33 +385,81 @@ export type ResponseDetailClass = Partial<{
       id: number;
       introduce: string;
       workingExperience: string;
-      status: string;
-      mentorSkills: {
-        skillId: number;
-        name: string;
-        yearOfExperiences: number;
-      }[];
+      status: 'REQUESTING';
+      mentorSkills: [
+        {
+          skillId: number;
+          name: string;
+          yearOfExperiences: number;
+        }
+      ];
     };
-    isVerified: boolean;
-  };
-  activities: [
-    {
-      created: string;
-      lastModified: string;
-      createdBy: string;
-      lastModifiedBy: string;
+    isVerified: true;
+  }>;
+  activities: Partial<{
+    created: string;
+    lastModified: string;
+    createdBy: string;
+    lastModifiedBy: string;
+    id: number;
+    name: string;
+    type: 'QUIZ';
+    visible: true;
+    parentActivityId: number;
+    subActivities: [];
+  }>[];
+  timeInWeeks: Partial<{
+    dayOfWeek: {
       id: number;
       name: string;
-      type: ActivityKeys;
-      visible: boolean;
-      parentActivityId: number;
-      subActivities: [];
-    }
-  ];
+      code: 'SUNDAY';
+    };
+    slot: {
+      id: number;
+      name: string;
+      code: string;
+      startTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+      endTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+    };
+  }>[];
+  course: Partial<{
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+    subject: {
+      id: number;
+      code: string;
+      name: string;
+      categoryIds: [0];
+    };
+  }>;
+  numberOfCurrentStudent: number;
+  progress: Partial<{
+    currentSlot: number;
+    percentage: number;
+  }>;
 }>;
 
 export type GetStudentList = Partial<{
   id: number;
+  images: {
+    id: number;
+    name: string;
+    url: string;
+    status: true;
+    type: ImageKeys;
+  };
   email: string;
   name: string;
 }>;
@@ -402,6 +510,19 @@ export type GetReviewQuizResponse = Partial<{
 }>;
 
 export type GetMentorQuizzesResponse = Partial<{
+  id: number;
+  submitBy: {
+    id: number;
+    name: string;
+  };
+  submitAt: string;
+  point: number;
+  correctNumber: number;
+  totalQuestion: number;
+  status: QuizKeys;
+}>;
+
+export type GetResultResponse = Partial<{
   id: number;
   submitBy: {
     id: number;

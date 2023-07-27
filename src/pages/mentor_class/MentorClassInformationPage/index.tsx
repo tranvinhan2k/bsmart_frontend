@@ -13,6 +13,7 @@ import {
   useCreateCourseClass,
   useDispatchGetAllDayOfWeeks,
   useDispatchGetAllSlots,
+  useDispatchGetAllSubjects,
   useMutationOpenNotStartClass,
   useTryCatch,
 } from '~/hooks';
@@ -31,7 +32,6 @@ export interface MentorClassInformationPayload {
   endDate: string;
   status: ClassStatusKeys;
   subjectName: string;
-  categoryName: string;
   price: number;
   imageUrl: string;
   imageAlt: string;
@@ -46,8 +46,6 @@ export default function MentorClassInformationPage() {
     timetable: MonthTimeSlotPayload[];
   }>();
 
-  const { optionSlots } = useDispatchGetAllSlots();
-  const { optionDayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { detailClass: contextDetailClass, refetch } = useContext(ClassContext);
 
   const { mutateAsync: handleMutationOpenClass } =
@@ -55,8 +53,11 @@ export default function MentorClassInformationPage() {
 
   const { handleTryCatch } = useTryCatch('mở lớp');
 
+  const { subjects } = useDispatchGetAllSubjects();
+  const subject = subjects.find(
+    (item) => item.id === contextDetailClass?.id || 0
+  );
   const detailClass: MentorClassInformationPayload = {
-    categoryName: 'Front End',
     code: `#${contextDetailClass?.code}`,
     endDate: contextDetailClass?.endDate || '',
     startDate: contextDetailClass?.startDate || '',
@@ -68,7 +69,7 @@ export default function MentorClassInformationPage() {
     numberOfStudent: contextDetailClass?.numberOfStudent || 0,
     price: contextDetailClass?.price || 0,
     status: contextDetailClass?.status || 'ALL',
-    subjectName: 'Java',
+    subjectName: subject?.name || '',
     timetable: contextDetailClass?.timeTablesRequest || [],
   };
 
@@ -149,7 +150,6 @@ export default function MentorClassInformationPage() {
       </CustomModal>
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
         <ClassInformationList
-          categoryName={detailClass.categoryName}
           code={detailClass.code}
           endDate={detailClass.endDate}
           imageAlt={detailClass.imageAlt}

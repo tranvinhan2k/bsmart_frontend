@@ -144,6 +144,7 @@ export interface ClassDetailPayload {
   numberOfSlot: number;
   numberOfStudent: number;
   price: number;
+  activities: ActivityPayload[];
   timeTablesRequest: { dayOfWeekId: number; slotId: number }[];
 }
 
@@ -161,6 +162,7 @@ export interface ActivityPayload {
   subActivities: ActivityPayload[];
   visible: boolean;
   authorizeClasses: number[];
+  isFixed: boolean;
 }
 
 export type ActivityDetailPayload = Omit<
@@ -235,6 +237,7 @@ export interface WeekTimeSlotPayload {
   dayOfWeekId: number;
   attendanceSlotId?: number;
   isPresent: boolean;
+  isTookAttendance: boolean;
   date: string;
 }
 

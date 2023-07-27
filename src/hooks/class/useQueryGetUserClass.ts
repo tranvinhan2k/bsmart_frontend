@@ -3,8 +3,10 @@ import { PagingFilterRequest } from '~/models';
 import { useCustomQuery } from '../custom/useCustomQuery';
 import accountApi from '~/api/users';
 import { ClassStatusKeys } from '~/models/variables';
+import { ClassMenuItemPayload } from '~/models/type';
 
 export const useQueryGetUserClass = (role: 'STUDENT' | 'TEACHER') => {
+  const [filter, setFilter] = useState<ClassMenuItemPayload[]>();
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     q: '',
     page: 0,
@@ -43,12 +45,26 @@ export const useQueryGetUserClass = (role: 'STUDENT' | 'TEACHER') => {
   );
 
   useEffect(() => {
+    const handleGetFilterCourse = async () => {
+      const response = await accountApi.getUserClass({
+        page: 0,
+        asRole: role === 'STUDENT' ? 1 : 2,
+      });
+      setFilter(response.items);
+    };
+
+    handleGetFilterCourse();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterParams]);
 
   return {
     classes: data?.items,
+    allClasses: filter,
     currentPage: data?.currentPage,
     totalPage: data?.totalPages,
     error,

@@ -200,6 +200,7 @@ export type FormInputVariant =
   | 'dropdownDynamicValue'
   | 'dropdownBanks'
   | 'timetable'
+  | 'rating'
   | 'radioGroup'
   | 'image'
   | 'multiSelect'

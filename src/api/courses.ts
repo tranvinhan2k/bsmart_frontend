@@ -159,6 +159,7 @@ function handleResponseGetActivities(
     subActivities: handleResponseGetActivities(item?.subActivities || []),
     type: item?.type || 'SECTION',
     authorizeClasses: item?.authorizeClasses || [],
+    isFixed: !!item?.fixed,
   }));
 }
 

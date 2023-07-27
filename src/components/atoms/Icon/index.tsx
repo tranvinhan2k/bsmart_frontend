@@ -35,7 +35,7 @@ import { CiMail, CiPhone } from 'react-icons/ci';
 import { FaBell, FaShare } from 'react-icons/fa';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrFormPrevious } from 'react-icons/gr';
-import { HiLocationMarker } from 'react-icons/hi';
+import { HiLocationMarker, HiOutlineTicket } from 'react-icons/hi';
 import { IoMdPaper, IoMdPricetag } from 'react-icons/io';
 import { IoDocuments } from 'react-icons/io5';
 import {
@@ -127,6 +127,7 @@ export type IconName =
   | 'checkCircleFill'
   | 'class'
   | 'clear'
+  | 'promo'
   | 'close'
   | 'contentCopyIcon'
   | 'coPresent'
@@ -339,6 +340,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Stack sx={STYLED_ICON}>
           <BsArrowReturnLeft />
+        </Stack>
+      );
+    case 'promo':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <HiOutlineTicket />
         </Stack>
       );
     case 'checkCircle':

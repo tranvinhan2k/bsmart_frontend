@@ -73,6 +73,7 @@ const classApi = {
         subActivities: item.subActivities,
         type: item.type,
         visible: item.visible,
+        isFixed: item.fixed,
       })),
     };
     return result;
@@ -105,7 +106,7 @@ const classApi = {
     const result: MentorClassMemberDetailPayload[] = response.items.map(
       (item) => ({
         id: item?.id || 0,
-        avatar: image.mockStudent,
+        avatar: item.images?.url || '',
         dayOfBirth: new Date('01/01/2000').toISOString(),
         email: item?.email || '',
         name: item?.name || '',
@@ -166,31 +167,43 @@ const classApi = {
     return axiosClient.put(`${url}/${id}/open`, params);
   },
 
-  async getDetailUserClass(
-    id: number,
-    role: number
-  ): Promise<ClassDetailPayload> {
+  async getDetailUserClass(id: number): Promise<ClassDetailPayload> {
     const response: ResponseDetailClass = await axiosClient.get(`${url}/${id}`);
     const result: ClassDetailPayload = {
       id: response?.id || 0,
       code: response?.code || '',
       imageAlt: response?.classImage?.name || '',
       imageUrl: response?.classImage?.url || '',
-      name: '',
-      progressValue: -1, // TODO: chua co
+      name: response.course?.name || '',
+      progressValue: response.progress?.percentage || 0,
       status: response?.status || 'ALL',
-      subjectId: 0,
+      subjectId: response.course?.subject?.id || 0,
       teacherName: [response?.mentor?.fullName || ''],
       endDate: response?.endDate || '',
       startDate: response?.startDate || '',
       numberOfSlot: response?.numberOfSlot || 0,
-      numberOfStudent: 12,
+      numberOfStudent: response.numberOfCurrentStudent || 0,
       price: response?.price || 0,
-      timeTablesRequest: [],
-      // response?.timeInWeeks?.map((item) => ({
-      //   dayOfWeekId: item.dayOfWeek.id,
-      //   slotId: item.slot.id,
-      // })) || [],
+      timeTablesRequest:
+        response.timeInWeeks?.map((item) => ({
+          dayOfWeekId: item.dayOfWeek?.id || 0,
+          slotId: item.slot?.id || 0,
+        })) || [],
+      activities:
+        response.activities?.map((item) => ({
+          id: item?.id || 0,
+          authorizeClasses: [],
+          created: item?.created || '',
+          createdBy: item?.createdBy || '',
+          isFixed: false,
+          lastModified: item?.lastModified || '',
+          lastModifiedBy: item?.lastModifiedBy || '',
+          name: item?.name || '',
+          parentActivityId: item?.parentActivityId || 0,
+          type: item?.type || 'SECTION',
+          visible: !!item?.visible,
+          subActivities: item?.subActivities || [],
+        })) || [],
     };
     return result;
   },

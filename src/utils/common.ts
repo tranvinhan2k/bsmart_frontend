@@ -10,6 +10,14 @@ export function scrollToTop() {
   });
 }
 
+export const generateMockApi = <T>(params: T): Promise<T> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(params);
+    }, 500);
+  });
+};
+
 export function delay(time?: number) {
   return new Promise((resolve) => {
     setTimeout(() => {

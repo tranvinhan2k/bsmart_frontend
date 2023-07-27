@@ -1,56 +1,68 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import MarkDisplay from '~/components/atoms/MarkDisplay';
-import TextList from '~/components/atoms/texts/TextList';
-import { image } from '~/constants/image';
 import {
   MemberDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import { validationPassword } from '~/form/validation';
+import { useGetIdFromUrl, useYupValidationResolver } from '~/hooks';
+import { useGetQuizResult } from '~/hooks/quiz/useGetQuizResult';
 import { ActivityQuizPayload } from '~/models/type';
+import { reviewQuiz, saveDataQuiz } from '~/redux/user/slice';
 import globalStyles from '~/styles';
-import {
-  formatDate,
-  formatISODateDateToDisplayDateTime,
-  formatTime,
-} from '~/utils/date';
+import { handleConsoleError } from '~/utils/common';
+import { formatISODateDateToDisplayDateTime, formatTime } from '~/utils/date';
 
 interface Props {
   name: string;
   item: ActivityQuizPayload;
 }
 
-export default function ModuleQuizPage({ name, item }: Props) {
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const { control, handleSubmit } = useForm();
+export interface QuizResultPayload {
+  point: number;
+  correctNumber: number;
+  totalQuestion: number;
+}
 
-  const id = 9;
+export default function ModuleQuizPage({ name, item }: Props) {
+  const id = useGetIdFromUrl('moduleId');
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const resolver = useYupValidationResolver(validationPassword);
+  const { control, handleSubmit } = useForm({
+    resolver,
+  });
+
+  const { data } = useGetQuizResult(id);
 
   const quiz = {
-    isQuizOpen: true,
-    isAttemptedQuiz: true,
-    isPassed: true,
-    code: 'hsau678',
+    isQuizOpen: new Date(item.startDate).getTime() <= new Date().getTime(),
+    isAttemptedQuiz: Boolean(data),
+    code: item.code,
     startDate: formatISODateDateToDisplayDateTime(new Date()),
     endDate: formatISODateDateToDisplayDateTime(new Date()),
     time: formatTime(120),
   };
 
-  const isQuizOpen = true;
-  const isAttemptedQuiz = false;
-  const isPassed = true;
-
-  const point = 10;
-  const passPoint = 100;
-
-  const onSubmit = (data: any) => {
+  const onSubmit = (param: any) => {
+    dispatch(
+      saveDataQuiz({
+        quizId: id,
+        quizTime: item.time,
+        quizPassword: param?.password || '',
+        quizName: name,
+      })
+    );
     navigate(
       `/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.quiz}/${id}`
     );
@@ -60,7 +72,18 @@ export default function ModuleQuizPage({ name, item }: Props) {
     setOpen(!open);
   };
 
-  const onReview = () => {};
+  const onReview = () => {
+    dispatch(
+      reviewQuiz({
+        quizId: id,
+        quizTime: item.time,
+        quizName: name,
+      })
+    );
+    navigate(
+      `/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.review}/${id}`
+    );
+  };
 
   return (
     <Stack
@@ -93,14 +116,21 @@ export default function ModuleQuizPage({ name, item }: Props) {
           sx={globalStyles.textLowSmallLight}
         >{`Thời gian làm bài: ${quiz.time} phút`}</Typography>
       </Stack>
-      {!isAttemptedQuiz && (
-        <Button disabled={!isQuizOpen} onClick={onClose} variant="contained">
+      {!quiz.isAttemptedQuiz && (
+        <Button
+          disabled={!quiz.isQuizOpen}
+          onClick={onClose}
+          variant="contained"
+        >
           Vào làm bài
         </Button>
       )}
-      {isAttemptedQuiz && (
+      {quiz.isAttemptedQuiz && (
         <Stack>
-          <MarkDisplay point={7} total={10} />
+          <MarkDisplay
+            point={data?.correctNumber || 0}
+            total={data?.totalNumber || 0}
+          />
           <Button
             disabled={!item.isAllowReview}
             onClick={onReview}
@@ -148,7 +178,10 @@ export default function ModuleQuizPage({ name, item }: Props) {
             }}
             marginTop={1}
           >
-            <Button onClick={onSubmit} variant="contained">
+            <Button
+              onClick={handleSubmit(onSubmit, handleConsoleError)}
+              variant="contained"
+            >
               Xác nhận
             </Button>
             <Button

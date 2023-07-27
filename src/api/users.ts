@@ -20,6 +20,10 @@ import { GetUserSchedule, ResponseUserClasses } from '~/models/response';
 import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
 import { compareDate } from '~/utils/date';
 import { AttendanceTimeSlotPayload } from '~/pages/mentor_class/MentorClassAttendanceListPage';
+import { PromoCodePayload } from '~/pages/member_class/MemberPromoCode';
+import { generateMockApi } from '~/utils/common';
+import { image } from '~/constants/image';
+import { NotificationItemPayload } from '~/HOCs/context/NotificationItem';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -132,15 +136,16 @@ const formatScheduleToWeekSchedule = (response: GetUserSchedule) => {
       result = [
         ...result,
         {
-          id: timetable.id || -1,
+          id: timetable?.id || 0,
           classId: date.workingClass?.id || -1,
-          className: date.workingClass?.course?.code || '',
+          className: date.workingClass?.code || '',
           date: timetable.date || '',
           dayOfWeekId: new Date(timetable.date || '').getDay() + 1,
-          isPresent: true,
+          isPresent: true, // TODO chua co
+          isTookAttendance: true, // TODO chua co
           link: timetable.classURL || '',
           slotId: timetable.slot?.id || 0,
-          attendanceSlotId: 0,
+          attendanceSlotId: timetable?.id || 0,
         },
       ];
       return null;
@@ -211,6 +216,47 @@ const accountApi = {
   getProfile(config: any): Promise<any> {
     return axiosClient.get(`${url}/profile`, config);
   },
+  getNotifications(): Promise<NotificationItemPayload[]> {
+    const notifications: NotificationItemPayload[] = [
+      {
+        avatarUrl: image.mockStudent,
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea dolorum quisquam eveniet rerum, earum dolores ullam, excepturi placeat temporibus molestias nesciunt inventore iusto ad rem vitae consequuntur expedita officiis labore? ',
+        time: new Date().toISOString(),
+      },
+      {
+        avatarUrl: image.mockTeacherAvatar,
+        message:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea dolorum quisquam eveniet rerum, earum dolores ullam, excepturi placeat temporibus molestias nesciunt inventore iusto ad rem vitae consequuntur expedita officiis labore? ',
+        time: new Date().toISOString(),
+      },
+    ];
+    return generateMockApi(notifications);
+  },
+  getIntroduceCode(): Promise<PromoCodePayload[]> {
+    const data: PromoCodePayload[] = [
+      {
+        id: 0,
+        code: '1234567',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
+      },
+      {
+        id: 1,
+        code: '1234563',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
+      },
+      {
+        id: 2,
+        code: '1234561',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
+      },
+    ];
+
+    return generateMockApi(data);
+  },
   getUserById(id: number): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
   },
@@ -229,7 +275,7 @@ const accountApi = {
       });
     const result: ClassMenuItemPayload[] = response.items.map((item) => ({
       id: item.id || 0,
-      code: item.course?.code || '',
+      code: item.code || '',
       imageAlt: item.image?.name || '',
       imageUrl: item.image?.url || '',
       name: item.course?.name,
@@ -322,6 +368,26 @@ const accountApi = {
       month: formatScheduleToMonthSchedule(response),
     };
 
+    return result;
+  },
+  async getUserClassSchedule(id: number): Promise<WeekTimeSlotPayload[]> {
+    const response: GetUserSchedule = await axiosClient.get(
+      `${url}/timetables`
+    );
+    const responseClass = response.find((item) => item.workingClass?.id === id);
+    const result: WeekTimeSlotPayload[] =
+      responseClass?.timeTableResponse?.map((item) => ({
+        id: item?.id || 0,
+        classId: responseClass.workingClass?.id || 0,
+        className: responseClass.workingClass?.code || '',
+        date: item?.date || '',
+        dayOfWeekId: new Date(item?.date || '').getDay() + 1,
+        isPresent: true, // TODO: chua co
+        isTookAttendance: true, // TODO: chua co
+        link: item.classURL || '',
+        slotId: item.slot?.id || 0,
+        attendanceSlotId: 0,
+      })) || [];
     return result;
   },
   getAllUser({

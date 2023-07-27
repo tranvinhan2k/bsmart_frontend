@@ -1,23 +1,36 @@
 import { Stack, Typography, Box } from '@mui/material';
+import { useState } from 'react';
 import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Timetable, { TimetablePayload } from '~/components/molecules/Timetable';
-import { OptionPayload } from '~/models';
+import { image } from '~/constants/image';
 import globalStyles from '~/styles';
 
-export interface TextListPayload {
+export type TextListPayload = {
   id?: number;
   name: string;
-  value?: string;
   alt?: string;
-  type?: 'text' | 'image' | 'timetable';
-  timetable?: TimetablePayload[];
-}
+} & (
+  | {
+      type: 'text' | 'image';
+      value: string;
+    }
+  | {
+      type: 'custom';
+      value: React.ReactNode;
+    }
+  | {
+      type: 'timetable';
+      timetable?: TimetablePayload[];
+    }
+);
 
 interface Props {
   items: TextListPayload[];
 }
 
 export default function TextList({ items }: Props) {
+  const [error, setError] = useState(false);
+
   return (
     <Stack>
       {items.map((item, index) => (
@@ -37,11 +50,12 @@ export default function TextList({ items }: Props) {
               color: Color.black,
             }}
           >
-            {item.type === 'image' && (
+            {item?.type === 'image' && (
               <Box
                 component="img"
-                src={item.value}
+                src={error ? image.noCourse : item.value}
                 alt={item.alt}
+                onError={() => setError(true)}
                 sx={{
                   width: '50%',
                   height: undefined,
@@ -50,10 +64,11 @@ export default function TextList({ items }: Props) {
                 }}
               />
             )}
-            {item.type === 'timetable' && (
+            {item?.type === 'timetable' && (
               <Timetable data={item?.timetable || []} />
             )}
-            {!item.type && `${item.value}`}
+            {item?.type === 'text' && `${item.value}`}
+            {item?.type === 'custom' && item.value}
           </Typography>
         </Stack>
       ))}

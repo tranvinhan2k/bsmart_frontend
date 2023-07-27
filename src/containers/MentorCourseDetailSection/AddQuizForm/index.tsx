@@ -3,7 +3,12 @@ import { useContext } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { CourseContext } from '~/HOCs/context/CourseContext';
-import { Color, FontSize, FontFamily } from '~/assets/variables';
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  isAllowUpdateActivity,
+} from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
@@ -43,12 +48,18 @@ export type AddSubSectionFormPayload =
     };
 
 interface Props {
+  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: () => void;
 }
 
-export default function AddQuizForm({ hookForm, onSubmit, onDelete }: Props) {
+export default function AddQuizForm({
+  isFixed,
+  hookForm,
+  onSubmit,
+  onDelete,
+}: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
   const { course } = useContext(CourseContext);
@@ -171,8 +182,8 @@ export default function AddQuizForm({ hookForm, onSubmit, onDelete }: Props) {
             }}
             disabled={
               !hookForm.formState.isDirty ||
-              (course?.status !== 'EDITREQUEST' &&
-                course?.status !== 'REQUESTING')
+              !isAllowUpdateActivity(course.status) ||
+              !isFixed
             }
             onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
             variant="contained"
@@ -181,6 +192,7 @@ export default function AddQuizForm({ hookForm, onSubmit, onDelete }: Props) {
           </Button>
           {onDelete && (
             <Button
+              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
               sx={{
                 marginLeft: 1,
               }}

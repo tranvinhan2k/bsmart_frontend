@@ -1,5 +1,7 @@
 import { Box, Stack } from '@mui/material';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ClassContext } from '~/HOCs/context/ClassContext';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
 import TextTitle from '~/components/atoms/texts/TextTitle';
@@ -16,6 +18,7 @@ interface Props {
 }
 
 export default function MemberClassContentPage({ courseId }: Props) {
+  const { detailClass } = useContext(ClassContext);
   const navigate = useNavigate();
   const handleNavigateCourseContent = () => {
     navigate(
@@ -27,131 +30,7 @@ export default function MemberClassContentPage({ courseId }: Props) {
     <Stack>
       <TextTitle title="Nội dung lớp học" />
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
-        <Content
-          courseId={courseId}
-          sections={[
-            {
-              id: 0,
-              name: 'Giới thiệu',
-              authorizeClasses: [],
-              created: '',
-              createdBy: '',
-              lastModified: '',
-              lastModifiedBy: '',
-              parentActivityId: 1,
-              subActivities: [
-                {
-                  id: 0,
-                  name: 'Giới thiệu',
-                  authorizeClasses: [],
-                  created: '',
-                  createdBy: '',
-                  lastModified: '',
-                  lastModifiedBy: '',
-                  parentActivityId: 1,
-                  subActivities: [],
-                  type: 'LESSON',
-                  visible: true,
-                },
-                {
-                  id: 1,
-                  name: 'Kiểm tra 15 phút',
-                  authorizeClasses: [],
-                  created: '',
-                  createdBy: '',
-                  lastModified: '',
-                  lastModifiedBy: '',
-                  parentActivityId: 1,
-                  subActivities: [],
-                  type: 'QUIZ',
-                  visible: true,
-                },
-                {
-                  id: 2,
-                  name: 'Tài liệu về pointer trong C#',
-                  authorizeClasses: [],
-                  created: '',
-                  createdBy: '',
-                  lastModified: '',
-                  lastModifiedBy: '',
-                  parentActivityId: 1,
-                  subActivities: [],
-                  type: 'RESOURCE',
-                  visible: true,
-                },
-                {
-                  id: 3,
-                  name: 'Tính số nguyên bằng ngôn ngữ C#',
-                  authorizeClasses: [],
-                  created: '',
-                  createdBy: '',
-                  lastModified: '',
-                  lastModifiedBy: '',
-                  parentActivityId: 1,
-                  subActivities: [],
-                  type: 'ASSIGNMENT',
-                  visible: true,
-                },
-              ],
-              type: 'LESSON',
-              visible: true,
-            },
-            {
-              id: 0,
-              name: 'Giới thiệu',
-              authorizeClasses: [],
-              created: '',
-              createdBy: '',
-              lastModified: '',
-              lastModifiedBy: '',
-              parentActivityId: 1,
-              subActivities: [
-                {
-                  id: 0,
-                  name: 'Giới thiệu',
-                  authorizeClasses: [],
-                  created: '',
-                  createdBy: '',
-                  lastModified: '',
-                  lastModifiedBy: '',
-                  parentActivityId: 1,
-                  subActivities: [],
-                  type: 'LESSON',
-                  visible: true,
-                },
-              ],
-              type: 'LESSON',
-              visible: true,
-            },
-            {
-              id: 0,
-              name: 'Giới thiệu',
-              authorizeClasses: [],
-              created: '',
-              createdBy: '',
-              lastModified: '',
-              lastModifiedBy: '',
-              parentActivityId: 1,
-              subActivities: [
-                {
-                  id: 0,
-                  name: 'Giới thiệu',
-                  authorizeClasses: [],
-                  created: '',
-                  createdBy: '',
-                  lastModified: '',
-                  lastModifiedBy: '',
-                  parentActivityId: 1,
-                  subActivities: [],
-                  type: 'LESSON',
-                  visible: true,
-                },
-              ],
-              type: 'LESSON',
-              visible: true,
-            },
-          ]}
-        />
+        <Content courseId={courseId} sections={detailClass?.activities || []} />
         <Box>
           <Button
             onClick={handleNavigateCourseContent}

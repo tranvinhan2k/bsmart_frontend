@@ -2,17 +2,24 @@ import { Stack, Typography, Button } from '@mui/material';
 import { useContext } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { CourseContext } from '~/HOCs/context/CourseContext';
-import { Color, FontSize, FontFamily } from '~/assets/variables';
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  isAllowUpdateActivity,
+} from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
 
 interface Props {
+  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: (data: any) => void;
 }
 
 export default function AddSubSectionForm({
+  isFixed,
   hookForm,
   onSubmit,
   onDelete,
@@ -83,8 +90,8 @@ export default function AddSubSectionForm({
             }}
             disabled={
               !hookForm.formState.isDirty ||
-              (course?.status !== 'EDITREQUEST' &&
-                course?.status !== 'REQUESTING')
+              !isAllowUpdateActivity(course.status) ||
+              !isFixed
             }
             onClick={hookForm.handleSubmit(onSubmit)}
             variant="contained"
@@ -98,10 +105,7 @@ export default function AddSubSectionForm({
                 marginLeft: 1,
                 color: Color.white,
               }}
-              disabled={
-                course?.status !== 'EDITREQUEST' &&
-                course?.status !== 'REQUESTING'
-              }
+              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
               onClick={onDelete}
               variant="contained"
             >

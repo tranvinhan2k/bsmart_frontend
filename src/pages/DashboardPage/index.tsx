@@ -135,7 +135,7 @@ export default function DashboardPage() {
             >
               <DashboardSidebar
                 isMobile
-                isHover={isHover}
+                isHover
                 onNavigateHomepage={handleNavigateHomepage}
                 onNavigateLink={handleNavigateLink}
                 onTriggerHover={handleChangeHover}

@@ -59,6 +59,49 @@ export const mockImages: string[] = [
   'https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 ];
 
+export const OptionFeedbackData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Có',
+    value: '0',
+  },
+  {
+    id: 1,
+    label: 'Không',
+    value: '1',
+  },
+  {
+    id: 2,
+    label: 'Chưa rõ',
+    value: '2',
+  },
+];
+
+export const comparisonData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Lớn hơn',
+    value: 'GREATER_THAN',
+  },
+  {
+    id: 1,
+    label: 'Nhỏ hơn',
+    value: 'LESS_THAN',
+  },
+];
+export const quizStatusData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Hoàn thành',
+    value: 'DONE',
+  },
+  {
+    id: 1,
+    label: 'Chưa mở',
+    value: 'PENDING',
+  },
+];
+
 export type CourseTypeDataKeys = keyof typeof courseTypeData;
 
 export const genderData: OptionPayload[] = [

@@ -2,7 +2,12 @@ import { Stack, Typography, Button } from '@mui/material';
 import { useContext, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { CourseContext } from '~/HOCs/context/CourseContext';
-import { Color, FontSize, FontFamily } from '~/assets/variables';
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  isAllowUpdateActivity,
+} from '~/assets/variables';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { validationClassContentSection } from '~/form/validation';
 import {
@@ -76,8 +81,8 @@ export default function UpdateSectionForm({
           <Button
             disabled={
               !hookForm.formState.isDirty ||
-              (course?.status !== 'EDITREQUEST' &&
-                course?.status !== 'REQUESTING')
+              !isAllowUpdateActivity(course.status) ||
+              section?.isFixed
             }
             color="secondary"
             sx={{
@@ -92,10 +97,7 @@ export default function UpdateSectionForm({
             Lưu thay đổi
           </Button>
           <Button
-            disabled={
-              course?.status !== 'EDITREQUEST' &&
-              course?.status !== 'REQUESTING'
-            }
+            disabled={!isAllowUpdateActivity(course.status) || section?.isFixed}
             onClick={onDelete}
             sx={{
               marginLeft: 1,

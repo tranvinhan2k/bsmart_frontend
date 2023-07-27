@@ -10,16 +10,16 @@ export const MentorClassNavigationActionData: ActionPayload[] = [
     classStatus: 'ALL',
   },
   {
-    id: 2,
-    link: MentorClassActionLink.schedule,
-    name: 'Lịch làm việc',
-    icon: 'date',
-  },
-  {
     id: 1,
     link: MentorClassActionLink.students,
     name: 'Danh sách học sinh',
     icon: 'person',
+  },
+  {
+    id: 2,
+    link: MentorClassActionLink.schedule,
+    name: 'Lịch làm việc',
+    icon: 'date',
   },
   {
     id: 3,

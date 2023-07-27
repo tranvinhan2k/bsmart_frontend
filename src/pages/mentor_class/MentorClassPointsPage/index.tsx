@@ -2,8 +2,10 @@ import { Stack } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
+import { comparisonData, quizStatusData } from '~/constants';
 import { QuizReportStudentPayload } from '~/models/type';
 import globalStyles from '~/styles';
+import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
 export default function MentorClassPointsPage() {
   const rows: QuizReportStudentPayload[] = [
@@ -21,32 +23,72 @@ export default function MentorClassPointsPage() {
     {
       field: 'name',
       headerName: 'Tên học sinh',
+      flex: 1,
     },
     {
       field: 'submitAt',
-      flex: 1,
+      flex: 6,
       headerName: 'Thời gian nộp bài',
-    },
-
-    {
-      field: 'correctNumber',
-      headerName: 'Số câu hỏi trả lời đúng',
-    },
-    {
-      field: 'totalNumber',
-      headerName: 'Số câu hỏi',
+      renderCell: (params) => {
+        const formatCell = formatISODateStringToDisplayDateTime(
+          params.row?.submitAt
+        );
+        return formatCell;
+      },
     },
     {
       field: 'point',
-      headerName: 'Số câu đạt được',
+      headerName: 'Điểm',
+      flex: 1,
+      renderCell: (params) => {
+        return `${params.row?.point}/${params.row?.totalNumber}`;
+      },
     },
   ];
+
+  const handleSearch = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <Stack>
       <TextTitle title="Thông kê điểm số" />
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
-        <CRUDTable columns={columns} rows={rows} />
+        <CRUDTable
+          columns={columns}
+          rows={rows}
+          searchPlaceholder="Nhập tên học sinh bạn muốn tìm kiếm"
+          onSearch={handleSearch}
+          searchFilterFormInputList={[
+            {
+              name: 'status',
+              data: quizStatusData,
+              placeholder: 'Nhập trạng thái của bài kiểm tra',
+              variant: 'dropdown',
+            },
+            {
+              name: 'comparison',
+              data: comparisonData,
+              placeholder: 'Nhập phép so sánh',
+              variant: 'dropdown',
+            },
+            {
+              name: 'point',
+              variant: 'number',
+              placeholder: 'Điểm số của học sinh',
+            },
+            {
+              name: 'startDate',
+              variant: 'date',
+              placeholder: 'Nhập ngày bắt đầu',
+            },
+            {
+              name: 'endDate',
+              variant: 'date',
+              placeholder: 'Nhập ngày kết thúc',
+            },
+          ]}
+        />
       </Stack>
     </Stack>
   );

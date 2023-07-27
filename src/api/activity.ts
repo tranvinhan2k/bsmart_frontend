@@ -14,6 +14,11 @@ import {
 } from '~/models/response';
 import { ActivityDetailPayload, QuizReportStudentPayload } from '~/models/type';
 import { DoQuizPayload } from '~/pages/QuizPage';
+import {
+  AssignmentItemPayload,
+  AssignmentSubmitItemPayload,
+} from '~/pages/mentor_class/MentorClassAssignmentPage';
+import { generateMockApi } from '~/utils/common';
 
 const url = '/activity';
 
@@ -33,6 +38,7 @@ const activityApi = {
       type: response?.type || 'LESSON',
       authorizeClasses: response?.authorizeClasses || [],
       detail: response?.detail,
+      isFixed: false,
     };
     switch (result.type) {
       case 'LESSON':
@@ -87,6 +93,7 @@ const activityApi = {
     );
 
     const result: QuizReportStudentPayload = {
+      id: 0,
       name: response?.submitBy?.name || '',
       correctNumber: response?.correctNumber || 0,
       point: response?.point || 0,
@@ -109,6 +116,7 @@ const activityApi = {
         params,
       });
     const result: QuizReportStudentPayload[] = response.items.map((item) => ({
+      id: 0,
       name: item?.submitBy?.name || '',
       correctNumber: item?.correctNumber || 0,
       point: item?.point || 0,
@@ -140,6 +148,47 @@ const activityApi = {
     };
 
     return result;
+  },
+
+  async getMentorAssignments(id: number): Promise<AssignmentItemPayload[]> {
+    const rows: AssignmentItemPayload[] = [
+      {
+        id: 4,
+        file: undefined,
+        studentId: 0,
+        studentName: 'Tran Vi Nhan',
+        timeSubmit: new Date().toISOString(),
+      },
+      {
+        id: 1,
+        file: undefined,
+        studentId: 0,
+        studentName: 'Tran Vi Nhan',
+        timeSubmit: new Date().toISOString(),
+      },
+      {
+        id: 2,
+        file: undefined,
+        studentId: 0,
+        studentName: 'Tran Vi Nhan',
+        timeSubmit: new Date().toISOString(),
+      },
+    ];
+    return generateMockApi(rows);
+  },
+
+  async deleteFile(id: number) {
+    return generateMockApi(true);
+  },
+
+  async addPointAssignment({
+    id,
+    params,
+  }: {
+    id: number;
+    params: AssignmentSubmitItemPayload[];
+  }) {
+    return generateMockApi(true);
   },
 
   // post

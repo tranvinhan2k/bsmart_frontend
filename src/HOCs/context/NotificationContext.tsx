@@ -2,11 +2,12 @@ import { Avatar, Divider, Stack, Typography } from '@mui/material';
 import { ReactNode, createContext, useMemo, useState } from 'react';
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CustomMenu from '~/components/atoms/CustomMenu';
-import CustomModal from '~/components/atoms/CustomModal';
 import { image } from '~/constants/image';
-import { useMenuItem } from '~/hooks';
+import { useGetNotifications, useMenuItem } from '~/hooks';
 import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import NotificationItem, { NotificationItemPayload } from './NotificationItem';
+import LoadingWrapper from '../loading/LoadingWrapper';
 
 interface Props {
   children: ReactNode;
@@ -17,6 +18,7 @@ interface NotificationContextProps {
   openNotification: boolean;
   onOpenNotification: () => void;
   ref: any;
+  notifications: NotificationItemPayload[];
 }
 
 export const NotificationContext = createContext<NotificationContextProps>({
@@ -24,12 +26,14 @@ export const NotificationContext = createContext<NotificationContextProps>({
   openNotification: false,
   onOpenNotification: () => {},
   ref: null,
+  notifications: [],
 });
 
 export default function NotificationContextProvider({ children }: Props) {
-  const numberOfNotification = 10;
-
   const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
+
+  const { data: notifications, error, isLoading } = useGetNotifications();
+  const numberOfNotification = notifications?.length || 0;
 
   const value: NotificationContextProps = useMemo(
     () => ({
@@ -37,9 +41,10 @@ export default function NotificationContextProvider({ children }: Props) {
       openNotification: open,
       onOpenNotification: handleToggle,
       ref: anchorRef,
+      notifications: notifications || [],
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open]
+    [open, notifications]
   );
 
   return (
@@ -58,44 +63,27 @@ export default function NotificationContextProvider({ children }: Props) {
         >
           <Typography sx={globalStyles.textSmallLabel}>Thông báo</Typography>
           <Divider />
-          <Stack marginTop={1}>
+          <LoadingWrapper
+            error={error}
+            isLoading={isLoading}
+            isEmptyCourse={notifications?.length === 0}
+          >
             <Stack
+              marginTop={1}
               sx={{
-                maxWidth: { xs: '100%', md: '400px' },
-                overflow: 'hidden',
-                border: '1px solid #ddd',
-                borderRadius: MetricSize.small_5,
-                padding: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
+                width: { xs: '100%', md: '400px' },
               }}
             >
-              <Avatar alt="avatar" src={image.student} />
-              <Stack
-                sx={{
-                  marginLeft: 2,
-                }}
-              >
-                <Typography
-                  sx={{
-                    height: '46px',
-                    overflow: 'hidden',
-                    ...globalStyles.textTwoLineEllipsis,
-                    fontFamily: FontFamily.regular,
-                    fontSize: FontSize.small_16,
-                  }}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-                  perspiciatis deserunt laudantium a perferendis enim officiis
-                  aliquam repellendus cum blanditiis. Eum quasi, iure sed quis
-                  provident autem? Quos, consequuntur praesentium.
-                </Typography>
-                <Typography noWrap sx={globalStyles.textLowSmallLight}>
-                  {formatISODateDateToDisplayDateTime(new Date().toISOString())}
-                </Typography>
-              </Stack>
+              {notifications?.map((item, index) => (
+                <NotificationItem
+                  key={index}
+                  avatarUrl={item.avatarUrl}
+                  message={item.message}
+                  time={item.time}
+                />
+              ))}
             </Stack>
-          </Stack>
+          </LoadingWrapper>
         </Stack>
       </CustomMenu>
     </NotificationContext.Provider>

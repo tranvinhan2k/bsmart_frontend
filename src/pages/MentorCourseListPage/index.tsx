@@ -44,7 +44,7 @@ export default function MentorCourseListPage() {
   });
   const [value, setValue] = useState(0);
 
-  const { courses, error, isLoading, currentPage, totalPages } =
+  const { courses, error, isLoading, currentPage, totalPages, allClasses } =
     useQueryGetMentorCourses(filterParams);
 
   // parameters
@@ -149,7 +149,7 @@ export default function MentorCourseListPage() {
                   <ClassStatusLabel
                     label={item.label}
                     numberOfItem={
-                      courses?.reduce((total: number, subItem) => {
+                      allClasses?.reduce((total: number, subItem) => {
                         if (
                           item.value === 'ALL' ||
                           subItem.courseStatus === item.value

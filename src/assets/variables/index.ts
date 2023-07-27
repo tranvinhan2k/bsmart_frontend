@@ -1,4 +1,12 @@
 import { date, mixed } from 'yup';
+import { CourseStatusKeys } from '~/models/variables';
+
+export const isAllowUpdateActivity = (status: CourseStatusKeys) =>
+  status === 'EDITREQUEST' ||
+  status === 'REQUESTING' ||
+  status === 'NOTSTART' ||
+  status === 'STARTING' ||
+  status === 'ENDED';
 
 export const Color = {
   aquamarine: '#7fffd4',

@@ -1,18 +1,13 @@
-import { Stack, Typography, Box, TextField, Tooltip } from '@mui/material';
+import { Stack, Typography, Box, TextField } from '@mui/material';
 import { DatePicker, PickersDay } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import {
-  useDispatchGetAllDayOfWeeks,
-  useDispatchGetAllSlots,
-  useGetIdFromUrl,
-} from '~/hooks';
-import globalStyles from '~/styles';
+import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
 import { WeekTimeSlotPayload } from '~/models/type';
 import SLotName from './SlotName';
 import DayName from './DayName';
@@ -23,6 +18,8 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import { openUrl } from '~/utils/window';
+import { selectProfile } from '~/redux/user/selector';
 
 dayjs.extend(weekOfYear);
 
@@ -43,7 +40,7 @@ interface DayOfWeekDataPayload {
     classId: number;
     googleLink: string;
     isPresent: boolean;
-    isTakeAttendance: boolean;
+    isTookAttendance: boolean;
   }[];
 }
 
@@ -68,6 +65,8 @@ const handleGetWeekDays = () => {
 };
 
 export default function WeekSchedule({ data }: Props) {
+  const profile = useSelector(selectProfile);
+  const role = profile.roles?.[0]?.code;
   const navigate = useNavigate();
 
   const { dayOfWeeks, error: dayOfWeekError } = useDispatchGetAllDayOfWeeks();
@@ -109,7 +108,7 @@ export default function WeekSchedule({ data }: Props) {
               classId: subItemTimeSlot?.classId || 0,
               googleLink: `${subItemTimeSlot?.link}`,
               isPresent: subItemTimeSlot?.isPresent || false,
-              isTakeAttendance: subItemTimeSlot?.isPresent || false,
+              isTookAttendance: subItemTimeSlot?.isTookAttendance || false,
             };
           }),
         }))
@@ -191,6 +190,8 @@ export default function WeekSchedule({ data }: Props) {
                     <SLotName name={item.slotName} time={item.slotTime} />
 
                     {item.timeSlots?.map((subItem, idx) => {
+                      console.log(subItem.slotName);
+
                       return (
                         <Stack
                           sx={{
@@ -237,16 +238,27 @@ export default function WeekSchedule({ data }: Props) {
                                 </Typography>
                                 <Typography
                                   sx={{
-                                    color: subItem.isPresent
-                                      ? Color.red
-                                      : Color.green,
+                                    // eslint-disable-next-line no-nested-ternary
+                                    color: subItem.isTookAttendance
+                                      ? subItem.isPresent
+                                        ? Color.green
+                                        : Color.red
+                                      : Color.grey,
                                     fontSize: '14px',
                                     fontFamily: FontFamily.bold,
                                   }}
                                 >
-                                  {subItem.isPresent
-                                    ? 'Đã điểm danh'
-                                    : 'Chưa điểm danh'}
+                                  {
+                                    // eslint-disable-next-line no-nested-ternary
+                                    subItem.isTookAttendance
+                                      ? // eslint-disable-next-line no-nested-ternary
+                                        role === 'TEACHER'
+                                        ? 'Đã điểm danh'
+                                        : subItem.isPresent
+                                        ? 'Có mặt'
+                                        : 'Vắng'
+                                      : 'Chưa điểm danh'
+                                  }
                                 </Typography>
                               </Stack>
                               <Stack>
@@ -255,7 +267,7 @@ export default function WeekSchedule({ data }: Props) {
                                     fontSize: '10px',
                                   }}
                                   onClick={() =>
-                                    navigate(subItem.googleLink || '')
+                                    openUrl(subItem.googleLink || '')
                                   }
                                   variant="contained"
                                   color="primary"
