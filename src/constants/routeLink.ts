@@ -101,7 +101,8 @@ export const enum ManagerNavigationActionLink {
   user_manager = 'user_manager',
   process_register_request_search = 'process_register_request_search',
   process_register_request_details = 'process_register_request_details/:id',
-  course_search = 'course_search',
+  course_manager = 'course_manager',
+  class_manager = 'class_manager',
   process_create_course_request_search = 'process_create_course_request_search',
   process_create_course_request_details = 'process_create_course_request_details/:id',
 }

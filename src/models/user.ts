@@ -1,3 +1,4 @@
+import { ImageType } from './common';
 import { RolePayload } from './type';
 
 export interface UserPayload {
@@ -28,19 +29,12 @@ export interface User {
   linkedinLink: string | null;
   facebookLink: string | null;
   website: string | null;
-  userImages: UserImage[];
+  userImages: ImageType[];
   wallet: Wallet;
   mentorProfile: MentorProfile;
   isVerified: boolean;
 }
 
-interface UserImage {
-  id: number;
-  name: string;
-  url: string;
-  status: boolean;
-  type: string;
-}
 interface Wallet {
   id: number;
   balance: number;

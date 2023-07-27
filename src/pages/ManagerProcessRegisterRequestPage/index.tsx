@@ -4,6 +4,7 @@ import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import ManageRegisterRequest from '~/components/molecules/ManageRegisterRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
+import { MentorProfileStatusType } from '~/constants/profile';
 
 export default function ManagerProcessRegisterRequestPage() {
   useEffect(() => {
@@ -15,19 +16,19 @@ export default function ManagerProcessRegisterRequestPage() {
 
   const { registerRequest: listWaiting, refetch: refetchListWaiting } =
     useSearchRegisterRequest({
-      status: 'WAITING',
+      status: MentorProfileStatusType.WAITING,
     });
   const { registerRequest: listStarting, refetch: refetchListStarting } =
     useSearchRegisterRequest({
-      status: 'STARTING',
+      status: MentorProfileStatusType.STARTING,
     });
   const { registerRequest: listEditRequest, refetch: refetchListEditRequest } =
     useSearchRegisterRequest({
-      status: 'EDITREQUEST',
+      status: MentorProfileStatusType.EDITREQUEST,
     });
   const { registerRequest: listRejected, refetch: refetchListRejected } =
     useSearchRegisterRequest({
-      status: 'REJECTED',
+      status: MentorProfileStatusType.REJECTED,
     });
 
   const tabEl = [
@@ -36,7 +37,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Chờ duyệt',
       component: (
         <ManageRegisterRequest
-          status="WAITING"
+          status={MentorProfileStatusType.WAITING}
           refetchGetNoOfRequest={refetchListWaiting}
         />
       ),
@@ -47,7 +48,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Đã duyệt',
       component: (
         <ManageRegisterRequest
-          status="STARTING"
+          status={MentorProfileStatusType.STARTING}
           refetchGetNoOfRequest={refetchListStarting}
         />
       ),
@@ -58,7 +59,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Yêu cầu chỉnh sửa',
       component: (
         <ManageRegisterRequest
-          status="EDITREQUEST"
+          status={MentorProfileStatusType.EDITREQUEST}
           refetchGetNoOfRequest={refetchListEditRequest}
         />
       ),
@@ -69,7 +70,7 @@ export default function ManagerProcessRegisterRequestPage() {
       text: 'Từ chối',
       component: (
         <ManageRegisterRequest
-          status="REJECTED"
+          status={MentorProfileStatusType.REJECTED}
           refetchGetNoOfRequest={refetchListRejected}
         />
       ),

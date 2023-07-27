@@ -3,18 +3,14 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import ManageTable, {
   MenuItemPayload,
 } from '~/components/molecules/ManageTable';
+import { CourseStatusType } from '~/constants/course';
+import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
+import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import columns from '~/constants/columns';
 import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
-import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 
 interface ManageTableCourseCreateRequestProps {
-  status:
-    | 'WAITING'
-    | 'REQUESTING'
-    | 'NOTSTART'
-    | 'STARTING'
-    | 'EDITREQUEST'
-    | 'REJECTED';
+  status: CourseStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
@@ -29,43 +25,27 @@ export default function ManageTableCourseCreateRequest({
     popoverOptionNotSupport = 'Chưa hỗ trợ',
   }
 
-  const [searchValue, setSearchValue] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
   const [selectedRow, setSelectedRow] = useState<any>();
 
-  // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
-  const [size, setSize] = useState<number>(10);
+  const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
   const [sort, setSort] = useState<string[]>([]);
+  const handleNewPage = (params: number) => setPage(params);
+  const handleNewSize = (params: number) => setSize(params);
+  const handleTriggerDialog = () => setOpen(!open);
 
   const { error, courseCreateRequestList, isLoading, refetch } =
     useSearchCourseCreateRequest({ status, q, page, size, sort });
-
-  // const filterRows =
-  //   courseCreateRequestList?.filter((item: any) => {
-  //     if (searchValue) {
-  //       return item?.name?.toLowerCase().includes(searchValue.toLowerCase());
-  //     }
-  //     return item;
-  //   }) || [];
-
-  // console.log('courseCreateRequestList', courseCreateRequestList.items);
+  const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
 
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
     refetch();
   };
 
-  const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
-  const handleNewPage = (params: number) => setPage(params);
-  const handleNewSize = (params: number) => setSize(params);
-  const handleTriggerDialog = () => setOpen(!open);
-
-  const handleSearchCourseCreateRequest = (data: any) => {
-    setSearchValue(data.searchValue);
-  };
   const handleOpenDetailCourseCreateRequest = () => {
     handleTriggerDialog();
     setMode(() => 'READ');
@@ -85,9 +65,9 @@ export default function ManageTableCourseCreateRequest({
       onCLick: handleOpenDetailCourseCreateRequest,
     },
   ];
-  let popoverOptions = null;
+  let popoverOptions;
   switch (status) {
-    case 'WAITING':
+    case CourseStatusType.WAITING:
       popoverOptions = optionsViewDetails;
       break;
     default:
@@ -95,7 +75,7 @@ export default function ManageTableCourseCreateRequest({
       break;
   }
 
-  let renderItem = null;
+  let renderItem;
   switch (mode) {
     case 'READ':
       renderItem = (
@@ -114,13 +94,14 @@ export default function ManageTableCourseCreateRequest({
       );
       break;
     default:
+      renderItem = null;
       break;
   }
 
   return (
     <>
       <ManageTable
-        columns={columns.manageCourseColumns}
+        columns={columns.managedCourseColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}
@@ -129,12 +110,14 @@ export default function ManageTableCourseCreateRequest({
         page={page}
         pageSize={size}
         popoverOptions={popoverOptions}
+        rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
         totalItems={courseCreateRequestList?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
           onSearch: handleSearch,
         }}
+        hideFooterSelectedRowCount
       />
       {renderItem}
     </>

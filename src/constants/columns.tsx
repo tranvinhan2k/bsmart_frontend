@@ -1,18 +1,15 @@
 import { Chip, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { RenderAttendanceStatus } from '~/utils/attendance';
-import { getGender, handleDefinedText } from '~/utils/common';
+import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
+import { getGender, handleDefinedText } from '~/utils/common';
+import { RenderAttendanceStatus } from '~/utils/attendance';
 import {
-  formatDate,
   formatISODateDateToDisplayDate,
-  formatISODateDateToDisplayDateTime,
   formatISODateStringToDisplayDate,
-  formatISODateStringToDisplayDateTime,
 } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -464,7 +461,7 @@ const courseClassListColumns: GridColDef[] = [
   },
 ];
 
-const manageCourseColumns: GridColDef[] = [
+const managedCourseColumns: GridColDef[] = [
   {
     field: 'code',
     headerName: 'Mã',
@@ -537,6 +534,147 @@ const manageCourseColumns: GridColDef[] = [
   },
 ];
 
+const managedClassNotStartColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã lớp',
+    minWidth: 150,
+    flex: 1,
+    renderCell: (params) => {
+      const { code } = params.row;
+      return <CopyableCell rawValue={code} formattedValue={code} />;
+    },
+  },
+  {
+    field: 'codeCourse',
+    headerName: 'Mã khóa học',
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: 'startDate',
+    headerName: 'Ngày bắt đầu',
+    minWidth: 150,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'endDate',
+    headerName: 'Ngày kết thúc (Dự kiến)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'price',
+    headerName: 'Giá tiền',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatMoney(params.value),
+  },
+  {
+    field: 'numberOfSlot',
+    headerName: 'Số buổi',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'numberOfStudent',
+    headerName: 'Học sinh hiện tại',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'minStudent',
+    headerName: 'Học sinh tối thiểu',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'maxStudent',
+    headerName: 'Học sinh tối đa',
+    minWidth: 130,
+    flex: 1,
+  },
+];
+const managedClassColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã lớp',
+    minWidth: 150,
+    flex: 1,
+    renderCell: (params) => {
+      const { code } = params.row;
+      return <CopyableCell rawValue={code} formattedValue={code} />;
+    },
+  },
+  {
+    field: 'codeCourse',
+    headerName: 'Mã khóa học',
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: 'startDate',
+    headerName: 'Ngày bắt đầu (Dự kiến)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'endDate',
+    headerName: 'Ngày kết thúc (Dự kiến)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'startDateActual',
+    headerName: 'Ngày bắt đầu (Thực tế)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'endDateActual',
+    headerName: 'Ngày kết thúc (Thực tế)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'numberOfSlot',
+    headerName: 'Số buổi',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'price',
+    headerName: 'Giá tiền',
+    minWidth: 130,
+    flex: 1,
+    valueFormatter: (params) => formatMoney(params.value),
+  },
+  {
+    field: 'numberOfStudent',
+    headerName: 'Học sinh hiện tại',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'minStudent',
+    headerName: 'Học sinh tối thiểu',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'maxStudent',
+    headerName: 'Học sinh tối đa',
+    minWidth: 130,
+    flex: 1,
+  },
+];
+
 const columns = {
   templateColumns,
   feedbackQuestionColumns,
@@ -549,7 +687,9 @@ const columns = {
   attendanceStudentColumns,
   userMemberColumns,
   userMentorColumns,
-  manageCourseColumns,
+  managedCourseColumns,
+  managedClassColumns,
+  managedClassNotStartColumns,
 };
 
 export default columns;

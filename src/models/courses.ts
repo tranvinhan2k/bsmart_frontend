@@ -1,6 +1,7 @@
 import { FeedbackPayload } from '~/models/feedback';
 import { MentorPayload } from '~/models/mentor';
 import { CategoryPayload } from './category';
+import { ImageType, TimeInWeeks } from './common';
 import { SubjectPayload } from './type';
 
 export interface CourseDetailPayload {
@@ -51,35 +52,9 @@ export interface ClassOfCourseCreateRequestDetails {
   price: number;
   minStudent: number;
   maxStudent: number;
-  image: ImgClassOfProcessCourseCreateRequest;
+  image: ImageType;
   timeInWeeks: TimeInWeeks[];
   purchase: boolean;
-}
-interface ImgClassOfProcessCourseCreateRequest {
-  id: number;
-  name: string;
-  url: string;
-  status: boolean;
-  type: string;
-}
-
-interface TimeInWeeks {
-  dayOfWeek: DayOfWeek;
-  slot: Slot;
-}
-
-interface DayOfWeek {
-  id: number;
-  name: string;
-  code: string;
-}
-
-interface Slot {
-  id: number;
-  name: string;
-  code: string;
-  startTime: string;
-  endTime: string;
 }
 
 interface Mentor {

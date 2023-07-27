@@ -1,5 +1,6 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
+import { CourseStatusType } from '~/constants/course';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import ManageTableCourseCreateRequest from '~/components/molecules/ManageTableCourseCreateRequest';
@@ -20,25 +21,25 @@ export default function ManagerProcessCourseCreateRequestPage() {
     courseCreateRequestList: courseListWaiting,
     refetch: refetchListWaiting,
   } = useSearchCourseCreateRequest({
-    status: 'WAITING',
+    status: CourseStatusType.WAITING,
   });
   const {
     courseCreateRequestList: courseListNotStart,
     refetch: refetchListNotStart,
   } = useSearchCourseCreateRequest({
-    status: 'NOTSTART',
+    status: CourseStatusType.NOTSTART,
   });
   const {
     courseCreateRequestList: courseListEditRequest,
     refetch: refetchListEditRequest,
   } = useSearchCourseCreateRequest({
-    status: 'EDITREQUEST',
+    status: CourseStatusType.EDITREQUEST,
   });
   const {
     courseCreateRequestList: courseListRejected,
     refetch: refetchListRejected,
   } = useSearchCourseCreateRequest({
-    status: 'REJECTED',
+    status: CourseStatusType.REJECTED,
   });
 
   const tabEl = [
@@ -47,7 +48,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
       text: 'Chờ duyệt',
       component: (
         <ManageTableCourseCreateRequest
-          status="WAITING"
+          status={CourseStatusType.WAITING}
           refetchGetNoOfRequest={refetchListWaiting}
         />
       ),
@@ -58,7 +59,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
       text: 'Đã duyệt',
       component: (
         <ManageTableCourseCreateRequest
-          status="NOTSTART"
+          status={CourseStatusType.NOTSTART}
           refetchGetNoOfRequest={refetchListNotStart}
         />
       ),
@@ -69,7 +70,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
       text: 'Yêu cầu chỉnh sửa',
       component: (
         <ManageTableCourseCreateRequest
-          status="EDITREQUEST"
+          status={CourseStatusType.EDITREQUEST}
           refetchGetNoOfRequest={refetchListEditRequest}
         />
       ),
@@ -80,7 +81,7 @@ export default function ManagerProcessCourseCreateRequestPage() {
       text: 'Đã từ chối',
       component: (
         <ManageTableCourseCreateRequest
-          status="REJECTED"
+          status={CourseStatusType.REJECTED}
           refetchGetNoOfRequest={refetchListRejected}
         />
       ),

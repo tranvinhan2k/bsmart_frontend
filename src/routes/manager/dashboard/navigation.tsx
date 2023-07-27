@@ -46,7 +46,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             isHide: true,
             icon: 'class',
             name: 'Danh sách khóa học',
-            link: ManagerNavigationActionLink.course_search,
+            link: ManagerNavigationActionLink.course_manager,
           },
           {
             id: 1,
@@ -68,12 +68,12 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             isHide: true,
             icon: 'class',
             name: 'Danh sách lớp học',
-            link: ManagerNavigationActionLink.course_search,
+            link: ManagerNavigationActionLink.class_manager,
           },
         ],
       },
       {
-        id: 3,
+        id: 4,
         name: 'Tài chính',
         icon: 'biMoney',
         link: '',

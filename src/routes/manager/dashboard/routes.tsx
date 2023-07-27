@@ -8,6 +8,7 @@ import {
   ManagerProcessRegisterRequestDetailsPage,
   ManagerProcessRegisterRequestPage,
   UserManagerPage,
+  ClassManagerPage,
   NotFoundPage,
 } from '~/routes/components';
 
@@ -33,8 +34,13 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.course_search,
+    path: ManagerNavigationActionLink.course_manager,
     main: () => <ManagerManageCoursePage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.class_manager,
+    main: () => <ClassManagerPage />,
     role: ['ROLE_MANAGER'],
   },
   {

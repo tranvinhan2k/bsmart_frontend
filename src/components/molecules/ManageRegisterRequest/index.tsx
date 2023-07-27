@@ -3,19 +3,14 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import ManageTable, {
   MenuItemPayload,
 } from '~/components/molecules/ManageTable';
+import { MentorProfileStatusType } from '~/constants/profile';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import columns from '~/constants/columns';
 import RegisterRequestDetails from '~/containers/RegisterRequestManageSection/RegisterRequestDetails';
 
 interface ManageRegisterRequestProps {
-  status:
-    | 'WAITING'
-    | 'REQUESTING'
-    | 'NOTSTART'
-    | 'STARTING'
-    | 'EDITREQUEST'
-    | 'REJECTED';
+  status: MentorProfileStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
@@ -73,9 +68,9 @@ export default function ManageRegisterRequest({
     },
   ];
 
-  let popoverOptions = null;
+  let popoverOptions;
   switch (status) {
-    case 'WAITING':
+    case MentorProfileStatusType.WAITING:
       popoverOptions = optionsViewDetails;
       break;
     default:
@@ -83,7 +78,7 @@ export default function ManageRegisterRequest({
       break;
   }
 
-  let renderItem = null;
+  let renderItem;
   switch (mode) {
     case 'READ':
       renderItem = (
@@ -102,6 +97,7 @@ export default function ManageRegisterRequest({
       );
       break;
     default:
+      renderItem = null;
       break;
   }
 

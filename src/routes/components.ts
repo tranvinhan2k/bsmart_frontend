@@ -104,6 +104,9 @@ export const MemberProfilePage = lazy(
 );
 export const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 export const UserManagerPage = lazy(() => import('~/pages/UserManagerPage'));
+export const ClassManagerPage = lazy(
+  () => import('~/pages/ManagerManageClassPage')
+);
 export const FeedbackManagerPage = lazy(
   () => import('~/pages/FeedbackManagerPage')
 );

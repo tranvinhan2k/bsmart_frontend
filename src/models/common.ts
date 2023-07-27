@@ -76,5 +76,31 @@ export interface DropdownDynamicValueInputStringDataPayload {
   label: string;
   value: string;
 }
+export interface ImageType {
+  id: number;
+  name: string;
+  url: string;
+  status: boolean;
+  type: string;
+}
+
+export interface TimeInWeeks {
+  dayOfWeek: DayOfWeek;
+  slot: Slot;
+}
+
+interface DayOfWeek {
+  id: number;
+  name: string;
+  code: string;
+}
+
+interface Slot {
+  id: number;
+  name: string;
+  code: string;
+  startTime: string;
+  endTime: string;
+}
 
 export type StyleMUIType = SxProps<Theme>;
