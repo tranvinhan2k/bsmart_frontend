@@ -81,6 +81,7 @@ export const enum MemberDashboardNavigationActionLink {
   quiz = 'do_quiz',
   review = 'do_review',
   promo = 'promo',
+  ask_ai = 'ask_ai',
 }
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',

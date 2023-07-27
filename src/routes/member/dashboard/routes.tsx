@@ -4,6 +4,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import BuildComponentPage from '~/pages/BuildComponentPage';
 import MemberAttendanceListPage from '~/pages/member_class/MemberAttendanceListPage';
 import {
   NotFoundPage,
@@ -56,6 +57,11 @@ export const studentLMSRoutes: RoutePayload[] = [
   {
     path: MemberDashboardNavigationActionLink.promo,
     main: () => <MemberPromoCode />,
+    role: ['ROLE_STUDENT'],
+  },
+  {
+    path: MemberDashboardNavigationActionLink.ask_ai,
+    main: () => <BuildComponentPage />,
     role: ['ROLE_STUDENT'],
   },
   {

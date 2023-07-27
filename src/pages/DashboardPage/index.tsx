@@ -147,6 +147,7 @@ export default function DashboardPage() {
           <Stack
             sx={{
               display: { xs: 'none', md: 'flex' },
+              background: Color.navy,
             }}
           >
             <DashboardSidebar

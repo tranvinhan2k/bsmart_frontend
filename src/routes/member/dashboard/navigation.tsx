@@ -20,4 +20,10 @@ export const StudentDashboardNavigationActionData: ActionPayload[] = [
     name: 'Mã giới thiệu',
     icon: 'promo',
   },
+  {
+    id: 3,
+    link: MemberDashboardNavigationActionLink.ask_ai,
+    name: 'Hỏi đáp',
+    icon: 'question',
+  },
 ];
