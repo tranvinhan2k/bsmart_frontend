@@ -102,7 +102,7 @@ export const enum ManagerNavigationActionLink {
   manager = 'manager',
   manage_class_manager = 'manage_class_manager',
   manage_course_create_request_manager = 'manage_course_create_request_manager',
-  manage_course_manager = 'manager_course_manager',
+  manage_course_manager = 'manage_course_manager',
   manage_register_request_manager = 'manage_register_request_manager',
   manage_user_manager = 'manage_user_manager',
 }
