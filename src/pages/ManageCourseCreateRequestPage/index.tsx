@@ -6,7 +6,7 @@ import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCrea
 import ManageTableCourseCreateRequest from '~/components/molecules/ManageTableCourseCreateRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
-export default function ManagerProcessCourseCreateRequestPage() {
+export default function ManageCourseCreateRequestPage() {
   useEffect(() => {
     scrollToTop();
   }, []);

@@ -1,12 +1,12 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { CourseStatusType } from '~/constants/course';
+import { ClassStatusType } from '~/constants/class';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
-import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
-import ManageTableCourse from '~/components/molecules/ManageTableCourse';
+import { useSearchManagedClass } from '~/hooks/class/UseSearchManagedClass';
+import ManageTableClass from '~/components/molecules/ManageTableClass';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
-export default function ManagerManageCoursePage() {
+export default function ManageClassPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -17,75 +17,69 @@ export default function ManagerManageCoursePage() {
     newValue: number
   ) => setTabValue(newValue);
 
+  const { managedClassList: classListNotStart, refetch: refetchListNotStart } =
+    useSearchManagedClass({
+      status: ClassStatusType.NOTSTART,
+    });
+  const { managedClassList: classListStarting, refetch: refetchListStarting } =
+    useSearchManagedClass({
+      status: ClassStatusType.STARTING,
+    });
   const {
-    courseCreateRequestList: courseListNotStart,
-    refetch: refetchListNotStart,
-  } = useSearchCourseCreateRequest({
-    status: CourseStatusType.NOTSTART,
+    managedClassList: classListEditRequest,
+    refetch: refetchListEditRequest,
+  } = useSearchManagedClass({
+    status: ClassStatusType.EDITREQUEST,
   });
-  const {
-    courseCreateRequestList: courseListStarting,
-    refetch: refetchListStarting,
-  } = useSearchCourseCreateRequest({
-    status: CourseStatusType.STARTING,
-  });
-  const {
-    courseCreateRequestList: courseListEnded,
-    refetch: refetchListEditEnded,
-  } = useSearchCourseCreateRequest({
-    status: CourseStatusType.ENDED,
-  });
-  const {
-    courseCreateRequestList: courseListCancel,
-    refetch: refetchListCancel,
-  } = useSearchCourseCreateRequest({
-    status: CourseStatusType.CANCEL,
-  });
+  const { managedClassList: classListRejected, refetch: refetchListRejected } =
+    useSearchManagedClass({
+      status: ClassStatusType.REJECTED,
+    });
 
   const tabEl = [
     {
       id: 0,
       text: 'Chưa bắt đầu',
       component: (
-        <ManageTableCourse
-          status={CourseStatusType.NOTSTART}
+        <ManageTableClass
+          status={ClassStatusType.NOTSTART}
           refetchGetNoOfRequest={refetchListNotStart}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListNotStart?.items.length),
+      noOfRequest: restrictNumberDisplay(classListNotStart?.items.length),
     },
     {
       id: 1,
       text: 'Đang dạy',
       component: (
-        <ManageTableCourse
-          status={CourseStatusType.STARTING}
+        <ManageTableClass
+          status={ClassStatusType.STARTING}
           refetchGetNoOfRequest={refetchListStarting}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListStarting?.items.length),
+      noOfRequest: restrictNumberDisplay(classListStarting?.items.length),
     },
     {
       id: 2,
       text: 'Đã kết thúc',
       component: (
-        <ManageTableCourse
-          status={CourseStatusType.ENDED}
-          refetchGetNoOfRequest={refetchListEditEnded}
+        <ManageTableClass
+          status={ClassStatusType.EDITREQUEST}
+          refetchGetNoOfRequest={refetchListEditRequest}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListEnded?.items.length),
+      noOfRequest: restrictNumberDisplay(classListEditRequest?.items.length),
     },
     {
       id: 3,
-      text: 'Đã bị hủy',
+      text: 'Bị hủy',
       component: (
-        <ManageTableCourse
-          status={CourseStatusType.CANCEL}
-          refetchGetNoOfRequest={refetchListCancel}
+        <ManageTableClass
+          status={ClassStatusType.REJECTED}
+          refetchGetNoOfRequest={refetchListRejected}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListCancel?.items.length),
+      noOfRequest: restrictNumberDisplay(classListRejected?.items.length),
     },
   ];
 
@@ -99,7 +93,7 @@ export default function ManagerManageCoursePage() {
             lineHeight: 1,
           }}
         >
-          Danh sách khóa học
+          Danh sách lớp học
         </Typography>
       </Box>
       <Tabs

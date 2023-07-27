@@ -6,7 +6,7 @@ import ManageRegisterRequest from '~/components/molecules/ManageRegisterRequest'
 import TabPanel from '~/components/atoms/TabPanel/index';
 import { MentorProfileStatusType } from '~/constants/profile';
 
-export default function ManagerProcessRegisterRequestPage() {
+export default function ManageRegisterRequestPage() {
   useEffect(() => {
     scrollToTop();
   }, []);

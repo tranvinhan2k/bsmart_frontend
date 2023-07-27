@@ -71,22 +71,6 @@ export const MentorCreateAnnouncementPage = lazy(
 export const MentorUpdateAnnouncementPage = lazy(
   () => import('~/pages/MentorUpdateAnnouncementPage')
 );
-export const ManagerProcessRegisterRequestPage = lazy(
-  () => import('~/pages/ManagerProcessRegisterRequestPage')
-);
-export const ManagerProcessRegisterRequestDetailsPage = lazy(
-  () => import('~/pages/ManagerProcessRegisterRequestDetailsPage')
-);
-export const ManagerProcessCourseCreateRequestPage = lazy(
-  () => import('~/pages/ManagerProcessCourseCreateRequestPage')
-);
-export const ManagerManageCoursePage = lazy(
-  () => import('~/pages/ManagerManageCoursePage')
-);
-export const ManagerProcessCourseCreateRequestDetailsPage = lazy(
-  () => import('~/pages/ManagerProcessCourseCreateRequestDetailsPage')
-);
-
 export const MentorQuizSettingsPage = lazy(
   () => import('~/pages/MentorQuizSettingsPage')
 );
@@ -102,11 +86,18 @@ export const MentorContractPage = lazy(
 export const MemberProfilePage = lazy(
   () => import('~/pages/MemberProfilePage')
 );
+
 export const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
-export const UserManagerPage = lazy(() => import('~/pages/UserManagerPage'));
-export const ClassManagerPage = lazy(
-  () => import('~/pages/ManagerManageClassPage')
+export const ManageClassPage = lazy(() => import('~/pages/ManageClassPage'));
+export const ManageCourseCreateRequestPage = lazy(
+  () => import('~/pages/ManageCourseCreateRequestPage')
 );
+export const ManageCoursePage = lazy(() => import('~/pages/ManageCoursePage'));
+export const ManageRegisterRequestPage = lazy(
+  () => import('~/pages/ManageRegisterRequestPage')
+);
+export const ManageUserPage = lazy(() => import('~/pages/ManageUserPage'));
+
 export const FeedbackManagerPage = lazy(
   () => import('~/pages/FeedbackManagerPage')
 );

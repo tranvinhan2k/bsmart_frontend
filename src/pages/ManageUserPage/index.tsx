@@ -1,16 +1,20 @@
 import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { scrollToTop } from '~/utils/common';
 import AdminManageAccount from '~/components/molecules/AdminManageAccount';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { scrollToTop } from '~/utils/common';
 
-export default function UserManagerPage() {
+// export default function UserManagerPage() {
+export default function ManageUserPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
 
   const [tabValue, setTabValue] = useState(0);
-  const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
+  const handleSetTabValue = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: number
+  ) => setTabValue(newValue);
 
   const tabEl = [
     {
