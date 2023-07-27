@@ -1,28 +1,24 @@
 import {
   Avatar,
-  Button as MuiButton,
   Box,
+  Button as MuiButton,
   Grid,
+  IconButton,
+  Skeleton,
   Stack,
   Typography,
-  IconButton,
 } from '@mui/material';
-import { formatISODateDateToDisplayDate } from '~/utils/date';
-import { getGender } from '~/utils/common';
-import { image } from '~/constants/image';
-import Icon from '~/components/atoms/Icon';
+import { FontFamily } from '~/assets/variables';
 import { handleCopyToClipboard } from '~/utils/commonComp';
-import { SX_BOX_ITEM_BG } from './style';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import Icon from '~/components/atoms/Icon';
 import {
-  SX_FORM_ITEM_VALUE,
   SX_FORM_ITEM_LABEL,
-  SX_PROFILE_TITLE_SUB,
+  SX_FORM_ITEM_VALUE,
   SX_PROFILE_TITLE,
   SX_WRAPPER,
 } from '../style';
-import { formatPhoneNumberVi } from '~/utils/phone';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import { FontFamily } from '~/assets/variables';
+import { SX_BOX_ITEM_BG } from './style';
 
 interface RequestCourseMentorInfoProps {
   idCourse: number;
@@ -30,9 +26,7 @@ interface RequestCourseMentorInfoProps {
 export default function RequestCourseMentorInfo({
   idCourse,
 }: RequestCourseMentorInfoProps) {
-  const userAvatar = image.noAvatar;
-
-  const { courseCreateRequestDetails } =
+  const { courseCreateRequestDetails, isLoading } =
     useGetCourseCreateRequestDetails(idCourse);
 
   const tmpTitle = courseCreateRequestDetails
@@ -40,15 +34,15 @@ export default function RequestCourseMentorInfo({
         {
           id: 0,
           label: 'Họ tên',
-          value: 'Lưu Nhật',
-          valueDisplay: 'Lưu Nhật',
+          value: courseCreateRequestDetails.mentor.email,
+          valueDisplay: courseCreateRequestDetails.mentor.email,
           isCopyable: true,
         },
         {
           id: 1,
           label: 'Mail',
-          value: 'nhatgv@gmail.com',
-          valueDisplay: 'nhatgv@gmail.com',
+          value: courseCreateRequestDetails.mentor.name,
+          valueDisplay: courseCreateRequestDetails.mentor.name,
           isCopyable: true,
         },
       ]
@@ -75,7 +69,7 @@ export default function RequestCourseMentorInfo({
         <Stack sx={SX_BOX_ITEM_BG}>
           <Box mt={{ xs: 10, sm: 23, md: 10 }}>
             <Avatar
-              src={userAvatar}
+              src={courseCreateRequestDetails?.mentor.avatar.url}
               variant="rounded"
               sx={{
                 width: 150,
@@ -85,8 +79,6 @@ export default function RequestCourseMentorInfo({
           </Box>
           <Stack alignItems="center" mt={2}>
             <Typography sx={SX_PROFILE_TITLE}>Giáo viên</Typography>
-            {/* <Typography sx={SX_PROFILE_TITLE}>{row.fullName}</Typography>
-            <Typography sx={SX_PROFILE_TITLE_SUB}>Giáo viên</Typography> */}
           </Stack>
         </Stack>
         <Grid
@@ -106,22 +98,25 @@ export default function RequestCourseMentorInfo({
                 alignItems="center"
               >
                 <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-
-                <Typography sx={SX_FORM_ITEM_VALUE}>
-                  {item.isCopyable && (
-                    <IconButton
-                      size="small"
-                      onClick={() => handleCopyToClipboard(item.value)}
-                    >
-                      <Icon
-                        name="contentCopyIcon"
-                        size="small_20"
-                        color="blue"
-                      />
-                    </IconButton>
-                  )}
-                  {item.valueDisplay}
-                </Typography>
+                {isLoading ? (
+                  <Skeleton />
+                ) : (
+                  <Typography sx={SX_FORM_ITEM_VALUE}>
+                    {item.isCopyable && (
+                      <IconButton
+                        size="small"
+                        onClick={() => handleCopyToClipboard(item.value)}
+                      >
+                        <Icon
+                          name="contentCopyIcon"
+                          size="small_20"
+                          color="blue"
+                        />
+                      </IconButton>
+                    )}
+                    {item.valueDisplay}
+                  </Typography>
+                )}
               </Stack>
             </Grid>
           ))}
@@ -134,7 +129,7 @@ export default function RequestCourseMentorInfo({
               variant="outlined"
               sx={{ fontFamily: FontFamily.bold }}
             >
-              Xem chi tiết
+              Chi tiết giảng viên
             </MuiButton>
           </Grid>
         </Grid>

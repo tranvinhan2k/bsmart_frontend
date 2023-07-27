@@ -29,8 +29,8 @@ export default function RegisterRequestDetails({
         container
         justifyContent="flex-start"
         alignItems="stretch"
-        columnSpacing={5}
-        rowSpacing={2}
+        columnSpacing={2}
+        rowSpacing={1}
         p={2}
       >
         <Grid item sm={12} md={7} lg={8}>

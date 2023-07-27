@@ -16,7 +16,7 @@ export const AdminNavigationActionData: ActionPayload[] = [
       {
         id: 1,
         icon: 'payment',
-        name: 'Quản lý người dùng',
+        name: 'Quản lí người dùng',
         link: AdminNavigationActionLink.user_manager,
       },
       {

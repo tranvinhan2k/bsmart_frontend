@@ -9,6 +9,12 @@ export const ManagerNavigationActionData: ActionPayload[] = [
     items: [
       {
         id: 0,
+        name: 'Bảng điều khiển',
+        icon: 'barChartIcon',
+        link: ManagerNavigationActionLink.account_search,
+      },
+      {
+        id: 1,
         name: 'Người dùng',
         icon: 'user',
         link: '',
@@ -30,7 +36,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         ],
       },
       {
-        id: 1,
+        id: 2,
         name: 'Khóa học',
         icon: 'coPresent',
         link: '',
@@ -48,6 +54,36 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             icon: 'description',
             name: 'Yêu cầu tạo khóa học',
             link: ManagerNavigationActionLink.process_create_course_request_search,
+          },
+        ],
+      },
+      {
+        id: 3,
+        name: 'Lớp học',
+        icon: 'coPresent',
+        link: '',
+        items: [
+          {
+            id: 0,
+            isHide: true,
+            icon: 'class',
+            name: 'Danh sách lớp học',
+            link: ManagerNavigationActionLink.course_search,
+          },
+        ],
+      },
+      {
+        id: 3,
+        name: 'Tài chính',
+        icon: 'biMoney',
+        link: '',
+        items: [
+          {
+            id: 0,
+            isHide: true,
+            icon: 'description',
+            name: 'Yêu cầu rút tiền',
+            link: 'Yêu cầu rút tiền',
           },
         ],
       },

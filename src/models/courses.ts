@@ -83,10 +83,12 @@ interface Slot {
 }
 
 interface Mentor {
+  avatar: Avatar;
+  email: string;
   id: number;
   introduce: string;
   mentorSkills: MentorSkill[];
-  avatar: Avatar;
+  name: string;
 }
 interface MentorSkill {
   skillId: number;

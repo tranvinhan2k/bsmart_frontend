@@ -194,7 +194,7 @@ export default function RequestCourseProcess({
     },
   ];
   return (
-    <Box pt={2} sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
+    <Box sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
       <Tabs
         variant="scrollable"
         scrollButtons="auto"
