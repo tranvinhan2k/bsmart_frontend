@@ -11,7 +11,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         id: 0,
         name: 'Bảng điều khiển',
         icon: 'barChartIcon',
-        link: ManagerNavigationActionLink.account_search,
+        link: 'Bảng điều khiển',
       },
       {
         id: 1,
@@ -24,7 +24,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             isHide: true,
             icon: 'groups',
             name: 'Danh sách người dùng',
-            link: ManagerNavigationActionLink.account_search,
+            link: ManagerNavigationActionLink.user_manager,
           },
           {
             id: 1,

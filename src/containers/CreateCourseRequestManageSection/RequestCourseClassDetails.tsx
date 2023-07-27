@@ -20,46 +20,53 @@ export default function RequestCourseClassDetails({
   onClose,
   classDetails,
 }: RequestCourseClassDetailsProps) {
-  const tmpDisplayText = [
+  const classCode = classDetails.code ?? '';
+
+  const displayText = [
     {
       id: 0,
-      label: 'Mã lớp',
-      value: classDetails.code ?? '',
+      subItem: [
+        {
+          id: 0,
+          label: 'Học sinh tối thiểu',
+          value: classDetails.minStudent ?? '',
+        },
+        {
+          id: 1,
+          label: 'Học sinh tối đa',
+          value: classDetails.maxStudent ?? '',
+        },
+      ],
     },
     {
       id: 1,
-      label: 'HS tối thiểu',
-      value: classDetails.minStudent ?? '',
+      subItem: [
+        {
+          id: 0,
+          label: 'Ngày bắt đầu (dự kiến)',
+          value: formatISODateStringToDisplayDate(classDetails.startDate) ?? '',
+        },
+        {
+          id: 1,
+          label: 'Ngày kết thúc (dự kiến)',
+          value: formatISODateStringToDisplayDate(classDetails.endDate) ?? '',
+        },
+      ],
     },
     {
       id: 2,
-      label: 'HS tối đa',
-      value: classDetails.maxStudent ?? '',
-    },
-    {
-      id: 3,
-      label: 'Ngày bắt đầu (dự kiến)',
-      value: formatISODateStringToDisplayDate(classDetails.startDate) ?? '',
-    },
-    {
-      id: 4,
-      label: 'Ngày kết thúc (dự kiến)',
-      value: formatISODateStringToDisplayDate(classDetails.endDate) ?? '',
-    },
-    {
-      id: 5,
-      label: 'Tổng số buổi học',
-      value: classDetails.numberOfSlot ?? '',
-    },
-    {
-      id: 7,
-      label: 'Số buổi học / Tuần',
-      value: classDetails.timeInWeeks.length ?? '',
-    },
-    {
-      id: 6,
-      label: 'Giá tiền của lớp',
-      value: formatMoney(classDetails.price) ?? '',
+      subItem: [
+        {
+          id: 0,
+          label: 'Tổng số buổi học',
+          value: classDetails.numberOfSlot ?? '',
+        },
+        {
+          id: 1,
+          label: 'Giá tiền của lớp',
+          value: formatMoney(classDetails.price) ?? '',
+        },
+      ],
     },
   ];
 
@@ -70,7 +77,7 @@ export default function RequestCourseClassDetails({
 
   return (
     <>
-      <Typography sx={SX_REQUEST_TITLE}>Chi tiết lớp</Typography>
+      <Typography sx={SX_REQUEST_TITLE}>Chi tiết lớp {classCode}</Typography>
       <Grid
         container
         justifyContent="flex-start"
@@ -79,69 +86,45 @@ export default function RequestCourseClassDetails({
         rowSpacing={2}
         py={2}
       >
-        <Grid item sm={12} md={5} lg={4}>
-          <Box sx={globalStyles.boxSticky}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={2}
-              sx={SX_BOX_ITEM_WRAPPER}
-            >
-              <Grid
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={2}
-              >
-                {tmpDisplayText.map((item) => (
-                  <Grid item xs={12} key={item.id}>
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="flex-start"
-                    >
-                      <Typography sx={SX_FORM_ITEM_LABEL}>
-                        {item.label}:
-                      </Typography>
-                      <Typography sx={SX_FORM_ITEM_VALUE}>
-                        {item.value}
-                      </Typography>
-                    </Stack>
-                  </Grid>
-                ))}
-              </Grid>
+        <Grid item xs={12} container spacing={2}>
+          {displayText.map((item) => (
+            <Grid item md={12} lg={4} key={item.id}>
               <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="stretch"
                 spacing={2}
-                mt={4}
+                sx={SX_BOX_ITEM_WRAPPER}
               >
-                <Button
-                  color="error"
-                  fullWidth
-                  variant="contained"
-                  onClick={onClose}
-                  sx={{ fontFamily: FontFamily.bold }}
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  spacing={2}
                 >
-                  Hủy
-                </Button>
-                <Button
-                  color="miSmartOrange"
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  sx={{ fontFamily: FontFamily.bold }}
-                >
-                  Phê duyệt lớp
-                </Button>
+                  {item.subItem.map((subItem) => (
+                    <Grid item xs={12} key={subItem.id}>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="flex-start"
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL}>
+                          {subItem.label}:
+                        </Typography>
+                        <Typography sx={SX_FORM_ITEM_VALUE}>
+                          {subItem.value}
+                        </Typography>
+                      </Stack>
+                    </Grid>
+                  ))}
+                </Grid>
               </Stack>
-            </Stack>
-          </Box>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item sm={12} md={7} lg={8}>
+        <Grid item xs={12}>
           <Stack
             direction="column"
             justifyContent="flex-start"

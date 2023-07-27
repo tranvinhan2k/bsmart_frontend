@@ -98,7 +98,7 @@ export const enum AdminNavigationActionLink {
 
 export const enum ManagerNavigationActionLink {
   manager = 'manager',
-  account_search = 'account_search',
+  user_manager = 'user_manager',
   process_register_request_search = 'process_register_request_search',
   process_register_request_details = 'process_register_request_details/:id',
   course_search = 'course_search',

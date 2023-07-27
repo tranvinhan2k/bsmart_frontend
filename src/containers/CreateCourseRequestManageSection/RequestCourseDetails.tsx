@@ -9,9 +9,10 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment, useState } from 'react';
-import Icon from '~/components/atoms/Icon';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleDefinedTextReturnComp } from '~/utils/commonComp';
+import { mockLevelData } from '~/constants';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import Icon from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
@@ -41,11 +42,13 @@ export default function RequestCourseDetails({
           id: 0,
           label: 'Mã khóa học',
           value: handleDefinedTextReturnComp(courseCreateRequestDetails.code),
+          isAlign: true,
         },
         {
           id: 1,
           label: 'Tên khóa học',
           value: handleDefinedTextReturnComp(courseCreateRequestDetails.name),
+          isAlign: false,
         },
         {
           id: 2,
@@ -53,6 +56,7 @@ export default function RequestCourseDetails({
           value: handleDefinedTextReturnComp(
             courseCreateRequestDetails.categoryResponse.name
           ),
+          isAlign: true,
         },
         {
           id: 3,
@@ -60,11 +64,13 @@ export default function RequestCourseDetails({
           value: handleDefinedTextReturnComp(
             courseCreateRequestDetails.subjectResponse.name
           ),
+          isAlign: true,
         },
         {
           id: 4,
           label: 'Trình độ',
           value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
+          isAlign: true,
         },
       ]
     : [
@@ -72,26 +78,31 @@ export default function RequestCourseDetails({
           id: 0,
           label: 'Mã khóa học',
           value: '',
+          isAlign: true,
         },
         {
           id: 1,
           label: 'Tên khóa học',
           value: '',
+          isAlign: false,
         },
         {
           id: 2,
           label: 'Category',
           value: '',
+          isAlign: true,
         },
         {
           id: 3,
           label: 'Kĩ năng',
           value: '',
+          isAlign: true,
         },
         {
           id: 4,
           label: 'Subject',
           value: '',
+          isAlign: true,
         },
       ];
 
@@ -104,7 +115,9 @@ export default function RequestCourseDetails({
         {
           id: 0,
           label: 'Trình độ',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
+          value: mockLevelData.find(
+            (item) => item.value === courseCreateRequestDetails.level
+          )?.label,
         },
       ]
     : [
@@ -114,22 +127,6 @@ export default function RequestCourseDetails({
           value: '',
         },
       ];
-
-  // const title2 = courseCreateRequestDetails
-  //   ? [
-  //       {
-  //         id: 0,
-  //         label: 'Học phí',
-  //         value: handleDefinedTextReturnComp(formatMoney(row.price)),
-  //       },
-  //     ]
-  //   : [
-  //       {
-  //         id: 0,
-  //         label: 'Học phí',
-  //         value: '',
-  //       },
-  //     ];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
@@ -171,6 +168,7 @@ export default function RequestCourseDetails({
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
+              spacing={1}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Tên khóa học:</Typography>
               <Typography sx={SX_FORM_ITEM_VALUE}>
@@ -178,49 +176,46 @@ export default function RequestCourseDetails({
               </Typography>
             </Stack>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-        <Grid item container xs={12} lg={12} spacing={2}>
-          <Grid item xs={6}>
-            <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
+          <Grid item container xs={12} lg={12} spacing={2}>
+            <Grid item xs={6}>
+              <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                <Stack
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Chip
+                    color="default"
+                    label={`${title0[2].value}`}
+                    title={`${title0[2].value}`}
+                  />
+                  <Chip
+                    color="default"
+                    label={`${title0[3].value}`}
+                    title={`${title0[3].value}`}
+                  />
+                </Stack>
+              )}
+            </Grid>
+            {title1.map((item) => (
+              <Fragment key={item.id}>
+                <Grid item xs={6}>
+                  <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography sx={SX_FORM_ITEM_VALUE} align="right">
+                    {isLoading ? <Skeleton /> : item.value}
+                  </Typography>
+                </Grid>
+              </Fragment>
+            ))}
           </Grid>
-          <Grid item xs={6}>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              <Stack
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="center"
-                spacing={1}
-              >
-                <Chip
-                  color="default"
-                  label={`${title0[2].value}`}
-                  title={`${title0[2].value}`}
-                />
-                <Chip
-                  color="default"
-                  label={`${title0[3].value}`}
-                  title={`${title0[3].value}`}
-                />
-              </Stack>
-            )}
-          </Grid>
-          {title1.map((item) => (
-            <Fragment key={item.id}>
-              <Grid item xs={6}>
-                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography sx={SX_FORM_ITEM_VALUE} align="right">
-                  {isLoading ? <Skeleton /> : item.value}
-                </Typography>
-              </Grid>
-            </Fragment>
-          ))}
         </Grid>
         <Grid item xs={12}>
           <Divider />

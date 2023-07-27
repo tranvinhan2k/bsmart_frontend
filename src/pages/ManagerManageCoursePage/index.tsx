@@ -16,46 +16,74 @@ export default function ManagerManageCoursePage() {
     newValue: number
   ) => setTabValue(newValue);
 
-  const { courseCreateRequestList: courseListWaiting } =
-    useSearchCourseCreateRequest({
-      status: 'WAITING',
-    });
-  const { courseCreateRequestList: courseListNotStart } =
-    useSearchCourseCreateRequest({
-      status: 'NOTSTART',
-    });
-  const { courseCreateRequestList: courseListEditRequest } =
-    useSearchCourseCreateRequest({
-      status: 'EDITREQUEST',
-    });
-  const { courseCreateRequestList: courseListRejected } =
-    useSearchCourseCreateRequest({
-      status: 'REJECTED',
-    });
+  const {
+    courseCreateRequestList: courseListWaiting,
+    refetch: refetchListWaiting,
+  } = useSearchCourseCreateRequest({
+    status: 'WAITING',
+  });
+  const {
+    courseCreateRequestList: courseListNotStart,
+    refetch: refetchListNotStart,
+  } = useSearchCourseCreateRequest({
+    status: 'NOTSTART',
+  });
+  const {
+    courseCreateRequestList: courseListEditRequest,
+    refetch: refetchListEditRequest,
+  } = useSearchCourseCreateRequest({
+    status: 'EDITREQUEST',
+  });
+  const {
+    courseCreateRequestList: courseListRejected,
+    refetch: refetchListRejected,
+  } = useSearchCourseCreateRequest({
+    status: 'REJECTED',
+  });
 
   const tabEl = [
     {
       id: 0,
       text: 'Đang chờ mở',
-      component: <ManageTableCourse status="WAITING" />,
+      component: (
+        <ManageTableCourse
+          status="WAITING"
+          refetchGetNoOfRequest={refetchListWaiting}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(courseListWaiting?.items.length),
     },
     {
       id: 1,
       text: 'Đang dạy',
-      component: <ManageTableCourse status="NOTSTART" />,
+      component: (
+        <ManageTableCourse
+          status="NOTSTART"
+          refetchGetNoOfRequest={refetchListNotStart}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(courseListNotStart?.items.length),
     },
     {
       id: 2,
       text: 'Đã kết thúc',
-      component: <ManageTableCourse status="EDITREQUEST" />,
+      component: (
+        <ManageTableCourse
+          status="EDITREQUEST"
+          refetchGetNoOfRequest={refetchListEditRequest}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(courseListEditRequest?.items.length),
     },
     {
       id: 3,
       text: 'Đã bị hủy',
-      component: <ManageTableCourse status="REJECTED" />,
+      component: (
+        <ManageTableCourse
+          status="REJECTED"
+          refetchGetNoOfRequest={refetchListRejected}
+        />
+      ),
       noOfRequest: restrictNumberDisplay(courseListRejected?.items.length),
     },
   ];
