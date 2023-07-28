@@ -10,14 +10,14 @@ import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 interface CourseCreateRequestDetailsProps {
   row: any;
   onClose: () => void;
-  refetch: () => void;
+  refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
 export default function CourseCreateRequestDetails({
   row,
   onClose,
-  refetch,
+  refetchSearch,
   refetchGetNoOfRequest,
 }: CourseCreateRequestDetailsProps) {
   return (
@@ -58,7 +58,7 @@ export default function CourseCreateRequestDetails({
             <RequestCourseProcess
               idCourse={row.id}
               onClose={onClose}
-              refetch={refetch}
+              refetchSearch={refetchSearch}
               refetchGetNoOfRequest={refetchGetNoOfRequest}
             />
           </Stack>

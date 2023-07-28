@@ -46,14 +46,13 @@ const registerRequestsApi = {
     const urlSearch = `${url}/pending?accountStatus=${status}&q=${q}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(`${urlSearch}`);
   },
-  async approveRegisterRequest(
+  processRegisterRequest(
     data: ProcessRegisterRequestPayload
-  ): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${data.id}/approval`, {
+  ): Promise<boolean> {
+    return axiosClient.put(`${url}/${data.id}/approval`, {
       status: data.status,
       message: data.message,
     });
-    return response;
   },
 };
 

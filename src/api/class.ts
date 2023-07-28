@@ -247,7 +247,7 @@ const classApi = {
     const urlGet = `${url}/pending/course/${idCourse}`;
     return axiosClient.get(urlGet);
   },
-  searchManageClass({
+  searchManagedClass({
     status,
     q = '',
     page = 0,

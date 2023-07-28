@@ -9,15 +9,15 @@ import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest'
 import columns from '~/constants/columns';
 import RegisterRequestDetails from '~/containers/RegisterRequestManageSection/RegisterRequestDetails';
 
-interface ManageRegisterRequestProps {
+interface ManageTableRegisterRequestProps {
   status: MentorProfileStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageRegisterRequest({
+export default function ManageTableRegisterRequest({
   status,
   refetchGetNoOfRequest,
-}: ManageRegisterRequestProps) {
+}: ManageTableRegisterRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
     popoverOptionViewDetails = 'Xem chi tiết',
@@ -104,7 +104,7 @@ export default function ManageRegisterRequest({
   return (
     <>
       <ManageTable
-        columns={columns.registerRequestColumns}
+        columns={columns.managedRegisterRequestColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import classApi from '~/api/class';
 import { Key } from './key';
+import classApi from '~/api/class';
 
 export interface UseSearchManagedClassPayload {
   status: string;
@@ -20,7 +20,7 @@ export const useSearchManagedClass = ({
   const { data, error, isError, isLoading, refetch } = useQuery({
     queryKey: [Key.UseSearchManagedClass, status, q, page, size, sort],
     queryFn: () =>
-      classApi.searchManageClass({
+      classApi.searchManagedClass({
         status,
         q,
         page,

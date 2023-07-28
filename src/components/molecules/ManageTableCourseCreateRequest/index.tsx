@@ -89,7 +89,7 @@ export default function ManageTableCourseCreateRequest({
           <CourseCreateRequestDetails
             row={selectedRow}
             onClose={handleTriggerDialog}
-            refetch={refetch}
+            refetchSearch={refetch}
             refetchGetNoOfRequest={refetchGetNoOfRequest}
           />
         </CustomDialog>
@@ -103,7 +103,7 @@ export default function ManageTableCourseCreateRequest({
   return (
     <>
       <ManageTable
-        columns={columns.courseCreateRequestColumns}
+        columns={columns.managedCourseCreateRequestColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}

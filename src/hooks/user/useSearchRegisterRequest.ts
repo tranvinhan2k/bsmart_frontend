@@ -1,11 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import { Key } from './key';
 import registerRequestsApi from '~/api/registerRequest';
-import { keyUseSearchAccountRegisterRequest } from './key';
 
-// export interface RequestCategoryPayload {
-//   code: string;
-//   name: string;
-// }
 export interface UseSearchRegisterRequestPayload {
   status: string;
   q?: string;
@@ -22,7 +18,7 @@ export const useSearchRegisterRequest = ({
   sort = [],
 }: UseSearchRegisterRequestPayload) => {
   const { data, error, isLoading, refetch } = useQuery({
-    queryKey: [keyUseSearchAccountRegisterRequest, status, q, page, size, sort],
+    queryKey: [Key.UseSearchRegisterRequest, status, q, page, size, sort],
     queryFn: () =>
       registerRequestsApi.searchRegisterRequest({
         status,

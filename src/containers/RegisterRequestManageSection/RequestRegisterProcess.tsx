@@ -11,19 +11,19 @@ import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
-interface ProcessRegisterRequestProps {
+interface RequestRegisterProcessProps {
   idMentorProfile: number;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ProcessRegisterRequest({
+export default function RequestRegisterProcess({
   idMentorProfile,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: ProcessRegisterRequestProps) {
+}: RequestRegisterProcessProps) {
   const { processCourseCreateRequestMutation } =
     useMutationProcessRegisterRequest();
 

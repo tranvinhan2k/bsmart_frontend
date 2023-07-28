@@ -55,12 +55,6 @@ export interface PagingFilterPayload<ItemType> {
   items: ItemType[];
 }
 
-export interface PaginationPayload {
-  page: number;
-  size: number;
-  sort: string;
-}
-
 export interface DropdownDynamicValueInputBooleanDataPayload {
   id: number;
   label: string;

@@ -1,5 +1,5 @@
 import axiosClient from '~/api/axiosClient';
-import { PaginationPayload } from '~/models';
+import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
 
 const url = `/transactions`;
 export interface ResponseTransactionsPayload {
@@ -30,7 +30,11 @@ const transactionsApi = {
   ): Promise<any> {
     return axiosClient.post(`${url}/pay`, data);
   },
-  async getTransactions({ page, size, sort }: PaginationPayload): Promise<any> {
+  async getTransactions({
+    page,
+    size,
+    sort,
+  }: UseQueryGetTransactionsPayload): Promise<any> {
     return axiosClient.get(`${url}/?page=${page}&size=${size}&sort=${sort}`);
   },
   async withdrawMoney(data: WithdrawMoneyProfilePayload): Promise<any> {

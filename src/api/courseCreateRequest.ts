@@ -1,6 +1,7 @@
 import axiosClient from '~/api/axiosClient';
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterPayload } from '~/models';
+import { UseSearchCourseCreateRequestPayload } from '~/hooks/course/useSearchCourseCreateRequest';
 import { ProcessCreateCourseRequestPayload } from './courses';
 
 const url = '/courses';
@@ -12,13 +13,13 @@ const courseCreateRequestApi = {
     page = 0,
     size = null,
     sort = [],
-  }: SearchCourseCreateRequestProps): Promise<
+  }: UseSearchCourseCreateRequestPayload): Promise<
     PagingFilterPayload<CourseCreateRequestDetails>
   > {
     const urlSearch = `${url}/pending?status=${status}&p=${q}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(`${urlSearch}`);
   },
-  approveCourseCreateRequest(
+  processCourseCreateRequest(
     data: ProcessCreateCourseRequestPayload
   ): Promise<boolean> {
     return axiosClient.put(`${url}/${data.id}/approval`, {
@@ -28,13 +29,5 @@ const courseCreateRequestApi = {
     });
   },
 };
-
-interface SearchCourseCreateRequestProps {
-  status: string;
-  q?: string | null;
-  page?: number;
-  size?: number | null;
-  sort?: string[];
-}
 
 export default courseCreateRequestApi;

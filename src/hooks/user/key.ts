@@ -1,6 +1,5 @@
-export const keyUseSearchAccountRegisterRequest = [
-  'use_search_account_register_request',
-];
-export const keyUseMutationProcessRegisterRequest = [
-  'use_mutation_process_register_request',
-];
+export const enum Key {
+  UseMutationProcessRegisterRequest = 'use_mutation_process_register_request',
+  UseSearchManagedUser = 'use_search_managed_user',
+  UseSearchRegisterRequest = 'use_search_register_request',
+}

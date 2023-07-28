@@ -1,10 +1,10 @@
 import { Box, Chip, Tab, Tabs, Typography, Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { MentorProfileStatusType } from '~/constants/profile';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
-import ManageRegisterRequest from '~/components/molecules/ManageRegisterRequest';
+import ManageTableRegisterRequest from '~/components/molecules/ManageRegisterRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { MentorProfileStatusType } from '~/constants/profile';
 
 export default function ManageRegisterRequestPage() {
   useEffect(() => {
@@ -12,7 +12,10 @@ export default function ManageRegisterRequestPage() {
   }, []);
 
   const [tabValue, setTabValue] = useState(0);
-  const handleSetTabValue = (_: any, newValue: number) => setTabValue(newValue);
+  const handleSetTabValue = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: number
+  ) => setTabValue(newValue);
 
   const { registerRequest: listWaiting, refetch: refetchListWaiting } =
     useSearchRegisterRequest({
@@ -36,7 +39,7 @@ export default function ManageRegisterRequestPage() {
       id: 0,
       text: 'Chờ duyệt',
       component: (
-        <ManageRegisterRequest
+        <ManageTableRegisterRequest
           status={MentorProfileStatusType.WAITING}
           refetchGetNoOfRequest={refetchListWaiting}
         />
@@ -47,7 +50,7 @@ export default function ManageRegisterRequestPage() {
       id: 1,
       text: 'Đã duyệt',
       component: (
-        <ManageRegisterRequest
+        <ManageTableRegisterRequest
           status={MentorProfileStatusType.STARTING}
           refetchGetNoOfRequest={refetchListStarting}
         />
@@ -58,7 +61,7 @@ export default function ManageRegisterRequestPage() {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: (
-        <ManageRegisterRequest
+        <ManageTableRegisterRequest
           status={MentorProfileStatusType.EDITREQUEST}
           refetchGetNoOfRequest={refetchListEditRequest}
         />
@@ -69,7 +72,7 @@ export default function ManageRegisterRequestPage() {
       id: 3,
       text: 'Từ chối',
       component: (
-        <ManageRegisterRequest
+        <ManageTableRegisterRequest
           status={MentorProfileStatusType.REJECTED}
           refetchGetNoOfRequest={refetchListRejected}
         />

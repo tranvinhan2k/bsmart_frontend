@@ -1,10 +1,9 @@
 import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { scrollToTop } from '~/utils/common';
-import AdminManageAccount from '~/components/molecules/AdminManageAccount';
+import ManageTableUser from '~/components/molecules/ManageTableUser';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
-// export default function UserManagerPage() {
 export default function ManageUserPage() {
   useEffect(() => {
     scrollToTop();
@@ -20,12 +19,12 @@ export default function ManageUserPage() {
     {
       id: 0,
       text: 'Giảng viên',
-      component: <AdminManageAccount userRole="TEACHER" />,
+      component: <ManageTableUser userRole="TEACHER" />,
     },
     {
       id: 1,
       text: 'Học viên',
-      component: <AdminManageAccount userRole="STUDENT" />,
+      component: <ManageTableUser userRole="STUDENT" />,
     },
   ];
 

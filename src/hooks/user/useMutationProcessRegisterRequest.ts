@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
+import { Key } from './key';
 import registerRequestsApi from '~/api/registerRequest';
-import { keyUseMutationProcessRegisterRequest } from './key';
 
 export const useMutationProcessRegisterRequest = () => {
   const processCourseCreateRequestMutation = useMutation({
-    mutationKey: [keyUseMutationProcessRegisterRequest],
-    mutationFn: registerRequestsApi.approveRegisterRequest,
+    mutationKey: [Key.UseMutationProcessRegisterRequest],
+    mutationFn: registerRequestsApi.processRegisterRequest,
   });
 
   return { processCourseCreateRequestMutation };

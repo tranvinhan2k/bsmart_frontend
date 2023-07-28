@@ -15,14 +15,14 @@ import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 interface RequestCourseProcessProps {
   idCourse: number;
   onClose: () => void;
-  refetch: () => void;
+  refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
 export default function RequestCourseProcess({
   idCourse,
   onClose,
-  refetch,
+  refetchSearch,
   refetchGetNoOfRequest,
 }: RequestCourseProcessProps) {
   const { courseCreateRequestDetails } =
@@ -77,12 +77,11 @@ export default function RequestCourseProcess({
       status: data.status,
       message: data.message,
     };
-    refetch();
     const id = toast.loadToast(toastMsgLoading);
     try {
       await processCourseCreateRequestMutation.mutateAsync(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
-      refetch();
+      refetchSearch();
       refetchGetNoOfRequest();
       onClose();
     } catch (e: any) {

@@ -8,14 +8,6 @@ export interface UserPayload {
   note: string;
 }
 
-export interface GetAllUserPayload {
-  q?: string;
-  role?: string;
-  isVerified?: boolean | '';
-  page?: number;
-  size?: number;
-  sort?: string[];
-}
 export interface User {
   id: number;
   fullName: string;

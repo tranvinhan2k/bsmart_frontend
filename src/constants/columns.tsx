@@ -96,7 +96,7 @@ const subjectColumns: GridColDef[] = [
   },
 ];
 
-const registerRequestColumns: GridColDef[] = [
+const managedRegisterRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
@@ -166,7 +166,7 @@ const registerRequestColumns: GridColDef[] = [
   },
 ];
 
-const courseCreateRequestColumns: GridColDef[] = [
+const managedCourseCreateRequestColumns: GridColDef[] = [
   {
     field: 'code',
     headerName: 'Mã',
@@ -199,7 +199,7 @@ const courseCreateRequestColumns: GridColDef[] = [
   },
   {
     field: 'categoryResponse',
-    headerName: 'phân loại',
+    headerName: 'Phân loại',
     minWidth: 100,
     flex: 1.5,
     valueGetter: (params) => params.value.name,
@@ -349,7 +349,7 @@ const attendanceStudentColumns: GridColDef[] = [
   },
 ];
 
-const userColumns: GridColDef[] = [
+const managedUserColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
@@ -404,14 +404,14 @@ const userColumns: GridColDef[] = [
     renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
   },
 ];
-const userMemberColumns = userColumns.concat({
+const managedUserMemberColumns = managedUserColumns.concat({
   field: 'attended',
   headerName: 'Đã học',
   flex: 1,
   minWidth: 100,
   sortable: false,
 });
-const userMentorColumns = userColumns.concat(
+const managedUserMentorColumns = managedUserColumns.concat(
   {
     field: 'taught',
     headerName: 'Đã dạy',
@@ -681,15 +681,15 @@ const columns = {
   categoryColumns,
   courseClassListColumns,
   subjectColumns,
-  registerRequestColumns,
-  courseCreateRequestColumns,
   attendanceClassColumns,
   attendanceStudentColumns,
-  userMemberColumns,
-  userMentorColumns,
-  managedCourseColumns,
   managedClassColumns,
   managedClassNotStartColumns,
+  managedCourseColumns,
+  managedCourseCreateRequestColumns,
+  managedRegisterRequestColumns,
+  managedUserMemberColumns,
+  managedUserMentorColumns,
 };
 
 export default columns;
