@@ -3,7 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { MentorProfileStatusType } from '~/constants/profile';
 import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
-import ManageTableRegisterRequest from '~/components/molecules/ManageRegisterRequest';
+import ManageTableRegisterRequest from '~/components/molecules/ManageTableRegisterRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManageRegisterRequestPage() {

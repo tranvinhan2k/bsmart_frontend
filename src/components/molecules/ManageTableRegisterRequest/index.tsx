@@ -7,7 +7,7 @@ import { MentorProfileStatusType } from '~/constants/profile';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import columns from '~/constants/columns';
-import RegisterRequestDetails from '~/containers/RegisterRequestManageSection/RegisterRequestDetails';
+import ManageTableDetailsRegisterRequest from '~/components/molecules/ManageTableDetailsRegisterRequest';
 
 interface ManageTableRegisterRequestProps {
   status: MentorProfileStatusType;
@@ -87,7 +87,7 @@ export default function ManageTableRegisterRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <RegisterRequestDetails
+          <ManageTableDetailsRegisterRequest
             row={selectedRow}
             onClose={handleTriggerDialog}
             refetchSearch={refetch}

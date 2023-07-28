@@ -14,7 +14,8 @@ interface CourseCreateRequestDetailsProps {
   refetchGetNoOfRequest: () => void;
 }
 
-export default function CourseCreateRequestDetails({
+// export default function CourseCreateRequestDetails({
+export default function ManageTableDetailsCourseCreateRequest({
   row,
   onClose,
   refetchSearch,

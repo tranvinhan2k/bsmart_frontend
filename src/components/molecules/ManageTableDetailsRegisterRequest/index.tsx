@@ -14,7 +14,7 @@ interface RegisterRequestDetailsProps {
   refetchGetNoOfRequest: () => void;
 }
 
-export default function RegisterRequestDetails({
+export default function ManageTableDetailsRegisterRequest({
   row,
   onClose,
   refetchSearch,

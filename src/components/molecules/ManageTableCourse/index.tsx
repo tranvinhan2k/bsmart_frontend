@@ -7,7 +7,7 @@ import { CourseStatusType } from '~/constants/course';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import columns from '~/constants/columns';
-import CourseCreateRequestDetails from '~/containers/CreateCourseRequestManageSection/CourseCreateRequestDetails';
+import ManageTableDetailsCourseCreateRequest from '../ManageTableDetailsCourseCreateRequest';
 
 interface ManageTableCourseCreateRequestProps {
   status: CourseStatusType;
@@ -20,7 +20,6 @@ export default function ManageTableCourseCreateRequest({
 }: ManageTableCourseCreateRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm khóa học...',
-    searchButtonLabel = 'Tìm kiếm',
     popoverOptionViewDetails = 'Xem chi tiết',
     popoverOptionNotSupport = 'Chưa hỗ trợ',
   }
@@ -84,7 +83,7 @@ export default function ManageTableCourseCreateRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <CourseCreateRequestDetails
+          <ManageTableDetailsCourseCreateRequest
             row={selectedRow}
             onClose={handleTriggerDialog}
             refetchSearch={refetch}
