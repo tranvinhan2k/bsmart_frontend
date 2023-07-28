@@ -23,14 +23,14 @@ export default function RequestCourseContent({
       {isLoading ? (
         <>
           <Box mb={4}>
-            <Typography sx={SX_FORM_LABEL}>Nội dung khóa học</Typography>
+            <Typography sx={SX_FORM_LABEL}>Nội dung</Typography>
           </Box>
           <Skeleton />
         </>
       ) : (
         <>
           <Box mb={4}>
-            <Typography sx={SX_FORM_LABEL}>Nội dung khóa học</Typography>
+            <Typography sx={SX_FORM_LABEL}>Nội dung</Typography>
           </Box>
           {courseCreateRequestDetails?.activities.map((item, i) => (
             <Accordion key={item.id}>

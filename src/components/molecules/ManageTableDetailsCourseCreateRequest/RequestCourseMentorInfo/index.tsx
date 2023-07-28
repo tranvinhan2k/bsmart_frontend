@@ -1,24 +1,21 @@
 import {
   Avatar,
   Box,
-  Button as MuiButton,
   Grid,
   IconButton,
   Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
-import { FontFamily } from '~/assets/variables';
-import { handleCopyToClipboard } from '~/utils/commonComp';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import Icon from '~/components/atoms/Icon';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { handleCopyToClipboard } from '~/utils/commonComp';
 import {
-  SX_FORM_ITEM_LABEL,
-  SX_FORM_ITEM_VALUE,
-  SX_PROFILE_TITLE,
+  SX_FORM_ITEM_LABEL2,
+  SX_FORM_ITEM_VALUE2,
+  SX_FORM_LABEL,
   SX_WRAPPER,
 } from '../style';
-import { SX_BOX_ITEM_BG } from './style';
 
 interface RequestCourseMentorInfoProps {
   idCourse: number;
@@ -29,111 +26,213 @@ export default function RequestCourseMentorInfo({
   const { courseCreateRequestDetails, isLoading } =
     useGetCourseCreateRequestDetails(idCourse);
 
-  const tmpTitle = courseCreateRequestDetails
+  const enum Text {
+    labelMail = 'Mail',
+    labelName = 'Họ tên',
+    labelPhone = 'Số điện thoại',
+    //
+    labelJoinDate = 'Ngày tham gia',
+    labelCoursePossess = 'Khóa học',
+    labelClassPossess = 'Lớp học',
+    labelRating = 'Đánh giá',
+    labelNoOfRating = 'Số đánh giá',
+  }
+
+  const title0 = courseCreateRequestDetails
     ? [
         {
           id: 0,
-          label: 'Họ tên',
-          value: courseCreateRequestDetails.mentor.email,
-          valueDisplay: courseCreateRequestDetails.mentor.email,
-          isCopyable: true,
+          label: Text.labelName,
+          value: courseCreateRequestDetails.mentor.name,
         },
         {
           id: 1,
-          label: 'Mail',
-          value: courseCreateRequestDetails.mentor.name,
-          valueDisplay: courseCreateRequestDetails.mentor.name,
-          isCopyable: true,
+          label: Text.labelMail,
+          value: courseCreateRequestDetails.mentor.email,
         },
       ]
-    : [
+    : [];
+
+  const title1 = courseCreateRequestDetails
+    ? [
         {
           id: 0,
-          label: 'Họ tên',
-          value: '',
-          valueDisplay: '',
-          isCopyable: true,
+          label: Text.labelPhone,
+          value: '0987654321',
         },
         {
-          id: 1,
-          label: 'Mail',
-          value: '',
-          valueDisplay: '',
-          isCopyable: true,
+          id: 0,
+          label: Text.labelJoinDate,
+          value: '07 thg 1, 2023',
         },
-      ];
+      ]
+    : [];
+
+  const title2 = courseCreateRequestDetails
+    ? [
+        {
+          id: 1,
+          label: Text.labelCoursePossess,
+          value: 23,
+        },
+        {
+          id: 2,
+          label: Text.labelClassPossess,
+          value: 100,
+        },
+        {
+          id: 3,
+          label: Text.labelRating,
+          value: '4.5/5',
+        },
+        {
+          id: 3,
+          label: Text.labelNoOfRating,
+          value: '504',
+        },
+      ]
+    : [];
 
   return (
-    <Stack sx={SX_WRAPPER}>
+    <Box sx={SX_WRAPPER}>
       <Box p={2}>
-        <Stack sx={SX_BOX_ITEM_BG}>
-          <Box mt={{ xs: 10, sm: 23, md: 10 }}>
-            <Avatar
-              src={courseCreateRequestDetails?.mentor.avatar.url}
-              variant="rounded"
-              sx={{
-                width: 150,
-                height: 150,
-              }}
-            />
-          </Box>
-          <Stack alignItems="center" mt={2}>
-            <Typography sx={SX_PROFILE_TITLE}>Giáo viên</Typography>
-          </Stack>
-        </Stack>
         <Grid
           container
           direction="row"
           justifyContent="flex-start"
-          alignItems="flex-start"
-          columnSpacing={8}
-          rowSpacing={2}
-          mt={1}
+          alignItems="stretch"
+          spacing={1}
         >
-          {tmpTitle.map((item) => (
-            <Grid item xs={12} key={item.id}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  <Typography sx={SX_FORM_ITEM_VALUE}>
-                    {item.isCopyable && (
-                      <IconButton
-                        size="small"
-                        onClick={() => handleCopyToClipboard(item.value)}
-                      >
-                        <Icon
-                          name="contentCopyIcon"
-                          size="small_20"
-                          color="blue"
-                        />
-                      </IconButton>
-                    )}
-                    {item.valueDisplay}
-                  </Typography>
-                )}
-              </Stack>
-            </Grid>
-          ))}
           <Grid item xs={12}>
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="outlined"
-              sx={{ fontFamily: FontFamily.bold }}
+            <Typography sx={SX_FORM_LABEL}>Giảng viên</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={4}
             >
-              Chi tiết giảng viên
-            </MuiButton>
+              <Avatar
+                src={courseCreateRequestDetails?.mentor.avatar.url}
+                variant="rounded"
+                sx={{
+                  width: 150,
+                  height: 150,
+                  boxShadow: 3,
+                }}
+              />
+              <Box sx={{ width: '100%' }}>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                >
+                  {title0.map((item) => (
+                    <Grid item md={12} lg={6} key={item.id}>
+                      <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL2}>
+                          {item.label}:
+                          <IconButton
+                            size="small"
+                            onClick={() => handleCopyToClipboard(item.value)}
+                          >
+                            <Icon
+                              name="contentCopyIcon"
+                              size="small"
+                              color="blue"
+                            />
+                          </IconButton>
+                        </Typography>
+                        {isLoading ? (
+                          <Skeleton />
+                        ) : (
+                          <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
+                            {item.value}
+                          </Typography>
+                        )}
+                      </Stack>
+                    </Grid>
+                  ))}
+                </Grid>
+                <Box mt={4}>
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                  >
+                    {title1.map((item) => (
+                      <Grid item md={12} lg={6} key={item.id}>
+                        <Stack
+                          direction="column"
+                          justifyContent="flex-start"
+                          alignItems="flex-start"
+                        >
+                          <Typography sx={SX_FORM_ITEM_LABEL2}>
+                            {item.label}:
+                            <IconButton
+                              size="small"
+                              onClick={() => handleCopyToClipboard(item.value)}
+                            >
+                              <Icon
+                                name="contentCopyIcon"
+                                size="small"
+                                color="blue"
+                              />
+                            </IconButton>
+                          </Typography>
+                          {isLoading ? (
+                            <Skeleton />
+                          ) : (
+                            <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
+                              {item.value}
+                            </Typography>
+                          )}
+                        </Stack>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+                <Box mt={6}>
+                  <Grid
+                    container
+                    spacing={{ xs: 2, md: 3 }}
+                    // columns={{ xs: 4, sm: 8, md: 12 }}
+                    // sx={{ backgroundColor: 'red' }}
+                  >
+                    {title2.map((item) => (
+                      <Grid item sm={12} md={6} lg={3} key={item.id}>
+                        <Stack
+                          direction="column"
+                          justifyContent="flex-start"
+                          alignItems="flex-start"
+                        >
+                          <Typography sx={SX_FORM_ITEM_LABEL2}>
+                            {item.label}
+                          </Typography>
+                          {isLoading ? (
+                            <Skeleton />
+                          ) : (
+                            <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
+                              {item.value}
+                            </Typography>
+                          )}
+                        </Stack>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </Box>
+            </Stack>
           </Grid>
         </Grid>
       </Box>
-    </Stack>
+    </Box>
   );
 }

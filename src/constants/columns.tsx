@@ -100,7 +100,7 @@ const managedRegisterRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 100,
+    minWidth: 300,
     flex: 1,
     renderCell: (params) => {
       const { email } = params.row;
@@ -115,7 +115,7 @@ const managedRegisterRequestColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 100,
+    minWidth: 200,
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
@@ -125,7 +125,7 @@ const managedRegisterRequestColumns: GridColDef[] = [
   {
     field: 'phone',
     headerName: 'SĐT',
-    minWidth: 100,
+    minWidth: 200,
     flex: 1,
     renderCell: (params) => {
       const { phone } = params.row;
@@ -138,31 +138,31 @@ const managedRegisterRequestColumns: GridColDef[] = [
     },
   },
   {
+    field: 'count',
+    headerName: 'Lần gửi',
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: 'timeSendRequest',
+    headerName: 'Ngày gửi',
+    minWidth: 150,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'birthday',
+    headerName: 'Ngày sinh',
+    minWidth: 150,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
     field: 'gender',
     headerName: 'Giới tính',
     minWidth: 100,
     flex: 1,
     valueFormatter: (params) => getGender(params.value),
-  },
-  {
-    field: 'birthday',
-    headerName: 'Ngày sinh',
-    minWidth: 100,
-    flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
-  },
-  {
-    field: 'timeSendRequest',
-    headerName: 'Ngày gửi',
-    minWidth: 100,
-    flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
-  },
-  {
-    field: 'count',
-    headerName: 'Lần gửi',
-    minWidth: 100,
-    flex: 1,
   },
 ];
 
@@ -190,7 +190,7 @@ const managedCourseCreateRequestColumns: GridColDef[] = [
   {
     field: 'mentor',
     headerName: 'Giáo viên',
-    minWidth: 100,
+    minWidth: 200,
     flex: 2,
     renderCell: (params) => {
       const { name } = params.row.mentor;
@@ -200,7 +200,7 @@ const managedCourseCreateRequestColumns: GridColDef[] = [
   {
     field: 'categoryResponse',
     headerName: 'Phân loại',
-    minWidth: 100,
+    minWidth: 150,
     flex: 1.5,
     valueGetter: (params) => params.value.name,
     renderCell: (params) => {
@@ -485,7 +485,7 @@ const managedCourseColumns: GridColDef[] = [
   {
     field: 'mentor',
     headerName: 'Giáo viên',
-    minWidth: 100,
+    minWidth: 200,
     flex: 2,
     renderCell: (params) => {
       const { name } = params.row.mentor;
@@ -495,7 +495,7 @@ const managedCourseColumns: GridColDef[] = [
   {
     field: 'categoryResponse',
     headerName: 'phân loại',
-    minWidth: 100,
+    minWidth: 130,
     flex: 1.5,
     valueGetter: (params) => params.value.name,
     renderCell: (params) => {
@@ -512,7 +512,7 @@ const managedCourseColumns: GridColDef[] = [
   {
     field: 'subjectResponse',
     headerName: 'Môn học',
-    minWidth: 120,
+    minWidth: 130,
     flex: 1,
     valueFormatter: (params) => params.value.name,
     renderCell: (params) => {
@@ -532,6 +532,12 @@ const managedCourseColumns: GridColDef[] = [
     minWidth: 100,
     flex: 1,
   },
+  {
+    field: 'noOfClass',
+    headerName: 'Số lớp',
+    minWidth: 100,
+    flex: 1,
+  },
 ];
 
 const managedClassNotStartColumns: GridColDef[] = [
@@ -546,37 +552,11 @@ const managedClassNotStartColumns: GridColDef[] = [
     },
   },
   {
-    field: 'codeCourse',
-    headerName: 'Mã khóa học',
-    minWidth: 150,
-    flex: 1,
-  },
-  {
-    field: 'startDate',
-    headerName: 'Ngày bắt đầu',
-    minWidth: 150,
-    flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
-  },
-  {
-    field: 'endDate',
-    headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 170,
-    flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
-  },
-  {
-    field: 'price',
-    headerName: 'Giá tiền',
-    minWidth: 170,
-    flex: 1,
-    valueFormatter: (params) => formatMoney(params.value),
-  },
-  {
     field: 'numberOfSlot',
     headerName: 'Số buổi',
     minWidth: 130,
     flex: 1,
+    type: 'number',
   },
   {
     field: 'numberOfStudent',
@@ -595,6 +575,33 @@ const managedClassNotStartColumns: GridColDef[] = [
     headerName: 'Học sinh tối đa',
     minWidth: 130,
     flex: 1,
+  },
+  {
+    field: 'codeCourse',
+    headerName: 'Mã khóa học',
+    minWidth: 150,
+    flex: 1,
+  },
+  {
+    field: 'startDate',
+    headerName: 'Ngày bắt đầu (Dự kiến)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'endDate',
+    headerName: 'Ngày kết thúc (Dự kiến)',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'price',
+    headerName: 'Giá tiền',
+    minWidth: 170,
+    flex: 1,
+    valueFormatter: (params) => formatMoney(params.value),
   },
 ];
 const managedClassColumns: GridColDef[] = [

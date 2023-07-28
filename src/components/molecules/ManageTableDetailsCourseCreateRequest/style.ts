@@ -53,3 +53,13 @@ export const SX_REQUEST_TITLE: SxProps<Theme> = {
   fontSize: 24,
   fontWeight: 600,
 };
+
+export const SX_FORM_ITEM_LABEL2: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+  fontSize: 16,
+  color: Color.grey2,
+};
+export const SX_FORM_ITEM_VALUE2: SxProps<Theme> = {
+  fontFamily: FontFamily.medium,
+  fontSize: 16,
+};
