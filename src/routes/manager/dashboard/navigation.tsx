@@ -9,9 +9,9 @@ export const ManagerNavigationActionData: ActionPayload[] = [
     items: [
       {
         id: 0,
-        name: 'Bảng điều khiển',
+        name: 'Báo cáo thống kê',
         icon: 'barChartIcon',
-        link: 'Bảng điều khiển',
+        link: 'Báo cáo thống kê',
       },
       {
         id: 1,
@@ -30,7 +30,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             id: 1,
             isHide: true,
             icon: 'description',
-            name: 'Yêu cầu tạo tài khoản',
+            name: 'Yêu cầu mở tài khoản',
             link: ManagerNavigationActionLink.manage_register_request_manager,
           },
         ],

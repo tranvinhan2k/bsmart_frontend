@@ -33,7 +33,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 3,
     isHide: true,
-    name: 'Thông tin giáo viên',
+    name: 'Hồ sơ cá nhân',
     link: NavigationLink.mentor_profile,
   },
   {
@@ -91,7 +91,7 @@ export const NavigationActionData: ActionPayload[] = [
   {
     id: 13,
     isHide: true,
-    name: 'Thông tin member',
+    name: 'Hồ sơ cá nhân',
     link: NavigationLink.member_details,
   },
   {

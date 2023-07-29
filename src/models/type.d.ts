@@ -45,12 +45,21 @@ export interface ProfilePayload {
   wallet: WalletPayload;
   mentorProfile: MentorProfileIntroducePayload;
   isVerified: boolean;
+  teachInformation?: MentorTeachingInformation;
 }
 
 export interface RolePayload {
   id: number;
   code: RoleKeys;
   name: string;
+}
+
+export interface MentorTeachingInformation {
+  numberOfCourse: number;
+  numberOfClass: number;
+  numberOfMember: number;
+  scoreFeedback: number;
+  numberOfFeedBack: number;
 }
 
 export interface ImagePayload {

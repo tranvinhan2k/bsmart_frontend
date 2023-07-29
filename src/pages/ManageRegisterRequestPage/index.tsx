@@ -91,7 +91,7 @@ export default function ManageRegisterRequestPage() {
             lineHeight: 1,
           }}
         >
-          Yêu cầu tạo tài khoản giáo viên
+          Yêu cầu phê duyệt tài khoản giáo viên
         </Typography>
       </Box>
       <Tabs
