@@ -552,31 +552,6 @@ const managedClassNotStartColumns: GridColDef[] = [
     },
   },
   {
-    field: 'numberOfSlot',
-    headerName: 'Số buổi',
-    minWidth: 130,
-    flex: 1,
-    type: 'number',
-  },
-  {
-    field: 'numberOfStudent',
-    headerName: 'Học sinh hiện tại',
-    minWidth: 130,
-    flex: 1,
-  },
-  {
-    field: 'minStudent',
-    headerName: 'Học sinh tối thiểu',
-    minWidth: 130,
-    flex: 1,
-  },
-  {
-    field: 'maxStudent',
-    headerName: 'Học sinh tối đa',
-    minWidth: 130,
-    flex: 1,
-  },
-  {
     field: 'codeCourse',
     headerName: 'Mã khóa học',
     minWidth: 150,
@@ -602,6 +577,30 @@ const managedClassNotStartColumns: GridColDef[] = [
     minWidth: 170,
     flex: 1,
     valueFormatter: (params) => formatMoney(params.value),
+  },
+  {
+    field: 'numberOfSlot',
+    headerName: 'Số buổi',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'numberOfStudent',
+    headerName: 'Học sinh hiện tại',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'minStudent',
+    headerName: 'Học sinh tối thiểu',
+    minWidth: 130,
+    flex: 1,
+  },
+  {
+    field: 'maxStudent',
+    headerName: 'Học sinh tối đa',
+    minWidth: 130,
+    flex: 1,
   },
 ];
 const managedClassColumns: GridColDef[] = [
