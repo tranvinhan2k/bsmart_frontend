@@ -41,11 +41,13 @@ export interface ProfilePayload {
   roles: RolePayload[];
   linkedinLink: string;
   facebookLink: string;
+  website: string;
   userImages: ImagePayload[];
   wallet: WalletPayload;
   mentorProfile: MentorProfileIntroducePayload;
-  isVerified: boolean;
   teachInformation?: MentorTeachingInformation;
+  isVerified: boolean;
+  verified: boolean;
 }
 
 export interface RolePayload {

@@ -1,3 +1,6 @@
+import { ImagePayload } from './common';
+import { SkillPayload } from './type';
+
 export interface CheckCompletenessReturnPayload {
   percentComplete: number;
   missingInformation: [
@@ -20,4 +23,12 @@ export interface OptionalInfo {
 export interface Field {
   field: string;
   name: string;
+}
+
+export interface MentorProfileRequestInfoPayload {
+  mentorSkillRequest: SkillPayload[];
+  degreeRequest: ImagePayload[];
+  created: string;
+  totalSkillRequest: number;
+  totalDegreeRequest: number;
 }

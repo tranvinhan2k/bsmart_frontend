@@ -70,6 +70,7 @@ import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import LanguageIcon from '@mui/icons-material/Language';
 import ManIcon from '@mui/icons-material/Man';
 import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -164,6 +165,7 @@ export type IconName =
   | 'keyboardArrowDownIcon'
   | 'keyboardArrowRightIcon'
   | 'keyboardArrowUpIcon'
+  | 'languageIcon'
   | 'left'
   | 'lesson'
   | 'linkedin'
@@ -543,6 +545,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <CiMail />
         </Stack>
       );
+    case 'languageIcon':
+      return <LanguageIcon sx={STYLED_ICON} />;
     case 'male':
       return <ManIcon sx={STYLED_ICON} />;
     case 'menu':

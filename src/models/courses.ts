@@ -2,7 +2,7 @@ import { FeedbackPayload } from '~/models/feedback';
 import { MentorPayload } from '~/models/mentor';
 import { CategoryPayload } from './category';
 import { ImageType, TimeInWeeks } from './common';
-import { SubjectPayload } from './type';
+import { SkillPayload, SubjectPayload } from './type';
 
 export interface CourseDetailPayload {
   id: number;
@@ -62,13 +62,8 @@ interface Mentor {
   email: string;
   id: number;
   introduce: string;
-  mentorSkills: MentorSkill[];
+  mentorSkills: SkillPayload[];
   name: string;
-}
-interface MentorSkill {
-  skillId: number;
-  name: string;
-  yearOfExperiences: number;
 }
 
 interface Avatar {

@@ -52,6 +52,9 @@ export interface EditMentorProfilePayload {
   mentorSkills: Array<any>;
   workingExperience: string;
 }
+export interface UpdateMentorProfileRequestPayload {
+  mentorSkills: Array<any>;
+}
 
 export interface ResponseProfilePayload {
   id: number;
@@ -210,8 +213,8 @@ const accountApi = {
   },
 
   // get
-  getProfile(config: any): Promise<any> {
-    return axiosClient.get(`${url}/profile`, config);
+  getProfile(): Promise<ProfilePayload> {
+    return axiosClient.get(`${url}/profile`);
   },
   getNotifications(): Promise<NotificationItemPayload[]> {
     const notifications: NotificationItemPayload[] = [
@@ -299,6 +302,19 @@ const accountApi = {
     });
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
+    const bodyFormData = new FormData();
+    const { userImages, degreeIdsToDelete } = data;
+    userImages.forEach((item) => {
+      bodyFormData.append('files', item);
+    });
+    if (degreeIdsToDelete) {
+      bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete as any); // CORRECT WAY
+    }
+    return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+  updateDegreeRequest(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
     const { userImages, degreeIdsToDelete } = data;
     userImages.forEach((item) => {

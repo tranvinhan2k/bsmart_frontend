@@ -20,6 +20,7 @@ import {
   LmsPage,
   LoginPage,
   MemberProfilePage,
+  MentorDetailsPage,
   MentorContractPage,
   MentorProfilePage,
   MentorsPage,
@@ -77,6 +78,11 @@ export const routes: RoutePayload[] = [
   {
     path: `${NavigationLink.course_menu_details}/:id`,
     main: () => <CourseDetailPage />,
+    role: [],
+  },
+  {
+    path: `${NavigationLink.mentor_menu_details}/:id`,
+    main: () => <MentorDetailsPage />,
     role: [],
   },
   {
