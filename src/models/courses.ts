@@ -1,6 +1,7 @@
 import { FeedbackPayload } from '~/models/feedback';
 import { MentorPayload } from '~/models/mentor';
 import { CategoryPayload } from './category';
+import { ImageType, TimeInWeeks } from './common';
 import { SubjectPayload } from './type';
 
 export interface CourseDetailPayload {
@@ -40,7 +41,7 @@ export interface CourseCreateRequestDetails {
   activities: ActivityOfCourseCreateRequestDetails[];
 }
 
-interface ClassOfCourseCreateRequestDetails {
+export interface ClassOfCourseCreateRequestDetails {
   id: number;
   code: string;
   startDate: string;
@@ -51,23 +52,18 @@ interface ClassOfCourseCreateRequestDetails {
   price: number;
   minStudent: number;
   maxStudent: number;
-  image: ImgClassOfProcessCourseCreateRequest;
-  timeInWeeks: any;
-  purchase: any;
-}
-interface ImgClassOfProcessCourseCreateRequest {
-  id: number;
-  name: string;
-  url: string;
-  status: boolean;
-  type: string;
+  image: ImageType;
+  timeInWeeks: TimeInWeeks[];
+  purchase: boolean;
 }
 
 interface Mentor {
+  avatar: Avatar;
+  email: string;
   id: number;
   introduce: string;
   mentorSkills: MentorSkill[];
-  avatar: Avatar;
+  name: string;
 }
 interface MentorSkill {
   skillId: number;
@@ -92,7 +88,7 @@ export interface ActivityOfCourseCreateRequestDetails {
   name: string;
   type: string;
   visible: boolean;
-  parentActivityId: any;
+  parentActivityId: number | null;
   subActivities: SubActivityOfCourseCreateRequestDetails[];
 }
 

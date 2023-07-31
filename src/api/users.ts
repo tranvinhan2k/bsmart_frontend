@@ -4,11 +4,7 @@ import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
 import { RequestRole } from '~/models/role';
-import {
-  GetAllUserPayload,
-  GetAllUserReturnPayload,
-  UserPayload,
-} from '~/models/user';
+import { User, UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import {
@@ -24,6 +20,7 @@ import { PromoCodePayload } from '~/pages/member_class/MemberPromoCode';
 import { generateMockApi } from '~/utils/common';
 import { image } from '~/constants/image';
 import { NotificationItemPayload } from '~/HOCs/context/NotificationItem';
+import { UseSearchManagedUserPayload } from '~/hooks/user/useSearchManagedUser';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -390,14 +387,14 @@ const accountApi = {
       })) || [];
     return result;
   },
-  getAllUser({
-    q,
-    role,
-    isVerified,
-    page,
-    size,
-    sort,
-  }: GetAllUserPayload): Promise<PagingFilterPayload<GetAllUserReturnPayload> | null> {
+  searchManagedUser({
+    q = '',
+    role = null,
+    isVerified = null,
+    page = 0,
+    size = null,
+    sort = [],
+  }: UseSearchManagedUserPayload): Promise<PagingFilterPayload<User> | null> {
     const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(urlSearch);
   },

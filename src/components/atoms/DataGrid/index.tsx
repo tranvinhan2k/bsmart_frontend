@@ -18,17 +18,6 @@ import {
 import { MouseEvent, useState } from 'react';
 import Icon, { IconName } from '../Icon';
 
-export type MenuItemPayload = {
-  icon: IconName;
-  title: string;
-  onCLick: () => void;
-};
-interface MyDataGridProps extends DataGridProps {
-  columns: GridColumns<object>;
-  rows: object[];
-  popoverOptions?: MenuItemPayload[];
-}
-
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   [`& .${gridClasses.row}.even`]: {
@@ -63,12 +52,23 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   },
 }));
 
+export type MenuItemPayload = {
+  icon: IconName;
+  title: string;
+  onCLick: () => void;
+};
+interface StyledDataGridProps extends DataGridProps {
+  columns: GridColumns<object>;
+  rows: object[];
+  popoverOptions?: MenuItemPayload[];
+}
+
 export default function DataGrid({
   columns,
   rows,
   popoverOptions,
   ...rest
-}: MyDataGridProps) {
+}: StyledDataGridProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleOpen = (e: MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(e.currentTarget);
@@ -79,12 +79,13 @@ export default function DataGrid({
       field: 'action',
       headerName: '',
       minWidth: 50,
-      flex: 1,
+      flex: 0.5,
+      align: 'center',
       filterable: false,
       sortable: false,
       renderCell: () => (
         <IconButton onClick={handleOpen}>
-          <Icon name="moreVert" size="small_20" color="black" />
+          <Icon name="menu" size="small_20" color="black" />
         </IconButton>
       ),
     },
@@ -94,7 +95,7 @@ export default function DataGrid({
     <>
       <StripedDataGrid
         autoHeight
-        columns={popoverOptions ? columns.concat(extraActionColumn) : columns}
+        columns={popoverOptions ? extraActionColumn.concat(columns) : columns}
         localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
         rows={rows}
         getRowClassName={(params) =>
@@ -103,16 +104,16 @@ export default function DataGrid({
         {...rest}
       />
       <Popover
+        keepMounted
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}
-        keepMounted
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'center',
           horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: 'top',
+          vertical: 'center',
           horizontal: 'center',
         }}
       >

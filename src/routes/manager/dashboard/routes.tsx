@@ -2,10 +2,11 @@ import { Navigate } from 'react-router-dom';
 import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
-  ManagerProcessCourseCreateRequestDetailsPage,
-  ManagerProcessCourseCreateRequestPage,
-  ManagerProcessRegisterRequestDetailsPage,
-  ManagerProcessRegisterRequestPage,
+  ManageClassPage,
+  ManageCourseCreateRequestPage,
+  ManageCoursePage,
+  ManageRegisterRequestPage,
+  ManageUserPage,
   NotFoundPage,
 } from '~/routes/components';
 
@@ -16,33 +17,28 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.account_search,
-    main: () => <h1>Manager xem tất cả người dùng</h1>,
+    path: ManagerNavigationActionLink.manage_class_manager,
+    main: () => <ManageClassPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_register_request_search,
-    main: () => <ManagerProcessRegisterRequestPage />,
+    path: ManagerNavigationActionLink.manage_course_create_request_manager,
+    main: () => <ManageCourseCreateRequestPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_register_request_details,
-    main: () => <ManagerProcessRegisterRequestDetailsPage />,
+    path: ManagerNavigationActionLink.manage_course_manager,
+    main: () => <ManageCoursePage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.course_search,
-    main: () => <h1>Manager xem tất khóa học</h1>,
+    path: ManagerNavigationActionLink.manage_register_request_manager,
+    main: () => <ManageRegisterRequestPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_create_course_request_search,
-    main: () => <ManagerProcessCourseCreateRequestPage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.process_create_course_request_details,
-    main: () => <ManagerProcessCourseCreateRequestDetailsPage />,
+    path: ManagerNavigationActionLink.manage_user_manager,
+    main: () => <ManageUserPage />,
     role: ['ROLE_MANAGER'],
   },
   {

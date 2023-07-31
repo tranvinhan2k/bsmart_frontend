@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { image } from '~/constants/image';
+import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
 import { PagingFilterPayload } from '~/models';
 import {
   ClassCreateClassSectionPayload,
@@ -7,6 +8,7 @@ import {
   ClassDetailsPayload,
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
+  ManagedClass,
 } from '~/models/class';
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
@@ -243,6 +245,18 @@ const classApi = {
     idCourse: number
   ): Promise<CourseCreateRequestDetails | undefined> {
     const urlGet = `${url}/pending/course/${idCourse}`;
+    return axiosClient.get(urlGet);
+  },
+  searchManagedClass({
+    status,
+    q = '',
+    page = 0,
+    size = null,
+    sort = [],
+  }: UseSearchManagedClassPayload): Promise<
+    PagingFilterPayload<ManagedClass> | undefined
+  > {
+    const urlGet = `${url}/manager?status=${status}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(urlGet);
   },
 

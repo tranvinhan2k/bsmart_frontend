@@ -5,9 +5,8 @@ import {
   AiOutlineInfoCircle,
   AiOutlineRedo,
   AiOutlineLogout,
-  AiFillBell,
 } from 'react-icons/ai';
-import { BiCategoryAlt, BiDownload, BiTimeFive } from 'react-icons/bi';
+import { BiCategoryAlt, BiDownload, BiTimeFive, BiMoney } from 'react-icons/bi';
 import {
   BsDribbble,
   BsInstagram,
@@ -32,7 +31,7 @@ import {
   BsFillCaretRightFill,
 } from 'react-icons/bs';
 import { CiMail, CiPhone } from 'react-icons/ci';
-import { FaBell, FaShare } from 'react-icons/fa';
+import { FaBell, FaShare, FaMoneyBill } from 'react-icons/fa';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrFormPrevious } from 'react-icons/gr';
 import { HiLocationMarker, HiOutlineTicket } from 'react-icons/hi';
@@ -58,6 +57,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArticleIcon from '@mui/icons-material/Article';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -111,6 +111,8 @@ export type IconName =
   | 'arrowUp'
   | 'assignment'
   | 'attendance'
+  | 'barChartIcon'
+  | 'biMoney'
   | 'blankSquareCheckbox'
   | 'blog'
   | 'book'
@@ -146,6 +148,7 @@ export type IconName =
   | 'eye-off'
   | 'eye'
   | 'facebook'
+  | 'faMoneyBill'
   | 'feedback'
   | 'female'
   | 'filter'
@@ -228,6 +231,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <AddIcon sx={STYLED_ICON} />;
     case 'assignment':
       return <AssignmentIcon sx={STYLED_ICON} />;
+    case 'barChartIcon':
+      return <BarChartIcon sx={STYLED_ICON} />;
     case 'blog':
       return (
         <Stack sx={STYLED_ICON}>
@@ -268,6 +273,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Stack sx={STYLED_ICON}>
           <BiTimeFive />
+        </Stack>
+      );
+    case 'biMoney':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <BiMoney />
         </Stack>
       );
     case 'date':
@@ -602,6 +613,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return (
         <Stack sx={STYLED_ICON}>
           <FaShare />
+        </Stack>
+      );
+    case 'faMoneyBill':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <FaMoneyBill />
         </Stack>
       );
     case 'star':

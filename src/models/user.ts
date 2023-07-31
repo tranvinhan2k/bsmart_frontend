@@ -1,3 +1,4 @@
+import { ImageType } from './common';
 import { RolePayload } from './type';
 
 export interface UserPayload {
@@ -7,15 +8,7 @@ export interface UserPayload {
   note: string;
 }
 
-export interface GetAllUserPayload {
-  q?: string;
-  role?: string;
-  isVerified?: boolean | '';
-  page?: number;
-  size?: number;
-  sort?: string[];
-}
-export interface GetAllUserReturnPayload {
+export interface User {
   id: number;
   fullName: string;
   email: string;
@@ -28,9 +21,9 @@ export interface GetAllUserReturnPayload {
   linkedinLink: string | null;
   facebookLink: string | null;
   website: string | null;
-  userImages: any[];
+  userImages: ImageType[];
   wallet: Wallet;
-  mentorProfile: any;
+  mentorProfile: MentorProfile;
   isVerified: boolean;
 }
 
@@ -39,4 +32,11 @@ interface Wallet {
   balance: number;
   previous_balance: number;
   owner_id: number;
+}
+interface MentorProfile {
+  id: number;
+  introduce: string;
+  workingExperience: string;
+  status: string;
+  mentorSkills: any[];
 }

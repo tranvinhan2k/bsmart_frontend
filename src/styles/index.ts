@@ -134,7 +134,12 @@ const displayEditorExpandButton: SxProps<Theme> = {
   textTransform: 'none',
   '&:hover': { backgroundColor: 'transparent' },
 };
+const boxSticky: SxProps<Theme> = {
+  position: 'sticky',
+  top: 0,
+};
 const globalStyles = {
+  boxSticky,
   displayEditorTextShowMore,
   displayEditorTextShowLess,
   displayEditorExpandButton,

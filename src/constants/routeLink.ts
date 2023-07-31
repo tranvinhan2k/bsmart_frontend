@@ -100,12 +100,11 @@ export const enum AdminNavigationActionLink {
 
 export const enum ManagerNavigationActionLink {
   manager = 'manager',
-  account_search = 'account_search',
-  process_register_request_search = 'process_register_request_search',
-  process_register_request_details = 'process_register_request_details/:id',
-  course_search = 'course_search',
-  process_create_course_request_search = 'process_create_course_request_search',
-  process_create_course_request_details = 'process_create_course_request_details/:id',
+  manage_class_manager = 'manage_class_manager',
+  manage_course_create_request_manager = 'manage_course_create_request_manager',
+  manage_course_manager = 'manage_course_manager',
+  manage_register_request_manager = 'manage_register_request_manager',
+  manage_user_manager = 'manage_user_manager',
 }
 
 export const enum MentorCourseActionLink {

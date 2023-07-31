@@ -1,19 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
+import { Key } from './key';
 import classApi from '~/api/class';
-import { keyUseGetCourseCreateRequestDetails } from './key';
 
 export const useGetCourseCreateRequestDetails = (idCourse: number) => {
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: [keyUseGetCourseCreateRequestDetails, idCourse],
+  const { data, error, isLoading, isError, refetch } = useQuery({
+    queryKey: [Key.UseGetCourseCreateRequestDetails, idCourse],
     queryFn: () => classApi.getCourseCreateRequestDetails(idCourse),
     keepPreviousData: true,
   });
 
   return {
     courseCreateRequestDetails: data,
+    error,
     isError,
     isLoading,
-    error,
     refetch,
   };
 };

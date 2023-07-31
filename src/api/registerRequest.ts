@@ -1,5 +1,7 @@
 import axiosClient from '~/api/axiosClient';
-import { OptionPayload } from '~/models';
+import { UseSearchRegisterRequestPayload } from '~/hooks/user/useSearchRegisterRequest';
+import { OptionPayload, PagingFilterPayload } from '~/models';
+import { User } from '~/models/user';
 import { ProcessRegisterRequestPayload } from './mentorProfile';
 
 export interface ResponseCategoriesPayload {
@@ -34,32 +36,24 @@ const registerRequestsApi = {
     const response: any = await axiosClient.get(`${url}/${id}`);
     return response;
   },
-  async searchRegisterRequests({
-    status,
+  searchRegisterRequest({
     q,
+    status,
+    page,
     size,
     sort,
-  }: SearchRegisterRequestsProps): Promise<any> {
-    const urlSearch = `${url}/pending?accountStatus=${status}&page=${0}&size=${size}`;
-    const response: any = await axiosClient.get(`${urlSearch}`);
-    return response.items;
+  }: UseSearchRegisterRequestPayload): Promise<PagingFilterPayload<User>> {
+    const urlSearch = `${url}/pending?accountStatus=${status}&q=${q}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(`${urlSearch}`);
   },
-  async approveRegisterRequest(
+  processRegisterRequest(
     data: ProcessRegisterRequestPayload
-  ): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${data.id}/approval`, {
+  ): Promise<boolean> {
+    return axiosClient.put(`${url}/${data.id}/approval`, {
       status: data.status,
       message: data.message,
     });
-    return response;
   },
 };
-
-interface SearchRegisterRequestsProps {
-  status?: string;
-  q?: string;
-  size?: number;
-  sort?: string;
-}
 
 export default registerRequestsApi;

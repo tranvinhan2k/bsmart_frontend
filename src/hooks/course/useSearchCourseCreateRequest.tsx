@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import courseCreateRequestApi from '~/api/courseCreateRequest';
-import { keyUseSearchCourseCreateRequest } from './key';
+import { Key } from './key';
 
 export interface UseSearchCourseCreateRequestPayload {
   status: string;
@@ -18,7 +18,7 @@ export const useSearchCourseCreateRequest = ({
   sort,
 }: UseSearchCourseCreateRequestPayload) => {
   const { data, error, isError, isLoading, refetch } = useQuery({
-    queryKey: [keyUseSearchCourseCreateRequest, status, q, page, size, sort],
+    queryKey: [Key.UseSearchCourseCreateRequest, status, q, page, size, sort],
     queryFn: () =>
       courseCreateRequestApi.searchCourseCreateRequest({
         status,

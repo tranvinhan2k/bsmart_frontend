@@ -55,6 +55,7 @@ export interface RequestUpdateCoursePayload {
     slotId: number;
   }[];
 }
+
 export interface ProcessCreateCourseRequestPayload {
   id: number;
   classIds: number[];

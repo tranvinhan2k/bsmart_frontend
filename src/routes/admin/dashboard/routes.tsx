@@ -4,7 +4,7 @@ import { AdminNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
   AdminPage,
-  UserManagerPage,
+  ManageUserPage,
   CategoryManagerPage,
   FeedbackManagerPage,
   NotFoundPage,
@@ -34,7 +34,7 @@ export const adminRoutes: RoutePayload[] = [
   },
   {
     path: AdminNavigationActionLink.user_manager,
-    main: () => <UserManagerPage />,
+    main: () => <ManageUserPage />,
     role: ['ROLE_ADMIN'],
   },
   {
