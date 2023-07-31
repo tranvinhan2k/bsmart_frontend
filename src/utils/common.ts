@@ -129,7 +129,7 @@ export const formatError = (e: string) => {
 };
 
 export function convertToHigherByteUnit(kb: number): string {
-  const units = ['bytes','KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
   let value = kb;
   let unitIndex = 0;
 
