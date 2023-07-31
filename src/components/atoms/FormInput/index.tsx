@@ -39,6 +39,7 @@ import ArrayHelperText from './ArrayHelperText';
 import FileInputRequireYup from './FileInputRequireYup';
 import PriceInput from './PriceInput';
 import RatingInput from './RatingInput';
+import TimeInput from './TimeInput';
 
 interface FormInputProps {
   disabled?: boolean;
@@ -140,6 +141,8 @@ const generateFormInput = (
           previewImgWidth={previewImgWidth}
         />
       );
+    case variant === 'second':
+      return <TimeInput controller={controller} placeholder={placeholder} />;
     case variant === 'file':
       return <FileInput controller={controller} />;
     case variant === 'files':

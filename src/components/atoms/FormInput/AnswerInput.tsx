@@ -31,8 +31,6 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
     fieldState: { invalid, error },
   } = controller;
 
-  const [open, setOpen] = useState(false);
-
   const resolver = useYupValidationResolver(validationSchemaAnswer);
   const addAnswer = useForm<{ answer: string; right: boolean }>({
     defaultValues: {
@@ -54,10 +52,6 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answerType]);
 
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
   const handleSubmit = (data: { answer: string; right: boolean }) => {
     const tmpValue = [
       ...value,
@@ -68,7 +62,6 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
     ];
     controllerOnChange(tmpValue);
     addAnswer.reset();
-    handleOpen();
   };
 
   const handleDelete = (paramIndex: number) => {
@@ -173,51 +166,34 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
             </Stack>
           )}
         </Stack>
-        <Box>
-          <Button
-            startIcon={
-              <Icon
-                name={!open ? 'add' : 'close'}
-                size="small_20"
-                color="white"
-              />
-            }
-            variant="contained"
-            color={!open ? 'info' : 'error'}
-            onClick={handleOpen}
-          >
-            {!open ? 'Thêm câu trả lời' : 'Hủy'}
-          </Button>
-        </Box>
-        <Collapse in={open}>
-          <Stack
-            sx={{
-              marginTop: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Stack sx={{ flexGrow: 1 }}>
-              <FormInput
-                control={addAnswer.control}
-                name="answer"
-                placeholder="Tên câu hỏi"
-              />
-            </Stack>
-            <Button
-              sx={{
-                marginLeft: 1,
-                color: Color.white,
-                height: '35px',
-              }}
-              variant="contained"
-              color="secondary"
-              onClick={addAnswer.handleSubmit(handleSubmit)}
-            >
-              Thêm câu trả lời
-            </Button>
+
+        <Stack
+          sx={{
+            marginTop: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Stack sx={{ flexGrow: 1 }}>
+            <FormInput
+              control={addAnswer.control}
+              name="answer"
+              placeholder="Tên câu hỏi"
+            />
           </Stack>
-        </Collapse>
+          <Button
+            sx={{
+              marginLeft: 1,
+              color: Color.white,
+              height: '35px',
+            }}
+            variant="contained"
+            color="secondary"
+            onClick={addAnswer.handleSubmit(handleSubmit)}
+          >
+            Thêm câu trả lời
+          </Button>
+        </Stack>
       </Stack>
       {invalid && (
         <FormHelperText error>{(error as any)?.message}</FormHelperText>

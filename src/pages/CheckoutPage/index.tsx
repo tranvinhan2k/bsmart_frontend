@@ -55,8 +55,9 @@ function CheckoutPage() {
       if (Array.isArray(checkOutItem)) {
         await mutateAsync(
           checkOutItem.map((item) => ({
-            clazzId: item.id,
-            returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/`,
+            cartItemId: item.cartItemId,
+            subCourseId: item.id,
+            referralCode: introduceCode || '',
           }))
         );
       } else {
@@ -92,7 +93,23 @@ function CheckoutPage() {
   } = {
     totalAmount: formatMoney(slTotalAmount, true),
     totalQuantity: Array.isArray(checkOutItem) ? checkOutItem.length : 1,
-    courseList: Array.isArray(checkOutItem) ? [] : [checkOutItem],
+    courseList: Array.isArray(checkOutItem)
+      ? checkOutItem.map((item) => ({
+          id: item.id,
+          code: '',
+          endDate: '',
+          imageAlt: '',
+          imageUrl: '',
+          maxStudent: 0,
+          minStudent: 0,
+          numberOfSlot: 0,
+          price: 0,
+          startDate: '',
+          status: 'ALL',
+          timeInWeekRequests: [],
+          purchase: false,
+        }))
+      : [checkOutItem],
   };
 
   return (

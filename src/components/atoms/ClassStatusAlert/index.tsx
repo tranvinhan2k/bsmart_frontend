@@ -32,6 +32,7 @@ export default function ClassStatusAlert(props: Props) {
 
   const isTodayGreaterThanStartDate: boolean =
     new Date(startDate).getTime() <= new Date().getTime();
+  console.log('date greater', isTodayGreaterThanStartDate);
 
   switch (status) {
     case 'REQUESTING':

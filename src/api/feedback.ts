@@ -1,6 +1,12 @@
 import axiosClient from '~/api/axiosClient';
-import { OptionPayload } from '~/models';
+import {
+  OptionPayload,
+  PagingFilterPayload,
+  PagingFilterRequest,
+} from '~/models';
+import { GetAllFeedbackTemplate } from '~/models/response';
 import { QuestionTypeKeys } from '~/models/variables';
+import { FeedbackManagerPayload } from '~/pages/FeedbackManagerPage';
 import {
   FeedbackMemberQuestionPayload,
   SendFeedbackPayload,
@@ -156,29 +162,32 @@ const feedbacksApi = {
     );
     return response;
   },
-  async deleteQuestion(id: number): Promise<any> {
-    const response = await axiosClient.delete(`${url}/question/${id}`);
-    return response;
-  },
 
-  async createTemplate(params: FeedbackQuestionPayload): Promise<any> {
-    const response = await axiosClient.post(`${url}/template`, params);
-    return response;
+  createTemplate(params: FeedbackQuestionPayload) {
+    return axiosClient.post(`${url}/template`, params);
   },
-  async getAllTemplate(): Promise<any> {
-    const response = await axiosClient.get(`${url}/template`);
-    return response;
+  async getAllTemplate(
+    filterParams: PagingFilterRequest
+  ): Promise<PagingFilterPayload<FeedbackManagerPayload>> {
+    const response: PagingFilterPayload<GetAllFeedbackTemplate> =
+      await axiosClient.get(`${url}/template`, {
+        params: filterParams,
+      });
+    const result: FeedbackManagerPayload[] = response.items.map((item) => ({
+      id: item?.id || 0,
+      isDefault: !!item.isDefault,
+      isFixed: !!item.isFixed,
+      name: item.name || '',
+      questions: item?.questions || [],
+      type: item?.type || 'COURSE',
+    }));
+    return { ...response, items: result };
   },
-  async updateTemplate(params: FeedbackQuestionPayload): Promise<any> {
-    const response = await axiosClient.put(
-      `${url}/template/${params.id}`,
-      params
-    );
-    return response;
+  updateTemplate(params: FeedbackQuestionPayload) {
+    return axiosClient.put(`${url}/template/${params.id}`, params);
   },
-  async deleteTemplate(id: number): Promise<any> {
-    const response = await axiosClient.delete(`${url}/template/${id}`);
-    return response;
+  async deleteTemplate(id: number) {
+    return axiosClient.delete(`${url}/template/${id}`);
   },
 };
 

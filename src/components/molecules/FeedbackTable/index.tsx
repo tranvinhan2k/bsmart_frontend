@@ -7,11 +7,11 @@ import CRUDTable from '../CRUDTable';
 import { MentorFeedbackListPayload } from '~/pages/mentor_class/MentorClassFeedbacksPage';
 import { useBoolean } from '~/hooks/useBoolean';
 
-interface Props {
+type Props = {
   data: MentorFeedbackListPayload[];
   error: unknown;
   isLoading: boolean;
-}
+};
 
 export default function FeedbackTable({ data, error, isLoading }: Props) {
   const { value: open, toggle } = useBoolean(false);

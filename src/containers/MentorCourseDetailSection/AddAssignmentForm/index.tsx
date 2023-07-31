@@ -85,7 +85,7 @@ export default function AddAssignmentForm({
       label: 'Mô tả bài tập',
       name: 'description',
       placeholder: 'Nhập mô tả khóa học',
-      variant: 'multiline',
+      variant: 'editor',
     },
     {
       label: 'Ngày bắt đầu',
@@ -100,7 +100,7 @@ export default function AddAssignmentForm({
       variant: 'datetime',
     },
     {
-      label: 'Thời gian được chỉnh sửa (phút)',
+      label: 'Thời gian được chỉnh sửa (giây)',
       name: 'editBeForSubmitMin',
       placeholder: 'Nhập thời gian được chỉnh sửa',
       variant: 'number',
@@ -116,12 +116,6 @@ export default function AddAssignmentForm({
       name: 'maxFileSize',
       placeholder: 'Thêm dung lượng tệp cho phép',
       variant: 'number',
-    },
-    {
-      label: 'Cho phép ghi đè tệp',
-      name: 'overWriteAttachFile',
-      placeholder: 'Cho phép ghi đè tệp',
-      variant: 'boolean',
     },
     {
       label: 'Điểm đạt yêu cầu',
@@ -163,7 +157,7 @@ export default function AddAssignmentForm({
             disabled={
               !hookForm.formState.isDirty ||
               !isAllowUpdateActivity(course.status) ||
-              !isFixed
+              isFixed
             }
             color="secondary"
             sx={{
@@ -176,7 +170,7 @@ export default function AddAssignmentForm({
           </Button>
           {Boolean(onDelete) && (
             <Button
-              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
+              disabled={!isAllowUpdateActivity(course.status) || isFixed}
               sx={{
                 marginLeft: 1,
               }}

@@ -1,21 +1,25 @@
 import { Stack } from '@mui/material';
+import { useContext } from 'react';
+import { ClassContext } from '~/HOCs/context/ClassContext';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import UserDetailInformation from '~/components/molecules/UserDetailInformation';
 import { image } from '~/constants/image';
 import { MentorClassDetailPayload } from '~/pages/mentor_class/MentorClassStudentDetailPage';
+import globalStyles from '~/styles';
 
 export default function MemberClassMentorDetailPage() {
+  const { detailClass } = useContext(ClassContext);
   const mentor: MentorClassDetailPayload = {
-    name: 'Trần Vĩ Nhân',
-    phone: '0362017512',
-    email: 'tranvinhan2k@gmail.com',
+    name: detailClass?.teacherName?.[0] || '',
+    phone: detailClass?.teacherPhone || '',
+    email: detailClass?.teacherMail || '',
     attendanceInformation: {
       timeSlotLeft: 5,
       timeSlotOff: 3,
     },
     id: 0,
-    imageUrl: image.mockTeacherAvatar,
-    imageAlt: 'hinh anh giao vien',
+    imageUrl: detailClass?.imageUrl || '',
+    imageAlt: detailClass?.imageAlt || '',
     points: [
       {
         id: 0,
@@ -33,13 +37,15 @@ export default function MemberClassMentorDetailPage() {
   return (
     <Stack>
       <TextTitle title="Thông tin giáo viên" />
-      <UserDetailInformation
-        email={mentor.email}
-        imageAlt={mentor.imageAlt}
-        imageUrl={mentor.imageUrl}
-        name={mentor.name}
-        phone={mentor.phone}
-      />
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <UserDetailInformation
+          email={mentor.email}
+          imageAlt={mentor.imageAlt}
+          imageUrl={mentor.imageUrl}
+          name={mentor.name}
+          phone={mentor.phone}
+        />
+      </Stack>
     </Stack>
   );
 }

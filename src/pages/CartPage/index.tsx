@@ -128,30 +128,6 @@ export default function CartPage() {
     },
   ];
 
-  const renderNoRow = () => {
-    return (
-      <Stack
-        sx={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-        }}
-      >
-        <Box component="img" alt="no empty" src={image.emptyCart} />
-
-        <Typography
-          sx={{
-            paddingTop: MetricSize.medium_15,
-            fontSize: FontSize.small_18,
-            fontFamily: FontFamily.regular,
-          }}
-        >
-          Không có hàng trong giỏ
-        </Typography>
-      </Stack>
-    );
-  };
-
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -164,38 +140,39 @@ export default function CartPage() {
         padding: 2,
         marginY: 4,
         marginX: { xs: 4, md: 10 },
+        height: 1000,
       }}
     >
       <Typography sx={globalStyles.textSubTitle}>Giỏ Hàng</Typography>
       <Typography sx={globalStyles.textSmallLight}>{`Bạn đang có ${
         cart?.totalItem || 0
       } khóa học trong giỏ hàng`}</Typography>
-      <LoadingWrapper isLoading={isLoading} error={error} isEmptyCourse>
-        {cart && (
-          <DataGrid
-            loading={isLoading}
-            rowHeight={160}
-            components={{
-              NoRowsOverlay: renderNoRow,
-              NoResultsOverlay: renderNoRow,
-            }}
-            sx={{
-              marginY: MetricSize.medium_15,
-              height: 160 * 3 + 80,
-              '&.header': {
-                color: Color.blue,
-              },
-            }}
-            rows={cart?.cartItems}
-            columns={columns}
-            initialState={{
-              pagination: {
-                pageSize: 5,
-              },
-            }}
-          />
-        )}
-      </LoadingWrapper>
+      {cart && (
+        <DataGrid
+          error={error}
+          loading={isLoading}
+          rowHeight={160}
+          sx={{
+            marginY: MetricSize.medium_15,
+            height: 160 * 3 + 80,
+            '&.header': {
+              color: Color.blue,
+            },
+          }}
+          rows={cart?.cartItems}
+          columns={columns}
+          initialState={{
+            pagination: {
+              pageSize: 5,
+            },
+          }}
+        />
+      )}
+      <Box marginY={2}>
+        <Button onClick={handlePayCart} variant="contained">
+          Thanh toán giỏ hàng
+        </Button>
+      </Box>
       <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
     </Stack>
   );

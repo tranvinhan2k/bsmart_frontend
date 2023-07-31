@@ -20,7 +20,6 @@
     "@mui/material": "^5.11.8",
     "@mui/x-data-grid": "^5.17.25",
     "@mui/x-date-pickers": "^5.0.20",
-    "@nanostores/react": "ai/react",
     "@react-oauth/google": "^0.8.0",
     "@reduxjs/toolkit": "^1.9.2",
     "@stomp/stompjs": "^7.0.0",

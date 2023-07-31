@@ -24,6 +24,12 @@ import { NavigationLink } from '~/constants/routeLink';
 import { selectProfile } from '~/redux/user/selector';
 import { addCheckoutItem } from '~/redux/courses/slice';
 import { LevelKeys } from '~/models/variables';
+import {
+  useDispatchGetCart,
+  useMutationAddCourseToCart,
+  useTryCatch,
+} from '~/hooks';
+import { RequestCartItem } from '~/api/cart';
 
 interface Props {
   levelLabel: string;
@@ -68,6 +74,9 @@ export default function Sidebar({
   const dispatch = useDispatch();
 
   const profile = useSelector(selectProfile);
+  const { mutateAsync: handleAddCourseToCart } = useMutationAddCourseToCart();
+  const { handleTryCatch } = useTryCatch('thêm vào giỏ hàng');
+  const { handleDispatch } = useDispatchGetCart();
   const [open, setOpen] = useState(false);
   const [chooseClass, setChooseClass] =
     useState<DetailCourseClassPayload>(initClass);
@@ -97,6 +106,20 @@ export default function Sidebar({
         })
       );
       navigate(`/${NavigationLink.check_out}`);
+    } else {
+      toast.notifyErrorToast('Hãy chọn lớp học bạn cần !');
+    }
+  };
+  const handleAddToCart = async () => {
+    if (chooseClass.id !== 0) {
+      const params: RequestCartItem = {
+        cartItemId: undefined,
+        subCourseId: chooseClass.id,
+      };
+      await handleTryCatch(async () => {
+        await handleAddCourseToCart(params);
+        await handleDispatch();
+      });
     } else {
       toast.notifyErrorToast('Hãy chọn lớp học bạn cần !');
     }
@@ -485,6 +508,7 @@ export default function Sidebar({
             </Button>
             <Stack marginX={1} />
             <Button
+              onClick={handleAddToCart}
               sx={{
                 flex: 1,
               }}
@@ -520,10 +544,10 @@ export default function Sidebar({
               sx={{
                 transition: 'all 1s ease',
                 fontSize: FontSize.small_14,
-                fontFamily: FontFamily.light,
+                fontFamily: FontFamily.regular,
                 paddingY: 1,
                 paddingX: 4,
-                color: Color.grey,
+                color: Color.black,
 
                 ':hover': {
                   background: Color.grey3,

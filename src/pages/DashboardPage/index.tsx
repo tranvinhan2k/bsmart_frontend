@@ -114,13 +114,7 @@ export default function DashboardPage() {
                 customVariant="form"
                 startIcon={<Icon name="return" size="small_20" color="white" />}
               >
-                <Typography
-                  sx={{
-                    marginLeft: 1,
-                  }}
-                >
-                  Trở về trang chủ
-                </Typography>
+                Trở về trang chủ
               </Button>
             </Box>
             <Drawer

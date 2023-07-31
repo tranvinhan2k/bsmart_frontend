@@ -15,10 +15,12 @@ export default function Section({
   id,
   subActivities,
   name,
+  index,
   readOnly = false,
 }: {
   id: number;
   name: string;
+  index: number;
   subActivities: ActivityPayload[];
   readOnly: boolean;
 }) {
@@ -53,7 +55,7 @@ export default function Section({
               fontFamily: FontFamily.medium,
             }}
           >
-            {name}
+            {`Học phần ${index + 1}: ${name}`}
           </Typography>
           <IconButton
             sx={{
@@ -69,12 +71,13 @@ export default function Section({
         </Stack>
 
         <Collapse in={open}>
-          {subActivities.map((module) => (
+          {subActivities.map((module, idx) => (
             <Module
               readOnly={readOnly}
               sectionId={id}
               key={module.id}
               id={module.id}
+              index={idx}
               name={module.name}
               status={module.type}
             />

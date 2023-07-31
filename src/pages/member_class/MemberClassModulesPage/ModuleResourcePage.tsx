@@ -5,6 +5,8 @@ import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
 import { ActivityResourcePayload } from '~/models/type';
 import globalStyles from '~/styles';
+import { convertToHigherByteUnit } from '~/utils/common';
+import ModuleActivity from './ModuleActivity';
 
 interface Props {
   name: string;
@@ -18,16 +20,11 @@ export default function ModuleResourcePage({ name, item }: Props) {
 
   return (
     <Stack marginTop={1}>
-      <Typography
-        textAlign="center"
-        sx={{
-          fontSize: FontSize.medium_24,
-          fontFamily: FontFamily.medium,
-        }}
-      >
-        {name}
-      </Typography>
+      <ModuleActivity name={name} />
       <Stack marginTop={1} />
+      <Typography textAlign="center" sx={globalStyles.textSmallLabel}>
+        Tệp đính kèm
+      </Typography>
       <Stack
         sx={{
           border: '1px solid #ddd',
@@ -64,7 +61,7 @@ export default function ModuleResourcePage({ name, item }: Props) {
                 {item.file.name}
               </Typography>
               <Typography sx={globalStyles.textLowSmallLight}>
-                {`${item.file.size} KB`}
+                {`${convertToHigherByteUnit(item.file.size)}`}
               </Typography>
             </Stack>
           </Stack>

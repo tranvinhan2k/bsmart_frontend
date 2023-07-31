@@ -36,8 +36,6 @@ export default function FeedbackManagerTemplate() {
   const [row, setRow] = useState<any>();
 
   const handleClose = (chooseMode?: CRUDModes) => {
-    console.log(open);
-
     setOpen(!open);
     if (chooseMode) {
       setMode(() => chooseMode);
@@ -154,7 +152,7 @@ export default function FeedbackManagerTemplate() {
       <CRUDTable
         title={texts.title}
         columns={columns.templateColumns}
-        rows={templates}
+        rows={templates?.items || []}
         addItemButtonLabel={texts.addItemLabel}
         onAdd={() => handleClose('CREATE')}
         menuItemList={menuItemList}

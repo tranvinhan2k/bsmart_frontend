@@ -21,6 +21,7 @@ interface Props {
   sectionId: number;
   name: string;
   status: ActivityKeys;
+  index: number;
 }
 
 export default function Module({
@@ -28,6 +29,7 @@ export default function Module({
   name,
   status,
   sectionId,
+  index,
   readOnly,
 }: Props) {
   const profile = useSelector(selectProfile);
@@ -74,7 +76,7 @@ export default function Module({
     >
       <TextPropLine
         icon={moduleItem?.icon || 'lesson'}
-        label={moduleItem?.label || ''}
+        label={`${moduleItem?.label} ${index + 1}` || ''}
         value={name}
       />
     </Stack>

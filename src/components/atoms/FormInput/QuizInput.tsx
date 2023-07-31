@@ -29,7 +29,6 @@ function QuizInput({
     fieldState: { invalid, error },
   } = controller;
 
-  const [addOpen, setAddOpen] = useState(false);
   const [row, setRow] = useState<any>();
   const [searchValue, setSearchValue] = useState('');
   const filterValue =
@@ -38,9 +37,6 @@ function QuizInput({
       : value.filter((item: any) =>
           item.question.toLowerCase().includes(searchValue.toLowerCase())
         );
-  const handleAddOpen = () => {
-    setAddOpen(!addOpen);
-  };
 
   const handleSearchValue = (text: { searchValue: string }) => {
     setSearchValue(`${text.searchValue}`);
@@ -51,15 +47,14 @@ function QuizInput({
   });
 
   const questionTypeWatch = addQuestion.watch('questionType');
+
   const handleSubmit = (data: any) => {
     const tmpValue = [...value, data].map((item, index) => ({
       id: index,
       ...item,
     }));
-
-    controllerOnChange(tmpValue);
     addQuestion.reset();
-    handleAddOpen();
+    controllerOnChange(tmpValue);
   };
 
   const handleDeleteRow = () => {
@@ -81,14 +76,73 @@ function QuizInput({
         }}
       >
         <Stack
+          padding={2}
+          sx={{
+            width: '60vw',
+          }}
+        >
+          <Typography textAlign="center" sx={globalStyles.textSubTitle}>
+            Thêm câu hỏi
+          </Typography>
+          <FormInput
+            control={addQuestion.control}
+            name="question"
+            placeholder="Tên cẩu hỏi"
+            label="Tên câu hỏi"
+          />
+          <Stack sx={{ paddingY: 2 }}>
+            <FormInput
+              label="Loại câu hỏi"
+              control={addQuestion.control}
+              variant="radioGroup"
+              name="questionType"
+              placeholder="Nhập loại câu hỏi"
+              data={[
+                {
+                  id: 0,
+                  label: 'Câu hỏi một lựa chọn',
+                  value: 'SINGLE',
+                },
+                {
+                  id: 1,
+                  label: 'Câu hỏi nhiều lựa chọn',
+                  value: 'MULTIPLE',
+                },
+              ]}
+            />
+          </Stack>
+          <FormInput
+            control={addQuestion.control}
+            name="answers"
+            variant="answerPicker"
+            label="Danh sách câu trả lời"
+            answerType={questionTypeWatch}
+          />
+
+          <Box>
+            <Button
+              sx={{
+                marginTop: 2,
+                color: Color.white,
+              }}
+              color="secondary"
+              variant="contained"
+              onClick={addQuestion.handleSubmit(
+                handleSubmit,
+                handleConsoleError
+              )}
+            >
+              Thêm câu hỏi
+            </Button>
+          </Box>
+        </Stack>
+        <Stack
           sx={{
             marginY: 2,
           }}
         >
           <CRUDTable
             title="Danh sách câu hỏi"
-            onAdd={handleAddOpen}
-            addItemButtonLabel="Thêm câu hõi"
             onSearch={handleSearchValue}
             columns={[
               {
@@ -122,69 +176,6 @@ function QuizInput({
             rows={filterValue || []}
           />
         </Stack>
-        <CustomModal open={addOpen} onClose={handleAddOpen}>
-          <Stack
-            padding={2}
-            sx={{
-              width: '60vw',
-            }}
-          >
-            <Typography textAlign="center" sx={globalStyles.textSubTitle}>
-              Thêm câu hỏi
-            </Typography>
-            <FormInput
-              control={addQuestion.control}
-              name="question"
-              placeholder="Tên cẩu hỏi"
-              label="Tên câu hỏi"
-            />
-            <Stack sx={{ paddingY: 2 }}>
-              <FormInput
-                label="Loại câu hỏi"
-                control={addQuestion.control}
-                variant="radioGroup"
-                name="questionType"
-                placeholder="Nhập loại câu hỏi"
-                data={[
-                  {
-                    id: 0,
-                    label: 'Câu hỏi một lựa chọn',
-                    value: 'SINGLE',
-                  },
-                  {
-                    id: 1,
-                    label: 'Câu hỏi nhiều lựa chọn',
-                    value: 'MULTIPLE',
-                  },
-                ]}
-              />
-            </Stack>
-            <FormInput
-              control={addQuestion.control}
-              name="answers"
-              variant="answerPicker"
-              label="Danh sách câu trả lời"
-              answerType={questionTypeWatch}
-            />
-
-            <Box>
-              <Button
-                sx={{
-                  marginTop: 2,
-                  color: Color.white,
-                }}
-                color="secondary"
-                variant="contained"
-                onClick={addQuestion.handleSubmit(
-                  handleSubmit,
-                  handleConsoleError
-                )}
-              >
-                Thêm câu hỏi
-              </Button>
-            </Box>
-          </Stack>
-        </CustomModal>
       </Stack>
       {invalid && (
         <FormHelperText error>{`${(error as any)?.message}`}</FormHelperText>

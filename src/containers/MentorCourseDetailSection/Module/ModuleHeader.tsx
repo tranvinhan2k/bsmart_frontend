@@ -23,7 +23,7 @@ export default function ModuleHeader({
 
         fontFamily: FontFamily.bold,
         background: Color.navy,
-        width: '100px',
+        width: '120px',
         padding: MetricSize.small_10,
         borderRadius: MetricSize.small_5,
       }}

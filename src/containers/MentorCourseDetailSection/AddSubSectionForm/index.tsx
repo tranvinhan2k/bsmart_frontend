@@ -43,6 +43,7 @@ export default function AddSubSectionForm({
       placeholder: 'Hiển thị danh sách lớp',
       variant: 'multiSelect',
       data: optionClasses,
+      isHide: optionClasses.length === 0,
     },
     {
       label: 'Tên bài học',
@@ -91,7 +92,7 @@ export default function AddSubSectionForm({
             disabled={
               !hookForm.formState.isDirty ||
               !isAllowUpdateActivity(course.status) ||
-              !isFixed
+              isFixed
             }
             onClick={hookForm.handleSubmit(onSubmit)}
             variant="contained"
@@ -105,7 +106,7 @@ export default function AddSubSectionForm({
                 marginLeft: 1,
                 color: Color.white,
               }}
-              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
+              disabled={!isAllowUpdateActivity(course.status) || isFixed}
               onClick={onDelete}
               variant="contained"
             >

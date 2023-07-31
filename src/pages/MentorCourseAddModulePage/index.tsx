@@ -103,7 +103,6 @@ export default function MentorCourseAddModulePage() {
       maxFileSubmit: 0,
       maxFileSize: 0,
       attachFiles: [],
-      overWriteAttachFile: false,
       passPoint: 0,
     },
     resolver: resolverAssignment,
@@ -173,8 +172,7 @@ export default function MentorCourseAddModulePage() {
         editBeForSubmitMin: data.editBeForSubmitMin,
         maxFileSubmit: data.maxFileSubmit,
         maxFileSize: data.maxFileSize,
-        attachFiles: data.attachFiles,
-        overWriteAttachFile: data.overWriteAttachFile,
+        attachFiles: data.attachFiles.files,
         passPoint: data.passPoint,
       });
       hookFormLesson.reset();

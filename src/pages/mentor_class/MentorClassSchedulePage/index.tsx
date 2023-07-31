@@ -13,29 +13,14 @@ export default function MentorSchedulePage() {
     <Stack>
       <TextTitle title="Lịch làm việc" />
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
-        {/* <LoadingWrapper
+        <LoadingWrapper
           error={error}
           isLoading={isLoading}
           isEmptyCourse={data?.length === 0}
         >
           <WeekSchedule data={data || []} />
-        </LoadingWrapper> */}
-        <WeekSchedule
-          data={[
-            {
-              id: 0,
-              classId: 32,
-              className: 'PRJ321',
-              date: new Date().toISOString(),
-              dayOfWeekId: 3,
-              isPresent: false,
-              isTookAttendance: true,
-              link: 'https://meet.google.com/hqc-xdzk-ptu',
-              slotId: 4,
-              attendanceSlotId: 5,
-            },
-          ]}
-        />
+        </LoadingWrapper>
+        {/* <WeekSchedule data={data} /> */}
       </Stack>
     </Stack>
   );

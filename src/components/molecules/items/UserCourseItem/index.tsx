@@ -106,9 +106,9 @@ export default function UserCourseItem({
               bottom: 0,
               left: 0,
               right: 0,
-              background: '#ddd',
+              background: '#fff',
               padding: 1,
-              borderTop: '1px solid #ddd',
+              borderTop: '0.5px solid #ddd',
             }}
           >
             <Box
@@ -117,7 +117,7 @@ export default function UserCourseItem({
                 fontSize: FontSize.small_14,
               }}
             >
-              {`${totalClass} lớp đang mở` || ''}
+              {`Hiện tại có ${totalClass} lớp` || ''}
             </Box>
 
             {/* {courseType && (

@@ -14,7 +14,6 @@ export interface CreateAssignmentPayload {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: string[];
-  overWriteAttachFile: boolean;
 }
 export interface UpdateAssignmentPayload {
   name: string;
@@ -28,7 +27,6 @@ export interface UpdateAssignmentPayload {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: string[];
-  overWriteAttachFile: boolean;
 }
 
 const assignmentApi = {
@@ -46,7 +44,6 @@ const assignmentApi = {
       maxFileSubmit,
       maxFileSize,
       attachFiles,
-      overWriteAttachFile,
     } = data;
     attachFiles.forEach((item) => {
       bodyFormData.append('attachFiles', item);
@@ -61,7 +58,6 @@ const assignmentApi = {
     bodyFormData.append('editBeForSubmitMin', editBeForSubmitMin as any); // CORRECT WAY
     bodyFormData.append('maxFileSubmit', maxFileSubmit as any); // CORRECT WAY
     bodyFormData.append('maxFileSize', maxFileSize as any); // CORRECT WAY
-    bodyFormData.append('overWriteAttachFile', overWriteAttachFile as any); // CORRECT WAY
 
     return axiosClient.post(`${url}/assignment`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },

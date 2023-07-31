@@ -4,8 +4,10 @@ import {
   ActivityKeys,
   ClassStatusKeys,
   CourseStatusKeys,
+  FeedbackTypeKeys,
   GenderKeys,
   ImageKeys,
+  LevelKeys,
   QuizKeys,
   QuizQuestionTypeKeys,
   RoleKeys,
@@ -182,7 +184,7 @@ export type GetUserSchedule = Partial<{
         id: number;
         name: string;
         url: string;
-        status: true;
+        status: boolean;
         type: ImageKeys;
       };
     };
@@ -195,7 +197,7 @@ export type GetUserSchedule = Partial<{
       id: number;
       name: string;
       url: string;
-      status: true;
+      status: boolean;
       type: ImageKeys;
     };
     timeInWeeks: [
@@ -284,7 +286,7 @@ export type ResponseUserClasses = Partial<{
       id: number;
       name: string;
       url: string;
-      status: true;
+      status: boolean;
       type: ImageKeys;
     };
   };
@@ -297,7 +299,7 @@ export type ResponseUserClasses = Partial<{
     id: number;
     name: string;
     url: string;
-    status: true;
+    status: boolean;
     type: ImageKeys;
   };
   timeInWeeks: [
@@ -338,13 +340,13 @@ export type ResponseDetailClass = Partial<{
   minStudent: number;
   maxStudent: number;
   numberOfSlot: number;
-  hasReferralCode: true;
+  hasReferralCode: boolean;
   numberReferralCode: number;
   classImage: Partial<{
     id: number;
     name: string;
     url: string;
-    status: true;
+    status: boolean;
     type: 'COURSE';
   }>;
   mentor: Partial<{
@@ -354,7 +356,7 @@ export type ResponseDetailClass = Partial<{
     birthday: string;
     address: string;
     phone: string;
-    status: true;
+    status: boolean;
     gender: 'MALE';
     roles: [
       {
@@ -371,7 +373,7 @@ export type ResponseDetailClass = Partial<{
         id: number;
         name: string;
         url: string;
-        status: true;
+        status: boolean;
         type: 'COURSE';
       }
     ];
@@ -394,7 +396,7 @@ export type ResponseDetailClass = Partial<{
         }
       ];
     };
-    isVerified: true;
+    isVerified: boolean;
   }>;
   activities: Partial<{
     created: string;
@@ -404,7 +406,7 @@ export type ResponseDetailClass = Partial<{
     id: number;
     name: string;
     type: 'QUIZ';
-    visible: true;
+    visible: boolean;
     parentActivityId: number;
     subActivities: [];
   }>[];
@@ -457,7 +459,7 @@ export type GetStudentList = Partial<{
     id: number;
     name: string;
     url: string;
-    status: true;
+    status: boolean;
     type: ImageKeys;
   };
   email: string;
@@ -473,8 +475,8 @@ export type PostDoQuizResponse = Partial<{
   questionCount: number;
   status: QuizKeys;
   defaultPoint: number;
-  isSuffleQuestion: true;
-  isAllowReview: true;
+  isSuffleQuestion: boolean;
+  isAllowReview: boolean;
   allowReviewAfterMin: number;
   password: string;
   activityId: number;
@@ -503,8 +505,8 @@ export type GetReviewQuizResponse = Partial<{
     answers: Partial<{
       id: number;
       answer: string;
-      isRight: true;
-      isChosen: true;
+      isRight: boolean;
+      isChosen: boolean;
     }>[];
   }>[];
 }>;
@@ -533,4 +535,47 @@ export type GetResultResponse = Partial<{
   correctNumber: number;
   totalQuestion: number;
   status: QuizKeys;
+}>;
+
+export type GetAllCoursesResponse = Partial<{
+  id: number;
+  images: Partial<{
+    id: number;
+    name: string;
+    url: string;
+    status: boolean;
+    type: 'DEFAULT';
+  }>[];
+  courseCode: string;
+  courseName: string;
+  categoryResponse: Partial<{
+    id: number;
+    code: string;
+    name: string;
+  }>;
+  subjectResponse: Partial<{
+    id: number;
+    code: string;
+    name: string;
+    categoryIds: number[];
+  }>;
+  level: LevelKeys;
+  status: CourseStatusKeys;
+  courseDescription: string;
+  totalClass: number;
+  mentorName: string[];
+}>;
+
+type GetAllFeedbackTemplate = Partial<{
+  id: number;
+  name: string;
+  type: FeedbackTypeKeys;
+  isDefault: boolean;
+  isFixed: boolean;
+  questions: {
+    question: string;
+    answers: {
+      answer: string;
+    }[];
+  }[];
 }>;

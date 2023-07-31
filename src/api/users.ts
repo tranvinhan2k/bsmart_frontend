@@ -283,6 +283,11 @@ const accountApi = {
       status: item?.status || 'ALL',
       subjectId: item.course?.subject?.id || 0,
       teacherName: [item.mentor?.name || ''],
+      endDate: item.endDate || '',
+      max: item.maxStudent || 0,
+      min: item.minStudent || 0,
+      numberOfStudent: item.numberOfStudent || 0,
+      startDate: item.startDate || '',
     }));
     return { ...response, items: result };
   },

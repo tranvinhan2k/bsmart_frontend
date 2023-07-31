@@ -1,14 +1,13 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { Color, FontFamily, FontSize } from '~/assets/variables';
+import { FontFamily, FontSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import MarkDisplay from '~/components/atoms/MarkDisplay';
-import TextList from '~/components/atoms/texts/TextList';
 import { ActivityAssignmentPayload } from '~/models/type';
 import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
-import { formatDate } from '~/utils/date';
+import ModuleActivity from './ModuleActivity';
 
 interface Props {
   name: string;
@@ -24,23 +23,7 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
 
   return (
     <Stack marginTop={1}>
-      <Typography
-        textAlign="center"
-        sx={{
-          fontSize: FontSize.medium_24,
-          fontFamily: FontFamily.medium,
-        }}
-      >
-        {name}
-      </Typography>
-
-      <Typography
-        marginTop={1}
-        textAlign="center"
-        sx={globalStyles.textSmallLabel}
-      >
-        Mô tả bài tập
-      </Typography>
+      <ModuleActivity name={name} description={item.description} />
       <Stack paddingBottom={2}>
         <Typography
           dangerouslySetInnerHTML={{

@@ -52,7 +52,6 @@ const activityApi = {
           attachFiles: response?.detail?.assignmentFiles,
           editBeForSubmitMin: response?.detail?.editBeForSubmitMin,
           endDate: response?.detail?.endDate,
-          overWriteAttachFile: response?.detail?.overWriteAttachFile,
           maxFileSize: response?.detail?.maxFileSize,
           maxFileSubmit: response?.detail?.maxFileSubmit,
           passPoint: response?.detail?.passPoint,
@@ -62,9 +61,9 @@ const activityApi = {
       case 'RESOURCE':
         result.detail = {
           file: {
-            name: response?.detail?.url,
-            url: response?.detail?.url,
-            size: 0,
+            name: response?.detail?.metadata.name,
+            url: response?.detail?.metadata.url,
+            size: response.detail.metadata.size,
           },
         };
         break;
@@ -177,10 +176,6 @@ const activityApi = {
     return generateMockApi(rows);
   },
 
-  async deleteFile(id: number) {
-    return generateMockApi(true);
-  },
-
   async addPointAssignment({
     id,
     params,
@@ -273,10 +268,6 @@ const activityApi = {
     requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
     requestData.append('maxFileSubmit', String(params.maxFileSubmit));
     requestData.append('maxFileSize', String(params.maxFileSize));
-    requestData.append(
-      'overWriteAttachFile',
-      String(params.overWriteAttachFile)
-    );
     requestData.append('passPoint', String(params.passPoint));
 
     if (!(params.authorizeClasses?.length > 0)) {
@@ -395,10 +386,6 @@ const activityApi = {
     requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
     requestData.append('maxFileSubmit', String(params.maxFileSubmit));
     requestData.append('maxFileSize', String(params.maxFileSize));
-    requestData.append(
-      'overWriteAttachFile',
-      String(!!params.overWriteAttachFile)
-    );
     requestData.append('passPoint', String(params.passPoint));
 
     if (!(params.authorizeClasses?.length > 0)) {

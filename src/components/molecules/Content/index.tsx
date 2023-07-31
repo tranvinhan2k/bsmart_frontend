@@ -20,6 +20,7 @@ export default function Content({
           <Section
             readOnly={readOnly}
             key={index}
+            index={index}
             id={section.id}
             subActivities={section.subActivities}
             name={section.name}

@@ -139,6 +139,11 @@ export interface ClassMenuItemPayload {
   progressValue: number;
   subjectId: number;
   status: ClassStatusKeys;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  min: number;
+  max: number;
 }
 export interface ClassDetailPayload {
   code: string;
@@ -146,6 +151,10 @@ export interface ClassDetailPayload {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   teacherName?: string[];
+  teacherPhone: string;
+  teacherMail: string;
+  teacherAlt: string;
+  teacherUrl: string;
   name: string | undefined;
   progressValue: number;
   subjectId: number;
@@ -235,7 +244,6 @@ export interface ActivityAssignmentPayload {
     url: string;
     size: number;
   }[];
-  overWriteAttachFile: boolean;
   passPoint: number;
 }
 
