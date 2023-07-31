@@ -148,11 +148,11 @@ export default function UserClassItem({
         {endDate && (
           <TextPropLine
             icon="date"
-            label="Ngày bắt đầu"
+            label="Ngày kết thúc"
             value={formatDate(endDate)}
           />
         )}
-        {!!numberOfStudent && (
+        {numberOfStudent !== undefined && numberOfStudent >= 0 && (
           <TextPropLine
             icon="number"
             label="Số lượng học sinh"

@@ -19,7 +19,6 @@ export * from './useEffectScrollToTop';
 
 // query
 export * from './useQueryGetImage';
-export * from './useQueryGetCourseDetailByCourseId';
 export * from './useQueryGetSubCourseByCourseId';
 export * from './useQueryGetMentorByMentorId';
 export * from './useQueryGetAllCourses';

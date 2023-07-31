@@ -1,5 +1,9 @@
 import { PostTimeTableResponse } from './response';
-import { ClassStatusKeys, QuizQuestionTypeKeys } from './variables';
+import {
+  ClassStatusKeys,
+  FeedbackTypeKeys,
+  QuizQuestionTypeKeys,
+} from './variables';
 
 export interface PostCourseRequest {
   name: string;
@@ -47,6 +51,10 @@ export interface PagingFilterRequest {
 
   // STUDENT 1 |TEACHER 2
   asRole?: 1 | 2;
+
+  // feedback
+  type?: FeedbackTypeKeys;
+  name?: string;
 }
 
 export interface PutCourseRequest {

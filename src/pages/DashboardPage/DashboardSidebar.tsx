@@ -123,15 +123,8 @@ export default function DashboardSidebar({
             background: Color.navy,
           }}
         />
-        <Stack sx={{ background: Color.navy }}>
-          <Button
-            sx={{
-              margin: 2,
-            }}
-            color="info"
-            variant="contained"
-            onClick={onNavigateHomepage}
-          >
+        <Stack sx={{ background: Color.navy, padding: 1 }}>
+          <Button color="info" variant="contained" onClick={onNavigateHomepage}>
             Trở về trang chủ
           </Button>
         </Stack>

@@ -61,9 +61,9 @@ const activityApi = {
       case 'RESOURCE':
         result.detail = {
           file: {
-            name: response?.detail?.url,
-            url: response?.detail?.url,
-            size: 0,
+            name: response?.detail?.metadata.name,
+            url: response?.detail?.metadata.url,
+            size: response.detail.metadata.size,
           },
         };
         break;

@@ -42,10 +42,12 @@ export default function MemberClassInformationPage() {
 
   const { value, toggle } = useBoolean(false);
 
-  // const isTimeToFeedback =!!detailClass?.progressValue && detailClass?.progressValue > 70;
   const isDidFeedback = value;
 
-  const isTimeToFeedback = true && !isDidFeedback;
+  const isTimeToFeedback =
+    !!detailClass?.progressValue &&
+    detailClass?.progressValue > 70 &&
+    !isDidFeedback;
 
   const { data, error, isLoading } = useQueryMemberFeedback(
     2,

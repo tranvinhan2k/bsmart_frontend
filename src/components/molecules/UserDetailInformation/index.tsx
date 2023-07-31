@@ -1,5 +1,7 @@
 import { Stack, Typography, Box } from '@mui/material';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
+import { IconName } from '~/components/atoms/Icon';
+import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import globalStyles from '~/styles';
 
 interface Props {
@@ -23,7 +25,7 @@ export default function UserDetailInformation({
         Thông tin người dùng
       </Typography>
 
-      <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Stack sx={{ flexDirection: 'row', padding: 3 }}>
         <Stack>
           <Box
             component="img"
@@ -42,40 +44,20 @@ export default function UserDetailInformation({
           }}
         >
           {[
-            { label: 'Tên học sinh', value: name },
-            { label: 'Email', value: email },
-            { label: 'Số điện thoại', value: phone },
+            { label: 'Tên', value: name, icon: 'user' },
+            { label: 'Email', value: email, icon: 'mail' },
+            { label: 'Số điện thoại', value: phone, icon: 'phone' },
           ].map((item, index) => (
             <Stack marginTop={1} key={index}>
-              <Typography
-                sx={{
-                  fontFamily: FontFamily.bold,
-                  fontSize: FontSize.small_14,
-                  color: Color.black,
-                }}
-              >
-                {item.label}
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: FontFamily.regular,
-                  fontSize: FontSize.small_16,
-                  color: Color.black,
-                }}
-              >
-                {item.value}
-              </Typography>
+              <TextPropLine
+                icon={item.icon as IconName}
+                label={item.label}
+                value={item.value}
+              />
             </Stack>
           ))}
         </Stack>
       </Stack>
-      <Typography sx={globalStyles.textSmallLabel}>
-        Thông tin điểm số
-      </Typography>
-
-      <Typography sx={globalStyles.textSmallLabel}>
-        Thông tin điểm danh
-      </Typography>
     </Stack>
   );
 }

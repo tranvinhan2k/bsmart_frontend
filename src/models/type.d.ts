@@ -140,6 +140,10 @@ export interface ClassDetailPayload {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   teacherName?: string[];
+  teacherPhone: string;
+  teacherMail: string;
+  teacherAlt: string;
+  teacherUrl: string;
   name: string | undefined;
   progressValue: number;
   subjectId: number;

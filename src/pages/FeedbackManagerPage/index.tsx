@@ -2,36 +2,33 @@ import React from 'react';
 
 import { Stack } from '@mui/material';
 
-import TabsLayout, { TabPanelData } from '~/components/molecules/TabsLayout';
-
 import FeedbackManagerTemplate from '~/containers/FeedbackManagerSection/FeedbackManagerTemplate';
-import FeedbackManagerQuestion from '~/containers/FeedbackManagerSection/FeedbackManagerQuestion';
 
 import { scrollToTop } from '~/utils/common';
+import { FeedbackTypeKeys } from '~/models/variables';
+
+export interface FeedbackManagerPayload {
+  id: number;
+  name: string;
+  type: FeedbackTypeKeys;
+  isDefault: boolean;
+  isFixed: boolean;
+  questions: {
+    question: string;
+    answers: {
+      answer: string;
+    }[];
+  }[];
+}
 
 export default function FeedbackManagerPage() {
-  const data: TabPanelData = [
-    {
-      label: 'Đánh giá',
-      renderItem: <Stack>Chức năng feedback đang phát triển</Stack>,
-    },
-    {
-      label: 'Bản mẫu',
-      renderItem: <FeedbackManagerTemplate />,
-    },
-    {
-      label: 'Câu hỏi',
-      renderItem: <FeedbackManagerQuestion />,
-    },
-  ];
-
   React.useEffect(() => {
     scrollToTop();
   }, []);
 
   return (
     <Stack padding={3}>
-      <TabsLayout data={data} />
+      <FeedbackManagerTemplate />
     </Stack>
   );
 }

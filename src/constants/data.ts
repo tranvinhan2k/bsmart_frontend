@@ -188,7 +188,7 @@ export const ClassStatusList: OptionPayload[] = [
     id: 2,
     label: 'Lớp đã kết thúc',
     content: 'Lớp đã hết thời gian giảng dạy',
-    value: 'CLOSE',
+    value: 'ENDED',
   },
 ];
 export const ClassStatusStudentList: OptionPayload[] = [
@@ -214,7 +214,7 @@ export const ClassStatusStudentList: OptionPayload[] = [
     id: 2,
     label: 'Lớp đã kết thúc',
     content: 'Lớp đã hết thời gian giảng dạy',
-    value: 'CLOSE',
+    value: 'ENDED',
   },
 ];
 export const CourseStatusList: OptionPayload[] = [
