@@ -161,7 +161,6 @@ export const defaultValueEditCreateAssignment: CreateAssignmentFormDataPayload =
     maxFileSubmit: 1,
     maxFileSize: 10,
     attachFiles: [],
-    overWriteAttachFile: true,
   };
 export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
   name: '',
@@ -175,7 +174,6 @@ export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
   maxFileSubmit: 1,
   maxFileSize: 10,
   attachFiles: [],
-  overWriteAttachFile: true,
 };
 
 export const defaultValueCreateAnnouncement: CreateAnnouncementFormDataPayload =

@@ -240,7 +240,6 @@ export default function MentorCourseModulesPage() {
           maxFileSubmit: data.maxFileSubmit,
           maxFileSize: data.maxFileSize,
           attachFiles: data.attachFiles,
-          overWriteAttachFile: data.overWriteAttachFile,
           passPoint: data.passPoint,
         },
       });

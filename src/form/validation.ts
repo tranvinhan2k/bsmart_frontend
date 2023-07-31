@@ -656,7 +656,6 @@ export const validationSchemaCreateAssignment = object({
   maxFileSubmit: number().required(CRATE_ASSIGNMENT_MAX_FILE_SUBMIT),
   maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
   // attachFiles: string().required(),
-  // overWriteAttachFile: bool().required(),
 });
 
 export const validationSchemaUpdateAssignment = object({
@@ -671,7 +670,6 @@ export const validationSchemaUpdateAssignment = object({
   maxFileSubmit: number().required(CRATE_ASSIGNMENT_MAX_FILE_SUBMIT),
   maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
   // attachFiles: string().required(),
-  // overWriteAttachFile: bool().required(),
 });
 
 export const validationSchemaCreateAnnouncement = object({

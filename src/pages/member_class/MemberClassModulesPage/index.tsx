@@ -55,7 +55,6 @@ export default function MemberClassModulesPage() {
   //   ],
   //   editBeForSubmitMin: 100, // phút, submit r, thời gian giới hạn chỉnh sửa lại
   //   endDate: '',
-  //   overWriteAttachFile: true, // có cho update file không ?
   //   maxFileSize: 10, // số MB trong 1 lần nộp
   //   maxFileSubmit: 2, // số lượng file submit
   //   passPoint: 10,

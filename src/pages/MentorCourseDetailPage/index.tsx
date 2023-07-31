@@ -211,7 +211,6 @@ export default function MentorCourseDetailPage() {
                       <Typography
                         textAlign="center"
                         sx={{
-                          width: '170px',
                           color: Color.black,
                           fontSize: FontSize.small_14,
                           fontFamily: FontFamily.bold,

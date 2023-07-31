@@ -153,7 +153,6 @@ export interface CreateAssignmentFormDataPayload {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: string[];
-  overWriteAttachFile: boolean;
 }
 
 export interface UpdateAssignmentFormDataPayload {
@@ -168,7 +167,6 @@ export interface UpdateAssignmentFormDataPayload {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: string[];
-  overWriteAttachFile: boolean;
 }
 
 export interface CreateAnnouncementFormDataPayload {
@@ -197,6 +195,7 @@ export type FormInputVariant =
   | 'multiline'
   | 'dropdown'
   | 'time'
+  | 'second'
   | 'dropdownDynamicValue'
   | 'dropdownBanks'
   | 'timetable'

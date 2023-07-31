@@ -122,7 +122,7 @@ export default function AddResourceForm({
             disabled={
               !hookForm.formState.isDirty! ||
               !isAllowUpdateActivity(course.status) ||
-              !isFixed
+              isFixed
             }
             color="secondary"
             sx={{
@@ -135,7 +135,7 @@ export default function AddResourceForm({
           </Button>
           {Boolean(onDelete) && (
             <Button
-              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
+              disabled={!isAllowUpdateActivity(course.status) || isFixed}
               color="error"
               sx={{
                 marginLeft: 1,

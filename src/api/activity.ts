@@ -52,7 +52,6 @@ const activityApi = {
           attachFiles: response?.detail?.assignmentFiles,
           editBeForSubmitMin: response?.detail?.editBeForSubmitMin,
           endDate: response?.detail?.endDate,
-          overWriteAttachFile: response?.detail?.overWriteAttachFile,
           maxFileSize: response?.detail?.maxFileSize,
           maxFileSubmit: response?.detail?.maxFileSubmit,
           passPoint: response?.detail?.passPoint,
@@ -273,10 +272,6 @@ const activityApi = {
     requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
     requestData.append('maxFileSubmit', String(params.maxFileSubmit));
     requestData.append('maxFileSize', String(params.maxFileSize));
-    requestData.append(
-      'overWriteAttachFile',
-      String(params.overWriteAttachFile)
-    );
     requestData.append('passPoint', String(params.passPoint));
 
     if (!(params.authorizeClasses?.length > 0)) {
@@ -395,10 +390,6 @@ const activityApi = {
     requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
     requestData.append('maxFileSubmit', String(params.maxFileSubmit));
     requestData.append('maxFileSize', String(params.maxFileSize));
-    requestData.append(
-      'overWriteAttachFile',
-      String(!!params.overWriteAttachFile)
-    );
     requestData.append('passPoint', String(params.passPoint));
 
     if (!(params.authorizeClasses?.length > 0)) {

@@ -183,7 +183,7 @@ export default function AddQuizForm({
             disabled={
               !hookForm.formState.isDirty ||
               !isAllowUpdateActivity(course.status) ||
-              !isFixed
+              isFixed
             }
             onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
             variant="contained"
@@ -192,7 +192,7 @@ export default function AddQuizForm({
           </Button>
           {onDelete && (
             <Button
-              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
+              disabled={!isAllowUpdateActivity(course.status) || isFixed}
               sx={{
                 marginLeft: 1,
               }}

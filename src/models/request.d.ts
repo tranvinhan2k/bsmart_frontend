@@ -75,7 +75,6 @@ export interface PostAssignmentRequest extends PostActivityRequest {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: Blob[];
-  overWriteAttachFile: boolean;
   passPoint: number;
 }
 

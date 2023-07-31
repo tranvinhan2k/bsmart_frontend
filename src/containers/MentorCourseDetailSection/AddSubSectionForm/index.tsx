@@ -91,7 +91,7 @@ export default function AddSubSectionForm({
             disabled={
               !hookForm.formState.isDirty ||
               !isAllowUpdateActivity(course.status) ||
-              !isFixed
+              isFixed
             }
             onClick={hookForm.handleSubmit(onSubmit)}
             variant="contained"
@@ -105,7 +105,7 @@ export default function AddSubSectionForm({
                 marginLeft: 1,
                 color: Color.white,
               }}
-              disabled={!isAllowUpdateActivity(course.status) || !isFixed}
+              disabled={!isAllowUpdateActivity(course.status) || isFixed}
               onClick={onDelete}
               variant="contained"
             >
