@@ -1,19 +1,22 @@
-import { Stack, Box, Typography, Divider } from '@mui/material';
+import { Box, Divider, Link, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { MetricSize, Color, FontFamily, FontSize } from '~/assets/variables';
+import { useNavigate } from 'react-router-dom';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import Button from '~/components/atoms/Button';
 import ImageSlider from '~/components/atoms/ImageSlider';
 import { CommonCourse } from '~/constants';
+import { image } from '~/constants/image';
+import { NavigationLink } from '~/constants/routeLink';
+import { ActivityPayload } from '~/models/type';
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import CarouselCourse from '../CarouselCourse';
 import Content from '../Content';
 import Classes from '../list/Classes';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
-import { ActivityPayload } from '~/models/type';
-import Button from '~/components/atoms/Button';
-import { image } from '~/constants/image';
 
 interface Props {
   images: string[];
+  mentorId: number;
   mentorImageUrl: string;
   mentorName: string;
   mentorDescription: string;
@@ -33,6 +36,7 @@ export default function CourseDetail({
   courseName,
   images,
   mentorDescription,
+  mentorId,
   mentorImageUrl,
   mentorName,
   introduceRef,
@@ -43,6 +47,13 @@ export default function CourseDetail({
 }: Props) {
   const [error, setError] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
+
+  const mentorDetailsLink = `/${NavigationLink.mentor_menu_details}/${mentorId}`;
+  const navigate = useNavigate();
+  const handleNavigateMentorDetails = () => {
+    navigate(mentorDetailsLink);
+  };
+
   return (
     <Stack>
       <ImageSlider slides={images || []} />
@@ -62,24 +73,26 @@ export default function CourseDetail({
             boxShadow: 3,
             zIndex: 2,
             objectFit: 'cover',
+            cursor: 'pointer',
           }}
           component="img"
           alt="avatar"
           onError={() => setError(true)}
+          onClick={handleNavigateMentorDetails}
           src={!error ? mentorImageUrl : image.noAvatar}
         />
         <Stack marginTop={2}>
           <Typography sx={globalStyles.textLowSmallLight}>
-            Khóa học của
-            <span
-              style={{
+            Khóa học của{' '}
+            <Link
+              href={mentorDetailsLink}
+              sx={{
                 fontFamily: FontFamily.medium,
                 fontSize: FontSize.small_14,
                 color: Color.black,
               }}
-            >
-              {` ${mentorName}`}
-            </span>
+              underline="hover"
+            >{`${mentorName}`}</Link>
           </Typography>
         </Stack>
         <Stack marginTop={2}>
@@ -207,21 +220,26 @@ export default function CourseDetail({
               <Box
                 sx={{
                   borderRadius: 1000,
+                  boxShadow: 1,
                   width: '50px',
                   aspectRatio: 1,
                   height: undefined,
                   objectFit: 'cover',
                   background: Color.white,
                   marginRight: 1,
+                  cursor: 'pointer',
                 }}
                 component="img"
                 alt="giao vien"
                 onError={() => setError(true)}
+                onClick={handleNavigateMentorDetails}
                 src={!error ? mentorImageUrl : image.noAvatar}
               />
-              <Typography sx={globalStyles.textSmallLight}>
-                {mentorName}
-              </Typography>
+              <Link
+                href={mentorDetailsLink}
+                sx={globalStyles.textSmallLight}
+                underline="hover"
+              >{`${mentorName}`}</Link>
             </Stack>
             <Stack marginY={1}>
               <Typography

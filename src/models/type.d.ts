@@ -107,6 +107,7 @@ export interface CoursePayload {
   subject: OptionPayload;
   courseDescription: string;
   totalClass: number;
+  mentorId: number;
   mentorName: string[];
   mentorAvatar: string;
   mentorDescription: string;

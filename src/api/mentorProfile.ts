@@ -1,6 +1,7 @@
 import axiosClient from '~/api/axiosClient';
 import {
   CheckCompletenessReturnPayload,
+  MentorDetailsPayload,
   UpdateMentorProfileRequestSubmitPayload,
 } from '~/models/mentorProfiles';
 
@@ -28,6 +29,11 @@ const mentorProfilesApi = {
   ): Promise<any> {
     const urlPut = `${url}/request-approval-skill`;
     return axiosClient.put(urlPut, data);
+  },
+
+  getMentorDetails(id: number): Promise<MentorDetailsPayload> {
+    const urlGet = `${url}/${id}`;
+    return axiosClient.get(urlGet);
   },
 };
 

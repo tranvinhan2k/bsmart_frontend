@@ -37,6 +37,7 @@ const classApi = {
         courseDescription: response.description,
         courseName: response.name,
         images: response.classes?.map((item: any) => item?.image?.url),
+        mentorId: response.mentor.id,
         mentorAvatar: response.mentor.avatar.url,
         mentorDescription: response.mentor.introduce,
         mentorName: [response.mentor.name],

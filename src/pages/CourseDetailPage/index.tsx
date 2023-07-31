@@ -24,10 +24,12 @@ export default function CourseDetailPage() {
   const course = data?.course;
 
   const mentor: {
+    id: number;
     name: string;
     imageUrl: string;
     description: string;
   } = {
+    id: course?.mentorId || 0,
     name: course?.mentorName[0] || '',
     imageUrl: course?.mentorAvatar || '',
     description: course?.mentorDescription || '',
@@ -67,6 +69,7 @@ export default function CourseDetailPage() {
                 courseName={course?.courseName || ''}
                 images={course?.images || []}
                 mentorDescription={mentor.description}
+                mentorId={mentor.id}
                 mentorImageUrl={mentor.imageUrl}
                 mentorName={mentor.name}
                 sections={sections || []}

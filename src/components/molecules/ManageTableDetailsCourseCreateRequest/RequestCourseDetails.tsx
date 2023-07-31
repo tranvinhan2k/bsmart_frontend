@@ -227,34 +227,21 @@ export default function RequestCourseDetails({
             alignItems="start"
           >
             <Typography sx={SX_FORM_ITEM_LABEL}>Mô tả:</Typography>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
+            {isLoading && <Skeleton />}
+            {!isLoading && courseDesc.length > 200 ? (
               <>
-                {courseDesc.length > 200 ? (
-                  <Typography
-                    sx={
-                      isExpanded
-                        ? globalStyles.displayEditorTextShowMore
-                        : globalStyles.displayEditorTextShowLess
-                    }
-                    dangerouslySetInnerHTML={{
-                      __html: `${
-                        isExpanded
-                          ? courseDesc
-                          : `${courseDesc.slice(0, 200)}...`
-                      }`,
-                    }}
-                  />
-                ) : (
-                  <Typography
-                    sx={globalStyles.displayEditorTextShowLess}
-                    dangerouslySetInnerHTML={{
-                      __html: `${courseDesc}`,
-                    }}
-                  />
-                )}
-
+                <Typography
+                  sx={
+                    isExpanded
+                      ? globalStyles.displayEditorTextShowMore
+                      : globalStyles.displayEditorTextShowLess
+                  }
+                  dangerouslySetInnerHTML={{
+                    __html: `${
+                      isExpanded ? courseDesc : `${courseDesc.slice(0, 200)}...`
+                    }`,
+                  }}
+                />
                 <Button
                   color="miSmartOrange"
                   size="small"
@@ -280,6 +267,13 @@ export default function RequestCourseDetails({
                   {isExpanded ? 'Thu gọn' : 'Mở rộng'}
                 </Button>
               </>
+            ) : (
+              <Typography
+                sx={globalStyles.displayEditorTextShowMore}
+                dangerouslySetInnerHTML={{
+                  __html: `${courseDesc}`,
+                }}
+              />
             )}
           </Stack>
         </Grid>

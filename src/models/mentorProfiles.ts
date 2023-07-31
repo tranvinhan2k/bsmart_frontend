@@ -1,5 +1,12 @@
 import { ImagePayload } from './common';
-import { SkillPayload } from './type';
+import { ProfilePayload, SkillPayload } from './type';
+// import {
+//   MentorTeachingInformation,
+//   ProfilePayload,
+//   RolePayload,
+//   SkillPayload,
+//   WalletPayload,
+// } from './type';
 
 export interface CheckCompletenessReturnPayload {
   percentComplete: number;
@@ -36,3 +43,33 @@ export interface MentorProfileRequestInfoPayload {
   totalSkillRequest: number;
   totalDegreeRequest: number;
 }
+
+export interface MentorDetailsPayload {
+  id: number;
+  introduce: string;
+  workingExperience: string;
+  status: string;
+  user: ProfilePayload;
+  mentorSkills: SkillPayload[];
+}
+
+// export interface User {
+//   id: number;
+//   fullName: string;
+//   email: string;
+//   birthday: string;
+//   address: string;
+//   phone: string;
+//   status: boolean;
+//   gender: string;
+//   roles: RolePayload[];
+//   linkedinLink: any;
+//   facebookLink: any;
+//   website: any;
+//   userImages: ImagePayload[];
+//   wallet: WalletPayload;
+//   mentorProfile: any;
+//   teachInformation: MentorTeachingInformation;
+//   isVerified: boolean;
+//   verified: boolean;
+// }
