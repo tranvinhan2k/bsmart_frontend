@@ -72,10 +72,8 @@ export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
   };
 export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
   {
-    // introduce: '',
-    // // mentorSkills: [],
-    // workingExperience: '',
-    mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    mentorSkills: [],
   };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =

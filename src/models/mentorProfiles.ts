@@ -11,6 +11,10 @@ export interface CheckCompletenessReturnPayload {
   ];
   allowSendingApproval: boolean;
 }
+export interface UpdateMentorProfileRequestSubmitPayload {
+  skillIds: number[];
+  degreeIds: number[];
+}
 
 export interface RequiredInfo {
   fields: Field[];

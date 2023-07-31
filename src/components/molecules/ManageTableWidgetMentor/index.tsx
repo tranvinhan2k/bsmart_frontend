@@ -26,7 +26,7 @@ export default function ManageTableWidgetMentor() {
       desc2: 'so với tháng trước',
     },
     {
-      id: 0,
+      id: 1,
       title: 'Tổng khóa học được tạo',
       iconName: 'coPresent',
       background: 'linear-gradient(to right,#1d976c,#2fd38a)',
@@ -36,7 +36,7 @@ export default function ManageTableWidgetMentor() {
       desc2: 'so với tháng trước',
     },
     {
-      id: 0,
+      id: 2,
       title: 'Thông tin thêm 1',
       iconName: 'person',
       background: 'linear-gradient(45deg,#ffb64d,#ffcb80)',
@@ -46,7 +46,7 @@ export default function ManageTableWidgetMentor() {
       desc2: 'so với tháng trước',
     },
     {
-      id: 0,
+      id: 3,
       title: 'Thông tin thêm 2',
       iconName: 'person',
       background: 'linear-gradient(45deg,#ff5370,#ff869a)',

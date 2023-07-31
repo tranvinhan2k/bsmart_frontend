@@ -316,17 +316,15 @@ const accountApi = {
   },
   updateDegreeRequest(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const { userImages, degreeIdsToDelete } = data;
+    const { userImages } = data;
     userImages.forEach((item) => {
       bodyFormData.append('files', item);
     });
-    if (degreeIdsToDelete) {
-      bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete as any); // CORRECT WAY
-    }
-    return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
+    return axiosClient.post(`image/upload/degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
+
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
     return axiosClient.put(`/mentor-profiles`, data);
   },

@@ -7,32 +7,28 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { defaultValuesUpdateMentorProfileRequest } from '~/form/defaultValues';
-import {
-  EditMentorProfilePayload,
-  UpdateMentorProfileRequestPayload,
-} from '~/api/users';
+import { UpdateMentorProfileRequestPayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
-import { useGetProfile } from '~/hooks/user/useGetProfile';
-import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
+import FormInput from '~/components/atoms/FormInput';
+import Icon from '~/components/atoms/Icon';
+import { defaultValuesUpdateMentorProfileRequest } from '~/form/defaultValues';
 import { validationSchemaUpdateMentorProfileRequest } from '~/form/validation';
 import {
   useDispatchGetAllSubjects,
   useDispatchProfile,
   useYupValidationResolver,
 } from '~/hooks';
-import FormInput from '~/components/atoms/FormInput';
-import Icon from '~/components/atoms/Icon';
+import { useGetUpdateMentorProfileRequestInfo } from '~/hooks/user/useGetUpdateMentorProfileRequestInfo';
+import { useMutationUpdateMentorProfileRequest } from '~/hooks/user/useMutationUpdateMentorProfileRequest';
 import toast from '~/utils/toast';
 import {
+  SX_FORM,
   SX_FORM_ITEM_LABEL,
   SX_FORM_LABEL,
   SX_FORM_TITLE,
-  SX_FORM,
 } from './style';
-import { useMutationUpdateMentorProfileRequest } from '~/hooks/user/useMutationUpdateMentorProfileRequest';
 
 export default function UpdateMentorSkill() {
   const enum Text {
@@ -41,7 +37,9 @@ export default function UpdateMentorSkill() {
     addSkillTooltip = 'Thêm chuyên môn',
   }
 
-  const { profile, refetch: refetchProfile } = useGetProfile();
+  const { refetch: refetchRequestInfo } =
+    useGetUpdateMentorProfileRequestInfo();
+
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
@@ -58,7 +56,6 @@ export default function UpdateMentorSkill() {
   } = useForm({
     defaultValues: defaultValuesUpdateMentorProfileRequest,
     resolver: resolverEditPersonalProfile,
-    // mode: 'onChange',
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -95,7 +92,7 @@ export default function UpdateMentorSkill() {
     try {
       await mutateUpdateMentorProfileRequest(params);
       resetForm();
-      refetchProfile();
+      refetchRequestInfo();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
@@ -205,7 +202,7 @@ export default function UpdateMentorSkill() {
           </Box>
         </form>
       )}
-      {(!profile || !subjects) && (
+      {!!subjects && (
         <Typography component="h3" sx={SX_FORM_LABEL}>
           Đang tải
         </Typography>

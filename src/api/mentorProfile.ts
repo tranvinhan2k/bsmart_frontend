@@ -1,5 +1,8 @@
 import axiosClient from '~/api/axiosClient';
-import { CheckCompletenessReturnPayload } from '~/models/mentorProfiles';
+import {
+  CheckCompletenessReturnPayload,
+  UpdateMentorProfileRequestSubmitPayload,
+} from '~/models/mentorProfiles';
 
 const url = `/mentor-profiles`;
 
@@ -18,6 +21,13 @@ const mentorProfilesApi = {
   requestApproval(idMentorProfiles: number): Promise<any> {
     const urlPut = `${url}/${idMentorProfiles}/request-approval`;
     return axiosClient.put(urlPut);
+  },
+
+  updateMentorProfileRequestSubmit(
+    data: UpdateMentorProfileRequestSubmitPayload
+  ): Promise<any> {
+    const urlPut = `${url}/request-approval-skill`;
+    return axiosClient.put(urlPut, data);
   },
 };
 

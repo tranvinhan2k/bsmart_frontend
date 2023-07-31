@@ -101,10 +101,7 @@ const mentorProfileApi = {
   updateMentorProfileRequest(
     data: UpdateMentorProfileRequestPayload
   ): Promise<any> {
-    return axiosClient.put(
-      `${url}/mentor-profiles/request-approval-skill`,
-      data
-    );
+    return axiosClient.post(`${url}/request-approval-skill`, data);
   },
 
   getUpdateMentorProfileRequestInfo(): Promise<

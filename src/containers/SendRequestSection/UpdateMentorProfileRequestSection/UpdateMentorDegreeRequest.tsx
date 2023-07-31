@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { defaultValuesUpdateDegreeRequest } from '~/form/defaultValues';
 import { EDIT_CERTIFICATE_PROFILE_FIELDS } from '~/form/schema';
@@ -14,7 +14,7 @@ import { EditCertificateProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useGetProfile } from '~/hooks/user/useGetProfile';
-import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
+import { useMutationUpdateDegreeRequest } from '~/hooks/user/useMutationUpdateDegreeRequest';
 import { validationSchemaUpdateDegreeRequest } from '~/form/validation';
 import {
   EditCertificateProfileFormDataPayload,
@@ -24,7 +24,7 @@ import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
-import { useMutationUpdateDegreeRequest } from '~/hooks/user/useMutationUpdateDegreeRequest';
+import { useGetUpdateMentorProfileRequestInfo } from '~/hooks/user/useGetUpdateMentorProfileRequestInfo';
 
 export default function UpdateMentorDegree() {
   const enum Text {
@@ -37,7 +37,10 @@ export default function UpdateMentorDegree() {
     userImagesLabel = 'Bằng cấp',
   }
 
-  const { profile, refetch: refetchProfile } = useGetProfile();
+  const { refetch: refetchProfile } = useGetProfile();
+  const { refetch: refetchRequestInfo } =
+    useGetUpdateMentorProfileRequestInfo();
+
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
   const { mutateAsync: mutateUpdateDegreeRequest } =
@@ -48,15 +51,13 @@ export default function UpdateMentorDegree() {
   const {
     control,
     formState,
-    getValues,
     handleSubmit,
     reset: resetForm,
   } = useForm({
     defaultValues: defaultValuesUpdateDegreeRequest,
     resolver: resolverUpdateDegreeRequest,
-    mode: 'onChange',
   });
-  const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
+  // const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
 
   const {
     fields: certificateFields,
@@ -73,13 +74,8 @@ export default function UpdateMentorDegree() {
   const appendCertificate = () => {
     append(null);
   };
-  const removeCertificate = (index: number, certificate: any) => {
+  const removeCertificate = (index: number) => {
     remove(index);
-    if (certificate.type === 'DEGREE') {
-      setDegreeIdsToDelete((prev) => {
-        return [...prev, certificate.id];
-      });
-    }
   };
 
   const toastMsgLoading = 'Đang cập nhật...';
@@ -89,20 +85,18 @@ export default function UpdateMentorDegree() {
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
-    const params: EditCertificateProfilePayload =
-      degreeIdsToDelete.length > 0
-        ? {
-            userImages: data.userImages,
-            degreeIdsToDelete,
-          }
-        : {
-            userImages: data.userImages,
-          };
+    const params: EditCertificateProfilePayload = {
+      userImages: data.userImages,
+    };
+    data.userImages.forEach((e, index) => {
+      remove(index);
+    });
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateUpdateDegreeRequest(params);
       resetForm();
       refetchProfile();
+      refetchRequestInfo();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
@@ -161,12 +155,7 @@ export default function UpdateMentorDegree() {
                     color="error"
                     size="small"
                     variant="outlined"
-                    onClick={() =>
-                      removeCertificate(
-                        index,
-                        getValues(`${formFieldsCertificate.name}[${index}]`)
-                      )
-                    }
+                    onClick={() => removeCertificate(index)}
                   >
                     <Icon name="delete" size="medium" />
                   </MuiButton>
@@ -174,15 +163,15 @@ export default function UpdateMentorDegree() {
               </Grid>
             </Fragment>
           ))}
-          <Grid item xs={12} my={2}>
+          {/* <Grid item xs={12} my={2}>
             <FormInput
               control={control}
               name="userImages"
               variant="arrayHelperText"
               placeholder="a"
             />
-          </Grid>
-          <Grid item xs={12} lg={3}>
+          </Grid> */}
+          <Grid item xs={12} lg={3} my={2}>
             <MuiButton
               color="success"
               size="large"

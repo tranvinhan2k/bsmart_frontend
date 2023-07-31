@@ -433,7 +433,6 @@ export const validationSchemaEditCertificateProfile = object({
     // )
   )
     .required()
-    // .min(1, 'CERTIFICATE_REQUIRED'),
     .min(1, CERTIFICATE_REQUIRED),
 });
 export const validationSchemaUpdateDegreeRequest = object({
@@ -455,8 +454,7 @@ export const validationSchemaUpdateDegreeRequest = object({
     //     (value && value?.type === 'DEGREE')
     // )
   )
-    .required()
-    // .min(1, 'CERTIFICATE_REQUIRED'),
+    .required(CERTIFICATE_REQUIRED)
     .min(1, CERTIFICATE_REQUIRED),
 });
 

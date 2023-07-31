@@ -2,58 +2,61 @@ import {
   Box,
   Button as MuiButton,
   Divider,
-  Grid,
   Stack,
   Typography,
-  Tooltip,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { FontFamily } from '~/assets/variables';
-import { selectProfile } from '~/redux/user/selector';
-import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
 import { useDispatchProfile } from '~/hooks';
-import { useRequestApproval } from '~/hooks/mentorProfile/useRequestApproval';
-import CompleteProgressField from '~/components/molecules/MentorProfileCompleteProgress/CompleteProgressField';
-import toast from '~/utils/toast';
-import {
-  MentorProfileStatusLabel,
-  MentorProfileStatusType,
-} from '~/constants/profile';
-import {
-  SX_FORM_TITLE,
-  SX_FORM,
-  SX_STATUS,
-  SX_FORM_ITEM_LABEL,
-  SX_FORM_VALUE,
-} from './style';
+import { useUpdateMentorProfileRequestSubmit } from '~/hooks/mentorProfile/useUpdateMentorProfileRequestSubmit';
 import { useGetUpdateMentorProfileRequestInfo } from '~/hooks/user/useGetUpdateMentorProfileRequestInfo';
-import RequestedSkills from './RequestedSkills';
+import { UpdateMentorProfileRequestSubmitPayload } from '~/models/mentorProfiles';
+import toast from '~/utils/toast';
 import RequestedDegrees from './RequestedDegrees';
+import RequestedSkills from './RequestedSkills';
+import { SX_FORM, SX_FORM_TITLE } from './style';
 
 export default function UpdateMentorProfileRequestSubmit() {
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
-  const profile = useSelector(selectProfile);
-  const { mentorProfilesCompleteness } = useCheckCompleteness();
-  const { mutateAsync: requestApproval } = useRequestApproval();
+
+  const { requestInfo, refetch: refetchRequestInfo } =
+    useGetUpdateMentorProfileRequestInfo();
+  // const requestInfo = null;
+
+  const { mutateAsync: updateMentorProfileRequestSubmit } =
+    useUpdateMentorProfileRequestSubmit();
 
   const toastMsgLoading = 'Đang gửi hồ sơ...';
   const toastMsgSuccess = 'Gửi hồ sơ thành công';
   const toastMsgError = (error: any): string =>
     `Gửi hồ sơ không thành công: ${error.message}`;
   const handleSubmitSuccess = async () => {
-    const params = profile.mentorProfile.id ?? 0;
+    const skillIds =
+      requestInfo &&
+      requestInfo[0].mentorSkillRequest &&
+      requestInfo[0].mentorSkillRequest.length > 0
+        ? requestInfo[0].mentorSkillRequest.map((item) => item.skillId)
+        : [];
+    const degreeIds =
+      requestInfo &&
+      requestInfo[0].degreeRequest &&
+      requestInfo[0].degreeRequest.length > 0
+        ? requestInfo[0].degreeRequest.map((item) => item.id)
+        : [];
+
+    const params: UpdateMentorProfileRequestSubmitPayload = {
+      skillIds,
+      degreeIds,
+    };
     const id = toast.loadToast(toastMsgLoading);
     try {
-      await requestApproval(params);
+      await updateMentorProfileRequestSubmit(params);
+      refetchRequestInfo();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };
-
-  const { requestInfo } = useGetUpdateMentorProfileRequestInfo();
-  console.log('requestInfo', requestInfo);
 
   const enum Text {
     title = '3. Xác nhận thông tin giảng viên cần bổ sung',
@@ -64,7 +67,10 @@ export default function UpdateMentorProfileRequestSubmit() {
     labelAdditionSkill = 'Chuyên môn thêm',
     labelAdditionDegree = 'Bằng cấp bổ sung thêm',
     submitButton = 'Gửi yêu cầu',
+    submitButtonTooltip = 'Gửi yêu cầu cho quản trị viên phê duyệt',
+    submitDisabledButtonTooltip = 'Hiện chưa thêm thông tin mới',
     userImagesLabel = 'Bằng cấp',
+    labelNoAddedRequest = 'Chưa thêm thông tin',
   }
 
   return (
@@ -72,36 +78,56 @@ export default function UpdateMentorProfileRequestSubmit() {
       <Typography component="h3" sx={SX_FORM_TITLE}>
         {Text.title}
       </Typography>
-      <Divider sx={{ marginY: 2 }} />
-      <RequestedSkills />
-      <Box mt={4}>
-        <RequestedDegrees />
-      </Box>
-      <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-start"
-        spacing={2}
-        mt={4}
-      >
-        <Tooltip title="Add" arrow>
+
+      {requestInfo &&
+      (requestInfo[0].totalDegreeRequest > 0 ||
+        requestInfo[0].totalSkillRequest > 0) ? (
+        <>
+          <Divider sx={{ marginY: 2 }} />
+          <RequestedSkills />
+          <Box mt={4}>
+            <RequestedDegrees />
+          </Box>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="flex-start"
+            spacing={2}
+            mt={4}
+          >
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              variant="contained"
+              onClick={handleSubmitSuccess}
+              sx={{ fontFamily: FontFamily.bold }}
+            >
+              Gửi yêu cầu
+            </MuiButton>
+          </Stack>
+        </>
+      ) : (
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+          spacing={2}
+          mt={4}
+        >
           <MuiButton
             color="miSmartOrange"
             fullWidth
             size="large"
             variant="contained"
             onClick={handleSubmitSuccess}
-            disabled={
-              requestInfo &&
-              (requestInfo[0].totalDegreeRequest <= 0 ||
-                requestInfo[0].totalSkillRequest <= 0)
-            }
+            disabled
             sx={{ fontFamily: FontFamily.bold }}
           >
-            Gửi yêu cầu
+            {Text.labelNoAddedRequest}
           </MuiButton>
-        </Tooltip>
-      </Stack>
+        </Stack>
+      )}
     </Box>
   );
 }

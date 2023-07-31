@@ -10,8 +10,6 @@ import {
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
-
-import { formatMoney } from '~/utils/money';
 import OtherRequestSection from '../SendRequestSection/OtherRequestSection';
 import UpdateMentorProfileRequestSection from '../SendRequestSection/UpdateMentorProfileRequestSection';
 import WithdrawSection from '../SendRequestSection/WithdrawRequestSection';
@@ -45,13 +43,12 @@ export default function MentorSendRequestSection() {
   const tabEl = [
     {
       id: 0,
-      price: formatMoney(0),
       component: (
         <UpdateMentorProfileRequestSection handleSetError={handleSetError} />
       ),
     },
-    { id: 1, price: formatMoney(0), component: <OtherRequestSection /> },
-    { id: 2, price: formatMoney(0), component: <WithdrawSection /> },
+    { id: 1, component: <WithdrawSection /> },
+    // { id: 2, component: <OtherRequestSection /> },
   ];
 
   return (
@@ -78,30 +75,13 @@ export default function MentorSendRequestSection() {
               </TextField>
             </FormControl>
           </Grid>
-          {errorMsg ? (
+          {errorMsg && (
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>Chú thích</Typography>
               <Typography sx={SX_FORM_LABEL_WARNING}>{errorMsg}</Typography>
             </Grid>
-          ) : (
-            <Grid item xs={6}>
-              <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={2}
-              >
-                <Typography sx={SX_FORM_LABEL}>Phí xử lý</Typography>
-                <Typography sx={SX_FORM_LABEL_WARNING}>
-                  {tabEl[Number(requestNo)].price}
-                </Typography>
-              </Stack>
-            </Grid>
           )}
         </Grid>
-        {/* <Box>
-          <Typography sx={SX_FORM_LABEL_WARNING}>{errorMsg}</Typography>
-        </Box> */}
       </Box>
       {tabEl.map((tab) => (
         <TabPanel value={requestNo as number} index={tab.id} key={tab.id}>
