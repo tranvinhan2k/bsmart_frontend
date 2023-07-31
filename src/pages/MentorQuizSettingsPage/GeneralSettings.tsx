@@ -105,7 +105,7 @@ export default function GeneralSettings() {
             </Grid>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>
-                Giới hạn thời gian (phút)
+                Giới hạn thời gian (giây)
               </Typography>
               <FormInput
                 control={control}

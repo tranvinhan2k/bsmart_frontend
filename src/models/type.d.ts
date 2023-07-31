@@ -128,6 +128,11 @@ export interface ClassMenuItemPayload {
   progressValue: number;
   subjectId: number;
   status: ClassStatusKeys;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  min: number;
+  max: number;
 }
 export interface ClassDetailPayload {
   code: string;

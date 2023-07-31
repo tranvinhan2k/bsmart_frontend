@@ -95,6 +95,14 @@ export default function MentorCourseDetailPage() {
     },
   });
 
+  useEffect(() => {
+    if (classes) {
+      hookForm.reset({
+        classes: classes?.map((item) => `${item.id}`),
+      });
+    }
+  }, [classes, hookForm]);
+
   const {
     coursePercent,
     isCanSubmitted,
@@ -149,7 +157,22 @@ export default function MentorCourseDetailPage() {
         course.status !== route.courseStatus &&
         route.courseStatus !== 'ALL'
       ) {
-        return null;
+        return (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <Navigate
+                to={`/${NavigationLink.dashboard}/${
+                  MentorDashboardNavigationActionLink.mentor_course_detail
+                }/${formatStringToNumber(id)}/${
+                  MentorCourseActionLink.information
+                }`}
+                replace
+              />
+            }
+          />
+        );
       }
       if (index === 0) {
         return (
@@ -211,6 +234,7 @@ export default function MentorCourseDetailPage() {
                       <Typography
                         textAlign="center"
                         sx={{
+                          width: '170px',
                           color: Color.black,
                           fontSize: FontSize.small_14,
                           fontFamily: FontFamily.bold,
@@ -267,7 +291,7 @@ export default function MentorCourseDetailPage() {
                         Gửi yêu cầu phê duyệt
                       </Button>
                       <CustomModal open={open} onClose={handleOpen}>
-                        <Stack sx={{ padding: 1, width: '60vw' }}>
+                        <Stack sx={{ padding: 1, minWidth: '60vw' }}>
                           <Typography
                             sx={{
                               ...globalStyles.textSubTitle,
@@ -288,15 +312,17 @@ export default function MentorCourseDetailPage() {
                               variant="multiSelect"
                             />
                           </Stack>
-                          <Button
-                            onClick={hookForm.handleSubmit(
-                              handleSubmitCourse,
-                              handleConsoleError
-                            )}
-                            variant="contained"
-                          >
-                            Gửi yêu cầu phê duyệt
-                          </Button>
+                          <Stack>
+                            <Button
+                              onClick={hookForm.handleSubmit(
+                                handleSubmitCourse,
+                                handleConsoleError
+                              )}
+                              variant="contained"
+                            >
+                              Gửi yêu cầu phê duyệt
+                            </Button>
+                          </Stack>
                         </Stack>
                       </CustomModal>
                     </Stack>

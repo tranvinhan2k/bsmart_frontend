@@ -112,52 +112,40 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
       slot: OptionPayload;
     }[];
   }) => {
-    if (
-      checkEndDateValid(
-        data.startDateExpected,
-        data.endDateExpected,
-        data.numberOfSlot,
-        data.timeInWeekRequests
-      )
-    ) {
-      try {
-        const imageId = await uploadImage(data.imageId);
+    try {
+      const imageId = await uploadImage(data.imageId);
 
-        if (imageId) {
-          // TODO: Thêm api create class o day khi mà be xong
-          const param: PostClassRequest = {
-            endDate: data.endDateExpected,
-            imageId,
-            maxStudent: data.maxStudent,
-            minStudent: data.minStudent,
-            numberOfSlot: data.numberOfSlot,
-            price: data.price,
-            startDate: data.startDateExpected,
-            timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-              dayOfWeekId: item.dayOfWeek.id || 0,
-              slotId: item.slot.id || 0,
-            })),
-            // timeTableRequest: timetable?.raw || [],
-          };
-          await handleTryCatchCreateClass(async () =>
-            handleCreateClass({
-              id,
-              param,
-            })
-          );
+      if (imageId) {
+        const param: PostClassRequest = {
+          endDate: data.endDateExpected,
+          imageId,
+          maxStudent: data.maxStudent,
+          minStudent: data.minStudent,
+          numberOfSlot: data.numberOfSlot,
+          price: data.price,
+          startDate: data.startDateExpected,
+          timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+            dayOfWeekId: item.dayOfWeek.id || 0,
+            slotId: item.slot.id || 0,
+          })),
+          // timeTableRequest: timetable?.raw || [],
+        };
+        await handleTryCatchCreateClass(async () => {
+          await handleCreateClass({
+            id,
+            param,
+          });
           await refetch();
-          setTimetable(undefined);
+          setOpen(!open);
           createSubCourseHookForm.reset();
-        } else {
-          toast.notifyErrorToast('Thêm hình ảnh không thành công !');
-        }
-      } catch (e: any) {
-        toast.notifyErrorToast(`Thêm khóa học không thành công: ${e.message}`);
+        });
+
+        setTimetable(undefined);
+      } else {
+        toast.notifyErrorToast('Thêm hình ảnh không thành công !');
       }
-    } else {
-      toast.notifyErrorToast(
-        `Ngày kêt thúc không hợp lệ. Lớp học nên kết thúc sau hoặc vào ngày ${recommendEndDate} `
-      );
+    } catch (e: any) {
+      toast.notifyErrorToast(`Thêm khóa học không thành công: ${e.message}`);
     }
   };
 

@@ -44,7 +44,7 @@ export default function CourseDetail({
   const [error, setError] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
   return (
-    <Stack ref={introduceRef}>
+    <Stack>
       <ImageSlider slides={images || []} />
       <Stack
         paddingX={5}
@@ -92,13 +92,21 @@ export default function CourseDetail({
           >
             {courseName}
           </Typography>
+          <Stack ref={classesRef}>
+            <Typography sx={globalStyles.textCourseSmallLabel}>
+              Danh sách lớp học
+            </Typography>
+            <Stack marginTop={1}>
+              <Classes classes={classes} />
+            </Stack>
+          </Stack>
+          <Divider sx={{ marginY: 3 }} />
           <Stack
             sx={{
               position: 'relative',
               height: !openDescription ? '300px' : '100%',
               overflow: 'hidden',
             }}
-            marginY={3}
           >
             <Stack
               sx={{
@@ -111,8 +119,12 @@ export default function CourseDetail({
                 background: `linear-gradient(0deg, ${Color.white4} 0%, rgba(253,187,45,0) 100%)`,
               }}
             />
-            <Stack>
+            <Stack ref={introduceRef}>
+              <Typography sx={globalStyles.textCourseSmallLabel}>
+                Mô tả khóa học
+              </Typography>
               <Typography
+                marginTop={1}
                 sx={globalStyles.textSmallLight}
                 dangerouslySetInnerHTML={{
                   __html: courseDescription,
@@ -127,6 +139,7 @@ export default function CourseDetail({
             {openDescription ? 'Thu Gọn' : 'Xem Thêm'}
           </Button>
         </Stack>
+        <Divider sx={{ marginY: 0 }} />
       </Stack>
       <Stack
         paddingX={5}
@@ -162,7 +175,7 @@ export default function CourseDetail({
       <Divider sx={{ marginY: 4 }} /> */}
 
         <Stack ref={contentRef}>
-          <Typography sx={globalStyles.textSmallLabel}>
+          <Typography sx={globalStyles.textCourseSmallLabel}>
             Khung chương trình
           </Typography>
           <Stack
@@ -176,18 +189,10 @@ export default function CourseDetail({
         </Stack>
         <Divider sx={{ marginY: 3 }} />
 
-        <Stack ref={classesRef}>
-          <Typography sx={globalStyles.textSmallLabel}>
-            Danh sách lớp học
-          </Typography>
-          <Stack marginTop={1}>
-            <Classes classes={classes} />
-          </Stack>
-        </Stack>
-        <Divider sx={{ marginY: 4 }} />
-
         <Stack ref={mentorRef}>
-          <Typography sx={globalStyles.textSmallLabel}>Về giáo viên</Typography>
+          <Typography sx={globalStyles.textCourseSmallLabel}>
+            Về giáo viên
+          </Typography>
           <Stack
             sx={{
               marginTop: 1,

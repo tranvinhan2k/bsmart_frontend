@@ -78,6 +78,7 @@ export default function AddQuizForm({
       placeholder: 'Thêm danh sách lớp',
       variant: 'multiSelect',
       data: optionClasses,
+      isHide: optionClasses.length === 0,
     },
     {
       name: 'name',
@@ -105,9 +106,9 @@ export default function AddQuizForm({
     },
     {
       name: 'time',
-      label: 'Thời gian làm bài (phút)',
+      label: 'Thời gian làm bài (giây)',
       placeholder: 'Nhập thời gian làm bài',
-      variant: 'time',
+      variant: 'number',
     },
     {
       name: 'defaultPoint',
@@ -129,7 +130,7 @@ export default function AddQuizForm({
     },
     {
       name: 'allowReviewAfterMin',
-      label: 'Thời gian chờ xem lại (phút)',
+      label: 'Thời gian chờ xem lại (giây)',
       placeholder: 'Thời gian được xem lại bài',
       variant: 'number',
     },

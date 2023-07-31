@@ -7,7 +7,7 @@ import {
   Typography,
   FormHelperText,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MetricSize, Color } from '~/assets/variables';
 // eslint-disable-next-line import/no-cycle
@@ -33,18 +33,24 @@ function FileListInput({ controller }: FileListInputProps) {
   };
 
   const handleDelete = (paramIndex: number) => {
-    const tmpValue = value.filter(
+    const tmpValue = value.files.filter(
       (_: any, index: number) => index !== paramIndex
     );
-    controllerOnChange(tmpValue);
+
+    controllerOnChange({
+      files: tmpValue,
+      deleteIndexes:
+        value.files[paramIndex].fileType === 'ATTACH'
+          ? [...value.deleteIndexes, paramIndex]
+          : [...value.deleteIndexes],
+    });
   };
 
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
       setCustomError(null);
-
-      controllerOnChange([...value, selectedFile]);
+      controllerOnChange({ ...value, files: [...value.files, selectedFile] });
     } else {
       setCustomError('Hãy nhập định dạng file đúng (PDF, Word, or Excel)');
     }
@@ -61,8 +67,8 @@ function FileListInput({ controller }: FileListInputProps) {
         }}
       >
         <Stack>
-          {value && value?.length > 0 ? (
-            value?.map((item: any, index: number) => {
+          {value.files && value?.files.length > 0 ? (
+            value?.files?.map((item: any, index: number) => {
               return (
                 <Stack
                   sx={{

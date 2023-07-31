@@ -158,6 +158,7 @@ export const validationClassContentQuiz = object({
     'startDate'
   ),
   time: number()
+    .typeError('Thời gian không được để trống')
     .required('Thời gian không được để trống')
     .min(5, 'Thời gian làm bài phài lớn hơn 5 phút'),
   allowReviewAfterMin: number()
@@ -242,9 +243,7 @@ export const validationClassContentAssignment = object({
     .typeError('Điểm đạt yêu cầu không được để trống')
     .required('Điểm đạt yêu cầu không được để trống')
     .min(1, 'Điểm đạt yêu cầu lớn hơn 1'),
-  attachFiles: YupValidationForm.notEmptyString(
-    'Tệp đính kèm không được để trống'
-  ),
+  attachFiles: object().required('Tệp đính kèm không được để trống.'),
 });
 
 export const validationSchemaRegisterStudent = object({
@@ -464,6 +463,7 @@ export const validationSchemaCreateCourse = object({
 export const validationSchemaCreateSubCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
+    .typeError('Số lượng học sinh không được để trống')
     .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
@@ -530,6 +530,7 @@ export const validationSchemaUpdateWaitingCourse = object({
   subCourseTitle: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
+    .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
@@ -585,6 +586,7 @@ export const validationSchemaUpdateWaitingCoursePrivate = object({
   subCourseTitle: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
+    .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   level: string().required(COURSE_LEVEL_REQUIRED),
   price: number()

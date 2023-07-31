@@ -18,7 +18,6 @@ export default function MentorClassItem({ item }: Props) {
     );
   };
   const handleAddFeedback = () => {};
-  const handleUpdateFeedback = () => {};
   return (
     <UserClassItem
       code={item?.code}
@@ -31,6 +30,11 @@ export default function MentorClassItem({ item }: Props) {
       subjectId={item?.subjectId || -1}
       onAddFeedback={item?.id === 1 ? handleAddFeedback : undefined}
       teacherName={item?.teacherName}
+      startDate={item?.startDate}
+      endDate={item?.endDate}
+      numberOfStudent={item?.numberOfStudent}
+      min={item?.min}
+      max={item?.max}
     />
   );
 }

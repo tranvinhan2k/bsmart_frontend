@@ -85,7 +85,7 @@ export default function AddAssignmentForm({
       label: 'Mô tả bài tập',
       name: 'description',
       placeholder: 'Nhập mô tả khóa học',
-      variant: 'multiline',
+      variant: 'editor',
     },
     {
       label: 'Ngày bắt đầu',
@@ -103,7 +103,7 @@ export default function AddAssignmentForm({
       label: 'Thời gian được chỉnh sửa (giây)',
       name: 'editBeForSubmitMin',
       placeholder: 'Nhập thời gian được chỉnh sửa',
-      variant: 'second',
+      variant: 'number',
     },
     {
       label: 'Số lượng tệp cho phép',

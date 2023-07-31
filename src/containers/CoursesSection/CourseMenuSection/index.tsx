@@ -43,7 +43,7 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
                 key={item.id}
                 courseCode={item.courseCode}
                 courseTeacherName={item.courseTeacherName}
-                courseDescription={item.courseDescription || ''}
+                courseDescription=""
                 courseName={item.courseName}
                 subjectName={item.subjectName}
                 imageAlt={item.imageAlt}

@@ -47,6 +47,13 @@ const textSmallLabel: SxProps<Theme> = {
   fontSize: FontSize.small_18,
   color: Color.black,
 };
+const textCourseSmallLabel: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.medium_24,
+  marginTop: 3,
+  marginBottom: 1,
+  color: Color.black,
+};
 const textSmallLight: SxProps<Theme> = {
   fontFamily: FontFamily.light,
   fontSize: FontSize.small_18,
@@ -147,6 +154,7 @@ const globalStyles = {
   textSubTitle,
   textSmallLabel,
   textSmallLight,
+  textCourseSmallLabel,
   textLowSmallLight,
   textWhiteSubTitle,
   textTwoLineEllipsis,

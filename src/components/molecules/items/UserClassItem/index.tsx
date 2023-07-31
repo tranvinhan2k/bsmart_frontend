@@ -7,6 +7,8 @@ import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
 import { ClassStatusKeys } from '~/models/variables';
 import { ClassStatusList } from '~/constants';
 import { useDispatchGetAllSubjects } from '~/hooks';
+import TextPropLine from '~/components/atoms/texts/TextPropLine';
+import { formatDate } from '~/utils/date';
 
 interface UserClassItemProps {
   code: string | undefined;
@@ -16,6 +18,11 @@ interface UserClassItemProps {
   name: string | undefined;
   progressValue: number | undefined;
   subjectId: number | undefined;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  numberOfStudent?: number | undefined;
+  min?: number | undefined;
+  max?: number | undefined;
   onAddFeedback?: () => void;
   onEditFeedback?: () => void;
   onClick: () => void;
@@ -30,9 +37,14 @@ export default function UserClassItem({
   status,
   teacherName,
   subjectId,
+  startDate,
+  endDate,
   onClick,
   onAddFeedback,
   onEditFeedback,
+  max,
+  min,
+  numberOfStudent,
 }: UserClassItemProps) {
   const { optionSubjects } = useDispatchGetAllSubjects();
   const statusLabel = ClassStatusList?.find(
@@ -88,10 +100,19 @@ export default function UserClassItem({
         <Stack
           sx={{
             marginY: 1,
-            height: '70px',
             overflow: 'hidden',
+            height: '100px',
           }}
         >
+          <Typography
+            sx={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.bold,
+              color: Color.tertiary,
+            }}
+          >
+            {code || ''}
+          </Typography>
           <Typography
             sx={{
               fontSize: FontSize.small_14,
@@ -100,9 +121,7 @@ export default function UserClassItem({
               ...globalStyles.textTwoLineEllipsis,
             }}
           >
-            {`${code ? `${code?.toUpperCase()} - ` : ''} ${
-              name ? name?.toUpperCase() : ''
-            }` || ''}
+            {` ${name ? name?.toUpperCase() : ''}` || ''}
           </Typography>
           <Typography
             noWrap
@@ -118,6 +137,42 @@ export default function UserClassItem({
               ))}
           </Typography>
         </Stack>
+
+        {startDate && (
+          <TextPropLine
+            icon="date"
+            label="Ngày bắt đầu"
+            value={formatDate(startDate)}
+          />
+        )}
+        {endDate && (
+          <TextPropLine
+            icon="date"
+            label="Ngày bắt đầu"
+            value={formatDate(endDate)}
+          />
+        )}
+        {!!numberOfStudent && (
+          <TextPropLine
+            icon="number"
+            label="Số lượng học sinh"
+            value={`${numberOfStudent}`}
+          />
+        )}
+        {!!min && (
+          <TextPropLine
+            icon="number"
+            label="Số lượng học sinh tối thiểu"
+            value={`${min}`}
+          />
+        )}
+        {!!max && (
+          <TextPropLine
+            icon="number"
+            label="Số lượng học sinh tối đa"
+            value={`${max}`}
+          />
+        )}
         {progressValue !== -1 && (
           <Stack
             sx={{

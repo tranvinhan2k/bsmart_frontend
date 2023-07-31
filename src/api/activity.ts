@@ -176,10 +176,6 @@ const activityApi = {
     return generateMockApi(rows);
   },
 
-  async deleteFile(id: number) {
-    return generateMockApi(true);
-  },
-
   async addPointAssignment({
     id,
     params,

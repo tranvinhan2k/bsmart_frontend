@@ -172,7 +172,7 @@ export default function MentorCourseAddModulePage() {
         editBeForSubmitMin: data.editBeForSubmitMin,
         maxFileSubmit: data.maxFileSubmit,
         maxFileSize: data.maxFileSize,
-        attachFiles: data.attachFiles,
+        attachFiles: data.attachFiles.files,
         passPoint: data.passPoint,
       });
       hookFormLesson.reset();

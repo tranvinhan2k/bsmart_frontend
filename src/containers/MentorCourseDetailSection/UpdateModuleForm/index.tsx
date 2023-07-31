@@ -59,6 +59,7 @@ export default function UpdateModuleForm({ module, onSubmit }: Props) {
       placeholder: 'Hiển thị danh sách lớp',
       variant: 'multiSelect',
       data: optionClasses,
+      isHide: optionClasses.length === 0,
     },
   ];
 

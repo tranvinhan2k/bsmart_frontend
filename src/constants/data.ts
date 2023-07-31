@@ -191,6 +191,32 @@ export const ClassStatusList: OptionPayload[] = [
     value: 'CLOSE',
   },
 ];
+export const ClassStatusStudentList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Tất cả',
+    content: 'Tất cả khóa học của bạn hiện đã tạo.',
+    value: 'ALL',
+  },
+  {
+    id: 5,
+    label: 'Lớp chuẩn bị mở',
+    content: 'Lớp đang chờ học sinh đăng kí và học.',
+    value: 'NOTSTART',
+  },
+  {
+    id: 1,
+    label: 'Lớp đang bắt đầu',
+    content: 'Lớp đang trong quá trình giảng dạy.',
+    value: 'STARTING',
+  },
+  {
+    id: 2,
+    label: 'Lớp đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy',
+    value: 'CLOSE',
+  },
+];
 export const CourseStatusList: OptionPayload[] = [
   {
     id: 0,

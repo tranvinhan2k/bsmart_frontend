@@ -75,6 +75,7 @@ export default function AddResourceForm({
       placeholder: 'Hiển thị danh sách lớp',
       variant: 'multiSelect',
       data: optionClasses,
+      isHide: optionClasses.length === 0,
     },
     {
       label: 'Tên bài học',

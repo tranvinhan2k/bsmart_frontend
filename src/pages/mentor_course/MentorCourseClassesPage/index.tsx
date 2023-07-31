@@ -95,7 +95,6 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
   const handleCreateClass = async (data: any) => {
     await onAddNewClass(data);
     await refetch();
-    onTriggerModal();
   };
   const handleConfirmTimetable = async (data: any) => {
     await handleAddTimetable(data);

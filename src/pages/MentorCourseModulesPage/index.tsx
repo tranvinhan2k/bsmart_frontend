@@ -29,6 +29,7 @@ import {
   useTryCatch,
   useYupValidationResolver,
 } from '~/hooks';
+import { useDeleteFile } from '~/hooks/assignment/useDeleteFile';
 import { QuizQuestionTypeKeys } from '~/models/variables';
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
@@ -39,6 +40,8 @@ export default function MentorCourseModulesPage() {
   const sectionId = useGetIdFromUrl('sectionId');
   const moduleId = useGetIdFromUrl('moduleId');
   const [clearOpen, setClearOpen] = useState(false);
+
+  const { mutateAsync: handleDeleteFiles } = useDeleteFile();
 
   const { activity, isLoading, error, refetch } =
     useGetDetailActivity(moduleId);
@@ -225,6 +228,9 @@ export default function MentorCourseModulesPage() {
 
   const handleSubmitAssignment = async (data: any) => {
     await handleTryCatch(async () => {
+      if (data?.attachFiles?.deleteIndexes?.length > 0) {
+        await handleDeleteFiles(data.attachFiles.deleteIndexes);
+      }
       await handleMutationUpdateAssignment({
         id: data.id,
         params: {
@@ -239,7 +245,7 @@ export default function MentorCourseModulesPage() {
           editBeForSubmitMin: data.editBeForSubmitMin,
           maxFileSubmit: data.maxFileSubmit,
           maxFileSize: data.maxFileSize,
-          attachFiles: data.attachFiles,
+          attachFiles: data.attachFiles.files,
           passPoint: data.passPoint,
         },
       });
@@ -274,11 +280,18 @@ export default function MentorCourseModulesPage() {
         ...activity.detail,
         attachFiles:
           activity.type === 'ASSIGNMENT'
-            ? activity?.detail?.attachFiles?.map((item: any) => ({
-                name: item.name,
-                url: item.url,
-              }))
-            : [],
+            ? {
+                files: activity?.detail?.attachFiles?.map((item: any) => ({
+                  name: item.name,
+                  url: item.url,
+                  fileType: 'ATTACH',
+                })),
+                deleteIndexes: [],
+              }
+            : {
+                files: [],
+                deleteIndexes: [],
+              },
       });
       hookFormQuiz.reset({
         ...activity,
@@ -288,8 +301,6 @@ export default function MentorCourseModulesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activity]);
 
-  console.log('module', type);
-
   return (
     <LoadingWrapper error={error} isLoading={isLoading}>
       <Stack>
@@ -298,10 +309,6 @@ export default function MentorCourseModulesPage() {
           to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`}
         />
         <Stack>
-          <Typography sx={globalStyles.textSubTitle}>
-            Nội dung học phần
-          </Typography>
-          <Divider />
           {type === 'LESSON' && (
             <AddSubSectionForm
               isFixed={!!activity?.isFixed}

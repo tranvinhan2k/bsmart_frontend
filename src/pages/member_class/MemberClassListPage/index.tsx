@@ -7,7 +7,7 @@ import ClassStatusLabel from '~/components/atoms/ClassStatusLabel';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import SearchFilterClasses from '~/components/atoms/SearchFilterClasses';
 import MemberClassItem from '~/components/molecules/MemberClassItem';
-import { ClassStatusList } from '~/constants';
+import { ClassStatusList, ClassStatusStudentList } from '~/constants';
 import { useQueryGetUserClass } from '~/hooks';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
@@ -125,7 +125,7 @@ export default function MemberClassListPage() {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            {ClassStatusList.map((item, index) => (
+            {ClassStatusStudentList.map((item, index) => (
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}

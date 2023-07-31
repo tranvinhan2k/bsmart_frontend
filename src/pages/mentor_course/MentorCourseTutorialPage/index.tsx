@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import CustomStepper, {
   StepPayload,
 } from '~/components/molecules/CustomStepper';
@@ -16,6 +16,7 @@ import {
   useQueryGetMentorCourseClasses,
 } from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
+import { mentorCourseRoutes } from '~/routes/mentor/course/routes';
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 

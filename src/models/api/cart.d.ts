@@ -1,10 +1,11 @@
+import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { ClassStatusKeys, LevelKeys } from '../variables';
 
 export interface CartDataPayload {
   id: number;
   totalItem: number;
   totalPrice: number;
-  cartItems: CartItemDataPayload[];
+  cartItems: DetailCourseClassPayload[];
 }
 
 export interface CartItemDataPayload {

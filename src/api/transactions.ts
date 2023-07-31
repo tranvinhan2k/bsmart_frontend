@@ -24,8 +24,9 @@ const transactionsApi = {
   },
   async pay(
     data: {
-      clazzId: number;
-      returnURL: string | undefined;
+      cartItemId: number;
+      subCourseId: number;
+      referralCode: string;
     }[]
   ): Promise<any> {
     return axiosClient.post(`${url}/pay`, data);
