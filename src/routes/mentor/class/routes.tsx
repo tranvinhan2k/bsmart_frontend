@@ -1,14 +1,16 @@
 import { Navigate } from 'react-router-dom';
-import { MentorClassActionLink } from '~/constants/routeLink';
+import {
+  MemberClassActionLink,
+  MentorClassActionLink,
+} from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import MentorClassAttendanceListPage from '~/pages/mentor_class/MentorClassAttendanceListPage';
 import {
-  MentorClassAssignmentPage,
   MentorClassContentPage,
   MentorClassFeedbacksPage,
   MentorClassInformationPage,
+  MentorClassModulesPage,
   MentorClassNotificationPage,
-  MentorClassPointsPage,
   MentorClassSchedulePage,
   MentorClassStudentDetailPage,
   MentorClassStudentListPage,
@@ -65,18 +67,6 @@ export const mentorClassRoutes = (courseId?: number): RoutePayload[] => {
       courseStatus: 'ALL',
     },
     {
-      path: MentorClassActionLink.points,
-      main: () => <MentorClassPointsPage />,
-      role: ['ROLE_TEACHER'],
-      courseStatus: 'ALL',
-    },
-    {
-      path: MentorClassActionLink.assignments,
-      main: () => <MentorClassAssignmentPage />,
-      role: ['ROLE_TEACHER'],
-      courseStatus: 'ALL',
-    },
-    {
       path: `${MentorClassActionLink.student_detail}/:studentId`,
       main: () => <MentorClassStudentDetailPage />,
       role: ['ROLE_TEACHER'],
@@ -85,6 +75,12 @@ export const mentorClassRoutes = (courseId?: number): RoutePayload[] => {
     {
       path: MentorClassActionLink.feedback,
       main: () => <MentorClassFeedbacksPage />,
+      role: ['ROLE_TEACHER'],
+      courseStatus: 'ALL',
+    },
+    {
+      path: `${MemberClassActionLink.activity}/:moduleId`,
+      main: () => <MentorClassModulesPage />,
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },

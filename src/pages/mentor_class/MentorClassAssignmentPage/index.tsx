@@ -2,6 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import CRUDTable from '~/components/molecules/CRUDTable';
@@ -11,6 +12,7 @@ import {
   useMutationSubmitPointAssignment,
   useTryCatch,
 } from '~/hooks';
+import { useBoolean } from '~/hooks/useBoolean';
 import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatStringToNumber } from '~/utils/number';
@@ -20,23 +22,31 @@ export interface AssignmentItemPayload {
   id: number;
   studentId: number;
   studentName: string;
-  file: Blob | undefined;
+  file: Blob[] | undefined;
   timeSubmit: string;
 }
 export interface AssignmentSubmitItemPayload {
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
   id: number;
-  studentId: number;
-  studentName: string;
-  file: Blob | undefined;
-  timeSubmit: string;
   point: number;
+  note: string;
 }
 
 export default function MentorClassAssignmentPage() {
   const moduleId = useGetIdFromUrl('moduleId');
+  const id = useGetIdFromUrl('id');
   const { control, handleSubmit } = useForm();
 
-  const { data: assignments, error, isLoading } = useGetAssignment(moduleId);
+  const { value, toggle } = useBoolean(false);
+
+  const {
+    data: assignments,
+    error,
+    isLoading,
+  } = useGetAssignment(moduleId, id);
 
   const { mutateAsync } = useMutationSubmitPointAssignment();
 
@@ -45,13 +55,18 @@ export default function MentorClassAssignmentPage() {
   const onSubmit = async (data: any) => {
     if (assignments) {
       const points: string[] = data.point;
+      const notes: string[] = data.note;
       const params: AssignmentSubmitItemPayload[] = assignments.map(
         (item, index) => ({
-          ...item,
+          created: new Date().toISOString(),
+          lastModified: new Date().toISOString(),
+          id: item.id,
+          createdBy: item.studentName,
+          lastModifiedBy: item.studentName,
           point: formatStringToNumber(points[index]),
+          note: notes[index],
         })
       );
-      console.log('params', params);
 
       await handleTryCatch(async () =>
         mutateAsync({
@@ -60,7 +75,6 @@ export default function MentorClassAssignmentPage() {
         })
       );
     }
-    console.log('data', data);
   };
 
   const columns: GridColDef[] = [
@@ -72,12 +86,12 @@ export default function MentorClassAssignmentPage() {
     {
       field: 'studentName',
       headerName: 'Tên học sinh',
-      flex: 4,
+      flex: 3,
     },
     {
       field: 'timeSubmit',
       headerName: 'Thời gian nộp bài',
-      flex: 1,
+      flex: 2,
       renderCell: (data) => {
         return formatISODateDateToDisplayDateTime(data.row.timeSubmit);
       },
@@ -116,10 +130,24 @@ export default function MentorClassAssignmentPage() {
         );
       },
     },
+    {
+      field: 'note',
+      headerName: 'Ghi chú',
+      flex: 2,
+      renderCell: (data) => {
+        return (
+          <FormInput
+            control={control}
+            variant="multiline"
+            name={`note.${data.api.getRowIndex(data.row.id)}`}
+          />
+        );
+      },
+    },
   ];
   return (
     <Stack>
-      <Typography sx={globalStyles.textSubTitle}>
+      <Typography sx={globalStyles.textSmallLabel}>
         Danh sách bài làm của học sinh
       </Typography>
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
@@ -130,10 +158,17 @@ export default function MentorClassAssignmentPage() {
           rows={assignments || []}
         />
         <Box marginTop={1}>
-          <Button variant="contained" onClick={handleSubmit(onSubmit)}>
-            Thêm danh sách châm điểm
+          <Button variant="contained" onClick={toggle}>
+            Chấm điểm
           </Button>
         </Box>
+        <ConfirmDialog
+          open={value}
+          handleClose={toggle}
+          handleAccept={handleSubmit(onSubmit)}
+          content="Bạn chắc chắn nộp bài chấm điểm này?"
+          title="Xác nhận nộp bài chấm điểm ?"
+        />
       </Stack>
     </Stack>
   );

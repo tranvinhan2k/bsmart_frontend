@@ -5,9 +5,12 @@ import {
   PostActivityRequest,
   PostAssignmentRequest,
   PostSubmitActivityRequest,
+  PostSubmitQuizPayload,
 } from '~/models/request';
 import {
   GetActivityResponse,
+  GetAllMentorAssignment,
+  GetMentorListQuiz,
   GetMentorQuizzesResponse,
   GetReviewQuizResponse,
   PostDoQuizResponse,
@@ -134,6 +137,7 @@ const activityApi = {
       time: 123,
       questions:
         response.questions?.map((item) => ({
+          id: item.id || 0,
           questionContent: item?.question || '',
           isMultipleAnswer: item?.type === 'MULTIPLE',
           answers:
@@ -149,31 +153,48 @@ const activityApi = {
     return result;
   },
 
-  async getMentorAssignments(id: number): Promise<AssignmentItemPayload[]> {
-    const rows: AssignmentItemPayload[] = [
-      {
-        id: 4,
-        file: undefined,
-        studentId: 0,
-        studentName: 'Tran Vi Nhan',
-        timeSubmit: new Date().toISOString(),
-      },
-      {
-        id: 1,
-        file: undefined,
-        studentId: 0,
-        studentName: 'Tran Vi Nhan',
-        timeSubmit: new Date().toISOString(),
-      },
-      {
-        id: 2,
-        file: undefined,
-        studentId: 0,
-        studentName: 'Tran Vi Nhan',
-        timeSubmit: new Date().toISOString(),
-      },
-    ];
+  async getMentorAssignments({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PagingFilterRequest;
+  }): Promise<AssignmentItemPayload[]> {
+    const response: PagingFilterPayload<GetAllMentorAssignment> =
+      await axiosClient.get(`${url}/assignments/${id}/submits`, {
+        params,
+        paramsSerializer: { indexes: null },
+      });
+    const rows: AssignmentItemPayload[] = response.items.map((item) => ({
+      id: item.id || 0,
+      file: item.assignmentFiles as Blob[],
+      studentId: item.studentClass?.id || 0,
+      studentName: item.studentClass?.name || '',
+      timeSubmit: item.lastModified || '',
+    }));
     return generateMockApi(rows);
+  },
+
+  async getMentorListQuiz({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PagingFilterRequest;
+  }) {
+    const response: PagingFilterPayload<GetMentorListQuiz> =
+      await axiosClient.get(`${url}/quiz/${id}/result`, {
+        params,
+      });
+    const result: QuizReportStudentPayload[] = response.items.map((item) => ({
+      id: item?.id || 0,
+      correctNumber: item?.correctNumber || 0,
+      name: item?.submitBy?.name || '',
+      point: item?.point || 0,
+      submitAt: item?.submitAt || '',
+      totalNumber: item?.totalQuestion || '',
+    }));
+    return { ...response, items: result };
   },
 
   async addPointAssignment({
@@ -183,6 +204,7 @@ const activityApi = {
     id: number;
     params: AssignmentSubmitItemPayload[];
   }) {
+    return axiosClient.put(`${url}/assignments/${id}/grading`);
     return generateMockApi(true);
   },
 
@@ -206,6 +228,7 @@ const activityApi = {
       time: response?.time || 0,
       questions:
         response?.quizQuestions?.map((item) => ({
+          id: item?.id || 0,
           isMultipleAnswer: item?.type === 'MULTIPLE',
           questionContent: item?.question || '',
           answers:
@@ -219,6 +242,16 @@ const activityApi = {
     };
 
     return result;
+  },
+
+  async postSubmitQuiz({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostSubmitQuizPayload;
+  }): Promise<DoQuizPayload> {
+    return axiosClient.post(`${url}/${id}/quiz/submit`, params);
   },
 
   addSectionActivity(params: PostActivityRequest): Promise<boolean> {

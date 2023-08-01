@@ -38,10 +38,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const resolver = useYupValidationResolver(validationPassword);
-  const { control, handleSubmit } = useForm({
-    resolver,
-  });
+  const { control, handleSubmit } = useForm({});
 
   const { data } = useGetQuizResult(id);
 

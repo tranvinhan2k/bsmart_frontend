@@ -6,6 +6,7 @@ import { IconName } from '~/components/atoms/Icon';
 import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import { ActivityData } from '~/constants';
 import {
+  MemberClassActionLink,
   MentorClassActionLink,
   MentorCourseActionLink,
   MentorDashboardNavigationActionLink,
@@ -43,11 +44,11 @@ export default function Module({
     if (!readOnly) {
       if (role === 'TEACHER')
         navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${classId}/${MentorCourseActionLink.content}/${sectionId}/${id}`
+          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${classId}/${MemberClassActionLink.activity}/${id}`
         );
       if (role === 'STUDENT')
         navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${classId}/${MentorClassActionLink.activity}/${id}`
+          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${classId}/${MemberClassActionLink.activity}/${id}`
         );
     }
   };

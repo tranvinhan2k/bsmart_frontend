@@ -1,6 +1,5 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { FontSize, FontFamily } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
 import globalStyles from '~/styles';
 
 interface Props {
@@ -26,6 +25,7 @@ export default function ModuleActivity({ name, description }: Props) {
         {name}
       </Typography>
       <Stack marginTop={1} />
+
       {description && (
         <Stack marginTop={1}>
           <Typography textAlign="center" sx={globalStyles.textSmallLabel}>

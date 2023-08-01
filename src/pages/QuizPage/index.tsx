@@ -11,6 +11,7 @@ export interface DoQuizQuestionPayload {
   questionContent: string;
   isMultipleAnswer: boolean;
   answers: DoQuizAnswerPayload[];
+  id: number;
 }
 
 export interface DoQuizPayload {
@@ -108,6 +109,7 @@ export default function QuizPage() {
     <Stack>
       <LoadingWrapper error={error} isLoading={isLoading}>
         <DoQuizReviewList
+          id={quizData.id || 0}
           initData={{
             name: quizData.name || '',
             time: quizData.time || 0,

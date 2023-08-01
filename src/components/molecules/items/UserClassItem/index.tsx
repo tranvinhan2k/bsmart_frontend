@@ -50,7 +50,7 @@ export default function UserClassItem({
   const statusLabel = ClassStatusList?.find(
     (item) => item.value === status
   )?.label;
-  const subjectLabel = optionSubjects.find(
+  const subjectLabel = optionSubjects?.find(
     (item) => item.id === subjectId
   )?.label;
 
@@ -101,7 +101,7 @@ export default function UserClassItem({
           sx={{
             marginY: 1,
             overflow: 'hidden',
-            height: '100px',
+            height: '250px',
           }}
         >
           <Typography
@@ -136,116 +136,116 @@ export default function UserClassItem({
                 <span key={index}>{`${index !== 0 ? ', ' : ''} ${item} `}</span>
               ))}
           </Typography>
-        </Stack>
 
-        {startDate && (
-          <TextPropLine
-            icon="date"
-            label="Ngày bắt đầu"
-            value={formatDate(startDate)}
-          />
-        )}
-        {endDate && (
-          <TextPropLine
-            icon="date"
-            label="Ngày kết thúc"
-            value={formatDate(endDate)}
-          />
-        )}
-        {numberOfStudent !== undefined && numberOfStudent >= 0 && (
-          <TextPropLine
-            icon="number"
-            label="Số lượng học sinh"
-            value={`${numberOfStudent}`}
-          />
-        )}
-        {!!min && (
-          <TextPropLine
-            icon="number"
-            label="Số lượng học sinh tối thiểu"
-            value={`${min}`}
-          />
-        )}
-        {!!max && (
-          <TextPropLine
-            icon="number"
-            label="Số lượng học sinh tối đa"
-            value={`${max}`}
-          />
-        )}
-        {progressValue !== -1 && (
-          <Stack
-            sx={{
-              alignItem: 'center',
-              justifyContent: 'space-between',
-              paddingBottom: 1,
-              marginTop: 1,
-              flexGrow: 1,
-            }}
-          >
-            <LinearProgress
-              variant="determinate"
-              color="secondary"
-              value={progressValue || 0 * 100}
+          {startDate && (
+            <TextPropLine
+              icon="date"
+              label="Ngày bắt đầu"
+              value={formatDate(startDate)}
             />
+          )}
+          {endDate && (
+            <TextPropLine
+              icon="date"
+              label="Ngày kết thúc"
+              value={formatDate(endDate)}
+            />
+          )}
+          {numberOfStudent !== undefined && numberOfStudent >= 0 && (
+            <TextPropLine
+              icon="number"
+              label="Số lượng học sinh"
+              value={`${numberOfStudent}`}
+            />
+          )}
+          {!!min && (
+            <TextPropLine
+              icon="number"
+              label="Số lượng học sinh tối thiểu"
+              value={`${min}`}
+            />
+          )}
+          {!!max && (
+            <TextPropLine
+              icon="number"
+              label="Số lượng học sinh tối đa"
+              value={`${max}`}
+            />
+          )}
+          {progressValue !== -1 && (
             <Stack
               sx={{
-                marginTop: 1,
-                flexDirection: 'row',
+                alignItem: 'center',
                 justifyContent: 'space-between',
-                height: '35px',
+                paddingBottom: 1,
+                marginTop: 1,
+                flexGrow: 1,
               }}
             >
-              <Typography
+              <LinearProgress
+                variant="determinate"
+                color="secondary"
+                value={progressValue || 0 * 100}
+              />
+              <Stack
                 sx={{
-                  fontSize: '12px',
-                  color: Color.black,
+                  marginTop: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  height: '35px',
                 }}
               >
-                {progressValue !== 0 ? (
-                  <>
-                    <span style={{ fontFamily: FontFamily.medium }}>
-                      {`${progressValue || 0 * 100}%`}
-                    </span>{' '}
-                    hoàn thành
-                  </>
-                ) : (
-                  `Chưa bắt đầu`
-                )}
-              </Typography>
-
-              {onAddFeedback && (
-                <Stack
+                <Typography
                   sx={{
-                    alignItems: 'flex-end',
+                    fontSize: '12px',
+                    color: Color.black,
                   }}
                 >
-                  <Rating
-                    size="small"
-                    name="half-rating-read"
-                    defaultValue={2.5}
-                    precision={0.5}
-                    readOnly
-                  />
-                  <Typography
-                    onClick={onAddFeedback}
+                  {progressValue !== 0 ? (
+                    <>
+                      <span style={{ fontFamily: FontFamily.medium }}>
+                        {`${progressValue || 0 * 100}%`}
+                      </span>{' '}
+                      hoàn thành
+                    </>
+                  ) : (
+                    `Chưa bắt đầu`
+                  )}
+                </Typography>
+
+                {onAddFeedback && (
+                  <Stack
                     sx={{
-                      fontSize: '12px',
-                      color: Color.black,
-                      ':hover': {
-                        cursor: 'pointer',
-                        textDecoration: 'underline',
-                        color: Color.tertiary,
-                      },
+                      alignItems: 'flex-end',
                     }}
                   >
-                    Đánh giá khóa học
-                  </Typography>
-                </Stack>
-              )}
+                    <Rating
+                      size="small"
+                      name="half-rating-read"
+                      defaultValue={2.5}
+                      precision={0.5}
+                      readOnly
+                    />
+                    <Typography
+                      onClick={onAddFeedback}
+                      sx={{
+                        fontSize: '12px',
+                        color: Color.black,
+                        ':hover': {
+                          cursor: 'pointer',
+                          textDecoration: 'underline',
+                          color: Color.tertiary,
+                        },
+                      }}
+                    >
+                      Đánh giá khóa học
+                    </Typography>
+                  </Stack>
+                )}
+              </Stack>
             </Stack>
-          </Stack>
-        )}
+          )}
+        </Stack>
       </Stack>
     </HoverableStack>
   );

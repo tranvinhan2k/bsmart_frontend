@@ -1,6 +1,8 @@
 import { Stack, Box, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontSize, FontFamily } from '~/assets/variables';
+import ReturnLink from '~/components/atoms/ReturnLink';
 import { image } from '~/constants/image';
 import globalStyles from '~/styles';
 import { formatError } from '~/utils/common';
@@ -18,6 +20,7 @@ export default function LoadingWrapper({
   error,
   children,
 }: Props) {
+  const navigate = useNavigate();
   if (isLoading)
     return (
       <Stack
@@ -81,6 +84,7 @@ export default function LoadingWrapper({
           <Typography sx={globalStyles.textSmallLight}>
             {formatError(error.message)}
           </Typography>
+          <ReturnLink />
         </Stack>
       </Stack>
     );

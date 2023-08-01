@@ -2,6 +2,7 @@ import { PostTimeTableResponse } from './response';
 import {
   ClassStatusKeys,
   FeedbackTypeKeys,
+  QuizKeys,
   QuizQuestionTypeKeys,
 } from './variables';
 
@@ -55,6 +56,10 @@ export interface PagingFilterRequest {
   // feedback
   type?: FeedbackTypeKeys;
   name?: string;
+
+  // assignments
+  classIds?: number[];
+  classId?: number;
 }
 
 export interface PutCourseRequest {
@@ -110,5 +115,13 @@ export interface PostQuizQuestionPayload {
     answer: string;
     isRight: boolean;
     key: string;
+  }[];
+}
+
+export interface PostSubmitQuizPayload {
+  status: QuizKeys;
+  submittedQuestions: {
+    questionId: number;
+    answerId: number[];
   }[];
 }

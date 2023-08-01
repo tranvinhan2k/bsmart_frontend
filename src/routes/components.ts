@@ -133,9 +133,6 @@ export const MentorCourseClassesPage = lazy(
 export const MentorClassInformationPage = lazy(
   () => import('~/pages/mentor_class/MentorClassInformationPage')
 );
-export const MentorClassAssignmentPage = lazy(
-  () => import('~/pages/mentor_class/MentorClassAssignmentPage')
-);
 export const MentorClassContentPage = lazy(
   () => import('~/pages/mentor_class/MentorClassContentPage')
 );
@@ -164,11 +161,11 @@ export const MentorTakeAttendancePage = lazy(
 export const MentorClassStudentDetailPage = lazy(
   () => import('~/pages/mentor_class/MentorClassStudentDetailPage')
 );
-export const MentorClassPointsPage = lazy(
-  () => import('~/pages/mentor_class/MentorClassPointsPage')
-);
 export const MentorClassFeedbacksPage = lazy(
   () => import('~/pages/mentor_class/MentorClassFeedbacksPage')
+);
+export const MentorClassModulesPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassModulesPage')
 );
 
 // member class

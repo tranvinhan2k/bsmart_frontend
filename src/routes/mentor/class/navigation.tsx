@@ -40,18 +40,6 @@ export const MentorClassNavigationActionData: ActionPayload[] = [
     icon: 'account',
   },
   {
-    id: 6,
-    link: MentorClassActionLink.points,
-    name: 'Danh sách bài kiểm tra',
-    icon: 'quiz',
-  },
-  {
-    id: 7,
-    link: MentorClassActionLink.assignments,
-    name: 'Danh sách bài tập',
-    icon: 'assignment',
-  },
-  {
     id: 8,
     link: MentorClassActionLink.feedback,
     name: 'Đánh giá từ học sinh',

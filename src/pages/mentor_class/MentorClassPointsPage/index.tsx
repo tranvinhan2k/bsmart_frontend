@@ -1,23 +1,18 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { comparisonData, quizStatusData } from '~/constants';
-import { QuizReportStudentPayload } from '~/models/type';
+import { useGetIdFromUrl } from '~/hooks';
+import { useMentorListQuiz } from '~/hooks/quiz/useMentorListQuiz';
 import globalStyles from '~/styles';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
 export default function MentorClassPointsPage() {
-  const rows: QuizReportStudentPayload[] = [
-    {
-      id: 0,
-      name: 'Tran Vi Nhan',
-      correctNumber: 12,
-      point: 12,
-      submitAt: new Date().toISOString(),
-      totalNumber: 12,
-    },
-  ];
+  const classId = useGetIdFromUrl('id');
+  const moduleId = useGetIdFromUrl('moduleId');
+
+  const { data, error, isLoading } = useMentorListQuiz(moduleId, classId);
 
   const columns: GridColDef[] = [
     {
@@ -46,17 +41,19 @@ export default function MentorClassPointsPage() {
     },
   ];
 
-  const handleSearch = (data: any) => {
-    console.log(data);
+  const handleSearch = (params: any) => {
+    console.log(params);
   };
 
   return (
     <Stack>
-      <TextTitle title="Thông kê điểm số" />
-      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+      <Typography sx={globalStyles.textSmallLabel}>Thông kê điểm số</Typography>
+      <Stack>
         <CRUDTable
+          isLoading={isLoading}
+          error={error}
           columns={columns}
-          rows={rows}
+          rows={data?.items || []}
           searchPlaceholder="Nhập tên học sinh bạn muốn tìm kiếm"
           onSearch={handleSearch}
           searchFilterFormInputList={[

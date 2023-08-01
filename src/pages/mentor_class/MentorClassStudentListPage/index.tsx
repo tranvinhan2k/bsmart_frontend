@@ -3,8 +3,10 @@ import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MetricSize } from '~/assets/variables';
+import CustomModal from '~/components/atoms/CustomModal';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
+import UserDetailInformation from '~/components/molecules/UserDetailInformation';
 import { image } from '~/constants/image';
 import {
   MentorClassActionLink,
@@ -12,6 +14,7 @@ import {
   NavigationLink,
 } from '~/constants/routeLink';
 import { useGetIdFromUrl, useQueryStudentList } from '~/hooks';
+import { useBoolean } from '~/hooks/useBoolean';
 import globalStyles from '~/styles';
 
 export interface MentorClassMemberDetailPayload {
@@ -28,6 +31,7 @@ export default function MentorClassStudentListPage() {
   const navigate = useNavigate();
   const [isShowImage, setShowImage] = useState(true);
   const [row, setRow] = useState<MentorClassMemberDetailPayload | undefined>();
+  const { value, toggle } = useBoolean(false);
   const [search, setSearchValue] = useState('');
   const handleOpenDetailModal = () => {
     if (row) {
@@ -89,7 +93,7 @@ export default function MentorClassStudentListPage() {
             <Box
               alt="hinh anh hoc sinh"
               component="img"
-              src={params.row.avatar}
+              src={params.row.avatar || image.noCourse}
               sx={{
                 width: '100%',
                 height: undefined,
@@ -146,10 +150,20 @@ export default function MentorClassStudentListPage() {
             {
               title: 'Xem chi tiết',
               icon: 'search',
-              onCLick: handleOpenDetailModal,
+              onCLick: toggle,
             },
           ]}
         />
+
+        <CustomModal open={value} onClose={toggle}>
+          <UserDetailInformation
+            email={row?.email || ''}
+            imageAlt={row?.avatar || ''}
+            imageUrl={row?.avatar || ''}
+            name={row?.name || ''}
+            phone={row?.phone || ''}
+          />
+        </CustomModal>
       </Stack>
     </Stack>
   );

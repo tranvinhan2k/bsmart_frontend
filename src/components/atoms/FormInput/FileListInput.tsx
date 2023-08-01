@@ -56,6 +56,13 @@ function FileListInput({ controller }: FileListInputProps) {
     }
   };
 
+  useEffect(() => {
+    if (!value) {
+      controllerOnChange({ files: [], deleteIndexes: [] });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Stack>
       <Stack

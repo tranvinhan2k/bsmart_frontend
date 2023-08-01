@@ -12,6 +12,7 @@ import {
   formatISODateDateToDisplayDateTime,
   formatISODateStringToDisplayDateTime,
 } from '~/utils/date';
+import MentorClassAssignmentPage from '../MentorClassAssignmentPage';
 
 interface Props {
   name: string;
@@ -44,30 +45,8 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
         textAlign="center"
         sx={globalStyles.textLowSmallLight}
       >{`Thời gian cho chỉnh sửa: ${item.editBeForSubmitMin} phút`}</Typography>
-      {isMarked ? (
-        <MarkDisplay point={7} total={10} />
-      ) : (
-        <Stack>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_14,
-              fontFamily: FontFamily.bold,
-            }}
-          >
-            Nộp bài làm
-          </Typography>
-          <FormInput control={control} name="attachFiles" variant="files" />
-          <Box marginTop={1}>
-            <Button
-              disabled={!formState.isDirty}
-              onClick={handleSubmit(onSubmit, handleConsoleError)}
-              variant="contained"
-            >
-              Thêm bài làm
-            </Button>
-          </Box>
-        </Stack>
-      )}
+
+      <MentorClassAssignmentPage />
     </Stack>
   );
 }

@@ -167,6 +167,12 @@ export const ClassStatusList: OptionPayload[] = [
     value: 'REQUESTING',
   },
   {
+    id: 2,
+    label: 'Lớp yêu cầu chỉnh sửa',
+    content: 'Lớp yêu cầu được chỉnh sửa',
+    value: 'EDITREQUEST',
+  },
+  {
     id: 4,
     label: 'Lớp đợi phê duyệt',
     content: 'Lớp đang đợi đội ngũ quản lí phê duyệt.',

@@ -579,3 +579,53 @@ type GetAllFeedbackTemplate = Partial<{
     }[];
   }[];
 }>;
+
+type GetMentorListQuiz = Partial<{
+  id: number;
+  submitBy: {
+    id: number;
+    name: string;
+  };
+  submitAt: string;
+  point: number;
+  correctNumber: number;
+  totalQuestion: number;
+  status: QuizKeys;
+}>;
+
+export type GetAllMentorAssignment = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  point: number;
+  note: string;
+  studentClass: Partial<{
+    id: number;
+    images: {
+      id: number;
+      name: string;
+      url: string;
+      status: true;
+      type: 'DEFAULT';
+    };
+    email: string;
+    name: string;
+  }>;
+  assignmentFiles: Partial<{
+    id: number;
+    url: string;
+    uploadTime: string;
+    fileType: string;
+    point: number;
+    note: string;
+    name: string;
+    metadata: {
+      url: string;
+      name: string;
+      extension: string;
+      size: number;
+    };
+  }>[];
+}>;
