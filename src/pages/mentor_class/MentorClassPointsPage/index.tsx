@@ -8,11 +8,10 @@ import { useMentorListQuiz } from '~/hooks/quiz/useMentorListQuiz';
 import globalStyles from '~/styles';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
-export default function MentorClassPointsPage() {
+export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
   const classId = useGetIdFromUrl('id');
-  const moduleId = useGetIdFromUrl('moduleId');
 
-  const { data, error, isLoading } = useMentorListQuiz(moduleId, classId);
+  const { data, error, isLoading } = useMentorListQuiz(quizId, classId);
 
   const columns: GridColDef[] = [
     {
