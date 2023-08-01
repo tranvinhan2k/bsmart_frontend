@@ -7,9 +7,11 @@ import { RenderAttendanceStatus } from '~/utils/attendance';
 import {
   formatISODateDateToDisplayDate,
   formatISODateStringToDisplayDate,
+  formatISODateStringToDisplayDateTime,
 } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
+import Icon from '~/components/atoms/Icon';
 
 const templateColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -166,6 +168,64 @@ const managedRegisterRequestColumns: GridColDef[] = [
   },
 ];
 
+const manageMentorProfileUpdateRequestColumns: GridColDef[] = [
+  {
+    field: 'email',
+    headerName: 'Mail',
+    minWidth: 300,
+    flex: 1,
+    renderCell: (params) => {
+      const { email } = params.row;
+      return (
+        <CopyableCell
+          rawValue={email}
+          formattedValue={handleDefinedText(email)}
+        />
+      );
+    },
+  },
+  {
+    field: 'fullName',
+    headerName: 'Họ tên',
+    minWidth: 200,
+    flex: 1,
+    renderCell: (params) => {
+      const { fullName } = params.row;
+      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+    },
+  },
+  {
+    field: 'requestDate',
+    headerName: 'Ngày gửi',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'noOfSubmit',
+    type: 'number',
+    headerAlign: 'left',
+    headerName: 'Lần gửi',
+    minWidth: 80,
+    flex: 1,
+  },
+  {
+    field: 'totalDegreeRequest',
+    type: 'number',
+    headerAlign: 'left',
+    headerName: 'Số bằng cấp',
+    minWidth: 100,
+    flex: 1,
+  },
+  {
+    field: 'totalSkillRequest',
+    type: 'number',
+    headerAlign: 'left',
+    headerName: 'Số chuyên môn',
+    minWidth: 120,
+    flex: 1,
+  },
+];
+
 const managedCourseCreateRequestColumns: GridColDef[] = [
   {
     field: 'code',
@@ -232,16 +292,45 @@ const managedCourseCreateRequestColumns: GridColDef[] = [
     },
   },
   {
-    field: 'requestDate',
+    field: 'timeSendRequest',
     headerName: 'Ngày gửi',
-    minWidth: 100,
+    type: 'dateTime',
+    headerAlign: 'left',
+    minWidth: 150,
+    flex: 1,
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
+  },
+  {
+    field: 'totalClass',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Số lớp',
+    minWidth: 80,
     flex: 1,
   },
   {
-    field: 'noOfSubmit',
+    field: 'count',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Lần gửi',
-    minWidth: 90,
+    minWidth: 70,
     flex: 1,
+    valueFormatter: (params) => params.value + 1,
+  },
+  {
+    field: 'approved',
+    headerAlign: 'left',
+    type: 'boolean',
+    headerName: 'Đã từng duyệt',
+    minWidth: 120,
+    flex: 1,
+    renderCell: (params) => {
+      return params.value ? (
+        <Icon name="check" size="small" color="green" />
+      ) : (
+        <Icon name="cancelIcon" size="small" color="red" />
+      );
+    },
   },
 ];
 const attendanceClassColumns: GridColDef[] = [
@@ -454,6 +543,8 @@ const courseClassListColumns: GridColDef[] = [
   },
   {
     field: 'price',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Giá tiền',
     minWidth: 120,
     flex: 1,
@@ -552,10 +643,14 @@ const managedClassNotStartColumns: GridColDef[] = [
     },
   },
   {
-    field: 'codeCourse',
+    field: 'courseCode',
     headerName: 'Mã khóa học',
     minWidth: 150,
     flex: 1,
+    renderCell: (params) => {
+      const { courseCode } = params.row;
+      return <CopyableCell rawValue={courseCode} formattedValue={courseCode} />;
+    },
   },
   {
     field: 'startDate',
@@ -573,19 +668,25 @@ const managedClassNotStartColumns: GridColDef[] = [
   },
   {
     field: 'price',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Giá tiền',
-    minWidth: 170,
+    minWidth: 120,
     flex: 1,
     valueFormatter: (params) => formatMoney(params.value),
   },
   {
     field: 'numberOfSlot',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Số buổi',
-    minWidth: 130,
+    minWidth: 80,
     flex: 1,
   },
   {
     field: 'numberOfStudent',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Học sinh hiện tại',
     minWidth: 130,
     flex: 1,
@@ -593,12 +694,16 @@ const managedClassNotStartColumns: GridColDef[] = [
   {
     field: 'minStudent',
     headerName: 'Học sinh tối thiểu',
+    headerAlign: 'left',
+    type: 'number',
     minWidth: 130,
     flex: 1,
   },
   {
     field: 'maxStudent',
     headerName: 'Học sinh tối đa',
+    headerAlign: 'left',
+    type: 'number',
     minWidth: 130,
     flex: 1,
   },
@@ -615,10 +720,14 @@ const managedClassColumns: GridColDef[] = [
     },
   },
   {
-    field: 'codeCourse',
+    field: 'courseCode',
     headerName: 'Mã khóa học',
     minWidth: 150,
     flex: 1,
+    renderCell: (params) => {
+      const { courseCode } = params.row;
+      return <CopyableCell rawValue={courseCode} formattedValue={courseCode} />;
+    },
   },
   {
     field: 'startDate',
@@ -650,31 +759,41 @@ const managedClassColumns: GridColDef[] = [
   },
   {
     field: 'numberOfSlot',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Số buổi',
     minWidth: 130,
     flex: 1,
   },
   {
     field: 'price',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Giá tiền',
-    minWidth: 130,
+    minWidth: 120,
     flex: 1,
     valueFormatter: (params) => formatMoney(params.value),
   },
   {
     field: 'numberOfStudent',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Học sinh hiện tại',
     minWidth: 130,
     flex: 1,
   },
   {
     field: 'minStudent',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Học sinh tối thiểu',
     minWidth: 130,
     flex: 1,
   },
   {
     field: 'maxStudent',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Học sinh tối đa',
     minWidth: 130,
     flex: 1,
@@ -694,6 +813,7 @@ const columns = {
   managedCourseColumns,
   managedCourseCreateRequestColumns,
   managedRegisterRequestColumns,
+  manageMentorProfileUpdateRequestColumns,
   managedUserMemberColumns,
   managedUserMentorColumns,
 };

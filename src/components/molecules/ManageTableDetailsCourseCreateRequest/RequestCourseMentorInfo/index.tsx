@@ -86,7 +86,7 @@ export default function RequestCourseMentorInfo({
           value: '4.5/5',
         },
         {
-          id: 3,
+          id: 4,
           label: Text.labelNoOfRating,
           value: '504',
         },
@@ -168,7 +168,7 @@ export default function RequestCourseMentorInfo({
                     alignItems="flex-start"
                   >
                     {title1.map((item) => (
-                      <Grid item md={12} lg={6} key={item.id}>
+                      <Grid item sm={12} md={6} key={item.id}>
                         <Stack
                           direction="column"
                           justifyContent="flex-start"
@@ -200,14 +200,9 @@ export default function RequestCourseMentorInfo({
                   </Grid>
                 </Box>
                 <Box mt={6}>
-                  <Grid
-                    container
-                    spacing={{ xs: 2, md: 3 }}
-                    // columns={{ xs: 4, sm: 8, md: 12 }}
-                    // sx={{ backgroundColor: 'red' }}
-                  >
+                  <Grid container spacing={{ xs: 2, md: 3 }}>
                     {title2.map((item) => (
-                      <Grid item sm={12} md={6} lg={3} key={item.id}>
+                      <Grid item xs={12} sm={6} md={3} key={item.id}>
                         <Stack
                           direction="column"
                           justifyContent="flex-start"
