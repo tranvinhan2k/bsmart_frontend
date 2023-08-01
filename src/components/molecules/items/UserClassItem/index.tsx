@@ -101,7 +101,7 @@ export default function UserClassItem({
           sx={{
             marginY: 1,
             overflow: 'hidden',
-            height: '250px',
+            height: min ? '250px' : '100px',
           }}
         >
           <Typography
