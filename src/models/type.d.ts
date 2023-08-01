@@ -9,6 +9,8 @@ import {
   LevelKeys,
   RoleKeys,
 } from './variables';
+// eslint-disable-next-line import/no-cycle
+import { PagingFilterRequest } from './request';
 
 export interface RequestOptionPayload {
   id: number;
@@ -283,4 +285,9 @@ export interface NotificationPayload {
   id: number;
   type: string;
   message: string;
+}
+
+export interface ApiParamsProps {
+  id: number;
+  params: PagingFilterRequest;
 }

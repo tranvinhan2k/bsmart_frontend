@@ -1,11 +1,15 @@
 import axiosClient from '~/api/axiosClient';
 import {
+  CreateFeedbackPayload,
   OptionPayload,
   PagingFilterPayload,
   PagingFilterRequest,
 } from '~/models';
-import { GetAllFeedbackTemplate } from '~/models/response';
-import { QuestionTypeKeys } from '~/models/variables';
+import {
+  GetAllFeedbackTemplate,
+  GetAllMentorFeedback,
+} from '~/models/response';
+import { ApiParamsProps } from '~/models/type';
 import { FeedbackManagerPayload } from '~/pages/FeedbackManagerPage';
 import {
   FeedbackMemberQuestionPayload,
@@ -14,94 +18,105 @@ import {
 import { MentorFeedbackListPayload } from '~/pages/mentor_class/MentorClassFeedbacksPage';
 import { generateMockApi } from '~/utils/common';
 
-export interface FeedbackQuestionPayload {
-  id?: number;
-  question: string;
-  possibleAnswer?: {
-    [key: string]: number;
-  };
-  questionType: QuestionTypeKeys;
-}
-
-const url = `/feedbacks`;
+const url = `/feedback`;
 
 const feedbacksApi = {
   // get
 
-  async getMentorFeedback(id: number): Promise<MentorFeedbackListPayload[]> {
-    const result: MentorFeedbackListPayload[] = [
-      {
-        id: 0,
-        name: 'Tran Vi Nhan',
-        point: 3,
-        report: 'Chắc có mình t thấy ông này code hay',
-        feedbackAnswers: [
-          {
-            id: 0,
-            question: 'Giáo viên dạy có dễ hiểu không ?',
-            answer: 'yes',
-          },
-          {
-            id: 1,
-            question: 'Giáo viên có nhiệt tình hỗ trợ bạn không ?',
-            answer: 'no',
-          },
-          {
-            id: 2,
-            question: 'Bạn có cảm thấy hứng thú khi học giáo viên không ?',
-            answer: 'yes',
-          },
-          {
-            id: 3,
-            question:
-              'Kiến thức được giảng dạy đã đủ với những gì bạn muốn học chưa ?',
-            answer: 'yes',
-          },
-          {
-            id: 4,
-            question:
-              'Bạn có cảm thấy giáo viên có hiểu rõ về bài giảng không ?',
-            answer: 'yes',
-          },
-        ],
-      },
-      {
-        id: 1,
-        name: 'Tran Van A',
-        point: 5,
-        report:
-          'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem   ',
-        feedbackAnswers: [
-          {
-            id: 0,
-            question: 'Giáo viên dạy có dễ hiểu không ?',
-            answer: 'yes',
-          },
-          {
-            id: 1,
-            question: 'Giáo viên có nhiệt tình hỗ trợ bạn không ?',
-            answer: 'no',
-          },
-          {
-            id: 2,
-            question: 'Bạn có cảm thấy hứng thú khi học giáo viên không ?',
-            answer: 'yes',
-          },
-          {
-            id: 3,
-            question:
-              'Kiến thức được giảng dạy đã đủ với những gì bạn muốn học chưa ?',
-            answer: 'yes',
-          },
-          {
-            id: 4,
-            question:
-              'Bạn có cảm thấy giáo viên có hiểu rõ về bài giảng không ?',
-            answer: 'yes',
-          },
-        ],
-      },
-    ];
+  async getMentorFeedback({
+    id,
+    params,
+  }: ApiParamsProps): Promise<MentorFeedbackListPayload[]> {
+    const response: PagingFilterPayload<GetAllMentorFeedback> =
+      await axiosClient.get(`${url}/submission/class/${id}`, {
+        params,
+      });
+    const result: MentorFeedbackListPayload[] = response.items.map((item) => ({
+      id: item?.id || 0,
+      feedbackAnswers:
+        item.questions?.map((subItem, index) => ({
+          id: index,
+          question: subItem.question,
+          answer:
+            subItem.answers.find((answer) => answer.isChosen)?.answer || '',
+        })) || [],
+      name: item.name || '',
+      point: item.rate || 0,
+      report: item.comment || '',
+    }));
+    // const result: MentorFeedbackListPayload[] = [
+    //   {
+    //     id: 0,
+    //     name: 'Tran Vi Nhan',
+    //     point: 3,
+    //     report: 'Chắc có mình t thấy ông này code hay',
+    //     feedbackAnswers: [
+    //       {
+    //         id: 0,
+    //         question: 'Giáo viên dạy có dễ hiểu không ?',
+    //         answer: 'yes',
+    //       },
+    //       {
+    //         id: 1,
+    //         question: 'Giáo viên có nhiệt tình hỗ trợ bạn không ?',
+    //         answer: 'no',
+    //       },
+    //       {
+    //         id: 2,
+    //         question: 'Bạn có cảm thấy hứng thú khi học giáo viên không ?',
+    //         answer: 'yes',
+    //       },
+    //       {
+    //         id: 3,
+    //         question:
+    //           'Kiến thức được giảng dạy đã đủ với những gì bạn muốn học chưa ?',
+    //         answer: 'yes',
+    //       },
+    //       {
+    //         id: 4,
+    //         question:
+    //           'Bạn có cảm thấy giáo viên có hiểu rõ về bài giảng không ?',
+    //         answer: 'yes',
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     id: 1,
+    //     name: 'Tran Van A',
+    //     point: 5,
+    //     report:
+    //       'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem   ',
+    //     feedbackAnswers: [
+    //       {
+    //         id: 0,
+    //         question: 'Giáo viên dạy có dễ hiểu không ?',
+    //         answer: 'yes',
+    //       },
+    //       {
+    //         id: 1,
+    //         question: 'Giáo viên có nhiệt tình hỗ trợ bạn không ?',
+    //         answer: 'no',
+    //       },
+    //       {
+    //         id: 2,
+    //         question: 'Bạn có cảm thấy hứng thú khi học giáo viên không ?',
+    //         answer: 'yes',
+    //       },
+    //       {
+    //         id: 3,
+    //         question:
+    //           'Kiến thức được giảng dạy đã đủ với những gì bạn muốn học chưa ?',
+    //         answer: 'yes',
+    //       },
+    //       {
+    //         id: 4,
+    //         question:
+    //           'Bạn có cảm thấy giáo viên có hiểu rõ về bài giảng không ?',
+    //         answer: 'yes',
+    //       },
+    //     ],
+    //   },
+    // ];
 
     return generateMockApi(result);
   },
@@ -140,7 +155,7 @@ const feedbacksApi = {
     return generateMockApi(true);
   },
 
-  async createQuestion(params: FeedbackQuestionPayload): Promise<any> {
+  async createQuestion(params: CreateFeedbackPayload): Promise<any> {
     const response = await axiosClient.post(`${url}/question`, params);
     return response;
   },
@@ -155,15 +170,8 @@ const feedbacksApi = {
         ({ id: item.id, label: item.question, value: item.id } as OptionPayload)
     );
   },
-  async updateQuestion(params: FeedbackQuestionPayload): Promise<any> {
-    const response = await axiosClient.put(
-      `${url}/question/${params.id}`,
-      params
-    );
-    return response;
-  },
 
-  createTemplate(params: FeedbackQuestionPayload) {
+  createTemplate(params: CreateFeedbackPayload) {
     return axiosClient.post(`${url}/template`, params);
   },
   async getAllTemplate(
@@ -183,11 +191,14 @@ const feedbacksApi = {
     }));
     return { ...response, items: result };
   },
-  updateTemplate(params: FeedbackQuestionPayload) {
-    return axiosClient.put(`${url}/template/${params.id}`, params);
+  updateTemplate({ id, params }: ApiParamsProps) {
+    return axiosClient.put(`${url}/template/${id}`, params);
   },
   async deleteTemplate(id: number) {
     return axiosClient.delete(`${url}/template/${id}`);
+  },
+  async setDefaultTemplate(id: number) {
+    return axiosClient.put(`${url}/default/${id}`);
   },
 };
 

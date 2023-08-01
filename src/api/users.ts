@@ -366,7 +366,8 @@ const accountApi = {
         date: timeSlot?.date || '',
         slotName: timeSlot.slot?.name || '',
         time: `${timeSlot.slot?.startTime} - ${timeSlot.slot?.endTime}`,
-        isPresent: true,
+        isPresent: !!timeSlot.present,
+        isTookAttendance: !!timeSlot.tookAttendance,
       })) || [];
 
     return result;
@@ -398,8 +399,8 @@ const accountApi = {
         className: responseClass.workingClass?.code || '',
         date: item?.date || '',
         dayOfWeekId: new Date(item?.date || '').getDay() + 1,
-        isPresent: true, // TODO: chua co
-        isTookAttendance: true, // TODO: chua co
+        isPresent: !!item.present,
+        isTookAttendance: !!item.tookAttendance,
         link: item.classURL || '',
         slotId: item.slot?.id || 0,
         attendanceSlotId: 0,

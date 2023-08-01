@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { Stack } from '@mui/material';
+import { Stack, Switch } from '@mui/material';
 
+import { GridColDef } from '@mui/x-data-grid';
 import CRUDTable, { MenuItemPayload } from '~/components/molecules/CRUDTable';
 
 import columns from '~/constants/columns';
@@ -14,6 +15,9 @@ import toast from '~/utils/toast';
 import ReadOneTemplateForm from './ReadOneTemplateForm';
 import UpdateTemplateForm from './UpdateTemplateForm';
 import CustomModal from '~/components/atoms/CustomModal';
+import { CreateFeedbackPayload } from '~/models';
+import { FeedbackQuestionPayload } from '~/components/atoms/FormInput/FeedbackQuestionInput';
+import { useGetIdFromUrl } from '~/hooks';
 
 const texts = {
   title: 'Quản lí bản mẫu',
@@ -22,6 +26,7 @@ const texts = {
 };
 
 export default function FeedbackManagerTemplate() {
+  const classId = useGetIdFromUrl('id');
   const {
     addTemplateMutation,
     deleteTemplateMutation,
@@ -29,6 +34,9 @@ export default function FeedbackManagerTemplate() {
     error,
     templates,
     isLoading,
+    refetch,
+    handleChangeDefaultValue,
+    handleTryCatchChangeDefaultValue,
   } = useCRUDTemplate();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -42,22 +50,30 @@ export default function FeedbackManagerTemplate() {
     }
   };
 
+  const handleChangeDefault = async (id: number) => {
+    await handleTryCatchChangeDefaultValue(async () =>
+      handleChangeDefaultValue(id)
+    );
+    await refetch();
+  };
+
   const handleSearchValue = (searchData: string) => {
     console.log('search data', searchData);
   };
 
   const handleAddTemplate = async (data: any) => {
-    console.log(data);
-
-    const tmpData = {
-      templateName: data.templateName,
-      questionList: data.questionList.map((item: any) => item.question.id),
-      feedbackType: data.feedbackType.value,
-      permission: data.permission.value,
+    const tmpData: CreateFeedbackPayload = {
+      name: data.name,
+      type: data.type.value,
+      questions: data.questions.map((item: FeedbackQuestionPayload) => ({
+        question: item.question,
+        answers: item.answers,
+      })),
     };
     const id = toast.loadToast('Đang thêm bản mẫu mới');
     try {
       await addTemplateMutation.mutateAsync(tmpData as any);
+      await refetch();
       toast.updateSuccessToast(id, 'Thên bản mẫu mới thành công');
       handleClose();
     } catch (e: any) {
@@ -65,17 +81,19 @@ export default function FeedbackManagerTemplate() {
     }
   };
   const handleUpdateTemplate = async (data: any) => {
-    console.log(data);
-
-    const tmpData = {
-      templateName: data.templateName,
-      questionList: data.questionList.map((item: any) => item.question.id),
-      feedbackType: data.feedbackType.value,
-      permission: data.permission.value,
+    const tmpData: CreateFeedbackPayload = {
+      name: data.name,
+      type: data.type.value,
+      questions: data.questions.map((item: FeedbackQuestionPayload) => ({
+        question: item.question,
+        answers: item.answers,
+      })),
     };
     const id = toast.loadToast('Đang cập nhật bản mẫu');
     try {
       await updateTemplateMutation.mutateAsync(tmpData as any);
+      await refetch();
+
       toast.updateSuccessToast(id, 'Cập nhẩt bản mẫu mới thành công');
       handleClose();
     } catch (e: any) {
@@ -87,13 +105,53 @@ export default function FeedbackManagerTemplate() {
     const id = toast.loadToast('Đang xóa bản mẫu..');
     try {
       await deleteTemplateMutation.mutateAsync(row.id);
+      await refetch();
+
       handleClose();
       toast.updateSuccessToast(id, 'Đã xóa thành công bản mẫu');
     } catch (e: any) {
       toast.updateFailedToast(id, `Xóa bản mẫu không thành công: ${e.message}`);
     }
   };
-
+  const templateColumns: GridColDef[] = [
+    { field: 'id', headerName: 'ID', width: 90 },
+    {
+      field: 'name',
+      headerName: 'Tên bản mẫu',
+      flex: 5,
+      editable: true,
+    },
+    {
+      field: 'isFixed',
+      headerName: 'Trạng thái bản mẫu',
+      width: 150,
+      renderCell: (params: any) => {
+        return params.row.isFixed ? 'Đã khóa' : 'Cho phép chỉnh sửa ';
+      },
+    },
+    {
+      field: 'isDefault',
+      headerName: 'Bản mẫu mặc định',
+      width: 150,
+      renderCell: (params: any) => {
+        return (
+          <Switch
+            checked={params.row.isDefault}
+            onChange={() => handleChangeDefault(params.row.id)}
+          />
+        );
+      },
+    },
+    {
+      field: 'questions',
+      headerName: 'Số lượng câu hỏi',
+      width: 150,
+      editable: true,
+      valueGetter: (params: any) => {
+        return `${params?.row?.questions?.length || 'Chưa thêm câu hỏi'} `;
+      },
+    },
+  ];
   let renderModal = null;
   switch (mode) {
     case 'CREATE':
@@ -151,7 +209,7 @@ export default function FeedbackManagerTemplate() {
     <Stack>
       <CRUDTable
         title={texts.title}
-        columns={columns.templateColumns}
+        columns={templateColumns}
         rows={templates?.items || []}
         addItemButtonLabel={texts.addItemLabel}
         onAdd={() => handleClose('CREATE')}

@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from 'react';
-import { Stack, Typography, Grid, Box, TextField } from '@mui/material';
+import { Stack, Typography, Grid, Box, TextField, Switch } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { headerCell } from './style';
 import { MetricSize } from '~/assets/variables';
@@ -153,8 +153,8 @@ export default function MentorTakeAttendancePage() {
       const data = {
         timeTableId: parseInt(`${timetableId}`, 10),
         details:
-          rows.map((item: any) => ({
-            studentClassId: item.id,
+          rows.map((item) => ({
+            studentClassId: item.studentId,
             attendance: item.isPresent === 'PRESENT',
             note: item.note,
           })) || [],
@@ -291,6 +291,19 @@ export default function MentorTakeAttendancePage() {
             })}
           </Stack>
         </Box>
+        <Stack
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Switch
+            color="secondary"
+            checked={showImage}
+            onChange={() => setShowImage(!showImage)}
+          />
+          <Typography>Hiển thị hình ảnh</Typography>
+        </Stack>
         <LoadingWrapper
           error={error}
           isLoading={isLoading}

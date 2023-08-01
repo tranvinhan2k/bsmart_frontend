@@ -1,10 +1,6 @@
 import axiosClient from '~/api/axiosClient';
-import { image } from '~/constants/image';
 import { GetAttendanceTimeSLotResponse } from '~/models/response';
-import {
-  AttendanceMemberResponse,
-  AttendanceMemberTimeSlotPayload,
-} from '~/pages/mentor_class/MentorTakeAttendancePage';
+import { AttendanceMemberResponse } from '~/pages/mentor_class/MentorTakeAttendancePage';
 
 const url = '/attendances';
 
@@ -25,7 +21,7 @@ const attendanceApi = {
         response.attendanceResponses?.items.map((item) => ({
           id: item.id,
           studentId: item.student.id,
-          image: image.mockStudent,
+          image: item.student.images.url,
           isPresent: item.attendance ? 'PRESENT' : 'ABSENT',
           name: item.student.name,
           note: item.note,

@@ -79,7 +79,13 @@ export const validationSchemaFeedbackQuestionChoice = object({
   label: string().required('Nội dung không được để trống'),
 });
 export const validationSchemaCreateTemplate = object({
-  templateName: string().required('Tên bản mẫu không được để trống'),
+  name: string().required('Tên bản mẫu không được để trống'),
+  type: object()
+    .typeError('Loại bản mẫu không hợp lệ')
+    .required('Loại bản mẫu không được để trống'),
+  questions: YupValidationForm.notEmptyString(
+    'Danh sách câu hỏi không được để trống'
+  ),
 });
 export const validationSchemaFeedbackQuestion = object({
   question: string().required('Tên câu hỏi đánh giá không được để trống'),
@@ -129,6 +135,18 @@ export const validationQuizInput = object({
       }
     ),
 });
+
+export const validationFeedbackQuestionInput = object({
+  question: string().required('Tên câu hỏi không được để trống'),
+  answers: mixed().test(
+    'required',
+    'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
+    (data: any) => {
+      return data?.[0] !== '' && data !== '' && data?.length >= 2;
+    }
+  ),
+});
+
 export const validationSchemaUpdateCategories = object({
   code: string().required('Mã môn học không được để trống.'),
   name: string().required('Tên môn học không được để trống.'),

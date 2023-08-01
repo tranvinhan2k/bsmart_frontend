@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { PostTimeTableResponse } from './response';
 import {
   ClassStatusKeys,
@@ -123,5 +124,16 @@ export interface PostSubmitQuizPayload {
   submittedQuestions: {
     questionId: number;
     answerId: number[];
+  }[];
+}
+
+export interface CreateFeedbackPayload {
+  name: string;
+  type: string;
+  questions: {
+    question: string;
+    answers: {
+      answer: string;
+    }[];
   }[];
 }

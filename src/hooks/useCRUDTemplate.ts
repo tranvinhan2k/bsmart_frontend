@@ -4,6 +4,7 @@ import feedbacksApi from '~/api/feedback';
 import { useCustomMutation } from './custom/useCustomMutation';
 import { useCustomQuery } from './custom/useCustomQuery';
 import { PagingFilterRequest } from '~/models';
+import { useTryCatch } from './useTryCatch';
 
 export interface RequestfeedbackQuestionPayload {
   code: string;
@@ -40,6 +41,15 @@ export const useCRUDTemplate = () => {
     feedbacksApi.deleteTemplate
   );
 
+  const { mutateAsync: handleChangeDefaultValue } = useCustomMutation(
+    ['change_default_template'],
+    feedbacksApi.setDefaultTemplate
+  );
+
+  const { handleTryCatch: handleTryCatchChangeDefaultValue } = useTryCatch(
+    'Đổi bản mẫu mặc định'
+  );
+
   return {
     error,
     templates: data,
@@ -52,5 +62,7 @@ export const useCRUDTemplate = () => {
     addTemplateMutation,
     deleteTemplateMutation,
     updateTemplateMutation,
+    handleChangeDefaultValue,
+    handleTryCatchChangeDefaultValue,
   };
 };

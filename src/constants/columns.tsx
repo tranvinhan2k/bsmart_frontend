@@ -1,4 +1,4 @@
-import { Chip, Typography } from '@mui/material';
+import { Chip, Switch, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
@@ -11,24 +11,6 @@ import {
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 
-const templateColumns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'templateName',
-    headerName: 'Tên bản mẫu',
-    flex: 5,
-    editable: true,
-  },
-  {
-    field: 'questions',
-    headerName: 'Số lượng câu hỏi',
-    width: 150,
-    editable: true,
-    valueGetter: (params) => {
-      return `${params?.row?.questions?.length || 'Chưa thêm câu hỏi'} `;
-    },
-  },
-];
 const feedbackQuestionColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
@@ -274,10 +256,10 @@ const attendanceClassColumns: GridColDef[] = [
           sx={{
             fontSize: FontSize.small_14,
             fontFamily: FontFamily.medium,
-            color: params.row.isPresent ? Color.green : Color.red,
+            color: params.row.isTookAttendance ? Color.green : Color.red,
           }}
         >
-          {params.row.isPresent ? 'Đã điểm danh' : ' Chưa điểm danh'}
+          {params.row.isTookAttendance ? 'Đã điểm danh' : ' Chưa điểm danh'}
         </Typography>
       );
     },
@@ -682,7 +664,6 @@ const managedClassColumns: GridColDef[] = [
 ];
 
 const columns = {
-  templateColumns,
   feedbackQuestionColumns,
   categoryColumns,
   courseClassListColumns,
