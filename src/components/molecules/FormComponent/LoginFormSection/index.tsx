@@ -1,4 +1,4 @@
-import { Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography, Box, CircularProgress } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -163,15 +163,7 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
           <Button
             startIcon={
               isLoading ? (
-                <Box
-                  component="img"
-                  src={image.loadingButton}
-                  sx={{
-                    width: '50px',
-                    height: '50px',
-                    objectFit: 'contain',
-                  }}
-                />
+                <CircularProgress color="inherit" size="20px" />
               ) : undefined
             }
             marginTop="small_10"

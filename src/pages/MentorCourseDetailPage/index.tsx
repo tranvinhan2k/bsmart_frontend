@@ -83,11 +83,13 @@ export default function MentorCourseDetailPage() {
   );
   const { classes } = useQueryGetMentorCourseClasses(formatStringToNumber(id));
 
-  const data: OptionPayload[] | undefined = classes?.map((item, index) => ({
-    id: index,
-    label: `Lớp ${item.code}`,
-    value: `${item.id}`,
-  }));
+  const data: OptionPayload[] | undefined = classes
+    ?.filter((item) => item.status === 'REQUESTING')
+    .map((item, index) => ({
+      id: index,
+      label: `Lớp ${item.code}`,
+      value: `${item.id}`,
+    }));
 
   const hookForm = useForm<{ classes: string[] }>({
     defaultValues: {
@@ -229,7 +231,8 @@ export default function MentorCourseDetailPage() {
                 <Stack margin={2}>
                   <CourseAlert status={course.status || 'ALL'} />
                   {(course?.status === 'REQUESTING' ||
-                    course?.status === 'EDITREQUEST') && (
+                    course?.status === 'EDITREQUEST' ||
+                    (data && data?.length > 0)) && (
                     <Stack sx={globalStyles.viewCenter}>
                       <Typography
                         textAlign="center"
@@ -290,6 +293,7 @@ export default function MentorCourseDetailPage() {
                       >
                         Gửi yêu cầu phê duyệt
                       </Button>
+
                       <CustomModal open={open} onClose={handleOpen}>
                         <Stack sx={{ padding: 1, minWidth: '60vw' }}>
                           <Typography
