@@ -90,6 +90,7 @@ export default function Sidebar({
     if (!item.purchase) {
       setChooseClass(item);
       handleOpen();
+      scrollClasses();
     }
   };
 
@@ -345,7 +346,10 @@ export default function Sidebar({
                       <Typography
                         sx={{
                           textAlign: 'center',
-                          fontSize: FontSize.small_16,
+                          fontSize: {
+                            xs: '12px',
+                            md: FontSize.small_16,
+                          },
                           fontFamily:
                             chooseClass.id === item.id
                               ? FontFamily.bold

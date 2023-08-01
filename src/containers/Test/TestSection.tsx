@@ -6,11 +6,13 @@ import SockJS from 'sockjs-client';
 
 const topic = '/topic/messages';
 
-const WS_URL = 'http://103.173.155.221:8080/websocket';
+const WS_URL = 'ws://103.173.155.221:8080/websocket';
+// const WS_URL = 'http://127.0.0.1:8000';
 
 export default function TextSection() {
-  const sock = new SockJS(WS_URL);
-  const stompClient = Stomp.over(sock);
+  const stompClient = Stomp.over(function () {
+    return new WebSocket(WS_URL);
+  });
   stompClient.onConnect = () => {
     console.log('Connected, Hello World');
 
@@ -50,16 +52,18 @@ export default function TextSection() {
   // });
 
   const connect = () => {
-    stompClient.activate();
+    stompClient.connect({}, () => {
+      console.log('hello world');
+    });
   };
 
   const disconnect = () => {
     stompClient.deactivate();
   };
 
-  stompClient.connect({}, () => {
-    console.log('hello world');
-  });
+  // stompClient.connect({}, () => {
+  //   console.log('hello world');
+  // });
 
   // client.activate();
 
