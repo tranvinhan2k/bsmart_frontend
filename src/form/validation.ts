@@ -383,33 +383,77 @@ export const validationSchemaEditMentorProfile = object({
     .min(1, MENTOR_SKILLS_REQUIRED_ONE),
   workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
 });
+export const validationSchemaUpdateMentorProfileRequest = object({
+  mentorSkills: array(
+    object({
+      skillId: object({
+        id: number().required('Thiếu Id'),
+      })
+        .typeError(SKILL_REQUIRED)
+        .required(SKILL_REQUIRED),
+      yearOfExperiences: number()
+        .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+        .required(YEAR_OF_EXPERIENCES_REQUIRED)
+        .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+    })
+  )
+    .test('Unique', SKILL_UNIQUE, (value) => {
+      try {
+        if (value) {
+          const skillList = value.map((item) => item.skillId.id);
+          return new Set(skillList).size === value?.length;
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    })
+    .required()
+    .min(1, MENTOR_SKILLS_REQUIRED_ONE),
+});
 
 export const validationSchemaEditCertificateProfile = object({
   userImages: array(
-    mixed()
-      .test(
-        'FILE_PRE',
-        CERTIFICATE_MAX_SIZE,
-        (value: any) =>
-          !value ||
-          (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
-          (value && value?.type === 'DEGREE')
-      )
-      .test(
-        'FILE_FORMAT',
-        CERTIFICATE_FORMAT_INCORRECT,
-        (value: any) =>
-          !value ||
-          (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
-          (value && value?.type === 'DEGREE')
-      )
-    // .test('FILE_EXIST', 'Hãy nhập file', (value: any) => {
-    //   if (value.name) return true;
-    //   return false;
-    // })
+    mixed().test(
+      'FILE_PRE',
+      CERTIFICATE_MAX_SIZE,
+      (value: any) =>
+        !value ||
+        (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
+        (value && value?.type === 'DEGREE')
+    )
+    // .test(
+    //   'FILE_FORMAT',
+    //   CERTIFICATE_FORMAT_INCORRECT,
+    //   (value: any) =>
+    //     !value ||
+    //     (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
+    //     (value && value?.type === 'DEGREE')
+    // )
   )
     .required()
-    // .min(1, 'CERTIFICATE_REQUIRED'),
+    .min(1, CERTIFICATE_REQUIRED),
+});
+export const validationSchemaUpdateDegreeRequest = object({
+  userImages: array(
+    mixed().test(
+      'FILE_PRE',
+      CERTIFICATE_MAX_SIZE,
+      (value: any) =>
+        !value ||
+        (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
+        (value && value?.type === 'DEGREE')
+    )
+    // .test(
+    //   'FILE_FORMAT',
+    //   CERTIFICATE_FORMAT_INCORRECT,
+    //   (value: any) =>
+    //     !value ||
+    //     (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
+    //     (value && value?.type === 'DEGREE')
+    // )
+  )
+    .required(CERTIFICATE_REQUIRED)
     .min(1, CERTIFICATE_REQUIRED),
 });
 

@@ -52,6 +52,9 @@ export interface EditMentorProfilePayload {
   mentorSkills: Array<any>;
   workingExperience: string;
 }
+export interface UpdateMentorProfileRequestPayload {
+  mentorSkills: Array<any>;
+}
 
 export interface ResponseProfilePayload {
   id: number;
@@ -210,8 +213,8 @@ const accountApi = {
   },
 
   // get
-  getProfile(config: any): Promise<any> {
-    return axiosClient.get(`${url}/profile`, config);
+  getProfile(): Promise<ProfilePayload> {
+    return axiosClient.get(`${url}/profile`);
   },
   getNotifications(): Promise<NotificationItemPayload[]> {
     const notifications: NotificationItemPayload[] = [
@@ -316,6 +319,17 @@ const accountApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
+  updateDegreeRequest(data: EditCertificateProfilePayload): Promise<any> {
+    const bodyFormData = new FormData();
+    const { userImages } = data;
+    userImages.forEach((item) => {
+      bodyFormData.append('files', item);
+    });
+    return axiosClient.post(`image/upload/degree`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
     return axiosClient.put(`/mentor-profiles`, data);
   },

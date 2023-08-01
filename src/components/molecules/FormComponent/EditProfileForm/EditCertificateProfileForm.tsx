@@ -23,6 +23,8 @@ import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertif
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import Icon from '~/components/atoms/Icon';
 import FormInput from '~/components/atoms/FormInput';
+import { selectProfile } from '~/redux/user/selector';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
 import { MentorProfileStatusType } from '~/constants/profile';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
@@ -35,20 +37,24 @@ export default function EditCertificateProfileForm() {
     return `Cập nhật không thành công: ${error.message}`;
   };
 
-  const token =
-    useSelector((state: RootState) => state.user.token) ||
-    localStorage.getItem('token');
-  const queryKey = ['/loginUser'];
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const { data: dataGetProfile } = useQuery(
-    queryKey,
-    () => accountApi.getProfile(config),
-    {
-      enabled: Boolean(token),
-    }
-  );
+  // const { profile: dataGetProfile } = useGetProfile();
+  // const token =
+  //   useSelector((state: RootState) => state.user.token) ||
+  //   localStorage.getItem('token');
+  // const queryKey = ['/loginUser'];
+  // const config = {
+  //   headers: { Authorization: `Bearer ${token}` },
+  // };
+
+  // const { data: dataGetProfile } = useQuery(
+  //   queryKey,
+  //   () => accountApi.getProfile(config),
+  //   {
+  //     enabled: Boolean(token),
+  //   }
+  // );
+  const dataGetProfile = useSelector(selectProfile);
+
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditCertificateProfile } =
     useMutationEditCertificateProfile();
@@ -247,11 +253,13 @@ export default function EditCertificateProfileForm() {
           </Grid>
         </Grid>
         <Box mt={4}>
-          <UpdateProfileButton
-            role={dataGetProfile?.roles[0].code}
-            isFormDisabled={!formState.isDirty}
-            mentorProfileStatus={dataGetProfile?.mentorProfile?.status}
-          />
+          {dataGetProfile && (
+            <UpdateProfileButton
+              role={dataGetProfile.roles[0].code}
+              isFormDisabled={!formState.isDirty}
+              mentorProfileStatus={dataGetProfile.mentorProfile?.status}
+            />
+          )}
         </Box>
       </form>
     </Box>

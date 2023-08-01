@@ -67,13 +67,16 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HomeIcon from '@mui/icons-material/Home';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import LanguageIcon from '@mui/icons-material/Language';
 import ManIcon from '@mui/icons-material/Man';
 import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import NavigateNext from '@mui/icons-material/NavigateNext';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
+import NavigateNext from '@mui/icons-material/NavigateNext';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
 import QuizIcon from '@mui/icons-material/Quiz';
@@ -159,7 +162,10 @@ export type IconName =
   | 'imageIcon'
   | 'info'
   | 'instagram'
-  | 'keyboardArrowRight'
+  | 'keyboardArrowDownIcon'
+  | 'keyboardArrowRightIcon'
+  | 'keyboardArrowUpIcon'
+  | 'languageIcon'
   | 'left'
   | 'lesson'
   | 'linkedin'
@@ -515,8 +521,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <BsInstagram />
         </Stack>
       );
-    case 'keyboardArrowRight':
+    case 'keyboardArrowDownIcon':
+      return <KeyboardArrowDownIcon sx={STYLED_ICON} />;
+    case 'keyboardArrowRightIcon':
       return <KeyboardArrowRightIcon sx={STYLED_ICON} />;
+    case 'keyboardArrowUpIcon':
+      return <KeyboardArrowUpIcon sx={STYLED_ICON} />;
     case 'linkedin':
       return (
         <Stack sx={STYLED_ICON}>
@@ -535,6 +545,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <CiMail />
         </Stack>
       );
+    case 'languageIcon':
+      return <LanguageIcon sx={STYLED_ICON} />;
     case 'male':
       return <ManIcon sx={STYLED_ICON} />;
     case 'menu':

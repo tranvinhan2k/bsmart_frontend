@@ -1,3 +1,9 @@
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import Person2Icon from '@mui/icons-material/Person2';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import {
   Box,
   Button as MuiButton,
@@ -5,43 +11,32 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Person2Icon from '@mui/icons-material/Person2';
-import StickyNote2Icon from '@mui/icons-material/StickyNote2';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
-import { defaultValueWithdrawMoney } from '~/form/defaultValues';
-import { WITHDRAW_MONEY_FIELDS } from '~/form/schema';
-import FormInput from '~/components/atoms/FormInput';
-import toast from '~/utils/toast';
 import transactionsApi, {
   WithdrawMoneyProfilePayload,
 } from '~/api/transactions';
+import { FontFamily } from '~/assets/variables';
+import FormInput from '~/components/atoms/FormInput';
+import { defaultValueWithdrawMoney } from '~/form/defaultValues';
+import { WITHDRAW_MONEY_FIELDS } from '~/form/schema';
 import { validationSchemaWithdrawMoney } from '~/form/validation';
 import { useYupValidationResolver } from '~/hooks';
-import { FontFamily } from '~/assets/variables';
-import { scrollToTop } from '~/utils/common';
+import { useQueryGetAllBanks } from '~/hooks/useQueryGetAllBanks';
+import toast from '~/utils/toast';
 import {
   SX_CONTAINER,
-  SX_WITHDRAW_TITLE,
+  SX_DESC_NOTE,
+  SX_FORM_LABEL,
+  SX_NOTE,
+  SX_TITLE_NOTE,
   SX_WITHDRAW_BALANCE,
   SX_WITHDRAW_BALANCE_NUMBER,
-  SX_TITLE_NOTE,
-  SX_DESC_NOTE,
-  SX_NOTE,
-  SX_FORM_LABEL,
+  SX_WITHDRAW_TITLE,
 } from './style';
-import { useQueryGetAllBanks } from '~/hooks/useQueryGetAllBanks';
 
-export default function WithdrawSection() {
-  useEffect(() => {
-    scrollToTop();
-  }, []);
-
+export default function WithdrawRequestSection() {
   const { banks } = useQueryGetAllBanks();
   const { mutateAsync: mutateWithdrawMoney } = useMutation({
     mutationFn: transactionsApi.withdrawMoney,

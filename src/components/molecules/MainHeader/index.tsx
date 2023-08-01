@@ -1,24 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, MouseEvent, useContext } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Avatar, Badge, IconButton, Stack, Typography } from '@mui/material';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
-import { logOut } from '~/redux/user/slice';
+import { NavigationLink } from '~/constants/routeLink';
+import { NotificationContext } from '~/HOCs/context/NotificationContext';
 import { ProfileImgType } from '~/constants/profile';
 import { selectFilterParams } from '~/redux/courses/selector';
-import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
+import { selectProfile, selectToken } from '~/redux/user/selector';
+import { useLogOut, useMenuItem } from '~/hooks';
 import AuthorizationBar from './AuthorizationBar';
+import CustomMenu, {
+  CustomMenuItemPayload,
+} from '~/components/atoms/CustomMenu';
+import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '../SocialBar';
-import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import { NavigationLink } from '~/constants/routeLink';
-import CustomMenu from '~/components/atoms/CustomMenu';
-import { useLogOut, useMenuItem } from '~/hooks';
-import { NotificationContext } from '~/HOCs/context/NotificationContext';
-import Icon from '~/components/atoms/Icon';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -77,6 +77,72 @@ export default function MainHeader({
 
     navigate(NavigationLink.homepage);
   };
+
+  let menuItemData: CustomMenuItemPayload[];
+  switch (role) {
+    case 'TEACHER':
+      menuItemData = [
+        {
+          icon: 'home',
+          name: 'Trang chủ',
+          onClick: handleHomepage,
+        },
+        {
+          icon: 'account',
+          name: 'Hồ sơ',
+          onClick: handleNavigateProfile,
+        },
+        {
+          icon: 'course',
+          name: 'Quản lí học tập',
+          onClick: handleNavigateDashboard,
+        },
+        {
+          icon: 'logOut',
+          name: 'Đăng Xuất',
+          onClick: handleLogOut,
+        },
+      ];
+      break;
+    case 'STUDENT':
+      menuItemData = [
+        {
+          icon: 'home',
+          name: 'Trang chủ',
+          onClick: handleHomepage,
+        },
+        {
+          icon: 'account',
+          name: 'Hồ sơ',
+          onClick: handleNavigateProfile,
+        },
+        {
+          icon: 'course',
+          name: 'Quản lí giảng dạy',
+          onClick: handleNavigateDashboard,
+        },
+        {
+          icon: 'logOut',
+          name: 'Đăng Xuất',
+          onClick: handleLogOut,
+        },
+      ];
+      break;
+    default:
+      menuItemData = [
+        {
+          icon: 'home',
+          name: 'Trang chủ',
+          onClick: handleHomepage,
+        },
+        {
+          icon: 'logOut',
+          name: 'Đăng Xuất',
+          onClick: handleLogOut,
+        },
+      ];
+      break;
+  }
 
   return (
     <Stack sx={SX_HEADER_CONTAINER}>
@@ -147,28 +213,7 @@ export default function MainHeader({
             anchorEl={anchorRef.current}
             onClose={handleClose}
             onToggleOpen={handleToggle}
-            menuItemData={[
-              {
-                icon: 'home',
-                name: 'Trang chủ',
-                onClick: handleHomepage,
-              },
-              {
-                icon: 'account',
-                name: 'Hồ sơ',
-                onClick: handleNavigateProfile,
-              },
-              {
-                icon: 'course',
-                name: 'Quản lí học tập',
-                onClick: handleNavigateDashboard,
-              },
-              {
-                icon: 'logOut',
-                name: 'Đăng Xuất',
-                onClick: handleLogOut,
-              },
-            ]}
+            menuItemData={menuItemData}
           />
         </>
       )}

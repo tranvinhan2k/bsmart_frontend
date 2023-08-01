@@ -11,6 +11,7 @@ import {
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   UpdateAnnouncementFormDataPayload,
+  UpdateMentorProfileRequestFormDataPayload,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
@@ -66,10 +67,20 @@ export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
   {
     introduce: '',
     mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    // mentorSkills: [],
     workingExperience: '',
+  };
+export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
+  {
+    // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    mentorSkills: [],
   };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
+  {
+    userImages: [],
+  };
+export const defaultValuesUpdateDegreeRequest: EditCertificateProfileDefaultValuePayload =
   {
     userImages: [],
   };

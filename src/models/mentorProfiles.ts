@@ -1,3 +1,13 @@
+import { ImagePayload } from './common';
+import { ProfilePayload, SkillPayload } from './type';
+// import {
+//   MentorTeachingInformation,
+//   ProfilePayload,
+//   RolePayload,
+//   SkillPayload,
+//   WalletPayload,
+// } from './type';
+
 export interface CheckCompletenessReturnPayload {
   percentComplete: number;
   missingInformation: [
@@ -7,6 +17,10 @@ export interface CheckCompletenessReturnPayload {
     }
   ];
   allowSendingApproval: boolean;
+}
+export interface UpdateMentorProfileRequestSubmitPayload {
+  skillIds: number[];
+  degreeIds: number[];
 }
 
 export interface RequiredInfo {
@@ -21,3 +35,41 @@ export interface Field {
   field: string;
   name: string;
 }
+
+export interface MentorProfileRequestInfoPayload {
+  mentorSkillRequest: SkillPayload[];
+  degreeRequest: ImagePayload[];
+  created: string;
+  totalSkillRequest: number;
+  totalDegreeRequest: number;
+}
+
+export interface MentorDetailsPayload {
+  id: number;
+  introduce: string;
+  workingExperience: string;
+  status: string;
+  user: ProfilePayload;
+  mentorSkills: SkillPayload[];
+}
+
+// export interface User {
+//   id: number;
+//   fullName: string;
+//   email: string;
+//   birthday: string;
+//   address: string;
+//   phone: string;
+//   status: boolean;
+//   gender: string;
+//   roles: RolePayload[];
+//   linkedinLink: any;
+//   facebookLink: any;
+//   website: any;
+//   userImages: ImagePayload[];
+//   wallet: WalletPayload;
+//   mentorProfile: any;
+//   teachInformation: MentorTeachingInformation;
+//   isVerified: boolean;
+//   verified: boolean;
+// }

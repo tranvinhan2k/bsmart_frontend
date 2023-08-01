@@ -29,7 +29,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 5,
-    name: 'Yêu cầu rút tiền',
-    link: MentorNavigationLink.withdraw,
+    name: 'Gửi yêu cầu',
+    link: MentorNavigationLink.send_request,
   },
 ];

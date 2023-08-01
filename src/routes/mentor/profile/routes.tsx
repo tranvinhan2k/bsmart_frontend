@@ -8,6 +8,7 @@ import {
   MentorEditMentorProfile,
   MentorEditProfileImgPage,
   MentorEditPasswordPage,
+  MentorSendRequestPage,
 } from '~/routes/components';
 
 export const mentorRoutes: RoutePayload[] = [
@@ -44,8 +45,13 @@ export const mentorRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: MentorNavigationLink.withdraw,
-    main: () => <WithdrawPage />,
+    path: MentorNavigationLink.send_request,
+    main: () => <MentorSendRequestPage />,
     role: ['ROLE_TEACHER'],
   },
+  // {
+  //   path: MentorNavigationLink.send_request,
+  //   main: () => <WithdrawPage />,
+  //   role: ['ROLE_TEACHER'],
+  // },
 ];

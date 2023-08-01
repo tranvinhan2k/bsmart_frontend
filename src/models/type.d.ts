@@ -41,16 +41,27 @@ export interface ProfilePayload {
   roles: RolePayload[];
   linkedinLink: string;
   facebookLink: string;
+  website: string;
   userImages: ImagePayload[];
   wallet: WalletPayload;
   mentorProfile: MentorProfileIntroducePayload;
+  teachInformation?: MentorTeachingInformation;
   isVerified: boolean;
+  verified: boolean;
 }
 
 export interface RolePayload {
   id: number;
   code: RoleKeys;
   name: string;
+}
+
+export interface MentorTeachingInformation {
+  numberOfCourse: number;
+  numberOfClass: number;
+  numberOfMember: number;
+  scoreFeedback: number;
+  numberOfFeedBack: number;
 }
 
 export interface ImagePayload {
@@ -96,6 +107,7 @@ export interface CoursePayload {
   subject: OptionPayload;
   courseDescription: string;
   totalClass: number;
+  mentorId: number;
   mentorName: string[];
   mentorAvatar: string;
   mentorDescription: string;

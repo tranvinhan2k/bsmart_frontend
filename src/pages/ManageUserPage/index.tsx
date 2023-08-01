@@ -2,6 +2,7 @@ import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { scrollToTop } from '~/utils/common';
 import ManageTableUser from '~/components/molecules/ManageTableUser';
+import ManageTableWidgetMentor from '~/components/molecules/ManageTableWidgetMentor';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManageUserPage() {
@@ -64,6 +65,7 @@ export default function ManageUserPage() {
           />
         ))}
       </Tabs>
+      <ManageTableWidgetMentor />
       {tabEl.map((tab) => (
         <TabPanel value={tabValue} index={tab.id} key={tab.id}>
           <Box py={2}>{tab.component}</Box>

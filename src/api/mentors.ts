@@ -2,6 +2,8 @@ import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import { MentorPayload, MentorQuickPayload } from '~/models/mentor';
 import { ProfileImgType } from '~/constants/profile';
+import { UpdateMentorProfileRequestPayload } from './users';
+import { MentorProfileRequestInfoPayload } from '~/models/mentorProfiles';
 
 const url = `/mentor-profiles`;
 
@@ -94,6 +96,19 @@ const mentorProfileApi = {
         paramsSerializer: { indexes: null },
       });
     return handleResponseGetMentor(response);
+  },
+
+  updateMentorProfileRequest(
+    data: UpdateMentorProfileRequestPayload
+  ): Promise<any> {
+    return axiosClient.post(`${url}/request-approval-skill`, data);
+  },
+
+  getUpdateMentorProfileRequestInfo(): Promise<
+    MentorProfileRequestInfoPayload[]
+  > {
+    const urlGet = `${url}/request-approval`;
+    return axiosClient.get(urlGet);
   },
 };
 

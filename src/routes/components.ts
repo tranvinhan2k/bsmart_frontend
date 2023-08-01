@@ -30,6 +30,9 @@ export const NotFoundPage = lazy(() => import('~/pages/NotFoundPage'));
 export const LoginPage = lazy(() => import('~/pages/LoginPages'));
 export const CoursesPage = lazy(() => import('~/pages/CoursesPage'));
 export const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
+export const MentorDetailsPage = lazy(
+  () => import('~/pages/MentorDetailsPage')
+);
 export const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
 export const AdminPage = lazy(() => import('~/pages/AdminPage'));
 export const FeedbackPage = lazy(() => import('~/pages/FeedbackPage'));
@@ -44,6 +47,9 @@ export const MentorEditProfileImgPage = lazy(
 );
 export const MentorEditPasswordPage = lazy(
   () => import('~/pages/MentorEditProfilePage/MentorEditPasswordPage')
+);
+export const MentorSendRequestPage = lazy(
+  () => import('~/pages/MentorSendRequestPage')
 );
 export const MentorEditMentorProfile = lazy(
   () => import('~/pages/MentorEditProfilePage/MentorEditMentorProfile')

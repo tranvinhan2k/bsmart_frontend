@@ -82,6 +82,12 @@ export interface EditMentorProfileFormDataPayload {
     yearOfExperiences: number;
   }[];
 }
+export interface UpdateMentorProfileRequestFormDataPayload {
+  mentorSkills?: {
+    skillId: DropdownDynamicValueInputNumberDataPayload | null;
+    yearOfExperiences: number;
+  }[];
+}
 
 export interface MentorProfile {
   id: number;
@@ -95,7 +101,7 @@ export interface EditCertificateProfileFormDataPayload {
   userImages: (string | Blob)[];
 }
 export interface EditCertificateProfileDefaultValuePayload {
-  userImages: (string | Blob)[];
+  userImages: any[];
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;

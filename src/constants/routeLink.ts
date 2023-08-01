@@ -20,6 +20,7 @@ export const enum NavigationLink {
   member_details = 'member-details',
   feedback = 'feedback',
   mentor_menu = 'mentor_menu',
+  mentor_menu_details = 'mentor_menu/mentor-detail',
   cart = 'cart',
   contact = 'contact',
   check_out = 'check_out',
@@ -40,6 +41,7 @@ export const enum MentorNavigationLink {
   edit_profile_mentor_info = 'edit-profile-mentor',
   edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
+  send_request = 'send_request',
   wallet_management = 'wallet-management',
   withdraw = 'withdraw',
 }
