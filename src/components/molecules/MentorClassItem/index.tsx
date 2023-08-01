@@ -32,7 +32,7 @@ export default function MentorClassItem({ item }: Props) {
       teacherName={item?.teacherName}
       startDate={item?.startDate}
       endDate={item?.endDate}
-      numberOfStudent={0}
+      numberOfStudent={item?.numberOfStudent || 0}
       min={item?.min}
       max={item?.max}
     />
