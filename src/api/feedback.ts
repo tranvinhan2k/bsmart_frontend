@@ -200,6 +200,15 @@ const feedbacksApi = {
   async setDefaultTemplate(id: number) {
     return axiosClient.put(`${url}/default/${id}`);
   },
+  async setTemplateForClass({
+    templateId,
+    classId,
+  }: {
+    templateId: number;
+    classId: number;
+  }) {
+    return axiosClient.put(`${url}/template/${templateId}/class/${classId}`);
+  },
 };
 
 export default feedbacksApi;

@@ -266,70 +266,6 @@ const attendanceClassColumns: GridColDef[] = [
     editable: true,
   },
 ];
-const attendanceStudentColumns: GridColDef[] = [
-  {
-    field: 'no',
-    headerName: 'STT',
-    minWidth: 25,
-    flex: 0.6,
-    sortable: false,
-  },
-  {
-    field: 'date',
-    headerName: 'Ngày học',
-    minWidth: 100,
-    flex: 2,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <Chip
-          color="info"
-          size="small"
-          label={formatISODateDateToDisplayDate(params.row.date)}
-          title={formatISODateDateToDisplayDate(params.row.date)}
-        />
-      );
-    },
-  },
-  {
-    field: 'slot',
-    headerName: 'Giờ học',
-    minWidth: 100,
-    flex: 2,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <Chip
-          color="warning"
-          size="small"
-          label={`${params.row.slot || ''}`}
-          title={`${params.row.slot || ''}`}
-        />
-      );
-    },
-  },
-  {
-    field: 'attendanceStatus',
-    headerName: 'Trang thái điểm danh',
-    minWidth: 150,
-    flex: 2,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <RenderAttendanceStatus
-          input={`${params.row.attendanceStatus || ''}`}
-        />
-      );
-    },
-  },
-  {
-    field: 'mentorComment',
-    headerName: 'Giảng viên ghi chú',
-    minWidth: 100,
-    sortable: false,
-    flex: 4,
-  },
-];
 
 const managedUserColumns: GridColDef[] = [
   {
@@ -669,7 +605,6 @@ const columns = {
   courseClassListColumns,
   subjectColumns,
   attendanceClassColumns,
-  attendanceStudentColumns,
   managedClassColumns,
   managedClassNotStartColumns,
   managedCourseColumns,

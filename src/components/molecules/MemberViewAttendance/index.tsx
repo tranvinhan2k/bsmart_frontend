@@ -1,26 +1,127 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
-import { attendanceMember } from '~/constants/dataMocked';
+import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
 import { FontFamily } from '~/assets/variables';
-import columns from '~/constants/columns';
 import DataGrid from '~/components/atoms/DataGrid';
-import globalStyles from '~/styles';
-import TextTitle from '~/components/atoms/texts/TextTitle';
+import { useGetIdFromUrl, useQueryGetDetailSchedule } from '~/hooks';
+import { LoadingWrapper } from '~/HOCs';
+import { formatISODateDateToDisplayDate } from '~/utils/date';
+import { RenderAttendanceStatus } from '~/utils/attendance';
 
 export default function MemberViewAttendance() {
+  const classId = useGetIdFromUrl('id');
+
+  const attendanceStudentColumns: GridColDef[] = [
+    {
+      field: 'id',
+      headerName: 'Số thự tự',
+      minWidth: 100,
+      flex: 0.6,
+      sortable: false,
+    },
+    {
+      field: 'date',
+      headerName: 'Ngày học',
+      minWidth: 100,
+      flex: 2,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Chip
+            color="info"
+            size="small"
+            label={formatISODateDateToDisplayDate(params.row.date)}
+            title={formatISODateDateToDisplayDate(params.row.date)}
+          />
+        );
+      },
+    },
+    {
+      field: 'slotName',
+      headerName: 'Giờ học',
+      minWidth: 100,
+      flex: 2,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Chip
+            color="warning"
+            size="small"
+            label={`${params.row.slotName || ''}`}
+            title={`${params.row.slotName || ''}`}
+          />
+        );
+      },
+    },
+    {
+      field: 'attendanceStatus',
+      headerName: 'Trang thái điểm danh',
+      minWidth: 150,
+      flex: 2,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <RenderAttendanceStatus input={`${params.row.isPresent || ''}`} />
+        );
+      },
+    },
+    {
+      field: 'note',
+      headerName: 'Giảng viên ghi chú',
+      minWidth: 100,
+      sortable: false,
+      flex: 4,
+    },
+  ];
+
+  const {
+    classTimeSlots: rows,
+    error,
+    isLoading,
+  } = useQueryGetDetailSchedule(classId);
+
+  const absentReducer = rows?.reduce((total, item) => {
+    if (!item.isPresent) {
+      return total + 1;
+    }
+    return total;
+  }, 0);
+
+  const presentReducer = rows?.reduce((total, item) => {
+    if (item.isPresent) {
+      return total + 1;
+    }
+    return total;
+  }, 0);
+
+  const totalReducer = rows?.reduce((total, item) => {
+    return total + 1;
+  }, 0);
+
   const tmpTextList1 = [
-    { id: 0, label: 'Đã vắng', desc: '1', size: 12, color: '#dc143c' },
-    { id: 1, label: 'Đã tham gia', desc: '1 / 8', size: 6, color: '#ffa500' },
+    {
+      id: 0,
+      label: 'Đã vắng',
+      desc: absentReducer,
+      size: 12,
+      color: '#dc143c',
+    },
+    {
+      id: 1,
+      label: 'Đã tham gia',
+      desc: `${presentReducer} / ${totalReducer}`,
+      size: 6,
+      color: '#ffa500',
+    },
     {
       id: 2,
       label: 'Tổng buổi học',
-      desc: '2 / 8',
+      desc: `${totalReducer}`,
       size: 6,
       color: '#4caf50',
     },
   ];
 
-  const classTitle =
-    'Khóa học dành cho nhà phát triển Java hoàn chỉnh - Làm chủ Java từ con số không';
+  const classTitle = '';
 
   return (
     <Stack>
@@ -93,51 +194,15 @@ export default function MemberViewAttendance() {
                 boxShadow: 3,
               }}
             >
-              {/* <Grid item xs={12}>
-                <Stack
-                  direction="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={1}
-                  padding={1}
-                >
-                  <Typography sx={{ fontSize: 15 }}>
-                    Buổi học tiếp theo
-                  </Typography>
-                  <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={1}
-                    padding={1}
-                  >
-                    <Chip color="default" size="small" label="3" title="3" />
-                    <Chip
-                      color="info"
-                      size="small"
-                      label={formatISODateStringToDisplayDate(
-                        '2000-06-29T11:56:01.510Z'
-                      )}
-                      title={formatISODateStringToDisplayDate(
-                        '2000-06-29T11:56:01.510Z'
-                      )}
-                    />
-                    <Chip
-                      color="error"
-                      size="small"
-                      label="5 (17:45-20:00)"
-                      title="5 (17:45-20:00)"
-                    />
-                  </Stack>
-                </Stack>
-              </Grid> */}
-              <DataGrid
-                columns={columns.attendanceStudentColumns}
-                rows={attendanceMember.items}
-                density="compact"
-                hideFooter
-                disableColumnFilter
-              />
+              <LoadingWrapper isLoading={isLoading} error={error}>
+                <DataGrid
+                  columns={attendanceStudentColumns}
+                  rows={rows || []}
+                  density="compact"
+                  hideFooter
+                  disableColumnFilter
+                />
+              </LoadingWrapper>
             </Box>
           </Grid>
         </Grid>

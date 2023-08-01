@@ -8,7 +8,7 @@ export const useQueryMentorFeedback = (id: number) => {
     page: 0,
   });
 
-  return useCustomQuery(['mentor_feedbacks'], () =>
+  return useCustomQuery(['mentor_feedbacks', `${id}`], () =>
     feedbacksApi.getMentorFeedback({
       id,
       params: filterParams,

@@ -6,6 +6,9 @@ import FeedbackManagerTemplate from '~/containers/FeedbackManagerSection/Feedbac
 
 import { scrollToTop } from '~/utils/common';
 import { FeedbackTypeKeys } from '~/models/variables';
+import ClassFeedbackDetailPage from '../ClassFeedbackDetailPage';
+import CustomTab from '~/components/atoms/CustomTab';
+import { Color } from '~/assets/variables';
 
 export interface FeedbackManagerPayload {
   id: number;
@@ -27,8 +30,24 @@ export default function FeedbackManagerPage() {
   }, []);
 
   return (
-    <Stack padding={3}>
-      <FeedbackManagerTemplate />
+    <Stack
+      padding={3}
+      sx={{
+        background: Color.white4,
+      }}
+    >
+      <CustomTab
+        tabContentList={[
+          {
+            label: 'Quản lí đánh giá',
+            data: <FeedbackManagerTemplate />,
+          },
+          {
+            label: 'Chọn đánh giá',
+            data: <ClassFeedbackDetailPage isAdmin />,
+          },
+        ]}
+      />
     </Stack>
   );
 }

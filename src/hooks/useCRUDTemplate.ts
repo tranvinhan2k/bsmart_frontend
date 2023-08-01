@@ -50,6 +50,15 @@ export const useCRUDTemplate = () => {
     'Đổi bản mẫu mặc định'
   );
 
+  const { mutateAsync: handleChangeTemplateForClass } = useCustomMutation(
+    ['change_template_feedback'],
+    feedbacksApi.setTemplateForClass
+  );
+
+  const { handleTryCatch: handleTryCatchChangeTemplateForClass } = useTryCatch(
+    'Đổi bản mẫu cho lớp'
+  );
+
   return {
     error,
     templates: data,
@@ -64,5 +73,7 @@ export const useCRUDTemplate = () => {
     updateTemplateMutation,
     handleChangeDefaultValue,
     handleTryCatchChangeDefaultValue,
+    handleChangeTemplateForClass,
+    handleTryCatchChangeTemplateForClass,
   };
 };

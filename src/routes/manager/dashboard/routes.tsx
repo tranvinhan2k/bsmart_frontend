@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import ClassFeedbackDetailPage from '~/pages/ClassFeedbackDetailPage';
 import {
   ManageClassPage,
   ManageCourseCreateRequestPage,
@@ -39,6 +40,11 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: ManagerNavigationActionLink.manage_user_manager,
     main: () => <ManageUserPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: 'temp_feedback_class_detail',
+    main: () => <ClassFeedbackDetailPage />,
     role: ['ROLE_MANAGER'],
   },
   {

@@ -70,6 +70,13 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             name: 'Danh sách lớp học',
             link: ManagerNavigationActionLink.manage_class_manager,
           },
+          {
+            id: 1,
+            isHide: true,
+            icon: 'class',
+            name: 'temp_feedback_class_detail',
+            link: 'temp_feedback_class_detail',
+          },
         ],
       },
       {

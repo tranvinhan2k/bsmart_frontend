@@ -26,7 +26,6 @@ const texts = {
 };
 
 export default function FeedbackManagerTemplate() {
-  const classId = useGetIdFromUrl('id');
   const {
     addTemplateMutation,
     deleteTemplateMutation,
