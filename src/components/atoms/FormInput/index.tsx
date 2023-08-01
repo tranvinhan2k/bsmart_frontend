@@ -40,6 +40,7 @@ import FileInputRequireYup from './FileInputRequireYup';
 import PriceInput from './PriceInput';
 import RatingInput from './RatingInput';
 import TimeInput from './TimeInput';
+import FeedbackQuestionInput from './FeedbackQuestionInput';
 
 interface FormInputProps {
   disabled?: boolean;
@@ -78,7 +79,7 @@ const generateFormInput = (
   multilineRows: number,
   previewImgHeight: number | string,
   previewImgWidth: number | string,
-  answerType: QuizQuestionTypeKeys,
+  answerType: QuizQuestionTypeKeys | undefined,
   variant: FormInputVariant
 ) => {
   switch (true) {
@@ -102,7 +103,7 @@ const generateFormInput = (
       return <ArrayHelperText controller={controller} />;
     case variant === 'feedbackQuestionChoice':
       return (
-        <FeedbackQuestionChoiceInput
+        <FeedbackQuestionInput
           controller={controller}
           placeholder={placeholder}
         />
@@ -246,7 +247,7 @@ export default function FormInput({
   multilineRows = 4,
   previewImgHeight = '100%',
   previewImgWidth = '100%',
-  answerType = 'MULTIPLE',
+  answerType,
   variant = 'text',
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });

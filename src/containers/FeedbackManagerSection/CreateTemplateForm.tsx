@@ -2,7 +2,12 @@ import { Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
-import { FeedbackTypeOptionList, RoleOptionList } from '~/constants';
+import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
+import {
+  FeedbackTemplateTypeData,
+  FeedbackTypeOptionList,
+  RoleOptionList,
+} from '~/constants';
 import { CREATE_TEMPLATE_FIELDS } from '~/form/schema';
 import { validationSchemaCreateTemplate } from '~/form/validation';
 import { useYupValidationResolver } from '~/hooks';
@@ -23,50 +28,40 @@ export default function CreateTemplateForm({
     resolver,
   });
 
-  console.log(feedbackQuestion);
+  const InputFormData: InputData[] = [
+    {
+      name: 'name',
+      label: 'Tên bản mẫu',
+      placeholder: 'Nhập tên bản mẫu',
+      variant: 'text',
+    },
+    {
+      name: 'type',
+      label: 'Loại bản mẫu',
+      placeholder: 'Nhập loại bản mẫu',
+      variant: 'dropdown',
+      data: FeedbackTemplateTypeData,
+    },
+    {
+      name: 'questions',
+      label: 'Danh sách câu hỏi',
+      placeholder: 'Nhập danh sách câu hỏi',
+      variant: 'feedbackQuestionChoice',
+    },
+  ];
 
   return (
-    <Stack>
+    <Stack
+      padding={1}
+      sx={{
+        minWidth: '70vw',
+      }}
+    >
       <Typography sx={globalStyles.textSubTitle}>Tạo bản mẫu</Typography>
-      <Stack marginTop={2}>
-        <FormInput
-          name={CREATE_TEMPLATE_FIELDS.templateName}
-          control={createTemplateForm.control}
-          label="Tên bản mẫu"
-          placeholder="Nhập tên bản mẫu"
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          name={CREATE_TEMPLATE_FIELDS.questionList}
-          control={createTemplateForm.control}
-          label="Danh sách câu hỏi"
-          placeholder="Nhập danh sách câu hỏi"
-          variant="feedbackTypeChoose"
-          data={feedbackQuestion}
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          name={CREATE_TEMPLATE_FIELDS.feedbackType}
-          control={createTemplateForm.control}
-          label="Loại đánh giá"
-          data={FeedbackTypeOptionList}
-          variant="dropdown"
-          placeholder="Nhập loại đánh giá"
-        />
-      </Stack>
-      <Stack marginTop={2}>
-        <FormInput
-          name={CREATE_TEMPLATE_FIELDS.permission}
-          control={createTemplateForm.control}
-          label="Vai Trò"
-          placeholder="Nhập vai trò"
-          variant="dropdown"
-          data={RoleOptionList}
-        />
-      </Stack>
-
+      <InputGroup
+        control={createTemplateForm.control}
+        inputList={InputFormData}
+      />
       <Stack marginTop={2}>
         <Button
           customVariant="form"

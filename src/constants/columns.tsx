@@ -1,4 +1,4 @@
-import { Chip, Typography } from '@mui/material';
+import { Chip, Switch, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
@@ -13,24 +13,6 @@ import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import Icon from '~/components/atoms/Icon';
 
-const templateColumns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'templateName',
-    headerName: 'Tên bản mẫu',
-    flex: 5,
-    editable: true,
-  },
-  {
-    field: 'questions',
-    headerName: 'Số lượng câu hỏi',
-    width: 150,
-    editable: true,
-    valueGetter: (params) => {
-      return `${params?.row?.questions?.length || 'Chưa thêm câu hỏi'} `;
-    },
-  },
-];
 const feedbackQuestionColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
@@ -363,78 +345,14 @@ const attendanceClassColumns: GridColDef[] = [
           sx={{
             fontSize: FontSize.small_14,
             fontFamily: FontFamily.medium,
-            color: params.row.isPresent ? Color.green : Color.red,
+            color: params.row.isTookAttendance ? Color.green : Color.red,
           }}
         >
-          {params.row.isPresent ? 'Đã điểm danh' : ' Chưa điểm danh'}
+          {params.row.isTookAttendance ? 'Đã điểm danh' : ' Chưa điểm danh'}
         </Typography>
       );
     },
     editable: true,
-  },
-];
-const attendanceStudentColumns: GridColDef[] = [
-  {
-    field: 'no',
-    headerName: 'STT',
-    minWidth: 25,
-    flex: 0.6,
-    sortable: false,
-  },
-  {
-    field: 'date',
-    headerName: 'Ngày học',
-    minWidth: 100,
-    flex: 2,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <Chip
-          color="info"
-          size="small"
-          label={formatISODateDateToDisplayDate(params.row.date)}
-          title={formatISODateDateToDisplayDate(params.row.date)}
-        />
-      );
-    },
-  },
-  {
-    field: 'slot',
-    headerName: 'Giờ học',
-    minWidth: 100,
-    flex: 2,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <Chip
-          color="warning"
-          size="small"
-          label={`${params.row.slot || ''}`}
-          title={`${params.row.slot || ''}`}
-        />
-      );
-    },
-  },
-  {
-    field: 'attendanceStatus',
-    headerName: 'Trang thái điểm danh',
-    minWidth: 150,
-    flex: 2,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <RenderAttendanceStatus
-          input={`${params.row.attendanceStatus || ''}`}
-        />
-      );
-    },
-  },
-  {
-    field: 'mentorComment',
-    headerName: 'Giảng viên ghi chú',
-    minWidth: 100,
-    sortable: false,
-    flex: 4,
   },
 ];
 
@@ -801,13 +719,11 @@ const managedClassColumns: GridColDef[] = [
 ];
 
 const columns = {
-  templateColumns,
   feedbackQuestionColumns,
   categoryColumns,
   courseClassListColumns,
   subjectColumns,
   attendanceClassColumns,
-  attendanceStudentColumns,
   managedClassColumns,
   managedClassNotStartColumns,
   managedCourseColumns,

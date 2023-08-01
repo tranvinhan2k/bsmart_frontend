@@ -23,54 +23,7 @@
   <body style="margin: 0; overflow-x: hidden">
     <div id="root"></div>
 
-    <!-- Messenger Chat Plugin Code -->
-    <div id="fb-root"></div>
-
-    <!-- Your Chat Plugin code -->
-    <div id="fb-customer-chat" class="fb-customerchat"></div>
-
-    <script>
-     try {
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute('page_id', '107932629047954');
-      chatbox.setAttribute('attribution', 'biz_inbox');
-     } catch (error) {
-      console.error('loi facebook');
-     }
-    </script>
-
-    <!-- Your SDK code -->
-    <script>
-      try {
-        window.fbAsyncInit = function () {
-          try {
-            FB.init({
-              xfbml: true,
-              version: 'v17.0',
-            });
-          } catch (error) {
-            console.error('Lỗi facebook');
-          }
-        };
-
-        (function (d, s, id) {
-          try {
-            var js,
-              fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src =
-              'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-          } catch (error) {
-            console.error('Lỗi facebook');
-          }
-        })(document, 'script', 'facebook-jssdk');
-      } catch (error) {
-        console.error('Lỗi facebook');
-      }
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+

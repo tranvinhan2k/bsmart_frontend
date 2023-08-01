@@ -170,7 +170,6 @@ export default function CRUDTable<T>({
   return (
     <Stack
       sx={{
-        background: Color.white,
         borderRadius: MetricSize.small_5,
       }}
     >
@@ -194,6 +193,7 @@ export default function CRUDTable<T>({
       <Stack
         sx={{
           minHeight: '700px',
+          background: Color.white,
         }}
       >
         <StripedDataGrid

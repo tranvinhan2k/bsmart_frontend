@@ -50,7 +50,7 @@ export default function AttendanceList({
       key={item.id}
       sx={{
         alignItems: 'center',
-        transition: 'background 1s, height 1s',
+        transition: 'background 200ms, height 200ms',
         borderBottom: '0.5px solid #ddd',
         background:
           item.isPresent === 'PRESENT'
@@ -77,7 +77,7 @@ export default function AttendanceList({
           <Tooltip title="Nhấn để phóng to hình ảnh">
             <Box
               sx={{
-                height: isShowImage ? '120px' : '50px',
+                height: isShowImage ? '120px' : '0px',
                 width: undefined,
                 aspectRatio: 3 / 4,
                 objectFit: 'fill',
@@ -132,7 +132,7 @@ export default function AttendanceList({
                 sx={{
                   wordBreak: 'break-all',
                 }}
-              >{`${item.note}`}</Typography>
+              >{`${item.note || ''}`}</Typography>
             )}
           </Stack>
           <IconButton onClick={handleAddNote}>

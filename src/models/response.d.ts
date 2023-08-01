@@ -1,5 +1,7 @@
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+// eslint-disable-next-line import/no-cycle
 import { ContentPayload, CoursePayload } from './type';
+
 import {
   ActivityKeys,
   ClassStatusKeys,
@@ -41,6 +43,8 @@ export type GetAttendanceTimeSLotResponse = Partial<{
         nano: number;
       };
     };
+    tookAttendance: boolean;
+    present: boolean;
   };
   attendanceResponses: {
     totalPages: number;
@@ -54,6 +58,13 @@ export type GetAttendanceTimeSLotResponse = Partial<{
       id: number;
       student: {
         id: number;
+        images: {
+          id: number;
+          name: string;
+          url: string;
+          status: boolean;
+          type: string;
+        };
         email: string;
         name: string;
       };
@@ -249,6 +260,8 @@ export type GetUserSchedule = Partial<{
         nano: number;
       };
     };
+    tookAttendance: boolean;
+    present: boolean;
   }>[];
 }>[];
 
@@ -607,7 +620,7 @@ export type GetAllMentorAssignment = Partial<{
       id: number;
       name: string;
       url: string;
-      status: true;
+      status: boolean;
       type: 'DEFAULT';
     };
     email: string;
@@ -628,4 +641,74 @@ export type GetAllMentorAssignment = Partial<{
       size: number;
     };
   }>[];
+}>;
+
+export type GetAllMentorFeedback = Partial<{
+  id: number;
+  name: string;
+  submitBy: {
+    id: number;
+    fullName: string;
+    email: string;
+    birthday: string;
+    address: string;
+    phone: string;
+    status: boolean;
+    gender: string;
+    roles: {
+      id: number;
+      name: string;
+      code: string;
+    }[];
+    linkedinLink: string;
+    facebookLink: string;
+    website: string;
+    userImages: {
+      id: number;
+      name: string;
+      url: string;
+      status: boolean;
+      type: string;
+    }[];
+    wallet: {
+      id: number;
+      balance: number;
+      previous_balance: number;
+      owner_id: number;
+    };
+    mentorProfile: {
+      id: number;
+      introduce: string;
+      workingExperience: string;
+      status: 'REQUESTING';
+      user: string;
+      mentorSkills: {
+        skillId: number;
+        name: string;
+        yearOfExperiences: number;
+      }[];
+    };
+    teachInformation: {
+      numberOfCourse: number;
+      numberOfClass: number;
+      numberOfMember: number;
+      scoreFeedback: number;
+      numberOfFeedBack: number;
+    };
+    isVerified: boolean;
+    verified: boolean;
+  };
+  rate: number;
+  comment: string;
+  questions: [
+    {
+      question: string;
+      answers: [
+        {
+          answer: string;
+          isChosen: boolean;
+        }
+      ];
+    }
+  ];
 }>;

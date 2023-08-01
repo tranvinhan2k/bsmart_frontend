@@ -1,31 +1,71 @@
-import { useState } from 'react';
-import { Stack } from '@mui/material';
+import { Client, Stomp } from '@stomp/stompjs';
+import { Button, Stack } from '@mui/material';
 import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
 
-const SOCKET_URL = 'http://103.173.155.221:8080/websocket';
-const topic = '/topics/messages';
+// const SOCKET_URL = 'http://103.173.155.221:8080/websocket';
+
+const topic = '/topic/messages';
+
+const WS_URL = 'ws://103.173.155.221:8080/websocket';
+// const WS_URL = 'http://127.0.0.1:8000';
 
 export default function TextSection() {
-  const [message, setMessage] = useState('You server message here.');
-  const sock = new SockJS(SOCKET_URL);
-  const stompClient = Stomp.over(sock);
+  const stompClient = Stomp.over(function () {
+    return new WebSocket(WS_URL);
+  });
+  stompClient.onConnect = () => {
+    console.log('Connected, Hello World');
 
-  const onMessageReceived = (payload: any) => {
-    console.log(`onMessageReceived ${payload}`);
+    stompClient.subscribe(topic, (message) =>
+      console.log(`Received: ${message.body}`)
+    );
   };
 
-  const onConnected = () => {
-    console.log('onConnected');
-    // Subscribe to the Public Topic
-    stompClient.subscribe(topic, onMessageReceived);
+  stompClient.onStompError = (frame) => {
+    console.error(`Broker reported error: ${frame.headers.message}`);
+
+    console.error(`Additional details: ${frame.body}`);
   };
 
-  const onError = (error: any) => {
-    console.log(error);
+  stompClient.onWebSocketError = (error) => {
+    console.error('Error with websocket', error);
   };
 
-  stompClient.connect({}, onConnected, onError);
+  // const client = new Client({
+  //   brokerURL: WS_URL,
+  //   onConnect: () => {
+  //     console.log('Connected');
+
+  //     client.subscribe(topic, (message) =>
+  //       console.log(`Received: ${message.body}`)
+  //     );
+  //     client.publish({ destination: topic, body: 'First Message' });
+  //   },
+  //   onWebSocketError: (error) => {
+  //     console.error('Error with websocket', error);
+  //   },
+  //   onStompError: (frame) => {
+  //     console.error(`Broker reported error: ${frame.headers.message}`);
+
+  //     console.error(`Additional details: ${frame.body}`);
+  //   },
+  // });
+
+  const connect = () => {
+    stompClient.connect({}, () => {
+      console.log('hello world');
+    });
+  };
+
+  const disconnect = () => {
+    stompClient.deactivate();
+  };
+
+  // stompClient.connect({}, () => {
+  //   console.log('hello world');
+  // });
+
+  // client.activate();
 
   return (
     <Stack
@@ -33,7 +73,12 @@ export default function TextSection() {
         minHeight: '100vh',
       }}
     >
-      {message}
+      <Button onClick={connect} variant="contained">
+        Connect
+      </Button>
+      <Button onClick={disconnect} variant="contained">
+        Disconnect
+      </Button>
     </Stack>
   );
 }

@@ -47,7 +47,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import NotificationContextProvider from './HOCs/context/NotificationContext';
 
-window.global ||= window;
+window.global ||= window; // Fix error websocket . don't delete
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (

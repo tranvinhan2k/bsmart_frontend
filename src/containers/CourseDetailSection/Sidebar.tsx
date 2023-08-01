@@ -90,6 +90,7 @@ export default function Sidebar({
     if (!item.purchase) {
       setChooseClass(item);
       handleOpen();
+      scrollClasses();
     }
   };
 
@@ -256,11 +257,11 @@ export default function Sidebar({
           </Typography>
           <Stack
             sx={{
-              flexDirection: 'row',
+              flexDirection: { xs: 'column', md: 'row' },
               alignItems: 'center',
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
-              height: '250px',
+              maxHeight: '250px',
               overflowY: 'auto',
             }}
           >
@@ -271,7 +272,7 @@ export default function Sidebar({
                     sx={{
                       marginTop: 1,
                       marginLeft: index % 3 === 0 ? 0 : 1,
-                      width: '31%',
+                      width: { xs: '100%', lg: '31%' },
                     }}
                     key={item.id}
                   >
@@ -345,7 +346,10 @@ export default function Sidebar({
                       <Typography
                         sx={{
                           textAlign: 'center',
-                          fontSize: FontSize.small_16,
+                          fontSize: {
+                            xs: '12px',
+                            md: FontSize.small_16,
+                          },
                           fontFamily:
                             chooseClass.id === item.id
                               ? FontFamily.bold

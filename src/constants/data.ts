@@ -16,6 +16,19 @@ import { IconName } from '~/components/atoms/Icon';
 import { ActivityKeys } from '~/models/variables';
 import { ActivityLink } from './routeLink';
 
+export const FeedbackTemplateTypeData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Khóa học',
+    value: 'COURSE',
+  },
+  {
+    id: 1,
+    label: 'Báo cáo',
+    value: 'REPORT',
+  },
+];
+
 export const ActivityData: {
   type: ActivityKeys;
   icon: IconName;

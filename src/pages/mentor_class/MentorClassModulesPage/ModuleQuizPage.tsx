@@ -113,7 +113,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
         >{`Thời gian làm bài: ${quiz.time} giây`}</Typography>
       </Stack>
       <Stack style={{ width: '100%' }}>
-        <MentorClassPointsPage />
+        <MentorClassPointsPage quizId={item.id} />
       </Stack>
     </Stack>
   );

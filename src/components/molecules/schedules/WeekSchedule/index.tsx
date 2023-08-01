@@ -44,9 +44,9 @@ interface DayOfWeekDataPayload {
   }[];
 }
 
-const handleGetWeekDays = () => {
+const handleGetWeekDays = (chooseDay: Dayjs) => {
   // Get the current date
-  const currentDate = new Date();
+  const currentDate = new Date(chooseDay.toISOString());
 
   // Get the current day of the week (0: Sunday, 1: Monday, ..., 6: Saturday)
   const currentDayOfWeek = currentDate.getDay();
@@ -74,9 +74,10 @@ export default function WeekSchedule({ data }: Props) {
 
   const error = dayOfWeekError || slotError;
 
-  const weekDay = handleGetWeekDays();
-
   const [chooseDay, setChooseDay] = useState<Dayjs>(dayjs());
+
+  const weekDay = handleGetWeekDays(chooseDay);
+
   const [slotList, setSlotList] = useState<DayOfWeekDataPayload[]>([]);
 
   const handleChangeChooseDate = (value: any) => {
@@ -114,9 +115,7 @@ export default function WeekSchedule({ data }: Props) {
         }))
       );
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slots, dayOfWeeks, data]);
+  }, [slots, dayOfWeeks, data, chooseDay, weekDay]);
 
   return (
     <Stack>
@@ -190,8 +189,6 @@ export default function WeekSchedule({ data }: Props) {
                     <SLotName name={item.slotName} time={item.slotTime} />
 
                     {item.timeSlots?.map((subItem, idx) => {
-                      console.log(subItem.slotName);
-
                       return (
                         <Stack
                           sx={{
@@ -242,7 +239,7 @@ export default function WeekSchedule({ data }: Props) {
                                     color: subItem.isTookAttendance
                                       ? subItem.isPresent
                                         ? Color.green
-                                        : Color.red
+                                        : Color.grey
                                       : Color.grey,
                                     fontSize: '14px',
                                     fontFamily: FontFamily.bold,
@@ -263,6 +260,12 @@ export default function WeekSchedule({ data }: Props) {
                               </Stack>
                               <Stack>
                                 <Button
+                                  disabled={
+                                    !compareDate(
+                                      new Date(),
+                                      new Date(subItem.date)
+                                    )
+                                  }
                                   sx={{
                                     fontSize: '10px',
                                   }}
@@ -280,16 +283,26 @@ export default function WeekSchedule({ data }: Props) {
                                     fontSize: '10px',
                                     color: Color.white,
                                   }}
+                                  disabled={
+                                    new Date().getTime() <
+                                    new Date(subItem.date).getTime()
+                                  }
                                   size="small"
                                   variant="contained"
-                                  color="secondary"
+                                  color={
+                                    subItem.isTookAttendance
+                                      ? 'secondary'
+                                      : 'warning'
+                                  }
                                   onClick={() =>
                                     navigate(
                                       `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
                                     )
                                   }
                                 >
-                                  Điểm danh
+                                  {subItem.isTookAttendance
+                                    ? 'Đã điểm danh'
+                                    : 'Điểm danh'}
                                 </Button>
                               </Stack>
                             </Stack>

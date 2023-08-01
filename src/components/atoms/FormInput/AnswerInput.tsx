@@ -22,7 +22,7 @@ import { validationSchemaAnswer } from '~/form/validation';
 import globalStyles from '~/styles';
 
 interface AnswerInputProps {
-  answerType: QuizQuestionTypeKeys;
+  answerType?: QuizQuestionTypeKeys;
   controller: UseControllerReturn<any, string>;
 }
 function AnswerInput({ answerType, controller }: AnswerInputProps) {
@@ -100,6 +100,8 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
     controllerOnChange(tmpValue);
   };
 
+  console.log('answertype', answerType);
+
   return (
     <Stack>
       <Stack
@@ -130,22 +132,31 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
                       justifyContent: 'space-between',
                     }}
                   >
-                    <Tooltip title="Chọn câu trả lời đúng">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={item.right}
-                            onChange={() => handleChangeRightAnswer(index)}
+                    <Stack
+                      sx={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {answerType && (
+                        <Tooltip title="Chọn câu trả lời đúng">
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={item.right}
+                                onChange={() => handleChangeRightAnswer(index)}
+                              />
+                            }
+                            label=""
                           />
-                        }
-                        label=""
-                      />
-                    </Tooltip>
+                        </Tooltip>
+                      )}
+                      <Typography>{item.answer}</Typography>
+                    </Stack>
                     <IconButton onClick={() => handleDelete(index)}>
                       <Icon name="delete" size="small_20" color="red" />
                     </IconButton>
                   </Stack>
-                  <Typography>{item.answer}</Typography>
                 </Stack>
               );
             })
