@@ -222,6 +222,7 @@ export interface ActivityResourcePayload {
 }
 
 export interface ActivityQuizPayload {
+  id: number;
   code: string;
   startDate: string;
   endDate: string;
@@ -231,9 +232,12 @@ export interface ActivityQuizPayload {
   isAllowReview: boolean;
   allowReviewAfterMin: number;
   password: string;
+  questionCount: number;
+  status: string;
 }
 
 export interface ActivityAssignmentPayload {
+  assignmentId: number;
   description: string;
   startDate: string;
   endDate: string;

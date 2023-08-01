@@ -40,15 +40,21 @@ export default function ModuleQuizPage({ name, item }: Props) {
   const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm({});
 
-  const { data } = useGetQuizResult(id);
+  const { data } = useGetQuizResult(item.id);
 
   const quiz = {
+    quizId: item.id,
+    questionCount: item.questionCount,
+    status: item.status,
     isQuizOpen: new Date(item.startDate).getTime() <= new Date().getTime(),
     isAttemptedQuiz: Boolean(data),
     code: item.code,
-    startDate: formatISODateDateToDisplayDateTime(new Date()),
-    endDate: formatISODateDateToDisplayDateTime(new Date()),
-    time: formatTime(120),
+    startDate: formatISODateDateToDisplayDateTime(item.startDate),
+    endDate: formatISODateDateToDisplayDateTime(item.endDate),
+    time: formatTime(item.time),
+    isAllowAfterMin:
+      new Date().getTime() <=
+      new Date(item.endDate).getTime() + item.allowReviewAfterMin,
   };
 
   const onSubmit = (param: any) => {
@@ -112,6 +118,9 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Thời gian làm bài: ${quiz.time} phút`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Lượt làm bài kiểm tra: ${quiz.time} phút`}</Typography>
       </Stack>
       {!quiz.isAttemptedQuiz && (
         <Button
@@ -128,14 +137,16 @@ export default function ModuleQuizPage({ name, item }: Props) {
             point={data?.correctNumber || 0}
             total={data?.totalNumber || 0}
           />
-          <Button
-            disabled={!item.isAllowReview}
-            onClick={onReview}
-            color="success"
-            variant="contained"
-          >
-            Xem lại kết quả
-          </Button>
+          {quiz.isAllowAfterMin && (
+            <Button
+              disabled={!item.isAllowReview}
+              onClick={onReview}
+              color="success"
+              variant="contained"
+            >
+              Xem lại kết quả
+            </Button>
+          )}
         </Stack>
       )}
 

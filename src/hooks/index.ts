@@ -77,10 +77,6 @@ export * from './class/useGetClassSchedule';
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';
 
-// assignment
-export * from './assignment/useGetAssignment';
-export * from './assignment/useMutationSubmitPointAssignment';
-
 // form
 export * from './form.hooks/useCreateCourseForm';
 export * from './form.hooks/useCreateClassesForm';
@@ -102,3 +98,9 @@ export * from './useQueryGetAllSubjectByCategoryId';
 export * from './feedback/useMutationSendFeedback';
 export * from './feedback/useQueryMemberFeedback';
 export * from './feedback/useQueryMentorFeedback';
+
+// assignment
+export * from './assignment/useGetAssignment';
+export * from './assignment/useDeleteFile';
+export * from './assignment/useMemberSubmitAssignment';
+export * from './assignment/useMutationSubmitPointAssignment';

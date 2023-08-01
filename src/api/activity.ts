@@ -51,6 +51,7 @@ const activityApi = {
         break;
       case 'ASSIGNMENT':
         result.detail = {
+          assignmentId: response?.detail.id || 0,
           description: response?.detail.description || '',
           attachFiles: response?.detail?.assignmentFiles,
           editBeForSubmitMin: response?.detail?.editBeForSubmitMin,
@@ -72,6 +73,9 @@ const activityApi = {
         break;
       case 'QUIZ':
         result.detail = {
+          id: response.detail.id || 0,
+          questionCount: response.detail.questionCount || '',
+          status: response.detail.status || '',
           code: response?.detail?.code,
           allowReviewAfterMin: response?.detail?.allowReviewAfterMin,
           defaultPoint: response?.detail?.defaultPoint,
@@ -335,7 +339,19 @@ const activityApi = {
     id: number;
     params: PostSubmitActivityRequest;
   }): Promise<boolean> {
-    return axiosClient.post(`${url}/assignments/${id}/submit`, params);
+    const requestData = new FormData();
+    requestData.append('note', params.note);
+    if (params.submittedFiles) {
+      params.submittedFiles.map((item) => {
+        requestData.append('submittedFiles', item);
+        return null;
+      });
+    }
+    return axiosClient.post(`${url}/assignments/${id}/submit`, requestData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 
   // delete

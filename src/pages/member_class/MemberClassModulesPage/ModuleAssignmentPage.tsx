@@ -12,6 +12,14 @@ import {
   formatISODateDateToDisplayDateTime,
   formatISODateStringToDisplayDateTime,
 } from '~/utils/date';
+import {
+  useGetIdFromUrl,
+  useMemberSubmitAssignment,
+  useTryCatch,
+} from '~/hooks';
+import { PostSubmitActivityRequest } from '~/models';
+import { useBoolean } from '~/hooks/useBoolean';
+import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 
 interface Props {
   name: string;
@@ -19,11 +27,31 @@ interface Props {
 }
 
 export default function ModuleAssignmentPage({ name, item }: Props) {
-  const { control, handleSubmit, formState } = useForm();
-
+  const moduleId = useGetIdFromUrl('moduleId');
+  const { value, toggle } = useBoolean(false);
+  const { control, handleSubmit, formState } = useForm({
+    defaultValues: {
+      attachFiles: { files: item.attachFiles || [], deleteIndexes: [] },
+    },
+  });
+  const { mutateAsync: handleSubmitAssignment } = useMemberSubmitAssignment();
+  const { handleTryCatch } = useTryCatch('nộp bài tập');
   const isMarked = false;
 
-  const onSubmit = (data: any) => {};
+  const onSubmit = async (data: any) => {
+    const params: PostSubmitActivityRequest = {
+      note: data.note || '',
+      submittedFiles: data.attachFiles.files || [],
+    };
+
+    await handleTryCatch(async () =>
+      handleSubmitAssignment({
+        id: moduleId,
+        params,
+      })
+    );
+    toggle();
+  };
 
   return (
     <Stack marginTop={1}>
@@ -56,16 +84,32 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
           >
             Nộp bài làm
           </Typography>
+          <FormInput
+            placeholder="Thêm ghi chú"
+            control={control}
+            name="note"
+            variant="multiline"
+          />
+          <Stack marginTop={1} />
           <FormInput control={control} name="attachFiles" variant="files" />
           <Box marginTop={1}>
             <Button
               disabled={!formState.isDirty}
-              onClick={handleSubmit(onSubmit, handleConsoleError)}
+              onClick={toggle}
               variant="contained"
             >
-              Thêm bài làm
+              {item.attachFiles.length !== 0
+                ? 'Cập nhật bài làm'
+                : 'Thêm bài làm'}
             </Button>
           </Box>
+          <ConfirmDialog
+            content="Bạn có chắc chắn nộp bài tập này ?"
+            handleAccept={handleSubmit(onSubmit, handleConsoleError)}
+            handleClose={toggle}
+            open={value}
+            title="Xác nhận nộp bài tập"
+          />
         </Stack>
       )}
     </Stack>

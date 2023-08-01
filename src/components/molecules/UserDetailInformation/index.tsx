@@ -2,6 +2,7 @@ import { Stack, Typography, Box } from '@mui/material';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
 import { IconName } from '~/components/atoms/Icon';
 import TextPropLine from '~/components/atoms/texts/TextPropLine';
+import { image } from '~/constants/image';
 import globalStyles from '~/styles';
 
 interface Props {
@@ -34,7 +35,7 @@ export default function UserDetailInformation({
               aspectRatio: 3 / 4,
               borderRadius: MetricSize.small_5,
             }}
-            src={imageUrl}
+            src={imageUrl || image.noCourse}
             alt={imageAlt}
           />
         </Stack>
