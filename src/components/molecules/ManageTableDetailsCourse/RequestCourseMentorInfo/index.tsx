@@ -114,7 +114,7 @@ export default function RequestCourseMentorInfo({
               spacing={4}
             >
               <Avatar
-                src={courseCreateRequestDetails?.mentor.avatar.url}
+                src={courseCreateRequestDetails?.mentor?.avatar?.url}
                 variant="rounded"
                 sx={{
                   width: 150,

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { ClassOfCourseCreateRequestDetails } from '~/models/courses';
 import { FontFamily } from '~/assets/variables';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
@@ -36,6 +36,11 @@ export default function RequestCourseClassDetails({
           label: 'Học sinh tối đa',
           value: classDetails.maxStudent ?? '',
         },
+        {
+          id: 2,
+          label: 'Giá tiền của lớp',
+          value: formatMoney(classDetails.price) ?? '',
+        },
       ],
     },
     {
@@ -51,23 +56,28 @@ export default function RequestCourseClassDetails({
           label: 'Ngày kết thúc (dự kiến)',
           value: formatISODateStringToDisplayDate(classDetails.endDate) ?? '',
         },
-      ],
-    },
-    {
-      id: 2,
-      subItem: [
         {
-          id: 0,
+          id: 2,
           label: 'Tổng số buổi học',
           value: classDetails.numberOfSlot ?? '',
         },
-        {
-          id: 1,
-          label: 'Giá tiền của lớp',
-          value: formatMoney(classDetails.price) ?? '',
-        },
       ],
     },
+    // // {
+    //   id: 2,
+    //   subItem: [
+    //     {
+    //       id: 0,
+    //       label: 'Tổng số buổi học',
+    //       value: classDetails.numberOfSlot ?? '',
+    //     },
+    //     {
+    //       id: 1,
+    //       label: 'Giá tiền của lớp',
+    //       value: formatMoney(classDetails.price) ?? '',
+    //     },
+    //   ],
+    // },
   ];
 
   const timeInWeekRequests = classDetails.timeInWeeks.map((subItem) => ({
@@ -87,8 +97,22 @@ export default function RequestCourseClassDetails({
         py={2}
       >
         <Grid item xs={12} container spacing={2}>
+          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={2}
+            >
+              <Avatar
+                variant="rounded"
+                sx={{ height: 200, width: 200 }}
+                src={classDetails?.image?.url}
+              />
+            </Stack>
+          </Grid>
           {displayText.map((item) => (
-            <Grid item md={12} lg={4} key={item.id}>
+            <Grid item xs={12} sm={12} md={4} lg={4} xl={4} key={item.id}>
               <Stack
                 direction="column"
                 justifyContent="flex-start"
@@ -100,7 +124,7 @@ export default function RequestCourseClassDetails({
                   container
                   direction="row"
                   justifyContent="flex-start"
-                  alignItems="flex-start"
+                  alignItems="flex"
                   spacing={2}
                 >
                   {item.subItem.map((subItem) => (

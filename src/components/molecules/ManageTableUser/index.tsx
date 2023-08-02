@@ -42,7 +42,6 @@ export default function ManageTableUser({ userRole }: ManageTableUserProps) {
   const rows = managedUserList ? managedUserList.items : [];
 
   const handleSearch = (data: any) => {
-    console.log('typeof data', typeof data);
     setQ(data.searchValue);
     refetch();
   };
