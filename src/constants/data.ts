@@ -219,19 +219,19 @@ export const ClassStatusStudentList: OptionPayload[] = [
   },
   {
     id: 5,
-    label: 'Lớp chuẩn bị mở',
-    content: 'Lớp đang chờ học sinh đăng kí và học.',
+    label: 'Đang chờ',
+    content: 'Lớp đã đăng kí và đang chờ mở.',
     value: 'NOTSTART',
   },
   {
     id: 1,
-    label: 'Lớp đang bắt đầu',
+    label: 'Đang học',
     content: 'Lớp đang trong quá trình giảng dạy.',
     value: 'STARTING',
   },
   {
     id: 2,
-    label: 'Lớp đã kết thúc',
+    label: 'Đã kết thúc',
     content: 'Lớp đã hết thời gian giảng dạy',
     value: 'ENDED',
   },

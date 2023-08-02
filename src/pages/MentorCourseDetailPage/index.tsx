@@ -114,6 +114,9 @@ export default function MentorCourseDetailPage() {
     isLoading: isCoursePercentLoading,
   } = useSubmitForReviewCourse(formatStringToNumber(id));
 
+  const handleOpen = () => {
+    setOpen(!open);
+  };
   const handleSubmitCourse = async (paramData: { classes: string[] }) => {
     if (isCanSubmitted) {
       if (paramData && paramData?.classes.length > 0) {
@@ -123,16 +126,13 @@ export default function MentorCourseDetailPage() {
             params: paramData.classes.map((item) => formatStringToNumber(item)),
           })
         );
+        handleOpen();
       } else {
         toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
       }
     } else {
       toast.notifyErrorToast('Chưa đủ điều kiện để phê duyệt');
     }
-  };
-
-  const handleOpen = () => {
-    setOpen(!open);
   };
 
   useEffectScrollToTop();

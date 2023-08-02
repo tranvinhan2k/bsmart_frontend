@@ -51,6 +51,7 @@ const activityApi = {
         break;
       case 'ASSIGNMENT':
         result.detail = {
+          note: response?.detail.note || '',
           assignmentId: response?.detail.id || 0,
           description: response?.detail.description || '',
           attachFiles: response?.detail?.assignmentFiles,
@@ -341,6 +342,7 @@ const activityApi = {
   }): Promise<boolean> {
     const requestData = new FormData();
     requestData.append('note', params.note);
+
     if (params.submittedFiles) {
       params.submittedFiles.map((item) => {
         requestData.append('submittedFiles', item);

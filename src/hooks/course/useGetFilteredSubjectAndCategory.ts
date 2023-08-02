@@ -14,11 +14,6 @@ export const useGetFilteredSubjectAndCategory = (
     item.categoryIds?.includes(categoryWatch.id)
   );
 
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryWatch]);
-
   return {
     filterSubjects,
     categories,

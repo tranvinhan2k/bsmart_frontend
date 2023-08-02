@@ -50,7 +50,7 @@ export const managerRoutes: RoutePayload[] = [
   },
   {
     path: 'temp_feedback_class_detail',
-    main: () => <ClassFeedbackDetailPage />,
+    main: () => <ClassFeedbackDetailPage isAdmin />,
     role: ['ROLE_MANAGER'],
   },
   {

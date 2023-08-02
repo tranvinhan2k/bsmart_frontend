@@ -100,7 +100,7 @@ export default function AddQuizForm({
     },
     {
       name: 'endDate',
-      label: 'Ngày bắt đầu',
+      label: 'Ngày kết thúc',
       placeholder: 'Nhập giờ kết thúc',
       variant: 'datetime',
     },

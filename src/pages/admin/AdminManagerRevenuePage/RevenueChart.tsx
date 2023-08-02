@@ -9,6 +9,7 @@ import {
 import { DatePicker, StaticDatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import React, { useState, PureComponent } from 'react';
+import { DateRange, Range } from 'react-date-range';
 import {
   LineChart,
   Line,
@@ -25,6 +26,7 @@ import {
   formatISODateDateToDisplayDate,
   formatISODateDateToDisplayMonthYear,
 } from '~/utils/date';
+import RevenueHistory from './RevenueHistory';
 
 export interface RevenuePayload {
   id: number;
@@ -39,6 +41,35 @@ export interface RevenueChartPayload {
   total: number;
   revenue: number;
   date: string;
+}
+
+function getFirstAndLastDateOfMonth(
+  year: number,
+  month: number
+): { firstDate: Date; lastDate: Date } {
+  // Ensure the month value is within the valid range (0 to 11)
+  const tmpMonth = Math.max(0, Math.min(11, month - 1));
+
+  // Create a new date with the given year and month (day is set to 1 to get the first day of the month)
+  const firstDate = new Date(year, tmpMonth, 1);
+
+  // Get the next month and subtract 1 day to get the last day of the current month
+  const lastDate = new Date(year, tmpMonth + 1, 0);
+
+  return { firstDate, lastDate };
+}
+
+function getFirstAndLastDateOfYear(year: number): {
+  firstDate: Date;
+  lastDate: Date;
+} {
+  // Create a new date with the given year and January (month is set to 0 to represent January)
+  const firstDate = new Date(year, 0, 1);
+
+  // Get the next year and subtract 1 day to get the last day of the current year
+  const lastDate = new Date(year + 1, 0, 0);
+
+  return { firstDate, lastDate };
 }
 
 function getVietnameseMonthName(date: Date): string {
@@ -128,7 +159,7 @@ function convertToDayArray(data: RevenuePayload[]): RevenueChartPayload[] {
 
 const convertRevenue = (
   data: RevenuePayload[],
-  type: 'DAY' | 'MONTH' | 'YEAR'
+  type: 'DAY' | 'MONTH' | 'YEAR' | 'ALL'
 ) => {
   switch (type) {
     case 'DAY':
@@ -136,100 +167,179 @@ const convertRevenue = (
     case 'MONTH':
       return convertToMonthArray(data);
     case 'YEAR':
-      return convertToYearArray(data);
+      return convertToMonthArray(data);
     default:
       return convertToDayArray(data);
   }
 };
 
 export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
-  const [date, setDate] = useState<Dayjs | null | undefined>();
-  const [type, setType] = useState<'DAY' | 'MONTH' | 'YEAR'>('DAY');
+  const [state, setState] = useState<Range[]>([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection',
+    },
+  ]);
+  const [type, setType] = useState<'DAY' | 'MONTH' | 'YEAR' | 'ALL'>('DAY');
 
-  const filterData = convertRevenue(data, type).sort((a, b) =>
+  const historyData = data.filter((item) => {
+    if (type !== 'ALL') {
+      return (
+        new Date(state?.[0]?.startDate || '').getTime() <=
+          new Date(item.date).getTime() &&
+        new Date(item.date).getTime() <=
+          new Date(state?.[0]?.endDate || '').getTime()
+      );
+    }
+    return true;
+  });
+  const filterData = convertRevenue(historyData, type).sort((a, b) =>
     a.date.localeCompare(b.date)
   );
 
+  const handleChangeType = (paramType: 'DAY' | 'MONTH' | 'YEAR' | 'ALL') => {
+    setType(paramType);
+    switch (paramType) {
+      case 'DAY': {
+        setState(() => [
+          {
+            startDate: new Date(),
+            endDate: new Date(),
+            key: 'selection',
+          },
+        ]);
+        break;
+      }
+      case 'MONTH': {
+        const currentDate = new Date();
+        const days = getFirstAndLastDateOfMonth(
+          currentDate.getFullYear(),
+          currentDate.getMonth()
+        );
+        setState(() => [
+          {
+            startDate: days.firstDate,
+            endDate: days.lastDate,
+            key: 'selection',
+          },
+        ]);
+        break;
+      }
+      case 'YEAR': {
+        const currentDate = new Date();
+        const days = getFirstAndLastDateOfYear(currentDate.getFullYear());
+        setState(() => [
+          {
+            startDate: days.firstDate,
+            endDate: days.lastDate,
+            key: 'selection',
+          },
+        ]);
+        break;
+      }
+      default:
+        setState(() => [
+          {
+            startDate: new Date(),
+            endDate: new Date(),
+            key: 'selection',
+          },
+        ]);
+        break;
+    }
+  };
+
   return (
     <Stack>
-      <Typography sx={globalStyles.textSubTitle}>Thống kê doanh thu</Typography>
-      <Stack marginTop={1}>
-        <Stack sx={{ flexDirection: 'row', width: '100%', height: '100%' }}>
-          <Stack
-            sx={{
-              borderRadius: '12px',
-            }}
-          >
-            <ButtonGroup
-              sx={{ width: '100%' }}
-              variant="contained"
-              aria-label="outlined secondary button group"
-            >
-              <Button onClick={() => setType('DAY')} sx={{ flexGrow: 1 }}>
-                Ngày
-              </Button>
-              <Button onClick={() => setType('MONTH')} sx={{ flexGrow: 1 }}>
-                Tháng
-              </Button>
-              <Button onClick={() => setType('YEAR')} sx={{ flexGrow: 1 }}>
-                Năm
-              </Button>
-            </ButtonGroup>
+      <Stack>
+        <Typography sx={globalStyles.textSubTitle}>
+          Thống kê doanh thu
+        </Typography>
+        <Stack marginTop={1}>
+          <Stack sx={{ flexDirection: 'row', width: '100%', height: '100%' }}>
             <Stack
               sx={{
-                '.MuiPickersToolbar-root': {
-                  display: 'none',
-                },
-                '.MuiDialogActions-root': {
-                  display: 'none',
-                },
-                '.MuiPickerStaticWrapper-content': {
-                  background: Color.transparent,
-                },
+                borderRadius: '12px',
               }}
             >
-              <StaticDatePicker
-                value={date}
-                onChange={(value) => setDate(value)}
-                renderInput={(props) => <TextField {...props} />}
-              />
-            </Stack>
-          </Stack>
-          <Stack sx={{ flexGrow: 1, height: '500px' }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                width={500}
-                height={300}
-                data={filterData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
+              <ButtonGroup
+                sx={{ width: '100%' }}
+                variant="contained"
+                aria-label="outlined secondary button group"
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="total"
-                  stroke="#82ca9d"
-                  name="Tổng doanh thu"
+                <Button
+                  onClick={() => handleChangeType('DAY')}
+                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                >
+                  Hôm nay
+                </Button>
+                <Button
+                  onClick={() => handleChangeType('MONTH')}
+                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                >
+                  Tháng nay
+                </Button>
+                <Button
+                  onClick={() => handleChangeType('YEAR')}
+                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                >
+                  Năm nay
+                </Button>
+                <Button
+                  onClick={() => handleChangeType('ALL')}
+                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                >
+                  Tất cả
+                </Button>
+              </ButtonGroup>
+              <Stack marginTop={1}>
+                <DateRange
+                  onChange={(range) => setState([range.selection])}
+                  ranges={state}
+                  color="3944BC"
+                  editableDateInputs
+                  moveRangeOnFirstSelection={false}
                 />
-                <Line
-                  type="monotone"
-                  dataKey="revenue"
-                  name="Lợi nhuận"
-                  stroke={Color.tertiary}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+              </Stack>
+            </Stack>
+            <Stack sx={{ flexGrow: 1, height: '500px' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  width={500}
+                  height={300}
+                  data={filterData}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="total"
+                    stroke="#82ca9d"
+                    name="Tổng doanh thu"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="revenue"
+                    name="Lợi nhuận"
+                    stroke={Color.tertiary}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
+      <RevenueHistory data={historyData || []} />
     </Stack>
   );
 }
