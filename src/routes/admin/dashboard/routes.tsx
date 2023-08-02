@@ -1,5 +1,4 @@
 import { Navigate } from 'react-router-dom';
-import AdminManagerQuestionBank from '~/pages/admin/AdminManagerQuestionBank';
 import { AdminNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
@@ -9,6 +8,8 @@ import {
   FeedbackManagerPage,
   NotFoundPage,
   SubjectManagerPage,
+  AdminManagerQuestionBank,
+  AdminManagerRevenuePage,
 } from '~/routes/components';
 
 export const adminRoutes: RoutePayload[] = [
@@ -55,6 +56,11 @@ export const adminRoutes: RoutePayload[] = [
   {
     path: AdminNavigationActionLink.questions_bank,
     main: () => <AdminManagerQuestionBank />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.revenue,
+    main: () => <AdminManagerRevenuePage />,
     role: ['ROLE_ADMIN'],
   },
   {

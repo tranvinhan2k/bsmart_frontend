@@ -205,3 +205,12 @@ export const MemberClassModulesPage = lazy(
 export const MemberPromoCode = lazy(
   () => import('~/pages/member_class/MemberPromoCode')
 );
+
+// admin
+
+export const AdminManagerRevenuePage = lazy(
+  () => import('~/pages/admin/AdminManagerRevenuePage')
+);
+export const AdminManagerQuestionBank = lazy(
+  () => import('~/pages/admin/AdminManagerQuestionBank')
+);

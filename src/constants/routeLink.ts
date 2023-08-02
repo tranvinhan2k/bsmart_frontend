@@ -98,6 +98,7 @@ export const enum AdminNavigationActionLink {
   subject_manager = 'subject_manager',
   category_manager = 'category_manager',
   questions_bank = 'questions_bank_manager',
+  revenue = 'revenue',
 }
 
 export const enum ManagerNavigationActionLink {
