@@ -21,7 +21,10 @@ import {
 } from 'recharts';
 import { Color } from '~/assets/variables';
 import globalStyles from '~/styles';
-import { formatISODateDateToDisplayDate } from '~/utils/date';
+import {
+  formatISODateDateToDisplayDate,
+  formatISODateDateToDisplayMonthYear,
+} from '~/utils/date';
 
 export interface RevenuePayload {
   id: number;
@@ -35,24 +38,11 @@ export interface RevenueChartPayload {
   name: string;
   total: number;
   revenue: number;
+  date: string;
 }
 
 function getVietnameseMonthName(date: Date): string {
-  const vietnameseMonths = [
-    'Tháng 1',
-    'Tháng 2',
-    'Tháng 3',
-    'Tháng 4',
-    'Tháng 5',
-    'Tháng 6',
-    'Tháng 7',
-    'Tháng 8',
-    'Tháng 9',
-    'Tháng 10',
-    'Tháng 11',
-    'Tháng 12',
-  ];
-  return vietnameseMonths[date.getMonth()];
+  return `Tháng ${formatISODateDateToDisplayMonthYear(date)}`;
 }
 function getVietnameseYearName(year: number): string {
   return `Năm ${year}`;
@@ -71,6 +61,7 @@ function convertToMonthArray(data: RevenuePayload[]): RevenueChartPayload[] {
         name: month,
         total: 0,
         revenue: 0,
+        date: item.date,
       };
     }
 
@@ -95,6 +86,7 @@ function convertToYearArray(data: RevenuePayload[]): RevenueChartPayload[] {
         name: yearName,
         total: 0,
         revenue: 0,
+        date: item.date,
       };
     }
 
@@ -123,6 +115,7 @@ function convertToDayArray(data: RevenuePayload[]): RevenueChartPayload[] {
         name: dayName,
         total: 0,
         revenue: 0,
+        date: item.date,
       };
     }
 
@@ -154,7 +147,7 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
   const [type, setType] = useState<'DAY' | 'MONTH' | 'YEAR'>('DAY');
 
   const filterData = convertRevenue(data, type).sort((a, b) =>
-    a.name.localeCompare(b.name)
+    a.date.localeCompare(b.date)
   );
 
   return (
@@ -220,10 +213,16 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="total" stroke="#82ca9d" />
+                <Line
+                  type="monotone"
+                  dataKey="total"
+                  stroke="#82ca9d"
+                  name="Tổng doanh thu"
+                />
                 <Line
                   type="monotone"
                   dataKey="revenue"
+                  name="Lợi nhuận"
                   stroke={Color.tertiary}
                 />
               </LineChart>
