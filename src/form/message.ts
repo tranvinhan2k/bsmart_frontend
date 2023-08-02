@@ -11,6 +11,8 @@ export const CONFIRM_PASSWORD_NOT_MATCH =
   'Xác nhận mật khẩu mới không giống nhau';
 export const MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED =
   'Hãy nhập tin nhắn tới người dùng';
+export const MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED =
+  'Hãy nhập tin nhắn tới giảng viên';
 export const CRATE_ASSIGNMENT_NAME = 'Hãy nhập tên assignment';
 export const CRATE_ASSIGNMENT_DESCRIPTION = 'Hãy nhập mô tả assignment';
 export const CRATE_ASSIGNMENT_START_DATE = 'Hãy nhập ngày bắt đầu assignment';

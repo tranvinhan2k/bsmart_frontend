@@ -37,8 +37,12 @@ export interface CourseCreateRequestDetails {
   subjectResponse: SubjectPayload;
   status: string;
   mentor: Mentor;
-  classes: ClassOfCourseCreateRequestDetails[];
-  activities: ActivityOfCourseCreateRequestDetails[];
+  // classes: ClassOfCourseCreateRequestDetails[];
+  // activities: ActivityOfCourseCreateRequestDetails[];
+  totalClass: number;
+  timeSendRequest: string;
+  count: number;
+  approved: boolean;
 }
 
 export interface ClassOfCourseCreateRequestDetails {

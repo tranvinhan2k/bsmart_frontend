@@ -53,6 +53,7 @@ import {
   CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
   MENTOR_SKILLS_REQUIRED_ONE,
   SKILL_UNIQUE,
+  MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -703,6 +704,11 @@ export const validationSchemaWithdrawMoney = object({
 
 export const validationSchemaVerifyRegisterRequest = object({
   message: string().required(MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED),
+});
+export const validationSchemaProcessUpdateMentorProfileRequest = object({
+  message: string().required(
+    MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED
+  ),
 });
 export const validationSchemaApproveCreateCourseRequest = object({
   message: string().required(MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED),

@@ -102,6 +102,9 @@ export const ManageCoursePage = lazy(() => import('~/pages/ManageCoursePage'));
 export const ManageRegisterRequestPage = lazy(
   () => import('~/pages/ManageRegisterRequestPage')
 );
+export const ManageMentorProfileUpdateRequestPage = lazy(
+  () => import('~/pages/ManageMentorProfileUpdateRequestPage')
+);
 export const ManageUserPage = lazy(() => import('~/pages/ManageUserPage'));
 
 export const FeedbackManagerPage = lazy(

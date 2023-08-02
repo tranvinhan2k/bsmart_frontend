@@ -97,3 +97,40 @@ export function IsVerifiedCell({ isVerified }: IsVerifiedCellProps) {
     </div>
   );
 }
+
+export function IsApprovedCourseCell({ isVerified }: IsVerifiedCellProps) {
+  let result = null;
+  switch (isVerified) {
+    case true:
+      result = (
+        <>
+          <Icon name="dot" size="small" color="green" />
+          <Typography fontSize={14}>Xác thực</Typography>
+        </>
+      );
+      break;
+    case false:
+      result = (
+        <>
+          <Icon name="dot" size="small" color="red" />
+          <Typography fontSize={14}>Đang chờ</Typography>
+        </>
+      );
+      break;
+    default:
+      result = (
+        <>
+          <Icon name="dot" size="small" color="red" />
+          <Typography fontSize={14}>Chưa xác thực</Typography>
+        </>
+      );
+      break;
+  }
+  return (
+    <div title="World Health Organization">
+      <Stack direction="row" alignItems="center" gap={1}>
+        {result}
+      </Stack>
+    </div>
+  );
+}

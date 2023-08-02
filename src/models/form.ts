@@ -141,6 +141,10 @@ export interface ProcessRegisterRequestFormDefault {
   status: string;
   message: string;
 }
+export interface ProcessUpdateMentorProfileRequestFormDefault {
+  status: boolean;
+  message: string;
+}
 export interface ProcessCreateCourseRequestFormDefault {
   status: string;
   message: string;

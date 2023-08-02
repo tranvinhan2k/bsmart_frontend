@@ -33,6 +33,13 @@ export const ManagerNavigationActionData: ActionPayload[] = [
             name: 'Yêu cầu mở tài khoản',
             link: ManagerNavigationActionLink.manage_register_request_manager,
           },
+          {
+            id: 2,
+            isHide: true,
+            icon: 'description',
+            name: 'Yêu cầu mở thêm môn dạy của giảng viên',
+            link: ManagerNavigationActionLink.manage_mentor_profile_update_request,
+          },
         ],
       },
       {
