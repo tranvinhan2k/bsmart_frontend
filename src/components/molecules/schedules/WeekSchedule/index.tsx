@@ -260,17 +260,20 @@ export default function WeekSchedule({ data }: Props) {
                               </Stack>
                               <Stack>
                                 <Button
-                                  disabled={
-                                    !compareDate(
-                                      new Date(),
-                                      new Date(subItem.date)
-                                    )
-                                  }
+                                  // disabled={
+                                  //   !compareDate(
+                                  //     new Date(),
+                                  //     new Date(subItem.date)
+                                  //   )
+                                  // }
                                   sx={{
                                     fontSize: '10px',
                                   }}
                                   onClick={() =>
-                                    openUrl(subItem.googleLink || '')
+                                    openUrl(
+                                      subItem.googleLink ||
+                                        'https://meet.google.com/tuq-vpju-sud'
+                                    )
                                   }
                                   variant="contained"
                                   color="primary"

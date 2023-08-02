@@ -47,6 +47,12 @@ export const AdminNavigationActionData: ActionPayload[] = [
         name: 'Ngân hàng câu hỏi',
         link: AdminNavigationActionLink.questions_bank,
       },
+      {
+        id: 6,
+        icon: 'faMoneyBill',
+        name: 'Quản lí doanh thu',
+        link: AdminNavigationActionLink.revenue,
+      },
     ],
   },
 ];
