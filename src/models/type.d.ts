@@ -246,6 +246,7 @@ export interface ActivityAssignmentPayload {
   editBeForSubmitMin: number;
   maxFileSubmit: number;
   maxFileSize: number;
+  note: string;
   attachFiles: {
     name: string;
     url: string;

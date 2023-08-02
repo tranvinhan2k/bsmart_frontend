@@ -14,6 +14,7 @@ import DayName from './DayName';
 import { LoadingWrapper } from '~/HOCs';
 import { compareDate } from '~/utils/date';
 import {
+  MemberClassActionLink,
   MentorClassActionLink,
   MentorDashboardNavigationActionLink,
   NavigationLink,
@@ -299,7 +300,9 @@ export default function WeekSchedule({ data }: Props) {
                                   }
                                   onClick={() =>
                                     navigate(
-                                      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
+                                      role === 'TEACHER'
+                                        ? `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
+                                        : `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MemberClassActionLink.attendance}`
                                     )
                                   }
                                 >

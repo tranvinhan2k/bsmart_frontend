@@ -46,7 +46,7 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
         sx={globalStyles.textLowSmallLight}
       >{`Thời gian cho chỉnh sửa: ${item.editBeForSubmitMin} phút`}</Typography>
 
-      <MentorClassAssignmentPage />
+      <MentorClassAssignmentPage assignmentId={item.assignmentId} />
     </Stack>
   );
 }

@@ -1,7 +1,7 @@
 import { Stomp } from '@stomp/stompjs';
 import { Button, Stack } from '@mui/material';
 
-const topic = '/topic/messages';
+const topic = '/topic/message';
 
 const WS_URL = 'ws://103.173.155.221:8080/websocket';
 
@@ -28,9 +28,7 @@ export default function TextSection() {
   };
 
   const connect = () => {
-    stompClient.connect({}, () => {
-      console.log('hello world');
-    });
+    stompClient.activate();
   };
 
   const disconnect = () => {

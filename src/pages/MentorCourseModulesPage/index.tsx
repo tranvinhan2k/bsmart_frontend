@@ -245,7 +245,9 @@ export default function MentorCourseModulesPage() {
           editBeForSubmitMin: data.editBeForSubmitMin,
           maxFileSubmit: data.maxFileSubmit,
           maxFileSize: data.maxFileSize,
-          attachFiles: data.attachFiles.files,
+          attachFiles: data.attachFiles.files.filter(
+            (item: any) => item?.fileType !== 'ATTACH'
+          ),
           passPoint: data.passPoint,
         },
       });

@@ -13,6 +13,7 @@ import {
   formatISODateStringToDisplayDateTime,
 } from '~/utils/date';
 import {
+  useDeleteFile,
   useGetIdFromUrl,
   useMemberSubmitAssignment,
   useTryCatch,
@@ -31,25 +32,41 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
   const { value, toggle } = useBoolean(false);
   const { control, handleSubmit, formState } = useForm({
     defaultValues: {
-      attachFiles: { files: item.attachFiles || [], deleteIndexes: [] },
+      note: item.note,
+      attachFiles: {
+        files:
+          item.attachFiles.map((subItem: any) => ({
+            ...subItem,
+            fileType: 'ATTACH',
+          })) || [],
+        deleteIndexes: [],
+      },
     },
   });
   const { mutateAsync: handleSubmitAssignment } = useMemberSubmitAssignment();
+  const { mutateAsync: handleDeleteFiles } = useDeleteFile();
+
   const { handleTryCatch } = useTryCatch('nộp bài tập');
   const isMarked = false;
 
   const onSubmit = async (data: any) => {
     const params: PostSubmitActivityRequest = {
       note: data.note || '',
-      submittedFiles: data.attachFiles.files || [],
+      submittedFiles:
+        data.attachFiles.files.filter(
+          (subItem: any) => subItem?.fileType !== 'ATTACH'
+        ) || [],
     };
 
-    await handleTryCatch(async () =>
-      handleSubmitAssignment({
+    await handleTryCatch(async () => {
+      if (data?.attachFiles?.deleteIndexes?.length > 0) {
+        await handleDeleteFiles(data.attachFiles.deleteIndexes);
+      }
+      await handleSubmitAssignment({
         id: moduleId,
         params,
-      })
-    );
+      });
+    });
     toggle();
   };
 

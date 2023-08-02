@@ -35,7 +35,11 @@ export interface AssignmentSubmitItemPayload {
   note: string;
 }
 
-export default function MentorClassAssignmentPage() {
+export default function MentorClassAssignmentPage({
+  assignmentId,
+}: {
+  assignmentId: number;
+}) {
   const moduleId = useGetIdFromUrl('moduleId');
   const id = useGetIdFromUrl('id');
   const { control, handleSubmit } = useForm();
@@ -46,7 +50,7 @@ export default function MentorClassAssignmentPage() {
     data: assignments,
     error,
     isLoading,
-  } = useGetAssignment(moduleId, id);
+  } = useGetAssignment(assignmentId, id);
 
   const { mutateAsync } = useMutationSubmitPointAssignment();
 

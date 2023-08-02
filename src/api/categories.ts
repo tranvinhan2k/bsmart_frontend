@@ -32,7 +32,7 @@ const categoriesApi = {
   },
 
   async getMentorCategories(): Promise<OptionPayload[] | undefined> {
-    const response: any[] = await axiosClient.get(`${url}//mentor-skills`);
+    const response: any[] = await axiosClient.get(`${url}/mentor-skills`);
     const formatResponse: OptionPayload[] = response.map((item) => ({
       id: item.id,
       label: item.name,

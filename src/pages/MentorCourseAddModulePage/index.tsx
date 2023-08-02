@@ -102,7 +102,10 @@ export default function MentorCourseAddModulePage() {
       endDate: '',
       maxFileSubmit: 0,
       maxFileSize: 0,
-      attachFiles: [],
+      attachFiles: {
+        files: [],
+        deleteIndexes: [],
+      },
       passPoint: 0,
     },
     resolver: resolverAssignment,

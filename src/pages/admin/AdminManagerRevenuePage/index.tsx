@@ -36,18 +36,8 @@ export default function AdminManagerRevenuePage() {
   ];
   return (
     <Stack padding={2}>
-      <CustomTab
-        tabContentList={[
-          {
-            label: 'Thống kê doanh thu',
-            data: <RevenueChart data={data} />,
-          },
-          {
-            label: 'Lịch sử giao dịch',
-            data: <RevenueHistory data={data} />,
-          },
-        ]}
-      />
+      <RevenueChart data={data} />
+      <RevenueHistory data={data} />
     </Stack>
   );
 }

@@ -45,7 +45,7 @@ export default function ClassFeedbackDetailPage({
   };
 
   return (
-    <Stack>
+    <Stack padding={3}>
       <Typography sx={globalStyles.textSubTitle}>Đánh giá của lớp</Typography>
 
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
