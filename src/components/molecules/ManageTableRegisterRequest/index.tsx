@@ -73,7 +73,7 @@ export default function ManageTableRegisterRequest({
   switch (status) {
     case MentorProfileStatusType.WAITING:
       popoverOptions = optionsViewDetails;
-      renderColumns = columns.managedRegisterRequestColumns;
+      renderColumns = columns.managedUserRegisterRequestColumns;
       break;
     default:
       popoverOptions = popoverOptionsDefault;
