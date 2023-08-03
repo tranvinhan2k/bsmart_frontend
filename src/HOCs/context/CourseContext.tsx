@@ -1,12 +1,5 @@
-import React, {
-  ReactNode,
-  createContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { useGetIdFromUrl, useQueryGetCourseContent } from '~/hooks';
+import React, { ReactNode, createContext, useMemo, useState } from 'react';
+import { useGetIdFromUrl } from '~/hooks';
 import LoadingWrapper from '../loading/LoadingWrapper';
 import useQueryMentorCourse from '~/hooks/course/useQueryMentorCourse';
 import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';

@@ -127,6 +127,7 @@ export default function MentorCourseDetailPage() {
           })
         );
         handleOpen();
+        window.location.reload();
       } else {
         toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
       }

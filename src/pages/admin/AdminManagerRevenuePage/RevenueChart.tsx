@@ -26,6 +26,7 @@ import {
   formatISODateDateToDisplayDate,
   formatISODateDateToDisplayMonthYear,
 } from '~/utils/date';
+// eslint-disable-next-line import/no-cycle
 import RevenueHistory from './RevenueHistory';
 
 export interface RevenuePayload {
@@ -181,7 +182,7 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
       key: 'selection',
     },
   ]);
-  const [type, setType] = useState<'DAY' | 'MONTH' | 'YEAR' | 'ALL'>('DAY');
+  const [type, setType] = useState<'DAY' | 'MONTH' | 'YEAR' | 'ALL'>('ALL');
 
   const historyData = data.filter((item) => {
     if (type !== 'ALL') {
@@ -270,25 +271,25 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
               >
                 <Button
                   onClick={() => handleChangeType('DAY')}
-                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                  sx={{ flexGrow: 1 }}
                 >
                   Hôm nay
                 </Button>
                 <Button
                   onClick={() => handleChangeType('MONTH')}
-                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                  sx={{ flexGrow: 1 }}
                 >
-                  Tháng nay
+                  Tháng
                 </Button>
                 <Button
                   onClick={() => handleChangeType('YEAR')}
-                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                  sx={{ flexGrow: 1 }}
                 >
-                  Năm nay
+                  Năm
                 </Button>
                 <Button
                   onClick={() => handleChangeType('ALL')}
-                  sx={{ flexGrow: 1, fontSize: '10px' }}
+                  sx={{ flexGrow: 1 }}
                 >
                   Tất cả
                 </Button>

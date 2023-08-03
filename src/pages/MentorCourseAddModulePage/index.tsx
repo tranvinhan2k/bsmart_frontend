@@ -44,7 +44,7 @@ export default function MentorCourseAddModulePage() {
   const hookFormLesson = useForm({
     defaultValues: {
       name: '',
-      visible: false,
+      visible: true,
       parentActivityId: sectionId,
       courseId,
       description: '',
@@ -58,7 +58,7 @@ export default function MentorCourseAddModulePage() {
   const hookFormResource = useForm({
     defaultValues: {
       name: '',
-      visible: false,
+      visible: true,
       parentActivityId: sectionId,
       courseId,
       authorizeClasses: [],
@@ -70,7 +70,7 @@ export default function MentorCourseAddModulePage() {
   const hookFormQuiz = useForm({
     defaultValues: {
       name: '',
-      visible: false,
+      visible: true,
       parentActivityId: sectionId,
       authorizeClasses: [],
       courseId,
@@ -93,7 +93,7 @@ export default function MentorCourseAddModulePage() {
   const hookFormAssignment = useForm({
     defaultValues: {
       name: '',
-      visible: false,
+      visible: true,
       parentActivityId: sectionId,
       authorizeClasses: [],
       courseId,

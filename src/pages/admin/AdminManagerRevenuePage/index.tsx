@@ -3,41 +3,39 @@ import CustomTab from '~/components/atoms/CustomTab';
 import RevenueChart, { RevenuePayload } from './RevenueChart';
 import RevenueHistory from './RevenueHistory';
 
+function generateRandomDate(start: Date, end: Date): Date {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+}
+
+function generateRandomData(numItems: number): RevenuePayload[] {
+  const newData: RevenuePayload[] = [];
+  const buyers = ['Nhan Tran', 'John Doe', 'Jane Smith'];
+  const startDate = new Date(2020, 0, 1);
+  const endDate = new Date(2024, 11, 31);
+
+  for (let i = 0; i < numItems; i += 1) {
+    const id = newData.length + i;
+    const date = generateRandomDate(startDate, endDate).toISOString();
+    const revenue = Math.floor(Math.random() * 100) + 1; // Random revenue between 1 and 100
+    const total = Math.floor(Math.random() * 500) + 1; // Random total between 1 and 500
+    const buyer = buyers[Math.floor(Math.random() * buyers.length)];
+
+    newData.push({ id, date, revenue, total, buyer });
+  }
+
+  return newData;
+}
+
+// Call the function to generate random data and add it to the existing data array
+
 export default function AdminManagerRevenuePage() {
-  const data: RevenuePayload[] = [
-    {
-      id: 0,
-      date: '2022-08-01T17:30:09.724Z',
-      revenue: 30,
-      total: 100,
-      buyer: 'Nhan Tran',
-    },
-    {
-      id: 1,
-      date: '2023-03-01T17:30:09.724Z',
-      revenue: 10,
-      total: 200,
-      buyer: 'Nhan Tran',
-    },
-    {
-      id: 2,
-      date: '2021-01-01T17:30:09.724Z',
-      revenue: 40,
-      total: 300,
-      buyer: 'Nhan Tran',
-    },
-    {
-      id: 3,
-      date: '2023-02-01T17:30:09.724Z',
-      revenue: 10,
-      total: 30,
-      buyer: 'Nhan Tran',
-    },
-  ];
+  const data = generateRandomData(120);
+
   return (
     <Stack padding={2}>
       <RevenueChart data={data} />
-      <RevenueHistory data={data} />
     </Stack>
   );
 }

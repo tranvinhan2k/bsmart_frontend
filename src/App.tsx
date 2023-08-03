@@ -43,14 +43,14 @@ import localEnvironment from './utils/localEnvironment';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 
 import AuthorizePage from '~/pages/AuthorizePage';
-
 // css
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import NotificationContextProvider from './HOCs/context/NotificationContext';
+import { useSocket } from './hooks/useSocket';
 
-window.global ||= window; // Fix error websocket . don't delete
+window.global ||= window;
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (
@@ -133,6 +133,8 @@ function App() {
     initGlobalValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useSocket();
 
   return (
     <Suspense fallback={<LazyLoadingScreen />}>

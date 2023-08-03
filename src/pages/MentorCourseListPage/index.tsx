@@ -106,6 +106,7 @@ export default function MentorCourseListPage() {
 
           <Box>
             <Button
+              disabled={profile.mentorProfile.status !== 'STARTING'}
               onClick={handleNavigateCreateCourse}
               variant="contained"
               color="secondary"

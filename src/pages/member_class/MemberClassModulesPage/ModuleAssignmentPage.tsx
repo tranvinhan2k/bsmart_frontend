@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { FontFamily, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import MarkDisplay from '~/components/atoms/MarkDisplay';
 import { ActivityAssignmentPayload } from '~/models/type';
 import globalStyles from '~/styles';
-import { handleConsoleError } from '~/utils/common';
+import { convertToHigherByteUnit, handleConsoleError } from '~/utils/common';
 import ModuleActivity from './ModuleActivity';
 import {
   formatISODateDateToDisplayDateTime,
@@ -21,6 +21,9 @@ import {
 import { PostSubmitActivityRequest } from '~/models';
 import { useBoolean } from '~/hooks/useBoolean';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import Icon from '~/components/atoms/Icon';
+import { image } from '~/constants/image';
+import { openUrl } from '~/utils/window';
 
 interface Props {
   name: string;
@@ -33,14 +36,14 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
   const { control, handleSubmit, formState } = useForm({
     defaultValues: {
       note: item.note,
-      attachFiles: {
-        files:
-          item.attachFiles.map((subItem: any) => ({
-            ...subItem,
-            fileType: 'ATTACH',
-          })) || [],
-        deleteIndexes: [],
-      },
+      // attachFiles: {
+      //   files:
+      //     item.attachFiles.map((subItem: any) => ({
+      //       ...subItem,
+      //       fileType: 'ATTACH',
+      //     })) || [],
+      //   deleteIndexes: [],
+      // },
     },
   });
   const { mutateAsync: handleSubmitAssignment } = useMemberSubmitAssignment();
@@ -89,10 +92,68 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
         textAlign="center"
         sx={globalStyles.textLowSmallLight}
       >{`Thời gian cho chỉnh sửa: ${item.editBeForSubmitMin} phút`}</Typography>
+      <Typography textAlign="center" sx={globalStyles.textSmallLabel}>
+        Tệp đính kèm
+      </Typography>
+      {item.attachFiles.map((file, index) => (
+        <Stack
+          key={index}
+          sx={{
+            border: '1px solid #ddd',
+            borderRadius: MetricSize.small_5,
+            paddingY: 1,
+            marginY: 1,
+          }}
+        >
+          <Stack
+            sx={{
+              paddingRight: 2,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Box
+                component="img"
+                src={image.file}
+                sx={{
+                  width: '50px',
+                  height: '50px',
+                  objectFit: 'cover',
+                }}
+              />
+              <Stack>
+                <Typography sx={globalStyles.textLowSmallLight}>
+                  {file.name}
+                </Typography>
+                <Typography sx={globalStyles.textLowSmallLight}>
+                  {`${convertToHigherByteUnit(file.size || 0)}`}
+                </Typography>
+              </Stack>
+            </Stack>
+            <Button
+              onClick={() => openUrl(file.url)}
+              startIcon={<Icon name="down" color="white" size="small_20" />}
+              variant="contained"
+              color="secondary"
+              sx={{ color: Color.white, justifySelf: 'flex-end' }}
+            >
+              tải về
+            </Button>
+          </Stack>
+        </Stack>
+      ))}
       {isMarked ? (
         <MarkDisplay point={7} total={10} />
       ) : (
-        <Stack>
+        <Stack marginTop={1}>
           <Typography
             sx={{
               fontSize: FontSize.small_14,

@@ -272,13 +272,15 @@ export default function Sidebar({
                     sx={{
                       marginTop: 1,
                       marginLeft: index % 3 === 0 ? 0 : 1,
-                      width: { xs: '100%', lg: '31%' },
+                      width: { lg: '31%' },
                     }}
                     key={item.id}
                   >
                     <Stack
                       onClick={() => handleChangeClass(item)}
                       sx={{
+                        padding: 1,
+
                         background:
                           chooseClass.id === item.id
                             ? `${Color.tertiary}44`
