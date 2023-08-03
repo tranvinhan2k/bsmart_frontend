@@ -202,7 +202,7 @@ export default function UpdateMentorSkill() {
           </Box>
         </form>
       )}
-      {!!subjects && (
+      {!subjects && (
         <Typography component="h3" sx={SX_FORM_LABEL}>
           Đang tải
         </Typography>

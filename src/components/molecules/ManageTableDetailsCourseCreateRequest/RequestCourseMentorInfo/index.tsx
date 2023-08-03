@@ -114,7 +114,7 @@ export default function RequestCourseMentorInfo({
               spacing={4}
             >
               <Avatar
-                src={courseCreateRequestDetails?.mentor.avatar.url}
+                src={courseCreateRequestDetails?.mentor?.avatar?.url}
                 variant="rounded"
                 sx={{
                   width: 150,
@@ -130,7 +130,7 @@ export default function RequestCourseMentorInfo({
                   alignItems="flex-start"
                 >
                   {title0.map((item) => (
-                    <Grid item md={12} lg={6} key={item.id}>
+                    <Grid xs={12} sm={12} md={12} lg={6} key={item.id}>
                       <Stack
                         direction="column"
                         justifyContent="flex-start"
@@ -202,7 +202,7 @@ export default function RequestCourseMentorInfo({
                 <Box mt={6}>
                   <Grid container spacing={{ xs: 2, md: 3 }}>
                     {title2.map((item) => (
-                      <Grid item xs={12} sm={6} md={3} key={item.id}>
+                      <Grid item xs={12} sm={6} md={6} lg={3} key={item.id}>
                         <Stack
                           direction="column"
                           justifyContent="flex-start"

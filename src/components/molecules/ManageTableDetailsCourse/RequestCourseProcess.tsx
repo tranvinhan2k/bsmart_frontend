@@ -1,76 +1,89 @@
 import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ProcessUpdateMentorProfileRequestFormDefault } from '~/models/form';
+import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
+import { ProcessCreateCourseRequestPayload } from '~/api/courses';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { useMutationProcessCourseCreateRequest } from '~/hooks/course/useMutationProcessCourseCreateRequest';
 import { useYupValidationResolver } from '~/hooks';
-import {
-  useMutationProcessUpdateMentorProfileRequest,
-  UseMutationProcessUpdateMentorProfileRequestPayload,
-} from '~/hooks/user/useMutationProcessUpdateMentorProfileRequest';
-import { validationSchemaProcessUpdateMentorProfileRequest } from '~/form/validation';
+import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
-interface RequestRegisterProcessProps {
-  row: any;
+interface RequestCourseProcessProps {
+  idCourse: number;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function RequestUpdateMentorDetailsProcess({
-  row,
+export default function RequestCourseProcess({
+  idCourse,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: RequestRegisterProcessProps) {
-  const { processUpdateMentorProfileRequest } =
-    useMutationProcessUpdateMentorProfileRequest();
-  const resolverVerifyRegisterRequest = useYupValidationResolver(
-    validationSchemaProcessUpdateMentorProfileRequest
+}: RequestCourseProcessProps) {
+  const { courseCreateRequestDetails } =
+    useGetCourseCreateRequestDetails(idCourse);
+
+  const resolverApproveCreateCourseRequest = useYupValidationResolver(
+    validationSchemaApproveCreateCourseRequest
   );
+  const { processCourseCreateRequestMutation } =
+    useMutationProcessCourseCreateRequest();
+
   const { control: controlApprove, handleSubmit: handleSubmitApprove } =
     useForm({
       defaultValues: {
-        status: true,
+        status: 'NOTSTART',
         message: '',
       },
-      resolver: resolverVerifyRegisterRequest,
+      resolver: resolverApproveCreateCourseRequest,
     });
   const { control: controlReject, handleSubmit: handleSubmitReject } = useForm({
     defaultValues: {
-      status: false,
+      status: 'REJECTED',
       message: '',
     },
-    resolver: resolverVerifyRegisterRequest,
+    resolver: resolverApproveCreateCourseRequest,
   });
+  const { control: controlEditRequest, handleSubmit: handleSubmitEditRequest } =
+    useForm({
+      defaultValues: {
+        status: 'EDITREQUEST',
+        message: '',
+      },
+      resolver: resolverApproveCreateCourseRequest,
+    });
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
   const toastMsgError = (errorMsg: any): string =>
     `Đã xảy ra lỗi: ${errorMsg.message}`;
-  const handleProcessRegisterRequest = async (
-    data: ProcessUpdateMentorProfileRequestFormDefault
+  const handleProcessCourseCreateRequest = async (
+    data: ProcessCreateCourseRequestFormDefault
   ) => {
-    const skillIds = row.mentorSkillRequest.map((skill: any) => skill.skillId);
-    const degreeIds = row.degreeRequest.map((skill: any) => skill.id);
-
-    const params: UseMutationProcessUpdateMentorProfileRequestPayload = {
-      id: row.mentorProfileId,
-      skillIds,
-      degreeIds,
+    let classIds: number[] = [];
+    if (courseCreateRequestDetails) {
+      classIds = courseCreateRequestDetails.classes
+        ? courseCreateRequestDetails.classes.map((item) => item.id)
+        : [];
+    }
+    const params: ProcessCreateCourseRequestPayload = {
+      id: idCourse,
+      classIds,
       status: data.status,
       message: data.message,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
-      await processUpdateMentorProfileRequest.mutateAsync(params);
+      await processCourseCreateRequestMutation.mutateAsync(params);
+      toast.updateSuccessToast(id, toastMsgSuccess);
       refetchSearch();
       refetchGetNoOfRequest();
       onClose();
-      toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (e: any) {
       toast.updateFailedToast(id, toastMsgError(e.message));
     }
@@ -87,7 +100,7 @@ export default function RequestUpdateMentorDetailsProcess({
       id: 0,
       text: 'Phê duyệt',
       component: (
-        <form onSubmit={handleSubmitApprove(handleProcessRegisterRequest)}>
+        <form onSubmit={handleSubmitApprove(handleProcessCourseCreateRequest)}>
           <FormInput
             control={controlApprove}
             name="message"
@@ -103,11 +116,10 @@ export default function RequestUpdateMentorDetailsProcess({
             mt={2}
           >
             <Button
-              color="success"
-              fullWidth
-              size="medium"
-              type="submit"
               variant="outlined"
+              type="submit"
+              size="medium"
+              color="success"
             >
               Phê duyệt
             </Button>
@@ -119,7 +131,7 @@ export default function RequestUpdateMentorDetailsProcess({
       id: 1,
       text: 'Từ chối',
       component: (
-        <form onSubmit={handleSubmitReject(handleProcessRegisterRequest)}>
+        <form onSubmit={handleSubmitReject(handleProcessCourseCreateRequest)}>
           <FormInput
             control={controlReject}
             name="message"
@@ -135,11 +147,10 @@ export default function RequestUpdateMentorDetailsProcess({
             mt={2}
           >
             <Button
-              color="error"
-              fullWidth
-              size="medium"
-              type="submit"
               variant="outlined"
+              type="submit"
+              size="medium"
+              color="error"
             >
               Từ chối
             </Button>
@@ -147,8 +158,40 @@ export default function RequestUpdateMentorDetailsProcess({
         </form>
       ),
     },
+    {
+      id: 2,
+      text: 'Yêu cầu chỉnh sửa',
+      component: (
+        <form
+          onSubmit={handleSubmitEditRequest(handleProcessCourseCreateRequest)}
+        >
+          <FormInput
+            control={controlEditRequest}
+            name="message"
+            variant="multiline"
+            multilineRows={6}
+            placeholder="Nhập tin nhắn"
+          />
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-end"
+            spacing={2}
+            mt={2}
+          >
+            <Button
+              variant="outlined"
+              type="submit"
+              size="medium"
+              color="warning"
+            >
+              Yêu cầu chỉnh sửa
+            </Button>
+          </Stack>
+        </form>
+      ),
+    },
   ];
-
   return (
     <Box sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
       <Tabs

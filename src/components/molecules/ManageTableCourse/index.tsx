@@ -7,14 +7,14 @@ import { CourseStatusType } from '~/constants/course';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import columns from '~/constants/columns';
-import ManageTableDetailsCourseCreateRequest from '../ManageTableDetailsCourseCreateRequest';
+import ManageTableDetailsCourse from '../ManageTableDetailsCourse';
 
 interface ManageTableCourseCreateRequestProps {
   status: CourseStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageTableCourseCreateRequest({
+export default function ManageTableCourse({
   status,
   refetchGetNoOfRequest,
 }: ManageTableCourseCreateRequestProps) {
@@ -66,7 +66,7 @@ export default function ManageTableCourseCreateRequest({
   ];
   let popoverOptions;
   switch (status) {
-    case CourseStatusType.WAITING:
+    case CourseStatusType.NOTSTART:
       popoverOptions = optionsViewDetails;
       break;
     default:
@@ -83,7 +83,7 @@ export default function ManageTableCourseCreateRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <ManageTableDetailsCourseCreateRequest
+          <ManageTableDetailsCourse
             row={selectedRow}
             onClose={handleTriggerDialog}
             refetchSearch={refetch}

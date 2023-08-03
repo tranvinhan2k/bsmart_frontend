@@ -124,7 +124,9 @@ const managedRegisterRequestColumns: GridColDef[] = [
   {
     field: 'count',
     headerName: 'Lần gửi',
-    minWidth: 150,
+    headerAlign: 'left',
+    type: 'number',
+    minWidth: 80,
     flex: 1,
   },
   {
@@ -133,6 +135,62 @@ const managedRegisterRequestColumns: GridColDef[] = [
     minWidth: 150,
     flex: 1,
     valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'birthday',
+    headerName: 'Ngày sinh',
+    minWidth: 150,
+    flex: 1,
+    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+  },
+  {
+    field: 'gender',
+    headerName: 'Giới tính',
+    minWidth: 100,
+    flex: 1,
+    valueFormatter: (params) => getGender(params.value),
+  },
+];
+const managedRegisterRequestTmpColumns: GridColDef[] = [
+  {
+    field: 'email',
+    headerName: 'Mail',
+    minWidth: 300,
+    flex: 1,
+    renderCell: (params) => {
+      const { email } = params.row;
+      return (
+        <CopyableCell
+          rawValue={email}
+          formattedValue={handleDefinedText(email)}
+        />
+      );
+    },
+  },
+  {
+    field: 'fullName',
+    headerName: 'Họ tên',
+    minWidth: 200,
+    flex: 1,
+    renderCell: (params) => {
+      const { fullName } = params.row;
+      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+    },
+  },
+  {
+    field: 'phone',
+    headerName: 'SĐT',
+    minWidth: 200,
+    flex: 1,
+    renderCell: (params) => {
+      const { phone } = params.row;
+      return (
+        <CopyableCell
+          rawValue={phone}
+          formattedValue={formatPhoneNumberVi(phone)}
+        />
+      );
+    },
   },
   {
     field: 'birthday',
@@ -297,7 +355,6 @@ const managedCourseCreateRequestColumns: GridColDef[] = [
     headerName: 'Lần gửi',
     minWidth: 70,
     flex: 1,
-    valueFormatter: (params) => params.value + 1,
   },
   {
     field: 'approved',
@@ -360,8 +417,8 @@ const managedUserColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 150,
-    flex: 1.5,
+    minWidth: 200,
+    flex: 1,
     renderCell: (params) => (
       <CopyableCell rawValue={params.value} formattedValue={params.value} />
     ),
@@ -369,8 +426,8 @@ const managedUserColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 150,
-    flex: 1.5,
+    minWidth: 200,
+    flex: 1,
     renderCell: (params) => (
       <CopyableCell rawValue={params.value} formattedValue={params.value} />
     ),
@@ -412,26 +469,65 @@ const managedUserColumns: GridColDef[] = [
   },
 ];
 const managedUserMemberColumns = managedUserColumns.concat({
-  field: 'attended',
+  field: 'finishedClassCount',
+  headerAlign: 'left',
+  type: 'number',
   headerName: 'Đã học',
   flex: 1,
-  minWidth: 100,
+  minWidth: 70,
   sortable: false,
+  valueGetter: (params) => params.row.finishedClassCount,
 });
 const managedUserMentorColumns = managedUserColumns.concat(
   {
-    field: 'taught',
-    headerName: 'Đã dạy',
-    minWidth: 90,
-    flex: 1,
-    sortable: false,
-  },
-  {
-    field: 'rating',
-    headerName: 'Đánh giá',
+    field: 'numberOfClass',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Số khóa học',
     minWidth: 100,
     flex: 1,
     sortable: false,
+    valueGetter: (params) => params.row.teachInformation.numberOfCourse,
+  },
+  {
+    field: 'teachInformation',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Số lớp học',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+    valueGetter: (params) => params.row.teachInformation.numberOfClass,
+  },
+  {
+    field: 'numberOfFeedBack',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Đánh giá',
+    minWidth: 80,
+    flex: 1,
+    sortable: false,
+    valueGetter: (params) => params.row.teachInformation.numberOfFeedBack,
+  },
+  {
+    field: 'scoreFeedback',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Lượt đanh giá',
+    minWidth: 120,
+    flex: 1,
+    sortable: false,
+    valueGetter: (params) => params.row.teachInformation.scoreFeedback,
+  },
+  {
+    field: 'numberOfMember',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Số học sinh',
+    minWidth: 100,
+    flex: 1,
+    sortable: false,
+    valueGetter: (params) => params.row.teachInformation.numberOfMember,
   }
 );
 const courseClassListColumns: GridColDef[] = [
@@ -443,18 +539,24 @@ const courseClassListColumns: GridColDef[] = [
   },
   {
     field: 'minStudent',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'HS tối thiểu',
     minWidth: 90,
     flex: 1,
   },
   {
     field: 'maxStudent',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'HS tối đa',
     minWidth: 90,
     flex: 1,
   },
   {
     field: 'numberOfSlot',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Tổng buổi',
     minWidth: 90,
     flex: 1,
@@ -464,7 +566,7 @@ const courseClassListColumns: GridColDef[] = [
     headerAlign: 'left',
     type: 'number',
     headerName: 'Giá tiền',
-    minWidth: 120,
+    minWidth: 90,
     flex: 1,
     valueFormatter: (params) => formatMoney(params.value),
   },
@@ -536,15 +638,18 @@ const managedCourseColumns: GridColDef[] = [
     },
   },
   {
-    field: 'earliestClass',
-    headerName: 'Bắt đầu từ',
-    minWidth: 100,
+    field: 'timeSendRequest',
+    headerName: 'Ngày phê duyệt',
+    minWidth: 120,
     flex: 1,
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
-    field: 'noOfClass',
+    field: 'totalClass',
+    headerAlign: 'left',
+    type: 'number',
     headerName: 'Số lớp',
-    minWidth: 100,
+    minWidth: 70,
     flex: 1,
   },
 ];
@@ -728,6 +833,7 @@ const columns = {
   managedClassNotStartColumns,
   managedCourseColumns,
   managedCourseCreateRequestColumns,
+  managedRegisterRequestTmpColumns,
   managedRegisterRequestColumns,
   manageMentorProfileUpdateRequestColumns,
   managedUserMemberColumns,
