@@ -99,11 +99,14 @@ export const ManageCourseCreateRequestPage = lazy(
   () => import('~/pages/ManageCourseCreateRequestPage')
 );
 export const ManageCoursePage = lazy(() => import('~/pages/ManageCoursePage'));
-export const ManageRegisterRequestPage = lazy(
-  () => import('~/pages/ManageRegisterRequestPage')
-);
 export const ManageMentorProfileUpdateRequestPage = lazy(
   () => import('~/pages/ManageMentorProfileUpdateRequestPage')
+);
+export const ManageRequestManagerPage = lazy(
+  () => import('~/pages/ManageRequestManagerPage')
+);
+export const ManageRegisterRequestPage = lazy(
+  () => import('~/pages/ManageRegisterRequestPage')
 );
 export const ManageUserPage = lazy(() => import('~/pages/ManageUserPage'));
 

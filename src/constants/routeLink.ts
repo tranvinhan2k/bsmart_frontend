@@ -109,6 +109,7 @@ export const enum ManagerNavigationActionLink {
   manage_mentor_profile_update_request = 'manage_mentor_profile_update_request',
   manage_register_request_manager = 'manage_register_request_manager',
   manage_user_manager = 'manage_user_manager',
+  manage_request_manager = 'manage_request_manager',
 }
 
 export const enum MentorCourseActionLink {

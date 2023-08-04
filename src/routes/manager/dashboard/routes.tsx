@@ -8,6 +8,7 @@ import {
   ManageCoursePage,
   ManageMentorProfileUpdateRequestPage,
   ManageRegisterRequestPage,
+  ManageRequestManagerPage,
   ManageUserPage,
   NotFoundPage,
 } from '~/routes/components';
@@ -46,6 +47,11 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: ManagerNavigationActionLink.manage_user_manager,
     main: () => <ManageUserPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.manage_request_manager,
+    main: () => <ManageRequestManagerPage />,
     role: ['ROLE_MANAGER'],
   },
   {
