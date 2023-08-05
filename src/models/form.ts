@@ -138,7 +138,6 @@ export interface MentorSkills {
 }
 
 export interface ProcessRegisterRequestFormDefault {
-  status: string;
   message: string;
 }
 export interface ProcessUpdateMentorProfileRequestFormDefault {

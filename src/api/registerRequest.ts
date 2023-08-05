@@ -1,8 +1,8 @@
 import axiosClient from '~/api/axiosClient';
-import { UseSearchRegisterRequestPayload } from '~/hooks/user/useSearchRegisterRequest';
 import { OptionPayload, PagingFilterPayload } from '~/models';
+import { UseMutationProcessRegisterRequestPayload } from '~/hooks/user/useMutationProcessRegisterRequest';
 import { User } from '~/models/user';
-import { ProcessRegisterRequestPayload } from './mentorProfile';
+import { UseSearchRegisterRequestPayload } from '~/hooks/user/useSearchRegisterRequest';
 
 export interface ResponseCategoriesPayload {
   id: number;
@@ -38,11 +38,12 @@ const registerRequestsApi = {
     return axiosClient.get(`${urlSearch}`);
   },
   processRegisterRequest(
-    data: ProcessRegisterRequestPayload
+    data: UseMutationProcessRegisterRequestPayload
   ): Promise<boolean> {
     return axiosClient.put(`${url}/${data.id}/approval`, {
       status: data.status,
       message: data.message,
+      interviewed: data.interviewed,
     });
   },
 };

@@ -206,3 +206,7 @@ export const defaultValueCreateClassSections = {
 export const defaultValueUpdateClassSections = {
   name: '',
 };
+
+export const defaultValueApproveRegisterRequest = {
+  message: 'Chúc mừng bạn đã trờ thành lập giảng viên hợp tác với Mismart',
+};
