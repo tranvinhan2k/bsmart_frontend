@@ -26,24 +26,15 @@ export function handleResponseGetCategories(
 const url = '/mentor-profiles';
 
 const registerRequestsApi = {
-  async getAllCategories(): Promise<OptionPayload[] | undefined> {
-    const response: ResponseCategoriesPayload[] = await axiosClient.get(
-      `${url}`
-    );
-    return handleResponseGetCategories(response);
-  },
-  async getRegisterRequest(id: number): Promise<any> {
-    const response: any = await axiosClient.get(`${url}/${id}`);
-    return response;
-  },
   searchRegisterRequest({
     q,
     status,
+    interviewed,
     page,
     size,
     sort,
   }: UseSearchRegisterRequestPayload): Promise<PagingFilterPayload<User>> {
-    const urlSearch = `${url}/pending?accountStatus=${status}&q=${q}&page=${page}&size=${size}&sort=${sort}`;
+    const urlSearch = `${url}/pending?q=${q}&accountStatus=${status}&interviewed=${interviewed}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(`${urlSearch}`);
   },
   processRegisterRequest(

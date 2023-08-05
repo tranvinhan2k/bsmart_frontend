@@ -11,11 +11,13 @@ import ManageTableDetailsRegisterRequest from '~/components/molecules/ManageTabl
 
 interface ManageTableRegisterRequestProps {
   status: MentorProfileStatusType;
+  interviewed: boolean;
   refetchGetNoOfRequest: () => void;
 }
 
 export default function ManageTableRegisterRequest({
   status,
+  interviewed,
   refetchGetNoOfRequest,
 }: ManageTableRegisterRequestProps) {
   const enum Text {
@@ -39,8 +41,10 @@ export default function ManageTableRegisterRequest({
   const handleTriggerDialog = () => setOpen(!open);
 
   const { error, registerRequest, isLoading, refetch } =
-    useSearchRegisterRequest({ status, q, page, size, sort });
+    useSearchRegisterRequest({ q, status, interviewed, page, size, sort });
   const rows = registerRequest ? registerRequest.items : [];
+
+  console.log('registerRequest', registerRequest);
 
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
@@ -72,6 +76,15 @@ export default function ManageTableRegisterRequest({
   let renderColumns;
   switch (status) {
     case MentorProfileStatusType.WAITING:
+      popoverOptions = optionsViewDetails;
+      renderColumns = columns.managedUserRegisterRequestColumns;
+      break;
+    case MentorProfileStatusType.STARTING:
+      if (interviewed) {
+        popoverOptions = popoverOptionsDefault;
+      } else {
+        popoverOptions = optionsViewDetails;
+      }
       popoverOptions = optionsViewDetails;
       renderColumns = columns.managedUserRegisterRequestColumns;
       break;

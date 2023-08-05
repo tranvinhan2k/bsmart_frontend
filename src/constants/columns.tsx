@@ -639,7 +639,7 @@ const managedClassNotStartColumns: GridColDef[] = [
     headerName: 'Học sinh tối đa',
     headerAlign: 'left',
     type: 'number',
-    minWidth: 130,
+    minWidth: 120,
     flex: 1,
   },
 ];

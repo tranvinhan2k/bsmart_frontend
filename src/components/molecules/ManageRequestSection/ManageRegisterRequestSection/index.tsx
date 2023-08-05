@@ -1,10 +1,10 @@
-import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Chip, Tab, Tabs, Typography, Stack } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
-import TabPanel from '~/components/atoms/TabPanel/index';
-import ManageTableRegisterRequest from '~/components/molecules/ManageTableRegisterRequest';
 import { MentorProfileStatusType } from '~/constants/profile';
-import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import { restrictNumberDisplay } from '~/utils/common';
+import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
+import ManageTableRegisterRequestFilter from './ManageTableRegisterRequestFilter';
+import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManageRegisterRequestSection() {
   const [tabValue, setTabValue] = useState(0);
@@ -13,10 +13,9 @@ export default function ManageRegisterRequestSection() {
     newValue: number
   ) => setTabValue(newValue);
 
-  const { registerRequest: listWaiting, refetch: refetchListWaiting } =
-    useSearchRegisterRequest({
-      status: MentorProfileStatusType.WAITING,
-    });
+  const { refetch: refetchListWaiting } = useSearchRegisterRequest({
+    status: MentorProfileStatusType.WAITING,
+  });
   const { registerRequest: listStarting, refetch: refetchListStarting } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.STARTING,
@@ -35,18 +34,17 @@ export default function ManageRegisterRequestSection() {
       id: 0,
       text: 'Chờ duyệt',
       component: (
-        <ManageTableRegisterRequest
+        <ManageTableRegisterRequestFilter
           status={MentorProfileStatusType.WAITING}
           refetchGetNoOfRequest={refetchListWaiting}
         />
       ),
-      noOfRequest: restrictNumberDisplay(listWaiting?.totalItems),
     },
     {
       id: 1,
       text: 'Đã duyệt',
       component: (
-        <ManageTableRegisterRequest
+        <ManageTableRegisterRequestFilter
           status={MentorProfileStatusType.STARTING}
           refetchGetNoOfRequest={refetchListStarting}
         />
@@ -57,7 +55,7 @@ export default function ManageRegisterRequestSection() {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: (
-        <ManageTableRegisterRequest
+        <ManageTableRegisterRequestFilter
           status={MentorProfileStatusType.EDITREQUEST}
           refetchGetNoOfRequest={refetchListEditRequest}
         />
@@ -68,7 +66,7 @@ export default function ManageRegisterRequestSection() {
       id: 3,
       text: 'Từ chối',
       component: (
-        <ManageTableRegisterRequest
+        <ManageTableRegisterRequestFilter
           status={MentorProfileStatusType.REJECTED}
           refetchGetNoOfRequest={refetchListRejected}
         />

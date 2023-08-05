@@ -3,8 +3,9 @@ import { Key } from './key';
 import registerRequestsApi from '~/api/registerRequest';
 
 export interface UseSearchRegisterRequestPayload {
-  status: string;
   q?: string;
+  status: string;
+  interviewed?: boolean;
   page?: number;
   size?: number | null;
   sort?: string[];
@@ -13,16 +14,26 @@ export interface UseSearchRegisterRequestPayload {
 export const useSearchRegisterRequest = ({
   q = '',
   status,
+  interviewed = true,
   page = 0,
   size = null,
   sort = [],
 }: UseSearchRegisterRequestPayload) => {
   const { data, error, isLoading, refetch } = useQuery({
-    queryKey: [Key.UseSearchRegisterRequest, status, q, page, size, sort],
+    queryKey: [
+      Key.UseSearchRegisterRequest,
+      q,
+      status,
+      interviewed,
+      page,
+      size,
+      sort,
+    ],
     queryFn: () =>
       registerRequestsApi.searchRegisterRequest({
-        status,
         q,
+        status,
+        interviewed,
         page,
         size,
         sort,

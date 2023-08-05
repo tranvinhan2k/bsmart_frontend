@@ -25,15 +25,12 @@ export default function ManageRequestManagerPage() {
     //
     ListSubheader0 = 'Người dùng',
     MenuItem0 = 'Yêu cầu phê duyệt hồ sơ giáo viên',
-    MenuItem1 = 'Yêu cầu thêm thông tin khoản giáo viên',
+    MenuItem1 = 'Yêu cầu thêm thông tin tài khoản giáo viên',
     ListSubheader1 = 'Khóa học / Lớp học',
     MenuItem2 = 'Yêu cầu phê duyệt khóa học',
-    MenuItem3 = 'Yêu cầu cập nhật thông tin khóa học',
-    MenuItem4 = 'Yêu cầu cập nhật thông tin lớp học',
+    MenuItem3 = 'Yêu cầu cập nhật thông tin khóa học / lớp học',
     ListSubheader3 = 'Tài chính',
-    MenuItem5 = 'Yêu cầu rút tiền',
-    ListSubheader4 = 'Khác',
-    MenuItem6 = 'Yêu cầu khác',
+    MenuItem4 = 'Yêu cầu rút tiền',
   }
 
   const [tabValue, setTabValue] = useState<number>(0);
@@ -61,14 +58,6 @@ export default function ManageRequestManagerPage() {
       id: 4,
       component: <h1>{Text.MenuItem4}</h1>,
     },
-    {
-      id: 5,
-      component: <h1>{Text.MenuItem5}</h1>,
-    },
-    {
-      id: 6,
-      component: <h1>{Text.MenuItem6}</h1>,
-    },
   ];
 
   return (
@@ -89,11 +78,8 @@ export default function ManageRequestManagerPage() {
               <ListSubheader>{Text.ListSubheader1}</ListSubheader>
               <MenuItem value={2}>{Text.MenuItem2}</MenuItem>
               <MenuItem value={3}>{Text.MenuItem3}</MenuItem>
-              <MenuItem value={4}>{Text.MenuItem4}</MenuItem>
               <ListSubheader>{Text.ListSubheader3}</ListSubheader>
-              <MenuItem value={5}>{Text.MenuItem5}</MenuItem>
-              <ListSubheader>{Text.ListSubheader4}</ListSubheader>
-              <MenuItem value={6}>{Text.MenuItem6}</MenuItem>
+              <MenuItem value={4}>{Text.MenuItem4}</MenuItem>
             </TextField>
           </FormControl>
         </Grid>

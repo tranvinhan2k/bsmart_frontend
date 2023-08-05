@@ -23,7 +23,9 @@ export default function ManageTableDetailsRegisterRequest({
   return (
     <>
       <Box mx={2}>
-        <Typography sx={SX_REQUEST_TITLE}>Chi tiết giáo viên</Typography>
+        <Typography sx={SX_REQUEST_TITLE}>
+          Chi tiết yêu cầu phê duyệt hồ sơ giáo viên
+        </Typography>
       </Box>
       <Grid
         container
