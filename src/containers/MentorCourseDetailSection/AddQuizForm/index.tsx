@@ -69,7 +69,7 @@ export default function AddQuizForm({
     {
       name: 'visible',
       label: 'Hiển thị',
-      placeholder: 'Hiện thị bài trắc nghiệm',
+      placeholder: 'Hiển thị bài trắc nghiệm',
       variant: 'boolean',
     },
     {

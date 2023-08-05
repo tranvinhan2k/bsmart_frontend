@@ -11,7 +11,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         id: 0,
         name: 'Báo cáo thống kê',
         icon: 'barChartIcon',
-        link: 'Báo cáo thống kê',
+        link: ManagerNavigationActionLink.manage_analytic_manager,
       },
       {
         id: 1,

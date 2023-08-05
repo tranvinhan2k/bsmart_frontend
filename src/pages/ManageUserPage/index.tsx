@@ -65,7 +65,7 @@ export default function ManageUserPage() {
           />
         ))}
       </Tabs>
-      {/* <ManageTableWidgetMentor /> */}
+      <ManageTableWidgetMentor />
       {tabEl.map((tab) => (
         <TabPanel value={tabValue} index={tab.id} key={tab.id}>
           <Box py={2}>{tab.component}</Box>
