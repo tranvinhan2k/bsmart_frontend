@@ -23,6 +23,7 @@ import {
 import { Color } from '~/assets/variables';
 import globalStyles from '~/styles';
 import {
+  formatDate,
   formatISODateDateToDisplayDate,
   formatISODateDateToDisplayMonthYear,
 } from '~/utils/date';
@@ -131,7 +132,7 @@ function convertToYearArray(data: RevenuePayload[]): RevenueChartPayload[] {
 
 function getVietnameseDayName(date: Date): string {
   const day = date.getDate();
-  return `Ngày ${formatISODateDateToDisplayDate(date)}`;
+  return `Ngày ${formatDate(date.toISOString())}`;
 }
 
 function convertToDayArray(data: RevenuePayload[]): RevenueChartPayload[] {
@@ -166,11 +167,11 @@ const convertRevenue = (
     case 'DAY':
       return convertToDayArray(data);
     case 'MONTH':
-      return convertToMonthArray(data);
+      return convertToDayArray(data);
     case 'YEAR':
       return convertToMonthArray(data);
     default:
-      return convertToDayArray(data);
+      return convertToYearArray(data);
   }
 };
 

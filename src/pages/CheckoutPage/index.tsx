@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography, Divider } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -23,6 +23,9 @@ import { useEffectScrollToTop, useYupValidationResolver } from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import localEnvironment from '~/utils/localEnvironment';
 import { validationIntroduce } from '~/form/validation';
+import { closeUrl, openNewBrowserUrl } from '~/utils/window';
+import { useSocket } from '~/hooks/useSocket';
+import ReturnLink from '~/components/atoms/ReturnLink';
 
 function CheckoutPage() {
   const resolver = useYupValidationResolver(validationIntroduce);
@@ -40,6 +43,12 @@ function CheckoutPage() {
   );
 
   useEffectScrollToTop();
+
+  const { data: selectWebsocket } = useSocket();
+
+  if (selectWebsocket.status === 'OK') {
+    closeUrl();
+  }
 
   if (checkOutItem === null) {
     return <Navigate to="/homepage" />;
@@ -66,7 +75,7 @@ function CheckoutPage() {
           returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/detail/0/information`,
         });
         const url = response.paymentUrl;
-        window.open(url, '_blank', 'location=yes,height=500,width=500');
+        openNewBrowserUrl(url);
       }
       // toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {
@@ -112,7 +121,19 @@ function CheckoutPage() {
       : [checkOutItem],
   };
 
-  return (
+  return selectWebsocket.status === 'OK' ? (
+    <Stack
+      padding={4}
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Typography>{selectWebsocket.data.viTitle}</Typography>
+      <Typography>{selectWebsocket.data.viContent}</Typography>
+      <ReturnLink />
+    </Stack>
+  ) : (
     <Grid container sx={styles.view}>
       <Grid item xs={12} md={8} sx={styles.viewLeft}>
         <Stack
