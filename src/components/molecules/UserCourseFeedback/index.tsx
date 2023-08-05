@@ -76,7 +76,14 @@ export default function UserCourseFeedback() {
           </Typography>
           <Rating value={4.5} readOnly size="large" precision={0.5} />
         </Stack>
-        <Stack sx={{ flexDirection: 'row', alignItems: 'center', paddingX: 2 }}>
+        <Stack
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingX: 2,
+            flexWrap: 'wrap',
+          }}
+        >
           {['Tất cả', '1 sao', '2 sao', '3 sao', '4 sao', '5 sao'].map(
             (item) => {
               return (
