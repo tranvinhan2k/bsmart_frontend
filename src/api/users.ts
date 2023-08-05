@@ -410,7 +410,7 @@ const accountApi = {
   searchManagedUser({
     q = '',
     role = null,
-    isVerified = null,
+    isVerified = true,
     page = 0,
     size = null,
     sort = [],

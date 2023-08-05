@@ -8,9 +8,13 @@ import ManageTable from '../ManageTable';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
+  refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageTableUser({ userRole }: ManageTableUserProps) {
+export default function ManageTableUser({
+  userRole,
+  refetchGetNoOfRequest,
+}: ManageTableUserProps) {
   const enum Text {
     searchPlaceholderMentor = 'Tìm kiếm giáo viên...',
     searchPlaceholderMember = 'Tìm kiếm học sinh...',

@@ -1,14 +1,12 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import {
-  formatISODateStringToDisplayDateTime
-} from '~/utils/date';
+import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_ITEM_VALUE,
-  SX_FORM_LABEL
+  SX_FORM_LABEL,
 } from './style';
 
 interface RequestCourseDateProps {
