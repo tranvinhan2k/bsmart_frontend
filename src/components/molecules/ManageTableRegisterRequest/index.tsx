@@ -44,8 +44,6 @@ export default function ManageTableRegisterRequest({
     useSearchRegisterRequest({ q, status, interviewed, page, size, sort });
   const rows = registerRequest ? registerRequest.items : [];
 
-  console.log('registerRequest', registerRequest);
-
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
     refetch();

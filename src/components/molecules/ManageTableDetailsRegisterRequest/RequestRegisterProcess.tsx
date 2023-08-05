@@ -1,6 +1,11 @@
 import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import {
+  defaultValueApproveRegisterRequest,
+  defaultValueEditRequestRegisterRequest,
+  defaultValueRejectRegisterRequest,
+} from '~/form/defaultValues';
 import { ProcessRegisterRequestFormDefault } from '~/models/form';
 import {
   useMutationProcessRegisterRequest,
@@ -12,7 +17,6 @@ import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
-import { defaultValueApproveRegisterRequest } from '~/form/defaultValues';
 
 interface RequestRegisterProcessProps {
   idMentorProfile: number;
@@ -45,18 +49,12 @@ export default function RequestRegisterProcess({
       resolver: resolverProcessRegisterRequest,
     });
   const { control: controlReject, handleSubmit: handleSubmitReject } = useForm({
-    defaultValues: {
-      status: 'REJECTED',
-      message: '',
-    },
+    defaultValues: defaultValueRejectRegisterRequest,
     resolver: resolverProcessRegisterRequest,
   });
   const { control: controlEditRequest, handleSubmit: handleSubmitEditRequest } =
     useForm({
-      defaultValues: {
-        status: 'EDITREQUEST',
-        message: '',
-      },
+      defaultValues: defaultValueEditRequestRegisterRequest,
       resolver: resolverProcessRegisterRequest,
     });
 
@@ -68,7 +66,6 @@ export default function RequestRegisterProcess({
     data: ProcessRegisterRequestFormDefault
   ) => {
     let submitStatus;
-    const interviewed = true;
     switch (tabValue) {
       case 0:
         submitStatus = 'STARTING';
@@ -85,7 +82,7 @@ export default function RequestRegisterProcess({
       id: idMentorProfile,
       status: submitStatus,
       message: data.message,
-      interviewed,
+      interviewed: data.interviewed,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -98,6 +95,11 @@ export default function RequestRegisterProcess({
       toast.updateFailedToast(id, toastMsgError(e.message));
     }
   };
+
+  const interviewedOptions = [
+    { id: 0, label: 'Đã phỏng vấn', value: true },
+    { id: 1, label: 'Chưa phỏng vấn', value: false },
+  ];
 
   const tabEl = [
     {
@@ -112,6 +114,14 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
+          <Box mt={2}>
+            <FormInput
+              dataRadioGroupDynamicValue={interviewedOptions}
+              variant="radioGroupDynamicValue"
+              name="interviewed"
+              control={controlApprove}
+            />
+          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -144,6 +154,14 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
+          <Box mt={2}>
+            <FormInput
+              dataRadioGroupDynamicValue={interviewedOptions}
+              variant="radioGroupDynamicValue"
+              name="interviewed"
+              control={controlReject}
+            />
+          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -176,6 +194,14 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
+          <Box mt={2}>
+            <FormInput
+              dataRadioGroupDynamicValue={interviewedOptions}
+              variant="radioGroupDynamicValue"
+              name="interviewed"
+              control={controlEditRequest}
+            />
+          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"

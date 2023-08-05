@@ -55,6 +55,11 @@ export interface PagingFilterPayload<ItemType> {
   items: ItemType[];
 }
 
+export interface RadioGroupDynamicValuePayload {
+  id: number;
+  label: string;
+  value: string | number | boolean;
+}
 export interface DropdownDynamicValueInputBooleanDataPayload {
   id: number;
   label: string;
