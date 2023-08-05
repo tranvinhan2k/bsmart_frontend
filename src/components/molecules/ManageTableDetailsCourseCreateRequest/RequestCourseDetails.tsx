@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Chip,
   Divider,
@@ -8,18 +7,18 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { handleDefinedTextReturnComp } from '~/utils/commonComp';
 import { mockLevelData } from '~/constants';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import Icon from '~/components/atoms/Icon';
-import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_ITEM_VALUE,
   SX_FORM_LABEL,
 } from './style';
+import globalStyles from '~/styles';
 
 interface RequestCourseDetailsProps {
   idCourse: number;
@@ -69,7 +68,9 @@ export default function RequestCourseDetails({
         {
           id: 4,
           label: 'Trình độ',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
+          value: mockLevelData.find(
+            (item) => item.value === courseCreateRequestDetails.level
+          )?.label,
           isAlign: true,
         },
       ]
@@ -110,24 +111,6 @@ export default function RequestCourseDetails({
     ? courseCreateRequestDetails.description
     : '';
 
-  const title1 = courseCreateRequestDetails
-    ? [
-        {
-          id: 0,
-          label: 'Trình độ',
-          value: mockLevelData.find(
-            (item) => item.value === courseCreateRequestDetails.level
-          )?.label,
-        },
-      ]
-    : [
-        {
-          id: 0,
-          label: 'Trình độ',
-          value: '',
-        },
-      ];
-
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid
@@ -138,26 +121,17 @@ export default function RequestCourseDetails({
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Khóa học</Typography>
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <Avatar
-            src=""
-            variant="rounded"
-            sx={{
-              width: 300,
-              height: 150,
-            }}
-          />
+          <Typography sx={SX_FORM_LABEL}>Thông tin cơ bản</Typography>
         </Grid>
         <Grid item container xs={12} lg={6} spacing={2}>
           <Grid item xs={12}>
             <Stack
               direction="row"
-              justifyContent="space-between"
+              justifyContent="flex-start"
               alignItems="flex-start"
+              spacing={1}
             >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Mã khóa học:</Typography>
+              <Typography sx={SX_FORM_ITEM_LABEL}>Mã:</Typography>
               <Typography sx={SX_FORM_ITEM_VALUE}>
                 {isLoading ? <Skeleton width={200} /> : title0[0].value}
               </Typography>
@@ -165,56 +139,66 @@ export default function RequestCourseDetails({
           </Grid>
           <Grid item xs={12}>
             <Stack
-              direction="column"
+              direction="row"
               justifyContent="flex-start"
-              alignItems="stretch"
+              alignItems="flex-start"
               spacing={1}
             >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Tên khóa học:</Typography>
+              <Typography sx={SX_FORM_ITEM_LABEL}>Tên:</Typography>
               <Typography sx={SX_FORM_ITEM_VALUE}>
                 {isLoading ? <Skeleton /> : title0[1].value}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item container xs={12} lg={12} spacing={2}>
-            <Grid item xs={6}>
+        </Grid>
+        <Grid item container xs={12} lg={6} spacing={2}>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={2}
+            >
               <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Stack
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  spacing={1}
-                >
-                  <Chip
-                    color="default"
-                    label={`${title0[2].value}`}
-                    title={`${title0[2].value}`}
-                  />
-                  <Chip
-                    color="default"
-                    label={`${title0[3].value}`}
-                    title={`${title0[3].value}`}
-                  />
-                </Stack>
-              )}
-            </Grid>
-            {title1.map((item) => (
-              <Fragment key={item.id}>
-                <Grid item xs={6}>
-                  <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography sx={SX_FORM_ITEM_VALUE} align="right">
-                    {isLoading ? <Skeleton /> : item.value}
-                  </Typography>
-                </Grid>
-              </Fragment>
-            ))}
+              <Typography sx={SX_FORM_ITEM_VALUE}>
+                {isLoading ? (
+                  <Skeleton />
+                ) : (
+                  <Stack
+                    direction="row"
+                    justifyContent="flex-end"
+                    alignItems="center"
+                    spacing={1}
+                  >
+                    <Chip
+                      color="default"
+                      size="small"
+                      label={`${title0[2].value}`}
+                      title={`${title0[2].value}`}
+                    />
+                    <Chip
+                      color="default"
+                      size="small"
+                      label={`${title0[3].value}`}
+                      title={`${title0[3].value}`}
+                    />
+                  </Stack>
+                )}
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={1}
+            >
+              <Typography sx={SX_FORM_ITEM_LABEL}>Trình độ:</Typography>
+              <Typography sx={SX_FORM_ITEM_VALUE}>
+                {isLoading ? <Skeleton /> : title0[4].value}
+              </Typography>
+            </Stack>
           </Grid>
         </Grid>
         <Grid item xs={12}>

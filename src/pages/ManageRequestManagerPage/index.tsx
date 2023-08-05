@@ -24,13 +24,13 @@ export default function ManageRequestManagerPage() {
     selectRequestLabel = 'Chọn loại yêu cầu',
     //
     ListSubheader0 = 'Người dùng',
-    MenuItem0 = 'Yêu cầu phê duyệt hồ sơ giáo viên',
-    MenuItem1 = 'Yêu cầu thêm thông tin tài khoản giáo viên',
+    MenuItem0 = 'Hồ sơ giáo viên',
+    MenuItem1 = 'Mở thêm môn dạy cho giáo viên',
     ListSubheader1 = 'Khóa học / Lớp học',
-    MenuItem2 = 'Yêu cầu phê duyệt khóa học',
-    MenuItem3 = 'Yêu cầu cập nhật thông tin khóa học / lớp học',
+    MenuItem2 = 'Phê duyệt khóa học',
+    MenuItem3 = 'Cập nhật thông tin khóa học / lớp học',
     ListSubheader3 = 'Tài chính',
-    MenuItem4 = 'Yêu cầu rút tiền',
+    MenuItem4 = 'Rút tiền',
   }
 
   const [tabValue, setTabValue] = useState<number>(0);
