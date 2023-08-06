@@ -77,26 +77,30 @@ export default function MemberClassInformationPage() {
       placeholder: 'Nhập nhận xét về giáo viên',
       variant: 'rating',
     },
-    {
-      label: 'Nhận xét và giáo viên',
-      name: 'description',
-      placeholder: 'Nhập nhận xét về giáo viên',
-      variant: 'multiline',
-    },
   ];
 
   const templateRatingForm: InputData[] =
-    detailClass?.feedback?.questions?.map((item, index) => ({
-      label: item.question,
-      name: `feedback.${index}`,
-      placeholder: '',
-      variant: 'radioGroup',
-      data: item?.answers?.map((subItem, subIndex) => ({
-        id: subIndex,
-        label: subItem.answer,
-        value: subItem.answer,
-      })),
-    })) || [];
+    detailClass?.feedback?.questions?.map((item, index) => {
+      if (item.answerType === 'MULTIPLECHOICE') {
+        return {
+          label: item.question,
+          name: `feedback.${index}`,
+          placeholder: '',
+          variant: 'radioGroup',
+          data: item?.answers?.map((subItem, subIndex) => ({
+            id: subIndex,
+            label: subItem.answer,
+            value: subItem.answer,
+          })),
+        };
+      }
+      return {
+        label: item.question,
+        name: `feedback.${index}`,
+        placeholder: '',
+        variant: 'multiline',
+      };
+    }) || [];
 
   const inputList: InputData[] = !data
     ? defaultRatingForm

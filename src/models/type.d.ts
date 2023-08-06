@@ -4,6 +4,7 @@ import {
   ActivityKeys,
   ClassStatusKeys,
   CourseStatusKeys,
+  FeedbackQuestionTypeKeys,
   FeedbackTypeKeys,
   GenderKeys,
   ImageKeys,
@@ -173,13 +174,13 @@ export interface ClassDetailPayload {
   feedback: {
     id: number;
     name: string;
-    type: string;
+    type: FeedbackTypeKeys;
     totalClassUsed: number;
     isDefault: boolean;
     isFixed: boolean;
     questions: {
       question: string;
-      answerType: FeedbackTypeKeys;
+      answerType: FeedbackQuestionTypeKeys;
       answers: {
         answer: string;
       }[];

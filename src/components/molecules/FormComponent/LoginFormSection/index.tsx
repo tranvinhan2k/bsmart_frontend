@@ -23,6 +23,7 @@ import { Role } from '~/models/role';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { signIn } from '~/redux/user/slice';
 import { image } from '~/constants/image';
+import { NavigationLink } from '~/constants/routeLink';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -158,7 +159,9 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
               {LoginTexts.REMEMBER_PASSWORD}
             </Checkbox>
 
-            <Link to="/forgot_password">{LoginTexts.FORGOT_PASSWORD}</Link>
+            <Link to={NavigationLink.forgot_password}>
+              {LoginTexts.FORGOT_PASSWORD}
+            </Link>
           </Stack>
           <Button
             startIcon={

@@ -33,6 +33,9 @@ export const CourseDetailPage = lazy(() => import('~/pages/CourseDetailPage'));
 export const MentorDetailsPage = lazy(
   () => import('~/pages/MentorDetailsPage')
 );
+export const ForgotPasswordPage = lazy(
+  () => import('~/pages/ForgotPasswordPage')
+);
 export const BuyCoursePage = lazy(() => import('~/pages/BuyCoursePage'));
 export const AdminPage = lazy(() => import('~/pages/AdminPage'));
 export const FeedbackPage = lazy(() => import('~/pages/FeedbackPage'));

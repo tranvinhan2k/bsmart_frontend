@@ -94,7 +94,10 @@ export default function FeedbackManagerTemplate() {
     };
     const id = toast.loadToast('Đang cập nhật bản mẫu');
     try {
-      await updateTemplateMutation.mutateAsync(tmpData as any);
+      await updateTemplateMutation.mutateAsync({
+        id: row.id,
+        params: tmpData as any,
+      });
       await refetch();
 
       toast.updateSuccessToast(id, 'Cập nhẩt bản mẫu mới thành công');

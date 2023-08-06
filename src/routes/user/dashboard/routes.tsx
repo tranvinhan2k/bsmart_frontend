@@ -27,6 +27,7 @@ import {
   NotFoundPage,
   RegisterPage,
   TestPage,
+  ForgotPasswordPage,
 } from '~/routes/components';
 
 export const routes: RoutePayload[] = [
@@ -138,6 +139,11 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.confirm_email,
     main: () => <ConfirmEmailPage />,
+    role: [],
+  },
+  {
+    path: NavigationLink.forgot_password,
+    main: () => <ForgotPasswordPage />,
     role: [],
   },
   {

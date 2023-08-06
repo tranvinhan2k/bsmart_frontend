@@ -401,6 +401,11 @@ const accountApi = {
     const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(urlSearch);
   },
+
+  sendMailResetPassword(email: string) {
+    // TODO: nhap email xac nhan quen mat khau o day
+    return generateMockApi(true);
+  },
 };
 
 export default accountApi;
