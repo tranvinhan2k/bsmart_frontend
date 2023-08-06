@@ -294,11 +294,13 @@ export interface ApiParamsProps {
 }
 
 export interface ManagedMentorPayload extends ProfilePayload {
+  timeParticipation: string;
   finishedClassCount: number;
   timeSendRequest: string;
   count: number;
 }
 export interface ManagedMemberPayload extends ProfilePayload {
+  timeParticipation: string;
   studyInformation: ManagedMemberStudyInformation;
 }
 interface ManagedMemberStudyInformation {

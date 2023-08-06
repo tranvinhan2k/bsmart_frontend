@@ -19,7 +19,6 @@ export default function RequestStudyingInfo({
     mainTitle = 'Thống kê',
     labelNumberOfCourses = 'Khóa học tham gia',
     labelNumberOfClass = 'Lớp học tham gia',
-    labelCourseBuy = 'Tổng chi tiêu',
   }
   const { managedMemberDetails, isLoading } =
     useGetManagedMemberDetails(idMentor);
@@ -39,39 +38,11 @@ export default function RequestStudyingInfo({
       ]
     : [];
 
-  const title1 = managedMemberDetails
-    ? [
-        {
-          id: 1,
-          label: Text.labelCourseBuy,
-          value: formatMoney(0),
-        },
-      ]
-    : [];
-
   return (
     <Box sx={SX_BOX_ITEM_WRAPPER}>
       <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
       <Grid container mt={2} rowSpacing={2}>
         {title0.map((item) => (
-          <Grid item xs={12} sm={6} md={6} lg={3} key={item.id}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-            >
-              <Typography sx={SX_FORM_ITEM_LABEL2}>{item.label}</Typography>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
-                  {item.value}
-                </Typography>
-              )}
-            </Stack>
-          </Grid>
-        ))}
-        {title1.map((item) => (
           <Grid item xs={12} sm={6} md={6} lg={3} key={item.id}>
             <Stack
               direction="column"

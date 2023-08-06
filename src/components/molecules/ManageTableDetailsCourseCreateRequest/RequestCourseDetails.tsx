@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { handleDefinedTextReturnComp } from '~/utils/commonComp';
 import { mockLevelData } from '~/constants';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import Icon from '~/components/atoms/Icon';
@@ -40,72 +39,38 @@ export default function RequestCourseDetails({
         {
           id: 0,
           label: 'Mã khóa học',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.code),
+          value: courseCreateRequestDetails.code ?? '',
           isAlign: true,
         },
         {
           id: 1,
           label: 'Tên khóa học',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.name),
+          value: courseCreateRequestDetails.name ?? '',
           isAlign: false,
         },
         {
           id: 2,
           label: 'Category',
-          value: handleDefinedTextReturnComp(
-            courseCreateRequestDetails.categoryResponse.name
-          ),
+          value: courseCreateRequestDetails.categoryResponse.name ?? '',
           isAlign: true,
         },
         {
           id: 3,
           label: 'Subject',
-          value: handleDefinedTextReturnComp(
-            courseCreateRequestDetails.subjectResponse.name
-          ),
+          value: courseCreateRequestDetails.subjectResponse.name ?? '',
           isAlign: true,
         },
         {
           id: 4,
           label: 'Trình độ',
-          value: mockLevelData.find(
-            (item) => item.value === courseCreateRequestDetails.level
-          )?.label,
+          value:
+            mockLevelData.find(
+              (item) => item.value === courseCreateRequestDetails.level
+            )?.label ?? '',
           isAlign: true,
         },
       ]
-    : [
-        {
-          id: 0,
-          label: 'Mã khóa học',
-          value: '',
-          isAlign: true,
-        },
-        {
-          id: 1,
-          label: 'Tên khóa học',
-          value: '',
-          isAlign: false,
-        },
-        {
-          id: 2,
-          label: 'Category',
-          value: '',
-          isAlign: true,
-        },
-        {
-          id: 3,
-          label: 'Kĩ năng',
-          value: '',
-          isAlign: true,
-        },
-        {
-          id: 4,
-          label: 'Subject',
-          value: '',
-          isAlign: true,
-        },
-      ];
+    : [];
 
   const courseDesc = courseCreateRequestDetails
     ? courseCreateRequestDetails.description
@@ -132,9 +97,13 @@ export default function RequestCourseDetails({
               spacing={1}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Mã:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? <Skeleton width={200} /> : title0[0].value}
-              </Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {title0[0].value}
+                </Typography>
+              )}
             </Stack>
           </Grid>
           <Grid item xs={12}>
@@ -145,9 +114,13 @@ export default function RequestCourseDetails({
               spacing={1}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Tên:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? <Skeleton /> : title0[1].value}
-              </Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {title0[1].value}
+                </Typography>
+              )}
             </Stack>
           </Grid>
         </Grid>
@@ -160,31 +133,29 @@ export default function RequestCourseDetails({
               spacing={2}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  <Stack
-                    direction="row"
-                    justifyContent="flex-end"
-                    alignItems="center"
-                    spacing={1}
-                  >
-                    <Chip
-                      color="default"
-                      size="small"
-                      label={`${title0[2].value}`}
-                      title={`${title0[2].value}`}
-                    />
-                    <Chip
-                      color="default"
-                      size="small"
-                      label={`${title0[3].value}`}
-                      title={`${title0[3].value}`}
-                    />
-                  </Stack>
-                )}
-              </Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Stack
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Chip
+                    color="default"
+                    size="small"
+                    label={`${title0[2].value}`}
+                    title={`${title0[2].value}`}
+                  />
+                  <Chip
+                    color="default"
+                    size="small"
+                    label={`${title0[3].value}`}
+                    title={`${title0[3].value}`}
+                  />
+                </Stack>
+              )}
             </Stack>
           </Grid>
           <Grid item xs={12}>
@@ -195,9 +166,13 @@ export default function RequestCourseDetails({
               spacing={1}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Trình độ:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? <Skeleton /> : title0[4].value}
-              </Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {title0[4].value}
+                </Typography>
+              )}
             </Stack>
           </Grid>
         </Grid>

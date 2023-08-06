@@ -151,7 +151,7 @@ export default function RequestCourseMentorInfo({
                   alignItems="flex-start"
                 >
                   {title0.map((item) => (
-                    <Grid xs={12} sm={12} md={12} lg={6} key={item.id}>
+                    <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>
                       <Stack
                         direction="column"
                         justifyContent="flex-start"
@@ -189,7 +189,7 @@ export default function RequestCourseMentorInfo({
                   mt={2}
                 >
                   {title1.map((item) => (
-                    <Grid xs={12} sm={12} md={12} lg={6} key={item.id}>
+                    <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>
                       <Stack
                         direction="column"
                         justifyContent="flex-start"

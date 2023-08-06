@@ -1,6 +1,5 @@
 import { Box, Grid, Skeleton, Stack, Typography } from '@mui/material';
 import { useGetManagedMentorDetails } from '~/hooks/user/useGetManagedMentorDetails';
-import { formatMoney } from '~/utils/money';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL2,
@@ -24,8 +23,6 @@ export default function RequestTeachingInfo({
     labelNumberOfFeedBack = 'Đánh giá',
     labelScoreFeedback = 'Số đánh giá',
     labelNoRatingYet = 'Chưa có đánh giá',
-    labelCourseSales = 'Tổng tiền bán khóa học',
-    labelRealIncome = 'Tổng thu nhập thật',
   }
   const { managedMentorDetails, isLoading } =
     useGetManagedMentorDetails(idMentor);
@@ -61,21 +58,6 @@ export default function RequestTeachingInfo({
     scoreFeedback && scoreFeedback > 0
       ? `${scoreFeedback}/5 (${numberOfFeedBack})`
       : Text.labelNoRatingYet;
-
-  const title1 = managedMentorDetails
-    ? [
-        {
-          id: 1,
-          label: Text.labelCourseSales,
-          value: formatMoney(0),
-        },
-        {
-          id: 2,
-          label: Text.labelRealIncome,
-          value: formatMoney(0),
-        },
-      ]
-    : [];
 
   return (
     <Box sx={SX_BOX_ITEM_WRAPPER}>
@@ -123,24 +105,6 @@ export default function RequestTeachingInfo({
             )}
           </Stack>
         </Grid>
-        {title1.map((item) => (
-          <Grid item xs={12} sm={6} md={6} lg={3} key={item.id}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-            >
-              <Typography sx={SX_FORM_ITEM_LABEL2}>{item.label}</Typography>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
-                  {item.value}
-                </Typography>
-              )}
-            </Stack>
-          </Grid>
-        ))}
       </Grid>
     </Box>
   );

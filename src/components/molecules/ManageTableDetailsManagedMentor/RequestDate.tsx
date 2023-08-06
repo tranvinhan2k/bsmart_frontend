@@ -21,7 +21,7 @@ export default function RequestDate({ idMentor }: RequestDateProps) {
         {
           id: 0,
           label: Text.labelParticipation,
-          value: '',
+          value: managedMentorDetails.timeParticipation,
         },
       ]
     : [];
@@ -49,6 +49,7 @@ export default function RequestDate({ idMentor }: RequestDateProps) {
                 alignItems="flex-start"
               >
                 <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
+                <Typography sx={SX_FORM_ITEM_LABEL}>{item.value}</Typography>
               </Stack>
             </Grid>
           ))}
