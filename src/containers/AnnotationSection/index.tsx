@@ -33,7 +33,9 @@ export default function AnnotationSection() {
             {notifications.map((item, index) => (
               <NotificationItem
                 key={index}
-                avatarUrl={item.avatarUrl}
+                entity={item.entity}
+                id={item.id}
+                title={item.title}
                 message={item.message}
                 time={item.time}
               />

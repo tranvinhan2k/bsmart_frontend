@@ -4,6 +4,7 @@ import {
   ActivityKeys,
   ClassStatusKeys,
   CourseStatusKeys,
+  FeedbackTypeKeys,
   GenderKeys,
   ImageKeys,
   LevelKeys,
@@ -169,6 +170,23 @@ export interface ClassDetailPayload {
   price: number;
   activities: ActivityPayload[];
   timeTablesRequest: { dayOfWeekId: number; slotId: number }[];
+  feedback: {
+    id: number;
+    name: string;
+    type: string;
+    totalClassUsed: number;
+    isDefault: boolean;
+    isFixed: boolean;
+    questions: {
+      question: string;
+      answerType: FeedbackTypeKeys;
+      answers: {
+        answer: string;
+      }[];
+    }[];
+    default: boolean;
+    fixed: boolean;
+  };
 }
 
 export type ContentPayload = ActivityPayload[];

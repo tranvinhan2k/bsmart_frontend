@@ -139,13 +139,14 @@ export const validationQuizInput = object({
 
 export const validationFeedbackQuestionInput = object({
   question: string().required('Tên câu hỏi không được để trống'),
-  answers: mixed().test(
-    'required',
-    'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
-    (data: any) => {
-      return data?.[0] !== '' && data !== '' && data?.length >= 2;
-    }
-  ),
+  answerType: object().required('Loại câu trả lời không được để trống'),
+  // answers: mixed().test(
+  //   'required',
+  //   'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
+  //   (data: any) => {
+  //     return data?.[0] !== '' && data !== '' && data?.length >= 2;
+  //   }
+  // ),
 });
 
 export const validationSchemaUpdateCategories = object({

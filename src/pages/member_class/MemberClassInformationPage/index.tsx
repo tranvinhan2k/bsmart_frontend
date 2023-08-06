@@ -64,6 +64,10 @@ export default function MemberClassInformationPage() {
   const resolver = useYupValidationResolver(validationRating);
   const { control, handleSubmit } = useForm({
     resolver,
+    defaultValues: {
+      ratingPoint: 0,
+      description: '',
+    },
   });
 
   const defaultRatingForm: InputData[] = [
@@ -82,12 +86,16 @@ export default function MemberClassInformationPage() {
   ];
 
   const templateRatingForm: InputData[] =
-    data?.map((item, index) => ({
+    detailClass?.feedback?.questions?.map((item, index) => ({
       label: item.question,
       name: `feedback.${index}`,
       placeholder: '',
       variant: 'radioGroup',
-      data: OptionFeedbackData,
+      data: item?.answers?.map((subItem, subIndex) => ({
+        id: subIndex,
+        label: subItem.answer,
+        value: subItem.answer,
+      })),
     })) || [];
 
   const inputList: InputData[] = !data

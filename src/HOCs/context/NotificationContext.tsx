@@ -8,6 +8,7 @@ import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import NotificationItem, { NotificationItemPayload } from './NotificationItem';
 import LoadingWrapper from '../loading/LoadingWrapper';
+import { useReadNotifications } from '~/hooks/useReadNotifications';
 
 interface Props {
   children: ReactNode;
@@ -32,14 +33,24 @@ export const NotificationContext = createContext<NotificationContextProps>({
 export default function NotificationContextProvider({ children }: Props) {
   const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
 
+  const { mutateAsync: handleReadNotification } = useReadNotifications();
   const { data: notifications, error, isLoading } = useGetNotifications();
   const numberOfNotification = notifications?.length || 0;
+
+  const onOpenNotification = () => {
+    handleToggle();
+  };
+
+  const onCloseNotification = async (e: any) => {
+    handleClose(e);
+    await handleReadNotification(notifications.map((item) => item.id));
+  };
 
   const value: NotificationContextProps = useMemo(
     () => ({
       numberOfNotification,
       openNotification: open,
-      onOpenNotification: handleToggle,
+      onOpenNotification,
       ref: anchorRef,
       notifications: notifications || [],
     }),
@@ -53,7 +64,7 @@ export default function NotificationContextProvider({ children }: Props) {
       <CustomMenu
         open={open}
         anchorEl={anchorRef.current}
-        onClose={handleClose}
+        onClose={onCloseNotification}
         onToggleOpen={handleToggle}
       >
         <Stack
@@ -77,9 +88,12 @@ export default function NotificationContextProvider({ children }: Props) {
               {notifications?.map((item, index) => (
                 <NotificationItem
                   key={index}
-                  avatarUrl={item.avatarUrl}
+                  entity={item.entity}
+                  id={item.id}
+                  title={item.title}
                   message={item.message}
                   time={item.time}
+                  isRead={item.isRead}
                 />
               ))}
             </Stack>

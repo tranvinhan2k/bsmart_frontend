@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 import FeedbackManagerTemplate from '~/containers/FeedbackManagerSection/FeedbackManagerTemplate';
 
 import { scrollToTop } from '~/utils/common';
-import { FeedbackTypeKeys } from '~/models/variables';
+import { FeedbackQuestionTypeKeys, FeedbackTypeKeys } from '~/models/variables';
 import ClassFeedbackDetailPage from '../ClassFeedbackDetailPage';
 import CustomTab from '~/components/atoms/CustomTab';
 import { Color } from '~/assets/variables';
@@ -18,6 +18,7 @@ export interface FeedbackManagerPayload {
   isFixed: boolean;
   questions: {
     question: string;
+    answerType: FeedbackQuestionTypeKeys;
     answers: {
       answer: string;
     }[];

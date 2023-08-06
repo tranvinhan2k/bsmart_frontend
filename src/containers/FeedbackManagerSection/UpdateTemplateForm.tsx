@@ -24,6 +24,7 @@ export default function UpdateTemplateForm({
       questions:
         row.questions.map((item: any, index: number) => ({
           question: item.question,
+          answerType: item.answerType,
           answers: item.answers,
           id: index,
         })) || [],
