@@ -4,7 +4,9 @@ import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import ManageTable from '../ManageTable';
+import ManageTable from '~/components/molecules/ManageTable';
+import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
+import { ManagedMentorPayload } from '~/models/type';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
@@ -23,7 +25,7 @@ export default function ManageTableUser({
   }
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
-  const [selectedRow, setSelectedRow] = useState<any>();
+  const [selectedRow, setSelectedRow] = useState<ManagedMentorPayload>();
 
   const [q, setQ] = useState<string>('');
   const isVerified = true;
@@ -100,7 +102,12 @@ export default function ManageTableUser({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <h1>Chi tiết người dùng</h1>
+          <ManageTableDetailsManagedMentor
+            rowId={selectedRow && selectedRow.id}
+            onClose={handleTriggerDialog}
+            refetchSearch={refetch}
+            refetchGetNoOfRequest={refetchGetNoOfRequest}
+          />
         </CustomDialog>
       );
       break;

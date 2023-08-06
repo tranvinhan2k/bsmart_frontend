@@ -7,7 +7,7 @@ import RequestMentorInfo from './RequestMentorInfo';
 import RequestRegisterProcess from './RequestRegisterProcess';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
-interface RegisterRequestDetailsProps {
+interface ManageTableDetailsRegisterRequestProps {
   row: any;
   onClose: () => void;
   refetchSearch: () => void;
@@ -19,7 +19,7 @@ export default function ManageTableDetailsRegisterRequest({
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: RegisterRequestDetailsProps) {
+}: ManageTableDetailsRegisterRequestProps) {
   return (
     <>
       <Box mx={2}>

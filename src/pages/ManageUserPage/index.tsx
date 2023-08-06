@@ -1,9 +1,9 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { restrictNumberDisplay, scrollToTop } from '~/utils/common';
+import { scrollToTop } from '~/utils/common';
+import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import ManageTableUser from '~/components/molecules/ManageTableUser';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 
 export default function ManageUserPage() {
   useEffect(() => {

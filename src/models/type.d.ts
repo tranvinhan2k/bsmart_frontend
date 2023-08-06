@@ -292,3 +292,9 @@ export interface ApiParamsProps {
   id: number;
   params: PagingFilterRequest;
 }
+
+export interface ManagedMentorPayload extends ProfilePayload {
+  finishedClassCount: number;
+  timeSendRequest: string;
+  count: number;
+}

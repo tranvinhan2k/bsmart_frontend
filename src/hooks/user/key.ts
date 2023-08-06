@@ -1,4 +1,5 @@
 export const enum Key {
+  UseGetManagedMentorDetails = 'use__get_managed_mentor_details',
   UseGetProfile = 'use_get_profile',
   UseGetUpdateMentorProfileInfoRequest = 'use_get_update_mentor_profile_info_request',
   UseMutationProcessRegisterRequest = 'use_mutation_process_register_request',

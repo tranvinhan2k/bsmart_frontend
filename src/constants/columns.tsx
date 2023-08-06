@@ -426,26 +426,16 @@ const managedUserBasedColumns: GridColDef[] = [
     valueFormatter: (params) => getGender(params.value),
   },
 ];
-const managedUserMemberColumns = managedUserBasedColumns.concat(
-  {
-    field: 'isVerified',
-    headerName: 'Trạng thái',
-    minWidth: 100,
-    flex: 1,
-    sortable: false,
-    renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
-  },
-  {
-    field: 'finishedClassCount',
-    headerAlign: 'left',
-    type: 'number',
-    headerName: 'Đã học',
-    flex: 1,
-    minWidth: 70,
-    sortable: false,
-    valueGetter: (params) => params.row.finishedClassCount,
-  }
-);
+const managedUserMemberColumns = managedUserBasedColumns.concat({
+  field: 'finishedClassCount',
+  headerAlign: 'left',
+  type: 'number',
+  headerName: 'Đã học',
+  flex: 1,
+  minWidth: 70,
+  sortable: false,
+  valueGetter: (params) => params.row.finishedClassCount,
+});
 const managedUserMentorColumns = managedUserBasedColumns.concat(
   {
     field: 'isVerified',

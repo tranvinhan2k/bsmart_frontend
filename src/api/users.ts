@@ -9,6 +9,7 @@ import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import {
   ClassMenuItemPayload,
+  ManagedMentorPayload,
   ProfilePayload,
   WeekTimeSlotPayload,
 } from '~/models/type';
@@ -417,6 +418,10 @@ const accountApi = {
   }: UseSearchManagedUserPayload): Promise<PagingFilterPayload<User> | null> {
     const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(urlSearch);
+  },
+
+  getManagedMentorDetails(id: number): Promise<ManagedMentorPayload> {
+    return axiosClient.get(`${url}/${id}/mentor`);
   },
 };
 
