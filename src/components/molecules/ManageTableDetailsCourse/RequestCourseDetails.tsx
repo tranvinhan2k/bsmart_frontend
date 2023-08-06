@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Chip,
   Divider,
@@ -8,11 +7,10 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Fragment, useState } from 'react';
-import { handleDefinedTextReturnComp } from '~/utils/commonComp';
+import { useState } from 'react';
+import Icon from '~/components/atoms/Icon';
 import { mockLevelData } from '~/constants';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import Icon from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
@@ -28,105 +26,58 @@ interface RequestCourseDetailsProps {
 export default function RequestCourseDetails({
   idCourse,
 }: RequestCourseDetailsProps) {
+  const { courseCreateRequestDetails, isLoading } =
+    useGetCourseCreateRequestDetails(idCourse);
+
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const handleIsDescriptionExpanded = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
-
-  const title0 = courseCreateRequestDetails
-    ? [
-        {
-          id: 0,
-          label: 'Mã khóa học',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.code),
-          isAlign: true,
-        },
-        {
-          id: 1,
-          label: 'Tên khóa học',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.name),
-          isAlign: false,
-        },
-        {
-          id: 2,
-          label: 'Category',
-          value: handleDefinedTextReturnComp(
-            courseCreateRequestDetails.categoryResponse.name
-          ),
-          isAlign: true,
-        },
-        {
-          id: 3,
-          label: 'Subject',
-          value: handleDefinedTextReturnComp(
-            courseCreateRequestDetails.subjectResponse.name
-          ),
-          isAlign: true,
-        },
-        {
-          id: 4,
-          label: 'Trình độ',
-          value: handleDefinedTextReturnComp(courseCreateRequestDetails.level),
-          isAlign: true,
-        },
-      ]
-    : [
-        {
-          id: 0,
-          label: 'Mã khóa học',
-          value: '',
-          isAlign: true,
-        },
-        {
-          id: 1,
-          label: 'Tên khóa học',
-          value: '',
-          isAlign: false,
-        },
-        {
-          id: 2,
-          label: 'Category',
-          value: '',
-          isAlign: true,
-        },
-        {
-          id: 3,
-          label: 'Kĩ năng',
-          value: '',
-          isAlign: true,
-        },
-        {
-          id: 4,
-          label: 'Subject',
-          value: '',
-          isAlign: true,
-        },
-      ];
+  const title0 = [
+    {
+      id: 0,
+      label: 'Mã khóa học',
+      value: courseCreateRequestDetails ? courseCreateRequestDetails.code : '',
+      isAlign: true,
+    },
+    {
+      id: 1,
+      label: 'Tên khóa học',
+      value: courseCreateRequestDetails ? courseCreateRequestDetails.name : '',
+      isAlign: false,
+    },
+    {
+      id: 2,
+      label: 'Category',
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails.categoryResponse.name
+        : '',
+      isAlign: true,
+    },
+    {
+      id: 3,
+      label: 'Subject',
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails.subjectResponse.name
+        : '',
+      isAlign: true,
+    },
+    {
+      id: 4,
+      label: 'Trình độ',
+      value: courseCreateRequestDetails
+        ? mockLevelData.find(
+            (item) => item.value === courseCreateRequestDetails.level
+          )?.label
+        : '',
+      isAlign: true,
+    },
+  ];
 
   const courseDesc = courseCreateRequestDetails
     ? courseCreateRequestDetails.description
     : '';
-
-  const title1 = courseCreateRequestDetails
-    ? [
-        {
-          id: 0,
-          label: 'Trình độ',
-          value: mockLevelData.find(
-            (item) => item.value === courseCreateRequestDetails.level
-          )?.label,
-        },
-      ]
-    : [
-        {
-          id: 0,
-          label: 'Trình độ',
-          value: '',
-        },
-      ];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
@@ -138,51 +89,55 @@ export default function RequestCourseDetails({
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Khóa học</Typography>
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <Avatar
-            src=""
-            variant="rounded"
-            sx={{
-              width: 300,
-              height: 150,
-            }}
-          />
+          <Typography sx={SX_FORM_LABEL}>Thông tin cơ bản</Typography>
         </Grid>
         <Grid item container xs={12} lg={6} spacing={2}>
           <Grid item xs={12}>
             <Stack
               direction="row"
-              justifyContent="space-between"
+              justifyContent="flex-start"
               alignItems="flex-start"
+              spacing={1}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Mã khóa học:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? <Skeleton width={200} /> : title0[0].value}
-              </Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {title0[0].value}
+                </Typography>
+              )}
             </Stack>
           </Grid>
           <Grid item xs={12}>
             <Stack
-              direction="column"
+              direction="row"
               justifyContent="flex-start"
-              alignItems="stretch"
+              alignItems="flex-start"
               spacing={1}
             >
               <Typography sx={SX_FORM_ITEM_LABEL}>Tên khóa học:</Typography>
-              <Typography sx={SX_FORM_ITEM_VALUE}>
-                {isLoading ? <Skeleton /> : title0[1].value}
-              </Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {title0[1].value}
+                </Typography>
+              )}
             </Stack>
           </Grid>
-          <Grid item container xs={12} lg={12} spacing={2}>
-            <Grid item xs={6}>
+        </Grid>
+        <Grid item container xs={12} lg={6} spacing={2}>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={2}
+            >
               <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng:</Typography>
-            </Grid>
-            <Grid item xs={6}>
               {isLoading ? (
-                <Skeleton />
+                <Skeleton sx={{ width: '50%' }} />
               ) : (
                 <Stack
                   direction="row"
@@ -192,29 +147,36 @@ export default function RequestCourseDetails({
                 >
                   <Chip
                     color="default"
+                    size="small"
                     label={`${title0[2].value}`}
                     title={`${title0[2].value}`}
                   />
                   <Chip
                     color="default"
+                    size="small"
                     label={`${title0[3].value}`}
                     title={`${title0[3].value}`}
                   />
                 </Stack>
               )}
-            </Grid>
-            {title1.map((item) => (
-              <Fragment key={item.id}>
-                <Grid item xs={6}>
-                  <Typography sx={SX_FORM_ITEM_LABEL}>{item.label}:</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography sx={SX_FORM_ITEM_VALUE} align="right">
-                    {isLoading ? <Skeleton /> : item.value}
-                  </Typography>
-                </Grid>
-              </Fragment>
-            ))}
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={1}
+            >
+              <Typography sx={SX_FORM_ITEM_LABEL}>Trình độ:</Typography>
+              {isLoading ? (
+                <Skeleton sx={{ width: '50%' }} />
+              ) : (
+                <Typography sx={SX_FORM_ITEM_VALUE}>
+                  {title0[4].value}
+                </Typography>
+              )}
+            </Stack>
           </Grid>
         </Grid>
         <Grid item xs={12}>
@@ -227,7 +189,7 @@ export default function RequestCourseDetails({
             alignItems="start"
           >
             <Typography sx={SX_FORM_ITEM_LABEL}>Mô tả:</Typography>
-            {isLoading && <Skeleton />}
+            {isLoading && <Skeleton sx={{ width: '100%' }} />}
             {!isLoading && courseDesc.length > 200 ? (
               <>
                 <Typography

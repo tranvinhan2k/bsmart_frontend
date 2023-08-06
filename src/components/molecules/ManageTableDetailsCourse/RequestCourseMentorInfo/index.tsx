@@ -63,7 +63,7 @@ export default function RequestCourseMentorInfo({
         {
           id: 0,
           label: Text.labelJoinDate,
-          value: '07 thg 1, 2023',
+          value: '07 tháng 1, 2023',
         },
       ]
     : [];

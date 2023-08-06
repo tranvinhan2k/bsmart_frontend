@@ -1,15 +1,12 @@
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import { Chip, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { GridColDef } from '@mui/x-data-grid';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
-import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import { getGender, handleDefinedText } from '~/utils/common';
-import {
-  formatISODateDateToDisplayDate,
-  formatISODateStringToDisplayDate,
-} from '~/utils/date';
+import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import { mockLevelData } from './data';
@@ -127,7 +124,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     headerName: 'Ngày sinh',
     minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'gender',
@@ -237,7 +234,7 @@ const managedCourseBasedColumns: GridColDef[] = [
   {
     field: 'categoryResponse',
     headerName: 'phân loại',
-    minWidth: 130,
+    minWidth: 150,
     flex: 1,
     valueGetter: (params) => params.value.name,
     renderCell: (params) => {
@@ -254,7 +251,7 @@ const managedCourseBasedColumns: GridColDef[] = [
   {
     field: 'subjectResponse',
     headerName: 'Môn học',
-    minWidth: 130,
+    minWidth: 150,
     flex: 1,
     valueFormatter: (params) => params.value.name,
     renderCell: (params) => {
@@ -273,7 +270,7 @@ const managedCourseColumns = managedCourseBasedColumns.concat(
   {
     field: 'timeSendRequest',
     headerName: 'Ngày phê duyệt',
-    minWidth: 120,
+    minWidth: 150,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
@@ -354,9 +351,9 @@ const attendanceClassColumns: GridColDef[] = [
   {
     field: 'date',
     headerName: 'Ngày',
-    flex: 5,
+    flex: 1,
     renderCell: (params) => {
-      return formatISODateDateToDisplayDate(params?.row?.date);
+      return formatISODateStringToDisplayDate(params?.row?.date);
     },
   },
   {
@@ -413,7 +410,7 @@ const managedUserBasedColumns: GridColDef[] = [
   {
     field: 'birthday',
     headerName: 'Ngày sinh',
-    minWidth: 130,
+    minWidth: 150,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
@@ -510,7 +507,7 @@ const managedUserRegisterRequestColumns = managedUserBasedColumns.concat(
     headerName: 'Ngày gửi',
     minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   }
 );
 
@@ -580,16 +577,16 @@ const managedClassNotStartColumns: GridColDef[] = [
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
     headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'price',
@@ -657,30 +654,30 @@ const managedClassColumns: GridColDef[] = [
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
     headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'startDateActual',
     headerName: 'Ngày bắt đầu (Thực tế)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDateActual',
     headerName: 'Ngày kết thúc (Thực tế)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'numberOfSlot',
@@ -726,20 +723,20 @@ const managedClassColumns: GridColDef[] = [
 ];
 
 const columns = {
-  feedbackQuestionColumns,
+  attendanceClassColumns,
   categoryColumns,
   courseClassListColumns,
-  subjectColumns,
-  attendanceClassColumns,
+  feedbackQuestionColumns,
   managedClassColumns,
   managedClassNotStartColumns,
   managedCourseColumns,
   managedCourseCreateRequestColumns,
-  managedRegisterRequestTmpColumns,
-  managedUserRegisterRequestColumns,
   managedMentorProfileUpdateRequestColumns,
+  managedRegisterRequestTmpColumns,
   managedUserMemberColumns,
   managedUserMentorColumns,
+  managedUserRegisterRequestColumns,
+  subjectColumns,
 };
 
 export default columns;

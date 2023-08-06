@@ -26,51 +26,53 @@ interface RequestCourseDetailsProps {
 export default function RequestCourseDetails({
   idCourse,
 }: RequestCourseDetailsProps) {
+  const { courseCreateRequestDetails, isLoading } =
+    useGetCourseCreateRequestDetails(idCourse);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const handleIsDescriptionExpanded = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
-
-  const title0 = courseCreateRequestDetails
-    ? [
-        {
-          id: 0,
-          label: 'Mã khóa học',
-          value: courseCreateRequestDetails.code ?? '',
-          isAlign: true,
-        },
-        {
-          id: 1,
-          label: 'Tên khóa học',
-          value: courseCreateRequestDetails.name ?? '',
-          isAlign: false,
-        },
-        {
-          id: 2,
-          label: 'Category',
-          value: courseCreateRequestDetails.categoryResponse.name ?? '',
-          isAlign: true,
-        },
-        {
-          id: 3,
-          label: 'Subject',
-          value: courseCreateRequestDetails.subjectResponse.name ?? '',
-          isAlign: true,
-        },
-        {
-          id: 4,
-          label: 'Trình độ',
-          value:
-            mockLevelData.find(
-              (item) => item.value === courseCreateRequestDetails.level
-            )?.label ?? '',
-          isAlign: true,
-        },
-      ]
-    : [];
+  const title0 = [
+    {
+      id: 0,
+      label: 'Mã khóa học',
+      value: courseCreateRequestDetails ? courseCreateRequestDetails.code : '',
+      isAlign: true,
+    },
+    {
+      id: 1,
+      label: 'Tên khóa học',
+      value: courseCreateRequestDetails ? courseCreateRequestDetails.name : '',
+      isAlign: false,
+    },
+    {
+      id: 2,
+      label: 'Category',
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails.categoryResponse.name
+        : '',
+      isAlign: true,
+    },
+    {
+      id: 3,
+      label: 'Subject',
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails.subjectResponse.name
+        : '',
+      isAlign: true,
+    },
+    {
+      id: 4,
+      label: 'Trình độ',
+      value: courseCreateRequestDetails
+        ? mockLevelData.find(
+            (item) => item.value === courseCreateRequestDetails.level
+          )?.label
+        : '',
+      isAlign: true,
+    },
+  ];
 
   const courseDesc = courseCreateRequestDetails
     ? courseCreateRequestDetails.description
@@ -96,7 +98,7 @@ export default function RequestCourseDetails({
               alignItems="flex-start"
               spacing={1}
             >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Mã:</Typography>
+              <Typography sx={SX_FORM_ITEM_LABEL}>Mã khóa học:</Typography>
               {isLoading ? (
                 <Skeleton sx={{ width: '50%' }} />
               ) : (
@@ -113,7 +115,7 @@ export default function RequestCourseDetails({
               alignItems="flex-start"
               spacing={1}
             >
-              <Typography sx={SX_FORM_ITEM_LABEL}>Tên:</Typography>
+              <Typography sx={SX_FORM_ITEM_LABEL}>Tên khóa học:</Typography>
               {isLoading ? (
                 <Skeleton sx={{ width: '50%' }} />
               ) : (
@@ -186,7 +188,7 @@ export default function RequestCourseDetails({
             alignItems="start"
           >
             <Typography sx={SX_FORM_ITEM_LABEL}>Mô tả:</Typography>
-            {isLoading && <Skeleton />}
+            {isLoading && <Skeleton sx={{ width: '100%' }} />}
             {!isLoading && courseDesc.length > 200 ? (
               <>
                 <Typography
