@@ -23,7 +23,10 @@ import {
   validationClassContentQuiz,
   validationFeedbackQuestionInput,
 } from '~/form/validation';
-import { FeedbackTypeOptionList } from '~/constants';
+import {
+  FeedbackTemplateQuestionTypeData,
+  FeedbackTypeOptionList,
+} from '~/constants';
 
 interface FeedbackQuestionInputProps {
   disabled?: boolean;
@@ -33,6 +36,7 @@ interface FeedbackQuestionInputProps {
 
 export interface FeedbackQuestionPayload {
   question: string;
+  answerType: string;
   answers: {
     answers: string;
   }[];
@@ -64,18 +68,27 @@ function FeedbackQuestionInput({
   const resolver = useYupValidationResolver(validationFeedbackQuestionInput);
   const addQuestion = useForm({
     resolver,
+    defaultValues: {
+      answerType: FeedbackTemplateQuestionTypeData[0],
+    },
   });
 
+  const typeWatch = addQuestion.watch('answerType');
+
   const handleSubmit = (data: any) => {
-    const tmpValue: FeedbackQuestionPayload[] = [...value, data].map(
-      (item, index) => ({
-        id: index,
-        question: item.question,
-        answers: item.answers.map((subItem: any) => ({
+    console.log(data);
+
+    const tmpValue: FeedbackQuestionPayload[] = [
+      ...value,
+      {
+        id: value.length,
+        question: data.question,
+        answerType: data.answerType?.value,
+        answers: data.answers?.map((subItem: any) => ({
           answer: subItem.answer,
         })),
-      })
-    );
+      },
+    ];
     addQuestion.reset();
     controllerOnChange(tmpValue);
   };
@@ -119,10 +132,23 @@ function FeedbackQuestionInput({
             <Stack marginTop={1} />
             <FormInput
               control={addQuestion.control}
-              name="answers"
-              variant="answerPicker"
-              label="Danh sách câu trả lời"
+              name="answerType"
+              placeholder="Loại câu hỏi"
+              label="Loại câu hỏi"
+              variant="dropdown"
+              data={FeedbackTemplateQuestionTypeData}
             />
+            {typeWatch?.value === 'MULTIPLECHOICE' && (
+              <>
+                <Stack marginTop={1} />
+                <FormInput
+                  control={addQuestion.control}
+                  name="answers"
+                  variant="answerPicker"
+                  label="Danh sách câu trả lời"
+                />
+              </>
+            )}
 
             <Box>
               <Button
@@ -156,7 +182,12 @@ function FeedbackQuestionInput({
               {
                 field: 'question',
                 headerName: 'Tên câu hỏi',
-                flex: 5,
+                flex: 4,
+              },
+              {
+                field: 'answerType',
+                headerName: 'Loại câu hỏi',
+                flex: 2,
               },
               {
                 field: 'answers',

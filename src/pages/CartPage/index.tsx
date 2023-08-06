@@ -173,7 +173,7 @@ export default function CartPage() {
           Thanh toán giỏ hàng
         </Button>
       </Box>
-      <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
+      <CarouselCourse label="Khóa học tiêu biểu" />
     </Stack>
   );
 }

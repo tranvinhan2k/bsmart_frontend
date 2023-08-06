@@ -12,13 +12,12 @@ import Carousel, {
   RenderArrowProps,
   RenderPaginationProps,
 } from 'react-elastic-carousel';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import { CoursePayload } from '~/models/type';
-import Button from '~/components/atoms/Button';
-import { image } from '~/constants/image';
+import { CourseMenuItemPayload, CoursePayload } from '~/models/type';
 import UserCourseItem from '../items/UserCourseItem';
 import globalStyles from '~/styles';
+import { useQueryGetAllCourse } from '~/hooks';
 
 const breakPoints = [
   { width: 1, itemsToShow: 2 },
@@ -28,12 +27,13 @@ const breakPoints = [
 ];
 interface CarouselCourseProps {
   label: string;
-  items: CoursePayload[];
 }
-export default function CarouselCourse({ label, items }: CarouselCourseProps) {
+export default function CarouselCourse({ label }: CarouselCourseProps) {
   const handleNavigateCourse = (courseId: number) => {
     // TODO: navigate to coures detail
   };
+
+  const { courses, error, isLoading } = useQueryGetAllCourse();
 
   const renderArrow = ({ type, onClick }: RenderArrowProps) => {
     if (type === 'NEXT') {
@@ -120,12 +120,14 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
     );
   };
 
-  const renderItem = (item: CoursePayload) => {
+  const renderItem = (item: CourseMenuItemPayload) => {
     return (
       <UserCourseItem
         courseName={item.courseName}
         courseDescription={item.courseDescription}
-        imageUrl={item.images[0]}
+        imageUrl={item.imageUrl}
+        imageAlt={item.imageAlt}
+        level={item.level}
       />
     );
   };
@@ -148,7 +150,7 @@ export default function CarouselCourse({ label, items }: CarouselCourseProps) {
           renderArrow={renderArrow}
           renderPagination={renderNavigationDot}
         >
-          {items.map((item, index) => (
+          {courses.items.map((item, index) => (
             <div key={index}>{renderItem(item)}</div>
           ))}
         </Carousel>

@@ -230,7 +230,11 @@ export default function Sidebar({
         position: 'sticky',
         top: '90px',
       }}
-      paddingRight={MetricSize.large_30}
+      paddingRight={{
+        xs: '0',
+        md: MetricSize.large_30,
+      }}
+      paddingBottom={1}
     >
       <Stack
         sx={{
@@ -257,7 +261,7 @@ export default function Sidebar({
           </Typography>
           <Stack
             sx={{
-              flexDirection: { xs: 'column', md: 'row' },
+              flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
@@ -272,7 +276,7 @@ export default function Sidebar({
                     sx={{
                       marginTop: 1,
                       marginLeft: index % 3 === 0 ? 0 : 1,
-                      width: { lg: '31%' },
+                      width: '31%',
                     }}
                     key={item.id}
                   >
@@ -280,7 +284,7 @@ export default function Sidebar({
                       onClick={() => handleChangeClass(item)}
                       sx={{
                         padding: 1,
-
+                        overflow: 'hidden',
                         background:
                           chooseClass.id === item.id
                             ? `${Color.tertiary}44`

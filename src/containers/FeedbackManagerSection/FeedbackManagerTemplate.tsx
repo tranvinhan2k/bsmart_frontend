@@ -61,11 +61,14 @@ export default function FeedbackManagerTemplate() {
   };
 
   const handleAddTemplate = async (data: any) => {
+    console.log('data', data);
+
     const tmpData: CreateFeedbackPayload = {
       name: data.name,
       type: data.type.value,
       questions: data.questions.map((item: FeedbackQuestionPayload) => ({
         question: item.question,
+        type: item.answerType,
         answers: item.answers,
       })),
     };
@@ -85,12 +88,16 @@ export default function FeedbackManagerTemplate() {
       type: data.type.value,
       questions: data.questions.map((item: FeedbackQuestionPayload) => ({
         question: item.question,
+        type: item.answerType,
         answers: item.answers,
       })),
     };
     const id = toast.loadToast('Đang cập nhật bản mẫu');
     try {
-      await updateTemplateMutation.mutateAsync(tmpData as any);
+      await updateTemplateMutation.mutateAsync({
+        id: row.id,
+        params: tmpData as any,
+      });
       await refetch();
 
       toast.updateSuccessToast(id, 'Cập nhẩt bản mẫu mới thành công');
@@ -126,6 +133,14 @@ export default function FeedbackManagerTemplate() {
       width: 150,
       renderCell: (params: any) => {
         return params.row.isFixed ? 'Đã khóa' : 'Cho phép chỉnh sửa ';
+      },
+    },
+    {
+      field: 'totalClassUsed',
+      headerName: 'Tổng cộng lớp đã chọn',
+      width: 200,
+      renderCell: (params: any) => {
+        return 3;
       },
     },
     {

@@ -31,7 +31,7 @@ function generateRandomData(numItems: number): RevenuePayload[] {
 // Call the function to generate random data and add it to the existing data array
 
 export default function AdminManagerRevenuePage() {
-  const data = generateRandomData(120);
+  const data = generateRandomData(1000);
 
   return (
     <Stack padding={2}>

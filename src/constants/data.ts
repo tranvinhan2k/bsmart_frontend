@@ -16,6 +16,18 @@ import { IconName } from '~/components/atoms/Icon';
 import { ActivityKeys } from '~/models/variables';
 import { ActivityLink } from './routeLink';
 
+export const FeedbackTemplateQuestionTypeData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Văn bản',
+    value: 'ESSAY',
+  },
+  {
+    id: 1,
+    label: 'Câu hỏi nhiều lựa chọn',
+    value: 'MULTIPLECHOICE',
+  },
+];
 export const FeedbackTemplateTypeData: OptionPayload[] = [
   {
     id: 0,

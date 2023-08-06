@@ -178,7 +178,7 @@ export default function MentorIntroduceProfilePage({
           </Stack>
         </Stack> */}
       </Stack>
-      <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
+      <CarouselCourse label="Khóa học tiêu biểu" />
     </Stack>
   );
 }

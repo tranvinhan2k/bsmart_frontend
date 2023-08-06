@@ -13,6 +13,7 @@ import globalStyles from '~/styles';
 import CarouselCourse from '../CarouselCourse';
 import Content from '../Content';
 import Classes from '../list/Classes';
+import UserCourseFeedback from '../UserCourseFeedback';
 
 interface Props {
   images: string[];
@@ -114,43 +115,46 @@ export default function CourseDetail({
             </Stack>
           </Stack>
           <Divider sx={{ marginY: 3 }} />
-          <Stack
-            sx={{
-              position: 'relative',
-              height: !openDescription ? '300px' : '100%',
-              overflow: 'hidden',
-            }}
-          >
-            <Stack
-              sx={{
-                display: openDescription ? 'none' : 'flex',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                background: `linear-gradient(0deg, ${Color.white4} 0%, rgba(253,187,45,0) 100%)`,
-              }}
-            />
-            <Stack ref={introduceRef}>
-              <Typography sx={globalStyles.textCourseSmallLabel}>
-                Mô tả khóa học
-              </Typography>
-              <Typography
-                marginTop={1}
-                sx={globalStyles.textSmallLight}
-                dangerouslySetInnerHTML={{
-                  __html: courseDescription,
+
+          <Stack ref={introduceRef}>
+            <Typography sx={globalStyles.textCourseSmallLabel}>
+              Mô tả khóa học
+            </Typography>
+            <Stack sx={globalStyles.viewRoundedWhiteBody}>
+              <Stack
+                sx={{
+                  position: 'relative',
+                  height: !openDescription ? '300px' : '100%',
+                  overflow: 'hidden',
                 }}
-              />
+              >
+                <Stack
+                  sx={{
+                    display: openDescription ? 'none' : 'flex',
+                    position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: `linear-gradient(0deg, ${Color.white} 0%, rgba(253,187,45,0) 100%)`,
+                  }}
+                />
+                <Typography
+                  marginTop={1}
+                  sx={globalStyles.textSmallLight}
+                  dangerouslySetInnerHTML={{
+                    __html: courseDescription,
+                  }}
+                />
+              </Stack>
+              <Button
+                onClick={() => setOpenDescription(!openDescription)}
+                variant="text"
+              >
+                {openDescription ? 'Thu Gọn' : 'Xem Thêm'}
+              </Button>
             </Stack>
           </Stack>
-          <Button
-            onClick={() => setOpenDescription(!openDescription)}
-            variant="text"
-          >
-            {openDescription ? 'Thu Gọn' : 'Xem Thêm'}
-          </Button>
         </Stack>
         <Divider sx={{ marginY: 0 }} />
       </Stack>
@@ -206,11 +210,7 @@ export default function CourseDetail({
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Về giáo viên
           </Typography>
-          <Stack
-            sx={{
-              marginTop: 1,
-            }}
-          >
+          <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
             <Stack
               sx={{
                 flexDirection: 'row',
@@ -252,9 +252,16 @@ export default function CourseDetail({
           </Stack>
         </Stack>
         <Divider sx={{ marginY: 4 }} />
+        <Stack>
+          <Typography sx={globalStyles.textCourseSmallLabel}>
+            Đánh giá từ học sinh
+          </Typography>
+          <UserCourseFeedback />
+        </Stack>
+        <Divider sx={{ marginY: 4 }} />
 
         <Stack>
-          <CarouselCourse label="Khóa học tiêu biểu" items={CommonCourse} />
+          <CarouselCourse label="Khóa học tiêu biểu" />
         </Stack>
       </Stack>
     </Stack>

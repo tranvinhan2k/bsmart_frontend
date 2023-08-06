@@ -218,23 +218,6 @@ const accountApi = {
   getProfile(): Promise<ProfilePayload> {
     return axiosClient.get(`${url}/profile`);
   },
-  getNotifications(): Promise<NotificationItemPayload[]> {
-    const notifications: NotificationItemPayload[] = [
-      {
-        avatarUrl: image.mockStudent,
-        message:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea dolorum quisquam eveniet rerum, earum dolores ullam, excepturi placeat temporibus molestias nesciunt inventore iusto ad rem vitae consequuntur expedita officiis labore? ',
-        time: new Date().toISOString(),
-      },
-      {
-        avatarUrl: image.mockTeacherAvatar,
-        message:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea dolorum quisquam eveniet rerum, earum dolores ullam, excepturi placeat temporibus molestias nesciunt inventore iusto ad rem vitae consequuntur expedita officiis labore? ',
-        time: new Date().toISOString(),
-      },
-    ];
-    return generateMockApi(notifications);
-  },
   getIntroduceCode(): Promise<PromoCodePayload[]> {
     const data: PromoCodePayload[] = [
       {
@@ -419,6 +402,11 @@ const accountApi = {
   }: UseSearchManagedUserPayload): Promise<PagingFilterPayload<User> | null> {
     const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(urlSearch);
+  },
+
+  sendMailResetPassword(email: string) {
+    // TODO: nhap email xac nhan quen mat khau o day
+    return generateMockApi(true);
   },
 
   getManagedMentorDetails(id: number): Promise<ManagedMentorPayload> {

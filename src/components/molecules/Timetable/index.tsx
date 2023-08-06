@@ -104,8 +104,8 @@ export default function Timetable({ data }: Props) {
     if (data?.length > 0) {
       data.map((slotTime) => {
         const { dayOfWeekId, slotId } = slotTime;
-        const slot = slots.find((item) => item.id === slotId);
-        const dayOfWeek = dayOfWeeks.find((item) => item.id === dayOfWeekId);
+        const slot = slots?.find((item) => item.id === slotId);
+        const dayOfWeek = dayOfWeeks?.find((item) => item.id === dayOfWeekId);
         const index = rows.findIndex((item) => item.id === slotId);
 
         if (index !== -1 && dayOfWeek) {

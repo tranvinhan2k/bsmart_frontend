@@ -10,10 +10,12 @@ import {
   GenderKeys,
   ImageKeys,
   LevelKeys,
+  NotificationType,
   QuizKeys,
   QuizQuestionTypeKeys,
   RoleKeys,
 } from './variables';
+import { FeedbackQuestionType } from '~/constants/profile';
 
 export interface ResponseMentorCoursePayload {
   course: CoursePayload;
@@ -362,6 +364,23 @@ export type ResponseDetailClass = Partial<{
     status: boolean;
     type: 'COURSE';
   }>;
+  feedback: Partial<{
+    id: number;
+    name: string;
+    type: string;
+    totalClassUsed: number;
+    isDefault: boolean;
+    isFixed: boolean;
+    questions: {
+      question: string;
+      answerType: FeedbackTypeKeys;
+      answers: {
+        answer: string;
+      }[];
+    }[];
+    default: boolean;
+    fixed: boolean;
+  }>;
   mentor: Partial<{
     id: number;
     fullName: string;
@@ -587,6 +606,7 @@ type GetAllFeedbackTemplate = Partial<{
   isFixed: boolean;
   questions: {
     question: string;
+    answerType: FeedbackQuestionTypeKeys;
     answers: {
       answer: string;
     }[];
@@ -711,4 +731,17 @@ export type GetAllMentorFeedback = Partial<{
       ];
     }
   ];
+}>;
+
+export type GetAllNotificationResponse = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  viTitle: string;
+  viContent: string;
+  type: string;
+  entity: NotificationType;
+  entityId: number;
+  isRead: boolean;
 }>;

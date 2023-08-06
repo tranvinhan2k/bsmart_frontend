@@ -44,10 +44,11 @@ export default function MemberClassInformationPage() {
 
   const isDidFeedback = value;
 
-  const isTimeToFeedback =
-    !!detailClass?.progressValue &&
-    detailClass?.progressValue > 70 &&
-    !isDidFeedback;
+  const isTimeToFeedback = true;
+
+  // !!detailClass?.progressValue &&
+  // detailClass?.progressValue > 70 &&
+  // !isDidFeedback;
 
   const { data, error, isLoading } = useQueryMemberFeedback(
     2,
@@ -63,6 +64,10 @@ export default function MemberClassInformationPage() {
   const resolver = useYupValidationResolver(validationRating);
   const { control, handleSubmit } = useForm({
     resolver,
+    defaultValues: {
+      ratingPoint: 0,
+      description: '',
+    },
   });
 
   const defaultRatingForm: InputData[] = [
@@ -72,22 +77,30 @@ export default function MemberClassInformationPage() {
       placeholder: 'Nhập nhận xét về giáo viên',
       variant: 'rating',
     },
-    {
-      label: 'Nhận xét và giáo viên',
-      name: 'description',
-      placeholder: 'Nhập nhận xét về giáo viên',
-      variant: 'multiline',
-    },
   ];
 
   const templateRatingForm: InputData[] =
-    data?.map((item, index) => ({
-      label: item.question,
-      name: `feedback.${index}`,
-      placeholder: '',
-      variant: 'radioGroup',
-      data: OptionFeedbackData,
-    })) || [];
+    detailClass?.feedback?.questions?.map((item, index) => {
+      if (item.answerType === 'MULTIPLECHOICE') {
+        return {
+          label: item.question,
+          name: `feedback.${index}`,
+          placeholder: '',
+          variant: 'radioGroup',
+          data: item?.answers?.map((subItem, subIndex) => ({
+            id: subIndex,
+            label: subItem.answer,
+            value: subItem.answer,
+          })),
+        };
+      }
+      return {
+        label: item.question,
+        name: `feedback.${index}`,
+        placeholder: '',
+        variant: 'multiline',
+      };
+    }) || [];
 
   const inputList: InputData[] = !data
     ? defaultRatingForm

@@ -29,7 +29,8 @@ export type CourseStatusKeys =
   | 'ENDED'
   | 'CANCEL';
 export type QuestionTypeKeys = 'MULTIPLE_CHOICE' | 'FILL_THE_ANSWER';
-export type FeedbackTypeKeys = 'COURSE' | 'REPORT';
+export type FeedbackTypeKeys = 'COURSE';
+export type FeedbackQuestionTypeKeys = 'ESSAY' | 'MULTIPLECHOICE';
 export type PresentStatusKeys = 'WAIT' | 'PRESENT' | 'ABSENT';
 export type GenderKeys = 'MALE' | 'FEMALE';
 export type ImageKeys = 'AVATAR' | 'FRONTCI' | 'BACKCI' | 'COURSE';
@@ -42,3 +43,8 @@ export type ActivityKeys =
   | 'RESOURCE'
   | 'ANNOUNCEMENT';
 export type QuizQuestionTypeKeys = 'SINGLE' | 'MULTIPLE';
+export type NotificationType =
+  | 'CLASS'
+  | 'TRANSACTION'
+  | 'COURSE'
+  | 'MENTOR_PROFILE';

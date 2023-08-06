@@ -54,7 +54,6 @@ export default function CourseDetailPage() {
           <Grid
             container
             sx={{
-              gridAutoFlow: 'dense',
               padding: { xs: MetricSize.medium_15, md: '70px' },
             }}
           >
@@ -75,7 +74,14 @@ export default function CourseDetailPage() {
                 sections={sections || []}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{
+                order: { xs: -1, md: 1 },
+              }}
+            >
               <Sidebar
                 level={course?.level || 'BEGINNER'}
                 levelLabel={levelOptionPayload?.label || ''}
