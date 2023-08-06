@@ -1,23 +1,24 @@
 import { Box, Button as MuiButton, Divider, Typography } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 import { defaultValueEditSocialProfile } from '~/form/defaultValues';
 import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
 import { EditSocialProfileFormDefault, FormInputVariant } from '~/models/form';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
-import { RootState } from '~/redux/store';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
-import { validationSchemaEditSocialProfile } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
+import { validationSchemaEditSocialProfile } from '~/form/validation';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
-import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditSocialProfileForm() {
+  const { profile: dataGetProfile } = useGetProfile();
+
   const resolverEditSocialProfile = useYupValidationResolver(
     validationSchemaEditSocialProfile
   );
@@ -34,7 +35,9 @@ export default function EditSocialProfileForm() {
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
+    `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {};
     if (data.website) params.website = data.website;
@@ -56,21 +59,6 @@ export default function EditSocialProfileForm() {
     label: string;
     placeholder: string;
   }
-
-  const token =
-    useSelector((state: RootState) => state.user.token) ||
-    localStorage.getItem('token');
-  const queryKey = ['/loginUser'];
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const { data: dataGetProfile } = useQuery(
-    queryKey,
-    () => accountApi.getProfile(config),
-    {
-      enabled: Boolean(token),
-    }
-  );
 
   useEffect(() => {
     if (dataGetProfile) {

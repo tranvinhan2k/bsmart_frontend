@@ -11,15 +11,16 @@ import { defaultValueEditIdentityFront } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
 import { EditIdentityFrontFormDataPayload } from '~/models/form';
 import { EditImageProfilePayload } from '~/api/users';
-import { ProfileImgType } from '~/constants/profile';
-import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
-import { selectProfile } from '~/redux/user/selector';
-import { validationSchemaEditIdentityFront } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
+import { ProfileImgType } from '~/constants/profile';
+import { selectProfile } from '~/redux/user/selector';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
+import { validationSchemaEditIdentityFront } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 
 interface DialogEditIdCardFrontProps {
   open: boolean;
@@ -52,7 +53,9 @@ export default function DialogEditIdCardFront({
   const toastMsgLoading = 'Đang cập nhật ...';
   const toastMsgSuccess = 'Cập nhật thành công ...';
   const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
+    return `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   };
   const handleSubmitIdentityFront = async (
     data: EditIdentityFrontFormDataPayload

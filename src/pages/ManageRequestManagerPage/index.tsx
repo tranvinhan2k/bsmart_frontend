@@ -24,7 +24,7 @@ export default function ManageRequestManagerPage() {
     selectRequestLabel = 'Chọn loại yêu cầu',
     //
     ListSubheader0 = 'Người dùng',
-    MenuItem0 = 'Hồ sơ giáo viên',
+    MenuItem0 = 'Phê duyệt hồ sơ giáo viên',
     MenuItem1 = 'Mở thêm môn dạy cho giáo viên',
     ListSubheader1 = 'Khóa học / Lớp học',
     MenuItem2 = 'Phê duyệt khóa học',

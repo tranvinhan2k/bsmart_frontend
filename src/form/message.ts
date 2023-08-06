@@ -82,3 +82,5 @@ export const WITHDRAW_BANK_ACCOUNT_REQUIRED =
   'Số tài khoản không được để trống';
 export const WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED =
   'Tên chủ khoản không được để trống';
+
+export const TRY_CATCH_AXIOS_DEFAULT_ERROR = 'BE ko trả lỗi, Msg từ FE';

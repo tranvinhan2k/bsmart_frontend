@@ -1,37 +1,21 @@
 import {
   Box,
   Button,
-  Tooltip,
-  Typography,
   Stack,
+  Tooltip,
   TooltipProps,
+  Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useQuery } from '@tanstack/react-query';
-import { image } from '~/constants/image';
-import { ProfileImgType } from '~/constants/profile';
-import { RootState } from '~/redux/store';
-import accountApi from '~/api/users';
 import DialogEditIdCardBack from '~/components/molecules/Dialog/DialogEditIdCardBack';
 import DialogEditIdCardFront from '~/components/molecules/Dialog/DialogEditIdCardFront';
-import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { image } from '~/constants/image';
+import { ProfileImgType } from '~/constants/profile';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
+import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function DisplayCISection() {
-  const token =
-    useSelector((state: RootState) => state.user.token) ||
-    localStorage.getItem('token');
-  const queryKey = ['/loginUser'];
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const { data: dataGetProfile } = useQuery(
-    queryKey,
-    () => accountApi.getProfile(config),
-    {
-      enabled: Boolean(token),
-    }
-  );
+  const { profile: dataGetProfile } = useGetProfile();
 
   const [openDialogUpdateIDCardFront, setOpenDialogUpdateIDCardFront] =
     useState<boolean>(false);
