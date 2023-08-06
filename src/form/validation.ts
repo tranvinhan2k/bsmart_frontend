@@ -703,7 +703,7 @@ export const validationSchemaWithdrawMoney = object({
   note: string(),
 });
 
-export const validationSchemaVerifyRegisterRequest = object({
+export const validationSchemaProcessRegisterRequest = object({
   message: string().required(MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED),
 });
 export const validationSchemaProcessUpdateMentorProfileRequest = object({

@@ -206,3 +206,16 @@ export const defaultValueCreateClassSections = {
 export const defaultValueUpdateClassSections = {
   name: '',
 };
+
+export const defaultValueApproveRegisterRequest = {
+  message: 'Chúc mừng bạn đã trờ thành giảng viên hợp tác với Mismart',
+  interviewed: false,
+};
+export const defaultValueRejectRegisterRequest = {
+  message: 'Thông tin vi phạm bao gồm:',
+  interviewed: false,
+};
+export const defaultValueEditRequestRegisterRequest = {
+  message: 'Thông tin cần chỉnh sửa bao gồm',
+  interviewed: false,
+};

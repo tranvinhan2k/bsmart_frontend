@@ -1,11 +1,18 @@
 import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import {
+  defaultValueApproveRegisterRequest,
+  defaultValueEditRequestRegisterRequest,
+  defaultValueRejectRegisterRequest,
+} from '~/form/defaultValues';
 import { ProcessRegisterRequestFormDefault } from '~/models/form';
-import { ProcessRegisterRequestPayload } from '~/api/mentorProfile';
-import { useMutationProcessRegisterRequest } from '~/hooks/user/useMutationProcessRegisterRequest';
+import {
+  useMutationProcessRegisterRequest,
+  UseMutationProcessRegisterRequestPayload,
+} from '~/hooks/user/useMutationProcessRegisterRequest';
 import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaVerifyRegisterRequest } from '~/form/validation';
+import { validationSchemaProcessRegisterRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
@@ -24,34 +31,31 @@ export default function RequestRegisterProcess({
   refetchSearch,
   refetchGetNoOfRequest,
 }: RequestRegisterProcessProps) {
+  const [tabValue, setTabValue] = useState(0);
+  const handleSetTabValue = (
+    _: SyntheticEvent<Element, Event>,
+    newValue: number
+  ) => setTabValue(newValue);
+
   const { processCourseCreateRequestMutation } =
     useMutationProcessRegisterRequest();
 
-  const resolverVerifyRegisterRequest = useYupValidationResolver(
-    validationSchemaVerifyRegisterRequest
+  const resolverProcessRegisterRequest = useYupValidationResolver(
+    validationSchemaProcessRegisterRequest
   );
   const { control: controlApprove, handleSubmit: handleSubmitApprove } =
     useForm({
-      defaultValues: {
-        status: 'STARTING',
-        message: '',
-      },
-      resolver: resolverVerifyRegisterRequest,
+      defaultValues: defaultValueApproveRegisterRequest,
+      resolver: resolverProcessRegisterRequest,
     });
   const { control: controlReject, handleSubmit: handleSubmitReject } = useForm({
-    defaultValues: {
-      status: 'REJECTED',
-      message: '',
-    },
-    resolver: resolverVerifyRegisterRequest,
+    defaultValues: defaultValueRejectRegisterRequest,
+    resolver: resolverProcessRegisterRequest,
   });
   const { control: controlEditRequest, handleSubmit: handleSubmitEditRequest } =
     useForm({
-      defaultValues: {
-        status: 'EDITREQUEST',
-        message: '',
-      },
-      resolver: resolverVerifyRegisterRequest,
+      defaultValues: defaultValueEditRequestRegisterRequest,
+      resolver: resolverProcessRegisterRequest,
     });
 
   const toastMsgLoading = 'Đang xử lý...';
@@ -61,10 +65,24 @@ export default function RequestRegisterProcess({
   const handleProcessRegisterRequest = async (
     data: ProcessRegisterRequestFormDefault
   ) => {
-    const params: ProcessRegisterRequestPayload = {
+    let submitStatus;
+    switch (tabValue) {
+      case 0:
+        submitStatus = 'STARTING';
+        break;
+      case 1:
+        submitStatus = 'REJECTED';
+        break;
+      default:
+        submitStatus = 'EDITREQUEST';
+        break;
+    }
+
+    const params: UseMutationProcessRegisterRequestPayload = {
       id: idMentorProfile,
-      status: data.status,
+      status: submitStatus,
       message: data.message,
+      interviewed: data.interviewed,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -78,11 +96,10 @@ export default function RequestRegisterProcess({
     }
   };
 
-  const [tabValue, setTabValue] = useState(0);
-  const handleSetTabValue = (
-    _: SyntheticEvent<Element, Event>,
-    newValue: number
-  ) => setTabValue(newValue);
+  const interviewedOptions = [
+    { id: 0, label: 'Đã phỏng vấn', value: true },
+    { id: 1, label: 'Chưa phỏng vấn', value: false },
+  ];
 
   const tabEl = [
     {
@@ -97,6 +114,14 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
+          <Box mt={2}>
+            <FormInput
+              dataRadioGroupDynamicValue={interviewedOptions}
+              variant="radioGroupDynamicValue"
+              name="interviewed"
+              control={controlApprove}
+            />
+          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -129,6 +154,14 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
+          <Box mt={2}>
+            <FormInput
+              dataRadioGroupDynamicValue={interviewedOptions}
+              variant="radioGroupDynamicValue"
+              name="interviewed"
+              control={controlReject}
+            />
+          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -161,6 +194,14 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
+          <Box mt={2}>
+            <FormInput
+              dataRadioGroupDynamicValue={interviewedOptions}
+              variant="radioGroupDynamicValue"
+              name="interviewed"
+              control={controlEditRequest}
+            />
+          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"

@@ -8,6 +8,7 @@ import {
   DropdownDynamicValueInputNumberDataPayload,
   DropdownDynamicValueInputStringDataPayload,
   OptionPayload,
+  RadioGroupDynamicValuePayload,
 } from '~/models';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
@@ -20,6 +21,7 @@ import MultiSelectInput from './MultiSelectInput';
 import NumberInput from './NumberInput';
 import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
+import RadioGroupDynamicValue from './RadioGroupDynamicValue';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
 import TimeTableInput from './TimeTableInput';
@@ -47,6 +49,7 @@ interface FormInputProps {
   banks?: BankLinking[];
   control: Control<any>;
   data?: OptionPayload[];
+  dataRadioGroupDynamicValue?: RadioGroupDynamicValuePayload[];
   dataDropdownDynamicValue?: (
     | DropdownDynamicValueInputBooleanDataPayload
     | DropdownDynamicValueInputNumberDataPayload
@@ -69,6 +72,7 @@ const generateFormInput = (
   banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
   data: OptionPayload[],
+  dataRadioGroupDynamicValue: RadioGroupDynamicValuePayload[],
   dataDropdownDynamicValue: (
     | DropdownDynamicValueInputBooleanDataPayload
     | DropdownDynamicValueInputNumberDataPayload
@@ -157,6 +161,13 @@ const generateFormInput = (
       );
     case variant === 'radioGroup':
       return <RadioGroupInput controller={controller} data={data} />;
+    case variant === 'radioGroupDynamicValue':
+      return (
+        <RadioGroupDynamicValue
+          controller={controller}
+          dataRadioGroupDynamicValue={dataRadioGroupDynamicValue}
+        />
+      );
     case variant === 'multiSelect':
       return <MultiSelectInput controller={controller} data={data} />;
     case variant === 'tags':
@@ -238,6 +249,7 @@ export default function FormInput({
   banks = [],
   control,
   data = [],
+  dataRadioGroupDynamicValue = [],
   dataDropdownDynamicValue = [],
   defaultValue,
   helperText = '',
@@ -271,6 +283,7 @@ export default function FormInput({
         banks,
         controller,
         data,
+        dataRadioGroupDynamicValue,
         dataDropdownDynamicValue,
         helperText,
         placeholder,
@@ -287,6 +300,7 @@ export default function FormInput({
 FormInput.defaultProps = {
   banks: [],
   data: [],
+  dataRadioGroupDynamicValue: [],
   dataDropdownDynamicValue: [],
   defaultValue: '',
   helperText: '',

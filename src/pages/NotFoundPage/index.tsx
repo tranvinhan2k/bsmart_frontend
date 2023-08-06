@@ -1,7 +1,7 @@
-import { Stack, Box, Typography } from '@mui/material';
-import { SX_NOT_FOUND_STACK, SX_NOT_FOUND_TEXT } from './styles';
+import { Box, Stack, Typography } from '@mui/material';
+import { FontFamily, FontSize } from '~/assets/variables';
 import { image } from '~/constants/image';
-import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { SX_NOT_FOUND_STACK } from './styles';
 
 export default function NotFoundPage() {
   return (
@@ -9,7 +9,7 @@ export default function NotFoundPage() {
       <Box
         component="img"
         src={image.notFound}
-        alt="Khong tim thay"
+        alt="Not found"
         sx={{
           width: '20%',
           height: undefined,

@@ -138,7 +138,7 @@ export interface MentorSkills {
 }
 
 export interface ProcessRegisterRequestFormDefault {
-  status: string;
+  interviewed: boolean;
   message: string;
 }
 export interface ProcessUpdateMentorProfileRequestFormDefault {
@@ -210,6 +210,7 @@ export type FormInputVariant =
   | 'timetable'
   | 'rating'
   | 'radioGroup'
+  | 'radioGroupDynamicValue'
   | 'image'
   | 'multiSelect'
   | 'time'

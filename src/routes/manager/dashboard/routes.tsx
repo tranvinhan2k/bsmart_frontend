@@ -3,11 +3,13 @@ import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import ClassFeedbackDetailPage from '~/pages/ClassFeedbackDetailPage';
 import {
+  ManageAnalyticPage,
   ManageClassPage,
   ManageCourseCreateRequestPage,
   ManageCoursePage,
   ManageMentorProfileUpdateRequestPage,
   ManageRegisterRequestPage,
+  ManageRequestManagerPage,
   ManageUserPage,
   NotFoundPage,
 } from '~/routes/components';
@@ -19,10 +21,16 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
+    path: ManagerNavigationActionLink.manage_analytic_manager,
+    main: () => <ManageAnalyticPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
     path: ManagerNavigationActionLink.manage_class_manager,
     main: () => <ManageClassPage />,
     role: ['ROLE_MANAGER'],
   },
+
   {
     path: ManagerNavigationActionLink.manage_course_create_request_manager,
     main: () => <ManageCourseCreateRequestPage />,
@@ -41,6 +49,11 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: ManagerNavigationActionLink.manage_register_request_manager,
     main: () => <ManageRegisterRequestPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.manage_request_manager,
+    main: () => <ManageRequestManagerPage />,
     role: ['ROLE_MANAGER'],
   },
   {

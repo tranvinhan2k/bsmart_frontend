@@ -45,8 +45,6 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     labelNoOfRating = 'Số đánh giá',
   }
 
-  console.log('row', row);
-
   const title0 = [
     {
       id: 0,

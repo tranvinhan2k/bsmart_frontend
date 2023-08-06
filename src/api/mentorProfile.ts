@@ -10,12 +10,6 @@ import {
 
 const url = `/mentor-profiles`;
 
-export interface ProcessRegisterRequestPayload {
-  id: number;
-  status: string;
-  message: string;
-}
-
 const mentorProfilesApi = {
   checkCompleteness(): Promise<CheckCompletenessReturnPayload | undefined> {
     const urlGet = `${url}/completeness`;
