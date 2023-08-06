@@ -1,4 +1,5 @@
 import { Stack, Avatar, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
 import { image } from '~/constants/image';
@@ -8,8 +9,10 @@ import {
 } from '~/constants/routeLink';
 import { useBoolean } from '~/hooks/useBoolean';
 import { NotificationType } from '~/models/variables';
+import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import toast from '~/utils/toast';
 
 export interface NotificationItemPayload {
   title: string;
@@ -28,9 +31,8 @@ export default function NotificationItem({
   time,
   isRead = false,
 }: NotificationItemPayload) {
-  const navigate = useNavigate();
-  const { value, setTrue } = useBoolean(false);
-
+  const profile = useSelector(selectProfile);
+  const role = profile.roles[0].code;
   const handleNavigateLink = () => {
     switch (entity) {
       case 'COURSE':
@@ -45,7 +47,14 @@ export default function NotificationItem({
       case 'TRANSACTION':
         window.location.href = `${NavigationLink.mentor_profile}/wallet-management`;
         break;
+      case 'ACCOUNT':
+        window.location.href =
+          role === 'TEACHER'
+            ? `/${NavigationLink.mentor_profile}`
+            : `/${NavigationLink.member_details}`;
+        break;
       default:
+        toast.notifyErrorToast('Không tìm thấy loại thông báo này.');
         break;
     }
   };

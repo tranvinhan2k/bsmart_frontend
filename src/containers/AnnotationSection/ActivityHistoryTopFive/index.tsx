@@ -6,6 +6,7 @@ import { SX_BUTTON, SX_TITLE, SX_WRAPPER } from './style';
 import { NotificationContext } from '~/HOCs/context/NotificationContext';
 import { NavigationLink } from '~/constants/routeLink';
 import NotificationItem from '~/HOCs/context/NotificationItem';
+import { LoadingWrapper } from '~/HOCs';
 
 export default function ActivityHistoryTopFive() {
   const { notifications } = useContext(NotificationContext);
@@ -37,16 +38,19 @@ export default function ActivityHistoryTopFive() {
         </Button>
       </Stack>
 
-      {notifications &&
-        notifications.slice(0, 4)?.map((item, index) => (
-          <Fragment key={index}>
-            <NotificationItem
-              avatarUrl={item.avatarUrl}
-              message={item.message}
-              time={item.time}
-            />
-          </Fragment>
+      <LoadingWrapper isEmptyCourse={notifications?.length === 0}>
+        {notifications.slice(0, 4)?.map((item, index) => (
+          <NotificationItem
+            key={index}
+            entity={item.entity}
+            id={item.id}
+            isRead={item.isRead}
+            title={item.title}
+            message={item.message}
+            time={item.time}
+          />
         ))}
+      </LoadingWrapper>
     </Stack>
   );
 }

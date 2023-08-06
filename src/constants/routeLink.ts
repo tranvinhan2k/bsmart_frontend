@@ -100,6 +100,7 @@ export const enum AdminNavigationActionLink {
   category_manager = 'category_manager',
   questions_bank = 'questions_bank_manager',
   revenue = 'revenue',
+  confirm_email = 'confirm_email/:code',
 }
 
 export const enum ManagerNavigationActionLink {
@@ -112,6 +113,7 @@ export const enum ManagerNavigationActionLink {
   manage_register_request_manager = 'manage_register_request_manager',
   manage_request_manager = 'manage_request_manager',
   manage_user_manager = 'manage_user_manager',
+  confirm_email = 'confirm_email/:code',
 }
 
 export const enum MentorCourseActionLink {

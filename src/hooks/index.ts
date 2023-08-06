@@ -104,3 +104,6 @@ export * from './assignment/useGetAssignment';
 export * from './assignment/useDeleteFile';
 export * from './assignment/useMemberSubmitAssignment';
 export * from './assignment/useMutationSubmitPointAssignment';
+
+// forgot password
+export * from './resetPassword/useMutationSendMailResetPassword';

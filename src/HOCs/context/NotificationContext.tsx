@@ -1,5 +1,6 @@
 import { Avatar, Divider, Stack, Typography } from '@mui/material';
-import { ReactNode, createContext, useMemo, useState } from 'react';
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CustomMenu from '~/components/atoms/CustomMenu';
 import { image } from '~/constants/image';
@@ -9,6 +10,7 @@ import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import NotificationItem, { NotificationItemPayload } from './NotificationItem';
 import LoadingWrapper from '../loading/LoadingWrapper';
 import { useReadNotifications } from '~/hooks/useReadNotifications';
+import { selectMessage } from '~/redux/user/selector';
 
 interface Props {
   children: ReactNode;
@@ -34,7 +36,12 @@ export default function NotificationContextProvider({ children }: Props) {
   const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
 
   const { mutateAsync: handleReadNotification } = useReadNotifications();
-  const { data: notifications, error, isLoading } = useGetNotifications();
+  const {
+    data: notifications,
+    error,
+    isLoading,
+    refetch,
+  } = useGetNotifications();
   const numberOfNotification = notifications?.length || 0;
 
   const onOpenNotification = () => {
@@ -57,6 +64,12 @@ export default function NotificationContextProvider({ children }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [open, notifications]
   );
+
+  const data = useSelector(selectMessage);
+
+  useEffect(() => {
+    refetch();
+  }, [data, refetch]);
 
   return (
     <NotificationContext.Provider value={value}>
@@ -83,6 +96,8 @@ export default function NotificationContextProvider({ children }: Props) {
               marginTop={1}
               sx={{
                 width: { xs: '100%', md: '400px' },
+                height: '500px',
+                overflow: 'auto',
               }}
             >
               {notifications?.map((item, index) => (

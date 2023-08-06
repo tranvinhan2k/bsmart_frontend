@@ -17,7 +17,7 @@ import {
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
-import { selectIntroduceCode } from '~/redux/user/selector';
+import { selectIntroduceCode, selectMessage } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
 import { useEffectScrollToTop, useYupValidationResolver } from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
@@ -44,7 +44,7 @@ function CheckoutPage() {
 
   useEffectScrollToTop();
 
-  const { data: selectWebsocket } = useSocket();
+  const selectWebsocket = useSelector(selectMessage);
 
   if (selectWebsocket.status === 'OK') {
     closeUrl();

@@ -6,6 +6,7 @@ import { ANNOTATION_BOX, ANNOTATION_H3, SX_FORM_LABEL_GRAY } from './style';
 import { NotificationContext } from '~/HOCs/context/NotificationContext';
 import NotificationItem from '~/HOCs/context/NotificationItem';
 import { MetricSize } from '~/assets/variables';
+import { LoadingWrapper } from '~/HOCs';
 
 export default function AnnotationSection() {
   const { notifications } = useContext(NotificationContext);
@@ -30,16 +31,19 @@ export default function AnnotationSection() {
             <Typography component="h3" sx={ANNOTATION_H3}>
               Danh sách hoạt động
             </Typography>
-            {notifications.map((item, index) => (
-              <NotificationItem
-                key={index}
-                entity={item.entity}
-                id={item.id}
-                title={item.title}
-                message={item.message}
-                time={item.time}
-              />
-            ))}
+            <LoadingWrapper isEmptyCourse={notifications?.length === 0}>
+              {notifications.map((item, index) => (
+                <NotificationItem
+                  key={index}
+                  entity={item.entity}
+                  id={item.id}
+                  title={item.title}
+                  message={item.message}
+                  time={item.time}
+                  isRead={item.isRead}
+                />
+              ))}
+            </LoadingWrapper>
           </Stack>
         </Box>
       </Grid>

@@ -3,6 +3,7 @@ import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import ClassFeedbackDetailPage from '~/pages/ClassFeedbackDetailPage';
 import {
+  ConfirmEmailPage,
   ManageAnalyticPage,
   ManageClassPage,
   ManageCourseCreateRequestPage,
@@ -17,7 +18,9 @@ import {
 export const managerRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to="/manager/user" />,
+    main: () => (
+      <Navigate to={ManagerNavigationActionLink.manage_analytic_manager} />
+    ),
     role: ['ROLE_MANAGER'],
   },
   {
@@ -65,6 +68,11 @@ export const managerRoutes: RoutePayload[] = [
     path: 'temp_feedback_class_detail',
     main: () => <ClassFeedbackDetailPage isAdmin />,
     role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.confirm_email,
+    main: () => <ConfirmEmailPage />,
+    role: [],
   },
   {
     path: '*',

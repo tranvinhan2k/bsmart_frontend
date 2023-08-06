@@ -27,6 +27,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
   const { handleHookLogOut } = useLogOut();
 
   const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
+  const { toggleSidebar, toggled } = useProSidebar();
 
   const handleLogOut = () => {
     handleHookLogOut();
@@ -95,7 +96,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
               },
             }}
           >
-            <IconButton onClick={handleToggle}>
+            <IconButton onClick={() => toggleSidebar(!toggled)}>
               <Icon name="menu" color="black" size="medium" />
             </IconButton>
           </Box>

@@ -119,6 +119,8 @@ function App() {
   const { handleUpdateDayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { handleUpdateSlots } = useDispatchGetAllSlots();
 
+  useSocket();
+
   useEffect(() => {
     async function initGlobalValue() {
       if (token) {

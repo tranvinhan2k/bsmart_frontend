@@ -229,14 +229,12 @@ export default function MainNavigation({
                 loginData={AuthorizationActionData[0]}
                 registerData={AuthorizationActionData[1]}
                 onLoginClick={() => {
-                  onToggleDrawer();
-
                   onNavigationLink('/login');
+                  onToggleDrawer();
                 }}
                 onRegisterClick={() => {
-                  onToggleDrawer();
-
                   onNavigationLink(AuthorizationActionData[1].link);
+                  onToggleDrawer();
                 }}
               />
             )}
