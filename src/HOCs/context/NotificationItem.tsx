@@ -2,6 +2,7 @@ import { Stack, Avatar, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
+import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
 import {
   MentorDashboardNavigationActionLink,
@@ -19,6 +20,7 @@ export interface NotificationItemPayload {
   message: string;
   time: string;
   entity: NotificationType;
+  entityId: number;
   id: number;
   isRead: boolean;
 }
@@ -26,6 +28,7 @@ export interface NotificationItemPayload {
 export default function NotificationItem({
   message,
   entity,
+  entityId,
   id,
   title,
   time,
@@ -36,16 +39,16 @@ export default function NotificationItem({
   const handleNavigateLink = () => {
     switch (entity) {
       case 'COURSE':
-        window.location.href = `${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${id}`;
+        window.location.href = `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${entityId}`;
         break;
       case 'CLASS':
-        window.location.href = `${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${id}`;
+        window.location.href = `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${entityId}`;
         break;
       case 'MENTOR_PROFILE':
-        window.location.href = `${NavigationLink.mentor_profile}/edit-profile`;
+        window.location.href = `/${NavigationLink.mentor_profile}/edit-profile`;
         break;
       case 'TRANSACTION':
-        window.location.href = `${NavigationLink.mentor_profile}/wallet-management`;
+        window.location.href = `/${NavigationLink.mentor_profile}/wallet-management`;
         break;
       case 'ACCOUNT':
         window.location.href =
@@ -64,38 +67,41 @@ export default function NotificationItem({
       onClick={handleNavigateLink}
       sx={{
         background: isRead ? '#eee' : '#fff',
-        marginTop: 1,
+        margin: 1,
         overflow: 'hidden',
         border: '1px solid #ddd',
         borderRadius: MetricSize.small_5,
-        padding: 1,
         flexDirection: 'row',
         alignItems: 'center',
+        padding: 2,
+        height: '100px',
         ':hover': {
           background: '#ddd',
           cursor: 'pointer',
         },
       }}
     >
-      <Stack
-        sx={{
-          marginLeft: 2,
-        }}
-      >
-        <Typography
-          sx={{
-            fontFamily: FontFamily.bold,
-            fontSize: FontSize.small_14,
-          }}
-        >
-          {title}
-        </Typography>
+      <Stack>
+        <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Icon name="feedback" size="small" color="tertiary" />
+          <Typography
+            noWrap
+            sx={{
+              marginLeft: 1,
+              color: Color.tertiary,
+              fontFamily: FontFamily.bold,
+              fontSize: FontSize.small_14,
+            }}
+          >
+            {title}
+          </Typography>
+        </Stack>
         <Typography
           sx={{
             height: '46px',
             overflow: 'hidden',
             ...globalStyles.textTwoLineEllipsis,
-            fontFamily: FontFamily.regular,
+            fontFamily: FontFamily.light,
             fontSize: FontSize.small_14,
           }}
         >

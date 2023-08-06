@@ -129,7 +129,7 @@ export default function MentorClassListPage() {
             {ClassStatusList.map((item, index) => (
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
-                key={item.id}
+                key={index}
                 label={
                   <ClassStatusLabel
                     label={item.label}

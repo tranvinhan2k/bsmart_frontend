@@ -1,16 +1,11 @@
-import { Avatar, Divider, Stack, Typography } from '@mui/material';
-import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Divider, Stack, Typography } from '@mui/material';
+import { ReactNode, createContext, useMemo } from 'react';
 import CustomMenu from '~/components/atoms/CustomMenu';
-import { image } from '~/constants/image';
-import { useGetNotifications, useMenuItem } from '~/hooks';
+import { useMenuItem } from '~/hooks';
 import globalStyles from '~/styles';
-import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import NotificationItem, { NotificationItemPayload } from './NotificationItem';
 import LoadingWrapper from '../loading/LoadingWrapper';
-import { useReadNotifications } from '~/hooks/useReadNotifications';
-import { selectMessage } from '~/redux/user/selector';
+import { useDispatchNotifications } from '~/hooks/notifications/useDispatchNotifications';
 
 interface Props {
   children: ReactNode;
@@ -35,13 +30,7 @@ export const NotificationContext = createContext<NotificationContextProps>({
 export default function NotificationContextProvider({ children }: Props) {
   const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
 
-  const { mutateAsync: handleReadNotification } = useReadNotifications();
-  const {
-    data: notifications,
-    error,
-    isLoading,
-    refetch,
-  } = useGetNotifications();
+  const { data: notifications, error, isLoading } = useDispatchNotifications();
   const numberOfNotification = notifications?.length || 0;
 
   const onOpenNotification = () => {
@@ -50,7 +39,6 @@ export default function NotificationContextProvider({ children }: Props) {
 
   const onCloseNotification = async (e: any) => {
     handleClose(e);
-    await handleReadNotification(notifications.map((item) => item.id));
   };
 
   const value: NotificationContextProps = useMemo(
@@ -64,12 +52,6 @@ export default function NotificationContextProvider({ children }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [open, notifications]
   );
-
-  const data = useSelector(selectMessage);
-
-  useEffect(() => {
-    refetch();
-  }, [data, refetch]);
 
   return (
     <NotificationContext.Provider value={value}>
@@ -96,21 +78,24 @@ export default function NotificationContextProvider({ children }: Props) {
               marginTop={1}
               sx={{
                 width: { xs: '100%', md: '400px' },
-                height: '500px',
+                maxHeight: '500px',
                 overflow: 'auto',
               }}
             >
-              {notifications?.map((item, index) => (
-                <NotificationItem
-                  key={index}
-                  entity={item.entity}
-                  id={item.id}
-                  title={item.title}
-                  message={item.message}
-                  time={item.time}
-                  isRead={item.isRead}
-                />
-              ))}
+              <Stack>
+                {notifications?.map((item, index) => (
+                  <NotificationItem
+                    key={index}
+                    entity={item.entity}
+                    id={item.id}
+                    title={item.title}
+                    message={item.message}
+                    time={item.time}
+                    isRead={item.isRead}
+                    entityId={item.entityId}
+                  />
+                ))}
+              </Stack>
             </Stack>
           </LoadingWrapper>
         </Stack>

@@ -17,14 +17,16 @@ import {
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
-import { selectIntroduceCode, selectMessage } from '~/redux/user/selector';
+import {
+  selectIntroduceCode,
+  selectWebsocketMessage,
+} from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
 import { useEffectScrollToTop, useYupValidationResolver } from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import localEnvironment from '~/utils/localEnvironment';
 import { validationIntroduce } from '~/form/validation';
 import { closeUrl, openNewBrowserUrl } from '~/utils/window';
-import { useSocket } from '~/hooks/useSocket';
 import ReturnLink from '~/components/atoms/ReturnLink';
 
 function CheckoutPage() {
@@ -44,7 +46,7 @@ function CheckoutPage() {
 
   useEffectScrollToTop();
 
-  const selectWebsocket = useSelector(selectMessage);
+  const selectWebsocket = useSelector(selectWebsocketMessage);
 
   if (selectWebsocket.status === 'OK') {
     closeUrl();

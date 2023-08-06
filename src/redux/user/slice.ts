@@ -67,9 +67,9 @@ const initialState: UserStateType = {
   quizTime: undefined,
   message: {
     data: {
+      data: null,
       viContent: '',
       viTitle: '',
-      data: null,
     },
     status: '',
   },

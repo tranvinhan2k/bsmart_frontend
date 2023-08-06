@@ -25,6 +25,7 @@ const notificationApi = {
       response?.items?.map((item, index) => ({
         id: index,
         entity: item?.entity || 'CLASS',
+        entityId: item.entityId || 0,
         message: item.viContent || '',
         time: item?.created || '',
         title: item.viTitle || '',

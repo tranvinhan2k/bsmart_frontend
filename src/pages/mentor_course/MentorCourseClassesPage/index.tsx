@@ -2,7 +2,7 @@ import { Box, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 // hooks
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   useMutationDeleteClass,
   useQueryGetMentorCourseClasses,
@@ -24,19 +24,18 @@ import { formatStringToNumber } from '~/utils/number';
 import { useCreateClassesForm } from '~/hooks/form.hooks/useCreateClassesForm';
 import SearchBar from '~/components/atoms/SearchBar';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 const TEXTS = {
   DELETE_CONTENT: 'Bạn có chắc chắn muốn xóa giờ học này ?',
   DELETE_TITLE: 'Xác nhận xóa giờ học',
 };
 
-interface Props {
-  refetchGetPercent: any;
-}
-
-export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
+export default function MentorCourseClassesPage() {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
+
+  const { refetchPercent } = useContext(CourseContext);
 
   const [deleteId, setDeleteId] = useState(-1);
 
@@ -63,7 +62,7 @@ export default function MentorCourseClassesPage({ refetchGetPercent }: Props) {
     handleAddTimetable,
     handleResetCreateCourse,
     handleBackCreateCourse,
-  } = useCreateClassesForm(courseId, refetchGetPercent);
+  } = useCreateClassesForm(courseId, refetchPercent);
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
   const { handleTryCatch: handleTryCatchUpdate } =

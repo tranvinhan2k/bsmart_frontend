@@ -1,13 +1,10 @@
-import { Stack, Breadcrumbs, Link, Typography, Divider } from '@mui/material';
+import { Stack, Typography, Divider } from '@mui/material';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoadingWrapper } from '~/HOCs';
 import { CourseContext } from '~/HOCs/context/CourseContext';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
-import CustomBreadcrumbs from '~/components/atoms/CustomBreadcrumbs';
-import { InputData } from '~/components/atoms/FormInput/InputGroup';
 import ReturnLink from '~/components/atoms/ReturnLink';
-import DashboardBreadcrumbNavigation from '~/components/molecules/navigations/DashboardBreadcrumbNavigation';
 import {
   MentorCourseActionLink,
   MentorDashboardNavigationActionLink,
@@ -24,14 +21,12 @@ import {
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
-interface Props {
-  refetchGetPercent: () => Promise<void>;
-}
-
-export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
+export default function MentorCourseSectionsPage() {
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
+
+  const { refetchPercent } = useContext(CourseContext);
   const [clearOpen, setClearOpen] = useState(false);
 
   const { activity, isLoading, error } = useGetDetailActivity(sectionId);
@@ -73,7 +68,7 @@ export default function MentorCourseSectionsPage({ refetchGetPercent }: Props) {
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
-      await refetchGetPercent();
+      await refetchPercent();
       handleClearOpen();
     });
   };

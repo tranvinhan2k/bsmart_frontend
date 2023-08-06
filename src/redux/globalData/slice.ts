@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { NotificationItemPayload } from '~/HOCs/context/NotificationItem';
 import { DayOfWeekPayload } from '~/models/dayOfWeek';
 import { SlotPayload } from '~/models/slot';
 import { CategoriesPayload, SubjectPayload } from '~/models/type';
@@ -9,6 +10,7 @@ export type GlobalStateType = {
   categories: CategoriesPayload[];
   dayOfWeeks: DayOfWeekPayload[];
   slots: SlotPayload[];
+  notifications: NotificationItemPayload[];
 };
 
 const initialState: GlobalStateType = {
@@ -16,6 +18,7 @@ const initialState: GlobalStateType = {
   categories: [],
   dayOfWeeks: [],
   slots: [],
+  notifications: [],
 };
 
 const slice = createSlice({
@@ -34,6 +37,9 @@ const slice = createSlice({
     updateSlots: (state, action) => {
       state.slots = action.payload;
     },
+    updateNotification: (state, action) => {
+      state.notifications = action.payload;
+    },
   },
 });
 
@@ -46,4 +52,5 @@ export const {
   updateCategories,
   updateDayOfWeeks,
   updateSlots,
+  updateNotification,
 } = slice.actions;

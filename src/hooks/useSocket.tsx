@@ -1,11 +1,11 @@
 import { Stomp } from '@stomp/stompjs';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import SockJS from 'sockjs-client';
-import { selectMessage, selectProfile } from '~/redux/user/selector';
-import { updateWebsocketMessage } from '~/redux/user/slice';
+import { selectProfile } from '~/redux/user/selector';
 import toast from '~/utils/toast';
-import { closeUrl } from '~/utils/window';
+// eslint-disable-next-line import/no-cycle
+import { useDispatchNotifications } from './notifications/useDispatchNotifications';
 
 export interface WebSocketMessagePayload {
   status: string;
@@ -33,7 +33,7 @@ function NotificationMessage({
 }
 
 export const useSocket = () => {
-  const dispatch = useDispatch();
+  const { handleDispatch, handleAddMessage } = useDispatchNotifications();
   const profile = useSelector(selectProfile);
 
   useEffect(() => {
@@ -42,12 +42,17 @@ export const useSocket = () => {
       const WS_URL = 'http://103.173.155.221:8080/websocket';
       const socket = new SockJS(WS_URL);
       const stompClient = Stomp.over(socket);
+      stompClient.debug = () => {};
       stompClient.connect({}, function (frame: any) {
-        const handleReceivedMessage = function (message: any) {
+        const handleReceivedMessage = async function (message: any) {
           const messageObject: WebSocketMessagePayload = JSON.parse(
             message?.body
           );
-          dispatch(updateWebsocketMessage(messageObject));
+          await handleDispatch();
+          const isPaymentMessage = true;
+          if (isPaymentMessage) {
+            handleAddMessage(messageObject);
+          }
           toast.notifyInfoToast(
             <NotificationMessage
               title={messageObject.data.viTitle}
@@ -58,6 +63,9 @@ export const useSocket = () => {
         stompClient.subscribe(topic, handleReceivedMessage); // Replace '/topic/updates' with your desired subscription destination
       });
     };
-    connect();
-  }, [dispatch, profile.email]);
+    if (profile.email) {
+      connect();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile.email]);
 };
