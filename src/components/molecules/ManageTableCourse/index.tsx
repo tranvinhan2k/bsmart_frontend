@@ -7,6 +7,7 @@ import { CourseStatusType } from '~/constants/course';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import columns from '~/constants/columns';
+import ManageTableCourseBlock from './ManageTableCourseBlock';
 import ManageTableDetailsCourse from '../ManageTableDetailsCourse';
 
 interface ManageTableCourseCreateRequestProps {
@@ -20,12 +21,17 @@ export default function ManageTableCourse({
 }: ManageTableCourseCreateRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm khóa học...',
-    popoverOptionViewDetails = 'Xem chi tiết',
     popoverOptionNotSupport = 'Chưa hỗ trợ',
+    popoverOptionViewDetails = 'Xem chi tiết',
+    popoverOptionToggleBlock = 'Chặn khóa học',
+  }
+  const enum ModeType {
+    viewDetails = 'viewDetails',
+    block = 'block',
   }
 
   const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
+  const [mode, setMode] = useState<ModeType | ''>('');
   const [selectedRow, setSelectedRow] = useState<any>();
 
   const [q, setQ] = useState<string>('');
@@ -45,38 +51,57 @@ export default function ManageTableCourse({
     refetch();
   };
 
-  const handleOpenDetailCourseCreateRequest = () => {
+  const handleOpenDetailsCourse = () => {
     handleTriggerDialog();
-    setMode(() => 'READ');
+    setMode(() => ModeType.viewDetails);
+  };
+  const handleOpenBlockCourse = () => {
+    handleTriggerDialog();
+    setMode(() => ModeType.block);
   };
 
-  const popoverOptionsDefault: MenuItemPayload[] = [
+  const optionsDefault: MenuItemPayload[] = [
     {
       icon: 'question',
       title: Text.popoverOptionNotSupport,
       onCLick: () => console.log(Text.popoverOptionNotSupport),
     },
   ];
-  const optionsViewDetails: MenuItemPayload[] = [
+  const optionsNotStart: MenuItemPayload[] = [
     {
       icon: 'category',
       title: Text.popoverOptionViewDetails,
-      onCLick: handleOpenDetailCourseCreateRequest,
+      onCLick: handleOpenDetailsCourse,
+    },
+  ];
+  const optionsStarting: MenuItemPayload[] = [
+    {
+      icon: 'category',
+      title: Text.popoverOptionViewDetails,
+      onCLick: handleOpenDetailsCourse,
+    },
+    {
+      icon: 'blockIcon',
+      title: Text.popoverOptionToggleBlock,
+      onCLick: handleOpenBlockCourse,
     },
   ];
   let popoverOptions;
   switch (status) {
     case CourseStatusType.NOTSTART:
-      popoverOptions = optionsViewDetails;
+      popoverOptions = optionsNotStart;
+      break;
+    case CourseStatusType.STARTING:
+      popoverOptions = optionsStarting;
       break;
     default:
-      popoverOptions = popoverOptionsDefault;
+      popoverOptions = optionsDefault;
       break;
   }
 
   let renderItem;
   switch (mode) {
-    case 'READ':
+    case ModeType.viewDetails:
       renderItem = (
         <CustomDialog
           open={open}
@@ -84,6 +109,18 @@ export default function ManageTableCourse({
           maxWidth={false}
         >
           <ManageTableDetailsCourse
+            row={selectedRow}
+            onClose={handleTriggerDialog}
+            refetchSearch={refetch}
+            refetchGetNoOfRequest={refetchGetNoOfRequest}
+          />
+        </CustomDialog>
+      );
+      break;
+    case ModeType.block:
+      renderItem = (
+        <CustomDialog open={open} onClose={handleTriggerDialog}>
+          <ManageTableCourseBlock
             row={selectedRow}
             onClose={handleTriggerDialog}
             refetchSearch={refetch}

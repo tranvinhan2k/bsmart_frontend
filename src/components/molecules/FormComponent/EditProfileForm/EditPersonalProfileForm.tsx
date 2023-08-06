@@ -1,31 +1,24 @@
-import {
-  Box,
-  Button as MuiButton,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import accountApi from '~/api/users';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
+import FormInput from '~/components/atoms/FormInput';
+import { genderData } from '~/constants';
 import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
-import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { validationSchemaEditPersonalProfile } from '~/form/validation';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
 import {
   EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
-import { FontFamily } from '~/assets/variables';
-import { genderData } from '~/constants';
-import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
+import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { selectProfile } from '~/redux/user/selector';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
-import { validationSchemaEditPersonalProfile } from '~/form/validation';
-import accountApi from '~/api/users';
-import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditPersonalProfileForm() {
@@ -80,10 +73,12 @@ export default function EditPersonalProfileForm() {
   });
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công...';
   const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
+    `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
     const params: EditPersonalProfileFormSubmit = {
       fullName: data.fullName,

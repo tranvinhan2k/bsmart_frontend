@@ -11,7 +11,9 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { EditMentorProfilePayload } from '~/api/users';
+import { MentorProfileStatusType } from '~/constants/profile';
 import { selectProfile } from '~/redux/user/selector';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import {
   useDispatchGetAllSubjects,
   useDispatchProfile,
@@ -21,9 +23,8 @@ import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfi
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
-import { MentorProfileStatusType } from '~/constants/profile';
 import toast from '~/utils/toast';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import {
   SX_FORM,
   SX_FORM_ITEM_LABEL,
@@ -84,10 +85,12 @@ export default function EditMentorProfileForm() {
     }
   }, [profile, reset, subjects]);
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công...';
   const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
+    `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,

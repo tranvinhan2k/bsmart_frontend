@@ -58,6 +58,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArticleIcon from '@mui/icons-material/Article';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import BlockIcon from '@mui/icons-material/Block';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -115,6 +116,7 @@ export type IconName =
   | 'assignment'
   | 'attendance'
   | 'barChartIcon'
+  | 'blockIcon'
   | 'biMoney'
   | 'blankSquareCheckbox'
   | 'blog'
@@ -239,6 +241,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <AssignmentIcon sx={STYLED_ICON} />;
     case 'barChartIcon':
       return <BarChartIcon sx={STYLED_ICON} />;
+    case 'blockIcon':
+      return <BlockIcon sx={STYLED_ICON} />;
     case 'blog':
       return (
         <Stack sx={STYLED_ICON}>

@@ -193,11 +193,11 @@ export default function ManageTable({
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'center',
+          vertical: 'top',
           horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: 'center',
+          vertical: 'top',
           horizontal: 'center',
         }}
       >

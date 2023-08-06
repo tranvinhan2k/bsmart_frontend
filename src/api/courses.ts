@@ -237,6 +237,10 @@ const coursesApi = {
   updateSubCourse(params: RequestUpdateCoursePayload) {
     return axiosClient.put(`${url}/${params.id}`, params);
   },
+
+  blockCourse(id: number) {
+    return axiosClient.put(`${url}/${id}/block`);
+  },
 };
 
 export default coursesApi;

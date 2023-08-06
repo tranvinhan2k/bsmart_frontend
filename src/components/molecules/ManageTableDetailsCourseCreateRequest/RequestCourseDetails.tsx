@@ -8,16 +8,16 @@ import {
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
+import Icon from '~/components/atoms/Icon';
 import { mockLevelData } from '~/constants';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import Icon from '~/components/atoms/Icon';
+import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_ITEM_VALUE,
   SX_FORM_LABEL,
 } from './style';
-import globalStyles from '~/styles';
 
 interface RequestCourseDetailsProps {
   idCourse: number;

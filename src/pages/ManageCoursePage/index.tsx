@@ -67,6 +67,12 @@ export default function ManageCoursePage() {
     },
     {
       id: 2,
+      text: 'Bị chặn',
+      component: <h1>Bị chặn</h1>,
+      noOfRequest: 0,
+    },
+    {
+      id: 3,
       text: 'Đã kết thúc',
       component: (
         <ManageTableCourse
@@ -77,7 +83,7 @@ export default function ManageCoursePage() {
       noOfRequest: restrictNumberDisplay(courseListEnded?.items.length),
     },
     {
-      id: 3,
+      id: 4,
       text: 'Đã bị hủy',
       component: (
         <ManageTableCourse
