@@ -5,7 +5,7 @@ interface BasicInfoProps {
   row: any;
 }
 
-export default function MentorInfo({ row }: BasicInfoProps) {
+export default function RequestMentorDegree({ row }: BasicInfoProps) {
   const userDegreeList = row.userImages.filter(
     (item: any) => item.type === 'DEGREE'
   );

@@ -138,7 +138,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
   },
 ];
 
-const manageMentorProfileUpdateRequestColumns: GridColDef[] = [
+const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
@@ -737,7 +737,7 @@ const columns = {
   managedCourseCreateRequestColumns,
   managedRegisterRequestTmpColumns,
   managedUserRegisterRequestColumns,
-  manageMentorProfileUpdateRequestColumns,
+  managedMentorProfileUpdateRequestColumns,
   managedUserMemberColumns,
   managedUserMentorColumns,
 };

@@ -108,7 +108,7 @@ export default function ManageMentorProfileUpdateRequest({
   return (
     <>
       <ManageTable
-        columns={columns.manageMentorProfileUpdateRequestColumns}
+        columns={columns.managedMentorProfileUpdateRequestColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}
