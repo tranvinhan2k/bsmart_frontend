@@ -39,7 +39,7 @@ export default function ManageUserPage() {
     },
     {
       id: 1,
-      text: 'Học viên',
+      text: 'Học sinh',
       component: (
         <ManageTableUser
           userRole="STUDENT"

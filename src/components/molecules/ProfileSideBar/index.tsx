@@ -86,7 +86,7 @@ export default function ProfileSideBar({
         id: 2,
         image: 'person',
         number: teachInformation?.numberOfMember ?? 0,
-        text: 'Học viên',
+        text: 'Học sinh',
       },
     ],
     ratingDisplay: `${teachInformation?.scoreFeedback ?? 0} / 5`,

@@ -1,11 +1,7 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import RequestBasicInfo from './RequestBasicInfo';
-import RequestCI from './RequestCI';
 import RequestDate from './RequestDate';
-import RequestMentorDegree from './RequestMentorDegree';
-import RequestMentorInfo from './RequestMentorInfo';
-import RequestRegisterProcess from './RequestRegisterProcess';
-import RequestTeachingInfo from './RequestTeachingInfo';
+import RequestStudyingInfo from './RequestStudyingInfo';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsManagedMemberProps {
@@ -24,7 +20,7 @@ export default function ManageTableDetailsManagedMember({
   return (
     <>
       <Box mx={2}>
-        <Typography sx={SX_REQUEST_TITLE}>Chi tiết giáo viên</Typography>
+        <Typography sx={SX_REQUEST_TITLE}>Chi tiết học sinh</Typography>
       </Box>
       {rowId && (
         <Grid
@@ -43,10 +39,7 @@ export default function ManageTableDetailsManagedMember({
               spacing={2}
             >
               <RequestBasicInfo idMentor={rowId} />
-              <RequestCI idMentor={rowId} />
-              <RequestMentorDegree idMentor={rowId} />
-              <RequestMentorInfo idMentor={rowId} />
-              <RequestTeachingInfo idMentor={rowId} />
+              <RequestStudyingInfo idMentor={rowId} />
             </Stack>
           </Grid>
           <Grid item sm={12} md={5} lg={4}>
@@ -58,12 +51,6 @@ export default function ManageTableDetailsManagedMember({
               sx={SX_BOX_STICKY}
             >
               <RequestDate idMentor={rowId} />
-              {/* <RequestRegisterProcess
-              idMentorProfile={row.mentorProfile.id}
-              onClose={onClose}
-              refetchSearch={refetchSearch}
-              refetchGetNoOfRequest={refetchGetNoOfRequest}
-            /> */}
             </Stack>
           </Grid>
         </Grid>

@@ -17,7 +17,7 @@ export default function RequestTeachingInfo({
   idMentor,
 }: RequestTeachingInfoProps) {
   const enum Text {
-    mainTitle = 'Thông tin lớp học',
+    mainTitle = 'Thống kê và đánh giá',
     labelNumberOfCourses = 'Khóa học',
     labelNumberOfClass = 'Lớp học',
     labelNumberOfMember = 'Học sinh đã dạy',

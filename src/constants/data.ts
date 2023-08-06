@@ -357,7 +357,7 @@ export const AddressData: AddressDataPayload[] = [
 export const RegisterTabPayload: TabPayload[] = [
   {
     index: 0,
-    label: 'Học Viên',
+    label: 'Học sinh',
   },
   {
     index: 1,

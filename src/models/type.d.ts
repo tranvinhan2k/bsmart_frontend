@@ -298,3 +298,10 @@ export interface ManagedMentorPayload extends ProfilePayload {
   timeSendRequest: string;
   count: number;
 }
+export interface ManagedMemberPayload extends ProfilePayload {
+  studyInformation: ManagedMemberStudyInformation;
+}
+interface ManagedMemberStudyInformation {
+  numberOfCourse: number;
+  numberOfClass: number;
+}

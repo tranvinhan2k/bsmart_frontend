@@ -5,6 +5,7 @@ import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import ManageTable from '~/components/molecules/ManageTable';
+import ManageTableDetailsManagedMember from '~/components/molecules/ManageTableDetailsManagedMember';
 import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
 import { ManagedMentorPayload } from '~/models/type';
 
@@ -102,12 +103,21 @@ export default function ManageTableUser({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <ManageTableDetailsManagedMentor
-            rowId={selectedRow && selectedRow.id}
-            onClose={handleTriggerDialog}
-            refetchSearch={refetch}
-            refetchGetNoOfRequest={refetchGetNoOfRequest}
-          />
+          {userRole === 'TEACHER' ? (
+            <ManageTableDetailsManagedMentor
+              rowId={selectedRow && selectedRow.id}
+              onClose={handleTriggerDialog}
+              refetchSearch={refetch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
+            />
+          ) : (
+            <ManageTableDetailsManagedMember
+              rowId={selectedRow && selectedRow.id}
+              onClose={handleTriggerDialog}
+              refetchSearch={refetch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
+            />
+          )}
         </CustomDialog>
       );
       break;
