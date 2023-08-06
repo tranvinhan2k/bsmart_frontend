@@ -1,27 +1,20 @@
 import { Stack } from '@mui/material';
-import { useLocation, useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import DashboardNavigationTabs from '~/components/atoms/tabs/DashboardNavigationTabs';
 import { MentorCourseActionLink } from '~/constants/routeLink';
-import {
-  useQueryGetCourseContent,
-  useQueryGetMentorCourseClasses,
-} from '~/hooks';
-import useQueryMentorCourse from '~/hooks/course/useQueryMentorCourse';
 import { CourseStatusKeys } from '~/models/variables';
 import { MentorCourseNavigationActionData } from '~/routes/mentor/course/navigation';
-import { formatStringToNumber } from '~/utils/number';
 
 interface Props {
   status: CourseStatusKeys;
 }
 
 export default function Sidebar({ status }: Props) {
-  const { id } = useParams();
-  const courseId = formatStringToNumber(id);
   const { pathname } = useLocation();
-  const { course } = useQueryMentorCourse(courseId);
-  const { classes } = useQueryGetMentorCourseClasses(courseId);
-  const { data } = useQueryGetCourseContent(courseId);
+  const { classes, content, course } = useContext(CourseContext);
+
   return (
     <Stack>
       {MentorCourseNavigationActionData.map((item, index) => {
@@ -33,8 +26,8 @@ export default function Sidebar({ status }: Props) {
             classes &&
             classes?.length > 0) ||
           (item.link === MentorCourseActionLink.content &&
-            data &&
-            data?.length > 0)
+            content &&
+            content?.length > 0)
         ) {
           return (
             <DashboardNavigationTabs

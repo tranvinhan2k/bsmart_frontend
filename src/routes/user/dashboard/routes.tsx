@@ -147,6 +147,11 @@ export const routes: RoutePayload[] = [
     role: [],
   },
   {
+    path: `${NavigationLink.forgot_password}/:codeId`,
+    main: () => <ForgotPasswordPage />,
+    role: [],
+  },
+  {
     path: `${NavigationLink.dashboard}/*`,
     main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],

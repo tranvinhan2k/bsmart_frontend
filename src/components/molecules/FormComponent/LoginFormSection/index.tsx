@@ -106,7 +106,7 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
       }
       signInHookForm.reset();
       toast.notifySuccessToast('Đăng nhập thành công!');
-      navigate('/homepage');
+      navigate('/');
     } catch (error: any) {
       toast.notifyErrorToast(`Đăng nhập không thành công: ${error.message}`);
     }

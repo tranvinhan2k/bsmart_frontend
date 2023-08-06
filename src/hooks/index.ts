@@ -11,7 +11,6 @@ export * from './useScrollIntoView';
 export * from './schedule/useQueryGetSchedule';
 export * from './schedule/useQueryGetDetailSchedule';
 export * from './user/useGetPromoCode';
-export * from './user/useGetNotifications';
 
 // effect
 export * from './useEffectPreventReload';
@@ -60,6 +59,7 @@ export * from './course/useMutationUpdateCourse';
 export * from './course/useMutationDeleteCourse';
 export * from './course/useMutationCreateCourse';
 export * from './course/useGetMentorCategories';
+export * from './course/useQueryGetCoursePercent';
 
 // class
 export * from './class/useCreateCourseClass';
@@ -104,3 +104,9 @@ export * from './assignment/useGetAssignment';
 export * from './assignment/useDeleteFile';
 export * from './assignment/useMemberSubmitAssignment';
 export * from './assignment/useMutationSubmitPointAssignment';
+
+// forgot password
+export * from './resetPassword/useMutationSendMailResetPassword';
+
+// notifications
+export * from './notifications/useDispatchNotifications';

@@ -13,6 +13,8 @@ export const selectProfile = (state: { user: UserStateType }) =>
 export const selectCart = (state: { user: UserStateType }) => state.user.cart;
 export const selectIntroduceCode = (state: { user: UserStateType }) =>
   state.user.introduceCode;
+export const selectWebsocketMessage = (state: { user: UserStateType }) =>
+  state.user.message;
 export const selectDataQuiz = (state: { user: UserStateType }) => ({
   id: state.user.quizId,
   name: state.user.quizName,
@@ -26,4 +28,5 @@ export default {
   selectCart,
   selectIsToggleAddToCart,
   selectIntroduceCode,
+  selectWebsocketMessage,
 };

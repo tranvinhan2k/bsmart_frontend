@@ -160,6 +160,9 @@ export const validationClassContentModule = object({
   name: string().required('Tên bài học không được để trống.'),
   description: string().required('Mô tả bài học không được để trống.'),
 });
+export const validationSendMailForgotPassword = object({
+  email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
+});
 export const validationPassword = object({
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)

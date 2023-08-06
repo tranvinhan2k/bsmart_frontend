@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { MentorProfileStatusType } from '~/constants/profile';
+import { WebSocketMessagePayload } from '~/hooks/useSocket';
 import { CartDataPayload } from '~/models/api/cart';
 import { MentorProfile } from '~/models/form';
 import { Role } from '~/models/role';
@@ -19,6 +20,7 @@ export type UserStateType = {
   quizId: number | undefined;
   quizName: string | undefined;
   quizTime: number | undefined;
+  message: WebSocketMessagePayload;
 };
 
 const initialState: UserStateType = {
@@ -63,6 +65,14 @@ const initialState: UserStateType = {
   quizId: undefined,
   quizName: undefined,
   quizTime: undefined,
+  message: {
+    data: {
+      data: null,
+      viContent: '',
+      viTitle: '',
+    },
+    status: '',
+  },
 };
 
 const slice = createSlice({
@@ -104,6 +114,9 @@ const slice = createSlice({
     addIntroduceCode: (state, action) => {
       state.introduceCode = action.payload;
     },
+    updateWebsocketMessage: (state, action) => {
+      state.message = action.payload;
+    },
   },
 });
 
@@ -121,4 +134,5 @@ export const {
   addIntroduceCode,
   saveDataQuiz,
   reviewQuiz,
+  updateWebsocketMessage,
 } = slice.actions;

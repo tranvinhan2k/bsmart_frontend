@@ -47,4 +47,5 @@ export type NotificationType =
   | 'CLASS'
   | 'TRANSACTION'
   | 'COURSE'
-  | 'MENTOR_PROFILE';
+  | 'MENTOR_PROFILE'
+  | 'ACCOUNT';

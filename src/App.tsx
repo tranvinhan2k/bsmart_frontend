@@ -19,6 +19,7 @@ import {
   useDispatchGetAllSlots,
   useDispatchGetAllSubjects,
   useDispatchGetCart,
+  useDispatchNotifications,
   useDispatchProfile,
 } from './hooks';
 
@@ -49,6 +50,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import NotificationContextProvider from './HOCs/context/NotificationContext';
 import { useSocket } from './hooks/useSocket';
+import { isLoaded } from './redux/globalData/selector';
 
 window.global ||= window;
 
@@ -118,21 +120,30 @@ function App() {
   const { handleUpdateCategories } = useDispatchGetAllCategories();
   const { handleUpdateDayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { handleUpdateSlots } = useDispatchGetAllSlots();
+  const { handleDispatch: handleUpdateNotifications } =
+    useDispatchNotifications();
+  const selectIsLoaded = useSelector(isLoaded);
+
+  useSocket();
 
   useEffect(() => {
     async function initGlobalValue() {
       if (token) {
         await handleDispatchProfile();
         await getUserCart.handleDispatch();
+        await handleUpdateNotifications();
       }
       await handleUpdateSubjects();
       await handleUpdateCategories();
       await handleUpdateDayOfWeeks();
       await handleUpdateSlots();
     }
-    initGlobalValue();
+
+    if (!selectIsLoaded) {
+      initGlobalValue();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectIsLoaded]);
 
   return (
     <Suspense fallback={<LazyLoadingScreen />}>

@@ -1,41 +1,22 @@
 import { Stack } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
-import {
-  useMutationAddSection,
-  useQueryGetCourseContent,
-  useTryCatch,
-} from '~/hooks';
-import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
-import { formatStringToNumber } from '~/utils/number';
+import { useMutationAddSection, useTryCatch } from '~/hooks';
 import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
 import Sections from '~/containers/MentorCourseDetailSection/Sections';
 import { CourseContext } from '~/HOCs/context/CourseContext';
 import { isAllowUpdateActivity } from '~/assets/variables';
 
-interface Props {
-  refetchGetPercent: any;
-}
-
-export default function MentorCourseContentPage({ refetchGetPercent }: Props) {
-  const { id } = useParams();
-  const courseId = formatStringToNumber(id);
-
-  const { course } = useContext(CourseContext);
+export default function MentorCourseContentPage() {
+  const { course, content, courseId, refetchContent, refetchPercent } =
+    useContext(CourseContext);
   const status = course?.status || 'ALL';
   const addCourseSection = useMutationAddSection();
 
-  const {
-    data: content,
-    error,
-    isLoading,
-    refetch,
-  } = useQueryGetCourseContent(courseId);
   const addContentSection = useTryCatch('thêm học phần');
 
   const handleRefetch = async () => {
-    await refetchGetPercent();
-    await refetch();
+    await refetchPercent();
+    await refetchContent();
   };
 
   const handleAddNewSection = async (name: string) => {
@@ -53,9 +34,7 @@ export default function MentorCourseContentPage({ refetchGetPercent }: Props) {
 
   return (
     <Stack>
-      <LoadingWrapper error={error} isLoading={isLoading}>
-        <Sections status={status} content={content} />
-      </LoadingWrapper>
+      <Sections status={status} content={content} />
       {isAllowUpdateActivity(status) && (
         <AddSection onAdd={handleAddNewSection} />
       )}
