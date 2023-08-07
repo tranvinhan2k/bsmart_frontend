@@ -187,9 +187,9 @@ export default function ManageTable({
         pageSize={pageSize}
         rowCount={totalItems}
         // styling
-        getRowClassName={(params) =>
-          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-        }
+        // getRowClassName={(params) =>
+        //   params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        // }
         getRowHeight={() => 'auto'}
         sx={{
           [`& .${gridClasses.cell}`]: {

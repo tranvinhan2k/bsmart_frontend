@@ -67,7 +67,7 @@ export default function DisplayCISection() {
       <Box sx={SX_FORM}>
         <Box mb={2}>
           <Typography component="h3" sx={SX_FORM_TITLE}>
-            Thông tin chứng minh thư
+            Thông tin CMND/CCCD
           </Typography>
         </Box>
         <Stack

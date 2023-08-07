@@ -16,10 +16,12 @@ export default function RequestMentorDegree({ row }: BasicInfoProps) {
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>Bằng cấp</Typography>
         </Grid>
-        {userDegreeList.map((item: any) => (
+        {userDegreeList.map((item: any, index: number) => (
           <Grid item xs={12} key={item.id}>
             <Link href={item.url} target="_blank">
-              <Typography noWrap>{item.name}</Typography>
+              <Typography noWrap>
+                {index + 1}. {item.name}
+              </Typography>
             </Link>
           </Grid>
         ))}

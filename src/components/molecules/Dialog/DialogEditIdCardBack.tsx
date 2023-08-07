@@ -82,7 +82,7 @@ export default function DialogEditIdCardBack({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật chứng minh thư (Mặt sau)</DialogTitle>
+      <DialogTitle>Cập nhật CMND/CCCD (Mặt sau)</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
           <FormInput

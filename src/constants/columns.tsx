@@ -5,11 +5,7 @@ import { green, red } from '@mui/material/colors';
 import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { getGender, handleDefinedText } from '~/utils/common';
-import {
-  CopyableCell,
-  CopyableCellEllipsis,
-  IsVerifiedCell,
-} from '~/utils/commonComp';
+import { CopyableCell, CopyableCellEllipsis } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
@@ -321,7 +317,7 @@ const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
     field: 'approved',
     headerAlign: 'left',
     type: 'boolean',
-    headerName: 'Từng duyệt ?',
+    headerName: 'Từng duyệt?',
     minWidth: 100,
     flex: 1,
     renderCell: (params) => {

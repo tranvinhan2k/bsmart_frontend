@@ -114,7 +114,7 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
-          <Box mt={2}>
+          <Box mt={1}>
             <FormInput
               dataRadioGroupDynamicValue={interviewedOptions}
               variant="radioGroupDynamicValue"
@@ -127,11 +127,10 @@ export default function RequestRegisterProcess({
             justifyContent="flex-start"
             alignItems="flex-end"
             spacing={2}
-            mt={2}
           >
             <Button
-              color="success"
               fullWidth
+              color="success"
               size="medium"
               type="submit"
               variant="outlined"
@@ -154,7 +153,7 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
-          <Box mt={2}>
+          <Box mt={1}>
             <FormInput
               dataRadioGroupDynamicValue={interviewedOptions}
               variant="radioGroupDynamicValue"
@@ -167,11 +166,10 @@ export default function RequestRegisterProcess({
             justifyContent="flex-start"
             alignItems="flex-end"
             spacing={2}
-            mt={2}
           >
             <Button
-              color="error"
               fullWidth
+              color="error"
               size="medium"
               type="submit"
               variant="outlined"
@@ -194,7 +192,7 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
-          <Box mt={2}>
+          <Box mt={1}>
             <FormInput
               dataRadioGroupDynamicValue={interviewedOptions}
               variant="radioGroupDynamicValue"
@@ -207,11 +205,10 @@ export default function RequestRegisterProcess({
             justifyContent="flex-start"
             alignItems="flex-end"
             spacing={2}
-            mt={2}
           >
             <Button
-              color="warning"
               fullWidth
+              color="warning"
               size="medium"
               type="submit"
               variant="outlined"
