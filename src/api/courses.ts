@@ -241,6 +241,9 @@ const coursesApi = {
   blockCourse(id: number) {
     return axiosClient.put(`${url}/${id}/block`);
   },
+  unblockCourse(id: number) {
+    return axiosClient.put(`${url}/${id}/unblock`);
+  },
 };
 
 export default coursesApi;

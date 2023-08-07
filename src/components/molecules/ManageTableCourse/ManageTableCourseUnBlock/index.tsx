@@ -1,33 +1,33 @@
 import { Box, Button as MuiButton, Stack, Typography } from '@mui/material';
 import { FontFamily } from '~/assets/variables';
 import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
-import { useMutationBlockCourse } from '~/hooks/course/useMutationBlockCourse';
+import { useMutationUnblockCourse } from '~/hooks/course/useMutationUnBlockCourse';
 import toast from '~/utils/toast';
 import { SX_REQUEST_TITLE } from './style';
 
-interface ManageTableCourseBlockProps {
+interface ManageTableCourseUnBlockProps {
   row: any;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageTableCourseBlock({
+export default function ManageTableCourseUnBlock({
   row,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: ManageTableCourseBlockProps) {
+}: ManageTableCourseUnBlockProps) {
   const enum Text {
-    mainTitle = 'Xác nhận chặn khóa học',
+    mainTitle = 'Xác nhận bỏ chặn khóa học',
     desc00 = 'Khóa học',
     desc01 = 'của giảng viên',
-    desc02 = 'sẽ bị chặn',
+    desc02 = 'sẽ được bỏ chăn',
     buttonCancel = 'Hủy',
-    buttonSubmit = 'Chặn',
+    buttonSubmit = 'Bỏ chặn',
   }
 
-  const { mutateAsync: mutateUnblock } = useMutationBlockCourse(row.id);
+  const { mutateAsync: mutateUnblock } = useMutationUnblockCourse(row.id);
 
   const courseCode = row.code ?? '';
   const courseName = row.name ?? '';
@@ -37,7 +37,7 @@ export default function ManageTableCourseBlock({
   const toastMsgSuccess = 'Xử lý thành công...';
   const toastMsgError = (error: any): string =>
     `Xử lý không thành công: ${error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR}`;
-  const handleBlockCourse = async () => {
+  const handleUnblockCourse = async () => {
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateUnblock(row.id);
@@ -87,7 +87,7 @@ export default function ManageTableCourseBlock({
           size="small"
           type="submit"
           variant="contained"
-          onClick={handleBlockCourse}
+          onClick={handleUnblockCourse}
           sx={{ fontFamily: FontFamily.bold }}
         >
           {Text.buttonSubmit}
