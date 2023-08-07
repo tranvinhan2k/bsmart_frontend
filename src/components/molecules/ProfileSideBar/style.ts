@@ -34,6 +34,11 @@ export const SX_ACCOUNT_ROLE: SxProps<Theme> = {
   fontFamily: FontFamily.regular,
   fontSize: FontSize.small_18,
 };
+export const SX_ACCOUNT_EMAIL: SxProps<Theme> = {
+  color: Color.grey,
+  fontFamily: FontFamily.regular,
+  fontSize: 16,
+};
 export const SX_ACCOUNT_DOB: SxProps<Theme> = {
   fontSize: FontSize.small_16,
   color: Color.grey,

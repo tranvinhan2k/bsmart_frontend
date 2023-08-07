@@ -12,6 +12,7 @@ import {
   SX_BOX_ITEM_AVATAR,
   SX_ACCOUNT_AVATAR,
   SX_ACCOUNT_NAME,
+  SX_ACCOUNT_EMAIL,
   SX_ACCOUNT_ROLE,
   SX_DISPLAY_FIELD_TEXT,
 } from './style';
@@ -31,6 +32,7 @@ import MentorProfileStatusProfileSideBar from '../MentorProfileStatusProfileSide
 
 export interface ProfileSideBarProps {
   name: string;
+  email: string;
   role: RoleKeys;
   avatarUrl: string;
   gender: GenderKeys;
@@ -50,6 +52,7 @@ export interface ProfileSideBarProps {
 
 export default function ProfileSideBar({
   name,
+  email,
   role,
   avatarUrl,
   gender,
@@ -162,7 +165,7 @@ export default function ProfileSideBar({
               justifyContent="flex-start"
               alignItems="stretch"
               spacing={2}
-              mt={3}
+              mt={2}
             >
               <Stack
                 direction="column"
@@ -172,9 +175,12 @@ export default function ProfileSideBar({
                 <Typography component="h4" sx={SX_ACCOUNT_NAME}>
                   {name}
                 </Typography>
-                <Typography component="p" sx={SX_ACCOUNT_ROLE}>
-                  {ROLE_LABELS[role]}
+                <Typography component="h4" sx={SX_ACCOUNT_EMAIL}>
+                  {email}
                 </Typography>
+                {/* <Typography component="p" sx={SX_ACCOUNT_ROLE}>
+                  {ROLE_LABELS[role]}
+                </Typography> */}
               </Stack>
               <Stack
                 direction="column"

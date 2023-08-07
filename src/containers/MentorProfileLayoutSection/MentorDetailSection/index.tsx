@@ -50,6 +50,7 @@ export default function MentorDetailSection() {
     <ProfileSideBar
       avatarUrl={imageLink}
       birth={profile.birthday}
+      email={profile.email}
       gender={profile.gender}
       isVerified={profile.isVerified}
       mail={profile.email}

@@ -1,4 +1,4 @@
-import { IconButton, Stack, Typography } from '@mui/material';
+import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
 import {
@@ -27,12 +27,14 @@ export function CopyableCell({ rawValue, formattedValue }: CopyableCellProps) {
   if (rawValue) {
     return (
       <>
-        <IconButton
-          size="small"
-          onClick={() => handleCopyToClipboard(rawValue)}
-        >
-          <Icon name="contentCopyIcon" size="small_20" color="blue" />
-        </IconButton>
+        <Tooltip title="Sao chép">
+          <IconButton
+            size="small"
+            onClick={() => handleCopyToClipboard(rawValue)}
+          >
+            <Icon name="contentCopyIcon" size="small_20" color="blue" />
+          </IconButton>
+        </Tooltip>
         <Typography sx={SX_DATAGRID_CELL_TEXT}>{formattedValue}</Typography>
       </>
     );
@@ -57,12 +59,14 @@ export function CopyableCellEllipsis({
   if (rawValue) {
     return (
       <>
-        <IconButton
-          size="small"
-          onClick={() => handleCopyToClipboard(rawValue)}
-        >
-          <Icon name="contentCopyIcon" size="small_20" color="blue" />
-        </IconButton>
+        <Tooltip title="Sao chép">
+          <IconButton
+            size="small"
+            onClick={() => handleCopyToClipboard(rawValue)}
+          >
+            <Icon name="contentCopyIcon" size="small_20" color="blue" />
+          </IconButton>
+        </Tooltip>
         <Typography sx={SX_DATAGRID_CELL_TEXT_ELLIPSIS}>
           {formattedValue}
         </Typography>
