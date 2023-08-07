@@ -1,7 +1,10 @@
-import { IconButton, Typography, Stack } from '@mui/material';
+import { IconButton, Stack, Typography } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
-import { SX_DATAGRID_CELL_TEXT } from '~/styles';
+import {
+  SX_DATAGRID_CELL_TEXT,
+  SX_DATAGRID_CELL_TEXT_ELLIPSIS,
+} from '~/styles';
 
 export const handleDefinedTextReturnComp = (
   text: string | number | undefined
@@ -43,6 +46,38 @@ export function CopyableCell({ rawValue, formattedValue }: CopyableCellProps) {
   }
   return (
     <Typography sx={SX_DATAGRID_CELL_TEXT} style={{ color: 'red' }}>
+      {formattedValue}
+    </Typography>
+  );
+}
+export function CopyableCellEllipsis({
+  rawValue,
+  formattedValue,
+}: CopyableCellProps) {
+  if (rawValue) {
+    return (
+      <>
+        <IconButton
+          size="small"
+          onClick={() => handleCopyToClipboard(rawValue)}
+        >
+          <Icon name="contentCopyIcon" size="small_20" color="blue" />
+        </IconButton>
+        <Typography sx={SX_DATAGRID_CELL_TEXT_ELLIPSIS}>
+          {formattedValue}
+        </Typography>
+      </>
+    );
+  }
+  if (rawValue === undefined) {
+    return (
+      <Typography sx={SX_DATAGRID_CELL_TEXT_ELLIPSIS} style={{ color: 'red' }}>
+        {formattedValue}
+      </Typography>
+    );
+  }
+  return (
+    <Typography sx={SX_DATAGRID_CELL_TEXT_ELLIPSIS} style={{ color: 'red' }}>
       {formattedValue}
     </Typography>
   );

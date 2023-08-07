@@ -94,6 +94,9 @@ export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
   },
 };
 export const SX_DATAGRID_CELL_TEXT: SxProps<Theme> = {
+  fontSize: 14,
+};
+export const SX_DATAGRID_CELL_TEXT_ELLIPSIS: SxProps<Theme> = {
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

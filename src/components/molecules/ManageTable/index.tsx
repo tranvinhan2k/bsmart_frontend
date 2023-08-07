@@ -43,9 +43,9 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  [`& .${gridClasses.row}.even`]: {
+  [`& .${gridClasses.row}.odd`]: {
     transition: 'all 500ms ease',
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.grey[100],
     '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
       '@media (hover: none)': {
@@ -186,6 +186,16 @@ export default function ManageTable({
         page={page}
         pageSize={pageSize}
         rowCount={totalItems}
+        // styling
+        getRowClassName={(params) =>
+          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        }
+        getRowHeight={() => 'auto'}
+        sx={{
+          [`& .${gridClasses.cell}`]: {
+            py: 0.75,
+          },
+        }}
       />
       <Popover
         keepMounted

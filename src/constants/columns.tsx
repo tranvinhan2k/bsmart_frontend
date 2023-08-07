@@ -5,7 +5,11 @@ import { green, red } from '@mui/material/colors';
 import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { getGender, handleDefinedText } from '~/utils/common';
-import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
+import {
+  CopyableCell,
+  CopyableCellEllipsis,
+  IsVerifiedCell,
+} from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
@@ -87,7 +91,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     renderCell: (params) => {
       const { email } = params.row;
       return (
-        <CopyableCell
+        <CopyableCellEllipsis
           rawValue={email}
           formattedValue={handleDefinedText(email)}
         />
@@ -101,7 +105,9 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
-      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+      return (
+        <CopyableCellEllipsis rawValue={fullName} formattedValue={fullName} />
+      );
     },
   },
   {
@@ -112,7 +118,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     renderCell: (params) => {
       const { phone } = params.row;
       return (
-        <CopyableCell
+        <CopyableCellEllipsis
           rawValue={phone}
           formattedValue={formatPhoneNumberVi(phone)}
         />
@@ -144,7 +150,7 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
     renderCell: (params) => {
       const { email } = params.row;
       return (
-        <CopyableCell
+        <CopyableCellEllipsis
           rawValue={email}
           formattedValue={handleDefinedText(email)}
         />
@@ -158,7 +164,9 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
-      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+      return (
+        <CopyableCellEllipsis rawValue={fullName} formattedValue={fullName} />
+      );
     },
   },
   {
@@ -200,7 +208,7 @@ const managedCourseBasedColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
-      return <CopyableCell rawValue={code} formattedValue={code} />;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
     },
   },
   {
@@ -220,7 +228,7 @@ const managedCourseBasedColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { name } = params.row.mentor;
-      return <CopyableCell rawValue={name} formattedValue={name} />;
+      return <CopyableCellEllipsis rawValue={name} formattedValue={name} />;
     },
   },
   {
@@ -384,7 +392,10 @@ const managedUserBasedColumns: GridColDef[] = [
     minWidth: 200,
     flex: 1,
     renderCell: (params) => (
-      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+      <CopyableCellEllipsis
+        rawValue={params.value}
+        formattedValue={params.value}
+      />
     ),
   },
   {
@@ -393,7 +404,10 @@ const managedUserBasedColumns: GridColDef[] = [
     minWidth: 200,
     flex: 1,
     renderCell: (params) => (
-      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+      <CopyableCellEllipsis
+        rawValue={params.value}
+        formattedValue={params.value}
+      />
     ),
   },
   {
@@ -401,7 +415,7 @@ const managedUserBasedColumns: GridColDef[] = [
     headerName: 'SĐT',
     minWidth: 150,
     renderCell: (params) => (
-      <CopyableCell
+      <CopyableCellEllipsis
         rawValue={params.value}
         formattedValue={formatPhoneNumberVi(params.value)}
       />
@@ -434,14 +448,6 @@ const managedUserMemberColumns = managedUserBasedColumns.concat({
   valueGetter: (params) => params.row.finishedClassCount,
 });
 const managedUserMentorColumns = managedUserBasedColumns.concat(
-  {
-    field: 'isVerified',
-    headerName: 'Trạng thái',
-    minWidth: 100,
-    flex: 1,
-    sortable: false,
-    renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
-  },
   {
     field: 'numberOfClass',
     headerAlign: 'left',
@@ -561,7 +567,7 @@ const managedClassNotStartColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
-      return <CopyableCell rawValue={code} formattedValue={code} />;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
     },
   },
   {
@@ -571,7 +577,12 @@ const managedClassNotStartColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { courseCode } = params.row;
-      return <CopyableCell rawValue={courseCode} formattedValue={courseCode} />;
+      return (
+        <CopyableCellEllipsis
+          rawValue={courseCode}
+          formattedValue={courseCode}
+        />
+      );
     },
   },
   {
@@ -638,7 +649,7 @@ const managedClassColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
-      return <CopyableCell rawValue={code} formattedValue={code} />;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
     },
   },
   {
@@ -648,7 +659,12 @@ const managedClassColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { courseCode } = params.row;
-      return <CopyableCell rawValue={courseCode} formattedValue={courseCode} />;
+      return (
+        <CopyableCellEllipsis
+          rawValue={courseCode}
+          formattedValue={courseCode}
+        />
+      );
     },
   },
   {
