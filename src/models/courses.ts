@@ -1,8 +1,12 @@
-import { FeedbackPayload } from '~/models/feedback';
-import { MentorPayload } from '~/models/mentor';
 import { CategoryPayload } from './category';
+import { FeedbackPayload } from '~/models/feedback';
 import { ImageType, TimeInWeeks } from './common';
-import { SkillPayload, SubjectPayload } from './type';
+import { MentorPayload } from '~/models/mentor';
+import {
+  MentorTeachingInformation,
+  SkillPayload,
+  SubjectPayload,
+} from './type';
 
 export interface CourseDetailPayload {
   id: number;
@@ -37,8 +41,8 @@ export interface CourseCreateRequestDetails {
   subjectResponse: SubjectPayload;
   status: string;
   mentor: Mentor;
-  // classes: ClassOfCourseCreateRequestDetails[];
-  // activities: ActivityOfCourseCreateRequestDetails[];
+  classes: ClassOfCourseCreateRequestDetails[];
+  activities: ActivityOfCourseCreateRequestDetails[];
   totalClass: number;
   timeSendRequest: string;
   count: number;
@@ -60,14 +64,16 @@ export interface ClassOfCourseCreateRequestDetails {
   timeInWeeks: TimeInWeeks[];
   purchase: boolean;
 }
-
-interface Mentor {
-  avatar: Avatar;
-  email: string;
+export interface Mentor {
   id: number;
+  name: string;
+  email: string;
   introduce: string;
   mentorSkills: SkillPayload[];
-  name: string;
+  avatar: Avatar;
+  phone: string;
+  teachInformation: MentorTeachingInformation;
+  timeParticipation: string;
 }
 
 interface Avatar {

@@ -7,7 +7,7 @@ import RequestMentorInfo from './RequestMentorInfo';
 import RequestUpdateMentorDetailsProcess from './RequestUpdateMentorDetailsProcess';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
-interface RegisterRequestDetailsProps {
+interface ManageTableDetailsUpdateMentorProfileRequestProps {
   row: any;
   onClose: () => void;
   refetchSearch: () => void;
@@ -19,7 +19,7 @@ export default function ManageTableDetailsUpdateMentorProfileRequest({
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: RegisterRequestDetailsProps) {
+}: ManageTableDetailsUpdateMentorProfileRequestProps) {
   return (
     <>
       <Box mx={2}>
@@ -43,7 +43,7 @@ export default function ManageTableDetailsUpdateMentorProfileRequest({
             spacing={2}
           >
             <RequestBasicInfo row={row} />
-            {/* <RequestCI row={row} /> */}
+            <RequestCI row={row} />
             <RequestMentorDegree row={row} />
             <RequestMentorInfo row={row} />
           </Stack>

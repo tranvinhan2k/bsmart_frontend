@@ -4,13 +4,20 @@ import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import ManageTable from '../ManageTable';
+import ManageTable from '~/components/molecules/ManageTable';
+import ManageTableDetailsManagedMember from '~/components/molecules/ManageTableDetailsManagedMember';
+import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
+import { ManagedMentorPayload } from '~/models/type';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
+  refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageTableUser({ userRole }: ManageTableUserProps) {
+export default function ManageTableUser({
+  userRole,
+  refetchGetNoOfRequest,
+}: ManageTableUserProps) {
   const enum Text {
     searchPlaceholderMentor = 'Tìm kiếm giáo viên...',
     searchPlaceholderMember = 'Tìm kiếm học sinh...',
@@ -19,7 +26,7 @@ export default function ManageTableUser({ userRole }: ManageTableUserProps) {
   }
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
-  const [selectedRow, setSelectedRow] = useState<any>();
+  const [selectedRow, setSelectedRow] = useState<ManagedMentorPayload>();
 
   const [q, setQ] = useState<string>('');
   const isVerified = true;
@@ -96,7 +103,21 @@ export default function ManageTableUser({ userRole }: ManageTableUserProps) {
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <h1>Chi tiết người dùng</h1>
+          {userRole === 'TEACHER' ? (
+            <ManageTableDetailsManagedMentor
+              rowId={selectedRow && selectedRow.id}
+              onClose={handleTriggerDialog}
+              refetchSearch={refetch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
+            />
+          ) : (
+            <ManageTableDetailsManagedMember
+              rowId={selectedRow && selectedRow.id}
+              onClose={handleTriggerDialog}
+              refetchSearch={refetch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
+            />
+          )}
         </CustomDialog>
       );
       break;

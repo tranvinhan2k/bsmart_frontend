@@ -14,6 +14,7 @@ import { FontFamily } from '~/assets/variables';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import { defaultValuesUpdateMentorProfileRequest } from '~/form/defaultValues';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { validationSchemaUpdateMentorProfileRequest } from '~/form/validation';
 import {
   useDispatchGetAllSubjects,
@@ -74,10 +75,12 @@ export default function UpdateMentorSkill() {
     remove(order);
   };
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công...';
   const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
+    `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   const handleSubmitSuccess = async (data: any) => {
     const params: UpdateMentorProfileRequestPayload = {
       mentorSkills: [],

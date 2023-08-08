@@ -6,10 +6,7 @@ import {
   ConfirmEmailPage,
   ManageAnalyticPage,
   ManageClassPage,
-  ManageCourseCreateRequestPage,
   ManageCoursePage,
-  ManageMentorProfileUpdateRequestPage,
-  ManageRegisterRequestPage,
   ManageRequestManagerPage,
   ManageUserPage,
   NotFoundPage,
@@ -33,25 +30,9 @@ export const managerRoutes: RoutePayload[] = [
     main: () => <ManageClassPage />,
     role: ['ROLE_MANAGER'],
   },
-
-  {
-    path: ManagerNavigationActionLink.manage_course_create_request_manager,
-    main: () => <ManageCourseCreateRequestPage />,
-    role: ['ROLE_MANAGER'],
-  },
   {
     path: ManagerNavigationActionLink.manage_course_manager,
     main: () => <ManageCoursePage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.manage_mentor_profile_update_request,
-    main: () => <ManageMentorProfileUpdateRequestPage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.manage_register_request_manager,
-    main: () => <ManageRegisterRequestPage />,
     role: ['ROLE_MANAGER'],
   },
   {

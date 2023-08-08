@@ -14,7 +14,7 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 2,
-    name: 'Chứng minh thư',
+    name: 'CMND/CCCD',
     link: MentorNavigationLink.edit_profile_img,
   },
   {

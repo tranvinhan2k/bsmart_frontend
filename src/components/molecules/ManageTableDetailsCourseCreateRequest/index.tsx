@@ -23,7 +23,9 @@ export default function ManageTableDetailsCourseCreateRequest({
   return (
     <>
       <Box mx={2}>
-        <Typography sx={SX_REQUEST_TITLE}>Chi tiết khóa học</Typography>
+        <Typography sx={SX_REQUEST_TITLE}>
+          Chi tiết yêu cầu phê duyệt khóa học
+        </Typography>
       </Box>
       <Grid
         container

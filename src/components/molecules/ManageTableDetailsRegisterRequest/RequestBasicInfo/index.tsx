@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Grid,
   IconButton,
   Link,
@@ -12,11 +13,13 @@ import { genderData } from '~/constants';
 import { image } from '~/constants/image';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
+import { formatPhoneNumberVi } from '~/utils/phone';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
   SX_FORM_LABEL,
   SX_WRAPPER,
+  SX_USER_AVATAR_CLICKABLE,
 } from '../style';
 
 interface BasicInfoProps {
@@ -25,7 +28,7 @@ interface BasicInfoProps {
 export default function BasicInfo({ row }: BasicInfoProps) {
   const userAvatar =
     row.userImages.find((item: any) => item.type === 'AVATAR')?.url ??
-    image.noAvatar;
+    undefined;
 
   const enum Text {
     labelMail = 'Mail',
@@ -49,12 +52,12 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     {
       id: 0,
       label: Text.labelName,
-      value: row.fullName,
+      value: row.fullName ?? '',
     },
     {
       id: 1,
       label: Text.labelMail,
-      value: row.email,
+      value: row.email ?? '',
     },
   ];
 
@@ -62,12 +65,12 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     {
       id: 0,
       label: Text.labelPhone,
-      value: row.phone,
+      value: formatPhoneNumberVi(row.phone) ?? '',
     },
     {
       id: 1,
       label: Text.labelBirthDate,
-      value: formatISODateStringToDisplayDate(row.birthday),
+      value: formatISODateStringToDisplayDate(row.birthday) ?? '',
     },
   ];
 
@@ -77,16 +80,20 @@ export default function BasicInfo({ row }: BasicInfoProps) {
       label: Text.labelGender,
       value:
         genderData.find((item) => item.value === row.gender)?.label ??
-        genderData[0].value,
+        genderData[0].value ??
+        '',
     },
+  ];
+
+  const title3 = [
     {
-      id: 1,
+      id: 0,
       label: Text.labelAddress,
       value: row.address,
     },
   ];
 
-  const title3 = [
+  const title4 = [
     {
       id: 0,
       label: Text.labelWebsite,
@@ -103,6 +110,10 @@ export default function BasicInfo({ row }: BasicInfoProps) {
       value: row.facebookLink,
     },
   ];
+
+  const handleViewImg = (link: string) => {
+    if (link) window.open(link, '_blank');
+  };
 
   return (
     <Box sx={SX_WRAPPER}>
@@ -127,13 +138,10 @@ export default function BasicInfo({ row }: BasicInfoProps) {
               <Avatar
                 src={userAvatar}
                 variant="rounded"
-                sx={{
-                  width: 150,
-                  height: 150,
-                  boxShadow: 3,
-                }}
+                sx={SX_USER_AVATAR_CLICKABLE}
+                onClick={() => handleViewImg(userAvatar)}
               />
-              <Box sx={{ width: '100%' }}>
+              <Box>
                 <Grid
                   container
                   direction="row"
@@ -167,85 +175,106 @@ export default function BasicInfo({ row }: BasicInfoProps) {
                     </Grid>
                   ))}
                 </Grid>
-                <Box mt={4}>
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                  >
-                    {title1.map((item) => (
-                      <Grid item xs={12} sm={6} key={item.id}>
-                        <Stack
-                          direction="column"
-                          justifyContent="flex-start"
-                          alignItems="flex-start"
-                        >
-                          <Typography sx={SX_FORM_ITEM_LABEL2}>
-                            {item.label}:
-                            <IconButton
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  mt={4}
+                >
+                  {title1.map((item) => (
+                    <Grid item xs={12} sm={6} key={item.id}>
+                      <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL2}>
+                          {item.label}:
+                          <IconButton
+                            size="small"
+                            onClick={() => handleCopyToClipboard(item.value)}
+                          >
+                            <Icon
+                              name="contentCopyIcon"
                               size="small"
-                              onClick={() => handleCopyToClipboard(item.value)}
-                            >
-                              <Icon
-                                name="contentCopyIcon"
-                                size="small"
-                                color="blue"
-                              />
-                            </IconButton>
-                          </Typography>
-                          <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
+                              color="blue"
+                            />
+                          </IconButton>
+                        </Typography>
+                        <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
+                          {item.value}
+                        </Typography>
+                      </Stack>
+                    </Grid>
+                  ))}
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  mt={4}
+                  spacing={1}
+                >
+                  {title2.map((item) => (
+                    <Grid item xs={12} key={item.id}>
+                      <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={1}
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL2}>
+                          {item.label}:
+                        </Typography>
+                        <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
+                          {item.value}
+                        </Typography>
+                      </Stack>
+                    </Grid>
+                  ))}
+                  {title3.map((item) => (
+                    <Grid item xs={12} key={item.id}>
+                      <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={1}
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL2}>
+                          {item.label}:
+                        </Typography>
+                        <Typography sx={SX_FORM_ITEM_VALUE2}>
+                          {item.value}
+                        </Typography>
+                      </Stack>
+                    </Grid>
+                  ))}
+                  {title4.map((item) => (
+                    <Grid item xs={12} key={item.id}>
+                      <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={1}
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL2}>
+                          {item.label}:
+                        </Typography>
+                        {item.value && (
+                          <Link
+                            href={item.value as string}
+                            sx={SX_FORM_ITEM_VALUE2}
+                            target="_blank"
+                          >
                             {item.value}
-                          </Typography>
-                        </Stack>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Box>
-                <Box mt={4}>
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    spacing={1}
-                  >
-                    {title2.map((item) => (
-                      <Grid item xs={12} key={item.id}>
-                        <Stack
-                          direction="row"
-                          justifyContent="flex-start"
-                          alignItems="flex-start"
-                          spacing={1}
-                        >
-                          <Typography sx={SX_FORM_ITEM_LABEL2}>
-                            {item.label}:
-                          </Typography>
-                          <Typography sx={SX_FORM_ITEM_VALUE2} noWrap>
-                            {item.value}
-                          </Typography>
-                        </Stack>
-                      </Grid>
-                    ))}
-                    {title3.map((item) => (
-                      <Grid item xs={12} key={item.id}>
-                        <Stack
-                          direction="row"
-                          justifyContent="flex-start"
-                          alignItems="flex-start"
-                          spacing={1}
-                        >
-                          <Typography sx={SX_FORM_ITEM_LABEL2}>
-                            {item.label}:
-                          </Typography>
-                          {item.value && (
-                            <Link href={item.value as string}>Link</Link>
-                          )}
-                        </Stack>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Box>
+                          </Link>
+                        )}
+                      </Stack>
+                    </Grid>
+                  ))}
+                </Grid>
               </Box>
             </Stack>
           </Grid>

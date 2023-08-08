@@ -7,18 +7,19 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { defaultValueEditIdentityFront } from '~/form/defaultValues';
-import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
-import { EditIdentityFrontFormDataPayload } from '~/models/form';
 import { EditImageProfilePayload } from '~/api/users';
-import { ProfileImgType } from '~/constants/profile';
-import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
-import { selectProfile } from '~/redux/user/selector';
-import { validationSchemaEditIdentityFront } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import FormInput from '~/components/atoms/FormInput';
+import { ProfileImgType } from '~/constants/profile';
+import { defaultValueEditIdentityFront } from '~/form/defaultValues';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
+import { validationSchemaEditIdentityFront } from '~/form/validation';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
+import { EditIdentityFrontFormDataPayload } from '~/models/form';
+import { selectProfile } from '~/redux/user/selector';
 import toast from '~/utils/toast';
 
 interface DialogEditIdCardFrontProps {
@@ -49,10 +50,12 @@ export default function DialogEditIdCardFront({
   const { mutateAsync: mutateEditIdentityFront } =
     useMutationEditIdentityFront();
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công...';
   const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
+    return `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   };
   const handleSubmitIdentityFront = async (
     data: EditIdentityFrontFormDataPayload
@@ -80,7 +83,7 @@ export default function DialogEditIdCardFront({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật chứng minh thư (Mặt trước)</DialogTitle>
+      <DialogTitle>Cập nhật CMND/CCCD (Mặt trước)</DialogTitle>
       <DialogContent>
         <form
           onSubmit={handleSubmitEditIdentityFront(handleSubmitIdentityFront)}

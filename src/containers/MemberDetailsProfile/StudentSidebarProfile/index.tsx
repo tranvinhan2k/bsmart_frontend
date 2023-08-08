@@ -40,11 +40,11 @@ export default function StudentSidebarProfile() {
 
   const handleOpenDialogUpdateAvatar = () =>
     setOpenDialogUpdateAvatar(!openDialogUpdateAvatar);
-
   return (
     <ProfileSideBar
       avatarUrl={imageLink}
       birth={profile.birthday}
+      email={profile.email}
       gender={profile.gender}
       isVerified={profile.isVerified}
       mail={profile.email}

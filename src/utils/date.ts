@@ -21,7 +21,7 @@ export const formatISODateStringToDisplayDateTime = (inputDate: string) => {
     if (hours < 10) hours = `0${hours}`;
     if (minutes < 10) minutes = `0${minutes}`;
 
-    result = `${hours}:${minutes} - ${day} thg ${month}, ${year}`;
+    result = `${hours}:${minutes} - ${day} tháng ${month}, ${year}`;
   }
   return result;
 };
@@ -35,7 +35,7 @@ export const formatISODateStringToDisplayDate = (inputDate: string) => {
 
     if (day < 10) day = `0${day}`;
     if (month < 10) month = `0${month}`;
-    result = `${day} thg ${month}, ${year}`;
+    result = `${day} tháng ${month}, ${year}`;
   }
   return result;
 };
@@ -50,7 +50,7 @@ export const formatISODateDateToDisplayDate = (inputDate: Date) => {
 
     if (day < 10) day = `0${day}`;
     if (month < 10) month = `0${month}`;
-    result = `${day} thg ${month}, ${year}`;
+    result = `${day} tháng ${month}, ${year}`;
   }
   return result;
 };
@@ -85,7 +85,7 @@ export const formatISODateDateToDisplayDateTime = (
     if (hours < 10) hours = `0${hours}`;
     if (minutes < 10) minutes = `0${minutes}`;
 
-    result = `${hours}:${minutes} - ${day} thg ${month}, ${year}`;
+    result = `${hours}:${minutes} - ${day} tháng ${month}, ${year}`;
   }
   return result;
 };

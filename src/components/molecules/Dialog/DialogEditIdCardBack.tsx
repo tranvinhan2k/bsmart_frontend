@@ -7,19 +7,20 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { EditImageProfilePayload } from '~/api/users';
-import { FontFamily } from '~/assets/variables';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
-import FormInput from '~/components/atoms/FormInput';
-import { ProfileImgType } from '~/constants/profile';
 import { defaultValueEditIdentityBack } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
-import { validationSchemaEditIdentityBack } from '~/form/validation';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
-import { selectProfile } from '~/redux/user/selector';
-import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
 import { EditIdentityBackFormDataPayload } from '~/models/form';
+import { EditImageProfilePayload } from '~/api/users';
+import { FontFamily } from '~/assets/variables';
+import { ProfileImgType } from '~/constants/profile';
+import { selectProfile } from '~/redux/user/selector';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
+import { validationSchemaEditIdentityBack } from '~/form/validation';
+import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 
 interface DialogEditIdCardBackProps {
   open: boolean;
@@ -51,7 +52,9 @@ export default function DialogEditIdCardBack({
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
+    return `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   };
   const handleSubmitIdentityBack = async (
     data: EditIdentityBackFormDataPayload
@@ -79,7 +82,7 @@ export default function DialogEditIdCardBack({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật chứng minh thư (Mặt sau)</DialogTitle>
+      <DialogTitle>Cập nhật CMND/CCCD (Mặt sau)</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
           <FormInput

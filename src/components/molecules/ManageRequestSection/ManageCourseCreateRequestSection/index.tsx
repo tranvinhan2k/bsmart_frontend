@@ -48,7 +48,7 @@ export default function ManageCourseCreateRequestSection() {
           refetchGetNoOfRequest={refetchListWaiting}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListWaiting?.items.length),
+      noOfRequest: restrictNumberDisplay(courseListWaiting?.totalItems),
     },
     {
       id: 1,
@@ -59,7 +59,7 @@ export default function ManageCourseCreateRequestSection() {
           refetchGetNoOfRequest={refetchListNotStart}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListNotStart?.items.length),
+      noOfRequest: restrictNumberDisplay(courseListNotStart?.totalItems),
     },
     {
       id: 2,
@@ -70,7 +70,7 @@ export default function ManageCourseCreateRequestSection() {
           refetchGetNoOfRequest={refetchListEditRequest}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListEditRequest?.items.length),
+      noOfRequest: restrictNumberDisplay(courseListEditRequest?.totalItems),
     },
     {
       id: 3,
@@ -81,7 +81,7 @@ export default function ManageCourseCreateRequestSection() {
           refetchGetNoOfRequest={refetchListRejected}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListRejected?.items.length),
+      noOfRequest: restrictNumberDisplay(courseListRejected?.totalItems),
     },
   ];
 

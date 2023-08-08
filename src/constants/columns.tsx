@@ -1,15 +1,12 @@
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import { Chip, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { GridColDef } from '@mui/x-data-grid';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
-import { CopyableCell, IsVerifiedCell } from '~/utils/commonComp';
 import { getGender, handleDefinedText } from '~/utils/common';
-import {
-  formatISODateDateToDisplayDate,
-  formatISODateStringToDisplayDate,
-} from '~/utils/date';
+import { CopyableCell, CopyableCellEllipsis } from '~/utils/commonComp';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import { mockLevelData } from './data';
@@ -90,7 +87,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     renderCell: (params) => {
       const { email } = params.row;
       return (
-        <CopyableCell
+        <CopyableCellEllipsis
           rawValue={email}
           formattedValue={handleDefinedText(email)}
         />
@@ -104,7 +101,9 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
-      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+      return (
+        <CopyableCellEllipsis rawValue={fullName} formattedValue={fullName} />
+      );
     },
   },
   {
@@ -115,7 +114,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     renderCell: (params) => {
       const { phone } = params.row;
       return (
-        <CopyableCell
+        <CopyableCellEllipsis
           rawValue={phone}
           formattedValue={formatPhoneNumberVi(phone)}
         />
@@ -127,7 +126,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     headerName: 'Ngày sinh',
     minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'gender',
@@ -138,7 +137,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
   },
 ];
 
-const manageMentorProfileUpdateRequestColumns: GridColDef[] = [
+const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
@@ -147,7 +146,7 @@ const manageMentorProfileUpdateRequestColumns: GridColDef[] = [
     renderCell: (params) => {
       const { email } = params.row;
       return (
-        <CopyableCell
+        <CopyableCellEllipsis
           rawValue={email}
           formattedValue={handleDefinedText(email)}
         />
@@ -161,7 +160,9 @@ const manageMentorProfileUpdateRequestColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
-      return <CopyableCell rawValue={fullName} formattedValue={fullName} />;
+      return (
+        <CopyableCellEllipsis rawValue={fullName} formattedValue={fullName} />
+      );
     },
   },
   {
@@ -203,7 +204,7 @@ const managedCourseBasedColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
-      return <CopyableCell rawValue={code} formattedValue={code} />;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
     },
   },
   {
@@ -223,7 +224,7 @@ const managedCourseBasedColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { name } = params.row.mentor;
-      return <CopyableCell rawValue={name} formattedValue={name} />;
+      return <CopyableCellEllipsis rawValue={name} formattedValue={name} />;
     },
   },
   {
@@ -237,7 +238,7 @@ const managedCourseBasedColumns: GridColDef[] = [
   {
     field: 'categoryResponse',
     headerName: 'phân loại',
-    minWidth: 130,
+    minWidth: 150,
     flex: 1,
     valueGetter: (params) => params.value.name,
     renderCell: (params) => {
@@ -254,7 +255,7 @@ const managedCourseBasedColumns: GridColDef[] = [
   {
     field: 'subjectResponse',
     headerName: 'Môn học',
-    minWidth: 130,
+    minWidth: 150,
     flex: 1,
     valueFormatter: (params) => params.value.name,
     renderCell: (params) => {
@@ -273,7 +274,7 @@ const managedCourseColumns = managedCourseBasedColumns.concat(
   {
     field: 'timeSendRequest',
     headerName: 'Ngày phê duyệt',
-    minWidth: 120,
+    minWidth: 150,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
@@ -316,7 +317,7 @@ const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
     field: 'approved',
     headerAlign: 'left',
     type: 'boolean',
-    headerName: 'Từng duyệt ?',
+    headerName: 'Từng duyệt?',
     minWidth: 100,
     flex: 1,
     renderCell: (params) => {
@@ -354,9 +355,9 @@ const attendanceClassColumns: GridColDef[] = [
   {
     field: 'date',
     headerName: 'Ngày',
-    flex: 5,
+    flex: 1,
     renderCell: (params) => {
-      return formatISODateDateToDisplayDate(params?.row?.date);
+      return formatISODateStringToDisplayDate(params?.row?.date);
     },
   },
   {
@@ -387,7 +388,10 @@ const managedUserBasedColumns: GridColDef[] = [
     minWidth: 200,
     flex: 1,
     renderCell: (params) => (
-      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+      <CopyableCellEllipsis
+        rawValue={params.value}
+        formattedValue={params.value}
+      />
     ),
   },
   {
@@ -396,7 +400,10 @@ const managedUserBasedColumns: GridColDef[] = [
     minWidth: 200,
     flex: 1,
     renderCell: (params) => (
-      <CopyableCell rawValue={params.value} formattedValue={params.value} />
+      <CopyableCellEllipsis
+        rawValue={params.value}
+        formattedValue={params.value}
+      />
     ),
   },
   {
@@ -404,7 +411,7 @@ const managedUserBasedColumns: GridColDef[] = [
     headerName: 'SĐT',
     minWidth: 150,
     renderCell: (params) => (
-      <CopyableCell
+      <CopyableCellEllipsis
         rawValue={params.value}
         formattedValue={formatPhoneNumberVi(params.value)}
       />
@@ -413,7 +420,7 @@ const managedUserBasedColumns: GridColDef[] = [
   {
     field: 'birthday',
     headerName: 'Ngày sinh',
-    minWidth: 130,
+    minWidth: 150,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
@@ -426,35 +433,17 @@ const managedUserBasedColumns: GridColDef[] = [
     valueFormatter: (params) => getGender(params.value),
   },
 ];
-const managedUserMemberColumns = managedUserBasedColumns.concat(
-  {
-    field: 'isVerified',
-    headerName: 'Trạng thái',
-    minWidth: 100,
-    flex: 1,
-    sortable: false,
-    renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
-  },
-  {
-    field: 'finishedClassCount',
-    headerAlign: 'left',
-    type: 'number',
-    headerName: 'Đã học',
-    flex: 1,
-    minWidth: 70,
-    sortable: false,
-    valueGetter: (params) => params.row.finishedClassCount,
-  }
-);
+const managedUserMemberColumns = managedUserBasedColumns.concat({
+  field: 'finishedClassCount',
+  headerAlign: 'left',
+  type: 'number',
+  headerName: 'Đã học',
+  flex: 1,
+  minWidth: 70,
+  sortable: false,
+  valueGetter: (params) => params.row.finishedClassCount,
+});
 const managedUserMentorColumns = managedUserBasedColumns.concat(
-  {
-    field: 'isVerified',
-    headerName: 'Trạng thái',
-    minWidth: 100,
-    flex: 1,
-    sortable: false,
-    renderCell: (params) => <IsVerifiedCell isVerified={params.value} />,
-  },
   {
     field: 'numberOfClass',
     headerAlign: 'left',
@@ -520,7 +509,7 @@ const managedUserRegisterRequestColumns = managedUserBasedColumns.concat(
     headerName: 'Ngày gửi',
     minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   }
 );
 
@@ -574,7 +563,7 @@ const managedClassNotStartColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
-      return <CopyableCell rawValue={code} formattedValue={code} />;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
     },
   },
   {
@@ -584,22 +573,27 @@ const managedClassNotStartColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { courseCode } = params.row;
-      return <CopyableCell rawValue={courseCode} formattedValue={courseCode} />;
+      return (
+        <CopyableCellEllipsis
+          rawValue={courseCode}
+          formattedValue={courseCode}
+        />
+      );
     },
   },
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
     headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'price',
@@ -651,7 +645,7 @@ const managedClassColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
-      return <CopyableCell rawValue={code} formattedValue={code} />;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
     },
   },
   {
@@ -661,36 +655,41 @@ const managedClassColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { courseCode } = params.row;
-      return <CopyableCell rawValue={courseCode} formattedValue={courseCode} />;
+      return (
+        <CopyableCellEllipsis
+          rawValue={courseCode}
+          formattedValue={courseCode}
+        />
+      );
     },
   },
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
     headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'startDateActual',
     headerName: 'Ngày bắt đầu (Thực tế)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDateActual',
     headerName: 'Ngày kết thúc (Thực tế)',
-    minWidth: 170,
+    minWidth: 150,
     flex: 1,
-    valueFormatter: (params) => formatISODateDateToDisplayDate(params.value),
+    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'numberOfSlot',
@@ -736,20 +735,20 @@ const managedClassColumns: GridColDef[] = [
 ];
 
 const columns = {
-  feedbackQuestionColumns,
+  attendanceClassColumns,
   categoryColumns,
   courseClassListColumns,
-  subjectColumns,
-  attendanceClassColumns,
+  feedbackQuestionColumns,
   managedClassColumns,
   managedClassNotStartColumns,
   managedCourseColumns,
   managedCourseCreateRequestColumns,
+  managedMentorProfileUpdateRequestColumns,
   managedRegisterRequestTmpColumns,
-  managedUserRegisterRequestColumns,
-  manageMentorProfileUpdateRequestColumns,
   managedUserMemberColumns,
   managedUserMentorColumns,
+  managedUserRegisterRequestColumns,
+  subjectColumns,
 };
 
 export default columns;

@@ -1,8 +1,8 @@
-import { Box, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { scrollToTop } from '~/utils/common';
+import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import ManageTableUser from '~/components/molecules/ManageTableUser';
-import ManageTableWidgetMentor from '~/components/molecules/ManageTableWidgetMentor';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManageUserPage() {
@@ -16,16 +16,37 @@ export default function ManageUserPage() {
     newValue: number
   ) => setTabValue(newValue);
 
+  const { managedUserList: listMentor, refetch: refetchListMentor } =
+    useSearchManagedUser({
+      role: 'TEACHER',
+    });
+  const { managedUserList: listMember, refetch: refetchListMember } =
+    useSearchManagedUser({
+      role: 'STUDENT',
+    });
+
   const tabEl = [
     {
       id: 0,
       text: 'Giảng viên',
-      component: <ManageTableUser userRole="TEACHER" />,
+      component: (
+        <ManageTableUser
+          userRole="TEACHER"
+          refetchGetNoOfRequest={refetchListMentor}
+        />
+      ),
+      noOfRequest: listMentor?.totalItems,
     },
     {
       id: 1,
-      text: 'Học viên',
-      component: <ManageTableUser userRole="STUDENT" />,
+      text: 'Học sinh',
+      component: (
+        <ManageTableUser
+          userRole="STUDENT"
+          refetchGetNoOfRequest={refetchListMember}
+        />
+      ),
+      noOfRequest: listMember?.totalItems,
     },
   ];
 
@@ -58,6 +79,7 @@ export default function ManageUserPage() {
                 spacing={1}
               >
                 <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
+                <Chip label={tab.noOfRequest} size="small" />
               </Stack>
             }
             value={tab.id}
@@ -65,7 +87,6 @@ export default function ManageUserPage() {
           />
         ))}
       </Tabs>
-      <ManageTableWidgetMentor />
       {tabEl.map((tab) => (
         <TabPanel value={tabValue} index={tab.id} key={tab.id}>
           <Box py={2}>{tab.component}</Box>

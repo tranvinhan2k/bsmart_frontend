@@ -9,6 +9,8 @@ import axiosClient from '~/api/axiosClient';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import {
   ClassMenuItemPayload,
+  ManagedMemberPayload,
+  ManagedMentorPayload,
   ProfilePayload,
   WeekTimeSlotPayload,
 } from '~/models/type';
@@ -393,7 +395,7 @@ const accountApi = {
   searchManagedUser({
     q = '',
     role = null,
-    isVerified = null,
+    isVerified = true,
     page = 0,
     size = null,
     sort = [],
@@ -405,6 +407,13 @@ const accountApi = {
   sendMailResetPassword(email: string) {
     // TODO: nhap email xac nhan quen mat khau o day
     return generateMockApi(true);
+  },
+
+  getManagedMentorDetails(id: number): Promise<ManagedMentorPayload> {
+    return axiosClient.get(`${url}/${id}/mentor`);
+  },
+  getManagedMemberDetails(id: number): Promise<ManagedMemberPayload> {
+    return axiosClient.get(`${url}/${id}/member`);
   },
 };
 
