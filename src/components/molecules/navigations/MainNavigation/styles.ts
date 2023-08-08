@@ -40,6 +40,7 @@ export const text1: SxProps<Theme> = {
   fontSize: { xs: FontSize.medium_24, md: FontSize.medium_28 },
   fontFamily: FontFamily.bold,
   color: Color.navy,
+  cursor: 'pointer',
 };
 
 export const text2: SxProps<Theme> = {

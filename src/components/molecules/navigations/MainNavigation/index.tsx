@@ -135,6 +135,8 @@ export default function MainNavigation({
     );
   };
 
+  const handleHomepage = () => navigate(NavigationLink.homepage);
+
   return (
     <Stack sx={styles.view}>
       <Stack sx={styles.view3}>
@@ -154,7 +156,7 @@ export default function MainNavigation({
         </IconButton>
       </Stack>
       <Stack>
-        <Typography sx={styles.text1}>
+        <Typography sx={styles.text1} onClick={handleHomepage}>
           {texts.APP_NAME.toUpperCase()}
         </Typography>
       </Stack>
