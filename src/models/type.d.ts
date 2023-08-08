@@ -179,9 +179,10 @@ export interface ClassDetailPayload {
     isDefault: boolean;
     isFixed: boolean;
     questions: {
+      id: number;
       question: string;
-      answerType: FeedbackQuestionTypeKeys;
       answers: {
+        id: number;
         answer: string;
       }[];
     }[];

@@ -367,14 +367,15 @@ export type ResponseDetailClass = Partial<{
   feedback: Partial<{
     id: number;
     name: string;
-    type: string;
+    type: FeedbackTypeKeys;
     totalClassUsed: number;
     isDefault: boolean;
     isFixed: boolean;
     questions: {
+      id: number;
       question: string;
-      answerType: FeedbackTypeKeys;
       answers: {
+        id: number;
         answer: string;
       }[];
     }[];
