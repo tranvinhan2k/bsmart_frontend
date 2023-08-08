@@ -197,7 +197,7 @@ const classApi = {
         name: response.feedback?.name || '',
         questions: response.feedback?.questions || [],
         totalClassUsed: response.feedback?.totalClassUsed || 0,
-        type: response.feedback?.type || '',
+        type: response.feedback?.type || 'COURSE',
       },
       numberOfSlot: response?.numberOfSlot || 0,
       numberOfStudent: response.numberOfCurrentStudent || 0,

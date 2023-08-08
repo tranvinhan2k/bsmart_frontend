@@ -50,7 +50,7 @@ export default function ClassInformationList({
     },
     {
       id: 0,
-      name: 'Thời khóa biểu',
+      name: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
       timetable,
       type: 'timetable',
     },

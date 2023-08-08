@@ -27,6 +27,7 @@ export const enum NavigationLink {
   confirm_email = 'confirm_email/:code',
   dashboard = 'dashboard',
   forgot_password = 'forgot_password',
+  policy = 'policy',
 }
 
 export const enum MemberNavigationActionLink {

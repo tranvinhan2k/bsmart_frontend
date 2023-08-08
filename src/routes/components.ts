@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 
 // profile
+export const PolicyPage = lazy(() => import('~/pages/PolicyPage'));
 export const HomePage = lazy(() => import('~/pages/HomePage'));
 export const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 export const LmsPage = lazy(() => import('~/pages/LmsPage'));

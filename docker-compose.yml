@@ -5,4 +5,4 @@ services:
     container_name: app_mismart_fe_1
     build: .
     ports:
-      - "3000:3000"
+      - "2053:2053"

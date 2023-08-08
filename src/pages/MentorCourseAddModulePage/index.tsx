@@ -1,6 +1,8 @@
 import { Stack } from '@mui/material';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import ReturnLink from '~/components/atoms/ReturnLink';
 import {
   NavigationLink,
@@ -34,6 +36,8 @@ export default function MentorCourseAddModulePage() {
   const sectionId = useGetIdFromUrl('sectionId');
 
   const { activity } = useGetDetailActivity(sectionId);
+
+  const { refetchContent } = useContext(CourseContext);
 
   const { mutationLesson, mutationResource, mutationQuiz, mutationAssignment } =
     useMutationAddSubSection();
@@ -131,6 +135,7 @@ export default function MentorCourseAddModulePage() {
         ),
       });
       hookFormLesson.reset();
+      await refetchContent();
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
@@ -154,12 +159,12 @@ export default function MentorCourseAddModulePage() {
         authorizeClasses: data.authorizeClasses,
         file: data.file[0],
       });
-      hookFormLesson.reset();
+      hookFormResource.reset();
+      await refetchContent();
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
     });
-    hookFormResource.reset();
   };
   const handleSubmitAssignment = async (data: any) => {
     await handleTryCatch(async () => {
@@ -179,11 +184,11 @@ export default function MentorCourseAddModulePage() {
         passPoint: data.passPoint,
       });
       hookFormLesson.reset();
+      await refetchContent();
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
     });
-    hookFormResource.reset();
   };
   const handleSubmitQuiz = async (
     data: Partial<{
@@ -234,6 +239,7 @@ export default function MentorCourseAddModulePage() {
         }),
       });
       hookFormLesson.reset();
+      hookFormResource.reset();
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );

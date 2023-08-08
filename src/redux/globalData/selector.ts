@@ -11,7 +11,7 @@ export const globalDayOfWeeks = (state: { global: GlobalStateType }) =>
 export const globalNotifications = (state: { global: GlobalStateType }) =>
   state.global.notifications;
 export const isLoaded = (state: { global: GlobalStateType }) =>
-  state.global.categories.length !== 0 &&
-  state.global.dayOfWeeks.length !== 0 &&
-  state.global.slots.length !== 0 &&
-  state.global.subjects.length !== 0;
+  state.global?.categories?.length !== 0 &&
+  state.global?.dayOfWeeks?.length !== 0 &&
+  state.global?.slots?.length !== 0 &&
+  state.global?.subjects?.length !== 0;

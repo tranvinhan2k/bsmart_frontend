@@ -106,7 +106,7 @@ export default function AddQuizForm({
     },
     {
       name: 'time',
-      label: 'Thời gian làm bài (giây)',
+      label: 'Thời gian làm bài (phút)',
       placeholder: 'Nhập thời gian làm bài',
       variant: 'number',
     },
@@ -130,7 +130,7 @@ export default function AddQuizForm({
     },
     {
       name: 'allowReviewAfterMin',
-      label: 'Thời gian chờ xem lại (giây)',
+      label: 'Thời gian chờ xem lại (phút)',
       placeholder: 'Thời gian được xem lại bài',
       variant: 'number',
     },

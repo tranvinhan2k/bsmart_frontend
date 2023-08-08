@@ -6,13 +6,23 @@ import { selectProfile } from '~/redux/user/selector';
 import toast from '~/utils/toast';
 // eslint-disable-next-line import/no-cycle
 import { useDispatchNotifications } from './notifications/useDispatchNotifications';
+import { useBoolean } from './useBoolean';
+import { MessageType, NotificationType } from '~/models/variables';
 
 export interface WebSocketMessagePayload {
   status: string;
   data: {
-    viTitle: string;
+    created: string;
+    createdBy: string;
+    entity: NotificationType;
+    entityId: number;
+    id: number;
+    lastModified: string;
+    lastModifiedBy: string;
+    read: boolean;
+    type: MessageType;
     viContent: string;
-    data: null;
+    viTitle: string;
   };
 }
 
@@ -33,6 +43,7 @@ function NotificationMessage({
 }
 
 export const useSocket = () => {
+  const { value, setTrue } = useBoolean(false);
   const { handleDispatch, handleAddMessage } = useDispatchNotifications();
   const profile = useSelector(selectProfile);
 
@@ -48,17 +59,21 @@ export const useSocket = () => {
           const messageObject: WebSocketMessagePayload = JSON.parse(
             message?.body
           );
+
           await handleDispatch();
-          const isPaymentMessage = true;
+          const isPaymentMessage = messageObject.data.entity === 'TRANSACTION';
           if (isPaymentMessage) {
             handleAddMessage(messageObject);
           }
-          toast.notifyInfoToast(
-            <NotificationMessage
-              title={messageObject.data.viTitle}
-              content={messageObject.data.viContent}
-            />
-          );
+          if (!value) {
+            toast.notifyInfoToast(
+              <NotificationMessage
+                title={messageObject.data.viTitle}
+                content={messageObject.data.viContent}
+              />
+            );
+            setTrue();
+          }
         };
         stompClient.subscribe(topic, handleReceivedMessage); // Replace '/topic/updates' with your desired subscription destination
       });
