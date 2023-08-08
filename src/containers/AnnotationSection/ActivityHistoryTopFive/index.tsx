@@ -43,6 +43,7 @@ export default function ActivityHistoryTopFive() {
           <NotificationItem
             key={index}
             entity={item.entity}
+            entityId={item.entityId}
             id={item.id}
             isRead={item.isRead}
             title={item.title}

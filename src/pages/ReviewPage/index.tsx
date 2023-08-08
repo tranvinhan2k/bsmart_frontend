@@ -98,6 +98,7 @@ export default function ReviewPage() {
     <Stack>
       <LoadingWrapper isLoading={isLoading} error={error}>
         <DoQuizReviewList
+          id={quizData.id || 0}
           isReview
           initData={{
             name: quizData?.name || '',
