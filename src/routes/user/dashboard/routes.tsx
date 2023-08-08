@@ -28,6 +28,7 @@ import {
   RegisterPage,
   TestPage,
   ForgotPasswordPage,
+  PolicyPage,
 } from '~/routes/components';
 
 export const routes: RoutePayload[] = [
@@ -155,6 +156,11 @@ export const routes: RoutePayload[] = [
     path: `${NavigationLink.dashboard}/*`,
     main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+  },
+  {
+    path: NavigationLink.policy,
+    main: () => <PolicyPage />,
+    role: [],
   },
   {
     path: '*',

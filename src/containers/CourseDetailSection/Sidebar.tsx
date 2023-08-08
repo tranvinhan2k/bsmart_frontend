@@ -509,6 +509,7 @@ export default function Sidebar({
             }}
           >
             <Button
+              disabled={chooseClass.id === 0}
               onClick={handleCheckOut}
               variant="contained"
               sx={{ color: Color.white, flex: 1 }}
@@ -517,16 +518,6 @@ export default function Sidebar({
               Đăng kí
             </Button>
             <Stack marginX={1} />
-            <Button
-              onClick={handleAddToCart}
-              sx={{
-                flex: 1,
-              }}
-              variant="outlined"
-              startIcon={<Icon name="cart" size="small_20" color="navy" />}
-            >
-              Giỏ hàng
-            </Button>
           </Stack>
         )}
       </Stack>
