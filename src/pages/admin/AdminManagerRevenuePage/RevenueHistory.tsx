@@ -1,4 +1,5 @@
 import { Stack, Typography } from '@mui/material';
+// eslint-disable-next-line import/no-cycle
 import { RevenuePayload } from './RevenueChart';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import globalStyles from '~/styles';
