@@ -49,3 +49,4 @@ export type NotificationType =
   | 'COURSE'
   | 'MENTOR_PROFILE'
   | 'ACCOUNT';
+export type MessageType = 'SYSTEM' | 'PERSONAL';

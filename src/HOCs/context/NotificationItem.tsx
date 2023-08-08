@@ -1,14 +1,11 @@
-import { Stack, Avatar, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import { image } from '~/constants/image';
 import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useBoolean } from '~/hooks/useBoolean';
 import { NotificationType } from '~/models/variables';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
@@ -98,7 +95,7 @@ export default function NotificationItem({
         </Stack>
         <Typography
           sx={{
-            height: '46px',
+            height: '40px',
             overflow: 'hidden',
             ...globalStyles.textTwoLineEllipsis,
             fontFamily: FontFamily.light,
@@ -108,7 +105,7 @@ export default function NotificationItem({
           {message}
         </Typography>
         <Typography noWrap sx={globalStyles.textLowSmallLight}>
-          {formatISODateDateToDisplayDateTime(time)}
+          {`${time ? formatISODateDateToDisplayDateTime(time) : ''}`}
         </Typography>
       </Stack>
     </Stack>

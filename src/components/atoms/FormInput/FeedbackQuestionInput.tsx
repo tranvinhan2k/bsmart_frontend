@@ -38,7 +38,7 @@ export interface FeedbackQuestionPayload {
   question: string;
   answerType: string;
   answers: {
-    answers: string;
+    answer: string;
   }[];
 }
 
@@ -73,8 +73,6 @@ function FeedbackQuestionInput({
     },
   });
 
-  const typeWatch = addQuestion.watch('answerType');
-
   const handleSubmit = (data: any) => {
     console.log(data);
 
@@ -83,7 +81,6 @@ function FeedbackQuestionInput({
       {
         id: value.length,
         question: data.question,
-        answerType: data.answerType?.value,
         answers: data.answers?.map((subItem: any) => ({
           answer: subItem.answer,
         })),
@@ -130,25 +127,14 @@ function FeedbackQuestionInput({
               label="Tên câu hỏi"
             />
             <Stack marginTop={1} />
+
+            <Stack marginTop={1} />
             <FormInput
               control={addQuestion.control}
-              name="answerType"
-              placeholder="Loại câu hỏi"
-              label="Loại câu hỏi"
-              variant="dropdown"
-              data={FeedbackTemplateQuestionTypeData}
+              name="answers"
+              variant="answerPicker"
+              label="Danh sách câu trả lời"
             />
-            {typeWatch?.value === 'MULTIPLECHOICE' && (
-              <>
-                <Stack marginTop={1} />
-                <FormInput
-                  control={addQuestion.control}
-                  name="answers"
-                  variant="answerPicker"
-                  label="Danh sách câu trả lời"
-                />
-              </>
-            )}
 
             <Box>
               <Button
@@ -183,11 +169,6 @@ function FeedbackQuestionInput({
                 field: 'question',
                 headerName: 'Tên câu hỏi',
                 flex: 4,
-              },
-              {
-                field: 'answerType',
-                headerName: 'Loại câu hỏi',
-                flex: 2,
               },
               {
                 field: 'answers',

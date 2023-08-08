@@ -7,13 +7,11 @@ import { MentorCourseActionLink } from '~/constants/routeLink';
 import { CourseStatusKeys } from '~/models/variables';
 import { MentorCourseNavigationActionData } from '~/routes/mentor/course/navigation';
 
-interface Props {
-  status: CourseStatusKeys;
-}
-
-export default function Sidebar({ status }: Props) {
+export default function Sidebar() {
   const { pathname } = useLocation();
   const { classes, content, course } = useContext(CourseContext);
+
+  const { status } = course;
 
   return (
     <Stack>
@@ -36,7 +34,9 @@ export default function Sidebar({ status }: Props) {
               isActive={pathname.includes(item.link)}
               link={item.link}
               name={item.name}
-              isHide={item.classStatus !== status && item.classStatus !== 'ALL'}
+              isHide={
+                item.courseStatus !== status && item.courseStatus !== 'ALL'
+              }
             />
           );
         }
@@ -47,7 +47,7 @@ export default function Sidebar({ status }: Props) {
             isActive={pathname.includes(item.link)}
             link={item.link}
             name={item.name}
-            isHide={item.classStatus !== status && item.classStatus !== 'ALL'}
+            isHide={item.courseStatus !== status && item.courseStatus !== 'ALL'}
           />
         );
       })}

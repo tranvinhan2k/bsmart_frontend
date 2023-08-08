@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "  npx eslint --fix src & yarn build",
     "docker-build": "docker build -t mismart_frontend .",
-    "docker-run": "docker run -p 3000:3000 -d mismart_frontend"
+    "docker-run": "docker run -p 80:80 -d mismart_frontend"
   },
   "dependencies": {
     "@babel/standalone": "^7.22.9",

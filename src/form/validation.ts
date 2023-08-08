@@ -194,9 +194,9 @@ export const validationClassContentQuiz = object({
     .min(2, 'Điểm làm bài phài lớn hơn 2 điểm'),
   quizQuestions: mixed().test(
     'required',
-    'Danh sách câu hỏi phải có ít nhất 10 câu hỏi',
+    'Danh sách câu hỏi phải có ít nhất 5 câu hỏi',
     (data: any) => {
-      return data?.[0] !== '' && data !== '' && data?.length >= 10;
+      return data?.[0] !== '' && data !== '' && data?.length >= 5;
     }
   ),
   password: string()

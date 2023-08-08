@@ -88,8 +88,7 @@ export default function FeedbackManagerTemplate() {
       type: data.type.value,
       questions: data.questions.map((item: FeedbackQuestionPayload) => ({
         question: item.question,
-        type: item.answerType,
-        answers: item.answers,
+        answers: item.answers.map((subItem) => ({ answer: subItem.answer })),
       })),
     };
     const id = toast.loadToast('Đang cập nhật bản mẫu');
