@@ -111,7 +111,7 @@ export default function UpdateClassModal({
             name={CREATE_CLASS_FIELDS.timeInWeekRequests}
             variant="timetable"
             control={hookForm.control}
-            label="Thời khóa biểu"
+            label="Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7"
           />
           <Stack marginTop={2} />
           <Button

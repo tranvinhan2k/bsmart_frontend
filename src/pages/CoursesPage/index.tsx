@@ -1,17 +1,14 @@
 import { Grid, Stack, Typography } from '@mui/material';
-import { useEffect } from 'react';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import CourseFilterSection from '~/containers/CoursesSection/CourseFilterSection';
 import CourseMenuSection from '~/containers/CoursesSection/CourseMenuSection';
-import { useQueryGetAllCourse } from '~/hooks';
-import { scrollToTop } from '~/utils/common';
+import { useEffectScrollToTop, useQueryGetAllCourse } from '~/hooks';
 
 export default function CoursesPage() {
-  useEffect(() => {
-    scrollToTop();
-  }, []);
-
   const { courses, error, isLoading } = useQueryGetAllCourse();
+
+  useEffectScrollToTop();
+
   return (
     <Stack>
       <Stack

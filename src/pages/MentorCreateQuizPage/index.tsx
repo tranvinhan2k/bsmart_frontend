@@ -113,7 +113,7 @@ export default function MentorCreateQuizPage() {
             </Grid>
             <Grid item xs={6}>
               <Typography sx={SX_FORM_LABEL}>
-                Giới hạn thời gian (giây)
+                Giới hạn thời gian (phút)
               </Typography>
               <FormInput
                 control={control}

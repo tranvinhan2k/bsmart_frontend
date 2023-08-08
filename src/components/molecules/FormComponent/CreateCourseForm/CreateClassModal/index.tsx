@@ -24,11 +24,11 @@ const texts = {
   minStudentLabel: 'Số học sinh tối thiểu',
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
-  classInfoTitle: 'Thời khóa biểu',
+  classInfoTitle: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',
-  timetableLabel: 'Thời khóa biểu',
+  timetableLabel: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
   createClassButton: 'Tạo lớp học',
   Button: 'Xem chi tiết lịch dạy của cả một kỉ học',
 };

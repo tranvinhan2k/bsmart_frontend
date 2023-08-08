@@ -156,7 +156,9 @@ export default function RequestCourseClassDetails({
             spacing={2}
             sx={SX_BOX_ITEM_WRAPPER}
           >
-            <Typography sx={SX_FORM_ITEM_LABEL}>Thời khóa biểu</Typography>
+            <Typography sx={SX_FORM_ITEM_LABEL}>
+              Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7 hàng tuần
+            </Typography>
             <Timetable data={timeInWeekRequests} />
           </Stack>
         </Grid>

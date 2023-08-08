@@ -100,7 +100,7 @@ export default function AddAssignmentForm({
       variant: 'datetime',
     },
     {
-      label: 'Thời gian được chỉnh sửa (giây)',
+      label: 'Thời gian được chỉnh sửa (phút)',
       name: 'editBeForSubmitMin',
       placeholder: 'Nhập thời gian được chỉnh sửa',
       variant: 'number',
