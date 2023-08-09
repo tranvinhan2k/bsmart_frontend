@@ -1,10 +1,9 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import RequestBasicInfo from './RequestBasicInfo';
-import RequestCI from './RequestCI';
 import RequestDate from './RequestDate';
-import RequestMentorDegree from './RequestMentorDegree';
-import RequestMentorInfo from './RequestMentorInfo';
+import RequestUpdateMentorDegree from './RequestUpdateMentorDegree';
 import RequestUpdateMentorDetailsProcess from './RequestUpdateMentorDetailsProcess';
+import RequestUpdateMentorSkill from './RequestUpdateMentorSkill';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsUpdateMentorProfileRequestProps {
@@ -20,12 +19,13 @@ export default function ManageTableDetailsUpdateMentorProfileRequest({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsUpdateMentorProfileRequestProps) {
+  const enum Text {
+    mainTitle = 'Chi tiết yêu cầu bổ sung hồ sơ giáo viên',
+  }
   return (
     <>
       <Box mx={2}>
-        <Typography sx={SX_REQUEST_TITLE}>
-          Chi tiết yêu cầu bổ sung hồ sơ giảng viên giáo viên
-        </Typography>
+        <Typography sx={SX_REQUEST_TITLE}>{Text.mainTitle}</Typography>
       </Box>
       <Grid
         container
@@ -43,9 +43,8 @@ export default function ManageTableDetailsUpdateMentorProfileRequest({
             spacing={2}
           >
             <RequestBasicInfo row={row} />
-            <RequestCI row={row} />
-            <RequestMentorDegree row={row} />
-            <RequestMentorInfo row={row} />
+            <RequestUpdateMentorDegree row={row} />
+            <RequestUpdateMentorSkill row={row} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>

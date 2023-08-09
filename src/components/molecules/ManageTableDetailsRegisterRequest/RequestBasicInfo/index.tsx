@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Grid,
   IconButton,
   Link,
@@ -10,7 +9,6 @@ import {
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import { genderData } from '~/constants';
-import { image } from '~/constants/image';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
@@ -18,8 +16,8 @@ import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
   SX_FORM_LABEL,
-  SX_WRAPPER,
   SX_USER_AVATAR_CLICKABLE,
+  SX_WRAPPER,
 } from '../style';
 
 interface BasicInfoProps {

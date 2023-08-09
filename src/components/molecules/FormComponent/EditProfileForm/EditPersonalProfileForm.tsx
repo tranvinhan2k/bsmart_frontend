@@ -2,7 +2,6 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import accountApi from '~/api/users';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import FormInput from '~/components/atoms/FormInput';
@@ -12,17 +11,17 @@ import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
 import {
   EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
 import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
-import { selectProfile } from '~/redux/user/selector';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditPersonalProfileForm() {
-  const profile = useSelector(selectProfile);
+  const { profile, refetch } = useGetProfile();
 
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditPersonalProfile
@@ -91,6 +90,7 @@ export default function EditPersonalProfileForm() {
     try {
       await mutateEditPersonalProfile(params);
       handleDispatchProfile();
+      refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));
