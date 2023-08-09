@@ -8,8 +8,8 @@ export default function Section2WhoWeAre() {
         CHÚNG TÔI LÀ AI?
       </Typography>
       <Typography component="h2" sx={SX.H2}>
-        BSmart đang cung cấp các khóa học online và offline chất lượng tốt nhất.
-        Tất cả các giảng viên của chúng tôi đều là các chuyên gia.
+        Mismart đang cung cấp các khóa học online và offline chất lượng tốt
+        nhất. Tất cả các giảng viên của chúng tôi đều là các chuyên gia.
       </Typography>
       <Typography component="p" sx={SX.P}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque

@@ -73,7 +73,7 @@ export default function BreadcrumbNavigation({
                 fontFamily: FontFamily.bold,
               }}
             >
-              Trở thành lập trình viên chuyên nghiệp tại BSmart
+              Trở thành lập trình viên chuyên nghiệp tại Mismart
             </Typography>
             <Stack sx={SX_SUB_HOMEPAGE_STACK}>
               <Typography textAlign="center" sx={SX_CONTENT_TITLE}>
