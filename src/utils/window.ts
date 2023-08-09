@@ -11,6 +11,8 @@ export function openUrl(link: string) {
 }
 
 export function openNewBrowserUrl(link: string) {
+  console.log('link', link);
+
   if (link) {
     browser = window.open(link, '_blank', 'location=yes,height=500,width=500');
   }

@@ -7,56 +7,28 @@ import ReviewFeedback from './ReviewFeedback';
 import { LoadingWrapper } from '~/HOCs';
 import { TDateISO } from '~/models/date';
 import CustomPagination from '~/components/atoms/CustomPagination';
-
-export interface FeedbackReviewPayload {
-  id: number;
-  email: string;
-  rating: number;
-  date: string;
-  review: string;
-}
+import { FeedbackPayload, FeedbackReviewPayload } from '~/models/type';
 
 export interface ClassFeedbackPayload {
   rating: number;
   feedbackReviewList: FeedbackReviewPayload[];
 }
 
-export default function UserCourseFeedback() {
-  const feedbackReviewList: FeedbackReviewPayload[] = [
-    {
-      id: 0,
-      date: new Date().toDateString(),
-      email: 'tranvinhan2k@gmail.com',
-      rating: 3.5,
-      review:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, error? Officia sapiente rerum reprehenderit, aliquid mollitia asperiores minus consequuntur distinctio autem, omnis ad fugit aperiam, repellat fugiat accusantium fuga iure. ',
-    },
-    {
-      id: 1,
-      date: new Date().toDateString(),
-      email: 'tranvinhan2k@gmail.com',
-      rating: 3.5,
-      review:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, error? Officia sapiente rerum reprehenderit, aliquid mollitia asperiores minus consequuntur distinctio autem, omnis ad fugit aperiam, repellat fugiat accusantium fuga iure. ',
-    },
-    {
-      id: 2,
-      date: new Date().toDateString(),
-      email: 'tranvinhan2k@gmail.com',
-      rating: 3.5,
-      review:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, error? Officia sapiente rerum reprehenderit, aliquid mollitia asperiores minus consequuntur distinctio autem, omnis ad fugit aperiam, repellat fugiat accusantium fuga iure. ',
-    },
-    {
-      id: 3,
-      date: new Date().toDateString(),
-      email: 'tranvinhan2k@gmail.com',
-      rating: 3.5,
-      review:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, error? Officia sapiente rerum reprehenderit, aliquid mollitia asperiores minus consequuntur distinctio autem, omnis ad fugit aperiam, repellat fugiat accusantium fuga iure. ',
-    },
-  ];
+interface Props {
+  feedbacks: FeedbackPayload;
+  error: any;
+  isLoading: boolean;
+  onFeedbackChangeStar: (star: number) => void;
+  onFeedbackChangePage: (page: number) => void;
+}
 
+export default function UserCourseFeedback({
+  feedbacks,
+  error,
+  isLoading,
+  onFeedbackChangePage,
+  onFeedbackChangeStar,
+}: Props) {
   return (
     <Stack>
       <Stack
@@ -72,9 +44,14 @@ export default function UserCourseFeedback() {
       >
         <Stack>
           <Typography textAlign="center" sx={globalStyles.textTitle}>
-            4.5/5
+            {`${feedbacks.rating}/5`}
           </Typography>
-          <Rating value={4.5} readOnly size="large" precision={0.5} />
+          <Rating
+            value={feedbacks.rating}
+            readOnly
+            size="large"
+            precision={0.5}
+          />
         </Stack>
         <Stack
           sx={{
@@ -85,12 +62,13 @@ export default function UserCourseFeedback() {
           }}
         >
           {['Tất cả', '1 sao', '2 sao', '3 sao', '4 sao', '5 sao'].map(
-            (item) => {
+            (item, index) => {
               return (
                 <Button
                   sx={{
                     margin: 1,
                   }}
+                  onClick={() => onFeedbackChangeStar(index)}
                   key={item}
                   variant="contained"
                 >
@@ -102,14 +80,18 @@ export default function UserCourseFeedback() {
         </Stack>
       </Stack>
       <Stack marginTop={1}>
-        <LoadingWrapper>
-          {feedbackReviewList.map((item) => (
+        <LoadingWrapper
+          error={error}
+          isLoading={isLoading}
+          isEmptyCourse={feedbacks?.items?.items?.length === 0}
+        >
+          {feedbacks.items.items.map((item) => (
             <ReviewFeedback
               key={item.id}
-              date={item.date}
+              date={item.feedbackTime}
               email={item.email}
               rating={item.rating}
-              review={item.review}
+              review={item.reviewContent}
             />
           ))}
           <Stack
@@ -120,9 +102,9 @@ export default function UserCourseFeedback() {
             }}
           >
             <CustomPagination
-              currentPage={2}
-              onChange={() => {}}
-              totalPages={3}
+              currentPage={feedbacks.items.currentPage}
+              onChange={onFeedbackChangePage}
+              totalPages={feedbacks.items.totalPages}
             />
           </Stack>
         </LoadingWrapper>

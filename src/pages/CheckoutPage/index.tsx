@@ -28,6 +28,7 @@ import localEnvironment from '~/utils/localEnvironment';
 import { validationIntroduce } from '~/form/validation';
 import { closeUrl, openNewBrowserUrl } from '~/utils/window';
 import ReturnLink from '~/components/atoms/ReturnLink';
+import { NavigationLink } from '~/constants/routeLink';
 
 function CheckoutPage() {
   const resolver = useYupValidationResolver(validationIntroduce);
@@ -50,6 +51,7 @@ function CheckoutPage() {
 
   if (selectWebsocket.data.entity === 'TRANSACTION') {
     closeUrl();
+    return <Navigate to={`/${NavigationLink.payment_report}`} />;
   }
 
   if (checkOutItem === null) {
@@ -74,9 +76,10 @@ function CheckoutPage() {
       } else {
         const response = await mutatePayQuick({
           clazzId: checkOutItem?.id || 0,
-          returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/detail/0/information`,
+          referalCode: '',
+          type: 'BANKING',
         });
-        const url = response.paymentUrl;
+        const url = response?.metadata?.paymentUrl || '';
         openNewBrowserUrl(url);
       }
       // toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
@@ -123,19 +126,7 @@ function CheckoutPage() {
       : [checkOutItem],
   };
 
-  return selectWebsocket.status === 'OK' ? (
-    <Stack
-      padding={4}
-      sx={{
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Typography>{selectWebsocket.data.viTitle}</Typography>
-      <Typography>{selectWebsocket.data.viContent}</Typography>
-      <ReturnLink />
-    </Stack>
-  ) : (
+  return (
     <Grid container sx={styles.view}>
       <Grid item xs={12} md={8} sx={styles.viewLeft}>
         <Stack

@@ -4,23 +4,25 @@ import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { MetricSize } from '~/assets/variables';
 import { mockLevelData } from '~/constants';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
-import { useEffectScrollToTop, useScrollIntoView } from '~/hooks';
+import {
+  useEffectScrollToTop,
+  useGetCourseFeedback,
+  useGetIdFromUrl,
+  useScrollIntoView,
+} from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import { formatStringToNumber } from '~/utils/number';
 import CourseDetail from '~/components/molecules/CourseDetail';
 
 export default function CourseDetailPage() {
-  const params = useParams();
-  const { id } = params;
+  const id = useGetIdFromUrl('id');
 
   const introducePart = useScrollIntoView();
   const contentPart = useScrollIntoView();
   const classesPart = useScrollIntoView();
   const mentorPart = useScrollIntoView();
 
-  const { data, error, isLoading } = useQueryGetDetailUserCourse(
-    formatStringToNumber(id)
-  );
+  const { data, error, isLoading } = useQueryGetDetailUserCourse(id);
   const course = data?.course;
 
   const mentor: {
@@ -36,12 +38,15 @@ export default function CourseDetailPage() {
   };
   const classes = data?.classes;
   const sections = data?.content;
+  const {
+    data: feedbacks,
+    handleChangeNumberOfStar,
+    handleChangePage,
+  } = useGetCourseFeedback(id);
 
   const levelOptionPayload = mockLevelData.find(
     (item) => item.value === course?.level
   );
-
-  useEffectScrollToTop();
 
   return (
     <Stack
@@ -72,6 +77,26 @@ export default function CourseDetailPage() {
                 mentorImageUrl={mentor.imageUrl}
                 mentorName={mentor.name}
                 sections={sections || []}
+                feedbackError={error}
+                feedbacks={
+                  feedbacks || {
+                    items: {
+                      currentPage: 0,
+                      first: false,
+                      items: [],
+                      last: false,
+                      pageItemSize: 0,
+                      pageSize: 0,
+                      totalItems: 0,
+                      totalPages: 0,
+                    },
+                    numberOfRating: 0,
+                    rating: 0,
+                  }
+                }
+                isFeedbackLoading={isLoading}
+                onFeedbackChangePage={handleChangePage}
+                onFeedbackChangeStar={handleChangeNumberOfStar}
               />
             </Grid>
             <Grid

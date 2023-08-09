@@ -57,6 +57,7 @@ export interface PagingFilterRequest {
   // feedback
   type?: FeedbackTypeKeys;
   name?: string;
+  numberOfStar?: number;
 
   // assignments
   classIds?: number[];

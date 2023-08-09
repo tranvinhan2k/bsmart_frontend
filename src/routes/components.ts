@@ -7,6 +7,7 @@ export const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 export const LmsPage = lazy(() => import('~/pages/LmsPage'));
 export const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 export const BlogPage = lazy(() => import('~/pages/BlogPage'));
+export const PaymentReport = lazy(() => import('~/pages/PaymentReport'));
 export const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 
 export const MemberEditPersonalInfoPage = lazy(

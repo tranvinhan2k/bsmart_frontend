@@ -7,7 +7,7 @@ import ImageSlider from '~/components/atoms/ImageSlider';
 import { CommonCourse } from '~/constants';
 import { image } from '~/constants/image';
 import { NavigationLink } from '~/constants/routeLink';
-import { ActivityPayload } from '~/models/type';
+import { ActivityPayload, FeedbackPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import CarouselCourse from '../CarouselCourse';
@@ -27,8 +27,13 @@ interface Props {
   contentRef: any;
   classesRef: any;
   mentorRef: any;
+  feedbacks: FeedbackPayload;
+  feedbackError: any;
+  isFeedbackLoading: boolean;
   sections: ActivityPayload[];
   classes: DetailCourseClassPayload[];
+  onFeedbackChangePage: (page: number) => void;
+  onFeedbackChangeStar: (star: number) => void;
 }
 
 export default function CourseDetail({
@@ -45,6 +50,11 @@ export default function CourseDetail({
   classesRef,
   mentorRef,
   sections,
+  feedbacks,
+  feedbackError,
+  isFeedbackLoading,
+  onFeedbackChangePage,
+  onFeedbackChangeStar,
 }: Props) {
   const [error, setError] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
@@ -256,7 +266,13 @@ export default function CourseDetail({
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Đánh giá từ học sinh
           </Typography>
-          <UserCourseFeedback />
+          <UserCourseFeedback
+            feedbacks={feedbacks}
+            error={feedbackError}
+            isLoading={isFeedbackLoading}
+            onFeedbackChangePage={onFeedbackChangePage}
+            onFeedbackChangeStar={onFeedbackChangeStar}
+          />
         </Stack>
         <Divider sx={{ marginY: 4 }} />
 

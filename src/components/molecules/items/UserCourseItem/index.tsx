@@ -1,4 +1,4 @@
-import { Stack, Box, Typography } from '@mui/material';
+import { Stack, Box, Typography, Rating } from '@mui/material';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import globalStyles from '~/styles';
 import { CourseStatusKeys, LevelKeys } from '~/models/variables';
@@ -6,6 +6,7 @@ import CourseStatusBar from './CourseStatusBar';
 import LevelBar from './LevelBar';
 import HoverableStack from '~/components/atoms/HoverableStack';
 import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
+import { formatMoney } from '~/utils/money';
 
 interface UserCourseItemProps {
   imageUrl: string | undefined;
@@ -18,6 +19,8 @@ interface UserCourseItemProps {
   totalClass?: number;
   level: LevelKeys;
   courseDescription?: string | undefined;
+  rating?: number;
+  numberOfRating?: number;
   onClick?: () => void;
 }
 export default function UserCourseItem({
@@ -31,6 +34,8 @@ export default function UserCourseItem({
   imageAlt,
   level,
   imageUrl,
+  numberOfRating,
+  rating,
   onClick,
 }: UserCourseItemProps) {
   return (
@@ -87,6 +92,27 @@ export default function UserCourseItem({
                 <span key={index}>{`${index !== 0 ? ', ' : ''} ${item} `}</span>
               ))}
           </Typography>
+          {rating && numberOfRating && (
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: FontSize.small_14,
+                  fontFamily: FontFamily.bold,
+                }}
+              >
+                {rating}
+              </Typography>
+              <Rating value={rating} readOnly size="small" />
+              <Typography sx={globalStyles.textLowSmallLight}>
+                {`(${formatMoney(numberOfRating, true)})`}
+              </Typography>
+            </Stack>
+          )}
           <Typography
             dangerouslySetInnerHTML={{ __html: courseDescription || '' }}
             sx={{

@@ -1,5 +1,5 @@
 import { MentorProfileStatusType } from '~/constants/profile';
-import { OptionPayload } from './common';
+import { OptionPayload, PagingFilterPayload } from './common';
 import {
   ActivityKeys,
   ClassStatusKeys,
@@ -133,6 +133,8 @@ export interface CourseMenuItemPayload {
   courseDescription: string | undefined;
   category: OptionPayload;
   subject: OptionPayload;
+  rating: number;
+  numOfRating: number;
 }
 export interface ClassMenuItemPayload {
   code: string;
@@ -326,4 +328,20 @@ export interface ManagedMemberPayload extends ProfilePayload {
 interface ManagedMemberStudyInformation {
   numberOfCourse: number;
   numberOfClass: number;
+}
+
+interface FeedbackPayload {
+  rating: number;
+  numberOfRating: number;
+  items: PagingFilterPayload<FeedbackReviewPayload>;
+}
+
+interface FeedbackReviewPayload {
+  id: number;
+  avatarUrl: string;
+  avatarAlt: string;
+  email: string;
+  rating: number;
+  feedbackTime: string;
+  reviewContent: string;
 }
