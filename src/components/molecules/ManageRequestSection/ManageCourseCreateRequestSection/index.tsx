@@ -38,6 +38,13 @@ export default function ManageCourseCreateRequestSection() {
     status: CourseStatusType.REJECTED,
   });
 
+  const handleRefetchAll = () => {
+    refetchListWaiting();
+    refetchListNotStart();
+    refetchListEditRequest();
+    refetchListRejected();
+  };
+
   const tabEl = [
     {
       id: 0,
@@ -45,7 +52,7 @@ export default function ManageCourseCreateRequestSection() {
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.WAITING}
-          refetchGetNoOfRequest={refetchListWaiting}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(courseListWaiting?.totalItems),
@@ -56,7 +63,7 @@ export default function ManageCourseCreateRequestSection() {
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.NOTSTART}
-          refetchGetNoOfRequest={refetchListNotStart}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(courseListNotStart?.totalItems),
@@ -67,7 +74,7 @@ export default function ManageCourseCreateRequestSection() {
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.EDITREQUEST}
-          refetchGetNoOfRequest={refetchListEditRequest}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(courseListEditRequest?.totalItems),
@@ -78,7 +85,7 @@ export default function ManageCourseCreateRequestSection() {
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.REJECTED}
-          refetchGetNoOfRequest={refetchListRejected}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(courseListRejected?.totalItems),

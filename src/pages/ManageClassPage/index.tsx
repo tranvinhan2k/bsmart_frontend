@@ -35,6 +35,12 @@ export default function ManageClassPage() {
     useSearchManagedClass({
       status: ClassStatusType.REJECTED,
     });
+  const handleRefetchAll = () => {
+    refetchListNotStart();
+    refetchListStarting();
+    refetchListEditRequest();
+    refetchListRejected();
+  };
 
   const tabEl = [
     {
@@ -43,7 +49,7 @@ export default function ManageClassPage() {
       component: (
         <ManageTableClass
           status={ClassStatusType.NOTSTART}
-          refetchGetNoOfRequest={refetchListNotStart}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(classListNotStart?.items.length),
@@ -54,7 +60,7 @@ export default function ManageClassPage() {
       component: (
         <ManageTableClass
           status={ClassStatusType.STARTING}
-          refetchGetNoOfRequest={refetchListStarting}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(classListStarting?.items.length),
@@ -65,7 +71,7 @@ export default function ManageClassPage() {
       component: (
         <ManageTableClass
           status={ClassStatusType.EDITREQUEST}
-          refetchGetNoOfRequest={refetchListEditRequest}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(classListEditRequest?.items.length),
@@ -76,7 +82,7 @@ export default function ManageClassPage() {
       component: (
         <ManageTableClass
           status={ClassStatusType.REJECTED}
-          refetchGetNoOfRequest={refetchListRejected}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(classListRejected?.items.length),
