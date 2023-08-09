@@ -159,7 +159,7 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
               {LoginTexts.REMEMBER_PASSWORD}
             </Checkbox>
 
-            <Link to={NavigationLink.forgot_password}>
+            <Link to={NavigationLink.forgot_password} onClick={onCloseModal}>
               {LoginTexts.FORGOT_PASSWORD}
             </Link>
           </Stack>

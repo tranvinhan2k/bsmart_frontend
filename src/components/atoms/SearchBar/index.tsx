@@ -40,13 +40,6 @@ export default function SearchBar({
     }
   }, [value]);
 
-  useEffect(() => {
-    if (debounceValue) {
-      onSubmit(debounceValue);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debounceValue]);
-
   return (
     <TextField
       size="small"

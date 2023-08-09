@@ -48,7 +48,7 @@ function CheckoutPage() {
 
   const selectWebsocket = useSelector(selectWebsocketMessage);
 
-  if (selectWebsocket.status === 'OK') {
+  if (selectWebsocket.data.entity === 'TRANSACTION') {
     closeUrl();
   }
 

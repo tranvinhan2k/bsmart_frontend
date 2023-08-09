@@ -85,7 +85,7 @@ export default function MainFooter({
             alignItems: 'center',
           }}
         >
-          <Typography sx={SX_LARGE_TITLE}>BSMART</Typography>
+          <Typography sx={SX_LARGE_TITLE}>MISMART</Typography>
           <Box sx={{ paddingY: MetricSize.small_5 }}>
             <Typography sx={SX_SMALL_TEXT}>
               Chúng tôi cung cấp các khoá học chất lượng cao để cải thiện các kỹ
@@ -177,12 +177,12 @@ export default function MainFooter({
             paddingBottom: MetricSize.large_20,
           }}
         >
-          © Bản quyền BSmart 2022 - Empowered by{' '}
+          © Bản quyền Mismart 2022 - Empowered by{' '}
           <a
             style={{ textDecoration: 'none', color: Color.blue }}
             href="https://google.com"
           >
-            BSmart
+            Mismart
           </a>
         </Typography>
       </Stack>

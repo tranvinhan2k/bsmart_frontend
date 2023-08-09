@@ -10,6 +10,7 @@ import {
   MemberNavigationActionData,
   NavigationActionData,
 } from '~/routes/navigators';
+import { NavigationLink } from '~/constants/routeLink';
 
 export default function StudentSidebarProfile() {
   const profile = useSelector(selectProfile);
@@ -35,7 +36,7 @@ export default function StudentSidebarProfile() {
   ];
 
   const handleNavigateLink = (link: string) => {
-    navigate(`/${NavigationActionData[13].link}/${link}`);
+    navigate(`/${NavigationLink.member_details}/${link}`);
   };
 
   const handleOpenDialogUpdateAvatar = () =>

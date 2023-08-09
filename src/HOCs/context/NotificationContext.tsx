@@ -1,7 +1,7 @@
 import { Divider, Stack, Typography } from '@mui/material';
 import { ReactNode, createContext, useMemo } from 'react';
 import CustomMenu from '~/components/atoms/CustomMenu';
-import { useMenuItem } from '~/hooks';
+import { useMenuItem, useReadNotifications } from '~/hooks';
 import globalStyles from '~/styles';
 import NotificationItem, { NotificationItemPayload } from './NotificationItem';
 import LoadingWrapper from '../loading/LoadingWrapper';
@@ -30,11 +30,23 @@ export const NotificationContext = createContext<NotificationContextProps>({
 export default function NotificationContextProvider({ children }: Props) {
   const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
 
-  const { data: notifications, error, isLoading } = useDispatchNotifications();
+  const {
+    data: notifications,
+    error,
+    isLoading,
+    handleDispatch,
+  } = useDispatchNotifications();
+  const { mutateAsync: handleReadNotifications } = useReadNotifications();
   const numberOfNotification = notifications?.length || 0;
 
-  const onOpenNotification = () => {
+  const onOpenNotification = async () => {
     handleToggle();
+
+    const notificationsIds = notifications.map((item) => item.id);
+
+    await handleReadNotifications(notificationsIds);
+
+    await handleDispatch();
   };
 
   const onCloseNotification = async (e: any) => {

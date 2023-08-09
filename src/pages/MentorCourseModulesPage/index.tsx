@@ -35,6 +35,7 @@ import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorCourseModulesPage() {
+  const { refetchContent } = useContext(CourseContext);
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -139,6 +140,7 @@ export default function MentorCourseModulesPage() {
           description: data?.description,
         },
       });
+      await refetchContent();
     });
   };
 
@@ -163,6 +165,7 @@ export default function MentorCourseModulesPage() {
           file: data.file[0],
         },
       });
+      await refetchContent();
     });
     await refetch();
   };
@@ -219,6 +222,8 @@ export default function MentorCourseModulesPage() {
           }),
         },
       });
+      await refetchContent();
+
       hookFormLesson.reset();
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
@@ -252,6 +257,8 @@ export default function MentorCourseModulesPage() {
         },
       });
     });
+    await refetchContent();
+
     await refetch();
   };
 
@@ -259,6 +266,7 @@ export default function MentorCourseModulesPage() {
     await deleteSection.handleTryCatch(async () => {
       await handleDeleteContent(moduleId);
       navigate(-1);
+      await refetchContent();
     });
     handleClearOpen();
   };

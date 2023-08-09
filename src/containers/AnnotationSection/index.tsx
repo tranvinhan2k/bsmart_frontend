@@ -36,6 +36,7 @@ export default function AnnotationSection() {
                 <NotificationItem
                   key={index}
                   entity={item.entity}
+                  entityId={item.entityId}
                   id={item.id}
                   title={item.title}
                   message={item.message}

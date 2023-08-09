@@ -81,24 +81,16 @@ export default function MemberClassInformationPage() {
 
   const templateRatingForm: InputData[] =
     detailClass?.feedback?.questions?.map((item, index) => {
-      if (item.answerType === 'MULTIPLECHOICE') {
-        return {
-          label: item.question,
-          name: `feedback.${index}`,
-          placeholder: '',
-          variant: 'radioGroup',
-          data: item?.answers?.map((subItem, subIndex) => ({
-            id: subIndex,
-            label: subItem.answer,
-            value: subItem.answer,
-          })),
-        };
-      }
       return {
         label: item.question,
         name: `feedback.${index}`,
         placeholder: '',
-        variant: 'multiline',
+        variant: 'radioGroup',
+        data: item?.answers?.map((subItem, subIndex) => ({
+          id: subIndex,
+          label: subItem.answer,
+          value: subItem.answer,
+        })),
       };
     }) || [];
 

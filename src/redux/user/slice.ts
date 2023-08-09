@@ -67,7 +67,15 @@ const initialState: UserStateType = {
   quizTime: undefined,
   message: {
     data: {
-      data: null,
+      created: '',
+      createdBy: '',
+      entity: 'COURSE',
+      lastModified: '',
+      lastModifiedBy: '',
+      entityId: 0,
+      id: 0,
+      read: false,
+      type: 'PERSONAL',
       viContent: '',
       viTitle: '',
     },

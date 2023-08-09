@@ -16,13 +16,13 @@ export const advantagesOfBsmart: Advantage[] = [
     id: 1,
     title: 'Học theo lộ trình, có định hướng',
     content:
-      'BSmart sẽ định hướng và đưa ra các lộ trình học lập trình nhằm phát triển năng lực và niềm đam mê lập trình của bạn để có việc ngay sau học.',
+      'Mismart sẽ định hướng và đưa ra các lộ trình học lập trình nhằm phát triển năng lực và niềm đam mê lập trình của bạn để có việc ngay sau học.',
   },
   {
     id: 2,
     title: 'Nền tảng cốt lõi trong lập trình',
     content:
-      'BSmart cung cấp những nền tảng, giá trị tư duy cốt lõi nhất trong lập trình. Bạn sẽ tự tin trước sự thay đổi của công nghệ và môi trường làm việc.',
+      'Mismart cung cấp những nền tảng, giá trị tư duy cốt lõi nhất trong lập trình. Bạn sẽ tự tin trước sự thay đổi của công nghệ và môi trường làm việc.',
   },
   {
     id: 3,
@@ -128,7 +128,7 @@ export const blogList: BlogPayload[] = [
   {
     id: 0,
     img: img_blog,
-    tagAuthorName: 'BSMART',
+    tagAuthorName: 'MISMART',
     tagDate: new Date().toISOString(),
     tagSummary: 'LẬP TRÌNH & THIẾT KẾ WEB',
     title: 'Tìm hiểu phát triển ứng dụng web từ các chuyên gia',
@@ -139,7 +139,7 @@ export const blogList: BlogPayload[] = [
   {
     id: 1,
     img: img_blog,
-    tagAuthorName: 'BSMART',
+    tagAuthorName: 'MISMART',
     tagDate: new Date().toISOString(),
     tagSummary: 'LẬP TRÌNH & THIẾT KẾ WEB',
     title: 'Tìm hiểu phát triển ứng dụng web từ các chuyên gia',

@@ -50,7 +50,7 @@ export const useSocket = () => {
   useEffect(() => {
     const connect = () => {
       const topic = `/queue/message${profile.email}`;
-      const WS_URL = 'http://103.173.155.221:443/websocket';
+      const WS_URL = 'https://mismart.tech/websocket';
       const socket = new SockJS(WS_URL);
       const stompClient = Stomp.over(socket);
       stompClient.debug = () => {};
@@ -59,12 +59,10 @@ export const useSocket = () => {
           const messageObject: WebSocketMessagePayload = JSON.parse(
             message?.body
           );
+          console.log('message object', messageObject);
 
           await handleDispatch();
-          const isPaymentMessage = messageObject.data.entity === 'TRANSACTION';
-          if (isPaymentMessage) {
-            handleAddMessage(messageObject);
-          }
+          handleAddMessage(messageObject);
           if (!value) {
             toast.notifyInfoToast(
               <NotificationMessage

@@ -163,6 +163,14 @@ export const validationClassContentModule = object({
 export const validationSendMailForgotPassword = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
 });
+export const validationResetPassword = object({
+  newPassword: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+  confirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),
+});
 export const validationPassword = object({
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)

@@ -10,7 +10,10 @@ export const SX_WRAPPER: SxProps<Theme> = {
 };
 
 export const SX_BOX_ITEM_AVATAR: SxProps<Theme> = {
-  backgroundImage: `url(${overlay_bg})`,
+  backgroundImage: {
+    xs: 'none',
+    md: `url(${overlay_bg})`,
+  },
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat',
   backdropFilter: 'blur(5px)',

@@ -412,12 +412,12 @@ export const FooterSocialDataList: SocialPayload[] = [
 ];
 
 export const HeaderContractDataList: ContractPayload[] = [
-  { name: 'Email', image: 'mail', value: 'bsmart@gmail.com' },
+  { name: 'Email', image: 'mail', value: 'mismart@gmail.com' },
   { name: 'Số Điện Thoại', image: 'phone', value: '+98 946005077' },
 ];
 export const FooterContractDataList: ContractPayload[] = [
   { name: 'Địa chỉ', image: 'location', value: '260/19 Tân Binh, Hồ Chí Minh' },
-  { name: 'Email', image: 'mail', value: 'bsmart@gmail.com' },
+  { name: 'Email', image: 'mail', value: 'mismart@gmail.com' },
   { name: 'Số điện thoại', image: 'phone', value: '+98 946005077' },
 ];
 

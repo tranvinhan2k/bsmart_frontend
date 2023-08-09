@@ -26,7 +26,11 @@ import {
 import defaultTheme from '~/themes';
 
 import store from '~/redux/store';
-import { selectRole, selectToken } from '~/redux/user/selector';
+import {
+  selectRole,
+  selectToken,
+  selectWebsocketMessage,
+} from '~/redux/user/selector';
 
 import MainLayout from '~/layouts/MainLayout';
 import AdminProfileLayout from '~/layouts/AdminProfileLayout';
@@ -113,6 +117,7 @@ const showRoutes = (currentRole: Role | null) => {
 function App() {
   const role = useSelector(selectRole);
   const token = useSelector(selectToken);
+  const websocketMessage = useSelector(selectWebsocketMessage);
 
   const getUserCart = useDispatchGetCart();
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
@@ -129,7 +134,6 @@ function App() {
   useEffect(() => {
     async function initGlobalValue() {
       if (token) {
-        await handleDispatchProfile();
         await getUserCart.handleDispatch();
         await handleUpdateNotifications();
       }
@@ -144,6 +148,17 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectIsLoaded]);
+
+  useEffect(() => {
+    if (token && websocketMessage.data.entity === 'MENTOR_PROFILE') {
+      handleDispatchProfile();
+    }
+
+    if (token && websocketMessage.status === '') {
+      handleDispatchProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectIsLoaded, websocketMessage]);
 
   return (
     <Suspense fallback={<LazyLoadingScreen />}>

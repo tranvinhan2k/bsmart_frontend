@@ -7,9 +7,15 @@ const url = '/notification';
 
 const notificationApi = {
   postReadNotifications(params: number[]) {
-    return axiosClient.put(`${url}`, {
-      ids: params,
-    });
+    return axiosClient.put(
+      `${url}`,
+      {
+        ids: params,
+      },
+      {
+        paramsSerializer: { indexes: null },
+      }
+    );
   },
   async getNotifications({
     params,
