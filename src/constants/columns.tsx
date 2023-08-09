@@ -57,23 +57,23 @@ const subjectColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
     field: 'code',
-    headerName: 'Mã ngôn ngữ lập trình',
+    headerName: 'Mã lĩnh vực',
     flex: 1,
     editable: true,
   },
   {
     field: 'name',
-    headerName: 'Tên ngôn ngữ lập trình',
+    headerName: 'Tên lĩnh vực',
     flex: 5,
     editable: true,
   },
   {
     field: 'categoryId',
-    headerName: 'Tên Môn học',
+    headerName: 'Loại lĩnh vực',
     flex: 1,
     editable: true,
     valueGetter: (params) => {
-      return `${params.row.categoryId.label || ''} `;
+      return `${params.row.categoryIds?.map((item: any) => item) || ''} `;
     },
   },
 ];
