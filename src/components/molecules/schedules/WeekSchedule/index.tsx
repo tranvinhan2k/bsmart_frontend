@@ -2,109 +2,121 @@ import { Stack, Typography, Box, TextField } from '@mui/material';
 import { DatePicker, PickersDay } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import FormInput from '~/components/atoms/FormInput';
 import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
-import globalStyles from '~/styles';
+import { WeekTimeSlotPayload } from '~/models/type';
+import SLotName from './SlotName';
+import DayName from './DayName';
+import { LoadingWrapper } from '~/HOCs';
+import { compareDate } from '~/utils/date';
+import {
+  MemberClassActionLink,
+  MentorClassActionLink,
+  MentorDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
+import { openUrl } from '~/utils/window';
+import { selectProfile } from '~/redux/user/selector';
 
 dayjs.extend(weekOfYear);
 
 interface Props {
-  data: {
-    id: number;
-    link: string;
-    className: string;
-    slotId: number;
-    dayOfWeekId: number;
-    attendanceSlotId?: number;
-    isPresent: boolean;
-    date: string;
-  }[];
+  data: WeekTimeSlotPayload[];
 }
 
 interface DayOfWeekDataPayload {
   id: number;
-  dayOfWeekName: string;
-  day: string;
-  slotIds: {
+  slotName: string;
+  slotTime: string;
+  timeSlots: {
     id: number;
-    slotName?: string;
-    isPresent?: boolean;
-    googleLink?: string;
-    attendanceSlotId?: number;
-    className?: string;
+    timetableId: number;
+    date: Date;
+    slotName: string;
+    className: string;
+    classId: number;
+    googleLink: string;
+    isPresent: boolean;
+    isTookAttendance: boolean;
   }[];
 }
 
+const handleGetWeekDays = (chooseDay: Dayjs) => {
+  // Get the current date
+  const currentDate = new Date(chooseDay.toISOString());
+
+  // Get the current day of the week (0: Sunday, 1: Monday, ..., 6: Saturday)
+  const currentDayOfWeek = currentDate.getDay();
+
+  // Create an array to store the weekdays
+  const weekdays: Date[] = [];
+
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < 7; i++) {
+    const tmpDay = new Date(currentDate);
+    tmpDay.setDate(currentDate.getDate() - currentDayOfWeek + i);
+    weekdays.push(tmpDay);
+  }
+
+  return weekdays;
+};
+
 export default function WeekSchedule({ data }: Props) {
+  const profile = useSelector(selectProfile);
+  const role = profile.roles?.[0]?.code;
+  const navigate = useNavigate();
+
+  const { dayOfWeeks, error: dayOfWeekError } = useDispatchGetAllDayOfWeeks();
+  const { slots, error: slotError } = useDispatchGetAllSlots();
+
+  const error = dayOfWeekError || slotError;
+
   const [chooseDay, setChooseDay] = useState<Dayjs>(dayjs());
-  const [dayOfWeekData, setDayOfWeekData] = useState<DayOfWeekDataPayload[]>(
-    []
-  );
-  const { control } = useForm();
-  const { dayOfWeeks } = useDispatchGetAllDayOfWeeks();
-  const { slots } = useDispatchGetAllSlots();
+
+  const weekDay = handleGetWeekDays(chooseDay);
+
+  const [slotList, setSlotList] = useState<DayOfWeekDataPayload[]>([]);
 
   const handleChangeChooseDate = (value: any) => {
     setChooseDay(value);
   };
 
   useEffect(() => {
-    setDayOfWeekData(
-      dayOfWeeks.map((item, index) => ({
-        id: item.id,
-        day: `${chooseDay
-          .set('date', chooseDay.get('date') - chooseDay.get('day') + index)
-          .date()}`,
-        dayOfWeekName: item.name,
-        slotIds: slots.map((subItem) => ({ id: subItem.id })),
-      }))
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dayOfWeeks, slots, chooseDay]);
-
-  useEffect(() => {
-    const tmpDayOfWeek = [...dayOfWeekData];
-    data.map((item) => {
-      console.log('hello0', item.className);
-      if (dayjs(item.date).week() === chooseDay.week()) {
-        dayOfWeekData.map((subItem, dayOfWeekIndex) => {
-          console.log('hello1', item.className);
-
-          if (item.dayOfWeekId === subItem.id) {
-            console.log('hello2', item.className);
-
-            subItem.slotIds.map((slot, slotIndex) => {
-              if (slot.id === item.slotId) {
-                console.log('hello3', item.className, slot.id);
-
-                const tmpTmpDayOfWeek = tmpDayOfWeek[dayOfWeekIndex];
-                const finalSlot = slots.find(
-                  (subSlot) => subSlot.id === slot.id
-                );
-                tmpTmpDayOfWeek.slotIds[slotIndex] = {
-                  id: slot.id,
-                  attendanceSlotId: item.attendanceSlotId,
-                  googleLink: item.link,
-                  isPresent: item.isPresent,
-                  slotName: `${finalSlot?.startTime} - ${finalSlot?.endTime}`,
-                  className: item.className,
-                };
-                setDayOfWeekData(tmpDayOfWeek);
-              }
-              return null;
-            });
-          }
-          return null;
-        });
-      }
-      return null;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chooseDay, dayOfWeekData]);
+    if (data) {
+      setSlotList(
+        slots?.map((item: any) => ({
+          id: item.id,
+          slotName: item.name,
+          slotTime: `${item.startTime} - ${item.endTime}`,
+          timeSlots: dayOfWeeks?.map((subItem, index) => {
+            const slotDate = weekDay[index];
+            const subItemTimeSlot = data.find(
+              (day) =>
+                compareDate(new Date(day.date), slotDate) &&
+                day.slotId === item.id
+            );
+            return {
+              id: subItem.id,
+              timetableId: subItemTimeSlot?.id || 0,
+              date: slotDate,
+              slotName: subItemTimeSlot
+                ? `${item.startTime} - ${item.endTime}`
+                : '',
+              className: `${subItemTimeSlot?.className}`,
+              classId: subItemTimeSlot?.classId || 0,
+              googleLink: `${subItemTimeSlot?.link}`,
+              isPresent: subItemTimeSlot?.isPresent || false,
+              isTookAttendance: subItemTimeSlot?.isTookAttendance || false,
+            };
+          }),
+        }))
+      );
+    }
+  }, [slots, dayOfWeeks, data, chooseDay, weekDay]);
 
   return (
     <Stack>
@@ -112,7 +124,6 @@ export default function WeekSchedule({ data }: Props) {
         <Box
           sx={{
             width: '300px',
-            background: Color.white,
           }}
         >
           <DatePicker
@@ -138,155 +149,182 @@ export default function WeekSchedule({ data }: Props) {
           />
         </Box>
       </Stack>
-      <Stack
-        sx={{
-          padding: 3,
-          background: Color.white,
-          borderRadius: MetricSize.small_5,
-          flexDirection: 'row',
-        }}
-        marginTop={1}
-      >
+      <LoadingWrapper error={error} isLoading={slotList?.length === 0}>
         <Stack
           sx={{
-            width: '100px',
-            justifyContent: 'space-around',
-            marginTop: '60px',
+            padding: 3,
+            background: Color.white,
+            borderRadius: MetricSize.small_5,
+            overflowX: 'auto',
           }}
+          marginTop={1}
         >
-          {slots.map((item, index) => {
-            return (
-              <Stack
-                sx={{
-                  width: '100px',
-                  textAlign: 'center',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 2,
-                }}
-                key={index}
-              >
-                <Typography
-                  sx={{
-                    ...globalStyles.textSmallLabel,
-                  }}
-                >
-                  {item.name.toUpperCase()}
-                </Typography>
-                <Typography
-                  sx={{
-                    ...globalStyles.textLowSmallLight,
-                  }}
-                >
-                  {`${item.startTime} - ${item.endTime}`}
-                </Typography>
-              </Stack>
-            );
-          })}
-        </Stack>
-        <Stack sx={{ flexDirection: 'row', flexGrow: 1 }}>
-          {dayOfWeekData.map((item, index) => {
-            return (
-              <Stack
-                sx={{
-                  flex: 1,
-                }}
-                key={index}
-              >
-                <Stack
-                  sx={{
-                    height: '60px',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Typography
-                    sx={globalStyles.textLowSmallLight}
-                  >{`${item.dayOfWeekName}`}</Typography>
-                  <Typography sx={globalStyles.textSmallLabel}>
-                    {`${item.day}`}
-                  </Typography>
-                </Stack>
-                {item.slotIds.map((subItem, idx) => {
-                  return (
-                    <Stack
-                      sx={{
-                        border: '1px solid grey',
-                        borderRadius: MetricSize.small_10,
-                        height: '175px',
-                      }}
-                      key={idx}
-                    >
-                      {subItem.slotName && (
+          <Stack
+            sx={{
+              minWidth: '1200px',
+            }}
+          >
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                marginLeft: { xs: '80px', md: '150px' },
+              }}
+            >
+              {dayOfWeeks?.map((item) => (
+                <DayName
+                  key={item.id}
+                  day={weekDay[item.id - 1].getDate()}
+                  dayOfWeek={item.name}
+                />
+              ))}
+            </Stack>
+            <Stack>
+              {slotList?.map((item, index) => {
+                return (
+                  <Stack
+                    sx={{
+                      flexDirection: 'row',
+                    }}
+                    key={index}
+                  >
+                    <SLotName name={item.slotName} time={item.slotTime} />
+
+                    {item.timeSlots?.map((subItem, idx) => {
+                      return (
                         <Stack
                           sx={{
-                            height: '100%',
-                            margin: MetricSize.small_5,
-                            padding: 2,
-                            borderRadius: MetricSize.small_10,
-                            background: `${Color.tertiary}33`,
-                            justifyContent: 'space-between',
+                            borderRight: '0.5px solid grey',
+                            borderLeft: idx === 0 ? '0.5px solid grey' : 'none',
+                            borderBottom:
+                              index === slotList?.length || 0 - 1
+                                ? '0.5px solid grey'
+                                : 'none',
+                            borderTop: '0.5px solid grey',
+                            minHeight: '30px',
+                            flex: 1,
+                            flexGrow: 1,
                           }}
+                          key={idx}
                         >
-                          <Stack>
-                            <Typography
+                          {subItem.slotName !== '' ? (
+                            <Stack
                               sx={{
-                                color: Color.black,
-                                fontSize: FontSize.small_18,
-                                fontFamily: FontFamily.bold,
+                                margin: MetricSize.small_5,
+                                padding: 2,
+                                background: `${Color.tertiary}33`,
+                                justifyContent: 'space-between',
                               }}
                             >
-                              PRJ123
-                            </Typography>
-                            <Typography
-                              sx={{
-                                color: Color.black,
-                                fontSize: FontSize.small_14,
-                                fontFamily: FontFamily.light,
-                              }}
-                            >
-                              8AM - 9AM
-                            </Typography>
-                            <Typography
-                              sx={{
-                                color: Color.red,
-                                fontSize: FontSize.small_14,
-                                fontFamily: FontFamily.bold,
-                              }}
-                            >
-                              Đã diểm danh
-                            </Typography>
-                          </Stack>
-                          <Button
-                            sx={{
-                              fontSize: '10px',
-                            }}
-                            variant="contained"
-                            color="primary"
-                          >
-                            Link Meet
-                          </Button>
-                          <Button
-                            sx={{
-                              marginTop: 1,
-                              fontSize: '10px',
-                            }}
-                            size="small"
-                            variant="contained"
-                            color="secondary"
-                          >
-                            Điểm danh
-                          </Button>
+                              <Stack>
+                                <Typography
+                                  sx={{
+                                    color: Color.black,
+                                    fontSize: FontSize.small_14,
+                                    fontFamily: FontFamily.bold,
+                                  }}
+                                >
+                                  {subItem.className?.toUpperCase()}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    color: Color.black,
+                                    fontSize: FontSize.small_14,
+                                    fontFamily: FontFamily.light,
+                                  }}
+                                >
+                                  {subItem.slotName}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    // eslint-disable-next-line no-nested-ternary
+                                    color: subItem.isTookAttendance
+                                      ? subItem.isPresent
+                                        ? Color.green
+                                        : Color.grey
+                                      : Color.grey,
+                                    fontSize: '14px',
+                                    fontFamily: FontFamily.bold,
+                                  }}
+                                >
+                                  {
+                                    // eslint-disable-next-line no-nested-ternary
+                                    subItem.isTookAttendance
+                                      ? // eslint-disable-next-line no-nested-ternary
+                                        role === 'TEACHER'
+                                        ? 'Đã điểm danh'
+                                        : subItem.isPresent
+                                        ? 'Có mặt'
+                                        : 'Vắng'
+                                      : 'Chưa điểm danh'
+                                  }
+                                </Typography>
+                              </Stack>
+                              <Stack>
+                                <Button
+                                  // disabled={
+                                  //   !compareDate(
+                                  //     new Date(),
+                                  //     new Date(subItem.date)
+                                  //   )
+                                  // }
+                                  sx={{
+                                    fontSize: '10px',
+                                  }}
+                                  onClick={() =>
+                                    openUrl(
+                                      subItem.googleLink ||
+                                        'https://meet.google.com/tuq-vpju-sud'
+                                    )
+                                  }
+                                  variant="contained"
+                                  color="primary"
+                                >
+                                  Link Meet
+                                </Button>
+                                <Button
+                                  sx={{
+                                    marginTop: 1,
+                                    fontSize: '10px',
+                                    color: Color.white,
+                                  }}
+                                  disabled={
+                                    new Date().getTime() <
+                                    new Date(subItem.date).getTime()
+                                  }
+                                  size="small"
+                                  variant="contained"
+                                  color={
+                                    subItem.isTookAttendance
+                                      ? 'secondary'
+                                      : 'warning'
+                                  }
+                                  onClick={() =>
+                                    navigate(
+                                      role === 'TEACHER'
+                                        ? `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MentorClassActionLink.take_attendance}/${subItem.timetableId}`
+                                        : `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${subItem.classId}/${MemberClassActionLink.attendance}`
+                                    )
+                                  }
+                                >
+                                  {subItem.isTookAttendance
+                                    ? 'Đã điểm danh'
+                                    : 'Điểm danh'}
+                                </Button>
+                              </Stack>
+                            </Stack>
+                          ) : (
+                            ''
+                          )}
                         </Stack>
-                      )}
-                    </Stack>
-                  );
-                })}
-              </Stack>
-            );
-          })}
+                      );
+                    })}
+                  </Stack>
+                );
+              })}
+            </Stack>
+          </Stack>
         </Stack>
-      </Stack>
+      </LoadingWrapper>
     </Stack>
   );
 }

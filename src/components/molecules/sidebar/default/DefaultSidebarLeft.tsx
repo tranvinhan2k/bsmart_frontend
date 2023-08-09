@@ -100,7 +100,7 @@ export default function DefaultSidebarLeft({ data }: Props) {
                   if (item.items) {
                     return (
                       <SubMenu
-                        key={item.link}
+                        key={item.id}
                         rootStyles={STYLE_MENU_LINK as any}
                         label={item.name}
                         icon={

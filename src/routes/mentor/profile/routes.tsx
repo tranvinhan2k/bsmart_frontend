@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { MentorNavigationLink, NavigationLink } from '~/constants/routeLink';
+import { MentorNavigationLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import WalletManagementPage from '~/pages/WalletManagementPage';
 import WithdrawPage from '~/pages/WithdrawPage';
@@ -8,15 +8,14 @@ import {
   MentorEditMentorProfile,
   MentorEditProfileImgPage,
   MentorEditPasswordPage,
+  MentorSendRequestPage,
 } from '~/routes/components';
 
 export const mentorRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => (
-      <Navigate
-        to={`/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_personal_info}`}
-      />
+      <Navigate to={MentorNavigationLink.edit_profile_personal_info} replace />
     ),
     role: ['ROLE_TEACHER'],
   },
@@ -46,8 +45,13 @@ export const mentorRoutes: RoutePayload[] = [
     role: ['ROLE_TEACHER'],
   },
   {
-    path: MentorNavigationLink.withdraw,
-    main: () => <WithdrawPage />,
+    path: MentorNavigationLink.send_request,
+    main: () => <MentorSendRequestPage />,
     role: ['ROLE_TEACHER'],
   },
+  // {
+  //   path: MentorNavigationLink.send_request,
+  //   main: () => <WithdrawPage />,
+  //   role: ['ROLE_TEACHER'],
+  // },
 ];

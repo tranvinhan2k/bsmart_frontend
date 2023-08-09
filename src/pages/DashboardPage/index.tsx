@@ -8,6 +8,7 @@ import Icon from '~/components/atoms/Icon';
 import { mentorLMSRoutes } from '~/routes';
 import { RoutePayload } from '~/models/routes';
 import {
+  MemberDashboardNavigationActionLink,
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
@@ -70,9 +71,12 @@ export default function DashboardPage() {
     scrollToTop();
   }, []);
 
-  const isClassDetailPage = pathname.includes(
-    MentorDashboardNavigationActionLink.mentor_class_detail
-  );
+  const isClassDetailPage =
+    pathname.includes(
+      MentorDashboardNavigationActionLink.mentor_class_detail
+    ) ||
+    pathname.includes(MemberDashboardNavigationActionLink.quiz) ||
+    pathname.includes(MemberDashboardNavigationActionLink.review);
 
   return (
     <Stack
@@ -81,6 +85,10 @@ export default function DashboardPage() {
         position: 'relative',
         minHeight: '100vh',
         background: Color.white4,
+        ':-webkit-scrollbar': {
+          display: 'none',
+        },
+        overflow: 'auto',
       }}
     >
       {!isClassDetailPage && (
@@ -106,13 +114,7 @@ export default function DashboardPage() {
                 customVariant="form"
                 startIcon={<Icon name="return" size="small_20" color="white" />}
               >
-                <Typography
-                  sx={{
-                    marginLeft: 1,
-                  }}
-                >
-                  Trở về trang chủ
-                </Typography>
+                Trở về trang chủ
               </Button>
             </Box>
             <Drawer
@@ -127,7 +129,7 @@ export default function DashboardPage() {
             >
               <DashboardSidebar
                 isMobile
-                isHover={isHover}
+                isHover
                 onNavigateHomepage={handleNavigateHomepage}
                 onNavigateLink={handleNavigateLink}
                 onTriggerHover={handleChangeHover}
@@ -139,6 +141,7 @@ export default function DashboardPage() {
           <Stack
             sx={{
               display: { xs: 'none', md: 'flex' },
+              background: Color.navy,
             }}
           >
             <DashboardSidebar

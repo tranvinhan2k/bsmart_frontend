@@ -10,6 +10,7 @@ export interface InputData {
   label: string;
   variant: FormInputVariant;
   data?: OptionPayload[];
+  isHide?: boolean;
 }
 
 interface Props {
@@ -20,17 +21,23 @@ interface Props {
 export default function InputGroup({ control, inputList }: Props) {
   return (
     <Stack>
-      {inputList.map((item, index) => (
-        <Stack key={item.name} marginTop={index !== 0 ? 2 : 0}>
-          <FormInput
-            data={item?.data}
-            control={control}
-            name={item.name}
-            placeholder={item.placeholder}
-            variant={item.variant}
-          />
-        </Stack>
-      ))}
+      {inputList.map((item, index) => {
+        if (!item.isHide) {
+          return (
+            <Stack key={item.name} marginTop={index !== 0 ? 2 : 0}>
+              <FormInput
+                label={item.label}
+                data={item?.data}
+                control={control}
+                name={item.name}
+                placeholder={item.placeholder}
+                variant={item.variant}
+              />
+            </Stack>
+          );
+        }
+        return null;
+      })}
     </Stack>
   );
 }

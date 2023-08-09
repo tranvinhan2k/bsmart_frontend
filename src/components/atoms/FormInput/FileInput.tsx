@@ -9,13 +9,14 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Icon from '../Icon';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
+import globalStyles from '~/styles';
+import { openUrl } from '~/utils/window';
 
 interface FileInputProps {
   controller: UseControllerReturn<any, string>;
-  placeholder: string;
 }
-function FileInput({ controller, placeholder }: FileInputProps) {
+function FileInput({ controller }: FileInputProps) {
   const [error, setError] = useState<string | null>(null);
   const {
     field: { value, onChange, onBlur },
@@ -26,6 +27,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
       setError(null);
+
       onChange(selectedFile);
     } else {
       setError('Hãy nhập định dạng file đúng (PDF, Word, or Excel)');
@@ -42,7 +44,7 @@ function FileInput({ controller, placeholder }: FileInputProps) {
     <Stack
       sx={{
         borderRadius: '5px',
-        border: '1px solid grey',
+        border: `1px solid ${Color.grey}`,
         padding: MetricSize.medium_15,
       }}
     >
@@ -73,34 +75,22 @@ function FileInput({ controller, placeholder }: FileInputProps) {
           alignItems="center"
           spacing={2}
         >
-          <Typography>{value.name}</Typography>
+          <Typography sx={globalStyles.textLowSmallLight} noWrap>
+            {value.name}
+          </Typography>
           <Stack
             direction={{ md: 'column', lg: 'row' }}
             justifyContent={{ md: 'flex-start', lg: 'space-between' }}
             alignItems={{ md: 'center', lg: 'flex-start' }}
-            spacing={2}
           >
             {value.url && (
-              <MuiButton
-                variant="outlined"
-                color="success"
-                fullWidth
-                href={value.url}
-                target="_blank"
-                size="small"
-              >
-                <Icon name="eye" size="medium" />
-              </MuiButton>
+              <IconButton onClick={() => openUrl(value.url)}>
+                <Icon name="download" size="small_20" color="tertiary" />
+              </IconButton>
             )}
-            <MuiButton
-              variant="outlined"
-              color="error"
-              fullWidth
-              size="small"
-              onClick={handleDeleteClick}
-            >
-              <Icon name="clear" size="medium" />
-            </MuiButton>
+            <IconButton onClick={handleDeleteClick}>
+              <Icon name="clear" size="small_20" color="red" />
+            </IconButton>
           </Stack>
         </Stack>
       )}

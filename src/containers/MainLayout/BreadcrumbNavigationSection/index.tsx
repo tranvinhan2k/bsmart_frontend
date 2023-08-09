@@ -11,9 +11,12 @@ export default function BreadcrumbNavigationSection() {
   let navigationAction = NavigationActionData.find((item) => {
     const link = item.link.split('/')[0];
     const pathNameLink = pathName.replace('/', '').split('/')[0];
-
     return link === pathNameLink;
   });
+  if (pathName.includes('mentor-detail')) {
+    // eslint-disable-next-line prefer-destructuring
+    navigationAction = NavigationActionData[15];
+  }
   if (pathName.includes('course-detail')) {
     // eslint-disable-next-line prefer-destructuring
     navigationAction = NavigationActionData[2];
@@ -27,6 +30,14 @@ export default function BreadcrumbNavigationSection() {
     NavigationActionData[0],
     navigationAction,
   ];
+
+  if (pathName.includes('mentor-detail')) {
+    breadcrumbs.push({
+      id: 0,
+      name: 'Chi Tiết Giáo viên',
+      link: pathName,
+    });
+  }
 
   if (pathName.includes('course-detail')) {
     breadcrumbs.push({

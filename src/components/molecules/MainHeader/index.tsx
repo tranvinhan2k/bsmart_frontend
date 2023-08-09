@@ -1,28 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, MouseEvent } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Avatar,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Avatar, Badge, IconButton, Stack, Typography } from '@mui/material';
 import { ActionPayload, ContractPayload, SocialPayload } from '~/models';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { image } from '~/constants/image';
-import { logOut } from '~/redux/user/slice';
+import { NavigationLink } from '~/constants/routeLink';
+import { NotificationContext } from '~/HOCs/context/NotificationContext';
 import { ProfileImgType } from '~/constants/profile';
 import { selectFilterParams } from '~/redux/courses/selector';
-import { selectProfile, selectRole, selectToken } from '~/redux/user/selector';
+import { selectProfile, selectToken } from '~/redux/user/selector';
+import { useLogOut, useMenuItem } from '~/hooks';
 import AuthorizationBar from './AuthorizationBar';
+import CustomMenu, {
+  CustomMenuItemPayload,
+} from '~/components/atoms/CustomMenu';
+import Icon from '~/components/atoms/Icon';
 import SearchBar from '~/components/atoms/SearchBar';
 import SocialBar from '../SocialBar';
-import toast from '~/utils/toast';
 import { SX_HEADER_CONTAINER } from './styles';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
-import { NavigationLink } from '~/constants/routeLink';
-import CustomMenu from '~/components/atoms/CustomMenu';
 
 interface MainHeaderProps {
   searchLabel: string;
@@ -44,45 +40,109 @@ export default function MainHeader({
   onRegisterClick,
 }: MainHeaderProps) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const profile = useSelector(selectProfile);
   const token = useSelector(selectToken);
-  const role = useSelector(selectRole);
+  const role = profile?.roles?.[0]?.code;
   const filterParams = useSelector(selectFilterParams);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { handleClose, handleToggle, open, anchorRef } = useMenuItem();
+  const { handleHookLogOut } = useLogOut();
+  const { onOpenNotification, numberOfNotification, ref } =
+    useContext(NotificationContext);
 
   const nameSplit = profile?.fullName?.split(' ') || [];
 
-  const handleClose = () => {
-    setAnchorEl(() => null);
-  };
   const handleLogOut = async () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('roles');
-    dispatch(logOut());
-    handleClose();
-    navigate('/homepage');
-    toast.notifySuccessToast('Đăng xuất thành công');
-  };
-  const handleMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    handleHookLogOut();
+    handleToggle();
   };
 
   const handleNavigateProfile = () => {
-    navigate(
-      role !== 'ROLE_STUDENT'
+    handleToggle();
+
+    window.location.href = `/${
+      role !== 'STUDENT'
         ? NavigationLink.mentor_profile
         : NavigationLink.member_details
-    );
+    }`;
   };
 
   const handleNavigateDashboard = () => {
+    handleToggle();
+
     navigate(NavigationLink.dashboard);
   };
 
   const handleHomepage = () => {
+    handleToggle();
+
     navigate(NavigationLink.homepage);
   };
+
+  let menuItemData: CustomMenuItemPayload[];
+  switch (role) {
+    case 'TEACHER':
+      menuItemData = [
+        {
+          icon: 'home',
+          name: 'Trang chủ',
+          onClick: handleHomepage,
+        },
+        {
+          icon: 'account',
+          name: 'Hồ sơ',
+          onClick: handleNavigateProfile,
+        },
+        {
+          icon: 'course',
+          name: 'Quản lí học tập',
+          onClick: handleNavigateDashboard,
+        },
+        {
+          icon: 'logOut',
+          name: 'Đăng Xuất',
+          onClick: handleLogOut,
+        },
+      ];
+      break;
+    case 'STUDENT':
+      menuItemData = [
+        {
+          icon: 'home',
+          name: 'Trang chủ',
+          onClick: handleHomepage,
+        },
+        {
+          icon: 'account',
+          name: 'Hồ sơ',
+          onClick: handleNavigateProfile,
+        },
+        {
+          icon: 'course',
+          name: 'Quản lí giảng dạy',
+          onClick: handleNavigateDashboard,
+        },
+        {
+          icon: 'logOut',
+          name: 'Đăng Xuất',
+          onClick: handleLogOut,
+        },
+      ];
+      break;
+    default:
+      menuItemData = [
+        {
+          icon: 'home',
+          name: 'Trang chủ',
+          onClick: handleHomepage,
+        },
+        {
+          icon: 'logOut',
+          name: 'Đăng Xuất',
+          onClick: handleLogOut,
+        },
+      ];
+      break;
+  }
 
   return (
     <Stack sx={SX_HEADER_CONTAINER}>
@@ -124,7 +184,8 @@ export default function MainHeader({
                 {nameSplit?.[nameSplit.length - 1] || ''}
               </span>
             </Typography>
-            <IconButton onClick={handleMenu}>
+
+            <IconButton ref={anchorRef} onClick={handleToggle}>
               <Avatar
                 alt="Avatar"
                 src={
@@ -136,35 +197,23 @@ export default function MainHeader({
                   width: 40,
                   height: 40,
                   background: Color.white4,
+                  boxShadow: 3,
                 }}
               />
             </IconButton>
+
+            <IconButton ref={ref} onClick={onOpenNotification}>
+              <Badge color="error" badgeContent={numberOfNotification}>
+                <Icon name="bell" size="small_20" color="white" />
+              </Badge>
+            </IconButton>
           </Stack>
           <CustomMenu
-            anchorEl={anchorEl}
-            menuItemData={[
-              {
-                icon: 'home',
-                name: 'Trang chủ',
-                onClick: handleHomepage,
-              },
-              {
-                icon: 'account',
-                name: 'Hồ sơ',
-                onClick: handleNavigateProfile,
-              },
-              {
-                icon: 'course',
-                name: 'Quản lí học tập',
-                onClick: handleNavigateDashboard,
-              },
-              {
-                icon: 'logOut',
-                name: 'Đăng Xuất',
-                onClick: handleLogOut,
-              },
-            ]}
+            open={open}
+            anchorEl={anchorRef.current}
             onClose={handleClose}
+            onToggleOpen={handleToggle}
+            menuItemData={menuItemData}
           />
         </>
       )}

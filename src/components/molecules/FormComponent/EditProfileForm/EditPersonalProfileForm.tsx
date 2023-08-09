@@ -1,27 +1,23 @@
-import {
-  Box,
-  Button as MuiButton,
-  Divider,
-  Grid,
-  Typography,
-} from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { Box, Divider, Grid, Typography } from '@mui/material';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import accountApi from '~/api/users';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
+import FormInput from '~/components/atoms/FormInput';
+import { genderData } from '~/constants';
 import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
-import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { validationSchemaEditPersonalProfile } from '~/form/validation';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
 import {
   EditPersonalProfileFormDefault,
   FormInputVariant,
 } from '~/models/form';
-import { FontFamily } from '~/assets/variables';
-import { genderData } from '~/constants';
+import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { selectProfile } from '~/redux/user/selector';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaEditPersonalProfile } from '~/form/validation';
-import accountApi from '~/api/users';
-import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
@@ -31,7 +27,7 @@ export default function EditPersonalProfileForm() {
   const resolverEditPersonalProfile = useYupValidationResolver(
     validationSchemaEditPersonalProfile
   );
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, formState } = useForm({
     defaultValues: defaultValueEditPersonalProfile,
     resolver: resolverEditPersonalProfile,
   });
@@ -62,28 +58,39 @@ export default function EditPersonalProfileForm() {
     }
   }, [profile, reset]);
 
+  const queryClient = useQueryClient();
   const { mutateAsync: mutateEditPersonalProfile } = useMutation({
     mutationFn:
-      profile && profile.roles[0].code === 'TEACHER'
+      profile && profile.roles?.[0]?.code === 'TEACHER'
         ? accountApi.editMentorPersonalProfile
         : accountApi.editMemberPersonalProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/loginUser'] });
+      queryClient.invalidateQueries({
+        queryKey: [keyMentorProfileUseCheckCompleteness],
+      });
+    },
   });
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
 
-  const toastMsgLoading = 'Đang cập nhật ...';
-  const toastMsgSuccess = 'Cập nhật thành công ...';
+  const toastMsgLoading = 'Đang cập nhật...';
+  const toastMsgSuccess = 'Cập nhật thành công...';
   const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
+    `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
-    const params: EditPersonalProfilePayload = {
+    const params: EditPersonalProfileFormSubmit = {
       fullName: data.fullName,
       birthday: data.birthday,
       address: data.address,
       phone: data.phone,
-      gender: data.gender ? data.gender : genderData[0],
+      gender: data.gender ? data.gender.value : genderData[0].value,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditPersonalProfile(params);
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));
@@ -160,16 +167,11 @@ export default function EditPersonalProfileForm() {
             </Grid>
           </Grid>
           <Box mt={4}>
-            <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Cập nhật
-            </MuiButton>
+            <UpdateProfileButton
+              role={profile.roles?.[0]?.code}
+              isFormDisabled={!formState.isDirty}
+              mentorProfileStatus={profile?.mentorProfile?.status}
+            />
           </Box>
         </form>
       )}

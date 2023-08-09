@@ -11,6 +11,7 @@ import {
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   UpdateAnnouncementFormDataPayload,
+  UpdateMentorProfileRequestFormDataPayload,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
@@ -66,20 +67,22 @@ export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
   {
     introduce: '',
     mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    // mentorSkills: [],
     workingExperience: '',
+  };
+export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
+  {
+    // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    mentorSkills: [],
   };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
   {
-    userImages: [
-      {
-        id: 0,
-        name: '',
-        status: true,
-        type: '',
-        url: '',
-      },
-    ],
+    userImages: [],
+  };
+export const defaultValuesUpdateDegreeRequest: EditCertificateProfileDefaultValuePayload =
+  {
+    userImages: [],
   };
 
 export const defaultValueEditAccountProfile = {
@@ -89,9 +92,9 @@ export const defaultValueEditAccountProfile = {
 };
 
 export const defaultValueEditSocialProfile = {
+  website: '',
+  linkedinLink: '',
   facebookLink: '',
-  twitterLink: '',
-  instagramLink: '',
 };
 
 export const defaultValueFeedbackMentor: FeedbackMentorDataPayload = {
@@ -169,7 +172,6 @@ export const defaultValueEditCreateAssignment: CreateAssignmentFormDataPayload =
     maxFileSubmit: 1,
     maxFileSize: 10,
     attachFiles: [],
-    isOverWriteAttachFile: true,
   };
 export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
   name: '',
@@ -183,7 +185,6 @@ export const defaultValueUpdateAssignment: CreateAssignmentFormDataPayload = {
   maxFileSubmit: 1,
   maxFileSize: 10,
   attachFiles: [],
-  isOverWriteAttachFile: true,
 };
 
 export const defaultValueCreateAnnouncement: CreateAnnouncementFormDataPayload =
@@ -204,4 +205,17 @@ export const defaultValueCreateClassSections = {
 };
 export const defaultValueUpdateClassSections = {
   name: '',
+};
+
+export const defaultValueApproveRegisterRequest = {
+  message: 'Chúc mừng bạn đã trờ thành giảng viên hợp tác với Mismart',
+  interviewed: false,
+};
+export const defaultValueRejectRegisterRequest = {
+  message: 'Thông tin vi phạm bao gồm:',
+  interviewed: false,
+};
+export const defaultValueEditRequestRegisterRequest = {
+  message: 'Thông tin cần chỉnh sửa bao gồm',
+  interviewed: false,
 };

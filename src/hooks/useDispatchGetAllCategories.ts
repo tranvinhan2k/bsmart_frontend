@@ -10,7 +10,7 @@ import { CategoriesPayload } from '~/models/type';
 import categoriesApi from '~/api/categories';
 
 const transformOptionData = (categories: CategoriesPayload[]) => {
-  const transformData: OptionPayload[] = categories.map((item) => ({
+  const transformData: OptionPayload[] = categories?.map((item) => ({
     id: item.id,
     label: item.name,
     value: `${item.id}`,

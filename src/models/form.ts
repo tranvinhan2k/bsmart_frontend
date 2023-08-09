@@ -69,14 +69,20 @@ export interface EditPasswordSectionDefault {
 }
 
 export interface EditSocialProfileFormDefault {
+  website: string;
+  linkedinLink: string;
   facebookLink: string;
-  twitterLink: string;
-  instagramLink: string;
 }
 
 export interface EditMentorProfileFormDataPayload {
   introduce: string;
   workingExperience: string;
+  mentorSkills?: {
+    skillId: DropdownDynamicValueInputNumberDataPayload | null;
+    yearOfExperiences: number;
+  }[];
+}
+export interface UpdateMentorProfileRequestFormDataPayload {
   mentorSkills?: {
     skillId: DropdownDynamicValueInputNumberDataPayload | null;
     yearOfExperiences: number;
@@ -95,13 +101,7 @@ export interface EditCertificateProfileFormDataPayload {
   userImages: (string | Blob)[];
 }
 export interface EditCertificateProfileDefaultValuePayload {
-  userImages: {
-    id: number;
-    name: string;
-    status: boolean;
-    type: string;
-    url: string;
-  }[];
+  userImages: any[];
 }
 export interface WithdrawMoneyFormDataPayload {
   amount: number;
@@ -138,12 +138,14 @@ export interface MentorSkills {
 }
 
 export interface ProcessRegisterRequestFormDefault {
-  id: number;
-  status: string;
+  interviewed: boolean;
+  message: string;
+}
+export interface ProcessUpdateMentorProfileRequestFormDefault {
+  status: boolean;
   message: string;
 }
 export interface ProcessCreateCourseRequestFormDefault {
-  id: number;
   status: string;
   message: string;
 }
@@ -160,7 +162,6 @@ export interface CreateAssignmentFormDataPayload {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: string[];
-  isOverWriteAttachFile: boolean;
 }
 
 export interface UpdateAssignmentFormDataPayload {
@@ -175,7 +176,6 @@ export interface UpdateAssignmentFormDataPayload {
   maxFileSubmit: number;
   maxFileSize: number;
   attachFiles: string[];
-  isOverWriteAttachFile: boolean;
 }
 
 export interface CreateAnnouncementFormDataPayload {
@@ -198,22 +198,33 @@ export interface UpdateClassSectionsFormDefault {
 
 export type FormInputVariant =
   | 'text'
+  | 'arrayHelperText'
   | 'number'
   | 'editor'
   | 'multiline'
   | 'dropdown'
+  | 'time'
+  | 'second'
   | 'dropdownDynamicValue'
   | 'dropdownBanks'
   | 'timetable'
+  | 'rating'
   | 'radioGroup'
+  | 'radioGroupDynamicValue'
   | 'image'
   | 'multiSelect'
   | 'time'
+  | 'price'
   | 'file'
+  | 'files'
+  | 'fileRequireYup'
   | 'tags'
   | 'modules'
   | 'password'
   | 'feedbackQuestionChoice'
   | 'feedbackTypeChoose'
   | 'datetime'
+  | 'boolean'
+  | 'quizPicker'
+  | 'answerPicker'
   | 'date';

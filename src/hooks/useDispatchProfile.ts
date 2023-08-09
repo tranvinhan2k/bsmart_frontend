@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectProfile, selectToken } from '~/redux/user/selector';
-import { addProfile, logOut } from '~/redux/user/slice';
+import { selectProfile } from '~/redux/user/selector';
+import { addProfile } from '~/redux/user/slice';
 import { useTryCatch } from './useTryCatch';
 import accountApi from '~/api/users';
 
@@ -14,6 +14,7 @@ export const useDispatchProfile = () => {
   const handleDispatch = useCallback(async () => {
     const response = await handleTryCatch(accountApi.getTokenProfile, () => {
       localStorage.removeItem('token');
+      localStorage.removeItem('roles');
       window.location.reload();
     });
     dispatch(addProfile({ profile: response }));

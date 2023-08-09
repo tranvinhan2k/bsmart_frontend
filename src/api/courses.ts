@@ -6,13 +6,12 @@ import {
   PostCourseRequest,
   PutCourseRequest,
 } from '~/models';
-import { CourseDetailPayload } from '~/models/courses';
-import mockCourse from '~/assets/images/mockCourse.jpg';
 import { LevelKeys, TypeLearnKeys } from '~/models/variables';
 import { SubCoursePayload } from '~/models/subCourse';
 import { ActivityPayload, CourseMenuItemPayload } from '~/models/type';
 import {
   GetAllActivitiesResponse,
+  GetAllCoursesResponse,
   GetCoursePercentResponse,
 } from '~/models/response';
 import { formatOptionPayload } from '~/utils/common';
@@ -55,8 +54,10 @@ export interface RequestUpdateCoursePayload {
     slotId: number;
   }[];
 }
+
 export interface ProcessCreateCourseRequestPayload {
   id: number;
+  classIds: number[];
   status: string;
   message: string;
 }
@@ -80,68 +81,6 @@ export interface ResponseGetCoursePayload {
   mentorName: string;
   learns: TypeLearnKeys[];
 }
-interface ResponseCourseDetailPayload {
-  id: number;
-  name: string;
-  code: string;
-  description: string;
-  subject: {
-    id: number;
-    code: string;
-    name: string;
-    categoryId: number;
-  };
-  category: {
-    id: number;
-    code: string;
-    name: string;
-  };
-  mentorId: number;
-}
-
-function handleResponseGetDetailCourse(data: ResponseCourseDetailPayload) {
-  if (!data) {
-    return null;
-  }
-  const responseData: CourseDetailPayload = {
-    content: data.description || '',
-    id: data.id || 0,
-    image: mockCourse, // TODO: api have no image
-    numOfOpenClass: 0, // TODO : back end not have it yet
-    numOfRegisterStudent: 0, // TODO: no number student
-    title: data.name || '',
-    unitPrice: 0, // TODO: no price
-    openDate: new Date().toISOString(), // TODO: no opendate
-    field: data.subject?.name || '',
-    mentorData: {
-      id: data.mentorId,
-      avatar: '',
-      name: '',
-      introduce: '',
-      mentorSkills: [
-        {
-          skillId: 0,
-          yearOfExperiences: 0,
-        },
-      ],
-      userId: 0,
-      workingExperience: '',
-    },
-    category: data.category,
-    feedbackData: {
-      commentData: [],
-      numOfRating: 50,
-      percentOfFeedback: 0.5,
-      starData: [
-        {
-          starNumber: 0,
-          starRating: 0,
-        },
-      ],
-    },
-  };
-  return responseData;
-}
 
 function handleResponseGetActivities(
   data: GetAllActivitiesResponse
@@ -157,6 +96,8 @@ function handleResponseGetActivities(
     parentActivityId: item?.parentActivityId || 0,
     subActivities: handleResponseGetActivities(item?.subActivities || []),
     type: item?.type || 'SECTION',
+    authorizeClasses: item?.authorizeClasses || [],
+    isFixed: !!item?.fixed,
   }));
 }
 
@@ -167,54 +108,70 @@ const coursesApi = {
   async getAllCourse(
     data: PagingFilterRequest
   ): Promise<PagingFilterPayload<CourseMenuItemPayload> | null> {
-    const response = await axiosClient.get(url, {
-      params: data,
-      paramsSerializer: { indexes: null },
-    });
-    const result: CourseMenuItemPayload[] = (response.items as any[]).map(
-      (item: any) => ({
-        id: item.id,
-        imageAlt: item.images?.[0]?.url,
-        imageUrl: item.images?.[0]?.alt,
-        courseStatus: item.status,
-        courseTeacherName: item.mentorName,
-        subjectName: item.subjectResponse.name,
-        courseDescription: item.courseDescription,
-        courseCode: item.courseCode,
-        courseName: item.courseName,
-        level: item.level,
-        totalClass: item.totalClass,
-        category: formatOptionPayload(item.categoryResponse),
-        subject: formatOptionPayload(item.subjectResponse),
-      })
-    );
+    const response: PagingFilterPayload<GetAllCoursesResponse> =
+      await axiosClient.get(url, {
+        params: data,
+        paramsSerializer: { indexes: null },
+      });
+    const result: CourseMenuItemPayload[] = response.items.map((item) => ({
+      id: item?.id || 0,
+      imageAlt: item.images?.[0]?.name || '',
+      imageUrl: item.images?.[0]?.url || '',
+      courseStatus: item.status,
+      courseTeacherName: item.mentorName,
+      subjectName: item.subjectResponse?.name || '',
+      courseDescription: item.courseDescription,
+      courseCode: item.courseCode,
+      courseName: item.courseName,
+      level: item?.level || 'BEGINNER',
+      totalClass: item.totalClass,
+      category: formatOptionPayload({
+        id: item?.categoryResponse?.id || 0,
+        code: item?.categoryResponse?.code || '',
+        name: item?.categoryResponse?.name || '',
+      }),
+      subject: formatOptionPayload({
+        id: item.subjectResponse?.id || 0,
+        code: item.subjectResponse?.code || '',
+        name: item.subjectResponse?.name || '',
+        categoryIds: item.subjectResponse?.categoryIds || [],
+      }),
+    }));
     return { ...response, items: result };
   },
   async getMentorCourses(
     params: PagingFilterRequest
   ): Promise<PagingFilterPayload<CourseMenuItemPayload>> {
-    const response = await axiosClient.get(`${url}/mentor`, {
-      params,
-      paramsSerializer: { indexes: null },
-    });
+    const response: PagingFilterPayload<GetAllCoursesResponse> =
+      await axiosClient.get(`${url}/mentor`, {
+        params,
+        paramsSerializer: { indexes: null },
+      });
 
-    const result: CourseMenuItemPayload[] = (response.items as any[]).map(
-      (item) => ({
-        id: item.id,
-        imageAlt: item.images?.[0]?.name,
-        imageUrl: item.images?.[0]?.url,
-        courseStatus: item.status,
-        courseTeacherName: item.mentorName,
-        subjectName: item.subjectResponse.name,
-        courseDescription: item.courseDescription,
-        courseCode: item.courseCode,
-        courseName: item.courseName,
-        level: item.level,
-        totalClass: item.totalClass,
-        category: formatOptionPayload(item.categoryResponse),
-        subject: formatOptionPayload(item.subjectResponse),
-      })
-    );
+    const result: CourseMenuItemPayload[] = response.items.map((item) => ({
+      id: item?.id || 0,
+      imageAlt: item.images?.[0]?.name,
+      imageUrl: item.images?.[0]?.url,
+      courseStatus: item.status,
+      courseTeacherName: item.mentorName,
+      subjectName: item?.subjectResponse?.name || '',
+      courseDescription: item.courseDescription,
+      courseCode: item.courseCode,
+      courseName: item.courseName,
+      level: item?.level || 'BEGINNER',
+      totalClass: item.totalClass,
+      category: formatOptionPayload({
+        id: item?.categoryResponse?.id || 0,
+        code: item?.categoryResponse?.code || '',
+        name: item?.categoryResponse?.name || '',
+      }),
+      subject: formatOptionPayload({
+        id: item.subjectResponse?.id || 0,
+        code: item.subjectResponse?.code || '',
+        name: item.subjectResponse?.name || '',
+        categoryIds: item.subjectResponse?.categoryIds || [],
+      }),
+    }));
 
     return { ...response, items: result };
   },
@@ -236,8 +193,16 @@ const coursesApi = {
   async updateCourse({ id, param }: { id: number; param: PutCourseRequest }) {
     axiosClient.put(`${url}/${id}`, param);
   },
-  putRequestApproval(id: number): Promise<number[]> {
-    return axiosClient.put(`${url}/${id}/request-approval`);
+  putRequestApproval({
+    id,
+    params,
+  }: {
+    id: number;
+    params: number[];
+  }): Promise<number[]> {
+    return axiosClient.put(`${url}/${id}/request-approval`, params, {
+      paramsSerializer: { indexes: null },
+    });
   },
   // delete
   async deleteCourse(id: number): Promise<boolean> {
@@ -255,12 +220,6 @@ const coursesApi = {
       paramsSerializer: { indexes: null },
     });
   },
-  async getDetailCourse(id: number): Promise<CourseDetailPayload | null> {
-    const response: ResponseCourseDetailPayload = await axiosClient.get(
-      `${url}/${id}`
-    );
-    return handleResponseGetDetailCourse(response);
-  },
   async getSubCourse(
     id: string
   ): Promise<PagingFilterPayload<SubCoursePayload>> {
@@ -269,27 +228,21 @@ const coursesApi = {
     return response;
   },
 
-  // TODO: tạm thời đóng chức năng public course, có thể mở lại
-  // async createPublicCourse(params: PostCourseRequest): Promise<any> {
-  //   const { id, ...newParams } = params;
-  //   const response: any = await axiosClient.post(`${url}/public-course/${id}`, {
-  //     ...newParams,
-  //   });
-  //   return response;
-  // },
-  async requestSubCourse(id: number): Promise<any> {
-    const response: any = await axiosClient.put(
-      `${url}/${id}/request-approval`
-    );
-    return response;
+  requestSubCourse(id: number) {
+    return axiosClient.put(`${url}/${id}/request-approval`);
   },
-  async deleteSubCourse(id: number): Promise<any> {
-    const response: any = await axiosClient.delete(`${url}/${id}`);
-    return response;
+  deleteSubCourse(id: number) {
+    return axiosClient.delete(`${url}/${id}`);
   },
-  async updateSubCourse(params: RequestUpdateCoursePayload): Promise<any> {
-    const response: any = await axiosClient.put(`${url}/${params.id}`, params);
-    return response;
+  updateSubCourse(params: RequestUpdateCoursePayload) {
+    return axiosClient.put(`${url}/${params.id}`, params);
+  },
+
+  blockCourse(id: number) {
+    return axiosClient.put(`${url}/${id}/block`);
+  },
+  unblockCourse(id: number) {
+    return axiosClient.put(`${url}/${id}/unblock`);
   },
 };
 

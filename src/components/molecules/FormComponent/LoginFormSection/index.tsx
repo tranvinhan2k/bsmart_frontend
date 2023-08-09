@@ -1,5 +1,5 @@
-import { Stack, Typography, Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { Stack, Typography, Box, CircularProgress } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
@@ -17,15 +17,13 @@ import toast from '~/utils/toast';
 import {
   useDispatchProfile,
   useMutationLogin,
-  useMutationProfile,
   useYupValidationResolver,
 } from '~/hooks';
 import { Role } from '~/models/role';
 import { LoginRequestPayload } from '~/models/api/auth';
-import { ResponseProfilePayload } from '~/api/users';
 import { signIn } from '~/redux/user/slice';
-import { selectProfile } from '~/redux/user/selector';
-import { ProfilePayload } from '~/models/type';
+import { image } from '~/constants/image';
+import { NavigationLink } from '~/constants/routeLink';
 
 const LoginTexts = {
   LOGIN_TITLE: 'Đăng Nhập',
@@ -49,6 +47,7 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
     defaultValues: defaultValueSignIn,
     resolver: resolverSignIn,
   });
+  const [isLoading, setLoading] = useState(false);
   const [isRememberPassword, setRememberPassword] = useState<boolean>(
     localStorage.getItem('isRememberPassword') === 'true'
   );
@@ -76,23 +75,25 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
       email: data.email.toLowerCase(),
       password: data.password,
     };
-
+    setLoading(true);
     try {
       const signInData = await mutateAsync(params);
-      localStorage.setItem('token', signInData.token);
-      localStorage.setItem('roles', signInData.roles[0]);
+      if (signInData) {
+        localStorage.setItem('token', signInData.token);
+        localStorage.setItem('roles', signInData.roles[0]);
 
-      await handleDispatch();
+        await handleDispatch();
 
-      const requestProfile: {
-        token: string;
-        roles: Role;
-      } = {
-        token: signInData.token,
-        roles: signInData.roles[0],
-      };
+        const requestProfile: {
+          token: string;
+          roles: Role;
+        } = {
+          token: signInData.token,
+          roles: signInData.roles[0],
+        };
 
-      dispatch(signIn(requestProfile));
+        dispatch(signIn(requestProfile));
+      }
 
       if (isRememberPassword) {
         localStorage.setItem('username', data.email);
@@ -105,10 +106,11 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
       }
       signInHookForm.reset();
       toast.notifySuccessToast('Đăng nhập thành công!');
-      navigate('/homepage');
+      navigate('/');
     } catch (error: any) {
       toast.notifyErrorToast(`Đăng nhập không thành công: ${error.message}`);
     }
+    setLoading(false);
   };
   // const token = useSelector((state: RootState) => state.user.token);
   // ('token', token);
@@ -157,9 +159,20 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
               {LoginTexts.REMEMBER_PASSWORD}
             </Checkbox>
 
-            <Link to="/forgot_password">{LoginTexts.FORGOT_PASSWORD}</Link>
+            <Link to={NavigationLink.forgot_password}>
+              {LoginTexts.FORGOT_PASSWORD}
+            </Link>
           </Stack>
-          <Button marginTop="small_10" customVariant="form" type="submit">
+          <Button
+            startIcon={
+              isLoading ? (
+                <CircularProgress color="inherit" size="20px" />
+              ) : undefined
+            }
+            marginTop="small_10"
+            customVariant="form"
+            type="submit"
+          >
             {LoginTexts.LOGIN_BUTTON}
           </Button>
           <Button

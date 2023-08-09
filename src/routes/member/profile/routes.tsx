@@ -1,11 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import {
-  NavigationLink,
-  MemberNavigationActionLink,
-} from '~/constants/routeLink';
+import { MemberNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import WalletManagementPage from '~/pages/WalletManagementPage';
-import WithdrawPage from '~/pages/WithdrawPage';
 import {
   MemberEditPersonalInfoPage,
   MemberEditImgInfoPage,
@@ -17,7 +13,8 @@ export const memberRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.member_details}/${MemberNavigationActionLink.edit_profile_personal_info}`}
+        replace
+        to={MemberNavigationActionLink.edit_profile_personal_info}
       />
     ),
     role: ['ROLE_STUDENT'],
@@ -40,11 +37,6 @@ export const memberRoutes: RoutePayload[] = [
   {
     path: MemberNavigationActionLink.wallet_management,
     main: () => <WalletManagementPage />,
-    role: ['ROLE_STUDENT'],
-  },
-  {
-    path: MemberNavigationActionLink.withdraw,
-    main: () => <WithdrawPage />,
     role: ['ROLE_STUDENT'],
   },
 ];

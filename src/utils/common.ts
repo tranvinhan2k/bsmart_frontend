@@ -1,5 +1,6 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
 import { OptionPayload } from '~/models';
+import { appendLogFile } from './file';
 
 export function scrollToTop() {
   window.scrollTo({
@@ -8,6 +9,14 @@ export function scrollToTop() {
     top: 0,
   });
 }
+
+export const generateMockApi = <T>(params: T): Promise<T> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(params);
+    }, 500);
+  });
+};
 
 export function delay(time?: number) {
   return new Promise((resolve) => {
@@ -84,9 +93,50 @@ export function formatOptionPayload(params: {
   categoryIds?: number[];
 }): OptionPayload {
   return {
-    id: params.id,
-    label: params.name,
-    value: params.code,
+    id: params?.id,
+    label: params?.name,
+    value: params?.code,
     categoryIds: params.categoryIds,
   };
+}
+
+export const handleDefinedText = (
+  text: string | number | undefined | null
+): string | number => {
+  if (text) return text;
+  if (text === undefined) return 'Không tồn tại';
+  return 'Đã xảy ra lỗi';
+};
+
+export const restrictNumberDisplay = (
+  input: number | undefined
+): string | number => {
+  if (input === undefined) return 0;
+  if (input > 999) return '999+';
+  return input;
+};
+
+export const formatError = (e: string) => {
+  // await appendLogFile(e);
+
+  const defaultMessage = 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+
+  if (e.includes('n/a')) {
+    return defaultMessage;
+  }
+
+  return e;
+};
+
+export function convertToHigherByteUnit(kb: number): string {
+  const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  let value = kb;
+  let unitIndex = 0;
+
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024;
+    unitIndex += 1;
+  }
+
+  return `${value.toFixed(2)} ${units[unitIndex]}`;
 }

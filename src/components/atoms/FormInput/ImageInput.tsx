@@ -2,6 +2,7 @@ import { UseControllerReturn } from 'react-hook-form';
 import {
   Avatar,
   Box,
+  FormHelperText,
   IconButton,
   InputAdornment,
   Stack,
@@ -58,6 +59,7 @@ export default function ImageInput({
 
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const image = new Image();
+
         image.onload = () => {
           let targetWidth = image.width;
           let targetHeight = image.height;
@@ -171,11 +173,16 @@ export default function ImageInput({
         onBlur={onBlur}
         onChange={handleFileChange}
         error={invalid}
-        helperText={fieldError?.message || error}
       />
 
       {previewUrl && (
-        <Stack marginTop={1}>
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+          marginTop={1}
+        >
           <Stack
             sx={{
               position: 'relative',
@@ -228,6 +235,12 @@ export default function ImageInput({
             />
           </Stack>
         </Stack>
+      )}
+
+      {(invalid || error) && (
+        <FormHelperText error>{` ${
+          error || fieldError?.message
+        }}`}</FormHelperText>
       )}
     </Stack>
   );

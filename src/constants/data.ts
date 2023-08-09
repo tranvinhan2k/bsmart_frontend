@@ -11,7 +11,67 @@ import cousreImage from '~/assets/images/front-end-course.png';
 import { CourseDetailPayload } from '~/models/courses';
 import { SidebarNavigationProps } from '~/models/data';
 import { LEVEL_LABELS } from './level';
-import { CoursePayload } from '~/models/type';
+import { ActivityPayload, CoursePayload } from '~/models/type';
+import { IconName } from '~/components/atoms/Icon';
+import { ActivityKeys } from '~/models/variables';
+import { ActivityLink } from './routeLink';
+
+export const FeedbackTemplateQuestionTypeData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Văn bản',
+    value: 'ESSAY',
+  },
+  {
+    id: 1,
+    label: 'Câu hỏi nhiều lựa chọn',
+    value: 'MULTIPLECHOICE',
+  },
+];
+export const FeedbackTemplateTypeData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Khóa học',
+    value: 'COURSE',
+  },
+  {
+    id: 1,
+    label: 'Báo cáo',
+    value: 'REPORT',
+  },
+];
+
+export const ActivityData: {
+  type: ActivityKeys;
+  icon: IconName;
+  label: string;
+  link: string;
+}[] = [
+  {
+    type: 'LESSON',
+    icon: 'lesson',
+    label: 'Bài học',
+    link: ActivityLink.lesson,
+  },
+  {
+    type: 'ASSIGNMENT',
+    icon: 'assignment',
+    label: 'Bài tập',
+    link: ActivityLink.assignment,
+  },
+  {
+    type: 'QUIZ',
+    icon: 'quiz',
+    label: 'Kiểm tra',
+    link: ActivityLink.quiz,
+  },
+  {
+    type: 'RESOURCE',
+    icon: 'resource',
+    label: 'Tài nguyên',
+    link: ActivityLink.resource,
+  },
+];
 
 export const courseTypeData = {
   PRIVATE: 'Khóa học riêng tư',
@@ -22,6 +82,49 @@ export const mockImages: string[] = [
   'https://images.pexels.com/photos/5427648/pexels-photo-5427648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   'https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+];
+
+export const OptionFeedbackData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Có',
+    value: '0',
+  },
+  {
+    id: 1,
+    label: 'Không',
+    value: '1',
+  },
+  {
+    id: 2,
+    label: 'Chưa rõ',
+    value: '2',
+  },
+];
+
+export const comparisonData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Lớn hơn',
+    value: 'GREATER_THAN',
+  },
+  {
+    id: 1,
+    label: 'Nhỏ hơn',
+    value: 'LESS_THAN',
+  },
+];
+export const quizStatusData: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Hoàn thành',
+    value: 'DONE',
+  },
+  {
+    id: 1,
+    label: 'Chưa mở',
+    value: 'PENDING',
+  },
 ];
 
 export type CourseTypeDataKeys = keyof typeof courseTypeData;
@@ -83,16 +186,66 @@ export const ClassStatusList: OptionPayload[] = [
     value: 'ALL',
   },
   {
+    id: 3,
+    label: 'Lớp chưa phê duyệt',
+    content: 'Lớp mới tạo và chưa yêu cầu phê duyệt',
+    value: 'REQUESTING',
+  },
+  {
+    id: 2,
+    label: 'Lớp yêu cầu chỉnh sửa',
+    content: 'Lớp yêu cầu được chỉnh sửa',
+    value: 'EDITREQUEST',
+  },
+  {
+    id: 4,
+    label: 'Lớp đợi phê duyệt',
+    content: 'Lớp đang đợi đội ngũ quản lí phê duyệt.',
+    value: 'WAITING',
+  },
+  {
+    id: 5,
+    label: 'Lớp đang chiêu sinh',
+    content: 'Lớp đang chờ học sinh đăng kí và học.',
+    value: 'NOTSTART',
+  },
+  {
     id: 1,
-    label: 'Lớp đang dạy',
-    content: 'Lớp đang được dạy.',
+    label: 'Lớp đang bắt đầu',
+    content: 'Lớp đang trong quá trình giảng dạy.',
     value: 'STARTING',
   },
   {
     id: 2,
     label: 'Lớp đã kết thúc',
     content: 'Lớp đã hết thời gian giảng dạy',
-    value: 'CLOSE',
+    value: 'ENDED',
+  },
+];
+export const ClassStatusStudentList: OptionPayload[] = [
+  {
+    id: 0,
+    label: 'Tất cả',
+    content: 'Tất cả khóa học của bạn hiện đã tạo.',
+    value: 'ALL',
+  },
+  {
+    id: 5,
+    label: 'Đang chờ',
+    content: 'Lớp đã đăng kí và đang chờ mở.',
+    value: 'NOTSTART',
+  },
+  {
+    id: 1,
+    label: 'Đang học',
+    content: 'Lớp đang trong quá trình giảng dạy.',
+    value: 'STARTING',
+  },
+  {
+    id: 2,
+    label: 'Đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy',
+    value: 'ENDED',
   },
 ];
 export const CourseStatusList: OptionPayload[] = [
@@ -216,7 +369,7 @@ export const AddressData: AddressDataPayload[] = [
 export const RegisterTabPayload: TabPayload[] = [
   {
     index: 0,
-    label: 'Học Viên',
+    label: 'Học sinh',
   },
   {
     index: 1,
@@ -659,5 +812,27 @@ export const ADMIN_SIDE_BAR_NAVIGATION: SidebarNavigationProps[] = [
         link: 'setting',
       },
     ],
+  },
+];
+
+export const ClassMemberStatusList: OptionPayload[] = [
+  // ClassStatusList
+  {
+    id: 0,
+    label: 'Đang theo',
+    content: 'Lớp đang tham gia',
+    value: 'ALL',
+  },
+  {
+    id: 1,
+    label: 'Hoàn thành',
+    content: 'Lớp đã tham gia.',
+    value: 'FINISHED',
+  },
+  {
+    id: 2,
+    label: 'Bị Hủy',
+    content: 'Lớp đã không thể mở',
+    value: 'CLOSE',
   },
 ];

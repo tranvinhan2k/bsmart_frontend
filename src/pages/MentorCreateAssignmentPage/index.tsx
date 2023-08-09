@@ -54,7 +54,6 @@ export default function MentorCreateAssignmentPage() {
       maxFileSubmit: data.maxFileSubmit,
       maxFileSize: data.maxFileSize,
       attachFiles: data.attachFiles,
-      isOverWriteAttachFile: data.isOverWriteAttachFile,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {

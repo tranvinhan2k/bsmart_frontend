@@ -70,7 +70,11 @@ export default function BlogSearchSection() {
             alignItems="center"
             key={blogSearchCategory.id}
           >
-            <Icon name="keyboardArrowRight" size="medium" color="tertiary" />
+            <Icon
+              name="keyboardArrowRightIcon"
+              size="medium"
+              color="tertiary"
+            />
             <Link to="/blog">{blogSearchCategory.name}</Link>
           </Stack>
         ))}
@@ -86,7 +90,11 @@ export default function BlogSearchSection() {
             alignItems="center"
             key={blogSearchTimeline.id}
           >
-            <Icon name="keyboardArrowRight" size="medium" color="tertiary" />
+            <Icon
+              name="keyboardArrowRightIcon"
+              size="medium"
+              color="tertiary"
+            />
             <Link to="/blog">{blogSearchTimeline.name}</Link>
           </Stack>
         ))}
@@ -102,7 +110,11 @@ export default function BlogSearchSection() {
             alignItems="center"
             key={blogSearchStorage.id}
           >
-            <Icon name="keyboardArrowRight" size="medium" color="tertiary" />
+            <Icon
+              name="keyboardArrowRightIcon"
+              size="medium"
+              color="tertiary"
+            />
             <Link to="/blog">{blogSearchStorage.name}</Link>
           </Stack>
         ))}

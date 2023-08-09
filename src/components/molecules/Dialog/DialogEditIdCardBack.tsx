@@ -1,24 +1,26 @@
-import { useForm } from 'react-hook-form';
 import {
   Button as MuiButton,
   Dialog,
   DialogContent,
   DialogTitle,
   Stack,
-  Typography,
 } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { defaultValueEditIdentityBack } from '~/form/defaultValues';
 import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
 import { EditIdentityBackFormDataPayload } from '~/models/form';
 import { EditImageProfilePayload } from '~/api/users';
-import { ProfileImgType } from '~/constants/profile';
-import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaEditIdentityBack } from '~/form/validation';
 import { FontFamily } from '~/assets/variables';
+import { ProfileImgType } from '~/constants/profile';
+import { selectProfile } from '~/redux/user/selector';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
+import { validationSchemaEditIdentityBack } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { SX_FORM_LABEL } from './style';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 
 interface DialogEditIdCardBackProps {
   open: boolean;
@@ -29,6 +31,7 @@ export default function DialogEditIdCardBack({
   open,
   handleOnClose,
 }: DialogEditIdCardBackProps) {
+  const profile = useSelector(selectProfile);
   const resolverEditIdentityBack = useYupValidationResolver(
     validationSchemaEditIdentityBack
   );
@@ -37,17 +40,21 @@ export default function DialogEditIdCardBack({
     control: controlEditIdentityBack,
     handleSubmit: handleSubmitEditIdentityBack,
     reset: resetEditIdentityBack,
+    formState,
   } = useForm({
     defaultValues: defaultValueEditIdentityBack,
     resolver: resolverEditIdentityBack,
   });
 
+  const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditIdentityBack } = useMutationEditIdentityBack();
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
+    return `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   };
   const handleSubmitIdentityBack = async (
     data: EditIdentityBackFormDataPayload
@@ -60,7 +67,9 @@ export default function DialogEditIdCardBack({
     try {
       await mutateEditIdentityBack(params);
       handleOnClose();
+      handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
+      resetEditIdentityBack();
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
@@ -73,10 +82,9 @@ export default function DialogEditIdCardBack({
 
   return (
     <Dialog open={open} onClose={handleOnCloseCustom} fullWidth>
-      <DialogTitle>Cập nhật Chứng minh thư</DialogTitle>
+      <DialogTitle>Cập nhật CMND/CCCD (Mặt sau)</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmitEditIdentityBack(handleSubmitIdentityBack)}>
-          <Typography sx={SX_FORM_LABEL}>Chứng minh thư (sau)</Typography>
           <FormInput
             control={controlEditIdentityBack}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityBack}
@@ -92,16 +100,6 @@ export default function DialogEditIdCardBack({
             mt={2}
           >
             <MuiButton
-              color="miSmartOrange"
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              sx={{ fontFamily: FontFamily.bold }}
-            >
-              Cập nhật
-            </MuiButton>
-            <MuiButton
               color="error"
               fullWidth
               size="large"
@@ -112,6 +110,11 @@ export default function DialogEditIdCardBack({
             >
               Hủy
             </MuiButton>
+            <UpdateProfileButton
+              role={profile.roles?.[0]?.code}
+              isFormDisabled={!formState.isDirty}
+              mentorProfileStatus={profile?.mentorProfile?.status}
+            />
           </Stack>
         </form>
       </DialogContent>

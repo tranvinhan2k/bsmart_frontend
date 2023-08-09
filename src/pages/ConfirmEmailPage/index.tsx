@@ -18,7 +18,7 @@ export default function ConfirmEmailPage() {
   const mutationProfile = useMutationProfile();
   const profile = useSelector(selectProfile);
 
-  const { data, error, isLoading, reverifyMutation } = useQueryVerifyEmail(
+  const { error, isLoading, reverifyMutation } = useQueryVerifyEmail(
     params?.code
   );
   const handleNavigateMainPage = async () => {
@@ -38,7 +38,7 @@ export default function ConfirmEmailPage() {
       ? 'Xác thực email thất bại'
       : 'Bạn đã xác thực email thành công.',
     subtitle: error
-      ? `${(error as any).message}`
+      ? `${(error as any)?.message}`
       : `Chúc mừng bạn đã trở thành thành viên của MiSmart`,
     button_tittle: error ? 'Thử lại' : 'Trở về trang chủ',
   };

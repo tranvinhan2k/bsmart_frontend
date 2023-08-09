@@ -1,5 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import feedbacksApi from '~/api/feedback';
+import { useCustomMutation } from './custom/useCustomMutation';
+import { useCustomQuery } from './custom/useCustomQuery';
+import { PagingFilterRequest } from '~/models';
+import { useTryCatch } from './useTryCatch';
 
 export interface RequestfeedbackQuestionPayload {
   code: string;
@@ -8,38 +13,51 @@ export interface RequestfeedbackQuestionPayload {
 
 export const useCRUDTemplate = () => {
   const key = 'template';
-  const queryClient = useQueryClient();
 
-  const { error, data, isLoading, refetch } = useQuery({
-    queryKey: ['template'],
-    queryFn: () => feedbacksApi.getAllTemplate(),
+  const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
+    page: 0,
+    size: 20,
+    name: '',
+    type: 'COURSE',
   });
 
-  const addTemplateMutation = useMutation({
-    mutationKey: [key],
-    mutationFn: feedbacksApi.createTemplate,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  } as any);
+  const { error, data, isLoading, refetch } = useCustomQuery(
+    ['get_all_template'],
+    () => feedbacksApi.getAllTemplate(filterParams)
+  );
 
-  const updateTemplateMutation = useMutation({
-    mutationKey: [key],
-    mutationFn: feedbacksApi.updateTemplate,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  } as any);
-  const deleteTemplateMutation = useMutation({
-    mutationKey: [key],
-    mutationFn: feedbacksApi.deleteTemplate,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  } as any);
+  const addTemplateMutation = useCustomMutation(
+    [key],
+    feedbacksApi.createTemplate
+  );
+
+  const updateTemplateMutation = useCustomMutation(
+    [key],
+    feedbacksApi.updateTemplate
+  );
+
+  const deleteTemplateMutation = useCustomMutation(
+    [key],
+    feedbacksApi.deleteTemplate
+  );
+
+  const { mutateAsync: handleChangeDefaultValue } = useCustomMutation(
+    ['change_default_template'],
+    feedbacksApi.setDefaultTemplate
+  );
+
+  const { handleTryCatch: handleTryCatchChangeDefaultValue } = useTryCatch(
+    'Đổi bản mẫu mặc định'
+  );
+
+  const { mutateAsync: handleChangeTemplateForClass } = useCustomMutation(
+    ['change_template_feedback'],
+    feedbacksApi.setTemplateForClass
+  );
+
+  const { handleTryCatch: handleTryCatchChangeTemplateForClass } = useTryCatch(
+    'Đổi bản mẫu cho lớp'
+  );
 
   return {
     error,
@@ -53,5 +71,9 @@ export const useCRUDTemplate = () => {
     addTemplateMutation,
     deleteTemplateMutation,
     updateTemplateMutation,
+    handleChangeDefaultValue,
+    handleTryCatchChangeDefaultValue,
+    handleChangeTemplateForClass,
+    handleTryCatchChangeTemplateForClass,
   };
 };

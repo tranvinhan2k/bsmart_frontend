@@ -1,123 +1,78 @@
-import { useState } from 'react';
-
-import {
-  Stack,
-  Collapse,
-  Typography,
-  Tooltip,
-  IconButton,
-  Box,
-} from '@mui/material';
+import { Stack, Typography, Tooltip, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 import { FontFamily, FontSize } from '~/assets/variables';
-import UpdateSectionForm from '../UpdateSectionForm';
 import Icon from '~/components/atoms/Icon';
-import ConfirmDialog from '~/components/atoms/ConfirmDialog';
+import { ActivityPayload } from '~/models/type';
 
 interface Props {
+  open: boolean;
   index: number;
-  section: any;
-  onUpdate: () => void;
-  onDelete: () => void;
+  section: ActivityPayload;
+  onOpenContentSection: () => void;
 }
 
-export default function Section({ index, section, onDelete, onUpdate }: Props) {
-  const [fixOpen, setFixOpen] = useState(false);
-  const [clearOpen, setClearOpen] = useState(false);
+export default function Section({
+  open,
+  index,
+  section,
+  onOpenContentSection,
+}: Props) {
+  const navigate = useNavigate();
 
-  const handleFixOpen = () => {
-    setFixOpen(!fixOpen);
-  };
+  const { onChangeSection } = useContext(CourseContext);
 
-  const handleClearOpen = () => {
-    setClearOpen(!clearOpen);
-  };
-
-  const handleUpdate = async () => {
-    await onUpdate();
-    handleFixOpen();
-  };
-
-  const handleDelete = async () => {
-    await onDelete();
-    handleClearOpen();
+  const handleViewOpen = () => {
+    onChangeSection(section.id);
+    navigate(`${section.id}`);
   };
 
   return (
     <Stack>
-      <Collapse in={!fixOpen}>
+      <Stack
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Tooltip title="Xem nội dung học phần">
+          <IconButton
+            sx={{
+              transition: 'all 500ms ease',
+              transform: open ? 'rotate(90deg)' : 'none',
+            }}
+            onClick={onOpenContentSection}
+          >
+            <Icon name="right" color="black" size="small_20" />
+          </IconButton>
+        </Tooltip>
+        <Typography>
+          <span
+            style={{
+              fontFamily: FontFamily.bold,
+              fontSize: FontSize.small_16,
+            }}
+          >{`Học phần ${index + 1}: `}</span>
+          {section.name}
+        </Typography>
+
         <Stack
           sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexGrow: 1,
+            justifyContent: 'flex-end',
             alignItems: 'center',
+            flexDirection: 'row',
           }}
         >
-          <Typography>
-            <span
-              style={{
-                fontFamily: FontFamily.bold,
-                fontSize: FontSize.small_16,
-              }}
-            >{`Học phần ${index + 1}: `}</span>
-            {section.name}
-          </Typography>
-
-          <Stack
-            sx={{
-              flexGrow: 1,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}
-          >
-            <Tooltip title="Chỉnh sửa học phần">
-              <IconButton onClick={handleFixOpen}>
-                <Icon name="edit" color="black" size="small" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Xóa học phần">
-              <IconButton onClick={handleClearOpen}>
-                <Icon name="delete" color="black" size="small" />
-              </IconButton>
-            </Tooltip>
-            {/* // TODO: Nếu có thêm nội dung thì xài cái này */}
-            {/* <Tooltip title="Thêm học phần">
-                <Button>
-                  <Icon name="add" size="small_20" color="black" />
-                  Thêm nội dung học phần
-                </Button>
-              </Tooltip> */}
-          </Stack>
-        </Stack>
-      </Collapse>
-      <Collapse in={fixOpen}>
-        <Stack
-          sx={{
-            position: 'relative',
-          }}
-        >
-          <Box
-            sx={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-            }}
-          >
-            <IconButton onClick={handleFixOpen}>
-              <Icon name="close" size="small" color="black" />
+          <Tooltip title="Xem chi tiết">
+            <IconButton onClick={handleViewOpen}>
+              <Icon name="search" color="black" size="small_20" />
             </IconButton>
-          </Box>
-
-          <UpdateSectionForm section={section} onSubmit={handleUpdate} />
+          </Tooltip>
         </Stack>
-      </Collapse>
-      <ConfirmDialog
-        open={clearOpen}
-        title="Xác nhận xóa học phần"
-        content="Bạn có chắc xóa học phần này ?"
-        handleAccept={handleDelete}
-        handleClose={handleClearOpen}
-      />
+      </Stack>
     </Stack>
   );
 }

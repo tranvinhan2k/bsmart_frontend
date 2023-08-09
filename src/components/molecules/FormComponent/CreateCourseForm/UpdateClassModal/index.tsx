@@ -41,10 +41,10 @@ export default function UpdateClassModal({
           </Stack>
           <Stack>
             <FormInput
-              variant="number"
+              variant="price"
               name={CREATE_CLASS_FIELDS.price}
               control={hookForm.control}
-              label="Giá khóa học"
+              label="Giá khóa học trên một học sinh (VND)"
             />
           </Stack>
           <Stack marginTop={2} />
@@ -77,7 +77,7 @@ export default function UpdateClassModal({
           </Stack>
           <Stack marginTop={2} />
           <Typography sx={globalStyles.textSmallLabel}>
-            Thông tin giờ học
+            Thời khóa biểu
           </Typography>
           <Stack
             sx={{
@@ -111,7 +111,7 @@ export default function UpdateClassModal({
             name={CREATE_CLASS_FIELDS.timeInWeekRequests}
             variant="timetable"
             control={hookForm.control}
-            label="Thời khóa biểu"
+            label="Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7"
           />
           <Stack marginTop={2} />
           <Button

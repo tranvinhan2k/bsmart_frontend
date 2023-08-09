@@ -2,8 +2,11 @@ import { Box, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 // hooks
+import { useContext, useState } from 'react';
 import {
+  useMutationDeleteClass,
   useQueryGetMentorCourseClasses,
+  useTryCatch,
   useUpdateMentorClassesForm,
 } from '~/hooks';
 
@@ -21,6 +24,7 @@ import { formatStringToNumber } from '~/utils/number';
 import { useCreateClassesForm } from '~/hooks/form.hooks/useCreateClassesForm';
 import SearchBar from '~/components/atoms/SearchBar';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 const TEXTS = {
   DELETE_CONTENT: 'Bạn có chắc chắn muốn xóa giờ học này ?',
@@ -30,6 +34,10 @@ const TEXTS = {
 export default function MentorCourseClassesPage() {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
+
+  const { refetchPercent } = useContext(CourseContext);
+
+  const [deleteId, setDeleteId] = useState(-1);
 
   // hooks
 
@@ -54,9 +62,14 @@ export default function MentorCourseClassesPage() {
     handleAddTimetable,
     handleResetCreateCourse,
     handleBackCreateCourse,
-  } = useCreateClassesForm(courseId);
+  } = useCreateClassesForm(courseId, refetchPercent);
   const { onUpdateClass, updateClassHookForm, handleChangeDefaultValue } =
     useUpdateMentorClassesForm(courseId, classes);
+  const { handleTryCatch: handleTryCatchUpdate } =
+    useTryCatch('cập nhật lớp học');
+
+  const { handleTryCatch: handleTryCatchDelete } = useTryCatch('xóa lớp học');
+  const { mutateAsync: handleMutationDeleteClass } = useMutationDeleteClass();
 
   // functions
   const handleChangePage = (e: any, page: number) => {
@@ -71,18 +84,26 @@ export default function MentorCourseClassesPage() {
       q: searchValue,
     });
   };
-  const handleDeleteClass = async () => {};
+  const handleDeleteClass = async () => {
+    await handleTryCatchDelete(async () => {
+      await handleMutationDeleteClass(deleteId);
+      await refetch();
+      onTriggerModal();
+    });
+  };
   const handleCreateClass = async (data: any) => {
     await onAddNewClass(data);
     await refetch();
-    onTriggerModal();
   };
   const handleConfirmTimetable = async (data: any) => {
     await handleAddTimetable(data);
   };
   const handleUpdateClass = async (data: any) => {
-    await onUpdateClass(data);
-    onTriggerModal();
+    await handleTryCatchUpdate(async () => {
+      await onUpdateClass(data);
+      await refetch();
+      onTriggerModal();
+    });
   };
   const handleOpenAddModal = () => {
     onTriggerModal('CREATE');
@@ -91,7 +112,8 @@ export default function MentorCourseClassesPage() {
     onTriggerModal('UPDATE');
     handleChangeDefaultValue(index);
   };
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (paramId: number) => {
+    setDeleteId(paramId);
     onTriggerModal('DELETE');
   };
 
@@ -104,7 +126,7 @@ export default function MentorCourseClassesPage() {
               color="white"
               onSubmit={handleChangeSearchValue}
               placeholder="Tìm lớp học cùa bạn"
-              value={filterParam.q}
+              value={filterParam.q || ''}
             />
           </Stack>
           <Stack marginTop={1}>

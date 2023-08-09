@@ -25,8 +25,6 @@ function DateTimePickerInput({
         // inputFormat="DD/MM/YYYY"
         value={value}
         onChange={(newValue) => {
-          console.log(newValue);
-
           if (isValidDate(newValue)) onChange(newValue?.toISOString());
         }}
         renderInput={(params) => (

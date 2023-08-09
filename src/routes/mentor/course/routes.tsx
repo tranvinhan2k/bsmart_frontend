@@ -1,10 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import {
-  NavigationLink,
-  MentorDashboardNavigationActionLink,
-  MentorCourseActionLink,
-} from '~/constants/routeLink';
-import { RoutePayload } from '~/models/routes';
+import { MentorCourseActionLink } from '~/constants/routeLink';
+import MentorCourseAddModulePage from '~/pages/MentorCourseAddModulePage';
+import MentorCourseModulesPage from '~/pages/MentorCourseModulesPage';
+import MentorCourseSectionsPage from '~/pages/MentorCourseSectionsPage';
 import {
   MentorCourseClassesPage,
   MentorCourseContentPage,
@@ -13,10 +11,10 @@ import {
   MentorCourseTutorialPage,
 } from '~/routes/components';
 
-export const mentorCourseRoutes: RoutePayload[] = [
+export const mentorCourseRoutes = [
   {
     path: '/',
-    main: () => <Navigate to={MentorCourseActionLink.information} />,
+    main: () => <Navigate to={MentorCourseActionLink.information} replace />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },
@@ -33,8 +31,26 @@ export const mentorCourseRoutes: RoutePayload[] = [
     courseStatus: 'ALL',
   },
   {
-    path: MentorCourseActionLink.content,
+    path: `${MentorCourseActionLink.content}`,
     main: () => <MentorCourseContentPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorCourseActionLink.content}/:sectionId/`,
+    main: () => <MentorCourseSectionsPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorCourseActionLink.content}/:sectionId/:moduleId`,
+    main: () => <MentorCourseModulesPage />,
+    role: ['ROLE_TEACHER'],
+    courseStatus: 'ALL',
+  },
+  {
+    path: `${MentorCourseActionLink.content}/:sectionId/add/:type`,
+    main: () => <MentorCourseAddModulePage />,
     role: ['ROLE_TEACHER'],
     courseStatus: 'ALL',
   },

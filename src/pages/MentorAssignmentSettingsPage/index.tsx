@@ -16,7 +16,7 @@ import { defaultValueUpdateAssignment } from '~/form/defaultValues';
 import { MentorNavigationActionData } from '~/routes/navigators';
 import { UpdateAssignmentFormDataPayload } from '~/models/form';
 import { UpdateAssignmentPayload } from '~/api/assignments';
-import { useManageActivity } from '~/hooks/useManageActivity';
+import { useGetDetailActivity } from '~/hooks/activity/useGetDetailActivity';
 import { useMutationCreateAssignment } from '~/hooks/useManageAssignment';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaUpdateAssignment } from '~/form/validation';
@@ -37,7 +37,7 @@ export default function MentorUpdateAssignmentPage() {
 
   const { mutateAsync: mutateUpdateAssignment } = useMutationCreateAssignment();
   const { id } = useParams();
-  const { activity } = useManageActivity(formatStringToNumber(id));
+  const { activity } = useGetDetailActivity(formatStringToNumber(id));
 
   useEffect(() => {
     if (activity) {
@@ -55,7 +55,6 @@ export default function MentorUpdateAssignmentPage() {
       //     defaults.maxFileSubmit = activity.activityDetail.maxFileSubmit;
       //     defaults.maxFileSize = activity.activityDetail.maxFileSize;
       //     // defaults.attachFiles = activity.activityDetail.assignmentFiles;
-      //     defaults.isOverWriteAttachFile = true;
       //     reset(defaults);
       //     break;
 
@@ -83,10 +82,8 @@ export default function MentorUpdateAssignmentPage() {
       maxFileSubmit: data.maxFileSubmit,
       maxFileSize: data.maxFileSize,
       attachFiles: data.attachFiles,
-      isOverWriteAttachFile: data.isOverWriteAttachFile,
     };
 
-    console.log('params', params);
     // const idToast = toast.loadToast(toastMsgLoading);
     // try {
     //   await mutateUpdateAssignment(params);

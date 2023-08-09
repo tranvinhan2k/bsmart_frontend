@@ -1,52 +1,34 @@
-import {
-  Stack,
-  Typography,
-  Tooltip,
-  IconButton,
-  Collapse,
-} from '@mui/material';
-import { useState } from 'react';
-import { MetricSize, Color, FontFamily } from '~/assets/variables';
+import { Stack, Typography, Tooltip, IconButton, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { MetricSize, Color, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import UpdateModuleForm from '../UpdateModuleForm';
-import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import { ActivityPayload } from '~/models/type';
+import ModuleHeader from './ModuleHeader';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 interface Props {
+  index: number;
+  sectionId: number;
   module: ActivityPayload;
-  onUpdate: () => void;
-  onDelete: () => void;
 }
 
-export default function Module({ module, onDelete, onUpdate }: Props) {
-  const [fixOpen, setFixOpen] = useState(false);
-  const [clearOpen, setClearOpen] = useState(false);
+export default function Module({ index, sectionId, module }: Props) {
+  const navigate = useNavigate();
 
-  const handleFixOpen = () => {
-    setFixOpen(!fixOpen);
-  };
+  const { onChangeSection } = useContext(CourseContext);
 
-  const handleClearOpen = () => {
-    setClearOpen(!clearOpen);
-  };
-
-  const handleUpdate = async () => {
-    await onUpdate();
-    handleFixOpen();
-  };
-
-  const handleDelete = async () => {
-    await onDelete();
-    handleClearOpen();
+  const handleViewOpen = () => {
+    onChangeSection(sectionId);
+    navigate(`${sectionId}/${module.id}`);
   };
 
   return (
     <Stack
       sx={{
+        padding: 1,
         marginBottom: 1,
         borderRadius: MetricSize.small_5,
-        paddingY: 1,
-        paddingX: 2,
         background: Color.white,
       }}
       key={module.id}
@@ -55,21 +37,26 @@ export default function Module({ module, onDelete, onUpdate }: Props) {
         sx={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          alignItems: fixOpen ? 'flex-start' : 'center',
+          alignItems: 'center',
         }}
       >
         <Stack sx={{ flexGrow: 1 }}>
-          <Collapse in={!fixOpen}>
-            <Typography>
-              <span style={{ fontFamily: FontFamily.bold }}>
-                {`Bài học ${module.id + 1}: `}
-              </span>
+          <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Box>
+              <ModuleHeader type={module.type} index={index} />
+            </Box>
+
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.medium,
+                marginLeft: 1,
+                textAlign: 'center',
+              }}
+            >
               {module.name}
             </Typography>
-          </Collapse>
-          <Collapse in={fixOpen}>
-            <UpdateModuleForm module={module} onSubmit={handleUpdate} />
-          </Collapse>
+          </Stack>
         </Stack>
         <Stack
           sx={{
@@ -78,33 +65,13 @@ export default function Module({ module, onDelete, onUpdate }: Props) {
             justifyContent: 'flex-end',
           }}
         >
-          <Tooltip title="Chỉnh sửa học phần">
-            <IconButton onClick={handleFixOpen}>
-              <Icon
-                name={fixOpen ? 'close' : 'edit'}
-                color="black"
-                size="small"
-              />
+          <Tooltip title="Xem chi tiết">
+            <IconButton onClick={handleViewOpen}>
+              <Icon name="search" color="black" size="small_20" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Xóa học phần">
-            <IconButton onClick={handleClearOpen}>
-              <Icon name="delete" color="black" size="small" />
-            </IconButton>
-          </Tooltip>
-          {/* <Button>
-        <Icon name="add" size="small_20" color="black" />
-        Thêm nội dung bài học
-      </Button> */}
         </Stack>
       </Stack>
-      <ConfirmDialog
-        open={clearOpen}
-        title="Xác nhận xóa khóa học"
-        content="Bạn có chắc xóa khóa học này ?"
-        handleAccept={handleDelete}
-        handleClose={handleClearOpen}
-      />
     </Stack>
   );
 }

@@ -1,3 +1,6 @@
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+
 import React, { Suspense, useEffect } from 'react';
 import { Provider, useSelector } from 'react-redux';
 
@@ -16,6 +19,7 @@ import {
   useDispatchGetAllSlots,
   useDispatchGetAllSubjects,
   useDispatchGetCart,
+  useDispatchNotifications,
   useDispatchProfile,
 } from './hooks';
 
@@ -40,11 +44,15 @@ import localEnvironment from './utils/localEnvironment';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 
 import AuthorizePage from '~/pages/AuthorizePage';
-
 // css
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-loading-skeleton/dist/skeleton.css';
+import NotificationContextProvider from './HOCs/context/NotificationContext';
+import { useSocket } from './hooks/useSocket';
+import { isLoaded } from './redux/globalData/selector';
+
+window.global ||= window;
 
 const showAdminRoutes = () => {
   return adminRoutes.map((route: RoutePayload) => (
@@ -82,6 +90,7 @@ const showRoutes = (currentRole: Role | null) => {
           />
         );
       }
+
       if (currentRole === null) {
         return (
           <Route
@@ -111,40 +120,51 @@ function App() {
   const { handleUpdateCategories } = useDispatchGetAllCategories();
   const { handleUpdateDayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { handleUpdateSlots } = useDispatchGetAllSlots();
+  const { handleDispatch: handleUpdateNotifications } =
+    useDispatchNotifications();
+  const selectIsLoaded = useSelector(isLoaded);
+
+  useSocket();
 
   useEffect(() => {
     async function initGlobalValue() {
       if (token) {
         await handleDispatchProfile();
         await getUserCart.handleDispatch();
+        await handleUpdateNotifications();
       }
       await handleUpdateSubjects();
       await handleUpdateCategories();
       await handleUpdateDayOfWeeks();
       await handleUpdateSlots();
     }
-    initGlobalValue();
+
+    if (!selectIsLoaded) {
+      initGlobalValue();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectIsLoaded]);
 
   return (
     <Suspense fallback={<LazyLoadingScreen />}>
       <ToastContainer />
-      {role === 'ROLE_ADMIN' && Boolean(token) && (
-        <AdminProfileLayout>
-          <Routes>{showAdminRoutes()}</Routes>
-        </AdminProfileLayout>
-      )}
-      {role === 'ROLE_MANAGER' && Boolean(token) && (
-        <ManagerProfileLayout>
-          <Routes>{showManagerRoutes()}</Routes>
-        </ManagerProfileLayout>
-      )}
-      {role !== 'ROLE_ADMIN' && role !== 'ROLE_MANAGER' && (
-        <MainLayout>
-          <Routes>{showRoutes(role)}</Routes>
-        </MainLayout>
-      )}
+      <NotificationContextProvider>
+        {role === 'ROLE_ADMIN' && Boolean(token) && (
+          <AdminProfileLayout>
+            <Routes>{showAdminRoutes()}</Routes>
+          </AdminProfileLayout>
+        )}
+        {role === 'ROLE_MANAGER' && Boolean(token) && (
+          <ManagerProfileLayout>
+            <Routes>{showManagerRoutes()}</Routes>
+          </ManagerProfileLayout>
+        )}
+        {role !== 'ROLE_ADMIN' && role !== 'ROLE_MANAGER' && (
+          <MainLayout>
+            <Routes>{showRoutes(role)}</Routes>
+          </MainLayout>
+        )}
+      </NotificationContextProvider>
     </Suspense>
   );
 }

@@ -1,37 +1,21 @@
 import {
   Box,
   Button,
-  Tooltip,
-  Typography,
   Stack,
+  Tooltip,
   TooltipProps,
+  Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useQuery } from '@tanstack/react-query';
-import { image } from '~/constants/image';
-import { ProfileImgType } from '~/constants/profile';
-import { RootState } from '~/redux/store';
-import accountApi from '~/api/users';
 import DialogEditIdCardBack from '~/components/molecules/Dialog/DialogEditIdCardBack';
 import DialogEditIdCardFront from '~/components/molecules/Dialog/DialogEditIdCardFront';
-import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { image } from '~/constants/image';
+import { ProfileImgType } from '~/constants/profile';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
+import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function DisplayCISection() {
-  const token =
-    useSelector((state: RootState) => state.user.token) ||
-    localStorage.getItem('token');
-  const queryKey = ['/loginUser'];
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const { data: dataGetProfile } = useQuery(
-    queryKey,
-    () => accountApi.getProfile(config),
-    {
-      enabled: Boolean(token),
-    }
-  );
+  const { profile: dataGetProfile } = useGetProfile();
 
   const [openDialogUpdateIDCardFront, setOpenDialogUpdateIDCardFront] =
     useState<boolean>(false);
@@ -83,13 +67,13 @@ export default function DisplayCISection() {
       <Box sx={SX_FORM}>
         <Box mb={2}>
           <Typography component="h3" sx={SX_FORM_TITLE}>
-            Thông tin chứng minh thư
+            Thông tin CMND/CCCD
           </Typography>
         </Box>
         <Stack
-          direction={{ lg: 'column', xl: 'row' }}
-          justifyContent={{ lg: 'flex-start', xl: 'center' }}
-          alignItems={{ lg: 'center', xl: 'flex-start' }}
+          direction={{ md: 'column', lg: 'row' }}
+          justifyContent={{ md: 'flex-start', lg: 'center' }}
+          alignItems={{ md: 'center', lg: 'flex-start' }}
           spacing={2}
         >
           {CI.map((item) => (
@@ -110,7 +94,12 @@ export default function DisplayCISection() {
                     alt="mentor avatar"
                     component="img"
                     src={item.img}
-                    sx={{ maxWidth: 400, height: 250, borderRadius: 5 }}
+                    sx={{
+                      width: '100%',
+                      maxWidth: 370,
+                      height: 250,
+                      borderRadius: 5,
+                    }}
                     onClick={item.onClickAction}
                   />
                 </Tooltip>

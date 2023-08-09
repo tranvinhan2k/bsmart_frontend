@@ -38,13 +38,20 @@ const textTitle: SxProps<Theme> = {
   color: Color.black,
 };
 const textSubTitle: SxProps<Theme> = {
-  fontFamily: FontFamily.regular,
+  fontFamily: FontFamily.title,
   fontSize: FontSize.medium_24,
   color: Color.black,
 };
 const textSmallLabel: SxProps<Theme> = {
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_18,
+  color: Color.black,
+};
+const textCourseSmallLabel: SxProps<Theme> = {
+  fontFamily: FontFamily.bold,
+  fontSize: FontSize.medium_24,
+  marginTop: 3,
+  marginBottom: 1,
   color: Color.black,
 };
 const textSmallLight: SxProps<Theme> = {
@@ -74,6 +81,7 @@ export const SX_SHADOW: SxProps<Theme> = {
   elevation: 4,
 };
 export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
+  borderColor: '#ddd',
   // maxHeight: '50px',
   input: {
     fontFamily: FontFamily.regular,
@@ -85,14 +93,79 @@ export const SX_TEXT_INPUT_FORM: SxProps<Theme> = {
     marginX: 0,
   },
 };
-
+export const SX_DATAGRID_CELL_TEXT: SxProps<Theme> = {
+  fontSize: 14,
+};
+export const SX_DATAGRID_CELL_TEXT_ELLIPSIS: SxProps<Theme> = {
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  fontSize: 14,
+};
+export const textTwoLineEllipsis: SxProps<Theme> = {
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitLineClamp: '2',
+  WebkitBoxOrient: 'vertical',
+};
+export const viewRoundedWhiteBody: SxProps<Theme> = {
+  background: Color.white,
+  padding: 3,
+  borderRadius: MetricSize.small_5,
+};
+export const viewIllustration: SxProps<Theme> = {
+  width: '300px',
+  height: '300px',
+  objectFit: 'contain',
+  alignSelf: 'center',
+  padding: 1,
+};
+export const viewCenter: SxProps<Theme> = {
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+export const viewBorder: SxProps<Theme> = {
+  border: '1px solid black',
+  padding: 1,
+};
+export const viewFlexRowCenter: SxProps<Theme> = {
+  flexDirection: { xs: 'column', md: 'row' },
+  alignItems: 'center',
+};
+const displayEditorTextShowMore: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+};
+const displayEditorTextShowLess: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+  maskImage: 'linear-gradient(#ffffff,#ffffff,rgba(255,255,255,0))',
+};
+const displayEditorExpandButton: SxProps<Theme> = {
+  backgroundColor: 'transparent',
+  textTransform: 'none',
+  '&:hover': { backgroundColor: 'transparent' },
+};
+const boxSticky: SxProps<Theme> = {
+  position: 'sticky',
+  top: 0,
+};
 const globalStyles = {
+  boxSticky,
+  displayEditorTextShowMore,
+  displayEditorTextShowLess,
+  displayEditorExpandButton,
   textTitle,
   textSubTitle,
   textSmallLabel,
   textSmallLight,
+  textCourseSmallLabel,
   textLowSmallLight,
   textWhiteSubTitle,
+  textTwoLineEllipsis,
+  viewRoundedWhiteBody,
+  viewIllustration,
+  viewCenter,
+  viewBorder,
+  viewFlexRowCenter,
 };
 
 export default globalStyles;

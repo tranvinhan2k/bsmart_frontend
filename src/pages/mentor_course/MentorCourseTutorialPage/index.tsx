@@ -8,9 +8,12 @@ import { image } from '~/constants/image';
 import {
   MentorCourseActionLink,
   MentorDashboardNavigationActionLink,
-  MentorNavigationLink,
   NavigationLink,
 } from '~/constants/routeLink';
+import {
+  useQueryGetCourseContent,
+  useQueryGetMentorCourseClasses,
+} from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
@@ -22,6 +25,8 @@ export default function MentorCourseTutorialPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   const { data } = useQueryGetDetailUserCourse(courseId);
+  const { data: content } = useQueryGetCourseContent(courseId);
+  const { classes } = useQueryGetMentorCourseClasses(courseId);
 
   const handleChangeStep = (step: number) => {
     setActiveStep(step);
@@ -41,7 +46,7 @@ export default function MentorCourseTutorialPage() {
     },
     {
       id: 1,
-      isCompleted: Boolean(data?.content),
+      isCompleted: content?.length !== 0,
       label: 'Thêm nội dung khóa học',
       onClick: () =>
         navigate(
@@ -53,7 +58,7 @@ export default function MentorCourseTutorialPage() {
     },
     {
       id: 2,
-      isCompleted: Boolean(data?.classes),
+      isCompleted: classes?.length !== 0,
       label: 'Thêm danh sách lớp học',
       onClick: () =>
         navigate(

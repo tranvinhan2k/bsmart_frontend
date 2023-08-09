@@ -59,7 +59,7 @@ export default function MentorItem({
         width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
-        height: '600px',
+        background: Color.white,
       }}
     >
       <Stack>
@@ -69,7 +69,7 @@ export default function MentorItem({
           sx={{
             objectFit: 'fill',
             width: '100%',
-            height: '200px',
+            height: '300px',
             borderRadius: MetricSize.small_5,
           }}
           // src={image}
@@ -78,7 +78,7 @@ export default function MentorItem({
           }
           alt={title}
         />
-        <Stack sx={{ padding: MetricSize.medium_15, height: '200px' }}>
+        <Stack sx={{ padding: MetricSize.medium_15, background: Color.white }}>
           <Typography
             sx={{
               fontSize: FontSize.medium_28,
@@ -92,50 +92,69 @@ export default function MentorItem({
             sx={{
               fontSize: FontSize.small_18,
               fontFamily: FontFamily.light,
-              color: Color.grey,
+              color: Color.black,
             }}
           >
-            Tên: {fullName}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.light,
-              color: Color.grey,
-            }}
-          >
-            Giới thiệu: {introduce}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.light,
-              color: Color.grey,
-            }}
-          >
-            Kinh nghiệm: {workingExperience}
+            {fullName}
           </Typography>
           <Stack
             sx={{
+              height: '100px',
               overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              height: '150px',
             }}
           >
             <Typography
               sx={{
-                fontSize: FontSize.small_18,
-                fontFamily: FontFamily.regular,
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.light,
+                color: Color.black,
               }}
             >
-              {content}
+              Giới thiệu
             </Typography>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.light,
+                color: Color.grey,
+              }}
+              dangerouslySetInnerHTML={{
+                __html: introduce,
+              }}
+            />
+          </Stack>
+          <Stack
+            sx={{
+              height: '100px',
+              overflow: 'hidden',
+              marginTop: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.light,
+                color: Color.black,
+              }}
+            >
+              Kinh nghiệm
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.light,
+                color: Color.grey,
+              }}
+              dangerouslySetInnerHTML={{
+                __html: workingExperience,
+              }}
+            />
           </Stack>
         </Stack>
       </Stack>
 
       <Stack padding={2}>
-        <Stack marginY={1}>
+        <Stack>
           <Rating
             name="size-small"
             defaultValue={feedback}

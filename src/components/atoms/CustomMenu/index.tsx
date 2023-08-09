@@ -1,10 +1,15 @@
 import {
+  ClickAwayListener,
+  Grow,
   ListItemIcon,
   ListItemText,
-  Menu,
   MenuItem,
+  MenuList,
   MenuProps,
+  Paper,
+  Popper,
 } from '@mui/material';
+import React, { ReactNode } from 'react';
 import Icon, { IconName } from '../Icon';
 
 export interface CustomMenuItemPayload {
@@ -13,45 +18,95 @@ export interface CustomMenuItemPayload {
   onClick: () => void;
 }
 
-interface Props extends Omit<MenuProps, 'open'> {
+type Props = Omit<MenuProps, 'open'> & {
+  open: boolean;
   anchorEl: HTMLElement | null;
-  onClose: () => void;
-  menuItemData: CustomMenuItemPayload[];
-}
+  onClose: (event: Event | React.SyntheticEvent) => void;
+  onToggleOpen: () => void;
+  menuItemData?: CustomMenuItemPayload[];
+};
 
 export default function CustomMenu({
+  open,
   anchorEl,
   onClose,
   menuItemData,
-  ...props
+  children,
+  onToggleOpen,
 }: Props) {
+  const handleListKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      onToggleOpen();
+    } else if (event.key === 'Escape') {
+      onToggleOpen();
+    }
+  };
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (anchorEl && prevOpen.current === true && open === false) {
+      anchorEl!.focus();
+    }
+
+    prevOpen.current = open;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   return (
-    <Menu
-      {...props}
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
+    <Popper
+      sx={{
+        zIndex: 100,
       }}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={onClose}
-      onMouseLeave={onClose}
+      open={open}
+      anchorEl={anchorEl}
+      role={undefined}
+      placement="bottom-start"
+      transition
+      disablePortal
     >
-      {menuItemData.map((item, index) => (
-        <MenuItem
-          key={index}
-          onClick={() => {
-            item.onClick();
-            onClose();
+      {({ TransitionProps, placement }) => (
+        <Grow
+          {...TransitionProps}
+          style={{
+            transformOrigin:
+              placement === 'bottom-start' ? 'left top' : 'left bottom',
           }}
         >
-          <ListItemIcon>
-            <Icon name={item.icon} size="small_20" color="black" />
-          </ListItemIcon>
-          <ListItemText>{item.name}</ListItemText>
-        </MenuItem>
-      ))}
-    </Menu>
+          <Paper>
+            <ClickAwayListener onClickAway={onClose}>
+              <MenuList
+                autoFocusItem={open}
+                id="composition-menu"
+                aria-labelledby="composition-button"
+                onKeyDown={handleListKeyDown}
+              >
+                {menuItemData
+                  ? menuItemData.map((item, index) => (
+                      <MenuItem
+                        key={index}
+                        onClick={(e: any) => {
+                          item.onClick();
+                          onClose(e);
+                        }}
+                      >
+                        <ListItemIcon>
+                          <Icon
+                            name={item.icon}
+                            size="small_20"
+                            color="black"
+                          />
+                        </ListItemIcon>
+                        <ListItemText>{item.name}</ListItemText>
+                      </MenuItem>
+                    ))
+                  : children}
+              </MenuList>
+            </ClickAwayListener>
+          </Paper>
+        </Grow>
+      )}
+    </Popper>
   );
 }

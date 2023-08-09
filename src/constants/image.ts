@@ -4,6 +4,7 @@ import emptyCart from '~/assets/images/empty_cart.png';
 import emptyCourseList from '~/assets/images/emptyListCourseIllustration.png';
 import loadingIcon from '~/assets/gifs/loading.gif';
 import loadingIcon2 from '~/assets/gifs/loading2.gif';
+import loadingButton from '~/assets/gifs/buttonLoading.gif';
 import success from '~/assets/images/Celebration-amico.png';
 import error from '~/assets/images/error.png';
 import mentor from '~/assets/images/mentor.png';
@@ -17,10 +18,16 @@ import level1 from '~/assets/images/level1.png';
 import level2 from '~/assets/images/level2.png';
 import level3 from '~/assets/images/level3.png';
 import level4 from '~/assets/images/level4.png';
+import study from '~/assets/images/study.png';
+import asg from '~/assets/images/asg.png';
+import file from '~/assets/images/file.png';
+import quiz from '~/assets/images/quiz.png';
+import quiz_illustration from '~/assets/images/quiz_illustration.png';
+import resource from '~/assets/images/resrc.png';
 import guide from '~/assets/images/guide.png';
 import classSlot from '~/assets/images/class.png';
 import mockTeacherAvatar from '~/assets/images/mockTeacherAvatar.jpg';
-import studentAvatar from '~/assets/images/studentAvatar.jpg';
+import mockStudent from '~/assets/images/studentAvatar.jpg';
 
 export const image = {
   noAvatar,
@@ -39,11 +46,18 @@ export const image = {
   mockClass,
   mockCourse,
   guide,
+  study,
+  asg,
+  resource,
+  quiz,
+  quiz_illustration,
   level1,
   level2,
   level3,
   level4,
-  studentAvatar,
+  mockStudent,
   classSlot,
   mockTeacherAvatar,
+  file,
+  loadingButton,
 };

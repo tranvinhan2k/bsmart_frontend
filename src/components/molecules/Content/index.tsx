@@ -3,16 +3,24 @@ import Section from './Section';
 import { ActivityPayload } from '~/models/type';
 
 interface Props {
+  courseId?: number;
+  readOnly?: boolean;
   sections: ActivityPayload[];
 }
 
-export default function Content({ sections }: Props) {
+export default function Content({
+  sections,
+  courseId,
+  readOnly = false,
+}: Props) {
   return (
     <Stack>
       {sections.length !== 0 ? (
-        sections.map((section) => (
+        sections.map((section, index) => (
           <Section
-            key={section.id}
+            readOnly={readOnly}
+            key={index}
+            index={index}
             id={section.id}
             subActivities={section.subActivities}
             name={section.name}

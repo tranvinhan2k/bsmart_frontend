@@ -1,21 +1,22 @@
-import { MouseEvent, useState } from 'react';
-import { IconButton, MenuList, Popover, MenuItem } from '@mui/material';
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Popover,
+} from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
 import {
   DataGrid as MuiDataGrid,
   DataGridProps,
-  GridColumns,
-  viVN,
   gridClasses,
   GridColDef,
+  GridColumns,
+  viVN,
 } from '@mui/x-data-grid';
-import MenuIcon from '@mui/icons-material/Menu';
-import { alpha, styled } from '@mui/material/styles';
-
-interface MyDataGridProps extends DataGridProps {
-  columns: GridColumns<object>;
-  rows: object[];
-  popoverOptions?: { id: number; label: string; optionFunc: () => void }[];
-}
+import { MouseEvent, useState } from 'react';
+import Icon, { IconName } from '../Icon';
 
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
@@ -51,45 +52,40 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   },
 }));
 
+export type MenuItemPayload = {
+  icon: IconName;
+  title: string;
+  onCLick: () => void;
+};
+interface StyledDataGridProps extends DataGridProps {
+  columns: GridColumns<object>;
+  rows: object[];
+  popoverOptions?: MenuItemPayload[];
+}
+
 export default function DataGrid({
   columns,
   rows,
   popoverOptions,
   ...rest
-}: MyDataGridProps) {
+}: StyledDataGridProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  // const [rowData, setRowData] = useState();
-  const openPopover = Boolean(anchorEl);
-  const handleActionCellClick = (
-    event: MouseEvent<HTMLButtonElement>,
-    params: any
-  ) => {
-    setAnchorEl(event.currentTarget);
-    // setRowData(params.row);
-  };
-  const handleClosePopover = () => {
-    setAnchorEl(null);
-  };
+  const handleOpen = (e: MouseEvent<HTMLButtonElement>) =>
+    setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(() => null);
 
-  // popover view details
-  const [displayRowData, setDisplayRowData] = useState(false);
-  const handleDisplayProfile = () => {
-    setDisplayRowData(true);
-    setAnchorEl(null);
-  };
-
-  // popover extra column
-  const actionColumn: GridColDef[] = [
+  const extraActionColumn: GridColDef[] = [
     {
       field: 'action',
-      headerName: 'Hành động',
+      headerName: '',
+      minWidth: 50,
+      flex: 0.5,
+      align: 'center',
       filterable: false,
-      renderCell: (params: any) => (
-        <IconButton
-          onClick={(e: any) => handleActionCellClick(e, params)}
-          size="small"
-        >
-          <MenuIcon />
+      sortable: false,
+      renderCell: () => (
+        <IconButton onClick={handleOpen}>
+          <Icon name="menu" size="small_20" color="black" />
         </IconButton>
       ),
     },
@@ -99,29 +95,42 @@ export default function DataGrid({
     <>
       <StripedDataGrid
         autoHeight
-        columns={popoverOptions ? actionColumn.concat(columns) : columns}
+        columns={popoverOptions ? extraActionColumn.concat(columns) : columns}
         localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
         rows={rows}
+        getRowClassName={(params) =>
+          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        }
         {...rest}
       />
       <Popover
-        open={openPopover}
+        keepMounted
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onClose={handleClosePopover}
+        onClose={handleClose}
         anchorOrigin={{
           vertical: 'center',
-          horizontal: 'right',
+          horizontal: 'center',
         }}
         transformOrigin={{
           vertical: 'center',
-          horizontal: 'left',
+          horizontal: 'center',
         }}
       >
         <MenuList>
           {popoverOptions &&
-            popoverOptions.map((option) => (
-              <MenuItem onClick={option.optionFunc} key={option.id}>
-                {option.label}
+            popoverOptions.map((item) => (
+              <MenuItem
+                key={item.title}
+                onClick={() => {
+                  item.onCLick();
+                  handleClose();
+                }}
+              >
+                <ListItemIcon>
+                  <Icon name={item.icon} size="small" color="black" />
+                </ListItemIcon>
+                <ListItemText>{item.title}</ListItemText>
               </MenuItem>
             ))}
         </MenuList>

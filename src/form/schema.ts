@@ -105,9 +105,9 @@ export const EDIT_PROFILE_FIELDS = {
 };
 
 export const EDIT_SOCIAL_PROFILE_FIELDS = {
+  website: 'website',
+  linkedinLink: 'linkedinLink',
   facebookLink: 'facebookLink',
-  twitterLink: 'twitterLink',
-  instagramLink: 'instagramLink',
 };
 
 export const WITHDRAW_MONEY_FIELDS = {

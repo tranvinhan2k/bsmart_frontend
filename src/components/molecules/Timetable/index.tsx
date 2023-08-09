@@ -5,8 +5,13 @@ import { useEffect, useState } from 'react';
 import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 
+export interface TimetablePayload {
+  dayOfWeekId: number;
+  slotId: number;
+}
+
 interface Props {
-  data: { dayOfWeekId: number; slotId: number }[];
+  data: TimetablePayload[];
 }
 
 export default function Timetable({ data }: Props) {
@@ -99,8 +104,8 @@ export default function Timetable({ data }: Props) {
     if (data?.length > 0) {
       data.map((slotTime) => {
         const { dayOfWeekId, slotId } = slotTime;
-        const slot = slots.find((item) => item.id === slotId);
-        const dayOfWeek = dayOfWeeks.find((item) => item.id === dayOfWeekId);
+        const slot = slots?.find((item) => item.id === slotId);
+        const dayOfWeek = dayOfWeeks?.find((item) => item.id === dayOfWeekId);
         const index = rows.findIndex((item) => item.id === slotId);
 
         if (index !== -1 && dayOfWeek) {
@@ -119,12 +124,14 @@ export default function Timetable({ data }: Props) {
     return <Typography>Lớp học chưa có thời khóa biểu</Typography>;
 
   return (
-    <Stack sx={{ background: '#F3F1F5' }} height={400}>
+    <Box sx={{ background: '#F3F1F5' }}>
       {rows && columns && (
         <DataGrid
           rows={rows}
           columns={columns}
+          autoHeight
           hideFooter
+          density="compact"
           sx={{
             'MuiDataGrid-cell': {
               padding: 0,
@@ -137,6 +144,6 @@ export default function Timetable({ data }: Props) {
           }}
         />
       )}
-    </Stack>
+    </Box>
   );
 }

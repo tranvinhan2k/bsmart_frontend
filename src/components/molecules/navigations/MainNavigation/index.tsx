@@ -10,7 +10,8 @@ import {
   Drawer,
 } from '@mui/material';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import {
   ActionPayload,
@@ -28,13 +29,17 @@ import AuthorizationBar from '../../MainHeader/AuthorizationBar';
 import styles from './styles';
 import { Role } from '~/models/role';
 import { ResponseCartItem } from '~/api/cart';
-import { selectProfile } from '~/redux/user/selector';
+import { selectProfile, selectToken } from '~/redux/user/selector';
 import { ProfileImgType } from '~/constants/profile';
 import { image } from '~/constants/image';
 import MentorDetailSection from '~/containers/MentorProfileLayoutSection/MentorDetailSection';
 import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
 import { CoursePayload } from '~/models/type';
 import { AuthorizationActionData } from '~/routes/navigators';
+import { NavigationLink } from '~/constants/routeLink';
+import { logOut } from '~/redux/user/slice';
+import toast from '~/utils/toast';
+import { useLogOut } from '~/hooks';
 
 interface NavigationProps {
   texts: {
@@ -83,7 +88,19 @@ export default function MainNavigation({
   onClickNavigation,
   onMouseEnterNavigation,
 }: NavigationProps) {
+  const navigate = useNavigate();
   const profile = useSelector(selectProfile);
+  const token = useSelector(selectToken);
+  const { handleHookLogOut } = useLogOut();
+
+  const handleNavigateDashboard = () => {
+    navigate(`/${NavigationLink.dashboard}`);
+  };
+
+  const handleLogOut = async () => {
+    handleHookLogOut();
+    onToggleDrawer();
+  };
 
   const renderNavigationList = () => {
     return (
@@ -118,6 +135,8 @@ export default function MainNavigation({
     );
   };
 
+  const handleHomepage = () => navigate(NavigationLink.homepage);
+
   return (
     <Stack sx={styles.view}>
       <Stack sx={styles.view3}>
@@ -137,7 +156,7 @@ export default function MainNavigation({
         </IconButton>
       </Stack>
       <Stack>
-        <Typography sx={styles.text1}>
+        <Typography sx={styles.text1} onClick={handleHomepage}>
           {texts.APP_NAME.toUpperCase()}
         </Typography>
       </Stack>
@@ -179,7 +198,7 @@ export default function MainNavigation({
               {texts.APP_NAME.toUpperCase()}
             </Typography>
             <IconButton onClick={onToggleDrawer}>
-              <Icon name="close" color="navy" size="medium" />
+              <Icon name="close" color="navy" size="small_20" />
             </IconButton>
           </Stack>
           {renderNavigationList()}
@@ -189,19 +208,63 @@ export default function MainNavigation({
             placeholder={texts.SEARCH_COURSE_PLACEHOLDER}
             onSubmit={onSearchCourse}
           />
-          <ContractBar color="black" contracts={contracts} />
-          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
+
+          <Stack
+            sx={{
+              justifyContent: 'center',
+              marginLeft: 1,
+              alignItems: 'center',
+            }}
+          >
+            <Stack
+              sx={{
+                alignSelf: 'flex-start',
+                marginY: 1,
+              }}
+            >
+              <ContractBar color="black" contracts={contracts} />
+            </Stack>
             <SocialBar color="black" socials={socials} />
-            <AuthorizationBar
-              color="black"
-              loginData={AuthorizationActionData[0]}
-              registerData={AuthorizationActionData[1]}
-              onLoginClick={() => onNavigationLink('/login')}
-              onRegisterClick={() =>
-                onNavigationLink(AuthorizationActionData[1].link)
-              }
-            />
+            {!token && (
+              <AuthorizationBar
+                color="black"
+                loginData={AuthorizationActionData[0]}
+                registerData={AuthorizationActionData[1]}
+                onLoginClick={() => {
+                  onNavigationLink('/login');
+                  onToggleDrawer();
+                }}
+                onRegisterClick={() => {
+                  onNavigationLink(AuthorizationActionData[1].link);
+                  onToggleDrawer();
+                }}
+              />
+            )}
           </Stack>
+          {token && (
+            <>
+              <Button
+                sx={{
+                  marginTop: 1,
+                }}
+                variant="contained"
+                onClick={handleNavigateDashboard}
+              >
+                Quản lí học tập
+              </Button>
+
+              <Button
+                sx={{
+                  marginTop: 1,
+                }}
+                color="error"
+                variant="contained"
+                onClick={handleLogOut}
+              >
+                Đăng xuất
+              </Button>
+            </>
+          )}
         </Stack>
       </Drawer>
       <Drawer

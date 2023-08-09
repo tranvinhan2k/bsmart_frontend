@@ -1,4 +1,4 @@
-import { Stack, Typography, Box, Tabs, Tab } from '@mui/material';
+import { Stack, Typography, Box, Tabs, Tab, Alert, Badge } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
+import ClassStatusLabel from '~/components/atoms/ClassStatusLabel';
 import CustomPagination from '~/components/atoms/CustomPagination';
+import Tag from '~/components/atoms/Tag';
 import { SearchTextField } from '~/components/atoms/textField/SearchTextField';
 import MentorCourseItem from '~/components/molecules/MentorCourseItem';
 import { CourseStatusList } from '~/constants';
@@ -42,7 +44,7 @@ export default function MentorCourseListPage() {
   });
   const [value, setValue] = useState(0);
 
-  const { courses, error, isLoading, currentPage, totalPages } =
+  const { courses, error, isLoading, currentPage, totalPages, allClasses } =
     useQueryGetMentorCourses(filterParams);
 
   // parameters
@@ -90,23 +92,29 @@ export default function MentorCourseListPage() {
     <Stack>
       <Stack>
         <Stack
+          spacing={1}
           sx={{
-            flexDirection: 'row',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
           }}
         >
           <Stack sx={{ flexGrow: 1 }}>
-            <Typography sx={globalStyles.textTitle}>Khoá học đã tạo</Typography>
+            <Typography sx={globalStyles.textTitle}>
+              Danh sách khóa học
+            </Typography>
           </Stack>
 
-          <Button
-            onClick={handleNavigateCreateCourse}
-            variant="contained"
-            color="secondary"
-            sx={{ color: Color.white, marginLeft: 1, height: '40px' }}
-          >
-            Tạo khóa học
-          </Button>
+          <Box>
+            <Button
+              disabled={profile.mentorProfile.status !== 'STARTING'}
+              onClick={handleNavigateCreateCourse}
+              variant="contained"
+              color="secondary"
+              sx={{ color: Color.white, height: '40px' }}
+            >
+              Tạo khóa học
+            </Button>
+          </Box>
         </Stack>
         <Stack
           marginY={1}
@@ -138,7 +146,22 @@ export default function MentorCourseListPage() {
               <Tab
                 onClick={() => handleChangeClassStatus(item.value)}
                 key={item.id}
-                label={item.label}
+                label={
+                  <ClassStatusLabel
+                    label={item.label}
+                    numberOfItem={
+                      allClasses?.reduce((total: number, subItem) => {
+                        if (
+                          item.value === 'ALL' ||
+                          subItem.courseStatus === item.value
+                        ) {
+                          return total + 1;
+                        }
+                        return total;
+                      }, 0) || 0
+                    }
+                  />
+                }
                 {...a11yProps(index)}
               />
             ))}

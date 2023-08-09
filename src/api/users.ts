@@ -1,13 +1,28 @@
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
-import { EditPersonalProfilePayload } from '~/models/modelAPI/user/personal';
+import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { LoginRequestPayload } from '~/models/api/auth';
 import { ProfileImgType } from '~/constants/profile';
-import { RequestRole, Role } from '~/models/role';
-import { UserPayload } from '~/models/user';
+import { RequestRole } from '~/models/role';
+import { User, UserPayload } from '~/models/user';
 import axiosClient from '~/api/axiosClient';
-import { PagingFilterRequest } from '~/models';
-import { ProfilePayload } from '~/models/type';
+import { PagingFilterPayload, PagingFilterRequest } from '~/models';
+import {
+  ClassMenuItemPayload,
+  ManagedMemberPayload,
+  ManagedMentorPayload,
+  ProfilePayload,
+  WeekTimeSlotPayload,
+} from '~/models/type';
+import { GetUserSchedule, ResponseUserClasses } from '~/models/response';
+import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
+import { compareDate } from '~/utils/date';
+import { AttendanceTimeSlotPayload } from '~/pages/mentor_class/MentorClassAttendanceListPage';
+import { PromoCodePayload } from '~/pages/member_class/MemberPromoCode';
+import { generateMockApi } from '~/utils/common';
+import { image } from '~/constants/image';
+import { NotificationItemPayload } from '~/HOCs/context/NotificationItem';
+import { UseSearchManagedUserPayload } from '~/hooks/user/useSearchManagedUser';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -38,6 +53,9 @@ export interface EditMentorProfilePayload {
   introduce: string;
   mentorSkills: Array<any>;
   workingExperience: string;
+}
+export interface UpdateMentorProfileRequestPayload {
+  mentorSkills: Array<any>;
 }
 
 export interface ResponseProfilePayload {
@@ -113,6 +131,81 @@ export interface UserResponsePayload {
   };
 }
 
+const formatScheduleToWeekSchedule = (response: GetUserSchedule) => {
+  let result: WeekTimeSlotPayload[] = [];
+  response.map((date) => {
+    date.timeTableResponse?.map((timetable) => {
+      result = [
+        ...result,
+        {
+          id: timetable?.id || 0,
+          classId: date.workingClass?.id || -1,
+          className: date.workingClass?.code || '',
+          date: timetable.date || '',
+          dayOfWeekId: new Date(timetable.date || '').getDay() + 1,
+          isPresent: true, // TODO chua co
+          isTookAttendance: true, // TODO chua co
+          link: timetable.classURL || '',
+          slotId: timetable.slot?.id || 0,
+          attendanceSlotId: timetable?.id || 0,
+        },
+      ];
+      return null;
+    });
+    return null;
+  });
+  return result;
+};
+
+const formatScheduleToMonthSchedule = (response: GetUserSchedule) => {
+  let result: MonthTimeSlotPayload[] = [];
+  response.map((date) => {
+    date.timeTableResponse?.map((timetable) => {
+      const isExisted = result.findIndex((item) =>
+        compareDate(item.date, new Date(timetable.date || ''))
+      );
+      if (isExisted !== -1) {
+        const isSlotExisted = result[isExisted].slots.findIndex(
+          (item) =>
+            (item.id === timetable?.slot?.id || -1) &&
+            item.value === date.workingClass?.course?.code
+        );
+        if (isSlotExisted === -1) {
+          result[isExisted] = {
+            ...result[isExisted],
+            slots: [
+              ...result[isExisted].slots,
+              {
+                id: timetable.slot?.id || 0,
+                label: `${timetable.slot?.startTime} - ${timetable.slot?.endTime}`,
+                value: `${date.workingClass?.course?.code}`,
+              },
+            ],
+          };
+        }
+      } else {
+        result = [
+          ...result,
+          {
+            id: timetable.id || 0,
+            date: new Date(timetable.date || ''),
+            slots: [
+              {
+                id: timetable.slot?.id || 0,
+                label: `${timetable.slot?.startTime} - ${timetable.slot?.endTime}`,
+                value: `${date.workingClass?.course?.code}`,
+              },
+            ],
+          },
+        ];
+      }
+      return null;
+    });
+    return null;
+  });
+  return result;
+};
+
 const accountApi = {
   signUp(data: RequestRegisterPayload): Promise<UserPayload[]> {
     return axiosClient.post(`${url}/register`, data);
@@ -120,8 +213,34 @@ const accountApi = {
   signIn(data: LoginRequestPayload): Promise<any> {
     return axiosClient.post(`${urlAuth}/login`, data);
   },
-  getProfile(config: any): Promise<any> {
-    return axiosClient.get(`${url}/profile`, config);
+
+  // get
+  getProfile(): Promise<ProfilePayload> {
+    return axiosClient.get(`${url}/profile`);
+  },
+  getIntroduceCode(): Promise<PromoCodePayload[]> {
+    const data: PromoCodePayload[] = [
+      {
+        id: 0,
+        code: '1234567',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
+      },
+      {
+        id: 1,
+        code: '1234563',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
+      },
+      {
+        id: 2,
+        code: '1234561',
+        description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
+      },
+    ];
+
+    return generateMockApi(data);
   },
   getUserById(id: number): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
@@ -131,6 +250,33 @@ const accountApi = {
     const result: ProfilePayload = response;
     return result;
   },
+  async getUserClass(
+    params: PagingFilterRequest
+  ): Promise<PagingFilterPayload<ClassMenuItemPayload>> {
+    const response: PagingFilterPayload<ResponseUserClasses> =
+      await axiosClient.get(`${url}/classes`, {
+        params,
+        paramsSerializer: { indexes: null },
+      });
+    const result: ClassMenuItemPayload[] = response.items.map((item) => ({
+      id: item.id || 0,
+      code: item.code || '',
+      imageAlt: item.image?.name || '',
+      imageUrl: item.image?.url || '',
+      name: item.course?.name,
+      progressValue: -1, // TODO: chua co
+      status: item?.status || 'ALL',
+      subjectId: item.course?.subject?.id || 0,
+      teacherName: [item.mentor?.name || ''],
+      endDate: item.endDate || '',
+      max: item.maxStudent || 0,
+      min: item.minStudent || 0,
+      numberOfStudent: item.numberOfStudent || 0,
+      startDate: item.startDate || '',
+    }));
+    return { ...response, items: result };
+  },
+
   editAccountProfile(data: EditAccountProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/password`, data);
   },
@@ -158,13 +304,24 @@ const accountApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
+  updateDegreeRequest(data: EditCertificateProfilePayload): Promise<any> {
+    const bodyFormData = new FormData();
+    const { userImages } = data;
+    userImages.forEach((item) => {
+      bodyFormData.append('files', item);
+    });
+    return axiosClient.post(`image/upload/degree`, bodyFormData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+
   editMentorProfile(data: EditMentorProfilePayload): Promise<any> {
     return axiosClient.put(`/mentor-profiles`, data);
   },
-  editMentorPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
+  editMentorPersonalProfile(data: EditPersonalProfileFormSubmit): Promise<any> {
     return axiosClient.put(`${url}/mentor-personal`, data);
   },
-  editMemberPersonalProfile(data: EditPersonalProfilePayload): Promise<any> {
+  editMemberPersonalProfile(data: EditPersonalProfileFormSubmit): Promise<any> {
     return axiosClient.put(`${url}/member-personal`, data);
   },
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
@@ -178,6 +335,85 @@ const accountApi = {
       params: data,
       paramsSerializer: { indexes: null },
     });
+  },
+  async getClassAttendance(id: number): Promise<AttendanceTimeSlotPayload[]> {
+    const response: GetUserSchedule = await axiosClient.get(
+      `${url}/timetables`
+    );
+
+    const selectedClassResponse = response.find(
+      (item) => item.workingClass?.id === id
+    );
+
+    const result: AttendanceTimeSlotPayload[] =
+      selectedClassResponse?.timeTableResponse?.map((timeSlot) => ({
+        id: timeSlot.id || 0,
+        date: timeSlot?.date || '',
+        slotName: timeSlot.slot?.name || '',
+        time: `${timeSlot.slot?.startTime} - ${timeSlot.slot?.endTime}`,
+        isPresent: !!timeSlot.present,
+        isTookAttendance: !!timeSlot.tookAttendance,
+      })) || [];
+
+    return result;
+  },
+  async getUserSchedule(): Promise<{
+    week: WeekTimeSlotPayload[];
+    month: MonthTimeSlotPayload[];
+  }> {
+    const response: GetUserSchedule = await axiosClient.get(
+      `${url}/timetables`
+    );
+
+    const result = {
+      week: formatScheduleToWeekSchedule(response),
+      month: formatScheduleToMonthSchedule(response),
+    };
+
+    return result;
+  },
+  async getUserClassSchedule(id: number): Promise<WeekTimeSlotPayload[]> {
+    const response: GetUserSchedule = await axiosClient.get(
+      `${url}/timetables`
+    );
+    const responseClass = response.find((item) => item.workingClass?.id === id);
+    const result: WeekTimeSlotPayload[] =
+      responseClass?.timeTableResponse?.map((item) => ({
+        id: item?.id || 0,
+        classId: responseClass.workingClass?.id || 0,
+        className: responseClass.workingClass?.code || '',
+        date: item?.date || '',
+        dayOfWeekId: new Date(item?.date || '').getDay() + 1,
+        isPresent: !!item.present,
+        isTookAttendance: !!item.tookAttendance,
+        link: item.classURL || '',
+        slotId: item.slot?.id || 0,
+        attendanceSlotId: 0,
+      })) || [];
+    return result;
+  },
+  searchManagedUser({
+    q = '',
+    role = null,
+    isVerified = true,
+    page = 0,
+    size = null,
+    sort = [],
+  }: UseSearchManagedUserPayload): Promise<PagingFilterPayload<User> | null> {
+    const urlSearch = `${url}?q=${q}&role=${role}&isVerified=${isVerified}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(urlSearch);
+  },
+
+  sendMailResetPassword(email: string) {
+    // TODO: nhap email xac nhan quen mat khau o day
+    return generateMockApi(true);
+  },
+
+  getManagedMentorDetails(id: number): Promise<ManagedMentorPayload> {
+    return axiosClient.get(`${url}/${id}/mentor`);
+  },
+  getManagedMemberDetails(id: number): Promise<ManagedMemberPayload> {
+    return axiosClient.get(`${url}/${id}/member`);
   },
 };
 

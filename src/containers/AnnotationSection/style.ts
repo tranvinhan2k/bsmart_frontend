@@ -3,7 +3,6 @@ import { Theme } from '@mui/material/styles';
 import { Color, FontSize, FontWeight } from '~/assets/variables';
 
 export const ANNOTATION_BOX: SxProps<Theme> = {
-  boxShadow: 3,
   padding: 3,
   borderRadius: 3,
   backgroundColor: Color.white,

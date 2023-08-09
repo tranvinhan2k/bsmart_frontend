@@ -1,5 +1,5 @@
 import axiosClient from '~/api/axiosClient';
-import { PaginationPayload } from '~/models';
+import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
 
 const url = `/transactions`;
 export interface ResponseTransactionsPayload {
@@ -17,20 +17,25 @@ export interface WithdrawMoneyProfilePayload {
 
 const transactionsApi = {
   async payQuick(data: {
-    subCourseId: number;
-    referralCode: string | undefined;
+    clazzId: number;
+    returnURL: string | undefined;
   }): Promise<any> {
     return axiosClient.post(`${url}/pay-quick`, data);
   },
   async pay(
     data: {
       cartItemId: number;
-      referralCode: string | undefined;
+      subCourseId: number;
+      referralCode: string;
     }[]
   ): Promise<any> {
     return axiosClient.post(`${url}/pay`, data);
   },
-  async getTransactions({ page, size, sort }: PaginationPayload): Promise<any> {
+  async getTransactions({
+    page,
+    size,
+    sort,
+  }: UseQueryGetTransactionsPayload): Promise<any> {
     return axiosClient.get(`${url}/?page=${page}&size=${size}&sort=${sort}`);
   },
   async withdrawMoney(data: WithdrawMoneyProfilePayload): Promise<any> {

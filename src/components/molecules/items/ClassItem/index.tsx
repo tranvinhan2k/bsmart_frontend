@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
   Collapse,
+  FormHelperText,
 } from '@mui/material';
 
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
@@ -43,17 +44,19 @@ const texts = {
   createClassTitle: 'Tạo lớp học mới',
   createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
   generalInfoTitle: 'Thông tin chung',
-  priceLabel: 'Giá khóa học',
+  priceLabel: 'Giá khóa học trên một học sinh',
   courseTypeLabel: 'Hình thức khóa học',
   imageLabel: 'Hình ảnh',
   minStudentLabel: 'Số học sinh tối thiểu',
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
-  classInfoTitle: 'Thông tin giờ học',
+  classInfoTitle:
+    'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7 hàng tuần',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',
-  timetableLabel: 'Thời khóa biểu',
+  timetableLabel:
+    'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7 hàng tuần',
   createTimetableButton: 'Tạo thời khóa biểu',
   viewCourseInfoButton: 'Thu gọn lịch học',
   viewTimetableButton: 'Xem lịch học',
@@ -79,7 +82,7 @@ export default function ClassItem({
 }: Props) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  const [loaded, setLoaded] = useState(false);
   const handleDelete = () => {
     if (onUpdate) {
       onUpdate(id);
@@ -131,13 +134,17 @@ export default function ClassItem({
     },
   ];
 
+  const statusLabel = ClassStatusList.find((item) => {
+    return item.value === status;
+  })?.label;
+
   return (
     <Stack
       sx={{
         background: Color.white,
         border: `0.5px solid ${Color.border}`,
         position: 'relative',
-        flexDirection: 'row',
+        flexDirection: { xs: 'column', md: 'row' },
         flexWrap: 'wrap',
         flexGrow: 1,
         borderRadius: MetricSize.small_5,
@@ -145,19 +152,16 @@ export default function ClassItem({
       }}
     >
       <Stack sx={{ flexGrow: 1 }}>
-        <Stack sx={{ flexDirection: 'row' }}>
-          <Stack
-            sx={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+        <Stack sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
+          <Stack>
             <Box
               component="img"
-              src={imageUrl || image.mockClass}
+              src={!loaded ? imageUrl : image.noCourse}
+              onError={() => setLoaded(true)}
               alt="course"
               sx={{
                 borderRadius: MetricSize.small_5,
+                border: '1px solid #eee',
                 margin: 1,
                 background: Color.white,
                 objectFit: 'cover',
@@ -178,13 +182,7 @@ export default function ClassItem({
           >
             {status && (
               <Box>
-                <Tag
-                  color="whiteSmoke"
-                  title={
-                    ClassStatusList.find((item) => item.value === status)
-                      ?.label || ''
-                  }
-                />
+                <Tag color="whiteSmoke" title={statusLabel || ''} />
               </Box>
             )}
             <Typography
@@ -193,7 +191,7 @@ export default function ClassItem({
                 fontSize: FontSize.medium_28,
               }}
             >
-              {`Lớp học #${code}`}
+              {`Lớp học mã ${code}`}
             </Typography>
             <Stack>
               {/* <Stack
@@ -286,6 +284,9 @@ export default function ClassItem({
             <Typography sx={globalStyles.textSmallLabel}>
               {texts.classInfoTitle}
             </Typography>
+            <FormHelperText>
+              Thông tin các buổi học trong một tuần bất kì của bạn
+            </FormHelperText>
             <Stack marginTop={1}>
               <Timetable data={timetable} />
             </Stack>

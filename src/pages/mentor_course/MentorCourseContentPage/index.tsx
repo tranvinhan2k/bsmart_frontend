@@ -1,36 +1,23 @@
-import { useState } from 'react';
 import { Stack } from '@mui/material';
-import { useParams } from 'react-router-dom';
-import { PostActivityCoursePayload } from '~/models';
-import {
-  useMutationAddSection,
-  useMutationDeleteContent,
-  useMutationUpdateContent,
-  useQueryGetCourseContent,
-  useTryCatch,
-} from '~/hooks';
-import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
-import { formatStringToNumber } from '~/utils/number';
+import { useContext } from 'react';
+import { useMutationAddSection, useTryCatch } from '~/hooks';
 import AddSection from '~/containers/MentorCourseDetailSection/AddSection';
 import Sections from '~/containers/MentorCourseDetailSection/Sections';
+import { CourseContext } from '~/HOCs/context/CourseContext';
+import { isAllowUpdateActivity } from '~/assets/variables';
 
 export default function MentorCourseContentPage() {
-  const { id } = useParams();
-  const courseId = formatStringToNumber(id);
-
-  const [open, setOpen] = useState(false);
+  const { course, content, courseId, refetchContent, refetchPercent } =
+    useContext(CourseContext);
+  const status = course?.status || 'ALL';
   const addCourseSection = useMutationAddSection();
 
-  const deleteCourseContent = useMutationDeleteContent();
-  const deleteContent = useTryCatch('xóa nội dung');
-
-  const {
-    data: content,
-    error,
-    isLoading,
-    refetch,
-  } = useQueryGetCourseContent(courseId);
   const addContentSection = useTryCatch('thêm học phần');
+
+  const handleRefetch = async () => {
+    await refetchPercent();
+    await refetchContent();
+  };
 
   const handleAddNewSection = async (name: string) => {
     await addContentSection.handleTryCatch(async () => {
@@ -41,33 +28,16 @@ export default function MentorCourseContentPage() {
         parentActivityId: undefined,
         authorizeClasses: [],
       });
+      await handleRefetch();
     });
-
-    await refetch();
-  };
-
-  const handleAddNewModule = async (sectionId: number, name: string) => {
-    const section = content?.find((item) => item.id === sectionId);
-    await refetch();
-  };
-
-  const handleCloseConfirm = () => {
-    setOpen(!open);
-  };
-
-  const handleDeleteContent = () => {
-    deleteContent.handleTryCatch(async () =>
-      deleteCourseContent.mutateAsync(id)
-    );
-    handleCloseConfirm();
   };
 
   return (
     <Stack>
-      <LoadingWrapper error={error} isLoading={isLoading}>
-        <Sections content={content} onAddNew={handleAddNewModule} />
-      </LoadingWrapper>
-      <AddSection onAdd={handleAddNewSection} />
+      <Sections status={status} content={content} />
+      {isAllowUpdateActivity(status) && (
+        <AddSection onAdd={handleAddNewSection} />
+      )}
     </Stack>
   );
 }

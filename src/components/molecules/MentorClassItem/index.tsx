@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import UserClassItem from '../items/UserClassItem';
-import { image } from '~/constants/image';
 import { ClassMenuItemPayload } from '~/models/type';
 import {
   MentorDashboardNavigationActionLink,
@@ -20,17 +18,23 @@ export default function MentorClassItem({ item }: Props) {
     );
   };
   const handleAddFeedback = () => {};
-  const handleUpdateFeedback = () => {};
   return (
     <UserClassItem
+      code={item?.code}
       imageAlt={item?.imageAlt}
       imageUrl={item?.imageUrl}
       name={item?.name}
       onClick={handleNavigateDetailClass}
       progressValue={item?.progressValue}
-      status={item?.status}
+      status={item?.status || 'ALL'}
+      subjectId={item?.subjectId || -1}
       onAddFeedback={item?.id === 1 ? handleAddFeedback : undefined}
-      teacherName={['Trần Vĩ Nhân']}
+      teacherName={item?.teacherName}
+      startDate={item?.startDate}
+      endDate={item?.endDate}
+      numberOfStudent={item?.numberOfStudent || 0}
+      min={item?.min}
+      max={item?.max}
     />
   );
 }

@@ -5,6 +5,15 @@ const loadToast = (label: string) => {
     position: 'top-left',
   });
 };
+const copyText = (label: string) => {
+  toast.success(label, {
+    position: 'bottom-center',
+    isLoading: false,
+    autoClose: 500,
+    closeOnClick: true,
+    closeButton: false,
+  });
+};
 
 const updateSuccessToast = (id: Id, label: string) => {
   toast.update(id, {
@@ -46,6 +55,15 @@ const notifyWarningToast = (message: string) => {
     autoClose: 1000,
   });
 };
+const notifyInfoToast = (message: string | React.ReactNode) => {
+  toast.info(message, {
+    position: 'top-left',
+    isLoading: false,
+    closeOnClick: true,
+    closeButton: true,
+    autoClose: 1000,
+  });
+};
 const notifySuccessToast = (message: string) => {
   toast.success(message, {
     position: 'top-left',
@@ -63,4 +81,6 @@ export default {
   notifyErrorToast,
   notifyWarningToast,
   notifySuccessToast,
+  notifyInfoToast,
+  copyText,
 };

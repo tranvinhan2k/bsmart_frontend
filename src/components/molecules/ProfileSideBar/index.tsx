@@ -12,6 +12,7 @@ import {
   SX_BOX_ITEM_AVATAR,
   SX_ACCOUNT_AVATAR,
   SX_ACCOUNT_NAME,
+  SX_ACCOUNT_EMAIL,
   SX_ACCOUNT_ROLE,
   SX_DISPLAY_FIELD_TEXT,
 } from './style';
@@ -23,13 +24,15 @@ import { GenderKeys, RoleKeys } from '~/models/variables';
 import { ROLE_LABELS } from '~/constants/role';
 import { ActionPayload, SocialPayload } from '~/models';
 import Button from '~/components/atoms/Button';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { MetricSize } from '~/assets/variables';
 import { NavigationLink } from '~/constants/routeLink';
+import { MentorProfileStatus, MentorTeachingInformation } from '~/models/type';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
+import MentorProfileStatusProfileSideBar from '../MentorProfileStatusProfileSideBar';
 
 export interface ProfileSideBarProps {
   name: string;
+  email: string;
   role: RoleKeys;
   avatarUrl: string;
   gender: GenderKeys;
@@ -37,16 +40,19 @@ export interface ProfileSideBarProps {
   birth: string;
   phone: string;
   isVerified: boolean;
+  mentorProfileStatus?: MentorProfileStatus;
   openAvatar: boolean;
   socials: SocialPayload[];
   navigationData: ActionPayload[];
   onOpenUpdateAvatar: () => void;
   onOpenLink: (link: string) => void;
   onNavigateLink: (link: string) => void;
+  teachInformation?: MentorTeachingInformation;
 }
 
 export default function ProfileSideBar({
   name,
+  email,
   role,
   avatarUrl,
   gender,
@@ -55,31 +61,71 @@ export default function ProfileSideBar({
   phone,
   openAvatar,
   isVerified,
+  mentorProfileStatus,
   socials,
   navigationData,
   onOpenUpdateAvatar,
   onOpenLink,
   onNavigateLink,
+  teachInformation,
 }: ProfileSideBarProps) {
   const navigate = useNavigate();
-  const displayFields = [
-    {
-      id: 0,
-      image: 'mail',
-      text: mail,
-    },
-    {
-      id: 1,
-      image: 'cake',
-      text: formatISODateStringToDisplayDate(birth),
-    },
-    {
-      id: 2,
-      image: 'phone',
-      text: phone,
-    },
-  ];
 
+  const displayFieldsMentor = {
+    items: [
+      {
+        id: 0,
+        image: 'coPresent',
+        number: teachInformation?.numberOfCourse ?? 0,
+        text: 'Khóa học',
+      },
+      {
+        id: 1,
+        image: 'coPresent',
+        number: teachInformation?.numberOfClass ?? 0,
+        text: 'Lớp học',
+      },
+      {
+        id: 2,
+        image: 'person',
+        number: teachInformation?.numberOfMember ?? 0,
+        text: 'Học sinh',
+      },
+    ],
+    ratingDisplay: `${teachInformation?.scoreFeedback ?? 0} / 5`,
+    noOfRatingDisplay: `(${teachInformation?.numberOfFeedBack} đánh giá)`,
+  };
+
+  const noOfRating = 482;
+  const displayFieldsMember = {
+    items: [
+      {
+        id: 0,
+        image: 'coPresent',
+        text1: 'Tham gia',
+        number: 16,
+        text2: 'Khóa học',
+      },
+      {
+        id: 1,
+        image: 'coPresent',
+        text1: 'Tham gia',
+        number: 172,
+        text2: 'Lớp học',
+      },
+      {
+        id: 2,
+        image: 'edit',
+        text1: 'Đã viết',
+        number: 172,
+        text2: 'Đánh giá đã viết',
+      },
+    ],
+    ratingDisplay: {
+      value: `${noOfRating}`,
+      text: 'đánh giá đã viết',
+    },
+  };
   const handleNavigateDashboard = () =>
     navigate(`/${NavigationLink.dashboard}`);
 
@@ -92,8 +138,9 @@ export default function ProfileSideBar({
               direction="column"
               justifyContent="flex-start"
               alignItems="center"
+              spacing={3}
             >
-              <Box pt={{ xs: 10, sm: 30, md: 14 }}>
+              <Box pt={{ sm: 5, md: 5, lg: 8, xl: 14 }}>
                 <IconButton onClick={onOpenUpdateAvatar}>
                   <Tooltip title="Cập nhật" arrow placement="top">
                     <Stack
@@ -118,7 +165,7 @@ export default function ProfileSideBar({
               justifyContent="flex-start"
               alignItems="stretch"
               spacing={2}
-              mt={3}
+              mt={2}
             >
               <Stack
                 direction="column"
@@ -128,65 +175,104 @@ export default function ProfileSideBar({
                 <Typography component="h4" sx={SX_ACCOUNT_NAME}>
                   {name}
                 </Typography>
-                <Typography component="p" sx={SX_ACCOUNT_ROLE}>
-                  {ROLE_LABELS[role]}
+                <Typography component="h4" sx={SX_ACCOUNT_EMAIL}>
+                  {email}
                 </Typography>
+                {/* <Typography component="p" sx={SX_ACCOUNT_ROLE}>
+                  {ROLE_LABELS[role]}
+                </Typography> */}
               </Stack>
-              {/* <Stack
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                {socials.map((item) => (
-                  <Stack m={1} key={item.image}>
-                    <Tooltip title={item.link || 'Chưa có địa chỉ mạng xã hội'}>
-                      <span>
-                        <Button
-                          onClick={() => onOpenLink(item.link)}
-                          customVariant="normal"
-                        >
-                          <Icon name={item.image as IconName} size="small" />
-                        </Button>
-                      </span>
-                    </Tooltip>
-                  </Stack>
-                ))}
-              </Stack>
-              {gender && (
-                <Stack padding={2}>
-                  <Icon
-                    color="tertiary"
-                    name={gender.toLowerCase() as IconName}
-                    size="large"
-                  />
-                </Stack>
-              )} */}
               <Stack
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
               >
-                {displayFields.map((item) => {
-                  return (
+                {role === 'TEACHER' && (
+                  <>
+                    <MentorProfileStatusProfileSideBar
+                      status={mentorProfileStatus}
+                    />
+                    {displayFieldsMentor.items.map((item) => {
+                      return (
+                        <Stack
+                          key={item.id}
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
+                          spacing={1}
+                          mt={2}
+                        >
+                          <Icon
+                            name={item.image as IconName}
+                            size="small"
+                            color="tertiary"
+                          />
+                          <Typography
+                            textAlign="center"
+                            sx={SX_DISPLAY_FIELD_TEXT}
+                          >
+                            <b>{item.number}</b> {item.text}
+                          </Typography>
+                        </Stack>
+                      );
+                    })}
                     <Stack
-                      key={item.id}
                       direction="row"
                       justifyContent="flex-start"
                       alignItems="center"
                       spacing={1}
                       mt={2}
                     >
-                      <Icon
-                        name={item.image as IconName}
-                        size="small"
-                        color="tertiary"
-                      />
+                      <Icon name="star" size="small" color="tertiary" />
                       <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
-                        {item.text}
+                        <b>{displayFieldsMentor.ratingDisplay}</b>{' '}
+                        {displayFieldsMentor.noOfRatingDisplay}
                       </Typography>
                     </Stack>
-                  );
-                })}
+                  </>
+                )}
+                {role === 'STUDENT' && (
+                  <>
+                    {displayFieldsMember.items.map((item) => {
+                      return (
+                        <Stack
+                          key={item.id}
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
+                          spacing={1}
+                          mb={2}
+                        >
+                          <Icon
+                            name={item.image as IconName}
+                            size="small"
+                            color="tertiary"
+                          />
+                          <Typography
+                            textAlign="center"
+                            sx={SX_DISPLAY_FIELD_TEXT}
+                          >
+                            {/* {item.text1} <b>{item.number}</b> {item.text2} */}
+                            <b>{item.number}</b> {item.text2}
+                          </Typography>
+                        </Stack>
+                      );
+                    })}
+                    {/* <Stack
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      spacing={1}
+                      mt={2}
+                    >
+                      <Icon name="edit" size="small" color="tertiary" />
+                      <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
+                        <b>{displayFieldsMember.ratingDisplay.value}</b>{' '}
+                        {displayFieldsMember.ratingDisplay.text}
+                      </Typography>
+                    </Stack> */}
+                  </>
+                )}
               </Stack>
               {role === 'TEACHER' && <MentorProfileCompleteProgress />}
             </Stack>
@@ -206,13 +292,6 @@ export default function ProfileSideBar({
                     onNavigateLink={onNavigateLink}
                   />
                 ))}
-            </Stack>
-            <Stack
-              marginTop={1}
-              sx={{
-                width: '100%',
-              }}
-            >
               <Button onClick={handleNavigateDashboard} customVariant="linear">
                 <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Stack
@@ -220,7 +299,7 @@ export default function ProfileSideBar({
                   >
                     <Icon name="book" size="medium" color="white" />
                   </Stack>
-                  Quản lí học tập
+                  {role === 'TEACHER' ? 'Quản lí giảng dạy' : 'Quản lí học tập'}
                 </Stack>
               </Button>
             </Stack>

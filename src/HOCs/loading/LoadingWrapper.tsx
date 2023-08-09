@@ -1,8 +1,11 @@
 import { Stack, Box, Typography } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontSize, FontFamily } from '~/assets/variables';
+import ReturnLink from '~/components/atoms/ReturnLink';
 import { image } from '~/constants/image';
 import globalStyles from '~/styles';
+import { formatError } from '~/utils/common';
 
 interface Props {
   isEmptyCourse?: boolean;
@@ -17,6 +20,7 @@ export default function LoadingWrapper({
   error,
   children,
 }: Props) {
+  const navigate = useNavigate();
   if (isLoading)
     return (
       <Stack
@@ -78,8 +82,9 @@ export default function LoadingWrapper({
             alt="no course"
           />
           <Typography sx={globalStyles.textSmallLight}>
-            {error.message}
+            {formatError(error.message)}
           </Typography>
+          <ReturnLink />
         </Stack>
       </Stack>
     );

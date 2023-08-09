@@ -1,13 +1,18 @@
+import { MentorProfileStatusType } from '~/constants/profile';
 import { OptionPayload } from './common';
 import {
-  AccountStatusKeys,
   ActivityKeys,
+  ClassStatusKeys,
   CourseStatusKeys,
+  FeedbackQuestionTypeKeys,
+  FeedbackTypeKeys,
   GenderKeys,
   ImageKeys,
   LevelKeys,
   RoleKeys,
 } from './variables';
+// eslint-disable-next-line import/no-cycle
+import { PagingFilterRequest } from './request';
 
 export interface RequestOptionPayload {
   id: number;
@@ -40,16 +45,27 @@ export interface ProfilePayload {
   roles: RolePayload[];
   linkedinLink: string;
   facebookLink: string;
+  website: string;
   userImages: ImagePayload[];
   wallet: WalletPayload;
   mentorProfile: MentorProfileIntroducePayload;
+  teachInformation?: MentorTeachingInformation;
   isVerified: boolean;
+  verified: boolean;
 }
 
 export interface RolePayload {
   id: number;
   code: RoleKeys;
   name: string;
+}
+
+export interface MentorTeachingInformation {
+  numberOfCourse: number;
+  numberOfClass: number;
+  numberOfMember: number;
+  scoreFeedback: number;
+  numberOfFeedBack: number;
 }
 
 export interface ImagePayload {
@@ -76,9 +92,15 @@ export interface MentorProfileIntroducePayload {
   id: number;
   introduce: string;
   workingExperience: string;
-  status: AccountStatusKeys;
+  status: MentorProfileStatus;
   mentorSkills: SkillPayload[];
 }
+export type MentorProfileStatus =
+  | MentorProfileStatusType.REQUESTING
+  | MentorProfileStatusType.WAITING
+  | MentorProfileStatusType.EDITREQUEST
+  | MentorProfileStatusType.REJECTED
+  | MentorProfileStatusType.STARTING;
 
 export interface CoursePayload {
   id: number;
@@ -89,6 +111,7 @@ export interface CoursePayload {
   subject: OptionPayload;
   courseDescription: string;
   totalClass: number;
+  mentorId: number;
   mentorName: string[];
   mentorAvatar: string;
   mentorDescription: string;
@@ -112,13 +135,60 @@ export interface CourseMenuItemPayload {
   subject: OptionPayload;
 }
 export interface ClassMenuItemPayload {
+  code: string;
   id: number;
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   teacherName?: string[];
   name: string | undefined;
   progressValue: number;
+  subjectId: number;
   status: ClassStatusKeys;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  min: number;
+  max: number;
+}
+export interface ClassDetailPayload {
+  code: string;
+  id: number;
+  imageUrl: string | undefined;
+  imageAlt: string | undefined;
+  teacherName?: string[];
+  teacherPhone: string;
+  teacherMail: string;
+  teacherAlt: string;
+  teacherUrl: string;
+  name: string | undefined;
+  progressValue: number;
+  subjectId: number;
+  status: ClassStatusKeys;
+  startDate: string;
+  endDate: string;
+  numberOfSlot: number;
+  numberOfStudent: number;
+  price: number;
+  activities: ActivityPayload[];
+  timeTablesRequest: { dayOfWeekId: number; slotId: number }[];
+  feedback: {
+    id: number;
+    name: string;
+    type: FeedbackTypeKeys;
+    totalClassUsed: number;
+    isDefault: boolean;
+    isFixed: boolean;
+    questions: {
+      id: number;
+      question: string;
+      answers: {
+        id: number;
+        answer: string;
+      }[];
+    }[];
+    default: boolean;
+    fixed: boolean;
+  };
 }
 
 export type ContentPayload = ActivityPayload[];
@@ -134,9 +204,126 @@ export interface ActivityPayload {
   parentActivityId: number;
   subActivities: ActivityPayload[];
   visible: boolean;
+  authorizeClasses: number[];
+  isFixed: boolean;
 }
 
-export interface ActivityDetailPayload
-  extends Omit<ActivityPayload, 'subActivities'> {
-  detail: any;
+export type ActivityDetailPayload = Omit<
+  ActivityPayload,
+  'subActivities' | 'type'
+> &
+  (
+    | {
+        type: 'QUIZ';
+        detail: ActivityQuizPayload;
+      }
+    | {
+        type: 'LESSON';
+        detail: ActivityLessonPayload;
+      }
+    | {
+        type: 'RESOURCE';
+        detail: ActivityResourcePayload;
+      }
+    | {
+        type: 'ASSIGNMENT';
+        detail: ActivityAssignmentPayload;
+      }
+  );
+
+export interface ActivityLessonPayload {
+  description: string;
+}
+
+export interface ActivityResourcePayload {
+  file: {
+    name: string;
+    url: string;
+    size: number;
+  };
+}
+
+export interface ActivityQuizPayload {
+  id: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  time: number;
+  defaultPoint: number;
+  isSuffleQuestion: boolean;
+  isAllowReview: boolean;
+  allowReviewAfterMin: number;
+  password: string;
+  questionCount: number;
+  status: string;
+}
+
+export interface ActivityAssignmentPayload {
+  assignmentId: number;
+  description: string;
+  startDate: string;
+  endDate: string;
+  editBeForSubmitMin: number;
+  maxFileSubmit: number;
+  maxFileSize: number;
+  note: string;
+  attachFiles: {
+    name: string;
+    url: string;
+    size: number;
+  }[];
+  passPoint: number;
+}
+
+export interface WeekTimeSlotPayload {
+  id: number;
+  link: string;
+  className: string;
+  classId: number;
+  slotId: number;
+  dayOfWeekId: number;
+  attendanceSlotId?: number;
+  isPresent: boolean;
+  isTookAttendance: boolean;
+  date: string;
+}
+
+export interface QuizReportStudentPayload {
+  id: number;
+  name: string;
+  point: number;
+  correctNumber: number;
+  totalNumber;
+  submitAt: string;
+}
+export interface FeedbackReportStudentPayload {
+  id: number;
+  name: string;
+  point: number;
+  report: string;
+}
+export interface NotificationPayload {
+  id: number;
+  type: string;
+  message: string;
+}
+
+export interface ApiParamsProps {
+  id: number;
+  params: PagingFilterRequest;
+}
+
+export interface ManagedMentorPayload extends ProfilePayload {
+  timeParticipation: string;
+  finishedClassCount: number;
+  timeSendRequest: string;
+  count: number;
+}
+export interface ManagedMemberPayload extends ProfilePayload {
+  timeParticipation: string;
+  studyInformation: ManagedMemberStudyInformation;
+}
+interface ManagedMemberStudyInformation {
+  numberOfCourse: number;
+  numberOfClass: number;
 }

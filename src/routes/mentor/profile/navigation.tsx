@@ -4,17 +4,17 @@ import { ActionPayload } from '~/models';
 export const MentorNavigationActionData: ActionPayload[] = [
   {
     id: 0,
-    name: 'Thông tin chung',
+    name: 'Hồ sơ cá nhân',
     link: MentorNavigationLink.edit_profile_personal_info,
   },
   {
     id: 1,
-    name: 'Thông tin giảng dạy',
+    name: 'Hồ sơ giảng dạy',
     link: MentorNavigationLink.edit_profile_mentor_info,
   },
   {
     id: 2,
-    name: 'Chứng minh thư',
+    name: 'CMND/CCCD',
     link: MentorNavigationLink.edit_profile_img,
   },
   {
@@ -24,12 +24,12 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 4,
-    name: 'Quản lí ví tiền',
+    name: 'Lịch sử giao dịch',
     link: MentorNavigationLink.wallet_management,
   },
   {
     id: 5,
-    name: 'Rút tiền',
-    link: MentorNavigationLink.withdraw,
+    name: 'Gửi yêu cầu',
+    link: MentorNavigationLink.send_request,
   },
 ];

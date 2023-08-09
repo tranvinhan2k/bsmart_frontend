@@ -80,8 +80,6 @@ function FeedbackQuestionChoiceInput({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(value, typeof value);
-
   return (
     <Box mb={error ? 2 : 0}>
       <CustomModal

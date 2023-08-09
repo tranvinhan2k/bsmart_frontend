@@ -13,19 +13,23 @@ export default function LevelBar({ level }: Props) {
     <Box
       sx={{
         position: 'absolute',
-        right: MetricSize.small_10,
+        right: 0,
         top: MetricSize.small_10,
-        borderRadius: MetricSize.small_5,
+        borderTopLeftRadius: '2px',
+        borderBottomLeftRadius: '2px',
         zIndex: 1,
-        padding: 1,
-        background: `${Color.border}`,
+        paddingX: 2,
+        paddingY: '5px',
+        background: `#fe6132`,
       }}
     >
       <Stack sx={{ flexDirection: 'row', alignItem: 'center' }}>
         <Typography
           sx={{
+            textAlign: 'center',
             fontFamily: FontFamily.medium,
-            fontSize: '13px',
+            fontSize: '12px',
+            color: Color.white,
           }}
         >
           {LEVEL_LABELS[level].toUpperCase()}

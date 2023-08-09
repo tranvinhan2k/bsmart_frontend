@@ -8,19 +8,23 @@ import {
 import { useState } from 'react';
 import Module from './Module';
 import Icon from '~/components/atoms/Icon';
-import { FontFamily, FontSize } from '~/assets/variables';
+import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import { ActivityPayload } from '~/models/type';
 
 export default function Section({
   id,
   subActivities,
   name,
+  index,
+  readOnly = false,
 }: {
   id: number;
   name: string;
+  index: number;
   subActivities: ActivityPayload[];
+  readOnly: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -28,9 +32,16 @@ export default function Section({
 
   return (
     <Stack>
-      {id !== 0 && <Divider />}
-
-      <Stack paddingY={2}>
+      <Stack
+        sx={{
+          position: 'relative',
+          background: Color.white,
+          border: '1px solid #ddd',
+          borderRadius: MetricSize.small_5,
+          padding: 2,
+          marginY: 1,
+        }}
+      >
         <Stack
           sx={{
             flexDirection: 'row',
@@ -44,12 +55,14 @@ export default function Section({
               fontFamily: FontFamily.medium,
             }}
           >
-            {name}
+            {`Học phần ${index + 1}: ${name}`}
           </Typography>
           <IconButton
             sx={{
               transition: 'all 1s ease',
               transform: open ? 'rotate(90deg)' : 'none',
+              width: '25px',
+              height: '25px',
             }}
             onClick={handleOpen}
           >
@@ -58,11 +71,17 @@ export default function Section({
         </Stack>
 
         <Collapse in={open}>
-          <Stack marginLeft={2} marginY={2}>
-            {subActivities.map((module) => (
-              <Module key={module.id} id={module.id} name={module.name} />
-            ))}
-          </Stack>
+          {subActivities.map((module, idx) => (
+            <Module
+              readOnly={readOnly}
+              sectionId={id}
+              key={module.id}
+              id={module.id}
+              index={idx}
+              name={module.name}
+              status={module.type}
+            />
+          ))}
         </Collapse>
       </Stack>
     </Stack>

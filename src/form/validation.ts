@@ -1,5 +1,6 @@
-import { array, date, mixed, number, object, ref, string } from 'yup';
+import { array, boolean, date, mixed, number, object, ref, string } from 'yup';
 import 'yup-phone';
+import { YupValidationForm } from '~/assets/variables';
 import {
   ADDRESS_REQUIRED,
   BIRTHDAY_REQUIRED,
@@ -24,7 +25,7 @@ import {
   generateRequiredText,
   IMAGE_FORMAT_NOT_SUPPORT,
   IMAGE_SIZE_TOO_BIG,
-  INTRODUCE_REQUIRED,
+  GENDER_REQUIRED,
   MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED,
   MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED,
   NAME_REQUIRED,
@@ -41,6 +42,18 @@ import {
   CRATE_ANNOUNCEMENT_TITLE,
   UPDATE_ANNOUNCEMENT_TITLE,
   UPDATE_ANNOUNCEMENT_CONTENT,
+  WORKING_EXPERIENCE_REQUIRED,
+  INTRODUCE_REQUIRED,
+  YEAR_OF_EXPERIENCES_MINIMUM,
+  YEAR_OF_EXPERIENCES_REQUIRED,
+  SKILL_REQUIRED,
+  CERTIFICATE_MAX_SIZE,
+  CERTIFICATE_FORMAT_INCORRECT,
+  CERTIFICATE_REQUIRED,
+  CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
+  MENTOR_SKILLS_REQUIRED_ONE,
+  SKILL_UNIQUE,
+  MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -51,6 +64,12 @@ const PASSWORD_REGEX =
 const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
 const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+const SUPPORTED_FILE_DEGREE_FORMAT = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
+const FILE_DEGREE_SIZE_BYTES = 2000000; // 1 is 1bytes
 
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -61,7 +80,13 @@ export const validationSchemaFeedbackQuestionChoice = object({
   label: string().required('Nội dung không được để trống'),
 });
 export const validationSchemaCreateTemplate = object({
-  templateName: string().required('Tên bản mẫu không được để trống'),
+  name: string().required('Tên bản mẫu không được để trống'),
+  type: object()
+    .typeError('Loại bản mẫu không hợp lệ')
+    .required('Loại bản mẫu không được để trống'),
+  questions: YupValidationForm.notEmptyString(
+    'Danh sách câu hỏi không được để trống'
+  ),
 });
 export const validationSchemaFeedbackQuestion = object({
   question: string().required('Tên câu hỏi đánh giá không được để trống'),
@@ -70,6 +95,12 @@ export const validationSchemaFeedbackQuestion = object({
 export const validationSchemaCreateCategories = object({
   code: string().required('Mã môn học không được để trống.'),
   name: string().required('Tên môn học không được để trống.'),
+});
+export const validationSchemaFile = object({
+  file: mixed().required('Tệp đính kèm không được để trống.'),
+});
+export const validationSchemaAnswer = object({
+  answer: string().required('Tên câu trả lời không được để trống.'),
 });
 export const validationSchemaCreateSubjects = object({
   code: string().required('Mã ngôn ngữ không được để trống.'),
@@ -85,6 +116,39 @@ export const validationSchemaUpdateSubjects = object({
     .typeError('Lĩnh vực không hợp lệ')
     .required(COURSE_CATEGORY_REQUIRED),
 });
+export const validationQuizInput = object({
+  question: string().required('Tên câu hỏi không được để trống'),
+  questionType: string().required('Loại câu hỏi không được để trống'),
+  answers: mixed()
+    .test(
+      'required',
+      'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
+      (data: any) => {
+        return data?.[0] !== '' && data !== '' && data?.length >= 2;
+      }
+    )
+    .test(
+      'haveRightAnswer',
+      'Danh sách câu trả lời phài có 1 câu trả lời đúng',
+      (data: any) => {
+        const isRight = data.findIndex((item: any) => item.right);
+        return isRight !== -1;
+      }
+    ),
+});
+
+export const validationFeedbackQuestionInput = object({
+  question: string().required('Tên câu hỏi không được để trống'),
+  answerType: object().required('Loại câu trả lời không được để trống'),
+  // answers: mixed().test(
+  //   'required',
+  //   'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
+  //   (data: any) => {
+  //     return data?.[0] !== '' && data !== '' && data?.length >= 2;
+  //   }
+  // ),
+});
+
 export const validationSchemaUpdateCategories = object({
   code: string().required('Mã môn học không được để trống.'),
   name: string().required('Tên môn học không được để trống.'),
@@ -94,11 +158,123 @@ export const validationClassContentSection = object({
 });
 export const validationClassContentModule = object({
   name: string().required('Tên bài học không được để trống.'),
+  description: string().required('Mô tả bài học không được để trống.'),
+});
+export const validationSendMailForgotPassword = object({
+  email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
+});
+export const validationPassword = object({
+  password: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+});
+export const validationClassContentResource = object({
+  name: string().required('Tên tài nguyên không được để trống.'),
+  file: YupValidationForm.notEmptyString('Tệp đính kèm không được để trống'),
+});
+export const validationClassContentQuiz = object({
+  name: string().required('Tên bài kiểm tra không được để trống.'),
+  code: string().required('Mã bài kiểm tra không được để trống.'),
+  startDate: YupValidationForm.startDate,
+  endDate: YupValidationForm.endDate(
+    'Ngày kết thúc không được để trống',
+    'startDate'
+  ),
+  time: number()
+    .typeError('Thời gian không được để trống')
+    .required('Thời gian không được để trống')
+    .min(5, 'Thời gian làm bài phài lớn hơn 5 phút'),
+  allowReviewAfterMin: number()
+    .required('Thời gian không được để trống')
+    .typeError('Thời gian không được để trống')
+    .min(1, 'Thời gian chờ phài lớn hơn 1 phút'),
+  defaultPoint: number()
+    .required('Điểm không được để trống')
+    .typeError('Điểm không được để trống')
+    .min(2, 'Điểm làm bài phài lớn hơn 2 điểm'),
+  quizQuestions: mixed().test(
+    'required',
+    'Danh sách câu hỏi phải có ít nhất 5 câu hỏi',
+    (data: any) => {
+      return data?.[0] !== '' && data !== '' && data?.length >= 5;
+    }
+  ),
+  password: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+  confirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
+});
+
+export const validationClassListFilter = object({
+  startDate: date().typeError('Ngày phải hợp lệ (DD/MM/YYYY)'),
+  endDate: date()
+    .typeError('Ngày phải hợp lệ (DD/MM/YYYY)')
+    .test(
+      'is-greater',
+      'Ngày kết thúc phài lớn hơn ngày bắt đầu',
+      function (endDate) {
+        const startDateExpected = this.parent.startDate;
+
+        if (!startDateExpected || !endDate) {
+          return true;
+        }
+
+        return (
+          new Date(endDate).getTime() > new Date(startDateExpected).getTime()
+        );
+      }
+    ),
+  subjectId: YupValidationForm.notEmptyString(
+    'Danh sách môn học không đươc để trống'
+  ),
+});
+
+export const validationRating = object({
+  ratingPoint: number()
+    .typeError('Số điểm đánh giá không được để trống')
+    .required('Số điểm đánh giá không được để trống'),
+  description: string().required('Nhận xét không được để trống'),
+});
+
+export const validationIntroduce = object({
+  introduce: string().required('Mã giới thiệu chưa nhập vào để thêm'),
+});
+
+export const validationClassContentAssignment = object({
+  name: string().required('Tên bài tập không được để trống.'),
+  description: string().required('Tên bài tập không được để trống.'),
+  startDate: YupValidationForm.startDate,
+  endDate: YupValidationForm.endDate(
+    'Ngày kết thúc không được để trống',
+    'startDate'
+  ),
+  editBeForSubmitMin: number()
+    .required('Thời gian cho phép không được để trống')
+    .typeError('Thời gian cho phép không được để trống')
+    .min(5, 'Thời gian cho phép làm bài phài lớn hơn 5 phút'),
+  maxFileSubmit: number()
+    .typeError('Số lượng không được để trống')
+    .required('Số lượng không được để trống')
+    .min(1, 'Số lượng phài lớn hơn 1'),
+  maxFileSize: number()
+    .typeError('Dung lượng không được để trống')
+    .required('Dung lượng không được để trống')
+    .min(100, 'Dung lượng phài lớn hơn 100MB'),
+  passPoint: number()
+    .typeError('Điểm đạt yêu cầu không được để trống')
+    .required('Điểm đạt yêu cầu không được để trống')
+    .min(1, 'Điểm đạt yêu cầu lớn hơn 1'),
+  attachFiles: object().required('Tệp đính kèm không được để trống.'),
 });
 
 export const validationSchemaRegisterStudent = object({
   name: string()
-    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .matches(
+      FULL_NAME_REGEX,
+      'Họ và tên phải có chữ đầu viết hoa và là tên Tiếng Việt.'
+    )
     .max(40)
     .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -110,12 +286,19 @@ export const validationSchemaRegisterStudent = object({
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   phone: string().matches(PHONE_REGEX, PHONE_INVALID).required(PHONE_REQUIRED),
   gender: object().required('Giới tính không được để trống'),
-  birthDay: string().required(BIRTHDAY_REQUIRED),
+  birthDay: string()
+    .required(BIRTHDAY_REQUIRED)
+    .test('greater', 'Học sinh phải lớn hơn 10 tuổi', (value: any) => {
+      return new Date().getFullYear() - new Date(value).getFullYear() > 10;
+    }),
 });
 
 export const validationSchemaRegisterMentor = object({
   name: string()
-    .matches(FULL_NAME_REGEX, 'Họ và tên không hợp lệ.')
+    .matches(
+      FULL_NAME_REGEX,
+      'Họ và tên phải có chữ đầu viết hoa và là tên Tiếng Việt.'
+    )
     .max(40)
     .required(USERNAME_REQUIRED),
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -127,7 +310,11 @@ export const validationSchemaRegisterMentor = object({
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
   gender: object().required('Giới tính không được để trống'),
-  birthDay: string().required(BIRTHDAY_REQUIRED),
+  birthDay: string()
+    .required(BIRTHDAY_REQUIRED)
+    .test('greater', 'Giáo viên phải lớn hơn 18 tuổi', (value: any) => {
+      return new Date().getFullYear() - new Date(value).getFullYear() > 17;
+    }),
 });
 export const validationSchemaBuyCourse = object({
   name: string().required(USERNAME_REQUIRED),
@@ -186,16 +373,111 @@ export const validationSchemaEditPersonalProfile = object({
     .required(BIRTHDAY_REQUIRED),
   address: string().required(ADDRESS_REQUIRED),
   phone: string().required(PHONE_REQUIRED),
+  gender: object().required(GENDER_REQUIRED),
 });
 
 export const validationSchemaEditMentorProfile = object({
-  introduce: string().required(),
-  mentorSkills: array(),
-  workingExperience: string(),
+  introduce: string().required(INTRODUCE_REQUIRED),
+  mentorSkills: array(
+    object({
+      skillId: object({
+        id: number().required('Thiếu Id'),
+      })
+        .typeError(SKILL_REQUIRED)
+        .required(SKILL_REQUIRED),
+      yearOfExperiences: number()
+        .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+        .required(YEAR_OF_EXPERIENCES_REQUIRED)
+        .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+    })
+  )
+    .test('Unique', SKILL_UNIQUE, (value) => {
+      try {
+        if (value) {
+          const skillList = value.map((item) => item.skillId.id);
+          return new Set(skillList).size === value?.length;
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    })
+    .required()
+    .min(1, MENTOR_SKILLS_REQUIRED_ONE),
+  workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
+});
+export const validationSchemaUpdateMentorProfileRequest = object({
+  mentorSkills: array(
+    object({
+      skillId: object({
+        id: number().required('Thiếu Id'),
+      })
+        .typeError(SKILL_REQUIRED)
+        .required(SKILL_REQUIRED),
+      yearOfExperiences: number()
+        .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+        .required(YEAR_OF_EXPERIENCES_REQUIRED)
+        .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+    })
+  )
+    .test('Unique', SKILL_UNIQUE, (value) => {
+      try {
+        if (value) {
+          const skillList = value.map((item) => item.skillId.id);
+          return new Set(skillList).size === value?.length;
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    })
+    .required()
+    .min(1, MENTOR_SKILLS_REQUIRED_ONE),
 });
 
 export const validationSchemaEditCertificateProfile = object({
-  userImages: array(),
+  userImages: array(
+    mixed().test(
+      'FILE_PRE',
+      CERTIFICATE_MAX_SIZE,
+      (value: any) =>
+        !value ||
+        (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
+        (value && value?.type === 'DEGREE')
+    )
+    // .test(
+    //   'FILE_FORMAT',
+    //   CERTIFICATE_FORMAT_INCORRECT,
+    //   (value: any) =>
+    //     !value ||
+    //     (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
+    //     (value && value?.type === 'DEGREE')
+    // )
+  )
+    .required()
+    .min(1, CERTIFICATE_REQUIRED),
+});
+export const validationSchemaUpdateDegreeRequest = object({
+  userImages: array(
+    mixed().test(
+      'FILE_PRE',
+      CERTIFICATE_MAX_SIZE,
+      (value: any) =>
+        !value ||
+        (value && value?.size <= FILE_DEGREE_SIZE_BYTES) ||
+        (value && value?.type === 'DEGREE')
+    )
+    // .test(
+    //   'FILE_FORMAT',
+    //   CERTIFICATE_FORMAT_INCORRECT,
+    //   (value: any) =>
+    //     !value ||
+    //     (value && SUPPORTED_FILE_DEGREE_FORMAT.includes(value?.type)) ||
+    //     (value && value?.type === 'DEGREE')
+    // )
+  )
+    .required(CERTIFICATE_REQUIRED)
+    .min(1, CERTIFICATE_REQUIRED),
 });
 
 export const validationSchemaEditAccountProfile = object({
@@ -204,16 +486,17 @@ export const validationSchemaEditAccountProfile = object({
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
   newPassword: string()
     .required(PASSWORD_REQUIRED)
-    .matches(PASSWORD_REGEX, PASSWORD_MATCHED),
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .notOneOf([ref('oldPassword')], CONFIRM_PASSWORD_NOT_MATCH_PASSWORD),
   newPasswordConfirm: string()
     .required(CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),
 });
 
 export const validationSchemaEditSocialProfile = object({
-  facebook: string(),
-  twitter: string(),
-  instagram: string(),
+  website: string(),
+  linkedinLink: string(),
+  facebookLink: string(),
 });
 export const validationSchemaTimeTable = object({
   slot: object()
@@ -247,6 +530,7 @@ export const validationSchemaCreateCourse = object({
 export const validationSchemaCreateSubCourse = object({
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
+    .typeError('Số lượng học sinh không được để trống')
     .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
   imageId: mixed()
     .required('Hình ảnh khóa học là bắt buộc')
@@ -261,20 +545,22 @@ export const validationSchemaCreateSubCourse = object({
       (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
     ),
   price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
+    .min(1000, 'Giá tiền phải lớn hơn 50,000 VNĐ')
     .required('Giá tiền là bắt buộc'),
   minStudent: number()
+    .typeError('Số học sinh tối thiểu không được bỏ trống')
     .required('Số học sinh tối thiểu không được bỏ trống')
-    .min(5, 'Học sinh tối thiểu phải lớn hơn 5'),
+    .min(1, 'Học sinh tối thiểu phải lớn hơn 0'),
   maxStudent: number()
+    .typeError('Số học sinh tối đa không được bỏ trống')
     .required('Số học sinh tối đa không được bỏ trống')
-    .min(5, 'Học sinh tối thiểu phải lớn hơn 5')
+    .min(1, 'Học sinh tối đa phải lớn hơn 0')
     .test(
       'is-greater',
       'Số học sinh tối đa phải lớn hơn số học sinh tối thiểu',
       function (value) {
         const { minStudent } = this.parent;
-        return value > minStudent;
+        return value >= minStudent;
       }
     ),
   startDateExpected: date()
@@ -311,6 +597,7 @@ export const validationSchemaUpdateWaitingCourse = object({
   subCourseTitle: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
+    .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 1000')
@@ -366,6 +653,7 @@ export const validationSchemaUpdateWaitingCoursePrivate = object({
   subCourseTitle: string().required('Tên khóa học phụ là bắt buộc'),
   numberOfSlot: number()
     .required('Số lượng học sinh không được để trống')
+    .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   level: string().required(COURSE_LEVEL_REQUIRED),
   price: number()
@@ -418,8 +706,13 @@ export const validationSchemaWithdrawMoney = object({
   note: string(),
 });
 
-export const validationSchemaVerifyRegisterRequest = object({
+export const validationSchemaProcessRegisterRequest = object({
   message: string().required(MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED),
+});
+export const validationSchemaProcessUpdateMentorProfileRequest = object({
+  message: string().required(
+    MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED
+  ),
 });
 export const validationSchemaApproveCreateCourseRequest = object({
   message: string().required(MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED),
@@ -437,7 +730,6 @@ export const validationSchemaCreateAssignment = object({
   maxFileSubmit: number().required(CRATE_ASSIGNMENT_MAX_FILE_SUBMIT),
   maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
   // attachFiles: string().required(),
-  // isOverWriteAttachFile: bool().required(),
 });
 
 export const validationSchemaUpdateAssignment = object({
@@ -452,7 +744,6 @@ export const validationSchemaUpdateAssignment = object({
   maxFileSubmit: number().required(CRATE_ASSIGNMENT_MAX_FILE_SUBMIT),
   maxFileSize: number().required(CRATE_ASSIGNMENT_MAX_FILE_SIZE),
   // attachFiles: string().required(),
-  // isOverWriteAttachFile: bool().required(),
 });
 
 export const validationSchemaCreateAnnouncement = object({

@@ -89,7 +89,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
             control={mentorSignUpForm.control}
             name={REGISTER_MENTOR_FIELDS.name}
           />
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               label="E-Mail"
               placeholder="example@gmail.com"
@@ -97,7 +97,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               name={REGISTER_MENTOR_FIELDS.email}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               label="Số điện thoại"
               placeholder="0362456xxx"
@@ -105,7 +105,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               name={REGISTER_MENTOR_FIELDS.phone}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               variant="date"
               label="Ngày Sinh"
@@ -114,7 +114,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               name={REGISTER_MENTOR_FIELDS.birthDay}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               data={genderData}
               variant="dropdown"
@@ -124,7 +124,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               name={REGISTER_MENTOR_FIELDS.gender}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               variant="password"
               label="Mật Khẩu"
@@ -133,7 +133,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               helperText={PASSWORD_MATCHED}
             />
           </Stack>
-          <Stack marginTop={4}>
+          <Stack marginTop={1}>
             <FormInput
               variant="password"
               label="Xác Nhận Mật Khẩu"
@@ -141,7 +141,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               name={REGISTER_MENTOR_FIELDS.confirm}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <Button
               onClick={mentorSignUpForm.handleSubmit(handleRegisterSubmit)}
               customVariant="form"
@@ -149,7 +149,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               Đăng kí
             </Button>
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <Button onClick={() => handleGoogle()} customVariant="google">
               Đăng nhập với Google
             </Button>

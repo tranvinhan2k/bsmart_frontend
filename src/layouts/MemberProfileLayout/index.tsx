@@ -16,12 +16,20 @@ export default function MemberProfileLayout({
       <Box sx={SX_CONTAINER}>
         <Grid
           container
-          direction={{ xs: 'column', md: 'row' }}
+          direction="row"
           justifyContent="flex-start"
-          alignItems="stretch"
-          spacing={5}
+          alignItems="flex-start"
+          spacing={2}
         >
-          <Grid item xs={12} md={5} lg={4}>
+          <Grid
+            sx={{
+              display: { xs: 'none', md: 'block' },
+            }}
+            item
+            sm={12}
+            md={5}
+            lg={4}
+          >
             <MemberDetailsProfile />
           </Grid>
           <Grid item xs={12} md={7} lg={8}>

@@ -1,49 +1,59 @@
 import { Navigate } from 'react-router-dom';
 import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import ClassFeedbackDetailPage from '~/pages/ClassFeedbackDetailPage';
 import {
-  ManagerProcessCourseCreateRequestDetailsPage,
-  ManagerProcessCourseCreateRequestPage,
-  ManagerProcessRegisterRequestDetailsPage,
-  ManagerProcessRegisterRequestPage,
+  ConfirmEmailPage,
+  ManageAnalyticPage,
+  ManageClassPage,
+  ManageCoursePage,
+  ManageRequestManagerPage,
+  ManageUserPage,
   NotFoundPage,
 } from '~/routes/components';
 
 export const managerRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to="/manager/user" />,
+    main: () => (
+      <Navigate to={ManagerNavigationActionLink.manage_analytic_manager} />
+    ),
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.account_search,
-    main: () => <h1>Manager xem tất cả người dùng</h1>,
+    path: ManagerNavigationActionLink.manage_analytic_manager,
+    main: () => <ManageAnalyticPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_register_request_search,
-    main: () => <ManagerProcessRegisterRequestPage />,
+    path: ManagerNavigationActionLink.manage_class_manager,
+    main: () => <ManageClassPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_register_request_details,
-    main: () => <ManagerProcessRegisterRequestDetailsPage />,
+    path: ManagerNavigationActionLink.manage_course_manager,
+    main: () => <ManageCoursePage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.course_search,
-    main: () => <h1>Manager xem tất khóa học</h1>,
+    path: ManagerNavigationActionLink.manage_request_manager,
+    main: () => <ManageRequestManagerPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_create_course_request_search,
-    main: () => <ManagerProcessCourseCreateRequestPage />,
+    path: ManagerNavigationActionLink.manage_user_manager,
+    main: () => <ManageUserPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.process_create_course_request_details,
-    main: () => <ManagerProcessCourseCreateRequestDetailsPage />,
+    path: 'temp_feedback_class_detail',
+    main: () => <ClassFeedbackDetailPage isAdmin />,
     role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.confirm_email,
+    main: () => <ConfirmEmailPage />,
+    role: [],
   },
   {
     path: '*',

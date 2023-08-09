@@ -8,6 +8,7 @@ import {
   DropdownDynamicValueInputNumberDataPayload,
   DropdownDynamicValueInputStringDataPayload,
   OptionPayload,
+  RadioGroupDynamicValuePayload,
 } from '~/models';
 import DatePickerInput from './DatePickerInput';
 import DropdownInput from './DropdownInput';
@@ -20,6 +21,7 @@ import MultiSelectInput from './MultiSelectInput';
 import NumberInput from './NumberInput';
 import PasswordInput from './PasswordInput';
 import RadioGroupInput from './RadioGroupInput';
+import RadioGroupDynamicValue from './RadioGroupDynamicValue';
 import TagsInput from './TagsInput';
 import TextInput from './TextInput';
 import TimeTableInput from './TimeTableInput';
@@ -30,12 +32,24 @@ import DateTimePickerInput from './DateTimePickerInput';
 import DropdownDynamicValueInput from './DropdownDynamicValueInput';
 import EditorInput from './EditorInput';
 import { FontFamily, FontSize } from '~/assets/variables';
+import BooleanInput from './BooleanInput';
+import QuizInput from './QuizInput';
+import AnswerInput from './AnswerInput';
+import { QuizQuestionTypeKeys } from '~/models/variables';
+import FileListInput from './FileListInput';
+import ArrayHelperText from './ArrayHelperText';
+import FileInputRequireYup from './FileInputRequireYup';
+import PriceInput from './PriceInput';
+import RatingInput from './RatingInput';
+import TimeInput from './TimeInput';
+import FeedbackQuestionInput from './FeedbackQuestionInput';
 
 interface FormInputProps {
   disabled?: boolean;
   banks?: BankLinking[];
   control: Control<any>;
   data?: OptionPayload[];
+  dataRadioGroupDynamicValue?: RadioGroupDynamicValuePayload[];
   dataDropdownDynamicValue?: (
     | DropdownDynamicValueInputBooleanDataPayload
     | DropdownDynamicValueInputNumberDataPayload
@@ -49,6 +63,7 @@ interface FormInputProps {
   multilineRows?: number;
   previewImgHeight?: number | string;
   previewImgWidth?: number | string;
+  answerType?: QuizQuestionTypeKeys;
   variant?: FormInputVariant;
 }
 
@@ -57,6 +72,7 @@ const generateFormInput = (
   banks: BankLinking[],
   controller: UseControllerReturn<any, string>,
   data: OptionPayload[],
+  dataRadioGroupDynamicValue: RadioGroupDynamicValuePayload[],
   dataDropdownDynamicValue: (
     | DropdownDynamicValueInputBooleanDataPayload
     | DropdownDynamicValueInputNumberDataPayload
@@ -67,6 +83,7 @@ const generateFormInput = (
   multilineRows: number,
   previewImgHeight: number | string,
   previewImgWidth: number | string,
+  answerType: QuizQuestionTypeKeys | undefined,
   variant: FormInputVariant
 ) => {
   switch (true) {
@@ -78,9 +95,19 @@ const generateFormInput = (
           placeholder={placeholder}
         />
       );
+    case variant === 'rating':
+      return (
+        <RatingInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
+    case variant === 'arrayHelperText':
+      return <ArrayHelperText controller={controller} />;
     case variant === 'feedbackQuestionChoice':
       return (
-        <FeedbackQuestionChoiceInput
+        <FeedbackQuestionInput
           controller={controller}
           placeholder={placeholder}
         />
@@ -109,6 +136,8 @@ const generateFormInput = (
       );
     case variant === 'number':
       return <NumberInput controller={controller} placeholder={placeholder} />;
+    case variant === 'price':
+      return <PriceInput controller={controller} placeholder={placeholder} />;
     case variant === 'image':
       return (
         <ImageInput
@@ -117,10 +146,28 @@ const generateFormInput = (
           previewImgWidth={previewImgWidth}
         />
       );
+    case variant === 'second':
+      return <TimeInput controller={controller} placeholder={placeholder} />;
     case variant === 'file':
-      return <FileInput controller={controller} placeholder={placeholder} />;
+      return <FileInput controller={controller} />;
+    case variant === 'files':
+      return <FileListInput controller={controller} />;
+    case variant === 'fileRequireYup':
+      return (
+        <FileInputRequireYup
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
     case variant === 'radioGroup':
       return <RadioGroupInput controller={controller} data={data} />;
+    case variant === 'radioGroupDynamicValue':
+      return (
+        <RadioGroupDynamicValue
+          controller={controller}
+          dataRadioGroupDynamicValue={dataRadioGroupDynamicValue}
+        />
+      );
     case variant === 'multiSelect':
       return <MultiSelectInput controller={controller} data={data} />;
     case variant === 'tags':
@@ -174,6 +221,24 @@ const generateFormInput = (
           placeholder={placeholder}
         />
       );
+    case variant === 'boolean':
+      return (
+        <BooleanInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
+    case variant === 'quizPicker':
+      return (
+        <QuizInput
+          disabled={disabled}
+          controller={controller}
+          placeholder={placeholder}
+        />
+      );
+    case variant === 'answerPicker':
+      return <AnswerInput answerType={answerType} controller={controller} />;
     default:
       return null;
   }
@@ -184,6 +249,7 @@ export default function FormInput({
   banks = [],
   control,
   data = [],
+  dataRadioGroupDynamicValue = [],
   dataDropdownDynamicValue = [],
   defaultValue,
   helperText = '',
@@ -193,6 +259,7 @@ export default function FormInput({
   multilineRows = 4,
   previewImgHeight = '100%',
   previewImgWidth = '100%',
+  answerType,
   variant = 'text',
 }: FormInputProps) {
   const controller = useController({ name, defaultValue, control });
@@ -216,12 +283,14 @@ export default function FormInput({
         banks,
         controller,
         data,
+        dataRadioGroupDynamicValue,
         dataDropdownDynamicValue,
         helperText,
         placeholder,
         multilineRows,
         previewImgHeight,
         previewImgWidth,
+        answerType,
         variant
       )}
     </Stack>
@@ -231,6 +300,7 @@ export default function FormInput({
 FormInput.defaultProps = {
   banks: [],
   data: [],
+  dataRadioGroupDynamicValue: [],
   dataDropdownDynamicValue: [],
   defaultValue: '',
   helperText: '',

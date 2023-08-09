@@ -16,8 +16,8 @@ export const AdminNavigationActionData: ActionPayload[] = [
       {
         id: 1,
         icon: 'payment',
-        name: 'Quản lý ví tiền',
-        link: AdminNavigationActionLink.wallet_management,
+        name: 'Quản lí người dùng',
+        link: AdminNavigationActionLink.user_manager,
       },
       {
         id: 2,
@@ -39,6 +39,19 @@ export const AdminNavigationActionData: ActionPayload[] = [
         isHide: true,
         name: 'Quản lí ngôn ngũ lập trình',
         link: AdminNavigationActionLink.category_manager,
+      },
+      {
+        id: 5,
+        icon: 'question',
+        isHide: true,
+        name: 'Ngân hàng câu hỏi',
+        link: AdminNavigationActionLink.questions_bank,
+      },
+      {
+        id: 6,
+        icon: 'faMoneyBill',
+        name: 'Quản lí doanh thu',
+        link: AdminNavigationActionLink.revenue,
       },
     ],
   },

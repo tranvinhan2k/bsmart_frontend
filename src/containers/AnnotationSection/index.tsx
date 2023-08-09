@@ -1,32 +1,26 @@
 import { Box, Grid, Pagination, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
+import { useContext } from 'react';
+import { useManagerHistory } from '~/hooks/useManagerHistory';
 import ActivityHistoryDetails from './ActivityHistoryDetails';
 import { ANNOTATION_BOX, ANNOTATION_H3, SX_FORM_LABEL_GRAY } from './style';
+import { NotificationContext } from '~/HOCs/context/NotificationContext';
+import NotificationItem from '~/HOCs/context/NotificationItem';
+import { MetricSize } from '~/assets/variables';
+import { LoadingWrapper } from '~/HOCs';
 
 export default function AnnotationSection() {
-  const [page, setPage] = useState<number>(0);
-  const size = 5;
-
-  const { activityHistories, refetch } = useManageActivityHistory({
-    page,
-    size,
-  });
-
-  const handlePagination = (
-    _event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setPage(value - 1);
-    refetch();
-  };
+  const { notifications } = useContext(NotificationContext);
 
   return (
-    <Grid container my={5}>
-      <Grid item xs={1} md={3}>
-        <Box />
-      </Grid>
-      <Grid item xs={10} md={6}>
+    <Grid
+      container
+      paddingX={{
+        xs: 4,
+        md: '300px',
+      }}
+      paddingY={4}
+    >
+      <Grid item xs={12}>
         <Box sx={ANNOTATION_BOX}>
           <Stack
             direction="column"
@@ -37,39 +31,22 @@ export default function AnnotationSection() {
             <Typography component="h3" sx={ANNOTATION_H3}>
               Danh sách hoạt động
             </Typography>
-            {activityHistories && (
-              <>
-                {activityHistories.items.length > 0 && (
-                  <>
-                    {activityHistories.items.map((item) => (
-                      <ActivityHistoryDetails
-                        key={item.id}
-                        action={item.action}
-                        activityName={item.activityName}
-                        activityTime={item.activityTime}
-                        type={item.type}
-                      />
-                    ))}
-                    <Pagination
-                      onChange={handlePagination}
-                      color="standard"
-                      size="large"
-                      count={activityHistories.totalPages}
-                    />
-                  </>
-                )}
-                {activityHistories.items.length < 0 && (
-                  <Typography sx={SX_FORM_LABEL_GRAY}>
-                    Không có dữ liệu
-                  </Typography>
-                )}
-              </>
-            )}
+            <LoadingWrapper isEmptyCourse={notifications?.length === 0}>
+              {notifications.map((item, index) => (
+                <NotificationItem
+                  key={index}
+                  entity={item.entity}
+                  entityId={item.entityId}
+                  id={item.id}
+                  title={item.title}
+                  message={item.message}
+                  time={item.time}
+                  isRead={item.isRead}
+                />
+              ))}
+            </LoadingWrapper>
           </Stack>
         </Box>
-      </Grid>
-      <Grid item xs={1} md={3}>
-        <Box />
       </Grid>
     </Grid>
   );

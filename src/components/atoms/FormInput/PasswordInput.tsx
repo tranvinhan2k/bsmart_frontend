@@ -29,38 +29,36 @@ function PasswordInput({
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   return (
-    <Box mb={error ? 2 : 0}>
-      <TextField
-        sx={SX_TEXT_INPUT_FORM}
-        placeholder={placeholder}
-        fullWidth
-        type={showPassword ? 'text' : 'password'}
-        size="small"
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        inputRef={ref}
-        error={invalid}
-        helperText={helperText || error?.message}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? (
-                  <Icon name="eye" size="medium" />
-                ) : (
-                  <Icon name="eye-off" size="medium" />
-                )}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-    </Box>
+    <TextField
+      sx={SX_TEXT_INPUT_FORM}
+      placeholder={placeholder}
+      fullWidth
+      type={showPassword ? 'text' : 'password'}
+      size="small"
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      inputRef={ref}
+      error={invalid}
+      helperText={helperText || error?.message}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? (
+                <Icon name="eye" size="medium" />
+              ) : (
+                <Icon name="eye-off" size="medium" />
+              )}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+    />
   );
 }
 export default PasswordInput;

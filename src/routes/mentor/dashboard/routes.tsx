@@ -1,8 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import {
-  NavigationLink,
-  MentorDashboardNavigationActionLink,
-} from '~/constants/routeLink';
+import { MentorDashboardNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
   MentorCourseListPage,
@@ -17,9 +14,8 @@ import {
   MentorAssignmentDetailsPage,
   MentorCreateAnnouncementPage,
   MentorUpdateAnnouncementPage,
-  MentorAttendanceListPage,
+  MentorClassAttendanceListPage,
   MentorViewStudentAttendancePage,
-  MentorTakeAttendancePage,
   NotFoundPage,
   SchedulePage,
 } from '~/routes/components';
@@ -29,7 +25,8 @@ export const mentorLMSRoutes: RoutePayload[] = [
     path: '/',
     main: () => (
       <Navigate
-        to={`/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`}
+        to={MentorDashboardNavigationActionLink.mentor_course_list}
+        replace
       />
     ),
     role: ['ROLE_TEACHER'],
@@ -106,17 +103,12 @@ export const mentorLMSRoutes: RoutePayload[] = [
   },
   {
     path: MentorDashboardNavigationActionLink.attendance_list,
-    main: () => <MentorAttendanceListPage />,
+    main: () => <MentorClassAttendanceListPage />,
     role: ['ROLE_TEACHER'],
   },
   {
     path: MentorDashboardNavigationActionLink.view_member_attendance,
     main: () => <MentorViewStudentAttendancePage />,
-    role: ['ROLE_TEACHER'],
-  },
-  {
-    path: MentorDashboardNavigationActionLink.take_attendance,
-    main: () => <MentorTakeAttendancePage />,
     role: ['ROLE_TEACHER'],
   },
   {

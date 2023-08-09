@@ -4,6 +4,7 @@ import { NavigationLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import CartPage from '~/pages/CartPage';
 import CheckoutPage from '~/pages/CheckoutPage';
+import QuizPage from '~/pages/QuizPage';
 import {
   AboutUsPage,
   AnnotationPage,
@@ -19,18 +20,21 @@ import {
   LmsPage,
   LoginPage,
   MemberProfilePage,
+  MentorDetailsPage,
   MentorContractPage,
   MentorProfilePage,
   MentorsPage,
   NotFoundPage,
   RegisterPage,
   TestPage,
+  ForgotPasswordPage,
+  PolicyPage,
 } from '~/routes/components';
 
 export const routes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={NavigationLink.homepage} />,
+    main: () => <Navigate to={NavigationLink.homepage} replace />,
     role: [],
   },
   {
@@ -76,7 +80,12 @@ export const routes: RoutePayload[] = [
   {
     path: `${NavigationLink.course_menu_details}/:id`,
     main: () => <CourseDetailPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: [],
+  },
+  {
+    path: `${NavigationLink.mentor_menu_details}/:id`,
+    main: () => <MentorDetailsPage />,
+    role: [],
   },
   {
     path: NavigationLink.lms,
@@ -96,7 +105,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.blog_details,
     main: () => <BlogDetailsPage />,
-    role: ['ROLE_TEACHER', 'ROLE_STUDENT'],
+    role: [],
   },
   {
     path: `/${NavigationLink.member_details}/*`,
@@ -111,7 +120,7 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.mentor_menu,
     main: () => <MentorsPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    role: [],
   },
   {
     path: NavigationLink.cart,
@@ -131,12 +140,27 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.confirm_email,
     main: () => <ConfirmEmailPage />,
+    role: [],
+  },
+  {
+    path: NavigationLink.forgot_password,
+    main: () => <ForgotPasswordPage />,
+    role: [],
+  },
+  {
+    path: `${NavigationLink.forgot_password}/:codeId`,
+    main: () => <ForgotPasswordPage />,
+    role: [],
+  },
+  {
+    path: `${NavigationLink.dashboard}/*`,
+    main: () => <DashboardPage />,
     role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
   },
   {
-    path: `/${NavigationLink.dashboard}/*`,
-    main: () => <DashboardPage />,
-    role: ['ROLE_STUDENT', 'ROLE_TEACHER'],
+    path: NavigationLink.policy,
+    main: () => <PolicyPage />,
+    role: [],
   },
   {
     path: '*',

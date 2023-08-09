@@ -5,6 +5,7 @@ import PrivateCourseTab from './PrivateCourseTab';
 import { useCreateCourseForm } from '~/hooks';
 import { Color, MetricSize } from '~/assets/variables';
 import { PostCourseRequest } from '~/models/request';
+import globalStyles from '~/styles';
 
 export interface CreateCourseFormProps {
   // selectedCourse: any;
@@ -80,14 +81,7 @@ CreateCourseFormProps) {
   // );
   return (
     <Stack>
-      <Stack
-        sx={{
-          background: Color.white,
-          padding: 5,
-          marginTop: 1,
-          borderRadius: MetricSize.small_5,
-        }}
-      >
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <PrivateCourseTab
           categories={categories}
           subjects={filterSubjects}

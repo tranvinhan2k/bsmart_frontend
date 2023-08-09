@@ -1,65 +1,114 @@
 import { Stack, Typography, Button } from '@mui/material';
+import { useContext, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { Color, FontSize, FontFamily } from '~/assets/variables';
-import FormInput from '~/components/atoms/FormInput';
+import { CourseContext } from '~/HOCs/context/CourseContext';
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  isAllowUpdateActivity,
+} from '~/assets/variables';
+import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { validationClassContentSection } from '~/form/validation';
-import { useYupValidationResolver } from '~/hooks';
+import {
+  useGetIdFromUrl,
+  useQueryGetOptionMentorCourseClasses,
+  useYupValidationResolver,
+} from '~/hooks';
+import { ActivityDetailPayload } from '~/models/type';
 
 interface Props {
-  section: {
-    name: string;
-  };
+  section: ActivityDetailPayload | undefined;
   onSubmit: (data: any) => void;
+  onDelete: () => void;
 }
 
-export default function UpdateSectionForm({ section, onSubmit }: Props) {
+export default function UpdateSectionForm({
+  section,
+  onSubmit,
+  onDelete,
+}: Props) {
+  const { course } = useContext(CourseContext);
+  const courseId = useGetIdFromUrl('id');
+  const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
+
   const resolver = useYupValidationResolver(validationClassContentSection);
 
   const hookForm = useForm({
     resolver,
-    defaultValues: section,
+    defaultValues: useMemo(() => {
+      return section;
+    }, [section]),
   });
+
+  useEffect(() => {
+    hookForm.reset(section);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section]);
+
+  const inputList: InputData[] = [
+    {
+      label: 'Tên học phần',
+      name: 'name',
+      placeholder: 'Nhập tên học phần',
+      variant: 'text',
+    },
+    {
+      label: 'Hiển thị',
+      name: 'visible',
+      placeholder: 'Hiển thị nội dung',
+      variant: 'boolean',
+    },
+    {
+      label: 'Danh sách lớp được quyền xem nội dung này',
+      name: 'authorizeClasses',
+      placeholder: 'Hiển thị danh sách lớp',
+      variant: 'multiSelect',
+      data: optionClasses,
+      isHide: optionClasses.length === 0,
+    },
+  ];
 
   return (
     <Stack
       sx={{
         transition: 'all 1000ms ease',
-        marginTop: 1,
-        background: Color.whiteSmoke,
+        marginTop: 3,
       }}
     >
-      <Typography
-        sx={{
-          fontSize: FontSize.small_16,
-          fontFamily: FontFamily.medium,
-          marginBottom: 1,
-        }}
-      >
-        Cập nhật
-      </Typography>
-      <Stack
-        sx={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-        }}
-      >
-        <Stack sx={{ flexGrow: 1, marginRight: 1 }}>
-          <FormInput
-            placeholder="Nhập tên phần học muốn tạo"
-            name="name"
-            control={hookForm.control}
-          />
+      <Stack>
+        <InputGroup control={hookForm.control} inputList={inputList} />
+        <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Button
+            disabled={
+              !hookForm.formState.isDirty ||
+              !isAllowUpdateActivity(course.status) ||
+              section?.isFixed
+            }
+            color="secondary"
+            sx={{
+              color: Color.white,
+            }}
+            onClick={hookForm.handleSubmit((data: any) => {
+              onSubmit({ ...data, id: section?.id || 0 });
+              hookForm.reset();
+            })}
+            variant="contained"
+          >
+            Lưu thay đổi
+          </Button>
+          <Button
+            disabled={!isAllowUpdateActivity(course.status) || section?.isFixed}
+            onClick={onDelete}
+            sx={{
+              marginLeft: 1,
+            }}
+            variant="contained"
+            color="error"
+          >
+            Xóa học phần
+          </Button>
         </Stack>
-        <Button
-          color="secondary"
-          sx={{
-            color: Color.white,
-          }}
-          onClick={hookForm.handleSubmit(onSubmit)}
-          variant="contained"
-        >
-          Cập nhật
-        </Button>
       </Stack>
     </Stack>
   );

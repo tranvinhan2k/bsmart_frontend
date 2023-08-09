@@ -20,11 +20,14 @@ export const enum NavigationLink {
   member_details = 'member-details',
   feedback = 'feedback',
   mentor_menu = 'mentor_menu',
+  mentor_menu_details = 'mentor_menu/mentor-detail',
   cart = 'cart',
   contact = 'contact',
   check_out = 'check_out',
   confirm_email = 'confirm_email/:code',
   dashboard = 'dashboard',
+  forgot_password = 'forgot_password',
+  policy = 'policy',
 }
 
 export const enum MemberNavigationActionLink {
@@ -32,7 +35,6 @@ export const enum MemberNavigationActionLink {
   edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   wallet_management = 'wallet-management',
-  withdraw = 'withdraw',
   member_course_list = 'member-course-list',
 }
 
@@ -41,6 +43,7 @@ export const enum MentorNavigationLink {
   edit_profile_mentor_info = 'edit-profile-mentor',
   edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
+  send_request = 'send_request',
   wallet_management = 'wallet-management',
   withdraw = 'withdraw',
 }
@@ -72,12 +75,17 @@ export const enum MentorDashboardNavigationActionLink {
   take_attendance = 'take-attendance/:classId/:id',
   schedule = 'schedule',
 }
-export const enum StudentDashboardNavigationActionLink {
+export const enum MemberDashboardNavigationActionLink {
   course_list = 'courses',
   course_detail = 'courses/detail',
   class_list = 'classes',
   class_detail = 'classes/detail',
   schedule = 'schedule',
+  attendance = 'attendance',
+  quiz = 'do_quiz',
+  review = 'do_review',
+  promo = 'promo',
+  ask_ai = 'ask_ai',
 }
 export const enum MentorLink {
   TakeAttendance = 'mentor-profile/take-attendance',
@@ -86,20 +94,24 @@ export const enum MentorLink {
 
 export const enum AdminNavigationActionLink {
   admin = 'admin',
+  user_manager = 'user_manager',
   wallet_management = 'wallet-management',
   feedback_manager = 'feedback_manager',
   subject_manager = 'subject_manager',
   category_manager = 'category_manager',
+  questions_bank = 'questions_bank_manager',
+  revenue = 'revenue',
+  confirm_email = 'confirm_email/:code',
 }
 
 export const enum ManagerNavigationActionLink {
   manager = 'manager',
-  account_search = 'account_search',
-  process_register_request_search = 'process_register_request_search',
-  process_register_request_details = 'process_register_request_details/:id',
-  course_search = 'course_search',
-  process_create_course_request_search = 'process_create_course_request_search',
-  process_create_course_request_details = 'process_create_course_request_details/:id',
+  manage_analytic_manager = 'manage_analytic_manager',
+  manage_class_manager = 'manage_class_manager',
+  manage_course_manager = 'manage_course_manager',
+  manage_request_manager = 'manage_request_manager',
+  manage_user_manager = 'manage_user_manager',
+  confirm_email = 'confirm_email/:code',
 }
 
 export const enum MentorCourseActionLink {
@@ -108,4 +120,32 @@ export const enum MentorCourseActionLink {
   classes = 'classlist',
   information = 'information',
   content = 'content',
+}
+export const enum MentorClassActionLink {
+  information = 'information',
+  students = 'student',
+  student_detail = 'student-detail',
+  schedule = 'schedule',
+  attendance = 'attendance',
+  take_attendance = 'take-attendance',
+  activity = 'activity',
+  notification = 'notification',
+  points = 'points',
+  assignments = 'assignments',
+  feedback = 'feedback',
+}
+export const enum MemberClassActionLink {
+  information = 'information',
+  mentor = 'mentors',
+  schedule = 'schedule',
+  attendance = 'attendance',
+  activity = 'activity',
+  notification = 'notification',
+}
+
+export const enum ActivityLink {
+  lesson = 'lesson',
+  quiz = 'quiz',
+  assignment = 'assignment',
+  resource = 'resource',
 }

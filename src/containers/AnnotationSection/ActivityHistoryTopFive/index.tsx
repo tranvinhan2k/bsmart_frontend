@@ -1,27 +1,20 @@
 import { Button, Stack, Typography } from '@mui/material';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useManageActivityHistory } from '~/hooks/useManageActivityHistory';
 import ActivityHistory from '../ActivityHistory';
-import CustomFetchingStatus from '~/components/atoms/CustomFetchingStatus';
-import { SX_BUTTON, SX_FORM_LABEL_GRAY, SX_TITLE, SX_WRAPPER } from './style';
-import { NavigationActionData } from '~/routes/navigators';
+import { SX_BUTTON, SX_TITLE, SX_WRAPPER } from './style';
+import { NotificationContext } from '~/HOCs/context/NotificationContext';
+import { NavigationLink } from '~/constants/routeLink';
+import NotificationItem from '~/HOCs/context/NotificationItem';
+import { LoadingWrapper } from '~/HOCs';
 
 export default function ActivityHistoryTopFive() {
-  const page = 0;
-  const size = 5;
-
-  const { activityHistories, isLoading, isError, error } =
-    useManageActivityHistory({
-      page,
-      size,
-    });
+  const { notifications } = useContext(NotificationContext);
 
   const navigate = useNavigate();
 
   const handleSeeAllActivityHistory = () => {
-    navigate(`/${NavigationActionData[10].link}`);
+    navigate(`/${NavigationLink.annotation}`);
   };
 
   return (
@@ -39,36 +32,26 @@ export default function ActivityHistoryTopFive() {
           color="miSmartOrange"
           size="small"
           sx={SX_BUTTON}
-          disabled={!(activityHistories && activityHistories.items.length < 0)}
           onClick={handleSeeAllActivityHistory}
         >
           Tất cả
         </Button>
       </Stack>
-      <CustomFetchingStatus
-        isError={isError}
-        isLoading={isLoading}
-        error={error}
-        hasBackground={false}
-      />
-      {activityHistories && (
-        <>
-          {activityHistories.items.length > 0 &&
-            activityHistories.items.map((item) => (
-              <Fragment key={item.id}>
-                <ActivityHistory
-                  type={item.type}
-                  action={item.action}
-                  activityTime={item.activityTime}
-                  activityName={item.activityName}
-                />
-              </Fragment>
-            ))}
-          {activityHistories.items.length < 0 && (
-            <Typography sx={SX_FORM_LABEL_GRAY}>Không có dữ liệu</Typography>
-          )}
-        </>
-      )}
+
+      <LoadingWrapper isEmptyCourse={notifications?.length === 0}>
+        {notifications.slice(0, 4)?.map((item, index) => (
+          <NotificationItem
+            key={index}
+            entity={item.entity}
+            entityId={item.entityId}
+            id={item.id}
+            isRead={item.isRead}
+            title={item.title}
+            message={item.message}
+            time={item.time}
+          />
+        ))}
+      </LoadingWrapper>
     </Stack>
   );
 }

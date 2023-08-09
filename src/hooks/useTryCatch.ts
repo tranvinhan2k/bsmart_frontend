@@ -43,7 +43,10 @@ export const useTryCatch = (featureName?: string) => {
       return response;
     } catch (e: any) {
       if (featureName && id) {
-        toast.updateFailedToast(id, `${texts.error}: ${e.message}`);
+        toast.updateFailedToast(
+          id,
+          `${texts.error}: ${!e.message.includes('n/a') ? e.message : ''}`
+        );
       }
 
       setError(e);

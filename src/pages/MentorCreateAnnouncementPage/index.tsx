@@ -18,7 +18,7 @@ import { useYupValidationResolver } from '~/hooks';
 import { MentorNavigationActionData } from '~/routes/navigators';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 import { CreateAnnouncementFormDataPayload } from '~/models/form';
-import { useCreateAnnouncement } from '~/hooks/useManageAnnouncement/create';
+import { useCreateAnnouncement } from '~/hooks/announcement/useCreate';
 import toast from '~/utils/toast';
 import { scrollToTop } from '~/utils/common';
 import { UseCreateAnnouncementPayload } from '~/models/announcement';

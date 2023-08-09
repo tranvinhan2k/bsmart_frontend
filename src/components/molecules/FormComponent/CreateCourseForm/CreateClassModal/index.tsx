@@ -6,30 +6,29 @@ import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import MonthSchedule, {
-  TimeSlotPayload,
+  MonthTimeSlotPayload,
 } from '~/components/molecules/schedules/MonthSchedule';
 
 import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
 import { CREATE_CLASS_FIELDS } from '~/form/schema';
-import { Color } from '~/assets/variables';
 
 const texts = {
   createClassTitle: 'Tạo lớp học mới',
   createClassDescription: 'Thêm lớp học mới cho khóa học hiện tại.',
   generalInfoTitle: 'Thông tin chung',
-  priceLabel: 'Giá khóa học',
+  priceLabel: 'Giá khóa học trên một học sinh (VND)',
   courseTypeLabel: 'Hình thức khóa học',
   imageLabel: 'Hình ảnh',
   minStudentLabel: 'Số học sinh tối thiểu',
   maxStudentLabel: 'Số học sinh tối đa',
   levelInfoTitle: 'Trình độ',
-  classInfoTitle: 'Thông tin giờ học',
+  classInfoTitle: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
   startDateLabel: 'Ngày mở lớp dự kiến',
   endDateLabel: 'Ngày kết thúc dự kiến',
   numberOfSlotLabel: 'Số buổi học',
-  timetableLabel: 'Thời khóa biểu',
+  timetableLabel: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
   createClassButton: 'Tạo lớp học',
   Button: 'Xem chi tiết lịch dạy của cả một kỉ học',
 };
@@ -41,7 +40,7 @@ interface CreateClassModalProps {
   onSubmit: (data: any) => void;
   onBack: () => void;
   onReset: () => void;
-  timetable: TimeSlotPayload[] | undefined;
+  timetable: MonthTimeSlotPayload[] | undefined;
   onViewSchedule: (data: any) => void;
 }
 
@@ -62,11 +61,9 @@ export default function CreateClassModal({
   };
 
   const handleTriggerSchedule = async (data: any) => {
-    if (timetable) {
-      handleOpenSchedule();
-    } else {
-      await onViewSchedule(data);
-    }
+    await onViewSchedule(data);
+
+    if (!timetable) handleOpenSchedule();
   };
 
   return (
@@ -86,15 +83,6 @@ export default function CreateClassModal({
                   {texts.generalInfoTitle}
                 </Typography>
               </Stack>
-              <Stack>
-                <FormInput
-                  variant="number"
-                  name={CREATE_CLASS_FIELDS.price}
-                  control={hookForm.control}
-                  label={texts.priceLabel}
-                />
-              </Stack>
-              <Stack marginTop={2} />
               <FormInput
                 variant="image"
                 previewImgHeight={250}
@@ -103,6 +91,16 @@ export default function CreateClassModal({
                 control={hookForm.control}
                 label={texts.imageLabel}
               />
+              <Stack marginTop={2} />
+              <Stack>
+                <FormInput
+                  variant="price"
+                  name={CREATE_CLASS_FIELDS.price}
+                  control={hookForm.control}
+                  label={texts.priceLabel}
+                />
+              </Stack>
+
               <Stack marginTop={2} />
               <Stack
                 sx={{
@@ -163,28 +161,7 @@ export default function CreateClassModal({
                 label={texts.timetableLabel}
               />
               <Stack marginTop={2} />
-              {/* <Button
-                disabled
-                onClick={handleOpenCalendar}
-                customVariant="horizonForm"
-              >
-                Tạo thời khóa biểu
-              </Button> */}
               <Button
-                onClick={hookForm.handleSubmit(
-                  handleTriggerSchedule,
-                  handleConsoleError
-                )}
-                sx={{
-                  color: Color.white,
-                }}
-                color="secondary"
-                variant="contained"
-              >
-                {!timetable ? 'Tạo lịch học' : 'Xem thời khóa biểu một kì học'}
-              </Button>
-              <Button
-                disabled={!timetable}
                 sx={{
                   marginTop: 1,
                 }}
@@ -193,6 +170,14 @@ export default function CreateClassModal({
               >
                 {texts.createClassButton}
               </Button>
+              {/* <Button
+                sx={{ marginTop: 1 }}
+                variant="contained"
+                color="error"
+                onClick={onReset}
+              >
+                Hủy tạo lớp
+              </Button> */}
             </Stack>
           </Stack>
         ) : (

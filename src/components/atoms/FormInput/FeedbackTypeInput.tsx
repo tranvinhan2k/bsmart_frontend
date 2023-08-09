@@ -40,8 +40,6 @@ function FeedbackTypeInput({ controller, placeholder, data }: TextInputProps) {
     controllerOnChange(tmpValue);
   };
 
-  console.log(value, typeof value);
-
   return (
     <Box mb={error ? 2 : 0}>
       <Stack

@@ -58,7 +58,6 @@ export default function CustomTab({ tabContentList = [] }: CustomTabProps) {
 
   // if list null
   if (tabContentList?.length === 0) {
-    console.error('No items in list yet.');
     return null;
   }
 

@@ -1,24 +1,67 @@
 import { Stack, Typography, Button } from '@mui/material';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
-import FormInput from '~/components/atoms/FormInput';
+import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { validationClassContentSection } from '~/form/validation';
-import { useYupValidationResolver } from '~/hooks';
+import {
+  useGetIdFromUrl,
+  useQueryGetOptionMentorCourseClasses,
+  useYupValidationResolver,
+} from '~/hooks';
+import { ActivityPayload } from '~/models/type';
 
 interface Props {
-  module: {
-    name: string;
-  };
+  module: ActivityPayload;
   onSubmit: (data: any) => void;
 }
 
 export default function UpdateModuleForm({ module, onSubmit }: Props) {
-  const resolver = useYupValidationResolver(validationClassContentSection);
+  const courseId = useGetIdFromUrl('id');
 
+  const { optionClasses } = useQueryGetOptionMentorCourseClasses(courseId);
+
+  const resolver = useYupValidationResolver(validationClassContentSection);
   const hookForm = useForm({
     resolver,
-    defaultValues: module,
+    defaultValues: useMemo(() => {
+      return module;
+    }, [module]),
   });
+
+  useEffect(() => {
+    hookForm.reset(module);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [module]);
+
+  const inputList: InputData[] = [
+    {
+      label: 'Tên bài học',
+      name: 'name',
+      placeholder: 'Nhập tên học phần',
+      variant: 'text',
+    },
+    {
+      label: 'Mô tả học phần',
+      name: 'description',
+      placeholder: 'Nhập nội dung mô tã học phần',
+      variant: 'editor',
+    },
+    {
+      label: 'Hiển thị',
+      name: 'visible',
+      placeholder: 'Hiển thị nội dung',
+      variant: 'boolean',
+    },
+    {
+      label: 'Danh sách lớp được quyền xem nội dung này',
+      name: 'authorizeClasses',
+      placeholder: 'Hiển thị danh sách lớp',
+      variant: 'multiSelect',
+      data: optionClasses,
+      isHide: optionClasses.length === 0,
+    },
+  ];
 
   return (
     <Stack
@@ -37,25 +80,17 @@ export default function UpdateModuleForm({ module, onSubmit }: Props) {
       >
         Cập nhật
       </Typography>
-      <Stack
-        sx={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-        }}
-      >
-        <Stack sx={{ flexGrow: 1, marginRight: 1 }}>
-          <FormInput
-            placeholder="Nhập tên bài học muốn tạo"
-            name="name"
-            control={hookForm.control}
-          />
-        </Stack>
+      <Stack>
+        <InputGroup inputList={inputList} control={hookForm.control} />
         <Button
           color="secondary"
           sx={{
             color: Color.white,
+            marginTop: 1,
           }}
-          onClick={hookForm.handleSubmit(onSubmit)}
+          onClick={hookForm.handleSubmit((data: any) => {
+            onSubmit({ ...data, id: module.id });
+          })}
           variant="contained"
         >
           Cập nhật

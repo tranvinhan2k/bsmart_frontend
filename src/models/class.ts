@@ -1,4 +1,5 @@
 import { ActivityType } from './activity';
+import { ImageType, TimeInWeeks } from './common';
 
 export interface ClassDetailsPayload {
   id: number;
@@ -63,4 +64,28 @@ export interface ClassUpdateClassSectionPayload {
 export interface ClassDeleteClassSectionPayload {
   id: number;
   classSectionId: number;
+}
+
+export interface ManagedClass {
+  id: number;
+  courseId: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  numberOfSlot: number;
+  status: string;
+  price: number;
+  minStudent: number;
+  maxStudent: number;
+  image: ImageType;
+  timeInWeeks: TimeInWeeks[];
+}
+
+export interface Slot {
+  id: number;
+  name: string;
+  code: string;
+  startTime: string;
+  endTime: string;
 }

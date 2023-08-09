@@ -10,18 +10,20 @@ import ThumbnailImage from '~/components/atoms/image/ThumbnailImage';
 interface UserCourseItemProps {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
+  courseCode?: string;
   courseTeacherName?: string[];
   courseName: string | undefined;
   subjectName?: string;
   courseStatus?: CourseStatusKeys;
   totalClass?: number;
   level: LevelKeys;
-  courseDescription: string | undefined;
+  courseDescription?: string | undefined;
   onClick?: () => void;
 }
 export default function UserCourseItem({
   courseDescription,
   courseName,
+  courseCode,
   subjectName,
   courseTeacherName,
   totalClass,
@@ -49,9 +51,20 @@ export default function UserCourseItem({
             overflow: 'hidden',
           }}
         >
-          <Typography sx={globalStyles.textLowSmallLight}>
-            {subjectName || ''}
-          </Typography>
+          <Stack sx={globalStyles.viewFlexRowCenter}>
+            <Typography
+              sx={{
+                fontSize: FontSize.small_14,
+                fontFamily: FontFamily.bold,
+                color: Color.tertiary,
+              }}
+            >
+              {courseCode || ''}
+            </Typography>
+            <Typography marginLeft={1} sx={globalStyles.textLowSmallLight}>
+              {subjectName || ''}
+            </Typography>
+          </Stack>
           <Typography
             sx={{
               fontSize: FontSize.small_14,
@@ -82,27 +95,32 @@ export default function UserCourseItem({
             }}
           />
         </Stack>
-        <Stack
-          sx={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItem: 'center',
-            justifyContent: 'space-between',
-            paddingBottom: 1,
-            marginTop: 1,
-          }}
-        >
-          {Boolean(totalClass) && (
+        {totalClass !== 0 && (
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              alignItem: 'center',
+              justifyContent: 'space-between',
+              position: 'fixed',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              background: '#fff',
+              padding: 1,
+              borderTop: '0.5px solid #ddd',
+            }}
+          >
             <Box
               sx={{
                 fontFamily: FontFamily.medium,
                 fontSize: FontSize.small_14,
               }}
             >
-              {`${totalClass} lớp đang mở` || ''}
+              {`Hiện tại có ${totalClass} lớp` || ''}
             </Box>
-          )}
-          {/* {courseType && (
+
+            {/* {courseType && (
               <Box>
                 <Tag
                   title={courseTypeData[courseType as CourseTypeDataKeys]}
@@ -110,7 +128,8 @@ export default function UserCourseItem({
                 />
               </Box>
             )} */}
-        </Stack>
+          </Stack>
+        )}
       </Stack>
     </HoverableStack>
   );

@@ -1,6 +1,6 @@
 import axiosClient from '~/api/axiosClient';
-import { mockImages, mockLevelData } from '~/constants';
 import { image } from '~/constants/image';
+import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
 import { PagingFilterPayload } from '~/models';
 import {
   ClassCreateClassSectionPayload,
@@ -8,10 +8,19 @@ import {
   ClassDetailsPayload,
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
+  ManagedClass,
 } from '~/models/class';
+import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
-import { ResponseMentorCoursePayload } from '~/models/response';
+import {
+  GetStudentList,
+  PostTimeTableResponse,
+  ResponseDetailClass,
+  ResponseMentorCoursePayload,
+} from '~/models/response';
+import { ClassDetailPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
 import { formatOptionPayload } from '~/utils/common';
 
 const url = '/classes';
@@ -27,18 +36,48 @@ const classApi = {
         courseCode: response.code,
         courseDescription: response.description,
         courseName: response.name,
-        images: mockImages,
-        mentorAvatar:
-          'https://images.pexels.com/photos/5212353/pexels-photo-5212353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        mentorDescription: 'Description teachr',
-        mentorName: ['Nguyễn Văn A'],
+        images: response.classes?.map((item: any) => item?.image?.url),
+        mentorId: response.mentor.id,
+        mentorAvatar: response.mentor.avatar.url,
+        mentorDescription: response.mentor.introduce,
+        mentorName: [response.mentor.name],
         status: response.status,
         level: response.level,
         subject: formatOptionPayload(response.subjectResponse),
         totalClass: 0,
       },
-      classes: response.classes || [],
-      content: response.sections,
+      classes: (response.classes as any[]).map((item) => ({
+        id: item.id,
+        code: item.code,
+        startDate: item.startDate,
+        endDate: item.endDate,
+        imageAlt: item.image.alt,
+        imageUrl: item.image.url,
+        maxStudent: item.maxStudent,
+        minStudent: item.minStudent,
+        numberOfSlot: item.numberOfSlot,
+        purchase: item.purchase || false,
+        price: item.price,
+        status: item.status,
+        timeInWeekRequests: item.timeInWeeks.map((subItem: any) => ({
+          dayOfWeekId: subItem.dayOfWeek.id,
+          slotId: subItem.slot.id,
+        })),
+      })),
+      content: (response.activities as any[]).map((item) => ({
+        id: item.id,
+        authorizeClasses: item.authorizeClasses,
+        created: item.created,
+        createdBy: item.createBy,
+        lastModified: item.lastModified,
+        lastModifiedBy: item.lastModifiedBy,
+        name: item.name,
+        parentActivityId: item.parentActivityId,
+        subActivities: item.subActivities,
+        type: item.type,
+        visible: item.visible,
+        isFixed: item.fixed,
+      })),
     };
     return result;
   },
@@ -53,6 +92,32 @@ const classApi = {
       params: filterParam,
       paramsSerializer: { indexes: null },
     });
+  },
+  async getMentorClassStudentList({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PagingFilterRequest;
+  }) {
+    const response: PagingFilterPayload<GetStudentList> = await axiosClient.get(
+      `${url}/${id}/members`,
+      {
+        params,
+      }
+    );
+    const result: MentorClassMemberDetailPayload[] = response.items.map(
+      (item) => ({
+        id: item?.id || 0,
+        avatar: item.images?.url || '',
+        dayOfBirth: new Date('01/01/2000').toISOString(),
+        email: item?.email || '',
+        name: item?.name || '',
+        phone: '',
+      })
+    );
+
+    return { ...response, items: result };
   },
   async getMentorCourseCLasses({
     id,
@@ -73,6 +138,7 @@ const classApi = {
         numberOfSlot: item.numberOfStudent,
         level: item.level,
         status: item.status,
+        purchase: item?.purchase || false,
         imageAlt: item.image.name,
         imageUrl: item.image.url,
         maxStudent: item.maxStudent,
@@ -99,6 +165,65 @@ const classApi = {
   // put
   updateClassForCourse({ id, param }: { id: number; param: PostClassRequest }) {
     return axiosClient.put(`${url}/course/${id}`, param);
+  },
+  openClass({ id, params }: { id: number; params: PostTimeTableResponse }) {
+    return axiosClient.put(`${url}/${id}/open`, params);
+  },
+
+  async getDetailUserClass(id: number): Promise<ClassDetailPayload> {
+    const response: ResponseDetailClass = await axiosClient.get(`${url}/${id}`);
+    const result: ClassDetailPayload = {
+      id: response?.id || 0,
+      code: response?.code || '',
+      imageAlt: response?.classImage?.name || '',
+      imageUrl: response?.classImage?.url || '',
+      name: response.course?.name || '',
+      progressValue: response.progress?.percentage || 0,
+      status: response?.status || 'ALL',
+      subjectId: response.course?.subject?.id || 0,
+      teacherName: [response?.mentor?.fullName || ''],
+      teacherMail: response.mentor?.email || '',
+      teacherPhone: response.mentor?.phone || '',
+      teacherUrl: response.mentor?.userImages?.[0]?.url || '',
+      teacherAlt: response.mentor?.userImages?.[0]?.name || '',
+      endDate: response?.endDate || '',
+      startDate: response?.startDate || '',
+      feedback: {
+        id: response.feedback?.id || 0,
+        default: response.feedback?.default || false,
+        fixed: response.feedback?.fixed || false,
+        isDefault: response.feedback?.isDefault || false,
+        isFixed: response.feedback?.isFixed || false,
+        name: response.feedback?.name || '',
+        questions: response.feedback?.questions || [],
+        totalClassUsed: response.feedback?.totalClassUsed || 0,
+        type: response.feedback?.type || 'COURSE',
+      },
+      numberOfSlot: response?.numberOfSlot || 0,
+      numberOfStudent: response.numberOfCurrentStudent || 0,
+      price: response?.price || 0,
+      timeTablesRequest:
+        response.timeInWeeks?.map((item) => ({
+          dayOfWeekId: item.dayOfWeek?.id || 0,
+          slotId: item.slot?.id || 0,
+        })) || [],
+      activities:
+        response.activities?.map((item) => ({
+          id: item?.id || 0,
+          authorizeClasses: [],
+          created: item?.created || '',
+          createdBy: item?.createdBy || '',
+          isFixed: false,
+          lastModified: item?.lastModified || '',
+          lastModifiedBy: item?.lastModifiedBy || '',
+          name: item?.name || '',
+          parentActivityId: item?.parentActivityId || 0,
+          type: item?.type || 'SECTION',
+          visible: !!item?.visible,
+          subActivities: item?.subActivities || [],
+        })) || [],
+    };
+    return result;
   },
 
   getClassDetails({
@@ -132,6 +257,25 @@ const classApi = {
     return axiosClient.delete(urlDelete);
   },
 
+  getCourseCreateRequestDetails(
+    idCourse: number
+  ): Promise<CourseCreateRequestDetails | undefined> {
+    const urlGet = `${url}/pending/course/${idCourse}`;
+    return axiosClient.get(urlGet);
+  },
+  searchManagedClass({
+    status,
+    q = '',
+    page = 0,
+    size = null,
+    sort = [],
+  }: UseSearchManagedClassPayload): Promise<
+    PagingFilterPayload<ManagedClass> | undefined
+  > {
+    const urlGet = `${url}/manager?status=${status}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(urlGet);
+  },
+
   async getMentorClassAttendances({
     id,
   }: ClassGetDetailsPayload): Promise<any> {
@@ -142,6 +286,11 @@ const classApi = {
       },
     });
     return response;
+  },
+
+  // delete
+  deleteCourseClass(id: number) {
+    return axiosClient.delete(`${url}/${id}`);
   },
 };
 

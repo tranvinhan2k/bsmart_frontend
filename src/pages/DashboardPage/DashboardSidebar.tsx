@@ -1,7 +1,7 @@
 import { Stack, Box, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
-import Icon from '~/components/atoms/Icon';
+import Button from '~/components/atoms/Button';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
 import { image } from '~/constants/image';
 import { ActionPayload } from '~/models';
@@ -36,23 +36,16 @@ export default function DashboardSidebar({
     return null;
   });
   return (
-    <Stack
-      sx={{
-        marginLeft: '60px',
-      }}
-    >
+    <Stack>
       <Stack
-        onMouseOut={() => onTriggerHover(false)}
-        onMouseOver={() => onTriggerHover(true)}
         sx={{
           transition: 'all 1000ms ease',
           background: Color.white4,
-          position: 'fixed',
           top: 0,
           left: 0,
           zIndex: 9,
           shadow: 3,
-          maxWidth: isHover || isMobile ? '100%' : '60px',
+          // maxWidth: isHover || isMobile ? '100%' : '60px',
           height: '100vh',
         }}
       >
@@ -77,14 +70,13 @@ export default function DashboardSidebar({
             src={image.lms_logo}
             component="img"
           />
+
           <Typography
             sx={{
               ...globalStyles.textWhiteSubTitle,
               marginLeft: 1,
               transition: 'all 1s ease',
               textAlign: 'center',
-              opacity: isHover || isMobile ? 1 : 0,
-              maxWidth: isHover || isMobile ? '100%' : 0,
             }}
           >
             {`${localEnvironment.APP_NAME}`.toUpperCase()}
@@ -107,7 +99,7 @@ export default function DashboardSidebar({
         {filterRows?.map((item, index) => {
           return (
             <DashboardSidebarButton
-              isHover={isHover || isMobile}
+              isHover
               activeIndex={activeIndex}
               index={index}
               item={item}
@@ -131,49 +123,10 @@ export default function DashboardSidebar({
             background: Color.navy,
           }}
         />
-        <Stack sx={{ background: Color.navy }}>
-          <Stack
-            onClick={onNavigateHomepage}
-            sx={{
-              position: 'relative',
-              margin: 1,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 1000ms ease',
-              background: `${Color.tertiary}AA`,
-              padding: 1,
-              backdropFilter: 'blur(2px)',
-              borderRadius: MetricSize.small_5,
-              fontFamily: FontFamily.light,
-              fontSize: FontSize.small_14,
-              zIndex: 1,
-              color: Color.white,
-              opacity: isHover || isMobile ? 1 : 0,
-
-              ':hover': {
-                background: `${Color.tertiary}`,
-                backdropFilter: 'blur(0px)',
-                cursor: 'pointer',
-              },
-            }}
-          >
-            <Stack
-              sx={{
-                position: 'absolute',
-                left: MetricSize.small_10,
-              }}
-            >
-              <Icon name="return" size="small_20" color="white" />
-            </Stack>
-            <Typography
-              sx={{
-                marginLeft: 1,
-              }}
-            >
-              Trở về trang chủ
-            </Typography>
-          </Stack>
+        <Stack sx={{ background: Color.navy, padding: 1 }}>
+          <Button color="info" variant="contained" onClick={onNavigateHomepage}>
+            Trở về trang chủ
+          </Button>
         </Stack>
         <Stack
           sx={{

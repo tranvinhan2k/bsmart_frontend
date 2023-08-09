@@ -3,10 +3,8 @@ import { useYupValidationResolver } from '../useYupValidationResolver';
 import { validationSchemaCreateCourse } from '~/form/validation';
 import { defaultValueCreateCourse } from '~/form/defaultValues';
 import { OptionPayload } from '~/models';
-// import { useQueryGetAllPublicCourses } from '../useQueryGetAllPublicCourses';
 import { PostCourseRequest } from '~/models/request';
 import { useGetFilteredSubjectAndCategory } from '../course/useGetFilteredSubjectAndCategory';
-import { CREATE_COURSE_FIELDS } from '~/form/schema';
 import { mockLevelData } from '~/constants';
 
 export const useCreateCourseForm = (
@@ -24,7 +22,7 @@ export const useCreateCourseForm = (
 
   const { categories, filterSubjects } = useGetFilteredSubjectAndCategory(
     createCourseHookForm,
-    CREATE_COURSE_FIELDS.categoryId
+    'categoryId'
   );
 
   async function handleCreateCourse(data: {
@@ -34,8 +32,6 @@ export const useCreateCourseForm = (
     description: string;
     level: string;
   }) {
-    console.log(data);
-
     const params: PostCourseRequest = {
       level: data.level,
       name: data?.name || '',

@@ -1,19 +1,11 @@
-import {
-  Box,
-  Grid,
-  Stack,
-  Typography,
-  Divider,
-  TextField,
-} from '@mui/material';
-import { useState } from 'react';
+import { Box, Grid, Stack, Typography, Divider } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import styles from './styles';
 import globalStyles from '~/styles';
 import { formatMoney } from '~/utils/money';
-import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import TextLine from '~/components/atoms/TextLine';
@@ -25,12 +17,23 @@ import {
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
-import { selectIntroduceCode } from '~/redux/user/selector';
+import {
+  selectIntroduceCode,
+  selectWebsocketMessage,
+} from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
-import { useEffectScrollToTop } from '~/hooks';
+import { useEffectScrollToTop, useYupValidationResolver } from '~/hooks';
+import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
+import localEnvironment from '~/utils/localEnvironment';
+import { validationIntroduce } from '~/form/validation';
+import { closeUrl, openNewBrowserUrl } from '~/utils/window';
+import ReturnLink from '~/components/atoms/ReturnLink';
 
 function CheckoutPage() {
-  const { control, handleSubmit } = useForm();
+  const resolver = useYupValidationResolver(validationIntroduce);
+  const { control, handleSubmit } = useForm({
+    resolver,
+  });
   const { mutateAsync } = useMutationPay();
   const { mutateAsync: mutatePayQuick } = useMutationPayQuick();
   const checkOutItem = useSelector(selectCheckoutItem);
@@ -40,38 +43,45 @@ function CheckoutPage() {
   const [introduceCode, setIntroduceCode] = useState<string | undefined>(
     slIntroduceCode
   );
-  const [text, setText] = useState('');
 
   useEffectScrollToTop();
+
+  const selectWebsocket = useSelector(selectWebsocketMessage);
+
+  if (selectWebsocket.status === 'OK') {
+    closeUrl();
+  }
 
   if (checkOutItem === null) {
     return <Navigate to="/homepage" />;
   }
 
+  const onSubmit = (data: any) => {
+    setIntroduceCode(data.introduce);
+  };
+
   const handleCheckOut = async () => {
-    const id = toast.loadToast('Đang thanh toán khóa học');
+    // const id = toast.loadToast('Đang thanh toán khóa học');
     try {
       if (Array.isArray(checkOutItem)) {
         await mutateAsync(
           checkOutItem.map((item) => ({
             cartItemId: item.cartItemId,
-            referralCode: introduceCode,
+            subCourseId: item.id,
+            referralCode: introduceCode || '',
           }))
         );
       } else {
         const response = await mutatePayQuick({
-          subCourseId: checkOutItem?.id || 0,
-          referralCode: introduceCode,
+          clazzId: checkOutItem?.id || 0,
+          returnURL: `${localEnvironment.SERVER_LINK_NO_API}/dashboard/classes/detail/0/information`,
         });
         const url = response.paymentUrl;
-        window.open(url);
+        openNewBrowserUrl(url);
       }
-      toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
+      // toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Thanh toán khóa học thất bại: ${error.message}`
-      );
+      toast.notifyErrorToast(`Thanh toán khóa học thất bại: ${error.message}`);
     }
   };
 
@@ -90,30 +100,42 @@ function CheckoutPage() {
   const values: {
     totalAmount: string;
     totalQuantity: number;
-    courseList: any;
+    courseList: DetailCourseClassPayload[];
   } = {
     totalAmount: formatMoney(slTotalAmount, true),
     totalQuantity: Array.isArray(checkOutItem) ? checkOutItem.length : 1,
     courseList: Array.isArray(checkOutItem)
-      ? checkOutItem.map(
-          (item) =>
-            item.subCourses.find((subCourse) => subCourse.isChosen) || null
-        ) || []
-      : [
-          {
-            id: checkOutItem?.subjectId || 0,
-            endDateExpected: checkOutItem?.endDateExpected || '',
-            isChosen: true,
-            level: checkOutItem?.level || '',
-            price: checkOutItem?.price || 0,
-            startDateExpected: checkOutItem?.startDateExpected || '',
-            status: '',
-            typeLearn: checkOutItem?.type || '',
-          },
-        ],
+      ? checkOutItem.map((item) => ({
+          id: item.id,
+          code: '',
+          endDate: '',
+          imageAlt: '',
+          imageUrl: '',
+          maxStudent: 0,
+          minStudent: 0,
+          numberOfSlot: 0,
+          price: 0,
+          startDate: '',
+          status: 'ALL',
+          timeInWeekRequests: [],
+          purchase: false,
+        }))
+      : [checkOutItem],
   };
 
-  return (
+  return selectWebsocket.status === 'OK' ? (
+    <Stack
+      padding={4}
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Typography>{selectWebsocket.data.viTitle}</Typography>
+      <Typography>{selectWebsocket.data.viContent}</Typography>
+      <ReturnLink />
+    </Stack>
+  ) : (
     <Grid container sx={styles.view}>
       <Grid item xs={12} md={8} sx={styles.viewLeft}>
         <Stack
@@ -155,7 +177,7 @@ function CheckoutPage() {
             <Icon name="down" size="small" color="grey" />
           </Stack>
           <Box sx={{ width: '500px' }}>
-            {values.courseList.map((item: any) => (
+            {values.courseList.map((item) => (
               <Box key={item.id}>
                 <Stack
                   sx={{
@@ -166,8 +188,8 @@ function CheckoutPage() {
                   <Stack>
                     <Box
                       component="img"
-                      src={image.noCourse}
-                      alt={item?.id}
+                      src={item.imageUrl}
+                      alt={item?.imageAlt}
                       sx={{
                         alignSelf: 'center',
                         width: '50px',
@@ -192,15 +214,7 @@ function CheckoutPage() {
                         fontSize: FontSize.small_18,
                       }}
                     >
-                      {'Khóa học dạy lập trình '}
-                    </Stack>
-                    <Stack
-                      sx={{
-                        fontFamily: FontFamily.regular,
-                        fontSize: FontSize.small_16,
-                      }}
-                    >
-                      thầy Trung Hiếu
+                      {item.code}
                     </Stack>
                   </Stack>
                   <Stack>
@@ -261,9 +275,10 @@ function CheckoutPage() {
                 <Button
                   sx={{
                     marginLeft: 1,
+                    height: '35px',
                   }}
                   variant="contained"
-                  onClick={() => setIntroduceCode(text)}
+                  onClick={handleSubmit(onSubmit)}
                 >
                   {texts.introduceCodeButton}
                 </Button>

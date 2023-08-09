@@ -12,7 +12,7 @@ export default function Section3LmsBenefits() {
         LỢI ÍCH HỌC TẬP TRÊN NỀN TẢNG LMS
       </Typography>
       <Typography component="h4" sx={SX.H4}>
-        Đối với học viên
+        Đối với học sinh
       </Typography>
       <Grid container spacing={2}>
         {lmsBenefitOfStudentList.map((benefit) => (

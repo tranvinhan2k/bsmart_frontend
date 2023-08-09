@@ -1,5 +1,5 @@
 import axiosClient from '~/api/axiosClient';
-import { TimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
+import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
 import { OptionPayload, PostTimetableRequest } from '~/models';
 import { PostTimeTableResponse } from '~/models/response';
 
@@ -7,14 +7,15 @@ const url = 'time-table';
 
 const timetableApi = {
   // post
-  async getTimetable(
-    params: PostTimetableRequest
-  ): Promise<{ raw: PostTimeTableResponse; timetable: TimeSlotPayload[] }> {
+  async getTimetable(params: PostTimetableRequest): Promise<{
+    raw: PostTimeTableResponse;
+    timetable: MonthTimeSlotPayload[];
+  }> {
     const response: PostTimeTableResponse = await axiosClient.post(
       `${url}`,
       params
     );
-    let result: TimeSlotPayload[] = [];
+    let result: MonthTimeSlotPayload[] = [];
     response.map((item) => {
       const slots: OptionPayload[] = [];
       const isExisted = result.findIndex(
@@ -26,8 +27,6 @@ const timetableApi = {
       if (isExisted !== -1) {
         result = result.map((subItem, subItemIndex) => {
           if (subItemIndex === isExisted) {
-            console.log('hello', subItem);
-
             return {
               ...subItem,
               slots: [

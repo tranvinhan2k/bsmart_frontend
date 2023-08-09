@@ -7,6 +7,7 @@ import Icon from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 import { FormInputVariant } from '~/models/form';
 import { OptionPayload } from '~/models';
+import { Color } from '~/assets/variables';
 
 interface CRUDTableSearchingProps {
   searchPlaceholder: string;
@@ -15,7 +16,7 @@ interface CRUDTableSearchingProps {
     variant: FormInputVariant;
     name: string;
     placeholder: string;
-    data: OptionPayload[];
+    data?: OptionPayload[];
   }[];
   onSearch: (data: any) => void;
 }
@@ -61,8 +62,16 @@ export default function CRUDTableSearching({
 
         {filterFormInputList?.length !== 0 && (
           <Stack marginLeft={1}>
-            <Button onClick={handleMenu} customVariant="horizonForm">
-              <Icon name="filter" color="white" size="medium" />
+            <Button
+              sx={{
+                height: '35px',
+                color: Color.white,
+              }}
+              color="secondary"
+              onClick={handleMenu}
+              variant="contained"
+            >
+              <Icon name="filter" color="white" size="small_20" />
             </Button>
           </Stack>
         )}
@@ -76,33 +85,56 @@ export default function CRUDTableSearching({
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            onMouseLeave={handleClose}
           >
-            <Stack sx={{ width: '500px', padding: 2 }}>
-              <Stack
-                sx={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-                paddingY={1}
-              >
-                <Typography sx={globalStyles.textSmallLabel}>Bộ lọc</Typography>
-                <IconButton onClick={handleClose}>
-                  <Icon name="close" size="small" color="black" />
-                </IconButton>
+            <Stack
+              sx={{
+                width: '500px',
+                minHeight: '400px',
+                padding: 2,
+                justifyContent: 'space-between',
+              }}
+            >
+              <Stack>
+                <Stack
+                  sx={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Typography sx={globalStyles.textSmallLabel}>
+                    Bộ lọc
+                  </Typography>
+                  <IconButton onClick={handleClose}>
+                    <Icon name="close" size="small" color="black" />
+                  </IconButton>
+                </Stack>
+                {filterFormInputList?.map((item, index) => (
+                  <Stack
+                    key={index}
+                    sx={{
+                      marginTop: 1,
+                    }}
+                  >
+                    <FormInput
+                      variant={item.variant}
+                      control={searchControl.control}
+                      name={item.name}
+                      placeholder={item.placeholder}
+                      data={item.data}
+                    />
+                  </Stack>
+                ))}
               </Stack>
-              {filterFormInputList?.map((item) => (
-                <FormInput
-                  key={item.name}
-                  variant={item.variant}
-                  control={searchControl.control}
-                  name={item.name}
-                  placeholder={item.placeholder}
-                  data={item.data}
-                />
-              ))}
-              <Button onClick={handleClose} customVariant="horizonForm">
+              <Button
+                sx={{
+                  marginTop: 1,
+                  color: Color.white,
+                }}
+                onClick={handleClose}
+                variant="contained"
+                color="secondary"
+              >
                 Xác nhận
               </Button>
             </Stack>

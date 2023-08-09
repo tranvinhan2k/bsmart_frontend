@@ -3,31 +3,25 @@ import { AdminNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
   AdminPage,
+  ManageUserPage,
   CategoryManagerPage,
   FeedbackManagerPage,
   NotFoundPage,
   SubjectManagerPage,
+  AdminManagerQuestionBank,
+  AdminManagerRevenuePage,
+  ConfirmEmailPage,
 } from '~/routes/components';
 
 export const adminRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to="/admin/user" />,
+    main: () => <Navigate to={AdminNavigationActionLink.user_manager} />,
     role: ['ROLE_ADMIN'],
   },
   {
-    path: '/homepage',
-    main: () => <AdminPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: '/user',
-    main: () => <AdminPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: '/course',
-    main: () => <AdminPage />,
+    path: AdminNavigationActionLink.user_manager,
+    main: () => <ManageUserPage />,
     role: ['ROLE_ADMIN'],
   },
   {
@@ -44,6 +38,21 @@ export const adminRoutes: RoutePayload[] = [
     path: AdminNavigationActionLink.subject_manager,
     main: () => <SubjectManagerPage />,
     role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.questions_bank,
+    main: () => <AdminManagerQuestionBank />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.revenue,
+    main: () => <AdminManagerRevenuePage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.confirm_email,
+    main: () => <ConfirmEmailPage />,
+    role: [],
   },
   {
     path: '*',

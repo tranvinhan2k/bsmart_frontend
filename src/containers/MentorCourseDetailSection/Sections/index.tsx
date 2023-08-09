@@ -1,25 +1,43 @@
 import { Box, Stack, Typography } from '@mui/material';
 
+import React, { useContext, useEffect } from 'react';
 import { image } from '~/constants/image';
-import { Color, MetricSize } from '~/assets/variables';
-import AddModule from '../AddModule';
-import { useTimeOut, useTryCatch } from '~/hooks';
-import Section from '../Section.ts';
-import Module from '../Module';
+import { MetricSize } from '~/assets/variables';
 import { ActivityPayload } from '~/models/type';
+import SectionCollapse from './SectionCollapse';
+import { CourseStatusKeys } from '~/models/variables';
+import { CourseContext } from '~/HOCs/context/CourseContext';
 
 interface Props {
   content: ActivityPayload[] | undefined;
-  onAddNew: (id: number, name: string) => void;
+  status: CourseStatusKeys;
 }
 
-export default function Sections({ content, onAddNew }: Props) {
-  const { onSleep } = useTimeOut(1000);
+export default function Sections({ content, status }: Props) {
+  const { sectionId } = useContext(CourseContext);
 
-  const deleteSection = useTryCatch('xóa học phần');
-  const deleteModule = useTryCatch('xóa bài học');
-  const updateModule = useTryCatch('cập nhật bài học');
-  const { handleTryCatch } = useTryCatch('cập nhật nội dung');
+  const refs = content?.reduce((acc: any, value) => {
+    acc[value.id] = React.createRef();
+    return acc;
+  }, {});
+
+  const handleClick = (id: number) => {
+    if (refs?.[id]?.current) {
+      refs[id].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
+  const handleScrollIntoView = () => {
+    handleClick(sectionId);
+  };
+
+  useEffect(() => {
+    handleScrollIntoView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sectionId, content]);
 
   if (content === undefined || content.length === 0) {
     return (
@@ -45,52 +63,16 @@ export default function Sections({ content, onAddNew }: Props) {
     );
   }
 
-  const handleAddNew = (id: number, name: string) => {
-    onAddNew(id, name);
-  };
-
-  const handleUpdateSection = async () => {
-    // TODO: cap nhat section
-    await handleTryCatch(() => onSleep(true));
-  };
-  const handleDeleteSection = async () => {
-    // TODO: xóa section
-    await deleteSection.handleTryCatch(() => onSleep(true));
-  };
-  const handleUpdateModule = async () => {
-    // TODO: cap nhat module
-    await updateModule.handleTryCatch(() => onSleep(true));
-  };
-  const handleDeleteModule = async () => {
-    // TODO: cap nhat module
-    await deleteModule.handleTryCatch(() => onSleep(true));
-  };
-
   return (
     <Stack>
-      {content.map((section, index) => (
-        <Stack
-          sx={{ marginTop: 1, padding: 2, background: Color.whiteSmoke }}
+      {content?.map((section, index) => (
+        <SectionCollapse
+          ref={refs[section.id]}
+          status={status}
           key={index}
-        >
-          <Section
-            index={index}
-            section={section}
-            onDelete={handleDeleteSection}
-            onUpdate={handleUpdateSection}
-          />
-          <Stack sx={{ marginTop: 1, paddingY: 1 }}>
-            {section?.subActivities.map((module, idx) => (
-              <Module
-                key={idx}
-                module={module}
-                onDelete={handleDeleteModule}
-                onUpdate={handleUpdateModule}
-              />
-            ))}
-          </Stack>
-          <AddModule id={section.id} onAdd={handleAddNew} />
-        </Stack>
+          index={index}
+          section={section}
+        />
       ))}
     </Stack>
   );

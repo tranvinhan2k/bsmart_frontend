@@ -10,6 +10,7 @@ import CustomPagination from '~/components/atoms/CustomPagination';
 import UserCourseItem from '~/components/molecules/items/UserCourseItem';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { CourseMenuItemPayload } from '~/models/type';
+import { LoadingWrapper } from '~/HOCs';
 
 interface CourseMenuSectionPayload {
   error: any;
@@ -31,109 +32,29 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
     dispatch(changeFilterParams({ ...filterParams, page: v - 1 }));
   };
 
-  let courseData = null;
-
-  switch (true) {
-    case Boolean(error):
-      toast.notifyErrorToast(error.message);
-      courseData = (
-        <Stack
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50vh',
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: FontSize.small_18,
-              color: Color.red,
-              fontFamily: FontFamily.light,
-            }}
-          >
-            {error.message}
-          </Typography>
-        </Stack>
-      );
-
-      break;
-    case isLoading:
-      courseData = (
-        <Stack
-          flexDirection="row"
-          flexWrap="wrap"
-          alignContent="space-around"
-          alignItems="stretch"
-        >
-          {Array(24)
-            .fill(0)
-            .map((_, index) => (
-              <Stack
-                key={index}
-                sx={{
-                  marginBottom: MetricSize.medium_15,
-                  marginLeft: '15px',
-                  borderColor: Color.grey,
-                  width: { xs: '100%', md: '31%' },
-                  borderRadius: MetricSize.small_5,
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Skeleton height={400} />
-              </Stack>
-            ))}
-        </Stack>
-      );
-      break;
-    case data?.items.length === 0:
-      courseData = (
-        <Stack
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50vh',
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: FontSize.small_18,
-              color: Color.grey,
-              fontFamily: FontFamily.light,
-            }}
-          >
-            Không có khóa học phù hợp.
-          </Typography>
-        </Stack>
-      );
-      break;
-    case isLoading === false:
-      courseData = (
+  return (
+    <Stack sx={{ width: '100%' }}>
+      <LoadingWrapper error={error} isLoading={isLoading}>
         <Grid container>
           {data?.items.map((item, index) => (
             <Grid key={index} item xs={12} md={6} lg={4}>
               <UserCourseItem
                 level={item.level}
                 key={item.id}
+                courseCode={item.courseCode}
                 courseTeacherName={item.courseTeacherName}
-                courseDescription={item.courseDescription}
+                courseDescription=""
                 courseName={item.courseName}
                 subjectName={item.subjectName}
                 imageAlt={item.imageAlt}
+                totalClass={item.totalClass}
                 imageUrl={item.imageUrl}
                 onClick={() => handleNavigateCourseDetail(`${item.id}`)}
               />
             </Grid>
           ))}
         </Grid>
-      );
-      break;
-    default:
-      break;
-  }
-
-  return (
-    <Stack sx={{ width: '100%' }}>
-      {courseData}
+      </LoadingWrapper>
       {data && data.items.length > 0 && (
         <Stack justifyContent="center" alignItems="center" padding={2}>
           <CustomPagination

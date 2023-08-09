@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { scrollToTop } from '~/utils/common';
-import ResourceMentorQuestionBank from '~/components/molecules/ResourceManagement/ResourceMentorQuestionBank';
+import AdminManagerQuestionBank from '~/pages/admin/AdminManagerQuestionBank';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 import GeneralSettings from './GeneralSettings';
@@ -30,7 +30,7 @@ export default function MentorQuizSetting() {
     {
       id: 2,
       text: 'Ngân hàng câu hỏi',
-      component: <ResourceMentorQuestionBank />,
+      component: <AdminManagerQuestionBank />,
     },
     {
       id: 3,

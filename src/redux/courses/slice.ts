@@ -2,13 +2,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { CartItem } from '~/api/cart';
 import { PagingFilterRequest } from '~/models';
-import { SubCoursePayload } from '~/models/subCourse';
-import { CoursePayload } from '~/models/type';
-import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
+
+import {
+  DetailCourseClassPayload,
+  MentorDetailCoursePayload,
+} from '~/pages/MentorCourseDetailPage';
 
 export type CourseStateType = {
   filterParams: PagingFilterRequest;
-  checkOutCourses: CartItem[] | SubCoursePayload | null;
+  checkOutCourses: CartItem[] | DetailCourseClassPayload | null;
   totalAmount: number;
   mentorCourse: MentorDetailCoursePayload;
 };

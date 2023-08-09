@@ -19,12 +19,17 @@ import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import Button from '~/components/atoms/Button';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { image } from '~/constants/image';
-import { mockLevelData } from '~/constants';
 import toast from '~/utils/toast';
 import { NavigationLink } from '~/constants/routeLink';
 import { selectProfile } from '~/redux/user/selector';
 import { addCheckoutItem } from '~/redux/courses/slice';
 import { LevelKeys } from '~/models/variables';
+import {
+  useDispatchGetCart,
+  useMutationAddCourseToCart,
+  useTryCatch,
+} from '~/hooks';
+import { RequestCartItem } from '~/api/cart';
 
 interface Props {
   levelLabel: string;
@@ -32,15 +37,21 @@ interface Props {
   categoryName: string;
   subjectName: string;
   classes: DetailCourseClassPayload[];
+  scrollIntroduce: () => void;
+  scrollContent: () => void;
+  scrollClasses: () => void;
+  scrollMentor: () => void;
 }
 
 const initClass: DetailCourseClassPayload = {
   endDate: '',
-  id: '',
+  id: 0,
+  status: 'ALL',
   imageAlt: '',
   imageUrl: image.mockClass,
   maxStudent: 0,
   minStudent: 0,
+  purchase: false,
   numberOfSlot: 0,
   price: 0,
   startDate: '',
@@ -54,11 +65,18 @@ export default function Sidebar({
   classes,
   categoryName,
   subjectName,
+  scrollClasses,
+  scrollContent,
+  scrollIntroduce,
+  scrollMentor,
 }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const profile = useSelector(selectProfile);
+  const { mutateAsync: handleAddCourseToCart } = useMutationAddCourseToCart();
+  const { handleTryCatch } = useTryCatch('thêm vào giỏ hàng');
+  const { handleDispatch } = useDispatchGetCart();
   const [open, setOpen] = useState(false);
   const [chooseClass, setChooseClass] =
     useState<DetailCourseClassPayload>(initClass);
@@ -69,8 +87,11 @@ export default function Sidebar({
   };
 
   const handleChangeClass = (item: DetailCourseClassPayload) => {
-    setChooseClass(item);
-    handleOpen();
+    if (!item.purchase) {
+      setChooseClass(item);
+      handleOpen();
+      scrollClasses();
+    }
   };
 
   const handleDeleteChooseClass = () => {
@@ -78,9 +99,28 @@ export default function Sidebar({
   };
 
   const handleCheckOut = () => {
-    if (chooseClass.id !== '') {
-      dispatch(addCheckoutItem(chooseClass));
+    if (chooseClass.id !== 0) {
+      dispatch(
+        addCheckoutItem({
+          checkOutCourses: chooseClass,
+          totalAmount: chooseClass.price,
+        })
+      );
       navigate(`/${NavigationLink.check_out}`);
+    } else {
+      toast.notifyErrorToast('Hãy chọn lớp học bạn cần !');
+    }
+  };
+  const handleAddToCart = async () => {
+    if (chooseClass.id !== 0) {
+      const params: RequestCartItem = {
+        cartItemId: undefined,
+        subCourseId: chooseClass.id,
+      };
+      await handleTryCatch(async () => {
+        await handleAddCourseToCart(params);
+        await handleDispatch();
+      });
     } else {
       toast.notifyErrorToast('Hãy chọn lớp học bạn cần !');
     }
@@ -114,7 +154,7 @@ export default function Sidebar({
           src={levelImage}
         />
       ),
-      name: 'Độ khó',
+      name: 'Trình độ',
       value: levelLabel,
     },
   ];
@@ -129,7 +169,7 @@ export default function Sidebar({
       id: 4,
       icon: 'number',
       label: 'Mã lớp',
-      value: chooseClass.id,
+      value: `${chooseClass.id}`,
     },
     {
       id: 0,
@@ -164,23 +204,23 @@ export default function Sidebar({
   }[] = [
     {
       id: 0,
-      name: 'Kiến thức học được',
-      onClick: () => {},
+      name: 'Giới thiệu khóa học',
+      onClick: scrollIntroduce,
     },
     {
       id: 1,
       name: 'Khung chương trình',
-      onClick: () => {},
+      onClick: scrollContent,
     },
     {
       id: 2,
       name: 'Danh sách lớp học',
-      onClick: () => {},
+      onClick: scrollClasses,
     },
     {
       id: 3,
       name: 'Về giáo viên',
-      onClick: () => {},
+      onClick: scrollMentor,
     },
   ];
 
@@ -190,7 +230,11 @@ export default function Sidebar({
         position: 'sticky',
         top: '90px',
       }}
-      paddingRight={MetricSize.large_30}
+      paddingRight={{
+        xs: '0',
+        md: MetricSize.large_30,
+      }}
+      paddingBottom={1}
     >
       <Stack
         sx={{
@@ -221,47 +265,53 @@ export default function Sidebar({
               alignItems: 'center',
               justifyContent: 'flex-start',
               flexWrap: 'wrap',
-              height: '250px',
+              maxHeight: '250px',
               overflowY: 'auto',
             }}
           >
             {classes?.length !== 0 ? (
-              classes.map((item, index) => (
-                <Stack
-                  sx={{
-                    marginTop: 1,
-                    marginLeft: index % 3 === 0 ? 0 : 1,
-                    width: '31%',
-                  }}
-                  key={item.id}
-                >
+              classes.map((item, index) => {
+                return (
                   <Stack
-                    onClick={() => handleChangeClass(item)}
                     sx={{
-                      background:
-                        chooseClass.id === item.id
-                          ? `${Color.tertiary}44`
-                          : Color.white,
-                      borderColor:
-                        chooseClass.id === item.id
-                          ? `${Color.tertiary}`
-                          : Color.grey,
-                      borderWidth: chooseClass.id === item.id ? '3px' : '1px',
-                      borderStyle: 'solid',
-                      transition: 'all 200ms ease',
-                      height: undefined,
-                      aspectRatio: 1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: MetricSize.small_5,
-                      ':hover': {
-                        cursor: 'pointer',
-                        background: Color.grey3,
-                        border: Color.transparent,
-                      },
+                      marginTop: 1,
+                      marginLeft: index % 3 === 0 ? 0 : 1,
+                      width: '31%',
                     }}
+                    key={item.id}
                   >
-                    {/* <Stack padding={1}>
+                    <Stack
+                      onClick={() => handleChangeClass(item)}
+                      sx={{
+                        padding: 1,
+                        overflow: 'hidden',
+                        background:
+                          chooseClass.id === item.id
+                            ? `${Color.tertiary}44`
+                            : Color.white,
+                        borderColor:
+                          chooseClass.id === item.id
+                            ? `${Color.tertiary}`
+                            : Color.grey,
+                        borderWidth: chooseClass.id === item.id ? '3px' : '1px',
+                        borderStyle: 'solid',
+                        transition: 'all 200ms ease',
+                        height: undefined,
+                        aspectRatio: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: MetricSize.small_5,
+                        opacity: item.purchase ? 0.3 : 1,
+                        ':hover': {
+                          cursor: item.purchase ? 'default' : 'pointer',
+                          background: item.purchase ? Color.white : Color.grey3,
+                          borderColor: item.purchase
+                            ? Color.grey
+                            : Color.transparent,
+                        },
+                      }}
+                    >
+                      {/* <Stack padding={1}>
                     <Box
                       component="img"
                       alt={item.imageAlt}
@@ -279,46 +329,66 @@ export default function Sidebar({
                       }}
                     />
                   </Stack> */}
-                    {/* <Typography sx={globalStyles.textLowSmallLight}>
+                      {/* <Typography sx={globalStyles.textLowSmallLight}>
                     Tháng Tám
                   </Typography> */}
-                    <Typography
-                      sx={{
-                        textAlign: 'center',
-                        fontSize: FontSize.small_14,
-                        fontFamily:
-                          chooseClass.id === item.id
-                            ? FontFamily.regular
-                            : FontFamily.light,
-                        color:
-                          chooseClass.id === item.id
-                            ? Color.tertiary
-                            : Color.black,
-                      }}
-                    >
-                      {/* {`Lớp học #${item.id}`} */}
-                      Lớp học
-                    </Typography>
-                    <Typography
-                      sx={{
-                        textAlign: 'center',
-                        fontSize: FontSize.small_14,
-                        fontFamily:
-                          chooseClass.id === item.id
-                            ? FontFamily.bold
-                            : FontFamily.medium,
-                        color:
-                          chooseClass.id === item.id
-                            ? Color.tertiary
-                            : Color.black,
-                      }}
-                    >
-                      {/* {`Lớp học #${item.id}`} */}
-                      {`#${item.code}`}
-                    </Typography>
+                      <Typography
+                        sx={{
+                          textAlign: 'center',
+                          fontSize: FontSize.small_14,
+                          fontFamily:
+                            chooseClass.id === item.id
+                              ? FontFamily.regular
+                              : FontFamily.light,
+                          color:
+                            chooseClass.id === item.id
+                              ? Color.tertiary
+                              : Color.black,
+                        }}
+                      >
+                        {/* {`Lớp học #${item.id}`} */}
+                        Mã lớp
+                      </Typography>
+                      <Typography
+                        sx={{
+                          textAlign: 'center',
+                          fontSize: {
+                            xs: '12px',
+                            md: FontSize.small_16,
+                          },
+                          fontFamily:
+                            chooseClass.id === item.id
+                              ? FontFamily.bold
+                              : FontFamily.medium,
+                          color:
+                            chooseClass.id === item.id
+                              ? Color.tertiary
+                              : Color.black,
+                        }}
+                      >
+                        {/* {`Lớp học #${item.id}`} */}
+                        {`#${item.code}`}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          textAlign: 'center',
+                          fontSize: FontSize.small_14,
+                          fontFamily:
+                            chooseClass.id === item.id
+                              ? FontFamily.regular
+                              : FontFamily.light,
+                          color:
+                            chooseClass.id === item.id
+                              ? Color.tertiary
+                              : Color.black,
+                        }}
+                      >
+                        {formatMoney(item.price)}
+                      </Typography>
+                    </Stack>
                   </Stack>
-                </Stack>
-              ))
+                );
+              })
             ) : (
               <Typography>Chưa có lớp học nào</Typography>
             )}
@@ -439,6 +509,7 @@ export default function Sidebar({
             }}
           >
             <Button
+              disabled={chooseClass.id === 0}
               onClick={handleCheckOut}
               variant="contained"
               sx={{ color: Color.white, flex: 1 }}
@@ -447,15 +518,6 @@ export default function Sidebar({
               Đăng kí
             </Button>
             <Stack marginX={1} />
-            <Button
-              sx={{
-                flex: 1,
-              }}
-              variant="outlined"
-              startIcon={<Icon name="cart" size="small_20" color="navy" />}
-            >
-              Giỏ hàng
-            </Button>
           </Stack>
         )}
       </Stack>
@@ -483,10 +545,10 @@ export default function Sidebar({
               sx={{
                 transition: 'all 1s ease',
                 fontSize: FontSize.small_14,
-                fontFamily: FontFamily.light,
+                fontFamily: FontFamily.regular,
                 paddingY: 1,
                 paddingX: 4,
-                color: Color.grey,
+                color: Color.black,
 
                 ':hover': {
                   background: Color.grey3,

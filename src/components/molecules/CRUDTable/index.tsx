@@ -14,6 +14,7 @@ import {
   GridColDef,
   GridRowIdGetter,
   GridValidRowModel,
+  DataGridProps,
 } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -36,23 +37,23 @@ export type SearchFilterFormInput = {
   variant: FormInputVariant;
   name: string;
   placeholder: string;
-  data: OptionPayload[];
+  data?: OptionPayload[];
 };
-interface CRUDTableProps {
+type CRUDTableProps<T> = DataGridProps & {
   title?: string;
   columns: GridColDef[];
   isLoading?: boolean;
   error?: any;
-  rows: any;
+  rows: T[];
   addItemButtonLabel?: string;
   menuItemList?: MenuItemPayload[];
   searchPlaceholder?: string;
   searchFilterFormInputList?: SearchFilterFormInput[];
-  setSelectedRow?: (selectedRow: any) => void;
+  setSelectedRow?: (selectedRow: T) => void;
   onAdd?: () => void;
   onSearch?: (data: any) => void;
   getRowId?: GridRowIdGetter<GridValidRowModel>;
-}
+};
 
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
@@ -62,10 +63,17 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   '.MuiDataGrid-columnHeaderTitle': {
     color: Color.navy,
     textTransform: 'uppercase',
-    fontSize: FontSize.small_16,
+    fontSize: '12px',
     fontFamily: FontFamily.bold,
   },
+  '.MuiDataGrid-overlay': {
+    ...globalStyles.textLowSmallLight,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   [`& .${gridClasses.row}.even`]: {
+    transition: 'all 500ms ease',
     backgroundColor: theme.palette.grey[200],
     '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
@@ -97,7 +105,7 @@ const StripedDataGrid = styled(MuiDataGrid)(({ theme }) => ({
   },
 }));
 
-export default function CRUDTable({
+export default function CRUDTable<T>({
   title = '',
   isLoading = false,
   error = null,
@@ -111,7 +119,8 @@ export default function CRUDTable({
   onAdd,
   onSearch,
   getRowId,
-}: CRUDTableProps) {
+  ...props
+}: CRUDTableProps<T>) {
   const searchValueForm = useForm();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -142,23 +151,25 @@ export default function CRUDTable({
     );
   };
 
-  const addMoreVertColumns: GridColDef[] = [
-    ...columns,
-    {
-      field: '',
-      width: 150,
-      // flex: 1,
-      headerName: 'Chức năng',
-      renderCell() {
-        return renderMoreVertMenuIcon();
-      },
-    },
-  ];
+  const addMoreVertColumns: GridColDef[] =
+    menuItemList?.length !== 0
+      ? [
+          ...columns,
+          {
+            field: '',
+            width: 150,
+            // flex: 1,
+            headerName: 'Chức năng',
+            renderCell() {
+              return renderMoreVertMenuIcon();
+            },
+          },
+        ]
+      : columns;
 
   return (
     <Stack
       sx={{
-        background: Color.white,
         borderRadius: MetricSize.small_5,
       }}
     >
@@ -182,9 +193,11 @@ export default function CRUDTable({
       <Stack
         sx={{
           minHeight: '700px',
+          background: Color.white,
         }}
       >
         <StripedDataGrid
+          {...props}
           onRowClick={handleSelectedRow}
           error={error}
           loading={isLoading}
@@ -206,7 +219,13 @@ export default function CRUDTable({
         onMouseLeave={handleClose}
       >
         {menuItemList?.map((item) => (
-          <MenuItem key={item.title} onClick={item.onCLick}>
+          <MenuItem
+            key={item.title}
+            onClick={() => {
+              item.onCLick();
+              handleClose();
+            }}
+          >
             <ListItemIcon>
               <Icon name={item.icon} size="small" color="black" />
             </ListItemIcon>
@@ -227,6 +246,6 @@ CRUDTable.defaultProps = {
   error: null,
   addItemButtonLabel: '',
   searchPlaceholder: '',
-  onSearch: () => {},
+  onSearch: undefined,
   setSelectedRow: undefined,
 };
