@@ -30,7 +30,7 @@ export default function RequestCourseDate({
     },
     {
       id: 1,
-      label: 'Lần gửi thứ',
+      label: 'Lần đơn gửi thứ',
       value: courseCreateRequestDetails ? courseCreateRequestDetails.count : '',
     },
   ];

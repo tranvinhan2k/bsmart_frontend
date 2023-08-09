@@ -39,7 +39,42 @@ export const formatISODateStringToDisplayDate = (inputDate: string) => {
   }
   return result;
 };
+export const formatISODateStringToDisplayTime = (inputDate: string) => {
+  let result = '';
+  if (inputDate) {
+    const date = new Date(inputDate);
 
+    let hours: string | number = date.getHours();
+    let minutes: string | number = date.getMinutes();
+    if (hours < 10) hours = `0${hours}`;
+    if (minutes < 10) minutes = `0${minutes}`;
+
+    result = `${hours}: ${minutes}`;
+  }
+  return result;
+};
+
+export const formatISODateDateToDisplayDateTime = (
+  inputDate: Date | string
+) => {
+  let result = '';
+  if (inputDate) {
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    let month: string | number = date.getMonth() + 1;
+    let day: string | number = date.getDate();
+    if (day < 10) day = `0${day}`;
+    if (month < 10) month = `0${month}`;
+
+    let hours: string | number = date.getHours();
+    let minutes: string | number = date.getMinutes();
+    if (hours < 10) hours = `0${hours}`;
+    if (minutes < 10) minutes = `0${minutes}`;
+
+    result = `${hours}:${minutes} - ${day} tháng ${month}, ${year}`;
+  }
+  return result;
+};
 export const formatISODateDateToDisplayDate = (inputDate: Date) => {
   let result = '';
   if (inputDate) {
@@ -65,27 +100,6 @@ export const formatISODateDateToDisplayMonthYear = (inputDate: Date) => {
     if (day < 10) day = `0${day}`;
     if (month < 10) month = `0${month}`;
     result = `${month}, ${year}`;
-  }
-  return result;
-};
-export const formatISODateDateToDisplayDateTime = (
-  inputDate: Date | string
-) => {
-  let result = '';
-  if (inputDate) {
-    const date = new Date(inputDate);
-    const year = date.getFullYear();
-    let month: string | number = date.getMonth() + 1;
-    let day: string | number = date.getDate();
-    if (day < 10) day = `0${day}`;
-    if (month < 10) month = `0${month}`;
-
-    let hours: string | number = date.getHours();
-    let minutes: string | number = date.getMinutes();
-    if (hours < 10) hours = `0${hours}`;
-    if (minutes < 10) minutes = `0${minutes}`;
-
-    result = `${hours}:${minutes} - ${day} tháng ${month}, ${year}`;
   }
   return result;
 };

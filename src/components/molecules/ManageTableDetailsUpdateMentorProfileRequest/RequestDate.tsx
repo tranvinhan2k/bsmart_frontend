@@ -18,7 +18,7 @@ export default function RequestDate({ row }: RequestDateProps) {
     },
     {
       id: 1,
-      label: 'Lần gửi thứ',
+      label: 'Lần gửi đơn thứ',
       value: '',
     },
   ];
