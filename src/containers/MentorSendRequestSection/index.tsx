@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import OtherRequestSection from '../SendRequestSection/OtherRequestSection';
 import UpdateMentorProfileRequestSection from '../SendRequestSection/UpdateMentorProfileRequestSection';
 import WithdrawSection from '../SendRequestSection/WithdrawRequestSection';
 import {
@@ -48,7 +47,6 @@ export default function MentorSendRequestSection() {
       ),
     },
     { id: 1, component: <WithdrawSection /> },
-    // { id: 2, component: <OtherRequestSection /> },
   ];
 
   return (
