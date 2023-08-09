@@ -59,7 +59,7 @@ export default function MentorSendRequestSection() {
         </Typography>
         <Divider sx={{ marginY: 2 }} />
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
             <FormControl fullWidth size="small">
               <Typography sx={SX_FORM_LABEL}>{Text.selectLabel}</Typography>
               <Box mt={1} />

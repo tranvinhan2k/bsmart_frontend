@@ -189,9 +189,6 @@ export default function ProfileSideBar({
               >
                 {role === 'TEACHER' && (
                   <>
-                    <MentorProfileStatusProfileSideBar
-                      status={mentorProfileStatus}
-                    />
                     {displayFieldsMentor.items.map((item) => {
                       return (
                         <Stack
@@ -229,6 +226,12 @@ export default function ProfileSideBar({
                         {displayFieldsMentor.noOfRatingDisplay}
                       </Typography>
                     </Stack>
+                    <MentorProfileStatusProfileSideBar
+                      status={mentorProfileStatus}
+                    />
+                    <Box mt={2}>
+                      <MentorProfileCompleteProgress />
+                    </Box>
                   </>
                 )}
                 {role === 'STUDENT' && (
@@ -274,7 +277,7 @@ export default function ProfileSideBar({
                   </>
                 )}
               </Stack>
-              {role === 'TEACHER' && <MentorProfileCompleteProgress />}
+              {/* {role === 'TEACHER' && <MentorProfileCompleteProgress />} */}
             </Stack>
             <Stack
               direction="column"

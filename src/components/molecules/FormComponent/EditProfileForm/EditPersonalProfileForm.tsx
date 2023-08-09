@@ -74,10 +74,11 @@ export default function EditPersonalProfileForm() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
-  const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${
-      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${
+      error || error.message || TRY_CATCH_AXIOS_DEFAULT_ERROR
     }`;
+  };
   const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
     const params: EditPersonalProfileFormSubmit = {
       fullName: data.fullName,

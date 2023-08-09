@@ -329,14 +329,14 @@ const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
         <CheckIcon
           titleAccess="Chưa từng duyệt"
           style={{
-            color: red[500],
+            color: green[500],
           }}
         />
       ) : (
         <CloseIcon
           titleAccess="Đã từng duyệt"
           style={{
-            color: green[500],
+            color: red[500],
           }}
         />
       );
