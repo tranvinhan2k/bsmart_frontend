@@ -107,6 +107,9 @@ export * from './assignment/useMutationSubmitPointAssignment';
 
 // forgot password
 export * from './resetPassword/useMutationSendMailResetPassword';
+export * from './resetPassword/useQueryConfirmToken';
+export * from './resetPassword/useMutationResetPassword';
 
 // notifications
 export * from './notifications/useDispatchNotifications';
+export * from './notifications/useReadNotifications';

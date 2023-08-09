@@ -51,6 +51,12 @@ export default function AddSubSectionForm({
       placeholder: 'Nhập tên học phần',
       variant: 'text',
     },
+    // {
+    //   label: 'Video đính kèm',
+    //   name: 'link',
+    //   placeholder: 'Nhập link video đính kèm (không bắt buộc)',
+    //   variant: 'text',
+    // },
     {
       label: 'Mô tả học phần',
       name: 'description',

@@ -258,11 +258,17 @@ export default function MainNavigation({
         open={isOpenProfileDrawer}
         onClose={onToggleProfileDrawer}
       >
-        {role === 'ROLE_STUDENT' ? (
-          <MemberDetailsProfile />
-        ) : (
-          <MentorDetailSection />
-        )}
+        <Stack
+          sx={{
+            maxWidth: '90vw',
+          }}
+        >
+          {role === 'ROLE_STUDENT' ? (
+            <MemberDetailsProfile />
+          ) : (
+            <MentorDetailSection />
+          )}
+        </Stack>
       </Drawer>
     </Stack>
   );

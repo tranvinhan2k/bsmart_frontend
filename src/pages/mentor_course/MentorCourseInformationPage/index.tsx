@@ -71,10 +71,10 @@ export default function MentorCourseInformationPage() {
   const { hookForm, categories, filterSubjects, levels, handleSubmit } =
     useUpdateCourseForm(course, handleUpdateCourse);
 
-  useEffect(() => {
-    hookForm.reset(course);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [course]);
+  // useEffect(() => {
+  //   hookForm.reset(course);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [course]);
 
   return (
     <Stack>
