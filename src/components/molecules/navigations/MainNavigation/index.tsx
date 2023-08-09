@@ -53,7 +53,6 @@ interface NavigationProps {
   };
   isOpenDrawer: boolean;
   isOpenProfileDrawer: boolean;
-  cart: ResponseCartItem | undefined;
   role: Role | null;
   filterParams: PagingFilterRequest;
   pathName: string;
@@ -73,7 +72,6 @@ export default function MainNavigation({
   texts,
   isOpenDrawer,
   isOpenProfileDrawer,
-  cart,
   role,
   filterParams,
   pathName,
@@ -163,19 +161,7 @@ export default function MainNavigation({
       <Stack sx={styles.view1} flexDirection="row">
         {renderNavigationList()}
       </Stack>
-      <Stack sx={styles.view2}>
-        {role !== 'ROLE_TEACHER' && (
-          <IconButton onClick={onClickCart}>
-            <Badge
-              badgeContent={cart?.totalItem}
-              color="secondary"
-              sx={styles.badge}
-            >
-              <Icon name="cart" size="medium" />
-            </Badge>
-          </IconButton>
-        )}
-      </Stack>
+      <Stack sx={styles.view2} />
       <Stack sx={styles.view3}>
         <IconButton onClick={onToggleDrawer}>
           <Icon name="menu" size="medium" />

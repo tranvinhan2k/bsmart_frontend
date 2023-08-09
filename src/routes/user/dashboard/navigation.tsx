@@ -36,11 +36,11 @@ export const NavigationActionData: ActionPayload[] = [
     name: 'Hồ sơ cá nhân giáo viên',
     link: NavigationLink.mentor_profile,
   },
-  {
-    id: 4,
-    name: 'Blog',
-    link: NavigationLink.blog,
-  },
+  // {
+  //   id: 4,
+  //   name: 'Blog',
+  //   link: NavigationLink.blog,
+  // },
   {
     id: 5,
     isHide: true,

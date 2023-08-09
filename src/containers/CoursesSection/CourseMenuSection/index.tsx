@@ -34,7 +34,11 @@ export default function CourseMenuSection(props: CourseMenuSectionPayload) {
 
   return (
     <Stack sx={{ width: '100%' }}>
-      <LoadingWrapper error={error} isLoading={isLoading}>
+      <LoadingWrapper
+        error={error}
+        isLoading={isLoading}
+        isEmptyCourse={data?.items?.length === 0}
+      >
         <Grid container>
           {data?.items.map((item, index) => (
             <Grid key={index} item xs={12} md={6} lg={4}>

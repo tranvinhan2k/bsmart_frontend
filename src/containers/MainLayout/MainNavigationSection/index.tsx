@@ -32,8 +32,6 @@ export default function MainNavigationSection() {
   const filterParams = useSelector(selectFilterParams);
   const isAddToCart = useSelector(selectIsToggleAddToCart);
 
-  const { cart } = useDispatchGetCart();
-
   // useState
   const [isOpenDrawer, setOpenDrawer] = useState<boolean>(false);
   const [isOpenProfileDrawer, setOpenProfileDrawer] = useState<boolean>(false);
@@ -93,7 +91,6 @@ export default function MainNavigationSection() {
       texts={texts}
       isOpenDrawer={isOpenDrawer}
       isOpenProfileDrawer={isOpenProfileDrawer}
-      cart={cart as any}
       role={role}
       filterParams={filterParams}
       pathName={pathName}
