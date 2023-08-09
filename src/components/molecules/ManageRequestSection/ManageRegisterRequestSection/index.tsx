@@ -42,6 +42,13 @@ export default function ManageRegisterRequestSection() {
       status: MentorProfileStatusType.REJECTED,
       interviewed: true,
     });
+  const handleRefetchAll = () => {
+    refetchListWaitingApprove();
+    refetchListInterview();
+    refetchListStarting();
+    refetchListEditRequest();
+    refetchListRejected();
+  };
 
   const tabEl = [
     {
@@ -52,7 +59,7 @@ export default function ManageRegisterRequestSection() {
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.WAITING}
           interviewed={false}
-          refetchGetNoOfRequest={refetchListWaitingApprove}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
@@ -64,7 +71,7 @@ export default function ManageRegisterRequestSection() {
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.STARTING}
           interviewed={false}
-          refetchGetNoOfRequest={refetchListInterview}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
@@ -76,7 +83,7 @@ export default function ManageRegisterRequestSection() {
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.STARTING}
           interviewed
-          refetchGetNoOfRequest={refetchListStarting}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
@@ -88,7 +95,7 @@ export default function ManageRegisterRequestSection() {
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.EDITREQUEST}
           interviewed
-          refetchGetNoOfRequest={refetchListEditRequest}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
@@ -100,7 +107,7 @@ export default function ManageRegisterRequestSection() {
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.REJECTED}
           interviewed
-          refetchGetNoOfRequest={refetchListRejected}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },

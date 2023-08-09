@@ -31,6 +31,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     undefined;
 
   const enum Text {
+    mainTitle = 'Thông tin cá nhân',
     labelMail = 'Mail',
     labelName = 'Họ tên',
     labelPhone = 'Số điện thoại',
@@ -126,7 +127,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
           spacing={1}
         >
           <Grid item xs={12}>
-            <Typography sx={SX_FORM_LABEL}>Giảng viên</Typography>
+            <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Stack
