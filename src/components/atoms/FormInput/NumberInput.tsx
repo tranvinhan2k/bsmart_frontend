@@ -22,7 +22,6 @@ function NumberInput({ controller, placeholder }: NumberInputProps) {
       fullWidth
       type="number"
       size="small"
-      InputProps={{ inputProps: { min: 0 } }}
       value={value}
       onFocus={() => {
         if (value === 0) {

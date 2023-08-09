@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { UseControllerReturn } from 'react-hook-form';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import localEnvironment from '~/utils/localEnvironment';
 import { FontSize } from '~/assets/variables';
 
@@ -10,6 +10,7 @@ interface EditorInputProps {
   placeholder: string;
 }
 function EditorInput({ controller, placeholder }: EditorInputProps) {
+  const [loadingEditor, setLoadingEditor] = useState(true);
   const {
     field: { value, onChange, onBlur, ref },
     fieldState: { invalid, error },
@@ -29,11 +30,17 @@ function EditorInput({ controller, placeholder }: EditorInputProps) {
 
   return (
     <>
+      {loadingEditor && (
+        <Box mt={2}>
+          <CircularProgress />
+        </Box>
+      )}
       <TinyMCEEditor
         onBlur={onBlur}
         apiKey={localEnvironment.TINYMCE_KEY}
         onInit={(evt, editor) => {
           editorRef.current = editor;
+          setLoadingEditor(false);
         }}
         onEditorChange={onChange}
         value={value}

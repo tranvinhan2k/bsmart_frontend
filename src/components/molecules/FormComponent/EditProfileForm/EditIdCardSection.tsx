@@ -14,22 +14,26 @@ import { ProfileImgType } from '~/constants/profile';
 import { useGetProfile } from '~/hooks/user/useGetProfile';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
-export default function DisplayCISection() {
-  const { profile: dataGetProfile } = useGetProfile();
+export default function EditIdCardSection() {
+  const { profile: dataGetProfile, refetch } = useGetProfile();
 
   const [openDialogUpdateIDCardFront, setOpenDialogUpdateIDCardFront] =
     useState<boolean>(false);
   const handleOpenDialogUpdateIDCardFront = () =>
     setOpenDialogUpdateIDCardFront(true);
-  const handleCloseDialogUpdateIDCardFront = () =>
+  const handleCloseDialogUpdateIDCardFront = () => {
+    refetch();
     setOpenDialogUpdateIDCardFront(false);
+  };
 
   const [openDialogUpdateIDCardBack, setOpenDialogUpdateIDCardBack] =
     useState<boolean>(false);
   const handleOpenDialogUpdateIDCardBack = () =>
     setOpenDialogUpdateIDCardBack(true);
-  const handleCloseDialogUpdateIDCardBack = () =>
+  const handleCloseDialogUpdateIDCardBack = () => {
+    refetch();
     setOpenDialogUpdateIDCardBack(false);
+  };
 
   interface CIItemType {
     id: number;
@@ -97,7 +101,7 @@ export default function DisplayCISection() {
                     sx={{
                       width: '100%',
                       maxWidth: 370,
-                      height: 250,
+                      height: 200,
                       borderRadius: 5,
                     }}
                     onClick={item.onClickAction}
