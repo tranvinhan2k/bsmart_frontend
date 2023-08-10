@@ -18,8 +18,8 @@ export default function RequestCourseDate({
 }: RequestCourseDateProps) {
   const enum Text {
     mainTitle = 'Thời gian gửi yêu cầu',
-    labelSubmitDate = 'Ngày gửi',
-    labelSubmitCount = 'Lần gửi thứ',
+    labelSubmitDate = 'Thời gian gửi',
+    labelSubmitCount = 'Lần gửi đơn thứ',
     labelSubmitApproved = 'Đã từng phê duyệt',
     labelSubmitApprovedYes = 'Đã từng phê duyệt',
     labelSubmitApprovedNo = 'Chưa từng được phê duyệt',

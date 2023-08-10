@@ -15,12 +15,12 @@ export default function RequestDate({ row }: RequestDateProps) {
   const tmpTitle = [
     {
       id: 0,
-      label: 'Ngày gửi',
+      label: 'Thời gian gửi',
       value: formatISODateStringToDisplayDateTime(row.timeSendRequest) ?? '',
     },
     {
       id: 1,
-      label: 'Lần gửi thứ',
+      label: 'Lần gửi đơn thứ',
       value: row.count ?? '',
     },
   ];

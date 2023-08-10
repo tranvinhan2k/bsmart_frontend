@@ -21,7 +21,6 @@ import { Field } from '~/models/mentorProfiles';
 
 interface CompleteProgressFieldProps {
   data: Field[];
-  // warningLevel: AlertColor;
   title: string;
   descComplete: string;
   descMissing: string;
@@ -123,9 +122,7 @@ export default function CompleteProgressField({
                           <AlertTitle>
                             <strong>{title}</strong>
                           </AlertTitle>
-                          {!show
-                            ? 'Thông tin chưa hoàn tất. Xem chi tiết'
-                            : descMissing}
+                          {!show ? 'Chưa hoàn tất. Xem chi tiết' : descMissing}
                         </Alert>
                       )}
                       {!percentComplete && (
@@ -133,9 +130,7 @@ export default function CompleteProgressField({
                           <AlertTitle>
                             <strong>{title}</strong>
                           </AlertTitle>
-                          {!show
-                            ? 'Thông tin chưa hoàn tất. Xem chi tiết'
-                            : descMissing}
+                          {!show ? 'Chưa hoàn tất. Xem chi tiết' : descMissing}
                         </Alert>
                       )}
                     </CardContent>

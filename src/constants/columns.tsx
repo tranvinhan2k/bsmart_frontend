@@ -6,7 +6,10 @@ import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { getGender, handleDefinedText } from '~/utils/common';
 import { CopyableCell, CopyableCellEllipsis } from '~/utils/commonComp';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
+import {
+  formatISODateStringToDisplayDate,
+  formatISODateStringToDisplayDateTime,
+} from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import { mockLevelData } from './data';
@@ -167,8 +170,8 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   },
   {
     field: 'requestDate',
-    headerName: 'Ngày gửi',
-    minWidth: 100,
+    headerName: 'Thời gian gửi',
+    minWidth: 200,
     flex: 1,
   },
   {
@@ -183,16 +186,16 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
     field: 'totalDegreeRequest',
     type: 'number',
     headerAlign: 'left',
-    headerName: 'Số bằng cấp',
-    minWidth: 100,
+    headerName: 'Bằng cấp thêm',
+    minWidth: 120,
     flex: 1,
   },
   {
     field: 'totalSkillRequest',
     type: 'number',
     headerAlign: 'left',
-    headerName: 'Số chuyên môn',
-    minWidth: 120,
+    headerName: 'Chuyên môn thêm',
+    minWidth: 140,
     flex: 1,
   },
 ];
@@ -290,12 +293,13 @@ const managedCourseColumns = managedCourseBasedColumns.concat(
 const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
   {
     field: 'timeSendRequest',
-    headerName: 'Ngày gửi',
+    headerName: 'Thời gian gửi',
     type: 'dateTime',
     headerAlign: 'left',
-    minWidth: 150,
+    minWidth: 200,
     flex: 1,
-    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
+    valueFormatter: (params) =>
+      formatISODateStringToDisplayDateTime(params.value),
   },
   {
     field: 'totalClass',
@@ -325,14 +329,14 @@ const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
         <CheckIcon
           titleAccess="Chưa từng duyệt"
           style={{
-            color: red[500],
+            color: green[500],
           }}
         />
       ) : (
         <CloseIcon
           titleAccess="Đã từng duyệt"
           style={{
-            color: green[500],
+            color: red[500],
           }}
         />
       );
@@ -506,10 +510,11 @@ const managedUserRegisterRequestColumns = managedUserBasedColumns.concat(
   },
   {
     field: 'timeSendRequest',
-    headerName: 'Ngày gửi',
-    minWidth: 150,
+    headerName: 'Thời gian gửi',
+    minWidth: 200,
     flex: 1,
-    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
+    valueFormatter: (params) =>
+      formatISODateStringToDisplayDateTime(params.value),
   }
 );
 

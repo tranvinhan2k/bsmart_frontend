@@ -7,34 +7,33 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment, useEffect, useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { EditCertificateProfilePayload } from '~/api/users';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
+import FormInput from '~/components/atoms/FormInput';
+import Icon from '~/components/atoms/Icon';
+import { MentorProfileStatusType } from '~/constants/profile';
 import { defaultValueEditCertificateProfile } from '~/form/defaultValues';
-import { RootState } from '~/redux/store';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { EDIT_CERTIFICATE_PROFILE_FIELDS } from '~/form/schema';
+import { validationSchemaEditCertificateProfile } from '~/form/validation';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
 import {
   EditCertificateProfileFormDataPayload,
   FormInputVariant,
 } from '~/models/form';
-import { validationSchemaEditCertificateProfile } from '~/form/validation';
-import accountApi, { EditCertificateProfilePayload } from '~/api/users';
-import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
-import Icon from '~/components/atoms/Icon';
-import FormInput from '~/components/atoms/FormInput';
-import { selectProfile } from '~/redux/user/selector';
-import { useGetProfile } from '~/hooks/user/useGetProfile';
-import { MentorProfileStatusType } from '~/constants/profile';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
-import { SX_FORM, SX_FORM_TITLE, SX_FORM_LABEL } from './style';
+import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditCertificateProfileForm() {
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error.message}`;
+    return `Cập nhật không thành công: ${
+      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+    }`;
   };
 
   // const { profile: dataGetProfile } = useGetProfile();
@@ -53,7 +52,8 @@ export default function EditCertificateProfileForm() {
   //     enabled: Boolean(token),
   //   }
   // );
-  const dataGetProfile = useSelector(selectProfile);
+  // const dataGetProfile = useSelector(selectProfile);
+  const { profile: dataGetProfile, refetch } = useGetProfile();
 
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditCertificateProfile } =
@@ -121,6 +121,7 @@ export default function EditCertificateProfileForm() {
     try {
       await mutateEditCertificateProfile(params);
       handleDispatchProfile();
+      refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error.message));

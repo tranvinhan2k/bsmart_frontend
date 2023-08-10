@@ -20,12 +20,14 @@ export default function ManageTableDetailsRegisterRequest({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsRegisterRequestProps) {
+  const enum Text {
+    mainTitle = 'Chi tiết yêu cầu phê duyệt hồ sơ giáo viên',
+  }
+
   return (
     <>
       <Box mx={2}>
-        <Typography sx={SX_REQUEST_TITLE}>
-          Chi tiết yêu cầu phê duyệt hồ sơ giáo viên
-        </Typography>
+        <Typography sx={SX_REQUEST_TITLE}>{Text.mainTitle}</Typography>
       </Box>
       <Grid
         container

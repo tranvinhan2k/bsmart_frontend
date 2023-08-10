@@ -17,8 +17,8 @@ export default function MentorProfileStatusProfileSideBar({
 
   switch (status) {
     case MentorProfileStatusType.REQUESTING:
-      iconName = 'cancelIcon';
-      iconColor = 'red';
+      iconName = 'driveFileRenameOutlineIcon';
+      iconColor = 'orange';
       label = 'Hồ sơ giảng dạy đang hoàn thiện';
       break;
     case MentorProfileStatusType.WAITING:

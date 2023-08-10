@@ -21,7 +21,7 @@ export default function RequestCourseDate({
   const title = [
     {
       id: 0,
-      label: 'Ngày gửi',
+      label: 'Thời gian gửi',
       value: courseCreateRequestDetails
         ? formatISODateStringToDisplayDateTime(
             courseCreateRequestDetails.timeSendRequest
@@ -30,7 +30,7 @@ export default function RequestCourseDate({
     },
     {
       id: 1,
-      label: 'Lần gửi thứ',
+      label: 'Lần đơn gửi thứ',
       value: courseCreateRequestDetails ? courseCreateRequestDetails.count : '',
     },
   ];

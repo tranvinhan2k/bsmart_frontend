@@ -33,7 +33,6 @@ export const enum NavigationLink {
 
 export const enum MemberNavigationActionLink {
   edit_profile_personal_info = 'edit-profile',
-  edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   wallet_management = 'wallet-management',
   member_course_list = 'member-course-list',
@@ -42,7 +41,6 @@ export const enum MemberNavigationActionLink {
 export const enum MentorNavigationLink {
   edit_profile_personal_info = 'edit-profile',
   edit_profile_mentor_info = 'edit-profile-mentor',
-  edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   send_request = 'send_request',
   wallet_management = 'wallet-management',

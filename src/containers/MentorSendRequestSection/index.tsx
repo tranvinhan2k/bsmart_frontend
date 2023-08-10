@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import OtherRequestSection from '../SendRequestSection/OtherRequestSection';
 import UpdateMentorProfileRequestSection from '../SendRequestSection/UpdateMentorProfileRequestSection';
 import WithdrawSection from '../SendRequestSection/WithdrawRequestSection';
 import {
@@ -48,7 +47,6 @@ export default function MentorSendRequestSection() {
       ),
     },
     { id: 1, component: <WithdrawSection /> },
-    // { id: 2, component: <OtherRequestSection /> },
   ];
 
   return (
@@ -59,7 +57,7 @@ export default function MentorSendRequestSection() {
         </Typography>
         <Divider sx={{ marginY: 2 }} />
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
             <FormControl fullWidth size="small">
               <Typography sx={SX_FORM_LABEL}>{Text.selectLabel}</Typography>
               <Box mt={1} />

@@ -5,14 +5,18 @@ interface BasicInfoProps {
   row: any;
 }
 
-export default function RequestMentorDegree({ row }: BasicInfoProps) {
-  const userDegreeList = row.degreeRequest;
+export default function RequestUpdateMentorDegree({ row }: BasicInfoProps) {
+  const enum Text {
+    mainTitle = 'Bằng cấp bổ sung',
+  }
+
+  const userDegreeList = row.degreeRequest ?? [];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid container>
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Bằng cấp</Typography>
+          <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
         </Grid>
         {userDegreeList.map((item: any, index: number) => (
           <Grid item xs={12} key={item.id}>

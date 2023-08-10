@@ -25,6 +25,11 @@ export default function ManageUserPage() {
       role: 'STUDENT',
     });
 
+  const handleRefetchAll = () => {
+    refetchListMentor();
+    refetchListMember();
+  };
+
   const tabEl = [
     {
       id: 0,
@@ -32,7 +37,7 @@ export default function ManageUserPage() {
       component: (
         <ManageTableUser
           userRole="TEACHER"
-          refetchGetNoOfRequest={refetchListMentor}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: listMentor?.totalItems,
@@ -43,7 +48,7 @@ export default function ManageUserPage() {
       component: (
         <ManageTableUser
           userRole="STUDENT"
-          refetchGetNoOfRequest={refetchListMember}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: listMember?.totalItems,

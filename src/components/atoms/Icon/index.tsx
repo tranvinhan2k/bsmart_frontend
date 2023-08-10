@@ -64,10 +64,12 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ChatIcon from '@mui/icons-material/Chat';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HomeIcon from '@mui/icons-material/Home';
+import HourglassFullIcon from '@mui/icons-material/HourglassFull';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -142,6 +144,7 @@ export type IconName =
   | 'course'
   | 'date'
   | 'delete'
+  | 'driveFileRenameOutlineIcon'
   | 'description'
   | 'dot'
   | 'down'
@@ -161,6 +164,7 @@ export type IconName =
   | 'google'
   | 'groups'
   | 'home'
+  | 'hourglassFullIcon'
   | 'helpIcon'
   | 'imageIcon'
   | 'info'
@@ -449,6 +453,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ArticleIcon sx={STYLED_ICON} />;
     case 'delete':
       return <DeleteIcon sx={STYLED_ICON} />;
+    case 'driveFileRenameOutlineIcon':
+      return <DriveFileRenameOutlineIcon sx={STYLED_ICON} />;
     case 'dot':
       return (
         <Stack sx={STYLED_ICON}>
@@ -527,6 +533,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'home':
       return <HomeIcon sx={STYLED_ICON} />;
+    case 'hourglassFullIcon':
+      return <HourglassFullIcon sx={STYLED_ICON} />;
     case 'instagram':
       return (
         <Stack sx={STYLED_ICON}>

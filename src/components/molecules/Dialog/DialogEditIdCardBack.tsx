@@ -53,7 +53,7 @@ export default function DialogEditIdCardBack({
   const toastMsgSuccess = 'Cập nhật thành công';
   const toastMsgError = (error: any): string => {
     return `Cập nhật không thành công: ${
-      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
+      error || error.message || TRY_CATCH_AXIOS_DEFAULT_ERROR
     }`;
   };
   const handleSubmitIdentityBack = async (

@@ -17,7 +17,7 @@ import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditSocialProfileForm() {
-  const { profile: dataGetProfile } = useGetProfile();
+  const { profile: dataGetProfile, refetch } = useGetProfile();
 
   const resolverEditSocialProfile = useYupValidationResolver(
     validationSchemaEditSocialProfile
@@ -47,6 +47,7 @@ export default function EditSocialProfileForm() {
     try {
       await mutateEditSocialProfile(params);
       handleDispatchProfile();
+      refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));

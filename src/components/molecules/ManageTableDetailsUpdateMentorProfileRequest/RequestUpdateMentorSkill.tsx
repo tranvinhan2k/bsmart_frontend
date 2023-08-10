@@ -11,21 +11,26 @@ interface BasicInfoProps {
 }
 
 export default function MentorDegree({ row }: BasicInfoProps) {
-  const skills = row.mentorSkillRequest;
+  const enum Text {
+    mainTitle = 'Chuyên môn bổ sung',
+    labelSkill = 'Kĩ năng',
+    labelYOE = 'Số năm kinh nghiệm',
+    labelYear = 'năm',
+  }
+
+  const skills = row.mentorSkillRequest ?? [];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid container spacing={2} mb={4}>
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Chuyên môn</Typography>
+          <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
           <Grid container mt={2}>
             <Grid item xs={6}>
-              <Typography sx={SX_FORM_ITEM_LABEL}>Kĩ năng</Typography>
+              <Typography sx={SX_FORM_ITEM_LABEL}>{Text.labelSkill}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography sx={SX_FORM_ITEM_LABEL}>
-                Số năm kinh nghiệm
-              </Typography>
+              <Typography sx={SX_FORM_ITEM_LABEL}>{Text.labelYOE}</Typography>
             </Grid>
           </Grid>
           {skills.map((item: any) => (
@@ -35,7 +40,7 @@ export default function MentorDegree({ row }: BasicInfoProps) {
               </Grid>
               <Grid item xs={6}>
                 <Typography sx={SX_FORM_VALUE}>
-                  {item.yearOfExperiences} năm
+                  {item.yearOfExperiences} {Text.labelYear}
                 </Typography>
               </Grid>
             </Grid>
