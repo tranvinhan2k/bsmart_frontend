@@ -50,6 +50,7 @@ import {
   MdClass,
 } from 'react-icons/md';
 import { VscTasklist } from 'react-icons/vsc';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -68,6 +69,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HomeIcon from '@mui/icons-material/Home';
+import HistoryIcon from '@mui/icons-material/History';
 import HourglassFullIcon from '@mui/icons-material/HourglassFull';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -86,9 +88,11 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SdStorageIcon from '@mui/icons-material/SdStorage';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
+import GradingIcon from '@mui/icons-material/Grading';
 import GroupsIcon from '@mui/icons-material/Groups';
 import DescriptionIcon from '@mui/icons-material/Description';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
@@ -109,6 +113,7 @@ import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
+  | 'accessTimeIcon'
   | 'account'
   | 'add-icon'
   | 'add'
@@ -161,8 +166,10 @@ export type IconName =
   | 'female'
   | 'filter'
   | 'google'
+  | 'gradingIcon'
   | 'groups'
   | 'home'
+  | 'historyIcon'
   | 'hourglassFullIcon'
   | 'helpIcon'
   | 'imageIcon'
@@ -199,9 +206,10 @@ export type IconName =
   | 'request'
   | 'return'
   | 'right'
+  | 'sdStorageIcon'
   | 'search'
-  | 'sentimentVeryDissatisfiedIcon'
   | 'sendIcon'
+  | 'sentimentVeryDissatisfiedIcon'
   | 'setting'
   | 'share'
   | 'squareCheckbox'
@@ -419,6 +427,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'cart':
       return <ShoppingCartIcon sx={STYLED_ICON} />;
+    case 'sdStorageIcon':
+      return <SdStorageIcon sx={STYLED_ICON} />;
     case 'category':
       return (
         <Stack sx={STYLED_ICON}>
@@ -493,6 +503,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <WomanIcon sx={STYLED_ICON} />;
     case 'groups':
       return <GroupsIcon sx={STYLED_ICON} />;
+    case 'gradingIcon':
+      return <GradingIcon sx={STYLED_ICON} />;
     case 'description':
       return <DescriptionIcon sx={STYLED_ICON} />;
     case 'coPresent':
@@ -525,6 +537,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'home':
       return <HomeIcon sx={STYLED_ICON} />;
+    case 'historyIcon':
+      return <HistoryIcon sx={STYLED_ICON} />;
     case 'hourglassFullIcon':
       return <HourglassFullIcon sx={STYLED_ICON} />;
     case 'instagram':
@@ -669,6 +683,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ArrowUpwardIcon sx={STYLED_ICON} />;
     case 'user':
       return <AccountBoxIcon sx={STYLED_ICON} />;
+    case 'accessTimeIcon':
+      return <AccessTimeIcon sx={STYLED_ICON} />;
     default:
       return <ImageNotSupportedIcon />;
   }

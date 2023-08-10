@@ -21,6 +21,7 @@ export const Color = {
   grey: '#999',
   grey2: '#696969',
   grey3: '#0000001f',
+  grey4: '#878a99',
   navy: '#1d1e22',
   navy2: '#130f40',
   neutral: '#ccc',
