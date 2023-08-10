@@ -112,6 +112,7 @@ export const enum ManagerNavigationActionLink {
   manage_course_manager = 'manage_course_manager',
   manage_request_manager = 'manage_request_manager',
   manage_user_manager = 'manage_user_manager',
+  questions_bank = 'questions_bank',
   confirm_email = 'confirm_email/:code',
 }
 
@@ -134,6 +135,7 @@ export const enum MentorClassActionLink {
   points = 'points',
   assignments = 'assignments',
   feedback = 'feedback',
+  mark_report = 'mark-report',
 }
 export const enum MemberClassActionLink {
   information = 'information',
@@ -142,6 +144,7 @@ export const enum MemberClassActionLink {
   attendance = 'attendance',
   activity = 'activity',
   notification = 'notification',
+  mark_report = 'mark-report',
 }
 
 export const enum ActivityLink {

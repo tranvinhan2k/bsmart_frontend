@@ -26,26 +26,17 @@ export default function ConfirmDialog({
   handleClose,
 }: ConfirmDialogProps) {
   return (
-    <CustomModal open={open} onClose={handleClose}>
+    <CustomModal open={open} onClose={handleClose} title={title}>
       <Stack
         sx={{
-          padding: 1,
           minWidth: { xs: '100%', md: '50vw' },
         }}
       >
         <Stack
           sx={{
-            fontFamily: FontFamily.regular,
-            fontSize: FontSize.small_18,
-          }}
-        >
-          {title}
-        </Stack>
-        <Stack
-          sx={{
             fontFamily: FontFamily.light,
             fontSize: FontSize.small_18,
-            marginY: 2,
+            marginBottom: 2,
           }}
         >
           {content}
@@ -53,7 +44,7 @@ export default function ConfirmDialog({
         <Stack
           sx={{ flexDirection: 'row', alignItems: 'center', marginTop: 1 }}
         >
-          <Button variant="contained" onClick={handleAccept}>
+          <Button variant="contained" color="info" onClick={handleAccept}>
             Xác Nhận
           </Button>
           <Button

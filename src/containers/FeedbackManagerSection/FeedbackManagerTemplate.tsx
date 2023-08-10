@@ -18,6 +18,7 @@ import CustomModal from '~/components/atoms/CustomModal';
 import { CreateFeedbackPayload } from '~/models';
 import { FeedbackQuestionPayload } from '~/components/atoms/FormInput/FeedbackQuestionInput';
 import { useGetIdFromUrl } from '~/hooks';
+import { FeedbackManagerPayload } from '~/pages/FeedbackManagerPage';
 
 const texts = {
   title: 'Quản lí bản mẫu',
@@ -40,7 +41,14 @@ export default function FeedbackManagerTemplate() {
 
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<CRUDModes>('CREATE');
-  const [row, setRow] = useState<any>();
+  const [row, setRow] = useState<FeedbackManagerPayload>({
+    id: 0,
+    isDefault: false,
+    isFixed: false,
+    name: '',
+    questions: [],
+    type: 'COURSE',
+  });
 
   const handleClose = (chooseMode?: CRUDModes) => {
     setOpen(!open);
@@ -169,14 +177,22 @@ export default function FeedbackManagerTemplate() {
   switch (mode) {
     case 'CREATE':
       renderModal = (
-        <CustomModal open={open} onClose={handleClose}>
+        <CustomModal
+          open={open}
+          onClose={handleClose}
+          title="Tạo bản mẫu đánh giá"
+        >
           <CreateTemplateForm onSubmit={handleAddTemplate} />
         </CustomModal>
       );
       break;
     case 'READ':
       renderModal = (
-        <CustomModal open={open} onClose={handleClose}>
+        <CustomModal
+          open={open}
+          onClose={handleClose}
+          title="Chi tiết bản mẫu đánh giá"
+        >
           <ReadOneTemplateForm row={row} />
         </CustomModal>
       );

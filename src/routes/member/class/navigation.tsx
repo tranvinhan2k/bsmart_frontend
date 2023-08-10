@@ -39,9 +39,9 @@ export const MemberClassNavigationActionData: ActionPayload[] = [
   },
   {
     id: 5,
-    link: MemberClassActionLink.notification,
-    name: 'Thông báo',
-    icon: 'account',
+    link: MemberClassActionLink.mark_report,
+    name: 'Thống kê điểm số',
+    icon: 'blog',
     classStatus: 'ALL',
   },
 ];

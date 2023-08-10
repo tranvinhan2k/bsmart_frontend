@@ -27,13 +27,8 @@ interface Props {
   contentRef: any;
   classesRef: any;
   mentorRef: any;
-  feedbacks: FeedbackPayload;
-  feedbackError: any;
-  isFeedbackLoading: boolean;
   sections: ActivityPayload[];
   classes: DetailCourseClassPayload[];
-  onFeedbackChangePage: (page: number) => void;
-  onFeedbackChangeStar: (star: number) => void;
 }
 
 export default function CourseDetail({
@@ -50,11 +45,6 @@ export default function CourseDetail({
   classesRef,
   mentorRef,
   sections,
-  feedbacks,
-  feedbackError,
-  isFeedbackLoading,
-  onFeedbackChangePage,
-  onFeedbackChangeStar,
 }: Props) {
   const [error, setError] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
@@ -111,7 +101,7 @@ export default function CourseDetail({
             sx={{
               lineHeight: 0.98,
               fontSize: FontSize.large_45,
-              fontFamily: FontFamily.regular,
+              fontFamily: FontFamily.dosis,
             }}
           >
             {courseName}
@@ -130,17 +120,25 @@ export default function CourseDetail({
             <Typography sx={globalStyles.textCourseSmallLabel}>
               Mô tả khóa học
             </Typography>
-            <Stack sx={globalStyles.viewRoundedWhiteBody}>
+            <Stack
+              sx={{
+                padding: 2,
+                borderRadius: MetricSize.small_5,
+                border: '1px solid #ddd',
+              }}
+            >
               <Stack
                 sx={{
+                  transition: 'all 500ms ease',
                   position: 'relative',
-                  height: !openDescription ? '300px' : '100%',
+                  maxHeight: !openDescription ? '300px' : '100%',
                   overflow: 'hidden',
                 }}
               >
                 <Stack
                   sx={{
-                    display: openDescription ? 'none' : 'flex',
+                    transition: 'all 500ms ease',
+                    opacity: openDescription ? 0 : 1,
                     position: 'absolute',
                     top: 0,
                     bottom: 0,
@@ -220,7 +218,7 @@ export default function CourseDetail({
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Về giáo viên
           </Typography>
-          <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+          <Stack marginTop={1} sx={globalStyles.viewRoundedBorderBody}>
             <Stack
               sx={{
                 flexDirection: 'row',
@@ -247,11 +245,11 @@ export default function CourseDetail({
               />
               <Link
                 href={mentorDetailsLink}
-                sx={globalStyles.textSmallLight}
+                sx={globalStyles.textSmallLabel}
                 underline="hover"
               >{`${mentorName}`}</Link>
             </Stack>
-            <Stack marginY={1}>
+            <Stack marginY={2}>
               <Typography
                 sx={globalStyles.textSmallLight}
                 dangerouslySetInnerHTML={{
@@ -261,18 +259,12 @@ export default function CourseDetail({
             </Stack>
           </Stack>
         </Stack>
-        <Divider sx={{ marginY: 4 }} />
+        <Divider sx={{ marginY: 2 }} />
         <Stack>
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Đánh giá từ học sinh
           </Typography>
-          <UserCourseFeedback
-            feedbacks={feedbacks}
-            error={feedbackError}
-            isLoading={isFeedbackLoading}
-            onFeedbackChangePage={onFeedbackChangePage}
-            onFeedbackChangeStar={onFeedbackChangeStar}
-          />
+          <UserCourseFeedback />
         </Stack>
         <Divider sx={{ marginY: 4 }} />
 

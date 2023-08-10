@@ -58,6 +58,7 @@ export const FontFamily = {
   thin: 'Roboto-Thin',
   sidebar: 'Roboto-Regular',
   title: 'Varela Round',
+  dosis: 'Dosis',
 };
 
 export const FontSize = {

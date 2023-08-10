@@ -11,6 +11,7 @@ import {
   ImageKeys,
   LevelKeys,
   NotificationType,
+  QuestionTypeKeys,
   QuizKeys,
   QuizQuestionTypeKeys,
   RoleKeys,
@@ -745,4 +746,24 @@ export type GetAllNotificationResponse = Partial<{
   entity: NotificationType;
   entityId: number;
   isRead: boolean;
+}>;
+
+export type GetQuizQuestionResponse = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  mentorName: string;
+  question: string;
+  questionType: QuizQuestionTypeKeys;
+  numberUsed: number;
+  isShared: boolean;
+  isDeleted: boolean;
+  answers: {
+    id: number;
+    answer: string;
+    isRight: boolean;
+    key: string;
+  }[];
 }>;

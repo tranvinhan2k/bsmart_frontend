@@ -126,7 +126,9 @@ const feedbacksApi = {
 
     return generateMockApi(result);
   },
-
+  assignTemplateForClasses({ id, ids }: { id: number; ids: number[] }) {
+    return generateMockApi(true);
+  },
   async getMemberClassFeedback(id: number) {
     // TODO them api get feedback o day
     // const response = await axiosClient.get(`${url}/feedback/${id}`);

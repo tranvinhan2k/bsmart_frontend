@@ -141,12 +141,6 @@ export default function AddQuizForm({
       variant: 'password',
     },
     {
-      name: 'confirm',
-      label: 'Xác nhận mật khẩu',
-      placeholder: 'Xác nhận mật khẩu cho bài kiểm tra',
-      variant: 'password',
-    },
-    {
       name: 'quizQuestions',
       label: 'Danh sách câu hỏi',
       placeholder: 'Nhập danh sách câu hỏi',

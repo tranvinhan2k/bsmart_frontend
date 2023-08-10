@@ -8,27 +8,24 @@ import { LoadingWrapper } from '~/HOCs';
 import { TDateISO } from '~/models/date';
 import CustomPagination from '~/components/atoms/CustomPagination';
 import { FeedbackPayload, FeedbackReviewPayload } from '~/models/type';
+import { useGetCourseFeedback, useGetIdFromUrl } from '~/hooks';
 
 export interface ClassFeedbackPayload {
   rating: number;
   feedbackReviewList: FeedbackReviewPayload[];
 }
 
-interface Props {
-  feedbacks: FeedbackPayload;
-  error: any;
-  isLoading: boolean;
-  onFeedbackChangeStar: (star: number) => void;
-  onFeedbackChangePage: (page: number) => void;
-}
+export default function UserCourseFeedback() {
+  const id = useGetIdFromUrl('id');
 
-export default function UserCourseFeedback({
-  feedbacks,
-  error,
-  isLoading,
-  onFeedbackChangePage,
-  onFeedbackChangeStar,
-}: Props) {
+  const {
+    data: feedbacks,
+    handleChangeNumberOfStar,
+    handleChangePage,
+    error,
+    isLoading,
+  } = useGetCourseFeedback(id);
+
   return (
     <Stack>
       <Stack
@@ -44,10 +41,10 @@ export default function UserCourseFeedback({
       >
         <Stack>
           <Typography textAlign="center" sx={globalStyles.textTitle}>
-            {`${feedbacks.rating}/5`}
+            {`${feedbacks?.rating || 0}/5`}
           </Typography>
           <Rating
-            value={feedbacks.rating}
+            value={feedbacks?.rating || 0}
             readOnly
             size="large"
             precision={0.5}
@@ -68,9 +65,9 @@ export default function UserCourseFeedback({
                   sx={{
                     margin: 1,
                   }}
-                  onClick={() => onFeedbackChangeStar(index)}
+                  onClick={() => handleChangeNumberOfStar(index)}
                   key={item}
-                  variant="contained"
+                  variant="outlined"
                 >
                   {item}
                 </Button>
@@ -85,9 +82,9 @@ export default function UserCourseFeedback({
           isLoading={isLoading}
           isEmptyCourse={feedbacks?.items?.items?.length === 0}
         >
-          {feedbacks.items.items.map((item) => (
+          {feedbacks?.items.items.map((item, index) => (
             <ReviewFeedback
-              key={item.id}
+              key={index}
               date={item.feedbackTime}
               email={item.email}
               rating={item.rating}
@@ -102,9 +99,9 @@ export default function UserCourseFeedback({
             }}
           >
             <CustomPagination
-              currentPage={feedbacks.items.currentPage}
-              onChange={onFeedbackChangePage}
-              totalPages={feedbacks.items.totalPages}
+              currentPage={feedbacks?.items?.currentPage || 0}
+              onChange={handleChangePage}
+              totalPages={feedbacks?.items?.totalPages || 0}
             />
           </Stack>
         </LoadingWrapper>

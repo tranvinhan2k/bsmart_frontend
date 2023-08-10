@@ -150,21 +150,16 @@ export default function ModuleQuizPage({ name, item }: Props) {
         </Stack>
       )}
 
-      <CustomModal open={open} onClose={onClose}>
+      <CustomModal
+        open={open}
+        onClose={onClose}
+        title="Xác nhận tham gia làm bài kiểm tra"
+      >
         <Stack
-          padding={1}
           sx={{
             maxWidth: { xs: '100%', md: '50vw' },
           }}
         >
-          <Typography
-            sx={{
-              fontSize: FontSize.small_16,
-              fontFamily: FontFamily.bold,
-            }}
-          >
-            Xác nh̉ận tham gia làm bài kiểm tra
-          </Typography>
           <Typography
             sx={{
               marginTop: 1,

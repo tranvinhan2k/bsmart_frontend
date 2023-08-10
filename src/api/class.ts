@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { image } from '~/constants/image';
+import { FeedbackClassPayload } from '~/containers/FeedbackManagerSection/ReadOneTemplateForm';
 import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
 import { PagingFilterPayload } from '~/models';
 import {
@@ -20,13 +21,150 @@ import {
 } from '~/models/response';
 import { ClassDetailPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReportPage';
 import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
-import { formatOptionPayload } from '~/utils/common';
+import { formatOptionPayload, generateMockApi } from '~/utils/common';
 
 const url = '/classes';
 
 const classApi = {
   // get
+  getManagerFeedbackClass() {
+    // TODO: them neu backend co
+    const feedbackClassList: FeedbackClassPayload[] = [
+      {
+        id: 0,
+        code: 'EFSS',
+      },
+      {
+        id: 1,
+        code: 'EFSSE',
+      },
+      {
+        id: 2,
+        code: 'EFSSA',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+      {
+        id: 3,
+        code: 'EFSSR',
+      },
+    ];
+
+    return generateMockApi(feedbackClassList);
+  },
+  getStudentMarkReport(classId: number) {
+    const mark: MarkOfStudentPayload = {
+      id: 0,
+      code: '',
+      name: 'Trần Vĩ Nhân',
+      markItems: [
+        {
+          id: 0,
+          name: 'Quiz 1',
+          grade: 10,
+          time: new Date().toISOString(),
+        },
+      ],
+    };
+    return generateMockApi(mark);
+  },
+  getClassMarkReport(classId: number) {
+    // TODO : co api mark report thi ghep vao
+    const marks: MarkOfStudentPayload[] = [
+      {
+        id: 0,
+        code: 'SE140161',
+        name: 'Trần Vĩ Nhân',
+        markItems: [
+          {
+            id: 0,
+            name: 'Quiz 1',
+            grade: 10,
+            time: new Date().toISOString(),
+          },
+          {
+            id: 1,
+            name: 'Quiz 2',
+            grade: 3,
+            time: new Date().toISOString(),
+          },
+          {
+            id: 2,
+            name: 'Quiz 3',
+            grade: 3,
+            time: new Date().toISOString(),
+          },
+          {
+            id: 3,
+            name: 'Quiz 4',
+            grade: 3,
+            time: new Date().toISOString(),
+          },
+        ],
+      },
+      {
+        id: 1,
+        code: 'SE140162',
+        name: 'Trần Vĩ Nhàn',
+        markItems: [
+          {
+            id: 0,
+            name: 'Quiz 1',
+            grade: 4,
+            time: new Date().toISOString(),
+          },
+          {
+            id: 1,
+            name: 'Quiz 2',
+            grade: 4,
+            time: new Date().toISOString(),
+          },
+          {
+            id: 2,
+            name: 'Quiz 3',
+            grade: 3,
+            time: new Date().toISOString(),
+          },
+          {
+            id: 3,
+            name: 'Quiz 4',
+            grade: 3,
+            time: new Date().toISOString(),
+          },
+        ],
+      },
+    ];
+
+    return generateMockApi(marks);
+  },
   async getUserDetailCourse(id: number) {
     const response = await axiosClient.get(`${url}/course/${id}`);
     const result: ResponseMentorCoursePayload = {
@@ -135,7 +273,7 @@ const classApi = {
         id: item.id,
         endDate: item.endDate,
         startDate: item.startDate,
-        numberOfSlot: item.numberOfStudent,
+        numberOfSlot: item.numberOfSlot,
         level: item.level,
         status: item.status,
         purchase: item?.purchase || false,
@@ -163,8 +301,9 @@ const classApi = {
     return axiosClient.post(`${url}/course/${id}`, param);
   },
   // put
+
   updateClassForCourse({ id, param }: { id: number; param: PostClassRequest }) {
-    return axiosClient.put(`${url}/course/${id}`, param);
+    return axiosClient.put(`${url}/${id}`, param);
   },
   openClass({ id, params }: { id: number; params: PostTimeTableResponse }) {
     return axiosClient.put(`${url}/${id}/open`, params);

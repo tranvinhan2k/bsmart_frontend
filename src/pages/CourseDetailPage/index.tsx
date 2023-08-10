@@ -1,7 +1,7 @@
 import { Grid, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import { mockLevelData } from '~/constants';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
 import {
@@ -38,11 +38,6 @@ export default function CourseDetailPage() {
   };
   const classes = data?.classes;
   const sections = data?.content;
-  const {
-    data: feedbacks,
-    handleChangeNumberOfStar,
-    handleChangePage,
-  } = useGetCourseFeedback(id);
 
   const levelOptionPayload = mockLevelData.find(
     (item) => item.value === course?.level
@@ -52,6 +47,7 @@ export default function CourseDetailPage() {
     <Stack
       sx={{
         minHeight: '100vh',
+        background: Color.white,
       }}
     >
       <LoadingWrapper error={error} isLoading={isLoading}>
@@ -77,26 +73,6 @@ export default function CourseDetailPage() {
                 mentorImageUrl={mentor.imageUrl}
                 mentorName={mentor.name}
                 sections={sections || []}
-                feedbackError={error}
-                feedbacks={
-                  feedbacks || {
-                    items: {
-                      currentPage: 0,
-                      first: false,
-                      items: [],
-                      last: false,
-                      pageItemSize: 0,
-                      pageSize: 0,
-                      totalItems: 0,
-                      totalPages: 0,
-                    },
-                    numberOfRating: 0,
-                    rating: 0,
-                  }
-                }
-                isFeedbackLoading={isLoading}
-                onFeedbackChangePage={handleChangePage}
-                onFeedbackChangeStar={handleChangeNumberOfStar}
               />
             </Grid>
             <Grid

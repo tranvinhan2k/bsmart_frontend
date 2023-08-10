@@ -189,7 +189,7 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
             <FormInput
               control={addAnswer.control}
               name="answer"
-              placeholder="Tên câu hỏi"
+              placeholder="Tên câu trả lời"
             />
           </Stack>
           <Button

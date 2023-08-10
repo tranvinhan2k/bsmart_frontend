@@ -9,6 +9,7 @@ import {
   MentorClassContentPage,
   MentorClassFeedbacksPage,
   MentorClassInformationPage,
+  MentorClassMarkReportPage,
   MentorClassModulesPage,
   MentorClassNotificationPage,
   MentorClassSchedulePage,
@@ -81,6 +82,12 @@ export const mentorClassRoutes = (courseId?: number): RoutePayload[] => {
     {
       path: `${MemberClassActionLink.activity}/:moduleId`,
       main: () => <MentorClassModulesPage />,
+      role: ['ROLE_TEACHER'],
+      courseStatus: 'ALL',
+    },
+    {
+      path: MentorClassActionLink.mark_report,
+      main: () => <MentorClassMarkReportPage />,
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },

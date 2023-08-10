@@ -74,9 +74,14 @@ export * from './class/useMutationDeleteClass';
 export * from './class/useQueryStudentList';
 export * from './class/useMutationOpenNotStartClass';
 export * from './class/useGetClassSchedule';
+export * from './class/useGetMentorMarkReport';
+export * from './class/useGetMemberMarkReport';
+export * from './class/useGetManagerClasses';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';
+export * from './quizQuestion/useReadFile';
+export * from './quizQuestion/useGetBanksQuizQuestions';
 
 // form
 export * from './form.hooks/useCreateCourseForm';
@@ -99,6 +104,7 @@ export * from './useQueryGetAllSubjectByCategoryId';
 export * from './feedback/useMutationSendFeedback';
 export * from './feedback/useQueryMemberFeedback';
 export * from './feedback/useQueryMentorFeedback';
+export * from './feedback/useAssignFeedbackTemplateForClass';
 
 // assignment
 export * from './assignment/useGetAssignment';

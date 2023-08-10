@@ -1,4 +1,4 @@
-import { array, boolean, date, mixed, number, object, ref, string } from 'yup';
+import { array, date, mixed, number, object, ref, string } from 'yup';
 import 'yup-phone';
 import { YupValidationForm } from '~/assets/variables';
 import {
@@ -48,7 +48,6 @@ import {
   YEAR_OF_EXPERIENCES_REQUIRED,
   SKILL_REQUIRED,
   CERTIFICATE_MAX_SIZE,
-  CERTIFICATE_FORMAT_INCORRECT,
   CERTIFICATE_REQUIRED,
   CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
   MENTOR_SKILLS_REQUIRED_ONE,
@@ -98,6 +97,9 @@ export const validationSchemaCreateCategories = object({
 });
 export const validationSchemaFile = object({
   file: mixed().required('Tệp đính kèm không được để trống.'),
+});
+export const validationSchemaFiles = object({
+  file: YupValidationForm.notEmptyString('Tệp đính kèm không được để trống'),
 });
 export const validationSchemaAnswer = object({
   answer: string().required('Tên câu trả lời không được để trống.'),
@@ -210,9 +212,6 @@ export const validationClassContentQuiz = object({
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
     .required(PASSWORD_REQUIRED),
-  confirm: string()
-    .required(CONFIRM_PASSWORD_REQUIRED)
-    .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
 });
 
 export const validationClassListFilter = object({
@@ -540,18 +539,6 @@ export const validationSchemaCreateSubCourse = object({
     .required('Số lượng học sinh không được để trống')
     .typeError('Số lượng học sinh không được để trống')
     .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  imageId: mixed()
-    .required('Hình ảnh khóa học là bắt buộc')
-    .test(
-      'fileSize',
-      'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác',
-      (value: any) => value && value.size <= FILE_SIZE_2
-    )
-    .test(
-      'fileFormat',
-      'Định dạng hình ảnh không hỗ trợ.',
-      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
-    ),
   price: number()
     .min(1000, 'Giá tiền phải lớn hơn 50,000 VNĐ')
     .required('Giá tiền là bắt buộc'),
