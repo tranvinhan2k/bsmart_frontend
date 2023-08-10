@@ -50,3 +50,4 @@ export type NotificationType =
   | 'MENTOR_PROFILE'
   | 'ACCOUNT';
 export type MessageType = 'SYSTEM' | 'PERSONAL';
+export type PaymentType = 'BANKING' | 'WALLET';

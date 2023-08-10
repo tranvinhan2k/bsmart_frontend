@@ -60,6 +60,7 @@ export * from './course/useMutationDeleteCourse';
 export * from './course/useMutationCreateCourse';
 export * from './course/useGetMentorCategories';
 export * from './course/useQueryGetCoursePercent';
+export * from './course/useGetCourseFeedback';
 
 // class
 export * from './class/useCreateCourseClass';

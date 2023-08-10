@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
+import { PaymentType } from '~/models/variables';
 
 const url = `/transactions`;
 export interface ResponseTransactionsPayload {
@@ -18,7 +19,8 @@ export interface WithdrawMoneyProfilePayload {
 const transactionsApi = {
   async payQuick(data: {
     clazzId: number;
-    returnURL: string | undefined;
+    referalCode: string;
+    type: PaymentType;
   }): Promise<any> {
     return axiosClient.post(`${url}/pay-quick`, data);
   },

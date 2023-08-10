@@ -28,6 +28,7 @@ export const enum NavigationLink {
   dashboard = 'dashboard',
   forgot_password = 'forgot_password',
   policy = 'policy',
+  payment_report = 'payment_report',
 }
 
 export const enum MemberNavigationActionLink {

@@ -1,4 +1,6 @@
 import axiosClient from '~/api/axiosClient';
+import { mockImages } from '~/constants';
+import { image } from '~/constants/image';
 import {
   CreateFeedbackPayload,
   OptionPayload,
@@ -9,7 +11,11 @@ import {
   GetAllFeedbackTemplate,
   GetAllMentorFeedback,
 } from '~/models/response';
-import { ApiParamsProps } from '~/models/type';
+import {
+  ApiParamsProps,
+  FeedbackPayload,
+  FeedbackReviewPayload,
+} from '~/models/type';
 import { FeedbackManagerPayload } from '~/pages/FeedbackManagerPage';
 import {
   FeedbackMemberQuestionPayload,
@@ -208,6 +214,53 @@ const feedbacksApi = {
     classId: number;
   }) {
     return axiosClient.put(`${url}/template/${templateId}/class/${classId}`);
+  },
+  getCourseFeedback({ id, params }: ApiParamsProps) {
+    const response: PagingFilterPayload<FeedbackReviewPayload> = {
+      currentPage: 0,
+      first: false,
+      items: [
+        {
+          id: 0,
+          avatarUrl: image.mockStudent,
+          avatarAlt: 'student',
+          email: 'tranvinhan2k@gmail.com',
+          rating: params.numberOfStar || 0,
+          feedbackTime: new Date().toISOString(),
+          reviewContent: 'Lorem ',
+        },
+        {
+          id: 0,
+          avatarUrl: image.mockStudent,
+          avatarAlt: 'student',
+          email: 'tranvinhan2k@gmail.com',
+          rating: params.numberOfStar || 0,
+          feedbackTime: new Date().toISOString(),
+          reviewContent: 'Lorem ',
+        },
+        {
+          id: 0,
+          avatarUrl: image.mockStudent,
+          avatarAlt: 'student',
+          email: 'tranvinhan2k@gmail.com',
+          rating: params.numberOfStar || 0,
+          feedbackTime: new Date().toISOString(),
+          reviewContent: 'Lorem ',
+        },
+      ],
+      last: false,
+      pageItemSize: 0,
+      pageSize: 24,
+      totalItems: 100,
+      totalPages: 4,
+    };
+
+    const result: FeedbackPayload = {
+      rating: 4,
+      numberOfRating: 300000,
+      items: response,
+    };
+    return generateMockApi(result);
   },
 };
 
