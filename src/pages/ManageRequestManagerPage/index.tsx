@@ -1,10 +1,15 @@
 import {
   Box,
+  Chip,
+  CircularProgress,
   FormControl,
   Grid,
+  ListItemIcon,
   ListSubheader,
   MenuItem,
+  Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { scrollToTop } from '~/utils/common';
@@ -12,6 +17,9 @@ import ManageCourseCreateRequestSection from '~/components/molecules/ManageReque
 import ManageMentorProfileUpdateRequestSection from '~/components/molecules/ManageRequestSection/ManageMentorProfileUpdateRequestSection';
 import ManageRegisterRequestSection from '~/components/molecules/ManageRequestSection/ManageRegisterRequestSection';
 import TabPanel from '~/components/atoms/TabPanel/index';
+import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
+import { CourseStatusType } from '~/constants/course';
+import { Color } from '~/assets/variables';
 
 export default function ManageRequestManagerPage() {
   useEffect(() => {
@@ -24,18 +32,26 @@ export default function ManageRequestManagerPage() {
     selectRequestLabel = 'Chọn loại yêu cầu',
     //
     ListSubheader0 = 'Người dùng',
-    MenuItem0 = 'Phê duyệt hồ sơ giáo viên',
-    MenuItem1 = 'Mở thêm môn dạy cho giáo viên',
+    MenuItem00 = 'Phê duyệt hồ sơ giáo viên',
+    MenuItem01 = 'Mở thêm môn dạy cho giáo viên',
     ListSubheader1 = 'Khóa học / Lớp học',
-    MenuItem2 = 'Phê duyệt khóa học',
-    MenuItem3 = 'Cập nhật thông tin khóa học / lớp học',
-    ListSubheader3 = 'Tài chính',
-    MenuItem4 = 'Rút tiền',
+    MenuItem10 = 'Phê duyệt khóa học',
+    MenuItem11 = 'Cập nhật thông tin khóa học / lớp học',
+    ListSubheader2 = 'Tài chính',
+    MenuItem20 = 'Rút tiền',
   }
 
   const [tabValue, setTabValue] = useState<number>(0);
   const handleSetTabValue = (e: ChangeEvent<{ value: unknown }>) =>
     setTabValue(e.target.value as number);
+
+  const {
+    courseCreateRequestList: courseCreateRequestWaiting,
+    isLoading: isLoadingCourseCreateRequestWaiting,
+    refetch: refetchCourseCreateRequestWaiting,
+  } = useSearchCourseCreateRequest({
+    status: CourseStatusType.WAITING,
+  });
 
   const tabEl = [
     {
@@ -48,21 +64,57 @@ export default function ManageRequestManagerPage() {
     },
     {
       id: 2,
-      component: <ManageCourseCreateRequestSection />,
+      component: (
+        <ManageCourseCreateRequestSection
+          firstList={courseCreateRequestWaiting}
+          refetchFirstList={refetchCourseCreateRequestWaiting}
+        />
+      ),
     },
     {
       id: 3,
-      component: <h1>{Text.MenuItem3}</h1>,
+      component: <h1>{Text.ListSubheader1}</h1>,
     },
     {
       id: 4,
-      component: <h1>{Text.MenuItem4}</h1>,
+      component: <h1>{Text.ListSubheader2}</h1>,
     },
+  ];
+
+  const renderMenuItem = [
+    { id: 0, label: Text.ListSubheader0, isListSubheader: true },
+    {
+      id: 1,
+      label: Text.MenuItem00,
+      isLoading: false,
+      indicator: 0,
+      value: 0,
+    },
+    {
+      id: 2,
+      label: Text.MenuItem01,
+      isLoading: false,
+      indicator: 0,
+      value: 1,
+    },
+    { id: 3, label: Text.ListSubheader1, isListSubheader: true },
+    {
+      id: 4,
+      label: Text.MenuItem10,
+      isLoading: isLoadingCourseCreateRequestWaiting,
+      indicator: courseCreateRequestWaiting
+        ? courseCreateRequestWaiting.totalItems
+        : 0,
+      value: 2,
+    },
+    { id: 5, label: Text.MenuItem11, isLoading: false, indicator: 0, value: 3 },
+    { id: 6, label: Text.ListSubheader2, isListSubheader: true },
+    { id: 7, label: Text.MenuItem20, isLoading: false, indicator: 0, value: 4 },
   ];
 
   return (
     <Box pt={3} pl={4} pr={4}>
-      <Grid container spacing={2}>
+      <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
           <FormControl fullWidth size="small">
             <Box mt={1} />
@@ -72,14 +124,36 @@ export default function ManageRequestManagerPage() {
               select
               size="small"
             >
-              <ListSubheader>{Text.ListSubheader0}</ListSubheader>
-              <MenuItem value={0}>{Text.MenuItem0}</MenuItem>
-              <MenuItem value={1}>{Text.MenuItem1}</MenuItem>
-              <ListSubheader>{Text.ListSubheader1}</ListSubheader>
-              <MenuItem value={2}>{Text.MenuItem2}</MenuItem>
-              <MenuItem value={3}>{Text.MenuItem3}</MenuItem>
-              <ListSubheader>{Text.ListSubheader3}</ListSubheader>
-              <MenuItem value={4}>{Text.MenuItem4}</MenuItem>
+              {renderMenuItem.map((item) =>
+                item.isListSubheader ? (
+                  <ListSubheader key={item.id}>{item.label}</ListSubheader>
+                ) : (
+                  <MenuItem key={item.id} value={item.value}>
+                    <Stack
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      spacing={1}
+                    >
+                      <p>{item.label}</p>
+                      {item.isLoading ? (
+                        <CircularProgress size="1rem" />
+                      ) : (
+                        <Typography
+                          sx={{
+                            color:
+                              item.indicator && item.indicator > 0
+                                ? Color.red
+                                : Color.black,
+                          }}
+                        >
+                          ({item.indicator})
+                        </Typography>
+                      )}
+                    </Stack>
+                  </MenuItem>
+                )
+              )}
             </TextField>
           </FormControl>
         </Grid>

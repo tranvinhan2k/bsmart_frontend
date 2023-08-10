@@ -4,21 +4,30 @@ import TabPanel from '~/components/atoms/TabPanel/index';
 import ManageTableCourseCreateRequest from '~/components/molecules/ManageTableCourseCreateRequest';
 import { CourseStatusType } from '~/constants/course';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
+import { PagingFilterPayload } from '~/models';
+import { CourseCreateRequestDetails } from '~/models/courses';
 import { restrictNumberDisplay } from '~/utils/common';
 
-export default function ManageCourseCreateRequestSection() {
+interface ManageCourseCreateRequestSectionProps {
+  firstList: PagingFilterPayload<CourseCreateRequestDetails> | undefined;
+  refetchFirstList: () => void;
+}
+export default function ManageCourseCreateRequestSection({
+  firstList,
+  refetchFirstList,
+}: ManageCourseCreateRequestSectionProps) {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
     _: SyntheticEvent<Element, Event>,
     newValue: number
   ) => setTabValue(newValue);
 
-  const {
-    courseCreateRequestList: courseListWaiting,
-    refetch: refetchListWaiting,
-  } = useSearchCourseCreateRequest({
-    status: CourseStatusType.WAITING,
-  });
+  // const {
+  //   courseCreateRequestList: courseListWaiting,
+  //   refetch: refetchListWaiting,
+  // } = useSearchCourseCreateRequest({
+  //   status: CourseStatusType.WAITING,
+  // });
   const {
     courseCreateRequestList: courseListNotStart,
     refetch: refetchListNotStart,
@@ -39,7 +48,7 @@ export default function ManageCourseCreateRequestSection() {
   });
 
   const handleRefetchAll = () => {
-    refetchListWaiting();
+    refetchFirstList();
     refetchListNotStart();
     refetchListEditRequest();
     refetchListRejected();
@@ -55,7 +64,7 @@ export default function ManageCourseCreateRequestSection() {
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListWaiting?.totalItems),
+      noOfRequest: restrictNumberDisplay(firstList?.totalItems),
     },
     {
       id: 1,
