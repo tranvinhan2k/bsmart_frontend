@@ -49,7 +49,6 @@ export interface CourseCreateRequestDetails {
   count: number;
   approved: boolean;
 }
-
 export interface ClassOfCourseCreateRequestDetails {
   id: number;
   code: string;

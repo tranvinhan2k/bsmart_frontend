@@ -3,21 +3,21 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import ManageTable, {
   MenuItemPayload,
 } from '~/components/molecules/ManageTable';
-import { MentorProfileStatusType } from '~/constants/profile';
+import { CourseStatusType } from '~/constants/course';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
-import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMentorProfileUpdateRequest';
+import { useSearchCourseUpdateRequest } from '~/hooks/course/useSearchCourseUpdateRequest';
 import columns from '~/constants/columns';
-import ManageTableDetailsUpdateMentorProfileRequest from '../ManageTableDetailsUpdateMentorProfileRequest';
+import ManageTableDetailsCourseUpdateRequest from '../ManageTableDetailsCourseUpdateRequest';
 
-interface ManageTableRegisterRequestProps {
-  status: MentorProfileStatusType;
+interface ManageTableCourseUpdateRequestProps {
+  status: CourseStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageMentorProfileUpdateRequest({
+export default function ManageTableCourseUpdateRequest({
   status,
   refetchGetNoOfRequest,
-}: ManageTableRegisterRequestProps) {
+}: ManageTableCourseUpdateRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
     popoverOptionViewDetails = 'Xem chi tiết',
@@ -38,18 +38,15 @@ export default function ManageMentorProfileUpdateRequest({
   const handleNewSize = (params: number) => setSize(params);
   const handleTriggerDialog = () => setOpen(!open);
 
-  const { error, mentorProfileUpdateRequestList, isLoading, refetch } =
-    useSearchMentorProfileUpdateRequest({ status, q, page, size, sort });
-  const rows = mentorProfileUpdateRequestList
-    ? mentorProfileUpdateRequestList.items
-    : [];
-
+  const { error, courseUpdateRequestList, isLoading, refetch } =
+    useSearchCourseUpdateRequest({ status, q, page, size, sort });
+  const rows = courseUpdateRequestList ? courseUpdateRequestList.items : [];
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
     refetch();
   };
 
-  const handleOpenRegisterRequestDetails = () => {
+  const handleOpenCourseUpdateRequestDetails = () => {
     handleTriggerDialog();
     setMode(() => 'READ');
   };
@@ -66,13 +63,13 @@ export default function ManageMentorProfileUpdateRequest({
     {
       icon: 'category',
       title: Text.popoverOptionViewDetails,
-      onCLick: handleOpenRegisterRequestDetails,
+      onCLick: handleOpenCourseUpdateRequestDetails,
     },
   ];
 
   let popoverOptions;
   switch (status) {
-    case MentorProfileStatusType.WAITING:
+    case CourseStatusType.WAITING:
       popoverOptions = optionsViewDetails;
       break;
     default:
@@ -89,8 +86,7 @@ export default function ManageMentorProfileUpdateRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <ManageTableDetailsUpdateMentorProfileRequest
-            row={selectedRow}
+          <ManageTableDetailsCourseUpdateRequest
             onClose={handleTriggerDialog}
             refetchSearch={refetch}
             refetchGetNoOfRequest={refetchGetNoOfRequest}
@@ -106,7 +102,7 @@ export default function ManageMentorProfileUpdateRequest({
   return (
     <>
       <ManageTable
-        columns={columns.managedMentorProfileUpdateRequestColumns}
+        columns={columns.managedCourseUpdateRequestColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}
@@ -117,7 +113,7 @@ export default function ManageMentorProfileUpdateRequest({
         popoverOptions={popoverOptions}
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
-        totalItems={mentorProfileUpdateRequestList?.totalItems ?? 0}
+        totalItems={courseUpdateRequestList?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
           onSearch: handleSearch,

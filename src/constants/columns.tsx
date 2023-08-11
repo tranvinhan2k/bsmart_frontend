@@ -343,6 +343,59 @@ const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
     },
   }
 );
+const managedCourseUpdateRequestColumns = managedCourseBasedColumns.concat(
+  {
+    field: 'timeSendRequest',
+    headerName: 'Thời gian gửi+',
+    type: 'dateTime',
+    headerAlign: 'left',
+    minWidth: 200,
+    flex: 1,
+    valueFormatter: (params) =>
+      formatISODateStringToDisplayDateTime(params.value),
+  },
+  {
+    field: 'totalClass',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Số lớp',
+    minWidth: 70,
+    flex: 1,
+  },
+  {
+    field: 'count',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Lần gửi',
+    minWidth: 70,
+    flex: 1,
+  },
+  {
+    field: 'approved',
+    headerAlign: 'left',
+    type: 'boolean',
+    headerName: 'Từng duyệt?',
+    minWidth: 100,
+    flex: 1,
+    renderCell: (params) => {
+      return params.value ? (
+        <CheckIcon
+          titleAccess="Chưa từng duyệt"
+          style={{
+            color: green[500],
+          }}
+        />
+      ) : (
+        <CloseIcon
+          titleAccess="Đã từng duyệt"
+          style={{
+            color: red[500],
+          }}
+        />
+      );
+    },
+  }
+);
 
 const attendanceClassColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 50 },
@@ -748,6 +801,7 @@ const columns = {
   managedClassNotStartColumns,
   managedCourseColumns,
   managedCourseCreateRequestColumns,
+  managedCourseUpdateRequestColumns,
   managedMentorProfileUpdateRequestColumns,
   managedRegisterRequestTmpColumns,
   managedUserMemberColumns,

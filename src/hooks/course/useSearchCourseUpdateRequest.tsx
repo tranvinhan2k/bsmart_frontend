@@ -1,26 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
-import coursesApi from '~/api/courses';
 import { Key } from './key';
+import coursesApi from '~/api/courses';
 
-export interface UseSearchCourseCreateRequestPayload {
+export interface UseSearchCourseUpdateRequestPayload {
   status: string;
-  q?: string | null;
+  q?: string;
   page?: number;
   size?: number | null;
   sort?: string[];
 }
 
-export const useSearchCourseCreateRequest = ({
+export const useSearchCourseUpdateRequest = ({
+  q = '',
   status,
-  q,
-  page,
-  size,
-  sort,
-}: UseSearchCourseCreateRequestPayload) => {
+  page = 0,
+  size = null,
+  sort = [],
+}: UseSearchCourseUpdateRequestPayload) => {
   const { data, error, isError, isLoading, refetch } = useQuery({
-    queryKey: [Key.UseSearchCourseCreateRequest, status, q, page, size, sort],
+    queryKey: [Key.UseSearchCourseUpdateRequest, status, q, page, size, sort],
     queryFn: () =>
-      coursesApi.searchCourseCreateRequest({
+      coursesApi.searchCourseUpdateRequest({
         status,
         q,
         page,
@@ -31,7 +31,7 @@ export const useSearchCourseCreateRequest = ({
   });
 
   return {
-    courseCreateRequestList: data,
+    courseUpdateRequestList: data,
     error,
     isError,
     isLoading,
