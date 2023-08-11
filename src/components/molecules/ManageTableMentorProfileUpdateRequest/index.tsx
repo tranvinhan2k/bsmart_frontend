@@ -9,15 +9,15 @@ import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMento
 import columns from '~/constants/columns';
 import ManageTableDetailsUpdateMentorProfileRequest from '../ManageTableDetailsUpdateMentorProfileRequest';
 
-interface ManageTableRegisterRequestProps {
+interface ManageTableMentorProfileUpdateRequestProps {
   status: MentorProfileStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageMentorProfileUpdateRequest({
+export default function ManageTableMentorProfileUpdateRequest({
   status,
   refetchGetNoOfRequest,
-}: ManageTableRegisterRequestProps) {
+}: ManageTableMentorProfileUpdateRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
     popoverOptionViewDetails = 'Xem chi tiết',

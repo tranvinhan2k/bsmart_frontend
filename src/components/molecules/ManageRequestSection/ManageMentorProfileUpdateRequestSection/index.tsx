@@ -1,12 +1,12 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import ManageMentorProfileUpdateRequest from '~/components/molecules/ManageMentorProfileUpdateRequest';
+import ManageTableMentorProfileUpdateRequest from '~/components/molecules/ManageTableMentorProfileUpdateRequest';
 import { MentorProfileStatusType } from '~/constants/profile';
 import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMentorProfileUpdateRequest';
 import { restrictNumberDisplay } from '~/utils/common';
 
-export default function ManageMentorProfileUpdateRequestSection() {
+export default function ManageTableMentorProfileUpdateRequestSection() {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
     _: SyntheticEvent<Element, Event>,
@@ -43,7 +43,7 @@ export default function ManageMentorProfileUpdateRequestSection() {
       id: 0,
       text: 'Chờ duyệt',
       component: (
-        <ManageMentorProfileUpdateRequest
+        <ManageTableMentorProfileUpdateRequest
           status={MentorProfileStatusType.WAITING}
           refetchGetNoOfRequest={refetchListWaiting}
         />
@@ -54,7 +54,7 @@ export default function ManageMentorProfileUpdateRequestSection() {
       id: 1,
       text: 'Đã duyệt',
       component: (
-        <ManageMentorProfileUpdateRequest
+        <ManageTableMentorProfileUpdateRequest
           status={MentorProfileStatusType.STARTING}
           refetchGetNoOfRequest={refetchListStarting}
         />
@@ -65,7 +65,7 @@ export default function ManageMentorProfileUpdateRequestSection() {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
       component: (
-        <ManageMentorProfileUpdateRequest
+        <ManageTableMentorProfileUpdateRequest
           status={MentorProfileStatusType.EDITREQUEST}
           refetchGetNoOfRequest={refetchListEditRequest}
         />
@@ -76,7 +76,7 @@ export default function ManageMentorProfileUpdateRequestSection() {
       id: 3,
       text: 'Từ chối',
       component: (
-        <ManageMentorProfileUpdateRequest
+        <ManageTableMentorProfileUpdateRequest
           status={MentorProfileStatusType.REJECTED}
           refetchGetNoOfRequest={refetchListRejected}
         />
