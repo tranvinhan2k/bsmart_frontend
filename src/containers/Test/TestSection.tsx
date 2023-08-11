@@ -1,4 +1,5 @@
 import { Button, Stack } from '@mui/material';
+import moment from 'moment-timezone';
 import { closeUrl, openNewBrowserUrl } from '~/utils/window';
 
 export default function TextSection() {
@@ -16,18 +17,15 @@ export default function TextSection() {
     browser?.close();
   };
 
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   return (
     <Stack
       sx={{
         minHeight: '100vh',
       }}
     >
-      <Button variant="contained" onClick={handleOpenUrl}>
-        Open Url
-      </Button>
-      <Button variant="contained" onClick={handleClose}>
-        CLose Url
-      </Button>
+      {`${new Date()} : ${tz}`}
     </Stack>
   );
 }

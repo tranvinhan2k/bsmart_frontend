@@ -33,8 +33,8 @@ export const SX_SMALL_RED_TEXT: SxProps<Theme> = {
   color: Color.red,
 };
 const textTitle: SxProps<Theme> = {
-  fontFamily: FontFamily.bold,
-  fontSize: FontSize.large_35,
+  fontFamily: FontFamily.dosis,
+  fontSize: FontSize.medium_28,
   color: Color.black,
 };
 const textSubTitle: SxProps<Theme> = {
@@ -113,6 +113,12 @@ export const viewRoundedWhiteBody: SxProps<Theme> = {
   padding: 3,
   borderRadius: MetricSize.small_5,
 };
+export const viewRoundedBorderBody: SxProps<Theme> = {
+  background: Color.white,
+  border: `1px solid #ddd`,
+  borderRadius: MetricSize.small_5,
+  padding: 3,
+};
 export const viewIllustration: SxProps<Theme> = {
   width: '300px',
   height: '300px',
@@ -166,6 +172,7 @@ const globalStyles = {
   viewCenter,
   viewBorder,
   viewFlexRowCenter,
+  viewRoundedBorderBody,
 };
 
 export default globalStyles;

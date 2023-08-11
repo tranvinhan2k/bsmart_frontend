@@ -118,7 +118,7 @@ export default function MainHeader({
         },
         {
           icon: 'course',
-          name: 'Quản lí giảng dạy',
+          name: 'Quản lí học tập',
           onClick: handleNavigateDashboard,
         },
         {

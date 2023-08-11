@@ -172,6 +172,9 @@ export const MentorClassFeedbacksPage = lazy(
 export const MentorClassModulesPage = lazy(
   () => import('~/pages/mentor_class/MentorClassModulesPage')
 );
+export const MentorClassMarkReportPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassMarkReportPage')
+);
 
 // member class
 export const MemberClassDetailPage = lazy(
@@ -201,6 +204,9 @@ export const MemberClassModulesPage = lazy(
 export const MemberPromoCode = lazy(
   () => import('~/pages/member_class/MemberPromoCode')
 );
+export const MemberClassMarkReportPage = lazy(
+  () => import('~/pages/member_class/MemberClassMarkReportPage')
+);
 
 // admin
 
@@ -209,4 +215,10 @@ export const AdminManagerRevenuePage = lazy(
 );
 export const AdminManagerQuestionBank = lazy(
   () => import('~/pages/admin/AdminManagerQuestionBank')
+);
+
+// question
+
+export const ManagerQuestionsBankPage = lazy(
+  () => import('~/pages/manager/ManagerQuestionsBankPage')
 );

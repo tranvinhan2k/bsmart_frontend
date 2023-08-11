@@ -37,9 +37,12 @@ export default function NotificationContextProvider({ children }: Props) {
     handleDispatch,
   } = useDispatchNotifications();
   const { mutateAsync: handleReadNotifications } = useReadNotifications();
-  const numberOfNotification = notifications?.length || 0;
+  const numberOfNotification =
+    notifications?.filter((item) => !item.isRead)?.length || 0;
 
   const onOpenNotification = async () => {
+    console.log('hello');
+
     handleToggle();
 
     const notificationsIds = notifications.map((item) => item.id);

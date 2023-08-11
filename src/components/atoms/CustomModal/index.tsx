@@ -1,12 +1,22 @@
-import { Box, Breakpoint, IconButton, Modal, Stack } from '@mui/material';
+import {
+  Box,
+  Breakpoint,
+  Divider,
+  IconButton,
+  Modal,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { Color, MetricSize } from '~/assets/variables';
 import Icon from '../Icon';
+import globalStyles from '~/styles';
 
 interface CustomModalProps {
   open: boolean;
   children: any;
   onClose: () => void;
   maxWidth?: false | Breakpoint;
+  title?: string;
 }
 
 export default function CustomModal({
@@ -14,6 +24,7 @@ export default function CustomModal({
   children,
   onClose,
   maxWidth,
+  title,
 }: CustomModalProps) {
   return (
     <Modal
@@ -26,32 +37,42 @@ export default function CustomModal({
     >
       <Stack
         sx={{
-          minWidth: { xs: '100%', md: '0' },
-          minHeight: '100px',
+          transition: 'all 500ms ease',
+          maxHeight: '90vh',
           background: Color.white,
           borderRadius: { xs: '0', md: MetricSize.small_10 },
-          padding: MetricSize.small_10,
+          padding: 4,
         }}
       >
-        <Box sx={{ alignSelf: 'flex-end' }}>
+        <Stack
+          sx={{
+            position: 'relative',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            minHeight: '30px',
+          }}
+        >
+          <Typography sx={globalStyles.textTitle}>{title || ''}</Typography>
           <IconButton
             sx={{
+              position: 'absolute',
+              right: '-5px',
               width: '30px',
               height: '30px',
             }}
             onClick={onClose}
           >
-            <Icon name="close" size="small_20" color="black" />
+            <Icon name="close" size="medium" color="black" />
           </IconButton>
-        </Box>
+        </Stack>
         <Stack
           sx={{
-            transition: 'all 1s ease',
+            transition: 'all 500ms ease',
+            marginTop: 1,
+            paddingRight: 1,
+            paddingY: 1,
             maxHeight: '90vh',
-            overflowY: 'scroll',
-            '::-webkit-scrollbar': {
-              display: 'none',
-            },
+            overflowY: 'auto',
           }}
         >
           {children}

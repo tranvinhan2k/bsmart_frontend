@@ -192,6 +192,7 @@ export default function CRUDTable<T>({
       )}
       <Stack
         sx={{
+          marginTop: 1,
           minHeight: '700px',
           background: Color.white,
         }}

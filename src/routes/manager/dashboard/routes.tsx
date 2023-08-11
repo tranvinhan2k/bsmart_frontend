@@ -9,6 +9,7 @@ import {
   ManageCoursePage,
   ManageRequestManagerPage,
   ManageUserPage,
+  ManagerQuestionsBankPage,
   NotFoundPage,
 } from '~/routes/components';
 
@@ -46,8 +47,8 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
-    path: 'temp_feedback_class_detail',
-    main: () => <ClassFeedbackDetailPage isAdmin />,
+    path: ManagerNavigationActionLink.questions_bank,
+    main: () => <ManagerQuestionsBankPage />,
     role: ['ROLE_MANAGER'],
   },
   {

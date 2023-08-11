@@ -1,7 +1,6 @@
 import { Stack, Box, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FontSize, FontFamily } from '~/assets/variables';
 import ReturnLink from '~/components/atoms/ReturnLink';
 import { image } from '~/constants/image';
 import globalStyles from '~/styles';
@@ -20,7 +19,6 @@ export default function LoadingWrapper({
   error,
   children,
 }: Props) {
-  const navigate = useNavigate();
   if (isLoading)
     return (
       <Stack

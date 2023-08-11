@@ -240,6 +240,7 @@ export default function MentorCourseAddModulePage() {
       });
       hookFormLesson.reset();
       hookFormResource.reset();
+      await refetchContent();
       navigate(
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );

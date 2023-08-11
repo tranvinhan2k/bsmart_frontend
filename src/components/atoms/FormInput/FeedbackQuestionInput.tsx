@@ -105,8 +105,7 @@ function FeedbackQuestionInput({
         sx={{
           marginTop: 1,
           background: 'white',
-          border: `1px solid ${invalid ? Color.red : Color.transparent}`,
-          boxShadow: 1,
+          border: `1px solid ${invalid ? Color.red : '#ddd'}`,
           borderRadius: MetricSize.small_5,
         }}
       >

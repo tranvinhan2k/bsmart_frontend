@@ -37,8 +37,9 @@ export const useUpdateMentorClassesForm = (
     resolver: resolverCreateSubCourse,
   });
 
-  const handleChangeDefaultValue = (index: number) => {
-    const tmpClass = classes?.[index];
+  const handleChangeDefaultValue = (paramId: number) => {
+    const tmpClass = classes?.find((item) => item.id === paramId);
+
     updateClassHookForm.reset({
       ...tmpClass,
       numberOfSlot: tmpClass?.numberOfSlot,
@@ -62,7 +63,7 @@ export const useUpdateMentorClassesForm = (
       const imageResponse = await uploadImageMutation.mutateAsync(formData);
       return imageResponse.id;
     } catch (error) {
-      return null;
+      return undefined;
     }
   };
 
@@ -145,33 +146,34 @@ export const useUpdateMentorClassesForm = (
         data.timeInWeekRequests
       )
     ) {
-      const imageId = await uploadImage(data.imageId);
-      if (imageId) {
-        // TODO: Thêm api create class o day khi mà be xong
-        // const param: PostClassRequest = {
-        //   endDate: data.endDateExpected,
-        //   imageId,
-        //   maxStudent: data.maxStudent,
-        //   minStudent: data.minStudent,
-        //   numberOfSlot: data.numberOfSlot,
-        //   price: data.price,
-        //   startDate: data.startDateExpected,
-        //   timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-        //     dayOfWeekId: item.dayOfWeek.id,
-        //     slotId: item.slot.id,
-        //   })),
-        // };
-        // await handleUpdateTryCatch(async () =>
-        //   mutationUpdate.mutateAsync({
-        //     id,
-        //     param,
-        //   })
-        // );
-        updateClassHookForm.reset();
-        // onChangeClass([...classes, param]);
-      } else {
-        toast.notifyErrorToast('Thêm hình ảnh không thành công !');
+      let imageId: number | undefined;
+
+      try {
+        imageId = await uploadImage(data.imageId);
+      } catch (error: any) {
+        console.error(error.message);
       }
+
+      const param: PostClassRequest = {
+        endDate: data.endDateExpected,
+        imageId,
+        maxStudent: data.maxStudent,
+        minStudent: data.minStudent,
+        numberOfSlot: data.numberOfSlot,
+        price: data.price,
+        startDate: data.startDateExpected,
+        timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+          dayOfWeekId: item.dayOfWeek.id,
+          slotId: item.slot.id,
+        })),
+      };
+      await handleUpdateTryCatch(async () =>
+        mutationUpdate.mutateAsync({
+          id,
+          param,
+        })
+      );
+      updateClassHookForm.reset();
     } else {
       toast.notifyErrorToast(
         `Ngày kêt thúc không hợp lệ. Lớp học nên kết thúc sau hoặc vào ngày ${recommendEndDate} `

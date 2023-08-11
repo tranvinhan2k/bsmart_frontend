@@ -36,7 +36,7 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { GrNext, GrFormPrevious } from 'react-icons/gr';
 import { HiLocationMarker, HiOutlineTicket } from 'react-icons/hi';
 import { IoMdPaper, IoMdPricetag } from 'react-icons/io';
-import { IoDocuments } from 'react-icons/io5';
+import { IoClose, IoDocuments } from 'react-icons/io5';
 import {
   MdPayments,
   MdCake,
@@ -48,6 +48,7 @@ import {
   MdNumbers,
   MdNavigateNext,
   MdClass,
+  MdQuestionAnswer,
 } from 'react-icons/md';
 import { VscTasklist } from 'react-icons/vsc';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -200,6 +201,7 @@ export type IconName =
   | 'moreVert'
   | 'nearMe'
   | 'next'
+  | 'answer'
   | 'next2'
   | 'number'
   | 'payment'
@@ -375,6 +377,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <MdCake />
         </Stack>
       );
+    case 'answer':
+      return (
+        <Stack sx={STYLED_ICON}>
+          <MdQuestionAnswer />
+        </Stack>
+      );
     case 'arrowUp':
       return (
         <Stack sx={STYLED_ICON}>
@@ -462,7 +470,7 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
     case 'close':
       return (
         <Stack sx={STYLED_ICON}>
-          <AiOutlineClose />
+          <IoClose />
         </Stack>
       );
     case 'course':
