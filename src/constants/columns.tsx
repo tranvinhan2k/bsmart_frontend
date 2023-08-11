@@ -389,7 +389,7 @@ const managedUserBasedColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 200,
+    minWidth: 250,
     flex: 1,
     renderCell: (params) => (
       <CopyableCellEllipsis
@@ -589,14 +589,14 @@ const managedClassNotStartColumns: GridColDef[] = [
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu (Dự kiến)',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
     headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
@@ -671,28 +671,28 @@ const managedClassColumns: GridColDef[] = [
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu (Dự kiến)',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
     headerName: 'Ngày kết thúc (Dự kiến)',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'startDateActual',
     headerName: 'Ngày bắt đầu (Thực tế)',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDateActual',
     headerName: 'Ngày kết thúc (Thực tế)',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },

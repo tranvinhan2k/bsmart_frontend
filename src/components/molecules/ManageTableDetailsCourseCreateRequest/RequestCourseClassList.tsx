@@ -23,6 +23,9 @@ export default function RequestCourseClassList({
   const rows = courseCreateRequestDetails
     ? courseCreateRequestDetails?.classes
     : [];
+  const numberOfClass = courseCreateRequestDetails
+    ? courseCreateRequestDetails?.classes.length
+    : 0;
 
   const [mode, setMode] = useState<'READ' | ''>('');
   const [open, setOpen] = useState<boolean>(false);
@@ -63,7 +66,9 @@ export default function RequestCourseClassList({
 
   return (
     <Box sx={SX_BOX_ITEM_WRAPPER}>
-      <Typography sx={SX_FORM_LABEL}>Danh sách lớp</Typography>
+      <Typography sx={SX_FORM_LABEL}>
+        Danh sách lớp ({numberOfClass} lớp)
+      </Typography>
       <Box mt={2} />
       <DataGrid
         rows={rows}

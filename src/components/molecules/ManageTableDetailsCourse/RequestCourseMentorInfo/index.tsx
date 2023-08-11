@@ -44,23 +44,23 @@ export default function RequestCourseMentorInfo({
         {
           id: 0,
           label: Text.labelName,
-          value: courseCreateRequestDetails.mentor.name,
+          value: courseCreateRequestDetails?.mentor?.name ?? '',
         },
         {
           id: 1,
           label: Text.labelMail,
-          value: courseCreateRequestDetails.mentor.email,
+          value: courseCreateRequestDetails?.mentor?.email ?? '',
         },
         {
           id: 2,
           label: Text.labelPhone,
-          value: courseCreateRequestDetails.mentor.phone,
+          value: courseCreateRequestDetails?.mentor?.phone ?? '',
         },
         {
           id: 3,
           label: Text.labelJoinDate,
           value: formatISODateDateToDisplayDateTime(
-            courseCreateRequestDetails.mentor.timeParticipation
+            courseCreateRequestDetails?.mentor?.timeParticipation
           ),
         },
       ]
@@ -71,22 +71,31 @@ export default function RequestCourseMentorInfo({
         {
           id: 1,
           label: Text.labelCoursePossess,
-          value: 23,
+          value:
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.numberOfCourse ?? 0,
         },
         {
           id: 2,
           label: Text.labelClassPossess,
-          value: 100,
+          value:
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.numberOfClass ?? 0,
         },
         {
           id: 3,
           label: Text.labelRating,
-          value: '4.5/5',
+          value: `${
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.scoreFeedback ?? 0
+          } / 5`,
         },
         {
           id: 4,
           label: Text.labelNoOfRating,
-          value: '504',
+          value:
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.numberOfFeedBack ?? 0,
         },
       ]
     : [];

@@ -216,6 +216,6 @@ export const defaultValueRejectRegisterRequest = {
   interviewed: false,
 };
 export const defaultValueEditRequestRegisterRequest = {
-  message: 'Thông tin cần chỉnh sửa bao gồm',
+  message: 'Thông tin cần chỉnh sửa bao gồm:',
   interviewed: false,
 };
