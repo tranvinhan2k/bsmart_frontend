@@ -1,11 +1,10 @@
-import { CircularProgress, Stack } from '@mui/material';
-import { ReactNode } from 'react';
+import { Link, Stack } from '@mui/material';
+import { useState } from 'react';
 import { SubActivityOfCourseCreateRequestDetails } from '~/models/courses';
-import { useGetDetailActivity } from '~/hooks';
-import SubActivityContentAssignment from './SubActivityContentAssignment';
-import SubActivityContentLesson from './SubActivityContentLesson';
-import SubActivityContentQuiz from './SubActivityContentQuiz';
-import SubActivityContentResource from './SubActivityContentResource';
+import { SubActivityType, SubActivityTypeLabel } from '~/constants/activity';
+import CustomDialog from '~/components/atoms/CustomDialog';
+import SubActivityContent from './SubActivityContent';
+import SubActivityHeader from './SubActivityHeader';
 
 interface SubActivityCourseDetailsProps {
   subActivity: SubActivityOfCourseCreateRequestDetails;
@@ -14,42 +13,26 @@ interface SubActivityCourseDetailsProps {
 export default function SubActivityCourseDetails({
   subActivity,
 }: SubActivityCourseDetailsProps) {
-  const { activity, isLoading } = useGetDetailActivity(subActivity.id);
+  const [open, setOpen] = useState<boolean>(false);
+  const handleTriggerDialog = () => setOpen(!open);
 
-  let renderItem: ReactNode;
-  if (activity?.type) {
-    switch (activity.type) {
-      case 'LESSON': {
-        const detail = activity?.detail;
-        renderItem = (
-          <SubActivityContentLesson name={activity.name} item={detail} />
-        );
-        break;
-      }
-      case 'ASSIGNMENT': {
-        const detail = activity?.detail;
-        renderItem = (
-          <SubActivityContentAssignment name={activity.name} item={detail} />
-        );
-        break;
-      }
-      case 'QUIZ': {
-        const detail = activity?.detail;
-        renderItem = (
-          <SubActivityContentQuiz name={activity.name} item={detail} />
-        );
-        break;
-      }
-      case 'RESOURCE': {
-        const detail = activity?.detail;
-        renderItem = (
-          <SubActivityContentResource name={activity.name} item={detail} />
-        );
-        break;
-      }
-      default:
-        renderItem = null;
-    }
+  let renderTitle: string;
+  switch (subActivity.type) {
+    case SubActivityType.LESSON:
+      renderTitle = SubActivityTypeLabel.LESSON;
+      break;
+    case SubActivityType.ASSIGNMENT:
+      renderTitle = SubActivityTypeLabel.ASSIGNMENT;
+      break;
+    case SubActivityType.QUIZ:
+      renderTitle = SubActivityTypeLabel.QUIZ;
+      break;
+    case SubActivityType.RESOURCE:
+      renderTitle = SubActivityTypeLabel.RESOURCE;
+      break;
+    default:
+      renderTitle = '';
+      break;
   }
 
   return (
@@ -60,7 +43,17 @@ export default function SubActivityCourseDetails({
       spacing={1}
       my={3}
     >
-      {isLoading ? <CircularProgress size="1rem" /> : renderItem}
+      <SubActivityHeader type={subActivity.type} />
+      <Link href="#lesson" underline="hover" onClick={handleTriggerDialog}>
+        {subActivity.name}
+      </Link>
+      <CustomDialog
+        title={renderTitle}
+        onClose={handleTriggerDialog}
+        open={open}
+      >
+        <SubActivityContent id={subActivity.id} />
+      </CustomDialog>
     </Stack>
   );
 }

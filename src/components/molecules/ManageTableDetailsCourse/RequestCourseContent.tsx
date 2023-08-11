@@ -39,6 +39,7 @@ export default function RequestCourseContent({
                   <b>Học phần {index + 1}</b>: {item.name}
                 </Typography>
               </AccordionSummary>
+              {/*  */}
               <AccordionDetails>
                 {item.subActivities.map((subActivity) => (
                   <SubActivityCourseDetails
