@@ -1,10 +1,10 @@
-import { Link, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { useState } from 'react';
 import { ActivityLessonPayload } from '~/models/type';
 import { SubActivityType, SubActivityTypeLabel } from '~/constants/activity';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import globalStyles from '~/styles';
 import SubActivityHeader from '../SubActivityHeader';
+import sx from './style';
 
 interface SubActivityContentLessonProps {
   name: string;
@@ -25,16 +25,23 @@ export default function SubActivityContentLesson({
         {name}
       </Link>
       <CustomDialog
-        title={`${SubActivityTypeLabel.LESSON} '${name}'`}
+        title={`${SubActivityTypeLabel.LESSON}`}
         onClose={handleTriggerDialog}
         open={open}
       >
-        <Typography
-          sx={globalStyles.textSmallLight}
-          dangerouslySetInnerHTML={{
-            __html: item.description,
-          }}
-        />
+        <>
+          <Typography sx={sx.itemLabel}>Tên</Typography>
+          <Typography sx={sx.itemValue}>{name}</Typography>
+          <Box mt={2}>
+            <Typography sx={sx.itemLabel}>Mô tả</Typography>
+            <Typography
+              sx={sx.itemValue}
+              dangerouslySetInnerHTML={{
+                __html: item.description,
+              }}
+            />
+          </Box>
+        </>
       </CustomDialog>
     </>
   );

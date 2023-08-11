@@ -32,5 +32,6 @@ export default function CustomDialog({
 
 CustomDialog.defaultProps = {
   title: '',
-  maxWidth: 'sm',
+  // maxWidth: 'sm',
+  maxWidth: undefined,
 };

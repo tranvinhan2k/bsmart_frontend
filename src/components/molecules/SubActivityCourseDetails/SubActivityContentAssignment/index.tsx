@@ -4,7 +4,6 @@ import { ActivityAssignmentPayload } from '~/models/type';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { SubActivityType, SubActivityTypeLabel } from '~/constants/activity';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import globalStyles from '~/styles';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import SubActivityHeader from '../SubActivityHeader';
 import sx from './style';
@@ -76,7 +75,7 @@ export default function SubActivityContentAssignment({
         {name}
       </Link>
       <CustomDialog
-        title={`${SubActivityTypeLabel.ASSIGNMENT} '${name}'`}
+        title={`${SubActivityTypeLabel.ASSIGNMENT}`}
         onClose={handleTriggerDialog}
         open={open}
       >
@@ -87,13 +86,17 @@ export default function SubActivityContentAssignment({
           spacing={4}
         >
           <Box>
-            <Typography sx={sx.itemLabel}>Mô tả</Typography>
-            <Typography
-              sx={globalStyles.textSmallLight}
-              dangerouslySetInnerHTML={{
-                __html: item.description,
-              }}
-            />
+            <Typography sx={sx.itemLabel}>Tên</Typography>
+            <Typography sx={sx.itemValue}>{name}</Typography>
+            <Box mt={2}>
+              <Typography sx={sx.itemLabel}>Mô tả</Typography>
+              <Typography
+                sx={sx.itemValue}
+                dangerouslySetInnerHTML={{
+                  __html: item.description,
+                }}
+              />
+            </Box>
           </Box>
           <Box>
             <Grid container spacing={2}>
@@ -127,7 +130,7 @@ export default function SubActivityContentAssignment({
             <Grid container spacing={2}>
               {attachFiles.map((file, index: number) => (
                 <Grid item xs={12} key={file.url}>
-                  <Link href={file.url} target="_blank">
+                  <Link href={file.url} target="_blank" color="secondary">
                     <Typography noWrap>
                       {index + 1}. {file.name}
                     </Typography>
