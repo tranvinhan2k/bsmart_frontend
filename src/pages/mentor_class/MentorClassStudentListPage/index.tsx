@@ -159,7 +159,8 @@ export default function MentorClassStudentListPage() {
               imageUrl={row?.avatar || ''}
               name={row?.name || ''}
               phone={row?.phone || ''}
-              mark={marks?.find((item) => item.code === row?.id)}
+              // mark={marks?.find((item) => item.code === row?.id)}
+              mark={marks?.[0]}
             />
           </Stack>
         </CustomModal>

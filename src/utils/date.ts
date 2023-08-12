@@ -152,19 +152,6 @@ interface Payload {
   timeInWeekRequests: TimeInWeekRequest[];
 }
 
-function isHaveBeforeSameDayOfWeek(
-  timeInWeekRequests: TimeInWeekRequest[],
-  dayOfWeekIndex: number
-) {
-  const currentTimeSlot = timeInWeekRequests[dayOfWeekIndex];
-
-  for (let index = 0; index < dayOfWeekIndex; index += 1) {
-    if (timeInWeekRequests[index].dayOfWeekId === currentTimeSlot.dayOfWeekId)
-      return true;
-  }
-  return false;
-}
-
 function daysUntilNextDayOfWeek(
   startDateISO: string,
   targetDayId: number,
@@ -196,8 +183,6 @@ export function generateEndDate({
   startDate,
   timeInWeekRequests,
 }: Payload): Date {
-  console.log('params', numberOfSlot, startDate, timeInWeekRequests);
-
   let count = 0;
   let endDate = new Date(startDate);
   for (let index = 0; index < numberOfSlot; index += 1) {
@@ -207,13 +192,16 @@ export function generateEndDate({
     }
 
     const element = timeInWeekRequests[count];
-    console.log(element, count, nextCount);
 
-    const dayToNextSlot = daysUntilNextDayOfWeek(
+    let dayToNextSlot = daysUntilNextDayOfWeek(
       endDate.toISOString(),
       element.dayOfWeekId,
       count
     );
+
+    if (index === 0 && element.dayOfWeekId === endDate.getDay() + 1) {
+      dayToNextSlot = 0;
+    }
 
     endDate = addDays(endDate, dayToNextSlot);
 
