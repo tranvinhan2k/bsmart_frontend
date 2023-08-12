@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { FormHelperText, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
@@ -113,7 +113,11 @@ export default function UpdateClassModal({
             control={hookForm.control}
             label="Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7"
           />
-          <Stack marginTop={2} />
+          <FormHelperText>
+            Vui lòng thêm ngày bắt đầu, số buổi học, thời khóa biểu tuần để có
+            được ngày kết thúc dự kiến
+          </FormHelperText>
+          <Stack marginTop={1} />
           <Button
             onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
             customVariant="horizonForm"

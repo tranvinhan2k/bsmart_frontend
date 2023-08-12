@@ -1,23 +1,41 @@
 import { Button, Stack } from '@mui/material';
 import moment from 'moment-timezone';
-import { closeUrl, openNewBrowserUrl } from '~/utils/window';
+import { formatDate, generateEndDate } from '~/utils/date';
 
 export default function TextSection() {
   let browser: Window | null;
+  interface TimeSlot {
+    dayOfWeekId: number;
+    slotId: number;
+  }
 
-  const handleOpenUrl = () => {
-    browser = window.open(
-      'https://www.youtube.com/',
-      '_blank',
-      'height=500, width=500'
-    );
+  interface Payload {
+    numberOfSlot: number;
+    startDate: string;
+    timeInWeekRequests: TimeSlot[];
+  }
+
+  const payload: Payload = {
+    numberOfSlot: 2,
+    startDate: '2023-08-30T17:00:00.000Z',
+    timeInWeekRequests: [
+      {
+        dayOfWeekId: 6, // Saturday
+        slotId: 2,
+      },
+      {
+        dayOfWeekId: 2, // Saturday
+        slotId: 2,
+      },
+      {
+        dayOfWeekId: 6, // Tuesday
+        slotId: 2,
+      },
+    ],
   };
 
-  const handleClose = () => {
-    browser?.close();
-  };
-
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const endDate = generateEndDate(payload);
+  console.log('Generated endDate:', endDate);
 
   return (
     <Stack
@@ -25,7 +43,9 @@ export default function TextSection() {
         minHeight: '100vh',
       }}
     >
-      {`${new Date()} : ${tz}`}
+      {`${formatDate(payload.startDate)} - ${formatDate(endDate)} - ${
+        payload.numberOfSlot
+      }`}
     </Stack>
   );
 }

@@ -176,7 +176,11 @@ const generateFormInput = (
       return <ModuleInput controller={controller} placeholder={placeholder} />;
     case variant === 'date':
       return (
-        <DatePickerInput controller={controller} placeholder={placeholder} />
+        <DatePickerInput
+          controller={controller}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
       );
     case variant === 'time':
       return (

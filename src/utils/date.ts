@@ -126,3 +126,104 @@ export function compareDate(date1: Date, date2: Date) {
     date1.getFullYear() === date2.getFullYear()
   );
 }
+
+interface TimeSlot {
+  id: number;
+  name: string;
+  code: string;
+  startTime: string;
+  endTime: string;
+}
+
+interface DayOfWeek {
+  id: number;
+  name: string;
+  code: string;
+}
+
+interface TimeInWeekRequest {
+  dayOfWeekId: number;
+  slotId: number;
+}
+
+interface Payload {
+  numberOfSlot: number;
+  startDate: string;
+  timeInWeekRequests: TimeInWeekRequest[];
+}
+
+function isHaveBeforeSameDayOfWeek(
+  timeInWeekRequests: TimeInWeekRequest[],
+  dayOfWeekIndex: number
+) {
+  const currentTimeSlot = timeInWeekRequests[dayOfWeekIndex];
+
+  for (let index = 0; index < dayOfWeekIndex; index += 1) {
+    if (timeInWeekRequests[index].dayOfWeekId === currentTimeSlot.dayOfWeekId)
+      return true;
+  }
+  return false;
+}
+
+function daysUntilNextDayOfWeek(
+  startDateISO: string,
+  targetDayId: number
+): number {
+  const daysOfWeek = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ];
+
+  const startDate = new Date(startDateISO);
+  const currentDayId = startDate.getDay();
+  const targetDay = daysOfWeek[targetDayId - 1];
+
+  if (!targetDay) {
+    throw new Error('Invalid day of week ID');
+  }
+
+  const targetDayIdAfterStart = ((targetDayId + 6 - currentDayId) % 7) + 1;
+  return targetDayIdAfterStart;
+}
+
+function addDays(date: Date, days: number) {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+export function generateEndDate({
+  numberOfSlot,
+  startDate,
+  timeInWeekRequests,
+}: Payload): Date {
+  let count = 0;
+  let endDate = new Date(startDate);
+  for (let index = 0; index < numberOfSlot; index += 1) {
+    const element = timeInWeekRequests[count];
+    if (
+      (count > 0 && !isHaveBeforeSameDayOfWeek(timeInWeekRequests, count)) ||
+      count === 0
+    ) {
+      const dayToNextSlot = daysUntilNextDayOfWeek(
+        endDate.toISOString(),
+        element.dayOfWeekId
+      );
+
+      endDate = addDays(endDate, dayToNextSlot);
+    }
+
+    if (count === timeInWeekRequests.length - 1) {
+      count = 0;
+    } else {
+      count += 1;
+    }
+  }
+
+  return endDate;
+}

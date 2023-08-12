@@ -10,8 +10,13 @@ import { isValidDate } from '~/utils/date';
 interface DatePickerInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
+  disabled?: boolean;
 }
-function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
+function DatePickerInput({
+  controller,
+  placeholder,
+  disabled = false,
+}: DatePickerInputProps) {
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error },
@@ -20,14 +25,12 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
+        disabled={disabled}
         inputFormat="DD/MM/YYYY"
         value={value}
         onChange={(newValue: Dayjs | null) => {
-          const oldValue = newValue?.add(12, 'hour');
-          if (oldValue && isValidDate(oldValue))
-            console.log('value', newValue, oldValue.toISOString());
-
-          onChange(oldValue?.toISOString());
+          if (newValue && isValidDate(newValue))
+            onChange(newValue?.toISOString());
         }}
         renderInput={(params) => (
           <TextField
