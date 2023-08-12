@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 interface CustomDialogProps {
   title?: string | ReactElement;
   open: boolean;
-  children: ReactElement;
+  children: ReactElement | null;
   onClose: () => void;
   maxWidth?: false | Breakpoint;
 }
@@ -32,5 +32,6 @@ export default function CustomDialog({
 
 CustomDialog.defaultProps = {
   title: '',
-  maxWidth: 'sm',
+  // maxWidth: 'sm',
+  maxWidth: undefined,
 };

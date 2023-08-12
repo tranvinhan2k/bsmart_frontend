@@ -1,7 +1,10 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import { formatISODateStringToDisplayDateTime } from '~/utils/date';
+import {
+  formatISODateStringToDisplayDate,
+  formatISODateStringToDisplayTime,
+} from '~/utils/date';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
@@ -18,8 +21,9 @@ export default function RequestCourseDate({
 }: RequestCourseDateProps) {
   const enum Text {
     mainTitle = 'Thời gian gửi yêu cầu',
-    labelSubmitDate = 'Thời gian gửi',
-    labelSubmitCount = 'Lần gửi đơn thứ',
+    labelSubmitDate = 'Ngày gửi',
+    labelSubmitTime = 'Thời gian gửi',
+    labelSubmitCount = 'Lần gửi thứ',
     labelSubmitApproved = 'Đã từng phê duyệt',
     labelSubmitApprovedYes = 'Đã từng phê duyệt',
     labelSubmitApprovedNo = 'Chưa từng được phê duyệt',
@@ -32,12 +36,19 @@ export default function RequestCourseDate({
         {
           id: 0,
           label: Text.labelSubmitDate,
-          value: formatISODateStringToDisplayDateTime(
+          value: formatISODateStringToDisplayDate(
             courseCreateRequestDetails.timeSendRequest
           ),
         },
         {
           id: 1,
+          label: Text.labelSubmitTime,
+          value: formatISODateStringToDisplayTime(
+            courseCreateRequestDetails.timeSendRequest
+          ),
+        },
+        {
+          id: 2,
           label: Text.labelSubmitCount,
           value: courseCreateRequestDetails.count,
         },

@@ -10,7 +10,7 @@ interface RequestDateProps {
 }
 
 export default function RequestDate({ row }: RequestDateProps) {
-  const tmpTitle = [
+  const title0 = [
     {
       id: 0,
       label: 'Ngày gửi',
@@ -18,8 +18,13 @@ export default function RequestDate({ row }: RequestDateProps) {
     },
     {
       id: 1,
-      label: 'Lần gửi đơn thứ',
+      label: 'Thời gian gửi',
       value: '',
+    },
+    {
+      id: 2,
+      label: 'Lần gửi thứ',
+      value: row.count ?? '',
     },
   ];
 
@@ -37,7 +42,7 @@ export default function RequestDate({ row }: RequestDateProps) {
         columnSpacing={8}
         rowSpacing={2}
       >
-        {tmpTitle.map((item) => (
+        {title0.map((item) => (
           <Grid item xs={12} key={item.id}>
             <Stack
               direction="row"

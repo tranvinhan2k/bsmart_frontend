@@ -51,6 +51,7 @@ import {
   MdQuestionAnswer,
 } from 'react-icons/md';
 import { VscTasklist } from 'react-icons/vsc';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -68,13 +69,17 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import HomeIcon from '@mui/icons-material/Home';
+import HistoryIcon from '@mui/icons-material/History';
 import HourglassFullIcon from '@mui/icons-material/HourglassFull';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import LabelIcon from '@mui/icons-material/Label';
 import LanguageIcon from '@mui/icons-material/Language';
+import LockIcon from '@mui/icons-material/Lock';
 import ManIcon from '@mui/icons-material/Man';
 import MenuIcon from '@mui/icons-material/Menu';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -85,17 +90,22 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import PersonIcon from '@mui/icons-material/Person';
 import QuizIcon from '@mui/icons-material/Quiz';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import SdStorageIcon from '@mui/icons-material/SdStorage';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
+import GradingIcon from '@mui/icons-material/Grading';
 import GroupsIcon from '@mui/icons-material/Groups';
 import DescriptionIcon from '@mui/icons-material/Description';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import ClearIcon from '@mui/icons-material/Clear';
+import TagIcon from '@mui/icons-material/Tag';
 import UpdateIcon from '@mui/icons-material/Update';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import WarningIcon from '@mui/icons-material/Warning';
 import ImageIcon from '@mui/icons-material/Image';
@@ -110,6 +120,7 @@ import { ColorKeys, IconSizeKeys } from '~/models/variables';
 import google from '~/assets/images/icons8_google_480px.png';
 
 export type IconName =
+  | 'accessTimeIcon'
   | 'account'
   | 'add-icon'
   | 'add'
@@ -161,9 +172,12 @@ export type IconName =
   | 'feedback'
   | 'female'
   | 'filter'
+  | 'formatListNumberedIcon'
   | 'google'
+  | 'gradingIcon'
   | 'groups'
   | 'home'
+  | 'historyIcon'
   | 'hourglassFullIcon'
   | 'helpIcon'
   | 'imageIcon'
@@ -172,7 +186,9 @@ export type IconName =
   | 'keyboardArrowDownIcon'
   | 'keyboardArrowRightIcon'
   | 'keyboardArrowUpIcon'
+  | 'labelIcon'
   | 'languageIcon'
+  | 'lockIcon'
   | 'left'
   | 'lesson'
   | 'linkedin'
@@ -201,21 +217,25 @@ export type IconName =
   | 'request'
   | 'return'
   | 'right'
+  | 'sdStorageIcon'
   | 'search'
-  | 'sentimentVeryDissatisfiedIcon'
   | 'sendIcon'
+  | 'sentimentVeryDissatisfiedIcon'
   | 'setting'
   | 'share'
+  | 'shuffleIcon'
   | 'squareCheckbox'
   | 'star'
   | 'subject'
   | 'teacher'
   | 'twitter'
+  | 'tagIcon'
   | 'up'
   | 'undoIcon'
   | 'update'
   | 'user'
   | 'viewDetail'
+  | 'visibilityIcon'
   | 'warningIcon'
   | 'xCircle'
   | 'xCircleFill';
@@ -427,6 +447,10 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <CalendarMonthIcon sx={STYLED_ICON} />;
     case 'cart':
       return <ShoppingCartIcon sx={STYLED_ICON} />;
+    case 'shuffleIcon':
+      return <ShuffleIcon sx={STYLED_ICON} />;
+    case 'sdStorageIcon':
+      return <SdStorageIcon sx={STYLED_ICON} />;
     case 'category':
       return (
         <Stack sx={STYLED_ICON}>
@@ -475,6 +499,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ExpandLessIcon sx={STYLED_ICON} />;
     case 'expandMoreIcon':
       return <ExpandMoreIcon sx={STYLED_ICON} />;
+    case 'formatListNumberedIcon':
+      return <FormatListNumberedIcon sx={STYLED_ICON} />;
     case 'eye-off':
       return <VisibilityOffIcon sx={STYLED_ICON} />;
     case 'eye':
@@ -501,6 +527,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <WomanIcon sx={STYLED_ICON} />;
     case 'groups':
       return <GroupsIcon sx={STYLED_ICON} />;
+    case 'gradingIcon':
+      return <GradingIcon sx={STYLED_ICON} />;
     case 'description':
       return <DescriptionIcon sx={STYLED_ICON} />;
     case 'coPresent':
@@ -509,8 +537,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <DynamicFeedIcon sx={STYLED_ICON} />;
     case 'clear':
       return <ClearIcon sx={STYLED_ICON} />;
+    case 'tagIcon':
+      return <TagIcon sx={STYLED_ICON} />;
     case 'update':
       return <UpdateIcon sx={STYLED_ICON} />;
+    case 'visibilityIcon':
+      return <VisibilityIcon sx={STYLED_ICON} />;
     case 'sentimentVeryDissatisfiedIcon':
       return <SentimentVeryDissatisfiedIcon sx={STYLED_ICON} />;
     case 'warningIcon':
@@ -533,6 +565,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'home':
       return <HomeIcon sx={STYLED_ICON} />;
+    case 'historyIcon':
+      return <HistoryIcon sx={STYLED_ICON} />;
     case 'hourglassFullIcon':
       return <HourglassFullIcon sx={STYLED_ICON} />;
     case 'instagram':
@@ -565,8 +599,12 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
           <CiMail />
         </Stack>
       );
+    case 'labelIcon':
+      return <LabelIcon sx={STYLED_ICON} />;
     case 'languageIcon':
       return <LanguageIcon sx={STYLED_ICON} />;
+    case 'lockIcon':
+      return <LockIcon sx={STYLED_ICON} />;
     case 'male':
       return <ManIcon sx={STYLED_ICON} />;
     case 'menu':
@@ -677,6 +715,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ArrowUpwardIcon sx={STYLED_ICON} />;
     case 'user':
       return <AccountBoxIcon sx={STYLED_ICON} />;
+    case 'accessTimeIcon':
+      return <AccessTimeIcon sx={STYLED_ICON} />;
     default:
       return <ImageNotSupportedIcon />;
   }

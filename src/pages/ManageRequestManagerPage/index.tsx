@@ -1,10 +1,8 @@
 import {
   Box,
-  Chip,
   CircularProgress,
   FormControl,
   Grid,
-  ListItemIcon,
   ListSubheader,
   MenuItem,
   Stack,
@@ -12,14 +10,15 @@ import {
   Typography,
 } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { Color } from '~/assets/variables';
+import { CourseStatusType } from '~/constants/course';
 import { scrollToTop } from '~/utils/common';
+import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import ManageCourseCreateRequestSection from '~/components/molecules/ManageRequestSection/ManageCourseCreateRequestSection';
+import ManageCourseUpdateRequestSection from '~/components/molecules/ManageRequestSection/ManageCourseUpdateRequestSection';
 import ManageMentorProfileUpdateRequestSection from '~/components/molecules/ManageRequestSection/ManageMentorProfileUpdateRequestSection';
 import ManageRegisterRequestSection from '~/components/molecules/ManageRequestSection/ManageRegisterRequestSection';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
-import { CourseStatusType } from '~/constants/course';
-import { Color } from '~/assets/variables';
 
 export default function ManageRequestManagerPage() {
   useEffect(() => {
@@ -73,7 +72,7 @@ export default function ManageRequestManagerPage() {
     },
     {
       id: 3,
-      component: <h1>{Text.ListSubheader1}</h1>,
+      component: <ManageCourseUpdateRequestSection />,
     },
     {
       id: 4,

@@ -5,19 +5,19 @@ import ManageTable, {
 } from '~/components/molecules/ManageTable';
 import { CourseStatusType } from '~/constants/course';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
-import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
+import { useSearchCourseUpdateRequest } from '~/hooks/course/useSearchCourseUpdateRequest';
 import columns from '~/constants/columns';
-import ManageTableDetailsCourseCreateRequest from '../ManageTableDetailsCourseCreateRequest';
+import ManageTableDetailsCourseUpdateRequest from '../ManageTableDetailsCourseUpdateRequest';
 
-interface ManageTableCourseCreateRequestProps {
+interface ManageTableCourseUpdateRequestProps {
   status: CourseStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageTableCourseCreateRequest({
+export default function ManageTableCourseUpdateRequest({
   status,
   refetchGetNoOfRequest,
-}: ManageTableCourseCreateRequestProps) {
+}: ManageTableCourseUpdateRequestProps) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
     popoverOptionViewDetails = 'Xem chi tiết',
@@ -38,16 +38,15 @@ export default function ManageTableCourseCreateRequest({
   const handleNewSize = (params: number) => setSize(params);
   const handleTriggerDialog = () => setOpen(!open);
 
-  const { error, courseCreateRequestList, isLoading, refetch } =
-    useSearchCourseCreateRequest({ status, q, page, size, sort });
-  const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
-
+  const { error, courseUpdateRequestList, isLoading, refetch } =
+    useSearchCourseUpdateRequest({ status, q, page, size, sort });
+  const rows = courseUpdateRequestList ? courseUpdateRequestList.items : [];
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
     refetch();
   };
 
-  const handleOpenCourseCreateRequestDetails = () => {
+  const handleOpenCourseUpdateRequestDetails = () => {
     handleTriggerDialog();
     setMode(() => 'READ');
   };
@@ -59,20 +58,18 @@ export default function ManageTableCourseCreateRequest({
       onCLick: () => console.log(Text.popoverOptionNotSupport),
     },
   ];
+
   const optionsViewDetails: MenuItemPayload[] = [
     {
       icon: 'category',
       title: Text.popoverOptionViewDetails,
-      onCLick: handleOpenCourseCreateRequestDetails,
+      onCLick: handleOpenCourseUpdateRequestDetails,
     },
   ];
 
   let popoverOptions;
   switch (status) {
     case CourseStatusType.WAITING:
-      popoverOptions = optionsViewDetails;
-      break;
-    case CourseStatusType.NOTSTART:
       popoverOptions = optionsViewDetails;
       break;
     default:
@@ -89,8 +86,7 @@ export default function ManageTableCourseCreateRequest({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <ManageTableDetailsCourseCreateRequest
-            row={selectedRow}
+          <ManageTableDetailsCourseUpdateRequest
             onClose={handleTriggerDialog}
             refetchSearch={refetch}
             refetchGetNoOfRequest={refetchGetNoOfRequest}
@@ -106,7 +102,7 @@ export default function ManageTableCourseCreateRequest({
   return (
     <>
       <ManageTable
-        columns={columns.managedCourseCreateRequestColumns}
+        columns={columns.managedCourseUpdateRequestColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}
@@ -117,7 +113,7 @@ export default function ManageTableCourseCreateRequest({
         popoverOptions={popoverOptions}
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
-        totalItems={courseCreateRequestList?.totalItems ?? 0}
+        totalItems={courseUpdateRequestList?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
           onSearch: handleSearch,
