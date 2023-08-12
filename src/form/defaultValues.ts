@@ -12,6 +12,7 @@ import {
   LoginFormDataPayload,
   UpdateAnnouncementFormDataPayload,
   UpdateMentorProfileRequestFormDataPayload,
+  UpdateMentorProfileRequestProfileFormDefault,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
@@ -62,6 +63,23 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDefault = {
   phone: '',
   gender: null,
 };
+export const defaultValueUpdateMentorProfileRequest2: UpdateMentorProfileRequestProfileFormDefault =
+  {
+    avatar: '',
+    //
+    fullName: '',
+    birthday: '',
+    address: '',
+    phone: '',
+    gender: null,
+    //
+    identityFront: '',
+    identityBack: '',
+    //
+    introduce: '',
+    workingExperience: '',
+    mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+  };
 
 export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
   {

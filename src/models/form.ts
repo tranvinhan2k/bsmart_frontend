@@ -44,6 +44,26 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
+export interface UpdateMentorProfileRequestProfileFormDefault {
+  avatar: string;
+  //
+  fullName: string;
+  birthday: string;
+  address: string;
+  phone: string;
+  gender: DropdownDynamicValueInputStringDataPayload | null;
+  //
+  identityFront: string;
+  identityBack: string;
+  //
+  introduce: string;
+  workingExperience: string;
+  mentorSkills?: {
+    skillId: DropdownDynamicValueInputNumberDataPayload | null;
+    yearOfExperiences: number;
+  }[];
+}
+
 export interface EditAvatarFormDataPayload {
   avatar: string;
 }

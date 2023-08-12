@@ -42,9 +42,7 @@ export default function MentorSendRequestSection() {
   const tabEl = [
     {
       id: 0,
-      component: (
-        <UpdateMentorProfileRequestSection handleSetError={handleSetError} />
-      ),
+      component: <UpdateMentorProfileRequestSection />,
     },
     { id: 1, component: <WithdrawSection /> },
   ];
