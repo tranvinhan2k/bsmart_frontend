@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
@@ -13,13 +13,12 @@ import { useUpdateClass } from '../class/useUpdateClass';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { useDispatchGetAllDayOfWeeks } from '../useDispatchGetAllDayOfWeeks';
 import { useDispatchGetAllSlots } from '../useDispatchGetAllSlots';
+import { generateEndDate } from '~/utils/date';
 
 export const useUpdateMentorClassesForm = (
   id: number,
   classes: DetailCourseClassPayload[] | undefined
 ) => {
-  const [recommendEndDate, setRecommendEndDate] = useState<string>('');
-
   const { optionDayOfWeeks } = useDispatchGetAllDayOfWeeks();
   const { optionSlots } = useDispatchGetAllSlots();
 
@@ -36,6 +35,29 @@ export const useUpdateMentorClassesForm = (
     defaultValues: defaultValueCreateSubCourse,
     resolver: resolverCreateSubCourse,
   });
+
+  const startDate = updateClassHookForm.watch('startDateExpected');
+  const numberOfSlot = updateClassHookForm.watch('numberOfSlot');
+  const timeInWeekRequests = updateClassHookForm.watch('timeInWeekRequests');
+
+  useEffect(() => {
+    if (
+      startDate !== '' &&
+      numberOfSlot !== 0 &&
+      timeInWeekRequests.length !== 0
+    ) {
+      const endDate = generateEndDate({
+        startDate,
+        numberOfSlot,
+        timeInWeekRequests: (timeInWeekRequests as any[]).map((item) => ({
+          slotId: item.slot.id,
+          dayOfWeekId: item.dayOfWeek.id,
+        })),
+      });
+
+      updateClassHookForm.setValue('endDateExpected', endDate);
+    }
+  }, [startDate, numberOfSlot, timeInWeekRequests, updateClassHookForm]);
 
   const handleChangeDefaultValue = (paramId: number) => {
     const tmpClass = classes?.find((item) => item.id === paramId);
@@ -67,62 +89,6 @@ export const useUpdateMentorClassesForm = (
     }
   };
 
-  const checkEndDateValid = (
-    startDate: string,
-    endDate: string,
-    numberOfSlot: number,
-    timeInWeekRequests: {
-      dayOfWeek: OptionPayload;
-      slot: OptionPayload;
-    }[]
-  ) => {
-    const sortArr = [...timeInWeekRequests];
-    sortArr.sort((a, b) => {
-      if (a.dayOfWeek.id === b.dayOfWeek.id) {
-        return a.slot.id - b.slot.id;
-      }
-      return a.dayOfWeek.id - b.dayOfWeek.id;
-    });
-
-    const tmpStartDate = new Date(startDate);
-    const startDay = tmpStartDate.getDay();
-    const numberOfSlotInAWeek = timeInWeekRequests.length;
-    const numberOfWeek = Math.floor(numberOfSlot / numberOfSlotInAWeek);
-    const leftDay = numberOfSlot % numberOfSlotInAWeek;
-    let endDateTime = null;
-    if (leftDay === 0) {
-      endDateTime = sortArr[sortArr.length - 1];
-    } else {
-      endDateTime = sortArr[leftDay - 1];
-    }
-    const numofLeftDate = endDateTime.dayOfWeek.id - startDay - 1;
-
-    const numOfTotalDayCount = (numberOfWeek - 1) * 7 + numofLeftDate;
-    const tmpEndDate = new Date();
-    const endDatetExpected = new Date(endDate);
-    tmpEndDate.setDate(tmpStartDate.getDate() + numOfTotalDayCount);
-
-    console.log(
-      'sortArr',
-      sortArr,
-      startDay,
-      numberOfWeek,
-      leftDay,
-      endDateTime,
-      numofLeftDate,
-      tmpEndDate
-    );
-
-    // if (tmpEndDate.getTime() > endDatetExpected.getTime()) {
-    //   setRecommendEndDate(formatDate(tmpEndDate.toISOString()));
-    //   return false;
-    // } else {
-    //   return true;
-    // }
-
-    return true;
-  };
-
   const onUpdateClass = async (data: {
     price: number;
     type: OptionPayload;
@@ -138,47 +104,34 @@ export const useUpdateMentorClassesForm = (
       slot: OptionPayload;
     }[];
   }) => {
-    if (
-      checkEndDateValid(
-        data.startDateExpected,
-        data.endDateExpected,
-        data.numberOfSlot,
-        data.timeInWeekRequests
-      )
-    ) {
-      let imageId: number | undefined;
+    let imageId: number | undefined;
 
-      try {
-        imageId = await uploadImage(data.imageId);
-      } catch (error: any) {
-        console.error(error.message);
-      }
-
-      const param: PostClassRequest = {
-        endDate: data.endDateExpected,
-        imageId,
-        maxStudent: data.maxStudent,
-        minStudent: data.minStudent,
-        numberOfSlot: data.numberOfSlot,
-        price: data.price,
-        startDate: data.startDateExpected,
-        timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-          dayOfWeekId: item.dayOfWeek.id,
-          slotId: item.slot.id,
-        })),
-      };
-      await handleUpdateTryCatch(async () =>
-        mutationUpdate.mutateAsync({
-          id,
-          param,
-        })
-      );
-      updateClassHookForm.reset();
-    } else {
-      toast.notifyErrorToast(
-        `Ngày kêt thúc không hợp lệ. Lớp học nên kết thúc sau hoặc vào ngày ${recommendEndDate} `
-      );
+    try {
+      imageId = await uploadImage(data.imageId);
+    } catch (error: any) {
+      console.error(error.message);
     }
+
+    const param: PostClassRequest = {
+      endDate: data.endDateExpected,
+      imageId,
+      maxStudent: data.maxStudent,
+      minStudent: data.minStudent,
+      numberOfSlot: data.numberOfSlot,
+      price: data.price,
+      startDate: data.startDateExpected,
+      timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
+        dayOfWeekId: item.dayOfWeek.id,
+        slotId: item.slot.id,
+      })),
+    };
+    await handleUpdateTryCatch(async () =>
+      mutationUpdate.mutateAsync({
+        id,
+        param,
+      })
+    );
+    updateClassHookForm.reset();
   };
 
   return {
