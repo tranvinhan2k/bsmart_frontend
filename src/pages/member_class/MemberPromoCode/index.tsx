@@ -1,4 +1,11 @@
-import { Stack, Typography, IconButton, Tooltip } from '@mui/material';
+import {
+  Stack,
+  Typography,
+  IconButton,
+  Tooltip,
+  TextField,
+  Button,
+} from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { useGetPromoCode } from '~/hooks';
@@ -24,6 +31,26 @@ export default function MemberPromoCode() {
         Thông tin mã giới thiệu
       </Typography>
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <Typography sx={globalStyles.textSmallLabel}>
+          Thêm mã giới thiệu
+        </Typography>
+        <Stack marginTop={1}>
+          <TextField />
+          <Button
+            sx={{
+              marginTop: 1,
+            }}
+            variant="contained"
+          >
+            Thêm mã giới thiệu
+          </Button>
+        </Stack>
+      </Stack>
+      <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+        <Typography sx={globalStyles.textSmallLabel}>
+          Danh sách mã giới thiệu
+        </Typography>
+
         <CRUDTable
           error={error}
           isLoading={isLoading}
