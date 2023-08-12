@@ -13,7 +13,11 @@ import {
   MentorDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { useGetIdFromUrl, useQueryStudentList } from '~/hooks';
+import {
+  useGetIdFromUrl,
+  useGetMentorMarkReport,
+  useQueryStudentList,
+} from '~/hooks';
 import { useBoolean } from '~/hooks/useBoolean';
 import globalStyles from '~/styles';
 
@@ -52,16 +56,8 @@ export default function MentorClassStudentListPage() {
   } = useQueryStudentList(id);
 
   const rows = studentList;
-  // const rows: MentorClassMemberDetailPayload[] = [
-  //   {
-  //     id: 0,
-  //     name: 'Trần Vĩ Nhân',
-  //     avatar: image.mockStudent,
-  //     dayOfBirth: new Date().toString(),
-  //     email: 'tranvinhan2k@gmail.com',
-  //     phone: '0362017512',
-  //   },
-  // ];
+
+  const { data: marks } = useGetMentorMarkReport(id);
 
   const filterRows = rows?.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
@@ -155,14 +151,17 @@ export default function MentorClassStudentListPage() {
           ]}
         />
 
-        <CustomModal open={value} onClose={toggle}>
-          <UserDetailInformation
-            email={row?.email || ''}
-            imageAlt={row?.avatar || ''}
-            imageUrl={row?.avatar || ''}
-            name={row?.name || ''}
-            phone={row?.phone || ''}
-          />
+        <CustomModal open={value} onClose={toggle} title="Thông tin học sinh">
+          <Stack minWidth="50vw">
+            <UserDetailInformation
+              email={row?.email || ''}
+              imageAlt={row?.avatar || ''}
+              imageUrl={row?.avatar || ''}
+              name={row?.name || ''}
+              phone={row?.phone || ''}
+              mark={marks?.find((item) => item.code === row?.id)}
+            />
+          </Stack>
         </CustomModal>
       </Stack>
     </Stack>

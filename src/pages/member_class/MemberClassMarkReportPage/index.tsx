@@ -17,11 +17,6 @@ export default function MemberClassMarkReportPage() {
 
   const columns: GridColDef[] = [
     {
-      field: 'id',
-      headerName: 'ID',
-      width: 90,
-    },
-    {
       field: 'name',
       headerName: 'Tên bài kiểm tra',
       flex: 1,

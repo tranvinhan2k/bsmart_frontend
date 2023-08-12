@@ -210,7 +210,6 @@ const activityApi = {
     params: AssignmentSubmitItemPayload[];
   }) {
     return axiosClient.put(`${url}/assignments/${id}/grading`);
-    return generateMockApi(true);
   },
 
   // post
@@ -361,6 +360,130 @@ const activityApi = {
     return axiosClient.delete(`${url}/${id}`);
   },
   // put
+  async submitForReviewSection({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostActivityRequest;
+  }) {
+    return generateMockApi(true);
+  },
+  async submitForReviewLesson({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostActivityRequest;
+  }) {
+    return generateMockApi(true);
+    // return axiosClient.put(`${url}/${id}/lesson`, params);
+  },
+  async submitForReviewResource({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostActivityRequest;
+  }) {
+    const requestData = new FormData();
+    requestData.append('name', params.name);
+    requestData.append('visible', String(params.visible));
+    requestData.append('parentActivityId', String(params.parentActivityId));
+    requestData.append('courseId', String(params.courseId));
+
+    if (!(params.authorizeClasses?.length > 0)) {
+      requestData.append('authorizeClasses', String(-1));
+    } else {
+      params.authorizeClasses.map((item) => {
+        requestData.append('authorizeClasses', String(item));
+        return null;
+      });
+    }
+    if (params.file) {
+      const blob = await fetch((params?.file as any)?.url).then((r) =>
+        r.blob().then(
+          (blobFile) =>
+            new File([blobFile], (params.file as any).name, {
+              type: 'ACTACH',
+            })
+        )
+      );
+
+      requestData.append('file', blob);
+    }
+
+    return generateMockApi(true);
+    // return axiosClient.put(`${url}/${id}/resource`, requestData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // });
+  },
+  async submitForReviewAssignment({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostAssignmentRequest;
+  }) {
+    const requestData = new FormData();
+    requestData.append('name', params.name);
+    requestData.append('visible', String(params.visible));
+    requestData.append('parentActivityId', String(params.parentActivityId));
+    requestData.append('courseId', String(params.courseId));
+    requestData.append('description', String(params.description));
+    requestData.append('startDate', params.startDate);
+    requestData.append('endDate', params.endDate);
+    requestData.append('editBeForSubmitMin', String(params.editBeForSubmitMin));
+    requestData.append('maxFileSubmit', String(params.maxFileSubmit));
+    requestData.append('maxFileSize', String(params.maxFileSize));
+    requestData.append('passPoint', String(params.passPoint));
+
+    if (!(params.authorizeClasses?.length > 0)) {
+      requestData.append('authorizeClasses', String(-1));
+    } else {
+      params.authorizeClasses.map((item) => {
+        requestData.append('authorizeClasses', String(item));
+        return null;
+      });
+    }
+
+    if (params.attachFiles) {
+      await Promise.all(
+        params.attachFiles.map(async (item) => {
+          const blob = await fetch((item as any)?.url).then((r) =>
+            r.blob().then(
+              (blobFile) =>
+                new File([blobFile], (item as any).name, {
+                  type: 'ACTTACH',
+                })
+            )
+          );
+          requestData.append('attachFiles', blob);
+          return null;
+        })
+      );
+    }
+
+    // return axiosClient.put(`${url}/${id}/assignment`, requestData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // });
+    return generateMockApi(true);
+  },
+  async submitForReviewQuiz({
+    id,
+    params,
+  }: {
+    id: number;
+    params: PostActivityRequest;
+  }) {
+    // return axiosClient.put(`${url}/${id}/quiz`, params);
+    return generateMockApi(true);
+  },
+
   async updateSection({
     id,
     params,

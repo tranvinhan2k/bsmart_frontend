@@ -78,13 +78,35 @@ export default function UpdateSectionForm({
     >
       <Stack>
         <InputGroup control={hookForm.control} inputList={inputList} />
-        <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+        {isAllowUpdateActivity(course.status) ? (
+          <Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Button
+              color="secondary"
+              sx={{
+                color: Color.white,
+              }}
+              onClick={hookForm.handleSubmit((data: any) => {
+                onSubmit({ ...data, id: section?.id || 0 });
+                hookForm.reset();
+              })}
+              variant="contained"
+            >
+              Lưu thay đổi
+            </Button>
+
+            <Button
+              onClick={onDelete}
+              sx={{
+                marginLeft: 1,
+              }}
+              variant="contained"
+              color="error"
+            >
+              Xóa học phần
+            </Button>
+          </Stack>
+        ) : (
           <Button
-            disabled={
-              !hookForm.formState.isDirty ||
-              !isAllowUpdateActivity(course.status) ||
-              section?.isFixed
-            }
             color="secondary"
             sx={{
               color: Color.white,
@@ -95,20 +117,9 @@ export default function UpdateSectionForm({
             })}
             variant="contained"
           >
-            Lưu thay đổi
+            Cập nhật học phần
           </Button>
-          <Button
-            disabled={!isAllowUpdateActivity(course.status) || section?.isFixed}
-            onClick={onDelete}
-            sx={{
-              marginLeft: 1,
-            }}
-            variant="contained"
-            color="error"
-          >
-            Xóa học phần
-          </Button>
-        </Stack>
+        )}
       </Stack>
     </Stack>
   );

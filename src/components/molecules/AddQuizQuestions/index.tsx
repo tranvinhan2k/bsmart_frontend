@@ -49,6 +49,8 @@ export default function AddQuizQuestions({
     resolver: addQuestionResolver,
   });
 
+  const questionTypeWatch = addQuestionHookForm.watch('questionType');
+
   // functions
   const handleAddQuestionFromBank = (paramRow: any) => {
     onChange([...questionList, paramRow]);
@@ -102,7 +104,7 @@ export default function AddQuizQuestions({
                   <FormInput
                     control={addQuestionHookForm.control}
                     name="question"
-                    placeholder="Tên cẩu hỏi"
+                    placeholder="Tên câu hỏi"
                     label="Tên câu hỏi"
                   />
                   <Stack sx={{ paddingY: 2 }}>
@@ -130,6 +132,7 @@ export default function AddQuizQuestions({
                     control={addQuestionHookForm.control}
                     name="answers"
                     variant="answerPicker"
+                    answerType={questionTypeWatch}
                     label="Danh sách câu trả lời"
                   />
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
@@ -56,12 +57,17 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
         startDate,
         numberOfSlot,
         timeInWeekRequests: (timeInWeekRequests as any[]).map((item) => ({
-          slotId: item.slot.id,
-          dayOfWeekId: item.dayOfWeek.id,
+          slotId: item?.slot?.id,
+          dayOfWeekId: item?.dayOfWeek?.id,
         })),
       });
 
-      createSubCourseHookForm.setValue('endDateExpected', endDate);
+      createSubCourseHookForm.setValue(
+        'endDateExpected',
+        endDate.toISOString()
+      );
+    } else {
+      createSubCourseHookForm.setValue('endDateExpected', '');
     }
   }, [startDate, numberOfSlot, timeInWeekRequests, createSubCourseHookForm]);
 
@@ -104,16 +110,16 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
 
       if (imageId) {
         const param: PostClassRequest = {
-          endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,
           minStudent: data.minStudent,
           numberOfSlot: data.numberOfSlot,
           price: data.price,
-          startDate: data.startDateExpected,
+          startDate: dayjs(data.startDateExpected).add(1, 'day').toISOString(),
+          endDate: dayjs(data.endDateExpected).add(1, 'day').toISOString(),
           timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-            dayOfWeekId: item.dayOfWeek.id || 0,
-            slotId: item.slot.id || 0,
+            dayOfWeekId: item?.dayOfWeek?.id || 0,
+            slotId: item?.slot?.id || 0,
           })),
           // timeTableRequest: timetable?.raw || [],
         };
@@ -156,8 +162,8 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
       numberOfSlot: data.numberOfSlot,
       startDate: data.startDateExpected,
       timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-        dayOfWeekId: item.dayOfWeek.id,
-        slotId: item.slot.id,
+        dayOfWeekId: item?.dayOfWeek?.id,
+        slotId: item?.slot?.id,
       })),
     };
     const responseTimetable = await handleGetTimetable(result);

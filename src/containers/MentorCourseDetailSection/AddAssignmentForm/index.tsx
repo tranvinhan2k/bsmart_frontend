@@ -146,41 +146,40 @@ export default function AddAssignmentForm({
         }}
       >
         <InputGroup control={hookForm.control} inputList={inputList} />
-        <Stack
-          sx={{
-            marginTop: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            disabled={
-              !hookForm.formState.isDirty ||
-              !isAllowUpdateActivity(course.status) ||
-              isFixed
-            }
-            color="secondary"
+        {isAllowUpdateActivity(course.status) ? (
+          <Stack
             sx={{
-              color: Color.white,
+              marginTop: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
-            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-            variant="contained"
           >
-            {onDelete ? 'Lưu thay đổi' : 'Thêm bài kiểm tra tự luận'}
-          </Button>
-          {Boolean(onDelete) && (
             <Button
-              disabled={!isAllowUpdateActivity(course.status) || isFixed}
+              color="secondary"
               sx={{
-                marginLeft: 1,
+                color: Color.white,
               }}
+              onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
               variant="contained"
-              color="error"
             >
-              Xóa bài tập
+              {onDelete ? 'Lưu thay đổi' : 'Thêm bài kiểm tra tự luận'}
             </Button>
-          )}
-        </Stack>
+            {Boolean(onDelete) && (
+              <Button
+                sx={{
+                  marginLeft: 1,
+                }}
+                onClick={onDelete}
+                variant="contained"
+                color="error"
+              >
+                Xóa bài tập
+              </Button>
+            )}
+          </Stack>
+        ) : (
+          <Button variant="contained">Cập nhật bài tập</Button>
+        )}
       </Stack>
     </Stack>
   );

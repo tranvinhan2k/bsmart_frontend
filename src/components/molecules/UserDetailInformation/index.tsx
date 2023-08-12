@@ -1,9 +1,13 @@
 import { Stack, Typography, Box } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
 import { IconName } from '~/components/atoms/Icon';
 import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import { image } from '~/constants/image';
+import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReportPage';
 import globalStyles from '~/styles';
+import CRUDTable from '../CRUDTable';
+import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
 interface Props {
   name: string;
@@ -11,6 +15,7 @@ interface Props {
   phone: string;
   imageUrl: string;
   imageAlt: string;
+  mark?: MarkOfStudentPayload;
 }
 
 export default function UserDetailInformation({
@@ -19,14 +24,35 @@ export default function UserDetailInformation({
   imageUrl,
   name,
   phone,
+  mark,
 }: Props) {
-  return (
-    <Stack marginTop={2}>
-      <Typography sx={globalStyles.textSmallLabel}>
-        Thông tin người dùng
-      </Typography>
+  const columns: GridColDef[] = [
+    {
+      field: 'name',
+      headerName: 'Tên bài kiểm tra',
+      flex: 1,
+      minWidth: 200,
+    },
+    {
+      field: 'time',
+      headerName: 'Thời điểm',
+      width: 200,
+      renderCell: (params) => {
+        return formatISODateStringToDisplayDateTime(params.row.time);
+      },
+    },
+    {
+      field: 'grade',
+      headerName: 'Điểm',
+    },
+  ];
 
-      <Stack sx={{ flexDirection: 'row', padding: 3 }}>
+  return (
+    <Stack>
+      <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
+        Thông tin chung
+      </Typography>
+      <Stack sx={{ flexDirection: 'row' }}>
         <Stack>
           <Box
             component="img"
@@ -39,6 +65,7 @@ export default function UserDetailInformation({
             alt={imageAlt}
           />
         </Stack>
+
         <Stack
           sx={{
             marginLeft: 1,
@@ -59,6 +86,15 @@ export default function UserDetailInformation({
           ))}
         </Stack>
       </Stack>
+
+      {mark && (
+        <Stack>
+          <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
+            Thông tin điểm số
+          </Typography>
+          <CRUDTable columns={columns} rows={mark?.markItems || []} />
+        </Stack>
+      )}
     </Stack>
   );
 }

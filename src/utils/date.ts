@@ -167,28 +167,22 @@ function isHaveBeforeSameDayOfWeek(
 
 function daysUntilNextDayOfWeek(
   startDateISO: string,
-  targetDayId: number
+  targetDayId: number,
+  count?: number
 ): number {
-  const daysOfWeek = [
-    'sunday',
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
-  ];
-
   const startDate = new Date(startDateISO);
-  const currentDayId = startDate.getDay();
-  const targetDay = daysOfWeek[targetDayId - 1];
+  const currentDayId = startDate.getDay() + 1;
 
-  if (!targetDay) {
-    throw new Error('Invalid day of week ID');
+  if (currentDayId > targetDayId) {
+    return 7 - (currentDayId - targetDayId);
   }
-
-  const targetDayIdAfterStart = ((targetDayId + 6 - currentDayId) % 7) + 1;
-  return targetDayIdAfterStart;
+  if (currentDayId === targetDayId) {
+    if (count === 0) {
+      return 7;
+    }
+    return 0;
+  }
+  return targetDayId - currentDayId;
 }
 
 function addDays(date: Date, days: number) {
@@ -202,27 +196,28 @@ export function generateEndDate({
   startDate,
   timeInWeekRequests,
 }: Payload): Date {
+  console.log('params', numberOfSlot, startDate, timeInWeekRequests);
+
   let count = 0;
   let endDate = new Date(startDate);
   for (let index = 0; index < numberOfSlot; index += 1) {
+    let nextCount = 0;
+    if (count !== timeInWeekRequests.length - 1) {
+      nextCount = count + 1;
+    }
+
     const element = timeInWeekRequests[count];
-    if (
-      (count > 0 && !isHaveBeforeSameDayOfWeek(timeInWeekRequests, count)) ||
-      count === 0
-    ) {
-      const dayToNextSlot = daysUntilNextDayOfWeek(
-        endDate.toISOString(),
-        element.dayOfWeekId
-      );
+    console.log(element, count, nextCount);
 
-      endDate = addDays(endDate, dayToNextSlot);
-    }
+    const dayToNextSlot = daysUntilNextDayOfWeek(
+      endDate.toISOString(),
+      element.dayOfWeekId,
+      count
+    );
 
-    if (count === timeInWeekRequests.length - 1) {
-      count = 0;
-    } else {
-      count += 1;
-    }
+    endDate = addDays(endDate, dayToNextSlot);
+
+    count = nextCount;
   }
 
   return endDate;

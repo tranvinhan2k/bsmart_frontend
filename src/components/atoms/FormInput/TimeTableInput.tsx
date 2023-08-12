@@ -57,6 +57,8 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
   };
 
   const handleDeleteItem = (item: any) => {
+    console.log('item', item);
+
     const deletedItem = value.filter(
       (scheduleItem: any) =>
         !(
@@ -64,10 +66,13 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           scheduleItem.dayOfWeek?.id === item.dayOfWeek?.id
         )
     );
+
+    console.log('deleteItem', deletedItem);
+
     controllerOnChange(
       deletedItem.map((scheduleItem: any) => ({
         dayOfWeek: scheduleItem.dayOfWeek,
-        slot: scheduleItem.slotId,
+        slot: scheduleItem.slot,
       }))
     );
   };
@@ -79,7 +84,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
     <Stack>
       <Stack>
         {Array.isArray(value) &&
-          value.map((item) => {
+          value.map((item, index) => {
             return (
               <Stack
                 sx={{
@@ -89,7 +94,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                   borderRadius: '5px',
                   background: Color.grey3,
                 }}
-                key={`${item.dayOfWeek?.id} ${item.slot?.id}`}
+                key={index}
                 marginY={1}
                 padding={1}
               >
