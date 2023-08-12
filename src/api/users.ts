@@ -23,6 +23,7 @@ import { generateMockApi } from '~/utils/common';
 import { image } from '~/constants/image';
 import { NotificationItemPayload } from '~/HOCs/context/NotificationItem';
 import { UseSearchManagedUserPayload } from '~/hooks/user/useSearchManagedUser';
+import { IntroduceCodePayload } from '~/pages/CheckoutPage';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -215,6 +216,7 @@ const accountApi = {
   },
 
   // get
+
   getProfile(): Promise<ProfilePayload> {
     return axiosClient.get(`${url}/profile`);
   },
@@ -223,18 +225,27 @@ const accountApi = {
       {
         id: 0,
         code: '1234567',
+        classId: 0,
+        courseId: 3,
+        percent: 0.5,
         description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
       },
       {
         id: 1,
         code: '1234563',
+        classId: 0,
+        courseId: 3,
+        percent: 0.4,
         description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
       },
       {
         id: 2,
         code: '1234561',
+        courseId: 1,
+        classId: 2,
+        percent: 0.3,
         description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
       },

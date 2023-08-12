@@ -10,7 +10,7 @@ import {
 
 export type CourseStateType = {
   filterParams: PagingFilterRequest;
-  checkOutCourses: CartItem[] | DetailCourseClassPayload | null;
+  checkOutCourses: DetailCourseClassPayload | undefined;
   totalAmount: number;
   mentorCourse: MentorDetailCoursePayload;
 };
@@ -24,7 +24,7 @@ const initialState: CourseStateType = {
     sort: undefined,
     subjectId: undefined,
   },
-  checkOutCourses: null,
+  checkOutCourses: undefined,
   totalAmount: 0,
   mentorCourse: {
     level: 'BEGINNER',

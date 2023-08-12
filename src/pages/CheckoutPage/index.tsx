@@ -1,5 +1,5 @@
-import { Box, Grid, Stack, Typography, Divider } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Box, Grid, Stack, Typography, Divider, Checkbox } from '@mui/material';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -17,33 +17,53 @@ import {
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
-import {
-  selectIntroduceCode,
-  selectWebsocketMessage,
-} from '~/redux/user/selector';
+import { selectWebsocketMessage } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
-import { useEffectScrollToTop, useYupValidationResolver } from '~/hooks';
+import {
+  useEffectScrollToTop,
+  useGetPromoCode,
+  useYupValidationResolver,
+} from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
-import localEnvironment from '~/utils/localEnvironment';
 import { validationIntroduce } from '~/form/validation';
 import { closeUrl, openNewBrowserUrl } from '~/utils/window';
-import ReturnLink from '~/components/atoms/ReturnLink';
 import { NavigationLink } from '~/constants/routeLink';
+import CustomModal from '~/components/atoms/CustomModal';
+import { useBoolean } from '~/hooks/useBoolean';
+import { LoadingWrapper } from '~/HOCs';
+
+export interface IntroduceCodePayload {
+  id: number;
+  code: string;
+  percent: number;
+  classId: number;
+  courseId: number;
+}
 
 function CheckoutPage() {
+  const { value, toggle } = useBoolean(false);
   const resolver = useYupValidationResolver(validationIntroduce);
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     resolver,
   });
   const { mutateAsync } = useMutationPay();
   const { mutateAsync: mutatePayQuick } = useMutationPayQuick();
   const checkOutItem = useSelector(selectCheckoutItem);
   const slTotalAmount = useSelector(selectTotalAmount);
-  const slIntroduceCode = useSelector(selectIntroduceCode);
 
-  const [introduceCode, setIntroduceCode] = useState<string | undefined>(
-    slIntroduceCode
+  const {
+    data: introduceCodes,
+    error: errorIntroduceCodeList,
+    isLoading: isIntroduceCodeLoading,
+  } = useGetPromoCode();
+
+  const introduceCodeList = introduceCodes?.filter(
+    (item) => item.classId === checkOutItem?.id
   );
+
+  const [introduceCode, setIntroduceCode] = useState<IntroduceCodePayload>();
+  const [selectIntroduceCode, setSelectIntroduceCode] =
+    useState<IntroduceCodePayload>();
 
   useEffectScrollToTop();
 
@@ -59,7 +79,17 @@ function CheckoutPage() {
   }
 
   const onSubmit = (data: any) => {
-    setIntroduceCode(data.introduce);
+    const submitIntroduceCode = introduceCodeList?.find(
+      (item) => item.code === data.introduce
+    );
+    if (submitIntroduceCode) {
+      setIntroduceCode(submitIntroduceCode);
+      setSelectIntroduceCode(submitIntroduceCode);
+      toast.notifySuccessToast('Đã thêm mã giới thiệu');
+      reset();
+    } else {
+      toast.notifyErrorToast('Không tìm thấy mã giới thiệu này');
+    }
   };
 
   const handleCheckOut = async () => {
@@ -70,7 +100,7 @@ function CheckoutPage() {
           checkOutItem.map((item) => ({
             cartItemId: item.cartItemId,
             subCourseId: item.id,
-            referralCode: introduceCode || '',
+            referralCode: introduceCode?.code || '',
           }))
         );
       } else {
@@ -106,24 +136,8 @@ function CheckoutPage() {
     courseList: DetailCourseClassPayload[];
   } = {
     totalAmount: formatMoney(slTotalAmount, true),
-    totalQuantity: Array.isArray(checkOutItem) ? checkOutItem.length : 1,
-    courseList: Array.isArray(checkOutItem)
-      ? checkOutItem.map((item) => ({
-          id: item.id,
-          code: '',
-          endDate: '',
-          imageAlt: '',
-          imageUrl: '',
-          maxStudent: 0,
-          minStudent: 0,
-          numberOfSlot: 0,
-          price: 0,
-          startDate: '',
-          status: 'ALL',
-          timeInWeekRequests: [],
-          purchase: false,
-        }))
-      : [checkOutItem],
+    totalQuantity: 1,
+    courseList: checkOutItem ? [checkOutItem] : [],
   };
 
   return (
@@ -248,42 +262,196 @@ function CheckoutPage() {
             <TextLine label={texts.totalPrice} variable={values.totalAmount} />
           </Stack>
           {!introduceCode ? (
-            <Stack marginTop={2}>
-              <Typography sx={globalStyles.textSubTitle}>
-                Mã giới thiệu
-              </Typography>
-              <Stack
+            <Stack>
+              <Button
                 sx={{
-                  flexDirection: 'row',
                   marginTop: 1,
                 }}
+                variant="contained"
+                color="success"
+                onClick={toggle}
               >
-                <FormInput
-                  control={control}
-                  name="introduce"
-                  placeholder="Thêm mã giới thiệu"
-                />
-                <Button
-                  sx={{
-                    marginLeft: 1,
-                    height: '35px',
-                  }}
-                  variant="contained"
-                  onClick={handleSubmit(onSubmit)}
-                >
-                  {texts.introduceCodeButton}
-                </Button>
-              </Stack>
+                Thêm mã giới thiệu
+              </Button>
+              <CustomModal open={value} onClose={toggle} title="Mã giới thiệu">
+                <Stack>
+                  <Typography sx={globalStyles.textSmallLabel}>
+                    Thêm mã giới thiệu
+                  </Typography>
+                  <Stack
+                    sx={{
+                      flexDirection: 'row',
+                      marginTop: 1,
+                    }}
+                  >
+                    <FormInput
+                      control={control}
+                      name="introduce"
+                      placeholder="Thêm mã giới thiệu"
+                    />
+                    <Button
+                      sx={{
+                        marginLeft: 1,
+                        height: '35px',
+                      }}
+                      variant="contained"
+                      onClick={handleSubmit(onSubmit)}
+                    >
+                      {texts.introduceCodeButton}
+                    </Button>
+                  </Stack>
+                  <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
+                    Mã giới thiệu có sẵn
+                  </Typography>
+                  <Stack>
+                    <Stack
+                      sx={{
+                        overflow: 'auto',
+                        height: '330px',
+                        paddingRight: 1,
+                      }}
+                    >
+                      <LoadingWrapper
+                        error={errorIntroduceCodeList}
+                        isLoading={isIntroduceCodeLoading}
+                        isEmptyCourse={introduceCodeList?.length === 0}
+                      >
+                        {introduceCodeList?.map((item, index) => {
+                          return (
+                            <Stack
+                              key={index}
+                              sx={{
+                                flexDirection: 'row',
+                                marginTop: 1,
+                                boxShadow: 1,
+                                background: Color.white4,
+                                borderRadius: MetricSize.small_5,
+                              }}
+                            >
+                              <Stack
+                                sx={{
+                                  background: Color.green,
+                                  borderTopLeftRadius: MetricSize.small_5,
+                                  borderBottomLeftRadius: MetricSize.small_5,
+                                }}
+                              >
+                                <Stack
+                                  padding={1}
+                                  sx={{
+                                    fontSize: FontSize.small_16,
+                                    fontFamily: FontFamily.dosis,
+                                    color: Color.white,
+                                    width: '100px',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: undefined,
+                                    textAlign: 'center',
+                                    aspectRatio: 1,
+                                  }}
+                                >
+                                  MÃ GIỚI THIỆU
+                                </Stack>
+                              </Stack>
+                              <Stack
+                                padding={1}
+                                sx={{
+                                  justifyContent: 'space-between',
+                                  alignItems: 'center',
+                                  flexDirection: 'row',
+                                  flexGrow: 1,
+                                }}
+                              >
+                                <Stack
+                                  sx={{
+                                    justifyContent: 'center',
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      fontSize: FontSize.small_16,
+                                      fontFamily: FontFamily.dosis,
+                                    }}
+                                  >
+                                    {item.code}
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      fontSize: FontSize.small_16,
+                                      fontFamily: FontFamily.dosis,
+                                    }}
+                                  >
+                                    {`${item.percent * 100} %`}
+                                  </Typography>
+                                </Stack>
+                                <Stack>
+                                  <Checkbox
+                                    checked={
+                                      (selectIntroduceCode as any)?.code ===
+                                      item.code
+                                    }
+                                    onChange={() => {
+                                      if (selectIntroduceCode?.id === item.id) {
+                                        setSelectIntroduceCode(undefined);
+                                        setIntroduceCode(undefined);
+                                      } else {
+                                        setSelectIntroduceCode(item);
+                                      }
+                                    }}
+                                  />
+                                </Stack>
+                              </Stack>
+                            </Stack>
+                          );
+                        })}
+                      </LoadingWrapper>
+                    </Stack>
+                    <Stack
+                      marginTop={1}
+                      sx={{ flexDirection: 'row', alignItems: 'center' }}
+                    >
+                      <Button
+                        onClick={() => setIntroduceCode(selectIntroduceCode)}
+                        variant="contained"
+                        color="success"
+                      >
+                        Xác nhận
+                      </Button>
+                      <Button
+                        onClick={toggle}
+                        sx={{
+                          marginLeft: 1,
+                        }}
+                        variant="contained"
+                        color="error"
+                      >
+                        Hủy bỏ
+                      </Button>
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </CustomModal>
             </Stack>
           ) : (
             <Stack>
               <TextLine
                 label="Mã giới thiệu"
-                variable={`${introduceCode || ''}`}
+                variable={`${introduceCode.code || ''}`}
               />
+              <Button
+                onClick={() => {
+                  setIntroduceCode(undefined);
+                }}
+                variant="contained"
+                color="error"
+                sx={{
+                  marginTop: 1,
+                }}
+              >
+                Chọn lại mã giới thiệu
+              </Button>
             </Stack>
           )}
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <Button
               color="secondary"
               sx={{

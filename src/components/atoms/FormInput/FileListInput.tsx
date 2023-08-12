@@ -14,6 +14,7 @@ import { MetricSize, Color } from '~/assets/variables';
 import Icon from '../Icon';
 import globalStyles from '~/styles';
 import { openUrl } from '~/utils/window';
+import toast from '~/utils/toast';
 
 interface FileListInputProps {
   controller: UseControllerReturn<any, string>;
@@ -41,18 +42,25 @@ function FileListInput({ controller }: FileListInputProps) {
       files: tmpValue,
       deleteIndexes:
         value.files[paramIndex].fileType === 'ATTACH'
-          ? [...value.deleteIndexes, paramIndex]
-          : [...value.deleteIndexes],
+          ? [...(value?.deleteIndexes || []), paramIndex]
+          : [...(value?.deleteIndexes || [])],
     });
   };
 
   const handleFileChange = (e: any) => {
+    console.log('value params', e.target.files, value);
+
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
       setCustomError(null);
-      controllerOnChange({ ...value, files: [...value.files, selectedFile] });
+      controllerOnChange({
+        ...value,
+        files: [...(value?.files || []), selectedFile],
+      });
     } else {
-      setCustomError('Hãy nhập định dạng file đúng (PDF, Word, or Excel)');
+      const errorText = 'Hãy nhập định dạng file đúng (PDF, Word, or Excel)';
+      toast.notifyErrorToast(errorText);
+      setCustomError(errorText);
     }
   };
 
@@ -62,6 +70,8 @@ function FileListInput({ controller }: FileListInputProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log('attachFiles', value);
 
   return (
     <Stack>

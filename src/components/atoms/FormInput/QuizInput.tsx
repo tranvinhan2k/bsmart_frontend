@@ -29,7 +29,6 @@ import AddQuizQuestions from '~/components/molecules/AddQuizQuestions';
 export interface QuizQuestionPayload {
   id: number;
   question: string;
-  questionType: QuizQuestionTypeKeys;
   answers: {
     answer: string;
     right: boolean;

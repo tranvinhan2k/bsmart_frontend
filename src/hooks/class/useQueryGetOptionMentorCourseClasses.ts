@@ -9,17 +9,18 @@ export const useQueryGetOptionMentorCourseClasses = (id: number) => {
       params: {
         q: '',
         page: 0,
-        size: 1000000000,
       },
     })
   );
 
   const optionClasses: OptionPayload[] =
-    data?.items?.map((item) => ({
-      id: item.id,
-      label: `Lớp #${item.code}`,
-      value: `${item.id}`,
-    })) || [];
+    data?.items
+      .filter((item) => item.status === 'STARTING')
+      .map((item) => ({
+        id: item.id,
+        label: `Lớp #${item.code}`,
+        value: `${item.id}`,
+      })) || [];
 
   return {
     optionClasses,

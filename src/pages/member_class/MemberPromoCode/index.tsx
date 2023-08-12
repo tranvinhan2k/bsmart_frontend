@@ -9,6 +9,9 @@ export interface PromoCodePayload {
   id: number;
   code: string;
   description: string;
+  percent: number;
+  classId: number;
+  courseId: number;
 }
 
 export default function MemberPromoCode() {

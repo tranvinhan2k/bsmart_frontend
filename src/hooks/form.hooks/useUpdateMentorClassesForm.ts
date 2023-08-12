@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
@@ -50,8 +51,8 @@ export const useUpdateMentorClassesForm = (
         startDate,
         numberOfSlot,
         timeInWeekRequests: (timeInWeekRequests as any[]).map((item) => ({
-          slotId: item.slot.id,
-          dayOfWeekId: item.dayOfWeek.id,
+          slotId: item?.slot?.id,
+          dayOfWeekId: item?.dayOfWeek?.id,
         })),
       });
 
@@ -113,13 +114,14 @@ export const useUpdateMentorClassesForm = (
     }
 
     const param: PostClassRequest = {
-      endDate: data.endDateExpected,
       imageId,
       maxStudent: data.maxStudent,
       minStudent: data.minStudent,
       numberOfSlot: data.numberOfSlot,
       price: data.price,
-      startDate: data.startDateExpected,
+      startDate: dayjs(data.startDateExpected).add(1, 'day').toISOString(),
+      endDate: dayjs(data.endDateExpected).add(1, 'day').toISOString(),
+
       timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
         dayOfWeekId: item.dayOfWeek.id,
         slotId: item.slot.id,

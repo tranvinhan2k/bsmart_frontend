@@ -35,7 +35,7 @@ import globalStyles from '~/styles';
 import { formatStringToNumber } from '~/utils/number';
 
 export default function MentorCourseModulesPage() {
-  const { refetchContent } = useContext(CourseContext);
+  const { refetchContent, course } = useContext(CourseContext);
   const navigate = useNavigate();
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
@@ -114,7 +114,7 @@ export default function MentorCourseModulesPage() {
     handleMutationUpdateAssignment,
     handleMutationUpdateQuiz,
     handleMutationUpdateResource,
-  } = useMutationUpdateContent();
+  } = useMutationUpdateContent(course.status);
 
   const handleClearOpen = () => {
     setClearOpen(!clearOpen);

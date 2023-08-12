@@ -616,9 +616,7 @@ export const validationSchemaCreateSubCourse = object({
     .required('Số lượng học sinh không được để trống')
     .typeError('Số lượng học sinh không được để trống')
     .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 50,000 VNĐ')
-    .required('Giá tiền là bắt buộc'),
+  price: number().required('Giá tiền là bắt buộc'),
   minStudent: number()
     .typeError('Số học sinh tối thiểu không được bỏ trống')
     .required('Số học sinh tối thiểu không được bỏ trống')
@@ -671,9 +669,7 @@ export const validationSchemaUpdateWaitingCourse = object({
     .required('Số lượng học sinh không được để trống')
     .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
-    .required('Giá tiền là bắt buộc'),
+  price: number().required('Giá tiền là bắt buộc'),
   type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
@@ -728,9 +724,7 @@ export const validationSchemaUpdateWaitingCoursePrivate = object({
     .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   level: string().required(COURSE_LEVEL_REQUIRED),
-  price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
-    .required('Giá tiền là bắt buộc'),
+  price: number().required('Giá tiền là bắt buộc'),
   type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
