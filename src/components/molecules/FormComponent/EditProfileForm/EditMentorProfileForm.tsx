@@ -129,9 +129,9 @@ export default function EditMentorProfileForm() {
       PLACEHOLDER: 'Nhập kinh nghiệm bản thân',
     },
     DESC1: 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
-    DESC2: 'Mục giới thiệu giáo viên hãy viết về bản thân mình',
+    DESC2: 'Mục giới thiệu giáo viên hãy viết về bản thân mình.',
     DESC3:
-      'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn',
+      'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
     BUTTON_TEXT: 'Cập nhật',
   };
 

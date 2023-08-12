@@ -442,6 +442,83 @@ export const validationSchemaUpdateMentorProfileRequest = object({
     .min(1, MENTOR_SKILLS_REQUIRED_ONE),
 });
 
+export const validationSchemaUpdateMentorProfileRequest2 = object({
+  // avatar: mixed()
+  //   .required(generateRequiredText('Hình ảnh đại diện'))
+  //   .test(
+  //     'fileSize',
+  //     IMAGE_SIZE_TOO_BIG,
+  //     (value: any) => value && value.size <= FILE_SIZE_2
+  //   )
+  //   .test(
+  //     'fileFormat',
+  //     IMAGE_FORMAT_NOT_SUPPORT,
+  //     (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+  //   ),
+  // //
+  fullName: string().required(NAME_REQUIRED),
+  // birthday: date()
+  //   .nullable()
+  //   .transform((curr, orig) => (orig === '' ? null : curr))
+  //   .required(BIRTHDAY_REQUIRED),
+  // address: string().required(ADDRESS_REQUIRED),
+  // phone: string().required(PHONE_REQUIRED),
+  // gender: object().required(GENDER_REQUIRED),
+  // //
+  // identityFront: mixed()
+  //   .required(generateRequiredText('Căn cước công dân (mặt trước)'))
+  //   .test(
+  //     'fileSize',
+  //     IMAGE_SIZE_TOO_BIG,
+  //     (value: any) => value && value.size <= FILE_SIZE_2
+  //   )
+  //   .test(
+  //     'fileFormat',
+  //     IMAGE_FORMAT_NOT_SUPPORT,
+  //     (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+  //   ),
+  // identityBack: mixed()
+  //   .required(generateRequiredText('Căn cước công dân (mặt sau)'))
+  //   .test(
+  //     'fileSize',
+  //     IMAGE_SIZE_TOO_BIG,
+  //     (value: any) => value && value.size <= FILE_SIZE_2
+  //   )
+  //   .test(
+  //     'fileFormat',
+  //     IMAGE_FORMAT_NOT_SUPPORT,
+  //     (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+  //   ),
+  // //
+  // introduce: string().required(INTRODUCE_REQUIRED),
+  // workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
+  // mentorSkills: array(
+  //   object({
+  //     skillId: object({
+  //       id: number().required('Thiếu Id'),
+  //     })
+  //       .typeError(SKILL_REQUIRED)
+  //       .required(SKILL_REQUIRED),
+  //     yearOfExperiences: number()
+  //       .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+  //       .required(YEAR_OF_EXPERIENCES_REQUIRED)
+  //       .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+  //   })
+  // )
+  //   .test('Unique', SKILL_UNIQUE, (value) => {
+  //     try {
+  //       if (value) {
+  //         const skillList = value.map((item) => item.skillId.id);
+  //         return new Set(skillList).size === value?.length;
+  //       }
+  //       return false;
+  //     } catch (error) {
+  //       return false;
+  //     }
+  //   })
+  //   .required()
+  //   .min(1, MENTOR_SKILLS_REQUIRED_ONE),
+});
 export const validationSchemaEditCertificateProfile = object({
   userImages: array(
     mixed().test(
