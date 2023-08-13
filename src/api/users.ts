@@ -11,6 +11,7 @@ import {
   ClassMenuItemPayload,
   ManagedMemberPayload,
   ManagedMentorPayload,
+  MentorEditProfileResponse,
   ProfilePayload,
   WeekTimeSlotPayload,
 } from '~/models/type';
@@ -55,10 +56,6 @@ export interface EditMentorProfilePayload {
   mentorSkills: Array<any>;
   workingExperience: string;
 }
-export interface UpdateMentorProfileRequestPayload {
-  mentorSkills: Array<any>;
-}
-
 export interface ResponseProfilePayload {
   id: number;
   username: string;
@@ -219,6 +216,9 @@ const accountApi = {
 
   getProfile(): Promise<ProfilePayload> {
     return axiosClient.get(`${url}/profile`);
+  },
+  getMentorEditProfile(): Promise<MentorEditProfileResponse> {
+    return axiosClient.get(`${url}/profile-edit`);
   },
   getIntroduceCode(): Promise<PromoCodePayload[]> {
     const data: PromoCodePayload[] = [

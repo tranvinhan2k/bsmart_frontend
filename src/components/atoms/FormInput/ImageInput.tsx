@@ -1,6 +1,5 @@
 import { UseControllerReturn } from 'react-hook-form';
 import {
-  Avatar,
   Box,
   FormHelperText,
   IconButton,
@@ -9,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Icon from '../Icon';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import globalStyles, { SX_TEXT_INPUT_FORM } from '~/styles';
@@ -48,6 +47,14 @@ export default function ImageInput({
 
     return new File([u8arr], filename, { type: mime });
   }
+
+  useEffect(() => {
+    if (value instanceof File) {
+      setPreviewUrl(URL.createObjectURL(value));
+    } else {
+      setPreviewUrl(value);
+    }
+  }, [value]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target?.files?.[0];
@@ -164,7 +171,7 @@ export default function ImageInput({
                     zIndex: -1,
                   }}
                 >
-                  Chưa có hình ảnh được chọn.
+                  Chưa chọn ảnh
                 </Typography>
               </Stack>
             </InputAdornment>
@@ -231,6 +238,7 @@ export default function ImageInput({
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
+                boxShadow: 5,
               }}
             />
           </Stack>

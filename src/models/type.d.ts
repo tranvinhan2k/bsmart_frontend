@@ -345,3 +345,8 @@ interface FeedbackReviewPayload {
   feedbackTime: string;
   reviewContent: string;
 }
+
+export interface MentorEditProfileResponse {
+  id: number | null;
+  userDto: ProfilePayload;
+}

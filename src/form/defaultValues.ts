@@ -11,7 +11,6 @@ import {
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   UpdateAnnouncementFormDataPayload,
-  UpdateMentorProfileRequestFormDataPayload,
   UpdateMentorProfileRequestProfileFormDefault,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
@@ -63,7 +62,7 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDefault = {
   phone: '',
   gender: null,
 };
-export const defaultValueUpdateMentorProfileRequest2: UpdateMentorProfileRequestProfileFormDefault =
+export const defaultValueUpdateMentorProfileRequest: UpdateMentorProfileRequestProfileFormDefault =
   {
     avatar: '',
     //
@@ -79,6 +78,7 @@ export const defaultValueUpdateMentorProfileRequest2: UpdateMentorProfileRequest
     introduce: '',
     workingExperience: '',
     mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    degreeList: [],
   };
 
 export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
@@ -88,11 +88,11 @@ export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
     // mentorSkills: [],
     workingExperience: '',
   };
-export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
-  {
-    // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
-    mentorSkills: [],
-  };
+// export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
+//   {
+//     // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+//     mentorSkills: [],
+//   };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
   {
