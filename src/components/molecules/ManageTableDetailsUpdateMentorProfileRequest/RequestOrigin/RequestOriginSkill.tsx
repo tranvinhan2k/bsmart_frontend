@@ -1,27 +1,35 @@
 import { Grid, Stack, Typography } from '@mui/material';
+import { useGetMentorProfileUpdateRequestDetails } from '~/hooks/user/UseGetMentorProfileUpdateRequestPayload';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_LABEL,
   SX_FORM_VALUE,
-} from './style';
+} from '../style';
+import sx from './style';
 
-interface BasicInfoProps {
-  row: any;
+interface RequestOriginSkillProps {
+  rowId: number;
 }
 
-export default function MentorDegree({ row }: BasicInfoProps) {
+export default function RequestOriginSkill({ rowId }: RequestOriginSkillProps) {
   const enum Text {
-    mainTitle = 'Chuyên môn bổ sung',
+    mainTitle = 'Chuyên môn',
     labelSkill = 'Kĩ năng',
     labelYOE = 'Số năm kinh nghiệm',
     labelYear = 'năm',
   }
 
-  const skills = row.mentorSkillRequest ?? [];
+  const { updaterRequestDetails, isLoading } =
+    useGetMentorProfileUpdateRequestDetails(rowId);
+
+  // const skills: any[] = [];
+  const skills = updaterRequestDetails
+    ? updaterRequestDetails.userDtoOrigin.mentorProfile.mentorSkills
+    : [];
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={sx.wrapperEditSelected}>
       <Grid container spacing={2} mb={4}>
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>

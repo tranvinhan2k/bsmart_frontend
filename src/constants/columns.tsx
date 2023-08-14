@@ -89,12 +89,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
     flex: 1,
     renderCell: (params) => {
       const { email } = params.row;
-      return (
-        <CopyableCellEllipsis
-          rawValue={email}
-          formattedValue={handleDefinedText(email)}
-        />
-      );
+      return <CopyableCellEllipsis rawValue={email} formattedValue={email} />;
     },
   },
   {
@@ -144,16 +139,11 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 300,
+    minWidth: 250,
     flex: 1,
     renderCell: (params) => {
-      const { email } = params.row;
-      return (
-        <CopyableCellEllipsis
-          rawValue={email}
-          formattedValue={handleDefinedText(email)}
-        />
-      );
+      const { email } = params.row.userDto;
+      return <CopyableCellEllipsis rawValue={email} formattedValue={email} />;
     },
   },
   {
@@ -162,10 +152,20 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
     minWidth: 200,
     flex: 1,
     renderCell: (params) => {
-      const { fullName } = params.row;
+      const { fullName } = params.row.userDto;
       return (
         <CopyableCellEllipsis rawValue={fullName} formattedValue={fullName} />
       );
+    },
+  },
+  {
+    field: 'phone',
+    headerName: 'SĐT',
+    minWidth: 150,
+    flex: 1,
+    renderCell: (params) => {
+      const { phone } = params.row.userDto;
+      return <CopyableCellEllipsis rawValue={phone} formattedValue={phone} />;
     },
   },
   {
@@ -173,30 +173,34 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
     headerName: 'Thời gian gửi',
     minWidth: 200,
     flex: 1,
+    valueGetter: (params) => params.row.userDto.timeSendRequest,
   },
   {
-    field: 'noOfSubmit',
+    field: 'count',
     type: 'number',
     headerAlign: 'left',
     headerName: 'Lần gửi',
     minWidth: 80,
     flex: 1,
+    valueGetter: (params) => params.row.userDto.count,
   },
   {
     field: 'totalDegreeRequest',
     type: 'number',
     headerAlign: 'left',
     headerName: 'Bằng cấp thêm',
-    minWidth: 120,
+    minWidth: 150,
     flex: 1,
+    valueGetter: (params) => params.row.userDto.totalDegreeRequest,
   },
   {
     field: 'totalSkillRequest',
     type: 'number',
     headerAlign: 'left',
     headerName: 'Chuyên môn thêm',
-    minWidth: 140,
+    minWidth: 150,
     flex: 1,
+    valueGetter: (params) => params.row.userDto.totalSkillRequest,
   },
 ];
 const managedCourseBasedColumns: GridColDef[] = [

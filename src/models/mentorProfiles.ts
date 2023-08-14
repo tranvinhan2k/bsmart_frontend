@@ -73,3 +73,16 @@ export interface MentorDetailsPayload {
 //   isVerified: boolean;
 //   verified: boolean;
 // }
+
+export interface MentorProfileUpdateDetailsResponse {
+  id: number;
+  userDtoEdit: UserDto;
+  userDtoOrigin: UserDto;
+  differentFields: string[];
+}
+
+interface UserDto extends ProfilePayload {
+  finishedClassCount: number;
+  timeSendRequest: string | null;
+  count: number | null;
+}

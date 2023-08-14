@@ -22,3 +22,15 @@ export const enum MentorProfileStatusLabel {
   REJECTED = 'Yêu cầu bị từ chối',
   STARTING = 'Đã phê duyệt',
 }
+export const enum MentorProfileUpdateStatusType {
+  CREATING = 'CREATING',
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+}
+export const enum MentorProfileUpdateStatusLabel {
+  CREATING = 'Chưa gửi',
+  PENDING = 'Chờ duyệt',
+  REJECTED = 'Yêu cầu bị từ chối',
+  APPROVED = 'Đã phê duyệt',
+}

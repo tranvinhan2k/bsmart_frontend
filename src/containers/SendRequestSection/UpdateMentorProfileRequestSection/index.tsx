@@ -228,7 +228,7 @@ export default function UpdateMentorProfileRequestSection() {
   const toastMsgSuccess = 'Lưu thành công';
   const toastMsgError = (error: any): string => {
     return `Lưu không thành công: ${
-      error || error.message || TRY_CATCH_AXIOS_DEFAULT_ERROR
+      error.message || TRY_CATCH_AXIOS_DEFAULT_ERROR
     }`;
   };
   const handleSubmitSuccess = async (
@@ -287,7 +287,7 @@ export default function UpdateMentorProfileRequestSection() {
     const id = toast.loadToast(toastMsgLoading1);
     try {
       if (profile) {
-        await mutateSend(profile.userDto.mentorProfile.id);
+        await mutateSend(Number(profile.id));
         refetch();
         toast.updateSuccessToast(id, toastMsgSuccess1);
       } else {
@@ -528,7 +528,7 @@ export default function UpdateMentorProfileRequestSection() {
                 })}
               </Grid>
 
-              <Box mt={2}>
+              <Box mt={4}>
                 <Button
                   color="success"
                   size="large"

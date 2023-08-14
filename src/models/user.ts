@@ -1,5 +1,6 @@
 import { ImageType } from './common';
 import { RolePayload } from './type';
+import { GenderKeys } from './variables';
 
 export interface UserPayload {
   id: string;
@@ -16,7 +17,7 @@ export interface User {
   address: string;
   phone: string;
   status: string;
-  gender: string;
+  gender: GenderKeys;
   roles: RolePayload[];
   linkedinLink: string | null;
   facebookLink: string | null;

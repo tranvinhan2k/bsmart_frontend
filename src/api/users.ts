@@ -11,7 +11,7 @@ import {
   ClassMenuItemPayload,
   ManagedMemberPayload,
   ManagedMentorPayload,
-  MentorEditProfileResponse,
+  MentorProfileUpdateResponse,
   ProfilePayload,
   WeekTimeSlotPayload,
 } from '~/models/type';
@@ -217,7 +217,7 @@ const accountApi = {
   getProfile(): Promise<ProfilePayload> {
     return axiosClient.get(`${url}/profile`);
   },
-  getMentorEditProfile(): Promise<MentorEditProfileResponse> {
+  getMentorEditProfile(): Promise<MentorProfileUpdateResponse> {
     return axiosClient.get(`${url}/profile-edit`);
   },
   getIntroduceCode(): Promise<PromoCodePayload[]> {
