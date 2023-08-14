@@ -6,11 +6,23 @@ import {
   TextField,
   Button,
 } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import CRUDTable from '~/components/molecules/CRUDTable';
-import { useGetPromoCode } from '~/hooks';
+import {
+  validationAddPromoCode,
+  validationClassListFilter,
+} from '~/form/validation';
+import {
+  useGetPromoCode,
+  useTryCatch,
+  useYupValidationResolver,
+} from '~/hooks';
 import { useCopyToClipboard } from '~/hooks/useCopyToClipboard';
+import { useAddPromoCode } from '~/hooks/user/useAddPromoCode';
 import globalStyles from '~/styles';
+import { handleConsoleError } from '~/utils/common';
 
 export interface PromoCodePayload {
   id: number;
@@ -22,8 +34,19 @@ export interface PromoCodePayload {
 }
 
 export default function MemberPromoCode() {
+  const resolver = useYupValidationResolver(validationAddPromoCode);
+  const hookForm = useForm({
+    resolver,
+  });
+
   const [value, copy] = useCopyToClipboard();
   const { data, error, isLoading } = useGetPromoCode();
+
+  const { mutateAsync: handleSubmitCode } = useAddPromoCode();
+  const { handleTryCatch } = useTryCatch('thêm mã giới thiệu');
+  const onSubmit = async (params: any) => {
+    await handleTryCatch(async () => handleSubmitCode(params.code));
+  };
 
   return (
     <Stack>
@@ -34,12 +57,20 @@ export default function MemberPromoCode() {
         <Typography sx={globalStyles.textSmallLabel}>
           Thêm mã giới thiệu
         </Typography>
-        <Stack marginTop={1}>
-          <TextField />
+        <Stack
+          marginTop={1}
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+          }}
+        >
+          <FormInput name="code" variant="text" control={hookForm.control} />
           <Button
             sx={{
-              marginTop: 1,
+              marginLeft: 1,
             }}
+            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
             variant="contained"
           >
             Thêm mã giới thiệu

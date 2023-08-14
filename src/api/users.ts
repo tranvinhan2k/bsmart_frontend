@@ -338,6 +338,10 @@ const accountApi = {
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/social`, data);
   },
+  addPromoCode(code: string): Promise<any> {
+    // return axiosClient.post();
+    return generateMockApi(true);
+  },
   async getMentorData(id: string): Promise<any> {
     return axiosClient.get(`${url}/${id}`);
   },

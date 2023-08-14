@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 import Moment from 'moment';
+import { element } from 'prop-types';
 
 export const formatDate = (dateText: string) => {
   return Moment(dateText).format('DD/MM/YYYY');
@@ -178,6 +179,26 @@ function addDays(date: Date, days: number) {
   return result;
 }
 
+function checkNearestDate(
+  startDate: string,
+  timeInWeekRequests: TimeInWeekRequest[]
+) {
+  let minDay = 99;
+  let resultIndex = 0;
+  for (let index = 0; index < timeInWeekRequests.length; index += 1) {
+    const paramElement = timeInWeekRequests[index];
+    const paramDay = daysUntilNextDayOfWeek(
+      startDate,
+      paramElement.dayOfWeekId
+    );
+    if (minDay > paramDay) {
+      minDay = paramDay;
+      resultIndex = index;
+    }
+  }
+  return resultIndex;
+}
+
 export function generateEndDate({
   numberOfSlot,
   startDate,
@@ -185,6 +206,17 @@ export function generateEndDate({
 }: Payload): Date {
   let count = 0;
   let endDate = new Date(startDate);
+
+  const startDateTimeSlotIndex = timeInWeekRequests.findIndex(
+    (item) => item.dayOfWeekId === endDate.getDay() + 1
+  );
+
+  if (startDateTimeSlotIndex !== -1) {
+    count = startDateTimeSlotIndex;
+  }
+
+  count = checkNearestDate(startDate, timeInWeekRequests);
+
   for (let index = 0; index < numberOfSlot; index += 1) {
     let nextCount = 0;
     if (count !== timeInWeekRequests.length - 1) {
