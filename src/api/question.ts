@@ -14,7 +14,6 @@ const questionApi = {
       {
         id: 0,
         question: '1 + 1 = 2 ?',
-        questionType: 'SINGLE',
         answers: [
           {
             answer: 'yes',
@@ -29,7 +28,6 @@ const questionApi = {
       {
         id: 1,
         question: '1 + 1 = 3 ?',
-        questionType: 'SINGLE',
         answers: [
           {
             answer: 'yes',
