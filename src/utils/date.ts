@@ -223,15 +223,15 @@ export function generateEndDate({
       nextCount = count + 1;
     }
 
-    const element = timeInWeekRequests[count];
+    const paramElement = timeInWeekRequests[count];
 
     let dayToNextSlot = daysUntilNextDayOfWeek(
       endDate.toISOString(),
-      element.dayOfWeekId,
+      paramElement.dayOfWeekId,
       count
     );
 
-    if (index === 0 && element.dayOfWeekId === endDate.getDay() + 1) {
+    if (index === 0 && paramElement.dayOfWeekId === endDate.getDay() + 1) {
       dayToNextSlot = 0;
     }
 
