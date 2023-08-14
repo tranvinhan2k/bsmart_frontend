@@ -1,9 +1,10 @@
 import { Stack, Box, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import DashboardSidebarButton from '~/components/molecules/DashboardSidebarButton';
 import { image } from '~/constants/image';
+import { NavigationLink } from '~/constants/routeLink';
 import { ActionPayload } from '~/models';
 import globalStyles from '~/styles';
 import localEnvironment from '~/utils/localEnvironment';
@@ -26,6 +27,7 @@ export default function DashboardSidebar({
   onNavigateHomepage,
 }: Props) {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   let activeIndex = -1;
 
   const filterRows = rows.filter((item) => {
@@ -50,6 +52,7 @@ export default function DashboardSidebar({
         }}
       >
         <Stack
+          onClick={() => navigate(NavigationLink.homepage)}
           sx={{
             paddingTop: 3,
             paddingLeft: MetricSize.small_10,
@@ -57,6 +60,9 @@ export default function DashboardSidebar({
             flexDirection: 'row',
             alignItems: 'flex-start',
             overflow: 'hidden',
+            ':hover': {
+              cursor: 'pointer',
+            },
           }}
         >
           <Box

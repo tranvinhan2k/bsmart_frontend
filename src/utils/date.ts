@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 import Moment from 'moment';
+import { element } from 'prop-types';
 
 export const formatDate = (dateText: string) => {
   return Moment(dateText).format('DD/MM/YYYY');
@@ -152,19 +153,6 @@ interface Payload {
   timeInWeekRequests: TimeInWeekRequest[];
 }
 
-function isHaveBeforeSameDayOfWeek(
-  timeInWeekRequests: TimeInWeekRequest[],
-  dayOfWeekIndex: number
-) {
-  const currentTimeSlot = timeInWeekRequests[dayOfWeekIndex];
-
-  for (let index = 0; index < dayOfWeekIndex; index += 1) {
-    if (timeInWeekRequests[index].dayOfWeekId === currentTimeSlot.dayOfWeekId)
-      return true;
-  }
-  return false;
-}
-
 function daysUntilNextDayOfWeek(
   startDateISO: string,
   targetDayId: number,
@@ -191,29 +179,61 @@ function addDays(date: Date, days: number) {
   return result;
 }
 
+function checkNearestDate(
+  startDate: string,
+  timeInWeekRequests: TimeInWeekRequest[]
+) {
+  let minDay = 99;
+  let resultIndex = 0;
+  for (let index = 0; index < timeInWeekRequests.length; index += 1) {
+    const paramElement = timeInWeekRequests[index];
+    const paramDay = daysUntilNextDayOfWeek(
+      startDate,
+      paramElement.dayOfWeekId
+    );
+    if (minDay > paramDay) {
+      minDay = paramDay;
+      resultIndex = index;
+    }
+  }
+  return resultIndex;
+}
+
 export function generateEndDate({
   numberOfSlot,
   startDate,
   timeInWeekRequests,
 }: Payload): Date {
-  console.log('params', numberOfSlot, startDate, timeInWeekRequests);
-
   let count = 0;
   let endDate = new Date(startDate);
+
+  const startDateTimeSlotIndex = timeInWeekRequests.findIndex(
+    (item) => item.dayOfWeekId === endDate.getDay() + 1
+  );
+
+  if (startDateTimeSlotIndex !== -1) {
+    count = startDateTimeSlotIndex;
+  }
+
+  count = checkNearestDate(startDate, timeInWeekRequests);
+
   for (let index = 0; index < numberOfSlot; index += 1) {
     let nextCount = 0;
     if (count !== timeInWeekRequests.length - 1) {
       nextCount = count + 1;
     }
 
-    const element = timeInWeekRequests[count];
-    console.log(element, count, nextCount);
+    const paramElement = timeInWeekRequests[count];
 
-    const dayToNextSlot = daysUntilNextDayOfWeek(
+    let dayToNextSlot = daysUntilNextDayOfWeek(
       endDate.toISOString(),
-      element.dayOfWeekId,
+      paramElement.dayOfWeekId,
       count
     );
+
+    if (index === 0 && paramElement.dayOfWeekId === endDate.getDay() + 1) {
+      dayToNextSlot = 0;
+    }
 
     endDate = addDays(endDate, dayToNextSlot);
 

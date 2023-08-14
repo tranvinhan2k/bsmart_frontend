@@ -1,7 +1,18 @@
-import { Box, Grid, Stack, Typography, Divider, Checkbox } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  Divider,
+  Checkbox,
+  Slide,
+  Slider,
+  Switch,
+  FormHelperText,
+} from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import styles from './styles';
 import globalStyles from '~/styles';
@@ -17,7 +28,7 @@ import {
 import { useMutationPay } from '~/hooks/useMutationPay';
 import { useMutationPayQuick } from '~/hooks/useMutationPayQuick';
 import toast from '~/utils/toast';
-import { selectWebsocketMessage } from '~/redux/user/selector';
+import { selectProfile, selectWebsocketMessage } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
 import {
   useEffectScrollToTop,
@@ -31,6 +42,7 @@ import { NavigationLink } from '~/constants/routeLink';
 import CustomModal from '~/components/atoms/CustomModal';
 import { useBoolean } from '~/hooks/useBoolean';
 import { LoadingWrapper } from '~/HOCs';
+import { formatStringToNumber } from '~/utils/number';
 
 export interface IntroduceCodePayload {
   id: number;
@@ -41,7 +53,9 @@ export interface IntroduceCodePayload {
 }
 
 function CheckoutPage() {
+  const profile = useSelector(selectProfile);
   const { value, toggle } = useBoolean(false);
+  const { value: isUseToken, toggle: toggleUseToken } = useBoolean(false);
   const resolver = useYupValidationResolver(validationIntroduce);
   const { control, handleSubmit, reset } = useForm({
     resolver,
@@ -91,6 +105,11 @@ function CheckoutPage() {
       toast.notifyErrorToast('Không tìm thấy mã giới thiệu này');
     }
   };
+
+  const numberOfTotalValue =
+    slTotalAmount -
+    (selectIntroduceCode?.percent || 0) * slTotalAmount -
+    (isUseToken ? profile?.wallet?.balance || 0 : 0);
 
   const handleCheckOut = async () => {
     // const id = toast.loadToast('Đang thanh toán khóa học');
@@ -237,6 +256,20 @@ function CheckoutPage() {
               </Box>
             ))}
           </Box>
+          <FormHelperText error>
+            Khóa học đã chọn đang trùng giờ với
+            {'  '}
+            <Link
+              to="/homepage"
+              style={{
+                color: Color.black,
+                fontFamily: FontFamily.bold,
+              }}
+            >
+              Khóa học #ddu56
+            </Link>
+            . Bạn có chắc chắn muốn đăng kí hay không ?
+          </FormHelperText>
         </Stack>
       </Grid>
       <Grid item xs={12} md={4} sx={styles.viewRight}>
@@ -257,9 +290,33 @@ function CheckoutPage() {
               label={texts.orginalPrice}
               variable={values.totalAmount}
             />
+            {introduceCode && (
+              <TextLine
+                label="Promo Code"
+                variable={`- ${formatMoney(
+                  slTotalAmount * (introduceCode?.percent || 1)
+                )}`}
+              />
+            )}
+            {isUseToken && (
+              <TextLine
+                label="BS"
+                variable={`- ${formatMoney(profile?.wallet?.balance, true)}`}
+              />
+            )}
+
             {/* <TextLine label={texts.discountPrice} variable={formatMoney(1000)} /> */}
             <Divider sx={{ marginY: MetricSize.small_5 }} />
-            <TextLine label={texts.totalPrice} variable={values.totalAmount} />
+            <TextLine
+              label={texts.totalPrice}
+              variable={formatMoney(numberOfTotalValue)}
+            />
+            {isUseToken && (
+              <TextLine
+                label="BS"
+                variable={formatMoney(profile.wallet?.balance)}
+              />
+            )}
           </Stack>
           {!introduceCode ? (
             <Stack>
@@ -450,6 +507,36 @@ function CheckoutPage() {
                 Chọn lại mã giới thiệu
               </Button>
             </Stack>
+          )}
+          <Stack
+            marginTop={1}
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Switch
+              checked={isUseToken}
+              onChange={() => {
+                if (profile.wallet?.balance < slTotalAmount) {
+                  toggle();
+                } else {
+                  toast.notifyErrorToast(
+                    'BS không được lớn hơn số tiền hiện tại của lớp học.'
+                  );
+                }
+              }}
+              disabled={!(profile.wallet?.balance > 0)}
+            />
+            <Typography>{`Dùng ${
+              profile.wallet?.balance || 0
+            } BS vào đơn hàng ?`}</Typography>
+          </Stack>
+          {!(profile.wallet?.balance > 0) && (
+            <FormHelperText>
+              Bạn chưa có BS để sử dụng chức năng này
+            </FormHelperText>
           )}
           <Stack marginTop={1}>
             <Button

@@ -214,6 +214,9 @@ export const validationClassContentQuiz = object({
     .required(PASSWORD_REQUIRED),
 });
 
+export const validationAddPromoCode = object({
+  code: string().required('Mã giới thiệu không hợp lệ.'),
+});
 export const validationClassListFilter = object({
   startDate: date().typeError('Ngày phải hợp lệ (DD/MM/YYYY)'),
   endDate: date()

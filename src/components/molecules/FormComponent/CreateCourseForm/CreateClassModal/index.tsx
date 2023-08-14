@@ -128,6 +128,22 @@ export default function CreateClassModal({
               <Typography sx={globalStyles.textSmallLabel}>
                 {texts.classInfoTitle}
               </Typography>
+
+              <Stack marginTop={2} />
+              <FormInput
+                name={CREATE_CLASS_FIELDS.numberOfSlot}
+                variant="number"
+                control={hookForm.control}
+                label={texts.numberOfSlotLabel}
+              />
+              <Stack marginTop={2} />
+              <FormInput
+                name={CREATE_CLASS_FIELDS.timeInWeekRequests}
+                variant="timetable"
+                control={hookForm.control}
+                label={texts.timetableLabel}
+              />
+
               <Stack
                 sx={{
                   justifyContent: 'space-between',
@@ -149,20 +165,6 @@ export default function CreateClassModal({
                   label={texts.endDateLabel}
                 />
               </Stack>
-              <Stack marginTop={2} />
-              <FormInput
-                name={CREATE_CLASS_FIELDS.numberOfSlot}
-                variant="number"
-                control={hookForm.control}
-                label={texts.numberOfSlotLabel}
-              />
-              <Stack marginTop={2} />
-              <FormInput
-                name={CREATE_CLASS_FIELDS.timeInWeekRequests}
-                variant="timetable"
-                control={hookForm.control}
-                label={texts.timetableLabel}
-              />
               <FormHelperText>
                 Vui lòng thêm ngày bắt đầu, số buổi học, thời khóa biểu tuần để
                 có được ngày kết thúc dự kiến
