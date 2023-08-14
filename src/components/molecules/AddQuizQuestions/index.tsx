@@ -61,7 +61,10 @@ export default function AddQuizQuestions({
     );
 
     if (quizQuestions && quizQuestions?.length !== 0) {
-      onChange([...questionList, ...quizQuestions]);
+      onChange([
+        ...questionList,
+        ...quizQuestions.map((item, index) => ({ ...item, id: index })),
+      ]);
       fileHookForm.reset();
     } else {
       toast.notifyErrorToast(
