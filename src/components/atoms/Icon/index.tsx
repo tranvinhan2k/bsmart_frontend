@@ -70,6 +70,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import HomeIcon from '@mui/icons-material/Home';
 import HistoryIcon from '@mui/icons-material/History';
 import HourglassFullIcon from '@mui/icons-material/HourglassFull';
@@ -170,6 +171,7 @@ export type IconName =
   | 'facebook'
   | 'faMoneyBill'
   | 'feedback'
+  | 'fileUploadIcon'
   | 'female'
   | 'filter'
   | 'formatListNumberedIcon'
@@ -501,6 +503,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <ExpandMoreIcon sx={STYLED_ICON} />;
     case 'formatListNumberedIcon':
       return <FormatListNumberedIcon sx={STYLED_ICON} />;
+    case 'fileUploadIcon':
+      return <FileUploadIcon sx={STYLED_ICON} />;
     case 'eye-off':
       return <VisibilityOffIcon sx={STYLED_ICON} />;
     case 'eye':

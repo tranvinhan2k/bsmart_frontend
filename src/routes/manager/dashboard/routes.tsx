@@ -10,6 +10,7 @@ import {
   ManageRequestManagerPage,
   ManageUserPage,
   ManagerQuestionsBankPage,
+  ManageFinancialPage,
   NotFoundPage,
 } from '~/routes/components';
 
@@ -29,6 +30,11 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: ManagerNavigationActionLink.manage_class_manager,
     main: () => <ManageClassPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.manage_financial_manager,
+    main: () => <ManageFinancialPage />,
     role: ['ROLE_MANAGER'],
   },
   {

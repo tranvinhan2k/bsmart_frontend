@@ -50,7 +50,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         id: 5,
         name: 'Tài chính',
         icon: 'biMoney',
-        link: 'Tài chính',
+        link: ManagerNavigationActionLink.manage_financial_manager,
       },
       {
         id: 6,
