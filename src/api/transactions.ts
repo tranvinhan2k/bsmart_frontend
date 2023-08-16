@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
+import { YearRevenue } from '~/models/transaction';
 import { PaymentType } from '~/models/variables';
 
 const url = `/transactions`;
@@ -45,6 +46,10 @@ const transactionsApi = {
   },
   async DepositMoney(): Promise<any> {
     return axiosClient.post(`${url}/deposit`, { amount: 100000000 });
+  },
+
+  getYearRevenue(year: number): Promise<YearRevenue[]> {
+    return axiosClient.get(`${url}/revenue/year/${year}`);
   },
 };
 
