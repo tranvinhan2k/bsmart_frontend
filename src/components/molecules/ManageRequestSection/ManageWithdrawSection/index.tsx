@@ -1,7 +1,7 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import ManageTableWithdrawProcessedRequest from '~/components/molecules/ManageTableWithdrawProcessedRequest';
+import ManageTableWithdrawRequest from '~/components/molecules/ManageTableWithdrawRequest';
 import ManageTableWithdrawWaitingRequest from '~/components/molecules/ManageTableWithdrawWaitingRequest';
 
 export default function ManageWithdrawSection() {
@@ -15,7 +15,7 @@ export default function ManageWithdrawSection() {
     {
       id: 0,
       text: 'Đã xử lý',
-      component: <ManageTableWithdrawProcessedRequest />,
+      component: <ManageTableWithdrawRequest />,
       noOfRequest: undefined,
     },
     {

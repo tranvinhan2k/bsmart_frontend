@@ -11,12 +11,14 @@ import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
+import { ClassStatusType } from '~/constants/class';
 
 interface RequestCourseProcessProps {
   idCourse: number;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
+  status: ClassStatusType;
 }
 
 export default function RequestCourseProcess({
@@ -24,9 +26,12 @@ export default function RequestCourseProcess({
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
+  status,
 }: RequestCourseProcessProps) {
-  const { courseCreateRequestDetails } =
-    useGetCourseCreateRequestDetails(idCourse);
+  const { courseCreateRequestDetails } = useGetCourseCreateRequestDetails({
+    idCourse,
+    status,
+  });
 
   const resolverApproveCreateCourseRequest = useYupValidationResolver(
     validationSchemaApproveCreateCourseRequest

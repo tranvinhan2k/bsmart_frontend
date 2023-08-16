@@ -25,7 +25,6 @@ export default function MentorSendRequestSection() {
     selectLabel = 'Phân loại',
     selectUpdateMentorProfile = 'Yêu cầu bổ sung hồ sơ giáo viên',
     selectWithdraw = 'Yêu cầu rút tiền',
-    selectOther = 'Các loại đơn khác',
   }
 
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -67,7 +66,6 @@ export default function MentorSendRequestSection() {
               >
                 <MenuItem value={0}>{Text.selectUpdateMentorProfile}</MenuItem>
                 <MenuItem value={1}>{Text.selectWithdraw}</MenuItem>
-                <MenuItem value={2}>{Text.selectOther}</MenuItem>
               </TextField>
             </FormControl>
           </Grid>

@@ -20,6 +20,8 @@ export default function ManageTableDetailsCourse({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsCourseProps) {
+  console.log('row', row);
+  console.log('row.status', row.status);
   return (
     <>
       <Box mx={2}>
@@ -40,10 +42,10 @@ export default function ManageTableDetailsCourse({
             alignItems="stretch"
             spacing={2}
           >
-            <RequestCourseDetails idCourse={row.id} />
-            <RequestCourseContent idCourse={row.id} />
-            <RequestCourseClassList idCourse={row.id} />
-            <RequestCourseMentorInfo idCourse={row.id} />
+            <RequestCourseDetails idCourse={row.id} status={row.status} />
+            <RequestCourseContent idCourse={row.id} status={row.status} />
+            <RequestCourseClassList idCourse={row.id} status={row.status} />
+            <RequestCourseMentorInfo idCourse={row.id} status={row.status} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
@@ -54,7 +56,7 @@ export default function ManageTableDetailsCourse({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <RequestCourseDate idCourse={row.id} />
+            <RequestCourseDate idCourse={row.id} status={row.status} />
             {/* <RequestCourseProcess
               idCourse={row.id}
               onClose={onClose}

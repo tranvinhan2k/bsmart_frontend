@@ -8,7 +8,10 @@ import {
   Typography,
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import {
+  useGetCourseCreateRequestDetails,
+  UseGetCourseCreateRequestDetailsPayload,
+} from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import {
@@ -18,14 +21,12 @@ import {
   SX_WRAPPER,
 } from '../style';
 
-interface RequestCourseMentorInfoProps {
-  idCourse: number;
-}
 export default function RequestCourseMentorInfo({
   idCourse,
-}: RequestCourseMentorInfoProps) {
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) {
   const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
+    useGetCourseCreateRequestDetails({ idCourse, status });
 
   const enum Text {
     labelMail = 'Mail',
