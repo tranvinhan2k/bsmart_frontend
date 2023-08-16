@@ -31,14 +31,20 @@ import toast from '~/utils/toast';
 import { selectProfile, selectWebsocketMessage } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
 import {
+  useDispatchGetAllDayOfWeeks,
+  useDispatchGetAllSlots,
   useEffectScrollToTop,
+  useGetDuplicateTimeSlot,
   useGetPromoCode,
   useYupValidationResolver,
 } from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
 import { validationIntroduce } from '~/form/validation';
 import { closeUrl, openNewBrowserUrl } from '~/utils/window';
-import { NavigationLink } from '~/constants/routeLink';
+import {
+  MemberDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 import CustomModal from '~/components/atoms/CustomModal';
 import { useBoolean } from '~/hooks/useBoolean';
 import { LoadingWrapper } from '~/HOCs';
@@ -54,7 +60,11 @@ export interface IntroduceCodePayload {
 
 function CheckoutPage() {
   const profile = useSelector(selectProfile);
-  const { value, toggle } = useBoolean(false);
+  const coin = profile?.wallet?.balance || 0;
+  const [timeSlot, setTimeSlot] = useState<{ id: number; code: string }[]>([]);
+  const { value: isSameTimeSlot, toggle: toggleSameTimeSLot } =
+    useBoolean(false);
+  const { value: isPromoCode, toggle: togglePromoCode } = useBoolean(false);
   const { value: isUseToken, toggle: toggleUseToken } = useBoolean(false);
   const resolver = useYupValidationResolver(validationIntroduce);
   const { control, handleSubmit, reset } = useForm({
@@ -64,12 +74,16 @@ function CheckoutPage() {
   const { mutateAsync: mutatePayQuick } = useMutationPayQuick();
   const checkOutItem = useSelector(selectCheckoutItem);
   const slTotalAmount = useSelector(selectTotalAmount);
+  const { slots } = useDispatchGetAllSlots();
+  const { dayOfWeeks } = useDispatchGetAllDayOfWeeks();
 
   const {
     data: introduceCodes,
     error: errorIntroduceCodeList,
     isLoading: isIntroduceCodeLoading,
   } = useGetPromoCode();
+
+  const { mutateAsync: handleGetTimeSlot } = useGetDuplicateTimeSlot();
 
   const introduceCodeList = introduceCodes?.filter(
     (item) => item.classId === checkOutItem?.id
@@ -106,10 +120,14 @@ function CheckoutPage() {
     }
   };
 
+  const numberOfAmountAfterSale =
+    slTotalAmount - (selectIntroduceCode?.percent || 0) * slTotalAmount;
+  const numberOfCoinUse =
+    numberOfAmountAfterSale > coin ? coin : numberOfAmountAfterSale;
   const numberOfTotalValue =
-    slTotalAmount -
-    (selectIntroduceCode?.percent || 0) * slTotalAmount -
-    (isUseToken ? profile?.wallet?.balance || 0 : 0);
+    numberOfAmountAfterSale -
+    // eslint-disable-next-line no-nested-ternary
+    (isUseToken ? numberOfCoinUse : 0);
 
   const handleCheckOut = async () => {
     // const id = toast.loadToast('Đang thanh toán khóa học');
@@ -134,6 +152,17 @@ function CheckoutPage() {
       // toast.updateSuccessToast(id, 'Thanh toán khóa học thành công !');
     } catch (error: any) {
       toast.notifyErrorToast(`Thanh toán khóa học thất bại: ${error.message}`);
+    }
+  };
+
+  const handleCheckSameTimeSlot = async () => {
+    const timeSlots = await handleGetTimeSlot(checkOutItem?.id || 0);
+    const isHaveSameTimeSlot = timeSlots?.length !== 0;
+    if (isHaveSameTimeSlot) {
+      setTimeSlot(timeSlots);
+      toggleSameTimeSLot();
+    } else {
+      handleCheckOut();
     }
   };
 
@@ -232,6 +261,7 @@ function CheckoutPage() {
                       paddingX: MetricSize.medium_15,
                     }}
                   >
+                    <Typography>Mã môn học</Typography>
                     <Stack
                       sx={{
                         fontFamily: FontFamily.bold,
@@ -240,8 +270,44 @@ function CheckoutPage() {
                     >
                       {item.code}
                     </Stack>
+                    <Stack
+                      sx={{
+                        marginTop: 1,
+                      }}
+                    >
+                      <Typography>Giờ học</Typography>
+                      {item.timeInWeekRequests.map((subItem, index) => (
+                        <Stack
+                          sx={{
+                            marginTop: index !== 0 ? 1 : 0,
+                            border: '1px solid #ddd',
+                            borderRadius: MetricSize.small_5,
+                            padding: 1,
+                            fontFamily: FontFamily.light,
+                            fontSize: FontSize.small_14,
+                          }}
+                          key={index}
+                        >
+                          <Stack>
+                            {dayOfWeeks.find(
+                              (dow) => dow.id === subItem.dayOfWeekId
+                            )?.name || ''}
+                          </Stack>
+                          <Stack>
+                            {`${
+                              slots.find((slot) => slot.id === subItem.slotId)
+                                ?.startTime
+                            } - ${
+                              slots.find((slot) => slot.id === subItem.slotId)
+                                ?.endTime
+                            }`}
+                          </Stack>
+                        </Stack>
+                      ))}
+                    </Stack>
                   </Stack>
                   <Stack>
+                    <Typography>Giá tiền</Typography>
                     <Typography
                       sx={{
                         fontFamily: FontFamily.medium,
@@ -256,20 +322,6 @@ function CheckoutPage() {
               </Box>
             ))}
           </Box>
-          <FormHelperText error>
-            Khóa học đã chọn đang trùng giờ với
-            {'  '}
-            <Link
-              to="/homepage"
-              style={{
-                color: Color.black,
-                fontFamily: FontFamily.bold,
-              }}
-            >
-              Khóa học #ddu56
-            </Link>
-            . Bạn có chắc chắn muốn đăng kí hay không ?
-          </FormHelperText>
         </Stack>
       </Grid>
       <Grid item xs={12} md={4} sx={styles.viewRight}>
@@ -301,7 +353,7 @@ function CheckoutPage() {
             {isUseToken && (
               <TextLine
                 label="BS"
-                variable={`- ${formatMoney(profile?.wallet?.balance, true)}`}
+                variable={`- ${formatMoney(numberOfCoinUse, true)}`}
               />
             )}
 
@@ -313,11 +365,68 @@ function CheckoutPage() {
             />
             {isUseToken && (
               <TextLine
-                label="BS"
-                variable={formatMoney(profile.wallet?.balance)}
+                label="BS use"
+                variable={`${formatMoney(numberOfCoinUse, true)} BS`}
               />
             )}
           </Stack>
+          <CustomModal
+            open={isSameTimeSlot}
+            onClose={toggleSameTimeSLot}
+            title="Khóa học trùng giờ"
+          >
+            <Stack>
+              <FormHelperText
+                error
+                sx={{
+                  fontSize: FontSize.small_18,
+                }}
+              >
+                Khóa học đã chọn đang trùng giờ với
+                {'  '}
+                {timeSlot.map((item, index) => (
+                  <Link
+                    key={index}
+                    to={`/${NavigationLink.dashboard}/${MemberDashboardNavigationActionLink.class_detail}/${item.id}`}
+                    style={{
+                      color: Color.red,
+                      fontFamily: FontFamily.bold,
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    {`${
+                      index !== 0 ? ',' : ''
+                    } Lớp học ${item.code.toUpperCase()} `}
+                  </Link>
+                ))}
+                . Bạn có xác nhận muốn tiếp tục thanh toán không ?
+              </FormHelperText>
+              <Stack
+                marginTop={1}
+                sx={{ flexDirection: 'row', alignItems: 'center' }}
+              >
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    handleCheckOut();
+                    toggleSameTimeSLot();
+                  }}
+                >
+                  Tiếp tục thanh toán
+                </Button>
+                <Button
+                  onClick={toggleSameTimeSLot}
+                  sx={{
+                    marginLeft: 1,
+                  }}
+                  variant="contained"
+                  color="error"
+                >
+                  Hủy bỏ
+                </Button>
+              </Stack>
+            </Stack>
+          </CustomModal>
           {!introduceCode ? (
             <Stack>
               <Button
@@ -326,11 +435,15 @@ function CheckoutPage() {
                 }}
                 variant="contained"
                 color="success"
-                onClick={toggle}
+                onClick={togglePromoCode}
               >
                 Thêm mã giới thiệu
               </Button>
-              <CustomModal open={value} onClose={toggle} title="Mã giới thiệu">
+              <CustomModal
+                open={isPromoCode}
+                onClose={togglePromoCode}
+                title="Mã giới thiệu"
+              >
                 <Stack>
                   <Typography sx={globalStyles.textSmallLabel}>
                     Thêm mã giới thiệu
@@ -474,7 +587,7 @@ function CheckoutPage() {
                         Xác nhận
                       </Button>
                       <Button
-                        onClick={toggle}
+                        onClick={togglePromoCode}
                         sx={{
                           marginLeft: 1,
                         }}
@@ -519,19 +632,14 @@ function CheckoutPage() {
             <Switch
               checked={isUseToken}
               onChange={() => {
-                if (profile.wallet?.balance < slTotalAmount) {
-                  toggle();
-                } else {
-                  toast.notifyErrorToast(
-                    'BS không được lớn hơn số tiền hiện tại của lớp học.'
-                  );
-                }
+                toggleUseToken();
               }}
               disabled={!(profile.wallet?.balance > 0)}
             />
-            <Typography>{`Dùng ${
-              profile.wallet?.balance || 0
-            } BS vào đơn hàng ?`}</Typography>
+            <Typography>{`Dùng ${formatMoney(
+              coin,
+              true
+            )} BS vào đơn hàng ?`}</Typography>
           </Stack>
           {!(profile.wallet?.balance > 0) && (
             <FormHelperText>
@@ -544,7 +652,7 @@ function CheckoutPage() {
               sx={{
                 color: Color.white,
               }}
-              onClick={handleCheckOut}
+              onClick={handleCheckSameTimeSlot}
               variant="contained"
             >
               {texts.checkoutButton}

@@ -4,6 +4,7 @@ import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import {
   useAssignFeedbackTemplateForClass,
   useGetManagerClasses,
+  useTryCatch,
 } from '~/hooks';
 import { FeedbackManagerPayload } from '~/pages/FeedbackManagerPage';
 import globalStyles from '~/styles';
@@ -18,23 +19,25 @@ export interface FeedbackClassPayload {
 }
 
 export default function ReadOneTemplateForm({ row }: ReadOneTemplateFormProps) {
-  const { data: feedbackClassList, error, isLoading } = useGetManagerClasses();
+  const {
+    data: feedbackClassList,
+    error,
+    isLoading,
+    refetch,
+  } = useGetManagerClasses(row.id);
   const { mutateAsync: handleAssignTemplate } =
     useAssignFeedbackTemplateForClass();
 
-  const classIds: number[] = [1, 2, 3];
+  const { handleTryCatch } = useTryCatch('thêm lớp vào bản mẫu đánh giá');
 
   const handleCheckedClass = async (id: number) => {
-    const isExisted = classIds.find((item) => item === id);
-    let tmpClassIds = [...classIds];
-    if (isExisted) {
-      tmpClassIds = tmpClassIds.filter((item) => item !== id);
-    } else {
-      tmpClassIds = [...tmpClassIds, id];
-    }
-    await handleAssignTemplate({
-      id: row.id,
-      ids: tmpClassIds,
+    const tmpClassIds = [id];
+    await handleTryCatch(async () => {
+      await handleAssignTemplate({
+        id: row.id,
+        ids: tmpClassIds,
+      });
+      await refetch();
     });
   };
 
@@ -111,16 +114,16 @@ export default function ReadOneTemplateForm({ row }: ReadOneTemplateFormProps) {
         </Grid>
         <Grid item xs={12} md={5} lg={4}>
           <Stack sx={globalStyles.viewRoundedBorderBody}>
-            <Typography sx={globalStyles.textSubTitle}>
-              Danh sách lớp học đã chọn
-            </Typography>
-            <LoadingWrapper error={error} isLoading={isLoading}>
-              <Stack
-                sx={{
-                  height: '425px',
-                  overflow: 'auto',
-                }}
-              >
+            <Stack
+              sx={{
+                height: '460px',
+                overflow: 'auto',
+              }}
+            >
+              <Typography sx={globalStyles.textSubTitle}>
+                Danh sách lớp học chưa chọn
+              </Typography>
+              <LoadingWrapper error={error} isLoading={isLoading}>
                 <Stack
                   marginTop={1}
                   sx={{
@@ -128,7 +131,7 @@ export default function ReadOneTemplateForm({ row }: ReadOneTemplateFormProps) {
                   }}
                 >
                   {feedbackClassList?.map((item) => {
-                    const isChecked = classIds.includes(item.id);
+                    const isChecked = false;
                     return (
                       <Stack
                         sx={{
@@ -148,8 +151,8 @@ export default function ReadOneTemplateForm({ row }: ReadOneTemplateFormProps) {
                     );
                   })}
                 </Stack>
-              </Stack>
-            </LoadingWrapper>
+              </LoadingWrapper>
+            </Stack>
           </Stack>
         </Grid>
       </Grid>

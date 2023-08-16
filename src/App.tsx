@@ -1,5 +1,6 @@
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import 'react-image-crop/dist/ReactCrop.css';
 
 import React, { Suspense, useEffect } from 'react';
 import { Provider, useSelector } from 'react-redux';

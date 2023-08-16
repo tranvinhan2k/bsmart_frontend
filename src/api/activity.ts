@@ -99,14 +99,16 @@ const activityApi = {
       `${url}/quiz/result/${id}`
     );
 
-    const result: QuizReportStudentPayload = {
-      id: 0,
-      name: response?.submitBy?.name || '',
-      correctNumber: response?.correctNumber || 0,
-      point: response?.point || 0,
-      submitAt: response?.submitAt || '',
-      totalNumber: response?.totalQuestion || 0,
-    };
+    const result: QuizReportStudentPayload[] = [
+      {
+        id: 0,
+        name: response?.submitBy?.name || '',
+        correctNumber: response?.correctNumber || 0,
+        point: response?.point || 0,
+        submitAt: response?.submitAt || '',
+        totalQuestion: response?.totalQuestion || 0,
+      },
+    ];
 
     return result;
   },
@@ -128,7 +130,7 @@ const activityApi = {
       correctNumber: item?.correctNumber || 0,
       point: item?.point || 0,
       submitAt: item?.submitAt || '',
-      totalNumber: item?.totalQuestion || 0,
+      totalQuestion: item?.totalQuestion || 0,
     }));
     return { ...response, items: result };
   },
@@ -197,7 +199,7 @@ const activityApi = {
       name: item?.submitBy?.name || '',
       point: item?.point || 0,
       submitAt: item?.submitAt || '',
-      totalNumber: item?.totalQuestion || '',
+      totalQuestion: item?.totalQuestion || 0,
     }));
     return { ...response, items: result };
   },

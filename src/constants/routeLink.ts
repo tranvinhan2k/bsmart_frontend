@@ -29,6 +29,7 @@ export const enum NavigationLink {
   forgot_password = 'forgot_password',
   policy = 'policy',
   payment_report = 'payment_report',
+  login_google = 'login-success',
 }
 
 export const enum MemberNavigationActionLink {

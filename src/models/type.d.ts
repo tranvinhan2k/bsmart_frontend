@@ -295,7 +295,7 @@ export interface QuizReportStudentPayload {
   name: string;
   point: number;
   correctNumber: number;
-  totalNumber;
+  totalQuestion: number;
   submitAt: string;
 }
 export interface FeedbackReportStudentPayload {
@@ -344,4 +344,9 @@ interface FeedbackReviewPayload {
   rating: number;
   feedbackTime: string;
   reviewContent: string;
+}
+
+export interface DuplicateClassPayload {
+  id: number;
+  code: string;
 }
