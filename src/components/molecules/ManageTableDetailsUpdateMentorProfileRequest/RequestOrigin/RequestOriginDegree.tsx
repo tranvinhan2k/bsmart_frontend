@@ -1,19 +1,26 @@
 import { Grid, Typography, Stack, Link } from '@mui/material';
-import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
+import { useGetMentorProfileUpdateRequestDetails } from '~/hooks/user/UseGetMentorProfileUpdateRequestPayload';
+import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from '../style';
+import sx from './style';
 
-interface BasicInfoProps {
-  row: any;
+interface RequestOriginDegreeProps {
+  rowId: number;
 }
 
-export default function RequestUpdateMentorDegree({ row }: BasicInfoProps) {
+export default function RequestOriginDegree({
+  rowId,
+}: RequestOriginDegreeProps) {
   const enum Text {
-    mainTitle = 'Bằng cấp bổ sung',
+    mainTitle = 'Bằng cấp',
   }
 
-  const userDegreeList = row.degreeRequest ?? [];
+  const { updaterRequestDetails, isLoading } =
+    useGetMentorProfileUpdateRequestDetails(rowId);
+
+  const userDegreeList: any[] = [];
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={sx.wrapperEditSelected}>
       <Grid container>
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>

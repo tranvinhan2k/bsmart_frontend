@@ -3,13 +3,13 @@ import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_LABEL,
-} from './style';
+} from '../style';
 
-interface RequestDateProps {
-  row: any;
+interface RequestEditDateProps {
+  rowId: number;
 }
 
-export default function RequestDate({ row }: RequestDateProps) {
+export default function RequestEditDate({ rowId }: RequestEditDateProps) {
   const title0 = [
     {
       id: 0,
@@ -24,7 +24,7 @@ export default function RequestDate({ row }: RequestDateProps) {
     {
       id: 2,
       label: 'Lần gửi thứ',
-      value: row.count ?? '',
+      value: '',
     },
   ];
 

@@ -65,8 +65,8 @@ export const SX_FORM_ITEM_VALUE2: SxProps<Theme> = {
 };
 
 export const SX_USER_AVATAR_CLICKABLE: SxProps<Theme> = {
-  width: 150,
-  height: 150,
+  width: 100,
+  height: 100,
   boxShadow: 2,
   //
   transition: 'all .4s',

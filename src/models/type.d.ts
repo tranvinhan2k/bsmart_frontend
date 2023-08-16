@@ -350,3 +350,8 @@ export interface DuplicateClassPayload {
   id: number;
   code: string;
 }
+
+export interface MentorProfileUpdateResponse {
+  id: number | null;
+  userDto: ProfilePayload;
+}

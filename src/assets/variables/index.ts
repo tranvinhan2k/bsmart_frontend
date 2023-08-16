@@ -37,6 +37,8 @@ export const Color = {
   white4: '#eff3f6',
   white5: '#ebebeb',
   border: '#dddddd',
+  muiWarningBg: '#fdeded',
+  muiSuccessBg: '#edf7ed',
 };
 
 export const BorderRadius = {

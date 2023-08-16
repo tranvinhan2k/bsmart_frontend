@@ -3,14 +3,14 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import ManageTable, {
   MenuItemPayload,
 } from '~/components/molecules/ManageTable';
-import { MentorProfileStatusType } from '~/constants/profile';
+import { MentorProfileUpdateStatusType } from '~/constants/profile';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMentorProfileUpdateRequest';
 import columns from '~/constants/columns';
 import ManageTableDetailsUpdateMentorProfileRequest from '../ManageTableDetailsUpdateMentorProfileRequest';
 
 interface ManageTableMentorProfileUpdateRequestProps {
-  status: MentorProfileStatusType;
+  status: MentorProfileUpdateStatusType;
   refetchGetNoOfRequest: () => void;
 }
 
@@ -72,7 +72,7 @@ export default function ManageTableMentorProfileUpdateRequest({
 
   let popoverOptions;
   switch (status) {
-    case MentorProfileStatusType.WAITING:
+    case MentorProfileUpdateStatusType.PENDING:
       popoverOptions = optionsViewDetails;
       break;
     default:

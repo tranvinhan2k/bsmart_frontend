@@ -58,10 +58,12 @@ export interface UpdateMentorProfileRequestProfileFormDefault {
   //
   introduce: string;
   workingExperience: string;
-  mentorSkills?: {
+  mentorSkills: {
     skillId: DropdownDynamicValueInputNumberDataPayload | null;
     yearOfExperiences: number;
   }[];
+  //
+  degreeList: any[];
 }
 
 export interface EditAvatarFormDataPayload {
@@ -102,12 +104,19 @@ export interface EditMentorProfileFormDataPayload {
     yearOfExperiences: number;
   }[];
 }
-export interface UpdateMentorProfileRequestFormDataPayload {
-  mentorSkills?: {
-    skillId: DropdownDynamicValueInputNumberDataPayload | null;
-    yearOfExperiences: number;
-  }[];
-}
+// export interface UpdateMentorProfileRequestFormDataPayload {
+//   fullName: string;
+//   birthday: string;
+//   address: string;
+//   phone: string;
+//   gender: DropdownDynamicValueInputStringDataPayload | null;
+//   introduce: string;
+//   workingExperience: string;
+//   mentorSkills: {
+//     skillId: DropdownDynamicValueInputNumberDataPayload | null;
+//     yearOfExperiences: number;
+//   }[];
+// }
 
 export interface MentorProfile {
   id: number;
