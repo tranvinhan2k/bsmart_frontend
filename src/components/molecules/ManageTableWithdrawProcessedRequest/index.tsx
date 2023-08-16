@@ -13,13 +13,13 @@ const mockRow = [
   {
     id: 1,
     code: '34s5',
-    name: 'Danh sách đơn xử lý ngày 18 tháng 7 2023',
+    name: 'Nguyễn Văn A',
     timeProcessed: '08:23 - 18 tháng 7, 2023',
   },
   {
     id: 2,
     code: '63sg',
-    name: 'Danh sách đơn xử lý ngày 01 tháng 7 2023',
+    name: 'Nguyễn Văn B',
     timeProcessed: '11:09 - 01 tháng 7, 2023',
   },
 ];
@@ -121,7 +121,7 @@ export default function ManageTableWithdrawProcessedRequest() {
         onPageSizeChange={handleNewSize}
         page={page}
         pageSize={size}
-        popoverOptions={popoverOptions}
+        // popoverOptions={popoverOptions}
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
         // totalItems={courseCreateRequestList?.totalItems ?? 0}

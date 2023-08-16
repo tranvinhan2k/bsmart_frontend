@@ -239,6 +239,6 @@ ManageTable.defaultProps = {
   getRowId: undefined,
   error: null,
   isLoading: false,
-  popoverOptions: [],
+  popoverOptions: undefined,
   setSelectedRow: undefined,
 };

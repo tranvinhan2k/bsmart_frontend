@@ -798,25 +798,55 @@ const managedClassColumns: GridColDef[] = [
 
 const managedWithdrawProcessedColumns: GridColDef[] = [
   {
-    field: 'code',
-    headerName: 'Mã yêu cầu',
+    field: 'id',
+    headerName: 'Mã giao dịch',
     minWidth: 150,
     flex: 1,
     renderCell: (params) => {
-      const { code } = params.row;
-      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
+      const { id } = params.row;
+      return <CopyableCellEllipsis rawValue={id} formattedValue={id} />;
     },
   },
   {
     field: 'name',
-    headerName: 'Tên',
+    headerName: 'Tên người dùng',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'bankName',
+    headerName: 'Ngân hàng',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'bankAccount',
+    headerName: 'Tên chủ khoản',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'bankNumber',
+    headerName: 'Số tài khoản',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'amount',
+    headerName: 'Yêu cầu rút',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'createdAt',
+    headerName: 'Ngày gửi',
     minWidth: 200,
     flex: 1,
   },
   {
     field: 'timeProcessed',
     headerName: 'Thời gian xử lý',
-    minWidth: 150,
+    minWidth: 200,
     flex: 1,
   },
 ];
