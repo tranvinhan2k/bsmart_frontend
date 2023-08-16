@@ -38,15 +38,6 @@ export default function ViewQuizQuestions({ question, open, onClose }: Props) {
             label="Tên câu hỏi"
             value={question.question}
           />
-          <TextPropLine
-            icon="quiz"
-            label="Định dạng câu hỏi"
-            value={
-              question.questionType === 'SINGLE'
-                ? 'Câu hỏi một lựa chọn'
-                : 'Câu hỏi nhiều lựa chọn'
-            }
-          />
         </Stack>
         <Stack>
           <Typography

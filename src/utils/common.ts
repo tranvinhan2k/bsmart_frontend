@@ -1,6 +1,5 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
 import { OptionPayload } from '~/models';
-import { appendLogFile } from './file';
 
 export function scrollToTop() {
   window.scrollTo({

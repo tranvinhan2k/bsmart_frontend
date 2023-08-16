@@ -35,6 +35,8 @@ export default function MentorCourseItem({
       label: '',
       value: '',
     },
+    numOfRating: 0,
+    rating: 2,
   },
 }: MentorCourseItemProps) {
   const navigate = useNavigate();

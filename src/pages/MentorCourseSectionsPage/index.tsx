@@ -26,7 +26,7 @@ export default function MentorCourseSectionsPage() {
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
 
-  const { refetchPercent } = useContext(CourseContext);
+  const { refetchPercent, course } = useContext(CourseContext);
   const [clearOpen, setClearOpen] = useState(false);
 
   const { activity, isLoading, error } = useGetDetailActivity(sectionId);
@@ -35,7 +35,9 @@ export default function MentorCourseSectionsPage() {
   const deleteSection = useTryCatch('xóa học phần');
 
   const { mutateAsync: handleDeleteContent } = useMutationDeleteContent();
-  const { handleMutationUpdateSection } = useMutationUpdateContent();
+  const { handleMutationUpdateSection } = useMutationUpdateContent(
+    course.status
+  );
 
   const handleClearOpen = () => {
     setClearOpen(!clearOpen);
