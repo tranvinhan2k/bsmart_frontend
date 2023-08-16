@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
 import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
@@ -12,6 +13,7 @@ import { useTryCatch } from '../useTryCatch';
 import { useCreateCourseClass } from '../class/useCreateCourseClass';
 import { PostTimeTableResponse } from '~/models/response';
 import { MonthTimeSlotPayload } from '~/components/molecules/schedules/MonthSchedule';
+import { generateEndDate } from '~/utils/date';
 
 type Status = 'CREATE' | 'UPDATE' | 'DELETE';
 
@@ -40,6 +42,35 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
     resolver: resolverCreateSubCourse,
   });
 
+  const startDate = createSubCourseHookForm.watch('startDateExpected');
+  const numberOfSlot = createSubCourseHookForm.watch('numberOfSlot');
+  const timeInWeekRequests =
+    createSubCourseHookForm.watch('timeInWeekRequests');
+
+  useEffect(() => {
+    if (
+      startDate !== '' &&
+      numberOfSlot !== 0 &&
+      timeInWeekRequests.length !== 0
+    ) {
+      const endDate = generateEndDate({
+        startDate,
+        numberOfSlot,
+        timeInWeekRequests: (timeInWeekRequests as any[]).map((item) => ({
+          slotId: item?.slot?.id,
+          dayOfWeekId: item?.dayOfWeek?.id,
+        })),
+      });
+
+      createSubCourseHookForm.setValue(
+        'endDateExpected',
+        endDate.toISOString()
+      );
+    } else {
+      createSubCourseHookForm.setValue('endDateExpected', '');
+    }
+  }, [startDate, numberOfSlot, timeInWeekRequests, createSubCourseHookForm]);
+
   const onTriggerModal = (modeParam?: Status) => {
     setOpen(!open);
     if (modeParam) {
@@ -57,44 +88,6 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
     } catch (error) {
       return null;
     }
-  };
-
-  const checkEndDateValid = (
-    startDate: string,
-    endDate: string,
-    numberOfSlot: number,
-    timeInWeekRequests: {
-      dayOfWeek: OptionPayload;
-      slot: OptionPayload;
-    }[]
-  ) => {
-    const sortArr = [...timeInWeekRequests];
-    sortArr.sort((a, b) => {
-      if (a.dayOfWeek.id === b.dayOfWeek.id) {
-        return a.slot.id - b.slot.id;
-      }
-      return a.dayOfWeek.id - b.dayOfWeek.id;
-    });
-
-    const tmpStartDate = new Date(startDate);
-    const startDay = tmpStartDate.getDay();
-    const numberOfSlotInAWeek = timeInWeekRequests.length;
-    const numberOfWeek = Math.floor(numberOfSlot / numberOfSlotInAWeek);
-    const leftDay = numberOfSlot % numberOfSlotInAWeek;
-    let endDateTime = null;
-    if (leftDay === 0) {
-      endDateTime = sortArr[sortArr.length - 1];
-    } else {
-      endDateTime = sortArr[leftDay - 1];
-    }
-    const numofLeftDate = endDateTime.dayOfWeek.id - startDay - 1;
-
-    const numOfTotalDayCount = (numberOfWeek - 1) * 7 + numofLeftDate;
-    const tmpEndDate = new Date();
-    const endDatetExpected = new Date(endDate);
-    tmpEndDate.setDate(tmpStartDate.getDate() + numOfTotalDayCount);
-
-    return true;
   };
 
   const onAddNewClass = async (data: {
@@ -117,16 +110,16 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
 
       if (imageId) {
         const param: PostClassRequest = {
-          endDate: data.endDateExpected,
           imageId,
           maxStudent: data.maxStudent,
           minStudent: data.minStudent,
           numberOfSlot: data.numberOfSlot,
           price: data.price,
-          startDate: data.startDateExpected,
+          startDate: dayjs(data.startDateExpected).add(1, 'day').toISOString(),
+          endDate: dayjs(data.endDateExpected).add(1, 'day').toISOString(),
           timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-            dayOfWeekId: item.dayOfWeek.id || 0,
-            slotId: item.slot.id || 0,
+            dayOfWeekId: item?.dayOfWeek?.id || 0,
+            slotId: item?.slot?.id || 0,
           })),
           // timeTableRequest: timetable?.raw || [],
         };
@@ -169,8 +162,8 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
       numberOfSlot: data.numberOfSlot,
       startDate: data.startDateExpected,
       timeInWeekRequests: data.timeInWeekRequests.map((item) => ({
-        dayOfWeekId: item.dayOfWeek.id,
-        slotId: item.slot.id,
+        dayOfWeekId: item?.dayOfWeek?.id,
+        slotId: item?.slot?.id,
       })),
     };
     const responseTimetable = await handleGetTimetable(result);

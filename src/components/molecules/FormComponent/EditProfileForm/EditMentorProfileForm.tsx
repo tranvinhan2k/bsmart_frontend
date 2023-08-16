@@ -8,23 +8,22 @@ import {
 } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { EditMentorProfilePayload } from '~/api/users';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
+import FormInput from '~/components/atoms/FormInput';
+import Icon from '~/components/atoms/Icon';
 import { MentorProfileStatusType } from '~/constants/profile';
-import { selectProfile } from '~/redux/user/selector';
+import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { validationSchemaEditMentorProfile } from '~/form/validation';
 import {
   useDispatchGetAllSubjects,
   useDispatchProfile,
   useYupValidationResolver,
 } from '~/hooks';
 import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
-import { validationSchemaEditMentorProfile } from '~/form/validation';
-import FormInput from '~/components/atoms/FormInput';
-import Icon from '~/components/atoms/Icon';
+import { useGetProfile } from '~/hooks/user/useGetProfile';
 import toast from '~/utils/toast';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import {
   SX_FORM,
   SX_FORM_ITEM_LABEL,
@@ -33,7 +32,7 @@ import {
 } from './style';
 
 export default function EditMentorProfileForm() {
-  const profile = useSelector(selectProfile);
+  const { profile, refetch } = useGetProfile();
 
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { mutateAsync: mutateEditMentorProfile } =
@@ -87,10 +86,11 @@ export default function EditMentorProfileForm() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
-  const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${
+  const toastMsgError = (error: any): string => {
+    return `Cập nhật không thành công: ${
       error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
     }`;
+  };
   const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,
@@ -107,6 +107,7 @@ export default function EditMentorProfileForm() {
     try {
       await mutateEditMentorProfile(params);
       handleDispatchProfile();
+      refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));
@@ -128,9 +129,9 @@ export default function EditMentorProfileForm() {
       PLACEHOLDER: 'Nhập kinh nghiệm bản thân',
     },
     DESC1: 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
-    DESC2: 'Mục giới thiệu giáo viên hãy viết về bản thân mình',
+    DESC2: 'Mục giới thiệu giáo viên hãy viết về bản thân mình.',
     DESC3:
-      'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn',
+      'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
     BUTTON_TEXT: 'Cập nhật',
   };
 

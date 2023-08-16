@@ -1,26 +1,28 @@
 import { Grid, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
-import { MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import { mockLevelData } from '~/constants';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
-import { useEffectScrollToTop, useScrollIntoView } from '~/hooks';
+import {
+  useEffectScrollToTop,
+  useGetCourseFeedback,
+  useGetIdFromUrl,
+  useScrollIntoView,
+} from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import { formatStringToNumber } from '~/utils/number';
 import CourseDetail from '~/components/molecules/CourseDetail';
 
 export default function CourseDetailPage() {
-  const params = useParams();
-  const { id } = params;
+  const id = useGetIdFromUrl('id');
 
   const introducePart = useScrollIntoView();
   const contentPart = useScrollIntoView();
   const classesPart = useScrollIntoView();
   const mentorPart = useScrollIntoView();
 
-  const { data, error, isLoading } = useQueryGetDetailUserCourse(
-    formatStringToNumber(id)
-  );
+  const { data, error, isLoading } = useQueryGetDetailUserCourse(id);
   const course = data?.course;
 
   const mentor: {
@@ -41,12 +43,11 @@ export default function CourseDetailPage() {
     (item) => item.value === course?.level
   );
 
-  useEffectScrollToTop();
-
   return (
     <Stack
       sx={{
         minHeight: '100vh',
+        background: Color.white,
       }}
     >
       <LoadingWrapper error={error} isLoading={isLoading}>

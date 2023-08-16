@@ -42,7 +42,7 @@ export default function RequestCI({ row }: RequestCIProps) {
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Ảnh CMND/CCCD</Typography>
+          <Typography sx={SX_FORM_LABEL}>CMND/CCCD</Typography>
         </Grid>
         <Grid item xs={12}>
           <Stack

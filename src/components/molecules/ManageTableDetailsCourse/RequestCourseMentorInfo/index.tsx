@@ -10,6 +10,7 @@ import {
 import Icon from '~/components/atoms/Icon';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleCopyToClipboard } from '~/utils/commonComp';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
@@ -43,27 +44,24 @@ export default function RequestCourseMentorInfo({
         {
           id: 0,
           label: Text.labelName,
-          value: courseCreateRequestDetails.mentor.name,
+          value: courseCreateRequestDetails?.mentor?.name ?? '',
         },
         {
           id: 1,
           label: Text.labelMail,
-          value: courseCreateRequestDetails.mentor.email,
+          value: courseCreateRequestDetails?.mentor?.email ?? '',
         },
-      ]
-    : [];
-
-  const title1 = courseCreateRequestDetails
-    ? [
         {
-          id: 0,
+          id: 2,
           label: Text.labelPhone,
-          value: '0987654321',
+          value: courseCreateRequestDetails?.mentor?.phone ?? '',
         },
         {
-          id: 0,
+          id: 3,
           label: Text.labelJoinDate,
-          value: '07 tháng 1, 2023',
+          value: formatISODateDateToDisplayDateTime(
+            courseCreateRequestDetails?.mentor?.timeParticipation
+          ),
         },
       ]
     : [];
@@ -73,22 +71,31 @@ export default function RequestCourseMentorInfo({
         {
           id: 1,
           label: Text.labelCoursePossess,
-          value: 23,
+          value:
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.numberOfCourse ?? 0,
         },
         {
           id: 2,
           label: Text.labelClassPossess,
-          value: 100,
+          value:
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.numberOfClass ?? 0,
         },
         {
           id: 3,
           label: Text.labelRating,
-          value: '4.5/5',
+          value: `${
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.scoreFeedback ?? 0
+          } / 5`,
         },
         {
           id: 4,
           label: Text.labelNoOfRating,
-          value: '504',
+          value:
+            courseCreateRequestDetails?.mentor?.teachInformation
+              ?.numberOfFeedBack ?? 0,
         },
       ]
     : [];
@@ -128,13 +135,14 @@ export default function RequestCourseMentorInfo({
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"
+                  spacing={2}
                 >
                   {title0.map((item) => (
-                    <Grid item md={12} lg={6} key={item.id}>
+                    <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>
                       <Stack
                         direction="column"
                         justifyContent="flex-start"
-                        alignItems="flex-start"
+                        alignItems="flex"
                       >
                         <Typography sx={SX_FORM_ITEM_LABEL2}>
                           {item.label}:
@@ -160,7 +168,7 @@ export default function RequestCourseMentorInfo({
                     </Grid>
                   ))}
                 </Grid>
-                <Box mt={4}>
+                {/* <Box mt={4}>
                   <Grid
                     container
                     direction="row"
@@ -198,7 +206,7 @@ export default function RequestCourseMentorInfo({
                       </Grid>
                     ))}
                   </Grid>
-                </Box>
+                </Box> */}
                 <Box mt={6}>
                   <Grid container spacing={{ xs: 2, md: 3 }}>
                     {title2.map((item) => (

@@ -72,6 +72,9 @@ export default function ManageTableCourseCreateRequest({
     case CourseStatusType.WAITING:
       popoverOptions = optionsViewDetails;
       break;
+    case CourseStatusType.NOTSTART:
+      popoverOptions = optionsViewDetails;
+      break;
     default:
       popoverOptions = popoverOptionsDefault;
       break;

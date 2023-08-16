@@ -60,6 +60,7 @@ export * from './course/useMutationDeleteCourse';
 export * from './course/useMutationCreateCourse';
 export * from './course/useGetMentorCategories';
 export * from './course/useQueryGetCoursePercent';
+export * from './course/useGetCourseFeedback';
 
 // class
 export * from './class/useCreateCourseClass';
@@ -73,9 +74,14 @@ export * from './class/useMutationDeleteClass';
 export * from './class/useQueryStudentList';
 export * from './class/useMutationOpenNotStartClass';
 export * from './class/useGetClassSchedule';
+export * from './class/useGetMentorMarkReport';
+export * from './class/useGetMemberMarkReport';
+export * from './class/useGetManagerClasses';
 
 // quiz question
 export * from './quizQuestion/useGetAllQuizQuestion';
+export * from './quizQuestion/useReadFile';
+export * from './quizQuestion/useGetBanksQuizQuestions';
 
 // form
 export * from './form.hooks/useCreateCourseForm';
@@ -98,6 +104,7 @@ export * from './useQueryGetAllSubjectByCategoryId';
 export * from './feedback/useMutationSendFeedback';
 export * from './feedback/useQueryMemberFeedback';
 export * from './feedback/useQueryMentorFeedback';
+export * from './feedback/useAssignFeedbackTemplateForClass';
 
 // assignment
 export * from './assignment/useGetAssignment';
@@ -107,6 +114,9 @@ export * from './assignment/useMutationSubmitPointAssignment';
 
 // forgot password
 export * from './resetPassword/useMutationSendMailResetPassword';
+export * from './resetPassword/useQueryConfirmToken';
+export * from './resetPassword/useMutationResetPassword';
 
 // notifications
 export * from './notifications/useDispatchNotifications';
+export * from './notifications/useReadNotifications';

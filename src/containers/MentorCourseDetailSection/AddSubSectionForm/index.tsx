@@ -51,6 +51,12 @@ export default function AddSubSectionForm({
       placeholder: 'Nhập tên học phần',
       variant: 'text',
     },
+    // {
+    //   label: 'Video đính kèm',
+    //   name: 'link',
+    //   placeholder: 'Nhập link video đính kèm (không bắt buộc)',
+    //   variant: 'text',
+    // },
     {
       label: 'Mô tả học phần',
       name: 'description',
@@ -77,43 +83,50 @@ export default function AddSubSectionForm({
         <Stack>
           <InputGroup inputList={inputList} control={hookForm.control} />
         </Stack>
-        <Stack
-          sx={{
-            marginTop: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+        {isAllowUpdateActivity(course.status) ? (
+          <Stack
+            sx={{
+              marginTop: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Button
+              color="secondary"
+              sx={{
+                color: Color.white,
+              }}
+              onClick={hookForm.handleSubmit(onSubmit)}
+              variant="contained"
+            >
+              {onDelete ? 'Cập nhật nội dung' : 'Tạo bài học'}
+            </Button>
+            {Boolean(onDelete) && (
+              <Button
+                color="error"
+                sx={{
+                  marginLeft: 1,
+                  color: Color.white,
+                }}
+                onClick={onDelete}
+                variant="contained"
+              >
+                Xóa bài học
+              </Button>
+            )}
+          </Stack>
+        ) : (
           <Button
             color="secondary"
             sx={{
               color: Color.white,
             }}
-            disabled={
-              !hookForm.formState.isDirty ||
-              !isAllowUpdateActivity(course.status) ||
-              isFixed
-            }
             onClick={hookForm.handleSubmit(onSubmit)}
             variant="contained"
           >
-            {onDelete ? 'Cập nhật nội dung' : 'Tạo bài học'}
+            Lưu thay đổi
           </Button>
-          {Boolean(onDelete) && (
-            <Button
-              color="error"
-              sx={{
-                marginLeft: 1,
-                color: Color.white,
-              }}
-              disabled={!isAllowUpdateActivity(course.status) || isFixed}
-              onClick={onDelete}
-              variant="contained"
-            >
-              Xóa bài học
-            </Button>
-          )}
-        </Stack>
+        )}
       </Stack>
     </Stack>
   );

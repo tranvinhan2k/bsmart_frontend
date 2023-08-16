@@ -7,9 +7,15 @@ const url = '/notification';
 
 const notificationApi = {
   postReadNotifications(params: number[]) {
-    return axiosClient.put(`${url}`, {
-      ids: params,
-    });
+    return axiosClient.put(
+      `${url}`,
+      {
+        ids: params,
+      },
+      {
+        paramsSerializer: { indexes: null },
+      }
+    );
   },
   async getNotifications({
     params,
@@ -22,15 +28,19 @@ const notificationApi = {
       });
 
     const result: NotificationItemPayload[] =
-      response?.items?.map((item, index) => ({
-        id: index,
-        entity: item?.entity || 'CLASS',
-        entityId: item.entityId || 0,
-        message: item.viContent || '',
-        time: item?.created || '',
-        title: item.viTitle || '',
-        isRead: item.isRead || false,
-      })) || [];
+      response?.items
+        ?.map((item, index) => ({
+          id: index,
+          entity: item?.entity || 'CLASS',
+          entityId: item.entityId || 0,
+          message: item.viContent || '',
+          time: item?.created || '',
+          title: item.viTitle || '',
+          isRead: item.isRead || false,
+        }))
+        .sort(
+          (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
+        ) || [];
     // const notifications: NotificationItemPayload[] = [
     //   {
     //     entity: 'CLASS',

@@ -34,21 +34,10 @@ export default function FeedbackManagerPage() {
     <Stack
       padding={3}
       sx={{
-        background: Color.white4,
+        background: Color.white,
       }}
     >
-      <CustomTab
-        tabContentList={[
-          {
-            label: 'Quản lí đánh giá',
-            data: <FeedbackManagerTemplate />,
-          },
-          {
-            label: 'Chọn đánh giá',
-            data: <ClassFeedbackDetailPage isAdmin />,
-          },
-        ]}
-      />
+      <FeedbackManagerTemplate />
     </Stack>
   );
 }

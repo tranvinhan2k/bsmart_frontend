@@ -141,12 +141,6 @@ export default function AddQuizForm({
       variant: 'password',
     },
     {
-      name: 'confirm',
-      label: 'Xác nhận mật khẩu',
-      placeholder: 'Xác nhận mật khẩu cho bài kiểm tra',
-      variant: 'password',
-    },
-    {
       name: 'quizQuestions',
       label: 'Danh sách câu hỏi',
       placeholder: 'Nhập danh sách câu hỏi',
@@ -169,42 +163,40 @@ export default function AddQuizForm({
         }}
       >
         <InputGroup control={hookForm.control} inputList={inputList} />
-        <Stack
-          sx={{
-            marginTop: 1,
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            color="secondary"
+        {isAllowUpdateActivity(course.status) ? (
+          <Stack
             sx={{
-              color: Color.white,
+              marginTop: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
-            disabled={
-              !hookForm.formState.isDirty ||
-              !isAllowUpdateActivity(course.status) ||
-              isFixed
-            }
-            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-            variant="contained"
           >
-            {onDelete ? 'Cập nhật bài kiểm tra' : 'Tạo bài trắc nghiệm'}
-          </Button>
-          {onDelete && (
             <Button
-              disabled={!isAllowUpdateActivity(course.status) || isFixed}
+              color="secondary"
               sx={{
-                marginLeft: 1,
+                color: Color.white,
               }}
-              onClick={onDelete}
+              onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
               variant="contained"
-              color="error"
             >
-              Hủy bài kiểm tra
+              {onDelete ? 'Cập nhật bài kiểm tra' : 'Tạo bài trắc nghiệm'}
             </Button>
-          )}
-        </Stack>
+            {onDelete && (
+              <Button
+                sx={{
+                  marginLeft: 1,
+                }}
+                onClick={onDelete}
+                variant="contained"
+                color="error"
+              >
+                Hủy bài kiểm tra
+              </Button>
+            )}
+          </Stack>
+        ) : (
+          <Button variant="contained">Cập nhật nội dung</Button>
+        )}
       </Stack>
     </Stack>
   );

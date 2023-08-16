@@ -1,3 +1,4 @@
+import { ActivityKeys } from './variables';
 import { CategoryPayload } from './category';
 import { FeedbackPayload } from '~/models/feedback';
 import { ImageType, TimeInWeeks } from './common';
@@ -48,7 +49,6 @@ export interface CourseCreateRequestDetails {
   count: number;
   approved: boolean;
 }
-
 export interface ClassOfCourseCreateRequestDetails {
   id: number;
   code: string;
@@ -104,7 +104,7 @@ export interface SubActivityOfCourseCreateRequestDetails {
   lastModifiedBy: string;
   id: number;
   name: string;
-  type: string;
+  type: ActivityKeys;
   visible: boolean;
   parentActivityId: number;
   subActivities: any[];

@@ -176,7 +176,11 @@ const generateFormInput = (
       return <ModuleInput controller={controller} placeholder={placeholder} />;
     case variant === 'date':
       return (
-        <DatePickerInput controller={controller} placeholder={placeholder} />
+        <DatePickerInput
+          controller={controller}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
       );
     case variant === 'time':
       return (
@@ -230,13 +234,7 @@ const generateFormInput = (
         />
       );
     case variant === 'quizPicker':
-      return (
-        <QuizInput
-          disabled={disabled}
-          controller={controller}
-          placeholder={placeholder}
-        />
-      );
+      return <QuizInput controller={controller} placeholder={placeholder} />;
     case variant === 'answerPicker':
       return <AnswerInput answerType={answerType} controller={controller} />;
     default:

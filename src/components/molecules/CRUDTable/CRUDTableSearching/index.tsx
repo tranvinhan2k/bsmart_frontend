@@ -42,7 +42,7 @@ export default function CRUDTableSearching({
   return (
     <Stack
       sx={{
-        marginY: 2,
+        marginTop: 1,
       }}
     >
       <Stack

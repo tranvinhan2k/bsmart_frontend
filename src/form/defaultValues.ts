@@ -11,7 +11,7 @@ import {
   FeedbackMentorDataPayload,
   LoginFormDataPayload,
   UpdateAnnouncementFormDataPayload,
-  UpdateMentorProfileRequestFormDataPayload,
+  UpdateMentorProfileRequestProfileFormDefault,
   WithdrawMoneyFormDataPayload,
 } from '~/models/form';
 
@@ -62,6 +62,24 @@ export const defaultValueEditPersonalProfile: EditPersonalProfileFormDefault = {
   phone: '',
   gender: null,
 };
+export const defaultValueUpdateMentorProfileRequest: UpdateMentorProfileRequestProfileFormDefault =
+  {
+    avatar: '',
+    //
+    fullName: '',
+    birthday: '',
+    address: '',
+    phone: '',
+    gender: null,
+    //
+    identityFront: '',
+    identityBack: '',
+    //
+    introduce: '',
+    workingExperience: '',
+    mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+    degreeList: [],
+  };
 
 export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
   {
@@ -70,11 +88,11 @@ export const defaultValuesEditMentorProfile: EditMentorProfileFormDataPayload =
     // mentorSkills: [],
     workingExperience: '',
   };
-export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
-  {
-    // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
-    mentorSkills: [],
-  };
+// export const defaultValuesUpdateMentorProfileRequest: UpdateMentorProfileRequestFormDataPayload =
+//   {
+//     // mentorSkills: [{ skillId: null, yearOfExperiences: 0 }],
+//     mentorSkills: [],
+//   };
 
 export const defaultValueEditCertificateProfile: EditCertificateProfileDefaultValuePayload =
   {
@@ -216,6 +234,6 @@ export const defaultValueRejectRegisterRequest = {
   interviewed: false,
 };
 export const defaultValueEditRequestRegisterRequest = {
-  message: 'Thông tin cần chỉnh sửa bao gồm',
+  message: 'Thông tin cần chỉnh sửa bao gồm:',
   interviewed: false,
 };

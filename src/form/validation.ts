@@ -1,4 +1,4 @@
-import { array, boolean, date, mixed, number, object, ref, string } from 'yup';
+import { array, date, mixed, number, object, ref, string } from 'yup';
 import 'yup-phone';
 import { YupValidationForm } from '~/assets/variables';
 import {
@@ -48,7 +48,6 @@ import {
   YEAR_OF_EXPERIENCES_REQUIRED,
   SKILL_REQUIRED,
   CERTIFICATE_MAX_SIZE,
-  CERTIFICATE_FORMAT_INCORRECT,
   CERTIFICATE_REQUIRED,
   CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
   MENTOR_SKILLS_REQUIRED_ONE,
@@ -98,6 +97,9 @@ export const validationSchemaCreateCategories = object({
 });
 export const validationSchemaFile = object({
   file: mixed().required('Tệp đính kèm không được để trống.'),
+});
+export const validationSchemaFiles = object({
+  file: YupValidationForm.notEmptyString('Tệp đính kèm không được để trống'),
 });
 export const validationSchemaAnswer = object({
   answer: string().required('Tên câu trả lời không được để trống.'),
@@ -163,6 +165,14 @@ export const validationClassContentModule = object({
 export const validationSendMailForgotPassword = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
 });
+export const validationResetPassword = object({
+  newPassword: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
+  confirm: string()
+    .required(CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref('newPassword')], CONFIRM_PASSWORD_NOT_MATCH),
+});
 export const validationPassword = object({
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
@@ -202,11 +212,11 @@ export const validationClassContentQuiz = object({
   password: string()
     .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
     .required(PASSWORD_REQUIRED),
-  confirm: string()
-    .required(CONFIRM_PASSWORD_REQUIRED)
-    .oneOf([ref('password')], CONFIRM_PASSWORD_NOT_MATCH),
 });
 
+export const validationAddPromoCode = object({
+  code: string().required('Mã giới thiệu không hợp lệ.'),
+});
 export const validationClassListFilter = object({
   startDate: date().typeError('Ngày phải hợp lệ (DD/MM/YYYY)'),
   endDate: date()
@@ -435,6 +445,83 @@ export const validationSchemaUpdateMentorProfileRequest = object({
     .min(1, MENTOR_SKILLS_REQUIRED_ONE),
 });
 
+export const validationSchemaUpdateMentorProfileRequest2 = object({
+  // avatar: mixed()
+  //   .required(generateRequiredText('Hình ảnh đại diện'))
+  //   .test(
+  //     'fileSize',
+  //     IMAGE_SIZE_TOO_BIG,
+  //     (value: any) => value && value.size <= FILE_SIZE_2
+  //   )
+  //   .test(
+  //     'fileFormat',
+  //     IMAGE_FORMAT_NOT_SUPPORT,
+  //     (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+  //   ),
+  // //
+  fullName: string().required(NAME_REQUIRED),
+  // birthday: date()
+  //   .nullable()
+  //   .transform((curr, orig) => (orig === '' ? null : curr))
+  //   .required(BIRTHDAY_REQUIRED),
+  // address: string().required(ADDRESS_REQUIRED),
+  // phone: string().required(PHONE_REQUIRED),
+  // gender: object().required(GENDER_REQUIRED),
+  // //
+  // identityFront: mixed()
+  //   .required(generateRequiredText('Căn cước công dân (mặt trước)'))
+  //   .test(
+  //     'fileSize',
+  //     IMAGE_SIZE_TOO_BIG,
+  //     (value: any) => value && value.size <= FILE_SIZE_2
+  //   )
+  //   .test(
+  //     'fileFormat',
+  //     IMAGE_FORMAT_NOT_SUPPORT,
+  //     (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+  //   ),
+  // identityBack: mixed()
+  //   .required(generateRequiredText('Căn cước công dân (mặt sau)'))
+  //   .test(
+  //     'fileSize',
+  //     IMAGE_SIZE_TOO_BIG,
+  //     (value: any) => value && value.size <= FILE_SIZE_2
+  //   )
+  //   .test(
+  //     'fileFormat',
+  //     IMAGE_FORMAT_NOT_SUPPORT,
+  //     (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
+  //   ),
+  // //
+  // introduce: string().required(INTRODUCE_REQUIRED),
+  // workingExperience: string().required(WORKING_EXPERIENCE_REQUIRED),
+  // mentorSkills: array(
+  //   object({
+  //     skillId: object({
+  //       id: number().required('Thiếu Id'),
+  //     })
+  //       .typeError(SKILL_REQUIRED)
+  //       .required(SKILL_REQUIRED),
+  //     yearOfExperiences: number()
+  //       .typeError(YEAR_OF_EXPERIENCES_REQUIRED)
+  //       .required(YEAR_OF_EXPERIENCES_REQUIRED)
+  //       .min(1, YEAR_OF_EXPERIENCES_MINIMUM),
+  //   })
+  // )
+  //   .test('Unique', SKILL_UNIQUE, (value) => {
+  //     try {
+  //       if (value) {
+  //         const skillList = value.map((item) => item.skillId.id);
+  //         return new Set(skillList).size === value?.length;
+  //       }
+  //       return false;
+  //     } catch (error) {
+  //       return false;
+  //     }
+  //   })
+  //   .required()
+  //   .min(1, MENTOR_SKILLS_REQUIRED_ONE),
+});
 export const validationSchemaEditCertificateProfile = object({
   userImages: array(
     mixed().test(
@@ -532,21 +619,7 @@ export const validationSchemaCreateSubCourse = object({
     .required('Số lượng học sinh không được để trống')
     .typeError('Số lượng học sinh không được để trống')
     .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  imageId: mixed()
-    .required('Hình ảnh khóa học là bắt buộc')
-    .test(
-      'fileSize',
-      'Dung lượng ảnh quá lớn. Vui lòng chọn hình khác',
-      (value: any) => value && value.size <= FILE_SIZE_2
-    )
-    .test(
-      'fileFormat',
-      'Định dạng hình ảnh không hỗ trợ.',
-      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
-    ),
-  price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 50,000 VNĐ')
-    .required('Giá tiền là bắt buộc'),
+  price: number().required('Giá tiền là bắt buộc'),
   minStudent: number()
     .typeError('Số học sinh tối thiểu không được bỏ trống')
     .required('Số học sinh tối thiểu không được bỏ trống')
@@ -599,9 +672,7 @@ export const validationSchemaUpdateWaitingCourse = object({
     .required('Số lượng học sinh không được để trống')
     .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
-  price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
-    .required('Giá tiền là bắt buộc'),
+  price: number().required('Giá tiền là bắt buộc'),
   type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')
@@ -656,9 +727,7 @@ export const validationSchemaUpdateWaitingCoursePrivate = object({
     .typeError('Số lượng học sinh không được để trống')
     .min(30, 'Số buổi học tối thiểu phải lớn hơn 30'),
   level: string().required(COURSE_LEVEL_REQUIRED),
-  price: number()
-    .min(1000, 'Giá tiền phải lớn hơn 1000')
-    .required('Giá tiền là bắt buộc'),
+  price: number().required('Giá tiền là bắt buộc'),
   type: object().typeError('Hình thức không hợp lệ').required(COURSE_TYPE),
   minStudent: number()
     .required('Số học sinh tối thiểu không được bỏ trống')

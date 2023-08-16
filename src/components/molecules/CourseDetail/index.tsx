@@ -7,7 +7,7 @@ import ImageSlider from '~/components/atoms/ImageSlider';
 import { CommonCourse } from '~/constants';
 import { image } from '~/constants/image';
 import { NavigationLink } from '~/constants/routeLink';
-import { ActivityPayload } from '~/models/type';
+import { ActivityPayload, FeedbackPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import globalStyles from '~/styles';
 import CarouselCourse from '../CarouselCourse';
@@ -101,7 +101,7 @@ export default function CourseDetail({
             sx={{
               lineHeight: 0.98,
               fontSize: FontSize.large_45,
-              fontFamily: FontFamily.regular,
+              fontFamily: FontFamily.dosis,
             }}
           >
             {courseName}
@@ -120,17 +120,25 @@ export default function CourseDetail({
             <Typography sx={globalStyles.textCourseSmallLabel}>
               Mô tả khóa học
             </Typography>
-            <Stack sx={globalStyles.viewRoundedWhiteBody}>
+            <Stack
+              sx={{
+                padding: 2,
+                borderRadius: MetricSize.small_5,
+                border: '1px solid #ddd',
+              }}
+            >
               <Stack
                 sx={{
+                  transition: 'all 500ms ease',
                   position: 'relative',
-                  height: !openDescription ? '300px' : '100%',
+                  maxHeight: !openDescription ? '300px' : '100%',
                   overflow: 'hidden',
                 }}
               >
                 <Stack
                   sx={{
-                    display: openDescription ? 'none' : 'flex',
+                    transition: 'all 500ms ease',
+                    opacity: openDescription ? 0 : 1,
                     position: 'absolute',
                     top: 0,
                     bottom: 0,
@@ -210,7 +218,7 @@ export default function CourseDetail({
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Về giáo viên
           </Typography>
-          <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+          <Stack marginTop={1} sx={globalStyles.viewRoundedBorderBody}>
             <Stack
               sx={{
                 flexDirection: 'row',
@@ -237,11 +245,11 @@ export default function CourseDetail({
               />
               <Link
                 href={mentorDetailsLink}
-                sx={globalStyles.textSmallLight}
+                sx={globalStyles.textSmallLabel}
                 underline="hover"
               >{`${mentorName}`}</Link>
             </Stack>
-            <Stack marginY={1}>
+            <Stack marginY={2}>
               <Typography
                 sx={globalStyles.textSmallLight}
                 dangerouslySetInnerHTML={{
@@ -251,7 +259,7 @@ export default function CourseDetail({
             </Stack>
           </Stack>
         </Stack>
-        <Divider sx={{ marginY: 4 }} />
+        <Divider sx={{ marginY: 2 }} />
         <Stack>
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Đánh giá từ học sinh

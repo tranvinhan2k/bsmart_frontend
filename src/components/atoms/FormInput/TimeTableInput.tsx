@@ -36,8 +36,8 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
     const isExisted = Boolean(
       value.find(
         (scheduleItem: any) =>
-          scheduleItem.slot.id === data.slot.id &&
-          scheduleItem.dayOfWeek.id === data.dayOfWeek.id
+          scheduleItem.slot?.id === data.slot?.id &&
+          scheduleItem.dayOfWeek?.id === data.dayOfWeek?.id
       )
     );
     if (!isExisted) {
@@ -57,17 +57,22 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
   };
 
   const handleDeleteItem = (item: any) => {
+    console.log('item', item);
+
     const deletedItem = value.filter(
       (scheduleItem: any) =>
         !(
-          scheduleItem.slot.id === item.slot.id &&
-          scheduleItem.dayOfWeek.id === item.dayOfWeek.id
+          scheduleItem.slot?.id === item.slot?.id &&
+          scheduleItem.dayOfWeek?.id === item.dayOfWeek?.id
         )
     );
+
+    console.log('deleteItem', deletedItem);
+
     controllerOnChange(
       deletedItem.map((scheduleItem: any) => ({
         dayOfWeek: scheduleItem.dayOfWeek,
-        slot: scheduleItem.slotId,
+        slot: scheduleItem.slot,
       }))
     );
   };
@@ -79,7 +84,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
     <Stack>
       <Stack>
         {Array.isArray(value) &&
-          value.map((item) => {
+          value.map((item, index) => {
             return (
               <Stack
                 sx={{
@@ -89,7 +94,7 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                   borderRadius: '5px',
                   background: Color.grey3,
                 }}
-                key={`${item.dayOfWeek.id} ${item.slot.id}`}
+                key={index}
                 marginY={1}
                 padding={1}
               >
@@ -99,9 +104,9 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
                     fontFamily: FontFamily.bold,
                   }}
                 >
-                  {item.dayOfWeek.label}
+                  {item.dayOfWeek?.label}
                 </Typography>
-                <Typography>{item.slot.label}</Typography>
+                <Typography>{item.slot?.label}</Typography>
                 <IconButton onClick={() => handleDeleteItem(item)}>
                   <Icon name="close" size="small" color="black" />
                 </IconButton>

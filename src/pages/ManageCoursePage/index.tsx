@@ -41,6 +41,12 @@ export default function ManageCoursePage() {
   } = useSearchCourseCreateRequest({
     status: CourseStatusType.CANCEL,
   });
+  const handleRefetchAll = () => {
+    refetchListNotStart();
+    refetchListStarting();
+    refetchListEditEnded();
+    refetchListCancel();
+  };
 
   const tabEl = [
     {
@@ -49,7 +55,7 @@ export default function ManageCoursePage() {
       component: (
         <ManageTableCourse
           status={CourseStatusType.NOTSTART}
-          refetchGetNoOfRequest={refetchListNotStart}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(courseListNotStart?.items.length),
@@ -60,7 +66,7 @@ export default function ManageCoursePage() {
       component: (
         <ManageTableCourse
           status={CourseStatusType.STARTING}
-          refetchGetNoOfRequest={refetchListStarting}
+          refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
       noOfRequest: restrictNumberDisplay(courseListStarting?.items.length),

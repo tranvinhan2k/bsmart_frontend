@@ -2,7 +2,7 @@ import { MentorDetailCoursePayload } from '~/pages/MentorCourseDetailPage';
 import { useQueryGetMentorCourses } from './useQueryGetMentorCourses';
 
 export default function useQueryMentorCourse(id: number) {
-  const { courses, error, isLoading } = useQueryGetMentorCourses({
+  const { courses, error, isLoading, refetch } = useQueryGetMentorCourses({
     page: 0,
   });
   const tmpCourse = courses?.find((item) => item.id === id);
@@ -27,5 +27,6 @@ export default function useQueryMentorCourse(id: number) {
     course,
     error,
     isLoading,
+    refetch,
   };
 }

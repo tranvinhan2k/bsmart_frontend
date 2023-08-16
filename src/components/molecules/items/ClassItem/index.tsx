@@ -151,31 +151,28 @@ export default function ClassItem({
         justifyContent: 'space-between',
       }}
     >
-      <Stack sx={{ flexGrow: 1 }}>
+      <Stack>
         <Stack sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
-          <Stack>
-            <Box
-              component="img"
-              src={!loaded ? imageUrl : image.noCourse}
-              onError={() => setLoaded(true)}
-              alt="course"
-              sx={{
-                borderRadius: MetricSize.small_5,
-                border: '1px solid #eee',
-                margin: 1,
-                background: Color.white,
-                objectFit: 'cover',
-                height: undefined,
-                width: '150px',
-                aspectRatio: 1,
-              }}
-            />
-          </Stack>
+          <Box
+            component="img"
+            src={!loaded ? imageUrl : image.noCourse}
+            onError={() => setLoaded(true)}
+            alt="course"
+            sx={{
+              borderRadius: MetricSize.small_5,
+              border: '1px solid #eee',
+              margin: 1,
+              background: Color.white,
+              objectFit: 'cover',
+              height: '300px',
+              width: undefined,
+              aspectRatio: 1,
+            }}
+          />
 
           <Stack
             sx={{
-              flexGrow: 1,
-              paddingX: 3,
+              paddingX: 2,
               paddingY: 2,
               justifyContent: 'space-around',
             }}
@@ -193,41 +190,6 @@ export default function ClassItem({
             >
               {`Lớp học mã ${code}`}
             </Typography>
-            <Stack>
-              {/* <Stack
-                  sx={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: FontSize.small_18,
-                      height: undefined,
-                      aspectRatio: 1,
-                      objectFit: 'contain',
-                      marginRight: 1,
-                    }}
-                    component="img"
-                    src={
-                      LEVEL_IMAGES[
-                        level.value.toUpperCase() as keyof typeof LEVEL_IMAGES
-                      ]
-                    }
-                    alt="level"
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: FontSize.small_18,
-                      fontFamily: FontFamily.light,
-                      color: Color.black,
-                    }}
-                  >
-                    {`${level.label}`}
-                  </Typography>
-                </Stack> */}
-            </Stack>
             <Stack
               sx={{
                 flexDirection: 'row',
@@ -298,11 +260,17 @@ export default function ClassItem({
         <Stack
           sx={{
             position: 'absolute',
-            right: MetricSize.small_5,
-            top: MetricSize.small_5,
+            right: { xs: MetricSize.medium_15, md: MetricSize.small_5 },
+            top: { xs: MetricSize.medium_15, md: MetricSize.small_5 },
           }}
         >
-          <IconButton onClick={handleMenu}>
+          <IconButton
+            sx={{
+              background: Color.white,
+              boxShadow: 1,
+            }}
+            onClick={handleMenu}
+          >
             <Icon name="moreVert" color="black" size="small_20" />
           </IconButton>
 

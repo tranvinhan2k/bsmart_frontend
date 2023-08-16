@@ -27,15 +27,18 @@ export const useUpdateCourseForm = (
     subjectId: OptionPayload;
     categoryId: OptionPayload;
     description: string;
-    level: OptionPayload;
+    level: string;
   }) {
     const params: PutCourseRequest = {
       name: data?.name || '',
       subjectId: data?.subjectId.id,
       categoryId: data?.categoryId.id,
       description: data?.description || '',
-      level: data?.level.value,
+      level: data?.level,
     };
+
+    console.log(params);
+
     await onChangeCourse(params);
   }
 

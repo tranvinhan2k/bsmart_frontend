@@ -32,7 +32,7 @@ export default function NotificationItem({
   isRead = false,
 }: NotificationItemPayload) {
   const profile = useSelector(selectProfile);
-  const role = profile.roles[0].code;
+  const role = profile.roles?.[0]?.code;
   const handleNavigateLink = () => {
     switch (entity) {
       case 'COURSE':

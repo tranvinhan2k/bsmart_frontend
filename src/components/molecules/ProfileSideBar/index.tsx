@@ -189,9 +189,6 @@ export default function ProfileSideBar({
               >
                 {role === 'TEACHER' && (
                   <>
-                    <MentorProfileStatusProfileSideBar
-                      status={mentorProfileStatus}
-                    />
                     {displayFieldsMentor.items.map((item) => {
                       return (
                         <Stack
@@ -229,6 +226,12 @@ export default function ProfileSideBar({
                         {displayFieldsMentor.noOfRatingDisplay}
                       </Typography>
                     </Stack>
+                    <MentorProfileStatusProfileSideBar
+                      status={mentorProfileStatus}
+                    />
+                    <Box mt={2}>
+                      <MentorProfileCompleteProgress />
+                    </Box>
                   </>
                 )}
                 {role === 'STUDENT' && (
@@ -258,23 +261,9 @@ export default function ProfileSideBar({
                         </Stack>
                       );
                     })}
-                    {/* <Stack
-                      direction="row"
-                      justifyContent="flex-start"
-                      alignItems="center"
-                      spacing={1}
-                      mt={2}
-                    >
-                      <Icon name="edit" size="small" color="tertiary" />
-                      <Typography textAlign="center" sx={SX_DISPLAY_FIELD_TEXT}>
-                        <b>{displayFieldsMember.ratingDisplay.value}</b>{' '}
-                        {displayFieldsMember.ratingDisplay.text}
-                      </Typography>
-                    </Stack> */}
                   </>
                 )}
               </Stack>
-              {role === 'TEACHER' && <MentorProfileCompleteProgress />}
             </Stack>
             <Stack
               direction="column"

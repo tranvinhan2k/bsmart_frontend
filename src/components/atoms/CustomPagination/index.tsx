@@ -16,9 +16,9 @@ export default function CustomPagination({
 }: CustomPaginationProps) {
   const currentIndexPage = currentPage + 1;
 
-  useEffect(() => {
-    scrollToTop();
-  }, [currentPage]);
+  // useEffect(() => {
+  //   scrollToTop();
+  // }, [currentPage]);
 
   if (totalPages === 0) {
     return null;

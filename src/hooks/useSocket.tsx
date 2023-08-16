@@ -59,12 +59,10 @@ export const useSocket = () => {
           const messageObject: WebSocketMessagePayload = JSON.parse(
             message?.body
           );
+          console.log('message object', messageObject);
 
           await handleDispatch();
-          const isPaymentMessage = messageObject.data.entity === 'TRANSACTION';
-          if (isPaymentMessage) {
-            handleAddMessage(messageObject);
-          }
+          handleAddMessage(messageObject);
           if (!value) {
             toast.notifyInfoToast(
               <NotificationMessage

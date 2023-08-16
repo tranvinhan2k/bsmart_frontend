@@ -21,7 +21,8 @@ export const Color = {
   grey: '#999',
   grey2: '#696969',
   grey3: '#0000001f',
-  navy: '#0e0a38',
+  grey4: '#878a99',
+  navy: '#1d1e22',
   navy2: '#130f40',
   neutral: '#ccc',
   tertiary: '#19A7CE',
@@ -36,6 +37,8 @@ export const Color = {
   white4: '#eff3f6',
   white5: '#ebebeb',
   border: '#dddddd',
+  muiWarningBg: '#fdeded',
+  muiSuccessBg: '#edf7ed',
 };
 
 export const BorderRadius = {
@@ -58,6 +61,7 @@ export const FontFamily = {
   thin: 'Roboto-Thin',
   sidebar: 'Roboto-Regular',
   title: 'Varela Round',
+  dosis: 'Dosis',
 };
 
 export const FontSize = {

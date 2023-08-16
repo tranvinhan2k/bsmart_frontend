@@ -1,17 +1,17 @@
-import { Box, Grid } from '@mui/material';
-import WidgetTotalMentor from './Widget/WidgetTotalMentor';
+import { Box } from '@mui/material';
+import StatisticTotalRevenue from './StatisticTotalRevenue';
 
 export default function ManageAnalyticSection() {
   return (
     <Box p={4}>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <WidgetTotalMentor />
-        </Grid>
-        <Grid item xs={4}>
-          <WidgetTotalMentor />
-        </Grid>
-      </Grid>
+      <StatisticTotalRevenue
+        chartLabel="Doanh thu của năm"
+        chartRowLabel="Doanh thu theo tháng"
+      />
+      <StatisticTotalRevenue
+        chartLabel="Lợi nhuận thực của năm"
+        chartRowLabel="Lợi nhuận thực theo tháng"
+      />
     </Box>
   );
 }

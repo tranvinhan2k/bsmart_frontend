@@ -6,9 +6,9 @@ import WithdrawPage from '~/pages/WithdrawPage';
 import {
   MentorEditPersonalInfoPage,
   MentorEditMentorProfile,
-  MentorEditProfileImgPage,
   MentorEditPasswordPage,
   MentorSendRequestPage,
+  NotFoundPage,
 } from '~/routes/components';
 
 export const mentorRoutes: RoutePayload[] = [
@@ -29,11 +29,11 @@ export const mentorRoutes: RoutePayload[] = [
     main: () => <MentorEditMentorProfile />,
     role: ['ROLE_TEACHER'],
   },
-  {
-    path: MentorNavigationLink.edit_profile_img,
-    main: () => <MentorEditProfileImgPage />,
-    role: ['ROLE_TEACHER'],
-  },
+  // {
+  //   path: MentorNavigationLink.edit_profile_img,
+  //   main: () => <MentorEditProfileImgPage />,
+  //   role: ['ROLE_TEACHER'],
+  // },
   {
     path: MentorNavigationLink.edit_profile_password,
     main: () => <MentorEditPasswordPage />,
@@ -54,4 +54,9 @@ export const mentorRoutes: RoutePayload[] = [
   //   main: () => <WithdrawPage />,
   //   role: ['ROLE_TEACHER'],
   // },
+  {
+    path: '*',
+    main: () => <NotFoundPage />,
+    role: [],
+  },
 ];

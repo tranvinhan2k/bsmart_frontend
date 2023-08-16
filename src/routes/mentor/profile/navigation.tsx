@@ -14,21 +14,16 @@ export const MentorNavigationActionData: ActionPayload[] = [
   },
   {
     id: 2,
-    name: 'CMND/CCCD',
-    link: MentorNavigationLink.edit_profile_img,
-  },
-  {
-    id: 3,
     name: 'Mật khẩu',
     link: MentorNavigationLink.edit_profile_password,
   },
   {
-    id: 4,
+    id: 3,
     name: 'Lịch sử giao dịch',
     link: MentorNavigationLink.wallet_management,
   },
   {
-    id: 5,
+    id: 4,
     name: 'Gửi yêu cầu',
     link: MentorNavigationLink.send_request,
   },

@@ -21,24 +21,15 @@ export default function RequestCourseDate({
   const title = [
     {
       id: 0,
-      label: 'Ngày gửi',
-      value: courseCreateRequestDetails
-        ? formatISODateStringToDisplayDateTime(
-            courseCreateRequestDetails.timeSendRequest
-          )
-        : '',
-    },
-    {
-      id: 1,
-      label: 'Lần gửi thứ',
-      value: courseCreateRequestDetails ? courseCreateRequestDetails.count : '',
+      label: 'Thời gian phê duyệt',
+      value: '',
     },
   ];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Box mb={2}>
-        <Typography sx={SX_FORM_LABEL}>Thời gian gửi yêu cầu</Typography>
+        <Typography sx={SX_FORM_LABEL}>Thông tin bắt đầu</Typography>
       </Box>
       <Grid
         container

@@ -7,13 +7,11 @@ export const AboutUsPage = lazy(() => import('~/pages/AboutUsPage'));
 export const LmsPage = lazy(() => import('~/pages/LmsPage'));
 export const AnnotationPage = lazy(() => import('~/pages/AnnotationPage'));
 export const BlogPage = lazy(() => import('~/pages/BlogPage'));
+export const PaymentReport = lazy(() => import('~/pages/PaymentReport'));
 export const BlogDetailsPage = lazy(() => import('~/pages/BlogDetailsPage'));
 
 export const MemberEditPersonalInfoPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPersonalInfoPage')
-);
-export const MemberEditImgInfoPage = lazy(
-  () => import('~/pages/MemberEditProfilePage/MemberEditImgInfoPage')
 );
 export const MemberEditPasswordPage = lazy(
   () => import('~/pages/MemberEditProfilePage/MemberEditPasswordPage')
@@ -45,9 +43,6 @@ export const MentorProfilePage = lazy(
 );
 export const MentorEditPersonalInfoPage = lazy(
   () => import('~/pages/MentorEditProfilePage/MentorEditPersonalInfoPage')
-);
-export const MentorEditProfileImgPage = lazy(
-  () => import('~/pages/MentorEditProfilePage/MentorEditImgInfoPage')
 );
 export const MentorEditPasswordPage = lazy(
   () => import('~/pages/MentorEditProfilePage/MentorEditPasswordPage')
@@ -177,6 +172,9 @@ export const MentorClassFeedbacksPage = lazy(
 export const MentorClassModulesPage = lazy(
   () => import('~/pages/mentor_class/MentorClassModulesPage')
 );
+export const MentorClassMarkReportPage = lazy(
+  () => import('~/pages/mentor_class/MentorClassMarkReportPage')
+);
 
 // member class
 export const MemberClassDetailPage = lazy(
@@ -206,6 +204,9 @@ export const MemberClassModulesPage = lazy(
 export const MemberPromoCode = lazy(
   () => import('~/pages/member_class/MemberPromoCode')
 );
+export const MemberClassMarkReportPage = lazy(
+  () => import('~/pages/member_class/MemberClassMarkReportPage')
+);
 
 // admin
 
@@ -214,4 +215,10 @@ export const AdminManagerRevenuePage = lazy(
 );
 export const AdminManagerQuestionBank = lazy(
   () => import('~/pages/admin/AdminManagerQuestionBank')
+);
+
+// question
+
+export const ManagerQuestionsBankPage = lazy(
+  () => import('~/pages/manager/ManagerQuestionsBankPage')
 );

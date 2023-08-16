@@ -171,11 +171,7 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
           <Stack marginTop={1} />
           <FormInput control={control} name="attachFiles" variant="files" />
           <Box marginTop={1}>
-            <Button
-              disabled={!formState.isDirty}
-              onClick={toggle}
-              variant="contained"
-            >
+            <Button onClick={toggle} variant="contained">
               {item.attachFiles.length !== 0
                 ? 'Cập nhật bài làm'
                 : 'Thêm bài làm'}

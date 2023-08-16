@@ -53,3 +53,25 @@ export const SX_REQUEST_TITLE: SxProps<Theme> = {
   fontSize: 24,
   fontWeight: 600,
 };
+
+export const SX_FORM_ITEM_LABEL2: SxProps<Theme> = {
+  fontFamily: FontFamily.regular,
+  fontSize: 16,
+  color: Color.grey2,
+};
+export const SX_FORM_ITEM_VALUE2: SxProps<Theme> = {
+  fontFamily: FontFamily.medium,
+  fontSize: 16,
+};
+
+export const SX_USER_AVATAR_CLICKABLE: SxProps<Theme> = {
+  width: 100,
+  height: 100,
+  boxShadow: 2,
+  //
+  transition: 'all .4s',
+  '&:hover': {
+    boxShadow: 4,
+    transform: 'translateY(calc(-1.5rem / 5))',
+  },
+};

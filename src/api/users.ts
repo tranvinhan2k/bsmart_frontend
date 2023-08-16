@@ -11,6 +11,7 @@ import {
   ClassMenuItemPayload,
   ManagedMemberPayload,
   ManagedMentorPayload,
+  MentorProfileUpdateResponse,
   ProfilePayload,
   WeekTimeSlotPayload,
 } from '~/models/type';
@@ -23,6 +24,7 @@ import { generateMockApi } from '~/utils/common';
 import { image } from '~/constants/image';
 import { NotificationItemPayload } from '~/HOCs/context/NotificationItem';
 import { UseSearchManagedUserPayload } from '~/hooks/user/useSearchManagedUser';
+import { IntroduceCodePayload } from '~/pages/CheckoutPage';
 
 const url = `/users`;
 const urlAuth = `/auth`;
@@ -54,10 +56,6 @@ export interface EditMentorProfilePayload {
   mentorSkills: Array<any>;
   workingExperience: string;
 }
-export interface UpdateMentorProfileRequestPayload {
-  mentorSkills: Array<any>;
-}
-
 export interface ResponseProfilePayload {
   id: number;
   username: string;
@@ -215,26 +213,39 @@ const accountApi = {
   },
 
   // get
+
   getProfile(): Promise<ProfilePayload> {
     return axiosClient.get(`${url}/profile`);
+  },
+  getMentorEditProfile(): Promise<MentorProfileUpdateResponse> {
+    return axiosClient.get(`${url}/profile-edit`);
   },
   getIntroduceCode(): Promise<PromoCodePayload[]> {
     const data: PromoCodePayload[] = [
       {
         id: 0,
         code: '1234567',
+        classId: 0,
+        courseId: 3,
+        percent: 0.5,
         description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
       },
       {
         id: 1,
         code: '1234563',
+        classId: 0,
+        courseId: 3,
+        percent: 0.4,
         description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
       },
       {
         id: 2,
         code: '1234561',
+        courseId: 1,
+        classId: 2,
+        percent: 0.3,
         description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quo impedit quibusdam expedita dolore sunt ullam laborum nam incidunt explicabo sint nihil, dolor accusantium necessitatibus aspernatur natus maxime. Consequatur, distinctio! ',
       },
@@ -326,6 +337,10 @@ const accountApi = {
   },
   editSocialProfile(data: EditSocialProfilePayload): Promise<any> {
     return axiosClient.put(`${url}/social`, data);
+  },
+  addPromoCode(code: string): Promise<any> {
+    // return axiosClient.post();
+    return generateMockApi(true);
   },
   async getMentorData(id: string): Promise<any> {
     return axiosClient.get(`${url}/${id}`);

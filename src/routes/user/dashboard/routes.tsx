@@ -4,7 +4,6 @@ import { NavigationLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import CartPage from '~/pages/CartPage';
 import CheckoutPage from '~/pages/CheckoutPage';
-import QuizPage from '~/pages/QuizPage';
 import {
   AboutUsPage,
   AnnotationPage,
@@ -29,6 +28,7 @@ import {
   TestPage,
   ForgotPasswordPage,
   PolicyPage,
+  PaymentReport,
 } from '~/routes/components';
 
 export const routes: RoutePayload[] = [
@@ -160,6 +160,11 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.policy,
     main: () => <PolicyPage />,
+    role: [],
+  },
+  {
+    path: NavigationLink.payment_report,
+    main: () => <PaymentReport />,
     role: [],
   },
   {

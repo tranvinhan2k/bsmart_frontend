@@ -4,4 +4,5 @@ export const enum Key {
   useMutationUnblockCourse = 'use_mutation_unblock_course',
   UseMutationProcessCourseCreateRequest = 'mutation_process_course_create_request',
   UseSearchCourseCreateRequest = 'use_search_course_create_request',
+  UseSearchCourseUpdateRequest = 'use_search_course_update_request',
 }

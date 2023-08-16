@@ -28,11 +28,11 @@ export const enum NavigationLink {
   dashboard = 'dashboard',
   forgot_password = 'forgot_password',
   policy = 'policy',
+  payment_report = 'payment_report',
 }
 
 export const enum MemberNavigationActionLink {
   edit_profile_personal_info = 'edit-profile',
-  edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   wallet_management = 'wallet-management',
   member_course_list = 'member-course-list',
@@ -41,7 +41,6 @@ export const enum MemberNavigationActionLink {
 export const enum MentorNavigationLink {
   edit_profile_personal_info = 'edit-profile',
   edit_profile_mentor_info = 'edit-profile-mentor',
-  edit_profile_img = 'edit-profile-img',
   edit_profile_password = 'edit-profile-password',
   send_request = 'send_request',
   wallet_management = 'wallet-management',
@@ -111,6 +110,7 @@ export const enum ManagerNavigationActionLink {
   manage_course_manager = 'manage_course_manager',
   manage_request_manager = 'manage_request_manager',
   manage_user_manager = 'manage_user_manager',
+  questions_bank = 'questions_bank',
   confirm_email = 'confirm_email/:code',
 }
 
@@ -133,6 +133,7 @@ export const enum MentorClassActionLink {
   points = 'points',
   assignments = 'assignments',
   feedback = 'feedback',
+  mark_report = 'mark-report',
 }
 export const enum MemberClassActionLink {
   information = 'information',
@@ -141,6 +142,7 @@ export const enum MemberClassActionLink {
   attendance = 'attendance',
   activity = 'activity',
   notification = 'notification',
+  mark_report = 'mark-report',
 }
 
 export const enum ActivityLink {

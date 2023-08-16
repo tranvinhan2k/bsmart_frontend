@@ -25,8 +25,8 @@ export default function MentorDegree({ row }: BasicInfoProps) {
     setIsWorkingExperienceExpanded(!isWorkingExperienceExpanded);
   };
 
-  const { introduce, workingExperience } = row.mentorProfile;
-  const skills = row.mentorProfile.mentorSkills;
+  const { introduce = '', workingExperience = '' } = row.mentorProfile;
+  const skills = row.mentorProfile.mentorSkills ?? [];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>

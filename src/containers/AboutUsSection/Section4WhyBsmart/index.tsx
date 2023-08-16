@@ -10,7 +10,7 @@ export default function Section4WhyBsmart() {
           CHÚNG TÔI LÀ AI?
         </Typography>
         <Typography component="h2" sx={SX_WHY_BSMART.H2}>
-          Vì sao bạn nên chọn BSmart
+          Vì sao bạn nên chọn Mismart
         </Typography>
         {/* <Grid container spacing={7}> */}
         <Grid

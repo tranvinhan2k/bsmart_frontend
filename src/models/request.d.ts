@@ -16,7 +16,7 @@ export interface PostCourseRequest {
 }
 
 export interface PostClassRequest {
-  imageId: number;
+  imageId: number | undefined;
   price: number;
   minStudent: number;
   maxStudent: number;
@@ -57,6 +57,7 @@ export interface PagingFilterRequest {
   // feedback
   type?: FeedbackTypeKeys;
   name?: string;
+  numberOfStar?: number;
 
   // assignments
   classIds?: number[];
@@ -67,7 +68,6 @@ export interface PutCourseRequest {
   name: string;
   categoryId: number;
   subjectId: number;
-
   description: string;
   level: string;
 }

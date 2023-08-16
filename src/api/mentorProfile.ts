@@ -5,6 +5,7 @@ import { PagingFilterPayload } from '~/models';
 import {
   CheckCompletenessReturnPayload,
   MentorDetailsPayload,
+  MentorProfileUpdateDetailsResponse,
   UpdateMentorProfileRequestSubmitPayload,
 } from '~/models/mentorProfiles';
 
@@ -34,16 +35,21 @@ const mentorProfilesApi = {
   },
 
   searchMentorProfileUpdateRequest({
-    q,
+    q = '',
     status,
-    page,
-    size,
-    sort,
+    page = 0,
+    size = null,
+    sort = [],
   }: UseSearchMentorProfileUpdateRequestPayload): Promise<
     PagingFilterPayload<any>
   > {
-    const urlSearch = `${url}/request-approval-skill`;
+    const urlSearch = `${url}/edit-profile?q=${q}&status=${status}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(`${urlSearch}`);
+  },
+  getMentorProfileUpdateRequestDetails(
+    mentorProfileEditId: number
+  ): Promise<MentorProfileUpdateDetailsResponse> {
+    return axiosClient.get(`${url}/${mentorProfileEditId}/edit-profile-detail`);
   },
 
   processUpdateMentorProfileRequest({

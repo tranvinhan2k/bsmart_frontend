@@ -66,7 +66,13 @@ export default function Module({ index, sectionId, module }: Props) {
           }}
         >
           <Tooltip title="Xem chi tiết">
-            <IconButton onClick={handleViewOpen}>
+            <IconButton
+              sx={{
+                boxShadow: 1,
+                background: '#fff',
+              }}
+              onClick={handleViewOpen}
+            >
               <Icon name="search" color="black" size="small_20" />
             </IconButton>
           </Tooltip>

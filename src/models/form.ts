@@ -44,6 +44,28 @@ export interface FeedbackMentorDataPayload {
   feelingOfTeacher: string;
 }
 
+export interface UpdateMentorProfileRequestProfileFormDefault {
+  avatar: string;
+  //
+  fullName: string;
+  birthday: string;
+  address: string;
+  phone: string;
+  gender: DropdownDynamicValueInputStringDataPayload | null;
+  //
+  identityFront: string;
+  identityBack: string;
+  //
+  introduce: string;
+  workingExperience: string;
+  mentorSkills: {
+    skillId: DropdownDynamicValueInputNumberDataPayload | null;
+    yearOfExperiences: number;
+  }[];
+  //
+  degreeList: any[];
+}
+
 export interface EditAvatarFormDataPayload {
   avatar: string;
 }
@@ -82,12 +104,19 @@ export interface EditMentorProfileFormDataPayload {
     yearOfExperiences: number;
   }[];
 }
-export interface UpdateMentorProfileRequestFormDataPayload {
-  mentorSkills?: {
-    skillId: DropdownDynamicValueInputNumberDataPayload | null;
-    yearOfExperiences: number;
-  }[];
-}
+// export interface UpdateMentorProfileRequestFormDataPayload {
+//   fullName: string;
+//   birthday: string;
+//   address: string;
+//   phone: string;
+//   gender: DropdownDynamicValueInputStringDataPayload | null;
+//   introduce: string;
+//   workingExperience: string;
+//   mentorSkills: {
+//     skillId: DropdownDynamicValueInputNumberDataPayload | null;
+//     yearOfExperiences: number;
+//   }[];
+// }
 
 export interface MentorProfile {
   id: number;

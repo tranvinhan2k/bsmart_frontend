@@ -112,43 +112,41 @@ export default function AddResourceForm({
             hookForm.getFieldState('file')?.error?.message
           }`}</FormHelperText>
         )}
-        <Stack
-          sx={{
-            marginTop: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            disabled={
-              !hookForm.formState.isDirty! ||
-              !isAllowUpdateActivity(course.status) ||
-              isFixed
-            }
-            color="secondary"
+        {isAllowUpdateActivity(course.status) ? (
+          <Stack
             sx={{
-              color: Color.white,
+              marginTop: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
-            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-            variant="contained"
           >
-            {!onDelete ? 'Tạo tài nguyên' : 'Lưu thay đổi'}
-          </Button>
-          {Boolean(onDelete) && (
             <Button
-              disabled={!isAllowUpdateActivity(course.status) || isFixed}
-              color="error"
+              color="secondary"
               sx={{
-                marginLeft: 1,
                 color: Color.white,
               }}
-              onClick={onDelete}
+              onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
               variant="contained"
             >
-              Xóa bài học
+              {!onDelete ? 'Tạo tài nguyên' : 'Lưu thay đổi'}
             </Button>
-          )}
-        </Stack>
+            {Boolean(onDelete) && (
+              <Button
+                color="error"
+                sx={{
+                  marginLeft: 1,
+                  color: Color.white,
+                }}
+                onClick={onDelete}
+                variant="contained"
+              >
+                Xóa bài học
+              </Button>
+            )}
+          </Stack>
+        ) : (
+          <Button variant="contained">Cập nhật tài nguyên</Button>
+        )}
       </Stack>
     </Stack>
   );

@@ -3,14 +3,21 @@ import { UseControllerReturn } from 'react-hook-form';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
+import dayjs, { Dayjs } from 'dayjs';
+import { useState } from 'react';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 import { isValidDate } from '~/utils/date';
 
 interface DatePickerInputProps {
   controller: UseControllerReturn<any, string>;
   placeholder: string;
+  disabled?: boolean;
 }
-function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
+function DatePickerInput({
+  controller,
+  placeholder,
+  disabled = false,
+}: DatePickerInputProps) {
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error },
@@ -19,10 +26,13 @@ function DatePickerInput({ controller, placeholder }: DatePickerInputProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
+        disabled={disabled}
         inputFormat="DD/MM/YYYY"
         value={value}
-        onChange={(newValue) => {
-          if (isValidDate(newValue)) onChange(newValue?.toISOString());
+        onChange={(newValue: Dayjs | null) => {
+          if (newValue && isValidDate(newValue)) {
+            onChange(newValue.toISOString());
+          }
         }}
         renderInput={(params) => (
           <TextField

@@ -1,10 +1,13 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import { formatISODateStringToDisplayDateTime } from '~/utils/date';
+import {
+  formatISODateStringToDisplayDate,
+  formatISODateStringToDisplayTime,
+} from '~/utils/date';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
-  SX_FORM_LABEL,
   SX_FORM_ITEM_VALUE,
+  SX_FORM_LABEL,
 } from './style';
 
 interface RequestDateProps {
@@ -12,14 +15,19 @@ interface RequestDateProps {
 }
 
 export default function RequestDate({ row }: RequestDateProps) {
-  const tmpTitle = [
+  const title0 = [
     {
       id: 0,
       label: 'Ngày gửi',
-      value: formatISODateStringToDisplayDateTime(row.timeSendRequest) ?? '',
+      value: formatISODateStringToDisplayDate(row.timeSendRequest) ?? '',
     },
     {
       id: 1,
+      label: 'Thời gian gửi',
+      value: formatISODateStringToDisplayTime(row.timeSendRequest) ?? '',
+    },
+    {
+      id: 2,
       label: 'Lần gửi thứ',
       value: row.count ?? '',
     },
@@ -39,7 +47,7 @@ export default function RequestDate({ row }: RequestDateProps) {
         columnSpacing={8}
         rowSpacing={2}
       >
-        {tmpTitle.map((item) => (
+        {title0.map((item) => (
           <Grid item xs={12} key={item.id}>
             <Stack
               direction="row"

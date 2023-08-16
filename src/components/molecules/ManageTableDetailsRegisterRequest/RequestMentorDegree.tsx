@@ -6,9 +6,8 @@ interface BasicInfoProps {
 }
 
 export default function RequestMentorDegree({ row }: BasicInfoProps) {
-  const userDegreeList = row.userImages.filter(
-    (item: any) => item.type === 'DEGREE'
-  );
+  const userDegreeList =
+    row.userImages.filter((item: any) => item.type === 'DEGREE') ?? [];
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>

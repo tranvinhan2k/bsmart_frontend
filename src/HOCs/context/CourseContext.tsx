@@ -27,6 +27,7 @@ interface CourseContextProps {
   percent: GetCoursePercentResponse;
   onChangeSection: (id: number) => void;
   refetchContent: any;
+  refetchCourse: any;
   refetchPercent: any;
 }
 
@@ -59,6 +60,7 @@ export const CourseContext = createContext<CourseContextProps>({
   onChangeSection: () => {},
   refetchContent: () => {},
   refetchPercent: () => {},
+  refetchCourse: () => {},
 });
 
 export default function CourseContextProvider({ children }: Props) {
@@ -66,7 +68,12 @@ export default function CourseContextProvider({ children }: Props) {
 
   const [sectionId, setSectionId] = useState(0);
 
-  const { course, error, isLoading } = useQueryMentorCourse(courseId);
+  const {
+    course,
+    error,
+    isLoading,
+    refetch: refetchCourse,
+  } = useQueryMentorCourse(courseId);
   const classQuery = useQueryGetMentorCourseClasses(courseId);
   const { data: content, refetch: refetchContent } =
     useQueryGetCourseContent(courseId);
@@ -90,6 +97,7 @@ export default function CourseContextProvider({ children }: Props) {
       onChangeSection: handleSetScrollSection,
       refetchContent,
       refetchPercent,
+      refetchCourse,
     }),
     [
       courseId,
@@ -100,6 +108,7 @@ export default function CourseContextProvider({ children }: Props) {
       percent,
       refetchContent,
       refetchPercent,
+      refetchCourse,
     ]
   );
 

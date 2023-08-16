@@ -24,7 +24,7 @@ import { CourseContext } from '~/HOCs/context/CourseContext';
 
 export default function MentorCourseInformationPage() {
   const { id } = useParams();
-  const { course: tempCourse } = useContext(CourseContext);
+  const { course: tempCourse, refetchCourse } = useContext(CourseContext);
 
   const course: MentorDetailCoursePayload | undefined = {
     description: tempCourse?.description || '',
@@ -58,23 +58,31 @@ export default function MentorCourseInformationPage() {
   };
 
   const handleUpdateCourse = async (param: PutCourseRequest) => {
-    await handleTryCatch(async () => mutateAsync({ id, param }));
+    await handleTryCatch(async () => {
+      await mutateAsync({ id, param });
+      await refetchCourse();
+    });
   };
 
   const handleDeleteCourse = async () => {
-    await deleteCourse.handleTryCatch(async () => mutateDeleteAsync(id));
-    navigate(
-      `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`
-    );
+    await deleteCourse.handleTryCatch(async () => {
+      await mutateDeleteAsync(id);
+      navigate(
+        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_list}`
+      );
+    });
+    handleClose();
   };
 
   const { hookForm, categories, filterSubjects, levels, handleSubmit } =
     useUpdateCourseForm(course, handleUpdateCourse);
 
   useEffect(() => {
-    hookForm.reset(course);
+    if (tempCourse) {
+      hookForm.reset(course);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [course]);
+  }, [tempCourse]);
 
   return (
     <Stack>

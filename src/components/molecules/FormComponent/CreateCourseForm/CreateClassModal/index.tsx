@@ -1,7 +1,7 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, FormHelperText, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
@@ -13,6 +13,8 @@ import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
 import { CREATE_CLASS_FIELDS } from '~/form/schema';
+import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
+import { generateEndDate } from '~/utils/date';
 
 const texts = {
   createClassTitle: 'Tạo lớp học mới',
@@ -126,6 +128,22 @@ export default function CreateClassModal({
               <Typography sx={globalStyles.textSmallLabel}>
                 {texts.classInfoTitle}
               </Typography>
+
+              <Stack marginTop={2} />
+              <FormInput
+                name={CREATE_CLASS_FIELDS.numberOfSlot}
+                variant="number"
+                control={hookForm.control}
+                label={texts.numberOfSlotLabel}
+              />
+              <Stack marginTop={2} />
+              <FormInput
+                name={CREATE_CLASS_FIELDS.timeInWeekRequests}
+                variant="timetable"
+                control={hookForm.control}
+                label={texts.timetableLabel}
+              />
+
               <Stack
                 sx={{
                   justifyContent: 'space-between',
@@ -141,26 +159,16 @@ export default function CreateClassModal({
                 />
                 <FormInput
                   variant="date"
+                  disabled
                   name={CREATE_CLASS_FIELDS.endDateExpected}
                   control={hookForm.control}
                   label={texts.endDateLabel}
                 />
               </Stack>
-              <Stack marginTop={2} />
-              <FormInput
-                name={CREATE_CLASS_FIELDS.numberOfSlot}
-                variant="number"
-                control={hookForm.control}
-                label={texts.numberOfSlotLabel}
-              />
-              <Stack marginTop={2} />
-              <FormInput
-                name={CREATE_CLASS_FIELDS.timeInWeekRequests}
-                variant="timetable"
-                control={hookForm.control}
-                label={texts.timetableLabel}
-              />
-              <Stack marginTop={2} />
+              <FormHelperText>
+                Vui lòng thêm ngày bắt đầu, số buổi học, thời khóa biểu tuần để
+                có được ngày kết thúc dự kiến
+              </FormHelperText>
               <Button
                 sx={{
                   marginTop: 1,

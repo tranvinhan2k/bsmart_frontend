@@ -15,6 +15,9 @@ import {
   GetCoursePercentResponse,
 } from '~/models/response';
 import { formatOptionPayload } from '~/utils/common';
+import { CourseCreateRequestDetails } from '~/models/courses';
+import { UseSearchCourseCreateRequestPayload } from '~/hooks/course/useSearchCourseCreateRequest';
+import { UseSearchCourseUpdateRequestPayload } from '~/hooks/course/useSearchCourseUpdateRequest';
 // Define the request payload for fetching courses
 
 export interface ResponseMemberCoursePayload {
@@ -136,6 +139,9 @@ const coursesApi = {
         name: item.subjectResponse?.name || '',
         categoryIds: item.subjectResponse?.categoryIds || [],
       }),
+      // TODO: fake feedback rating until have it
+      numOfRating: 123,
+      rating: 4,
     }));
     return { ...response, items: result };
   },
@@ -171,6 +177,9 @@ const coursesApi = {
         name: item.subjectResponse?.name || '',
         categoryIds: item.subjectResponse?.categoryIds || [],
       }),
+      // TODO: fake feedback rating until have it
+      numOfRating: 123,
+      rating: 4,
     }));
 
     return { ...response, items: result };
@@ -243,6 +252,50 @@ const coursesApi = {
   },
   unblockCourse(id: number) {
     return axiosClient.put(`${url}/${id}/unblock`);
+  },
+
+  searchCourseCreateRequest({
+    status,
+    q = '',
+    page = 0,
+    size = null,
+    sort = [],
+  }: UseSearchCourseCreateRequestPayload): Promise<
+    PagingFilterPayload<CourseCreateRequestDetails>
+  > {
+    const urlSearch = `${url}/pending?status=${status}&p=${q}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(`${urlSearch}`);
+  },
+  processCourseCreateRequest(
+    data: ProcessCreateCourseRequestPayload
+  ): Promise<boolean> {
+    return axiosClient.put(`${url}/${data.id}/approval`, {
+      classIds: data.classIds,
+      status: data.status,
+      message: data.message,
+    });
+  },
+
+  searchCourseUpdateRequest({
+    status,
+    q = '',
+    page = 0,
+    size = null,
+    sort = [],
+  }: UseSearchCourseUpdateRequestPayload): Promise<
+    PagingFilterPayload<CourseCreateRequestDetails>
+  > {
+    const urlSearch = `${url}/pending?status=${status}&p=${q}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(`${urlSearch}`);
+  },
+  processCourseUpdateRequest(
+    data: ProcessCreateCourseRequestPayload
+  ): Promise<boolean> {
+    return axiosClient.put(`${url}/${data.id}/approval`, {
+      classIds: data.classIds,
+      status: data.status,
+      message: data.message,
+    });
   },
 };
 

@@ -52,12 +52,10 @@ export default function CreateTemplateForm({
 
   return (
     <Stack
-      padding={1}
       sx={{
         minWidth: '70vw',
       }}
     >
-      <Typography sx={globalStyles.textSubTitle}>Tạo bản mẫu</Typography>
       <InputGroup
         control={createTemplateForm.control}
         inputList={InputFormData}

@@ -8,6 +8,7 @@ import ProfileSideBar from '~/components/molecules/ProfileSideBar';
 import { selectProfile } from '~/redux/user/selector';
 import { SocialPayload } from '~/models';
 import { handleGetImageLink } from '~/utils/image';
+import { NavigationLink } from '~/constants/routeLink';
 
 export default function MentorDetailSection() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function MentorDetailSection() {
     setOpenDialogUpdateAvatar(!openDialogUpdateAvatar);
 
   const handleNavigateLink = (link: string) => {
-    navigate(link);
+    navigate(`/${NavigationLink.mentor_profile}/${link}`);
   };
 
   const handleOpenSocialLink = (link: string | null) => {

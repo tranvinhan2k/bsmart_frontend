@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Grid,
   IconButton,
   Link,
@@ -10,7 +9,6 @@ import {
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import { genderData } from '~/constants';
-import { image } from '~/constants/image';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
@@ -18,8 +16,8 @@ import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
   SX_FORM_LABEL,
-  SX_WRAPPER,
   SX_USER_AVATAR_CLICKABLE,
+  SX_WRAPPER,
 } from '../style';
 
 interface BasicInfoProps {
@@ -31,6 +29,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     undefined;
 
   const enum Text {
+    mainTitle = 'Thông tin cá nhân',
     labelMail = 'Mail',
     labelName = 'Họ tên',
     labelPhone = 'Số điện thoại',
@@ -126,7 +125,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
           spacing={1}
         >
           <Grid item xs={12}>
-            <Typography sx={SX_FORM_LABEL}>Giảng viên</Typography>
+            <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Stack
