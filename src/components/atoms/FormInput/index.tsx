@@ -61,8 +61,8 @@ interface FormInputProps {
   name: string;
   placeholder?: string;
   multilineRows?: number;
-  previewImgHeight?: number | string;
-  previewImgWidth?: number | string;
+  previewImgHeight?: number;
+  previewImgWidth?: number;
   answerType?: QuizQuestionTypeKeys;
   variant?: FormInputVariant;
 }
@@ -81,8 +81,8 @@ const generateFormInput = (
   helperText: string,
   placeholder: string,
   multilineRows: number,
-  previewImgHeight: number | string,
-  previewImgWidth: number | string,
+  previewImgHeight: number,
+  previewImgWidth: number,
   answerType: QuizQuestionTypeKeys | undefined,
   variant: FormInputVariant
 ) => {
@@ -255,8 +255,8 @@ export default function FormInput({
   name,
   placeholder = '',
   multilineRows = 4,
-  previewImgHeight = '100%',
-  previewImgWidth = '100%',
+  previewImgHeight = 1,
+  previewImgWidth = 1,
   answerType,
   variant = 'text',
 }: FormInputProps) {

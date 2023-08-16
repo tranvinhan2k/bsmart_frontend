@@ -358,8 +358,8 @@ export default function UpdateMentorProfileRequestSection() {
                 control={control}
                 name="identityFront"
                 variant="image"
-                previewImgHeight="100%"
-                previewImgWidth="100%"
+                previewImgHeight={300}
+                previewImgWidth={500}
               />
             </Stack>
           </Grid>
@@ -377,8 +377,8 @@ export default function UpdateMentorProfileRequestSection() {
                 control={control}
                 name="identityBack"
                 variant="image"
-                previewImgHeight="100%"
-                previewImgWidth="100%"
+                previewImgHeight={300}
+                previewImgWidth={500}
               />
             </Stack>
           </Grid>
