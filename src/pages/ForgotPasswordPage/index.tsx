@@ -99,38 +99,45 @@ export default function ForgotPasswordPage() {
       >
         {
           // eslint-disable-next-line no-nested-ternary
-          codeId && isConfirmed ? (
-            value ? (
-              <Alert severity="info">
-                Mật khẩu đã được thay đổi thành công
-              </Alert>
+          codeId ? (
+            // eslint-disable-next-line no-nested-ternary
+            isConfirmed ? (
+              value ? (
+                <Alert severity="info">
+                  Mật khẩu đã được thay đổi thành công
+                </Alert>
+              ) : (
+                <Stack>
+                  <LoadingWrapper isLoading={isLoading} error={error}>
+                    <Stack>
+                      <Typography
+                        textAlign="center"
+                        sx={globalStyles.textSmallLabel}
+                      >
+                        Quên mật khẩu
+                      </Typography>
+                      <InputGroup
+                        control={controlPassword}
+                        inputList={inputs}
+                      />
+                      <Button
+                        onClick={handleSubmitPassword(
+                          onResetPassword,
+                          handleConsoleError
+                        )}
+                        variant="contained"
+                        sx={{ marginTop: 1 }}
+                      >
+                        Đổi mật khẩu
+                      </Button>
+                    </Stack>
+                  </LoadingWrapper>
+                </Stack>
+              )
             ) : (
-              <Stack>
-                <LoadingWrapper isLoading={isLoading} error={error}>
-                  <Stack>
-                    <Typography
-                      textAlign="center"
-                      sx={globalStyles.textSmallLabel}
-                    >
-                      Quên mật khẩu
-                    </Typography>
-                    <InputGroup control={controlPassword} inputList={inputs} />
-                    <Button
-                      onClick={handleSubmitPassword(
-                        onResetPassword,
-                        handleConsoleError
-                      )}
-                      variant="contained"
-                      sx={{ marginTop: 1 }}
-                    >
-                      Đổi mật khẩu
-                    </Button>
-                  </Stack>
-                </LoadingWrapper>
-              </Stack>
-            )
-          ) : // eslint-disable-next-line no-nested-ternary
-          value ? (
+              <Stack>Token nhập vào khong chính xác</Stack>
+            ) // eslint-disable-next-line no-nested-ternary
+          ) : value ? (
             <Alert severity="info">
               Email xác nhận đã được gửi tới email của bạn. Vui lòng kiểm tra
               email và xác nhận thay đổi mật khẩu

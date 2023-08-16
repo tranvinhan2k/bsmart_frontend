@@ -6,6 +6,7 @@ export * from './useGetIdFromUrl';
 export * from './useMenuItem';
 export * from './useLogOut';
 export * from './useScrollIntoView';
+export * from './useGetDuplicateSlot';
 
 // user
 export * from './schedule/useQueryGetSchedule';

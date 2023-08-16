@@ -23,8 +23,12 @@ import {
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
-import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 import { useGetUpdateMentorProfileRequestInfo } from '~/hooks/user/useGetUpdateMentorProfileRequestInfo';
+import {
+  SX_FORM,
+  SX_FORM_LABEL,
+  SX_FORM_TITLE,
+} from './UpdateMentorProfileRequestSubmit/style';
 
 export default function UpdateMentorDegree() {
   const enum Text {

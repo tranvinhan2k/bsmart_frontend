@@ -14,7 +14,6 @@ export default function ManagerQuestionsBankPage() {
     id: 0,
     answers: [],
     question: '',
-    questionType: 'SINGLE',
   });
   const { value: isAdd, toggle: toggleAdd } = useBoolean(false);
   const { value: isDelete, toggle: toggleDelete } = useBoolean(false);
@@ -23,7 +22,6 @@ export default function ManagerQuestionsBankPage() {
     {
       id: 0,
       question: '1 + 1 = 2 ?',
-      questionType: 'SINGLE',
       answers: [
         {
           answer: 'yes',
@@ -38,7 +36,6 @@ export default function ManagerQuestionsBankPage() {
     {
       id: 1,
       question: '1 + 1 = 3 ?',
-      questionType: 'SINGLE',
       answers: [
         {
           answer: 'yes',

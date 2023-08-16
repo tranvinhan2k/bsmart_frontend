@@ -52,11 +52,9 @@ export default function LoginForm({ onCloseModal }: LoginFormProps) {
     localStorage.getItem('isRememberPassword') === 'true'
   );
 
-  const handleGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log(tokenResponse);
-    },
-  });
+  const handleGoogle = () => {
+    window.location.href = 'https://mismart.tech/oauth2/authorization/google';
+  };
 
   const handleRememberPassword = () => {
     setRememberPassword(!isRememberPassword);

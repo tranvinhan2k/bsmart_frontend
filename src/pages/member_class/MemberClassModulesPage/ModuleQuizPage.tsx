@@ -1,13 +1,16 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { LoadingWrapper } from '~/HOCs';
 import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
 import MarkDisplay from '~/components/atoms/MarkDisplay';
+import CRUDTable from '~/components/molecules/CRUDTable';
 import {
   MemberDashboardNavigationActionLink,
   NavigationLink,
@@ -40,14 +43,18 @@ export default function ModuleQuizPage({ name, item }: Props) {
   const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm({});
 
-  const { data } = useGetQuizResult(item.id);
+  const {
+    data: results,
+    isLoading: isResultLoading,
+    error: errorResult,
+  } = useGetQuizResult(item.id);
 
   const quiz = {
     quizId: item.id,
     questionCount: item.questionCount,
     status: item.status,
     isQuizOpen: new Date(item.startDate).getTime() <= new Date().getTime(),
-    isAttemptedQuiz: Boolean(data),
+    isAttemptedQuiz: Boolean(results),
     code: item.code,
     startDate: formatISODateDateToDisplayDateTime(item.startDate),
     endDate: formatISODateDateToDisplayDateTime(item.endDate),
@@ -133,12 +140,52 @@ export default function ModuleQuizPage({ name, item }: Props) {
       )}
       {quiz.isAttemptedQuiz && (
         <Stack>
-          <MarkDisplay
-            point={data?.correctNumber || 0}
-            total={data?.totalNumber || 0}
-          />
+          <LoadingWrapper isLoading={isResultLoading} error={errorResult}>
+            <Stack sx={{ height: '200px', minWidth: '1000px' }}>
+              <DataGrid
+                sx={{
+                  '.MuiDataGrid-columnHeader': {
+                    background: Color.white4,
+                    fontSize: FontSize.small_14,
+                    fontFamily: FontFamily.bold,
+                  },
+                }}
+                hideFooter
+                columns={[
+                  {
+                    field: 'submitAt',
+                    headerName: 'Thời gian đã làm',
+                    flex: 2,
+                    renderCell: (params) => {
+                      return formatISODateDateToDisplayDateTime(
+                        params.row.submitAt
+                      );
+                    },
+                  },
+                  {
+                    field: 'correctNumber',
+                    headerName: 'Số câu trả lời đúng',
+                    width: 150,
+                  },
+                  {
+                    field: 'totalQuestion',
+                    headerName: 'Tổng số câu hỏi',
+                    width: 150,
+                  },
+                  {
+                    field: 'point',
+                    headerName: 'Điểm',
+                    width: 150,
+                  },
+                ]}
+                rows={results || []}
+              />
+            </Stack>
+          </LoadingWrapper>
+
           {quiz.isAllowAfterMin && (
             <Button
+              sx={{ marginTop: 1 }}
               disabled={!item.isAllowReview}
               onClick={onReview}
               color="success"

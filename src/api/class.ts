@@ -1,6 +1,4 @@
 import axiosClient from '~/api/axiosClient';
-import { image } from '~/constants/image';
-import { FeedbackClassPayload } from '~/containers/FeedbackManagerSection/ReadOneTemplateForm';
 import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
 import { PagingFilterPayload } from '~/models';
 import {
@@ -14,12 +12,14 @@ import {
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
 import {
+  GetDuplicateResponse,
+  GetFeedbackTemplateNotUse,
   GetStudentList,
   PostTimeTableResponse,
   ResponseDetailClass,
   ResponseMentorCoursePayload,
 } from '~/models/response';
-import { ClassDetailPayload } from '~/models/type';
+import { ClassDetailPayload, DuplicateClassPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
 import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReportPage';
 import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
@@ -29,56 +29,28 @@ const url = '/classes';
 
 const classApi = {
   // get
-  getManagerFeedbackClass() {
-    // TODO: them neu backend co
-    const feedbackClassList: FeedbackClassPayload[] = [
-      {
-        id: 0,
-        code: 'EFSS',
-      },
-      {
-        id: 1,
-        code: 'EFSSE',
-      },
-      {
-        id: 2,
-        code: 'EFSSA',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-      {
-        id: 3,
-        code: 'EFSSR',
-      },
-    ];
+  async getDuplicateClasses(classId: number) {
+    const response: GetDuplicateResponse[] = await axiosClient.get(
+      `${url}/${classId}/duplicate`
+    );
+    const result: DuplicateClassPayload[] = response.map((item) => ({
+      id: item.id || 0,
+      code: item.code || '',
+    }));
+    return result;
+  },
+  async getManagerFeedbackClass(id: number) {
+    const response: GetFeedbackTemplateNotUse[] = await axiosClient.get(
+      `${url}/feedback-template/${id}/not-use`
+    );
 
-    return generateMockApi(feedbackClassList);
+    const result: { id: number; code: string }[] =
+      response?.map((item) => ({
+        id: item.id || 0,
+        code: item.code || '',
+      })) || [];
+
+    return result;
   },
   getStudentMarkReport(classId: number) {
     const mark: MarkOfStudentPayload = {

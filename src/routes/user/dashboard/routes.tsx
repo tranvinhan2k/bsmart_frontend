@@ -29,6 +29,7 @@ import {
   ForgotPasswordPage,
   PolicyPage,
   PaymentReport,
+  LoginGoogleSuccessPage,
 } from '~/routes/components';
 
 export const routes: RoutePayload[] = [
@@ -165,6 +166,11 @@ export const routes: RoutePayload[] = [
   {
     path: NavigationLink.payment_report,
     main: () => <PaymentReport />,
+    role: [],
+  },
+  {
+    path: `${NavigationLink.login_google}/:tokenId`,
+    main: () => <LoginGoogleSuccessPage />,
     role: [],
   },
   {

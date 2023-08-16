@@ -1,4 +1,3 @@
-import { generateMockApi } from '~/utils/common';
 import { axiosClient } from './axiosClient';
 
 const url = `/reset-password`;
@@ -9,8 +8,7 @@ const resetPasswordApi = {
   },
 
   async confirmEmailIsValid(token: string) {
-    // return
-    return generateMockApi(true);
+    return axiosClient.get(`${url}/${token}`);
   },
 
   async resetPassword({
@@ -18,10 +16,9 @@ const resetPasswordApi = {
     token,
   }: {
     token: string;
-    params: { oldPassword: string; newPassword: string };
+    params: { password: string };
   }) {
-    // return axiosClient.put(`${url}/${token}`);
-    return generateMockApi(true);
+    return axiosClient.put(`${url}/${token}`, params);
   },
 };
 

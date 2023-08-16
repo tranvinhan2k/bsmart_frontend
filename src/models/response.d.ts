@@ -767,3 +767,61 @@ export type GetQuizQuestionResponse = Partial<{
     key: string;
   }[];
 }>;
+
+export type GetFeedbackTemplateNotUse = Partial<{
+  id: number;
+  courseId: number;
+  courseCode: string;
+  code: string;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  numberOfSlot: number;
+  status: string;
+  price: number;
+  minStudent: number;
+  maxStudent: number;
+  image: {
+    id: number;
+    name: string;
+    url: string;
+    status: true;
+    type: string;
+  };
+  timeInWeeks: {
+    dayOfWeek: {
+      id: number;
+      name: string;
+      code: 'SUNDAY';
+    };
+    slot: {
+      id: number;
+      name: string;
+      code: string;
+      startTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+      endTime: {
+        hour: number;
+        minute: number;
+        second: number;
+        nano: number;
+      };
+    };
+  }[];
+}>;
+
+export type GetDuplicateResponse = Partial<{
+  id: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  numberOfStudent: number;
+  numberOfSlot: number;
+  status: ClassStatusKeys;
+  minStudent: number;
+  maxStudent: number;
+}>;

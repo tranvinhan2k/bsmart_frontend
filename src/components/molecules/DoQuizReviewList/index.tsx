@@ -41,7 +41,7 @@ export default function DoQuizReviewList({
   const [intervalValue, setIntervalValue] = useState<number>(1000);
   const [count, { startCountdown, stopCountdown, resetCountdown }] =
     useCountdown({
-      countStart: initData.time,
+      countStart: initData.time * 60,
       intervalMs: intervalValue,
     });
 
