@@ -8,30 +8,73 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  Crop,
+  PixelCrop,
+  convertToPixelCrop,
+} from 'react-image-crop';
 import Icon from '../Icon';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import globalStyles, { SX_TEXT_INPUT_FORM } from '~/styles';
+import CustomModal from '../CustomModal';
+import { useBoolean } from '~/hooks/useBoolean';
+import Button from '../Button';
+import { useDebounceEffect } from '~/hooks/useDebounceEffect';
+import { canvasPreview } from '~/utils/canvasPreview';
 
 interface ImageInputProps {
   controller: UseControllerReturn<any, string>;
-  previewImgHeight: number | string;
-  previewImgWidth: number | string;
+  previewImgHeight: number;
+  previewImgWidth: number;
 }
+
+function centerAspectCrop(
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number
+) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: '%',
+        width: 90,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight
+    ),
+    mediaWidth,
+    mediaHeight
+  );
+}
+
 export default function ImageInput({
   controller,
-  previewImgHeight = '100%',
-  previewImgWidth = '100%',
+  previewImgHeight = 1,
+  previewImgWidth = 1,
 }: ImageInputProps) {
   const {
     field: { value, onChange, onBlur },
     fieldState: { invalid, error: fieldError },
   } = controller;
 
-  const [previewUrl, setPreviewUrl] = useState(
-    value instanceof File ? URL.createObjectURL(value) : value
-  );
+  console.log('value', value);
+
+  const imgRef = useRef<HTMLImageElement>(null);
+  const { value: isCropImage, toggle: toggleCropImage } = useBoolean(false);
+  const [previewUrl, setPreviewUrl] = useState(value.url);
   const [error, setError] = useState<string | null>(null);
+  const [crop, setCrop] = useState<Crop>();
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [aspect, setAspect] = useState<number>(
+    previewImgWidth / previewImgHeight
+  );
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const hiddenAnchorRef = useRef<HTMLAnchorElement>(null);
+  const blobUrlRef = useRef('');
 
   function dataURLtoFile(dataUrl: string, filename: string): File {
     const arr = dataUrl.split(',');
@@ -48,13 +91,21 @@ export default function ImageInput({
     return new File([u8arr], filename, { type: mime });
   }
 
-  useEffect(() => {
-    if (value instanceof File) {
-      setPreviewUrl(URL.createObjectURL(value));
-    } else {
-      setPreviewUrl(value);
-    }
-  }, [value]);
+  useDebounceEffect(
+    async () => {
+      if (
+        completedCrop?.width &&
+        completedCrop?.height &&
+        imgRef.current &&
+        previewCanvasRef.current
+      ) {
+        // We use canvasPreview as it's much faster than imgPreview.
+        canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
+      }
+    },
+    100,
+    [completedCrop]
+  );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target?.files?.[0];
@@ -68,18 +119,18 @@ export default function ImageInput({
         const image = new Image();
 
         image.onload = () => {
-          let targetWidth = image.width;
-          let targetHeight = image.height;
+          const targetWidth = image.width * 0.7;
+          const targetHeight = image.height * 0.7;
 
-          if (
-            typeof previewImgWidth === 'number' &&
-            typeof previewImgHeight === 'number'
-          ) {
-            targetWidth = Math.round(image.width * 0.7);
-            targetHeight = Math.round(
-              (targetWidth * previewImgHeight) / previewImgWidth
-            );
-          }
+          // if (
+          //   typeof previewImgWidth === 'number' &&
+          //   typeof previewImgHeight === 'number'
+          // ) {
+          //   targetWidth = Math.round(image.width * 0.7);
+          //   targetHeight = Math.round(
+          //     (targetWidth * previewImgHeight) / previewImgWidth
+          //   );
+          // }
 
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
@@ -113,17 +164,42 @@ export default function ImageInput({
       };
 
       reader.readAsDataURL(selectedFile);
+      toggleCropImage();
     } else {
       setError('Xin hãy chọn lại định dạng ảnh phù hợp (JPEG, PNG, or GIF)');
       onChange(null);
     }
   };
 
+  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    const { width, height } = e.currentTarget;
+    setCrop(centerAspectCrop(width, height, aspect));
+  }
+
   const handleDeleteClick = () => {
     setPreviewUrl('');
     setError(null);
     onChange(null);
   };
+
+  function onDownloadCropClick() {
+    if (!previewCanvasRef.current) {
+      throw new Error('Crop canvas does not exist');
+    }
+
+    previewCanvasRef.current.toBlob((blob) => {
+      if (!blob) {
+        throw new Error('Failed to create blob');
+      }
+
+      const urlCreator = window.URL || window.webkitURL;
+      const imageUrl = urlCreator.createObjectURL(blob);
+
+      onChange(blob);
+
+      setPreviewUrl(imageUrl);
+    });
+  }
 
   return (
     <Stack
@@ -182,6 +258,102 @@ export default function ImageInput({
         error={invalid}
       />
 
+      <CustomModal
+        open={isCropImage}
+        onClose={toggleCropImage}
+        title="Chỉnh sửa hình ảnh"
+      >
+        <Stack
+          sx={{
+            width: '60vw',
+            height: '90vh',
+          }}
+        >
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              width: '100%',
+              height: '60vh',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Stack sx={{ flexGrow: 1, height: '100%' }}>
+              <Stack height="100%" sx={globalStyles.viewRoundedBorderBody}>
+                <Typography sx={globalStyles.textSmallLabel}>
+                  Cắt hình ảnh
+                </Typography>
+                <ReactCrop
+                  crop={crop}
+                  onChange={(_, percentCrop) => setCrop(percentCrop)}
+                  onComplete={(c) => setCompletedCrop(c)}
+                  aspect={aspect}
+                >
+                  <img
+                    ref={imgRef}
+                    alt="Crop me"
+                    src={previewUrl}
+                    onLoad={onImageLoad}
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                      objectFit: 'contain',
+                    }}
+                  />
+                </ReactCrop>
+              </Stack>
+            </Stack>
+            <Stack sx={{ height: '100%', width: '300px' }}>
+              <Stack
+                sx={{
+                  marginLeft: 1,
+                }}
+              >
+                <Typography sx={globalStyles.textSmallLabel}>
+                  Xem trước hình ảnh
+                </Typography>
+                {!!completedCrop && (
+                  <canvas
+                    ref={previewCanvasRef}
+                    style={{
+                      objectFit: 'contain',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  />
+                )}
+              </Stack>
+            </Stack>
+          </Stack>
+          <Stack
+            marginTop={1}
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Button
+              onClick={() => {
+                onDownloadCropClick();
+                toggleCropImage();
+              }}
+              variant="contained"
+            >
+              Xác nhận chỉnh sửa
+            </Button>
+            <Button
+              onClick={toggleCropImage}
+              sx={{
+                marginLeft: 1,
+              }}
+              variant="contained"
+              color="error"
+            >
+              Hủy bỏ
+            </Button>
+          </Stack>
+        </Stack>
+      </CustomModal>
+
       {previewUrl && (
         <Stack
           direction="column"
@@ -232,7 +404,7 @@ export default function ImageInput({
             <Box
               component="img"
               src={previewUrl}
-              alt="Preview"
+              alt="preview hinh anh"
               sx={{
                 borderRadius: MetricSize.small_10,
                 width: '100%',

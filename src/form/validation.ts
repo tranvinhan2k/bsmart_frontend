@@ -333,18 +333,17 @@ export const validationSchemaBuyCourse = object({
   voucher: string().required(PASSWORD_REQUIRED),
 });
 export const validationSchemaEditAvatar = object({
-  avatar: mixed()
-    .required(generateRequiredText('Hình ảnh đại diện'))
-    .test(
-      'fileSize',
-      IMAGE_SIZE_TOO_BIG,
-      (value: any) => value && value.size <= FILE_SIZE_2
-    )
-    .test(
-      'fileFormat',
-      IMAGE_FORMAT_NOT_SUPPORT,
-      (value: any) => value && SUPPORTED_FORMATS.includes(value.type)
-    ),
+  avatar: mixed().required(generateRequiredText('Hình ảnh đại diện')),
+  // .test(
+  //   'fileSize',
+  //   IMAGE_SIZE_TOO_BIG,
+  //   (value: any) => value && value.size <= FILE_SIZE_2
+  // ),
+  // .test('fileFormat', IMAGE_FORMAT_NOT_SUPPORT, (value: any) => {
+  //   console.log('value', value, value.type);
+
+  //   return value && SUPPORTED_FORMATS.includes(value.type);
+  // }),
 });
 export const validationSchemaEditIdentityFront = object({
   identityFront: mixed()
