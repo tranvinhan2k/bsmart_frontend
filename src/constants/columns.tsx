@@ -796,6 +796,31 @@ const managedClassColumns: GridColDef[] = [
   },
 ];
 
+const managedWithdrawProcessedColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã yêu cầu',
+    minWidth: 150,
+    flex: 1,
+    renderCell: (params) => {
+      const { code } = params.row;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
+    },
+  },
+  {
+    field: 'name',
+    headerName: 'Tên',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'timeProcessed',
+    headerName: 'Thời gian xử lý',
+    minWidth: 150,
+    flex: 1,
+  },
+];
+
 const columns = {
   attendanceClassColumns,
   categoryColumns,
@@ -811,6 +836,7 @@ const columns = {
   managedUserMemberColumns,
   managedUserMentorColumns,
   managedUserRegisterRequestColumns,
+  managedWithdrawProcessedColumns,
   subjectColumns,
 };
 

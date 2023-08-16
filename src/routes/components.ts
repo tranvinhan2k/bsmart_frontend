@@ -100,6 +100,9 @@ export const ManageAnalyticPage = lazy(
   () => import('~/pages/ManageAnalyticPage')
 );
 export const ManageClassPage = lazy(() => import('~/pages/ManageClassPage'));
+export const ManageFinancialPage = lazy(
+  () => import('~/pages/ManageFinancialPage')
+);
 export const ManageCoursePage = lazy(() => import('~/pages/ManageCoursePage'));
 export const ManageRequestManagerPage = lazy(
   () => import('~/pages/ManageRequestManagerPage')

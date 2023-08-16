@@ -18,6 +18,7 @@ import ManageCourseCreateRequestSection from '~/components/molecules/ManageReque
 import ManageCourseUpdateRequestSection from '~/components/molecules/ManageRequestSection/ManageCourseUpdateRequestSection';
 import ManageMentorProfileUpdateRequestSection from '~/components/molecules/ManageRequestSection/ManageMentorProfileUpdateRequestSection';
 import ManageRegisterRequestSection from '~/components/molecules/ManageRequestSection/ManageRegisterRequestSection';
+import ManageWithdrawSection from '~/components/molecules/ManageRequestSection/ManageWithdrawSection';
 import TabPanel from '~/components/atoms/TabPanel/index';
 
 export default function ManageRequestManagerPage() {
@@ -76,7 +77,7 @@ export default function ManageRequestManagerPage() {
     },
     {
       id: 4,
-      component: <h1>{Text.ListSubheader2}</h1>,
+      component: <ManageWithdrawSection />,
     },
   ];
 

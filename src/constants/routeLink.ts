@@ -106,13 +106,14 @@ export const enum AdminNavigationActionLink {
 
 export const enum ManagerNavigationActionLink {
   manager = 'manager',
+  confirm_email = 'confirm_email/:code',
   manage_analytic_manager = 'manage_analytic_manager',
   manage_class_manager = 'manage_class_manager',
   manage_course_manager = 'manage_course_manager',
+  manage_financial_manager = 'manage_financial_manager',
   manage_request_manager = 'manage_request_manager',
   manage_user_manager = 'manage_user_manager',
   questions_bank = 'questions_bank',
-  confirm_email = 'confirm_email/:code',
 }
 
 export const enum MentorCourseActionLink {
