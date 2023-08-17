@@ -10,6 +10,7 @@ export default function LoginGoogleSuccessPage() {
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', `${token}`);
+      localStorage.setItem('roles', 'ROLE_STUDENT');
       window.location.reload();
     }
   }, [token]);
