@@ -5,6 +5,7 @@ import { PagingFilterRequest } from '~/models';
 
 export const useGetCourseFeedback = (id: number) => {
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
+    id,
     page: 0,
     numberOfStar: 3,
   });
@@ -34,6 +35,7 @@ export const useGetCourseFeedback = (id: number) => {
     data,
     error,
     isLoading,
+    numberOfStar: filterParams.numberOfStar,
     handleChangePage,
     handleChangeNumberOfStar,
   };

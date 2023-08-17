@@ -15,11 +15,7 @@ import globalStyles from '~/styles';
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import Button from '~/components/atoms/Button';
 import { LoadingWrapper } from '~/HOCs';
-import { OptionFeedbackData } from '~/constants';
-import {
-  validationClassContentAssignment,
-  validationRating,
-} from '~/form/validation';
+import { validationRating } from '~/form/validation';
 import { handleConsoleError } from '~/utils/common';
 import { useBoolean } from '~/hooks/useBoolean';
 
@@ -29,11 +25,12 @@ export interface FeedbackMemberQuestionPayload {
 }
 
 export interface SendFeedbackPayload {
-  ratingNumber: number;
-  description: string;
-  feedbackValueData: {
-    id: number;
-    answer: string;
+  courseRate: number;
+  mentorRate: number;
+  comment: string;
+  submittedAnswers: {
+    questionId: number;
+    answerId: number;
   }[];
 }
 
@@ -49,11 +46,6 @@ export default function MemberClassInformationPage() {
   // !!detailClass?.progressValue &&
   // detailClass?.progressValue > 70 &&
   // !isDidFeedback;
-
-  const { data, error, isLoading } = useQueryMemberFeedback(
-    2,
-    isTimeToFeedback
-  );
 
   const { mutateAsync } = useMutationSendFeedback();
   const { handleTryCatch } = useTryCatch('gửi đánh giá');
@@ -72,22 +64,36 @@ export default function MemberClassInformationPage() {
 
   const defaultRatingForm: InputData[] = [
     {
+      label: 'Đánh giá khóa học',
+      name: 'courseRate',
+      placeholder: 'Nhập nhận xét về khóa học',
+      variant: 'rating',
+    },
+    {
       label: 'Đánh giá giáo viên',
       name: 'ratingPoint',
       placeholder: 'Nhập nhận xét về giáo viên',
       variant: 'rating',
     },
+    {
+      label: 'Nhận xét về giáo viên',
+      name: 'description',
+      placeholder: 'Nhập nhận xét về giáo viên',
+      variant: 'multiline',
+    },
   ];
+
+  const data = detailClass?.feedback?.questions;
 
   const templateRatingForm: InputData[] =
     detailClass?.feedback?.questions?.map((item, index) => {
       return {
         label: item.question,
-        name: `feedback.${index}`,
+        name: `feedback_${item.id}`,
         placeholder: '',
         variant: 'radioGroup',
         data: item?.answers?.map((subItem, subIndex) => ({
-          id: subIndex,
+          id: subItem.id,
           label: subItem.answer,
           value: subItem.answer,
         })),
@@ -97,18 +103,15 @@ export default function MemberClassInformationPage() {
   const inputList: InputData[] = !data
     ? defaultRatingForm
     : [...defaultRatingForm, ...templateRatingForm];
-  const onSubmit = async (params: {
-    ratingPoint: number;
-    description: string;
-    feedback: string[];
-  }) => {
+  const onSubmit = async (params: any) => {
     if (data) {
       const paramsData: SendFeedbackPayload = {
-        description: params.description,
-        ratingNumber: params.ratingPoint,
-        feedbackValueData: data?.map((item, index) => ({
-          id: item.id,
-          answer: params.feedback[index],
+        comment: params.description,
+        courseRate: params.courseRate,
+        mentorRate: params.ratingPoint,
+        submittedAnswers: data?.map((item, index) => ({
+          questionId: item.id,
+          answerId: params[`feedback_${item.id}`].id,
         })),
       };
 
@@ -126,22 +129,20 @@ export default function MemberClassInformationPage() {
     <Stack>
       <TextTitle title="Thông tin lớp học" />
       {isTimeToFeedback && (
-        <LoadingWrapper error={error} isLoading={isLoading}>
-          <Stack sx={globalStyles.viewRoundedWhiteBody}>
-            <Alert severity="warning">Vui lòng đánh giá cho lớp học này.</Alert>
-            <Stack marginTop={1}>
-              <Typography sx={globalStyles.textSmallLabel}>Nhận xét</Typography>
-              <InputGroup inputList={inputList} control={control} />
-              <Button
-                onClick={handleSubmit(onSubmit, handleConsoleError)}
-                sx={{ marginTop: 1 }}
-                variant="contained"
-              >
-                Gửi đánh giá về hệ thống
-              </Button>
-            </Stack>
+        <Stack sx={globalStyles.viewRoundedWhiteBody}>
+          <Alert severity="warning">Vui lòng đánh giá cho lớp học này.</Alert>
+          <Stack marginTop={1}>
+            <Typography sx={globalStyles.textSmallLabel}>Nhận xét</Typography>
+            <InputGroup inputList={inputList} control={control} />
+            <Button
+              onClick={handleSubmit(onSubmit, handleConsoleError)}
+              sx={{ marginTop: 1 }}
+              variant="contained"
+            >
+              Gửi đánh giá về hệ thống
+            </Button>
           </Stack>
-        </LoadingWrapper>
+        </Stack>
       )}
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
         <ClassInformationList

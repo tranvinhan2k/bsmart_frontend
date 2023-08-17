@@ -70,7 +70,7 @@ export default function QuizHeader({
           <TextPropLine
             icon="time"
             label="Thời gian còn lại"
-            value={`${timeLeft}`}
+            value={`${timeLeft} s`}
           />
         )}
       </Stack>

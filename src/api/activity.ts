@@ -15,7 +15,11 @@ import {
   GetReviewQuizResponse,
   PostDoQuizResponse,
 } from '~/models/response';
-import { ActivityDetailPayload, QuizReportStudentPayload } from '~/models/type';
+import {
+  ActivityDetailPayload,
+  QuizReportStudentPayload,
+  QuizReportTeacherPayload,
+} from '~/models/type';
 import { DoQuizPayload } from '~/pages/QuizPage';
 import {
   AssignmentItemPayload,
@@ -86,6 +90,16 @@ const activityApi = {
           password: response?.detail?.password,
           startDate: response?.detail?.startDate,
           time: response?.detail?.time,
+          quizQuestions: response?.detail?.quizQuestions.map((item: any) => ({
+            id: item.id || 0,
+            question: item.question || '',
+            questionType: item.type || '',
+            answers:
+              item.answers.map((answer: any) => ({
+                answer: answer.answer,
+                right: answer.right,
+              })) || [],
+          })),
         };
         break;
       default:
@@ -95,20 +109,18 @@ const activityApi = {
   },
 
   async getResultQuiz(id: number) {
-    const response: GetMentorQuizzesResponse = await axiosClient.get(
-      `${url}/quiz/result/${id}`
+    const response: GetMentorQuizzesResponse[] = await axiosClient.get(
+      `${url}/quiz/${id}/result/student`
     );
 
-    const result: QuizReportStudentPayload[] = [
-      {
-        id: 0,
-        name: response?.submitBy?.name || '',
-        correctNumber: response?.correctNumber || 0,
-        point: response?.point || 0,
-        submitAt: response?.submitAt || '',
-        totalQuestion: response?.totalQuestion || 0,
-      },
-    ];
+    const result: QuizReportStudentPayload[] = response.map((item) => ({
+      id: item.id || 0,
+      name: item?.submitBy?.name || '',
+      correctNumber: item?.correctNumber || 0,
+      point: item?.point || 0,
+      submitAt: item?.submitAt || '',
+      totalQuestion: item?.totalQuestion || 0,
+    }));
 
     return result;
   },
@@ -121,7 +133,7 @@ const activityApi = {
     params: PagingFilterRequest;
   }): Promise<PagingFilterPayload<QuizReportStudentPayload>> {
     const response: PagingFilterPayload<GetMentorQuizzesResponse> =
-      await axiosClient.get(`${url}/quiz/${id}/result`, {
+      await axiosClient.get(`${url}/quiz/${id}/result/teacher`, {
         params,
       });
     const result: QuizReportStudentPayload[] = response.items.map((item) => ({
@@ -137,7 +149,7 @@ const activityApi = {
 
   async getReviewQuiz(id: number) {
     const response: GetReviewQuizResponse = await axiosClient.get(
-      `${url}/review/${id}`
+      `${url}/quiz/review/${id}`
     );
     const result: DoQuizPayload = {
       name: '',
@@ -190,17 +202,38 @@ const activityApi = {
     params: PagingFilterRequest;
   }) {
     const response: PagingFilterPayload<GetMentorListQuiz> =
-      await axiosClient.get(`${url}/quiz/${id}/result`, {
+      await axiosClient.get(`${url}/quiz/${id}/result/teacher`, {
         params,
       });
-    const result: QuizReportStudentPayload[] = response.items.map((item) => ({
-      id: item?.id || 0,
-      correctNumber: item?.correctNumber || 0,
-      name: item?.submitBy?.name || '',
-      point: item?.point || 0,
-      submitAt: item?.submitAt || '',
-      totalQuestion: item?.totalQuestion || 0,
-    }));
+    const result: QuizReportTeacherPayload[] = [];
+    response.items.map((item) => {
+      const userIsExisted = result.findIndex((resultItem) => resultItem.userId);
+      if (userIsExisted === -1) {
+        result.push({
+          id: item?.id || 0,
+          correctNumber: [item?.correctNumber || 0],
+          name: item?.submitBy?.name || '',
+          point: item?.point || 0,
+          submitAt: item?.submitAt || '',
+          totalQuestion: item?.totalQuestion || 0,
+          userId: item.submitBy?.id || 0,
+        });
+      } else {
+        result[userIsExisted] = {
+          id: item?.id || 0,
+          correctNumber: [
+            ...result[userIsExisted].correctNumber,
+            item?.correctNumber || 0,
+          ],
+          name: item?.submitBy?.name || '',
+          point: item.point || 0,
+          submitAt: item?.submitAt || '',
+          totalQuestion: item?.totalQuestion || 0,
+          userId: item.submitBy?.id || 0,
+        };
+      }
+      return null;
+    });
     return { ...response, items: result };
   },
 

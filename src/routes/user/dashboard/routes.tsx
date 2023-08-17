@@ -175,7 +175,7 @@ export const routes: RoutePayload[] = [
   },
   {
     path: '*',
-    main: () => <NotFoundPage />,
+    main: () => <Navigate to={NavigationLink.homepage} replace />,
     role: [],
   },
   {

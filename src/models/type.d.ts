@@ -258,6 +258,12 @@ export interface ActivityQuizPayload {
   password: string;
   questionCount: number;
   status: string;
+  quizQuestions: {
+    id: number;
+    question: string;
+    questionType: string;
+    answers: { id: number; answer: string; right: boolean }[];
+  };
 }
 
 export interface ActivityAssignmentPayload {
@@ -298,6 +304,15 @@ export interface QuizReportStudentPayload {
   totalQuestion: number;
   submitAt: string;
 }
+export interface QuizReportTeacherPayload {
+  id: number;
+  name: string;
+  point: number;
+  correctNumber: number[];
+  totalQuestion: number;
+  submitAt: string;
+  userId: number;
+}
 export interface FeedbackReportStudentPayload {
   id: number;
   name: string;
@@ -332,6 +347,7 @@ interface ManagedMemberStudyInformation {
 
 interface FeedbackPayload {
   rating: number;
+  rateCount: any;
   numberOfRating: number;
   items: PagingFilterPayload<FeedbackReviewPayload>;
 }

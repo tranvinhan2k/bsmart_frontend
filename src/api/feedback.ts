@@ -10,6 +10,8 @@ import {
 import {
   GetAllFeedbackTemplate,
   GetAllMentorFeedback,
+  GetCourseFeedbackPayload,
+  GetFeedbackCommentPayload,
 } from '~/models/response';
 import {
   ApiParamsProps,
@@ -46,8 +48,8 @@ const feedbacksApi = {
           answer:
             subItem.answers.find((answer) => answer.isChosen)?.answer || '',
         })) || [],
-      name: item.name || '',
-      point: item.rate || 0,
+      name: item.submitBy?.fullName || '',
+      point: item.mentorRate || 0,
       report: item.comment || '',
     }));
     // const result: MentorFeedbackListPayload[] = [
@@ -160,7 +162,7 @@ const feedbacksApi = {
   },
 
   sendFeedback({ id, params }: { id: number; params: SendFeedbackPayload }) {
-    return generateMockApi(true);
+    return axiosClient.post(`${url}/${id}/submit`, params);
   },
 
   async createQuestion(params: CreateFeedbackPayload): Promise<any> {
@@ -217,50 +219,33 @@ const feedbacksApi = {
   }) {
     return axiosClient.put(`${url}/template/${templateId}/class/${classId}`);
   },
-  getCourseFeedback({ id, params }: ApiParamsProps) {
-    const response: PagingFilterPayload<FeedbackReviewPayload> = {
-      currentPage: 0,
-      first: false,
-      items: [
-        {
-          id: 0,
-          avatarUrl: image.mockStudent,
-          avatarAlt: 'student',
-          email: 'tranvinhan2k@gmail.com',
-          rating: params.numberOfStar || 0,
-          feedbackTime: new Date().toISOString(),
-          reviewContent: 'Lorem ',
-        },
-        {
-          id: 0,
-          avatarUrl: image.mockStudent,
-          avatarAlt: 'student',
-          email: 'tranvinhan2k@gmail.com',
-          rating: params.numberOfStar || 0,
-          feedbackTime: new Date().toISOString(),
-          reviewContent: 'Lorem ',
-        },
-        {
-          id: 0,
-          avatarUrl: image.mockStudent,
-          avatarAlt: 'student',
-          email: 'tranvinhan2k@gmail.com',
-          rating: params.numberOfStar || 0,
-          feedbackTime: new Date().toISOString(),
-          reviewContent: 'Lorem ',
-        },
-      ],
-      last: false,
-      pageItemSize: 0,
-      pageSize: 24,
-      totalItems: 100,
-      totalPages: 4,
-    };
+  async getCourseFeedback({ id, params }: ApiParamsProps) {
+    const courseResponse: GetCourseFeedbackPayload = await axiosClient.get(
+      `${url}/rate/course/${id}`
+    );
+
+    const response: PagingFilterPayload<GetFeedbackCommentPayload> =
+      await axiosClient.get(`${url}/submissions`, {
+        params,
+      });
+
+    const valueItems: FeedbackReviewPayload[] = response.items.map(
+      (item, index) => ({
+        id: index,
+        avatarAlt: image.mockStudent,
+        avatarUrl: image.mockStudent,
+        email: item.submitBy || '',
+        feedbackTime: new Date().toISOString(),
+        rating: item.rate || 0,
+        reviewContent: item.comment || '',
+      })
+    );
 
     const result: FeedbackPayload = {
-      rating: 4,
-      numberOfRating: 300000,
-      items: response,
+      rating: courseResponse.averageRate || 0,
+      rateCount: courseResponse.rateCount,
+      numberOfRating: courseResponse.submissionCount || 0,
+      items: { ...response, items: valueItems },
     };
     return generateMockApi(result);
   },

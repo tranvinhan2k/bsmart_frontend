@@ -56,7 +56,9 @@ export const adminRoutes: RoutePayload[] = [
   },
   {
     path: '*',
-    main: () => <NotFoundPage />,
+    main: () => (
+      <Navigate to={AdminNavigationActionLink.user_manager} replace />
+    ),
     role: [],
   },
 ];

@@ -15,7 +15,7 @@ export const useDispatchProfile = () => {
     const response = await handleTryCatch(accountApi.getTokenProfile, () => {
       localStorage.removeItem('token');
       localStorage.removeItem('roles');
-      window.location.reload();
+      window.location.href = '/homepage';
     });
     dispatch(addProfile({ profile: response }));
   }, [dispatch, handleTryCatch]);

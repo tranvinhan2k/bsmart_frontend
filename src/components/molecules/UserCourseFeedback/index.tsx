@@ -20,6 +20,7 @@ export default function UserCourseFeedback() {
 
   const {
     data: feedbacks,
+    numberOfStar,
     handleChangeNumberOfStar,
     handleChangePage,
     error,
@@ -67,9 +68,14 @@ export default function UserCourseFeedback() {
                   }}
                   onClick={() => handleChangeNumberOfStar(index)}
                   key={item}
-                  variant="outlined"
+                  disabled={(feedbacks?.rateCount?.[`${index}`] || 0) === 0}
+                  variant={numberOfStar === index ? 'contained' : 'outlined'}
                 >
-                  {item}
+                  {`${item} (${
+                    index === 0
+                      ? feedbacks?.numberOfRating || 0
+                      : feedbacks?.rateCount?.[`${index}`] || 0
+                  })`}
                 </Button>
               );
             }

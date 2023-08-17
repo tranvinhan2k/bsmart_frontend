@@ -5,6 +5,10 @@ import CRUDTable from '~/components/molecules/CRUDTable';
 import { comparisonData, quizStatusData } from '~/constants';
 import { useGetIdFromUrl } from '~/hooks';
 import { useMentorListQuiz } from '~/hooks/quiz/useMentorListQuiz';
+import {
+  QuizReportStudentPayload,
+  QuizReportTeacherPayload,
+} from '~/models/type';
 import globalStyles from '~/styles';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
@@ -13,7 +17,7 @@ export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
 
   const { data, error, isLoading } = useMentorListQuiz(quizId, classId);
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef<QuizReportTeacherPayload>[] = [
     {
       field: 'name',
       headerName: 'Tên học sinh',
@@ -32,10 +36,17 @@ export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
     },
     {
       field: 'point',
+      headerName: 'Điểm tối đa',
+      flex: 1,
+    },
+    {
+      field: 'correctPoint',
       headerName: 'Điểm',
       flex: 1,
       renderCell: (params) => {
-        return `${params.row?.point}/${params.row?.totalNumber}`;
+        return `${params.row.correctNumber.map(
+          (item) => `${(item / params.row.totalQuestion) * params.row.point}`
+        )}`;
       },
     },
   ];

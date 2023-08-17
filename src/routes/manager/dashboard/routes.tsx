@@ -1,5 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { ManagerNavigationActionLink } from '~/constants/routeLink';
+import {
+  ManagerNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import ClassFeedbackDetailPage from '~/pages/ClassFeedbackDetailPage';
 import {
@@ -64,7 +67,12 @@ export const managerRoutes: RoutePayload[] = [
   },
   {
     path: '*',
-    main: () => <NotFoundPage />,
+    main: () => (
+      <Navigate
+        to={ManagerNavigationActionLink.manage_analytic_manager}
+        replace
+      />
+    ),
     role: [],
   },
 ];

@@ -8,12 +8,6 @@ export const AdminNavigationActionData: ActionPayload[] = [
     name: 'Quản lí',
     items: [
       {
-        id: 0,
-        icon: 'account',
-        name: 'Chỉnh sửa thông tin',
-        link: AdminNavigationActionLink.admin,
-      },
-      {
         id: 1,
         icon: 'payment',
         name: 'Quản lí người dùng',
@@ -31,14 +25,14 @@ export const AdminNavigationActionData: ActionPayload[] = [
         icon: 'category',
         isHide: true,
         name: 'Quản lí môn học',
-        link: AdminNavigationActionLink.subject_manager,
+        link: AdminNavigationActionLink.category_manager,
       },
       {
         id: 4,
         icon: 'subject',
         isHide: true,
         name: 'Quản lí ngôn ngũ lập trình',
-        link: AdminNavigationActionLink.category_manager,
+        link: AdminNavigationActionLink.subject_manager,
       },
       {
         id: 5,

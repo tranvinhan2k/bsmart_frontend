@@ -82,10 +82,10 @@ export default function ModuleQuizPage({ name, item }: Props) {
     setOpen(!open);
   };
 
-  const onReview = () => {
+  const onReview = (paramId: number) => {
     dispatch(
       reviewQuiz({
-        quizId: id,
+        quizId: paramId,
         quizTime: item.time,
         quizName: name,
       })
@@ -99,7 +99,6 @@ export default function ModuleQuizPage({ name, item }: Props) {
     <Stack
       sx={{
         justifyContent: 'center',
-        alignItems: 'center',
       }}
       marginTop={1}
     >
@@ -141,7 +140,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
       {quiz.isAttemptedQuiz && (
         <Stack>
           <LoadingWrapper isLoading={isResultLoading} error={errorResult}>
-            <Stack sx={{ height: '200px', minWidth: '1000px' }}>
+            <Stack sx={{ minHeight: '300px' }}>
               <DataGrid
                 sx={{
                   '.MuiDataGrid-columnHeader': {
@@ -177,23 +176,31 @@ export default function ModuleQuizPage({ name, item }: Props) {
                     headerName: 'Điểm',
                     width: 150,
                   },
+                  {
+                    field: 'reviewFeatures',
+                    headerName: 'Xem lại kết quả',
+                    flex: 1,
+                    renderCell: (params) => {
+                      return (
+                        quiz.isAllowAfterMin && (
+                          <Button
+                            sx={{ marginTop: 1 }}
+                            disabled={!item.isAllowReview}
+                            onClick={() => onReview(params.row.id)}
+                            color="success"
+                            variant="contained"
+                          >
+                            Xem lại kết quả
+                          </Button>
+                        )
+                      );
+                    },
+                  },
                 ]}
                 rows={results || []}
               />
             </Stack>
           </LoadingWrapper>
-
-          {quiz.isAllowAfterMin && (
-            <Button
-              sx={{ marginTop: 1 }}
-              disabled={!item.isAllowReview}
-              onClick={onReview}
-              color="success"
-              variant="contained"
-            >
-              Xem lại kết quả
-            </Button>
-          )}
         </Stack>
       )}
 
