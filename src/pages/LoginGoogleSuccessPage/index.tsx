@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import { NavigationLink } from '~/constants/routeLink';
 
@@ -11,8 +12,7 @@ export default function LoginGoogleSuccessPage() {
     if (token) {
       localStorage.setItem('token', `${token}`);
     }
-    window.location.href = NavigationLink.homepage;
   }, [token]);
 
-  return <LazyLoadingScreen />;
+  return <Navigate to={NavigationLink.homepage} />;
 }
