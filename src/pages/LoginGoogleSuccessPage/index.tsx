@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
+import { NavigationLink } from '~/constants/routeLink';
 
 export default function LoginGoogleSuccessPage() {
   const queryString = window.location.search;
@@ -9,8 +10,8 @@ export default function LoginGoogleSuccessPage() {
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', `${token}`);
-      // window.location.href = NavigationLink.homepage;
     }
+    window.location.href = NavigationLink.homepage;
   }, [token]);
 
   return <LazyLoadingScreen />;
