@@ -7,8 +7,10 @@ export default function LoginGoogleSuccessPage() {
   const { token } = useParams();
 
   useEffect(() => {
-    localStorage.setItem('token', `${token}`);
-    window.location.href = NavigationLink.homepage;
+    if (token) {
+      localStorage.setItem('token', `${token}`);
+      window.location.href = NavigationLink.homepage;
+    }
   }, [token]);
 
   return <LazyLoadingScreen />;
