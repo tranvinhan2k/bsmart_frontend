@@ -40,15 +40,23 @@ const classApi = {
     return result;
   },
   async getManagerFeedbackClass(id: number) {
-    const response: GetFeedbackTemplateNotUse[] = await axiosClient.get(
-      `${url}/feedback-template/${id}/not-use`
-    );
+    const response: {
+      notUse: GetFeedbackTemplateNotUse[];
+      use: GetFeedbackTemplateNotUse[];
+    } = await axiosClient.get(`${url}/feedback-template/${id}`);
 
-    const result: { id: number; code: string }[] =
-      response?.map((item) => ({
+    const result: { id: number; code: string; isUsed: boolean }[] = [
+      ...response.use.map((item) => ({
         id: item.id || 0,
         code: item.code || '',
-      })) || [];
+        isUsed: true,
+      })),
+      ...response.notUse.map((item) => ({
+        id: item.id || 0,
+        code: item.code || '',
+        isUsed: false,
+      })),
+    ];
 
     return result;
   },

@@ -4,14 +4,16 @@ import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 import { NavigationLink } from '~/constants/routeLink';
 
 export default function LoginGoogleSuccessPage() {
-  const { token } = useParams();
+  const { tokenId } = useParams();
+
+  console.log('token', tokenId);
 
   useEffect(() => {
-    if (token) {
-      localStorage.setItem('token', `${token}`);
-      window.location.href = NavigationLink.homepage;
+    if (tokenId) {
+      localStorage.setItem('token', `${tokenId}`);
+      // window.location.href = NavigationLink.homepage;
     }
-  }, [token]);
+  }, [tokenId]);
 
   return <LazyLoadingScreen />;
 }

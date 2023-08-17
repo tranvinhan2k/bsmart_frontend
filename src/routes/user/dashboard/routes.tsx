@@ -169,7 +169,7 @@ export const routes: RoutePayload[] = [
     role: [],
   },
   {
-    path: `${NavigationLink.login_google}/:tokenId`,
+    path: NavigationLink.login_google,
     main: () => <LoginGoogleSuccessPage />,
     role: [],
   },
