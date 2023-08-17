@@ -796,7 +796,7 @@ const managedClassColumns: GridColDef[] = [
   },
 ];
 
-const managedWithdrawProcessedColumns: GridColDef[] = [
+const managedWithdrawRequestColumns: GridColDef[] = [
   {
     field: 'id',
     headerName: 'Mã giao dịch',
@@ -839,9 +839,11 @@ const managedWithdrawProcessedColumns: GridColDef[] = [
   },
   {
     field: 'createdAt',
-    headerName: 'Ngày gửi',
+    headerName: 'Thời gian gửi',
     minWidth: 200,
     flex: 1,
+    valueFormatter: (params) =>
+      formatISODateStringToDisplayDateTime(params.value),
   },
   {
     field: 'timeProcessed',
@@ -866,7 +868,7 @@ const columns = {
   managedUserMemberColumns,
   managedUserMentorColumns,
   managedUserRegisterRequestColumns,
-  managedWithdrawProcessedColumns,
+  managedWithdrawRequestColumns,
   subjectColumns,
 };
 

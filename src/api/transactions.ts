@@ -1,6 +1,8 @@
 import axiosClient from '~/api/axiosClient';
+import { UseSearchManagedWithdrawRequestPayload } from '~/hooks/transaction/useSearchTransaction';
 import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
-import { YearRevenue } from '~/models/transaction';
+import { PagingFilterPayload } from '~/models';
+import { ManagedWithdrawRequest, YearRevenue } from '~/models/transaction';
 import { PaymentType } from '~/models/variables';
 
 const url = `/transactions`;
@@ -50,6 +52,20 @@ const transactionsApi = {
 
   getYearRevenue(year: number): Promise<YearRevenue[]> {
     return axiosClient.get(`${url}/revenue/year/${year}`);
+  },
+
+  searchManagedWithdrawRequest({
+    q,
+    status,
+    page,
+    size,
+    sort,
+  }: UseSearchManagedWithdrawRequestPayload): Promise<
+    PagingFilterPayload<ManagedWithdrawRequest>
+  > {
+    return axiosClient.get(
+      `${url}/withdraw/requests?status=${status}&page=${page}&size=${size}&sort=${sort}`
+    );
   },
 };
 

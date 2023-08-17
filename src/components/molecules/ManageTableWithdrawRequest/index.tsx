@@ -8,6 +8,8 @@ import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
 import columns from '~/constants/columns';
 import ManageTableDetailsCourseCreateRequest from '../ManageTableDetailsCourseCreateRequest';
+import { WithdrawRequestStatusType } from '~/constants/transaction';
+import { useSearchManagedWithdrawRequest } from '~/hooks/transaction/useSearchTransaction';
 
 const mockRow = [
   {
@@ -23,7 +25,16 @@ const mockRow = [
     timeProcessed: '11:09 - 01 tháng 7, 2023',
   },
 ];
-export default function ManageTableWithdrawProcessedRequest() {
+
+interface Props {
+  status: WithdrawRequestStatusType;
+  refetchGetNoOfRequest: () => void;
+}
+
+export default function ManageTableWithdrawRequest({
+  status,
+  refetchGetNoOfRequest,
+}: Props) {
   const enum Text {
     searchPlaceholder = 'Tìm kiếm yêu cầu...',
     popoverOptionViewDetails = 'Lấy danh sách',
@@ -44,15 +55,11 @@ export default function ManageTableWithdrawProcessedRequest() {
   const handleNewSize = (params: number) => setSize(params);
   const handleTriggerDialog = () => setOpen(!open);
 
-  // const { error, courseCreateRequestList, isLoading, refetch } =
-  //   useSearchCourseCreateRequest({ status, q, page, size, sort });
-
-  const courseCreateRequestList: any[] = [];
-  const isLoading = false;
-  const refetch = () => {};
-  const error = undefined;
-  // const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
-  const rows: any[] = mockRow;
+  const { error, managedWithdrawRequestList, isLoading, refetch } =
+    useSearchManagedWithdrawRequest({ status, q, page, size, sort });
+  const rows = managedWithdrawRequestList
+    ? managedWithdrawRequestList.items
+    : [];
 
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
@@ -79,41 +86,10 @@ export default function ManageTableWithdrawProcessedRequest() {
     },
   ];
 
-  const popoverOptions = optionsViewDetails;
-  // switch (status) {
-  //   case CourseStatusType.WAITING:
-  //     popoverOptions = optionsViewDetails;
-  //     break;
-  //   case CourseStatusType.NOTSTART:
-  //     popoverOptions = optionsViewDetails;
-  //     break;
-  //   default:
-  //     popoverOptions = popoverOptionsDefault;
-  //     break;
-  // }
-
-  // let renderItem;
-  // switch (mode) {
-  //   case 'READ':
-  //     renderItem = (
-  //       <CustomDialog
-  //         open={open}
-  //         onClose={handleTriggerDialog}
-  //         maxWidth={false}
-  //       >
-  //         <h1>Hello</h1>
-  //       </CustomDialog>
-  //     );
-  //     break;
-  //   default:
-  //     renderItem = null;
-  //     break;
-  // }
-
   return (
     <>
       <ManageTable
-        columns={columns.managedWithdrawProcessedColumns}
+        columns={columns.managedWithdrawRequestColumns}
         rows={rows}
         error={error}
         isLoading={isLoading}
@@ -124,8 +100,7 @@ export default function ManageTableWithdrawProcessedRequest() {
         // popoverOptions={popoverOptions}
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
-        // totalItems={courseCreateRequestList?.totalItems ?? 0}
-        totalItems={10}
+        totalItems={managedWithdrawRequestList?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
           onSearch: handleSearch,
