@@ -1,5 +1,7 @@
 import { ActivityType } from './activity';
 import { ImageType, TimeInWeeks } from './common';
+import { ActivityOfCourseCreateRequestDetails } from './courses';
+import { ProfilePayload } from './type';
 
 export interface ClassDetailsPayload {
   id: number;
@@ -88,4 +90,47 @@ export interface Slot {
   code: string;
   startTime: string;
   endTime: string;
+}
+
+export interface ManagedClassDetails {
+  id: number;
+  code: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  price: number;
+  minStudent: number;
+  maxStudent: number;
+  numberOfSlot: number;
+  hasReferralCode: boolean;
+  numberReferralCode: string;
+  classImage: any;
+  mentor: ProfilePayload;
+  activities: ActivityOfCourseCreateRequestDetails[];
+  timeInWeeks: TimeInWeeks[];
+  course: CourseManagedClassDetails;
+  numberOfCurrentStudent: number;
+  progress: ProgressManagedClassDetails;
+  image: any;
+  feedback: any;
+}
+
+interface CourseManagedClassDetails {
+  id: number;
+  code: string;
+  name: string;
+  description: string;
+  subject: SubjectCourseManagedClassDetails;
+}
+
+interface SubjectCourseManagedClassDetails {
+  id: number;
+  code: string;
+  name: string;
+  categoryIds: number[];
+}
+
+interface ProgressManagedClassDetails {
+  currentSlot: number;
+  percentage: number;
 }

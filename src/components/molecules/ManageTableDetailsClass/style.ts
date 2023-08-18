@@ -63,3 +63,27 @@ export const SX_FORM_ITEM_VALUE2: SxProps<Theme> = {
   fontFamily: FontFamily.medium,
   fontSize: 16,
 };
+
+export const SX_FORM_ITEM_VALUE2_WARNING: SxProps<Theme> = {
+  color: Color.red,
+  fontFamily: FontFamily.medium,
+  fontSize: 16,
+};
+
+const itemLabel: SxProps<Theme> = {
+  color: '#495057',
+  fontSize: 14,
+  fontFamily: FontFamily.medium,
+};
+const itemValue: SxProps<Theme> = {
+  color: Color.grey4,
+  fontSize: 14,
+  fontFamily: FontFamily.regular,
+};
+
+const sx = {
+  itemLabel,
+  itemValue,
+};
+
+export default sx;

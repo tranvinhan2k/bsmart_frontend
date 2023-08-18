@@ -87,3 +87,4 @@ export const WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT =
   'Định dạng không hỗ trợ';
 
 export const TRY_CATCH_AXIOS_DEFAULT_ERROR = 'BE ko trả lỗi, Msg từ FE';
+export const MSG_BE_MISSING_FIELD = 'BE trả thiếu field';
