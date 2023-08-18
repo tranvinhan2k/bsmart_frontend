@@ -7,10 +7,6 @@ import {
   defaultValueRejectRegisterRequest,
 } from '~/form/defaultValues';
 import { ProcessRegisterRequestFormDefault } from '~/models/form';
-import {
-  useMutationProcessRegisterRequest,
-  UseMutationProcessRegisterRequestPayload,
-} from '~/hooks/user/useMutationProcessRegisterRequest';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaProcessRegisterRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
