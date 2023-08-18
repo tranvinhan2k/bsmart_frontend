@@ -1,5 +1,6 @@
 import axiosClient from '~/api/axiosClient';
 import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
+import { UseGetCourseCreateRequestDetailsPayload } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { PagingFilterPayload } from '~/models';
 import {
   ClassCreateClassSectionPayload,
@@ -376,10 +377,13 @@ const classApi = {
     return axiosClient.delete(urlDelete);
   },
 
-  getCourseCreateRequestDetails(
-    idCourse: number
-  ): Promise<CourseCreateRequestDetails | undefined> {
-    const urlGet = `${url}/pending/course/${idCourse}`;
+  getCourseCreateRequestDetails({
+    idCourse,
+    status,
+  }: UseGetCourseCreateRequestDetailsPayload): Promise<
+    CourseCreateRequestDetails | undefined
+  > {
+    const urlGet = `${url}/pending/course/${idCourse}?status=${status}`;
     return axiosClient.get(urlGet);
   },
   searchManagedClass({

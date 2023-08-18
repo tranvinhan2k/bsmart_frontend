@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import coursesApi from '~/api/courses';
+import { CourseStatusType } from '~/constants/course';
 import { Key } from './key';
 
 export interface UseSearchCourseCreateRequestPayload {
-  status: string;
+  status: CourseStatusType;
   q?: string | null;
   page?: number;
   size?: number | null;

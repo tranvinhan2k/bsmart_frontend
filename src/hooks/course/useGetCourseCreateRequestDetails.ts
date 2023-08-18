@@ -1,11 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import { Key } from './key';
 import classApi from '~/api/class';
+import { ClassStatusType } from '~/constants/class';
 
-export const useGetCourseCreateRequestDetails = (idCourse: number) => {
+export interface UseGetCourseCreateRequestDetailsPayload {
+  idCourse: number;
+  status: ClassStatusType;
+}
+
+export const useGetCourseCreateRequestDetails = ({
+  idCourse,
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) => {
   const { data, error, isLoading, isError, refetch } = useQuery({
-    queryKey: [Key.UseGetCourseCreateRequestDetails, idCourse],
-    queryFn: () => classApi.getCourseCreateRequestDetails(idCourse),
+    queryKey: [Key.UseGetCourseCreateRequestDetails, idCourse, status],
+    queryFn: () => classApi.getCourseCreateRequestDetails({ idCourse, status }),
     keepPreviousData: true,
   });
 

@@ -8,6 +8,7 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import ManageTable, {
   MenuItemPayload,
 } from '~/components/molecules/ManageTable';
+import ManageTableDetailsClass from '../ManageTableDetailsClass';
 
 interface ManageTableClassProps {
   status: ClassStatusType;
@@ -89,7 +90,12 @@ export default function ManageTableClass({
           onClose={handleTriggerDialog}
           maxWidth={false}
         >
-          <h1>Chi tiết lớp</h1>
+          <ManageTableDetailsClass
+            row={selectedRow}
+            onClose={handleTriggerDialog}
+            refetchSearch={refetch}
+            refetchGetNoOfRequest={refetchGetNoOfRequest}
+          />
         </CustomDialog>
       );
       break;

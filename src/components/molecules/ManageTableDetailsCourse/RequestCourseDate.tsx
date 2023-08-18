@@ -1,5 +1,8 @@
 import { Box, Grid, Skeleton, Stack, Typography } from '@mui/material';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import {
+  useGetCourseCreateRequestDetails,
+  UseGetCourseCreateRequestDetailsPayload,
+} from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 import {
   SX_BOX_ITEM_WRAPPER,
@@ -8,15 +11,12 @@ import {
   SX_FORM_LABEL,
 } from './style';
 
-interface RequestCourseDateProps {
-  idCourse: number;
-}
-
 export default function RequestCourseDate({
   idCourse,
-}: RequestCourseDateProps) {
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) {
   const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
+    useGetCourseCreateRequestDetails({ idCourse, status });
 
   const title = [
     {

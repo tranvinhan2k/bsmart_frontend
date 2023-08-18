@@ -10,11 +10,13 @@ import { restrictNumberDisplay } from '~/utils/common';
 
 interface ManageCourseCreateRequestSectionProps {
   firstList: PagingFilterPayload<CourseCreateRequestDetails> | undefined;
-  refetchFirstList: () => void;
+  firstListStatus: CourseStatusType;
+  firstListRefetch: () => void;
 }
 export default function ManageCourseCreateRequestSection({
   firstList,
-  refetchFirstList,
+  firstListStatus,
+  firstListRefetch,
 }: ManageCourseCreateRequestSectionProps) {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
@@ -48,7 +50,7 @@ export default function ManageCourseCreateRequestSection({
   });
 
   const handleRefetchAll = () => {
-    refetchFirstList();
+    firstListRefetch();
     refetchListNotStart();
     refetchListEditRequest();
     refetchListRejected();
@@ -58,46 +60,46 @@ export default function ManageCourseCreateRequestSection({
     {
       id: 0,
       text: 'Chờ duyệt',
+      noOfRequest: restrictNumberDisplay(firstList?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
-          status={CourseStatusType.WAITING}
+          status={firstListStatus}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(firstList?.totalItems),
     },
     {
       id: 1,
       text: 'Đã duyệt',
+      noOfRequest: restrictNumberDisplay(courseListNotStart?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.NOTSTART}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListNotStart?.totalItems),
     },
     {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
+      noOfRequest: restrictNumberDisplay(courseListEditRequest?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.EDITREQUEST}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListEditRequest?.totalItems),
     },
     {
       id: 3,
       text: 'Đã từ chối',
+      noOfRequest: restrictNumberDisplay(courseListRejected?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.REJECTED}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListRejected?.totalItems),
     },
   ];
 
@@ -119,7 +121,13 @@ export default function ManageCourseCreateRequestSection({
                 spacing={1}
               >
                 <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
-                <Chip label={tab.noOfRequest} size="small" />
+                <Chip
+                  label={tab.noOfRequest}
+                  size="small"
+                  color={
+                    tab.id === 0 && tab.noOfRequest > 0 ? 'error' : 'default'
+                  }
+                />
               </Stack>
             }
             value={tab.id}

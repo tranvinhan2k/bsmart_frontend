@@ -5,18 +5,18 @@ import {
   AccordionSummary,
 } from '~/components/atoms/Accordion';
 import SubActivityCourseDetails from '~/components/molecules/SubActivityCourseDetails';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import {
+  useGetCourseCreateRequestDetails,
+  UseGetCourseCreateRequestDetailsPayload,
+} from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
-
-interface RequestCourseContentProps {
-  idCourse: number;
-}
 
 export default function RequestCourseContent({
   idCourse,
-}: RequestCourseContentProps) {
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) {
   const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
+    useGetCourseCreateRequestDetails({ idCourse, status });
 
   return (
     <Stack sx={SX_BOX_ITEM_WRAPPER}>

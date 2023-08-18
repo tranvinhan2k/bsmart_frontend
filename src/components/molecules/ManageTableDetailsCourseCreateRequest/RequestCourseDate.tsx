@@ -1,6 +1,9 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import {
+  useGetCourseCreateRequestDetails,
+  UseGetCourseCreateRequestDetailsPayload,
+} from '~/hooks/course/useGetCourseCreateRequestDetails';
 import {
   formatISODateStringToDisplayDate,
   formatISODateStringToDisplayTime,
@@ -12,13 +15,10 @@ import {
   SX_FORM_LABEL,
 } from './style';
 
-interface RequestCourseDateProps {
-  idCourse: number;
-}
-
 export default function RequestCourseDate({
   idCourse,
-}: RequestCourseDateProps) {
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) {
   const enum Text {
     mainTitle = 'Thời gian gửi yêu cầu',
     labelSubmitDate = 'Ngày gửi',
@@ -30,7 +30,7 @@ export default function RequestCourseDate({
   }
 
   const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
+    useGetCourseCreateRequestDetails({ idCourse, status });
   const title = courseCreateRequestDetails
     ? [
         {

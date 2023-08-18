@@ -1,21 +1,26 @@
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import {
+  useGetCourseCreateRequestDetails,
+  UseGetCourseCreateRequestDetailsPayload,
+} from '~/hooks/course/useGetCourseCreateRequestDetails';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
 import RequestCourseClassDetails from './RequestCourseClassDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
-interface RequestCourseTimetableProps {
-  idCourse: number;
-}
-
 export default function RequestCourseClassList({
   idCourse,
-}: RequestCourseTimetableProps) {
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) {
+  const [mode, setMode] = useState<'READ' | ''>('');
+
+  const [open, setOpen] = useState<boolean>(false);
+  const handleTriggerDialog = () => setOpen(!open);
+
   const { courseCreateRequestDetails, isLoading, error } =
-    useGetCourseCreateRequestDetails(idCourse);
+    useGetCourseCreateRequestDetails({ idCourse, status });
   // const courseCreateRequestDetails = undefined;
   // const isLoading = undefined;
   // const error = undefined;
@@ -27,16 +32,12 @@ export default function RequestCourseClassList({
     ? courseCreateRequestDetails?.classes.length
     : 0;
 
-  const [mode, setMode] = useState<'READ' | ''>('');
-  const [open, setOpen] = useState<boolean>(false);
-  const handleTriggerDialog = () => setOpen(!open);
-
   const handleViewDetails = () => {
-    setMode('READ');
     handleTriggerDialog();
+    setMode('READ');
   };
 
-  const popoverOptions: MenuItemPayload[] = [
+  const popoverOptionsDetails: MenuItemPayload[] = [
     {
       icon: 'category',
       title: 'Xem chi tiết',
@@ -79,7 +80,7 @@ export default function RequestCourseClassList({
         density="compact"
         error={error}
         loading={isLoading}
-        popoverOptions={popoverOptions}
+        popoverOptions={popoverOptionsDetails}
         rowsPerPageOptions={[]}
         onRowClick={handleSelectedRow}
       />

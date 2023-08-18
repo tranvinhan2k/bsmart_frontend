@@ -1,8 +1,10 @@
 import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import ManageTableWithdrawProcessedRequest from '~/components/molecules/ManageTableWithdrawProcessedRequest';
-import ManageTableWithdrawWaitingRequest from '~/components/molecules/ManageTableWithdrawWaitingRequest';
+import ManageTableWithdrawRequest from '~/components/molecules/ManageTableWithdrawRequest';
+import { useSearchManagedWithdrawRequest } from '~/hooks/transaction/useSearchTransaction';
+import { WithdrawRequestStatusType } from '~/constants/transaction';
+import { restrictNumberDisplay } from '~/utils/common';
 
 export default function ManageWithdrawSection() {
   const [tabValue, setTabValue] = useState(0);
@@ -11,20 +13,65 @@ export default function ManageWithdrawSection() {
     newValue: number
   ) => setTabValue(newValue);
 
+  const {
+    managedWithdrawRequestList: listSUCCESS,
+    refetch: refetchListSUCCESS,
+  } = useSearchManagedWithdrawRequest({
+    status: WithdrawRequestStatusType.SUCCESS,
+  });
+  const { managedWithdrawRequestList: listFAIL, refetch: refetchListFAIL } =
+    useSearchManagedWithdrawRequest({
+      status: WithdrawRequestStatusType.FAIL,
+    });
+  const {
+    managedWithdrawRequestList: listWAITING,
+    refetch: refetchListWAITING,
+  } = useSearchManagedWithdrawRequest({
+    status: WithdrawRequestStatusType.WAITING,
+  });
+
+  const handleRefetchAll = () => {
+    refetchListSUCCESS();
+    refetchListFAIL();
+    refetchListWAITING();
+  };
+
   const tabEl = [
     {
       id: 0,
-      text: 'Đã xử lý',
-      component: <ManageTableWithdrawProcessedRequest />,
-      noOfRequest: undefined,
+      text: 'Chờ duyệt',
+      component: (
+        <ManageTableWithdrawRequest
+          status={WithdrawRequestStatusType.WAITING}
+          refetchGetNoOfRequest={handleRefetchAll}
+        />
+      ),
+      noOfRequest: restrictNumberDisplay(listWAITING?.totalItems),
     },
     {
       id: 1,
-      text: 'Chờ xử lý',
-      component: <ManageTableWithdrawWaitingRequest />,
-      noOfRequest: 0,
+      text: 'Xử lý thành công',
+      component: (
+        <ManageTableWithdrawRequest
+          status={WithdrawRequestStatusType.SUCCESS}
+          refetchGetNoOfRequest={handleRefetchAll}
+        />
+      ),
+      noOfRequest: restrictNumberDisplay(listSUCCESS?.totalItems),
+    },
+    {
+      id: 2,
+      text: 'Xử lý thất bại',
+      component: (
+        <ManageTableWithdrawRequest
+          status={WithdrawRequestStatusType.FAIL}
+          refetchGetNoOfRequest={handleRefetchAll}
+        />
+      ),
+      noOfRequest: restrictNumberDisplay(listFAIL?.totalItems),
     },
   ];
+
   return (
     <>
       <Tabs
@@ -43,9 +90,13 @@ export default function ManageWithdrawSection() {
                 spacing={1}
               >
                 <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
-                {tab.noOfRequest !== undefined ? (
-                  <Chip label={tab.noOfRequest} size="small" />
-                ) : undefined}
+                <Chip
+                  label={tab.noOfRequest}
+                  size="small"
+                  color={
+                    tab.id === 0 && tab.noOfRequest > 0 ? 'error' : 'default'
+                  }
+                />
               </Stack>
             }
             value={tab.id}

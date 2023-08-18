@@ -1,5 +1,6 @@
 import {
   Box,
+  Chip,
   CircularProgress,
   FormControl,
   Grid,
@@ -7,10 +8,8 @@ import {
   MenuItem,
   Stack,
   TextField,
-  Typography,
 } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { Color } from '~/assets/variables';
 import { CourseStatusType } from '~/constants/course';
 import { scrollToTop } from '~/utils/common';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
@@ -67,7 +66,8 @@ export default function ManageRequestManagerPage() {
       component: (
         <ManageCourseCreateRequestSection
           firstList={courseCreateRequestWaiting}
-          refetchFirstList={refetchCourseCreateRequestWaiting}
+          firstListStatus={CourseStatusType.WAITING}
+          firstListRefetch={refetchCourseCreateRequestWaiting}
         />
       ),
     },
@@ -128,27 +128,31 @@ export default function ManageRequestManagerPage() {
                 item.isListSubheader ? (
                   <ListSubheader key={item.id}>{item.label}</ListSubheader>
                 ) : (
-                  <MenuItem key={item.id} value={item.value}>
+                  <MenuItem
+                    key={item.id}
+                    value={item.value}
+                    sx={{ width: '100%' }}
+                  >
                     <Stack
                       direction="row"
-                      justifyContent="flex-start"
+                      justifyContent="space-between"
                       alignItems="center"
-                      spacing={1}
+                      sx={{ width: '100%' }}
+                      spacing={2}
                     >
                       <p>{item.label}</p>
                       {item.isLoading ? (
                         <CircularProgress size="1rem" />
                       ) : (
-                        <Typography
-                          sx={{
-                            color:
-                              item.indicator && item.indicator > 0
-                                ? Color.red
-                                : Color.black,
-                          }}
-                        >
-                          ({item.indicator})
-                        </Typography>
+                        <Chip
+                          label={item.indicator}
+                          size="small"
+                          color={
+                            item.indicator && item.indicator > 0
+                              ? 'error'
+                              : 'default'
+                          }
+                        />
                       )}
                     </Stack>
                   </MenuItem>

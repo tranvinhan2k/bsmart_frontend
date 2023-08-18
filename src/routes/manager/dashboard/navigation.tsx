@@ -35,16 +35,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         id: 4,
         name: 'Lớp học',
         icon: 'coPresent',
-        link: '',
-        items: [
-          {
-            id: 0,
-            isHide: true,
-            icon: 'class',
-            name: 'Danh sách lớp học',
-            link: ManagerNavigationActionLink.manage_class_manager,
-          },
-        ],
+        link: ManagerNavigationActionLink.manage_class_manager,
       },
       {
         id: 5,

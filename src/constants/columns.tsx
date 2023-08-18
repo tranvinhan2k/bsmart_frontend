@@ -578,6 +578,8 @@ const managedUserRegisterRequestColumns = managedUserBasedColumns.concat(
 const courseClassListColumns: GridColDef[] = [
   {
     field: 'code',
+    headerAlign: 'left',
+    type: 'string',
     headerName: 'Mã lớp',
     minWidth: 90,
     flex: 1,
@@ -796,28 +798,79 @@ const managedClassColumns: GridColDef[] = [
   },
 ];
 
-const managedWithdrawProcessedColumns: GridColDef[] = [
+const managedWithdrawRequestColumns: GridColDef[] = [
   {
-    field: 'code',
-    headerName: 'Mã yêu cầu',
+    field: 'id',
+    headerAlign: 'left',
+    type: 'string',
+    headerName: 'Mã giao dịch',
     minWidth: 150,
     flex: 1,
     renderCell: (params) => {
-      const { code } = params.row;
-      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
+      const { id } = params.row;
+      return <CopyableCellEllipsis rawValue={id} formattedValue={id} />;
     },
   },
   {
     field: 'name',
-    headerName: 'Tên',
+    headerAlign: 'left',
+    type: 'string',
+    headerName: 'Tên người dùng',
     minWidth: 200,
     flex: 1,
   },
   {
-    field: 'timeProcessed',
-    headerName: 'Thời gian xử lý',
+    field: 'bankName',
+    headerAlign: 'left',
+    type: 'string',
+    headerName: 'Ngân hàng',
     minWidth: 150,
     flex: 1,
+  },
+  {
+    field: 'bankAccount',
+    headerAlign: 'left',
+    type: 'string',
+    headerName: 'Tên chủ khoản',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'bankNumber',
+    headerAlign: 'left',
+    type: 'string',
+    headerName: 'Số tài khoản',
+    minWidth: 200,
+    flex: 1,
+  },
+  {
+    field: 'amount',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Tiền yêu cầu rút',
+    minWidth: 150,
+    flex: 1,
+    valueFormatter: (params) => formatMoney(params.value),
+  },
+  {
+    field: 'createdAt',
+    headerAlign: 'left',
+    type: 'dateTime',
+    headerName: 'Thời gian gửi',
+    minWidth: 200,
+    flex: 1,
+    valueFormatter: (params) =>
+      formatISODateStringToDisplayDateTime(params.value),
+  },
+  {
+    field: 'timeProcessed',
+    headerAlign: 'left',
+    type: 'dateTime',
+    headerName: 'Thời gian xử lý',
+    minWidth: 200,
+    flex: 1,
+    valueFormatter: (params) =>
+      formatISODateStringToDisplayDateTime(params.value),
   },
 ];
 
@@ -836,7 +889,7 @@ const columns = {
   managedUserMemberColumns,
   managedUserMentorColumns,
   managedUserRegisterRequestColumns,
-  managedWithdrawProcessedColumns,
+  managedWithdrawRequestColumns,
   subjectColumns,
 };
 

@@ -10,7 +10,10 @@ import {
 import { useState } from 'react';
 import Icon from '~/components/atoms/Icon';
 import { mockLevelData } from '~/constants';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import {
+  useGetCourseCreateRequestDetails,
+  UseGetCourseCreateRequestDetailsPayload,
+} from '~/hooks/course/useGetCourseCreateRequestDetails';
 import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
@@ -19,15 +22,12 @@ import {
   SX_FORM_LABEL,
 } from './style';
 
-interface RequestCourseDetailsProps {
-  idCourse: number;
-}
-
 export default function RequestCourseDetails({
   idCourse,
-}: RequestCourseDetailsProps) {
+  status,
+}: UseGetCourseCreateRequestDetailsPayload) {
   const { courseCreateRequestDetails, isLoading } =
-    useGetCourseCreateRequestDetails(idCourse);
+    useGetCourseCreateRequestDetails({ idCourse, status });
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const handleIsDescriptionExpanded = () => {

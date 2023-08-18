@@ -1,32 +1,37 @@
 import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
-import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import { useMutationProcessCourseCreateRequest } from '~/hooks/course/useMutationProcessCourseCreateRequest';
-import { useYupValidationResolver } from '~/hooks';
-import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
+import { ClassStatusType } from '~/constants/class';
+import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
+import { useYupValidationResolver } from '~/hooks';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { useMutationProcessCourseCreateRequest } from '~/hooks/course/useMutationProcessCourseCreateRequest';
+import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
 interface RequestCourseProcessProps {
   idCourse: number;
   onClose: () => void;
-  refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
+  refetchSearch: () => void;
+  status: ClassStatusType;
 }
 
 export default function RequestCourseProcess({
   idCourse,
   onClose,
-  refetchSearch,
   refetchGetNoOfRequest,
+  refetchSearch,
+  status,
 }: RequestCourseProcessProps) {
-  const { courseCreateRequestDetails } =
-    useGetCourseCreateRequestDetails(idCourse);
+  const { courseCreateRequestDetails } = useGetCourseCreateRequestDetails({
+    idCourse,
+    status,
+  });
 
   const resolverApproveCreateCourseRequest = useYupValidationResolver(
     validationSchemaApproveCreateCourseRequest
