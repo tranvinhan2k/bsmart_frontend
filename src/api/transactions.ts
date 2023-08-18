@@ -2,9 +2,11 @@ import axiosClient from '~/api/axiosClient';
 import { UseMutationProcessWithdrawRequestPayload } from '~/hooks/transaction/useMutationProcessWithdrawRequest';
 import { UseSearchManagedWithdrawRequestPayload } from '~/hooks/transaction/useSearchTransaction';
 import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
-import { PagingFilterPayload } from '~/models';
+import { PagingFilterPayload, PagingFilterRequest } from '~/models';
+import { GetTransactionsPayload } from '~/models/response';
 import { ManagedWithdrawRequest, YearRevenue } from '~/models/transaction';
 import { PaymentType } from '~/models/variables';
+import { RevenuePayload } from '~/pages/admin/AdminManagerRevenuePage/RevenueChart';
 import { generateMockApi, generateRandomData } from '~/utils/common';
 
 const url = `/transactions`;
@@ -24,7 +26,8 @@ const transactionsApi = {
   async payQuick(data: {
     clazzId: number;
     referalCode: string;
-    type: PaymentType;
+    type: 'CASH';
+    useWallet: boolean;
   }): Promise<any> {
     return axiosClient.post(`${url}/pay-quick`, data);
   },
@@ -45,8 +48,21 @@ const transactionsApi = {
     return axiosClient.get(`${url}/?page=${page}&size=${size}&sort=${sort}`);
   },
 
-  async getMentorTransactions() {
-    return generateMockApi(generateRandomData(100));
+  async getMentorTransactions(params: PagingFilterRequest) {
+    const response: PagingFilterPayload<GetTransactionsPayload> =
+      await axiosClient.get(`${url}`, {
+        params,
+      });
+
+    const result: RevenuePayload[] =
+      response.items.map((item) => ({
+        id: item.id || 0,
+        buyer: item.createdBy || '',
+        date: item.created || '',
+        revenue: item.afterBalance || 0,
+        total: item.beforeBalance || 0,
+      })) || [];
+    return { ...response, items: result };
   },
 
   async withdrawMoney(data: WithdrawMoneyProfilePayload): Promise<any> {
@@ -59,6 +75,14 @@ const transactionsApi = {
 
   getYearRevenue(year: number): Promise<YearRevenue[]> {
     return axiosClient.get(`${url}/revenue/year/${year}`);
+  },
+
+  postPromoCodeInformation(params: {
+    usageLimit: number;
+    discountPercent: number;
+    expiredLaterDay: string;
+  }) {
+    return generateMockApi(true);
   },
 
   searchManagedWithdrawRequest({

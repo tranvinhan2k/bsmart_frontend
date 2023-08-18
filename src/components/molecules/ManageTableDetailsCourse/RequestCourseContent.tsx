@@ -10,6 +10,7 @@ import {
   UseGetCourseCreateRequestDetailsPayload,
 } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
+import RequestCourseContents from '../RequestCourseContents';
 
 export default function RequestCourseContent({
   idCourse,
@@ -32,24 +33,9 @@ export default function RequestCourseContent({
           <Box mb={4}>
             <Typography sx={SX_FORM_LABEL}>Nội dung</Typography>
           </Box>
-          {courseCreateRequestDetails?.activities.map((item, index) => (
-            <Accordion key={item.id} defaultExpanded={index === 0}>
-              <AccordionSummary>
-                <Typography>
-                  <b>Học phần {index + 1}</b>: {item.name}
-                </Typography>
-              </AccordionSummary>
-              {/*  */}
-              <AccordionDetails>
-                {item.subActivities.map((subActivity) => (
-                  <SubActivityCourseDetails
-                    key={subActivity.id}
-                    subActivity={subActivity}
-                  />
-                ))}
-              </AccordionDetails>
-            </Accordion>
-          ))}
+          <RequestCourseContents
+            items={courseCreateRequestDetails?.activities || []}
+          />
         </>
       )}
     </Stack>

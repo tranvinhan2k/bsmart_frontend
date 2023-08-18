@@ -840,8 +840,24 @@ export type GetCourseFeedbackPayload = Partial<{
   averageRate: number;
   rateCount: any;
   submissions: {
-    submitBy: 'string';
+    submitBy: string;
     rate: number;
-    comment: 'string';
+    comment: string;
   }[];
+}>;
+
+export type GetTransactionsPayload = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  amount: number;
+  status: string;
+  statusName: string;
+  type: string;
+  typeName: string;
+  beforeBalance: number;
+  afterBalance: number;
+  iconUrl: string;
 }>;

@@ -34,49 +34,15 @@ export interface PromoCodePayload {
 }
 
 export default function MemberPromoCode() {
-  const resolver = useYupValidationResolver(validationAddPromoCode);
-  const hookForm = useForm({
-    resolver,
-  });
-
   const [value, copy] = useCopyToClipboard();
   const { data, error, isLoading } = useGetPromoCode();
-
-  const { mutateAsync: handleSubmitCode } = useAddPromoCode();
-  const { handleTryCatch } = useTryCatch('thêm mã giới thiệu');
-  const onSubmit = async (params: any) => {
-    await handleTryCatch(async () => handleSubmitCode(params.code));
-  };
 
   return (
     <Stack>
       <Typography sx={globalStyles.textTitle}>
         Thông tin mã giới thiệu
       </Typography>
-      <Stack sx={globalStyles.viewRoundedWhiteBody}>
-        <Typography sx={globalStyles.textSmallLabel}>
-          Thêm mã giới thiệu
-        </Typography>
-        <Stack
-          marginTop={1}
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
-          }}
-        >
-          <FormInput name="code" variant="text" control={hookForm.control} />
-          <Button
-            sx={{
-              marginLeft: 1,
-            }}
-            onClick={hookForm.handleSubmit(onSubmit, handleConsoleError)}
-            variant="contained"
-          >
-            Thêm mã giới thiệu
-          </Button>
-        </Stack>
-      </Stack>
+
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
         <Typography sx={globalStyles.textSmallLabel}>
           Danh sách mã giới thiệu
