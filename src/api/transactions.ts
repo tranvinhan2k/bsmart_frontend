@@ -51,7 +51,7 @@ const transactionsApi = {
   },
 
   async withdrawMoney(data: WithdrawMoneyProfilePayload): Promise<any> {
-    return axiosClient.post(`${url}/withdraw`, data);
+    return generateMockApi(true);
   },
   async DepositMoney(money: number): Promise<any> {
     return generateMockApi(true);

@@ -161,7 +161,7 @@ export const defaultValueTimetable = {
 };
 
 export const defaultValueWithdrawMoney: WithdrawMoneyFormDataPayload = {
-  amount: 50000,
+  amount: 0,
   bankLinking: '',
   bankAccount: 0,
   bankAccountOwner: '',
