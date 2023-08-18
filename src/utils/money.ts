@@ -1,5 +1,5 @@
 export function formatMoney(moneyText: number, isHideText?: boolean) {
-  if (!moneyText) return '0 đ';
+  if (!moneyText) return '0';
   if (isHideText) {
     return new Intl.NumberFormat('vi-VN').format(moneyText);
   }

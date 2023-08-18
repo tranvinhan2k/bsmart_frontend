@@ -1,6 +1,7 @@
 import axiosClient from '~/api/axiosClient';
 import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
 import { PaymentType } from '~/models/variables';
+import { generateMockApi, generateRandomData } from '~/utils/common';
 
 const url = `/transactions`;
 export interface ResponseTransactionsPayload {
@@ -40,11 +41,17 @@ const transactionsApi = {
   }: UseQueryGetTransactionsPayload): Promise<any> {
     return axiosClient.get(`${url}/?page=${page}&size=${size}&sort=${sort}`);
   },
+
+  async getMentorTransactions() {
+    return generateMockApi(generateRandomData(100));
+  },
+
   async withdrawMoney(data: WithdrawMoneyProfilePayload): Promise<any> {
     return axiosClient.post(`${url}/withdraw`, data);
   },
-  async DepositMoney(): Promise<any> {
-    return axiosClient.post(`${url}/deposit`, { amount: 100000000 });
+  async DepositMoney(money: number): Promise<any> {
+    return generateMockApi(true);
+    // return axiosClient.post(`${url}/deposit`, { amount: 100000000 });
   },
 };
 

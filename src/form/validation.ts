@@ -217,6 +217,11 @@ export const validationClassContentQuiz = object({
 export const validationAddPromoCode = object({
   code: string().required('Mã giới thiệu không hợp lệ.'),
 });
+export const validationPaymentPrice = object({
+  price: number()
+    .required('Số tiền không được để trống.')
+    .typeError('Số tiền không được để trống.'),
+});
 export const validationClassListFilter = object({
   startDate: date().typeError('Ngày phải hợp lệ (DD/MM/YYYY)'),
   endDate: date()

@@ -32,6 +32,7 @@ export const Color = {
   transparent: '#00000000',
   white: '#ffffff',
   whiteSmoke: '#f5f5f5',
+  gold: '#F0B86E',
   white2: '#eeeeee',
   white3: '#f9f9f9',
   white4: '#eff3f6',

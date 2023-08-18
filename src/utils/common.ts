@@ -1,5 +1,6 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
 import { OptionPayload } from '~/models';
+import { RevenuePayload } from '~/pages/admin/AdminManagerRevenuePage/RevenueChart';
 
 export function scrollToTop() {
   window.scrollTo({
@@ -138,4 +139,29 @@ export function convertToHigherByteUnit(kb: number): string {
   }
 
   return `${value.toFixed(2)} ${units[unitIndex]}`;
+}
+
+function generateRandomDate(start: Date, end: Date): Date {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+}
+
+export function generateRandomData(numItems: number): RevenuePayload[] {
+  const newData: RevenuePayload[] = [];
+  const buyers = ['Nhan Tran', 'John Doe', 'Jane Smith'];
+  const startDate = new Date(2020, 0, 1);
+  const endDate = new Date(2024, 11, 31);
+
+  for (let i = 0; i < numItems; i += 1) {
+    const id = newData.length + i;
+    const date = generateRandomDate(startDate, endDate).toISOString();
+    const revenue = Math.floor(Math.random() * 100) + 1; // Random revenue between 1 and 100
+    const total = Math.floor(Math.random() * 500) + 1; // Random total between 1 and 500
+    const buyer = buyers[Math.floor(Math.random() * buyers.length)];
+
+    newData.push({ id, date, revenue, total, buyer });
+  }
+
+  return newData;
 }

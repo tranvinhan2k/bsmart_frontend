@@ -4,11 +4,11 @@ import { Color, MetricSize } from '~/assets/variables';
 
 export const SX_WRAPPER: SxProps<Theme> = {
   paddingTop: MetricSize.large_30,
-  paddingX: 10,
+  paddingX: 5,
   backgroundColor: Color.white4,
 };
 
 export const SX_CONTAINER: SxProps<Theme> = {
-  width: { xs: '100%', md: MetricSize.centeredContainer1 },
+  width: '100%',
   marginX: 'auto',
 };

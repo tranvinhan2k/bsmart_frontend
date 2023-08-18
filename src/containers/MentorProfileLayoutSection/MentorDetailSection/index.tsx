@@ -53,6 +53,7 @@ export default function MentorDetailSection() {
       birth={profile.birthday}
       email={profile.email}
       gender={profile.gender}
+      coin={profile.wallet.balance || 0}
       isVerified={profile.isVerified}
       mail={profile.email}
       mentorProfileStatus={profile.mentorProfile.status}

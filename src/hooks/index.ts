@@ -121,3 +121,7 @@ export * from './resetPassword/useMutationResetPassword';
 // notifications
 export * from './notifications/useDispatchNotifications';
 export * from './notifications/useReadNotifications';
+
+// transactions
+export * from './useDeposit';
+export * from './useGetMentorTransactions';
