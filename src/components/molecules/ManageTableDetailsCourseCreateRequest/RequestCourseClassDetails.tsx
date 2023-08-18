@@ -48,12 +48,12 @@ export default function RequestCourseClassDetails({
       subItem: [
         {
           id: 0,
-          label: 'Ngày bắt đầu (dự kiến)',
+          label: 'Ngày bắt đầu',
           value: formatISODateStringToDisplayDate(classDetails.startDate) ?? '',
         },
         {
           id: 1,
-          label: 'Ngày kết thúc (dự kiến)',
+          label: 'Ngày kết thúc',
           value: formatISODateStringToDisplayDate(classDetails.endDate) ?? '',
         },
         {
