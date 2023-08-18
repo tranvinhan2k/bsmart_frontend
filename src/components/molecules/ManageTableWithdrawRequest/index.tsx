@@ -1,30 +1,14 @@
+import { Button, Stack } from '@mui/material';
 import { useState } from 'react';
+import { utils, writeFile } from 'xlsx';
 import CustomDialog from '~/components/atoms/CustomDialog';
-import ManageTable, {
-  MenuItemPayload,
-} from '~/components/molecules/ManageTable';
-import { CourseStatusType } from '~/constants/course';
-import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
-import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
+import Icon from '~/components/atoms/Icon';
+import ManageTable from '~/components/molecules/ManageTable';
 import columns from '~/constants/columns';
-import ManageTableDetailsCourseCreateRequest from '../ManageTableDetailsCourseCreateRequest';
+import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { WithdrawRequestStatusType } from '~/constants/transaction';
 import { useSearchManagedWithdrawRequest } from '~/hooks/transaction/useSearchTransaction';
-
-const mockRow = [
-  {
-    id: 1,
-    code: '34s5',
-    name: 'Nguyễn Văn A',
-    timeProcessed: '08:23 - 18 tháng 7, 2023',
-  },
-  {
-    id: 2,
-    code: '63sg',
-    name: 'Nguyễn Văn B',
-    timeProcessed: '11:09 - 01 tháng 7, 2023',
-  },
-];
+import ManageTableProcessWithdrawRequest from '../ManageTableProcessWithdrawRequest';
 
 interface Props {
   status: WithdrawRequestStatusType;
@@ -41,11 +25,6 @@ export default function ManageTableWithdrawRequest({
     popoverOptionNotSupport = 'Chưa hỗ trợ',
   }
 
-  const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
-  const [selectedRow, setSelectedRow] = useState<any>();
-
-  // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
@@ -53,9 +32,11 @@ export default function ManageTableWithdrawRequest({
 
   const handleNewPage = (params: number) => setPage(params);
   const handleNewSize = (params: number) => setSize(params);
+
+  const [open, setOpen] = useState<boolean>(false);
   const handleTriggerDialog = () => setOpen(!open);
 
-  const { error, managedWithdrawRequestList, isLoading, refetch } =
+  const { managedWithdrawRequestList, error, isLoading, refetch } =
     useSearchManagedWithdrawRequest({ status, q, page, size, sort });
   const rows = managedWithdrawRequestList
     ? managedWithdrawRequestList.items
@@ -66,28 +47,58 @@ export default function ManageTableWithdrawRequest({
     refetch();
   };
 
-  const handleOpenCourseCreateRequestDetails = () => {
-    handleTriggerDialog();
-    setMode(() => 'READ');
+  const exportExcel = () => {
+    const ws = utils.json_to_sheet(rows);
+    const wb = utils.book_new();
+    utils.book_append_sheet(wb, ws, 'Sheet1');
+    writeFile(wb, 'Danh sách yêu cầu rút tiền cần xử lý.xlsx');
   };
-
-  const popoverOptionsDefault: MenuItemPayload[] = [
-    {
-      icon: 'question',
-      title: Text.popoverOptionNotSupport,
-      onCLick: () => console.log(Text.popoverOptionNotSupport),
-    },
-  ];
-  const optionsViewDetails: MenuItemPayload[] = [
-    {
-      icon: 'download',
-      title: Text.popoverOptionViewDetails,
-      onCLick: handleOpenCourseCreateRequestDetails,
-    },
-  ];
 
   return (
     <>
+      {status === WithdrawRequestStatusType.WAITING && (
+        <>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={2}
+            mb={2}
+          >
+            <Button
+              variant="contained"
+              color="miSmartOrange"
+              startIcon={
+                <Icon name="fileDownloadIcon" size="small_20" color="white" />
+              }
+              onClick={exportExcel}
+            >
+              Xuất danh sách
+            </Button>
+            <Button
+              variant="contained"
+              color="miSmartOrange"
+              startIcon={
+                <Icon name="fileUploadIcon" size="small_20" color="white" />
+              }
+              onClick={handleTriggerDialog}
+            >
+              Nhập danh sách
+            </Button>
+          </Stack>
+          <CustomDialog
+            title="Xử lý yêu cầu rút tiền chưa giải quyết"
+            open={open}
+            onClose={handleTriggerDialog}
+          >
+            <ManageTableProcessWithdrawRequest
+              onClose={handleTriggerDialog}
+              refetchSearch={refetch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
+            />
+          </CustomDialog>
+        </>
+      )}
       <ManageTable
         columns={columns.managedWithdrawRequestColumns}
         rows={rows}
@@ -99,7 +110,7 @@ export default function ManageTableWithdrawRequest({
         pageSize={size}
         // popoverOptions={popoverOptions}
         rowsPerPageOptions={rowsPerPageOptionsDefault}
-        setSelectedRow={setSelectedRow}
+        // setSelectedRow={setSelectedRow}
         totalItems={managedWithdrawRequestList?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
@@ -107,7 +118,6 @@ export default function ManageTableWithdrawRequest({
         }}
         hideFooterSelectedRowCount
       />
-      {/* {renderItem} */}
     </>
   );
 }

@@ -6,6 +6,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
+  YAxis,
 } from 'recharts';
 import { YearRevenue } from '~/models/transaction';
 import { formatMoney } from '~/utils/money';
@@ -130,7 +131,7 @@ export default function BarChartRevenue({
           <ResponsiveContainer width="100%" height="100%">
             <BarChart width={150} height={40} data={data} margin={{ top: 20 }}>
               <XAxis dataKey="month" />
-              {/* <YAxis /> */}
+              <YAxis />
               <Legend />
               <Tooltip formatter={(value: number) => formatMoney(value)} />
               <Bar

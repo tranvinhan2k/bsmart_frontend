@@ -70,6 +70,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import HomeIcon from '@mui/icons-material/Home';
 import HistoryIcon from '@mui/icons-material/History';
@@ -172,6 +173,7 @@ export type IconName =
   | 'faMoneyBill'
   | 'feedback'
   | 'fileUploadIcon'
+  | 'fileDownloadIcon'
   | 'female'
   | 'filter'
   | 'formatListNumberedIcon'
@@ -505,6 +507,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       return <FormatListNumberedIcon sx={STYLED_ICON} />;
     case 'fileUploadIcon':
       return <FileUploadIcon sx={STYLED_ICON} />;
+    case 'fileDownloadIcon':
+      return <FileDownloadIcon sx={STYLED_ICON} />;
     case 'eye-off':
       return <VisibilityOffIcon sx={STYLED_ICON} />;
     case 'eye':

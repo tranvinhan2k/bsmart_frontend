@@ -20,8 +20,6 @@ export default function ManageTableDetailsCourse({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsCourseProps) {
-  console.log('row', row);
-  console.log('row.status', row.status);
   return (
     <>
       <Box mx={2}>

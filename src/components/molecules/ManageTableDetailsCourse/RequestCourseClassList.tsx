@@ -14,6 +14,11 @@ export default function RequestCourseClassList({
   idCourse,
   status,
 }: UseGetCourseCreateRequestDetailsPayload) {
+  const [mode, setMode] = useState<'READ' | ''>('');
+
+  const [open, setOpen] = useState<boolean>(false);
+  const handleTriggerDialog = () => setOpen(!open);
+
   const { courseCreateRequestDetails, isLoading, error } =
     useGetCourseCreateRequestDetails({ idCourse, status });
   // const courseCreateRequestDetails = undefined;
@@ -27,16 +32,12 @@ export default function RequestCourseClassList({
     ? courseCreateRequestDetails?.classes.length
     : 0;
 
-  const [mode, setMode] = useState<'READ' | ''>('');
-  const [open, setOpen] = useState<boolean>(false);
-  const handleTriggerDialog = () => setOpen(!open);
-
   const handleViewDetails = () => {
-    setMode('READ');
     handleTriggerDialog();
+    setMode('READ');
   };
 
-  const popoverOptions: MenuItemPayload[] = [
+  const popoverOptionsDetails: MenuItemPayload[] = [
     {
       icon: 'category',
       title: 'Xem chi tiết',
@@ -79,7 +80,7 @@ export default function RequestCourseClassList({
         density="compact"
         error={error}
         loading={isLoading}
-        popoverOptions={popoverOptions}
+        popoverOptions={popoverOptionsDetails}
         rowsPerPageOptions={[]}
         onRowClick={handleSelectedRow}
       />

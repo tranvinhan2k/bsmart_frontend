@@ -224,6 +224,9 @@ export interface CreateClassSectionsFormDefault {
 export interface UpdateClassSectionsFormDefault {
   name: string;
 }
+export interface ProcessWithdrawRequestFormDataPayload {
+  file: File;
+}
 
 export type FormInputVariant =
   | 'text'

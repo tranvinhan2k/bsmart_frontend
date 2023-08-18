@@ -24,11 +24,6 @@ export default function ManageTableCourseCreateRequest({
     popoverOptionNotSupport = 'Chưa hỗ trợ',
   }
 
-  const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
-  const [selectedRow, setSelectedRow] = useState<any>();
-
-  // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
@@ -36,9 +31,14 @@ export default function ManageTableCourseCreateRequest({
 
   const handleNewPage = (params: number) => setPage(params);
   const handleNewSize = (params: number) => setSize(params);
+
+  const [selectedRow, setSelectedRow] = useState<any>();
+  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
+
+  const [open, setOpen] = useState<boolean>(false);
   const handleTriggerDialog = () => setOpen(!open);
 
-  const { error, courseCreateRequestList, isLoading, refetch } =
+  const { courseCreateRequestList, error, isLoading, refetch } =
     useSearchCourseCreateRequest({ status, q, page, size, sort });
   const rows = courseCreateRequestList ? courseCreateRequestList.items : [];
 
@@ -59,7 +59,7 @@ export default function ManageTableCourseCreateRequest({
       onCLick: () => console.log(Text.popoverOptionNotSupport),
     },
   ];
-  const optionsViewDetails: MenuItemPayload[] = [
+  const popoverOptionsDetails: MenuItemPayload[] = [
     {
       icon: 'category',
       title: Text.popoverOptionViewDetails,
@@ -70,10 +70,10 @@ export default function ManageTableCourseCreateRequest({
   let popoverOptions;
   switch (status) {
     case CourseStatusType.WAITING:
-      popoverOptions = optionsViewDetails;
+      popoverOptions = popoverOptionsDetails;
       break;
     case CourseStatusType.NOTSTART:
-      popoverOptions = optionsViewDetails;
+      popoverOptions = popoverOptionsDetails;
       break;
     default:
       popoverOptions = popoverOptionsDefault;

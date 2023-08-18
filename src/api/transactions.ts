@@ -1,4 +1,5 @@
 import axiosClient from '~/api/axiosClient';
+import { UseMutationProcessWithdrawRequestPayload } from '~/hooks/transaction/useMutationProcessWithdrawRequest';
 import { UseSearchManagedWithdrawRequestPayload } from '~/hooks/transaction/useSearchTransaction';
 import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions';
 import { PagingFilterPayload } from '~/models';
@@ -66,6 +67,11 @@ const transactionsApi = {
     return axiosClient.get(
       `${url}/withdraw/requests?status=${status}&page=${page}&size=${size}&sort=${sort}`
     );
+  },
+  processWithdrawRequest(
+    data: UseMutationProcessWithdrawRequestPayload[]
+  ): Promise<boolean> {
+    return axiosClient.put(`${url}/withdraw/requests`, data);
   },
 };
 

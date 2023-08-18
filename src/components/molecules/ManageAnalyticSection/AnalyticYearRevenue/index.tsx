@@ -14,8 +14,8 @@ export default function AnalyticYearRevenue({ year }: Props) {
     <Grid container spacing={2}>
       <Grid item xs={6}>
         <BarChartRevenue
-          chartLabel={`Doanh thu của năm ${year}`}
-          chartRowLabel="Doanh thu theo tháng (vnđ)"
+          chartLabel={`Doanh thu ròng của năm ${year}`}
+          chartRowLabel="Doanh thu ròng theo tháng (vnđ)"
           color="#8884d8"
           type="totalIncome"
           data={yearRevenue}
@@ -24,8 +24,8 @@ export default function AnalyticYearRevenue({ year }: Props) {
       </Grid>
       <Grid item xs={6}>
         <BarChartRevenue
-          chartLabel={`Lợi nhuận thực của năm ${year}`}
-          chartRowLabel="Lợi nhuận thực theo tháng (vnđ)"
+          chartLabel={`Doanh thu thuần của năm ${year}`}
+          chartRowLabel="Doanh thu thuần theo tháng (vnđ)"
           color={Color.tertiary}
           type="revenue"
           data={yearRevenue}
@@ -44,8 +44,8 @@ export default function AnalyticYearRevenue({ year }: Props) {
       </Grid>
       <Grid item xs={6}>
         <BarChartRevenue
-          chartLabel={`Tổng chiết khấu giáo viên của năm ${year}`}
-          chartRowLabel="Tổng chiết khấu giáo viên theo tháng (vnđ)"
+          chartLabel={`Chiết khấu giáo viên của năm ${year}`}
+          chartRowLabel="Chiết khấu giáo viên theo tháng (vnđ)"
           color={Color.red}
           type="mentorShare"
           data={yearRevenue}

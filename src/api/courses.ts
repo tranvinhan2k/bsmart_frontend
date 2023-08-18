@@ -263,7 +263,7 @@ const coursesApi = {
   }: UseSearchCourseCreateRequestPayload): Promise<
     PagingFilterPayload<CourseCreateRequestDetails>
   > {
-    const urlSearch = `${url}/pending?status=${status}&p=${q}&page=${page}&size=${size}&sort=${sort}`;
+    const urlSearch = `${url}/pending?status=${status}&q=${q}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(`${urlSearch}`);
   },
   processCourseCreateRequest(

@@ -53,6 +53,8 @@ import {
   MENTOR_SKILLS_REQUIRED_ONE,
   SKILL_UNIQUE,
   MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED,
+  WITHDRAW_MANAGED_UPLOAD_FILE_REQUIRED,
+  WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -67,6 +69,9 @@ const SUPPORTED_FILE_DEGREE_FORMAT = [
   'application/pdf',
   'application/msword',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
+const SUPPORTED_FILE_XLSX_FORMAT = [
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 ];
 const FILE_DEGREE_SIZE_BYTES = 2000000; // 1 is 1bytes
 
@@ -828,4 +833,14 @@ export const validationSchemaCreateClassSections = object({
 });
 export const validationSchemaUpdateClassSections = object({
   name: string().required(UPDATE_CLASS_SECTIONS_REQUIRED),
+});
+
+export const validationSchemaManagedWithdrawUpload = object({
+  file: mixed()
+    .required(generateRequiredText(WITHDRAW_MANAGED_UPLOAD_FILE_REQUIRED))
+    .test(
+      'fileFormat',
+      WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT,
+      (value: any) => value && SUPPORTED_FILE_XLSX_FORMAT.includes(value.type)
+    ),
 });

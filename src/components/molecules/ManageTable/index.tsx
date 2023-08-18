@@ -100,7 +100,7 @@ interface ManageTableProps extends DataGridProps {
   popoverOptions?: MenuItemPayload[];
   setSelectedRow?: (selectedRow: any) => void;
   totalItems: number;
-  searchHandler: {
+  searchHandler?: {
     searchPlaceholder: string;
     onSearch: (data: any) => void;
   };
@@ -121,7 +121,7 @@ export default function ManageTable({
   popoverOptions,
   setSelectedRow,
   totalItems,
-  searchHandler: { searchPlaceholder, onSearch },
+  searchHandler,
   getRowId,
   menuItemList,
   searchFilterFormInputList,
@@ -160,11 +160,11 @@ export default function ManageTable({
         background: Color.white,
       }}
     >
-      {onSearch && (
+      {searchHandler && (
         <ManageTableSearching
-          searchPlaceholder={searchPlaceholder}
+          searchPlaceholder={searchHandler.searchPlaceholder}
           searchControl={searchValueForm}
-          onSearch={onSearch}
+          onSearch={searchHandler.onSearch}
           filterFormInputList={searchFilterFormInputList}
         />
       )}
@@ -241,4 +241,5 @@ ManageTable.defaultProps = {
   isLoading: false,
   popoverOptions: undefined,
   setSelectedRow: undefined,
+  searchHandler: undefined,
 };

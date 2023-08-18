@@ -237,3 +237,6 @@ export const defaultValueEditRequestRegisterRequest = {
   message: 'Thông tin cần chỉnh sửa bao gồm:',
   interviewed: false,
 };
+export const defaultValueProcessWithdrawRequest = {
+  file: '',
+};

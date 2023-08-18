@@ -2,7 +2,6 @@ import { Box, Chip, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import ManageTableWithdrawRequest from '~/components/molecules/ManageTableWithdrawRequest';
-import ManageTableWithdrawWaitingRequest from '~/components/molecules/ManageTableWithdrawWaitingRequest';
 import { useSearchManagedWithdrawRequest } from '~/hooks/transaction/useSearchTransaction';
 import { WithdrawRequestStatusType } from '~/constants/transaction';
 import { restrictNumberDisplay } from '~/utils/common';
@@ -71,13 +70,8 @@ export default function ManageWithdrawSection() {
       ),
       noOfRequest: restrictNumberDisplay(listFAIL?.totalItems),
     },
-    {
-      id: 3,
-      text: 'Tạm',
-      component: <ManageTableWithdrawWaitingRequest />,
-      noOfRequest: 0,
-    },
   ];
+
   return (
     <>
       <Tabs
