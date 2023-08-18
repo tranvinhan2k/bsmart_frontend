@@ -94,7 +94,7 @@ export default function MainHeader({
         },
         {
           icon: 'course',
-          name: 'Quản lí học tập',
+          name: role === 'TEACHER' ? 'Quản lí giảng dạy' : 'Quản lí học tập',
           onClick: handleNavigateDashboard,
         },
         {

@@ -10,6 +10,7 @@ import {
   Grid,
   Stack,
   Typography,
+  Divider,
 } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -40,7 +41,7 @@ import CoinLabel from '~/components/atoms/CoinLabel';
 import { formatMoney } from '~/utils/money';
 
 export default function WithdrawRequestSection() {
-  const { profile } = useDispatchProfile();
+  const { profile, handleDispatch } = useDispatchProfile();
   const { banks } = useQueryGetAllBanks();
   const { mutateAsync: mutateWithdrawMoney } = useMutation({
     mutationFn: transactionsApi.withdrawMoney,
@@ -96,13 +97,13 @@ export default function WithdrawRequestSection() {
         bankId: data.bankLinking.id,
         bankAccount: data.bankAccount,
         bankAccountOwner: data.bankAccountOwner,
-        note: data.note,
       };
 
-      const id = toast.loadToast('Đang rút tiền ...');
+      const id = toast.loadToast('Đang gửi yêu cầu rút tiền ...');
       try {
         await mutateWithdrawMoney(params);
-        toast.updateSuccessToast(id, 'Rút tiền thành công');
+        toast.updateSuccessToast(id, 'Gửi yêu cầu rút tiền thành công');
+        reset();
       } catch (error: any) {
         toast.updateFailedToast(
           id,
@@ -140,15 +141,11 @@ export default function WithdrawRequestSection() {
   return (
     <>
       <Box sx={SX_CONTAINER}>
-        <Typography component="h3" sx={SX_WITHDRAW_TITLE}>
+        <Typography sx={globalStyles.textSubTitle}>
           {WITHDRAW_MONEY_FORM_TEXT.TITLE}
         </Typography>
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          my={2}
-        >
+        <Divider />
+        <Stack mt={1}>
           <Typography sx={globalStyles.textSmallLabel}>
             Số dư hiện tại:
           </Typography>
@@ -206,17 +203,6 @@ export default function WithdrawRequestSection() {
                     WITHDRAW_MONEY_FORM_TEXT.BANK_ACCOUNT_OWNER.PLACEHOLDER
                   }
                   variant="text"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography sx={SX_FORM_LABEL}>
-                  {WITHDRAW_MONEY_FORM_TEXT.NOTE.LABEL}
-                </Typography>
-                <FormInput
-                  control={control}
-                  name={WITHDRAW_MONEY_FIELDS.note}
-                  placeholder={WITHDRAW_MONEY_FORM_TEXT.NOTE.PLACEHOLDER}
-                  variant="multiline"
                 />
               </Grid>
             </Grid>

@@ -139,9 +139,8 @@ const coursesApi = {
         name: item.subjectResponse?.name || '',
         categoryIds: item.subjectResponse?.categoryIds || [],
       }),
-      // TODO: fake feedback rating until have it
-      numOfRating: 123,
-      rating: 4,
+      numOfRating: item.submissionCount || 0,
+      rating: item.averageRate || 0,
     }));
     return { ...response, items: result };
   },
@@ -177,9 +176,8 @@ const coursesApi = {
         name: item.subjectResponse?.name || '',
         categoryIds: item.subjectResponse?.categoryIds || [],
       }),
-      // TODO: fake feedback rating until have it
-      numOfRating: 123,
-      rating: 4,
+      numOfRating: item.submissionCount || 0,
+      rating: item.averageRate || 0,
     }));
 
     return { ...response, items: result };

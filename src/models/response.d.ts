@@ -573,6 +573,8 @@ export type GetResultResponse = Partial<{
 
 export type GetAllCoursesResponse = Partial<{
   id: number;
+  averageRate: number;
+  submissionCount: number;
   images: Partial<{
     id: number;
     name: string;

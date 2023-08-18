@@ -14,7 +14,6 @@ export interface WithdrawMoneyProfilePayload {
   bankId: number;
   bankAccount: number;
   bankAccountOwner: string;
-  note: string;
 }
 
 const transactionsApi = {
@@ -47,7 +46,7 @@ const transactionsApi = {
   },
 
   async withdrawMoney(data: WithdrawMoneyProfilePayload): Promise<any> {
-    return generateMockApi(true);
+    return axiosClient.post(`${url}/withdraw`, data);
   },
   async DepositMoney(money: number): Promise<any> {
     return generateMockApi(true);

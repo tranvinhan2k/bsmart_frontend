@@ -57,6 +57,8 @@ export default function MentorCourseItem({
       courseStatus={item.courseStatus}
       onClick={handleNavigateCourseDetail}
       totalClass={item.totalClass}
+      rating={item.rating}
+      numberOfRating={item.numOfRating}
     />
   );
 }

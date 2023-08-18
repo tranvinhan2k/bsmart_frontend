@@ -1,4 +1,4 @@
-import { Avatar, Button, Stack } from '@mui/material';
+import { Avatar, Button, Rating, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import Icon, { IconName } from '~/components/atoms/Icon';
 import sx from './style';
@@ -8,6 +8,8 @@ import { useGetMentorDetails } from '~/hooks/mentorProfile/useGetMentorDetails';
 export default function MentorDetailsRight() {
   const { id } = useParams();
   const { mentorDetails } = useGetMentorDetails(Number(id));
+  const ratingStar = mentorDetails?.averageRate || 0;
+  const numberOfRatingStar = mentorDetails?.submissionCount || 0;
 
   const avatar = mentorDetails
     ? mentorDetails.user.userImages.find((item: any) => item.type === 'AVATAR')
@@ -54,6 +56,12 @@ export default function MentorDetailsRight() {
           boxShadow: 3,
         }}
       />
+      <Stack sx={{ flexDirection: 'row', alignItems: 'center' }} marginTop={1}>
+        <Typography>{`(${numberOfRatingStar})`}</Typography>
+        <Stack marginLeft={1}>
+          <Rating value={ratingStar} readOnly />
+        </Stack>
+      </Stack>
       <Stack
         direction="column"
         justifyContent="flex-start"

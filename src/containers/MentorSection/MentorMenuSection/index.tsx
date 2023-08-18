@@ -1,29 +1,22 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
-  Stack,
-  Typography,
-} from '@mui/material';
-import Skeleton from 'react-loading-skeleton';
+import { Stack, Typography } from '@mui/material';
 import toast from '~/utils/toast';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import MentorItem from '~/components/molecules/MentorItem';
-import { MentorPayload, MentorQuickPayload } from '~/models/mentor';
+import { MentorQuickPayload } from '~/models/mentor';
 import { PagingFilterPayload } from '~/models';
+import CustomPagination from '~/components/atoms/CustomPagination';
 
 interface MentorMenuSectionPayload {
   error: any;
   data: PagingFilterPayload<MentorQuickPayload> | null | undefined;
   isLoading: boolean;
+  onChangePage: (page: number) => void;
 }
 
 export default function MentorMenuSection(props: MentorMenuSectionPayload) {
-  const { data, error, isLoading } = props;
+  const { data, error, isLoading, onChangePage } = props;
   const navigation = useNavigate();
   const [dropDownValue, setDropDownValue] = useState('');
 
@@ -131,52 +124,14 @@ export default function MentorMenuSection(props: MentorMenuSectionPayload) {
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-      >
-        <Stack flexDirection="row">
-          <Typography
-            sx={{
-              fontFamily: FontFamily.bold,
-              fontSize: FontSize.small_16,
-              paddingRight: MetricSize.small_5,
-            }}
-          >
-            {data?.items?.length || 0}
-          </Typography>
-          <Typography
-            sx={{ fontFamily: FontFamily.regular, fontSize: FontSize.small_16 }}
-          >
-            Giảng viên
-          </Typography>
-        </Stack>
-
-        {/* <FormControl size="small">
-          <InputLabel id="demo-select-small">Sắp xếp khóa học</InputLabel>
-          <Select
-            sx={{ width: '200px' }}
-            value={dropDownValue}
-            label="Sắp xếp khóa học"
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>Khóa học mới nhất</MenuItem>
-            <MenuItem value={20}>Khóa học nhiều người học</MenuItem>
-            <MenuItem value={30}>Khóa học sắp bắt đầu</MenuItem>
-            <MenuItem value={40}>A - Z</MenuItem>
-            <MenuItem value={50}>Z - A</MenuItem>
-          </Select>
-        </FormControl> */}
-      </Stack>
+      />
       {mentorData}
       {data && data.items.length > 0 && (
         <Stack justifyContent="center" alignItems="center" padding={2}>
-          <Pagination
-            sx={{
-              fontSize: FontSize.small_18,
-              color: Color.white,
-              fontFamily: FontFamily.bold,
-            }}
-            color="secondary"
-            size="large"
-            count={data?.totalPages}
+          <CustomPagination
+            onChange={onChangePage}
+            currentPage={data.currentPage}
+            totalPages={data.totalPages}
           />
         </Stack>
       )}

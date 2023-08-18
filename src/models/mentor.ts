@@ -19,4 +19,6 @@ export interface MentorQuickPayload {
   introduce: string;
   workingExperience: string;
   userImagesAvatar: string;
+  averageRate: number;
+  submissionCount: number;
 }

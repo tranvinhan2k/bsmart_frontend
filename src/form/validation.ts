@@ -770,13 +770,10 @@ export const validationSchemaUpdateWaitingCoursePrivate = object({
 });
 
 export const validationSchemaWithdrawMoney = object({
-  amount: number()
-    .required(WITHDRAW_AMOUNT_REQUIRED)
-    .positive(WITHDRAW_AMOUNT_POSITIVE),
+  amount: number().required(WITHDRAW_AMOUNT_REQUIRED),
   bankLinking: object(),
   bankAccount: number().required(WITHDRAW_BANK_ACCOUNT_REQUIRED),
   bankAccountOwner: string().required(WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED),
-  note: string(),
 });
 
 export const validationSchemaProcessRegisterRequest = object({
