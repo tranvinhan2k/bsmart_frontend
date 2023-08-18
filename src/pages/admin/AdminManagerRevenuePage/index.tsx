@@ -8,7 +8,7 @@ import RevenueHistory from './RevenueHistory';
 export default function AdminManagerRevenuePage() {
   return (
     <Stack padding={2}>
-      <RevenueChart data={data} />
+      <RevenueChart data={[]} />
     </Stack>
   );
 }

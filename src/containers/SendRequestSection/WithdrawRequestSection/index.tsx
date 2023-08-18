@@ -22,7 +22,7 @@ import FormInput from '~/components/atoms/FormInput';
 import { defaultValueWithdrawMoney } from '~/form/defaultValues';
 import { WITHDRAW_MONEY_FIELDS } from '~/form/schema';
 import { validationSchemaWithdrawMoney } from '~/form/validation';
-import { useYupValidationResolver } from '~/hooks';
+import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useQueryGetAllBanks } from '~/hooks/useQueryGetAllBanks';
 import toast from '~/utils/toast';
 import {
@@ -35,8 +35,12 @@ import {
   SX_WITHDRAW_BALANCE_NUMBER,
   SX_WITHDRAW_TITLE,
 } from './style';
+import globalStyles from '~/styles';
+import CoinLabel from '~/components/atoms/CoinLabel';
+import { formatMoney } from '~/utils/money';
 
 export default function WithdrawRequestSection() {
+  const { profile } = useDispatchProfile();
   const { banks } = useQueryGetAllBanks();
   const { mutateAsync: mutateWithdrawMoney } = useMutation({
     mutationFn: transactionsApi.withdrawMoney,
@@ -44,7 +48,7 @@ export default function WithdrawRequestSection() {
   const resolverWithdrawMoney = useYupValidationResolver(
     validationSchemaWithdrawMoney
   );
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, setError } = useForm({
     defaultValues: defaultValueWithdrawMoney,
     resolver: resolverWithdrawMoney,
   });
@@ -78,25 +82,33 @@ export default function WithdrawRequestSection() {
   }, [banks, reset]);
 
   const handleSubmitSuccess = async (data: any) => {
-    const params: WithdrawMoneyProfilePayload = {
-      amount: data.amount,
-      bankId: data.bankLinking.id,
-      bankAccount: data.bankAccount,
-      bankAccountOwner: data.bankAccountOwner,
-      note: data.note,
-    };
+    if (data[WITHDRAW_MONEY_FIELDS.amount] >= profile.wallet.balance) {
+      setError(WITHDRAW_MONEY_FIELDS.amount, {
+        type: 'custom',
+        message: `Số tiền muốn rút phải nhỏ hơn số xu cũa bạn: ${formatMoney(
+          profile.wallet.balance,
+          true
+        )} BS`,
+      });
+    } else {
+      const params: WithdrawMoneyProfilePayload = {
+        amount: data.amount,
+        bankId: data.bankLinking.id,
+        bankAccount: data.bankAccount,
+        bankAccountOwner: data.bankAccountOwner,
+        note: data.note,
+      };
 
-    console.log('data', data);
-    console.log('params', params);
-    const id = toast.loadToast('Đang rút tiền ...');
-    try {
-      await mutateWithdrawMoney(params);
-      toast.updateSuccessToast(id, 'Rút tiền thành công');
-    } catch (error: any) {
-      toast.updateFailedToast(
-        id,
-        `Rút tiền không thành công: ${error.message}`
-      );
+      const id = toast.loadToast('Đang rút tiền ...');
+      try {
+        await mutateWithdrawMoney(params);
+        toast.updateSuccessToast(id, 'Rút tiền thành công');
+      } catch (error: any) {
+        toast.updateFailedToast(
+          id,
+          `Rút tiền không thành công: ${error.message}`
+        );
+      }
     }
   };
 
@@ -137,10 +149,10 @@ export default function WithdrawRequestSection() {
           alignItems="center"
           my={2}
         >
-          <Typography component="p" sx={SX_WITHDRAW_BALANCE}>
+          <Typography sx={globalStyles.textSmallLabel}>
             Số dư hiện tại:
           </Typography>
-          <Typography sx={SX_WITHDRAW_BALANCE_NUMBER}>300,000 vnđ</Typography>
+          <CoinLabel value={profile.wallet.balance || 0} />
         </Stack>
         {banks && (
           <form onSubmit={handleSubmit(handleSubmitSuccess)}>
@@ -153,7 +165,7 @@ export default function WithdrawRequestSection() {
                   control={control}
                   name={WITHDRAW_MONEY_FIELDS.amount}
                   placeholder={WITHDRAW_MONEY_FORM_TEXT.AMOUNT.PLACEHOLDER}
-                  variant="number"
+                  variant="price"
                 />
               </Grid>
               <Grid item xs={12}>
