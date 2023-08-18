@@ -6,7 +6,6 @@ export interface UseMutationProcessRegisterRequestPayload {
   id: number;
   status: string;
   message: string;
-  interviewed: boolean;
 }
 
 export const useMutationProcessRegisterRequest = () => {

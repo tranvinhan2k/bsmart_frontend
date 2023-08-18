@@ -18,7 +18,7 @@ export const mentorRegisterRequestColumns: GridColDef[] = [
   },
   {
     field: 'phone',
-    headerName: 'SĐT',
+    headerName: 'Số điện thoại',
     minWidth: 200,
     flex: 1,
     renderCell: (params) => {

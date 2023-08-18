@@ -7,6 +7,7 @@ import {
   defaultValueRejectRegisterRequest,
 } from '~/form/defaultValues';
 import { ProcessRegisterRequestFormDefault } from '~/models/form';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import {
   useMutationProcessRegisterRequest,
   UseMutationProcessRegisterRequestPayload,
@@ -60,8 +61,16 @@ export default function RequestRegisterProcess({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
+  const toastMsgError = (error: unknown): string => {
+    let msg = TRY_CATCH_AXIOS_DEFAULT_ERROR;
+    if (typeof error === 'string') {
+      msg = error;
+    }
+    if (error instanceof Error) {
+      msg = error.message;
+    }
+    return msg;
+  };
   const handleProcessRegisterRequest = async (
     data: ProcessRegisterRequestFormDefault
   ) => {
@@ -82,7 +91,6 @@ export default function RequestRegisterProcess({
       id: idMentorProfile,
       status: submitStatus,
       message: data.message,
-      interviewed: data.interviewed,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -91,15 +99,10 @@ export default function RequestRegisterProcess({
       refetchGetNoOfRequest();
       onClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
+    } catch (e: unknown) {
+      toast.updateFailedToast(id, toastMsgError(e));
     }
   };
-
-  const interviewedOptions = [
-    { id: 0, label: 'Đã phỏng vấn', value: true },
-    { id: 1, label: 'Chưa phỏng vấn', value: false },
-  ];
 
   const tabEl = [
     {
@@ -114,14 +117,6 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
-          <Box mt={2}>
-            <FormInput
-              dataRadioGroupDynamicValue={interviewedOptions}
-              variant="radioGroupDynamicValue"
-              name="interviewed"
-              control={controlApprove}
-            />
-          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -154,14 +149,6 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
-          <Box mt={2}>
-            <FormInput
-              dataRadioGroupDynamicValue={interviewedOptions}
-              variant="radioGroupDynamicValue"
-              name="interviewed"
-              control={controlReject}
-            />
-          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -194,14 +181,6 @@ export default function RequestRegisterProcess({
             multilineRows={6}
             placeholder="Nhập tin nhắn"
           />
-          <Box mt={2}>
-            <FormInput
-              dataRadioGroupDynamicValue={interviewedOptions}
-              variant="radioGroupDynamicValue"
-              name="interviewed"
-              control={controlEditRequest}
-            />
-          </Box>
           <Stack
             direction="column"
             justifyContent="flex-start"

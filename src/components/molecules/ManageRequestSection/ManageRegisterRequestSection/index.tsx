@@ -13,100 +13,70 @@ export default function ManageRegisterRequestSection() {
     newValue: number
   ) => setTabValue(newValue);
 
-  const {
-    registerRequest: listWaitingApprove,
-    refetch: refetchListWaitingApprove,
-  } = useSearchRegisterRequest({
-    status: MentorProfileStatusType.WAITING,
-    interviewed: false,
-  });
-  const {
-    registerRequest: listWaitingInterview,
-    refetch: refetchListInterview,
-  } = useSearchRegisterRequest({
-    status: MentorProfileStatusType.STARTING,
-    interviewed: false,
-  });
-  const { registerRequest: listStarting, refetch: refetchListStarting } =
+  const { registerRequest: listWAITING, refetch: refetchListWAITING } =
+    useSearchRegisterRequest({
+      status: MentorProfileStatusType.WAITING,
+    });
+  const { registerRequest: listSTARTING, refetch: refetchListSTARTING } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.STARTING,
-      interviewed: true,
     });
-  const { registerRequest: listEditRequest, refetch: refetchListEditRequest } =
+  const { registerRequest: listEDITREQUEST, refetch: refetchListEDITREQUEST } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.EDITREQUEST,
-      interviewed: true,
     });
-  const { registerRequest: listRejected, refetch: refetchListRejected } =
+  const { registerRequest: listREJECTED, refetch: refetchListREJECTED } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.REJECTED,
-      interviewed: true,
     });
   const handleRefetchAll = () => {
-    refetchListWaitingApprove();
-    refetchListInterview();
-    refetchListStarting();
-    refetchListEditRequest();
-    refetchListRejected();
+    refetchListWAITING();
+    refetchListSTARTING();
+    refetchListEDITREQUEST();
+    refetchListREJECTED();
   };
 
   const tabEl = [
     {
       id: 0,
       text: 'Chờ duyệt hồ sơ',
-      noOfRequest: restrictNumberDisplay(listWaitingApprove?.totalItems),
+      noOfRequest: restrictNumberDisplay(listWAITING?.totalItems),
       component: (
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.WAITING}
-          interviewed={false}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
     {
       id: 1,
-      text: 'Chờ phỏng vấn',
-      noOfRequest: restrictNumberDisplay(listWaitingInterview?.totalItems),
+      text: 'Đã duyệt',
+      noOfRequest: restrictNumberDisplay(listSTARTING?.totalItems),
       component: (
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.STARTING}
-          interviewed={false}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
     {
       id: 2,
-      text: 'Đã duyệt',
-      noOfRequest: restrictNumberDisplay(listStarting?.totalItems),
+      text: 'Yêu cầu chỉnh sửa',
+      noOfRequest: restrictNumberDisplay(listEDITREQUEST?.totalItems),
       component: (
         <ManageTableRegisterRequest
-          status={MentorProfileStatusType.STARTING}
-          interviewed
+          status={MentorProfileStatusType.EDITREQUEST}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
     },
     {
       id: 3,
-      text: 'Yêu cầu chỉnh sửa',
-      noOfRequest: restrictNumberDisplay(listEditRequest?.totalItems),
-      component: (
-        <ManageTableRegisterRequest
-          status={MentorProfileStatusType.EDITREQUEST}
-          interviewed
-          refetchGetNoOfRequest={handleRefetchAll}
-        />
-      ),
-    },
-    {
-      id: 4,
       text: 'Từ chối',
-      noOfRequest: restrictNumberDisplay(listRejected?.totalItems),
+      noOfRequest: restrictNumberDisplay(listREJECTED?.totalItems),
       component: (
         <ManageTableRegisterRequest
           status={MentorProfileStatusType.REJECTED}
-          interviewed
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),

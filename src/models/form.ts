@@ -167,7 +167,6 @@ export interface MentorSkills {
 }
 
 export interface ProcessRegisterRequestFormDefault {
-  interviewed: boolean;
   message: string;
 }
 export interface ProcessUpdateMentorProfileRequestFormDefault {

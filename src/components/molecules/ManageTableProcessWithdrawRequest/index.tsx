@@ -68,8 +68,8 @@ export default function ManageTableProcessWithdrawRequest({
       onClose();
       reset();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (e: unknown) {
+      toast.updateFailedToast(id, toastMsgError(e));
     }
   };
   return (
