@@ -92,7 +92,7 @@ export default function UserCourseItem({
                 <span key={index}>{`${index !== 0 ? ', ' : ''} ${item} `}</span>
               ))}
           </Typography>
-          {rating && numberOfRating && (
+          {rating !== 0 && numberOfRating && (
             <Stack
               sx={{
                 flexDirection: 'row',

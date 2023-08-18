@@ -114,6 +114,7 @@ export const enum ManagerNavigationActionLink {
   manage_request_manager = 'manage_request_manager',
   manage_user_manager = 'manage_user_manager',
   questions_bank = 'questions_bank',
+  promo_code = 'promo_code',
 }
 
 export const enum MentorCourseActionLink {

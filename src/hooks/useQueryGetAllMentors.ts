@@ -1,15 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import mentorsApi from '~/api/mentors';
 import { selectFilterParams } from '~/redux/mentors/selector';
+import { PagingFilterRequest } from '~/models';
 
 export const useQueryGetAllMentors = () => {
-  const filterParams = useSelector(selectFilterParams);
+  const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
+    page: 0,
+  });
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['mentors'],
     queryFn: () => mentorsApi.getAllMentor(filterParams),
   });
+
+  const handleChangePage = (page: number) => {
+    setFilterParams({ ...filterParams, page });
+  };
 
   useEffect(() => {
     refetch();
@@ -20,5 +27,6 @@ export const useQueryGetAllMentors = () => {
     mentors: data,
     isLoading,
     filterParams,
+    onChangePage: handleChangePage,
   };
 };

@@ -1,12 +1,20 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { SX_FORM, SX_FORM_TITLE } from './style';
 import { useGetMentorTransactions } from '~/hooks';
 import { LoadingWrapper } from '~/HOCs';
 import RevenueChart from '~/pages/admin/AdminManagerRevenuePage/RevenueChart';
+import CustomPagination from '~/components/atoms/CustomPagination';
 
 export default function WalletManagementSection() {
   // const { transactions } = useQueryGetTransactions({ page, size, sort });
-  const { data: transactions, error, isLoading } = useGetMentorTransactions();
+  const {
+    transactions,
+    error,
+    isLoading,
+    currentPage,
+    onChangePage,
+    totalPages,
+  } = useGetMentorTransactions();
 
   return (
     <Box sx={SX_FORM}>
@@ -17,6 +25,13 @@ export default function WalletManagementSection() {
       <Box mt={1}>
         <LoadingWrapper isLoading={isLoading} error={error}>
           <RevenueChart data={transactions || []} />
+          <Stack marginTop={1}>
+            <CustomPagination
+              onChange={onChangePage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          </Stack>
         </LoadingWrapper>
       </Box>
     </Box>

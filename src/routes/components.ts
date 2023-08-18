@@ -223,8 +223,12 @@ export const AdminManagerQuestionBank = lazy(
   () => import('~/pages/admin/AdminManagerQuestionBank')
 );
 
-// question
+// manager
 
 export const ManagerQuestionsBankPage = lazy(
   () => import('~/pages/manager/ManagerQuestionsBankPage')
+);
+
+export const ManagerPromoCodePage = lazy(
+  () => import('~/pages/manager/ManagerPromoCodePage')
 );

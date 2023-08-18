@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import localEnvironment from '~/utils/localEnvironment';
 
 export const axiosClient = axios.create({
@@ -11,9 +12,24 @@ export const axiosClient = axios.create({
 axiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem(localEnvironment.ASYNC_STORAGE_TOKEN_NAME);
   const responseConfig = config;
+
+  if (typeof window !== 'undefined') {
+    if (!token) {
+      window.location.href = '/';
+    } else {
+      const tokenPayload: { exp: number } = jwt_decode(token as any);
+      const { exp } = tokenPayload;
+      if (exp < Date.now() / 1000) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
+  }
+
   if (token) {
     responseConfig.headers.Authorization = `Bearer ${token}`;
   }
+
   return responseConfig;
 });
 

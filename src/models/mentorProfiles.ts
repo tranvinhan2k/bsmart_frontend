@@ -51,6 +51,8 @@ export interface MentorDetailsPayload {
   status: string;
   user: ProfilePayload;
   mentorSkills: SkillPayload[];
+  averageRate: number;
+  submissionCount: number;
 }
 
 // export interface User {

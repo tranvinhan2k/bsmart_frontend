@@ -15,6 +15,7 @@ import {
   ManagerQuestionsBankPage,
   ManageFinancialPage,
   NotFoundPage,
+  ManagerPromoCodePage,
 } from '~/routes/components';
 
 export const managerRoutes: RoutePayload[] = [
@@ -58,6 +59,11 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: ManagerNavigationActionLink.questions_bank,
     main: () => <ManagerQuestionsBankPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.promo_code,
+    main: () => <ManagerPromoCodePage />,
     role: ['ROLE_MANAGER'],
   },
   {

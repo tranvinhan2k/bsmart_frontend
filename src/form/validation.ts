@@ -261,6 +261,19 @@ export const validationRating = object({
 export const validationIntroduce = object({
   introduce: string().required('Mã giới thiệu chưa nhập vào để thêm'),
 });
+export const validationIntroduceCodeInformation = object({
+  usageLimit: number()
+    .required('Số lượt dùng không được để trống')
+    .typeError('Số lượt dùng không được để trống'),
+  discountPercent: number()
+    .required('Số lượt dùng không được để trống')
+    .typeError('Số lượt dùng không được để trống')
+    .min(0, 'Phần trăm phải lơn hơn 0')
+    .max(100, 'Phần trăm phải nhỏ hơn 100'),
+  expiredLaterDay: date()
+    .typeError('Ngày hết hạn không hợp lệ (DD/MM/YYYY)')
+    .required('Ngày hết hạn không được để trống'),
+});
 
 export const validationClassContentAssignment = object({
   name: string().required('Tên bài tập không được để trống.'),
@@ -775,13 +788,10 @@ export const validationSchemaUpdateWaitingCoursePrivate = object({
 });
 
 export const validationSchemaWithdrawMoney = object({
-  amount: number()
-    .required(WITHDRAW_AMOUNT_REQUIRED)
-    .positive(WITHDRAW_AMOUNT_POSITIVE),
+  amount: number().required(WITHDRAW_AMOUNT_REQUIRED),
   bankLinking: object(),
   bankAccount: number().required(WITHDRAW_BANK_ACCOUNT_REQUIRED),
   bankAccountOwner: string().required(WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED),
-  note: string(),
 });
 
 export const validationSchemaProcessRegisterRequest = object({

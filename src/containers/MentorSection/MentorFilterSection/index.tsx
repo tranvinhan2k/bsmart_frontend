@@ -1,5 +1,6 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { MetricSize, Color, FontFamily, FontSize } from '~/assets/variables';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxListMentor from '~/components/molecules/FilterCheckboxListMentor';
 import { useDispatchGetAllSubjects } from '~/hooks';
@@ -20,7 +21,36 @@ export default function MentorFFilterSection() {
   };
 
   return (
-    <Stack marginX={2}>
+    <Stack
+      sx={{
+        transition: 'all 1s ease',
+        zIndex: 9,
+        marginX: 1,
+        marginBottom: MetricSize.small_10,
+        padding: 2,
+        borderRadius: MetricSize.small_5,
+        background: Color.white,
+        boxShadow: 1,
+      }}
+    >
+      {' '}
+      <Stack
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 1,
+        }}
+      >
+        <Typography
+          sx={{
+            fontFamily: FontFamily.bold,
+            fontSize: FontSize.small_18,
+          }}
+        >
+          Bộ lọc
+        </Typography>
+      </Stack>
       <SearchBar
         value={filterParams.q || ''}
         color="black"

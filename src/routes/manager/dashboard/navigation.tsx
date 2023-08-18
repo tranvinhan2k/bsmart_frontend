@@ -49,6 +49,12 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         icon: 'question',
         link: ManagerNavigationActionLink.questions_bank,
       },
+      {
+        id: 7,
+        name: 'Mã giới thiệu',
+        icon: 'promo',
+        link: ManagerNavigationActionLink.promo_code,
+      },
     ],
   },
 ];

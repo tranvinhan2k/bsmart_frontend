@@ -3,6 +3,8 @@ import { OptionPayload, PagingFilterPayload } from '~/models';
 import { UseMutationProcessRegisterRequestPayload } from '~/hooks/user/useMutationProcessRegisterRequest';
 import { User } from '~/models/user';
 import { UseSearchRegisterRequestPayload } from '~/hooks/user/useSearchRegisterRequest';
+import { generateMockApi } from '~/utils/common';
+import { UseMutationRequestChangeContentPayload } from '~/hooks/user/useMutationRequestChangeContent';
 
 export interface ResponseCategoriesPayload {
   id: number;
@@ -45,6 +47,11 @@ const registerRequestsApi = {
       message: data.message,
       interviewed: data.interviewed,
     });
+  },
+  processChangeContentRequest(
+    data: UseMutationRequestChangeContentPayload
+  ): Promise<boolean> {
+    return generateMockApi(true);
   },
 };
 

@@ -143,8 +143,9 @@ function CheckoutPage() {
       } else {
         const response = await mutatePayQuick({
           clazzId: checkOutItem?.id || 0,
-          referalCode: '',
-          type: 'BANKING',
+          referalCode: introduceCode?.code || '',
+          type: 'CASH',
+          useWallet: isUseToken,
         });
         const url = response?.metadata?.paymentUrl || '';
         openNewBrowserUrl(url);
@@ -469,134 +470,6 @@ function CheckoutPage() {
                     >
                       {texts.introduceCodeButton}
                     </Button>
-                  </Stack>
-                  <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
-                    Mã giới thiệu có sẵn
-                  </Typography>
-                  <Stack>
-                    <Stack
-                      sx={{
-                        overflow: 'auto',
-                        height: '330px',
-                        paddingRight: 1,
-                      }}
-                    >
-                      <LoadingWrapper
-                        error={errorIntroduceCodeList}
-                        isLoading={isIntroduceCodeLoading}
-                        isEmptyCourse={introduceCodeList?.length === 0}
-                      >
-                        {introduceCodeList?.map((item, index) => {
-                          return (
-                            <Stack
-                              key={index}
-                              sx={{
-                                flexDirection: 'row',
-                                marginTop: 1,
-                                boxShadow: 1,
-                                background: Color.white4,
-                                borderRadius: MetricSize.small_5,
-                              }}
-                            >
-                              <Stack
-                                sx={{
-                                  background: Color.green,
-                                  borderTopLeftRadius: MetricSize.small_5,
-                                  borderBottomLeftRadius: MetricSize.small_5,
-                                }}
-                              >
-                                <Stack
-                                  padding={1}
-                                  sx={{
-                                    fontSize: FontSize.small_16,
-                                    fontFamily: FontFamily.dosis,
-                                    color: Color.white,
-                                    width: '100px',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    height: undefined,
-                                    textAlign: 'center',
-                                    aspectRatio: 1,
-                                  }}
-                                >
-                                  MÃ GIỚI THIỆU
-                                </Stack>
-                              </Stack>
-                              <Stack
-                                padding={1}
-                                sx={{
-                                  justifyContent: 'space-between',
-                                  alignItems: 'center',
-                                  flexDirection: 'row',
-                                  flexGrow: 1,
-                                }}
-                              >
-                                <Stack
-                                  sx={{
-                                    justifyContent: 'center',
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                      fontSize: FontSize.small_16,
-                                      fontFamily: FontFamily.dosis,
-                                    }}
-                                  >
-                                    {item.code}
-                                  </Typography>
-                                  <Typography
-                                    sx={{
-                                      fontSize: FontSize.small_16,
-                                      fontFamily: FontFamily.dosis,
-                                    }}
-                                  >
-                                    {`${item.percent * 100} %`}
-                                  </Typography>
-                                </Stack>
-                                <Stack>
-                                  <Checkbox
-                                    checked={
-                                      (selectIntroduceCode as any)?.code ===
-                                      item.code
-                                    }
-                                    onChange={() => {
-                                      if (selectIntroduceCode?.id === item.id) {
-                                        setSelectIntroduceCode(undefined);
-                                        setIntroduceCode(undefined);
-                                      } else {
-                                        setSelectIntroduceCode(item);
-                                      }
-                                    }}
-                                  />
-                                </Stack>
-                              </Stack>
-                            </Stack>
-                          );
-                        })}
-                      </LoadingWrapper>
-                    </Stack>
-                    <Stack
-                      marginTop={1}
-                      sx={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                      <Button
-                        onClick={() => setIntroduceCode(selectIntroduceCode)}
-                        variant="contained"
-                        color="success"
-                      >
-                        Xác nhận
-                      </Button>
-                      <Button
-                        onClick={togglePromoCode}
-                        sx={{
-                          marginLeft: 1,
-                        }}
-                        variant="contained"
-                        color="error"
-                      >
-                        Hủy bỏ
-                      </Button>
-                    </Stack>
                   </Stack>
                 </Stack>
               </CustomModal>

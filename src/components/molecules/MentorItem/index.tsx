@@ -4,6 +4,7 @@ import Button from '~/components/atoms/Button';
 import { MentorQuickPayload } from '~/models/mentor';
 import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import globalStyles from '~/styles';
 
 interface MentorItemProps {
   item?: MentorQuickPayload;
@@ -18,6 +19,8 @@ export default function MentorItem({
     introduce: '',
     workingExperience: '',
     userImagesAvatar: '',
+    averageRate: 0,
+    submissionCount: 0,
   },
   isSkeleton = false,
   onClick = () => {},
@@ -26,7 +29,7 @@ export default function MentorItem({
   // const image = undefined;
   const title = '';
   const content = '';
-  const feedback = 5;
+  const feedback = item.averageRate;
 
   const handleNavigateMentorDetail = () => {
     onClick();
@@ -54,12 +57,14 @@ export default function MentorItem({
       sx={{
         marginTop: MetricSize.medium_15,
         marginLeft: '10px',
-        border: '1px solid',
         borderColor: Color.grey,
         width: { xs: '100%', md: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
         background: Color.white,
+        ':hover': {
+          boxShadow: 3,
+        },
       }}
     >
       <Stack>
@@ -67,7 +72,7 @@ export default function MentorItem({
           loading="lazy"
           component="img"
           sx={{
-            objectFit: 'fill',
+            objectFit: 'cover',
             width: '100%',
             height: '300px',
             borderRadius: MetricSize.small_5,
@@ -79,24 +84,7 @@ export default function MentorItem({
           alt={title}
         />
         <Stack sx={{ padding: MetricSize.medium_15, background: Color.white }}>
-          <Typography
-            sx={{
-              fontSize: FontSize.medium_28,
-              fontWeight: 'bold',
-              fontFamily: FontFamily.bold,
-            }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: FontSize.small_18,
-              fontFamily: FontFamily.light,
-              color: Color.black,
-            }}
-          >
-            {fullName}
-          </Typography>
+          <Typography sx={globalStyles.textSubTitle}>{fullName}</Typography>
           <Stack
             sx={{
               height: '100px',
@@ -105,19 +93,14 @@ export default function MentorItem({
           >
             <Typography
               sx={{
+                ...globalStyles.textSmallLabel,
                 fontSize: FontSize.small_14,
-                fontFamily: FontFamily.light,
-                color: Color.black,
               }}
             >
               Giới thiệu
             </Typography>
             <Typography
-              sx={{
-                fontSize: FontSize.small_14,
-                fontFamily: FontFamily.light,
-                color: Color.grey,
-              }}
+              sx={globalStyles.textLowSmallLight}
               dangerouslySetInnerHTML={{
                 __html: introduce,
               }}
@@ -132,19 +115,14 @@ export default function MentorItem({
           >
             <Typography
               sx={{
+                ...globalStyles.textSmallLabel,
                 fontSize: FontSize.small_14,
-                fontFamily: FontFamily.light,
-                color: Color.black,
               }}
             >
               Kinh nghiệm
             </Typography>
             <Typography
-              sx={{
-                fontSize: FontSize.small_14,
-                fontFamily: FontFamily.light,
-                color: Color.grey,
-              }}
+              sx={globalStyles.textLowSmallLight}
               dangerouslySetInnerHTML={{
                 __html: workingExperience,
               }}
@@ -154,13 +132,11 @@ export default function MentorItem({
       </Stack>
 
       <Stack padding={2}>
-        <Stack>
-          <Rating
-            name="size-small"
-            defaultValue={feedback}
-            disabled
-            size="small"
-          />
+        <Stack sx={{ flexDirection: 'row', alignItems: 'center', marginY: 1 }}>
+          <Typography>{`(${item.submissionCount || 0})`}</Typography>
+          <Stack marginLeft={1}>
+            <Rating defaultValue={feedback} readOnly />
+          </Stack>
         </Stack>
         <Divider />
         <Stack marginTop={2}>
@@ -172,9 +148,3 @@ export default function MentorItem({
     </Stack>
   );
 }
-
-MentorItem.defaultProps = {
-  isSkeleton: false,
-  item: undefined,
-  onClick: () => {},
-};

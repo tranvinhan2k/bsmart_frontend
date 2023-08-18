@@ -1,6 +1,6 @@
 import { UseControllerReturn } from 'react-hook-form';
 import { Box, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SX_TEXT_INPUT_FORM } from '~/styles';
 
 interface PriceInputProps {
@@ -18,8 +18,13 @@ function PriceInput({ controller, placeholder }: PriceInputProps) {
     let input = e.target.value.replace(/[\D\s._-]+/g, '');
     input = input ? parseInt(input, 10) : 0;
     controllerOnChange(input);
-    setPrice(input === 0 ? '' : input.toLocaleString('en-US'));
   };
+
+  useEffect(() => {
+    if (value) {
+      setPrice(value === 0 ? '' : value.toLocaleString('en-US'));
+    }
+  }, [value]);
 
   return (
     <TextField
