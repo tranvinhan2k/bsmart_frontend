@@ -73,7 +73,13 @@ export default function ManageTableRegisterRequestInterviewing() {
                 spacing={1}
               >
                 <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
-                <Chip label={tab.noOfRequest} size="small" />
+                <Chip
+                  label={tab.noOfRequest}
+                  size="small"
+                  color={
+                    tab.id === 0 && tab.noOfRequest > 0 ? 'error' : 'default'
+                  }
+                />
               </Stack>
             }
             value={tab.id}

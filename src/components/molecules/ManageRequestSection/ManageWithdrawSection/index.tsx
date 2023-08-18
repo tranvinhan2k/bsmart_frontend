@@ -90,9 +90,13 @@ export default function ManageWithdrawSection() {
                 spacing={1}
               >
                 <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
-                {tab.noOfRequest !== undefined ? (
-                  <Chip label={tab.noOfRequest} size="small" />
-                ) : undefined}
+                <Chip
+                  label={tab.noOfRequest}
+                  size="small"
+                  color={
+                    tab.id === 0 && tab.noOfRequest > 0 ? 'error' : 'default'
+                  }
+                />
               </Stack>
             }
             value={tab.id}
