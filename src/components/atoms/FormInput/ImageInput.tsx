@@ -61,8 +61,6 @@ export default function ImageInput({
     fieldState: { invalid, error: fieldError },
   } = controller;
 
-  console.log('value', value);
-
   const imgRef = useRef<HTMLImageElement>(null);
   const { value: isCropImage, toggle: toggleCropImage } = useBoolean(false);
   const [previewUrl, setPreviewUrl] = useState(value.url);

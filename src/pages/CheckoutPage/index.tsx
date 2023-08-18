@@ -365,7 +365,7 @@ function CheckoutPage() {
             />
             {isUseToken && (
               <TextLine
-                label="BS use"
+                label="BS"
                 variable={`${formatMoney(numberOfCoinUse, true)} BS`}
               />
             )}

@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
+import { Navigate } from 'react-router-dom';
 import { NavigationLink } from '~/constants/routeLink';
 
 export default function LoginGoogleSuccessPage() {
-  const { token } = useParams();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const token = urlParams.get('tokenId');
 
   useEffect(() => {
-    localStorage.setItem('token', `${token}`);
-    window.location.href = NavigationLink.homepage;
+    if (token) {
+      localStorage.setItem('token', `${token}`);
+      localStorage.setItem('roles', 'ROLE_STUDENT');
+      window.location.reload();
+    }
   }, [token]);
 
-  return <LazyLoadingScreen />;
+  return <Navigate to={NavigationLink.homepage} />;
 }

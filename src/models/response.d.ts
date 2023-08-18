@@ -721,6 +721,7 @@ export type GetAllMentorFeedback = Partial<{
     verified: boolean;
   };
   rate: number;
+  mentorRate: number;
   comment: string;
   questions: [
     {
@@ -824,4 +825,21 @@ export type GetDuplicateResponse = Partial<{
   status: ClassStatusKeys;
   minStudent: number;
   maxStudent: number;
+}>;
+
+export type GetFeedbackCommentPayload = Partial<{
+  submitBy: string;
+  rate: number;
+  comment: string;
+}>;
+
+export type GetCourseFeedbackPayload = Partial<{
+  submissionCount: number;
+  averageRate: number;
+  rateCount: any;
+  submissions: {
+    submitBy: 'string';
+    rate: number;
+    comment: 'string';
+  }[];
 }>;

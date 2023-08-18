@@ -13,7 +13,6 @@ import {
   SX_ACCOUNT_AVATAR,
   SX_ACCOUNT_NAME,
   SX_ACCOUNT_EMAIL,
-  SX_ACCOUNT_ROLE,
   SX_DISPLAY_FIELD_TEXT,
 } from './style';
 import Icon, { IconName } from '~/components/atoms/Icon';
@@ -21,7 +20,6 @@ import ActivityHistoryTopFive from '~/containers/AnnotationSection/ActivityHisto
 import DialogUpdateAvatar from '../Dialog/DialogEditAvatar';
 import SidebarNavigationButton from '../SidebarNavigationButton';
 import { GenderKeys, RoleKeys } from '~/models/variables';
-import { ROLE_LABELS } from '~/constants/role';
 import { ActionPayload, SocialPayload } from '~/models';
 import Button from '~/components/atoms/Button';
 import { MetricSize } from '~/assets/variables';
@@ -29,6 +27,7 @@ import { NavigationLink } from '~/constants/routeLink';
 import { MentorProfileStatus, MentorTeachingInformation } from '~/models/type';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
 import MentorProfileStatusProfileSideBar from '../MentorProfileStatusProfileSideBar';
+import CoinLabel from '~/components/atoms/CoinLabel';
 
 export interface ProfileSideBarProps {
   name: string;
@@ -37,6 +36,7 @@ export interface ProfileSideBarProps {
   avatarUrl: string;
   gender: GenderKeys;
   mail: string;
+  coin: number;
   birth: string;
   phone: string;
   isVerified: boolean;
@@ -59,6 +59,7 @@ export default function ProfileSideBar({
   birth,
   mail,
   phone,
+  coin,
   openAvatar,
   isVerified,
   mentorProfileStatus,
@@ -178,6 +179,7 @@ export default function ProfileSideBar({
                 <Typography component="h4" sx={SX_ACCOUNT_EMAIL}>
                   {email}
                 </Typography>
+                <CoinLabel value={coin} />
                 {/* <Typography component="p" sx={SX_ACCOUNT_ROLE}>
                   {ROLE_LABELS[role]}
                 </Typography> */}

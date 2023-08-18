@@ -50,13 +50,12 @@ export default function CustomModal({
             flexDirection: 'row',
             justifyContent: 'space-between',
             minHeight: '30px',
+            alignItems: 'center',
           }}
         >
           <Typography sx={globalStyles.textTitle}>{title || ''}</Typography>
           <IconButton
             sx={{
-              position: 'absolute',
-              right: '-5px',
               width: '30px',
               height: '30px',
             }}

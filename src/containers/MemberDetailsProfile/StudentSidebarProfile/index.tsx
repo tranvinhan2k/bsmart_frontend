@@ -46,6 +46,7 @@ export default function StudentSidebarProfile() {
       avatarUrl={imageLink}
       birth={profile.birthday}
       email={profile.email}
+      coin={profile.wallet.balance || 0}
       gender={profile.gender}
       isVerified={profile.isVerified}
       mail={profile.email}

@@ -62,6 +62,7 @@ export interface PagingFilterRequest {
   // assignments
   classIds?: number[];
   classId?: number;
+  id?: number;
 }
 
 export interface PutCourseRequest {

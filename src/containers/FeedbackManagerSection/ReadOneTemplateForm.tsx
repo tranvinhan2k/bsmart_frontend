@@ -131,7 +131,7 @@ export default function ReadOneTemplateForm({ row }: ReadOneTemplateFormProps) {
                   }}
                 >
                   {feedbackClassList?.map((item) => {
-                    const isChecked = false;
+                    const isChecked = item.isUsed;
                     return (
                       <Stack
                         sx={{
@@ -143,6 +143,7 @@ export default function ReadOneTemplateForm({ row }: ReadOneTemplateFormProps) {
                         <Checkbox
                           color="secondary"
                           disableRipple
+                          disabled={isChecked}
                           checked={isChecked}
                           onChange={() => handleCheckedClass(item.id)}
                         />
