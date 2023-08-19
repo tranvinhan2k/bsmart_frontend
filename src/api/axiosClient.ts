@@ -13,18 +13,18 @@ axiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem(localEnvironment.ASYNC_STORAGE_TOKEN_NAME);
   const responseConfig = config;
 
-  if (typeof window !== 'undefined') {
-    if (!token) {
-      window.location.href = '/';
-    } else {
-      const tokenPayload: { exp: number } = jwt_decode(token as any);
-      const { exp } = tokenPayload;
-      if (exp < Date.now() / 1000) {
-        localStorage.clear();
-        window.location.reload();
-      }
-    }
-  }
+  // if (typeof window !== 'undefined') {
+  //   if (token) {
+  //     const tokenPayload: { exp: number } = jwt_decode(token as any);
+  //     const { exp } = tokenPayload;
+  //     if (exp < Date.now() / 1000) {
+  //       localStorage.clear();
+  //       window.location.reload();
+  //     } else {
+  //       responseConfig.headers.Authorization = `Bearer ${token}`;
+  //     }
+  //   }
+  // }
 
   if (token) {
     responseConfig.headers.Authorization = `Bearer ${token}`;

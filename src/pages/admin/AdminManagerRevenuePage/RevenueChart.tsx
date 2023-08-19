@@ -1,12 +1,15 @@
 import {
   Button,
   ButtonGroup,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
-import { DatePicker, StaticDatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import React, { useState, PureComponent } from 'react';
 import { DateRange, Range } from 'react-date-range';
@@ -167,11 +170,11 @@ const convertRevenue = (
     case 'DAY':
       return convertToDayArray(data);
     case 'MONTH':
-      return convertToDayArray(data);
-    case 'YEAR':
       return convertToMonthArray(data);
-    default:
+    case 'YEAR':
       return convertToYearArray(data);
+    default:
+      return convertToDayArray(data);
   }
 };
 
@@ -184,6 +187,9 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
     },
   ]);
   const [type, setType] = useState<'DAY' | 'MONTH' | 'YEAR' | 'ALL'>('ALL');
+  const [displayType, setDisplayType] = useState<'DAY' | 'MONTH' | 'YEAR'>(
+    'DAY'
+  );
 
   const historyData = data.filter((item) => {
     if (type !== 'ALL') {
@@ -196,7 +202,7 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
     }
     return true;
   });
-  const filterData = convertRevenue(historyData, type).sort((a, b) =>
+  const filterData = convertRevenue(historyData, displayType).sort((a, b) =>
     a.date.localeCompare(b.date)
   );
 
@@ -265,44 +271,71 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
                 borderRadius: '12px',
               }}
             >
-              <ButtonGroup
-                sx={{ width: '100%' }}
-                variant="contained"
-                aria-label="outlined secondary button group"
-              >
-                <Button
-                  onClick={() => handleChangeType('DAY')}
-                  sx={{ flexGrow: 1 }}
-                >
-                  Hôm nay
-                </Button>
-                <Button
-                  onClick={() => handleChangeType('MONTH')}
-                  sx={{ flexGrow: 1 }}
-                >
-                  Tháng
-                </Button>
-                <Button
-                  onClick={() => handleChangeType('YEAR')}
-                  sx={{ flexGrow: 1 }}
-                >
-                  Năm
-                </Button>
-                <Button
-                  onClick={() => handleChangeType('ALL')}
-                  sx={{ flexGrow: 1 }}
-                >
-                  Tất cả
-                </Button>
-              </ButtonGroup>
+              <Typography sx={globalStyles.textSmallLabel}>
+                Chọn dạng hiển thị
+              </Typography>
               <Stack marginTop={1}>
-                <DateRange
-                  onChange={(range) => setState([range.selection])}
-                  ranges={state}
-                  color="3944BC"
-                  editableDateInputs
-                  moveRangeOnFirstSelection={false}
-                />
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                  <InputLabel id="demo-select-small-label">Age</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={displayType}
+                    label="Age"
+                    onChange={(e) => setDisplayType(e.target.value as any)}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="DAY">Hiển thị theo ngày</MenuItem>
+                    <MenuItem value="MONTH">Hiển thị theo tháng</MenuItem>
+                    <MenuItem value="YEAR">Hiển thị theo năm</MenuItem>
+                  </Select>
+                </FormControl>
+              </Stack>
+              <Typography sx={globalStyles.textSmallLabel}>
+                Chọn khoảng thời gian
+              </Typography>
+              <Stack marginTop={1}>
+                <ButtonGroup
+                  sx={{ width: '100%' }}
+                  variant="contained"
+                  aria-label="outlined secondary button group"
+                >
+                  <Button
+                    onClick={() => handleChangeType('DAY')}
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Hôm nay
+                  </Button>
+                  <Button
+                    onClick={() => handleChangeType('MONTH')}
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Tháng
+                  </Button>
+                  <Button
+                    onClick={() => handleChangeType('YEAR')}
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Năm
+                  </Button>
+                  <Button
+                    onClick={() => handleChangeType('ALL')}
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Tất cả
+                  </Button>
+                </ButtonGroup>
+                <Stack marginTop={1}>
+                  <DateRange
+                    onChange={(range) => setState([range.selection])}
+                    ranges={state}
+                    color="3944BC"
+                    editableDateInputs
+                    moveRangeOnFirstSelection={false}
+                  />
+                </Stack>
               </Stack>
             </Stack>
             <Stack sx={{ flexGrow: 1, height: '500px' }}>

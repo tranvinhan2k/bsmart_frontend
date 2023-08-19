@@ -3,6 +3,8 @@ import { Stack, Typography } from '@mui/material';
 import { RevenuePayload } from './RevenueChart';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import globalStyles from '~/styles';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import { formatMoney } from '~/utils/money';
 
 export default function RevenueHistory({ data }: { data: RevenuePayload[] }) {
   return (
@@ -20,14 +22,23 @@ export default function RevenueHistory({ data }: { data: RevenuePayload[] }) {
             {
               field: 'date',
               flex: 1,
+              renderCell: (params) => {
+                return formatISODateDateToDisplayDateTime(params.row.date);
+              },
             },
             {
               field: 'revenue',
               flex: 1,
+              renderCell: (params) => {
+                return formatMoney(params.row.revenue);
+              },
             },
             {
               field: 'total',
               flex: 1,
+              renderCell: (params) => {
+                return formatMoney(params.row.total);
+              },
             },
             {
               field: 'buyer',

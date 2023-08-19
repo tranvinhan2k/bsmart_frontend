@@ -861,3 +861,61 @@ export type GetTransactionsPayload = Partial<{
   afterBalance: number;
   iconUrl: string;
 }>;
+
+export type ResponseGetMentorPayload = Partial<{
+  id: number;
+  introduce: string;
+  workingExperience: string;
+  status: string;
+  user: {
+    id: number;
+    fullName: string;
+    email: string;
+    birthday: string;
+    address: string;
+    phone: string;
+    status: true;
+    gender: string;
+    roles: {
+      id: number;
+      name: string;
+      code: string;
+    }[];
+    linkedinLink: string;
+    facebookLink: string;
+    website: string;
+    userImages: {
+      id: number;
+      name: string;
+      url: string;
+      status: true;
+      type: string;
+    }[];
+    wallet: {
+      id: number;
+      balance: number;
+      previous_balance: number;
+      owner_id: number;
+    };
+    mentorProfile: string;
+    teachInformation: {
+      numberOfCourse: number;
+      numberOfClass: number;
+      numberOfMember: number;
+      scoreFeedback: number;
+      numberOfFeedBack: number;
+    };
+    isVerified: true;
+    finishedClassCount: number;
+    timeSendRequest: string;
+    count: number;
+    verified: true;
+  };
+  mentorSkills: {
+    skillId: number;
+    name: string;
+    yearOfExperiences: number;
+  }[];
+  averageRate: number;
+  submissionCount: number;
+}>;

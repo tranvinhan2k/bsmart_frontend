@@ -8,6 +8,7 @@ import ManageTable from '~/components/molecules/ManageTable';
 import ManageTableDetailsManagedMember from '~/components/molecules/ManageTableDetailsManagedMember';
 import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
 import { ManagedMentorPayload } from '~/models/type';
+import CustomModal from '~/components/atoms/CustomModal';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
@@ -23,9 +24,10 @@ export default function ManageTableUser({
     searchPlaceholderMember = 'Tìm kiếm học sinh...',
     optionNotSupport = 'Chưa hỗ trợ',
     optionViewDetails = 'Xem chi tiết',
+    optionViewRevenue = 'Xem doanh thu',
   }
   const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
+  const [mode, setMode] = useState<'READ' | 'REVENUE' | ''>('');
   const [selectedRow, setSelectedRow] = useState<ManagedMentorPayload>();
 
   const [q, setQ] = useState<string>('');
@@ -57,6 +59,10 @@ export default function ManageTableUser({
     handleTriggerDialog();
     setMode(() => 'READ');
   };
+  const handleOpenManageRevenue = () => {
+    handleTriggerDialog();
+    setMode(() => 'REVENUE');
+  };
 
   const optionListDefault: MenuItemPayload[] = [
     {
@@ -70,6 +76,11 @@ export default function ManageTableUser({
       icon: 'category',
       title: Text.optionViewDetails,
       onCLick: handleOpenManagedUserDetails,
+    },
+    {
+      icon: 'biMoney',
+      title: Text.optionViewRevenue,
+      onCLick: handleOpenManageRevenue,
     },
   ];
 
@@ -119,6 +130,17 @@ export default function ManageTableUser({
             />
           )}
         </CustomDialog>
+      );
+      break;
+    case 'REVENUE':
+      renderItem = (
+        <CustomModal
+          open={open}
+          onClose={handleTriggerDialog}
+          title="Doanh thu của người dùng"
+        >
+          Doanh Thu
+        </CustomModal>
       );
       break;
     default:
