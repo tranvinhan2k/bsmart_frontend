@@ -4,6 +4,7 @@ import { MentorProfileRequestInfoPayload } from '~/models/mentorProfiles';
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import { ProfileImgType } from '~/constants/profile';
 import { UseMutationUpdateMentorProfileRequestPayload } from '~/hooks/user/useMutationUpdateMentorProfileRequest';
+import { ResponseGetMentorPayload } from '~/models/response';
 
 const url = `/mentor-profiles`;
 
@@ -54,12 +55,6 @@ export interface ResponseMentorData {
     }
   ];
 }
-export interface ResponseGetMentorPayload {
-  id: number;
-  fullName: string;
-  introduce: string;
-  workingExperience: string;
-}
 
 function handleResponseGetMentor(
   data?: PagingFilterPayload<ResponseGetMentorPayload>
@@ -69,15 +64,18 @@ function handleResponseGetMentor(
   }
   return {
     ...data,
-    items: data.items.map((item: any) => {
+    items: data.items.map((item) => {
       return {
-        id: item.id,
-        fullName: item.user.fullName,
-        introduce: item.introduce,
-        workingExperience: item.workingExperience,
-        userImagesAvatar: item.user.userImages
-          .filter((img: any) => img.type === ProfileImgType.AVATAR)
-          .map((img: any) => img.url),
+        id: item.id || 0,
+        fullName: item.user?.fullName || '',
+        introduce: item.introduce || '',
+        averageRate: item.averageRate || 0,
+        submissionCount: item.submissionCount || 0,
+        workingExperience: item.workingExperience || '',
+        userImagesAvatar:
+          item.user?.userImages
+            .filter((img: any) => img.type === ProfileImgType.AVATAR)
+            .map((img: any) => img.url) || '',
       };
     }),
   };
