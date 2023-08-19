@@ -42,7 +42,7 @@ export default function MentorItem({
           marginTop: MetricSize.medium_15,
           marginLeft: '10px',
           borderColor: Color.grey,
-          width: { xs: '100%', md: '32%' },
+          width: { xs: '100%', md: '48%', lg: '32%' },
           borderRadius: MetricSize.small_5,
           justifyContent: 'space-between',
         }}
@@ -55,10 +55,10 @@ export default function MentorItem({
   return (
     <Stack
       sx={{
-        marginTop: MetricSize.medium_15,
         marginLeft: '10px',
+        marginBottom: '10px',
         borderColor: Color.grey,
-        width: { xs: '100%', md: '32%' },
+        width: { xs: '100%', md: '48%', lg: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
         background: Color.white,

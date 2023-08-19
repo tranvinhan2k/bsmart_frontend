@@ -95,9 +95,6 @@ export default function MentorMenuSection(props: MentorMenuSectionPayload) {
     case isLoading === false:
       mentorData = (
         <Stack
-          sx={{
-            paddingY: MetricSize.medium_15,
-          }}
           flexDirection="row"
           flexWrap="wrap"
           alignContent="space-around"
