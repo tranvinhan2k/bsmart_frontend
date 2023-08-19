@@ -63,7 +63,8 @@ export default function NotificationItem({
     <Stack
       onClick={handleNavigateLink}
       sx={{
-        background: isRead ? '#eee' : '#fff',
+        transition: 'all 1s ease',
+        background: isRead ? '#fff' : `${Color.tertiary}55`,
         margin: 1,
         overflow: 'hidden',
         border: '1px solid #ddd',

@@ -136,7 +136,7 @@ export const MentorDashboardNavigationActionData: ActionPayload[] = [
   {
     id: 7,
     link: MentorDashboardNavigationActionLink.schedule,
-    name: 'Lịch dạy',
+    name: 'Lịch học',
     icon: 'date',
   },
 ];

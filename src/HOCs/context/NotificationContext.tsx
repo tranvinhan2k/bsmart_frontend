@@ -41,8 +41,6 @@ export default function NotificationContextProvider({ children }: Props) {
     notifications?.filter((item) => !item.isRead)?.length || 0;
 
   const onOpenNotification = async () => {
-    console.log('hello');
-
     handleToggle();
 
     const notificationsIds = notifications.map((item) => item.id);

@@ -144,7 +144,7 @@ function CheckoutPage() {
         const response = await mutatePayQuick({
           clazzId: checkOutItem?.id || 0,
           referalCode: introduceCode?.code || '',
-          type: 'CASH',
+          type: 'BANKING',
           useWallet: isUseToken,
         });
         const url = response?.metadata?.paymentUrl || '';

@@ -9,10 +9,11 @@ const notificationApi = {
   postReadNotifications(params: number[]) {
     return axiosClient.put(
       `${url}`,
+      {},
       {
-        ids: params,
-      },
-      {
+        params: {
+          ids: params,
+        },
         paramsSerializer: { indexes: null },
       }
     );
@@ -29,14 +30,14 @@ const notificationApi = {
 
     const result: NotificationItemPayload[] =
       response?.items
-        ?.map((item, index) => ({
-          id: index,
+        ?.map((item) => ({
+          id: item.id || 0,
           entity: item?.entity || 'CLASS',
           entityId: item.entityId || 0,
           message: item.viContent || '',
-          time: item?.created || '',
+          time: item?.created || new Date('01/01/2000').toISOString(),
           title: item.viTitle || '',
-          isRead: item.isRead || false,
+          isRead: item.read || false,
         }))
         .sort(
           (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
