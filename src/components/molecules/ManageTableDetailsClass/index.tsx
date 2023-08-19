@@ -1,4 +1,10 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import ClassDetailsBasicInfo from './ClassDetailsBasicInfo';
+import ClassDetailsDate from './ClassDetailsDate';
+import ClassDetailsMentor from './ClassDetailsMentor';
+import ClassDetailsCourse from './ClassDetailsCourse';
+import ClassDetailsTimeInWeek from './ClassDetailsTimeInWeek';
+import ClassDetailsStudentList from './ClassDetailsStudentList';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsClassProps {
@@ -34,7 +40,11 @@ export default function ManageTableDetailsClass({
             alignItems="stretch"
             spacing={2}
           >
-            <h1>Chi tiết</h1>
+            <ClassDetailsBasicInfo idClass={row.id} />
+            <ClassDetailsMentor idClass={row.id} />
+            <ClassDetailsCourse idClass={row.id} />
+            <ClassDetailsTimeInWeek idClass={row.id} />
+            <ClassDetailsStudentList idClass={row.id} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
@@ -45,7 +55,7 @@ export default function ManageTableDetailsClass({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <h1>Chi tiết</h1>
+            <ClassDetailsDate />
           </Stack>
         </Grid>
       </Grid>

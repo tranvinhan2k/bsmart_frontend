@@ -11,13 +11,11 @@ import ManageTableDetailsRegisterRequest from '~/components/molecules/ManageTabl
 
 interface ManageTableRegisterRequestProps {
   status: MentorProfileStatusType;
-  interviewed: boolean;
   refetchGetNoOfRequest: () => void;
 }
 
 export default function ManageTableRegisterRequest({
   status,
-  interviewed,
   refetchGetNoOfRequest,
 }: ManageTableRegisterRequestProps) {
   const enum Text {
@@ -26,11 +24,6 @@ export default function ManageTableRegisterRequest({
     popoverOptionNotSupport = 'Chưa hỗ trợ',
   }
 
-  const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
-  const [selectedRow, setSelectedRow] = useState<any>();
-
-  // const [status, setStatus] = useState<string>('STARTING');
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
@@ -38,10 +31,15 @@ export default function ManageTableRegisterRequest({
 
   const handleNewPage = (params: number) => setPage(params);
   const handleNewSize = (params: number) => setSize(params);
+
+  const [open, setOpen] = useState<boolean>(false);
   const handleTriggerDialog = () => setOpen(!open);
 
+  const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
+  const [selectedRow, setSelectedRow] = useState<any>();
+
   const { error, registerRequest, isLoading, refetch } =
-    useSearchRegisterRequest({ q, status, interviewed, page, size, sort });
+    useSearchRegisterRequest({ q, status, page, size, sort });
   const rows = registerRequest ? registerRequest.items : [];
 
   const handleSearch = (data: any) => {
@@ -78,11 +76,14 @@ export default function ManageTableRegisterRequest({
       renderColumns = columns.managedUserRegisterRequestColumns;
       break;
     case MentorProfileStatusType.STARTING:
-      if (interviewed) {
-        popoverOptions = popoverOptionsDefault;
-      } else {
-        popoverOptions = optionsViewDetails;
-      }
+      popoverOptions = optionsViewDetails;
+      renderColumns = columns.managedUserRegisterRequestColumns;
+      break;
+    case MentorProfileStatusType.EDITREQUEST:
+      popoverOptions = optionsViewDetails;
+      renderColumns = columns.managedUserRegisterRequestColumns;
+      break;
+    case MentorProfileStatusType.REJECTED:
       popoverOptions = optionsViewDetails;
       renderColumns = columns.managedUserRegisterRequestColumns;
       break;

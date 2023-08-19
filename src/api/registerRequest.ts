@@ -31,12 +31,11 @@ const registerRequestsApi = {
   searchRegisterRequest({
     q,
     status,
-    interviewed,
     page,
     size,
     sort,
   }: UseSearchRegisterRequestPayload): Promise<PagingFilterPayload<User>> {
-    const urlSearch = `${url}/pending?q=${q}&accountStatus=${status}&interviewed=${interviewed}&page=${page}&size=${size}&sort=${sort}`;
+    const urlSearch = `${url}/pending?q=${q}&accountStatus=${status}&page=${page}&size=${size}&sort=${sort}`;
     return axiosClient.get(`${urlSearch}`);
   },
   processRegisterRequest(
@@ -45,7 +44,6 @@ const registerRequestsApi = {
     return axiosClient.put(`${url}/${data.id}/approval`, {
       status: data.status,
       message: data.message,
-      interviewed: data.interviewed,
     });
   },
   processChangeContentRequest(

@@ -20,8 +20,9 @@ export default function RequestTeachingInfo({
     labelNumberOfCourses = 'Khóa học',
     labelNumberOfClass = 'Lớp học',
     labelNumberOfMember = 'Học sinh đã dạy',
-    labelNumberOfFeedBack = 'Đánh giá',
+    labelRating = 'Đánh giá',
     labelScoreFeedback = 'Số đánh giá',
+    //
     labelNoRatingYet = 'Chưa có đánh giá',
   }
   const { managedMentorDetails, isLoading } =
@@ -87,9 +88,7 @@ export default function RequestTeachingInfo({
             justifyContent="flex-start"
             alignItems="flex-start"
           >
-            <Typography sx={SX_FORM_ITEM_LABEL2}>
-              {Text.labelNumberOfFeedBack}
-            </Typography>
+            <Typography sx={SX_FORM_ITEM_LABEL2}>{Text.labelRating}</Typography>
             {isLoading ? (
               <Skeleton />
             ) : (

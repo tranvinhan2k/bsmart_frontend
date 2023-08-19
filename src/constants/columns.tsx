@@ -106,7 +106,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
   },
   {
     field: 'phone',
-    headerName: 'SĐT',
+    headerName: 'Số điện thoại',
     minWidth: 200,
     flex: 1,
     renderCell: (params) => {
@@ -160,7 +160,7 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   },
   {
     field: 'phone',
-    headerName: 'SĐT',
+    headerName: 'Số điện thoại',
     minWidth: 150,
     flex: 1,
     renderCell: (params) => {
@@ -469,7 +469,7 @@ const managedUserBasedColumns: GridColDef[] = [
   },
   {
     field: 'phone',
-    headerName: 'SĐT',
+    headerName: 'Số điện thoại',
     minWidth: 150,
     renderCell: (params) => (
       <CopyableCellEllipsis

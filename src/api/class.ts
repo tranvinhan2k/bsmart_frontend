@@ -9,6 +9,7 @@ import {
   ClassGetDetailsPayload,
   ClassUpdateClassSectionPayload,
   ManagedClass,
+  ManagedClassDetails,
 } from '~/models/class';
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { PagingFilterRequest, PostClassRequest } from '~/models/request';
@@ -396,6 +397,12 @@ const classApi = {
     PagingFilterPayload<ManagedClass> | undefined
   > {
     const urlGet = `${url}/manager?status=${status}&page=${page}&size=${size}&sort=${sort}`;
+    return axiosClient.get(urlGet);
+  },
+  getManagedClassDetails(
+    idClass: number
+  ): Promise<ManagedClassDetails | undefined> {
+    const urlGet = `${url}/${idClass}`;
     return axiosClient.get(urlGet);
   },
 

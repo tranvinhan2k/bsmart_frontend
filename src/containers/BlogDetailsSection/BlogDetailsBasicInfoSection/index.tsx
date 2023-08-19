@@ -94,7 +94,12 @@ export default function BlogDetailsBasicInfoSection({
             <TextField fullWidth size="small" required placeholder="Gmail" />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth size="small" required placeholder="SĐT" />
+            <TextField
+              fullWidth
+              size="small"
+              required
+              placeholder="Số điện thoại"
+            />
           </Grid>
           <Grid item xs={12}>
             <TextField
