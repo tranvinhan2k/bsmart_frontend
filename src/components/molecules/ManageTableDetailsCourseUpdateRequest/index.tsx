@@ -7,11 +7,17 @@ import { Color } from '~/assets/variables';
 import SubActivityContent from '../SubActivityCourseDetails/SubActivityContent';
 import RequestCourseContents from '../RequestCourseContents';
 import RequestRegisterProcess from './RequestRegisterProcess';
+import { ActivityPayload } from '~/models/type';
 
 interface ManageTableDetailsCourseUpdateRequestProps {
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
+}
+
+export interface ManageTableDetailsCourseUpdateRequestPayload {
+  oldContent: ActivityPayload[];
+  updateContent: ActivityPayload[];
 }
 
 export default function ManageTableDetailsCourseUpdateRequest({
@@ -23,7 +29,7 @@ export default function ManageTableDetailsCourseUpdateRequest({
     <>
       <Box>
         <Typography sx={SX_REQUEST_TITLE}>
-          Chi tiết yêu cầu phê duyệt khóa học
+          Chi tiết yêu cầu cập nhật khóa học
         </Typography>
       </Box>
       <Grid
@@ -47,7 +53,47 @@ export default function ManageTableDetailsCourseUpdateRequest({
           >
             <Typography sx={globalStyles.textSubTitle}>Nội dung cũ</Typography>
             <Divider />
-            <RequestCourseContents items={[]} />
+            <RequestCourseContents
+              items={[
+                {
+                  id: 0,
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  name: 'Hello',
+                  parentActivityId: 0,
+                  subActivities: [
+                    {
+                      id: 0,
+                      created: '',
+                      createdBy: '',
+                      lastModified: '',
+                      lastModifiedBy: '',
+                      name: 'Giới thiệu',
+                      parentActivityId: 0,
+                      subActivities: [],
+                      type: 'LESSON',
+                      visible: false,
+                    },
+                    {
+                      id: 0,
+                      created: '',
+                      createdBy: '',
+                      lastModified: '',
+                      lastModifiedBy: '',
+                      name: 'Giới thiệu',
+                      parentActivityId: 0,
+                      subActivities: [],
+                      type: 'LESSON',
+                      visible: false,
+                    },
+                  ],
+                  type: '',
+                  visible: false,
+                },
+              ]}
+            />
           </Stack>
         </Grid>
         <Grid item sm={12} md={6} lg={6}>
@@ -63,11 +109,51 @@ export default function ManageTableDetailsCourseUpdateRequest({
           >
             <Typography sx={globalStyles.textSubTitle}>Nội dung mới</Typography>
             <Divider />
-            <RequestCourseContents items={[]} />
+            <RequestCourseContents
+              items={[
+                {
+                  id: 0,
+                  created: '',
+                  createdBy: '',
+                  lastModified: '',
+                  lastModifiedBy: '',
+                  name: 'Hello',
+                  parentActivityId: 0,
+                  subActivities: [
+                    {
+                      id: 0,
+                      created: '',
+                      createdBy: '',
+                      lastModified: '',
+                      lastModifiedBy: '',
+                      name: 'Giới thiệu',
+                      parentActivityId: 0,
+                      subActivities: [],
+                      type: 'LESSON',
+                      visible: false,
+                    },
+                    {
+                      id: 0,
+                      created: '',
+                      createdBy: '',
+                      lastModified: '',
+                      lastModifiedBy: '',
+                      name: 'Giới thiệu',
+                      parentActivityId: 0,
+                      subActivities: [],
+                      type: 'LESSON',
+                      visible: false,
+                    },
+                  ],
+                  type: '',
+                  visible: false,
+                },
+              ]}
+            />
           </Stack>
         </Grid>
       </Grid>
-      <Stack marginTop={1}>
+      <Stack marginTop={2}>
         <RequestRegisterProcess />
       </Stack>
     </>

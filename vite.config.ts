@@ -13,14 +13,6 @@ export default defineConfig({
     host: true,
     port: 3000,
   },
-  // define: {
-  //   global: {},
-  // },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/setupTests.ts'],
-  },
   resolve: {
     alias: {
       '~': path.resolve(__dirname, 'src'),

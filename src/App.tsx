@@ -49,6 +49,7 @@ import localEnvironment from './utils/localEnvironment';
 import LazyLoadingScreen from '~/components/atoms/LazyLoadingScreen';
 
 import AuthorizePage from '~/pages/AuthorizePage';
+
 // css
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
