@@ -38,18 +38,6 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         link: ManagerNavigationActionLink.manage_class_manager,
       },
       {
-        id: 5,
-        name: 'Tài chính',
-        icon: 'biMoney',
-        link: ManagerNavigationActionLink.manage_financial_manager,
-      },
-      {
-        id: 6,
-        name: 'Ngân hàng câu hỏi',
-        icon: 'question',
-        link: ManagerNavigationActionLink.questions_bank,
-      },
-      {
         id: 7,
         name: 'Mã giới thiệu',
         icon: 'promo',

@@ -739,6 +739,7 @@ export type GetAllMentorFeedback = Partial<{
 }>;
 
 export type GetAllNotificationResponse = Partial<{
+  id: number;
   created: string;
   lastModified: string;
   createdBy: string;
@@ -748,7 +749,7 @@ export type GetAllNotificationResponse = Partial<{
   type: string;
   entity: NotificationType;
   entityId: number;
-  isRead: boolean;
+  read: boolean;
 }>;
 
 export type GetQuizQuestionResponse = Partial<{

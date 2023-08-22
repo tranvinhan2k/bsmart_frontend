@@ -73,9 +73,9 @@ function handleResponseGetMentor(
         submissionCount: item.submissionCount || 0,
         workingExperience: item.workingExperience || '',
         userImagesAvatar:
-          item.user?.userImages
-            .filter((img: any) => img.type === ProfileImgType.AVATAR)
-            .map((img: any) => img.url) || '',
+          item.user?.userImages.find(
+            (img: any) => img.type === ProfileImgType.AVATAR
+          )?.url || '',
       };
     }),
   };

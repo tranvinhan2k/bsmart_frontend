@@ -14,10 +14,11 @@ import {
   GetAllCoursesResponse,
   GetCoursePercentResponse,
 } from '~/models/response';
-import { formatOptionPayload } from '~/utils/common';
+import { formatOptionPayload, generateMockApi } from '~/utils/common';
 import { CourseCreateRequestDetails } from '~/models/courses';
 import { UseSearchCourseCreateRequestPayload } from '~/hooks/course/useSearchCourseCreateRequest';
 import { UseSearchCourseUpdateRequestPayload } from '~/hooks/course/useSearchCourseUpdateRequest';
+import { ManageTableDetailsCourseUpdateRequestPayload } from '~/components/molecules/ManageTableDetailsCourseUpdateRequest';
 // Define the request payload for fetching courses
 
 export interface ResponseMemberCoursePayload {
@@ -108,6 +109,104 @@ const url = '/courses';
 
 const coursesApi = {
   // get
+
+  async getDetailRequestUpdateCourseContent() {
+    const response: ManageTableDetailsCourseUpdateRequestPayload = {
+      oldContent: [
+        {
+          id: 0,
+          created: '',
+          createdBy: '',
+          lastModified: '',
+          lastModifiedBy: '',
+          name: 'Hello',
+          parentActivityId: 0,
+          authorizeClasses: [],
+          isFixed: false,
+          subActivities: [
+            {
+              id: 0,
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              name: 'Giới thiệu',
+              parentActivityId: 0,
+              subActivities: [],
+              type: 'LESSON',
+              visible: false,
+              authorizeClasses: [],
+              isFixed: false,
+            },
+            {
+              id: 0,
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              name: 'Giới thiệu',
+              parentActivityId: 0,
+              subActivities: [],
+              type: 'LESSON',
+              visible: false,
+              authorizeClasses: [],
+              isFixed: false,
+            },
+          ],
+          type: 'LESSON',
+          visible: false,
+        },
+      ],
+      updateContent: [
+        {
+          id: 0,
+          created: '',
+          createdBy: '',
+          lastModified: '',
+          lastModifiedBy: '',
+          name: 'Hello',
+          parentActivityId: 0,
+          authorizeClasses: [],
+          isFixed: false,
+          subActivities: [
+            {
+              id: 0,
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              name: 'Giới thiệu',
+              parentActivityId: 0,
+              subActivities: [],
+              type: 'LESSON',
+              visible: false,
+              authorizeClasses: [],
+              isFixed: false,
+            },
+            {
+              id: 0,
+              created: '',
+              createdBy: '',
+              lastModified: '',
+              lastModifiedBy: '',
+              name: 'Giới thiệu',
+              parentActivityId: 0,
+              subActivities: [],
+              type: 'LESSON',
+              visible: false,
+              authorizeClasses: [],
+              isFixed: false,
+            },
+          ],
+          type: 'LESSON',
+          visible: false,
+        },
+      ],
+    };
+
+    return generateMockApi(response);
+  },
+
   async getAllCourse(
     data: PagingFilterRequest
   ): Promise<PagingFilterPayload<CourseMenuItemPayload> | null> {

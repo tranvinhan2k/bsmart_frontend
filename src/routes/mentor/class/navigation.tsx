@@ -18,7 +18,7 @@ export const MentorClassNavigationActionData: ActionPayload[] = [
   {
     id: 2,
     link: MentorClassActionLink.schedule,
-    name: 'Lịch làm việc',
+    name: 'Lịch học của lớp',
     icon: 'date',
   },
   {

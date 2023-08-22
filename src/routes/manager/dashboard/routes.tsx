@@ -57,11 +57,6 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.questions_bank,
-    main: () => <ManagerQuestionsBankPage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
     path: ManagerNavigationActionLink.promo_code,
     main: () => <ManagerPromoCodePage />,
     role: ['ROLE_MANAGER'],

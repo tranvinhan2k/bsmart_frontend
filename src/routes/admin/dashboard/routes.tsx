@@ -25,11 +25,6 @@ export const adminRoutes: RoutePayload[] = [
     role: ['ROLE_ADMIN'],
   },
   {
-    path: AdminNavigationActionLink.feedback_manager,
-    main: () => <FeedbackManagerPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
     path: AdminNavigationActionLink.category_manager,
     main: () => <CategoryManagerPage />,
     role: ['ROLE_ADMIN'],
@@ -37,11 +32,6 @@ export const adminRoutes: RoutePayload[] = [
   {
     path: AdminNavigationActionLink.subject_manager,
     main: () => <SubjectManagerPage />,
-    role: ['ROLE_ADMIN'],
-  },
-  {
-    path: AdminNavigationActionLink.questions_bank,
-    main: () => <AdminManagerQuestionBank />,
     role: ['ROLE_ADMIN'],
   },
   {

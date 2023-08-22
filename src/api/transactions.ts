@@ -26,7 +26,7 @@ const transactionsApi = {
   async payQuick(data: {
     clazzId: number;
     referalCode: string;
-    type: 'CASH';
+    type: 'BANKING';
     useWallet: boolean;
   }): Promise<any> {
     return axiosClient.post(`${url}/pay-quick`, data);

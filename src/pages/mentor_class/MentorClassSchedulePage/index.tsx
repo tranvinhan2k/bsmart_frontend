@@ -11,7 +11,7 @@ export default function MentorSchedulePage() {
 
   return (
     <Stack>
-      <TextTitle title="Lịch làm việc" />
+      <TextTitle title="Lịch học của lớp" />
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <LoadingWrapper
           error={error}
