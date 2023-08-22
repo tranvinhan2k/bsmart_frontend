@@ -39,7 +39,7 @@ export default function ManageRegisterRequestSection() {
   const tabEl = [
     {
       id: 0,
-      text: 'Chờ duyệt hồ sơ',
+      text: 'Chờ duyệt',
       noOfRequest: restrictNumberDisplay(listWAITING?.totalItems),
       component: (
         <ManageTableRegisterRequest
