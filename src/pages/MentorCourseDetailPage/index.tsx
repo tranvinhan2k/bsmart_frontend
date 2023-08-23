@@ -34,6 +34,7 @@ export interface MentorDetailCoursePayload {
 }
 
 export interface DetailCourseClassPayload {
+  courseId: number;
   id: number;
   code: string;
   imageUrl: string;

@@ -32,6 +32,7 @@ import {
 import { RequestCartItem } from '~/api/cart';
 
 interface Props {
+  courseId: number;
   levelLabel: string;
   level: LevelKeys;
   categoryName: string;
@@ -44,6 +45,7 @@ interface Props {
 }
 
 const initClass: DetailCourseClassPayload = {
+  courseId: 0,
   endDate: '',
   id: 0,
   status: 'ALL',
@@ -60,6 +62,7 @@ const initClass: DetailCourseClassPayload = {
 };
 
 export default function Sidebar({
+  courseId,
   levelLabel,
   level,
   classes,
@@ -102,7 +105,10 @@ export default function Sidebar({
     if (chooseClass.id !== 0) {
       dispatch(
         addCheckoutItem({
-          checkOutCourses: chooseClass,
+          checkOutCourses: {
+            ...chooseClass,
+            courseId,
+          },
           totalAmount: chooseClass.price,
         })
       );

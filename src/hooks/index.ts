@@ -41,6 +41,7 @@ export * from './useMutationSignUp';
 export * from './useMutationLogin';
 export * from './useMutationProfile';
 export * from './useMutationAddCourseToCart';
+export * from './useCheckPromoCode';
 
 // image
 export * from './image/useMutationUploadImage';

@@ -1,17 +1,10 @@
 import { Grid, Stack } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import LoadingWrapper from '~/HOCs/loading/LoadingWrapper';
 import { Color, MetricSize } from '~/assets/variables';
 import { mockLevelData } from '~/constants';
 import Sidebar from '~/containers/CourseDetailSection/Sidebar';
-import {
-  useEffectScrollToTop,
-  useGetCourseFeedback,
-  useGetIdFromUrl,
-  useScrollIntoView,
-} from '~/hooks';
+import { useGetIdFromUrl, useScrollIntoView } from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
-import { formatStringToNumber } from '~/utils/number';
 import CourseDetail from '~/components/molecules/CourseDetail';
 
 export default function CourseDetailPage() {
@@ -84,6 +77,7 @@ export default function CourseDetailPage() {
               }}
             >
               <Sidebar
+                courseId={course?.id || 0}
                 level={course?.level || 'BEGINNER'}
                 levelLabel={levelOptionPayload?.label || ''}
                 classes={classes || []}

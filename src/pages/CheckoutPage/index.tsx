@@ -31,11 +31,13 @@ import toast from '~/utils/toast';
 import { selectProfile, selectWebsocketMessage } from '~/redux/user/selector';
 import FormInput from '~/components/atoms/FormInput';
 import {
+  useCheckPromoCode,
   useDispatchGetAllDayOfWeeks,
   useDispatchGetAllSlots,
   useEffectScrollToTop,
   useGetDuplicateTimeSlot,
   useGetPromoCode,
+  useTryCatch,
   useYupValidationResolver,
 } from '~/hooks';
 import { DetailCourseClassPayload } from '../MentorCourseDetailPage';
@@ -76,6 +78,8 @@ function CheckoutPage() {
   const slTotalAmount = useSelector(selectTotalAmount);
   const { slots } = useDispatchGetAllSlots();
   const { dayOfWeeks } = useDispatchGetAllDayOfWeeks();
+  const { mutateAsync: handleCheckPromoCode } = useCheckPromoCode();
+  const { handleTryCatch } = useTryCatch('kiểm tra mã giới thiệu');
 
   const {
     data: introduceCodes,
@@ -106,17 +110,18 @@ function CheckoutPage() {
     return <Navigate to="/homepage" />;
   }
 
-  const onSubmit = (data: any) => {
-    const submitIntroduceCode = introduceCodeList?.find(
-      (item) => item.code === data.introduce
+  const onSubmit = async (data: any) => {
+    const submitIntroduceCode = await handleTryCatch(async () =>
+      handleCheckPromoCode({
+        courseId: checkOutItem?.courseId || 0,
+        code: data.introduce || '',
+      })
     );
     if (submitIntroduceCode) {
       setIntroduceCode(submitIntroduceCode);
       setSelectIntroduceCode(submitIntroduceCode);
       toast.notifySuccessToast('Đã thêm mã giới thiệu');
       reset();
-    } else {
-      toast.notifyErrorToast('Không tìm thấy mã giới thiệu này');
     }
   };
 
