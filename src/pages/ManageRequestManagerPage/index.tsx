@@ -19,6 +19,8 @@ import ManageMentorProfileUpdateRequestSection from '~/components/molecules/Mana
 import ManageRegisterRequestSection from '~/components/molecules/ManageRequestSection/ManageRegisterRequestSection';
 import ManageWithdrawSection from '~/components/molecules/ManageRequestSection/ManageWithdrawSection';
 import TabPanel from '~/components/atoms/TabPanel/index';
+import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
+import { MentorProfileStatusType } from '~/constants/profile';
 
 export default function ManageRequestManagerPage() {
   useEffect(() => {
@@ -45,8 +47,17 @@ export default function ManageRequestManagerPage() {
     setTabValue(e.target.value as number);
 
   const {
-    courseCreateRequestList: courseCreateRequestWaiting,
-    isLoading: isLoadingCourseCreateRequestWaiting,
+    registerRequest: registerRequestWAITING,
+    isLoading: isLoadingRegisterRequestWAITING,
+    registerRequest: listWAITING,
+    refetch: refetchListRegisterRequestWAITING,
+  } = useSearchRegisterRequest({
+    status: MentorProfileStatusType.WAITING,
+  });
+
+  const {
+    courseCreateRequestList: courseCreateRequestWAITING,
+    isLoading: isLoadingCourseCreateRequestWAITING,
     refetch: refetchCourseCreateRequestWaiting,
   } = useSearchCourseCreateRequest({
     status: CourseStatusType.WAITING,
@@ -55,7 +66,13 @@ export default function ManageRequestManagerPage() {
   const tabEl = [
     {
       id: 0,
-      component: <ManageRegisterRequestSection />,
+      component: (
+        <ManageRegisterRequestSection
+          firstList={listWAITING}
+          firstListStatus={MentorProfileStatusType.WAITING}
+          firstListRefetch={refetchListRegisterRequestWAITING}
+        />
+      ),
     },
     {
       id: 1,
@@ -65,7 +82,7 @@ export default function ManageRequestManagerPage() {
       id: 2,
       component: (
         <ManageCourseCreateRequestSection
-          firstList={courseCreateRequestWaiting}
+          firstList={courseCreateRequestWAITING}
           firstListStatus={CourseStatusType.WAITING}
           firstListRefetch={refetchCourseCreateRequestWaiting}
         />
@@ -86,8 +103,8 @@ export default function ManageRequestManagerPage() {
     {
       id: 1,
       label: Text.MenuItem00,
-      isLoading: false,
-      indicator: 0,
+      isLoading: isLoadingRegisterRequestWAITING,
+      indicator: registerRequestWAITING ? registerRequestWAITING.totalItems : 0,
       value: 0,
     },
     {
@@ -101,9 +118,9 @@ export default function ManageRequestManagerPage() {
     {
       id: 4,
       label: Text.MenuItem10,
-      isLoading: isLoadingCourseCreateRequestWaiting,
-      indicator: courseCreateRequestWaiting
-        ? courseCreateRequestWaiting.totalItems
+      isLoading: isLoadingCourseCreateRequestWAITING,
+      indicator: courseCreateRequestWAITING
+        ? courseCreateRequestWAITING.totalItems
         : 0,
       value: 2,
     },
