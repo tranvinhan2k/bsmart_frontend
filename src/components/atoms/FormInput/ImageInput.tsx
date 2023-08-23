@@ -63,7 +63,7 @@ export default function ImageInput({
 
   const imgRef = useRef<HTMLImageElement>(null);
   const { value: isCropImage, toggle: toggleCropImage } = useBoolean(false);
-  const [previewUrl, setPreviewUrl] = useState(value.url);
+  const [previewUrl, setPreviewUrl] = useState(value?.url || '');
   const [error, setError] = useState<string | null>(null);
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
@@ -271,33 +271,32 @@ export default function ImageInput({
             sx={{
               flexDirection: 'row',
               width: '100%',
-              height: '60vh',
               alignItems: 'flex-end',
             }}
           >
-            <Stack sx={{ flexGrow: 1, height: '100%' }}>
-              <Stack height="100%" sx={globalStyles.viewRoundedBorderBody}>
+            <Stack sx={{ flexGrow: 1 }}>
+              <Stack sx={globalStyles.viewRoundedBorderBody}>
                 <Typography sx={globalStyles.textSmallLabel}>
                   Cắt hình ảnh
                 </Typography>
-                <ReactCrop
-                  crop={crop}
-                  onChange={(_, percentCrop) => setCrop(percentCrop)}
-                  onComplete={(c) => setCompletedCrop(c)}
-                  aspect={aspect}
-                >
-                  <img
-                    ref={imgRef}
-                    alt="Crop me"
-                    src={previewUrl}
-                    onLoad={onImageLoad}
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                      objectFit: 'contain',
-                    }}
-                  />
-                </ReactCrop>
+                <Stack>
+                  <ReactCrop
+                    crop={crop}
+                    onChange={(_, percentCrop) => setCrop(percentCrop)}
+                    onComplete={(c) => setCompletedCrop(c)}
+                    aspect={aspect}
+                  >
+                    <img
+                      ref={imgRef}
+                      alt="Crop me"
+                      src={previewUrl}
+                      onLoad={onImageLoad}
+                      style={{
+                        objectFit: 'contain',
+                      }}
+                    />
+                  </ReactCrop>
+                </Stack>
               </Stack>
             </Stack>
             <Stack sx={{ height: '100%', width: '300px' }}>

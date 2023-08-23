@@ -920,3 +920,16 @@ export type ResponseGetMentorPayload = Partial<{
   averageRate: number;
   submissionCount: number;
 }>;
+
+export type ReferralCodeResponse = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  code: string;
+  discountPercent: number;
+  usageLimit: number;
+  usageCount: number;
+  expiredAt: string;
+}>;
