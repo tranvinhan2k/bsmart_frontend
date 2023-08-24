@@ -15,7 +15,7 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: '/',
     main: () => (
-      <Navigate to={ManagerNavigationActionLink.manage_analytic_manager} />
+      <Navigate to={ManagerNavigationActionLink.manage_user_manager} />
     ),
     role: ['ROLE_MANAGER'],
   },
@@ -45,7 +45,7 @@ export const managerRoutes: RoutePayload[] = [
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.promo_code,
+    path: ManagerNavigationActionLink.manage_promo_code,
     main: () => <ManagerPromoCodePage />,
     role: ['ROLE_MANAGER'],
   },
@@ -57,10 +57,7 @@ export const managerRoutes: RoutePayload[] = [
   {
     path: '*',
     main: () => (
-      <Navigate
-        to={ManagerNavigationActionLink.manage_analytic_manager}
-        replace
-      />
+      <Navigate to={ManagerNavigationActionLink.manage_user_manager} replace />
     ),
     role: [],
   },

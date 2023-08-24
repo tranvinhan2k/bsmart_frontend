@@ -2,17 +2,13 @@ import { Navigate } from 'react-router-dom';
 import { AdminNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
-  AdminPage,
-  ManageUserPage,
-  CategoryManagerPage,
-  FeedbackManagerPage,
-  NotFoundPage,
-  SubjectManagerPage,
-  AdminManagerQuestionBank,
+  AdminManageAnalyticPage,
   AdminManagerRevenuePage,
   AdminManageWithdrawRequest,
-  AdminManageAnalyticPage,
+  CategoryManagerPage,
   ConfirmEmailPage,
+  ManageUserPage,
+  SubjectManagerPage,
 } from '~/routes/components';
 
 export const adminRoutes: RoutePayload[] = [
@@ -58,9 +54,7 @@ export const adminRoutes: RoutePayload[] = [
   },
   {
     path: '*',
-    main: () => (
-      <Navigate to={AdminNavigationActionLink.user_manager} replace />
-    ),
+    main: () => <Navigate to={AdminNavigationActionLink.analytic} replace />,
     role: [],
   },
 ];
