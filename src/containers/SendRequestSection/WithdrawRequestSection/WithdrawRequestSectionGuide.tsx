@@ -21,12 +21,13 @@ export default function WithdrawRequestSectionGuide() {
         </Typography>
       </Box>
       <Box ml={0}>
+        <Typography>1. 1 BS = 1,000 vnđ</Typography>
         <Typography>
-          1. Thông tin không thể chỉnh sửa sau khi gửi yêu cầu. Xin hãy kiểm tra
+          2. Thông tin không thể chỉnh sửa sau khi gửi yêu cầu. Xin hãy kiểm tra
           cẩn thận
         </Typography>
         <Typography>
-          2. Nếu có bất kì sai sót nào vui lòng liên hệ với quản trị viên sớm
+          3. Nếu có bất kì sai sót nào xin hãy liên hệ với quản trị viên sớm
           nhất có thể
         </Typography>
       </Box>

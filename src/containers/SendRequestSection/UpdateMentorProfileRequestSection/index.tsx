@@ -29,7 +29,6 @@ import {
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
-// import UpdateMentorProfileRequestSectionGuide from './Guide';
 import sx from './style';
 
 interface FormFieldsPersonalProps {
@@ -47,28 +46,29 @@ interface FormFieldsPersonalProps {
 
 const enum IntroduceExperienceNoteText {
   label0 = 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
-  label1 = 'Mục giới thiệu giáo viên hãy viết về bản thân mình.',
-  label2 = 'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
+  label1 = 'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
+  label2 = 'Mục giới thiệu giáo viên hãy viết về chính bản thân mình.',
 }
-const enum CertificateNoteText {
-  label0 = 'Kích thước tệp tối đa là 10 MB.',
-  label1 = 'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
-  label2 = 'Không đặt mật khẩu bảo vệ file của bạn.',
-  label3 = 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
-}
-
 const introduceExperienceNoteList = [
   { id: 0, label: IntroduceExperienceNoteText.label0 },
   { id: 1, label: IntroduceExperienceNoteText.label1 },
   { id: 2, label: IntroduceExperienceNoteText.label2 },
 ];
+
+const enum CertificateNoteText {
+  label0 = 'Kích thước tệp tối đa là 10 MB.',
+  label1 = 'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
+  label2 = 'Không đặt mật khẩu bảo vệ file của bạn.',
+  label3 = 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
+  label41 = 'Định dạng hỗ trợ',
+  label42 = '.pdf, .doc, .docx',
+}
 const certificateNoteList = [
   { id: 0, label: CertificateNoteText.label0 },
   { id: 1, label: CertificateNoteText.label1 },
   { id: 2, label: CertificateNoteText.label2 },
   { id: 3, label: CertificateNoteText.label3 },
 ];
-
 const imgSizeReduction = 0.49;
 
 export default function UpdateMentorProfileRequestSection() {
@@ -149,12 +149,6 @@ export default function UpdateMentorProfileRequestSection() {
       reset(defaultValueUpdateMentorProfileRequest);
     }
   }, [profile, subjects, reset]);
-
-  // console.log('profile', profile);
-  // console.log(
-  //   'defaultValueUpdateMentorProfileRequest',
-  //   defaultValueUpdateMentorProfileRequest
-  // );
 
   const {
     fields: mentorSkillsFields,
@@ -406,11 +400,13 @@ export default function UpdateMentorProfileRequestSection() {
             </Typography>
             <Divider sx={{ marginY: 1 }} />
           </Box>
-          {introduceExperienceNoteList.map((item) => (
-            <Typography component="h3" key={item.id}>
-              - {item.label}
-            </Typography>
-          ))}
+          <Box my={2}>
+            {introduceExperienceNoteList.map((item) => (
+              <Typography component="h3" key={item.id}>
+                {item.id + 1}. {item.label}
+              </Typography>
+            ))}
+          </Box>
           <Grid container>
             <Grid item xs={12}>
               <Typography sx={sx.formLabel}>Giới thiệu</Typography>
@@ -495,11 +491,18 @@ export default function UpdateMentorProfileRequestSection() {
             {/* DEGREE */}
             <Grid item xs={12}>
               <Typography sx={sx.formLabel}>Bằng cấp</Typography>
-              {certificateNoteList.map((item) => (
-                <Typography component="h3" key={item.id}>
-                  - {item.label}
+              <Box my={2}>
+                {certificateNoteList.map((item) => (
+                  <Typography component="h3" key={item.id}>
+                    {item.id + 1}. {item.label}
+                  </Typography>
+                ))}
+                <Typography component="h3">
+                  {certificateNoteList.length + 1}.{' '}
+                  {CertificateNoteText.label41} :{' '}
+                  <b>{CertificateNoteText.label42}</b>
                 </Typography>
-              ))}
+              </Box>
               <Grid container spacing={2} mb={1}>
                 {degreeFields.map((field, index) => {
                   return (

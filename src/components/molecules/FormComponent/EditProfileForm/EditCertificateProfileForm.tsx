@@ -139,15 +139,23 @@ export default function EditCertificateProfileForm() {
   const EDIT_CERTIFICATE_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin bằng cấp',
     USERIMAGES: { LABEL: 'Bằng cấp' },
-    DESC1: 'Kích thước tệp tối đa là 10 MB.',
-    DESC2:
-      'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
-    DESC3: 'Không đặt mật khẩu bảo vệ file của bạn.',
-    DESC4: 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
-    DESC5_1: 'Định dạng hỗ trợ:',
-    DESC5_2: '.pdf, .doc, .docx',
     BUTTON_TEXT: 'Cập nhật',
   };
+
+  const enum CertificateNoteText {
+    label0 = 'Kích thước tệp tối đa là 10 MB.',
+    label1 = 'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
+    label2 = 'Không đặt mật khẩu bảo vệ file của bạn.',
+    label3 = 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
+    label41 = 'Định dạng hỗ trợ',
+    label42 = '.pdf, .doc, .docx',
+  }
+  const certificateNoteList = [
+    { id: 0, label: CertificateNoteText.label0 },
+    { id: 1, label: CertificateNoteText.label1 },
+    { id: 2, label: CertificateNoteText.label2 },
+    { id: 3, label: CertificateNoteText.label3 },
+  ];
 
   const formFieldsCertificate: FormFieldsCertificateProps = {
     name: EDIT_CERTIFICATE_PROFILE_FIELDS.userImages,
@@ -163,22 +171,17 @@ export default function EditCertificateProfileForm() {
         {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.TITLE}
       </Typography>
       <Divider sx={{ marginY: 2 }} />
-      <Typography component="h3">
-        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC1}
-      </Typography>
-      <Typography component="h3">
-        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC2}
-      </Typography>
-      <Typography component="h3">
-        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC3}
-      </Typography>
-      <Typography component="h3">
-        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC4}
-      </Typography>
-      <Typography component="h3">
-        - {EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC5_1}{' '}
-        <b>{EDIT_CERTIFICATE_PROFILE_FORM_TEXT.DESC5_2}</b>
-      </Typography>
+      <Box my={2}>
+        {certificateNoteList.map((item) => (
+          <Typography component="h3" key={item.id}>
+            {item.id + 1}. {item.label}
+          </Typography>
+        ))}
+        <Typography component="h3">
+          {certificateNoteList.length + 1}. {CertificateNoteText.label41} :{' '}
+          <b>{CertificateNoteText.label42}</b>
+        </Typography>
+      </Box>
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
         <Grid container columnSpacing={3}>
           {certificateFields.map((field, index) => (
