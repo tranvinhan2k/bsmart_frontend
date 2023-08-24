@@ -1,26 +1,28 @@
-import { Alert, Box, FormHelperText, Stack } from '@mui/material';
+import { FormHelperText, Stack, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { ClassContext } from '~/HOCs/context/ClassContext';
 import Button from '~/components/atoms/Button';
 import ClassStatusAlert from '~/components/atoms/ClassStatusAlert';
 import CustomModal from '~/components/atoms/CustomModal';
+import FormInput from '~/components/atoms/FormInput';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import ClassInformationList from '~/components/molecules/ClassInformationList';
 import MonthSchedule, {
   MonthTimeSlotPayload,
 } from '~/components/molecules/schedules/MonthSchedule';
+import { validationAddPromoCode, validationCheckUrl } from '~/form/validation';
 import {
   useCreateCourseClass,
-  useDispatchGetAllDayOfWeeks,
-  useDispatchGetAllSlots,
   useDispatchGetAllSubjects,
   useMutationOpenNotStartClass,
   useTryCatch,
+  useYupValidationResolver,
 } from '~/hooks';
 import { PostTimeTableResponse } from '~/models/response';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
-import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import { handleConsoleError } from '~/utils/common';
 
 export interface MentorClassInformationPayload {
   id: number;
@@ -39,6 +41,10 @@ export interface MentorClassInformationPayload {
 }
 
 export default function MentorClassInformationPage() {
+  const resolver = useYupValidationResolver(validationCheckUrl);
+  const { control, handleSubmit } = useForm({
+    resolver,
+  });
   const [open, setOpen] = useState<boolean>(false);
 
   const [timetable, setTimeTable] = useState<{
@@ -105,6 +111,8 @@ export default function MentorClassInformationPage() {
     });
   };
 
+  const onSubmit = (data: any) => {};
+
   return (
     <Stack>
       <TextTitle title="Nội dung khóa học" />
@@ -148,6 +156,28 @@ export default function MentorClassInformationPage() {
           </Stack>
         </Stack>
       </CustomModal>
+      <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+        <Typography sx={globalStyles.textSmallLabel}>
+          Thay đổi đường dẫn Google Meet
+        </Typography>
+        <Stack
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+          }}
+        >
+          <FormInput control={control} name="link" />
+          <Button
+            onClick={handleSubmit(onSubmit, handleConsoleError)}
+            sx={{
+              marginLeft: 1,
+            }}
+            variant="contained"
+          >
+            Thay đổi đường dẫn
+          </Button>
+        </Stack>
+      </Stack>
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
         <ClassInformationList
           code={detailClass.code}

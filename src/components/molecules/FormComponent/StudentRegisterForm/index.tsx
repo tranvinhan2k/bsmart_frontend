@@ -31,10 +31,9 @@ export default function StudentRegisterForm({
   });
   const mutation = useMutationSignUp();
 
-  const handleGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    onError: (error) => console.log(error),
-  });
+  const handleGoogle = () => {
+    window.location.href = 'https://mismart.tech/oauth2/authorization/google';
+  };
 
   const handleRegisterSubmitData = async (data: RegisterStudentDataPayload) => {
     const params: RequestRegisterPayload = {

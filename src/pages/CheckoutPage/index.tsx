@@ -10,7 +10,7 @@ import {
   Switch,
   FormHelperText,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -51,6 +51,7 @@ import CustomModal from '~/components/atoms/CustomModal';
 import { useBoolean } from '~/hooks/useBoolean';
 import { LoadingWrapper } from '~/HOCs';
 import { formatStringToNumber } from '~/utils/number';
+import { image } from '~/constants/image';
 
 export interface IntroduceCodePayload {
   id: number;
@@ -93,6 +94,8 @@ function CheckoutPage() {
     (item) => item.classId === checkOutItem?.id
   );
 
+  const { value: isTransactionSuccess, toggle: toggleTransactionSuccess } =
+    useBoolean(false);
   const [introduceCode, setIntroduceCode] = useState<IntroduceCodePayload>();
   const [selectIntroduceCode, setSelectIntroduceCode] =
     useState<IntroduceCodePayload>();
@@ -101,10 +104,15 @@ function CheckoutPage() {
 
   const selectWebsocket = useSelector(selectWebsocketMessage);
 
-  if (selectWebsocket.data.entity === 'TRANSACTION') {
-    closeUrl();
-    return <Navigate to={`/${NavigationLink.payment_report}`} />;
-  }
+  useEffect(() => {
+    if (
+      selectWebsocket.data.entity === 'TRANSACTION' &&
+      !isTransactionSuccess
+    ) {
+      closeUrl();
+      toggleTransactionSuccess();
+    }
+  });
 
   if (checkOutItem === null) {
     return <Navigate to="/homepage" />;
@@ -208,33 +216,7 @@ function CheckoutPage() {
           <Typography sx={globalStyles.textTitle}>
             {texts.checkOutTitle}
           </Typography>
-          <Typography sx={globalStyles.textSubTitle}>
-            {texts.totalPayment}
-          </Typography>
-          <Typography sx={styles.textMoney}>
-            {values.totalAmount}
-            <span
-              style={{
-                paddingLeft: MetricSize.small_5,
-                fontSize: FontSize.medium_24,
-              }}
-            >
-              VND
-            </span>
-          </Typography>
-          <Stack
-            sx={{
-              color: Color.grey,
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginY: MetricSize.small_5,
-            }}
-          >
-            <Typography sx={globalStyles.textLowSmallLight}>
-              {values.totalQuantity} khóa học đã chọn.
-            </Typography>
-            <Icon name="down" size="small" color="grey" />
-          </Stack>
+
           <Box sx={{ width: '500px' }}>
             {values.courseList.map((item) => (
               <Box key={item.id}>
@@ -267,15 +249,13 @@ function CheckoutPage() {
                       paddingX: MetricSize.medium_15,
                     }}
                   >
-                    <Typography>Mã môn học</Typography>
-                    <Stack
-                      sx={{
-                        fontFamily: FontFamily.bold,
-                        fontSize: FontSize.small_18,
-                      }}
-                    >
-                      {item.code}
+                    <Typography>Mã khóa học</Typography>
+                    <Stack sx={globalStyles.textSubTitle}>{item.code}</Stack>
+                    <Typography>Tên khóa học</Typography>
+                    <Stack sx={globalStyles.textSubTitle}>
+                      {item.courseName}
                     </Stack>
+
                     <Stack
                       sx={{
                         marginTop: 1,
@@ -311,17 +291,6 @@ function CheckoutPage() {
                         </Stack>
                       ))}
                     </Stack>
-                  </Stack>
-                  <Stack>
-                    <Typography>Giá tiền</Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: FontFamily.medium,
-                        fontSize: FontSize.small_18,
-                      }}
-                    >
-                      {formatMoney(item?.price || 0)}
-                    </Typography>
                   </Stack>
                 </Stack>
                 <Divider />
@@ -537,6 +506,29 @@ function CheckoutPage() {
             </Button>
           </Stack>
         </Stack>
+        <CustomModal
+          open={isTransactionSuccess}
+          onClose={() => {
+            window.location.href = `/dashboard/classes/detail/${checkOutItem?.id}`;
+          }}
+        >
+          <Stack>
+            <Box
+              component="img"
+              src={image.success}
+              alt="hinh anh thanh toan thanh cong"
+              sx={{
+                width: '200px',
+                height: '200px',
+                objectFit: 'contain',
+              }}
+            />
+            <Typography>
+              {' '}
+              Chúc mừng bạn đã thanh toán khóa học thành công
+            </Typography>
+          </Stack>
+        </CustomModal>
       </Grid>
     </Grid>
   );

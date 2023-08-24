@@ -110,7 +110,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
         >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${quiz.endDate}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
-        >{`Thời gian làm bài: ${quiz.time} phút`}</Typography>
+        >{`Thời gian làm bài: ${quiz.time}`}</Typography>
       </Stack>
       <Stack style={{ width: '100%' }}>
         <MentorClassPointsPage quizId={item.id} />

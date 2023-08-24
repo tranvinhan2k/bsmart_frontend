@@ -80,6 +80,9 @@ export default function ClassItem({
   onUpdate,
   onDeleteModal,
 }: Props) {
+  console.log('onUpdate', JSON.stringify(onUpdate), onUpdate);
+  console.log('onDelete', JSON.stringify(onDeleteModal));
+
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loaded, setLoaded] = useState(false);
@@ -256,7 +259,7 @@ export default function ClassItem({
         </Collapse>
       </Stack>
 
-      {onUpdate && onDeleteModal && (
+      {onUpdate !== undefined && (
         <Stack
           sx={{
             position: 'absolute',

@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { useEffect } from 'react';
 import { Color } from '~/assets/variables';
@@ -25,27 +26,34 @@ export default function CustomPagination({
   }
 
   return (
-    <Pagination
+    <Stack
       sx={{
-        button: {
-          background: Color.white,
-        },
-        '.Mui-selected': {
-          background: `${Color.tertiary} !important`,
-          color: `${Color.white} !important`,
-        },
-        '.MuiPaginationItem-previousNext': {
-          background: `${Color.grey} !important`,
-          borderColor: `${Color.grey} !important`,
-          color: `${Color.white} !important`,
-        },
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
-      variant="outlined"
-      shape="rounded"
-      color="secondary"
-      page={currentIndexPage}
-      onChange={onChange}
-      count={totalPages}
-    />
+    >
+      <Pagination
+        sx={{
+          button: {
+            background: Color.white,
+          },
+          '.Mui-selected': {
+            background: `${Color.tertiary} !important`,
+            color: `${Color.white} !important`,
+          },
+          '.MuiPaginationItem-previousNext': {
+            background: `${Color.grey} !important`,
+            borderColor: `${Color.grey} !important`,
+            color: `${Color.white} !important`,
+          },
+        }}
+        variant="outlined"
+        shape="rounded"
+        color="secondary"
+        page={currentIndexPage}
+        onChange={onChange}
+        count={totalPages}
+      />
+    </Stack>
   );
 }

@@ -34,7 +34,6 @@ import {
   PHONE_INVALID,
   PHONE_REQUIRED,
   USERNAME_REQUIRED,
-  WITHDRAW_AMOUNT_POSITIVE,
   WITHDRAW_AMOUNT_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_OWNER_REQUIRED,
   WITHDRAW_BANK_ACCOUNT_REQUIRED,
@@ -198,7 +197,8 @@ export const validationClassContentQuiz = object({
   time: number()
     .typeError('Thời gian không được để trống')
     .required('Thời gian không được để trống')
-    .min(5, 'Thời gian làm bài phài lớn hơn 5 phút'),
+    .min(5, 'Thời gian làm bài phài lớn hơn 5 phút')
+    .max(120, 'Thời gian làm bài phài nhỏ hơn 120 phút'),
   allowReviewAfterMin: number()
     .required('Thời gian không được để trống')
     .typeError('Thời gian không được để trống')
@@ -206,7 +206,8 @@ export const validationClassContentQuiz = object({
   defaultPoint: number()
     .required('Điểm không được để trống')
     .typeError('Điểm không được để trống')
-    .min(2, 'Điểm làm bài phài lớn hơn 2 điểm'),
+    .min(1, 'Điểm làm bài phài lớn hơn 1 điểm')
+    .max(10, 'Điểm làm bài phài nhỏ hơn 10 điểm'),
   quizQuestions: mixed().test(
     'required',
     'Danh sách câu hỏi phải có ít nhất 5 câu hỏi',
@@ -221,6 +222,14 @@ export const validationClassContentQuiz = object({
 
 export const validationAddPromoCode = object({
   code: string().required('Mã giới thiệu không hợp lệ.'),
+});
+export const validationCheckUrl = object({
+  link: string()
+    .required('Đường link lớp học không hợp lệ.')
+    .matches(
+      /[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi,
+      'Đường link không hợp lệ'
+    ),
 });
 export const validationPaymentPrice = object({
   price: number()
@@ -268,8 +277,8 @@ export const validationIntroduceCodeInformation = object({
   discountPercent: number()
     .required('Số lượt dùng không được để trống')
     .typeError('Số lượt dùng không được để trống')
-    .min(0, 'Phần trăm phải lơn hơn 0')
-    .max(100, 'Phần trăm phải nhỏ hơn 100'),
+    .min(0, 'Phần trăm phải lớn hơn hoặc bằng 0')
+    .max(100, 'Phần trăm phải nhỏ hơn hoặc bằng 100'),
   expiredLaterDay: date()
     .typeError('Ngày hết hạn không hợp lệ (DD/MM/YYYY)')
     .required('Ngày hết hạn không được để trống'),
@@ -294,11 +303,12 @@ export const validationClassContentAssignment = object({
   maxFileSize: number()
     .typeError('Dung lượng không được để trống')
     .required('Dung lượng không được để trống')
-    .min(100, 'Dung lượng phài lớn hơn 100MB'),
+    .max(30, 'Dung lượng phài lớn hơn 30MB'),
   passPoint: number()
     .typeError('Điểm đạt yêu cầu không được để trống')
     .required('Điểm đạt yêu cầu không được để trống')
-    .min(1, 'Điểm đạt yêu cầu lớn hơn 1'),
+    .min(1, 'Điểm đạt yêu cầu lớn hơn hoặc bằng 1')
+    .max(10, 'Điểm đạt yêu cầu nhỏ hơn hoặc bằng 10'),
   attachFiles: object().required('Tệp đính kèm không được để trống.'),
 });
 
