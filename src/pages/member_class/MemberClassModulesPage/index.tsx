@@ -12,7 +12,8 @@ import ModuleAssignmentPage from './ModuleAssignmentPage';
 
 export default function MemberClassModulesPage() {
   const moduleId = useGetIdFromUrl('moduleId');
-  const { activity, error, isLoading } = useGetDetailActivity(moduleId);
+  const { activity, error, isLoading, refetch } =
+    useGetDetailActivity(moduleId);
 
   const activityData = ActivityData.find(
     (item) => item.type === activity?.type
@@ -29,7 +30,13 @@ export default function MemberClassModulesPage() {
       }
       case 'ASSIGNMENT': {
         const detail = activity?.detail;
-        data = <ModuleAssignmentPage name={activity.name} item={detail} />;
+        data = (
+          <ModuleAssignmentPage
+            name={activity.name}
+            item={detail}
+            refetch={refetch}
+          />
+        );
         break;
       }
       case 'QUIZ': {

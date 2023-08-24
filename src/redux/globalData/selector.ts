@@ -8,8 +8,11 @@ export const globalSlots = (state: { global: GlobalStateType }) =>
   state.global.slots;
 export const globalDayOfWeeks = (state: { global: GlobalStateType }) =>
   state.global.dayOfWeeks;
-export const globalNotifications = (state: { global: GlobalStateType }) =>
-  state.global.notifications;
+export const globalNotifications = (state: { global: GlobalStateType }) => ({
+  data: state.global.notifications,
+  currentPage: state.global.nCurrentPage,
+  totalPage: state.global.nTotalPage,
+});
 export const isLoaded = (state: { global: GlobalStateType }) =>
   state.global?.categories?.length !== 0 &&
   state.global?.dayOfWeeks?.length !== 0 &&

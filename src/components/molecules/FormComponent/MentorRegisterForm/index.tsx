@@ -29,11 +29,9 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
   const mutation = useMutationSignUp();
   const navigate = useNavigate();
 
-  const handleGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    onError: (error) => console.log(error),
-  });
-
+  const handleGoogle = () => {
+    window.location.href = 'https://mismart.tech/oauth2/authorization/google';
+  };
   const handleRegisterSubmit = async (data: RegisterMentorDataPayload) => {
     const params: RequestRegisterPayload = {
       email: data.email.toLowerCase(),

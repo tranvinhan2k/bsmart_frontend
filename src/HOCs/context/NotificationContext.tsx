@@ -6,6 +6,7 @@ import globalStyles from '~/styles';
 import NotificationItem, { NotificationItemPayload } from './NotificationItem';
 import LoadingWrapper from '../loading/LoadingWrapper';
 import { useDispatchNotifications } from '~/hooks/notifications/useDispatchNotifications';
+import CustomPagination from '~/components/atoms/CustomPagination';
 
 interface Props {
   children: ReactNode;
@@ -35,6 +36,9 @@ export default function NotificationContextProvider({ children }: Props) {
     error,
     isLoading,
     handleDispatch,
+    currentPage,
+    totalPage,
+    handleChangePage,
   } = useDispatchNotifications();
   const { mutateAsync: handleReadNotifications } = useReadNotifications();
   const numberOfNotification =
@@ -82,18 +86,18 @@ export default function NotificationContextProvider({ children }: Props) {
         >
           <Typography sx={globalStyles.textSmallLabel}>Thông báo</Typography>
           <Divider />
-          <LoadingWrapper
-            error={error}
-            isLoading={isLoading}
-            isEmptyCourse={notifications?.length === 0}
+
+          <Stack
+            marginTop={1}
+            sx={{
+              width: { xs: '100%', md: '400px' },
+              height: '500px',
+            }}
           >
-            <Stack
-              marginTop={1}
-              sx={{
-                width: { xs: '100%', md: '400px' },
-                maxHeight: '500px',
-                overflow: 'auto',
-              }}
+            <LoadingWrapper
+              error={error}
+              isLoading={isLoading}
+              isEmptyCourse={notifications?.length === 0}
             >
               <Stack>
                 {notifications?.map((item, index) => (
@@ -108,9 +112,14 @@ export default function NotificationContextProvider({ children }: Props) {
                     entityId={item.entityId}
                   />
                 ))}
+                <CustomPagination
+                  currentPage={currentPage}
+                  totalPages={totalPage}
+                  onChange={(e, v) => handleChangePage(v)}
+                />
               </Stack>
-            </Stack>
-          </LoadingWrapper>
+            </LoadingWrapper>
+          </Stack>
         </Stack>
       </CustomMenu>
     </NotificationContext.Provider>

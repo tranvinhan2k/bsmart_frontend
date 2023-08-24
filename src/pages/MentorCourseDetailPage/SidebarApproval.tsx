@@ -21,7 +21,7 @@ import { formatStringToNumber } from '~/utils/number';
 import { OptionPayload } from '~/models';
 
 export default function SidebarApproval() {
-  const { course, percent, classes } = useContext(CourseContext);
+  const { course, percent, classes, content } = useContext(CourseContext);
 
   const id = useGetIdFromUrl('id');
   const [open, setOpen] = useState(false);
@@ -41,21 +41,32 @@ export default function SidebarApproval() {
   };
 
   const handleSubmitCourse = async (paramData: { classes: string[] }) => {
-    if (percent.allowSendingApproval) {
-      if (paramData && paramData?.classes.length > 0) {
-        await handleTryCatch(async () =>
-          handleSubmitForReview({
-            id,
-            params: paramData.classes.map((item) => formatStringToNumber(item)),
-          })
-        );
-        handleOpen();
-        window.location.reload();
+    const isEmptyContent = content.find(
+      (item) => item.subActivities.length === 0
+    );
+    if (!isEmptyContent) {
+      if (percent.allowSendingApproval) {
+        if (paramData && paramData?.classes.length > 0) {
+          await handleTryCatch(async () =>
+            handleSubmitForReview({
+              id,
+              params: paramData.classes.map((item) =>
+                formatStringToNumber(item)
+              ),
+            })
+          );
+          handleOpen();
+          window.location.reload();
+        } else {
+          toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
+        }
       } else {
-        toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
+        toast.notifyErrorToast('Chưa đủ điều kiện để phê duyệt');
       }
     } else {
-      toast.notifyErrorToast('Chưa đủ điều kiện để phê duyệt');
+      toast.notifyErrorToast(
+        'Nội dung khóa học không được có học phần trống !'
+      );
     }
   };
 

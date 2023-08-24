@@ -11,6 +11,8 @@ export type GlobalStateType = {
   dayOfWeeks: DayOfWeekPayload[];
   slots: SlotPayload[];
   notifications: NotificationItemPayload[];
+  nCurrentPage: number;
+  nTotalPage: number;
 };
 
 const initialState: GlobalStateType = {
@@ -19,6 +21,8 @@ const initialState: GlobalStateType = {
   dayOfWeeks: [],
   slots: [],
   notifications: [],
+  nCurrentPage: 0,
+  nTotalPage: 0,
 };
 
 const slice = createSlice({
@@ -38,7 +42,9 @@ const slice = createSlice({
       state.slots = action.payload;
     },
     updateNotification: (state, action) => {
-      state.notifications = action.payload;
+      state.notifications = action.payload.data;
+      state.nCurrentPage = action.payload.currentPage;
+      state.nTotalPage = action.payload.totalPage;
     },
   },
 });

@@ -123,10 +123,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
         >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${quiz.endDate}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
-        >{`Thời gian làm bài: ${quiz.time} phút`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Lượt làm bài kiểm tra: ${quiz.time} phút`}</Typography>
+        >{`Thời gian làm bài: ${quiz.time}`}</Typography>
       </Stack>
       {!quiz.isAttemptedQuiz && (
         <Button

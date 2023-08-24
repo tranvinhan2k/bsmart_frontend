@@ -168,6 +168,8 @@ const classApi = {
       },
       classes: (response.classes as any[]).map((item) => ({
         id: item.id,
+        courseId: 0,
+        courseName: '',
         code: item.code,
         startDate: item.startDate,
         endDate: item.endDate,
@@ -251,6 +253,8 @@ const classApi = {
     });
     const result: DetailCourseClassPayload[] = (response.items as any[]).map(
       (item) => ({
+        courseId: 0,
+        courseName: '',
         code: item.code,
         id: item.id,
         endDate: item.endDate,

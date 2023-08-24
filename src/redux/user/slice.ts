@@ -21,6 +21,8 @@ export type UserStateType = {
   quizName: string | undefined;
   quizTime: number | undefined;
   message: WebSocketMessagePayload;
+  notificationCurrentPage: number;
+  notificationTotalPage: number;
 };
 
 const initialState: UserStateType = {
@@ -30,6 +32,8 @@ const initialState: UserStateType = {
   isAddToCart: false,
   cart: null,
   introduceCode: '',
+  notificationCurrentPage: 0,
+  notificationTotalPage: 0,
   profile: {
     id: 0,
     fullName: '',

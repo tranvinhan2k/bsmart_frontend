@@ -92,8 +92,8 @@ export default function DialogEditIdCardFront({
             control={controlEditIdentityFront}
             name={EDIT_IMAGE_PROFILE_FIELDS.identityFront}
             variant="image"
-            previewImgHeight={300}
-            previewImgWidth={500}
+            previewImgHeight={539.8 / 2}
+            previewImgWidth={856 / 2}
           />
           <Stack
             direction="row"

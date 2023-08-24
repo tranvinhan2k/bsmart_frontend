@@ -77,6 +77,7 @@ export default function CourseDetailPage() {
               }}
             >
               <Sidebar
+                courseName={course?.courseName || ''}
                 courseId={course?.id || 0}
                 level={course?.level || 'BEGINNER'}
                 levelLabel={levelOptionPayload?.label || ''}

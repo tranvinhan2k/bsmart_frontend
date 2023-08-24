@@ -30,9 +30,11 @@ import {
   useTryCatch,
 } from '~/hooks';
 import { RequestCartItem } from '~/api/cart';
+import { useBoolean } from '~/hooks/useBoolean';
 
 interface Props {
   courseId: number;
+  courseName: string;
   levelLabel: string;
   level: LevelKeys;
   categoryName: string;
@@ -45,6 +47,7 @@ interface Props {
 }
 
 const initClass: DetailCourseClassPayload = {
+  courseName: '',
   courseId: 0,
   endDate: '',
   id: 0,
@@ -63,6 +66,7 @@ const initClass: DetailCourseClassPayload = {
 
 export default function Sidebar({
   courseId,
+  courseName,
   levelLabel,
   level,
   classes,
@@ -81,6 +85,7 @@ export default function Sidebar({
   const { handleTryCatch } = useTryCatch('thêm vào giỏ hàng');
   const { handleDispatch } = useDispatchGetCart();
   const [open, setOpen] = useState(false);
+  const [navigationPartId, setNavigatePartId] = useState(0);
   const [chooseClass, setChooseClass] =
     useState<DetailCourseClassPayload>(initClass);
 
@@ -108,6 +113,7 @@ export default function Sidebar({
           checkOutCourses: {
             ...chooseClass,
             courseId,
+            courseName,
           },
           totalAmount: chooseClass.price,
         })
@@ -214,14 +220,14 @@ export default function Sidebar({
       onClick: scrollIntroduce,
     },
     {
-      id: 1,
-      name: 'Khung chương trình',
-      onClick: scrollContent,
-    },
-    {
       id: 2,
       name: 'Danh sách lớp học',
       onClick: scrollClasses,
+    },
+    {
+      id: 1,
+      name: 'Khung chương trình',
+      onClick: scrollContent,
     },
     {
       id: 3,
@@ -546,14 +552,18 @@ export default function Sidebar({
         <Stack marginTop={1}>
           {navigationButton.map((item) => (
             <Stack
-              onClick={item.onClick}
+              onClick={() => {
+                item.onClick();
+                setNavigatePartId(item.id);
+              }}
               key={item.id}
               sx={{
+                background: navigationPartId === item.id ? '#ddd' : Color.white,
                 transition: 'all 1s ease',
                 fontSize: FontSize.small_14,
                 fontFamily: FontFamily.regular,
-                paddingY: 1,
-                paddingX: 4,
+                padding: 1,
+                marginX: 3,
                 color: Color.black,
 
                 ':hover': {
