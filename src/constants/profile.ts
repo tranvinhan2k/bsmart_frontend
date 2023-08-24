@@ -34,3 +34,6 @@ export const enum MentorProfileUpdateStatusLabel {
   REJECTED = 'Yêu cầu bị từ chối',
   APPROVED = 'Đã phê duyệt',
 }
+
+export const IdentityImgHeight = 539.8;
+export const IdentityImgWidth = 856;

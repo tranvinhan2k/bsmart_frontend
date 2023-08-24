@@ -28,7 +28,6 @@ export default function MentorSendRequestSection() {
   }
 
   const [errorMsg, setErrorMsg] = useState<string>('');
-  const handleSetError = (data: string) => setErrorMsg(data);
 
   const [requestNo, setRequestNo] = useState<number>(0);
   const handleChangeRequestType = (

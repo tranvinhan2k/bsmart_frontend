@@ -35,7 +35,7 @@ export const ManagerNavigationActionData: ActionPayload[] = [
         id: 4,
         name: 'Mã giới thiệu',
         icon: 'promo',
-        link: ManagerNavigationActionLink.promo_code,
+        link: ManagerNavigationActionLink.manage_promo_code,
       },
     ],
   },
