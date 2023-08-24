@@ -7,15 +7,16 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
-import { genderData } from '~/constants';
-import { handleCopyToClipboard } from '~/utils/commonComp';
-import { useGetManagedMentorDetails } from '~/hooks/user/useGetManagedMentorDetails';
 import Icon from '~/components/atoms/Icon';
+import { genderData } from '~/constants';
+import { useGetManagedMentorDetails } from '~/hooks/user/useGetManagedMentorDetails';
+import { handleCopyToClipboard } from '~/utils/commonComp';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
   SX_FORM_LABEL,
+  SX_USER_AVATAR_CLICKABLE,
   SX_WRAPPER,
 } from '../style';
 
@@ -49,75 +50,73 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
       )?.url
     : undefined;
 
-  const title0 = managedMentorDetails
-    ? [
-        {
-          id: 0,
-          label: Text.labelName,
-          value: managedMentorDetails.fullName,
-        },
-        {
-          id: 1,
-          label: Text.labelMail,
-          value: managedMentorDetails.email,
-        },
-      ]
-    : [];
+  const title0 = [
+    {
+      id: 0,
+      label: Text.labelName,
+      value: managedMentorDetails ? managedMentorDetails.fullName : '',
+    },
+    {
+      id: 1,
+      label: Text.labelMail,
+      value: managedMentorDetails ? managedMentorDetails.email : '',
+    },
+  ];
 
-  const title1 = managedMentorDetails
-    ? [
-        {
-          id: 0,
-          label: Text.labelPhone,
-          value: managedMentorDetails.phone,
-        },
-        {
-          id: 1,
-          label: Text.labelBirthDate,
-          value: formatISODateStringToDisplayDate(
-            managedMentorDetails.birthday
-          ),
-        },
-      ]
-    : [];
+  const title1 = [
+    {
+      id: 0,
+      label: Text.labelPhone,
+      value: managedMentorDetails ? managedMentorDetails.phone : '',
+    },
+    {
+      id: 1,
+      label: Text.labelBirthDate,
+      value: managedMentorDetails
+        ? formatISODateStringToDisplayDate(managedMentorDetails.birthday)
+        : '',
+    },
+  ];
 
-  const title2 = managedMentorDetails
-    ? [
-        {
-          id: 0,
-          label: Text.labelGender,
-          value:
-            genderData.find(
-              (item) => item.value === managedMentorDetails.gender
-            )?.label ?? genderData[0].value,
-        },
-        {
-          id: 1,
-          label: Text.labelAddress,
-          value: managedMentorDetails.address,
-        },
-      ]
-    : [];
+  const title2 = [
+    {
+      id: 0,
+      label: Text.labelGender,
+      value: managedMentorDetails
+        ? genderData.find((item) => item.value === managedMentorDetails.gender)
+            ?.label ?? genderData[0].value
+        : '',
+    },
+  ];
+  const title3 = [
+    {
+      id: 1,
+      label: Text.labelAddress,
+      value: managedMentorDetails ? managedMentorDetails.address : '',
+    },
+  ];
 
-  const title3 = managedMentorDetails
-    ? [
-        {
-          id: 0,
-          label: Text.labelWebsite,
-          value: managedMentorDetails.website,
-        },
-        {
-          id: 1,
-          label: Text.labelLinkedIn,
-          value: managedMentorDetails.linkedinLink,
-        },
-        {
-          id: 2,
-          label: Text.labelFacebook,
-          value: managedMentorDetails.facebookLink,
-        },
-      ]
-    : [];
+  const title4 = [
+    {
+      id: 0,
+      label: Text.labelWebsite,
+      value: managedMentorDetails ? managedMentorDetails.website : '',
+    },
+    {
+      id: 1,
+      label: Text.labelLinkedIn,
+      value: managedMentorDetails ? managedMentorDetails.linkedinLink : '',
+    },
+    {
+      id: 2,
+      label: Text.labelFacebook,
+      value: managedMentorDetails ? managedMentorDetails.facebookLink : '',
+    },
+  ];
+
+  const handleViewImg = (link: string | undefined) => {
+    if (typeof link === 'string') window.open(link, '_blank');
+  };
 
   return (
     <Box sx={SX_WRAPPER}>
@@ -142,11 +141,8 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
               <Avatar
                 src={userAvatar}
                 variant="rounded"
-                sx={{
-                  width: 150,
-                  height: 150,
-                  boxShadow: 3,
-                }}
+                sx={SX_USER_AVATAR_CLICKABLE}
+                onClick={() => handleViewImg(userAvatar)}
               />
               <Box sx={{ width: '100%' }}>
                 <Grid
@@ -154,6 +150,7 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"
+                  spacing={2}
                 >
                   {title0.map((item) => (
                     <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>
@@ -245,7 +242,24 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
                     {title3.map((item) => (
                       <Grid item xs={12} key={item.id}>
                         <Stack
-                          direction="row"
+                          direction="column"
+                          justifyContent="flex-start"
+                          alignItems="flex-start"
+                          spacing={1}
+                        >
+                          <Typography sx={SX_FORM_ITEM_LABEL2}>
+                            {item.label}:
+                          </Typography>
+                          <Typography sx={SX_FORM_ITEM_VALUE2}>
+                            {item.value}
+                          </Typography>
+                        </Stack>
+                      </Grid>
+                    ))}
+                    {title4.map((item) => (
+                      <Grid item xs={12} key={item.id}>
+                        <Stack
+                          direction="column"
                           justifyContent="flex-start"
                           alignItems="flex-start"
                           spacing={1}
@@ -254,7 +268,13 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
                             {item.label}:
                           </Typography>
                           {item.value && (
-                            <Link href={item.value as string}>Link</Link>
+                            <Link
+                              href={item.value as string}
+                              sx={SX_FORM_ITEM_VALUE2}
+                              target="_blank"
+                            >
+                              {item.value}
+                            </Link>
                           )}
                         </Stack>
                       </Grid>

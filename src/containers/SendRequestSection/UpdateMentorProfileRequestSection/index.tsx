@@ -3,32 +3,33 @@ import { Fragment, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { defaultValueUpdateMentorProfileRequest } from '~/form/defaultValues';
 import { genderData } from '~/constants';
-import {
-  IdentityImgHeight,
-  IdentityImgWidth,
-  ProfileImgType,
-} from '~/constants/profile';
 import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { useDispatchGetAllSubjects, useYupValidationResolver } from '~/hooks';
 import { useGetMentorEditProfile } from '~/hooks/user/useGetEditProfile';
-import { validationSchemaUpdateMentorProfileRequest2 } from '~/form/validation';
-import {
-  FormInputVariant,
-  UpdateMentorProfileRequestProfileFormDefault,
-} from '~/models/form';
-import {
-  useMutationUpdateMentorProfileRequest,
-  UseMutationUpdateMentorProfileRequestPayload,
-} from '~/hooks/user/useMutationUpdateMentorProfileRequest';
 import { useMutationSendUpdateMentorProfileRequest } from '~/hooks/user/useMutationSendUpdateMentorProfileRequest';
-import FormInput from '~/components/atoms/FormInput';
-import Icon from '~/components/atoms/Icon';
-import toast from '~/utils/toast';
+import { validationSchemaUpdateMentorProfileRequest2 } from '~/form/validation';
 import {
   DropdownDynamicValueInputBooleanDataPayload,
   DropdownDynamicValueInputNumberDataPayload,
   DropdownDynamicValueInputStringDataPayload,
 } from '~/models';
+import {
+  FormInputVariant,
+  UpdateMentorProfileRequestProfileFormDefault,
+} from '~/models/form';
+import {
+  IdentityImgHeight,
+  IdentityImgWidth,
+  ProfileImgType,
+} from '~/constants/profile';
+import {
+  useMutationUpdateMentorProfileRequest,
+  UseMutationUpdateMentorProfileRequestPayload,
+} from '~/hooks/user/useMutationUpdateMentorProfileRequest';
+import FormInput from '~/components/atoms/FormInput';
+import Icon from '~/components/atoms/Icon';
+import toast from '~/utils/toast';
+// import UpdateMentorProfileRequestSectionGuide from './Guide';
 import sx from './style';
 
 interface FormFieldsPersonalProps {
@@ -321,7 +322,6 @@ export default function UpdateMentorProfileRequestSection() {
         Thông tin cá nhân
       </Typography>
       <Divider sx={{ marginTop: 1 }} />
-
       <form onSubmit={handleSubmit(handleSubmitSuccess)}>
         {/* PERSONAL */}
         <Grid container columnSpacing={3}>
@@ -577,9 +577,9 @@ export default function UpdateMentorProfileRequestSection() {
             color="miSmartOrange"
             fullWidth
             onClick={handleSubmitRequestToManager}
-            disabled={Boolean(profile?.id)}
+            disabled={profile && profile.id === null}
           >
-            {profile?.id ? 'Dã gửi yêu cẩu' : 'Gửi yêu cầu'}
+            {profile?.id ? 'Đã gửi yêu cẩu' : 'Gửi yêu cầu'}
           </Button>
         </Stack>
       </form>

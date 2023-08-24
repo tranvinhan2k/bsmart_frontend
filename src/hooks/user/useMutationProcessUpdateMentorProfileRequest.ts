@@ -4,10 +4,7 @@ import mentorProfilesApi from '~/api/mentorProfile';
 
 export interface UseMutationProcessUpdateMentorProfileRequestPayload {
   id: number;
-  skillIds: number[];
-  degreeIds: number[];
   status: boolean;
-  message: string;
 }
 
 export const useMutationProcessUpdateMentorProfileRequest = () => {

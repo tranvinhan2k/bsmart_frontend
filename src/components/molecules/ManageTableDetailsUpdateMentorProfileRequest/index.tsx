@@ -8,6 +8,7 @@ import RequestOriginBasicInfo from './RequestOrigin/RequestOriginBasicInfo';
 import RequestOriginDegree from './RequestOrigin/RequestOriginDegree';
 import RequestOriginIdentity from './RequestOrigin/RequestOriginIdentity';
 import RequestOriginSkill from './RequestOrigin/RequestOriginSkill';
+import RequestUpdateMentorDetailsProcess from './RequestUpdateMentorDetailsProcess';
 import { SX_FORM_LABEL, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsUpdateMentorProfileRequestProps {
@@ -72,7 +73,12 @@ export default function ManageTableDetailsUpdateMentorProfileRequest({
             <RequestEditIdentity rowId={row.id} />
             <RequestEditDegree rowId={row.id} />
             <RequestEditSkill rowId={row.id} />
-            <RequestUpdateProcess />
+            <RequestUpdateProcess
+              idMentorProfile={row.id}
+              onClose={onClose}
+              refetchSearch={refetchSearch}
+              refetchGetNoOfRequest={refetchGetNoOfRequest}
+            />
           </Stack>
         </Grid>
       </Grid>

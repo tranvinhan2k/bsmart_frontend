@@ -1,27 +1,26 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
-import { image } from '~/constants/image';
+import { Avatar, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { ProfileImgType } from '~/constants/profile';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
+interface CIItemType {
+  id: number;
+  img: string;
+  onClickAction: () => void;
+  text: string;
+}
 interface RequestCIProps {
   row: any;
 }
 
 export default function RequestCI({ row }: RequestCIProps) {
-  interface CIItemType {
-    id: number;
-    img: string;
-    onClickAction: () => void;
-    text: string;
-  }
   const handleViewImg = (link: string) => window.open(link, '_blank');
 
   const frontCIUrl =
     row.userImages?.find((img: any) => img?.type === ProfileImgType.FRONTCI)
-      ?.url || image.noAvatar;
+      ?.url || undefined;
   const backCIUrl =
     row.userImages?.find((img: any) => img?.type === ProfileImgType.BACKCI)
-      ?.url || image.noAvatar;
+      ?.url || undefined;
 
   const CI: CIItemType[] = [
     {
@@ -60,12 +59,14 @@ export default function RequestCI({ row }: RequestCIProps) {
                 key={item.id}
               >
                 <Button onClick={item.onClickAction} sx={{ borderRadius: 5 }}>
-                  <Box
-                    alt="mentor avatar"
-                    component="img"
+                  <Avatar
                     src={item.img}
-                    sx={{ maxWidth: 300, height: 170, borderRadius: 5 }}
-                    onClick={item.onClickAction}
+                    variant="rounded"
+                    sx={{
+                      width: 300,
+                      height: 170,
+                      boxShadow: 3,
+                    }}
                   />
                 </Button>
                 <Typography sx={SX_FORM_LABEL}>{item.text}</Typography>

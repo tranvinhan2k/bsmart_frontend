@@ -8,19 +8,19 @@ import RequestRegisterProcess from './RequestRegisterProcess';
 import RequestTeachingInfo from './RequestTeachingInfo';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
-interface ManageTableDetailsManagedMemberProps {
+interface ManageTableDetailsManagedMentorProps {
   rowId: number | undefined;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
-export default function ManageTableDetailsManagedMember({
+export default function ManageTableDetailsManagedMentor({
   rowId,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
-}: ManageTableDetailsManagedMemberProps) {
+}: ManageTableDetailsManagedMentorProps) {
   return (
     <>
       <Box mx={2}>
@@ -35,7 +35,7 @@ export default function ManageTableDetailsManagedMember({
           rowSpacing={1}
           p={2}
         >
-          <Grid item sm={12} md={7} lg={8}>
+          <Grid item sm={12} md={8} lg={8}>
             <Stack
               direction="column"
               justifyContent="flex-start"
@@ -49,7 +49,7 @@ export default function ManageTableDetailsManagedMember({
               <RequestTeachingInfo idMentor={rowId} />
             </Stack>
           </Grid>
-          <Grid item sm={12} md={5} lg={4}>
+          <Grid item sm={12} md={4} lg={4}>
             <Stack
               direction="column"
               justifyContent="flex-start"
@@ -58,12 +58,6 @@ export default function ManageTableDetailsManagedMember({
               sx={SX_BOX_STICKY}
             >
               <RequestDate idMentor={rowId} />
-              {/* <RequestRegisterProcess
-              idMentorProfile={row.mentorProfile.id}
-              onClose={onClose}
-              refetchSearch={refetchSearch}
-              refetchGetNoOfRequest={refetchGetNoOfRequest}
-            /> */}
             </Stack>
           </Grid>
         </Grid>

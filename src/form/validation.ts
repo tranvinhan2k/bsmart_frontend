@@ -807,11 +807,7 @@ export const validationSchemaWithdrawMoney = object({
 export const validationSchemaProcessRegisterRequest = object({
   message: string().required(MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED),
 });
-export const validationSchemaProcessUpdateMentorProfileRequest = object({
-  message: string().required(
-    MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED
-  ),
-});
+export const validationSchemaProcessUpdateMentorProfileRequest = object();
 export const validationSchemaApproveCreateCourseRequest = object({
   message: string().required(MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED),
 });
