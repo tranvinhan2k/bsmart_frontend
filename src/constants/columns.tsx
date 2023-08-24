@@ -350,7 +350,7 @@ const managedCourseCreateRequestColumns = managedCourseBasedColumns.concat(
 const managedCourseUpdateRequestColumns = managedCourseBasedColumns.concat(
   {
     field: 'timeSendRequest',
-    headerName: 'Thời gian gửi+',
+    headerName: 'Thời gian gửi',
     type: 'dateTime',
     headerAlign: 'left',
     minWidth: 200,

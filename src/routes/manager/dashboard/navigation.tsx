@@ -9,36 +9,30 @@ export const ManagerNavigationActionData: ActionPayload[] = [
     items: [
       {
         id: 0,
-        name: 'Báo cáo thống kê',
-        icon: 'barChartIcon',
-        link: ManagerNavigationActionLink.manage_analytic_manager,
-      },
-      {
-        id: 1,
         name: 'Xử lý yêu cầu',
         icon: 'description',
         link: ManagerNavigationActionLink.manage_request_manager,
       },
       {
-        id: 2,
+        id: 1,
         name: 'Người dùng',
         icon: 'user',
         link: ManagerNavigationActionLink.manage_user_manager,
       },
       {
-        id: 3,
+        id: 2,
         name: 'Khóa học',
         icon: 'coPresent',
         link: ManagerNavigationActionLink.manage_course_manager,
       },
       {
-        id: 4,
+        id: 3,
         name: 'Lớp học',
         icon: 'coPresent',
         link: ManagerNavigationActionLink.manage_class_manager,
       },
       {
-        id: 7,
+        id: 4,
         name: 'Mã giới thiệu',
         icon: 'promo',
         link: ManagerNavigationActionLink.promo_code,

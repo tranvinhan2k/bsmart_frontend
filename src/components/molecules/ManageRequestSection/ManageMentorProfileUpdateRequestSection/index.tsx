@@ -3,10 +3,26 @@ import { SyntheticEvent, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import ManageTableMentorProfileUpdateRequest from '~/components/molecules/ManageTableMentorProfileUpdateRequest';
 import { MentorProfileUpdateStatusType } from '~/constants/profile';
-import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMentorProfileUpdateRequest';
+import {
+  useSearchMentorProfileUpdateRequest,
+  UseSearchMentorProfileUpdateRequestPayload,
+} from '~/hooks/user/useSearchMentorProfileUpdateRequest';
+import { PagingFilterPayload } from '~/models';
 import { restrictNumberDisplay } from '~/utils/common';
 
-export default function ManageTableMentorProfileUpdateRequestSection() {
+interface ManageTableMentorProfileUpdateRequestSectionProps {
+  firstList:
+    | PagingFilterPayload<UseSearchMentorProfileUpdateRequestPayload>
+    | undefined;
+  firstListStatus: MentorProfileUpdateStatusType;
+  firstListRefetch: () => void;
+}
+
+export default function ManageTableMentorProfileUpdateRequestSection({
+  firstList,
+  firstListStatus,
+  firstListRefetch,
+}: ManageTableMentorProfileUpdateRequestSectionProps) {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
     _: SyntheticEvent<Element, Event>,
@@ -14,14 +30,8 @@ export default function ManageTableMentorProfileUpdateRequestSection() {
   ) => setTabValue(newValue);
 
   const {
-    mentorProfileUpdateRequestList: listPENDING,
-    refetch: refetchListPENDING,
-  } = useSearchMentorProfileUpdateRequest({
-    status: MentorProfileUpdateStatusType.PENDING,
-  });
-  const {
-    mentorProfileUpdateRequestList: listEditAPPROVED,
-    refetch: refetchListEditAPPROVED,
+    mentorProfileUpdateRequestList: listAPPROVED,
+    refetch: refetchListAPPROVED,
   } = useSearchMentorProfileUpdateRequest({
     status: MentorProfileUpdateStatusType.APPROVED,
   });
@@ -38,11 +48,11 @@ export default function ManageTableMentorProfileUpdateRequestSection() {
       text: 'Chờ duyệt',
       component: (
         <ManageTableMentorProfileUpdateRequest
-          status={MentorProfileUpdateStatusType.PENDING}
-          refetchGetNoOfRequest={refetchListPENDING}
+          status={firstListStatus}
+          refetchGetNoOfRequest={firstListRefetch}
         />
       ),
-      noOfRequest: restrictNumberDisplay(listPENDING?.totalItems),
+      noOfRequest: restrictNumberDisplay(firstList?.totalItems),
     },
     {
       id: 1,
@@ -50,14 +60,14 @@ export default function ManageTableMentorProfileUpdateRequestSection() {
       component: (
         <ManageTableMentorProfileUpdateRequest
           status={MentorProfileUpdateStatusType.PENDING}
-          refetchGetNoOfRequest={refetchListEditAPPROVED}
+          refetchGetNoOfRequest={refetchListAPPROVED}
         />
       ),
-      noOfRequest: restrictNumberDisplay(listEditAPPROVED?.totalItems),
+      noOfRequest: restrictNumberDisplay(listAPPROVED?.totalItems),
     },
     {
       id: 2,
-      text: 'Yêu cầu chỉnh sửa',
+      text: 'Từ chối',
       component: (
         <ManageTableMentorProfileUpdateRequest
           status={MentorProfileUpdateStatusType.APPROVED}

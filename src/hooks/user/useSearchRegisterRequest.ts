@@ -31,7 +31,7 @@ export const useSearchRegisterRequest = ({
   });
 
   return {
-    registerRequest: data,
+    registerRequestList: data,
     error,
     isLoading,
     refetch,

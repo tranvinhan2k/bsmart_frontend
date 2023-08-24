@@ -24,36 +24,30 @@ export default function ManageCourseCreateRequestSection({
     newValue: number
   ) => setTabValue(newValue);
 
-  // const {
-  //   courseCreateRequestList: courseListWaiting,
-  //   refetch: refetchListWaiting,
-  // } = useSearchCourseCreateRequest({
-  //   status: CourseStatusType.WAITING,
-  // });
   const {
-    courseCreateRequestList: courseListNotStart,
-    refetch: refetchListNotStart,
+    courseCreateRequestList: listNOTSTART,
+    refetch: refetchListNOTSTART,
   } = useSearchCourseCreateRequest({
     status: CourseStatusType.NOTSTART,
   });
   const {
-    courseCreateRequestList: courseListEditRequest,
-    refetch: refetchListEditRequest,
+    courseCreateRequestList: courseListEDITREQUEST,
+    refetch: refetchListEDITREQUEST,
   } = useSearchCourseCreateRequest({
     status: CourseStatusType.EDITREQUEST,
   });
   const {
-    courseCreateRequestList: courseListRejected,
-    refetch: refetchListRejected,
+    courseCreateRequestList: courseListREJECTED,
+    refetch: refetchListREJECTED,
   } = useSearchCourseCreateRequest({
     status: CourseStatusType.REJECTED,
   });
 
   const handleRefetchAll = () => {
     firstListRefetch();
-    refetchListNotStart();
-    refetchListEditRequest();
-    refetchListRejected();
+    refetchListNOTSTART();
+    refetchListEDITREQUEST();
+    refetchListREJECTED();
   };
 
   const tabEl = [
@@ -71,7 +65,7 @@ export default function ManageCourseCreateRequestSection({
     {
       id: 1,
       text: 'Đã duyệt',
-      noOfRequest: restrictNumberDisplay(courseListNotStart?.totalItems),
+      noOfRequest: restrictNumberDisplay(listNOTSTART?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.NOTSTART}
@@ -82,7 +76,7 @@ export default function ManageCourseCreateRequestSection({
     {
       id: 2,
       text: 'Yêu cầu chỉnh sửa',
-      noOfRequest: restrictNumberDisplay(courseListEditRequest?.totalItems),
+      noOfRequest: restrictNumberDisplay(courseListEDITREQUEST?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.EDITREQUEST}
@@ -92,8 +86,8 @@ export default function ManageCourseCreateRequestSection({
     },
     {
       id: 3,
-      text: 'Đã từ chối',
-      noOfRequest: restrictNumberDisplay(courseListRejected?.totalItems),
+      text: 'Từ chối',
+      noOfRequest: restrictNumberDisplay(courseListREJECTED?.totalItems),
       component: (
         <ManageTableCourseCreateRequest
           status={CourseStatusType.REJECTED}

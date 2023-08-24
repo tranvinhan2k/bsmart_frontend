@@ -1,21 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import {
-  ManagerNavigationActionLink,
-  NavigationLink,
-} from '~/constants/routeLink';
+import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
-import ClassFeedbackDetailPage from '~/pages/ClassFeedbackDetailPage';
 import {
   ConfirmEmailPage,
-  ManageAnalyticPage,
   ManageClassPage,
   ManageCoursePage,
-  ManageRequestManagerPage,
-  ManageUserPage,
-  ManagerQuestionsBankPage,
   ManageFinancialPage,
-  NotFoundPage,
+  ManageRequestManagerPage,
   ManagerPromoCodePage,
+  ManageUserPage,
 } from '~/routes/components';
 
 export const managerRoutes: RoutePayload[] = [
@@ -24,11 +17,6 @@ export const managerRoutes: RoutePayload[] = [
     main: () => (
       <Navigate to={ManagerNavigationActionLink.manage_analytic_manager} />
     ),
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.manage_analytic_manager,
-    main: () => <ManageAnalyticPage />,
     role: ['ROLE_MANAGER'],
   },
   {

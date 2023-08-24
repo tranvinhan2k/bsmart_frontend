@@ -10,13 +10,15 @@ import {
   SubjectManagerPage,
   AdminManagerQuestionBank,
   AdminManagerRevenuePage,
+  AdminManageWithdrawRequest,
+  AdminManageAnalyticPage,
   ConfirmEmailPage,
 } from '~/routes/components';
 
 export const adminRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={AdminNavigationActionLink.user_manager} />,
+    main: () => <Navigate to={AdminNavigationActionLink.analytic} />,
     role: ['ROLE_ADMIN'],
   },
   {
@@ -37,6 +39,16 @@ export const adminRoutes: RoutePayload[] = [
   {
     path: AdminNavigationActionLink.revenue,
     main: () => <AdminManagerRevenuePage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.withdraw_request,
+    main: () => <AdminManageWithdrawRequest />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.analytic,
+    main: () => <AdminManageAnalyticPage />,
     role: ['ROLE_ADMIN'],
   },
   {

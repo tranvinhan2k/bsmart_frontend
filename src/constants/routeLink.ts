@@ -101,6 +101,8 @@ export const enum AdminNavigationActionLink {
   category_manager = 'category_manager',
   questions_bank = 'questions_bank_manager',
   revenue = 'revenue',
+  withdraw_request = 'withdraw_request',
+  analytic = 'analytic',
   confirm_email = 'confirm_email/:code',
 }
 
