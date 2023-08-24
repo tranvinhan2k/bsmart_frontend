@@ -28,9 +28,10 @@ import { openUrl } from '~/utils/window';
 interface Props {
   name: string;
   item: ActivityAssignmentPayload;
+  refetch: any;
 }
 
-export default function ModuleAssignmentPage({ name, item }: Props) {
+export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   const moduleId = useGetIdFromUrl('moduleId');
   const { value, toggle } = useBoolean(false);
   const { control, handleSubmit, formState } = useForm({
@@ -69,6 +70,7 @@ export default function ModuleAssignmentPage({ name, item }: Props) {
         id: moduleId,
         params,
       });
+      await refetch();
     });
     toggle();
   };

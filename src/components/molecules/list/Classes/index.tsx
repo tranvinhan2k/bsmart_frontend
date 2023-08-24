@@ -47,26 +47,16 @@ export default function Classes({
                 status={item.status}
                 price={item.price}
                 id={index}
-                onUpdate={() => {
-                  if (
-                    item.status !== 'EDITREQUEST' &&
-                    item.status !== 'REQUESTING'
-                  ) {
-                    toast.notifyErrorToast('Lớp không được phép xóa');
-                  } else {
-                    handleUpdate(item.id);
-                  }
-                }}
-                onDeleteModal={() => {
-                  if (
-                    item.status !== 'EDITREQUEST' &&
-                    item.status !== 'REQUESTING'
-                  ) {
-                    toast.notifyErrorToast('Lớp không được phép xóa');
-                  } else {
-                    handleDelete(item.id);
-                  }
-                }}
+                onUpdate={
+                  item.status === 'EDITREQUEST' || item.status === 'REQUESTING'
+                    ? () => handleUpdate(item.id)
+                    : undefined
+                }
+                onDeleteModal={
+                  item.status === 'EDITREQUEST' || item.status === 'REQUESTING'
+                    ? () => handleDelete(item.id)
+                    : undefined
+                }
                 code={item.code}
                 endDate={item.endDate}
                 imageUrl={item.imageUrl}
