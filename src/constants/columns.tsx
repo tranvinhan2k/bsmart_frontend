@@ -647,14 +647,14 @@ const managedClassNotStartColumns: GridColDef[] = [
   },
   {
     field: 'startDate',
-    headerName: 'Ngày bắt đầu (Dự kiến)',
+    headerName: 'Ngày bắt đầu',
     minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
-    headerName: 'Ngày kết thúc (Dự kiến)',
+    headerName: 'Ngày kết thúc',
     minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
@@ -729,14 +729,14 @@ const managedClassColumns: GridColDef[] = [
   },
   {
     field: 'startDate',
-    headerName: 'Ngày bắt đầu (Dự kiến)',
+    headerName: 'Ngày bắt đầu',
     minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'endDate',
-    headerName: 'Ngày kết thúc (Dự kiến)',
+    headerName: 'Ngày kết thúc',
     minWidth: 180,
     flex: 1,
     valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),

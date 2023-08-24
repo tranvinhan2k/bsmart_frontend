@@ -5,18 +5,26 @@ import { MentorProfileStatusType } from '~/constants/profile';
 import { restrictNumberDisplay } from '~/utils/common';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import ManageTableRegisterRequest from '~/components/molecules/ManageTableRegisterRequest';
+import { PagingFilterPayload } from '~/models';
+import { User } from '~/models/user';
 
-export default function ManageRegisterRequestSection() {
+interface ManageRegisterRequestSectionProps {
+  firstList: PagingFilterPayload<User> | undefined;
+  firstListStatus: MentorProfileStatusType;
+  firstListRefetch: () => void;
+}
+
+export default function ManageRegisterRequestSection({
+  firstList,
+  firstListStatus,
+  firstListRefetch,
+}: ManageRegisterRequestSectionProps) {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
     _: SyntheticEvent<Element, Event>,
     newValue: number
   ) => setTabValue(newValue);
 
-  const { registerRequest: listWAITING, refetch: refetchListWAITING } =
-    useSearchRegisterRequest({
-      status: MentorProfileStatusType.WAITING,
-    });
   const { registerRequest: listSTARTING, refetch: refetchListSTARTING } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.STARTING,
@@ -30,7 +38,7 @@ export default function ManageRegisterRequestSection() {
       status: MentorProfileStatusType.REJECTED,
     });
   const handleRefetchAll = () => {
-    refetchListWAITING();
+    firstListRefetch();
     refetchListSTARTING();
     refetchListEDITREQUEST();
     refetchListREJECTED();
@@ -39,12 +47,12 @@ export default function ManageRegisterRequestSection() {
   const tabEl = [
     {
       id: 0,
-      text: 'Chờ duyệt hồ sơ',
-      noOfRequest: restrictNumberDisplay(listWAITING?.totalItems),
+      text: 'Chờ duyệt',
+      noOfRequest: restrictNumberDisplay(firstList?.totalItems),
       component: (
         <ManageTableRegisterRequest
-          status={MentorProfileStatusType.WAITING}
-          refetchGetNoOfRequest={handleRefetchAll}
+          status={firstListStatus}
+          refetchGetNoOfRequest={firstListRefetch}
         />
       ),
     },
