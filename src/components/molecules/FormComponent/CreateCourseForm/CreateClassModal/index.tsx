@@ -1,7 +1,7 @@
-import { Box, FormHelperText, Stack, Typography } from '@mui/material';
+import { FormHelperText, Stack, Typography } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
@@ -13,8 +13,6 @@ import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 
 import { CREATE_CLASS_FIELDS } from '~/form/schema';
-import { useDispatchGetAllDayOfWeeks, useDispatchGetAllSlots } from '~/hooks';
-import { generateEndDate } from '~/utils/date';
 
 const texts = {
   createClassTitle: 'Tạo lớp học mới',
@@ -145,6 +143,7 @@ export default function CreateClassModal({
               />
 
               <Stack
+                marginTop={1}
                 sx={{
                   justifyContent: 'space-between',
                   flexDirection: 'row',

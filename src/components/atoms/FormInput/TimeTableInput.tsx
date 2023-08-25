@@ -116,17 +116,6 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
       </Stack>
       <Grid container spacing={1}>
         <Grid item xs={12} md={5}>
-          {slotOptions && (
-            <FormInput
-              variant="dropdown"
-              name={TIME_TABLE_FIELDS.slot}
-              control={timetableHookForm.control}
-              data={slotOptions}
-              placeholder="Khung giờ học"
-            />
-          )}
-        </Grid>
-        <Grid item xs={12} md={5}>
           {dayOfWeekOptions && (
             <FormInput
               variant="dropdown"
@@ -137,6 +126,18 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
             />
           )}
         </Grid>
+        <Grid item xs={12} md={5}>
+          {slotOptions && (
+            <FormInput
+              variant="dropdown"
+              name={TIME_TABLE_FIELDS.slot}
+              control={timetableHookForm.control}
+              data={slotOptions}
+              placeholder="Khung giờ học"
+            />
+          )}
+        </Grid>
+
         <Grid item xs={12} md={2}>
           <Stack>
             <Button
