@@ -1,4 +1,5 @@
 import axiosClient from '~/api/axiosClient';
+import { image } from '~/constants/image';
 import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
 import { UseGetCourseCreateRequestDetailsPayload } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { PagingFilterPayload } from '~/models';

@@ -57,7 +57,7 @@ export default function CourseDetail({
 
   return (
     <Stack>
-      <ImageSlider slides={images || []} />
+      <ImageSlider slides={images.length !== 0 ? images : [image.thumbnail]} />
       <Stack
         paddingX={5}
         sx={{

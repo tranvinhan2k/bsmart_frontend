@@ -24,8 +24,6 @@ export const SX_FORM_BUTTON: SxProps<Theme> = {
 };
 export const SX_GOOGLE_BUTTON: SxProps<Theme> = {
   width: '100%',
-  borderColor: Color.black,
-  borderWidth: 1,
   fontFamily: FontFamily.bold,
   fontSize: FontSize.small_16,
   color: Color.black,

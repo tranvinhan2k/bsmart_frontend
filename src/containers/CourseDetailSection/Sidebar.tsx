@@ -123,6 +123,7 @@ export default function Sidebar({
       toast.notifyErrorToast('Hãy chọn lớp học bạn cần !');
     }
   };
+
   const handleAddToCart = async () => {
     if (chooseClass.id !== 0) {
       const params: RequestCartItem = {
@@ -215,14 +216,14 @@ export default function Sidebar({
     onClick: () => void;
   }[] = [
     {
-      id: 0,
-      name: 'Giới thiệu khóa học',
-      onClick: scrollIntroduce,
-    },
-    {
       id: 2,
       name: 'Danh sách lớp học',
       onClick: scrollClasses,
+    },
+    {
+      id: 0,
+      name: 'Mô tả khóa học',
+      onClick: scrollIntroduce,
     },
     {
       id: 1,
