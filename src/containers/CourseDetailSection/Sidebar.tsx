@@ -57,6 +57,7 @@ const initClass: DetailCourseClassPayload = {
   maxStudent: 0,
   minStudent: 0,
   purchase: false,
+  isFullStudent: false,
   numberOfSlot: 0,
   price: 0,
   startDate: '',
@@ -314,13 +315,20 @@ export default function Sidebar({
                         justifyContent: 'center',
                         alignItems: 'center',
                         borderRadius: MetricSize.small_5,
-                        opacity: item.purchase ? 0.3 : 1,
+                        opacity: item.purchase || item.isFullStudent ? 0.3 : 1,
                         ':hover': {
-                          cursor: item.purchase ? 'default' : 'pointer',
-                          background: item.purchase ? Color.white : Color.grey3,
-                          borderColor: item.purchase
-                            ? Color.grey
-                            : Color.transparent,
+                          cursor:
+                            item.purchase || item.isFullStudent
+                              ? 'default'
+                              : 'pointer',
+                          background:
+                            item.purchase || item.isFullStudent
+                              ? Color.white
+                              : Color.grey3,
+                          borderColor:
+                            item.purchase || item.isFullStudent
+                              ? Color.grey
+                              : Color.transparent,
                         },
                       }}
                     >
@@ -398,6 +406,24 @@ export default function Sidebar({
                       >
                         {formatMoney(item.price)}
                       </Typography>
+                      {item.isFullStudent && (
+                        <Typography
+                          sx={{
+                            textAlign: 'center',
+                            fontSize: FontSize.small_14,
+                            fontFamily:
+                              chooseClass.id === item.id
+                                ? FontFamily.regular
+                                : FontFamily.light,
+                            color:
+                              chooseClass.id === item.id
+                                ? Color.tertiary
+                                : Color.black,
+                          }}
+                        >
+                          (Lớp đã đầy học sinh)
+                        </Typography>
+                      )}
                     </Stack>
                   </Stack>
                 );
