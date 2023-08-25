@@ -5,8 +5,20 @@ import { restrictNumberDisplay } from '~/utils/common';
 import { useSearchCourseUpdateRequest } from '~/hooks/course/useSearchCourseUpdateRequest';
 import ManageTableCourseUpdateRequest from '~/components/molecules/ManageTableCourseUpdateRequest';
 import TabPanel from '~/components/atoms/TabPanel/index';
+import { PagingFilterPayload } from '~/models';
+import { CourseCreateRequestDetails } from '~/models/courses';
 
-export default function ManagerCourseUpdateRequestSection() {
+interface ManagerCourseUpdateRequestSectionProps {
+  firstList: PagingFilterPayload<CourseCreateRequestDetails> | undefined;
+  firstListStatus: CourseStatusType;
+  firstListRefetch: () => void;
+}
+
+export default function ManagerCourseUpdateRequestSection({
+  firstList,
+  firstListStatus,
+  firstListRefetch,
+}: ManagerCourseUpdateRequestSectionProps) {
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
     _: SyntheticEvent<Element, Event>,
@@ -14,28 +26,22 @@ export default function ManagerCourseUpdateRequestSection() {
   ) => setTabValue(newValue);
 
   const {
-    courseUpdateRequestList: courseListWaiting,
-    refetch: refetchListWaiting,
-  } = useSearchCourseUpdateRequest({
-    status: CourseStatusType.WAITING,
-  });
-  const {
-    courseUpdateRequestList: courseListNotStart,
-    refetch: refetchListNotStart,
+    courseUpdateRequestList: courseListNOTSTART,
+    refetch: refetchListNOTSTART,
   } = useSearchCourseUpdateRequest({
     status: CourseStatusType.NOTSTART,
   });
   const {
-    courseUpdateRequestList: courseListEditRequest,
-    refetch: refetchListEditRequest,
+    courseUpdateRequestList: courseListEDITREQUEST,
+    refetch: refetchListEDITREQUEST,
   } = useSearchCourseUpdateRequest({
     status: CourseStatusType.EDITREQUEST,
   });
 
   const handleRefetchAll = () => {
-    refetchListWaiting();
-    refetchListNotStart();
-    refetchListEditRequest();
+    firstListRefetch();
+    refetchListNOTSTART();
+    refetchListEDITREQUEST();
   };
 
   const tabEl = [
@@ -44,11 +50,11 @@ export default function ManagerCourseUpdateRequestSection() {
       text: 'Chờ duyệt',
       component: (
         <ManageTableCourseUpdateRequest
-          status={CourseStatusType.WAITING}
+          status={firstListStatus}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListWaiting?.totalItems),
+      noOfRequest: restrictNumberDisplay(firstList?.totalItems),
     },
     {
       id: 1,
@@ -59,18 +65,18 @@ export default function ManagerCourseUpdateRequestSection() {
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListNotStart?.totalItems),
+      noOfRequest: restrictNumberDisplay(courseListNOTSTART?.totalItems),
     },
     {
       id: 2,
-      text: 'yêu cầu chỉnh sửa',
+      text: 'Từ chối',
       component: (
         <ManageTableCourseUpdateRequest
           status={CourseStatusType.EDITREQUEST}
           refetchGetNoOfRequest={handleRefetchAll}
         />
       ),
-      noOfRequest: restrictNumberDisplay(courseListEditRequest?.totalItems),
+      noOfRequest: restrictNumberDisplay(courseListEDITREQUEST?.totalItems),
     },
   ];
 

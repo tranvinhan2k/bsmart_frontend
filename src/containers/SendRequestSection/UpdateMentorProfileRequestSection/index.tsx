@@ -3,7 +3,11 @@ import { Fragment, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { defaultValueUpdateMentorProfileRequest } from '~/form/defaultValues';
 import { genderData } from '~/constants';
-import { ProfileImgType } from '~/constants/profile';
+import {
+  IdentityImgHeight,
+  IdentityImgWidth,
+  ProfileImgType,
+} from '~/constants/profile';
 import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { useDispatchGetAllSubjects, useYupValidationResolver } from '~/hooks';
 import { useGetMentorEditProfile } from '~/hooks/user/useGetEditProfile';
@@ -63,6 +67,8 @@ const certificateNoteList = [
   { id: 2, label: CertificateNoteText.label2 },
   { id: 3, label: CertificateNoteText.label3 },
 ];
+
+const imgSizeReduction = 0.49;
 
 export default function UpdateMentorProfileRequestSection() {
   const { profile, refetch } = useGetMentorEditProfile();
@@ -142,6 +148,12 @@ export default function UpdateMentorProfileRequestSection() {
       reset(defaultValueUpdateMentorProfileRequest);
     }
   }, [profile, subjects, reset]);
+
+  // console.log('profile', profile);
+  // console.log(
+  //   'defaultValueUpdateMentorProfileRequest',
+  //   defaultValueUpdateMentorProfileRequest
+  // );
 
   const {
     fields: mentorSkillsFields,
@@ -339,17 +351,18 @@ export default function UpdateMentorProfileRequestSection() {
                 control={control}
                 name="avatar"
                 variant="image"
-                previewImgHeight={200}
-                previewImgWidth={200}
+                previewImgHeight={250}
+                previewImgWidth={250}
               />
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={6}>
+          <Grid item xs={12} sm={12} md={12} lg={6}>
             <Stack
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
               mt={2}
+              sx={{ width: '100%' }}
             >
               <Typography sx={sx.formLabel} textAlign="center">
                 CMND/CCCD (Mặt trước)
@@ -358,17 +371,18 @@ export default function UpdateMentorProfileRequestSection() {
                 control={control}
                 name="identityFront"
                 variant="image"
-                previewImgHeight={300}
-                previewImgWidth={500}
+                previewImgHeight={IdentityImgHeight * imgSizeReduction}
+                previewImgWidth={IdentityImgWidth * imgSizeReduction}
               />
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={6}>
+          <Grid item xs={12} sm={12} md={12} lg={6}>
             <Stack
               direction="column"
               justifyContent="flex-start"
               alignItems="stretch"
               mt={2}
+              sx={{ width: '100%' }}
             >
               <Typography sx={sx.formLabel} textAlign="center">
                 CMND/CCCD (Mặt sau)
@@ -377,8 +391,8 @@ export default function UpdateMentorProfileRequestSection() {
                 control={control}
                 name="identityBack"
                 variant="image"
-                previewImgHeight={300}
-                previewImgWidth={500}
+                previewImgHeight={IdentityImgHeight * imgSizeReduction}
+                previewImgWidth={IdentityImgWidth * imgSizeReduction}
               />
             </Stack>
           </Grid>
@@ -498,8 +512,8 @@ export default function UpdateMentorProfileRequestSection() {
                       <Grid item xs={12}>
                         <Stack
                           direction="row"
-                          justifyContent="flex-start"
-                          alignItems="center"
+                          justifyContent="center"
+                          alignItems="stretch"
                           spacing={2}
                         >
                           <FormInput
@@ -554,7 +568,7 @@ export default function UpdateMentorProfileRequestSection() {
             color="miSmartOrange"
             type="submit"
             fullWidth
-            disabled={!formState.isDirty}
+            disabled={!formState.isDirty || Boolean(profile?.id)}
           >
             Lưu lại
           </Button>
@@ -563,9 +577,9 @@ export default function UpdateMentorProfileRequestSection() {
             color="miSmartOrange"
             fullWidth
             onClick={handleSubmitRequestToManager}
-            disabled={profile?.id === null}
+            disabled={Boolean(profile?.id)}
           >
-            Gửi yêu cầu
+            {profile?.id ? 'Dã gửi yêu cẩu' : 'Gửi yêu cầu'}
           </Button>
         </Stack>
       </form>

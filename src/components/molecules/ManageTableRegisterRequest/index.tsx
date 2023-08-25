@@ -38,9 +38,9 @@ export default function ManageTableRegisterRequest({
   const [mode, setMode] = useState<'READ' | 'VERIFY' | ''>('');
   const [selectedRow, setSelectedRow] = useState<any>();
 
-  const { error, registerRequest, isLoading, refetch } =
+  const { error, registerRequestList, isLoading, refetch } =
     useSearchRegisterRequest({ q, status, page, size, sort });
-  const rows = registerRequest ? registerRequest.items : [];
+  const rows = registerRequestList ? registerRequestList.items : [];
 
   const handleSearch = (data: any) => {
     setQ(data.searchValue);
@@ -130,7 +130,7 @@ export default function ManageTableRegisterRequest({
         popoverOptions={popoverOptions}
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
-        totalItems={registerRequest?.totalItems ?? 0}
+        totalItems={registerRequestList?.totalItems ?? 0}
         searchHandler={{
           searchPlaceholder: Text.searchPlaceholder,
           onSearch: handleSearch,

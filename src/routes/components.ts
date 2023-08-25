@@ -96,9 +96,7 @@ export const MemberProfilePage = lazy(
 );
 
 export const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
-export const ManageAnalyticPage = lazy(
-  () => import('~/pages/ManageAnalyticPage')
-);
+
 export const ManageClassPage = lazy(() => import('~/pages/ManageClassPage'));
 export const ManageFinancialPage = lazy(
   () => import('~/pages/ManageFinancialPage')
@@ -222,7 +220,12 @@ export const AdminManagerRevenuePage = lazy(
 export const AdminManagerQuestionBank = lazy(
   () => import('~/pages/admin/AdminManagerQuestionBank')
 );
-
+export const AdminManageWithdrawRequest = lazy(
+  () => import('~/pages/admin/AdminManageWithdrawRequestPage')
+);
+export const AdminManageAnalyticPage = lazy(
+  () => import('~/pages/admin/AdminManageAnalyticPage')
+);
 // manager
 
 export const ManagerQuestionsBankPage = lazy(

@@ -191,8 +191,8 @@ export default function EditCertificateProfileForm() {
               <Grid item xs={12}>
                 <Stack
                   direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
+                  justifyContent="center"
+                  alignItems="stretch"
                   spacing={2}
                 >
                   <FormInput

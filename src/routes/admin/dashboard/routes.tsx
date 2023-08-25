@@ -2,21 +2,19 @@ import { Navigate } from 'react-router-dom';
 import { AdminNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
-  AdminPage,
-  ManageUserPage,
-  CategoryManagerPage,
-  FeedbackManagerPage,
-  NotFoundPage,
-  SubjectManagerPage,
-  AdminManagerQuestionBank,
+  AdminManageAnalyticPage,
   AdminManagerRevenuePage,
+  AdminManageWithdrawRequest,
+  CategoryManagerPage,
   ConfirmEmailPage,
+  ManageUserPage,
+  SubjectManagerPage,
 } from '~/routes/components';
 
 export const adminRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => <Navigate to={AdminNavigationActionLink.user_manager} />,
+    main: () => <Navigate to={AdminNavigationActionLink.analytic} />,
     role: ['ROLE_ADMIN'],
   },
   {
@@ -40,15 +38,23 @@ export const adminRoutes: RoutePayload[] = [
     role: ['ROLE_ADMIN'],
   },
   {
+    path: AdminNavigationActionLink.withdraw_request,
+    main: () => <AdminManageWithdrawRequest />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
+    path: AdminNavigationActionLink.analytic,
+    main: () => <AdminManageAnalyticPage />,
+    role: ['ROLE_ADMIN'],
+  },
+  {
     path: AdminNavigationActionLink.confirm_email,
     main: () => <ConfirmEmailPage />,
     role: [],
   },
   {
     path: '*',
-    main: () => (
-      <Navigate to={AdminNavigationActionLink.user_manager} replace />
-    ),
+    main: () => <Navigate to={AdminNavigationActionLink.analytic} replace />,
     role: [],
   },
 ];

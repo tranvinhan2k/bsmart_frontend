@@ -68,7 +68,7 @@ function FileInputRequireYup({
           alignItems="center"
           spacing={2}
         >
-          <Typography sx={globalStyles.textLowSmallLight} noWrap>
+          <Typography sx={globalStyles.textLowSmallLight}>
             {value.name}
           </Typography>
           <Stack

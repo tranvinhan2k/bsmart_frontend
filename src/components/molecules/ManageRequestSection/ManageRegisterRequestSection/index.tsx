@@ -25,15 +25,17 @@ export default function ManageRegisterRequestSection({
     newValue: number
   ) => setTabValue(newValue);
 
-  const { registerRequest: listSTARTING, refetch: refetchListSTARTING } =
+  const { registerRequestList: listSTARTING, refetch: refetchListSTARTING } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.STARTING,
     });
-  const { registerRequest: listEDITREQUEST, refetch: refetchListEDITREQUEST } =
-    useSearchRegisterRequest({
-      status: MentorProfileStatusType.EDITREQUEST,
-    });
-  const { registerRequest: listREJECTED, refetch: refetchListREJECTED } =
+  const {
+    registerRequestList: listEDITREQUEST,
+    refetch: refetchListEDITREQUEST,
+  } = useSearchRegisterRequest({
+    status: MentorProfileStatusType.EDITREQUEST,
+  });
+  const { registerRequestList: listREJECTED, refetch: refetchListREJECTED } =
     useSearchRegisterRequest({
       status: MentorProfileStatusType.REJECTED,
     });
