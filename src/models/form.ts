@@ -227,6 +227,12 @@ export interface ProcessWithdrawRequestFormDataPayload {
   file: File;
 }
 
+export interface ConfigReferralCodeFormDefault {
+  usageLimit: number;
+  discountPercent: number;
+  expiredLaterDay: number;
+}
+
 export type FormInputVariant =
   | 'text'
   | 'arrayHelperText'

@@ -11,15 +11,18 @@ export interface UseMutationUpdateMentorProfileRequestPayload {
   phone: string;
   gender: string;
   //
+  userImages: any;
+  //
   mentorProfile: {
     id: number;
     introduce: string;
     workingExperience: string;
-    status: string;
+
     mentorSkills: {
       skillId: number;
       name: string;
       yearOfExperiences: number;
+      status: boolean;
     }[];
   };
   // degreeList: Array<any>; -> ??
