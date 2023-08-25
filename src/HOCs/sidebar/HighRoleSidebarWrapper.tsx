@@ -1,21 +1,14 @@
-import { Stack, Box, IconButton, Menu, MenuItem } from '@mui/material';
-import { useState, MouseEvent } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { useNavigate } from 'react-router-dom';
+import { Avatar, Box, IconButton, Stack } from '@mui/material';
 import { useProSidebar } from 'react-pro-sidebar';
+import { useNavigate } from 'react-router-dom';
 import { ActionPayload } from '~/models';
+import { Color, MetricSize } from '~/assets/variables';
 import { DefaultSidebarLeft } from '~/components/molecules';
-import { Color, IconSize, MetricSize } from '~/assets/variables';
-
-import { NavigationLink } from '~/constants/routeLink';
-
-import { logOut } from '~/redux/user/slice';
-
-import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
-import CustomMenu from '~/components/atoms/CustomMenu';
+import { NavigationLink } from '~/constants/routeLink';
 import { useLogOut, useMenuItem } from '~/hooks';
+import CustomMenu from '~/components/atoms/CustomMenu';
+import Icon from '~/components/atoms/Icon';
 
 interface Props {
   children: React.ReactNode;
@@ -44,8 +37,8 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
 
   const mappingData = {
     title: 'Quản lí tài khoản',
-    srcImage: image.noAvatar,
-    altImage: 'Ảnh đại diện',
+    srcImage: image.managerIconImg,
+    altImage: 'Quản lí',
   };
 
   return (
@@ -103,19 +96,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
           <Stack sx={{ flexGrow: 1 }} />
           <Stack>
             <IconButton ref={anchorRef} onClick={handleToggle}>
-              <Box
-                sx={{
-                  width: IconSize.large,
-                  height: IconSize.large,
-                  objectFit: 'contain',
-                  borderRadius: 1000,
-                  border: '1px solid #ddd',
-                  background: Color.white,
-                }}
-                component="img"
-                src={mappingData.srcImage}
-                alt={mappingData.altImage}
-              />
+              <Avatar alt={mappingData.title} src={mappingData.srcImage} />
             </IconButton>
             <CustomMenu
               open={open}
@@ -130,7 +111,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
                 },
                 {
                   icon: 'account',
-                  name: 'Hồ sơ',
+                  name: 'Mật khẩu',
                   onClick: handleProfile,
                 },
                 {

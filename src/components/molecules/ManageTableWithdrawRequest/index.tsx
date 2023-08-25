@@ -1,13 +1,14 @@
-import { Button, Stack } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { useState } from 'react';
 import { utils, writeFile } from 'xlsx';
+import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
+import { useSearchManagedWithdrawRequest } from '~/hooks/transaction/useSearchTransaction';
+import { WithdrawRequestStatusType } from '~/constants/transaction';
+import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import Icon from '~/components/atoms/Icon';
+import ManagedWithdrawRequestGuide from './ManagedWithdrawRequestGuide';
 import ManageTable from '~/components/molecules/ManageTable';
-import columns from '~/constants/columns';
-import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
-import { WithdrawRequestStatusType } from '~/constants/transaction';
-import { useSearchManagedWithdrawRequest } from '~/hooks/transaction/useSearchTransaction';
 import ManageTableProcessWithdrawRequest from '../ManageTableProcessWithdrawRequest';
 
 interface Props {
@@ -86,6 +87,9 @@ export default function ManageTableWithdrawRequest({
               Nhập danh sách
             </Button>
           </Stack>
+          <Box mt={4}>
+            <ManagedWithdrawRequestGuide />
+          </Box>
           <CustomDialog
             title="Xử lý yêu cầu rút tiền chưa giải quyết"
             open={open}

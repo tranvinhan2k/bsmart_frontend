@@ -23,8 +23,8 @@ export default function WithdrawRequestSectionGuide() {
       <Box ml={0}>
         <Typography>1. 1 BS = 1,000 vnđ</Typography>
         <Typography>
-          2. Thông tin không thể chỉnh sửa sau khi gửi yêu cầu. Xin hãy kiểm tra
-          cẩn thận
+          2. Yêu cầu rút tiền đã xử lý không thể hoàn tác. Xin hãy kiểm tra
+          thông tin cẩn thận
         </Typography>
         <Typography>
           3. Nếu có bất kì sai sót nào xin hãy liên hệ với quản trị viên sớm

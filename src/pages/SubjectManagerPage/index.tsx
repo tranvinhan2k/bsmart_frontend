@@ -121,17 +121,17 @@ export default function SubjectManagerPage() {
   const menuItemList: MenuItemPayload[] = [
     {
       icon: 'subject',
-      title: 'Xem chi tiết ngôn ngữ lập trình',
+      title: 'Xem chi tiết môn học',
       onCLick: handleOpenDetailSubject,
     },
     {
       icon: 'edit',
-      title: 'Cập nhật ngôn ngữ lập trình',
+      title: 'Cập nhật môn học',
       onCLick: handleUpdateSubject,
     },
     {
       icon: 'delete',
-      title: 'Xóa ngôn ngữ lập trình',
+      title: 'Xóa ngôn môn học',
       onCLick: handleDeleteSubject,
     },
   ];
@@ -183,8 +183,8 @@ export default function SubjectManagerPage() {
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Quản lí ngôn ngữ lập trình"
-        addItemButtonLabel="Thêm ngôn ngữ lập trình"
+        title="Quản lí môn học"
+        addItemButtonLabel="Thêm môn học"
         columns={columns.subjectColumns}
         onAdd={handleAddSubject}
         searchPlaceholder="Tìm kiếm ngôn ngữ lập trình"

@@ -43,14 +43,14 @@ export default function RequestCourseProcess({
     useForm({
       defaultValues: {
         status: 'NOTSTART',
-        message: '',
+        message: 'Chúc mừng bạn đã tạo lớp thành công',
       },
       resolver: resolverApproveCreateCourseRequest,
     });
   const { control: controlReject, handleSubmit: handleSubmitReject } = useForm({
     defaultValues: {
       status: 'REJECTED',
-      message: '',
+      message: 'Thông tin vi phạm bao gồm:',
     },
     resolver: resolverApproveCreateCourseRequest,
   });
@@ -58,7 +58,7 @@ export default function RequestCourseProcess({
     useForm({
       defaultValues: {
         status: 'EDITREQUEST',
-        message: '',
+        message: 'Thông tin cần chỉnh sửa bao gồm:',
       },
       resolver: resolverApproveCreateCourseRequest,
     });

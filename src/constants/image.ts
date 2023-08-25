@@ -29,6 +29,7 @@ import guide from '~/assets/images/guide.png';
 import classSlot from '~/assets/images/class.png';
 import mockTeacherAvatar from '~/assets/images/mockTeacherAvatar.jpg';
 import mockStudent from '~/assets/images/studentAvatar.jpg';
+import managerIconImg from '~/assets/images/Icon/manager.png';
 
 export const image = {
   noAvatar,
@@ -62,4 +63,5 @@ export const image = {
   file,
   loadingButton,
   coin,
+  managerIconImg,
 };

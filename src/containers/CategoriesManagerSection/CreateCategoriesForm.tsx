@@ -26,21 +26,21 @@ export default function CreateCategoriesForm({
   return (
     <>
       <Typography textAlign="center" sx={globalStyles.textSubTitle}>
-        Tạo môn học
+        Tạo lĩnh vực
       </Typography>
       <form onSubmit={createCategoryForm.handleSubmit(onSubmit)}>
         <FormInput
           control={createCategoryForm.control}
           name={CREATE_CATEGORY_FIELDS.code}
-          placeholder="Nhập mã môn học"
+          placeholder="Nhập mã lĩnh vực"
         />
         <FormInput
           control={createCategoryForm.control}
           name={CREATE_CATEGORY_FIELDS.name}
-          placeholder="Nhập tên môn học"
+          placeholder="Nhập tên lĩnh vực"
         />
         <Button customVariant="normal" type="submit">
-          Tạo môn học
+          Tạo lĩnh vực
         </Button>
       </form>
     </>
