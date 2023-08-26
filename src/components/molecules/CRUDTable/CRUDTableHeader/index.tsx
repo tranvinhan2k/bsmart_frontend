@@ -1,6 +1,4 @@
-import { Stack, Typography } from '@mui/material';
-import { Color, MetricSize } from '~/assets/variables';
-import Button from '~/components/atoms/Button';
+import { Stack, Typography, Button } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 
 import globalStyles from '~/styles';
@@ -29,10 +27,10 @@ export default function CRUDTableHeader({
       </Stack>
       <Stack>
         <Button
-          startIcon={<Icon name="add" color="white" size="small" />}
+          startIcon={<Icon name="add" color="white" size="small_20" />}
           onClick={onCreate}
           variant="contained"
-          sx={{ background: Color.tertiary }}
+          color="miSmartOrange"
         >
           {addButtonTitle}
         </Button>

@@ -8,10 +8,10 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { YearRevenue } from '~/models/transaction';
 import { formatMoney } from '~/utils/money';
+import { YearRevenue } from '~/models/transaction';
+import globalStyles from '~/styles';
 import sx from './style';
-import { Color } from '~/assets/variables';
 
 const dataMock: YearRevenue[] = [
   {
@@ -125,9 +125,7 @@ export default function BarChartRevenue({
       spacing={4}
       sx={{
         width: '100%',
-        padding: 2,
-        borderRadius: 2,
-        background: Color.white,
+        ...globalStyles.viewRoundedWhiteBody,
       }}
     >
       <Typography sx={sx.titleBarChart}>{chartLabel}</Typography>
