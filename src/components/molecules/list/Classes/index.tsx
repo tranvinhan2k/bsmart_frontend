@@ -68,23 +68,23 @@ export default function Classes({
               />
             </Stack>
           ))}
-          {onOpenAddModal && (
-            <Box marginTop={1}>
-              <Button
-                onClick={onOpenAddModal}
-                variant="contained"
-                color="secondary"
-                sx={{
-                  color: Color.white,
-                }}
-                startIcon={<Icon name="add" size="small_20" color="white" />}
-              >
-                Thêm lớp học
-              </Button>
-            </Box>
-          )}
         </Stack>
       </LoadingWrapper>
+      {onOpenAddModal && (
+        <Box marginTop={1}>
+          <Button
+            onClick={onOpenAddModal}
+            variant="contained"
+            color="secondary"
+            sx={{
+              color: Color.white,
+            }}
+            startIcon={<Icon name="add" size="small_20" color="white" />}
+          >
+            Thêm lớp học
+          </Button>
+        </Box>
+      )}
     </Stack>
   );
 }
