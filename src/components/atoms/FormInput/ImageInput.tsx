@@ -71,8 +71,6 @@ export default function ImageInput({
     previewImgWidth / previewImgHeight
   );
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const hiddenAnchorRef = useRef<HTMLAnchorElement>(null);
-  const blobUrlRef = useRef('');
 
   function dataURLtoFile(dataUrl: string, filename: string): File {
     const arr = dataUrl.split(',');
@@ -113,6 +111,7 @@ export default function ImageInput({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target?.files?.[0];
+
     if (selectedFile && selectedFile.type.includes('image')) {
       setError(null);
 
@@ -180,9 +179,11 @@ export default function ImageInput({
   }
 
   const handleDeleteClick = () => {
-    setPreviewUrl('');
-    setError(null);
-    onChange('');
+    setPreviewUrl(() => '');
+    setError(() => null);
+    setCompletedCrop(() => undefined);
+    setCrop(() => undefined);
+    onChange(() => undefined);
   };
 
   function onDownloadCropClick() {
@@ -212,6 +213,7 @@ export default function ImageInput({
     >
       <TextField
         type="file"
+        key={previewUrl}
         sx={{
           ...SX_TEXT_INPUT_FORM,
           height: previewUrl ? 0 : '100%',
