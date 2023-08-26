@@ -14,6 +14,7 @@ import ClassSection from '~/components/molecules/ResourceMentor/ClassSection';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 
 interface ResourceMentorMainProps {
   editMode: boolean;
@@ -46,9 +47,6 @@ export default function ResourceMentorMain({
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
-  const toastMsgError = (error: any): string =>
-    `Tạo không thành công: ${error.message}`;
-
   const handleSubmitSuccess = async (data: CreateClassSectionsFormDefault) => {
     const params: ClassCreateClassSectionPayload = {
       id,
@@ -61,7 +59,7 @@ export default function ResourceMentorMain({
       await createClassSections.mutateAsync(params);
       toast.updateSuccessToast(idToast, toastMsgSuccess);
       handleCloseDialog();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };

@@ -10,6 +10,7 @@ import { useDispatchProfile } from '~/hooks';
 import { useUpdateMentorProfileRequestSubmit } from '~/hooks/mentorProfile/useUpdateMentorProfileRequestSubmit';
 import { useGetUpdateMentorProfileRequestInfo } from '~/hooks/user/useGetUpdateMentorProfileRequestInfo';
 import { UpdateMentorProfileRequestSubmitPayload } from '~/models/mentorProfiles';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import RequestedDegrees from './RequestedDegrees';
 import RequestedSkills from './RequestedSkills';
@@ -27,8 +28,6 @@ export default function UpdateMentorProfileRequestSubmit() {
 
   const toastMsgLoading = 'Đang gửi hồ sơ...';
   const toastMsgSuccess = 'Gửi hồ sơ thành công';
-  const toastMsgError = (error: any): string =>
-    `Gửi hồ sơ không thành công: ${error.message}`;
   const handleSubmitSuccess = async () => {
     const skillIds =
       requestInfo &&
@@ -53,7 +52,7 @@ export default function UpdateMentorProfileRequestSubmit() {
       refetchRequestInfo();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };

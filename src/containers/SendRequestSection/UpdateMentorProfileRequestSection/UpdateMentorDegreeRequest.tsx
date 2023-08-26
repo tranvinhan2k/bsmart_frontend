@@ -23,6 +23,7 @@ import {
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 import { useGetUpdateMentorProfileRequestInfo } from '~/hooks/user/useGetUpdateMentorProfileRequestInfo';
 import {
   SX_FORM,
@@ -84,8 +85,6 @@ export default function UpdateMentorDegree() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
@@ -103,7 +102,7 @@ export default function UpdateMentorDegree() {
       refetchRequestInfo();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };

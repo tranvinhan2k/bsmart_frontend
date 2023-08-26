@@ -23,6 +23,7 @@ import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
 import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
+import { toastMsgError } from '~/utils/common';
 
 export default function MentorCreateAssignmentPage() {
   const { classSectionId } = useParams();
@@ -39,8 +40,6 @@ export default function MentorCreateAssignmentPage() {
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
-  const toastMsgError = (error: any): string =>
-    `Tạo không thành công: ${error.message}`;
   const handleSubmitSuccess = async (data: CreateAssignmentFormDataPayload) => {
     const params: CreateAssignmentPayload = {
       name: data.name,
@@ -59,8 +58,8 @@ export default function MentorCreateAssignmentPage() {
     try {
       await mutateCreateAssignment(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { read, utils } from 'xlsx';
 import { defaultValueProcessWithdrawRequest } from '~/form/defaultValues';
 import { ProcessWithdrawRequestFormDataPayload } from '~/models/form';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { toastMsgError } from '~/utils/common';
 import { useMutationProcessWithdrawRequest } from '~/hooks/transaction/useMutationProcessWithdrawRequest';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaManagedWithdrawUpload } from '~/form/validation';
@@ -34,16 +34,6 @@ export default function ManageTableProcessWithdrawRequest({
     useMutationProcessWithdrawRequest();
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công...';
-  const toastMsgError = (error: unknown): string => {
-    let msg = TRY_CATCH_AXIOS_DEFAULT_ERROR;
-    if (typeof error === 'string') {
-      msg = error;
-    }
-    if (error instanceof Error) {
-      msg = error.message;
-    }
-    return msg;
-  };
   const handleSubmitProcessWithdrawRequest = async (
     data: ProcessWithdrawRequestFormDataPayload
   ) => {
@@ -66,8 +56,8 @@ export default function ManageTableProcessWithdrawRequest({
       onClose();
       reset();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: unknown) {
-      toast.updateFailedToast(id, toastMsgError(e));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
   return (

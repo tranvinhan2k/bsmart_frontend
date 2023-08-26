@@ -7,19 +7,19 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { defaultValueEditIdentityFront } from '~/form/defaultValues';
+import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
+import { EditIdentityFrontFormDataPayload } from '~/models/form';
 import { EditImageProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
-import FormInput from '~/components/atoms/FormInput';
 import { ProfileImgType } from '~/constants/profile';
-import { defaultValueEditIdentityFront } from '~/form/defaultValues';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
-import { EDIT_IMAGE_PROFILE_FIELDS } from '~/form/schema';
-import { validationSchemaEditIdentityFront } from '~/form/validation';
+import { selectProfile } from '~/redux/user/selector';
+import { toastMsgError } from '~/utils/common';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
-import { EditIdentityFrontFormDataPayload } from '~/models/form';
-import { selectProfile } from '~/redux/user/selector';
+import { validationSchemaEditIdentityFront } from '~/form/validation';
+import FormInput from '~/components/atoms/FormInput';
+import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 
 interface DialogEditIdCardFrontProps {
@@ -52,11 +52,6 @@ export default function DialogEditIdCardFront({
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${
-      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
-    }`;
-  };
   const handleSubmitIdentityFront = async (
     data: EditIdentityFrontFormDataPayload
   ) => {
@@ -71,8 +66,8 @@ export default function DialogEditIdCardFront({
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
       resetEditIdentityFront();
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

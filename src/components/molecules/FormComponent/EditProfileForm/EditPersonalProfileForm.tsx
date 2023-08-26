@@ -7,7 +7,6 @@ import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import FormInput from '~/components/atoms/FormInput';
 import { genderData } from '~/constants';
 import { defaultValueEditPersonalProfile } from '~/form/defaultValues';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { validationSchemaEditPersonalProfile } from '~/form/validation';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { keyMentorProfileUseCheckCompleteness } from '~/hooks/mentorProfile/key';
@@ -17,6 +16,7 @@ import {
   FormInputVariant,
 } from '~/models/form';
 import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
@@ -74,16 +74,6 @@ export default function EditPersonalProfileForm() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
-  const toastMsgError = (error: unknown): string => {
-    let msg = TRY_CATCH_AXIOS_DEFAULT_ERROR;
-    if (typeof error === 'string') {
-      msg = error;
-    }
-    if (error instanceof Error) {
-      msg = error.message;
-    }
-    return msg;
-  };
   const handleSubmitSuccess = async (data: EditPersonalProfileFormDefault) => {
     const params: EditPersonalProfileFormSubmit = {
       fullName: data.fullName,
@@ -98,7 +88,7 @@ export default function EditPersonalProfileForm() {
       handleDispatchProfile();
       refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error));
     }
   };

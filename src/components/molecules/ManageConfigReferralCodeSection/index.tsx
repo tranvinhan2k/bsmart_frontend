@@ -12,7 +12,6 @@ import { ConfigReferralCodeFormDefault, FormInputVariant } from '~/models/form';
 import { defaultValueConfigReferralCode } from '~/form/defaultValues';
 import { FontFamily } from '~/assets/variables';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { useGetConfigReferralCode } from '~/hooks/config/useGetConfigReferralCode';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaConfigReferralCode } from '~/form/validation';
@@ -23,6 +22,7 @@ import {
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import sx from './style';
+import { toastMsgError } from '~/utils/common';
 
 interface FormFieldsConfigReferralCodeProps {
   name: string;
@@ -74,16 +74,6 @@ export default function ManageConfigReferralCodeSection() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
-  const toastMsgError = (error: unknown): string => {
-    let msg = TRY_CATCH_AXIOS_DEFAULT_ERROR;
-    if (typeof error === 'string') {
-      msg = error;
-    }
-    if (error instanceof Error) {
-      msg = error.message;
-    }
-    return msg;
-  };
   const handleSubmitSuccess = async (data: ConfigReferralCodeFormDefault) => {
     const params: UseMutationConfigReferralCodePayload = {
       usageLimit: data.usageLimit,

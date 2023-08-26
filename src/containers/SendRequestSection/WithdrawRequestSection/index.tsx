@@ -10,7 +10,6 @@ import {
   Grid,
   Stack,
   Typography,
-  Divider,
 } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -18,27 +17,19 @@ import { useForm } from 'react-hook-form';
 import transactionsApi, {
   WithdrawMoneyProfilePayload,
 } from '~/api/transactions';
-import { FontFamily } from '~/assets/variables';
-import FormInput from '~/components/atoms/FormInput';
 import { defaultValueWithdrawMoney } from '~/form/defaultValues';
-import { WITHDRAW_MONEY_FIELDS } from '~/form/schema';
-import { validationSchemaWithdrawMoney } from '~/form/validation';
+import { FontFamily } from '~/assets/variables';
+import { formatMoney } from '~/utils/money';
+import { toastMsgError } from '~/utils/common';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useQueryGetAllBanks } from '~/hooks/useQueryGetAllBanks';
-import toast from '~/utils/toast';
-import {
-  SX_CONTAINER,
-  SX_DESC_NOTE,
-  SX_FORM_LABEL,
-  SX_NOTE,
-  SX_TITLE_NOTE,
-  SX_WITHDRAW_BALANCE,
-  SX_WITHDRAW_BALANCE_NUMBER,
-  SX_WITHDRAW_TITLE,
-} from './style';
-import globalStyles from '~/styles';
+import { validationSchemaWithdrawMoney } from '~/form/validation';
+import { WITHDRAW_MONEY_FIELDS } from '~/form/schema';
 import CoinLabel from '~/components/atoms/CoinLabel';
-import { formatMoney } from '~/utils/money';
+import FormInput from '~/components/atoms/FormInput';
+import globalStyles from '~/styles';
+import toast from '~/utils/toast';
+import { SX_CONTAINER, SX_FORM_LABEL, SX_TITLE_NOTE } from './style';
 
 export default function WithdrawRequestSection() {
   const { profile, handleDispatch } = useDispatchProfile();
@@ -104,11 +95,8 @@ export default function WithdrawRequestSection() {
         await mutateWithdrawMoney(params);
         toast.updateSuccessToast(id, 'Gửi yêu cầu rút tiền thành công');
         reset();
-      } catch (error: any) {
-        toast.updateFailedToast(
-          id,
-          `Rút tiền không thành công: ${error.message}`
-        );
+      } catch (error: unknown) {
+        toast.updateFailedToast(id, toastMsgError(error));
       }
     }
   };

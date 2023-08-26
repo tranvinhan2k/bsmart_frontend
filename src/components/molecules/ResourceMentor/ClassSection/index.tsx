@@ -31,6 +31,7 @@ import Icon, { IconName } from '~/components/atoms/Icon';
 import Resource from '~/components/molecules/ResourceMentor/Resource';
 import toast from '~/utils/toast';
 import { SX_RESOURCE_TITTLE } from './style';
+import { toastMsgError } from '~/utils/common';
 
 interface ClassSectionPayload {
   editMode: boolean;
@@ -96,8 +97,6 @@ export default function ClassSection({ editMode }: ClassSectionPayload) {
 
   const toastMsgUpdateLoading = 'Đang cập nhật...';
   const toastMsgUpdateSuccess = 'Cập nhật thành công';
-  const toastMsgUpdateError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitUpdate = async (data: UpdateClassSectionsFormDefault) => {
     const params: ClassUpdateClassSectionPayload = {
       id,
@@ -110,15 +109,13 @@ export default function ClassSection({ editMode }: ClassSectionPayload) {
     try {
       await updateClassSections.mutateAsync(params);
       toast.updateSuccessToast(idToast, toastMsgUpdateSuccess);
-    } catch (error: any) {
-      toast.updateFailedToast(idToast, toastMsgUpdateError(error));
+    } catch (error: unknown) {
+      toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };
 
   const toastMsgDeleteLoading = 'Đang xóa...';
   const toastMsgDeleteSuccess = 'Xóa thành công';
-  const toastMsgDeleteError = (error: any): string =>
-    `Xóa không thành công: ${error.message}`;
   const handleSubmitDelete = async () => {
     const params: ClassDeleteClassSectionPayload = {
       id,
@@ -129,8 +126,8 @@ export default function ClassSection({ editMode }: ClassSectionPayload) {
       await deleteClassSections.mutateAsync(params);
       toast.updateSuccessToast(idToast, toastMsgDeleteSuccess);
       handleCloseDialogDeleteConfirmActivity();
-    } catch (error: any) {
-      toast.updateFailedToast(idToast, toastMsgDeleteError(error));
+    } catch (error: unknown) {
+      toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };
 

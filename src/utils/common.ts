@@ -1,4 +1,5 @@
 import { FieldErrors, SubmitErrorHandler } from 'react-hook-form';
+import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { OptionPayload } from '~/models';
 import { RevenuePayload } from '~/pages/admin/AdminManagerRevenuePage/RevenueChart';
 
@@ -165,3 +166,14 @@ export function generateRandomData(numItems: number): RevenuePayload[] {
 
   return newData;
 }
+
+export const toastMsgError = (error: unknown): string => {
+  let msg = TRY_CATCH_AXIOS_DEFAULT_ERROR;
+  if (typeof error === 'string') {
+    msg = error;
+  }
+  if (error instanceof Error) {
+    msg = error.message;
+  }
+  return msg;
+};

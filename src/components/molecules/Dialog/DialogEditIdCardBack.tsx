@@ -14,13 +14,13 @@ import { EditImageProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { ProfileImgType } from '~/constants/profile';
 import { selectProfile } from '~/redux/user/selector';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { toastMsgError } from '~/utils/common';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useMutationEditIdentityBack } from '~/hooks/useMutationEditIdentityBack';
 import { validationSchemaEditIdentityBack } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
-import toast from '~/utils/toast';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
+import toast from '~/utils/toast';
 
 interface DialogEditIdCardBackProps {
   open: boolean;
@@ -51,11 +51,6 @@ export default function DialogEditIdCardBack({
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${
-      error || error.message || TRY_CATCH_AXIOS_DEFAULT_ERROR
-    }`;
-  };
   const handleSubmitIdentityBack = async (
     data: EditIdentityBackFormDataPayload
   ) => {
@@ -70,8 +65,8 @@ export default function DialogEditIdCardBack({
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
       resetEditIdentityBack();
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

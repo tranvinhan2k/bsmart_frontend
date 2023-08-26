@@ -15,6 +15,7 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import FormInput from '~/components/atoms/FormInput';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 
 interface DialogEditAvatarProps {
   open: boolean;
@@ -40,8 +41,6 @@ export default function DialogUpdateAvatar({
   const { mutateAsync: mutateEditAvatar } = useMutationEditAvatar();
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
   const handleSubmitAvatar = async (data: EditAvatarFormDataPayload) => {
     const params: EditImageProfilePayload = {
       imageType: ProfileImgType.AVATAR,
@@ -54,8 +53,8 @@ export default function DialogUpdateAvatar({
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
       reset();
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

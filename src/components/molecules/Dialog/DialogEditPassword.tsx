@@ -18,6 +18,7 @@ import { FontFamily } from '~/assets/variables';
 import { useMutationEditAccountProfile } from '~/hooks/useMutationEditAccountProfile';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 import { SX_FORM_LABEL } from './style';
 
 interface DialogEditPasswordProps {
@@ -42,10 +43,6 @@ export default function DialogEditPassword({
 
   const toastMsgLoading = 'Đang cập nhật mật khẩu...';
   const toastMsgSuccess = 'Cập nhật mật khẩu thành công';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${error}`;
-  };
-
   const handleSubmitSuccess = async (data: EditPasswordSectionDefault) => {
     const params: EditAccountProfilePayload = {
       oldPassword: data.oldPassword,
@@ -55,7 +52,7 @@ export default function DialogEditPassword({
     try {
       await mutateEditAccountProfile(params);
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error));
     }
   };
