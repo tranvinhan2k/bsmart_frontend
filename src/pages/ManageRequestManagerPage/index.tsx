@@ -40,7 +40,7 @@ export default function ManageRequestManagerPage() {
     //
     ListSubheader0 = 'Người dùng',
     MenuItem00 = 'Phê duyệt hồ sơ giáo viên',
-    MenuItem01 = 'Cập nhật hồ sơ giáo viên',
+    MenuItem01 = 'Cập nhật thông tin hồ sơ giáo viên',
     //
     ListSubheader1 = 'Khóa học / Lớp học',
     MenuItem10 = 'Phê duyệt khóa học',

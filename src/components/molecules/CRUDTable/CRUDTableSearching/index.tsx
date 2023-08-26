@@ -142,7 +142,7 @@ export default function CRUDTableSearching({
         <Stack
           sx={{
             marginLeft: 1,
-            width: '15%',
+            width: { md: '25%', lg: '15%' },
           }}
         >
           <Button

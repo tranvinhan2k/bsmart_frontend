@@ -93,17 +93,16 @@ export const enum MentorLink {
 }
 
 export const enum AdminNavigationActionLink {
-  admin_analytic = 'admin_analytic',
-  admin_withdraw_request = 'admin_withdraw_request',
-  admin_referral_code = 'admin_referral_code',
   // admin = 'admin',
   // confirm_email = 'confirm_email/:code',
   // user_manager = 'user_manager',
   // revenue = 'revenue',
   // wallet_management = 'wallet-management',
   // questions_bank = 'questions_bank_manager',
+  admin_analytic = 'admin_analytic',
+  admin_withdraw_request = 'admin_withdraw_request',
+  admin_referral_code = 'admin_referral_code',
   admin_feedback = 'admin_feedback',
-  //
 }
 
 export const enum ManagerNavigationActionLink {
