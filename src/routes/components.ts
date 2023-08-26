@@ -97,25 +97,6 @@ export const MemberProfilePage = lazy(
 
 export const ConfirmEmailPage = lazy(() => import('~/pages/ConfirmEmailPage'));
 
-export const ManageClassPage = lazy(() => import('~/pages/ManageClassPage'));
-export const ManageFinancialPage = lazy(
-  () => import('~/pages/ManageFinancialPage')
-);
-export const ManageCoursePage = lazy(() => import('~/pages/ManageCoursePage'));
-export const ManageRequestManagerPage = lazy(
-  () => import('~/pages/ManageRequestManagerPage')
-);
-export const ManageUserPage = lazy(() => import('~/pages/ManageUserPage'));
-
-export const FeedbackManagerPage = lazy(
-  () => import('~/pages/FeedbackManagerPage')
-);
-export const SubjectManagerPage = lazy(
-  () => import('~/pages/SubjectManagerPage')
-);
-export const CategoryManagerPage = lazy(
-  () => import('~/pages/CategoryManagerPage')
-);
 export const MentorCourseDetailPage = lazy(
   () => import('~/pages/MentorCourseDetailPage')
 );
@@ -213,25 +194,38 @@ export const MemberClassMarkReportPage = lazy(
 );
 
 // admin
-
+export const AdminManageAnalyticPage = lazy(
+  () => import('~/pages/admin/AdminManageAnalyticPage')
+);
+export const AdminManageWithdrawRequest = lazy(
+  () => import('~/pages/admin/AdminManageWithdrawRequestPage')
+);
+export const AdminConfigReferralCodePage = lazy(
+  () => import('~/pages/admin/AdminConfigReferralCodePage')
+);
 export const AdminManagerRevenuePage = lazy(
   () => import('~/pages/admin/AdminManagerRevenuePage')
 );
 export const AdminManagerQuestionBank = lazy(
   () => import('~/pages/admin/AdminManagerQuestionBank')
 );
-export const AdminManageWithdrawRequest = lazy(
-  () => import('~/pages/admin/AdminManageWithdrawRequestPage')
-);
-export const AdminManageAnalyticPage = lazy(
-  () => import('~/pages/admin/AdminManageAnalyticPage')
-);
-// manager
 
+// manager
+export const ManageRequestManagerPage = lazy(
+  () => import('~/pages/ManageRequestManagerPage')
+);
+export const ManageUserPage = lazy(() => import('~/pages/ManageUserPage'));
+export const ManageCoursePage = lazy(() => import('~/pages/ManageCoursePage'));
+export const ManageClassPage = lazy(() => import('~/pages/ManageClassPage'));
+export const CategoryManagerPage = lazy(
+  () => import('~/pages/CategoryManagerPage')
+);
+export const SubjectManagerPage = lazy(
+  () => import('~/pages/SubjectManagerPage')
+);
+export const FeedbackManagerPage = lazy(
+  () => import('~/pages/FeedbackManagerPage')
+);
 export const ManagerQuestionsBankPage = lazy(
   () => import('~/pages/manager/ManagerQuestionsBankPage')
-);
-
-export const ManagerPromoCodePage = lazy(
-  () => import('~/pages/manager/ManagerPromoCodePage')
 );

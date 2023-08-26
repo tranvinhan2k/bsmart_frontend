@@ -93,30 +93,29 @@ export const enum MentorLink {
 }
 
 export const enum AdminNavigationActionLink {
-  admin = 'admin',
-  user_manager = 'user_manager',
-  wallet_management = 'wallet-management',
-  feedback_manager = 'feedback_manager',
-  subject_manager = 'subject_manager',
-  category_manager = 'category_manager',
-  questions_bank = 'questions_bank_manager',
-  revenue = 'revenue',
-  withdraw_request = 'withdraw_request',
-  analytic = 'analytic',
-  confirm_email = 'confirm_email/:code',
+  admin_analytic = 'admin_analytic',
+  admin_withdraw_request = 'admin_withdraw_request',
+  admin_referral_code = 'admin_referral_code',
+  // admin = 'admin',
+  // confirm_email = 'confirm_email/:code',
+  // user_manager = 'user_manager',
+  // revenue = 'revenue',
+  // wallet_management = 'wallet-management',
+  // questions_bank = 'questions_bank_manager',
+  admin_feedback = 'admin_feedback',
+  //
 }
 
 export const enum ManagerNavigationActionLink {
-  manager = 'manager',
-  confirm_email = 'confirm_email/:code',
+  // manager = 'manager',
   // questions_bank = 'questions_bank',
-  manage_analytic_manager = 'manage_analytic_manager',
-  manage_class_manager = 'manage_class_manager',
-  manage_course_manager = 'manage_course_manager',
-  manage_financial_manager = 'manage_financial_manager',
-  manage_request_manager = 'manage_request_manager',
-  manage_user_manager = 'manage_user_manager',
-  manage_promo_code = 'manage_promo_code',
+  // confirm_email = 'confirm_email/:code',
+  manager_request = 'manager_request',
+  manager_user = 'manager_user',
+  manager_course = 'manager_course',
+  manager_class = 'manager_class',
+  manager_subject = 'manager_subject',
+  manager_category = 'manager_category',
 }
 
 export const enum MentorCourseActionLink {
