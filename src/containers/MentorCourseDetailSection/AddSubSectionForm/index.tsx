@@ -12,14 +12,12 @@ import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useGetIdFromUrl, useQueryGetOptionMentorCourseClasses } from '~/hooks';
 
 interface Props {
-  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: (data: any) => void;
 }
 
 export default function AddSubSectionForm({
-  isFixed,
   hookForm,
   onSubmit,
   onDelete,
@@ -51,12 +49,6 @@ export default function AddSubSectionForm({
       placeholder: 'Nhập tên học phần',
       variant: 'text',
     },
-    // {
-    //   label: 'Video đính kèm',
-    //   name: 'link',
-    //   placeholder: 'Nhập link video đính kèm (không bắt buộc)',
-    //   variant: 'text',
-    // },
     {
       label: 'Mô tả học phần',
       name: 'description',

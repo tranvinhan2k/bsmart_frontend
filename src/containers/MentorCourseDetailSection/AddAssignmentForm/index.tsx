@@ -26,8 +26,6 @@ export type AddSubSectionFormPayload =
   | {
       type: 'QUIZ';
       code: string;
-      startDate: string;
-      endDate: string;
       time: number;
       defaultPoint: number;
       isSuffleQuestion: boolean;
@@ -45,14 +43,12 @@ export type AddSubSectionFormPayload =
     };
 
 interface Props {
-  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: () => void;
 }
 
 export default function AddAssignmentForm({
-  isFixed,
   hookForm,
   onSubmit,
   onDelete,

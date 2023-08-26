@@ -34,19 +34,13 @@ export default function ModuleQuizPage({ name, item }: Props) {
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const resolver = useYupValidationResolver(validationPassword);
-  const { control, handleSubmit } = useForm({
-    resolver,
-  });
 
   const { data } = useGetQuizResult(id);
 
   const quiz = {
-    isQuizOpen: new Date(item.startDate).getTime() <= new Date().getTime(),
+    isQuizOpen: true,
     isAttemptedQuiz: Boolean(data),
     code: item.code,
-    startDate: formatISODateDateToDisplayDateTime(item.startDate),
-    endDate: formatISODateDateToDisplayDateTime(item.endDate),
     time: formatTime(item.time),
   };
 
@@ -102,12 +96,6 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Bài kiểm tra này sẽ được mở vào ngày ${quiz.startDate}`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${quiz.endDate}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Thời gian làm bài: ${quiz.time}`}</Typography>

@@ -56,8 +56,6 @@ export default function MentorCourseModulesPage() {
       authorizeClasses: [],
       courseId,
       code: '',
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
       time: 0,
       defaultPoint: 0,
       isSuffleQuestion: false,
@@ -179,8 +177,6 @@ export default function MentorCourseModulesPage() {
       authorizeClasses: number[];
       courseId: number;
       code: string;
-      startDate: string;
-      endDate: string;
       time: number;
       defaultPoint: number;
       isSuffleQuestion: boolean;
@@ -208,8 +204,6 @@ export default function MentorCourseModulesPage() {
           courseId: data.courseId,
           authorizeClasses: data.authorizeClasses,
           code: data.code,
-          startDate: data.startDate,
-          endDate: data.endDate,
           time: data.time,
           defaultPoint: data.defaultPoint,
           isSuffleQuestion: !!data.isSuffleQuestion,
@@ -245,8 +239,6 @@ export default function MentorCourseModulesPage() {
           courseId,
           authorizeClasses: data.authorizeClasses,
           description: data.description,
-          startDate: data.startDate.toISOString(),
-          endDate: data.endDate.toISOString(),
           editBeForSubmitMin: data.editBeForSubmitMin,
           maxFileSubmit: data.maxFileSubmit,
           maxFileSize: data.maxFileSize,
@@ -337,7 +329,6 @@ export default function MentorCourseModulesPage() {
           )}
           {type === 'QUIZ' && (
             <AddQuizForm
-              isFixed={!!activity?.isFixed}
               hookForm={hookFormQuiz}
               onSubmit={handleSubmitQuiz}
               onDelete={handleClearOpen}
@@ -345,7 +336,6 @@ export default function MentorCourseModulesPage() {
           )}
           {type === 'ASSIGNMENT' && (
             <AddAssignmentForm
-              isFixed={!!activity?.isFixed}
               hookForm={hookFormAssignment}
               onSubmit={handleSubmitAssignment}
               onDelete={handleClearOpen}

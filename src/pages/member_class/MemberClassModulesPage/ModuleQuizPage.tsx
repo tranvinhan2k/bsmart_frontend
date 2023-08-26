@@ -57,9 +57,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
     isAttemptedQuiz: Boolean(results),
     code: item.code,
     time: formatTime(item.time),
-    isAllowAfterMin:
-      new Date().getTime() <=
-      new Date(item.endDate).getTime() + item.allowReviewAfterMin,
+    isAllowAfterMin: true,
   };
 
   const onSubmit = (param: any) => {

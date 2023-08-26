@@ -35,8 +35,6 @@ export default function MentorCourseAddModulePage() {
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
 
-  const { activity } = useGetDetailActivity(sectionId);
-
   const { refetchContent } = useContext(CourseContext);
 
   const { mutationLesson, mutationResource, mutationQuiz, mutationAssignment } =
@@ -79,8 +77,6 @@ export default function MentorCourseAddModulePage() {
       authorizeClasses: [],
       courseId,
       code: '',
-      startDate: '',
-      endDate: '',
       time: 0,
       defaultPoint: 0,
       isSuffleQuestion: false,
@@ -102,8 +98,6 @@ export default function MentorCourseAddModulePage() {
       authorizeClasses: [],
       courseId,
       description: '',
-      startDate: '',
-      endDate: '',
       maxFileSubmit: 0,
       maxFileSize: 0,
       attachFiles: {
@@ -175,8 +169,6 @@ export default function MentorCourseAddModulePage() {
         courseId,
         authorizeClasses: data.authorizeClasses,
         description: data.description,
-        startDate: data.startDate.toISOString(),
-        endDate: data.endDate.toISOString(),
         editBeForSubmitMin: data.editBeForSubmitMin,
         maxFileSubmit: data.maxFileSubmit,
         maxFileSize: data.maxFileSize,
@@ -198,8 +190,6 @@ export default function MentorCourseAddModulePage() {
       authorizeClasses: number[];
       courseId: number;
       code: string;
-      startDate: string;
-      endDate: string;
       time: number;
       defaultPoint: number;
       isSuffleQuestion: boolean;
@@ -225,8 +215,6 @@ export default function MentorCourseAddModulePage() {
         courseId: data.courseId,
         authorizeClasses: data.authorizeClasses,
         code: data.code,
-        startDate: data.startDate,
-        endDate: data.endDate,
         time: data.time,
         defaultPoint: data.defaultPoint,
         isSuffleQuestion: !!data.isSuffleQuestion,
@@ -262,28 +250,24 @@ export default function MentorCourseAddModulePage() {
       <Stack marginTop={1}>
         {moduleType === 'LESSON' && (
           <AddSubSectionForm
-            isFixed={!!activity?.isFixed}
             hookForm={hookFormLesson}
             onSubmit={handleSubmitLesson}
           />
         )}
+
         {moduleType === 'RESOURCE' && (
           <AddResourceForm
-            isFixed={!!activity?.isFixed}
             hookForm={hookFormResource}
             onSubmit={handleSubmitResource}
           />
         )}
+
         {moduleType === 'QUIZ' && (
-          <AddQuizForm
-            isFixed={!!activity?.isFixed}
-            hookForm={hookFormQuiz}
-            onSubmit={handleSubmitQuiz}
-          />
+          <AddQuizForm hookForm={hookFormQuiz} onSubmit={handleSubmitQuiz} />
         )}
+
         {moduleType === 'ASSIGNMENT' && (
           <AddAssignmentForm
-            isFixed={!!activity?.isFixed}
             hookForm={hookFormAssignment}
             onSubmit={handleSubmitAssignment}
           />
