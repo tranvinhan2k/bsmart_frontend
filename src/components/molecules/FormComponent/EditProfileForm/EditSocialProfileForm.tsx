@@ -41,7 +41,11 @@ export default function EditSocialProfileForm() {
       error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
     }`;
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
-    const params: EditSocialProfilePayload = {};
+    const params: EditSocialProfilePayload = {
+      website: '',
+      linkedinLink: '',
+      facebookLink: '',
+    };
     if (data.website) params.website = data.website;
     if (data.linkedinLink) params.linkedinLink = data.linkedinLink;
     if (data.facebookLink) params.facebookLink = data.facebookLink;
