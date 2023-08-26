@@ -19,6 +19,7 @@ export default function MentorDetailsSection() {
       navigate(`/${NavigationLink.mentor_menu}`);
     }
   }, [mentorDetails, navigate, isLoading, isError]);
+  // Guest search mentor
 
   return mentorDetails ? (
     <Stack>
@@ -32,9 +33,11 @@ export default function MentorDetailsSection() {
       >
         <Grid item xs={12} container spacing={2}>
           <Grid item xs={8}>
-            <MentorDetailsHeader />
-            <MentorDetailsDescribe />
-            <MentorDetailsFeaturedCourseList />
+            <Stack spacing={2}>
+              <MentorDetailsHeader />
+              <MentorDetailsDescribe />
+            </Stack>
+            {/* <MentorDetailsFeaturedCourseList /> */}
           </Grid>
           <Grid item xs={4}>
             <MentorDetailsRight />

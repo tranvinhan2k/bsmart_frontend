@@ -1,7 +1,7 @@
-import { Avatar, Button, Rating, Stack, Typography } from '@mui/material';
+import { Avatar, Button, Chip, Rating, Stack, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import Icon, { IconName } from '~/components/atoms/Icon';
-import sx from './style';
+import globalStyles from '~/styles';
 
 import { useGetMentorDetails } from '~/hooks/mentorProfile/useGetMentorDetails';
 
@@ -39,13 +39,16 @@ export default function MentorDetailsRight() {
       ]
     : [];
 
+  const handleOpenLink = (link: string | undefined) => {
+    if (link) window.open(link, '_blank');
+  };
   return (
     <Stack
       direction="column"
       justifyContent="flex-start"
       alignItems="center"
       spacing={2}
-      sx={sx.mainWrapper}
+      sx={globalStyles.viewRoundedWhiteBody}
     >
       <Avatar
         src={avatar}
@@ -57,7 +60,7 @@ export default function MentorDetailsRight() {
         }}
       />
       <Stack sx={{ flexDirection: 'row', alignItems: 'center' }} marginTop={1}>
-        <Typography>{`(${numberOfRatingStar})`}</Typography>
+        <Chip size="small" color="default" label={numberOfRatingStar} />
         <Stack marginLeft={1}>
           <Rating value={ratingStar} readOnly />
         </Stack>
@@ -74,6 +77,7 @@ export default function MentorDetailsRight() {
             color="miSmartOrange"
             startIcon={<Icon name={item.iconName as IconName} size="small" />}
             disabled={!item.link}
+            onClick={() => handleOpenLink(item.link)}
             key={item.id}
           >
             {item.label}

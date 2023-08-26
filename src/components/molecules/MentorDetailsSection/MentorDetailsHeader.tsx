@@ -1,9 +1,9 @@
 import { Box, Chip, Grid, Stack, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import sx from './style';
-
 import { useGetMentorDetails } from '~/hooks/mentorProfile/useGetMentorDetails';
+import globalStyles from '~/styles';
+import sx from './style';
 
 export default function MentorDetailsHeader() {
   const { id } = useParams();
@@ -47,23 +47,8 @@ export default function MentorDetailsHeader() {
     };
   });
 
-  // console.log('parsedSkills', parsedSkills);
-
-  const tmpIntroduce =
-    'Tôi là Angela, tôi là một nhà phát triển với niềm đam mê giảng dạy. Tôi là người hướng dẫn chính tại London App Brewery, Bootcamp lập trình hàng đầu của London. Tôi đã giúp hàng trăm nghìn sinh viên học cách viết mã và thay đổi cuộc sống của họ bằng cách trở thành nhà phát triển. Tôi đã được các công ty như Twitter, Facebook và Google mời dạy cho nhân viên của họ. Bước đột phá đầu tiên của tôi vào lập trình là khi tôi mới 12 tuổi, muốn xây dựng trò chơi Space Invader của riêng mình. Kể từ đó, tôi đã tạo ra hàng trăm trang web, ứng dụng và trò chơi. Nhưng quan trọng nhất, tôi nhận ra rằng niềm đam mê lớn nhất của tôi là giảng dạy. Tôi dành phần lớn thời gian của mình để nghiên cứu cách làm cho việc học viết mã trở nên thú vị và làm cho các khái niệm khó hiểu trở nên dễ hiểu. Tôi áp dụng mọi thứ tôi khám phá được vào các khóa học bootcamp của mình. Trong các khóa học của tôi, bạn sẽ tìm thấy rất nhiều điều hài hước táo bạo nhưng cũng có rất nhiều lời giải thích và hình ảnh động để đảm bảo mọi thứ đều dễ hiểu. Tôi sẽ ở đó cho bạn mỗi bước của con đường.';
-  const isLoading = false;
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const handleIsDescriptionExpanded = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const buttonList = [
-    { id: 0, iconName: 'languageIcon', label: 'Website riêng' },
-    { id: 1, iconName: 'facebook', label: 'Facebook' },
-    { id: 2, iconName: 'twitter', label: 'Twitter' },
-  ];
   return (
-    <Box sx={sx.mainWrapper}>
+    <Box sx={globalStyles.viewRoundedWhiteBody}>
       <Box>
         <Typography sx={sx.titleMentorRole}>Giáo viên</Typography>
         <Typography sx={sx.titleMentorName}>{mentorName}</Typography>
