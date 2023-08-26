@@ -21,7 +21,7 @@ export const SX_SIDEBAR_TITLE: SxProps<Theme> = {
 };
 
 export const STYLE_SIDEBAR: CSSProperties = {
-  background: Color.white2,
+  background: Color.white,
   zIndex: 999,
 };
 export const STYLE_SCROLLBAR: SxProps<Theme> = {
@@ -32,9 +32,9 @@ export const STYLE_SCROLLBAR: SxProps<Theme> = {
 };
 
 export const STYLE_MENU: CSSProperties = {
-  background: Color.white2,
+  background: Color.white,
   color: Color.black,
-  height: '100vh',
+  height: '93vh',
 };
 
 export const STYLE_MENU_ITEM_LABEL: CSSObject = {
@@ -43,7 +43,9 @@ export const STYLE_MENU_ITEM_LABEL: CSSObject = {
   color: Color.black,
 };
 export const STYLE_MENU_ITEM_LABEL_ACTIVE: CSSObject = {
-  ...STYLE_MENU_ITEM_LABEL,
+  fontSize: FontSize.small_14,
+  fontFamily: FontFamily.bold,
+  color: Color.tertiary,
 };
 
 export const STYLE_MENU_ITEM_ICO: CSSObject = {
@@ -51,19 +53,20 @@ export const STYLE_MENU_ITEM_ICO: CSSObject = {
   fontSize: '5px',
 };
 export const STYLE_MENU_ITEM_ICO_ACTIVE: CSSObject = {
-  ...STYLE_MENU_ITEM_ICO,
+  color: Color.tertiary,
+  fontSize: '5px',
 };
 
 export const STYLE_MENU_ITEM_BUTTON: CSSObject = {
   transition: 'all 200ms ease',
-  background: Color.white2,
+  background: Color.white,
   ':hover': {
-    background: Color.grey3,
+    background: Color.white4,
   },
 };
 export const STYLE_MENU_ITEM_BUTTON_ACTIVE: CSSObject = {
   ...STYLE_MENU_ITEM_BUTTON,
-  background: `${Color.navy}33`,
+  background: `${Color.tertiary}22`,
 };
 
 export const STYLE_MENU_ITEM_ROOT: CSSObject = {

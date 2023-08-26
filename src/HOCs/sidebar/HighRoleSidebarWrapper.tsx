@@ -9,6 +9,7 @@ import { NavigationLink } from '~/constants/routeLink';
 import { useLogOut, useMenuItem } from '~/hooks';
 import CustomMenu from '~/components/atoms/CustomMenu';
 import Icon from '~/components/atoms/Icon';
+import { AvatarMenu } from '~/components/molecules/sidebar/default/AvatarMenu';
 
 interface Props {
   children: React.ReactNode;
@@ -16,24 +17,7 @@ interface Props {
 }
 
 export default function HighRoleSidebarWrapper({ children, actions }: Props) {
-  const navigate = useNavigate();
-  const { handleHookLogOut } = useLogOut();
-
-  const { anchorRef, handleClose, handleToggle, open } = useMenuItem();
   const { toggleSidebar, toggled } = useProSidebar();
-
-  const handleLogOut = () => {
-    handleHookLogOut();
-    handleToggle();
-  };
-
-  const handleProfile = () => {
-    handleToggle();
-  };
-
-  const handleHomePage = () => {
-    navigate(`/${NavigationLink.homepage}`);
-  };
 
   const mappingData = {
     title: 'Quản lí tài khoản',
@@ -53,7 +37,11 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
           borderRight: `0.5px solid ${Color.border}`,
         }}
       >
-        <DefaultSidebarLeft data={actions} />
+        <DefaultSidebarLeft
+          data={actions}
+          title={mappingData.title}
+          srcImage={mappingData.srcImage}
+        />
       </Stack>
       <Stack
         sx={{
@@ -64,64 +52,35 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
           '::-webkit-scrollbar': {
             display: 'none',
           },
-          background: Color.white,
+          background: '#f9fbff',
         }}
       >
         <Stack
           sx={{
-            background: Color.white4,
             height: '52px',
+            zIndex: 10,
             position: 'sticky',
             top: 0,
-            zIndex: 10,
-            borderBottom: `1px solid ${Color.border}`,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingX: MetricSize.large_30,
+            paddingX: '15px',
+            background: Color.white,
+            '@media (min-width: 770px)': {
+              display: 'none',
+            },
           }}
         >
-          <Box
-            sx={{
-              display: 'block',
-              '@media (min-width: 770px)': {
-                display: 'none',
-              },
-            }}
-          >
+          <Box>
             <IconButton onClick={() => toggleSidebar(!toggled)}>
               <Icon name="menu" color="black" size="medium" />
             </IconButton>
           </Box>
           <Stack sx={{ flexGrow: 1 }} />
-          <Stack>
-            <IconButton ref={anchorRef} onClick={handleToggle}>
-              <Avatar alt={mappingData.title} src={mappingData.srcImage} />
-            </IconButton>
-            <CustomMenu
-              open={open}
-              anchorEl={anchorRef.current}
-              onClose={handleClose}
-              onToggleOpen={handleToggle}
-              menuItemData={[
-                {
-                  icon: 'home',
-                  name: 'Trang chủ',
-                  onClick: handleHomePage,
-                },
-                {
-                  icon: 'account',
-                  name: 'Mật khẩu',
-                  onClick: handleProfile,
-                },
-                {
-                  icon: 'logOut',
-                  name: 'Đăng xuất',
-                  onClick: handleLogOut,
-                },
-              ]}
-            />
-          </Stack>
+          <AvatarMenu
+            title={mappingData.title}
+            srcImage={mappingData.srcImage}
+          />
         </Stack>
         <Stack sx={{ width: '100%' }}>{children}</Stack>
       </Stack>
