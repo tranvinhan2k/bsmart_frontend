@@ -6,6 +6,7 @@ import Sidebar from '~/containers/CourseDetailSection/Sidebar';
 import { useGetIdFromUrl, useScrollIntoView } from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import CourseDetail from '~/components/molecules/CourseDetail';
+import { image } from '~/constants/image';
 
 export default function CourseDetailPage() {
   const id = useGetIdFromUrl('id');

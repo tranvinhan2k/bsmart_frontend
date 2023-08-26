@@ -1,6 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
 import Moment from 'moment';
-import { element } from 'prop-types';
 
 export const formatDate = (dateText: string) => {
   return Moment(dateText).format('DD/MM/YYYY');

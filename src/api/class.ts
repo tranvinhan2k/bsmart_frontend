@@ -1,4 +1,5 @@
 import axiosClient from '~/api/axiosClient';
+import { image } from '~/constants/image';
 import { UseSearchManagedClassPayload } from '~/hooks/class/UseSearchManagedClass';
 import { UseGetCourseCreateRequestDetailsPayload } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { PagingFilterPayload } from '~/models';
@@ -178,6 +179,7 @@ const classApi = {
         maxStudent: item.maxStudent,
         minStudent: item.minStudent,
         numberOfSlot: item.numberOfSlot,
+        isFullStudent: item.isFullStudent || false,
         purchase: item.purchase || false,
         price: item.price,
         status: item.status,
@@ -262,6 +264,7 @@ const classApi = {
         numberOfSlot: item.numberOfSlot,
         level: item.level,
         status: item.status,
+        isFullStudent: item.isFullStudent || false,
         purchase: item?.purchase || false,
         imageAlt: item.image.name,
         imageUrl: item.image.url,

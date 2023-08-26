@@ -48,6 +48,7 @@ export interface DetailCourseClassPayload {
   endDate: string;
   numberOfSlot: number;
   purchase: boolean;
+  isFullStudent: boolean;
   timeInWeekRequests: {
     dayOfWeekId: number;
     slotId: number;
