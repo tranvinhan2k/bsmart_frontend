@@ -313,7 +313,6 @@ export default function MentorCourseModulesPage() {
         <Stack>
           {type === 'LESSON' && (
             <AddSubSectionForm
-              isFixed={!!activity?.isFixed}
               hookForm={hookFormLesson}
               onSubmit={handleUpdateModule}
               onDelete={handleClearOpen}
@@ -321,7 +320,6 @@ export default function MentorCourseModulesPage() {
           )}
           {type === 'RESOURCE' && (
             <AddResourceForm
-              isFixed={!!activity?.isFixed}
               hookForm={hookFormResource}
               onSubmit={handleSubmitResource}
               onDelete={handleClearOpen}
