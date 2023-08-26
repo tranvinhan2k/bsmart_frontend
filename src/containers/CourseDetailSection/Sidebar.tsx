@@ -31,6 +31,7 @@ import {
 } from '~/hooks';
 import { RequestCartItem } from '~/api/cart';
 import { useBoolean } from '~/hooks/useBoolean';
+import { LoadingWrapper } from '~/HOCs';
 
 interface Props {
   courseId: number;
@@ -283,8 +284,8 @@ export default function Sidebar({
               overflowY: 'auto',
             }}
           >
-            {classes?.length !== 0 ? (
-              classes.map((item, index) => {
+            <LoadingWrapper isEmptyCourse={classes.length === 0}>
+              {classes.map((item, index) => {
                 return (
                   <Stack
                     sx={{
@@ -427,10 +428,8 @@ export default function Sidebar({
                     </Stack>
                   </Stack>
                 );
-              })
-            ) : (
-              <Typography>Chưa có lớp học nào</Typography>
-            )}
+              })}
+            </LoadingWrapper>
           </Stack>
         </Collapse>
         <Collapse in={open}>
