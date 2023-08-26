@@ -312,6 +312,7 @@ const accountApi = {
     if (degreeIdsToDelete) {
       bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete as any); // CORRECT WAY
     }
+    bodyFormData.append('status', true as any);
     return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

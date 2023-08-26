@@ -8,20 +8,19 @@ import {
   UseMutationProcessUpdateMentorProfileRequestPayload,
 } from '~/hooks/user/useMutationProcessUpdateMentorProfileRequest';
 import { validationSchemaProcessUpdateMentorProfileRequest } from '~/form/validation';
-import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
 interface RequestRegisterProcessProps {
-  row: any;
+  idMentorProfile: number;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
 }
 
 export default function RequestUpdateMentorDetailsProcess({
-  row,
+  idMentorProfile,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
@@ -56,7 +55,7 @@ export default function RequestUpdateMentorDetailsProcess({
     // const degreeIds = row.degreeRequest.map((skill: any) => skill.id);
 
     const params: UseMutationProcessUpdateMentorProfileRequestPayload = {
-      id: row.mentorProfileId,
+      id: idMentorProfile,
       status: data.status,
     };
     const id = toast.loadToast(toastMsgLoading);

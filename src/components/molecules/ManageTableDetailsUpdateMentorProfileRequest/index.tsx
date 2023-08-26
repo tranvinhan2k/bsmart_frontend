@@ -8,7 +8,7 @@ import RequestOriginBasicInfo from './RequestOrigin/RequestOriginBasicInfo';
 import RequestOriginDegree from './RequestOrigin/RequestOriginDegree';
 import RequestOriginIdentity from './RequestOrigin/RequestOriginIdentity';
 import RequestOriginSkill from './RequestOrigin/RequestOriginSkill';
-import RequestUpdateMentorDetailsProcess from './RequestUpdateMentorDetailsProcess';
+// import RequestUpdateMentorDetailsProcess from './RequestUpdateMentorDetailsProcess';
 import { SX_FORM_LABEL, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsUpdateMentorProfileRequestProps {
