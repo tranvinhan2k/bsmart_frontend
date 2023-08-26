@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import AnalyticYearRevenue from './AnalyticYearRevenue';
+import globalStyles from '~/styles';
 
 export default function ManageAnalyticSection() {
   const [tabValue, setTabValue] = useState<number>(2023);
@@ -15,18 +16,16 @@ export default function ManageAnalyticSection() {
     setTabValue(e.target.value as number);
 
   return (
-    <Box p={4}>
+    <Box padding={3}>
       <Typography
         sx={{
-          fontSize: 26,
-          fontWeight: 500,
+          ...globalStyles.textTitle,
           lineHeight: 1,
         }}
       >
         Báo cáo thống kê
       </Typography>
-      <Box mb={3} />
-      <Stack spacing={2} mb={2}>
+      <Stack marginTop={2} spacing={2} sx={globalStyles.viewRoundedWhiteBody}>
         <FormControl size="small">
           <TextField
             value={tabValue}
@@ -40,7 +39,9 @@ export default function ManageAnalyticSection() {
           </TextField>
         </FormControl>
       </Stack>
-      <AnalyticYearRevenue year={tabValue} />
+      <Stack marginTop={1}>
+        <AnalyticYearRevenue year={tabValue} />
+      </Stack>
     </Box>
   );
 }

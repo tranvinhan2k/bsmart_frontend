@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import CustomModal from '~/components/atoms/CustomModal';
@@ -8,6 +8,7 @@ import CreateCategoriesForm from '~/containers/CategoriesManagerSection/CreateCa
 import ReadOneCategory from '~/containers/CategoriesManagerSection/ReadOneCategory';
 import UpdateCategoriesForm from '~/containers/CategoriesManagerSection/UpdateCategoriesForm';
 import { useCRUDCategories } from '~/hooks/useCRUDCategories';
+import globalStyles from '~/styles';
 import toast from '~/utils/toast';
 
 export default function CategoryManagerPage() {
@@ -158,21 +159,23 @@ export default function CategoryManagerPage() {
   }
 
   return (
-    <Stack padding={2}>
-      <CRUDTable
-        setSelectedRow={setSelectedRow}
-        isLoading={isLoading}
-        error={error}
-        title="Quản lí lĩnh vực"
-        addItemButtonLabel="Thêm lĩnh vực"
-        columns={columns.categoryColumns}
-        onAdd={handleAddCategory}
-        searchPlaceholder="Tìm kiếm môn học"
-        onSearch={handleSearchCategory}
-        rows={filterRows}
-        menuItemList={menuItemList}
-      />
-      {renderItem}
+    <Stack paddingX={3} paddingTop={2}>
+      <Typography sx={globalStyles.textTitle}>Quản lí lĩnh vực</Typography>
+      <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+        <CRUDTable
+          setSelectedRow={setSelectedRow}
+          isLoading={isLoading}
+          error={error}
+          addItemButtonLabel="Thêm lĩnh vực"
+          columns={columns.categoryColumns}
+          onAdd={handleAddCategory}
+          searchPlaceholder="Tìm kiếm môn học"
+          onSearch={handleSearchCategory}
+          rows={filterRows}
+          menuItemList={menuItemList}
+        />
+        {renderItem}
+      </Stack>
     </Stack>
   );
 }

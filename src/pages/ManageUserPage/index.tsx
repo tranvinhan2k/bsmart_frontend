@@ -4,6 +4,7 @@ import { scrollToTop } from '~/utils/common';
 import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import ManageTableUser from '~/components/molecules/ManageTableUser';
 import TabPanel from '~/components/atoms/TabPanel/index';
+import globalStyles from '~/styles';
 
 export default function ManageUserPage() {
   useEffect(() => {
@@ -56,47 +57,48 @@ export default function ManageUserPage() {
   ];
 
   return (
-    <Box p={4}>
+    <Box padding={3}>
       <Box pb={2}>
         <Typography
           sx={{
-            fontSize: 26,
-            fontWeight: 500,
+            ...globalStyles.textTitle,
             lineHeight: 1,
           }}
         >
           Danh sách người dùng trong hệ thống
         </Typography>
       </Box>
-      <Tabs
-        variant="scrollable"
-        value={tabValue}
-        onChange={handleSetTabValue}
-        sx={{ borderBottom: 1, borderColor: 'divider' }}
-      >
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        <Tabs
+          variant="scrollable"
+          value={tabValue}
+          onChange={handleSetTabValue}
+          sx={{ borderBottom: 1, borderColor: 'divider' }}
+        >
+          {tabEl.map((tab) => (
+            <Tab
+              label={
+                <Stack
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
+                  <Chip label={tab.noOfRequest} size="small" />
+                </Stack>
+              }
+              value={tab.id}
+              key={tab.id}
+            />
+          ))}
+        </Tabs>
         {tabEl.map((tab) => (
-          <Tab
-            label={
-              <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                spacing={1}
-              >
-                <Typography sx={{ fontSize: 14 }}>{tab.text}</Typography>
-                <Chip label={tab.noOfRequest} size="small" />
-              </Stack>
-            }
-            value={tab.id}
-            key={tab.id}
-          />
+          <TabPanel value={tabValue} index={tab.id} key={tab.id}>
+            <Box py={2}>{tab.component}</Box>
+          </TabPanel>
         ))}
-      </Tabs>
-      {tabEl.map((tab) => (
-        <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-          <Box py={2}>{tab.component}</Box>
-        </TabPanel>
-      ))}
+      </Stack>
     </Box>
   );
 }
