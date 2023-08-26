@@ -7,15 +7,15 @@ import { EDIT_SOCIAL_PROFILE_FIELDS } from '~/form/schema';
 import { EditSocialProfileFormDefault, FormInputVariant } from '~/models/form';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
 import { FontFamily } from '~/assets/variables';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
+import { toastMsgError } from '~/utils/common';
+import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useGetProfile } from '~/hooks/user/useGetProfile';
 import { validationSchemaEditSocialProfile } from '~/form/validation';
 import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
-import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
-import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
 
 export default function EditSocialProfileForm() {
   const { profile: dataGetProfile, refetch } = useGetProfile();
@@ -36,10 +36,6 @@ export default function EditSocialProfileForm() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string =>
-    `Cập nhật không thành công: ${
-      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
-    }`;
   const handleSubmitSuccess = async (data: EditSocialProfileFormDefault) => {
     const params: EditSocialProfilePayload = {
       website: '',
@@ -56,7 +52,7 @@ export default function EditSocialProfileForm() {
       refetch();
       refetchCheckCompleteness();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error));
     }
   };

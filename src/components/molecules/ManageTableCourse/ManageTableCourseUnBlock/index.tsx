@@ -1,9 +1,9 @@
 import { Box, Button as MuiButton, Stack, Typography } from '@mui/material';
 import { FontFamily } from '~/assets/variables';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { toastMsgError } from '~/utils/common';
+import { useMutationUnblockCourse } from '~/hooks/course/useMutationUnblockCourse';
 import toast from '~/utils/toast';
 import { SX_REQUEST_TITLE } from './style';
-import { useMutationUnblockCourse } from '~/hooks/course/useMutationUnblockCourse';
 
 interface ManageTableCourseUnBlockProps {
   row: any;
@@ -35,8 +35,6 @@ export default function ManageTableCourseUnBlock({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công...';
-  const toastMsgError = (error: any): string =>
-    `Xử lý không thành công: ${error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR}`;
   const handleUnblockCourse = async () => {
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -45,8 +43,8 @@ export default function ManageTableCourseUnBlock({
       refetchSearch();
       refetchGetNoOfRequest();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
   const handleOnClose = () => onClose();

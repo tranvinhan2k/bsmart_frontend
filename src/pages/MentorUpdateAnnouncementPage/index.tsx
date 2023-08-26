@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { defaultValueUpdateAnnouncement } from '~/form/defaultValues';
 import { MentorNavigationActionData } from '~/routes/navigators';
-import { scrollToTop } from '~/utils/common';
+import { scrollToTop, toastMsgError } from '~/utils/common';
 import { UpdateAnnouncementFormDataPayload } from '~/models/form';
 import { useDeleteAnnouncement } from '~/hooks/announcement/useDelete';
 import { useGetDetailsAnnouncement } from '~/hooks/announcement/useGetDetails';
@@ -71,12 +71,8 @@ export default function MentorUpdateAnnouncementPage() {
 
   const toastMsgLoadingUpdate = 'Đang cập nhật...';
   const toastMsgSuccessUpdate = 'Cập nhật thành công';
-  const toastMsgErrorUpdate = (error: any): string =>
-    `Cập nhật không thành công: ${error.message}`;
   const toastMsgLoadingDelete = 'Đang xóa...';
   const toastMsgSuccessDelete = 'Xóa thành công';
-  const toastMsgErrorDelete = (error: any): string =>
-    `Xóa không thành công: ${error.message}`;
 
   const handleSubmitSuccessUpdate = async (
     data: UpdateAnnouncementFormDataPayload
@@ -95,8 +91,8 @@ export default function MentorUpdateAnnouncementPage() {
     try {
       await updateAnnouncement.mutateAsync(params);
       toast.updateSuccessToast(idToast, toastMsgSuccessUpdate);
-    } catch (error: any) {
-      toast.updateFailedToast(idToast, toastMsgErrorUpdate(error));
+    } catch (error: unknown) {
+      toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };
   const handleSubmitSuccessDelete = async () => {
@@ -108,8 +104,8 @@ export default function MentorUpdateAnnouncementPage() {
       });
       toast.updateSuccessToast(idToast, toastMsgSuccessDelete);
       handleNavigateClassDetailsPage();
-    } catch (error: any) {
-      toast.updateFailedToast(idToast, toastMsgErrorDelete(error));
+    } catch (error: unknown) {
+      toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };
 

@@ -14,7 +14,6 @@ import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import { MentorProfileStatusType } from '~/constants/profile';
 import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import {
   useDispatchGetAllSubjects,
@@ -23,6 +22,7 @@ import {
 } from '~/hooks';
 import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
 import { useGetProfile } from '~/hooks/user/useGetProfile';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import {
   SX_FORM,
@@ -86,11 +86,6 @@ export default function EditMentorProfileForm() {
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${
-      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
-    }`;
-  };
   const handleSubmitSuccess = async (data: any) => {
     const params: EditMentorProfilePayload = {
       introduce: data.introduce,
@@ -109,7 +104,7 @@ export default function EditMentorProfileForm() {
       handleDispatchProfile();
       refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error));
     }
   };

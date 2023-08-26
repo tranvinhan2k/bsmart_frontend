@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { useDispatchProfile } from '~/hooks';
 import { useRequestApproval } from '~/hooks/mentorProfile/useRequestApproval';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 
 interface SubmitMentorProfileConfirmProps {
@@ -28,11 +28,6 @@ export default function SubmitMentorProfileConfirm({
 
   const toastMsgLoading = 'Đang gửi hồ sơ...';
   const toastMsgSuccess = 'Gửi hồ sơ thành công';
-  const toastMsgError = (error: any): string => {
-    return `Gửi hồ sơ không thành công: ${
-      error || error.message || TRY_CATCH_AXIOS_DEFAULT_ERROR
-    }`;
-  };
   const handleSubmitSuccess = async () => {
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -41,7 +36,7 @@ export default function SubmitMentorProfileConfirm({
       handleRefetch();
       onClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error.message));
     }
   };

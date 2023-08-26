@@ -14,7 +14,6 @@ import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import { MentorProfileStatusType } from '~/constants/profile';
 import { defaultValueEditCertificateProfile } from '~/form/defaultValues';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { EDIT_CERTIFICATE_PROFILE_FIELDS } from '~/form/schema';
 import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
@@ -24,17 +23,13 @@ import {
   EditCertificateProfileFormDataPayload,
   FormInputVariant,
 } from '~/models/form';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
 export default function EditCertificateProfileForm() {
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
-  const toastMsgError = (error: any): string => {
-    return `Cập nhật không thành công: ${
-      error.message ?? TRY_CATCH_AXIOS_DEFAULT_ERROR
-    }`;
-  };
 
   // const { profile: dataGetProfile } = useGetProfile();
   // const token =
@@ -123,8 +118,8 @@ export default function EditCertificateProfileForm() {
       handleDispatchProfile();
       refetch();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: any) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

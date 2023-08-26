@@ -7,11 +7,11 @@ import {
   defaultValueRejectRegisterRequest,
 } from '~/form/defaultValues';
 import { ProcessRegisterRequestFormDefault } from '~/models/form';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import {
   useMutationProcessRegisterRequest,
   UseMutationProcessRegisterRequestPayload,
 } from '~/hooks/user/useMutationProcessRegisterRequest';
+import { toastMsgError } from '~/utils/common';
 import { useYupValidationResolver } from '~/hooks';
 import { validationSchemaProcessRegisterRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
@@ -61,16 +61,6 @@ export default function RequestRegisterProcess({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (error: unknown): string => {
-    let msg = TRY_CATCH_AXIOS_DEFAULT_ERROR;
-    if (typeof error === 'string') {
-      msg = error;
-    }
-    if (error instanceof Error) {
-      msg = error.message;
-    }
-    return msg;
-  };
   const handleProcessRegisterRequest = async (
     data: ProcessRegisterRequestFormDefault
   ) => {
@@ -99,8 +89,8 @@ export default function RequestRegisterProcess({
       refetchGetNoOfRequest();
       onClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: unknown) {
-      toast.updateFailedToast(id, toastMsgError(e));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

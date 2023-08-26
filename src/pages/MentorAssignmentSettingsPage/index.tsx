@@ -66,9 +66,6 @@ export default function MentorUpdateAssignmentPage() {
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
-  const toastMsgError = (error: any): string => {
-    return `Tạo không thành công: ${error.message}`;
-  };
   const handleSubmitSuccess = async (data: UpdateAssignmentFormDataPayload) => {
     const params: UpdateAssignmentPayload = {
       name: data.name,
@@ -88,7 +85,7 @@ export default function MentorUpdateAssignmentPage() {
     // try {
     //   await mutateUpdateAssignment(params);
     //   toast.updateSuccessToast(idToast, toastMsgSuccess);
-    // } catch (error: any) {
+    // } catch (error: unknown) {
     //   toast.updateFailedToast(idToast, toastMsgError(error.message));
     // }
   };

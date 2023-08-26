@@ -20,7 +20,7 @@ import { SX_ACCORDION_TITTLE, SX_FORM_LABEL } from './style';
 import { CreateAnnouncementFormDataPayload } from '~/models/form';
 import { useCreateAnnouncement } from '~/hooks/announcement/useCreate';
 import toast from '~/utils/toast';
-import { scrollToTop } from '~/utils/common';
+import { scrollToTop, toastMsgError } from '~/utils/common';
 import { UseCreateAnnouncementPayload } from '~/models/announcement';
 
 export default function MentorCreateAnnouncementPage() {
@@ -42,8 +42,6 @@ export default function MentorCreateAnnouncementPage() {
 
   const toastMsgLoading = 'Đang tạo...';
   const toastMsgSuccess = 'Tạo thành công';
-  const toastMsgError = (error: any): string =>
-    `Tạo không thành công: ${error.message}`;
   const navigate = useNavigate();
   const handleSubmitSuccess = async (
     data: CreateAnnouncementFormDataPayload
@@ -64,7 +62,7 @@ export default function MentorCreateAnnouncementPage() {
       navigate(
         `/mentor-profile/${MentorNavigationActionData[2].items?.[0].link}`
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.updateFailedToast(idToast, toastMsgError(error));
     }
   };
