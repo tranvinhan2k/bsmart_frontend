@@ -20,7 +20,7 @@ export default function SubmitMentorProfileConfirm({
     warning0 = 'Hồ sơ giảng dạy không thể chỉnh sửa sau khi phê duyệt',
     warning1 = 'Nếu muốn chỉnh sửa phải gửi yêu cầu phê duyệt mới',
     warning2 = 'Hãy kiểm tra nội dung thật kĩ trước khi gửi cho quản trị viên',
-    warning3 = 'Hãy chắc chắn là bạn đồng ý với <a href=/policy><strong>Điều khoản dịch vụ</strong></a> ở bên chúng tôi',
+    warning3 = 'Hãy chắc chắn là bạn đồng ý với <a href=/policy target=_blank><strong>Điều khoản dịch vụ</strong></a> ở bên chúng tôi',
     buttonCancel = 'Hủy bỏ',
     buttonSubmit = 'Xác nhận',
   }
