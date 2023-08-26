@@ -63,7 +63,7 @@ const FULL_NAME_REGEX =
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
-const FILE_SIZE_2 = 1024 * 1024 * 2; // 2MB
+const FILE_SIZE_2 = 0.5 * 1024 * 1024; // X * 1024 * 1024 = X MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_FILE_DEGREE_FORMAT = [
   'application/pdf',
@@ -73,7 +73,7 @@ const SUPPORTED_FILE_DEGREE_FORMAT = [
 const SUPPORTED_FILE_XLSX_FORMAT = [
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 ];
-const FILE_DEGREE_SIZE_BYTES = 10000000; // 1 is 1bytes
+const FILE_DEGREE_SIZE_BYTES = 10000000; // 1 is 1bytes (?)
 
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
@@ -365,12 +365,13 @@ export const validationSchemaBuyCourse = object({
   voucher: string().required(PASSWORD_REQUIRED),
 });
 export const validationSchemaEditAvatar = object({
-  avatar: mixed().required(generateRequiredText('Hình ảnh đại diện')),
-  // .test(
-  //   'fileSize',
-  //   IMAGE_SIZE_TOO_BIG,
-  //   (value: any) => value && value.size <= FILE_SIZE_2
-  // ),
+  avatar: mixed()
+    .required(generateRequiredText('Hình ảnh đại diện'))
+    .test(
+      'fileSize',
+      IMAGE_SIZE_TOO_BIG,
+      (value: any) => value && value.size <= FILE_SIZE_2
+    ),
   // .test('fileFormat', IMAGE_FORMAT_NOT_SUPPORT, (value: any) => {
   //   console.log('value', value, value.type);
 

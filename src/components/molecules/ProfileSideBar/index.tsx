@@ -114,13 +114,6 @@ export default function ProfileSideBar({
         number: 172,
         text2: 'Lớp học',
       },
-      {
-        id: 2,
-        image: 'edit',
-        text1: 'Đã viết',
-        number: 172,
-        text2: 'Đánh giá đã viết',
-      },
     ],
     ratingDisplay: {
       value: `${noOfRating}`,

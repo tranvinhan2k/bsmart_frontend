@@ -104,7 +104,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 200,
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
@@ -158,7 +158,7 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 200,
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row.userDto;
@@ -466,8 +466,8 @@ const managedUserBasedColumns: GridColDef[] = [
   },
   {
     field: 'fullName',
-    headerName: 'Họ tên',
-    minWidth: 200,
+    headerName: 'Họ tên+',
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => (
       <CopyableCellEllipsis

@@ -39,18 +39,7 @@ export function CopyableCell({ rawValue, formattedValue }: CopyableCellProps) {
       </>
     );
   }
-  if (rawValue === undefined) {
-    return (
-      <Typography sx={SX_DATAGRID_CELL_TEXT} style={{ color: 'red' }}>
-        {formattedValue}
-      </Typography>
-    );
-  }
-  return (
-    <Typography sx={SX_DATAGRID_CELL_TEXT} style={{ color: 'red' }}>
-      {formattedValue}
-    </Typography>
-  );
+  return null;
 }
 export function CopyableCellEllipsis({
   rawValue,
@@ -73,18 +62,7 @@ export function CopyableCellEllipsis({
       </>
     );
   }
-  if (rawValue === undefined) {
-    return (
-      <Typography sx={SX_DATAGRID_CELL_TEXT_ELLIPSIS} style={{ color: 'red' }}>
-        {formattedValue}
-      </Typography>
-    );
-  }
-  return (
-    <Typography sx={SX_DATAGRID_CELL_TEXT_ELLIPSIS} style={{ color: 'red' }}>
-      {formattedValue}
-    </Typography>
-  );
+  return null;
 }
 
 interface IsVerifiedCellProps {

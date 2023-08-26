@@ -1,7 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import { ReactElement } from 'react';
 import MemberDetailsProfile from '~/containers/MemberDetailsProfile/StudentSidebarProfile';
-import CourseSuggestList from '~/containers/MemberDetailsProfile/CourseSuggestList';
 import { SX_WRAPPER, SX_CONTAINER } from './style';
 
 interface MemberProfileLayoutProps {
@@ -36,7 +35,6 @@ export default function MemberProfileLayout({
             {children}
           </Grid>
         </Grid>
-        <CourseSuggestList />
       </Box>
     </Box>
   );
