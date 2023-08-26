@@ -1,16 +1,10 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-} from '~/components/atoms/Accordion';
-import SubActivityCourseDetails from '~/components/molecules/SubActivityCourseDetails';
-import {
   useGetCourseCreateRequestDetails,
   UseGetCourseCreateRequestDetailsPayload,
 } from '~/hooks/course/useGetCourseCreateRequestDetails';
-import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 import RequestCourseContents from '../RequestCourseContents';
+import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 export default function RequestCourseContent({
   idCourse,

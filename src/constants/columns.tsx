@@ -444,7 +444,7 @@ const managedUserBasedColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 250,
+    minWidth: 300,
     flex: 1,
     renderCell: (params) => (
       <CopyableCellEllipsis

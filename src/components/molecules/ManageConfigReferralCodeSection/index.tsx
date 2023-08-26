@@ -94,7 +94,7 @@ export default function ManageConfigReferralCodeSection() {
   const formFieldsConfigReferralCode: FormFieldsConfigReferralCodeProps[] = [
     {
       name: 'usageLimit',
-      label: 'Số lượt dùng',
+      label: 'Số lượt dùng (lượt)',
       placeholder: 'Nhập giới hạn số lượt dùn',
       variant: 'number',
     },
@@ -106,7 +106,7 @@ export default function ManageConfigReferralCodeSection() {
     },
     {
       name: 'expiredLaterDay',
-      label: 'Thời gian hết hạn',
+      label: 'Thời gian hết hạn sau khi nhận mã (ngày)',
       placeholder: 'Nhập hời gian hết hạn',
       variant: 'number',
     },
