@@ -297,6 +297,7 @@ const accountApi = {
 
     bodyFormData.append('file', file);
     bodyFormData.append('imageType', imageType);
+    bodyFormData.append('status', true as any);
 
     return axiosClient.post(`${url}/upload-image`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
