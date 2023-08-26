@@ -89,11 +89,11 @@ export default function ImageInput({
     return new File([u8arr], filename, { type: mime });
   }
 
-  useEffect(() => {
-    if (value && typeof value === 'string') {
-      setPreviewUrl(value);
-    }
-  }, [value]);
+  // useEffect(() => {
+  //   if (value && typeof value === 'string') {
+  //     setPreviewUrl(value);
+  //   }
+  // }, [value]);
 
   useDebounceEffect(
     async () => {
@@ -182,7 +182,7 @@ export default function ImageInput({
   const handleDeleteClick = () => {
     setPreviewUrl('');
     setError(null);
-    onChange(null);
+    onChange('');
   };
 
   function onDownloadCropClick() {
