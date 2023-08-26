@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import BreadcrumbNavigation from '~/components/molecules/navigations/BreadcrumbNavigation';
+import { NavigationLink } from '~/constants/routeLink';
 import { ActionPayload } from '~/models';
 import { NavigationActionData } from '~/routes/navigators';
 
@@ -47,7 +48,7 @@ export default function BreadcrumbNavigationSection() {
     });
   }
   const handleViewCourse = () => {
-    navigate('/course');
+    navigate(NavigationLink.course_menu);
   };
 
   return (

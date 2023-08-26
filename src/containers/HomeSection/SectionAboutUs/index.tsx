@@ -10,7 +10,7 @@ import { SX } from './style';
 export default function SectionAboutUs() {
   const navigate = useNavigate();
   const handleViewCourse = () => navigate(`/${NavigationLink.course_menu}`);
-  const handleRegister = () => navigate(AuthorizationALink.register);
+  const handleRegister = () => navigate(`/${AuthorizationALink.register}`);
 
   const token =
     useSelector((state: RootState) => state.user.token) ||
