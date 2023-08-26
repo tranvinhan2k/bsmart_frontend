@@ -63,28 +63,29 @@ export default function Classes({
                 imageUrl={item.imageUrl}
                 maxStudent={item.maxStudent}
                 minStudent={item.minStudent}
+                numberOfStudent={item.numberOfStudent}
                 startDate={item.startDate}
                 timetable={item.timeInWeekRequests}
               />
             </Stack>
           ))}
-          {onOpenAddModal && (
-            <Box marginTop={1}>
-              <Button
-                onClick={onOpenAddModal}
-                variant="contained"
-                color="secondary"
-                sx={{
-                  color: Color.white,
-                }}
-                startIcon={<Icon name="add" size="small_20" color="white" />}
-              >
-                Thêm lớp học
-              </Button>
-            </Box>
-          )}
         </Stack>
       </LoadingWrapper>
+      {onOpenAddModal && (
+        <Box marginTop={1}>
+          <Button
+            onClick={onOpenAddModal}
+            variant="contained"
+            color="secondary"
+            sx={{
+              color: Color.white,
+            }}
+            startIcon={<Icon name="add" size="small_20" color="white" />}
+          >
+            Thêm lớp học
+          </Button>
+        </Box>
+      )}
     </Stack>
   );
 }

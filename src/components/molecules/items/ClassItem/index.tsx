@@ -30,6 +30,7 @@ interface Props {
   endDate: string;
   minStudent: number;
   maxStudent: number;
+  numberOfStudent?: number;
   timetable: {
     dayOfWeekId: number;
     slotId: number;
@@ -77,12 +78,10 @@ export default function ClassItem({
   minStudent,
   startDate,
   timetable,
+  numberOfStudent = 0,
   onUpdate,
   onDeleteModal,
 }: Props) {
-  console.log('onUpdate', JSON.stringify(onUpdate), onUpdate);
-  console.log('onDelete', JSON.stringify(onDeleteModal));
-
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loaded, setLoaded] = useState(false);
@@ -134,6 +133,11 @@ export default function ClassItem({
       icon: 'number',
       label: texts.maxStudentLabel,
       variable: `${maxStudent} học sinh`,
+    },
+    {
+      icon: 'number',
+      label: 'Số học sinh hiện tại',
+      variable: `${numberOfStudent} học sinh`,
     },
   ];
 

@@ -49,6 +49,7 @@ interface Props {
 
 const initClass: DetailCourseClassPayload = {
   courseName: '',
+  numberOfStudent: 0,
   courseId: 0,
   endDate: '',
   id: 0,

@@ -21,7 +21,8 @@ import { formatStringToNumber } from '~/utils/number';
 import { OptionPayload } from '~/models';
 
 export default function SidebarApproval() {
-  const { course, percent, classes, content } = useContext(CourseContext);
+  const { course, percent, classes, content, refetchCourse } =
+    useContext(CourseContext);
 
   const id = useGetIdFromUrl('id');
   const [open, setOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function SidebarApproval() {
             })
           );
           handleOpen();
-          window.location.reload();
+          await refetchCourse();
         } else {
           toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
         }

@@ -81,7 +81,7 @@ export default function ClassInformationList({
     },
     {
       id: 0,
-      name: 'Sớ buổi học',
+      name: 'Số buổi học',
       value: `${numberOfSlot}`,
       type: 'text',
     },
