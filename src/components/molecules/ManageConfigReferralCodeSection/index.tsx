@@ -19,10 +19,11 @@ import {
   useMutationConfigReferralCode,
   UseMutationConfigReferralCodePayload,
 } from '~/hooks/config/useMutationConfigReferralCode';
+import { toastMsgError } from '~/utils/common';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import sx from './style';
-import { toastMsgError } from '~/utils/common';
+import globalStyles from '~/styles';
 
 interface FormFieldsConfigReferralCodeProps {
   name: string;
@@ -112,64 +113,63 @@ export default function ManageConfigReferralCodeSection() {
   ];
 
   return (
-    <Box p={4}>
+    <Box padding={3}>
       <Box pb={2}>
         <Typography
           sx={{
-            fontSize: 26,
-            fontWeight: 500,
+            ...globalStyles.textTitle,
             lineHeight: 1,
           }}
         >
           Tùy chỉnh mã giới thiệu
         </Typography>
       </Box>
-      {isLoading ? (
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
-          spacing={2}
-          mt={2}
-        >
-          <CircularProgress />
-          <Typography>Đang tải</Typography>
-        </Stack>
-      ) : (
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <form onSubmit={handleSubmit(handleSubmitSuccess)}>
-              <Grid container columnSpacing={3}>
-                {formFieldsConfigReferralCode.map((field) => (
-                  <Grid item xs={12} key={field.name}>
-                    <Typography sx={sx.formLabel}>{field.label}</Typography>
-                    <FormInput
-                      control={control}
-                      name={field.name}
-                      variant={field.variant}
-                      placeholder={field.placeholder}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-              <Box mt={2}>
-                <Button
-                  color="miSmartOrange"
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={!formState.isDirty}
-                  sx={{ fontFamily: FontFamily.bold }}
-                >
-                  Cập nhật
-                </Button>
-              </Box>
-            </form>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <Box sx={sx.helperWrapper}>
-              <Typography sx={sx.helperValue}>
+      <Stack sx={globalStyles.viewRoundedWhiteBody}>
+        {isLoading ? (
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}
+            mt={2}
+          >
+            <CircularProgress />
+            <Typography>Đang tải</Typography>
+          </Stack>
+        ) : (
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={6}>
+              <form onSubmit={handleSubmit(handleSubmitSuccess)}>
+                <Grid container columnSpacing={3}>
+                  {formFieldsConfigReferralCode.map((field) => (
+                    <Grid item xs={12} key={field.name}>
+                      <Typography sx={sx.formLabel}>{field.label}</Typography>
+                      <FormInput
+                        control={control}
+                        name={field.name}
+                        variant={field.variant}
+                        placeholder={field.placeholder}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+                <Box mt={2}>
+                  <Button
+                    color="miSmartOrange"
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    disabled={!formState.isDirty}
+                    sx={{ fontFamily: FontFamily.bold }}
+                  >
+                    Cập nhật
+                  </Button>
+                </Box>
+              </form>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Typography sx={sx.formLabel}>
                 Thông tin từ lần chỉnh sửa cuối
               </Typography>
               {title0.map((item) => (
@@ -187,10 +187,10 @@ export default function ManageConfigReferralCodeSection() {
                   <Typography sx={sx.helperValue}>{item.value}</Typography>
                 </Stack>
               ))}
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      )}
+        )}
+      </Stack>
     </Box>
   );
 }
