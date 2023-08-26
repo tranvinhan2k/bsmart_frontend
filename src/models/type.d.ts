@@ -248,8 +248,6 @@ export interface ActivityResourcePayload {
 export interface ActivityQuizPayload {
   id: number;
   code: string;
-  startDate: string;
-  endDate: string;
   time: number;
   defaultPoint: number;
   isSuffleQuestion: boolean;
@@ -269,8 +267,6 @@ export interface ActivityQuizPayload {
 export interface ActivityAssignmentPayload {
   assignmentId: number;
   description: string;
-  startDate: string;
-  endDate: string;
   editBeForSubmitMin: number;
   maxFileSubmit: number;
   maxFileSize: number;

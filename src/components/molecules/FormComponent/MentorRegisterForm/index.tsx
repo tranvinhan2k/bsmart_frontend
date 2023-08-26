@@ -139,7 +139,7 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
           <Stack marginTop={1}>
             <FormInput
               variant="boolean"
-              placeholder="Tôi đồng ý với <a href=/policy><strong>Điều khoản dịch vụ của hệ thống</strong></a>"
+              placeholder="Tôi đồng ý với <a href=/policy target=_blank><strong>Điều khoản dịch vụ của hệ thống</strong></a>"
               control={mentorSignUpForm.control}
               name={REGISTER_MENTOR_FIELDS.isPolicy}
             />
@@ -152,11 +152,11 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               Đăng kí
             </Button>
           </Stack>
-          <Stack marginTop={1}>
+          {/* <Stack marginTop={1}>
             <Button onClick={() => handleGoogle()} customVariant="google">
               Đăng nhập với Google
             </Button>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Grid>
     </Grid>

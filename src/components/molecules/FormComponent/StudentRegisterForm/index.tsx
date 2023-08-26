@@ -125,7 +125,7 @@ export default function StudentRegisterForm({
           <Stack marginTop={1}>
             <FormInput
               variant="boolean"
-              placeholder="Tôi đồng ý với <a href=/policy><strong>Điều khoản dịch vụ của hệ thống</strong></a>"
+              placeholder="Tôi đồng ý với <a href=/policy target=_blank><strong>Điều khoản dịch vụ của hệ thống</strong></a>"
               control={studentSignUpForm.control}
               name={REGISTER_STUDENT_FIELDS.isPolicy}
             />

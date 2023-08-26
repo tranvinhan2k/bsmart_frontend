@@ -60,11 +60,9 @@ const activityApi = {
           description: response?.detail.description || '',
           attachFiles: response?.detail?.assignmentFiles,
           editBeForSubmitMin: response?.detail?.editBeForSubmitMin,
-          endDate: response?.detail?.endDate,
           maxFileSize: response?.detail?.maxFileSize,
           maxFileSubmit: response?.detail?.maxFileSubmit,
           passPoint: response?.detail?.passPoint,
-          startDate: response?.detail?.startDate,
         };
         break;
       case 'RESOURCE':
@@ -84,11 +82,9 @@ const activityApi = {
           code: response?.detail?.code,
           allowReviewAfterMin: response?.detail?.allowReviewAfterMin,
           defaultPoint: response?.detail?.defaultPoint,
-          endDate: response?.detail?.endDate,
           isAllowReview: response?.detail?.isAllowReview,
           isSuffleQuestion: response?.detail?.isSuffleQuestion,
           password: response?.detail?.password,
-          startDate: response?.detail?.startDate,
           time: response?.detail?.time,
           quizQuestions: response?.detail?.quizQuestions.map((item: any) => ({
             id: item.id || 0,
