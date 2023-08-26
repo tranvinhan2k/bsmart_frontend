@@ -67,11 +67,21 @@ export default function EditSocialProfileForm() {
   useEffect(() => {
     if (dataGetProfile) {
       const defaults = defaultValueEditSocialProfile;
-      if (dataGetProfile.website) defaults.website = dataGetProfile.website;
-      if (dataGetProfile.linkedinLink)
+      if (dataGetProfile.website) {
+        defaults.website = dataGetProfile.website;
+      } else {
+        defaults.website = '';
+      }
+      if (dataGetProfile.linkedinLink) {
         defaults.linkedinLink = dataGetProfile.linkedinLink;
-      if (dataGetProfile.facebookLink)
+      } else {
+        defaults.linkedinLink = '';
+      }
+      if (dataGetProfile.facebookLink) {
         defaults.facebookLink = dataGetProfile.facebookLink;
+      } else {
+        defaults.facebookLink = '';
+      }
       reset(defaults);
     }
   }, [dataGetProfile, reset]);
