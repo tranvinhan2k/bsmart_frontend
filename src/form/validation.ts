@@ -73,7 +73,7 @@ const SUPPORTED_FILE_DEGREE_FORMAT = [
 const SUPPORTED_FILE_XLSX_FORMAT = [
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 ];
-const FILE_DEGREE_SIZE_BYTES = 2000000; // 1 is 1bytes
+const FILE_DEGREE_SIZE_BYTES = 10000000; // 1 is 1bytes
 
 export const validationSchemaSignIn = object({
   email: string().email(EMAIL_INVALID).required(EMAIL_REQUIRED),
