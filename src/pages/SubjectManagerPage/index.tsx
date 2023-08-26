@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import CustomModal from '~/components/atoms/CustomModal';
@@ -9,6 +9,7 @@ import ReadOneSubject from '~/containers/SubjectsManagerSection/ReadOneSubject';
 import UpdateSubjectsForm from '~/containers/SubjectsManagerSection/UpdateSubjectsForm';
 import { useDispatchGetAllCategories } from '~/hooks';
 import { useCRUDSubjects } from '~/hooks/useCRUDSubjects';
+import globalStyles from '~/styles';
 import toast from '~/utils/toast';
 
 export default function SubjectManagerPage() {
@@ -178,21 +179,23 @@ export default function SubjectManagerPage() {
   }
 
   return (
-    <Stack padding={2}>
-      <CRUDTable
-        setSelectedRow={setSelectedRow}
-        isLoading={isLoading}
-        error={error}
-        title="Quản lí môn học"
-        addItemButtonLabel="Thêm môn học"
-        columns={columns.subjectColumns}
-        onAdd={handleAddSubject}
-        searchPlaceholder="Tìm kiếm ngôn ngữ lập trình"
-        onSearch={handleSearchSubject}
-        rows={filterRows}
-        menuItemList={menuItemList}
-      />
-      {renderItem}
+    <Stack paddingX={3} paddingY={2}>
+      <Typography sx={globalStyles.textTitle}>Quản lí môn học</Typography>
+      <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
+        <CRUDTable
+          setSelectedRow={setSelectedRow}
+          isLoading={isLoading}
+          error={error}
+          addItemButtonLabel="Thêm môn học"
+          columns={columns.subjectColumns}
+          onAdd={handleAddSubject}
+          searchPlaceholder="Tìm kiếm ngôn ngữ lập trình"
+          onSearch={handleSearchSubject}
+          rows={filterRows}
+          menuItemList={menuItemList}
+        />
+        {renderItem}
+      </Stack>
     </Stack>
   );
 }

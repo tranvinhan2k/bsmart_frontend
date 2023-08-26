@@ -52,7 +52,7 @@ export default function HighRoleSidebarWrapper({ children, actions }: Props) {
           '::-webkit-scrollbar': {
             display: 'none',
           },
-          background: '#f9fbff',
+          background: Color.white4,
         }}
       >
         <Stack

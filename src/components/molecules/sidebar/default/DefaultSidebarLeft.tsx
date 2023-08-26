@@ -166,7 +166,7 @@ export default function DefaultSidebarLeft({ data, title, srcImage }: Props) {
                 color: Color.black,
               }}
             >
-              Thông tin tài khoản
+              Tùy chỉnh tài khoản
             </Typography>
           </Stack>
         </Stack>

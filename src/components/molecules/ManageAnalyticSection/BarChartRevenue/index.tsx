@@ -11,6 +11,7 @@ import {
 import { YearRevenue } from '~/models/transaction';
 import { formatMoney } from '~/utils/money';
 import sx from './style';
+import { Color } from '~/assets/variables';
 
 const dataMock: YearRevenue[] = [
   {
@@ -122,7 +123,12 @@ export default function BarChartRevenue({
       justifyContent="flex-start"
       alignItems="stretch"
       spacing={4}
-      sx={{ width: '100%', boxShadow: 3, padding: 2, borderRadius: 2 }}
+      sx={{
+        width: '100%',
+        padding: 2,
+        borderRadius: 2,
+        background: Color.white,
+      }}
     >
       <Typography sx={sx.titleBarChart}>{chartLabel}</Typography>
       {isLoading && <CircularProgress />}
