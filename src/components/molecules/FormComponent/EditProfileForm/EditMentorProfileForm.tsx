@@ -128,12 +128,19 @@ export default function EditMentorProfileForm() {
       LABEL: 'Kinh nghiệm bản thân',
       PLACEHOLDER: 'Nhập kinh nghiệm bản thân',
     },
-    DESC1: 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
-    DESC2: 'Mục giới thiệu giáo viên hãy viết về bản thân mình.',
-    DESC3:
-      'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
     BUTTON_TEXT: 'Cập nhật',
   };
+
+  const enum IntroduceExperienceNoteText {
+    label0 = 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
+    label1 = 'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
+    label2 = 'Mục giới thiệu giáo viên hãy viết về chính bản thân mình.',
+  }
+  const introduceExperienceNoteList = [
+    { id: 0, label: IntroduceExperienceNoteText.label0 },
+    { id: 1, label: IntroduceExperienceNoteText.label1 },
+    { id: 2, label: IntroduceExperienceNoteText.label2 },
+  ];
 
   const appendSkill = () => {
     // append({ skillId: null, yearOfExperiences: 1 });
@@ -149,15 +156,13 @@ export default function EditMentorProfileForm() {
         {EDIT_MENTOR_PROFILE_FORM_TEXT.TITLE}
       </Typography>
       <Divider sx={{ marginY: 2 }} />
-      <Typography component="h3">
-        - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC1}
-      </Typography>
-      <Typography component="h3">
-        - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC2}
-      </Typography>
-      <Typography component="h3">
-        - {EDIT_MENTOR_PROFILE_FORM_TEXT.DESC3}
-      </Typography>
+      <Box my={2}>
+        {introduceExperienceNoteList.map((item) => (
+          <Typography component="h3" key={item.id}>
+            {item.id + 1}. {item.label}
+          </Typography>
+        ))}
+      </Box>
       {profile && subjects && (
         <form onSubmit={handleSubmit(handleSubmitSuccess)}>
           <Grid container>

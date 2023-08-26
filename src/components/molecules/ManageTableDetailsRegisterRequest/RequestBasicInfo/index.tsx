@@ -110,8 +110,8 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     },
   ];
 
-  const handleViewImg = (link: string) => {
-    if (link) window.open(link, '_blank');
+  const handleViewImg = (link: string | undefined) => {
+    if (typeof link === 'string') window.open(link, '_blank');
   };
 
   return (
@@ -146,6 +146,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"
+                  spacing={2}
                 >
                   {title0.map((item) => (
                     <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>

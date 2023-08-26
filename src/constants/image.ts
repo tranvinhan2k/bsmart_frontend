@@ -31,6 +31,7 @@ import mockTeacherAvatar from '~/assets/images/mockTeacherAvatar.jpg';
 import mockStudent from '~/assets/images/studentAvatar.jpg';
 import classBackground from '~/assets/images/classBackground.jpg';
 import thumbnail from '~/assets/images/thumbnail.png';
+import managerIconImg from '~/assets/images/Icon/manager.png';
 
 export const image = {
   asg,
@@ -66,4 +67,5 @@ export const image = {
   study,
   success,
   thumbnail,
+  managerIconImg,
 };

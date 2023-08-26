@@ -15,9 +15,11 @@ import accountApi from '~/api/users';
 import FormInput from '~/components/atoms/FormInput';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
+import { useCheckCompleteness } from '~/hooks/mentorProfile/useCheckCompleteness';
 
 export default function EditSocialProfileForm() {
   const { profile: dataGetProfile, refetch } = useGetProfile();
+  const { refetch: refetchCheckCompleteness } = useCheckCompleteness();
 
   const resolverEditSocialProfile = useYupValidationResolver(
     validationSchemaEditSocialProfile
@@ -48,6 +50,7 @@ export default function EditSocialProfileForm() {
       await mutateEditSocialProfile(params);
       handleDispatchProfile();
       refetch();
+      refetchCheckCompleteness();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: any) {
       toast.updateFailedToast(id, toastMsgError(error));

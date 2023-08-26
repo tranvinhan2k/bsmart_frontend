@@ -371,3 +371,15 @@ export interface MentorProfileUpdateResponse {
   id: number | null;
   userDto: ProfilePayload;
 }
+
+export interface ConfigPayload {
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  usageLimit: number;
+  discountPercent: number;
+  expiredLaterDay: number;
+  active: boolean;
+}

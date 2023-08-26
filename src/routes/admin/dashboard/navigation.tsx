@@ -23,14 +23,14 @@ export const AdminNavigationActionData: ActionPayload[] = [
         id: 2,
         icon: 'category',
         isHide: true,
-        name: 'Quản lí môn học',
+        name: 'Quản lí lĩnh vực',
         link: AdminNavigationActionLink.category_manager,
       },
       {
         id: 3,
         icon: 'subject',
         isHide: true,
-        name: 'Quản lí ngôn ngữ lập trình',
+        name: 'Quản lí môn học',
         link: AdminNavigationActionLink.subject_manager,
       },
       {

@@ -30,8 +30,6 @@ export default function ManageTableProcessWithdrawRequest({
     resolver: resolverUpload,
   });
 
-  // console.log('formState.errors', formState.errors);
-
   const { processCourseCreateRequestMutation } =
     useMutationProcessWithdrawRequest();
   const toastMsgLoading = 'Đang xử lý...';

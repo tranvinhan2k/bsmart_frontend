@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ProcessUpdateMentorProfileRequestFormDefault } from '~/models/form';
@@ -16,30 +8,67 @@ import {
   UseMutationProcessUpdateMentorProfileRequestPayload,
 } from '~/hooks/user/useMutationProcessUpdateMentorProfileRequest';
 import { validationSchemaProcessUpdateMentorProfileRequest } from '~/form/validation';
-import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
-import { SX_BOX_ITEM_WRAPPER_NO_PADDING, SX_FORM_LABEL } from './style';
+import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
-export default function RequestUpdateProcess() {
-  const enum Text {
-    mainTitle = 'Thao tác',
-    labelMail = 'Mail',
-    labelName = 'Họ tên',
-    labelPhone = 'Số điện thoại',
-    //
-    labelBirthDate = 'Ngày sinh',
-    labelAddress = 'Địa chỉ',
-    labelGender = 'Giới tính',
-    labelWebsite = 'Website riêng',
-    labelLinkedIn = 'LinkedIn',
-    labelFacebook = 'Facebook',
-    //
-    labelCoursePossess = 'Khóa học',
-    labelClassPossess = 'Lớp học',
-    labelRating = 'Đánh giá',
-    labelNoOfRating = 'Số đánh giá',
-  }
+interface RequestRegisterProcessProps {
+  idMentorProfile: number;
+  onClose: () => void;
+  refetchSearch: () => void;
+  refetchGetNoOfRequest: () => void;
+}
+
+export default function RequestUpdateMentorDetailsProcess({
+  idMentorProfile,
+  onClose,
+  refetchSearch,
+  refetchGetNoOfRequest,
+}: RequestRegisterProcessProps) {
+  const { processUpdateMentorProfileRequest } =
+    useMutationProcessUpdateMentorProfileRequest();
+  const resolverVerifyRegisterRequest = useYupValidationResolver(
+    validationSchemaProcessUpdateMentorProfileRequest
+  );
+  const { control: controlApprove, handleSubmit: handleSubmitApprove } =
+    useForm({
+      defaultValues: {
+        status: true,
+      },
+      resolver: resolverVerifyRegisterRequest,
+    });
+  const { control: controlReject, handleSubmit: handleSubmitReject } = useForm({
+    defaultValues: {
+      status: false,
+    },
+    resolver: resolverVerifyRegisterRequest,
+  });
+
+  const toastMsgLoading = 'Đang xử lý...';
+  const toastMsgSuccess = 'Xử lý thành công';
+  const toastMsgError = (errorMsg: any): string =>
+    `Đã xảy ra lỗi: ${errorMsg.message}`;
+  const handleProcessRegisterRequest = async (
+    data: ProcessUpdateMentorProfileRequestFormDefault
+  ) => {
+    // const skillIds = row.mentorSkillRequest.map((skill: any) => skill.skillId);
+    // const degreeIds = row.degreeRequest.map((skill: any) => skill.id);
+
+    const params: UseMutationProcessUpdateMentorProfileRequestPayload = {
+      id: idMentorProfile,
+      status: data.status,
+    };
+    const id = toast.loadToast(toastMsgLoading);
+    try {
+      await processUpdateMentorProfileRequest.mutateAsync(params);
+      refetchSearch();
+      refetchGetNoOfRequest();
+      onClose();
+      toast.updateSuccessToast(id, toastMsgSuccess);
+    } catch (e: any) {
+      toast.updateFailedToast(id, toastMsgError(e.message));
+    }
+  };
 
   const [tabValue, setTabValue] = useState(0);
   const handleSetTabValue = (
@@ -52,37 +81,58 @@ export default function RequestUpdateProcess() {
       id: 0,
       text: 'Phê duyệt',
       component: (
-        <Button
-          color="success"
-          fullWidth
-          size="medium"
-          type="submit"
-          variant="outlined"
-        >
-          Phê duyệt
-        </Button>
+        <form onSubmit={handleSubmitApprove(handleProcessRegisterRequest)}>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-end"
+            spacing={2}
+            mt={2}
+          >
+            <Button
+              color="success"
+              fullWidth
+              size="medium"
+              type="submit"
+              variant="outlined"
+            >
+              Phê duyệt
+            </Button>
+          </Stack>
+        </form>
       ),
     },
     {
       id: 1,
       text: 'Từ chối',
       component: (
-        <Button
-          color="error"
-          fullWidth
-          size="medium"
-          type="submit"
-          variant="outlined"
-        >
-          Từ chối
-        </Button>
+        <form onSubmit={handleSubmitReject(handleProcessRegisterRequest)}>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-end"
+            spacing={2}
+            mt={2}
+          >
+            <Button
+              color="error"
+              fullWidth
+              size="medium"
+              type="submit"
+              variant="outlined"
+            >
+              Từ chối
+            </Button>
+          </Stack>
+        </form>
       ),
     },
   ];
+
   return (
     <Box sx={SX_BOX_ITEM_WRAPPER_NO_PADDING}>
       <Tabs
-        variant="fullWidth"
+        variant="scrollable"
         scrollButtons="auto"
         value={tabValue}
         onChange={handleSetTabValue}

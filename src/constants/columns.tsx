@@ -42,22 +42,6 @@ const feedbackQuestionColumns: GridColDef[] = [
   },
 ];
 const categoryColumns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'code',
-    headerName: 'Mã môn học',
-    flex: 1,
-    editable: true,
-  },
-  {
-    field: 'name',
-    headerName: 'Tên Môn học',
-    flex: 5,
-    editable: true,
-  },
-];
-const subjectColumns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
   {
     field: 'code',
     headerName: 'Mã lĩnh vực',
@@ -70,9 +54,23 @@ const subjectColumns: GridColDef[] = [
     flex: 5,
     editable: true,
   },
+];
+const subjectColumns: GridColDef[] = [
+  {
+    field: 'code',
+    headerName: 'Mã môn học',
+    flex: 1,
+    editable: true,
+  },
+  {
+    field: 'name',
+    headerName: 'Tên môn học',
+    flex: 5,
+    editable: true,
+  },
   {
     field: 'categoryId',
-    headerName: 'Loại lĩnh vực',
+    headerName: 'Lĩnh vực',
     flex: 1,
     editable: true,
     valueGetter: (params) => {

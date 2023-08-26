@@ -297,6 +297,7 @@ const accountApi = {
 
     bodyFormData.append('file', file);
     bodyFormData.append('imageType', imageType);
+    bodyFormData.append('status', true as any);
 
     return axiosClient.post(`${url}/upload-image`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -311,6 +312,7 @@ const accountApi = {
     if (degreeIdsToDelete) {
       bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete as any); // CORRECT WAY
     }
+    bodyFormData.append('status', true as any);
     return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

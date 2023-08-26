@@ -54,6 +54,7 @@ import {
   MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED,
   WITHDRAW_MANAGED_UPLOAD_FILE_REQUIRED,
   WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT,
+  ConfigReferralCode,
 } from '~/form/message';
 
 const PHONE_REGEX = /(03|05|07|08|09)+([0-9]{8})\b/;
@@ -815,11 +816,7 @@ export const validationSchemaWithdrawMoney = object({
 export const validationSchemaProcessRegisterRequest = object({
   message: string().required(MESSAGE_PROCESS_APPROVE_REGISTER_REQUEST_REQUIRED),
 });
-export const validationSchemaProcessUpdateMentorProfileRequest = object({
-  message: string().required(
-    MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED
-  ),
-});
+export const validationSchemaProcessUpdateMentorProfileRequest = object();
 export const validationSchemaApproveCreateCourseRequest = object({
   message: string().required(MESSAGE_PROCESS_CREATE_COURSE_REQUEST_REQUIRED),
 });
@@ -876,4 +873,20 @@ export const validationSchemaManagedWithdrawUpload = object({
       WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT,
       (value: any) => value && SUPPORTED_FILE_XLSX_FORMAT.includes(value.type)
     ),
+});
+
+export const validationSchemaConfigReferralCode = object({
+  usageLimit: number()
+    .typeError(ConfigReferralCode.usageLimitMin)
+    .required(ConfigReferralCode.discountPercentRequired)
+    .min(1, ConfigReferralCode.usageLimitMin),
+  discountPercent: number()
+    .typeError(ConfigReferralCode.discountPercentMin)
+    .required(ConfigReferralCode.discountPercentRequired)
+    .min(1, ConfigReferralCode.discountPercentMin)
+    .max(100, ConfigReferralCode.discountPercentMax),
+  expiredLaterDay: number()
+    .typeError(ConfigReferralCode.expiredLaterDateMin)
+    .required(ConfigReferralCode.expiredLaterDateRequired)
+    .min(1, ConfigReferralCode.expiredLaterDateMin),
 });

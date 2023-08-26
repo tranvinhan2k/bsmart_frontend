@@ -237,3 +237,9 @@ export const defaultValueEditRequestRegisterRequest = {
 export const defaultValueProcessWithdrawRequest = {
   file: '',
 };
+
+export const defaultValueConfigReferralCode = {
+  usageLimit: 0,
+  discountPercent: 0,
+  expiredLaterDay: 0,
+};

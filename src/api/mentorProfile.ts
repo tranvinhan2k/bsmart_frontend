@@ -54,18 +54,13 @@ const mentorProfilesApi = {
 
   processUpdateMentorProfileRequest({
     id,
-    skillIds,
-    degreeIds,
     status,
-    message,
   }: UseMutationProcessUpdateMentorProfileRequestPayload): Promise<any> {
     const data = {
-      skillIds,
-      degreeIds,
       status,
-      message,
+      message: '',
     };
-    const urlPut = `${url}/${id}/request-approval-skill`;
+    const urlPut = `${url}/${id}/approval-edit-profile-detail`;
     return axiosClient.put(urlPut, data);
   },
 };

@@ -86,5 +86,17 @@ export const WITHDRAW_MANAGED_UPLOAD_FILE_REQUIRED = 'Tệp không được đ�
 export const WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT =
   'Định dạng không hỗ trợ';
 
+export const enum ConfigReferralCode {
+  usageLimitRequired = 'Số lượt dùng giảm không được để trống',
+  usageLimitMin = 'Số lượt dùng giảm phải là số lớn hơn 1',
+  //
+  discountPercentRequired = 'Phần trăm giảm không được để trống',
+  discountPercentMin = 'Phần trăm giảm phải nằm trong khoảng 1-100%',
+  discountPercentMax = 'Phần trăm giảm phải nằm trong khoảng 1-100%',
+  //
+  expiredLaterDateRequired = 'Thời gian hết hạn không được để trống',
+  expiredLaterDateMin = 'Thời gian hết hạn không được lớn hơn 1',
+}
+
 export const TRY_CATCH_AXIOS_DEFAULT_ERROR = 'BE ko trả lỗi, Msg từ FE';
 export const MSG_BE_MISSING_FIELD = 'BE trả thiếu field';

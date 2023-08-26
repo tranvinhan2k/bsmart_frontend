@@ -37,7 +37,7 @@ export default function ManageTableDetailsRegisterRequest({
         rowSpacing={1}
         p={2}
       >
-        <Grid item sm={12} md={7} lg={8}>
+        <Grid item sm={12} md={8} lg={8}>
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -50,7 +50,7 @@ export default function ManageTableDetailsRegisterRequest({
             <RequestMentorInfo row={row} />
           </Stack>
         </Grid>
-        <Grid item sm={12} md={5} lg={4}>
+        <Grid item sm={12} md={4} lg={4}>
           <Stack
             direction="column"
             justifyContent="flex-start"

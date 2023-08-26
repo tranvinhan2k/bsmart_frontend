@@ -141,11 +141,12 @@ export default function WithdrawRequestSection() {
   return (
     <>
       <Box sx={SX_CONTAINER}>
-        <Typography sx={globalStyles.textSubTitle}>
-          {WITHDRAW_MONEY_FORM_TEXT.TITLE}
-        </Typography>
-        <Divider />
-        <Stack mt={1}>
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
           <Typography sx={globalStyles.textSmallLabel}>
             Số dư hiện tại:
           </Typography>
@@ -226,7 +227,7 @@ export default function WithdrawRequestSection() {
           </Typography>
         )}
       </Box>
-      <Box sx={SX_CONTAINER}>
+      {/* <Box sx={SX_CONTAINER}>
         <Typography component="h4" sx={SX_TITLE_NOTE}>
           *Lưu ý:
         </Typography>
@@ -240,7 +241,7 @@ export default function WithdrawRequestSection() {
         <Typography component="p" sx={SX_NOTE}>
           Trường hợp 2:
         </Typography>
-      </Box>
+      </Box> */}
     </>
   );
 }

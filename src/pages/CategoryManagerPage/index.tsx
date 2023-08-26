@@ -101,17 +101,17 @@ export default function CategoryManagerPage() {
   const menuItemList: MenuItemPayload[] = [
     {
       icon: 'category',
-      title: 'Xem chi tiết môn học',
+      title: 'Xem chi tiết lĩnh vực',
       onCLick: handleOpenDetailCategory,
     },
     {
       icon: 'edit',
-      title: 'Cập nhật môn học',
+      title: 'Cập nhật lĩnh vực',
       onCLick: handleUpdateCategory,
     },
     {
       icon: 'delete',
-      title: 'Xóa môn học',
+      title: 'Xóa lĩnh vực',
       onCLick: handleDeleteCategory,
     },
   ];
@@ -163,8 +163,8 @@ export default function CategoryManagerPage() {
         setSelectedRow={setSelectedRow}
         isLoading={isLoading}
         error={error}
-        title="Quản lí môn học"
-        addItemButtonLabel="Thêm môn học"
+        title="Quản lí lĩnh vực"
+        addItemButtonLabel="Thêm lĩnh vực"
         columns={columns.categoryColumns}
         onAdd={handleAddCategory}
         searchPlaceholder="Tìm kiếm môn học"
