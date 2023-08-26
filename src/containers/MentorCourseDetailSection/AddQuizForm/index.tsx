@@ -12,7 +12,6 @@ import {
 import InputGroup, { InputData } from '~/components/atoms/FormInput/InputGroup';
 import { useQueryGetOptionMentorCourseClasses } from '~/hooks';
 import { QuizQuestionTypeKeys } from '~/models/variables';
-import globalStyles from '~/styles';
 import { handleConsoleError } from '~/utils/common';
 import { formatStringToNumber } from '~/utils/number';
 
@@ -29,8 +28,6 @@ export type AddSubSectionFormPayload =
   | {
       type: 'QUIZ';
       code: string;
-      startDate: string;
-      endDate: string;
       time: number;
       defaultPoint: number;
       isSuffleQuestion: boolean;
@@ -48,18 +45,12 @@ export type AddSubSectionFormPayload =
     };
 
 interface Props {
-  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: () => void;
 }
 
-export default function AddQuizForm({
-  isFixed,
-  hookForm,
-  onSubmit,
-  onDelete,
-}: Props) {
+export default function AddQuizForm({ hookForm, onSubmit, onDelete }: Props) {
   const { id } = useParams();
   const courseId = formatStringToNumber(id);
   const { course } = useContext(CourseContext);

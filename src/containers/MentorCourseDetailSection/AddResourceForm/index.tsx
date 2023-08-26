@@ -45,14 +45,12 @@ export type AddSubSectionFormPayload =
     };
 
 interface Props {
-  isFixed: boolean;
   hookForm: UseFormReturn<any, any>;
   onSubmit: (data: any) => void;
   onDelete?: () => void;
 }
 
 export default function AddResourceForm({
-  isFixed,
   hookForm,
   onSubmit,
   onDelete,
