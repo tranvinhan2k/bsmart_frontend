@@ -190,11 +190,6 @@ export const validationClassContentResource = object({
 export const validationClassContentQuiz = object({
   name: string().required('Tên bài kiểm tra không được để trống.'),
   code: string().required('Mã bài kiểm tra không được để trống.'),
-  startDate: YupValidationForm.startDate,
-  endDate: YupValidationForm.endDate(
-    'Ngày kết thúc không được để trống',
-    'startDate'
-  ),
   time: number()
     .typeError('Thời gian không được để trống')
     .required('Thời gian không được để trống')
@@ -288,11 +283,6 @@ export const validationIntroduceCodeInformation = object({
 export const validationClassContentAssignment = object({
   name: string().required('Tên bài tập không được để trống.'),
   description: string().required('Tên bài tập không được để trống.'),
-  startDate: YupValidationForm.startDate,
-  endDate: YupValidationForm.endDate(
-    'Ngày kết thúc không được để trống',
-    'startDate'
-  ),
   editBeForSubmitMin: number()
     .required('Thời gian cho phép không được để trống')
     .typeError('Thời gian cho phép không được để trống')

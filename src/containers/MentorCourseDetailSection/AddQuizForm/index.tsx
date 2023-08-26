@@ -93,18 +93,6 @@ export default function AddQuizForm({
       variant: 'text',
     },
     {
-      name: 'startDate',
-      label: 'Ngày bắt đầu',
-      placeholder: 'Nhập giờ bắt đầu',
-      variant: 'datetime',
-    },
-    {
-      name: 'endDate',
-      label: 'Ngày kết thúc',
-      placeholder: 'Nhập giờ kết thúc',
-      variant: 'datetime',
-    },
-    {
       name: 'time',
       label: 'Thời gian làm bài (phút)',
       placeholder: 'Nhập thời gian làm bài',

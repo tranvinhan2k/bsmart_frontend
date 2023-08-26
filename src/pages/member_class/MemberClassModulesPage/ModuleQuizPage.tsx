@@ -53,11 +53,9 @@ export default function ModuleQuizPage({ name, item }: Props) {
     quizId: item.id,
     questionCount: item.questionCount,
     status: item.status,
-    isQuizOpen: new Date(item.startDate).getTime() <= new Date().getTime(),
+    isQuizOpen: true,
     isAttemptedQuiz: Boolean(results),
     code: item.code,
-    startDate: formatISODateDateToDisplayDateTime(item.startDate),
-    endDate: formatISODateDateToDisplayDateTime(item.endDate),
     time: formatTime(item.time),
     isAllowAfterMin:
       new Date().getTime() <=
@@ -115,12 +113,6 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Bài kiểm tra này sẽ được mở vào ngày ${quiz.startDate}`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Bài kiểm tra sẽ sẽ kết thúc vào ngày ${quiz.endDate}`}</Typography>
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Thời gian làm bài: ${quiz.time}`}</Typography>

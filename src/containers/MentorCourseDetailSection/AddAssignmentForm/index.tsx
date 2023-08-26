@@ -88,18 +88,6 @@ export default function AddAssignmentForm({
       variant: 'editor',
     },
     {
-      label: 'Ngày bắt đầu',
-      placeholder: 'Nhập ngày bắt đầu',
-      variant: 'datetime',
-      name: 'startDate',
-    },
-    {
-      label: 'Ngày kết thúc',
-      name: 'endDate',
-      placeholder: 'Nhập ngày kết thúc',
-      variant: 'datetime',
-    },
-    {
       label: 'Thời gian được chỉnh sửa (phút)',
       name: 'editBeForSubmitMin',
       placeholder: 'Nhập thời gian được chỉnh sửa',
