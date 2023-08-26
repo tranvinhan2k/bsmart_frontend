@@ -179,6 +179,7 @@ const classApi = {
         maxStudent: item.maxStudent,
         minStudent: item.minStudent,
         numberOfSlot: item.numberOfSlot,
+        numberOfStudent: item.numberOfStudent || 0,
         isFullStudent: item.isFullStudent || false,
         purchase: item.purchase || false,
         price: item.price,
@@ -257,6 +258,7 @@ const classApi = {
       (item) => ({
         courseId: 0,
         courseName: '',
+        numberOfStudent: 0,
         code: item.code,
         id: item.id,
         endDate: item.endDate,

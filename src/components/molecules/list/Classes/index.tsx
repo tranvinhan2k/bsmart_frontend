@@ -63,6 +63,7 @@ export default function Classes({
                 imageUrl={item.imageUrl}
                 maxStudent={item.maxStudent}
                 minStudent={item.minStudent}
+                numberOfStudent={item.numberOfStudent}
                 startDate={item.startDate}
                 timetable={item.timeInWeekRequests}
               />
