@@ -26,7 +26,7 @@ export default function MentorCourseSectionsPage() {
   const courseId = useGetIdFromUrl('id');
   const sectionId = useGetIdFromUrl('sectionId');
 
-  const { refetchPercent, course } = useContext(CourseContext);
+  const { refetchPercent, course, refetchContent } = useContext(CourseContext);
   const [clearOpen, setClearOpen] = useState(false);
 
   const { activity, isLoading, error } = useGetDetailActivity(sectionId);
@@ -60,6 +60,7 @@ export default function MentorCourseSectionsPage() {
           courseId,
         },
       });
+      await refetchContent();
       navigate(-1);
     });
   };
@@ -71,6 +72,7 @@ export default function MentorCourseSectionsPage() {
         `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.content}`
       );
       await refetchPercent();
+      await refetchContent();
       handleClearOpen();
     });
   };

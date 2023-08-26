@@ -152,11 +152,11 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               Đăng kí
             </Button>
           </Stack>
-          <Stack marginTop={1}>
+          {/* <Stack marginTop={1}>
             <Button onClick={() => handleGoogle()} customVariant="google">
               Đăng nhập với Google
             </Button>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Grid>
     </Grid>

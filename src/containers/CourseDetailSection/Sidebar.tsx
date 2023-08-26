@@ -274,17 +274,18 @@ export default function Sidebar({
           >
             Chọn lớp học
           </Typography>
-          <Stack
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              flexWrap: 'wrap',
-              maxHeight: '250px',
-              overflowY: 'auto',
-            }}
-          >
-            <LoadingWrapper isEmptyCourse={classes.length === 0}>
+
+          <LoadingWrapper isEmptyCourse={classes.length === 0}>
+            <Stack
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                flexWrap: 'wrap',
+                maxHeight: '250px',
+                overflowY: 'auto',
+              }}
+            >
               {classes.map((item, index) => {
                 return (
                   <Stack
@@ -429,8 +430,8 @@ export default function Sidebar({
                   </Stack>
                 );
               })}
-            </LoadingWrapper>
-          </Stack>
+            </Stack>
+          </LoadingWrapper>
         </Collapse>
         <Collapse in={open}>
           <Stack

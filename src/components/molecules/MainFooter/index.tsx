@@ -13,6 +13,7 @@ import ContractBar from '~/components/molecules/ContractBar';
 import { SX_FOOTER_STACK } from '~/components/molecules/MainFooter/styles';
 import SocialBar from '~/components/molecules/SocialBar';
 import { FooterSocialDataList } from '~/constants/';
+import { AuthorizationALink, NavigationLink } from '~/constants/routeLink';
 import { ActionPayload, ContractPayload } from '~/models';
 import { AddressDataPayload } from '~/models/address';
 import {
@@ -136,6 +137,9 @@ export default function MainFooter({
             }}
           >
             <Button
+              onClick={() => {
+                window.location.href = `/${AuthorizationALink.register}`;
+              }}
               style={{
                 background: Color.tertiary,
                 fontFamily: FontFamily.bold,
