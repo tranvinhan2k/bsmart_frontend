@@ -2,7 +2,7 @@ import classApi from '~/api/class';
 import { useCustomQuery } from '../custom/useCustomQuery';
 
 export const useQueryGetDetailUserCourse = (id: number) => {
-  return useCustomQuery(['get_detail_course'], () =>
+  return useCustomQuery([`get_detail_course${id}`], () =>
     classApi.getUserDetailCourse(id)
   );
 };
