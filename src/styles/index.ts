@@ -36,6 +36,7 @@ const textTitle: SxProps<Theme> = {
   fontFamily: FontFamily.dosis,
   fontSize: FontSize.medium_28,
   color: Color.black,
+  fontWeight: 'bold',
 };
 const textSubTitle: SxProps<Theme> = {
   fontFamily: FontFamily.title,

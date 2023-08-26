@@ -55,6 +55,7 @@ export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   phone: 'phone',
   birthDay: 'birthDay',
   gender: 'gender',
+  isPolicy: 'isPolicy',
 };
 export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   name: 'name',
@@ -64,6 +65,7 @@ export const REGISTER_MENTOR_FIELDS: RegisterMentorDataPayload = {
   confirm: 'confirm',
   gender: 'gender',
   birthDay: 'birthDay',
+  isPolicy: 'isPolicy',
 };
 export const BUY_COURSE_FIELDS: BuyCourseDataPayload = {
   name: 'name',

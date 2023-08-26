@@ -17,6 +17,7 @@ export interface RegisterStudentDataPayload {
   phone: string;
   gender: string;
   birthDay: string;
+  isPolicy: string;
 }
 export interface RegisterMentorDataPayload {
   name: string;
@@ -26,6 +27,7 @@ export interface RegisterMentorDataPayload {
   confirm: string;
   gender: string;
   birthDay: string;
+  isPolicy: string;
 }
 
 export interface BuyCourseDataPayload {

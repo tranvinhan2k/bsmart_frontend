@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
@@ -24,25 +24,29 @@ export default function CreateCategoriesForm({
   });
 
   return (
-    <>
+    <Stack>
       <Typography textAlign="center" sx={globalStyles.textSubTitle}>
         Tạo môn học
       </Typography>
-      <form onSubmit={createCategoryForm.handleSubmit(onSubmit)}>
-        <FormInput
-          control={createCategoryForm.control}
-          name={CREATE_CATEGORY_FIELDS.code}
-          placeholder="Nhập mã môn học"
-        />
-        <FormInput
-          control={createCategoryForm.control}
-          name={CREATE_CATEGORY_FIELDS.name}
-          placeholder="Nhập tên môn học"
-        />
-        <Button customVariant="normal" type="submit">
-          Tạo môn học
-        </Button>
-      </form>
-    </>
+      <Stack marginTop={1} />
+      <FormInput
+        control={createCategoryForm.control}
+        name={CREATE_CATEGORY_FIELDS.code}
+        placeholder="Nhập mã môn học"
+      />
+      <Stack marginTop={1} />
+      <FormInput
+        control={createCategoryForm.control}
+        name={CREATE_CATEGORY_FIELDS.name}
+        placeholder="Nhập tên môn học"
+      />
+      <Stack marginTop={1} />
+      <Button
+        variant="contained"
+        onClick={createCategoryForm.handleSubmit(onSubmit)}
+      >
+        Tạo môn học
+      </Button>
+    </Stack>
   );
 }

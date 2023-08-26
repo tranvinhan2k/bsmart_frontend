@@ -16,6 +16,7 @@ import { genderData } from '~/constants';
 import { image } from '~/constants/image';
 
 import globalStyles from '~/styles';
+import { handleConsoleError } from '~/utils/common';
 
 export default function StudentRegisterForm({
   onOpen,
@@ -69,7 +70,7 @@ export default function StudentRegisterForm({
             control={studentSignUpForm.control}
             name={REGISTER_STUDENT_FIELDS.name}
           />
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               label="E-Mail"
               placeholder="example@gmail.com"
@@ -77,7 +78,7 @@ export default function StudentRegisterForm({
               name={REGISTER_STUDENT_FIELDS.email}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               label="Số điện thoại"
               placeholder="0362456xxx"
@@ -85,7 +86,7 @@ export default function StudentRegisterForm({
               name={REGISTER_STUDENT_FIELDS.phone}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               variant="date"
               label="Ngày Sinh"
@@ -94,7 +95,7 @@ export default function StudentRegisterForm({
               name={REGISTER_STUDENT_FIELDS.birthDay}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               data={genderData}
               variant="dropdown"
@@ -104,7 +105,7 @@ export default function StudentRegisterForm({
               name={REGISTER_STUDENT_FIELDS.gender}
             />
           </Stack>
-          <Stack marginTop={2}>
+          <Stack marginTop={1}>
             <FormInput
               variant="password"
               label="Mật Khẩu"
@@ -113,7 +114,7 @@ export default function StudentRegisterForm({
               helperText={PASSWORD_MATCHED}
             />
           </Stack>
-          <Stack marginTop={4}>
+          <Stack marginTop={1}>
             <FormInput
               variant="password"
               label="Xác Nhận Mật Khẩu"
@@ -121,9 +122,20 @@ export default function StudentRegisterForm({
               name={REGISTER_STUDENT_FIELDS.confirm}
             />
           </Stack>
+          <Stack marginTop={1}>
+            <FormInput
+              variant="boolean"
+              placeholder="Tôi đồng ý với <a href=/policy><strong>Điều khoản dịch vụ của hệ thống</strong></a>"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.isPolicy}
+            />
+          </Stack>
           <Stack marginTop={2}>
             <Button
-              onClick={studentSignUpForm.handleSubmit(handleRegisterSubmitData)}
+              onClick={studentSignUpForm.handleSubmit(
+                handleRegisterSubmitData,
+                handleConsoleError
+              )}
               customVariant="form"
             >
               Đăng kí

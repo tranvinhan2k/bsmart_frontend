@@ -1,4 +1,4 @@
-import { array, date, mixed, number, object, ref, string } from 'yup';
+import { array, bool, date, mixed, number, object, ref, string } from 'yup';
 import 'yup-phone';
 import { YupValidationForm } from '~/assets/variables';
 import {
@@ -334,6 +334,10 @@ export const validationSchemaRegisterStudent = object({
     .test('greater', 'Học sinh phải lớn hơn 10 tuổi', (value: any) => {
       return new Date().getFullYear() - new Date(value).getFullYear() > 10;
     }),
+  isPolicy: bool().oneOf(
+    [true],
+    'Bạn phải đồng ý với Điều khoản dịch vụ để tham gia hệ thống.'
+  ),
 });
 
 export const validationSchemaRegisterMentor = object({
@@ -358,6 +362,10 @@ export const validationSchemaRegisterMentor = object({
     .test('greater', 'Giáo viên phải lớn hơn 18 tuổi', (value: any) => {
       return new Date().getFullYear() - new Date(value).getFullYear() > 17;
     }),
+  isPolicy: bool().oneOf(
+    [true],
+    'Bạn phải đồng ý với Điều khoản dịch vụ để tham gia hệ thống.'
+  ),
 });
 export const validationSchemaBuyCourse = object({
   name: string().required(USERNAME_REQUIRED),

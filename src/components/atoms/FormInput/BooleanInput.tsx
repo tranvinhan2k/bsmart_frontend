@@ -1,6 +1,15 @@
 import { UseControllerReturn } from 'react-hook-form';
-import { FormControlLabel, Switch } from '@mui/material';
+import {
+  Checkbox,
+  FormControlLabel,
+  FormHelperText,
+  Stack,
+  Switch,
+  Typography,
+} from '@mui/material';
 import { useEffect } from 'react';
+import globalStyles from '~/styles';
+import { FontFamily, FontSize } from '~/assets/variables';
 
 interface BooleanInputProps {
   disabled?: boolean;
@@ -14,6 +23,7 @@ function BooleanInput({
 }: BooleanInputProps) {
   const {
     field: { value, onChange: controllerOnChange },
+    fieldState: { invalid, error },
   } = controller;
 
   const onChange = (e: any) => {
@@ -28,13 +38,33 @@ function BooleanInput({
   }, [value]);
 
   return (
-    <FormControlLabel
-      disabled={disabled}
-      control={
-        <Switch color="secondary" checked={!!value} onChange={onChange} />
-      }
-      label={placeholder}
-    />
+    <Stack>
+      <Stack sx={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+        <Checkbox
+          sx={{
+            margin: 0,
+            padding: 0,
+          }}
+          disableRipple
+          color="secondary"
+          checked={!!value}
+          onChange={onChange}
+        />
+        <Typography
+          sx={{
+            fontSize: FontSize.small_14,
+            fontFamily: FontFamily.regular,
+            marginLeft: 1,
+          }}
+          dangerouslySetInnerHTML={{
+            __html: placeholder,
+          }}
+        />
+      </Stack>
+      {invalid && (
+        <FormHelperText error>{(error as any)?.message}</FormHelperText>
+      )}
+    </Stack>
   );
 }
 export default BooleanInput;

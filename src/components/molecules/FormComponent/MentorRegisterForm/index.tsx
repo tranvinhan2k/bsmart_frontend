@@ -27,7 +27,6 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
 
   // Mutations
   const mutation = useMutationSignUp();
-  const navigate = useNavigate();
 
   const handleGoogle = () => {
     window.location.href = 'https://mismart.tech/oauth2/authorization/google';
@@ -46,8 +45,6 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
     try {
       await mutation.mutateAsync(params);
       onOpen();
-      console.log('dang ki thanh cong ');
-
       toast.updateSuccessToast(id, `Đăng kí thành công!`);
     } catch (error: any) {
       toast.updateFailedToast(id, `Đăng kí không thành công: ${error.message}`);
@@ -137,6 +134,14 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
               label="Xác Nhận Mật Khẩu"
               control={mentorSignUpForm.control}
               name={REGISTER_MENTOR_FIELDS.confirm}
+            />
+          </Stack>
+          <Stack marginTop={1}>
+            <FormInput
+              variant="boolean"
+              placeholder="Tôi đồng ý với <a href=/policy><strong>Điều khoản dịch vụ của hệ thống</strong></a>"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.isPolicy}
             />
           </Stack>
           <Stack marginTop={1}>
