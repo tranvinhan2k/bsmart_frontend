@@ -305,8 +305,8 @@ const classApi = {
     const result: ClassDetailPayload = {
       id: response?.id || 0,
       code: response?.code || '',
-      imageAlt: response?.classImage?.name || '',
-      imageUrl: response?.classImage?.url || '',
+      imageAlt: response?.image?.name || '',
+      imageUrl: response?.image?.url || '',
       name: response.course?.name || '',
       progressValue: response.progress?.percentage || 0,
       status: response?.status || 'ALL',
@@ -314,8 +314,8 @@ const classApi = {
       teacherName: [response?.mentor?.fullName || ''],
       teacherMail: response.mentor?.email || '',
       teacherPhone: response.mentor?.phone || '',
-      teacherUrl: response.mentor?.userImages?.[0]?.url || '',
-      teacherAlt: response.mentor?.userImages?.[0]?.name || '',
+      teacherUrl: response.mentor?.avatar?.url || '',
+      teacherAlt: response.mentor?.avatar?.name || '',
       endDate: response?.endDate || '',
       startDate: response?.startDate || '',
       feedback: {
