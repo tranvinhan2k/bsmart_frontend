@@ -105,8 +105,6 @@ export default function MemberClassInformationPage() {
     ? defaultRatingForm
     : [...defaultRatingForm, ...templateRatingForm];
   const onSubmit = async (params: any) => {
-    console.log('params', params);
-
     if (data) {
       const paramsData: SendFeedbackPayload = {
         comment: params.description,
