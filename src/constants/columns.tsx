@@ -593,6 +593,10 @@ const courseClassListColumns: GridColDef[] = [
     headerName: 'Mã lớp',
     minWidth: 180,
     flex: 1,
+    renderCell: (params) => {
+      const { code } = params.row;
+      return <CopyableCellEllipsis rawValue={code} formattedValue={code} />;
+    },
   },
   {
     field: 'minStudent',

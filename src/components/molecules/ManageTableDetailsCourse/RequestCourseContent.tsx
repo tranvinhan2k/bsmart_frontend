@@ -1,12 +1,12 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
-import { ClassStatusType } from '~/constants/class';
+import { CourseStatusType } from '~/constants/course';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import RequestCourseContents from '../RequestCourseContents';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface RequestCourseContentProps {
   idCourse: number;
-  status: ClassStatusType;
+  status: CourseStatusType;
   scrollRef: any;
 }
 

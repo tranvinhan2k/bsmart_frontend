@@ -150,7 +150,6 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"
-                  spacing={2}
                 >
                   {title0.map((item) => (
                     <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}>

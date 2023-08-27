@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import Icon from '~/components/atoms/Icon';
 import { mockLevelData } from '~/constants';
-import { ClassStatusType } from '~/constants/class';
+import { CourseStatusType } from '~/constants/course';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import globalStyles from '~/styles';
 import {
@@ -22,7 +22,7 @@ import {
 
 interface RequestCourseDetailsProps {
   idCourse: number;
-  status: ClassStatusType;
+  status: CourseStatusType;
   scrollRef: any;
 }
 

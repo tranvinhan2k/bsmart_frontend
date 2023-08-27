@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
 import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { ClassStatusType } from '~/constants/class';
+import { CourseStatusType } from '~/constants/course';
 import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import { useYupValidationResolver } from '~/hooks';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
@@ -18,7 +18,7 @@ interface RequestCourseProcessProps {
   onClose: () => void;
   refetchGetNoOfRequest: () => void;
   refetchSearch: () => void;
-  status: ClassStatusType;
+  status: CourseStatusType;
 }
 
 export default function RequestCourseProcess({

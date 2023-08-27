@@ -43,7 +43,7 @@ export default function RequestCourseProcess({
     useForm({
       defaultValues: {
         status: 'NOTSTART',
-        message: 'Chúc mừng bạn đã tạo lớp thành công',
+        message: 'Chúc mừng bạn đã tạo khóa học thành công',
       },
       resolver: resolverApproveCreateCourseRequest,
     });
