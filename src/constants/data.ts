@@ -257,7 +257,7 @@ export const CourseStatusList: OptionPayload[] = [
   },
   {
     id: 1,
-    label: 'Chưa yêu cầu phê duyệt',
+    label: 'Đang tạo',
     content: 'Lớp chưa gửi yêu cầu.',
     value: 'REQUESTING',
   },
@@ -297,12 +297,12 @@ export const CourseStatusList: OptionPayload[] = [
     content: 'Lớp đã kết thúc.',
     value: 'ENDED',
   },
-  {
-    id: 8,
-    label: 'Đã hủy bỏ',
-    content: 'Lớp đã bị hủy bỏ.',
-    value: 'CANCEL',
-  },
+  // {
+  //   id: 8,
+  //   label: 'Đã hủy bỏ',
+  //   content: 'Lớp đã bị hủy bỏ.',
+  //   value: 'CANCEL',
+  // },
 ];
 
 export const RoleOptionList: OptionPayload[] = [
