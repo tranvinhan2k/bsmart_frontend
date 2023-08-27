@@ -186,39 +186,39 @@ export const ClassStatusList: OptionPayload[] = [
     value: 'ALL',
   },
   {
-    id: 3,
-    label: 'Lớp chưa phê duyệt',
+    id: 1,
+    label: 'Đang tạo',
     content: 'Lớp mới tạo và chưa yêu cầu phê duyệt',
     value: 'REQUESTING',
   },
   {
     id: 2,
-    label: 'Lớp yêu cầu chỉnh sửa',
+    label: 'Chờ duyệt',
+    content: 'Lớp đang đợi đội ngũ quản lí phê duyệt.',
+    value: 'WAITING',
+  },
+  {
+    id: 3,
+    label: 'Yêu cầu chỉnh sửa',
     content: 'Lớp yêu cầu được chỉnh sửa',
     value: 'EDITREQUEST',
   },
   {
     id: 4,
-    label: 'Lớp đợi phê duyệt',
-    content: 'Lớp đang đợi đội ngũ quản lí phê duyệt.',
-    value: 'WAITING',
-  },
-  {
-    id: 5,
-    label: 'Lớp đang chiêu sinh',
-    content: 'Lớp đang chờ học sinh đăng kí và học.',
+    label: 'Chờ mở',
+    content: 'Lớp đang chờ học sinh đăng kí để bắt đầu.',
     value: 'NOTSTART',
   },
   {
-    id: 1,
-    label: 'Lớp đang bắt đầu',
+    id: 5,
+    label: 'Đang dạy',
     content: 'Lớp đang trong quá trình giảng dạy.',
     value: 'STARTING',
   },
   {
-    id: 2,
-    label: 'Lớp đã kết thúc',
-    content: 'Lớp đã hết thời gian giảng dạy',
+    id: 6,
+    label: 'Đã kết thúc',
+    content: 'Lớp đã hết thời gian giảng dạy.',
     value: 'ENDED',
   },
 ];
@@ -257,13 +257,13 @@ export const CourseStatusList: OptionPayload[] = [
   },
   {
     id: 1,
-    label: 'Chưa yêu cầu phê duyệt',
+    label: 'Đang tạo',
     content: 'Lớp chưa gửi yêu cầu.',
     value: 'REQUESTING',
   },
   {
     id: 2,
-    label: 'Chờ phê duyệt',
+    label: 'Chờ duyệt',
     content: 'Lớp đã gửi yêu cầu phê duyệt',
     value: 'WAITING',
   },
@@ -282,27 +282,27 @@ export const CourseStatusList: OptionPayload[] = [
   {
     id: 5,
     label: 'Đã phê duyệt',
-    content: 'Lớp đã được phê duyệt thành công và đang tuyển sinh.',
+    content: 'Lớp đã được phê duyệt thành công và cho mở tuyển sinh.',
     value: 'NOTSTART',
   },
   {
     id: 6,
-    label: 'Đang dạy',
-    content: 'Lớp đang được dạy.',
-    value: 'STARTING',
-  },
-  {
-    id: 7,
     label: 'Đã kết thúc',
     content: 'Lớp đã kết thúc.',
     value: 'ENDED',
   },
-  {
-    id: 8,
-    label: 'Đã hủy bỏ',
-    content: 'Lớp đã bị hủy bỏ.',
-    value: 'CANCEL',
-  },
+  // {
+  //   id: 6,
+  //   label: 'Đang dạy',
+  //   content: 'Lớp đang được dạy.',
+  //   value: 'STARTING',
+  // },
+  // {
+  //   id: 8,
+  //   label: 'Đã hủy bỏ',
+  //   content: 'Lớp đã bị hủy bỏ.',
+  //   value: 'CANCEL',
+  // },
 ];
 
 export const RoleOptionList: OptionPayload[] = [

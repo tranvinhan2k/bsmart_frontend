@@ -11,7 +11,7 @@ export default function CoursesPage() {
 
   return (
     <Stack>
-      <Stack
+      {/* <Stack
         sx={{
           background: Color.white,
           paddingX: {
@@ -30,12 +30,8 @@ export default function CoursesPage() {
             fontFamily: FontFamily.medium,
             fontSize: FontSize.small_18,
           }}
-        >{`${1 + courses.currentPage * courses.pageSize} - ${
-          courses.pageSize * (courses.currentPage + 1) >= courses.totalItems
-            ? courses.totalItems
-            : courses.pageSize * (courses.currentPage + 1)
-        } của ${courses?.totalItems} kết quả `}</Typography>
-      </Stack>
+        >{`${courses?.totalItems} kết quả `}</Typography>
+      </Stack> */}
 
       <Grid
         container

@@ -8,7 +8,7 @@ interface BasicInfoProps {
 
 export default function RequestMentorDegree({ idMentor }: BasicInfoProps) {
   const enum Text {
-    mainTitle = 'Bằng cấp',
+    mainTitle = 'Bằng cấp / CV',
   }
 
   const { managedMentorDetails } = useGetManagedMentorDetails(idMentor);

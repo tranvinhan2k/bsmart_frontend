@@ -16,7 +16,7 @@ export default function BreadcrumbNavigationSection() {
   });
   if (pathName.includes('mentor-detail')) {
     // eslint-disable-next-line prefer-destructuring
-    navigationAction = NavigationActionData[15];
+    navigationAction = NavigationActionData[14];
   }
   if (pathName.includes('course-detail')) {
     // eslint-disable-next-line prefer-destructuring
@@ -35,7 +35,7 @@ export default function BreadcrumbNavigationSection() {
   if (pathName.includes('mentor-detail')) {
     breadcrumbs.push({
       id: 0,
-      name: 'Chi Tiết Giáo viên',
+      name: 'Chi Tiết Giáo Viên',
       link: pathName,
     });
   }

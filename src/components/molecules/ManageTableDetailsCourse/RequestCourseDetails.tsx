@@ -10,10 +10,8 @@ import {
 import { useState } from 'react';
 import Icon from '~/components/atoms/Icon';
 import { mockLevelData } from '~/constants';
-import {
-  useGetCourseCreateRequestDetails,
-  UseGetCourseCreateRequestDetailsPayload,
-} from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { ClassStatusType } from '~/constants/class';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import globalStyles from '~/styles';
 import {
   SX_BOX_ITEM_WRAPPER,
@@ -22,10 +20,17 @@ import {
   SX_FORM_LABEL,
 } from './style';
 
+interface RequestCourseDetailsProps {
+  idCourse: number;
+  status: ClassStatusType;
+  scrollRef: any;
+}
+
 export default function RequestCourseDetails({
   idCourse,
   status,
-}: UseGetCourseCreateRequestDetailsPayload) {
+  scrollRef,
+}: RequestCourseDetailsProps) {
   const { courseCreateRequestDetails, isLoading } =
     useGetCourseCreateRequestDetails({ idCourse, status });
 
@@ -80,7 +85,7 @@ export default function RequestCourseDetails({
     : '';
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid
         container
         direction="row"

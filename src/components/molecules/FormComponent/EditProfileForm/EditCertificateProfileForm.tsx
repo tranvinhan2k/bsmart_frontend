@@ -133,7 +133,7 @@ export default function EditCertificateProfileForm() {
 
   const EDIT_CERTIFICATE_PROFILE_FORM_TEXT = {
     TITLE: 'Thông tin bằng cấp / CV',
-    USERIMAGES: { LABEL: 'Bằng cấp' },
+    USERIMAGES: { LABEL: 'Tài liệu bằng cấp / CV' },
     BUTTON_TEXT: 'Cập nhật',
   };
 

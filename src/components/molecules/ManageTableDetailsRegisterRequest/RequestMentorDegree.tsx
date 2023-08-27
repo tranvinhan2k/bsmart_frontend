@@ -13,7 +13,7 @@ export default function RequestMentorDegree({ row }: BasicInfoProps) {
     <Stack sx={SX_BOX_ITEM_WRAPPER}>
       <Grid container>
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Bằng cấp</Typography>
+          <Typography sx={SX_FORM_LABEL}>Bằng cấp / CV</Typography>
         </Grid>
         {userDegreeList.map((item: any, index: number) => (
           <Grid item xs={12} key={item.id}>

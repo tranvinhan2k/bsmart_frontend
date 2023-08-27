@@ -1,4 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { CourseStatusType } from '~/constants/course';
 import RequestCourseClassList from './RequestCourseClassList';
 import RequestCourseContent from './RequestCourseContent';
 import RequestCourseDate from './RequestCourseDate';
@@ -9,6 +10,7 @@ import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface CourseCreateRequestDetailsProps {
   row: any;
+  fixedStatus: CourseStatusType;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
@@ -16,6 +18,7 @@ interface CourseCreateRequestDetailsProps {
 
 export default function ManageTableDetailsCourseCreateRequest({
   row,
+  fixedStatus,
   onClose,
   refetchSearch,
   refetchGetNoOfRequest,
@@ -42,10 +45,10 @@ export default function ManageTableDetailsCourseCreateRequest({
             alignItems="stretch"
             spacing={2}
           >
-            <RequestCourseDetails idCourse={row.id} status={row.status} />
-            <RequestCourseContent idCourse={row.id} status={row.status} />
-            <RequestCourseClassList idCourse={row.id} status={row.status} />
-            <RequestCourseMentorInfo idCourse={row.id} status={row.status} />
+            <RequestCourseDetails idCourse={row.id} status={fixedStatus} />
+            <RequestCourseContent idCourse={row.id} status={fixedStatus} />
+            <RequestCourseClassList idCourse={row.id} status={fixedStatus} />
+            <RequestCourseMentorInfo idCourse={row.id} status={fixedStatus} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
@@ -56,10 +59,10 @@ export default function ManageTableDetailsCourseCreateRequest({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <RequestCourseDate idCourse={row.id} status={row.status} />
+            <RequestCourseDate idCourse={row.id} status={fixedStatus} />
             <RequestCourseProcess
               idCourse={row.id}
-              status={row.status}
+              status={fixedStatus}
               onClose={onClose}
               refetchSearch={refetchSearch}
               refetchGetNoOfRequest={refetchGetNoOfRequest}

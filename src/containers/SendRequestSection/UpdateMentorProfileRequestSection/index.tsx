@@ -490,7 +490,7 @@ export default function UpdateMentorProfileRequestSection() {
 
             {/* DEGREE */}
             <Grid item xs={12}>
-              <Typography sx={sx.formLabel}>Bằng cấp</Typography>
+              <Typography sx={sx.formLabel}>Bằng cấp / CV</Typography>
               <Box my={2}>
                 {certificateNoteList.map((item) => (
                   <Typography component="h3" key={item.id}>
@@ -509,7 +509,7 @@ export default function UpdateMentorProfileRequestSection() {
                     <Fragment key={field.id}>
                       <Grid item xs={12}>
                         <Typography sx={sx.formLabel}>
-                          {`Bằng cấp ${1 + index}`}
+                          {`Tài liệu bằng cấp / CV ${1 + index}`}
                         </Typography>
                       </Grid>
                       <Grid item xs={12}>

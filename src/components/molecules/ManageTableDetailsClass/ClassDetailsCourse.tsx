@@ -21,9 +21,11 @@ import globalStyles from '~/styles';
 
 interface ClassDetailsCourseProps {
   idClass: number;
+  scrollRef: any;
 }
 export default function ClassDetailsCourse({
   idClass,
+  scrollRef,
 }: ClassDetailsCourseProps) {
   const { classDetails, isLoading } = useGetManagedClassDetails(idClass);
 
@@ -40,7 +42,7 @@ export default function ClassDetailsCourse({
   };
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid
         container
         direction="row"
@@ -49,7 +51,7 @@ export default function ClassDetailsCourse({
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Thông tin khóa học</Typography>
+          <Typography sx={SX_FORM_LABEL}>Khóa học</Typography>
         </Grid>
         <Grid item xs={12} container lg={6} spacing={2}>
           <Grid item xs={12}>

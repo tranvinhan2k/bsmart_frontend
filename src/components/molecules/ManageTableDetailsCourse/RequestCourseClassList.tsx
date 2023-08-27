@@ -9,11 +9,19 @@ import CustomDialog from '~/components/atoms/CustomDialog';
 import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
 import RequestCourseClassDetails from './RequestCourseClassDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
+import { ClassStatusType } from '~/constants/class';
+
+interface RequestCourseClassListProps {
+  idCourse: number;
+  status: ClassStatusType;
+  scrollRef: any;
+}
 
 export default function RequestCourseClassList({
   idCourse,
   status,
-}: UseGetCourseCreateRequestDetailsPayload) {
+  scrollRef,
+}: RequestCourseClassListProps) {
   const [mode, setMode] = useState<'READ' | ''>('');
 
   const [open, setOpen] = useState<boolean>(false);
@@ -66,7 +74,7 @@ export default function RequestCourseClassList({
   }
 
   return (
-    <Box sx={SX_BOX_ITEM_WRAPPER}>
+    <Box sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Typography sx={SX_FORM_LABEL}>
         Danh sách lớp ({numberOfClass} lớp)
       </Typography>

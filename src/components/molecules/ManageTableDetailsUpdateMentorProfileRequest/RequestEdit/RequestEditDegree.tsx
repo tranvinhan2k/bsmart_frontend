@@ -9,7 +9,7 @@ interface RequestEditDegreeProps {
 
 export default function RequestEditDegree({ rowId }: RequestEditDegreeProps) {
   const enum Text {
-    mainTitle = 'Bằng cấp',
+    mainTitle = 'Bằng cấp / CV',
   }
 
   const { updaterRequestDetails, isLoading } =

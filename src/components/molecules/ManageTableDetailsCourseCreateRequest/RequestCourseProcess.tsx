@@ -1,6 +1,7 @@
 import { Box, Button, Stack, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { CourseStatusType } from '~/constants/course';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
@@ -11,14 +12,13 @@ import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
-import { ClassStatusType } from '~/constants/class';
 
 interface RequestCourseProcessProps {
   idCourse: number;
   onClose: () => void;
   refetchSearch: () => void;
   refetchGetNoOfRequest: () => void;
-  status: ClassStatusType;
+  status: CourseStatusType;
 }
 
 export default function RequestCourseProcess({
