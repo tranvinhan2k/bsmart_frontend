@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import subjectApi from '~/api/subjects';
+import { useCustomMutation } from './custom/useCustomMutation';
 
 export interface RequestSubjectPayload {
   code: string;
@@ -15,31 +16,16 @@ export const useCRUDSubjects = () => {
     queryFn: () => subjectApi.getAllSubjectsAllProp(),
   });
 
-  const addSubjectMutation = useMutation({
-    mutationKey: [key],
-    mutationFn: subjectApi.createSubject,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  } as any);
+  const addSubjectMutation = useCustomMutation([key], subjectApi.createSubject);
 
-  const updateSubjectMutation = useMutation({
-    mutationKey: [key],
-    mutationFn: subjectApi.updateSubject,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  } as any);
-  const deleteSubjectMutation = useMutation({
-    mutationKey: [key],
-    mutationFn: subjectApi.deleteSubject,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [key] });
-    },
-  } as any);
+  const updateSubjectMutation = useCustomMutation(
+    [key],
+    subjectApi.updateSubject
+  );
+  const deleteSubjectMutation = useCustomMutation(
+    [key],
+    subjectApi.deleteSubject
+  );
   const getOneSubjectMutation = useMutation({
     mutationKey: [key],
     mutationFn: subjectApi.getSubject,

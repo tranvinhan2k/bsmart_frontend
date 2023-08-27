@@ -11,7 +11,15 @@ export default function MentorsPage() {
     scrollToTop();
   }, []);
 
-  const { mentors, error, isLoading, onChangePage } = useQueryGetAllMentors();
+  const {
+    mentors,
+    error,
+    isLoading,
+    filterParams,
+    onChangeSubject,
+    onSearch,
+    onChangePage,
+  } = useQueryGetAllMentors();
   return (
     <Grid
       container
@@ -22,7 +30,11 @@ export default function MentorsPage() {
       }}
     >
       <Grid item xs={12} md={3}>
-        <MentorFilterSection />
+        <MentorFilterSection
+          filterParams={filterParams}
+          onChangeSubject={onChangeSubject}
+          onSearch={onSearch}
+        />
       </Grid>
       <Grid item xs={12} md={9}>
         <MentorMenuSection

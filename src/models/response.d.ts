@@ -931,3 +931,31 @@ export type ReferralCodeResponse = Partial<{
   usageCount: number;
   expiredAt: string;
 }>;
+
+export type AiConvertResponse = Partial<{
+  id: string;
+  id_prob: string;
+  name: string;
+  name_prob: string;
+  dob: string;
+  dob_prob: string;
+  sex: 'NAM' | 'NỮ';
+  sex_prob: string;
+  nationality: string;
+  nationality_prob: string;
+  home: string;
+  home_prob: string;
+  address: string;
+  address_prob: string;
+  doe: string;
+  doe_prob: string;
+  overall_score: string;
+  address_entities: {
+    province: string;
+    district: string;
+    ward: string;
+    street: string;
+  };
+  type_new: string;
+  type: string;
+}>;

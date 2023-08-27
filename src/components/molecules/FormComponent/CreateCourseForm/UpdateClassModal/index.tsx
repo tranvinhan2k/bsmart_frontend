@@ -48,6 +48,15 @@ export default function UpdateClassModal({
             />
           </Stack>
           <Stack marginTop={2} />
+          <Stack>
+            <FormInput
+              variant="text"
+              name={CREATE_CLASS_FIELDS.link}
+              control={hookForm.control}
+              label="Đường link giảng dạy"
+            />
+          </Stack>
+          <Stack marginTop={2} />
           <FormInput
             variant="image"
             name={CREATE_CLASS_FIELDS.imageId}

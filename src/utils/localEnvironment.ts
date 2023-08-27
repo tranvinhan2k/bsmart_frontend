@@ -9,6 +9,7 @@ const {
   VITE_KEYCLOAK_CLIENT_ID: KEYCLOAK_CLIENT_ID,
   VITE_KEYCLOAK_REALM: KEYCLOAK_REALM,
   VITE_TINYMCE_KEY: TINYMCE_KEY,
+  VITE_FPT_AI_KEY: FPT_AI_KEY,
 } = import.meta.env;
 
 export default {
@@ -22,4 +23,5 @@ export default {
   KEYCLOAK_REALM,
   KEYCLOAK_URL,
   TINYMCE_KEY,
+  FPT_AI_KEY,
 };

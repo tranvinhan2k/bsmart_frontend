@@ -3,11 +3,11 @@ import feedbacksApi from '~/api/feedback';
 import { useCustomQuery } from '../custom/useCustomQuery';
 import { PagingFilterRequest } from '~/models';
 
-export const useGetCourseFeedback = (id: number) => {
+export const useGetMentorFeedback = (id: number) => {
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     id,
     page: 0,
-    rate: undefined,
+    isCourse: false,
   });
 
   const handleChangePage = (pageNumber: number) => {
@@ -19,9 +19,9 @@ export const useGetCourseFeedback = (id: number) => {
   };
 
   const { data, error, isLoading } = useCustomQuery(
-    ['get_course_feedback', `${filterParams.rate}`, `${filterParams.page}`],
+    ['get_mentor_feedback', `${filterParams.rate}`, `${filterParams.page}`],
     () =>
-      feedbacksApi.getCourseFeedback({
+      feedbacksApi.getIntroduceMentorFeedback({
         id,
         params: filterParams,
       })

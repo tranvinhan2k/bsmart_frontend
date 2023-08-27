@@ -28,28 +28,34 @@ export default function CreateSubjectsForm({
   return (
     <Stack>
       <Typography textAlign="center" sx={globalStyles.textSubTitle}>
-        Tạo ngôn ngữ lập trình
+        Tạo môn học
       </Typography>
       <form onSubmit={createSubjectForm.handleSubmit(onSubmit)}>
         <FormInput
+          label="Mã môn học"
           control={createSubjectForm.control}
           name={CREATE_SUBJECT_FIELDS.code}
-          placeholder="Nhập mã ngôn ngữ lập trình"
+          placeholder="Nhập mã môn học"
         />
+        <Stack marginTop={1} />
         <FormInput
+          label="Tên môn học"
           control={createSubjectForm.control}
           name={CREATE_SUBJECT_FIELDS.name}
-          placeholder="Nhập tên ngôn ngữ lập trình"
+          placeholder="Nhập tên môn học"
         />
+        <Stack marginTop={1} />
         <FormInput
+          label="Chọn lĩnh vực"
           data={categories}
-          variant="dropdown"
+          variant="multiSelect"
           control={createSubjectForm.control}
           name={CREATE_SUBJECT_FIELDS.categoryId}
-          placeholder="Nhập môn học"
+          placeholder="Nhập lĩnh vực"
         />
+        <Stack marginTop={1} />
         <Button customVariant="normal" type="submit">
-          Tạo ngôn ngữ lập trình
+          Tạo môn học
         </Button>
       </form>
     </Stack>

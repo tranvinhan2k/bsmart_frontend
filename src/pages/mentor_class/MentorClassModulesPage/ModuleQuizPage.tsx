@@ -1,6 +1,5 @@
 import { Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FontSize, FontFamily } from '~/assets/variables';
@@ -8,13 +7,12 @@ import {
   MemberDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { validationPassword } from '~/form/validation';
-import { useGetIdFromUrl, useYupValidationResolver } from '~/hooks';
+import { useGetIdFromUrl } from '~/hooks';
 import { useGetQuizResult } from '~/hooks/quiz/useGetQuizResult';
 import { ActivityQuizPayload } from '~/models/type';
 import { reviewQuiz, saveDataQuiz } from '~/redux/user/slice';
 import globalStyles from '~/styles';
-import { formatISODateDateToDisplayDateTime, formatTime } from '~/utils/date';
+import { formatTime } from '~/utils/date';
 import MentorClassPointsPage from '../MentorClassPointsPage';
 
 interface Props {
@@ -96,9 +94,6 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Thời gian làm bài: ${quiz.time}`}</Typography>
       </Stack>
       <Stack style={{ width: '100%' }}>
         <MentorClassPointsPage quizId={item.id} />

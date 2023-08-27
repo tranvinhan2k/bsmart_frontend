@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,14 +9,11 @@ import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import CustomModal from '~/components/atoms/CustomModal';
 import FormInput from '~/components/atoms/FormInput';
-import MarkDisplay from '~/components/atoms/MarkDisplay';
-import CRUDTable from '~/components/molecules/CRUDTable';
 import {
   MemberDashboardNavigationActionLink,
   NavigationLink,
 } from '~/constants/routeLink';
-import { validationPassword } from '~/form/validation';
-import { useGetIdFromUrl, useYupValidationResolver } from '~/hooks';
+import { useGetIdFromUrl } from '~/hooks';
 import { useGetQuizResult } from '~/hooks/quiz/useGetQuizResult';
 import { ActivityQuizPayload } from '~/models/type';
 import { reviewQuiz, saveDataQuiz } from '~/redux/user/slice';
@@ -111,9 +108,6 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
-        <Typography
-          sx={globalStyles.textLowSmallLight}
-        >{`Thời gian làm bài: ${quiz.time}`}</Typography>
       </Stack>
       {!quiz.isAttemptedQuiz && (
         <Button

@@ -21,6 +21,7 @@ import { validationSchemaEditIdentityBack } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
+import { useAIConvert } from '~/hooks/useAIConvert';
 
 interface DialogEditIdCardBackProps {
   open: boolean;
@@ -48,6 +49,7 @@ export default function DialogEditIdCardBack({
 
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditIdentityBack } = useMutationEditIdentityBack();
+  const { mutateAsync } = useAIConvert();
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
@@ -60,13 +62,17 @@ export default function DialogEditIdCardBack({
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
+      await mutateAsync(data.identityBack);
       await mutateEditIdentityBack(params);
       handleOnClose();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
       resetEditIdentityBack();
     } catch (error: unknown) {
-      toast.updateFailedToast(id, toastMsgError(error));
+      toast.updateFailedToast(
+        id,
+        'Cập nhật hình ảnh thất bại. Vui lòng xem lại hình ảnh và thử lại.'
+      );
     }
   };
 

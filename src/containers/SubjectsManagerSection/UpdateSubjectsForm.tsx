@@ -8,7 +8,7 @@ import { useDispatchGetAllCategories, useYupValidationResolver } from '~/hooks';
 import globalStyles from '~/styles';
 
 interface UpdateSubjectsFormProps {
-  row: { id: number; code: string; name: string; categoryId: any };
+  row: { id: number; code: string; name: string; categoryIds: any };
   onSubmit: (data: any) => void;
 }
 
@@ -26,7 +26,6 @@ export default function UpdateSubjectsForm({
     defaultValues: {
       code: row.code,
       name: row.name,
-      categoryId: row.categoryId,
     },
     resolver: resolverSignIn,
   });
@@ -37,23 +36,32 @@ export default function UpdateSubjectsForm({
         Cập nhật môn học
       </Typography>
       <form onSubmit={updateCategoryForm.handleSubmit(onSubmit)}>
+        <Stack marginTop={1} />
         <FormInput
+          label="Mã môn học"
           control={updateCategoryForm.control}
           name={UPDATE_SUBJECT_FIELDS.code}
-          placeholder="Nhập mã ngôn ngữ lập trình"
+          placeholder="Nhập mã môn học"
         />
+        <Stack marginTop={1} />
         <FormInput
+          label="Tên môn học"
           control={updateCategoryForm.control}
           name={UPDATE_SUBJECT_FIELDS.name}
-          placeholder="Nhập tên ngôn ngữ lập trình"
+          placeholder="Nhập tên môn học"
         />
+        <Stack marginTop={1} />
+
         <FormInput
+          label="Chọn lĩnh vực"
           data={categories}
-          variant="dropdown"
+          variant="multiSelect"
           control={updateCategoryForm.control}
           name={UPDATE_SUBJECT_FIELDS.categoryId}
-          placeholder="Nhập môn học"
+          placeholder="Nhập lĩnh vực"
         />
+        <Stack marginTop={1} />
+
         <Button customVariant="normal" type="submit">
           Cập nhật môn học
         </Button>

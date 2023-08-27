@@ -88,21 +88,21 @@ export default function StudentRegisterForm({
           </Stack>
           <Stack marginTop={1}>
             <FormInput
-              variant="date"
-              label="Ngày Sinh"
-              placeholder="01/01/2000"
-              control={studentSignUpForm.control}
-              name={REGISTER_STUDENT_FIELDS.birthDay}
-            />
-          </Stack>
-          <Stack marginTop={1}>
-            <FormInput
               data={genderData}
               variant="dropdown"
               label="Giới tính"
               placeholder="Chọn giới tính của bạn"
               control={studentSignUpForm.control}
               name={REGISTER_STUDENT_FIELDS.gender}
+            />
+          </Stack>
+          <Stack marginTop={1}>
+            <FormInput
+              variant="date"
+              label="Ngày Sinh"
+              placeholder="01/01/2000"
+              control={studentSignUpForm.control}
+              name={REGISTER_STUDENT_FIELDS.birthDay}
             />
           </Stack>
           <Stack marginTop={1}>

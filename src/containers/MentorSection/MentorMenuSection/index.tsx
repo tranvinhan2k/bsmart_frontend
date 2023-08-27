@@ -5,7 +5,7 @@ import toast from '~/utils/toast';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import MentorItem from '~/components/molecules/MentorItem';
 import { MentorQuickPayload } from '~/models/mentor';
-import { PagingFilterPayload } from '~/models';
+import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import CustomPagination from '~/components/atoms/CustomPagination';
 
 interface MentorMenuSectionPayload {

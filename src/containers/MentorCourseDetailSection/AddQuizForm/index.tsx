@@ -84,18 +84,6 @@ export default function AddQuizForm({ hookForm, onSubmit, onDelete }: Props) {
       variant: 'text',
     },
     {
-      name: 'time',
-      label: 'Thời gian làm bài (phút)',
-      placeholder: 'Nhập thời gian làm bài',
-      variant: 'number',
-    },
-    {
-      name: 'defaultPoint',
-      label: 'Điểm đạt yêu cầu',
-      placeholder: 'Nhập diểm đạt yêu cầu',
-      variant: 'number',
-    },
-    {
       name: 'isSuffleQuestion',
       label: 'Trộn bài kiểm tra',
       placeholder: 'Trộn bài kiểm tra',

@@ -22,6 +22,7 @@ export interface PostClassRequest {
   maxStudent: number;
   startDate: string;
   endDate: string;
+  link: string;
   numberOfSlot: number;
   timeInWeekRequests: {
     dayOfWeekId: number;
@@ -57,12 +58,14 @@ export interface PagingFilterRequest {
   // feedback
   type?: FeedbackTypeKeys;
   name?: string;
-  numberOfStar?: number;
+  rate?: number | undefined;
 
   // assignments
   classIds?: number[];
   classId?: number;
   id?: number;
+
+  isCourse?: boolean;
 }
 
 export interface PutCourseRequest {

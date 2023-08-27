@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { FontFamily } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
+import { MentorProfileStatusType } from '~/constants/profile';
 import { useMutationResendVerify } from '~/hooks/useMutationResendVerify';
 import MentorProfileLayout from '~/layouts/MentorProfileLayout';
 import { RoutePayload } from '~/models/routes';
@@ -46,38 +47,49 @@ export default function MentorProfilePage() {
 
   return (
     <MentorProfileLayout>
-      {profile.isVerified ? (
-        <Routes>{showMentorRoutes()}</Routes>
-      ) : (
-        <Stack>
-          <Alert
-            action={
-              <Button onClick={handleResendVerify}>
+      <Stack>
+        {profile.mentorProfile.status ===
+          MentorProfileStatusType.REQUESTING && (
+          <Alert severity="info">
+            Có vẻ như bạn là người mới ? Vui lòng hoàn thiện hồ sơ giáo viên để
+            có thể bắt đầu vào dạy học
+          </Alert>
+        )}
+        <Stack marginTop={1}>
+          {profile.isVerified ? (
+            <Routes>{showMentorRoutes()}</Routes>
+          ) : (
+            <Stack>
+              <Alert
+                action={
+                  <Button onClick={handleResendVerify}>
+                    <Typography
+                      sx={{
+                        fontFamily: FontFamily.medium,
+                      }}
+                    >
+                      Gửi lại email
+                    </Typography>
+                  </Button>
+                }
+                severity="warning"
+              >
                 <Typography
                   sx={{
-                    fontFamily: FontFamily.medium,
+                    fontFamily: FontFamily.light,
                   }}
                 >
-                  Gửi lại email
+                  Xin hãy xác thực email{' '}
+                  <span style={{ fontFamily: FontFamily.bold }}>
+                    {profile.email}
+                  </span>{' '}
+                  để truy cập tất cả chức năng.
                 </Typography>
-              </Button>
-            }
-            severity="warning"
-          >
-            <Typography
-              sx={{
-                fontFamily: FontFamily.light,
-              }}
-            >
-              Xin hãy xác thực email{' '}
-              <span style={{ fontFamily: FontFamily.bold }}>
-                {profile.email}
-              </span>{' '}
-              để truy cập tất cả chức năng.
-            </Typography>
-          </Alert>
+              </Alert>
+            </Stack>
+          )}
         </Stack>
-      )}
+      </Stack>
     </MentorProfileLayout>
   );
 }

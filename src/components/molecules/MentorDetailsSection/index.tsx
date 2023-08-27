@@ -7,6 +7,8 @@ import MentorDetailsDescribe from './MentorDetailsDescribe';
 import MentorDetailsFeaturedCourseList from './MentorDetailsFeaturedCourseList';
 import MentorDetailsHeader from './MentorDetailsHeader';
 import MentorDetailsRight from './MentorDetailsRight';
+import UserCourseFeedback from '../UserCourseFeedback';
+import MentorCourseFeedback from '../MentorCourseFeedback';
 
 export default function MentorDetailsSection() {
   const { id } = useParams();
@@ -36,6 +38,7 @@ export default function MentorDetailsSection() {
             <Stack spacing={2}>
               <MentorDetailsHeader />
               <MentorDetailsDescribe />
+              <MentorCourseFeedback />
             </Stack>
             {/* <MentorDetailsFeaturedCourseList /> */}
           </Grid>

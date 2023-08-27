@@ -96,6 +96,7 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
     imageId: string;
     minStudent: number;
     maxStudent: number;
+    link: string;
     level: OptionPayload;
     startDateExpected: string;
     endDateExpected: string;
@@ -115,6 +116,7 @@ export const useCreateClassesForm = (id: number, refetch: any) => {
           minStudent: data.minStudent,
           numberOfSlot: data.numberOfSlot,
           price: data.price,
+          link: data.link,
           startDate: dayjs(data.startDateExpected).add(1, 'day').toISOString(),
           endDate: dayjs(data.endDateExpected).add(1, 'day').toISOString(),
           timeInWeekRequests: data.timeInWeekRequests.map((item) => ({

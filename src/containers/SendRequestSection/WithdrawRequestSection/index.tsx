@@ -74,30 +74,20 @@ export default function WithdrawRequestSection() {
   }, [banks, reset]);
 
   const handleSubmitSuccess = async (data: any) => {
-    if (data[WITHDRAW_MONEY_FIELDS.amount] >= profile.wallet.balance) {
-      setError(WITHDRAW_MONEY_FIELDS.amount, {
-        type: 'custom',
-        message: `Số tiền muốn rút phải nhỏ hơn số xu cũa bạn: ${formatMoney(
-          profile.wallet.balance,
-          true
-        )} BS`,
-      });
-    } else {
-      const params: WithdrawMoneyProfilePayload = {
-        amount: data.amount,
-        bankId: data.bankLinking.id,
-        bankAccount: data.bankAccount,
-        bankAccountOwner: data.bankAccountOwner,
-      };
+    const params: WithdrawMoneyProfilePayload = {
+      amount: data.amount,
+      bankId: data.bankLinking.id,
+      bankAccount: data.bankAccount,
+      bankAccountOwner: data.bankAccountOwner,
+    };
 
-      const id = toast.loadToast('Đang gửi yêu cầu rút tiền ...');
-      try {
-        await mutateWithdrawMoney(params);
-        toast.updateSuccessToast(id, 'Gửi yêu cầu rút tiền thành công');
-        reset();
-      } catch (error: unknown) {
-        toast.updateFailedToast(id, toastMsgError(error));
-      }
+    const id = toast.loadToast('Đang gửi yêu cầu rút tiền ...');
+    try {
+      await mutateWithdrawMoney(params);
+      toast.updateSuccessToast(id, 'Gửi yêu cầu rút tiền thành công');
+      reset();
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

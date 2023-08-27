@@ -1,4 +1,5 @@
 import { Stack, Typography } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import CustomModal from '~/components/atoms/CustomModal';
@@ -10,6 +11,7 @@ import UpdateSubjectsForm from '~/containers/SubjectsManagerSection/UpdateSubjec
 import { useDispatchGetAllCategories } from '~/hooks';
 import { useCRUDSubjects } from '~/hooks/useCRUDSubjects';
 import globalStyles from '~/styles';
+import { formatStringToNumber } from '~/utils/number';
 import toast from '~/utils/toast';
 
 export default function SubjectManagerPage() {
@@ -21,11 +23,46 @@ export default function SubjectManagerPage() {
   );
   const [selectedRow, setSelectedRow] = useState<any>();
 
+  const subjectColumns: GridColDef[] = [
+    {
+      field: 'code',
+      headerAlign: 'left',
+      type: 'string',
+      headerName: 'Mã môn học',
+      minWidth: 200,
+      flex: 1,
+    },
+    {
+      field: 'name',
+      headerAlign: 'left',
+      type: 'string',
+      headerName: 'Tên môn học',
+      minWidth: 200,
+      flex: 1,
+    },
+    {
+      field: 'categoryId',
+      headerAlign: 'left',
+      type: 'string',
+      headerName: 'Lĩnh vực',
+      minWidth: 300,
+      flex: 1,
+      editable: true,
+      valueGetter: (params: any) => {
+        return `${
+          params.row.categoryIds?.map(
+            (item: any) =>
+              categories.find((subItem) => subItem.id === item)?.label || ''
+          ) || ''
+        } `;
+      },
+    },
+  ];
+
   const {
     addSubjectMutation,
     deleteSubjectMutation,
     error,
-    getOneSubjectMutation,
     isLoading,
     refetch,
     subjects,
@@ -73,8 +110,9 @@ export default function SubjectManagerPage() {
     const id = toast.loadToast('Đang tạo ngôn ngữ lập trình');
     try {
       await addSubjectMutation.mutateAsync({
-        ...data,
-        categoryId: data.categoryId.id,
+        name: data.name,
+        code: data.code,
+        categoryIds: data.categoryId,
       });
       await refetch();
       handleTriggerModal();
@@ -88,11 +126,16 @@ export default function SubjectManagerPage() {
   };
   const handleSubmitUpdateSubject = async (data: any) => {
     const id = toast.loadToast('Đang cập nhật ngôn ngữ lập trình');
+    console.log('data', data);
+
     try {
       await updateSubjectMutation.mutateAsync({
-        ...data,
+        name: data.name,
+        code: data.code,
         id: selectedRow.id,
-        categoryId: data.categoryId.id,
+        categoryIds: data.categoryIds.map((item: any) =>
+          formatStringToNumber(item)
+        ),
       });
       await refetch();
       handleTriggerModal();
@@ -167,8 +210,8 @@ export default function SubjectManagerPage() {
       renderItem = (
         <ConfirmDialog
           open={open}
-          content="Bạn có chắc xóa ngôn ngữ lập trình này ?"
-          title="Xác nhận xóa ngôn ngữ lập trình"
+          content="Bạn có chắc xóa môn học này ?"
+          title="Xác nhận xóa môn học"
           handleClose={handleTriggerModal}
           handleAccept={handleSubmitDeleteSubject}
         />
@@ -187,7 +230,7 @@ export default function SubjectManagerPage() {
           isLoading={isLoading}
           error={error}
           addItemButtonLabel="Thêm môn học"
-          columns={columns.subjectColumns}
+          columns={subjectColumns}
           onAdd={handleAddSubject}
           searchPlaceholder="Tìm kiếm ngôn ngữ lập trình"
           onSearch={handleSearchSubject}

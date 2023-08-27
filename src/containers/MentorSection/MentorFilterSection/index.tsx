@@ -4,20 +4,29 @@ import { MetricSize, Color, FontFamily, FontSize } from '~/assets/variables';
 import SearchBar from '~/components/atoms/SearchBar';
 import FilterCheckboxListMentor from '~/components/molecules/FilterCheckboxListMentor';
 import { useDispatchGetAllSubjects } from '~/hooks';
+import { PagingFilterRequest } from '~/models';
 import { selectFilterParams } from '~/redux/mentors/selector';
 import { changeFilterParams } from '~/redux/mentors/slice';
 
-export default function MentorFFilterSection() {
-  const dispatch = useDispatch();
-  const filterParams = useSelector(selectFilterParams);
+interface Props {
+  filterParams: PagingFilterRequest;
+  onSearch: (searchValue: string) => void;
+  onChangeSubject: (subjectIds: number[]) => void;
+}
+
+export default function MentorFFilterSection({
+  filterParams,
+  onChangeSubject,
+  onSearch,
+}: Props) {
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
 
   const handleSubmitSearchValue = (searchValue: string) => {
-    dispatch(changeFilterParams({ ...filterParams, q: searchValue }));
+    onSearch(searchValue);
   };
 
   const handleFilterSkills = (skills: number[]) => {
-    dispatch(changeFilterParams({ ...filterParams, skills }));
+    onChangeSubject(skills);
   };
 
   return (
@@ -58,7 +67,7 @@ export default function MentorFFilterSection() {
         onSubmit={handleSubmitSearchValue}
       />
       <FilterCheckboxListMentor
-        skillId={filterParams.skills}
+        skillId={filterParams.subjectId}
         skills={subjects}
         onSkills={handleFilterSkills}
       />
