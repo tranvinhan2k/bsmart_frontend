@@ -32,15 +32,14 @@ export default function ClassStatusAlert(props: Props) {
 
   const isTodayGreaterThanStartDate: boolean =
     new Date(startDate).getTime() <= new Date().getTime();
-  console.log('date greater', isTodayGreaterThanStartDate);
+  // console.log('date greater', isTodayGreaterThanStartDate);
 
   switch (status) {
     case 'REQUESTING':
       return (
         <Stack sx={wrapperSx}>
           <Alert severity="warning">
-            Lớp học chưa được phê duyệt. Vui lòng phê duyệt lớp để thao tác với
-            lớp học.
+            Lớp học chưa được phê duyệt. Vui lòng gửi phê duyệt để mở lớp học.
           </Alert>
         </Stack>
       );
