@@ -1,19 +1,26 @@
 import { Stack } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
+import { useSelector } from 'react-redux';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { useGetIdFromUrl, useGetMemberMarkReport } from '~/hooks';
-import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReportPage';
+import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
-import {
-  formatDate,
-  formatISODateDateToDisplayDateTime,
-  formatISODateStringToDisplayDateTime,
-} from '~/utils/date';
+
+export interface MarkPayload {
+  id: number;
+  name: string;
+  grade: number;
+}
 
 export default function MemberClassMarkReportPage() {
+  const profile = useSelector(selectProfile);
   const id = useGetIdFromUrl('id');
-  const { data: mark, error, isLoading } = useGetMemberMarkReport(id);
+  const {
+    data: mark,
+    error,
+    isLoading,
+  } = useGetMemberMarkReport(id, profile.id);
 
   const columns: GridColDef[] = [
     {
@@ -21,14 +28,6 @@ export default function MemberClassMarkReportPage() {
       headerName: 'Tên bài kiểm tra',
       flex: 1,
       minWidth: 200,
-    },
-    {
-      field: 'time',
-      headerName: 'Thời điểm',
-      width: 200,
-      renderCell: (params) => {
-        return formatISODateStringToDisplayDateTime(params.row.time);
-      },
     },
     {
       field: 'grade',
@@ -44,7 +43,7 @@ export default function MemberClassMarkReportPage() {
           error={error}
           isLoading={isLoading}
           columns={columns}
-          rows={mark?.markItems || []}
+          rows={mark || []}
         />
       </Stack>
     </Stack>

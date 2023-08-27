@@ -1,5 +1,6 @@
 import { Stack, Typography, Box } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
+import { useSelector } from 'react-redux';
 import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
 import { IconName } from '~/components/atoms/Icon';
 import TextPropLine from '~/components/atoms/texts/TextPropLine';
@@ -8,6 +9,8 @@ import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReport
 import globalStyles from '~/styles';
 import CRUDTable from '../CRUDTable';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
+import { useGetIdFromUrl, useGetMemberMarkReport } from '~/hooks';
+import { selectProfile } from '~/redux/user/selector';
 
 interface Props {
   name: string;
@@ -15,7 +18,6 @@ interface Props {
   phone: string;
   imageUrl: string;
   imageAlt: string;
-  mark?: MarkOfStudentPayload;
 }
 
 export default function UserDetailInformation({
@@ -24,8 +26,15 @@ export default function UserDetailInformation({
   imageUrl,
   name,
   phone,
-  mark,
 }: Props) {
+  const profile = useSelector(selectProfile);
+  const id = useGetIdFromUrl('id');
+  const {
+    data: mark,
+    error,
+    isLoading,
+  } = useGetMemberMarkReport(id, profile.id);
+
   const columns: GridColDef[] = [
     {
       field: 'name',
@@ -87,14 +96,17 @@ export default function UserDetailInformation({
         </Stack>
       </Stack>
 
-      {mark && (
-        <Stack>
-          <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
-            Thông tin điểm số
-          </Typography>
-          <CRUDTable columns={columns} rows={mark?.markItems || []} />
-        </Stack>
-      )}
+      <Stack>
+        <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
+          Thông tin điểm số
+        </Typography>
+        <CRUDTable
+          error={error}
+          isLoading={isLoading}
+          columns={columns}
+          rows={mark || []}
+        />
+      </Stack>
     </Stack>
   );
 }
