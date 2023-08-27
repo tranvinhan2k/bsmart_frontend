@@ -512,7 +512,7 @@ function CheckoutPage() {
             window.location.href = `/dashboard/classes/detail/${checkOutItem?.id}`;
           }}
         >
-          <Stack>
+          <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
             <Box
               component="img"
               src={image.success}

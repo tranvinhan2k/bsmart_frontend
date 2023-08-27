@@ -281,13 +281,21 @@ export default function ImageInput({
               alignItems: 'flex-end',
             }}
           >
-            <Stack sx={{ flexGrow: 1 }}>
+            <Stack sx={{ width: '400px' }}>
               <Stack sx={globalStyles.viewRoundedBorderBody}>
                 <Typography sx={globalStyles.textSmallLabel}>
                   Cắt hình ảnh
                 </Typography>
                 <Stack>
                   <ReactCrop
+                    style={{
+                      height: '400px',
+                      width: '400px',
+                      background: Color.white4,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
                     crop={crop}
                     onChange={(_, percentCrop) => setCrop(percentCrop)}
                     onComplete={(c) => setCompletedCrop(c)}
@@ -299,7 +307,9 @@ export default function ImageInput({
                       src={previewUrl}
                       onLoad={onImageLoad}
                       style={{
-                        objectFit: 'contain',
+                        objectFit: 'fill',
+                        height: '100%',
+                        width: '100%',
                       }}
                     />
                   </ReactCrop>

@@ -9,10 +9,6 @@ import globalStyles from '~/styles';
 import { convertToHigherByteUnit, handleConsoleError } from '~/utils/common';
 import ModuleActivity from './ModuleActivity';
 import {
-  formatISODateDateToDisplayDateTime,
-  formatISODateStringToDisplayDateTime,
-} from '~/utils/date';
-import {
   useDeleteFile,
   useGetIdFromUrl,
   useMemberSubmitAssignment,
@@ -34,17 +30,9 @@ interface Props {
 export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   const moduleId = useGetIdFromUrl('moduleId');
   const { value, toggle } = useBoolean(false);
-  const { control, handleSubmit, formState } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       note: item.note,
-      // attachFiles: {
-      //   files:
-      //     item.attachFiles.map((subItem: any) => ({
-      //       ...subItem,
-      //       fileType: 'ATTACH',
-      //     })) || [],
-      //   deleteIndexes: [],
-      // },
     },
   });
   const { mutateAsync: handleSubmitAssignment } = useMemberSubmitAssignment();
@@ -78,18 +66,7 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   return (
     <Stack marginTop={1}>
       <ModuleActivity name={name} description={item.description} />
-      <Typography
-        textAlign="center"
-        sx={globalStyles.textLowSmallLight}
-      >{`Bài tập này sẽ được mở vào ngày ${formatISODateDateToDisplayDateTime(
-        item.startDate
-      )}`}</Typography>
-      <Typography
-        textAlign="center"
-        sx={globalStyles.textLowSmallLight}
-      >{`Bài tập sẽ sẽ kết thúc vào ngày ${formatISODateStringToDisplayDateTime(
-        item.endDate
-      )}`}</Typography>
+
       <Typography
         textAlign="center"
         sx={globalStyles.textLowSmallLight}
@@ -172,6 +149,8 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
           />
           <Stack marginTop={1} />
           <FormInput control={control} name="attachFiles" variant="files" />
+          <Stack marginTop={1} />
+          <FormInput control={control} name="password" variant="password" />
           <Box marginTop={1}>
             <Button onClick={toggle} variant="contained">
               {item.attachFiles.length !== 0
