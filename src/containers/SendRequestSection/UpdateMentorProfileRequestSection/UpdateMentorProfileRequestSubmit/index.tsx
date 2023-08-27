@@ -64,11 +64,11 @@ export default function UpdateMentorProfileRequestSubmit() {
     description3 = 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
     description4 = 'Kích thước tệp tối đa là 10 MB.',
     labelAdditionSkill = 'Chuyên môn thêm',
-    labelAdditionDegree = 'Bằng cấp bổ sung thêm',
+    labelAdditionDegree = 'Bằng cấp / CV bổ sung thêm',
     submitButton = 'Gửi yêu cầu',
     submitButtonTooltip = 'Gửi yêu cầu cho quản trị viên phê duyệt',
     submitDisabledButtonTooltip = 'Hiện chưa thêm thông tin mới',
-    userImagesLabel = 'Bằng cấp',
+    userImagesLabel = 'Bằng cấp / CV',
     labelNoAddedRequest = 'Chưa thêm thông tin',
   }
 

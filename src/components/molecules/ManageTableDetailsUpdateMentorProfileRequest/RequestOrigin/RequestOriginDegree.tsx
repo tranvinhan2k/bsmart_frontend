@@ -11,7 +11,7 @@ export default function RequestOriginDegree({
   rowId,
 }: RequestOriginDegreeProps) {
   const enum Text {
-    mainTitle = 'Bằng cấp',
+    mainTitle = 'Bằng cấp / CV',
   }
 
   const { updaterRequestDetails, isLoading } =

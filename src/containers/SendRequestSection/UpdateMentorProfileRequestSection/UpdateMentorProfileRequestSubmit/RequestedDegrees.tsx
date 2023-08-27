@@ -7,9 +7,9 @@ export default function RequestedDegrees() {
   const { requestInfo } = useGetUpdateMentorProfileRequestInfo();
 
   const enum Text {
-    titleFirstHalf = 'Bằng cấp (đã thêm',
+    titleFirstHalf = 'Bằng cấp / CV (đã thêm',
     titleSecondHalf = ')',
-    itemLabelDegree = 'Bằng cấp',
+    itemLabelDegree = 'Bằng cấp / CV',
   }
   return requestInfo &&
     requestInfo[0]?.degreeRequest &&

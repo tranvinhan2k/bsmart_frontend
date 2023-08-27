@@ -33,13 +33,13 @@ import {
 
 export default function UpdateMentorDegree() {
   const enum Text {
-    title = '2. Bổ sung thông tin bằng cấp',
+    title = '2. Bổ sung thông tin bằng cấp / CV',
     description1 = 'Kích thước tệp tối đa là 10 MB.',
     description2 = 'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
     description3 = 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
     description4 = 'Kích thước tệp tối đa là 10 MB.',
     submitButton = 'Cập nhật',
-    userImagesLabel = 'Bằng cấp',
+    userImagesLabel = 'Bằng cấp / CV',
   }
 
   const { refetch: refetchProfile } = useGetProfile();
