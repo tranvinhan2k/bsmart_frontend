@@ -82,7 +82,7 @@ export default function DialogEditIdCardFront({
           toast.notifyErrorToast(
             `Ngày sinh không trùng với dữ liệu nhập vào: ${formatDate(
               new Date(profile.birthday).toISOString()
-            )} và ${response?.dob} }`
+            )} và ${response?.dob}`
           );
           return false;
         case !isValidGender:

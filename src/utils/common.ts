@@ -177,3 +177,7 @@ export const toastMsgError = (error: unknown): string => {
   }
   return msg;
 };
+
+export const handleViewImgFromUrl = (link: string | undefined) => {
+  if (typeof link === 'string') window.open(link, '_blank');
+};

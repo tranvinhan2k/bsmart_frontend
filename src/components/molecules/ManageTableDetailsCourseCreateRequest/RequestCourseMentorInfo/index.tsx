@@ -12,6 +12,9 @@ import {
   useGetCourseCreateRequestDetails,
   UseGetCourseCreateRequestDetailsPayload,
 } from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import { formatPhoneNumberVi } from '~/utils/phone';
+import { handleViewImgFromUrl } from '~/utils/common';
 import Icon from '~/components/atoms/Icon';
 import {
   SX_FORM_ITEM_LABEL2,
@@ -20,8 +23,6 @@ import {
   SX_FORM_LABEL,
   SX_WRAPPER,
 } from '../style';
-import { formatPhoneNumberVi } from '~/utils/phone';
-import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 
 export default function RequestCourseMentorInfo({
   idCourse,
@@ -143,6 +144,11 @@ export default function RequestCourseMentorInfo({
                   height: 150,
                   boxShadow: 3,
                 }}
+                onClick={() =>
+                  handleViewImgFromUrl(
+                    courseCreateRequestDetails?.mentor?.avatar?.url
+                  )
+                }
               />
               <Box sx={{ width: '100%' }}>
                 <Grid

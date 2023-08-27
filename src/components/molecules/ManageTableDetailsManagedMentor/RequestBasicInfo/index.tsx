@@ -7,11 +7,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import Icon from '~/components/atoms/Icon';
-import { genderData } from '~/constants';
-import { useGetManagedMentorDetails } from '~/hooks/user/useGetManagedMentorDetails';
-import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
+import { genderData } from '~/constants';
+import { handleCopyToClipboard } from '~/utils/commonComp';
+import { handleViewImgFromUrl } from '~/utils/common';
+import { useGetManagedMentorDetails } from '~/hooks/user/useGetManagedMentorDetails';
+import Icon from '~/components/atoms/Icon';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
@@ -114,10 +115,6 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
     },
   ];
 
-  const handleViewImg = (link: string | undefined) => {
-    if (typeof link === 'string') window.open(link, '_blank');
-  };
-
   return (
     <Box sx={SX_WRAPPER}>
       <Box p={2}>
@@ -142,7 +139,7 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
                 src={userAvatar}
                 variant="rounded"
                 sx={SX_USER_AVATAR_CLICKABLE}
-                onClick={() => handleViewImg(userAvatar)}
+                onClick={() => handleViewImgFromUrl(userAvatar)}
               />
               <Box sx={{ width: '100%' }}>
                 <Grid
