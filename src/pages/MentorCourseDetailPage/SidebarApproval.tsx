@@ -28,7 +28,9 @@ export default function SidebarApproval() {
   const [open, setOpen] = useState(false);
 
   const data: OptionPayload[] | undefined = classes
-    ?.filter((item) => item.status === 'REQUESTING')
+    ?.filter(
+      (item) => item.status === 'REQUESTING' || item.status === 'EDITREQUEST'
+    )
     .map((item, index) => ({
       id: index,
       label: `Lớp ${item.code}`,
@@ -42,28 +44,20 @@ export default function SidebarApproval() {
   };
 
   const handleSubmitCourse = async (paramData: { classes: string[] }) => {
-    console.log(classes);
-
     const isEmptyContent = content.find(
       (item) => item.subActivities.length === 0
     );
     if (!isEmptyContent) {
       if (percent.allowSendingApproval) {
-        if (paramData && paramData?.classes.length > 0) {
-          await handleTryCatch(async () =>
-            handleSubmitForReview({
-              id,
-              params: paramData.classes.map((item) =>
-                formatStringToNumber(item)
-              ),
-            })
-          );
-          handleOpen();
-          await refetchCourse();
-          await refetchClasses();
-        } else {
-          toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
-        }
+        await handleTryCatch(async () =>
+          handleSubmitForReview({
+            id,
+            params: paramData.classes.map((item) => formatStringToNumber(item)),
+          })
+        );
+        handleOpen();
+        await refetchCourse();
+        await refetchClasses();
       } else {
         toast.notifyErrorToast('Chưa đủ điều kiện để phê duyệt');
       }
@@ -79,7 +73,10 @@ export default function SidebarApproval() {
       classes: useMemo(
         () =>
           classes
-            ?.filter((item) => item.status === 'REQUESTING')
+            ?.filter(
+              (item) =>
+                item.status === 'REQUESTING' || item.status === 'EDITREQUEST'
+            )
             .map((item) => `${item.id}`),
         [classes]
       ),
@@ -90,7 +87,10 @@ export default function SidebarApproval() {
     if (classes) {
       hookForm.reset({
         classes: classes
-          ?.filter((item) => item.status === 'REQUESTING')
+          ?.filter(
+            (item) =>
+              item.status === 'REQUESTING' || item.status === 'EDITREQUEST'
+          )
           .map((item) => `${item.id}`),
       });
     }

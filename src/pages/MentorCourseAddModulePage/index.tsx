@@ -77,7 +77,6 @@ export default function MentorCourseAddModulePage() {
       authorizeClasses: [],
       courseId,
       code: '',
-      time: 0,
       defaultPoint: 0,
       isSuffleQuestion: false,
       isAllowReview: false,
@@ -190,7 +189,6 @@ export default function MentorCourseAddModulePage() {
       authorizeClasses: number[];
       courseId: number;
       code: string;
-      time: number;
       defaultPoint: number;
       isSuffleQuestion: boolean;
       isAllowReview: boolean;
@@ -215,7 +213,6 @@ export default function MentorCourseAddModulePage() {
         courseId: data.courseId,
         authorizeClasses: data.authorizeClasses,
         code: data.code,
-        time: data.time,
         defaultPoint: data.defaultPoint,
         isSuffleQuestion: !!data.isSuffleQuestion,
         isAllowReview: !!data.isAllowReview,

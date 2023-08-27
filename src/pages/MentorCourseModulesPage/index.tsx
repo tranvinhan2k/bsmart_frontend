@@ -56,8 +56,6 @@ export default function MentorCourseModulesPage() {
       authorizeClasses: [],
       courseId,
       code: '',
-      time: 0,
-      defaultPoint: 0,
       isSuffleQuestion: false,
       isAllowReview: false,
       allowReviewAfterMin: 0,

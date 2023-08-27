@@ -45,7 +45,7 @@ export const CREATE_SUBJECT_FIELDS = {
 export const UPDATE_SUBJECT_FIELDS = {
   code: 'code',
   name: 'name',
-  categoryId: 'categoryId',
+  categoryId: 'categoryIds',
 };
 export const REGISTER_STUDENT_FIELDS: RegisterStudentDataPayload = {
   name: 'name',
@@ -142,6 +142,7 @@ export const CREATE_CLASS_FIELDS = {
   level: 'level',
   imageUrl: 'imageUrl',
   subjectId: 'subjectId',
+  link: 'link',
   type: 'type',
   price: 'price',
   minStudent: 'minStudent',

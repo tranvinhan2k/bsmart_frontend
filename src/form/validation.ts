@@ -51,7 +51,6 @@ import {
   CONFIRM_PASSWORD_NOT_MATCH_PASSWORD,
   MENTOR_SKILLS_REQUIRED_ONE,
   SKILL_UNIQUE,
-  MESSAGE_PROCESS_UPDATE_MENTOR_PROFILE_REQUEST_REQUIRED,
   WITHDRAW_MANAGED_UPLOAD_FILE_REQUIRED,
   WITHDRAW_MANAGED_UPLOAD_FILE_FORMAT_NOT_SUPPORT,
   ConfigReferralCode,
@@ -62,7 +61,6 @@ const FULL_NAME_REGEX =
   /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
 const FILE_SIZE_2 = 0.5 * 1024 * 1024; // X * 1024 * 1024 = X MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_FILE_DEGREE_FORMAT = [
@@ -119,9 +117,6 @@ export const validationSchemaCreateSubjects = object({
 export const validationSchemaUpdateSubjects = object({
   code: string().required('Mã ngôn ngữ không được để trống.'),
   name: string().required('Tên ngôn ngữ không được để trống.'),
-  categoryId: object()
-    .typeError('Lĩnh vực không hợp lệ')
-    .required(COURSE_CATEGORY_REQUIRED),
 });
 export const validationQuizInput = object({
   question: string().required('Tên câu hỏi không được để trống'),
@@ -147,13 +142,6 @@ export const validationQuizInput = object({
 export const validationFeedbackQuestionInput = object({
   question: string().required('Tên câu hỏi không được để trống'),
   answerType: object().required('Loại câu trả lời không được để trống'),
-  // answers: mixed().test(
-  //   'required',
-  //   'Danh sách câu trả lời phải có ít nhất 2 câu trả lời',
-  //   (data: any) => {
-  //     return data?.[0] !== '' && data !== '' && data?.length >= 2;
-  //   }
-  // ),
 });
 
 export const validationSchemaUpdateCategories = object({
@@ -190,20 +178,10 @@ export const validationClassContentResource = object({
 export const validationClassContentQuiz = object({
   name: string().required('Tên bài kiểm tra không được để trống.'),
   code: string().required('Mã bài kiểm tra không được để trống.'),
-  time: number()
-    .typeError('Thời gian không được để trống')
-    .required('Thời gian không được để trống')
-    .min(5, 'Thời gian làm bài phài lớn hơn 5 phút')
-    .max(120, 'Thời gian làm bài phài nhỏ hơn 120 phút'),
   allowReviewAfterMin: number()
     .required('Thời gian không được để trống')
     .typeError('Thời gian không được để trống')
     .min(1, 'Thời gian chờ phài lớn hơn 1 phút'),
-  defaultPoint: number()
-    .required('Điểm không được để trống')
-    .typeError('Điểm không được để trống')
-    .min(1, 'Điểm làm bài phài lớn hơn 1 điểm')
-    .max(10, 'Điểm làm bài phài nhỏ hơn 10 điểm'),
   quizQuestions: mixed().test(
     'required',
     'Danh sách câu hỏi phải có ít nhất 5 câu hỏi',
@@ -654,6 +632,12 @@ export const validationSchemaCreateSubCourse = object({
     .typeError('Số lượng học sinh không được để trống')
     .min(1, 'Số buổi học tối thiểu phải lớn hơn 30'),
   price: number().required('Giá tiền là bắt buộc'),
+  link: string()
+    .required('Đường link lớp học không hợp lệ.')
+    .matches(
+      /[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi,
+      'Đường link không hợp lệ'
+    ),
   minStudent: number()
     .typeError('Số học sinh tối thiểu không được bỏ trống')
     .required('Số học sinh tối thiểu không được bỏ trống')

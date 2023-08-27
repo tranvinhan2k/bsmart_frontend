@@ -59,36 +59,6 @@ const categoryColumns: GridColDef[] = [
     flex: 1,
   },
 ];
-const subjectColumns: GridColDef[] = [
-  {
-    field: 'code',
-    headerAlign: 'left',
-    type: 'string',
-    headerName: 'Mã môn học',
-    minWidth: 200,
-    flex: 1,
-  },
-  {
-    field: 'name',
-    headerAlign: 'left',
-    type: 'string',
-    headerName: 'Tên môn học',
-    minWidth: 200,
-    flex: 1,
-  },
-  {
-    field: 'categoryId',
-    headerAlign: 'left',
-    type: 'string',
-    headerName: 'Lĩnh vực',
-    minWidth: 300,
-    flex: 1,
-    editable: true,
-    valueGetter: (params) => {
-      return `${params.row.categoryIds?.map((item: any) => item) || ''} `;
-    },
-  },
-];
 
 const managedRegisterRequestTmpColumns: GridColDef[] = [
   {
@@ -899,7 +869,6 @@ const columns = {
   managedUserMentorColumns,
   managedUserRegisterRequestColumns,
   managedWithdrawRequestColumns,
-  subjectColumns,
 };
 
 export default columns;

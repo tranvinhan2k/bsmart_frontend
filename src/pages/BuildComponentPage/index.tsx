@@ -6,7 +6,7 @@ import { transform } from '@babel/standalone';
 import { Button, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Preview } from './Preview';
-import { useAskChat } from '~/hooks/useAskChat';
+import { useAIConvert } from '~/hooks/useAIConvert';
 import FormInput from '~/components/atoms/FormInput';
 import { useTryCatch } from '~/hooks';
 
@@ -41,7 +41,6 @@ function App() {
   const { control, handleSubmit } = useForm();
   const [code, setCode] = useState<string>(initCode);
   const [preview, setPreview] = useState<string | null>(null);
-  const { mutateAsync } = useAskChat();
   const handleEditorChange = (value: string | undefined) => {
     setCode(value ?? 'Something went wrong');
   };

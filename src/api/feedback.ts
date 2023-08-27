@@ -126,7 +126,7 @@ const feedbacksApi = {
     //   },
     // ];
 
-    return generateMockApi(result);
+    return result;
   },
   assignTemplateForClasses({ id, ids }: { id: number; ids: number[] }) {
     return axiosClient.put(`${url}/${id}/classes`, ids);
@@ -247,7 +247,36 @@ const feedbacksApi = {
       numberOfRating: courseResponse.submissionCount || 0,
       items: { ...response, items: valueItems },
     };
-    return generateMockApi(result);
+    return result;
+  },
+  async getIntroduceMentorFeedback({ id, params }: ApiParamsProps) {
+    const courseResponse: GetCourseFeedbackPayload = await axiosClient.get(
+      `${url}/rate/mentor/${id}`
+    );
+
+    const response: PagingFilterPayload<GetFeedbackCommentPayload> =
+      await axiosClient.get(`${url}/submissions`, {
+        params,
+      });
+
+    const valueItems: FeedbackReviewPayload[] =
+      courseResponse?.submissions?.map((item, index) => ({
+        id: index,
+        avatarAlt: image.mockStudent,
+        avatarUrl: image.mockStudent,
+        email: item.submitBy || '',
+        feedbackTime: new Date().toISOString(),
+        rating: item.rate || 0,
+        reviewContent: item.comment || '',
+      })) || [];
+
+    const result: FeedbackPayload = {
+      rating: courseResponse.averageRate || 0,
+      rateCount: courseResponse.rateCount,
+      numberOfRating: courseResponse.submissionCount || 0,
+      items: { ...response, items: valueItems },
+    };
+    return result;
   },
 };
 

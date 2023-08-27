@@ -15,12 +15,18 @@ import { FontFamily } from '~/assets/variables';
 import { ProfileImgType } from '~/constants/profile';
 import { selectProfile } from '~/redux/user/selector';
 import { toastMsgError } from '~/utils/common';
-import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
+import {
+  useDispatchProfile,
+  useTryCatch,
+  useYupValidationResolver,
+} from '~/hooks';
 import { useMutationEditIdentityFront } from '~/hooks/useMutationEditIdentityFront';
 import { validationSchemaEditIdentityFront } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
+import { useAIConvert } from '~/hooks/useAIConvert';
+import { compareDate, formatDate, isValidDate } from '~/utils/date';
 
 interface DialogEditIdCardFrontProps {
   open: boolean;
@@ -46,28 +52,80 @@ export default function DialogEditIdCardFront({
     resolver: resolverEditIdentityFront,
   });
 
+  const { mutateAsync } = useAIConvert();
+
+  const { handleTryCatch } = useTryCatch('xác thực căn cước công dân');
+
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditIdentityFront } =
     useMutationEditIdentityFront();
 
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
+
+  const handleVerifyIdentity = async (image: any) => {
+    const value = await handleTryCatch(async () => {
+      const response = await mutateAsync(image);
+
+      console.log('response', response);
+
+      const isValidName =
+        response?.name?.toLowerCase() === profile.fullName.toLowerCase();
+      const isValidGender =
+        (response?.sex === 'NAM' && profile.gender === 'MALE') ||
+        (response?.sex === 'NỮ' && profile.gender === 'FEMALE');
+      const isValidDOB =
+        formatDate(new Date(profile.birthday).toISOString()) === response?.dob;
+
+      switch (true) {
+        case !isValidDOB:
+          toast.notifyErrorToast(
+            `Ngày sinh không trùng với dữ liệu nhập vào: ${formatDate(
+              new Date(profile.birthday).toISOString()
+            )} và ${response?.dob} }`
+          );
+          return false;
+        case !isValidGender:
+          toast.notifyErrorToast(
+            `Giới tính không trùng với dữ liệu nhập vào: ${response?.sex} và ${profile.gender} }`
+          );
+          return false;
+        case !isValidName:
+          toast.notifyErrorToast(
+            `Tên không trùng với dữ liệu nhập vào: ${response?.name} và ${profile.fullName} }`
+          );
+          return false;
+        default:
+          return true;
+      }
+    });
+    return value;
+  };
+
   const handleSubmitIdentityFront = async (
     data: EditIdentityFrontFormDataPayload
   ) => {
-    const params: EditImageProfilePayload = {
-      imageType: ProfileImgType.FRONTCI,
-      file: data.identityFront,
-    };
-    const id = toast.loadToast(toastMsgLoading);
-    try {
-      await mutateEditIdentityFront(params);
-      handleOnClose();
-      handleDispatchProfile();
-      toast.updateSuccessToast(id, toastMsgSuccess);
-      resetEditIdentityFront();
-    } catch (error: unknown) {
-      toast.updateFailedToast(id, toastMsgError(error));
+    // const isValidIdentity = false;
+    const isValidIdentity = await handleVerifyIdentity(data.identityFront);
+
+    if (isValidIdentity) {
+      const params: EditImageProfilePayload = {
+        imageType: ProfileImgType.FRONTCI,
+        file: data.identityFront,
+      };
+      const id = toast.loadToast(toastMsgLoading);
+      try {
+        await mutateEditIdentityFront(params);
+        handleOnClose();
+        handleDispatchProfile();
+        toast.updateSuccessToast(id, toastMsgSuccess);
+        resetEditIdentityFront();
+      } catch (error: unknown) {
+        toast.updateFailedToast(
+          id,
+          'Cập nhật hình ảnh thất bại. Vui lòng xem lại hình ảnh và thử lại.'
+        );
+      }
     }
   };
 

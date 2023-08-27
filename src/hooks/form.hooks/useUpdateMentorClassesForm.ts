@@ -99,6 +99,7 @@ export const useUpdateMentorClassesForm = (
     level: OptionPayload;
     startDateExpected: string;
     endDateExpected: string;
+    link: string;
     numberOfSlot: number;
     timeInWeekRequests: {
       dayOfWeek: OptionPayload;
@@ -118,6 +119,7 @@ export const useUpdateMentorClassesForm = (
       maxStudent: data.maxStudent,
       minStudent: data.minStudent,
       numberOfSlot: data.numberOfSlot,
+      link: data.link,
       price: data.price,
       startDate: dayjs(data.startDateExpected).add(1, 'day').toISOString(),
       endDate: dayjs(data.endDateExpected).add(1, 'day').toISOString(),

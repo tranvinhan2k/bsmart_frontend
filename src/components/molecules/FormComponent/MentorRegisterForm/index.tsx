@@ -102,21 +102,21 @@ export default function MentorRegisterForm({ onOpen }: { onOpen: () => void }) {
           </Stack>
           <Stack marginTop={1}>
             <FormInput
-              variant="date"
-              label="Ngày Sinh"
-              placeholder="01/01/2000"
-              control={mentorSignUpForm.control}
-              name={REGISTER_MENTOR_FIELDS.birthDay}
-            />
-          </Stack>
-          <Stack marginTop={1}>
-            <FormInput
               data={genderData}
               variant="dropdown"
               label="Giới tính"
               placeholder="Chọn giới tính của bạn"
               control={mentorSignUpForm.control}
               name={REGISTER_MENTOR_FIELDS.gender}
+            />
+          </Stack>
+          <Stack marginTop={1}>
+            <FormInput
+              variant="date"
+              label="Ngày Sinh"
+              placeholder="01/01/2000"
+              control={mentorSignUpForm.control}
+              name={REGISTER_MENTOR_FIELDS.birthDay}
             />
           </Stack>
           <Stack marginTop={1}>

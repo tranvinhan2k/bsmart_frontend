@@ -100,6 +100,15 @@ export default function CreateClassModal({
                   label={texts.priceLabel}
                 />
               </Stack>
+              <Stack marginTop={2} />
+              <Stack>
+                <FormInput
+                  variant="text"
+                  name={CREATE_CLASS_FIELDS.link}
+                  control={hookForm.control}
+                  label="Nhập đường link giảng dạy"
+                />
+              </Stack>
 
               <Stack marginTop={2} />
               <Stack

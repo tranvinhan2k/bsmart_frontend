@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import mentorsApi from '~/api/mentors';
-import { selectFilterParams } from '~/redux/mentors/selector';
 import { PagingFilterRequest } from '~/models';
 
 export const useQueryGetAllMentors = () => {
@@ -10,12 +8,18 @@ export const useQueryGetAllMentors = () => {
     page: 0,
   });
   const { error, data, isLoading, refetch } = useQuery({
-    queryKey: ['mentors'],
+    queryKey: ['mentors', filterParams.q, filterParams.subjectId],
     queryFn: () => mentorsApi.getAllMentor(filterParams),
   });
 
   const handleChangePage = (page: number) => {
     setFilterParams({ ...filterParams, page });
+  };
+  const handleSearch = (searchValue: string) => {
+    setFilterParams({ ...filterParams, q: searchValue });
+  };
+  const handleChangeSubject = (subjectIds: number[]) => {
+    setFilterParams({ ...filterParams, subjectId: subjectIds });
   };
 
   useEffect(() => {
@@ -28,5 +32,7 @@ export const useQueryGetAllMentors = () => {
     isLoading,
     filterParams,
     onChangePage: handleChangePage,
+    onSearch: handleSearch,
+    onChangeSubject: handleChangeSubject,
   };
 };
