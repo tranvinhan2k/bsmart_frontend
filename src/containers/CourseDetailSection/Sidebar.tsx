@@ -359,7 +359,7 @@ export default function Sidebar({
                       <Typography
                         sx={{
                           textAlign: 'center',
-                          fontSize: FontSize.small_14,
+                          fontSize: '12px',
                           fontFamily:
                             chooseClass.id === item.id
                               ? FontFamily.regular
@@ -377,8 +377,8 @@ export default function Sidebar({
                         sx={{
                           textAlign: 'center',
                           fontSize: {
-                            xs: '12px',
-                            md: FontSize.small_16,
+                            xs: '10px',
+                            md: '12px',
                           },
                           fontFamily:
                             chooseClass.id === item.id
@@ -396,7 +396,7 @@ export default function Sidebar({
                       <Typography
                         sx={{
                           textAlign: 'center',
-                          fontSize: FontSize.small_14,
+                          fontSize: '12px',
                           fontFamily:
                             chooseClass.id === item.id
                               ? FontFamily.regular
@@ -409,11 +409,23 @@ export default function Sidebar({
                       >
                         {formatMoney(item.price)}
                       </Typography>
+                      {item.purchase && (
+                        <Typography
+                          sx={{
+                            textAlign: 'center',
+                            fontSize: '10px',
+                            fontFamily: FontFamily.bold,
+                            color: Color.black,
+                          }}
+                        >
+                          (Đã mua khóa học)
+                        </Typography>
+                      )}
                       {item.isFullStudent && (
                         <Typography
                           sx={{
                             textAlign: 'center',
-                            fontSize: FontSize.small_14,
+                            fontSize: '12px',
                             fontFamily:
                               chooseClass.id === item.id
                                 ? FontFamily.regular

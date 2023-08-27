@@ -24,6 +24,7 @@ import {
 } from '~/models/response';
 import { ClassDetailPayload, DuplicateClassPayload } from '~/models/type';
 import { DetailCourseClassPayload } from '~/pages/MentorCourseDetailPage';
+import { MarkPayload } from '~/pages/member_class/MemberClassMarkReportPage';
 import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReportPage';
 import { MentorClassMemberDetailPayload } from '~/pages/mentor_class/MentorClassStudentListPage';
 import { formatOptionPayload, generateMockApi } from '~/utils/common';
@@ -63,91 +64,25 @@ const classApi = {
 
     return result;
   },
-  getStudentMarkReport(classId: number) {
-    const mark: MarkOfStudentPayload = {
-      id: 0,
-      code: '',
-      name: 'Trần Vĩ Nhân',
-      markItems: [
-        {
-          id: 0,
-          name: 'Quiz 1',
-          grade: 10,
-          time: new Date().toISOString(),
-        },
-      ],
-    };
-    return generateMockApi(mark);
-  },
-  getClassMarkReport(classId: number) {
-    // TODO : co api mark report thi ghep vao
-    const marks: MarkOfStudentPayload[] = [
-      {
-        id: 0,
-        code: 'SE140161',
-        name: 'Trần Vĩ Nhân',
-        markItems: [
-          {
-            id: 0,
-            name: 'Quiz 1',
-            grade: 10,
-            time: new Date().toISOString(),
-          },
-          {
-            id: 1,
-            name: 'Quiz 2',
-            grade: 3,
-            time: new Date().toISOString(),
-          },
-          {
-            id: 2,
-            name: 'Quiz 3',
-            grade: 3,
-            time: new Date().toISOString(),
-          },
-          {
-            id: 3,
-            name: 'Quiz 4',
-            grade: 3,
-            time: new Date().toISOString(),
-          },
-        ],
-      },
-      {
-        id: 1,
-        code: 'SE140162',
-        name: 'Trần Vĩ Nhàn',
-        markItems: [
-          {
-            id: 0,
-            name: 'Quiz 1',
-            grade: 4,
-            time: new Date().toISOString(),
-          },
-          {
-            id: 1,
-            name: 'Quiz 2',
-            grade: 4,
-            time: new Date().toISOString(),
-          },
-          {
-            id: 2,
-            name: 'Quiz 3',
-            grade: 3,
-            time: new Date().toISOString(),
-          },
-          {
-            id: 3,
-            name: 'Quiz 4',
-            grade: 3,
-            time: new Date().toISOString(),
-          },
-        ],
-      },
-    ];
+  async getStudentMarkReport(params: { classId: number; studentId: number }) {
+    const response: Partial<{
+      point: number;
+      activityId: number;
+      type: 'QUIZ' | 'ASSIGNMENT';
+    }>[] = await axiosClient.get(`${url}/student-point`, {
+      params,
+    });
 
-    return generateMockApi(marks);
+    const result: MarkPayload[] =
+      response.map((item) => ({
+        id: item.activityId || 0,
+        grade: item.point || 0,
+        name: item.type || '',
+      })) || [];
+
+    return result;
   },
+
   async getUserDetailCourse(id: number) {
     const response = await axiosClient.get(`${url}/course/${id}`);
     const result: ResponseMentorCoursePayload = {

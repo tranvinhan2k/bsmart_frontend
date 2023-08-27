@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import notificationApi from '~/api/notification';
 import { updateNotification } from '~/redux/globalData/slice';
 import { globalNotifications } from '~/redux/globalData/selector';

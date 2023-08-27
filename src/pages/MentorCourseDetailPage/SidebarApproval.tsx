@@ -21,7 +21,7 @@ import { formatStringToNumber } from '~/utils/number';
 import { OptionPayload } from '~/models';
 
 export default function SidebarApproval() {
-  const { course, percent, classes, content, refetchCourse } =
+  const { course, percent, classes, content, refetchCourse, refetchClasses } =
     useContext(CourseContext);
 
   const id = useGetIdFromUrl('id');
@@ -42,6 +42,8 @@ export default function SidebarApproval() {
   };
 
   const handleSubmitCourse = async (paramData: { classes: string[] }) => {
+    console.log(classes);
+
     const isEmptyContent = content.find(
       (item) => item.subActivities.length === 0
     );
@@ -58,6 +60,7 @@ export default function SidebarApproval() {
           );
           handleOpen();
           await refetchCourse();
+          await refetchClasses();
         } else {
           toast.notifyErrorToast('Chưa chọn lớp để phê duyệt');
         }
@@ -73,14 +76,22 @@ export default function SidebarApproval() {
 
   const hookForm = useForm<{ classes: string[] }>({
     defaultValues: {
-      classes: useMemo(() => classes?.map((item) => `${item.id}`), [classes]),
+      classes: useMemo(
+        () =>
+          classes
+            ?.filter((item) => item.status === 'REQUESTING')
+            .map((item) => `${item.id}`),
+        [classes]
+      ),
     },
   });
 
   useEffect(() => {
     if (classes) {
       hookForm.reset({
-        classes: classes?.map((item) => `${item.id}`),
+        classes: classes
+          ?.filter((item) => item.status === 'REQUESTING')
+          .map((item) => `${item.id}`),
       });
     }
   }, [classes, hookForm]);

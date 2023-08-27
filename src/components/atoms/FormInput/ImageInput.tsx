@@ -317,6 +317,32 @@ export default function ImageInput({
       >
         <Stack
           sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            onClick={() => {
+              onDownloadCropClick();
+              toggleCropImage();
+            }}
+            variant="contained"
+          >
+            Xác nhận chỉnh sửa
+          </Button>
+          <Button
+            onClick={handleDeleteClick}
+            sx={{
+              marginLeft: 1,
+            }}
+            variant="contained"
+            color="error"
+          >
+            Hủy bỏ
+          </Button>
+        </Stack>
+        <Stack
+          sx={{
             marginTop: 1,
             width: '60vw',
             height: '90vh',
@@ -329,7 +355,7 @@ export default function ImageInput({
               alignItems: 'flex-end',
             }}
           >
-            <Stack>
+            <Stack sx={{ width: '80%' }}>
               <Stack sx={globalStyles.viewRoundedBorderBody}>
                 <Typography sx={globalStyles.textSmallLabel}>
                   Cắt hình ảnh
@@ -395,33 +421,6 @@ export default function ImageInput({
               </Stack>
             </Stack>
           </Stack>
-        </Stack>
-        <Stack
-          marginTop={1}
-          sx={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Button
-            onClick={() => {
-              onDownloadCropClick();
-              toggleCropImage();
-            }}
-            variant="contained"
-          >
-            Xác nhận chỉnh sửa
-          </Button>
-          <Button
-            onClick={handleDeleteClick}
-            sx={{
-              marginLeft: 1,
-            }}
-            variant="contained"
-            color="error"
-          >
-            Hủy bỏ
-          </Button>
         </Stack>
       </CustomModal>
 

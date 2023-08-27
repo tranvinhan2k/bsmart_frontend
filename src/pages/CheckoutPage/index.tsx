@@ -524,7 +524,6 @@ function CheckoutPage() {
               }}
             />
             <Typography>
-              {' '}
               Chúc mừng bạn đã thanh toán khóa học thành công
             </Typography>
           </Stack>

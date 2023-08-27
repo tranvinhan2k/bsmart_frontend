@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { CourseContext } from '~/HOCs/context/CourseContext';
 import DashboardNavigationTabs from '~/components/atoms/tabs/DashboardNavigationTabs';
 import { MentorCourseActionLink } from '~/constants/routeLink';
-import { CourseStatusKeys } from '~/models/variables';
 import { MentorCourseNavigationActionData } from '~/routes/mentor/course/navigation';
 
 export default function Sidebar() {

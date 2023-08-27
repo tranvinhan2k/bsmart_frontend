@@ -1,8 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import {
-  MemberDashboardNavigationActionLink,
-  NavigationLink,
-} from '~/constants/routeLink';
+import { MemberDashboardNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import BuildComponentPage from '~/pages/BuildComponentPage';
 import MemberAttendanceListPage from '~/pages/member_class/MemberAttendanceListPage';
