@@ -137,7 +137,6 @@ function App() {
     async function initGlobalValue() {
       if (token) {
         await getUserCart.handleDispatch();
-        await handleUpdateNotifications();
       }
       await handleUpdateSubjects();
       await handleUpdateCategories();
@@ -150,6 +149,15 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectIsLoaded]);
+
+  useEffect(() => {
+    setInterval(async () => {
+      if (token) {
+        await handleUpdateNotifications();
+      }
+    }, 15000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (token && websocketMessage.data.entity === 'MENTOR_PROFILE') {
