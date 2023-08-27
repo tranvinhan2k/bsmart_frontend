@@ -77,6 +77,36 @@ export default function ImageInput({
   );
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
 
+  function resizeMe(img: any) {
+    const canvas = document.createElement('canvas');
+
+    let { width } = img;
+    let { height } = img;
+
+    // calculate the width and height, constraining the proportions
+    if (width > height) {
+      if (width > previewImgWidth) {
+        // height *= max_width / width;
+        height = Math.round((height *= previewImgWidth / width));
+        width = previewImgWidth;
+      }
+    } else if (height > previewImgHeight) {
+      // width *= max_height / height;
+      width = Math.round((width *= previewImgHeight / height));
+      height = previewImgHeight;
+    }
+
+    // resize the canvas and draw the image data into it
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(img, 0, 0, width, height);
+
+    return canvas.toDataURL('image/jpeg', 0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+
+    // you can get BLOB too by using canvas.toBlob(blob => {});
+  }
+
   function dataURLtoFile(dataUrl: string, filename: string): File {
     const arr = dataUrl.split(',');
     const mime = arr[0].match(/:(.*?);/)?.[1];
@@ -88,6 +118,8 @@ export default function ImageInput({
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
+
+    console.log('selectedFile', new File([u8arr], filename, { type: mime }));
 
     return new File([u8arr], filename, { type: mime });
   }
@@ -208,9 +240,15 @@ export default function ImageInput({
       const urlCreator = window.URL || window.webkitURL;
       const imageUrl = urlCreator.createObjectURL(blob);
 
-      onChange(blob);
+      // helper Image object
+      const image = new Image();
+      image.src = imageUrl;
+      image.onload = function () {
+        const resized = resizeMe(image); // resized image url
 
-      setPreviewUrl(imageUrl);
+        onChange(dataURLtoFile(resized, blob.name));
+        setPreviewUrl(resized);
+      };
     });
   }
 
