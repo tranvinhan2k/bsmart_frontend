@@ -38,7 +38,7 @@ export default function SubmitMentorProfileConfirm({
       onClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: unknown) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

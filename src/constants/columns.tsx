@@ -466,7 +466,7 @@ const managedUserBasedColumns: GridColDef[] = [
   },
   {
     field: 'fullName',
-    headerName: 'Họ tên+',
+    headerName: 'Họ tên',
     minWidth: 240,
     flex: 1,
     renderCell: (params) => (

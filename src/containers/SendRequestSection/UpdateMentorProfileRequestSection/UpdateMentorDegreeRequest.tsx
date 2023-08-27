@@ -103,7 +103,7 @@ export default function UpdateMentorDegree() {
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
     } catch (error: unknown) {
-      toast.updateFailedToast(id, toastMsgError(error.message));
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

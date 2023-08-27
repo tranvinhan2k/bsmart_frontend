@@ -241,46 +241,46 @@ export default function UpdateMentorProfileRequestSection() {
   const handleSubmitSuccess = async (
     data: UpdateMentorProfileRequestProfileFormDefault
   ) => {
-    if (profile) {
-      const params: UseMutationUpdateMentorProfileRequestPayload = {
-        // avatar: data.avatar,
-        fullName: data.fullName,
-        birthday: data.birthday,
-        address: data.address,
-        phone: data.phone,
-        gender: data.gender ? data.gender.value : genderData[0].value,
-        mentorProfile: {
-          id: profile.userDto.mentorProfile.id,
-          introduce: data.introduce,
-          workingExperience: data.workingExperience,
-          status: profile.userDto.mentorProfile.status,
-          mentorSkills: [],
-        },
-        email: profile.userDto.email,
-        status: profile.userDto.status,
-        linkedinLink: profile.userDto.linkedinLink,
-        facebookLink: profile.userDto.facebookLink,
-        website: profile.userDto.website,
-        verified: profile.userDto.verified,
-      };
-      data?.mentorSkills.forEach((item: any) => {
-        params.mentorProfile.mentorSkills.push({
-          skillId: item.skillId.id,
-          yearOfExperiences: item.yearOfExperiences,
-          name:
-            subjects.find((subject) => subject.id === item.skillId.id)?.label ??
-            '',
-        });
-      });
-      const id = toast.loadToast(toastMsgLoading);
-      try {
-        await mutateUpdate(params);
-        refetch();
-        toast.updateSuccessToast(id, toastMsgSuccess);
-      } catch (error: any) {
-        toast.updateFailedToast(id, toastMsgError(error));
-      }
-    }
+    // if (profile) {
+    //   const params: UseMutationUpdateMentorProfileRequestPayload = {
+    //     // avatar: data.avatar,
+    //     fullName: data.fullName,
+    //     birthday: data.birthday,
+    //     address: data.address,
+    //     phone: data.phone,
+    //     gender: data.gender ? data.gender.value : genderData[0].value,
+    //     mentorProfile: {
+    //       id: profile.userDto.mentorProfile.id,
+    //       introduce: data.introduce,
+    //       workingExperience: data.workingExperience,
+    //       status: profile.userDto.mentorProfile.status,
+    //       mentorSkills: [],
+    //     },
+    //     email: profile.userDto.email,
+    //     status: profile.userDto.status,
+    //     linkedinLink: profile.userDto.linkedinLink,
+    //     facebookLink: profile.userDto.facebookLink,
+    //     website: profile.userDto.website,
+    //     verified: profile.userDto.verified,
+    //   };
+    //   data?.mentorSkills.forEach((item: any) => {
+    //     params.mentorProfile.mentorSkills.push({
+    //       skillId: item.skillId.id,
+    //       yearOfExperiences: item.yearOfExperiences,
+    //       name:
+    //         subjects.find((subject) => subject.id === item.skillId.id)?.label ??
+    //         '',
+    //     });
+    //   });
+    //   const id = toast.loadToast(toastMsgLoading);
+    //   try {
+    //     await mutateUpdate(params);
+    //     refetch();
+    //     toast.updateSuccessToast(id, toastMsgSuccess);
+    //   } catch (error: any) {
+    //     toast.updateFailedToast(id, toastMsgError(error));
+    //   }
+    // }
   };
 
   const toastMsgLoading1 = 'Đang Gửi...';
