@@ -18,6 +18,7 @@ import { LoadingWrapper } from '~/HOCs';
 import { validationRating } from '~/form/validation';
 import { handleConsoleError } from '~/utils/common';
 import { useBoolean } from '~/hooks/useBoolean';
+import { formatStringToNumber } from '~/utils/number';
 
 export interface FeedbackMemberQuestionPayload {
   id: number;
@@ -95,7 +96,7 @@ export default function MemberClassInformationPage() {
         data: item?.answers?.map((subItem, subIndex) => ({
           id: subItem.id,
           label: subItem.answer,
-          value: subItem.answer,
+          value: `${subItem.id}`,
         })),
       };
     }) || [];
@@ -104,6 +105,8 @@ export default function MemberClassInformationPage() {
     ? defaultRatingForm
     : [...defaultRatingForm, ...templateRatingForm];
   const onSubmit = async (params: any) => {
+    console.log('params', params);
+
     if (data) {
       const paramsData: SendFeedbackPayload = {
         comment: params.description,
@@ -111,7 +114,7 @@ export default function MemberClassInformationPage() {
         mentorRate: params.ratingPoint,
         submittedAnswers: data?.map((item, index) => ({
           questionId: item.id,
-          answerId: params[`feedback_${item.id}`].id,
+          answerId: formatStringToNumber(params[`feedback_${item.id}`]),
         })),
       };
 

@@ -4,6 +4,7 @@ import {
   FormHelperText,
   IconButton,
   InputAdornment,
+  Slider,
   Stack,
   TextField,
   Typography,
@@ -62,7 +63,11 @@ export default function ImageInput({
   } = controller;
 
   const imgRef = useRef<HTMLImageElement>(null);
-  const { value: isCropImage, toggle: toggleCropImage } = useBoolean(false);
+  const {
+    value: isCropImage,
+    toggle: toggleCropImage,
+    setFalse,
+  } = useBoolean(false);
   const [previewUrl, setPreviewUrl] = useState(value?.url || '');
   const [error, setError] = useState<string | null>(null);
   const [crop, setCrop] = useState<Crop>();
@@ -175,7 +180,10 @@ export default function ImageInput({
 
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget;
-    setCrop(centerAspectCrop(width, height, aspect));
+    const paramCenterCrop = centerAspectCrop(width, height, aspect);
+    console.log('center crop', paramCenterCrop, aspect);
+
+    setCrop(paramCenterCrop);
   }
 
   const handleDeleteClick = () => {
@@ -184,6 +192,7 @@ export default function ImageInput({
     setCompletedCrop(() => undefined);
     setCrop(() => undefined);
     onChange(() => undefined);
+    setFalse();
   };
 
   function onDownloadCropClick() {
@@ -270,6 +279,7 @@ export default function ImageInput({
       >
         <Stack
           sx={{
+            marginTop: 1,
             width: '60vw',
             height: '90vh',
           }}
@@ -281,20 +291,22 @@ export default function ImageInput({
               alignItems: 'flex-end',
             }}
           >
-            <Stack sx={{ width: '400px' }}>
+            <Stack>
               <Stack sx={globalStyles.viewRoundedBorderBody}>
                 <Typography sx={globalStyles.textSmallLabel}>
                   Cắt hình ảnh
                 </Typography>
-                <Stack>
+                <Stack
+                  sx={{
+                    background: Color.white4,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'auto',
+                  }}
+                >
                   <ReactCrop
                     style={{
-                      height: '400px',
-                      width: '400px',
-                      background: Color.white4,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      width: '100%',
                     }}
                     crop={crop}
                     onChange={(_, percentCrop) => setCrop(percentCrop)}
@@ -307,12 +319,19 @@ export default function ImageInput({
                       src={previewUrl}
                       onLoad={onImageLoad}
                       style={{
-                        objectFit: 'fill',
+                        objectFit: 'contain',
                         height: '100%',
                         width: '100%',
                       }}
                     />
                   </ReactCrop>
+                </Stack>
+                <Stack>
+                  {/* <Slider
+                    aria-label="Volume"
+                    value={value}
+                    onChange={handleChange}
+                  /> */}
                 </Stack>
               </Stack>
             </Stack>
@@ -338,33 +357,33 @@ export default function ImageInput({
               </Stack>
             </Stack>
           </Stack>
-          <Stack
-            marginTop={1}
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
+        </Stack>
+        <Stack
+          marginTop={1}
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            onClick={() => {
+              onDownloadCropClick();
+              toggleCropImage();
             }}
+            variant="contained"
           >
-            <Button
-              onClick={() => {
-                onDownloadCropClick();
-                toggleCropImage();
-              }}
-              variant="contained"
-            >
-              Xác nhận chỉnh sửa
-            </Button>
-            <Button
-              onClick={toggleCropImage}
-              sx={{
-                marginLeft: 1,
-              }}
-              variant="contained"
-              color="error"
-            >
-              Hủy bỏ
-            </Button>
-          </Stack>
+            Xác nhận chỉnh sửa
+          </Button>
+          <Button
+            onClick={handleDeleteClick}
+            sx={{
+              marginLeft: 1,
+            }}
+            variant="contained"
+            color="error"
+          >
+            Hủy bỏ
+          </Button>
         </Stack>
       </CustomModal>
 

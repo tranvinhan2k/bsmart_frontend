@@ -260,7 +260,9 @@ export const validationRating = object({
   ratingPoint: number()
     .typeError('Số điểm đánh giá không được để trống')
     .required('Số điểm đánh giá không được để trống'),
-  description: string().required('Nhận xét không được để trống'),
+  description: string()
+    .required('Nhận xét không được để trống')
+    .test('len', 'Nhận xét phải có hơn 20 kí tự', (val) => val.length > 20),
 });
 
 export const validationIntroduce = object({
