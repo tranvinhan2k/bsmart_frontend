@@ -9,10 +9,6 @@ import globalStyles from '~/styles';
 import { convertToHigherByteUnit, handleConsoleError } from '~/utils/common';
 import ModuleActivity from './ModuleActivity';
 import {
-  formatISODateDateToDisplayDateTime,
-  formatISODateStringToDisplayDateTime,
-} from '~/utils/date';
-import {
   useDeleteFile,
   useGetIdFromUrl,
   useMemberSubmitAssignment,
@@ -34,7 +30,7 @@ interface Props {
 export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   const moduleId = useGetIdFromUrl('moduleId');
   const { value, toggle } = useBoolean(false);
-  const { control, handleSubmit, formState } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       note: item.note,
     },
