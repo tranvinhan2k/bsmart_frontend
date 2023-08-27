@@ -86,6 +86,36 @@ export default function UpdateMentorProfileRequestSection() {
     resolver: resolverUpdate,
   });
 
+  const {
+    fields: mentorSkillsFields,
+    append: appendMentorSkillsField,
+    remove: removeMentorSkillsField,
+  } = useFieldArray({
+    name: 'mentorSkills',
+    control,
+    rules: {
+      required: 'Hãy nhập ít nhất 1 chuyên môn',
+    },
+  });
+  const appendSkill = () => {
+    appendMentorSkillsField({});
+  };
+  const removeSkill = (order: number) => {
+    removeMentorSkillsField(order);
+  };
+
+  const {
+    fields: degreeFields,
+    append: appendDegreeField,
+    remove: removeDegreeField,
+  } = useFieldArray({
+    name: 'degreeList',
+    control,
+    rules: {
+      required: 'Hãy nhập ít nhất 1 bằng',
+    },
+  });
+
   const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
   useEffect(() => {
     if (profile) {
@@ -149,36 +179,6 @@ export default function UpdateMentorProfileRequestSection() {
       reset(defaultValueUpdateMentorProfileRequest);
     }
   }, [profile, subjects, reset]);
-
-  const {
-    fields: mentorSkillsFields,
-    append: appendMentorSkillsField,
-    remove: removeMentorSkillsField,
-  } = useFieldArray({
-    name: 'mentorSkills',
-    control,
-    rules: {
-      required: 'Hãy nhập ít nhất 1 chuyên môn',
-    },
-  });
-  const appendSkill = () => {
-    appendMentorSkillsField({});
-  };
-  const removeSkill = (order: number) => {
-    removeMentorSkillsField(order);
-  };
-
-  const {
-    fields: degreeFields,
-    append: appendDegreeField,
-    remove: removeDegreeField,
-  } = useFieldArray({
-    name: 'degreeList',
-    control,
-    rules: {
-      required: 'Hãy nhập ít nhất 1 bằng',
-    },
-  });
 
   const appendDegree = () => {
     appendDegreeField(null);

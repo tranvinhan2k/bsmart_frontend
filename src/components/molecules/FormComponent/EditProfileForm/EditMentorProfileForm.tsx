@@ -47,12 +47,11 @@ export default function EditMentorProfileForm() {
     resolver: resolverEditPersonalProfile,
     // mode: 'onChange',
   });
-
   const { fields, append, remove } = useFieldArray({
     name: 'mentorSkills',
     control,
     rules: {
-      required: 'Please append at least 1 item',
+      required: 'Hãy nhập ít nhất 1 kĩ năng',
     },
   });
 

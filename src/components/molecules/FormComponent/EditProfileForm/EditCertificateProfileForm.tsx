@@ -62,20 +62,6 @@ export default function EditCertificateProfileForm() {
     resolver: resolverEditCertificateProfile,
     mode: 'onChange',
   });
-  const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (dataGetProfile) {
-      const defaults = defaultValueEditCertificateProfile;
-      if (dataGetProfile.userImages) {
-        defaults.userImages = dataGetProfile.userImages.filter(
-          (item: any) => item.type === 'DEGREE'
-        );
-      }
-      reset(defaults);
-    }
-  }, [dataGetProfile, reset]);
-
   const {
     fields: certificateFields,
     append,
@@ -87,6 +73,19 @@ export default function EditCertificateProfileForm() {
       required: 'Hãy nhập ít nhất 1 bằng',
     },
   });
+
+  const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
+  useEffect(() => {
+    if (dataGetProfile) {
+      const defaults = defaultValueEditCertificateProfile;
+      if (dataGetProfile.userImages) {
+        defaults.userImages = dataGetProfile.userImages.filter(
+          (item: any) => item.type === 'DEGREE'
+        );
+      }
+      reset(defaults);
+    }
+  }, [dataGetProfile, reset]);
 
   const appendCertificate = () => {
     append(null);
@@ -160,6 +159,7 @@ export default function EditCertificateProfileForm() {
     size: 12,
   };
 
+  console.log('certificateFields', certificateFields);
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
