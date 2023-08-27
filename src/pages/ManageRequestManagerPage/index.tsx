@@ -3,11 +3,11 @@ import {
   Chip,
   CircularProgress,
   FormControl,
-  Grid,
   ListSubheader,
   MenuItem,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import TabPanel from '~/components/atoms/TabPanel/index';
@@ -25,6 +25,8 @@ import { useSearchCourseUpdateRequest } from '~/hooks/course/useSearchCourseUpda
 import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMentorProfileUpdateRequest';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import { scrollToTop } from '~/utils/common';
+import sx from './style';
+import globalStyles from '~/styles';
 
 export default function ManageRequestManagerPage() {
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function ManageRequestManagerPage() {
     //
     ListSubheader0 = 'Người dùng',
     MenuItem00 = 'Phê duyệt hồ sơ giáo viên',
-    MenuItem01 = 'Cập nhật hồ sơ giáo viên',
+    MenuItem01 = 'Cập nhật thông tin hồ sơ giáo viên',
     //
     ListSubheader1 = 'Khóa học / Lớp học',
     MenuItem10 = 'Phê duyệt khóa học',
@@ -164,11 +166,29 @@ export default function ManageRequestManagerPage() {
   ];
 
   return (
-    <Box pt={3} pl={4} pr={4}>
-      <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
-          <Box mt={1} />
-          <FormControl fullWidth size="small">
+    <Box padding={3}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        pb={2}
+      >
+        <Stack
+          sx={{
+            width: '20%',
+          }}
+        >
+          <Typography
+            sx={{
+              ...globalStyles.textTitle,
+              lineHeight: 1,
+            }}
+          >
+            Xử lý yêu cầu
+          </Typography>
+        </Stack>
+        <Stack sx={{ flexGrow: 1 }}>
+          <FormControl fullWidth size="small" sx={sx.dropdown}>
             <TextField
               value={tabValue}
               onChange={handleSetTabValue}
@@ -192,17 +212,6 @@ export default function ManageRequestManagerPage() {
                       spacing={2}
                     >
                       <p>{item.label}</p>
-                      {/* {showChip && (
-                        <Chip
-                          label={item.indicator}
-                          size="small"
-                          color={
-                            item.indicator && item.indicator > 0
-                              ? 'error'
-                              : 'default'
-                          }
-                        />
-                      )} */}
                       {item.isLoading ? (
                         <CircularProgress size="1rem" />
                       ) : (
@@ -222,13 +231,15 @@ export default function ManageRequestManagerPage() {
               )}
             </TextField>
           </FormControl>
-        </Grid>
-      </Grid>
-      {tabEl.map((tab) => (
-        <TabPanel value={tabValue} index={tab.id} key={tab.id}>
-          <Box mt={2}>{tab.component}</Box>
-        </TabPanel>
-      ))}
+        </Stack>
+      </Stack>
+      <Stack sx={globalStyles.viewRoundedWhiteBody} mt={1}>
+        {tabEl.map((tab) => (
+          <TabPanel value={tabValue} index={tab.id} key={tab.id}>
+            <Box mt={2}>{tab.component}</Box>
+          </TabPanel>
+        ))}
+      </Stack>
     </Box>
   );
 }

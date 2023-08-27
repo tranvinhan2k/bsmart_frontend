@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Stack, Menu, Typography, IconButton } from '@mui/material';
+import { Button, Stack, Menu, Typography, IconButton } from '@mui/material';
 import { UseFormReturn } from 'react-hook-form';
-import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
@@ -143,17 +142,16 @@ export default function CRUDTableSearching({
         <Stack
           sx={{
             marginLeft: 1,
-            width: '15%',
+            width: { md: '25%', lg: '15%' },
           }}
         >
           <Button
             onClick={searchControl.handleSubmit(onSearch)}
             startIcon={<Icon name="search" color="white" size="small_20" />}
-            customVariant="horizonForm"
+            variant="contained"
+            color="miSmartOrange"
           >
-            <Typography noWrap sx={{ display: { xs: 'none', lg: 'block' } }}>
-              Tìm kiếm
-            </Typography>
+            Tìm kiếm
           </Button>
         </Stack>
       </Stack>

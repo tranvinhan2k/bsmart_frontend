@@ -4,7 +4,6 @@ import RequestCourseContent from './RequestCourseContent';
 import RequestCourseDate from './RequestCourseDate';
 import RequestCourseDetails from './RequestCourseDetails';
 import RequestCourseMentorInfo from './RequestCourseMentorInfo';
-import RequestCourseProcess from './RequestCourseProcess';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsCourseProps {
@@ -55,12 +54,6 @@ export default function ManageTableDetailsCourse({
             sx={SX_BOX_STICKY}
           >
             <RequestCourseDate idCourse={row.id} status={row.status} />
-            {/* <RequestCourseProcess
-              idCourse={row.id}
-              onClose={onClose}
-              refetchSearch={refetchSearch}
-              refetchGetNoOfRequest={refetchGetNoOfRequest}
-            /> */}
           </Stack>
         </Grid>
       </Grid>

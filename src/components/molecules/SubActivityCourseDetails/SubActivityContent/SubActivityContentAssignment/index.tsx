@@ -21,18 +21,18 @@ export default function SubActivityContentAssignment({
   item,
 }: SubActivityContentAssignmentProps) {
   const displayList: DisplayListProps[] = [
-    {
-      id: 0,
-      iconName: 'accessTimeIcon',
-      label: 'Thời gian bắt đầu',
-      value: formatISODateDateToDisplayDateTime(item.startDate),
-    },
-    {
-      id: 1,
-      iconName: 'accessTimeIcon',
-      label: 'Thời gian kết thúc',
-      value: formatISODateDateToDisplayDateTime(item.endDate),
-    },
+    // {
+    //   id: 0,
+    //   iconName: 'accessTimeIcon',
+    //   label: 'Thời gian bắt đầu',
+    //   value: formatISODateDateToDisplayDateTime(item.startDate),
+    // },
+    // {
+    //   id: 1,
+    //   iconName: 'accessTimeIcon',
+    //   label: 'Thời gian kết thúc',
+    //   value: formatISODateDateToDisplayDateTime(item.endDate),
+    // },
     {
       id: 2,
       iconName: 'historyIcon',

@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { useGetMentorDetails } from '~/hooks/mentorProfile/useGetMentorDetails';
 import Icon from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
-import sx from './style';
 
 export default function MentorDetailsDescribe() {
   const { id } = useParams();
@@ -19,7 +18,7 @@ export default function MentorDetailsDescribe() {
   const handleExpand2 = () => setIsExpanded2(!isExpanded2);
 
   return (
-    <Box sx={sx.mainWrapper}>
+    <Box sx={globalStyles.viewRoundedWhiteBody}>
       <Stack direction="column" justifyContent="flex-start" alignItems="start">
         <Typography sx={globalStyles.textSmallLabel}>Giới thiệu</Typography>
         {isLoading && <Skeleton />}

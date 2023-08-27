@@ -2,62 +2,59 @@ import { Navigate } from 'react-router-dom';
 import { ManagerNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
 import {
-  ConfirmEmailPage,
+  CategoryManagerPage,
   ManageClassPage,
   ManageCoursePage,
-  ManageFinancialPage,
   ManageRequestManagerPage,
-  ManagerPromoCodePage,
   ManageUserPage,
+  SubjectManagerPage,
 } from '~/routes/components';
 
 export const managerRoutes: RoutePayload[] = [
   {
     path: '/',
-    main: () => (
-      <Navigate to={ManagerNavigationActionLink.manage_user_manager} />
-    ),
+    main: () => <Navigate to={ManagerNavigationActionLink.manager_request} />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.manage_class_manager,
-    main: () => <ManageClassPage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.manage_financial_manager,
-    main: () => <ManageFinancialPage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.manage_course_manager,
-    main: () => <ManageCoursePage />,
-    role: ['ROLE_MANAGER'],
-  },
-  {
-    path: ManagerNavigationActionLink.manage_request_manager,
+    path: ManagerNavigationActionLink.manager_request,
     main: () => <ManageRequestManagerPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.manage_user_manager,
+    path: ManagerNavigationActionLink.manager_user,
     main: () => <ManageUserPage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.manage_promo_code,
-    main: () => <ManagerPromoCodePage />,
+    path: ManagerNavigationActionLink.manager_course,
+    main: () => <ManageCoursePage />,
     role: ['ROLE_MANAGER'],
   },
   {
-    path: ManagerNavigationActionLink.confirm_email,
-    main: () => <ConfirmEmailPage />,
-    role: [],
+    path: ManagerNavigationActionLink.manager_class,
+    main: () => <ManageClassPage />,
+    role: ['ROLE_MANAGER'],
   },
+  {
+    path: ManagerNavigationActionLink.manager_category,
+    main: () => <CategoryManagerPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  {
+    path: ManagerNavigationActionLink.manager_subject,
+    main: () => <SubjectManagerPage />,
+    role: ['ROLE_MANAGER'],
+  },
+  // {
+  //   path: ManagerNavigationActionLink.confirm_email,
+  //   main: () => <ConfirmEmailPage />,
+  //   role: [],
+  // },
   {
     path: '*',
     main: () => (
-      <Navigate to={ManagerNavigationActionLink.manage_user_manager} replace />
+      <Navigate to={ManagerNavigationActionLink.manager_request} replace />
     ),
     role: [],
   },

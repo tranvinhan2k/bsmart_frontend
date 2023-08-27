@@ -1,10 +1,9 @@
+import { Stack, Typography } from '@mui/material';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Stack,
-  Typography,
-} from '@mui/material';
+} from '~/components/atoms/Accordion';
 import SubActivityCourseDetails from '../SubActivityCourseDetails';
 import { ActivityOfCourseCreateRequestDetails } from '~/models/courses';
 

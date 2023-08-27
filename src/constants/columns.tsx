@@ -44,33 +44,44 @@ const feedbackQuestionColumns: GridColDef[] = [
 const categoryColumns: GridColDef[] = [
   {
     field: 'code',
+    headerAlign: 'left',
+    type: 'string',
     headerName: 'Mã lĩnh vực',
+    minWidth: 300,
     flex: 1,
-    editable: true,
   },
   {
     field: 'name',
+    headerAlign: 'left',
+    type: 'string',
     headerName: 'Tên lĩnh vực',
-    flex: 5,
-    editable: true,
+    minWidth: 300,
+    flex: 1,
   },
 ];
 const subjectColumns: GridColDef[] = [
   {
     field: 'code',
+    headerAlign: 'left',
+    type: 'string',
     headerName: 'Mã môn học',
+    minWidth: 200,
     flex: 1,
-    editable: true,
   },
   {
     field: 'name',
+    headerAlign: 'left',
+    type: 'string',
     headerName: 'Tên môn học',
-    flex: 5,
-    editable: true,
+    minWidth: 200,
+    flex: 1,
   },
   {
     field: 'categoryId',
+    headerAlign: 'left',
+    type: 'string',
     headerName: 'Lĩnh vực',
+    minWidth: 300,
     flex: 1,
     editable: true,
     valueGetter: (params) => {
@@ -93,7 +104,7 @@ const managedRegisterRequestTmpColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 200,
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row;
@@ -147,7 +158,7 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 200,
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => {
       const { fullName } = params.row.userDto;
@@ -243,7 +254,7 @@ const managedCourseBasedColumns: GridColDef[] = [
   {
     field: 'categoryResponse',
     headerName: 'phân loại',
-    minWidth: 150,
+    minWidth: 250,
     flex: 1,
     valueGetter: (params) => params.value.name,
     renderCell: (params) => {
@@ -260,7 +271,7 @@ const managedCourseBasedColumns: GridColDef[] = [
   {
     field: 'subjectResponse',
     headerName: 'Môn học',
-    minWidth: 150,
+    minWidth: 200,
     flex: 1,
     valueFormatter: (params) => params.value.name,
     renderCell: (params) => {
@@ -444,7 +455,7 @@ const managedUserBasedColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 250,
+    minWidth: 300,
     flex: 1,
     renderCell: (params) => (
       <CopyableCellEllipsis
@@ -456,7 +467,7 @@ const managedUserBasedColumns: GridColDef[] = [
   {
     field: 'fullName',
     headerName: 'Họ tên',
-    minWidth: 200,
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => (
       <CopyableCellEllipsis
@@ -579,7 +590,7 @@ const courseClassListColumns: GridColDef[] = [
     headerAlign: 'left',
     type: 'string',
     headerName: 'Mã lớp',
-    minWidth: 90,
+    minWidth: 180,
     flex: 1,
   },
   {
@@ -621,7 +632,7 @@ const managedClassNotStartColumns: GridColDef[] = [
   {
     field: 'code',
     headerName: 'Mã lớp',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
@@ -703,7 +714,7 @@ const managedClassColumns: GridColDef[] = [
   {
     field: 'code',
     headerName: 'Mã lớp',
-    minWidth: 150,
+    minWidth: 180,
     flex: 1,
     renderCell: (params) => {
       const { code } = params.row;
