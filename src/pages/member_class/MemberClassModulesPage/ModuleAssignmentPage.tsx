@@ -153,6 +153,8 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
           />
           <Stack marginTop={1} />
           <FormInput control={control} name="attachFiles" variant="files" />
+          <Stack marginTop={1} />
+          <FormInput control={control} name="password" variant="password" />
           <Box marginTop={1}>
             <Button onClick={toggle} variant="contained">
               {item.attachFiles.length !== 0
