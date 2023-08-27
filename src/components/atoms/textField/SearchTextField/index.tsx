@@ -17,7 +17,7 @@ export function SearchTextField(props: TextFieldProps) {
         ),
       }}
       size="small"
-      placeholder="Nhập tên khóa học cần tìm kiếm.."
+      placeholder="Nhập tên lớp học cần tìm kiếm.."
     />
   );
 }

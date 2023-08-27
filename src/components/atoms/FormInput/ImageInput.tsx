@@ -434,7 +434,7 @@ export default function ImageInput({
       {(invalid || error) && (
         <FormHelperText error>{` ${
           error || fieldError?.message
-        }}`}</FormHelperText>
+        }`}</FormHelperText>
       )}
     </Stack>
   );

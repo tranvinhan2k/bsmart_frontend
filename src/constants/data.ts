@@ -205,8 +205,8 @@ export const ClassStatusList: OptionPayload[] = [
   },
   {
     id: 5,
-    label: 'Lớp đang chiêu sinh',
-    content: 'Lớp đang chờ học sinh đăng kí và học.',
+    label: 'Lớp đang chờ',
+    content: 'Lớp đang chờ học sinh đăng kí để bắt đầu.',
     value: 'NOTSTART',
   },
   {
@@ -218,7 +218,7 @@ export const ClassStatusList: OptionPayload[] = [
   {
     id: 2,
     label: 'Lớp đã kết thúc',
-    content: 'Lớp đã hết thời gian giảng dạy',
+    content: 'Lớp đã hết thời gian giảng dạy.',
     value: 'ENDED',
   },
 ];

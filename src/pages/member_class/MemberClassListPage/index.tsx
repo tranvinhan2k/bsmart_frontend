@@ -17,7 +17,6 @@ import toast from '~/utils/toast';
 
 const TEXTS = {
   title_1: 'Lớp học đã đăng kí',
-  button_title_1: 'Tạo khóa học',
   title_2: 'Không có lớp học nào.',
 };
 
