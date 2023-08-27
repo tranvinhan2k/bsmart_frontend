@@ -1,9 +1,11 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { useScrollIntoView } from '~/hooks';
 import RequestCourseClassList from './RequestCourseClassList';
 import RequestCourseContent from './RequestCourseContent';
 import RequestCourseDate from './RequestCourseDate';
 import RequestCourseDetails from './RequestCourseDetails';
 import RequestCourseMentorInfo from './RequestCourseMentorInfo';
+import RequestCourseScroll from './RequestCourseScroll';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsCourseProps {
@@ -19,6 +21,11 @@ export default function ManageTableDetailsCourse({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsCourseProps) {
+  const scrollCourseDetails = useScrollIntoView();
+  const scrollCourseContent = useScrollIntoView();
+  const scrollCourseClassList = useScrollIntoView();
+  const scrollCourseMentorInfo = useScrollIntoView();
+
   return (
     <>
       <Box mx={2}>
@@ -39,10 +46,26 @@ export default function ManageTableDetailsCourse({
             alignItems="stretch"
             spacing={2}
           >
-            <RequestCourseDetails idCourse={row.id} status={row.status} />
-            <RequestCourseContent idCourse={row.id} status={row.status} />
-            <RequestCourseClassList idCourse={row.id} status={row.status} />
-            <RequestCourseMentorInfo idCourse={row.id} status={row.status} />
+            <RequestCourseDetails
+              idCourse={row.id}
+              status={row.status}
+              scrollRef={scrollCourseDetails.ref}
+            />
+            <RequestCourseContent
+              idCourse={row.id}
+              status={row.status}
+              scrollRef={scrollCourseContent.ref}
+            />
+            <RequestCourseClassList
+              idCourse={row.id}
+              status={row.status}
+              scrollRef={scrollCourseClassList.ref}
+            />
+            <RequestCourseMentorInfo
+              idCourse={row.id}
+              status={row.status}
+              scrollRef={scrollCourseMentorInfo.ref}
+            />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
@@ -53,7 +76,13 @@ export default function ManageTableDetailsCourse({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <RequestCourseDate idCourse={row.id} status={row.status} />
+            {/* <RequestCourseDate idCourse={row.id} status={row.status} /> */}
+            <RequestCourseScroll
+              scrollCourseDetails={scrollCourseDetails.executeScroll}
+              scrollCourseContent={scrollCourseContent.executeScroll}
+              scrollCourseClassList={scrollCourseClassList.executeScroll}
+              scrollCourseMentorInfo={scrollCourseMentorInfo.executeScroll}
+            />
           </Stack>
         </Grid>
       </Grid>

@@ -1,7 +1,11 @@
 import { ActivityType } from './activity';
 import { ImageType, TimeInWeeks } from './common';
 import { ActivityOfCourseCreateRequestDetails } from './courses';
-import { ProfilePayload } from './type';
+import {
+  MentorTeachingInformation,
+  ProfilePayload,
+  SkillPayload,
+} from './type';
 
 export interface ClassDetailsPayload {
   id: number;
@@ -105,7 +109,8 @@ export interface ManagedClassDetails {
   hasReferralCode: boolean;
   numberReferralCode: string;
   classImage: any;
-  mentor: ProfilePayload;
+  // mentor: ProfilePayload;
+  mentor: MentorManagedClass;
   activities: ActivityOfCourseCreateRequestDetails[];
   timeInWeeks: TimeInWeeks[];
   course: CourseManagedClassDetails;
@@ -113,6 +118,24 @@ export interface ManagedClassDetails {
   progress: ProgressManagedClassDetails;
   image: any;
   feedback: any;
+}
+
+interface MentorManagedClass {
+  id: number;
+  name: string;
+  email: string;
+  introduce: string;
+  phone: string;
+  timeParticipation: string;
+  mentorSkills: SkillPayload[];
+  avatar: {
+    id: number;
+    name: string;
+    url: string;
+    status: boolean;
+    type: 'AVATAR';
+  };
+  teachInformation: MentorTeachingInformation;
 }
 
 interface CourseManagedClassDetails {

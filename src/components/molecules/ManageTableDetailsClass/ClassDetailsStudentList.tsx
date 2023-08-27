@@ -4,10 +4,12 @@ import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface ClassDetailsStudentListProps {
   idClass: number;
+  scrollRef: any;
 }
 
 export default function ClassDetailsStudentList({
   idClass,
+  scrollRef,
 }: ClassDetailsStudentListProps) {
   const { classDetails, isLoading } = useGetManagedClassDetails(idClass);
 
@@ -16,7 +18,7 @@ export default function ClassDetailsStudentList({
     : 0;
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid
         container
         direction="row"
@@ -26,7 +28,7 @@ export default function ClassDetailsStudentList({
       >
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>
-            Thông tin danh sách học sinh ({numberOfCurrentStudent})
+            Danh sách học sinh ({numberOfCurrentStudent})
           </Typography>
         </Grid>
       </Grid>

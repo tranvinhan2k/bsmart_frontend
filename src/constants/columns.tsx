@@ -288,11 +288,12 @@ const managedCourseBasedColumns: GridColDef[] = [
 ];
 const managedCourseColumns = managedCourseBasedColumns.concat(
   {
-    field: 'timeSendRequest',
-    headerName: 'Ngày phê duyệt',
-    minWidth: 150,
+    field: 'count',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Số lần gửi',
+    minWidth: 100,
     flex: 1,
-    valueFormatter: (params) => formatISODateStringToDisplayDate(params.value),
   },
   {
     field: 'totalClass',

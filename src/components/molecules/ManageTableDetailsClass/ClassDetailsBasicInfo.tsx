@@ -19,10 +19,12 @@ interface DisplayListProps {
 
 interface ClassDetailsBasicInfoProps {
   idClass: number;
+  scrollRef: any;
 }
 
 export default function ClassDetailsBasicInfo({
   idClass,
+  scrollRef,
 }: ClassDetailsBasicInfoProps) {
   const { classDetails, isLoading } = useGetManagedClassDetails(idClass);
 
@@ -88,7 +90,7 @@ export default function ClassDetailsBasicInfo({
       size: 6,
     },
     {
-      id: 7,
+      id: 8,
       iconName: 'groups',
       label: 'Học sinh hiện tại',
       value: classDetails ? classDetails.numberOfCurrentStudent : '',
@@ -97,7 +99,7 @@ export default function ClassDetailsBasicInfo({
   ];
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid
         container
         direction="row"

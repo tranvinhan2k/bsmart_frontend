@@ -1,20 +1,25 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
-import {
-  useGetCourseCreateRequestDetails,
-  UseGetCourseCreateRequestDetailsPayload,
-} from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { ClassStatusType } from '~/constants/class';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import RequestCourseContents from '../RequestCourseContents';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
+
+interface RequestCourseContentProps {
+  idCourse: number;
+  status: ClassStatusType;
+  scrollRef: any;
+}
 
 export default function RequestCourseContent({
   idCourse,
   status,
-}: UseGetCourseCreateRequestDetailsPayload) {
+  scrollRef,
+}: RequestCourseContentProps) {
   const { courseCreateRequestDetails, isLoading } =
     useGetCourseCreateRequestDetails({ idCourse, status });
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       {isLoading ? (
         <>
           <Box mb={4}>

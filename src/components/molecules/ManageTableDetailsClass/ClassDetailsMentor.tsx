@@ -8,23 +8,24 @@ import {
   Typography,
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
-import { ProfileImgType } from '~/constants/profile';
-import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
 import { useGetManagedClassDetails } from '~/hooks/class/useGetManagedClassDetails';
 import { handleCopyToClipboard } from '~/utils/commonComp';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
+  SX_FORM_ITEM_VALUE2_WARNING,
   SX_FORM_LABEL,
   SX_WRAPPER,
-  SX_FORM_ITEM_VALUE2_WARNING,
 } from './style';
 
 interface ClassDetailsMentorProps {
   idClass: number;
+  scrollRef: any;
 }
 export default function ClassDetailsMentor({
   idClass,
+  scrollRef,
 }: ClassDetailsMentorProps) {
   const { classDetails, isLoading } = useGetManagedClassDetails(idClass);
 
@@ -47,7 +48,7 @@ export default function ClassDetailsMentor({
     {
       id: 0,
       label: Text.labelName,
-      value: classDetails ? classDetails.mentor.fullName : '',
+      value: classDetails ? classDetails.mentor.name : '',
     },
     {
       id: 1,
@@ -62,7 +63,11 @@ export default function ClassDetailsMentor({
     {
       id: 3,
       label: Text.labelJoinDate,
-      value: TRY_CATCH_AXIOS_DEFAULT_ERROR,
+      value: classDetails
+        ? formatISODateDateToDisplayDateTime(
+            classDetails.mentor.timeParticipation
+          )
+        : '',
     },
   ];
 
@@ -103,13 +108,11 @@ export default function ClassDetailsMentor({
       : Text.labelNoRatingYet;
 
   const mentorAvatar = classDetails
-    ? classDetails.mentor?.userImages.find(
-        (img: any) => img.type === ProfileImgType.AVATAR
-      )?.url
+    ? classDetails.mentor.avatar.url
     : undefined;
 
   return (
-    <Box sx={SX_WRAPPER}>
+    <Box sx={SX_WRAPPER} ref={scrollRef}>
       <Box p={2}>
         <Grid
           container

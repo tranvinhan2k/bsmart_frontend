@@ -1,10 +1,11 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { useScrollIntoView } from '~/hooks';
 import ClassDetailsBasicInfo from './ClassDetailsBasicInfo';
-import ClassDetailsDate from './ClassDetailsDate';
-import ClassDetailsMentor from './ClassDetailsMentor';
 import ClassDetailsCourse from './ClassDetailsCourse';
-import ClassDetailsTimeInWeek from './ClassDetailsTimeInWeek';
+import ClassDetailsMentor from './ClassDetailsMentor';
+import ClassDetailsScroll from './ClassDetailsScroll';
 import ClassDetailsStudentList from './ClassDetailsStudentList';
+import ClassDetailsTimeInWeek from './ClassDetailsTimeInWeek';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
 interface ManageTableDetailsClassProps {
@@ -20,6 +21,12 @@ export default function ManageTableDetailsClass({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsClassProps) {
+  const scrollBasicInfo = useScrollIntoView();
+  const scrollMentor = useScrollIntoView();
+  const scrollCourse = useScrollIntoView();
+  const scrollTimeInWeek = useScrollIntoView();
+  const scrollStudentList = useScrollIntoView();
+
   return (
     <>
       <Box mx={2}>
@@ -40,11 +47,20 @@ export default function ManageTableDetailsClass({
             alignItems="stretch"
             spacing={2}
           >
-            <ClassDetailsBasicInfo idClass={row.id} />
-            <ClassDetailsMentor idClass={row.id} />
-            <ClassDetailsCourse idClass={row.id} />
-            <ClassDetailsTimeInWeek idClass={row.id} />
-            <ClassDetailsStudentList idClass={row.id} />
+            <ClassDetailsBasicInfo
+              idClass={row.id}
+              scrollRef={scrollBasicInfo.ref}
+            />
+            <ClassDetailsMentor idClass={row.id} scrollRef={scrollMentor.ref} />
+            <ClassDetailsCourse idClass={row.id} scrollRef={scrollCourse.ref} />
+            <ClassDetailsTimeInWeek
+              idClass={row.id}
+              scrollRef={scrollTimeInWeek.ref}
+            />
+            <ClassDetailsStudentList
+              idClass={row.id}
+              scrollRef={scrollStudentList.ref}
+            />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
@@ -55,7 +71,14 @@ export default function ManageTableDetailsClass({
             spacing={2}
             sx={SX_BOX_STICKY}
           >
-            <ClassDetailsDate />
+            {/* <ClassDetailsDate /> */}
+            <ClassDetailsScroll
+              scrollBasicInfo={scrollBasicInfo.executeScroll}
+              scrollMentor={scrollMentor.executeScroll}
+              scrollCourse={scrollCourse.executeScroll}
+              scrollTimeInWeek={scrollTimeInWeek.executeScroll}
+              scrollStudentList={scrollStudentList.executeScroll}
+            />
           </Stack>
         </Grid>
       </Grid>

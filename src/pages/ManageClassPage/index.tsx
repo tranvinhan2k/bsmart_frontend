@@ -99,7 +99,7 @@ export default function ManageClassPage() {
             lineHeight: 1,
           }}
         >
-          Danh sách khóa học
+          Danh sách lớp học
         </Typography>
       </Box>
       <Stack sx={globalStyles.viewRoundedWhiteBody}>

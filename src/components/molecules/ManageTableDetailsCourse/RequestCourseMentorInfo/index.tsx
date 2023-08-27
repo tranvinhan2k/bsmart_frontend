@@ -8,10 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
-import {
-  useGetCourseCreateRequestDetails,
-  UseGetCourseCreateRequestDetailsPayload,
-} from '~/hooks/course/useGetCourseCreateRequestDetails';
+import { ClassStatusType } from '~/constants/class';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import {
@@ -21,10 +19,17 @@ import {
   SX_WRAPPER,
 } from '../style';
 
+interface RequestCourseClassListProps {
+  idCourse: number;
+  status: ClassStatusType;
+  scrollRef: any;
+}
+
 export default function RequestCourseMentorInfo({
   idCourse,
   status,
-}: UseGetCourseCreateRequestDetailsPayload) {
+  scrollRef,
+}: RequestCourseClassListProps) {
   const { courseCreateRequestDetails, isLoading } =
     useGetCourseCreateRequestDetails({ idCourse, status });
 
@@ -102,7 +107,7 @@ export default function RequestCourseMentorInfo({
     : [];
 
   return (
-    <Box sx={SX_WRAPPER}>
+    <Box sx={SX_WRAPPER} ref={scrollRef}>
       <Box p={2}>
         <Grid
           container

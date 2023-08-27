@@ -5,10 +5,12 @@ import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface ClassDetailsTimeInWeekProps {
   idClass: number;
+  scrollRef: any;
 }
 
 export default function ClassDetailsTimeInWeek({
   idClass,
+  scrollRef,
 }: ClassDetailsTimeInWeekProps) {
   const { classDetails, isLoading } = useGetManagedClassDetails(idClass);
 
@@ -20,7 +22,7 @@ export default function ClassDetailsTimeInWeek({
     : [];
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid
         container
         direction="row"
@@ -29,7 +31,7 @@ export default function ClassDetailsTimeInWeek({
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Thông tin thời gian biểu</Typography>
+          <Typography sx={SX_FORM_LABEL}>Thời gian biểu</Typography>
         </Grid>
         <Grid item xs={12}>
           <Timetable data={timeInWeekRequests} />
