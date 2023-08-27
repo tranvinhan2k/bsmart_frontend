@@ -358,7 +358,7 @@ export type ResponseDetailClass = Partial<{
   numberOfSlot: number;
   hasReferralCode: boolean;
   numberReferralCode: number;
-  classImage: Partial<{
+  image: Partial<{
     id: number;
     name: string;
     url: string;
@@ -402,15 +402,13 @@ export type ResponseDetailClass = Partial<{
     linkedinLink: string;
     facebookLink: string;
     website: string;
-    userImages: [
-      {
-        id: number;
-        name: string;
-        url: string;
-        status: boolean;
-        type: 'COURSE';
-      }
-    ];
+    avatar: {
+      id: number;
+      name: string;
+      url: string;
+      status: boolean;
+      type: 'COURSE';
+    };
     wallet: {
       id: number;
       balance: number;

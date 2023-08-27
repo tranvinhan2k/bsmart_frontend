@@ -18,8 +18,8 @@ export default function MemberClassMentorDetailPage() {
       timeSlotOff: 3,
     },
     id: 0,
-    imageUrl: detailClass?.imageUrl || '',
-    imageAlt: detailClass?.imageAlt || '',
+    imageUrl: detailClass?.teacherUrl || '',
+    imageAlt: detailClass?.teacherAlt || '',
     points: [
       {
         id: 0,
