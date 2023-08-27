@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { Key } from './key';
 import classApi from '~/api/class';
-import { ClassStatusType } from '~/constants/class';
+import { CourseStatusType } from '~/constants/course';
 
 export interface UseGetCourseCreateRequestDetailsPayload {
   idCourse: number;
-  status: ClassStatusType;
+  status: CourseStatusType;
 }
 
 export const useGetCourseCreateRequestDetails = ({

@@ -91,6 +91,7 @@ export default function ManageTableCourseCreateRequest({
         >
           <ManageTableDetailsCourseCreateRequest
             row={selectedRow}
+            fixedStatus={status}
             onClose={handleTriggerDialog}
             refetchSearch={refetch}
             refetchGetNoOfRequest={refetchGetNoOfRequest}
