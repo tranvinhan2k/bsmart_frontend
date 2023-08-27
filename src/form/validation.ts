@@ -63,7 +63,7 @@ const FULL_NAME_REGEX =
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 const TRIM_REGEX = /^[\s\S]*?(?= *$)/;
-const FILE_SIZE_2 = 0.5 * 1024 * 1024; // X * 1024 * 1024 = X MB
+const FILE_SIZE_2 = 5 * 1024 * 1024; // X * 1024 * 1024 = X MB
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_FILE_DEGREE_FORMAT = [
   'application/pdf',
@@ -370,8 +370,6 @@ export const validationSchemaEditAvatar = object({
   avatar: mixed()
     .required(generateRequiredText('Hình ảnh đại diện'))
     .test('fileSize', IMAGE_SIZE_TOO_BIG, (value: any) => {
-      console.log('value', value);
-
       return value && value.size <= FILE_SIZE_2;
     }),
   // .test('fileFormat', IMAGE_FORMAT_NOT_SUPPORT, (value: any) => {
