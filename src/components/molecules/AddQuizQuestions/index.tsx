@@ -159,7 +159,7 @@ export default function AddQuizQuestions({
               ),
             },
             {
-              label: 'Thêm từ tệp Aiken',
+              label: 'Thêm từ tệp Excel',
               data: (
                 <Stack padding={2}>
                   <Typography textAlign="center" sx={globalStyles.textSubTitle}>

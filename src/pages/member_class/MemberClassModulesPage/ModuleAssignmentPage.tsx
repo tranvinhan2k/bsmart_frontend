@@ -37,14 +37,6 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   const { control, handleSubmit, formState } = useForm({
     defaultValues: {
       note: item.note,
-      // attachFiles: {
-      //   files:
-      //     item.attachFiles.map((subItem: any) => ({
-      //       ...subItem,
-      //       fileType: 'ATTACH',
-      //     })) || [],
-      //   deleteIndexes: [],
-      // },
     },
   });
   const { mutateAsync: handleSubmitAssignment } = useMemberSubmitAssignment();
@@ -78,18 +70,7 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   return (
     <Stack marginTop={1}>
       <ModuleActivity name={name} description={item.description} />
-      <Typography
-        textAlign="center"
-        sx={globalStyles.textLowSmallLight}
-      >{`Bài tập này sẽ được mở vào ngày ${formatISODateDateToDisplayDateTime(
-        item.startDate
-      )}`}</Typography>
-      <Typography
-        textAlign="center"
-        sx={globalStyles.textLowSmallLight}
-      >{`Bài tập sẽ sẽ kết thúc vào ngày ${formatISODateStringToDisplayDateTime(
-        item.endDate
-      )}`}</Typography>
+
       <Typography
         textAlign="center"
         sx={globalStyles.textLowSmallLight}
