@@ -29,6 +29,7 @@ interface CourseContextProps {
   refetchContent: any;
   refetchCourse: any;
   refetchPercent: any;
+  refetchClasses: any;
 }
 
 export const CourseContext = createContext<CourseContextProps>({
@@ -61,6 +62,7 @@ export const CourseContext = createContext<CourseContextProps>({
   refetchContent: () => {},
   refetchPercent: () => {},
   refetchCourse: () => {},
+  refetchClasses: () => {},
 });
 
 export default function CourseContextProvider({ children }: Props) {
@@ -98,11 +100,13 @@ export default function CourseContextProvider({ children }: Props) {
       refetchContent,
       refetchPercent,
       refetchCourse,
+      refetchClasses: classQuery.refetch,
     }),
     [
       courseId,
       course,
       classQuery?.classes,
+      classQuery?.refetch,
       content,
       sectionId,
       percent,
