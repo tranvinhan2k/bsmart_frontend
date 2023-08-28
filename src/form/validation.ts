@@ -274,7 +274,7 @@ export const validationClassContentAssignment = object({
   maxFileSize: number()
     .typeError('Dung lượng không được để trống')
     .required('Dung lượng không được để trống')
-    .max(30, 'Dung lượng phài lớn hơn 30MB'),
+    .max(30, 'Dung lượng phài nhỏ hơn 30MB'),
   passPoint: number()
     .typeError('Điểm đạt yêu cầu không được để trống')
     .required('Điểm đạt yêu cầu không được để trống')

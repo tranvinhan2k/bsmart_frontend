@@ -42,7 +42,7 @@ export default function UserCourseFeedback() {
       >
         <Stack>
           <Typography textAlign="center" sx={globalStyles.textTitle}>
-            {`${feedbacks?.rating || 0}/5`}
+            {`${feedbacks?.rating.toFixed(1) || 0}/5`}
           </Typography>
           <Rating
             value={feedbacks?.rating || 0}
@@ -66,10 +66,23 @@ export default function UserCourseFeedback() {
                   sx={{
                     margin: 1,
                   }}
+                  color="miSmartOrange"
                   onClick={() => handleChangeNumberOfStar(index)}
                   key={item}
-                  disabled={(feedbacks?.rateCount?.[`${index}`] || 0) === 0}
-                  variant={numberOfStar === index ? 'contained' : 'outlined'}
+                  disabled={
+                    index !== 0 &&
+                    (feedbacks?.rateCount?.[`${index}`] || 0) === 0
+                  }
+                  variant={
+                    // eslint-disable-next-line no-nested-ternary
+                    index !== 0
+                      ? numberOfStar === index
+                        ? 'contained'
+                        : 'outlined'
+                      : numberOfStar === undefined
+                      ? 'contained'
+                      : 'outlined'
+                  }
                 >
                   {`${item} (${
                     index === 0

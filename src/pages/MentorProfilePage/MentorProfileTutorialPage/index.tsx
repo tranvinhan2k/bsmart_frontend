@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CustomStepper, {
   StepPayload,
@@ -62,7 +62,6 @@ export default function MentorProfileTutorialPage() {
         navigate(
           `/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_mentor_info}`
         ),
-      description: 'Thêm ảnh đại diện của bạn',
     },
     {
       id: 3,
@@ -75,7 +74,6 @@ export default function MentorProfileTutorialPage() {
         navigate(
           `/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_mentor_info}`
         ),
-      description: 'Thêm ảnh đại diện của bạn',
     },
 
     {
@@ -87,11 +85,8 @@ export default function MentorProfileTutorialPage() {
       label: 'Thêm bằng cấp',
       onClick: () =>
         navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.classes}`
+          `/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_mentor_info}`
         ),
-
-      description:
-        'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },
     {
       id: 5,
@@ -102,11 +97,8 @@ export default function MentorProfileTutorialPage() {
       label: 'Thêm thông tin giới thiệu',
       onClick: () =>
         navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.classes}`
+          `/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_mentor_info}`
         ),
-
-      description:
-        'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },
     {
       id: 6,
@@ -117,11 +109,8 @@ export default function MentorProfileTutorialPage() {
       label: 'Thêm số năm kinh nghiệm',
       onClick: () =>
         navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.classes}`
+          `/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_mentor_info}`
         ),
-
-      description:
-        'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },
     {
       id: 7,
@@ -132,25 +121,30 @@ export default function MentorProfileTutorialPage() {
       label: 'Thêm kĩ năng lập trình',
       onClick: () =>
         navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.classes}`
+          `/${NavigationLink.mentor_profile}/${MentorNavigationLink.edit_profile_mentor_info}`
         ),
-
-      description:
-        'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },
     {
       id: 8,
       isCompleted: false,
       label: 'Phê duyệt hồ sơ giảng dạy',
-      onClick: () =>
-        navigate(
-          `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_course_detail}/${courseId}/${MentorCourseActionLink.classes}`
-        ),
-
-      description:
-        'Thêm lớp và khung giờ học phù hợp với lịch làm việc của bạn.',
     },
   ];
+
+  useEffect(() => {
+    if (mentorProfilesCompleteness) {
+      let paramActiveIndex = activeStep;
+      for (let index = paramActiveIndex; index < steps.length; index += 1) {
+        const element = steps[index];
+
+        if (element.isCompleted) {
+          paramActiveIndex = index !== steps.length - 1 ? index + 1 : index;
+        }
+      }
+      setActiveStep(paramActiveIndex);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mentorProfilesCompleteness]);
 
   return (
     <Stack>

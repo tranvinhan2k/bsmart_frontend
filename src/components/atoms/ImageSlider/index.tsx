@@ -45,7 +45,7 @@ export default function ImageSlider({ slides }: Props) {
             objectFit: 'cover',
             opacity: activeIndex === index ? 1 : 0,
             transition: 'all 1s ease',
-            borderRadius: MetricSize.small_10,
+            borderRadius: MetricSize.small_5,
             background: Color.white,
           }}
           src={item}
@@ -58,7 +58,7 @@ export default function ImageSlider({ slides }: Props) {
           right: 0,
           left: 0,
           bottom: 0,
-          borderRadius: MetricSize.small_10,
+          borderRadius: MetricSize.small_5,
           background:
             'linear-gradient(0deg, rgba(28,25,50,0.6643907563025211) 10%, rgba(255,255,255,0) 100%)',
         }}
