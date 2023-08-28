@@ -68,6 +68,7 @@ export const useUpdateMentorClassesForm = (
       numberOfSlot: tmpClass?.numberOfSlot,
       startDateExpected: tmpClass?.startDate,
       endDateExpected: tmpClass?.endDate,
+      imageOldId: tmpClass?.imageId,
       imageId: tmpClass?.imageUrl,
       timeInWeekRequests: tmpClass?.timeInWeekRequests.map((item) => ({
         dayOfWeek: optionDayOfWeeks.find(
@@ -91,6 +92,7 @@ export const useUpdateMentorClassesForm = (
   };
 
   const onUpdateClass = async (data: {
+    imageOldId: number;
     price: number;
     type: OptionPayload;
     imageId: string;
@@ -108,10 +110,14 @@ export const useUpdateMentorClassesForm = (
   }) => {
     let imageId: number | undefined;
 
-    try {
-      imageId = await uploadImage(data.imageId);
-    } catch (error: any) {
-      console.error(error.message);
+    if (typeof data.imageId === 'object') {
+      try {
+        imageId = await uploadImage(data.imageId);
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    } else {
+      imageId = data.imageOldId;
     }
 
     const param: PostClassRequest = {

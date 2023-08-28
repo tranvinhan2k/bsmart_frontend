@@ -42,6 +42,7 @@ export interface DetailCourseClassPayload {
   code: string;
   imageUrl: string;
   imageAlt: string;
+  imageId: number;
   price: number;
   minStudent: number;
   maxStudent: number;
