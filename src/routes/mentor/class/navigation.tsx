@@ -34,12 +34,6 @@ export const MentorClassNavigationActionData: ActionPayload[] = [
     icon: 'book',
   },
   {
-    id: 5,
-    link: MentorClassActionLink.mark_report,
-    name: 'Thống kê điểm số',
-    icon: 'blog',
-  },
-  {
     id: 8,
     link: MentorClassActionLink.feedback,
     name: 'Đánh giá từ học sinh',

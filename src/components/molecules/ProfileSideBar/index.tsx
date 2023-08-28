@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
   SX_WRAPPER,
   SX_BOX_ITEM_AVATAR,
@@ -28,6 +29,7 @@ import { MentorProfileStatus, MentorTeachingInformation } from '~/models/type';
 import MentorProfileCompleteProgress from '../MentorProfileCompleteProgress';
 import MentorProfileStatusProfileSideBar from '../MentorProfileStatusProfileSideBar';
 import CoinLabel from '~/components/atoms/CoinLabel';
+import { selectProfile } from '~/redux/user/selector';
 
 export interface ProfileSideBarProps {
   name: string;
@@ -97,6 +99,8 @@ export default function ProfileSideBar({
     noOfRatingDisplay: `(${teachInformation?.numberOfFeedBack} đánh giá)`,
   };
 
+  const profile = useSelector(selectProfile);
+
   const noOfRating = 482;
   const displayFieldsMember = {
     items: [
@@ -104,15 +108,22 @@ export default function ProfileSideBar({
         id: 0,
         image: 'coPresent',
         text1: 'Tham gia',
-        number: 16,
+        number: profile.learningInformation?.numberOfCourse,
         text2: 'Khóa học',
       },
       {
         id: 1,
         image: 'coPresent',
         text1: 'Tham gia',
-        number: 172,
-        text2: 'Lớp học',
+        number: profile.learningInformation?.numberOfClass,
+        text2: 'Lớp học đã tham gia',
+      },
+      {
+        id: 2,
+        image: 'coPresent',
+        text1: 'Đã kết thúc',
+        number: profile.learningInformation?.numberOfFinishedClass,
+        text2: 'Lớp học đã kết thúc',
       },
     ],
     ratingDisplay: {

@@ -354,6 +354,7 @@ export type ResponseDetailClass = Partial<{
   status: ClassStatusKeys;
   price: number;
   minStudent: number;
+  classURL: string;
   maxStudent: number;
   numberOfSlot: number;
   hasReferralCode: boolean;
@@ -832,6 +833,7 @@ export type GetFeedbackCommentPayload = Partial<{
   submitBy: string;
   rate: number;
   comment: string;
+  avatarUrl: string;
 }>;
 
 export type GetCourseFeedbackPayload = Partial<{
@@ -958,4 +960,41 @@ export type AiConvertResponse = Partial<{
   };
   type_new: string;
   type: string;
+}>;
+
+export type AssignmentResultResponse = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  point: number;
+  note: string;
+  studentClass: {
+    id: number;
+    images: {
+      id: number;
+      name: string;
+      url: string;
+      status: true;
+      type: 'DEFAULT';
+    };
+    email: string;
+    name: string;
+  };
+  assignmentFiles: {
+    id: number;
+    url: string;
+    uploadTime: string;
+    fileType: 'SUBMIT';
+    point: number;
+    note: string;
+    name: string;
+    metadata: {
+      url: string;
+      name: string;
+      extension: string;
+      size: number;
+    };
+  }[];
 }>;

@@ -205,6 +205,9 @@ export const validationCheckUrl = object({
     .matches(URL, 'Đường dẫn không hợp lệ.')
     .required('Đường dẫn không được để trống.'),
 });
+export const validationAssignment = object({
+  note: string().required('Ghi chú không được để trống.'),
+});
 export const validationPaymentPrice = object({
   price: number()
     .required('Số tiền không được để trống.')
@@ -275,6 +278,9 @@ export const validationClassContentAssignment = object({
     .typeError('Dung lượng không được để trống')
     .required('Dung lượng không được để trống')
     .max(30, 'Dung lượng phài nhỏ hơn 30MB'),
+  password: string()
+    .matches(PASSWORD_REGEX, PASSWORD_MATCHED)
+    .required(PASSWORD_REQUIRED),
   passPoint: number()
     .typeError('Điểm đạt yêu cầu không được để trống')
     .required('Điểm đạt yêu cầu không được để trống')

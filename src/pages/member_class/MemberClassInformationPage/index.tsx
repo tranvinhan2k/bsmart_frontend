@@ -52,7 +52,7 @@ export default function MemberClassInformationPage() {
   const { handleTryCatch } = useTryCatch('gửi đánh giá');
 
   const { subjects } = useDispatchGetAllSubjects();
-  const subject = subjects.find((item) => item.id === detailClass?.id || 0);
+  const subject = subjects?.find((item) => item.id === detailClass?.id || 0);
 
   const resolver = useYupValidationResolver(validationRating);
   const { control, handleSubmit } = useForm({

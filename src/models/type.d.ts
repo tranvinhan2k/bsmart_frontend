@@ -50,6 +50,7 @@ export interface ProfilePayload {
   wallet: WalletPayload;
   mentorProfile: MentorProfileIntroducePayload;
   teachInformation?: MentorTeachingInformation;
+  learningInformation?: MentorLearningInformation;
   isVerified: boolean;
   verified: boolean;
 }
@@ -66,6 +67,11 @@ export interface MentorTeachingInformation {
   numberOfMember: number;
   scoreFeedback: number;
   numberOfFeedBack: number;
+}
+export interface MentorLearningInformation {
+  numberOfClass: number;
+  numberOfCourse: number;
+  numberOfFinishedClass: number;
 }
 
 export interface ImagePayload {
@@ -158,6 +164,7 @@ export interface ClassDetailPayload {
   imageUrl: string | undefined;
   imageAlt: string | undefined;
   teacherName?: string[];
+  classURL: string;
   teacherPhone: string;
   teacherMail: string;
   teacherAlt: string;

@@ -171,7 +171,7 @@ export default function ClassItem({
               margin: 1,
               background: Color.white,
               objectFit: 'cover',
-              height: '300px',
+              height: '350px',
               width: undefined,
               aspectRatio: 1,
             }}

@@ -64,6 +64,17 @@ const classApi = {
 
     return result;
   },
+
+  async changeUrl(params: { id: number; url: string }) {
+    return axiosClient.put(
+      `${url}/${params.id}/meeting`,
+      {},
+      {
+        params,
+      }
+    );
+  },
+
   async getStudentMarkReport(params: { classId: number; studentId: number }) {
     const response: Partial<{
       point: number;
@@ -200,6 +211,7 @@ const classApi = {
         endDate: item.endDate,
         startDate: item.startDate,
         numberOfSlot: item.numberOfSlot,
+        link: item.classURL,
         level: item.level,
         status: item.status,
         isFullStudent: item.isFullStudent || false,
@@ -245,6 +257,7 @@ const classApi = {
       imageAlt: response?.image?.name || '',
       imageUrl: response?.image?.url || '',
       name: response.course?.name || '',
+      classURL: response.classURL || '',
       progressValue: response.progress?.percentage || 0,
       status: response?.status || 'ALL',
       subjectId: response.course?.subject?.id || 0,

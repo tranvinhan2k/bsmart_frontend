@@ -18,6 +18,7 @@ interface Props {
   phone: string;
   imageUrl: string;
   imageAlt: string;
+  isHidePoint?: boolean;
 }
 
 export default function UserDetailInformation({
@@ -26,6 +27,7 @@ export default function UserDetailInformation({
   imageUrl,
   name,
   phone,
+  isHidePoint = false,
 }: Props) {
   const profile = useSelector(selectProfile);
   const id = useGetIdFromUrl('id');
@@ -96,17 +98,19 @@ export default function UserDetailInformation({
         </Stack>
       </Stack>
 
-      <Stack>
-        <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
-          Thông tin điểm số
-        </Typography>
-        <CRUDTable
-          error={error}
-          isLoading={isLoading}
-          columns={columns}
-          rows={mark || []}
-        />
-      </Stack>
+      {!isHidePoint && (
+        <Stack>
+          <Typography marginTop={1} sx={globalStyles.textSmallLabel}>
+            Thông tin điểm số
+          </Typography>
+          <CRUDTable
+            error={error}
+            isLoading={isLoading}
+            columns={columns}
+            rows={mark || []}
+          />
+        </Stack>
+      )}
     </Stack>
   );
 }

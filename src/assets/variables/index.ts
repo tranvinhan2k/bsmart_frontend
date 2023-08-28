@@ -40,6 +40,7 @@ export const Color = {
   border: '#dddddd',
   muiWarningBg: '#fdeded',
   muiSuccessBg: '#edf7ed',
+  background: '#FDFAF6',
 };
 
 export const BorderRadius = {

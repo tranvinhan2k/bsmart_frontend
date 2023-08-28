@@ -9,9 +9,18 @@ interface Props {
   rating: number;
   date: string;
   review: string;
+  avatarAlt: string;
+  avatarUrl: string;
 }
 
-export default function ReviewFeedback({ date, email, rating, review }: Props) {
+export default function ReviewFeedback({
+  date,
+  email,
+  rating,
+  review,
+  avatarAlt,
+  avatarUrl,
+}: Props) {
   return (
     <Stack
       sx={{
@@ -24,7 +33,7 @@ export default function ReviewFeedback({ date, email, rating, review }: Props) {
         background: Color.white,
       }}
     >
-      <Avatar />
+      <Avatar src={avatarUrl} alt={avatarAlt} />
       <Stack paddingX={1}>
         <Typography>{email}</Typography>
         <Rating value={rating} readOnly size="small" />

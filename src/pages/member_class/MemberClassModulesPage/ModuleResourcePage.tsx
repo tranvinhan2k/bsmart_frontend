@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
+import { Color, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';

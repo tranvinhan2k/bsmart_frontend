@@ -8,6 +8,7 @@ import {
   PostSubmitQuizPayload,
 } from '~/models/request';
 import {
+  AssignmentResultResponse,
   GetActivityResponse,
   GetAllMentorAssignment,
   GetMentorListQuiz,
@@ -119,6 +120,15 @@ const activityApi = {
     }));
 
     return result;
+  },
+
+  async getResultAssignment(params: { classId: number; assignmentId: number }) {
+    const response: AssignmentResultResponse = await axiosClient.get(
+      `${url}/assignments/${params.assignmentId}/submit`,
+      { params }
+    );
+
+    return response;
   },
 
   async getMentorQuizzes({
@@ -372,6 +382,7 @@ const activityApi = {
   }): Promise<boolean> {
     const requestData = new FormData();
     requestData.append('note', params.note);
+    requestData.append('password', params.password);
 
     if (params.submittedFiles) {
       params.submittedFiles.map((item) => {

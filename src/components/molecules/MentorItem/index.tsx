@@ -65,6 +65,7 @@ export default function MentorItem({
         background: Color.white,
         ':hover': {
           boxShadow: 3,
+          cursor: 'pointer',
         },
       }}
       onClick={handleNavigateMentorDetail}

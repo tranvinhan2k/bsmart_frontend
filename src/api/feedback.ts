@@ -232,8 +232,8 @@ const feedbacksApi = {
     const valueItems: FeedbackReviewPayload[] = response.items.map(
       (item, index) => ({
         id: index,
-        avatarAlt: image.mockStudent,
-        avatarUrl: image.mockStudent,
+        avatarAlt: 'feedback avt image',
+        avatarUrl: item.avatarUrl || '',
         email: item.submitBy || '',
         feedbackTime: new Date().toISOString(),
         rating: item.rate || 0,
@@ -260,10 +260,10 @@ const feedbacksApi = {
       });
 
     const valueItems: FeedbackReviewPayload[] =
-      courseResponse?.submissions?.map((item, index) => ({
+      response.items.map((item, index) => ({
         id: index,
-        avatarAlt: image.mockStudent,
-        avatarUrl: image.mockStudent,
+        avatarAlt: 'feedback avt image',
+        avatarUrl: item.avatarUrl || '',
         email: item.submitBy || '',
         feedbackTime: new Date().toISOString(),
         rating: item.rate || 0,
