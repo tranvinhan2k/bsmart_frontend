@@ -565,7 +565,7 @@ const managedUserMentorColumns = managedUserBasedColumns.concat(
     headerAlign: 'left',
     type: 'number',
     headerName: 'Học sinh đã dạy',
-    minWidth: 100,
+    minWidth: 120,
     flex: 1,
     sortable: false,
     valueGetter: (params) => params.row.teachInformation.numberOfMember,

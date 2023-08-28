@@ -62,6 +62,7 @@ export default function MentorItem({
         width: { xs: '100%', md: '48%', lg: '32%' },
         borderRadius: MetricSize.small_5,
         justifyContent: 'space-between',
+        cursor: 'pointer',
         background: Color.white,
         ':hover': {
           boxShadow: 3,

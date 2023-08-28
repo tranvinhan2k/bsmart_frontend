@@ -51,6 +51,11 @@ export default function ManageTableDetailsCourse({
               status={row.status}
               scrollRef={scrollCourseDetails.ref}
             />
+            <RequestCourseMentorInfo
+              idCourse={row.id}
+              status={row.status}
+              scrollRef={scrollCourseMentorInfo.ref}
+            />
             <RequestCourseContent
               idCourse={row.id}
               status={row.status}
@@ -60,11 +65,6 @@ export default function ManageTableDetailsCourse({
               idCourse={row.id}
               status={row.status}
               scrollRef={scrollCourseClassList.ref}
-            />
-            <RequestCourseMentorInfo
-              idCourse={row.id}
-              status={row.status}
-              scrollRef={scrollCourseMentorInfo.ref}
             />
           </Stack>
         </Grid>
@@ -79,9 +79,9 @@ export default function ManageTableDetailsCourse({
             {/* <RequestCourseDate idCourse={row.id} status={row.status} /> */}
             <RequestCourseScroll
               scrollCourseDetails={scrollCourseDetails.executeScroll}
+              scrollCourseMentorInfo={scrollCourseMentorInfo.executeScroll}
               scrollCourseContent={scrollCourseContent.executeScroll}
               scrollCourseClassList={scrollCourseClassList.executeScroll}
-              scrollCourseMentorInfo={scrollCourseMentorInfo.executeScroll}
             />
           </Stack>
         </Grid>

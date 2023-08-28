@@ -18,6 +18,7 @@ import {
   SX_FORM_LABEL,
 } from './style';
 import globalStyles from '~/styles';
+import { mockLevelData } from '~/constants';
 
 interface ClassDetailsCourseProps {
   idClass: number;
@@ -31,10 +32,13 @@ export default function ClassDetailsCourse({
 
   const courseCode = classDetails ? classDetails.course.code : '';
   const courseName = classDetails ? classDetails.course.name : '';
-  const courseLevel = MSG_BE_MISSING_FIELD;
+  // const courseLevel = classDetails ? classDetails.level : '';
+  const courseLevel = classDetails
+    ? mockLevelData.find((item) => item.value === classDetails.level)?.label
+    : '';
   const courseCategory = MSG_BE_MISSING_FIELD;
   const courseSubject = classDetails ? classDetails.course.subject.name : '';
-  const courseDesc = MSG_BE_MISSING_FIELD;
+  const courseDesc = classDetails ? classDetails.course.description : '';
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const handleIsDescriptionExpanded = () => {
