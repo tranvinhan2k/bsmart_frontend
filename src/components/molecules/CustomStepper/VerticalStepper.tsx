@@ -39,7 +39,7 @@ export default function VerticalStepper({
           <Step key={step.label} completed={step.isCompleted}>
             <StepLabel
               optional={
-                index === 2 ? (
+                index === steps.length - 1 ? (
                   <Typography variant="caption">Bước cuối cùng</Typography>
                 ) : null
               }
@@ -48,17 +48,19 @@ export default function VerticalStepper({
             </StepLabel>
             <StepContent>
               <Typography>{step.description}</Typography>
-              <Box sx={{ mb: 2 }}>
-                <div>
-                  <Button
-                    variant="contained"
-                    onClick={step.onClick}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === steps.length - 1 ? 'Hoàn thành' : 'Đi tới'}
-                  </Button>
-                </div>
-              </Box>
+              {step.onClick && (
+                <Box sx={{ mb: 2 }}>
+                  <div>
+                    <Button
+                      variant="contained"
+                      onClick={step.onClick}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      {index === steps.length - 1 ? 'Hoàn thành' : 'Đi tới'}
+                    </Button>
+                  </div>
+                </Box>
+              )}
             </StepContent>
           </Step>
         ))}
