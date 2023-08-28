@@ -51,6 +51,7 @@ export default function SubActivityCourseDetails({
         title={renderTitle}
         onClose={handleTriggerDialog}
         open={open}
+        maxWidth="xl"
       >
         <SubActivityContent id={subActivity.id} />
       </CustomDialog>
