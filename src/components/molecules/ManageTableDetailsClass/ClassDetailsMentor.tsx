@@ -11,6 +11,7 @@ import Icon from '~/components/atoms/Icon';
 import { useGetManagedClassDetails } from '~/hooks/class/useGetManagedClassDetails';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import { formatPhoneNumberVi } from '~/utils/phone';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
@@ -58,7 +59,7 @@ export default function ClassDetailsMentor({
     {
       id: 2,
       label: Text.labelPhone,
-      value: classDetails ? classDetails.mentor.phone : '',
+      value: classDetails ? formatPhoneNumberVi(classDetails.mentor.phone) : '',
     },
     {
       id: 3,

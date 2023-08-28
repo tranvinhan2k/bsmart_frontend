@@ -4,12 +4,13 @@ import { useForm } from 'react-hook-form';
 import { ProcessCreateCourseRequestPayload } from '~/api/courses';
 import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
-import { ClassStatusType } from '~/constants/class';
+import { CourseStatusType } from '~/constants/course';
 import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import { useYupValidationResolver } from '~/hooks';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { useMutationProcessCourseCreateRequest } from '~/hooks/course/useMutationProcessCourseCreateRequest';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
@@ -18,7 +19,7 @@ interface RequestCourseProcessProps {
   onClose: () => void;
   refetchGetNoOfRequest: () => void;
   refetchSearch: () => void;
-  status: ClassStatusType;
+  status: CourseStatusType;
 }
 
 export default function RequestCourseProcess({
@@ -65,8 +66,6 @@ export default function RequestCourseProcess({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleProcessCourseCreateRequest = async (
     data: ProcessCreateCourseRequestFormDefault
   ) => {
@@ -89,8 +88,8 @@ export default function RequestCourseProcess({
       refetchSearch();
       refetchGetNoOfRequest();
       onClose();
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
+    } catch (e: unknown) {
+      toast.updateFailedToast(id, toastMsgError(e));
     }
   };
 

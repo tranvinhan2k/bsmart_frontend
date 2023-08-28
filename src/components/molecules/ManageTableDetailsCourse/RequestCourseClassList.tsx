@@ -1,19 +1,16 @@
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import {
-  useGetCourseCreateRequestDetails,
-  UseGetCourseCreateRequestDetailsPayload,
-} from '~/hooks/course/useGetCourseCreateRequestDetails';
-import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
 import DataGrid, { MenuItemPayload } from '~/components/atoms/DataGrid';
+import { CourseStatusType } from '~/constants/course';
+import columns from '~/constants/columns';
+import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import RequestCourseClassDetails from './RequestCourseClassDetails';
 import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
-import { ClassStatusType } from '~/constants/class';
 
 interface RequestCourseClassListProps {
   idCourse: number;
-  status: ClassStatusType;
+  status: CourseStatusType;
   scrollRef: any;
 }
 

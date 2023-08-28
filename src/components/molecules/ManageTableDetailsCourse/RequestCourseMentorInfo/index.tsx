@@ -8,10 +8,11 @@ import {
   Typography,
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
-import { ClassStatusType } from '~/constants/class';
+import { CourseStatusType } from '~/constants/course';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import { formatPhoneNumberVi } from '~/utils/phone';
 import {
   SX_FORM_ITEM_LABEL2,
   SX_FORM_ITEM_VALUE2,
@@ -21,7 +22,7 @@ import {
 
 interface RequestCourseClassListProps {
   idCourse: number;
-  status: ClassStatusType;
+  status: CourseStatusType;
   scrollRef: any;
 }
 
@@ -45,66 +46,69 @@ export default function RequestCourseMentorInfo({
     labelNoOfRating = 'Số đánh giá',
   }
 
-  const title0 = courseCreateRequestDetails
-    ? [
-        {
-          id: 0,
-          label: Text.labelName,
-          value: courseCreateRequestDetails?.mentor?.name ?? '',
-        },
-        {
-          id: 1,
-          label: Text.labelMail,
-          value: courseCreateRequestDetails?.mentor?.email ?? '',
-        },
-        {
-          id: 2,
-          label: Text.labelPhone,
-          value: courseCreateRequestDetails?.mentor?.phone ?? '',
-        },
-        {
-          id: 3,
-          label: Text.labelJoinDate,
-          value: formatISODateDateToDisplayDateTime(
+  const title0 = [
+    {
+      id: 0,
+      label: Text.labelName,
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails?.mentor?.name
+        : '',
+    },
+    {
+      id: 1,
+      label: Text.labelMail,
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails?.mentor?.email
+        : '',
+    },
+    {
+      id: 2,
+      label: Text.labelPhone,
+      value: courseCreateRequestDetails
+        ? formatPhoneNumberVi(courseCreateRequestDetails?.mentor?.phone)
+        : '',
+    },
+    {
+      id: 3,
+      label: Text.labelJoinDate,
+      value: courseCreateRequestDetails
+        ? formatISODateDateToDisplayDateTime(
             courseCreateRequestDetails?.mentor?.timeParticipation
-          ),
-        },
-      ]
-    : [];
+          )
+        : '',
+    },
+  ];
 
-  const title2 = courseCreateRequestDetails
-    ? [
-        {
-          id: 1,
-          label: Text.labelCoursePossess,
-          value:
-            courseCreateRequestDetails?.mentor?.teachInformation
-              ?.numberOfCourse ?? 0,
-        },
-        {
-          id: 2,
-          label: Text.labelClassPossess,
-          value:
-            courseCreateRequestDetails?.mentor?.teachInformation
-              ?.numberOfClass ?? 0,
-        },
-        {
-          id: 3,
-          label: Text.labelRating,
-          value: `${
-            courseCreateRequestDetails?.mentor?.teachInformation
-              ?.scoreFeedback ?? 0
-          } / 5`,
-        },
-        {
-          id: 4,
-          label: Text.labelNoOfRating,
-          value:
-            courseCreateRequestDetails?.mentor?.teachInformation
-              ?.numberOfFeedBack ?? 0,
-        },
-      ]
-    : [];
+  const title2 = [
+    {
+      id: 1,
+      label: Text.labelCoursePossess,
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfCourse
+        : 0,
+    },
+    {
+      id: 2,
+      label: Text.labelClassPossess,
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfClass
+        : 0,
+    },
+    {
+      id: 3,
+      label: Text.labelRating,
+      value: `${
+        courseCreateRequestDetails?.mentor?.teachInformation?.scoreFeedback ?? 0
+      } / 5`,
+    },
+    {
+      id: 4,
+      label: Text.labelNoOfRating,
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfFeedBack
+        : 0,
+    },
+  ];
 
   return (
     <Box sx={SX_WRAPPER} ref={scrollRef}>

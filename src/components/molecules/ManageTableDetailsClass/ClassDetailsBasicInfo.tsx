@@ -1,5 +1,6 @@
 import { Box, Grid, Skeleton, Stack, Typography } from '@mui/material';
 import Icon, { IconName } from '~/components/atoms/Icon';
+import { ClassStatusList } from '~/constants';
 import { useGetManagedClassDetails } from '~/hooks/class/useGetManagedClassDetails';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
@@ -40,7 +41,10 @@ export default function ClassDetailsBasicInfo({
       id: 3,
       iconName: 'tagIcon',
       label: 'Trạng thái',
-      value: classDetails ? classDetails.status : '',
+      value: classDetails
+        ? ClassStatusList.find((item) => item.value === classDetails.status)
+            ?.label ?? ''
+        : '',
       size: 6,
     },
     {

@@ -11,6 +11,7 @@ import { validationSchemaApproveCreateCourseRequest } from '~/form/validation';
 import FormInput from '~/components/atoms/FormInput';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
 interface RequestCourseProcessProps {
@@ -43,7 +44,7 @@ export default function RequestCourseProcess({
     useForm({
       defaultValues: {
         status: 'NOTSTART',
-        message: 'Chúc mừng bạn đã tạo lớp thành công',
+        message: 'Chúc mừng bạn đã tạo khóa học thành công',
       },
       resolver: resolverApproveCreateCourseRequest,
     });
@@ -65,8 +66,6 @@ export default function RequestCourseProcess({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleProcessCourseCreateRequest = async (
     data: ProcessCreateCourseRequestFormDefault
   ) => {
@@ -89,8 +88,8 @@ export default function RequestCourseProcess({
       refetchSearch();
       refetchGetNoOfRequest();
       onClose();
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

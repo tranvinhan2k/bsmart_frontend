@@ -1,16 +1,24 @@
-import { Avatar, Box, Button, Grid, Stack, Typography } from '@mui/material';
-import { ClassOfCourseCreateRequestDetails } from '~/models/courses';
-import { FontFamily } from '~/assets/variables';
-import { formatISODateStringToDisplayDate } from '~/utils/date';
+import {
+  Avatar,
+  Button,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
+import Icon from '~/components/atoms/Icon';
 import Timetable from '~/components/molecules/Timetable';
-import globalStyles from '~/styles';
+import { ClassOfCourseCreateRequestDetails } from '~/models/courses';
+import { formatISODateStringToDisplayDate } from '~/utils/date';
+import { formatMoney } from '~/utils/money';
+import { handleCopyToClipboard } from '~/utils/commonComp';
+import { handleViewImgFromUrl } from '~/utils/common';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL,
   SX_FORM_ITEM_VALUE,
   SX_REQUEST_TITLE,
 } from './style';
-import { formatMoney } from '~/utils/money';
 
 interface RequestCourseClassDetailsProps {
   onClose: () => void;
@@ -87,7 +95,15 @@ export default function RequestCourseClassDetails({
 
   return (
     <>
-      <Typography sx={SX_REQUEST_TITLE}>Chi tiết lớp {classCode}</Typography>
+      <Typography sx={SX_REQUEST_TITLE}>
+        Chi tiết lớp #{classCode}
+        <IconButton
+          size="small"
+          onClick={() => handleCopyToClipboard(classCode)}
+        >
+          <Icon name="contentCopyIcon" size="medium" color="blue" />
+        </IconButton>
+      </Typography>
       <Grid
         container
         justifyContent="flex-start"
@@ -98,18 +114,21 @@ export default function RequestCourseClassDetails({
       >
         <Grid item xs={12} container spacing={2}>
           <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-              spacing={2}
+            <Button
+              fullWidth
+              onClick={() => handleViewImgFromUrl(classDetails?.image?.url)}
             >
               <Avatar
                 variant="rounded"
-                sx={{ height: 200, width: 200 }}
+                sx={{
+                  objectFit: 'cover',
+                  width: '100%',
+                  height: '100%',
+                  aspectRatio: 16 / 9,
+                }}
                 src={classDetails?.image?.url}
               />
-            </Stack>
+            </Button>
           </Grid>
           {displayText.map((item) => (
             <Grid item xs={12} sm={12} md={4} lg={4} xl={4} key={item.id}>

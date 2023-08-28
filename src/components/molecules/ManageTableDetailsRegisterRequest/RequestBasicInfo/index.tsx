@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import Icon from '~/components/atoms/Icon';
 import { genderData } from '~/constants';
+import { handleViewImgFromUrl } from '~/utils/common';
 import { handleCopyToClipboard } from '~/utils/commonComp';
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
@@ -110,10 +111,6 @@ export default function BasicInfo({ row }: BasicInfoProps) {
     },
   ];
 
-  const handleViewImg = (link: string | undefined) => {
-    if (typeof link === 'string') window.open(link, '_blank');
-  };
-
   return (
     <Box sx={SX_WRAPPER}>
       <Box p={2}>
@@ -138,7 +135,7 @@ export default function BasicInfo({ row }: BasicInfoProps) {
                 src={userAvatar}
                 variant="rounded"
                 sx={SX_USER_AVATAR_CLICKABLE}
-                onClick={() => handleViewImg(userAvatar)}
+                onClick={() => handleViewImgFromUrl(userAvatar)}
               />
               <Box>
                 <Grid
