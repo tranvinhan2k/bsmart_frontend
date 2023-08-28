@@ -15,7 +15,7 @@ export const useGetCourseFeedback = (id: number) => {
   };
 
   const handleChangeNumberOfStar = (rate: number) => {
-    setFilterParams({ ...filterParams, rate });
+    setFilterParams({ ...filterParams, rate: rate === 0 ? undefined : rate });
   };
 
   const { data, error, isLoading } = useCustomQuery(

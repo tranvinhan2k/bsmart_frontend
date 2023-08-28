@@ -105,7 +105,7 @@ export default function UserCourseItem({
                   fontFamily: FontFamily.bold,
                 }}
               >
-                {rating}
+                {rating?.toFixed(1)}
               </Typography>
               <Rating value={rating} readOnly size="small" />
               <Typography sx={globalStyles.textLowSmallLight}>
