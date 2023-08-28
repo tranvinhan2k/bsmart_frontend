@@ -80,7 +80,7 @@ export default function MainFooter({
         <Grid
           item
           xs={12}
-          md={3}
+          md={4}
           sx={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -102,7 +102,7 @@ export default function MainFooter({
             <SocialBar color="white" socials={FooterSocialDataList} />
           </Box>
         </Grid>
-        <Grid
+        {/* <Grid
           item
           xs={12}
           md={2}
@@ -126,15 +126,14 @@ export default function MainFooter({
               </Tooltip>
             ))}
           </Stack>
-        </Grid>
-        <Grid item xs={12} md={5}>
+        </Grid> */}
+        <Grid item xs={12} md={4}>
           <Stack
-            sx={{
-              justifyContent: 'center',
-              alignItems: { xs: 'flex-start', md: 'center' },
-              flex: 1,
-              height: '100%',
-            }}
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+            mt={2}
           >
             <Button
               onClick={() => {
@@ -147,11 +146,11 @@ export default function MainFooter({
                 color: Color.white,
               }}
             >
-              Đăng kí khóa học
+              Đăng kí ngay
             </Button>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} md={4}>
           <Typography sx={SX_MEDIUM_BOLD_TEXT}>
             Liện hệ với chúng tôi
           </Typography>

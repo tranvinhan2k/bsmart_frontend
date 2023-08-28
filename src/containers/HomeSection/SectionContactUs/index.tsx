@@ -4,6 +4,12 @@ import img_banner_sub_typing_2 from '~/assets/images/HomePageSection/img_banner_
 import { SX } from './style';
 
 export default function SectionContactUs() {
+  // const contactInfo = [
+  //   { id: 0, label: 'Số điện thoại', value: '946,005,077' },
+  //   { id: 1, label: 'Email', value: 'mismart@gmail.com' },
+  //   { id: 2, label: '', value: '' },
+  // ];
+
   return (
     <Box sx={SX.BOX}>
       <Box sx={SX.CONTAINER} px={16}>

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { Color, FontSize, FontWeight } from '~/assets/variables';
+import { Color, FontFamily, FontSize, FontWeight } from '~/assets/variables';
 
 const BOX: SxProps<Theme> = {
   padding: '95px 0 150px',
@@ -32,10 +32,21 @@ const FORM_TITLE: SxProps<Theme> = {
   textTransform: 'uppercase',
 };
 
+const CONTACT_LABEL: SxProps<Theme> = {
+  fontSize: 22,
+  fontFamily: FontFamily.bold,
+};
+const CONTACT_VALUE: SxProps<Theme> = {
+  fontSize: 22,
+  fontFamily: FontFamily.medium,
+};
+
 export const SX = {
   BOX,
   BOX_IMG,
   CONTAINER,
   FORM,
   FORM_TITLE,
+  CONTACT_LABEL,
+  CONTACT_VALUE,
 };
