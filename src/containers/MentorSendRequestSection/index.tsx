@@ -33,13 +33,13 @@ export default function MentorSendRequestSection() {
   const tabEl = [
     {
       id: 0,
-      component: <UpdateMentorProfileRequestSection />,
-      guide: <UpdateMentorProfileRequestSectionGuide />,
+      component: <WithdrawSection />,
+      guide: <WithdrawRequestSectionGuide />,
     },
     {
       id: 1,
-      component: <WithdrawSection />,
-      guide: <WithdrawRequestSectionGuide />,
+      component: <UpdateMentorProfileRequestSection />,
+      guide: <UpdateMentorProfileRequestSectionGuide />,
     },
   ];
 
@@ -63,8 +63,8 @@ export default function MentorSendRequestSection() {
                 select
                 size="small"
               >
-                <MenuItem value={0}>{Text.selectUpdateMentorProfile}</MenuItem>
-                <MenuItem value={1}>{Text.selectWithdraw}</MenuItem>
+                <MenuItem value={0}>{Text.selectWithdraw}</MenuItem>
+                <MenuItem value={1}>{Text.selectUpdateMentorProfile}</MenuItem>
               </TextField>
             </FormControl>
           </Grid>
