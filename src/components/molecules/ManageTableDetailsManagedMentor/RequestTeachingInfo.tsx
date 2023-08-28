@@ -10,13 +10,15 @@ import {
 
 interface RequestTeachingInfoProps {
   idMentor: number;
+  scrollRef: any;
 }
 
 export default function RequestTeachingInfo({
   idMentor,
+  scrollRef,
 }: RequestTeachingInfoProps) {
   const enum Text {
-    mainTitle = 'Thống kê và đánh giá',
+    mainTitle = 'Giảng dạy và đánh giá',
     labelNumberOfCourses = 'Khóa học',
     labelNumberOfClass = 'Lớp học',
     labelNumberOfMember = 'Học sinh đã dạy',
@@ -61,9 +63,9 @@ export default function RequestTeachingInfo({
       : Text.labelNoRatingYet;
 
   return (
-    <Box sx={SX_BOX_ITEM_WRAPPER}>
+    <Box sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
-      <Grid container mt={2} rowSpacing={2}>
+      <Grid container mt={1} rowSpacing={2}>
         {title0.map((item) => (
           <Grid item xs={12} sm={6} md={6} lg={3} key={item.id}>
             <Stack

@@ -1,10 +1,10 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { useScrollIntoView } from '~/hooks';
 import RequestBasicInfo from './RequestBasicInfo';
 import RequestCI from './RequestCI';
-import RequestDate from './RequestDate';
+import RequestManagedMentorScroll from './RequestManagedMentorScroll';
 import RequestMentorDegree from './RequestMentorDegree';
 import RequestMentorInfo from './RequestMentorInfo';
-import RequestRegisterProcess from './RequestRegisterProcess';
 import RequestTeachingInfo from './RequestTeachingInfo';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
@@ -21,6 +21,12 @@ export default function ManageTableDetailsManagedMentor({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsManagedMentorProps) {
+  const scrollRequestBasicInfo = useScrollIntoView();
+  const scrollRequestCI = useScrollIntoView();
+  const scrollRequestMentorDegree = useScrollIntoView();
+  const scrollRequestMentorInfo = useScrollIntoView();
+  const scrollRequestTeachingInfo = useScrollIntoView();
+
   return (
     <>
       <Box mx={2}>
@@ -42,11 +48,23 @@ export default function ManageTableDetailsManagedMentor({
               alignItems="stretch"
               spacing={2}
             >
-              <RequestBasicInfo idMentor={rowId} />
-              <RequestCI idMentor={rowId} />
-              <RequestMentorDegree idMentor={rowId} />
-              <RequestMentorInfo idMentor={rowId} />
-              <RequestTeachingInfo idMentor={rowId} />
+              <RequestBasicInfo
+                idMentor={rowId}
+                scrollRef={scrollRequestBasicInfo.ref}
+              />
+              <RequestCI idMentor={rowId} scrollRef={scrollRequestCI.ref} />
+              <RequestMentorDegree
+                idMentor={rowId}
+                scrollRef={scrollRequestMentorDegree.ref}
+              />
+              <RequestMentorInfo
+                idMentor={rowId}
+                scrollRef={scrollRequestMentorInfo.ref}
+              />
+              <RequestTeachingInfo
+                idMentor={rowId}
+                scrollRef={scrollRequestTeachingInfo.ref}
+              />
             </Stack>
           </Grid>
           <Grid item sm={12} md={4} lg={4}>
@@ -57,7 +75,18 @@ export default function ManageTableDetailsManagedMentor({
               spacing={2}
               sx={SX_BOX_STICKY}
             >
-              <RequestDate idMentor={rowId} />
+              {/* <RequestDate idMentor={rowId} /> */}
+              <RequestManagedMentorScroll
+                scrollRequestBasicInfo={scrollRequestBasicInfo.executeScroll}
+                scrollRequestCI={scrollRequestCI.executeScroll}
+                scrollRequestMentorDegree={
+                  scrollRequestMentorDegree.executeScroll
+                }
+                scrollRequestMentorInfo={scrollRequestMentorInfo.executeScroll}
+                scrollRequestTeachingInfo={
+                  scrollRequestTeachingInfo.executeScroll
+                }
+              />
             </Stack>
           </Grid>
         </Grid>

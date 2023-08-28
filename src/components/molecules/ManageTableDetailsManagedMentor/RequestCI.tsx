@@ -12,9 +12,10 @@ interface CIItemType {
 
 interface RequestCIProps {
   idMentor: number;
+  scrollRef: any;
 }
 
-export default function RequestCI({ idMentor }: RequestCIProps) {
+export default function RequestCI({ idMentor, scrollRef }: RequestCIProps) {
   const enum Text {
     mainTitle = 'Ảnh CMND/CCCD',
   }
@@ -52,7 +53,7 @@ export default function RequestCI({ idMentor }: RequestCIProps) {
     : [];
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>

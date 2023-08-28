@@ -10,6 +10,7 @@ import {
 import { formatISODateStringToDisplayDate } from '~/utils/date';
 import { genderData } from '~/constants';
 import { handleCopyToClipboard } from '~/utils/commonComp';
+import { handleViewImgFromUrl } from '~/utils/common';
 import { useGetManagedMemberDetails } from '~/hooks/user/useGetManagedMemberDetails';
 import Icon from '~/components/atoms/Icon';
 import {
@@ -17,12 +18,14 @@ import {
   SX_FORM_ITEM_VALUE2,
   SX_FORM_LABEL,
   SX_WRAPPER,
+  SX_USER_AVATAR_CLICKABLE,
 } from '../style';
 
 interface BasicInfoProps {
   idMentor: number;
+  scrollRef: any;
 }
-export default function BasicInfo({ idMentor }: BasicInfoProps) {
+export default function BasicInfo({ idMentor, scrollRef }: BasicInfoProps) {
   const enum Text {
     mainTitle = 'Học sinh',
     labelMail = 'Mail',
@@ -115,7 +118,7 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
     : [];
 
   return (
-    <Box sx={SX_WRAPPER}>
+    <Box sx={SX_WRAPPER} ref={scrollRef}>
       <Box p={2}>
         <Grid
           container
@@ -137,11 +140,8 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
               <Avatar
                 src={userAvatar}
                 variant="rounded"
-                sx={{
-                  width: 150,
-                  height: 150,
-                  boxShadow: 3,
-                }}
+                sx={SX_USER_AVATAR_CLICKABLE}
+                onClick={() => handleViewImgFromUrl(userAvatar)}
               />
               <Box sx={{ width: '100%' }}>
                 <Grid

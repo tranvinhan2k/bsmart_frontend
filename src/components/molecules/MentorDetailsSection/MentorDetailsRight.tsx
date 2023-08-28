@@ -4,12 +4,13 @@ import Icon, { IconName } from '~/components/atoms/Icon';
 import globalStyles from '~/styles';
 
 import { useGetMentorDetails } from '~/hooks/mentorProfile/useGetMentorDetails';
+import { handleViewImgFromUrl } from '~/utils/common';
 
 export default function MentorDetailsRight() {
   const { id } = useParams();
   const { mentorDetails } = useGetMentorDetails(Number(id));
-  const ratingStar = mentorDetails?.averageRate || 0;
-  const numberOfRatingStar = mentorDetails?.submissionCount || 0;
+  // const ratingStar = mentorDetails?.averageRate || 0;
+  // const numberOfRatingStar = mentorDetails?.submissionCount || 0;
 
   const avatar = mentorDetails
     ? mentorDetails.user.userImages.find((item: any) => item.type === 'AVATAR')
@@ -52,19 +53,20 @@ export default function MentorDetailsRight() {
     >
       <Avatar
         src={avatar}
-        variant="circular"
+        variant="rounded"
         sx={{
           width: 150,
           height: 150,
           boxShadow: 3,
         }}
+        onClick={() => handleViewImgFromUrl(avatar)}
       />
-      <Stack sx={{ flexDirection: 'row', alignItems: 'center' }} marginTop={1}>
+      {/* <Stack sx={{ flexDirection: 'row', alignItems: 'center' }} marginTop={1}>
         <Chip size="small" color="default" label={numberOfRatingStar} />
         <Stack marginLeft={1}>
           <Rating value={ratingStar} readOnly />
         </Stack>
-      </Stack>
+      </Stack> */}
       <Stack
         direction="column"
         justifyContent="flex-start"

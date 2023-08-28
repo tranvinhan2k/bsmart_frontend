@@ -3,19 +3,15 @@ import { useState } from 'react';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { SX_FORM_LABEL, SX_WRAPPER } from './style';
 
-interface RequestCourseScrollProps {
-  scrollCourseDetails: () => void;
-  scrollCourseContent: () => void;
-  scrollCourseClassList: () => void;
-  scrollCourseMentorInfo: () => void;
+interface RequestManagedMemberScrollProps {
+  scrollRequestBasicInfo: () => void;
+  scrollRequestStudyingInfo: () => void;
 }
 
-export default function RequestCourseScroll({
-  scrollCourseDetails,
-  scrollCourseContent,
-  scrollCourseClassList,
-  scrollCourseMentorInfo,
-}: RequestCourseScrollProps) {
+export default function RequestManagedMemberScroll({
+  scrollRequestBasicInfo,
+  scrollRequestStudyingInfo,
+}: RequestManagedMemberScrollProps) {
   const [navigationPartId, setNavigatePartId] = useState(0);
 
   const navigationButton: {
@@ -26,22 +22,12 @@ export default function RequestCourseScroll({
     {
       id: 0,
       name: 'Thông tin cơ bản',
-      onClick: scrollCourseDetails,
+      onClick: scrollRequestBasicInfo,
     },
     {
       id: 1,
-      name: 'Nội dung',
-      onClick: scrollCourseContent,
-    },
-    {
-      id: 2,
-      name: 'Danh sách lớp',
-      onClick: scrollCourseClassList,
-    },
-    {
-      id: 3,
-      name: 'Giảng viên',
-      onClick: scrollCourseMentorInfo,
+      name: 'Học tập',
+      onClick: scrollRequestStudyingInfo,
     },
   ];
 

@@ -51,7 +51,7 @@ export function getGender(genderCode?: string) {
       result = 'Nữ';
       break;
     default:
-      result = 'Khác';
+      result = undefined;
       break;
   }
   return result;

@@ -1,6 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { Chip, Typography } from '@mui/material';
+import { Avatar, Chip, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
@@ -424,9 +424,32 @@ const attendanceClassColumns: GridColDef[] = [
 
 const managedUserBasedColumns: GridColDef[] = [
   {
+    field: 'userImages',
+    headerName: 'Ảnh',
+    headerAlign: 'center',
+    align: 'center',
+    // minWidth: 300,
+    flex: 1,
+    renderCell: (params) => {
+      const userAvatar = params.value.find(
+        (item: any) => item.type === 'AVATAR'
+      )?.url;
+      return (
+        <Avatar
+          sx={{
+            objectFit: 'cover',
+            width: 30,
+            height: 30,
+          }}
+          src={userAvatar}
+        />
+      );
+    },
+  },
+  {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 300,
+    minWidth: 290,
     flex: 1,
     renderCell: (params) => (
       <CopyableCellEllipsis
@@ -474,22 +497,34 @@ const managedUserBasedColumns: GridColDef[] = [
     valueFormatter: (params) => getGender(params.value),
   },
 ];
-const managedUserMemberColumns = managedUserBasedColumns.concat({
-  field: 'finishedClassCount',
-  headerAlign: 'left',
-  type: 'number',
-  headerName: 'Đã học',
-  flex: 1,
-  minWidth: 70,
-  sortable: false,
-  valueGetter: (params) => params.row.finishedClassCount,
-});
+const managedUserMemberColumns = managedUserBasedColumns.concat(
+  {
+    field: 'numberOfCourse',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Khóa học',
+    flex: 1,
+    minWidth: 80,
+    sortable: false,
+    valueGetter: (params) => params.row.learningInformation.numberOfCourse,
+  },
+  {
+    field: 'numberOfClass',
+    headerAlign: 'left',
+    type: 'number',
+    headerName: 'Lớp học',
+    flex: 1,
+    minWidth: 80,
+    sortable: false,
+    valueGetter: (params) => params.row.learningInformation.numberOfClass,
+  }
+);
 const managedUserMentorColumns = managedUserBasedColumns.concat(
   {
     field: 'numberOfClass',
     headerAlign: 'left',
     type: 'number',
-    headerName: 'Số khóa học',
+    headerName: 'Khóa học',
     minWidth: 100,
     flex: 1,
     sortable: false,
@@ -499,7 +534,7 @@ const managedUserMentorColumns = managedUserBasedColumns.concat(
     field: 'teachInformation',
     headerAlign: 'left',
     type: 'number',
-    headerName: 'Số lớp học',
+    headerName: 'Lớp học',
     minWidth: 100,
     flex: 1,
     sortable: false,
@@ -529,7 +564,7 @@ const managedUserMentorColumns = managedUserBasedColumns.concat(
     field: 'numberOfMember',
     headerAlign: 'left',
     type: 'number',
-    headerName: 'Số học sinh',
+    headerName: 'Học sinh đã dạy',
     minWidth: 100,
     flex: 1,
     sortable: false,

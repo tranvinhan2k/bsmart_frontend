@@ -349,18 +349,18 @@ export const AddressData: AddressDataPayload[] = [
     addresses: [
       {
         id: 0,
-        phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
+        phone: '091 135 9876',
+        address: ' 117 Tân Cảng, Quận Bình Thạnh, TP.HCM',
       },
       {
         id: 1,
-        phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
+        phone: '093 205 6777',
+        address: ' 2376/22/1 Vũ Trọng, Quận 8, TP.HCM',
       },
       {
         id: 2,
-        phone: '096.105.1014',
-        address: ' 117 Tân Cảng, Bình Thạnh, TP.HCM',
+        phone: '088 108 2354',
+        address: ' 67/9 Lê Công Uẩn, Quận 9, TP.HCM',
       },
     ],
   },
@@ -413,12 +413,12 @@ export const FooterSocialDataList: SocialPayload[] = [
 
 export const HeaderContractDataList: ContractPayload[] = [
   { name: 'Email', image: 'mail', value: 'mismart@gmail.com' },
-  { name: 'Số Điện Thoại', image: 'phone', value: '+98 946005077' },
+  { name: 'Số Điện Thoại', image: 'phone', value: '(+98) 091 135 9876' },
 ];
 export const FooterContractDataList: ContractPayload[] = [
-  { name: 'Địa chỉ', image: 'location', value: '260/19 Tân Binh, Hồ Chí Minh' },
+  // { name: 'Địa chỉ', image: 'location', value: '260/19 Tân Binh, Hồ Chí Minh' },
   { name: 'Email', image: 'mail', value: 'mismart@gmail.com' },
-  { name: 'Số điện thoại', image: 'phone', value: '+98 946005077' },
+  { name: 'Số điện thoại', image: 'phone', value: '(+98) 091 135 9876' },
 ];
 
 export const FieldOptionPayload: OptionPayload[] = [

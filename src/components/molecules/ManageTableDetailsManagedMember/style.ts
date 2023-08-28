@@ -68,3 +68,15 @@ export const SX_FORM_ITEM_VALUE2_WARNING: SxProps<Theme> = {
   fontFamily: FontFamily.medium,
   fontSize: 16,
 };
+
+export const SX_USER_AVATAR_CLICKABLE: SxProps<Theme> = {
+  width: 150,
+  height: 150,
+  boxShadow: 2,
+  //
+  transition: 'all .4s',
+  '&:hover': {
+    boxShadow: 4,
+    transform: 'translateY(calc(-1.5rem / 5))',
+  },
+};

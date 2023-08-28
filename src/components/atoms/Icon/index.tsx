@@ -96,6 +96,7 @@ import SdStorageIcon from '@mui/icons-material/SdStorage';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import StarIcon from '@mui/icons-material/Star';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import WomanIcon from '@mui/icons-material/Woman';
@@ -230,6 +231,7 @@ export type IconName =
   | 'shuffleIcon'
   | 'squareCheckbox'
   | 'star'
+  | 'starIcon'
   | 'subject'
   | 'teacher'
   | 'twitter'
@@ -713,6 +715,8 @@ export default function Icon({ color = 'black', name, size }: IconProps) {
       );
     case 'teacher':
       return <SwitchAccountIcon sx={STYLED_ICON} />;
+    case 'starIcon':
+      return <StarIcon sx={STYLED_ICON} />;
     case 'twitter':
       return (
         <Stack sx={STYLED_ICON}>

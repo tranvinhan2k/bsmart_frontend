@@ -14,7 +14,7 @@ interface Props {
   onChangeSubject: (subjectIds: number[]) => void;
 }
 
-export default function MentorFFilterSection({
+export default function MentorFilterSection({
   filterParams,
   onChangeSubject,
   onSearch,
