@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { MetricSize } from '~/assets/variables';
@@ -12,12 +12,10 @@ import QuizHeader from './QuizHeader';
 import { useSubmitQuiz } from '~/hooks/quiz/useSubmitQuiz';
 import { useTryCatch } from '~/hooks';
 import { PostSubmitQuizPayload } from '~/models';
-import { useCountdown } from '~/hooks/useCountDown';
 import { saveDataQuiz } from '~/redux/user/slice';
 
 export interface QuizPayload {
   name: string;
-  time: number;
   questions: DoQuizQuestionPayload[];
 }
 
@@ -38,12 +36,6 @@ export default function DoQuizReviewList({
   const [quiz, setQuiz] = useState<QuizPayload>(initData);
   const { mutateAsync: handleSubmitQuiz } = useSubmitQuiz();
   const { handleTryCatch } = useTryCatch('nộp bài làm');
-  const [intervalValue, setIntervalValue] = useState<number>(1000);
-  const [count, { startCountdown, stopCountdown, resetCountdown }] =
-    useCountdown({
-      countStart: initData.time * 60,
-      intervalMs: intervalValue,
-    });
 
   const numberOfChosenQuestion = quiz.questions.reduce((total, item) => {
     const isQuestionChosen = item.answers.find((subItem) => subItem.isChosen);
@@ -100,17 +92,6 @@ export default function DoQuizReviewList({
     setQuiz({ ...quiz, questions: params });
   };
 
-  useEffect(() => {
-    startCountdown();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    if (count === 0) {
-      handleSubmit();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count]);
-
   return (
     <Stack
       sx={{
@@ -121,11 +102,9 @@ export default function DoQuizReviewList({
       }}
     >
       <QuizHeader
-        isReview={isReview}
         name={quiz.name}
         numberOfChosenQuestion={numberOfChosenQuestion}
         numberOfTotalQuestion={numberOfTotalQuestion}
-        timeLeft={count}
       />
       <Stack
         sx={{

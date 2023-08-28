@@ -23,6 +23,8 @@ function PriceInput({ controller, placeholder }: PriceInputProps) {
   useEffect(() => {
     if (value) {
       setPrice(value === 0 ? '' : value.toLocaleString('en-US'));
+    } else {
+      setPrice(0);
     }
   }, [value]);
 
