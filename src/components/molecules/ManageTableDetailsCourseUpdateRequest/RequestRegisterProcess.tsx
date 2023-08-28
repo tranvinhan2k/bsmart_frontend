@@ -17,6 +17,7 @@ import {
   UseMutationRequestChangeContentPayload,
   useMutationRequestChangeContent,
 } from '~/hooks/user/useMutationRequestChangeContent';
+import { toastMsgError } from '~/utils/common';
 
 export default function RequestRegisterProcess() {
   const [tabValue, setTabValue] = useState(0);
@@ -47,8 +48,6 @@ export default function RequestRegisterProcess() {
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleProcessRegisterRequest = async (
     data: ProcessRegisterRequestFormDefault
   ) => {
@@ -75,8 +74,8 @@ export default function RequestRegisterProcess() {
       await changeContentRequestMutation.mutateAsync(params);
 
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
+    } catch (e: unknown) {
+      toast.updateFailedToast(id, toastMsgError(e));
     }
   };
 

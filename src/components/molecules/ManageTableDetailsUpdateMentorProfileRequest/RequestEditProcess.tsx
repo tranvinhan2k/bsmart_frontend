@@ -10,6 +10,7 @@ import {
 import { validationSchemaProcessUpdateMentorProfileRequest } from '~/form/validation';
 import TabPanel from '~/components/atoms/TabPanel/index';
 import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
 interface RequestRegisterProcessProps {
@@ -46,8 +47,6 @@ export default function RequestUpdateMentorDetailsProcess({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleProcessRegisterRequest = async (
     data: ProcessUpdateMentorProfileRequestFormDefault
   ) => {
@@ -65,8 +64,8 @@ export default function RequestUpdateMentorDetailsProcess({
       refetchGetNoOfRequest();
       onClose();
       toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
+    } catch (error: unknown) {
+      toast.updateFailedToast(id, toastMsgError(error));
     }
   };
 

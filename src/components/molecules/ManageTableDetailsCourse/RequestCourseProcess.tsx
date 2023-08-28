@@ -10,6 +10,7 @@ import { useYupValidationResolver } from '~/hooks';
 import { useGetCourseCreateRequestDetails } from '~/hooks/course/useGetCourseCreateRequestDetails';
 import { useMutationProcessCourseCreateRequest } from '~/hooks/course/useMutationProcessCourseCreateRequest';
 import { ProcessCreateCourseRequestFormDefault } from '~/models/form';
+import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import { SX_BOX_ITEM_WRAPPER_NO_PADDING } from './style';
 
@@ -65,8 +66,6 @@ export default function RequestCourseProcess({
 
   const toastMsgLoading = 'Đang xử lý...';
   const toastMsgSuccess = 'Xử lý thành công';
-  const toastMsgError = (errorMsg: any): string =>
-    `Đã xảy ra lỗi: ${errorMsg.message}`;
   const handleProcessCourseCreateRequest = async (
     data: ProcessCreateCourseRequestFormDefault
   ) => {
@@ -89,8 +88,8 @@ export default function RequestCourseProcess({
       refetchSearch();
       refetchGetNoOfRequest();
       onClose();
-    } catch (e: any) {
-      toast.updateFailedToast(id, toastMsgError(e.message));
+    } catch (e: unknown) {
+      toast.updateFailedToast(id, toastMsgError(e));
     }
   };
 
