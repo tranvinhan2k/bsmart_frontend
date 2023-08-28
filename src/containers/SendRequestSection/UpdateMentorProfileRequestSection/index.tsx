@@ -45,14 +45,16 @@ interface FormFieldsPersonalProps {
 }
 
 const enum IntroduceExperienceNoteText {
-  label0 = 'Mục giới thiệu, kinh nghiệm, nhập tối đa 2000 từ.',
-  label1 = 'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kinh nghiệm chuyên môn.',
-  label2 = 'Mục giới thiệu giáo viên hãy viết về chính bản thân mình.',
+  label0 = 'Mục giới thiệu giáo viên hãy viết về chính bản thân mình.',
+  label1 = 'Mục kinh nghiệm giáo viên hãy viết về quá trình tích lũy kiến thức chuyên môn.',
+  label2 = 'Mục giới thiệu được ưu tiên đưa lên trang tìm kiếm giáo viên.',
+  label3 = 'Cả 2 mục đều được hiển thị đầu đủ trong trang chi tiết giáo viên.',
 }
 const introduceExperienceNoteList = [
   { id: 0, label: IntroduceExperienceNoteText.label0 },
   { id: 1, label: IntroduceExperienceNoteText.label1 },
   { id: 2, label: IntroduceExperienceNoteText.label2 },
+  { id: 3, label: IntroduceExperienceNoteText.label3 },
 ];
 
 const enum CertificateNoteText {
@@ -403,7 +405,7 @@ export default function UpdateMentorProfileRequestSection() {
           <Box my={2}>
             {introduceExperienceNoteList.map((item) => (
               <Typography component="h3" key={item.id}>
-                {item.id + 1}. {item.label}
+                <b>{item.id + 1}.</b> {item.label}
               </Typography>
             ))}
           </Box>

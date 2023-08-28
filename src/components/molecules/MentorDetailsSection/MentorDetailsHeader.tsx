@@ -22,18 +22,18 @@ export default function MentorDetailsHeader() {
           label: 'Lớp học',
           value: mentorDetails.user.teachInformation?.numberOfClass ?? 0,
         },
-        {
-          id: 3,
-          label: 'Đánh giá',
-          value: `${
-            mentorDetails.user.teachInformation?.numberOfFeedBack ?? 0
-          }/5`,
-        },
-        {
-          id: 4,
-          label: 'Lượt đánh giá',
-          value: mentorDetails.user.teachInformation?.scoreFeedback ?? 0,
-        },
+        // {
+        //   id: 3,
+        //   label: 'Đánh giá',
+        //   value: `${
+        //     mentorDetails.user.teachInformation?.numberOfFeedBack ?? 0
+        //   }/5`,
+        // },
+        // {
+        //   id: 4,
+        //   label: 'Lượt đánh giá',
+        //   value: mentorDetails.user.teachInformation?.scoreFeedback ?? 0,
+        // },
       ]
     : [];
 

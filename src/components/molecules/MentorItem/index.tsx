@@ -5,6 +5,7 @@ import { MentorQuickPayload } from '~/models/mentor';
 import { image } from '~/constants/image';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import globalStyles from '~/styles';
+import Icon from '~/components/atoms/Icon';
 
 interface MentorItemProps {
   item?: MentorQuickPayload;
@@ -66,6 +67,7 @@ export default function MentorItem({
           boxShadow: 3,
         },
       }}
+      onClick={handleNavigateMentorDetail}
     >
       <Stack>
         <Box
@@ -91,14 +93,14 @@ export default function MentorItem({
               overflow: 'hidden',
             }}
           >
-            <Typography
+            {/* <Typography
               sx={{
                 ...globalStyles.textSmallLabel,
                 fontSize: FontSize.small_14,
               }}
             >
               Giới thiệu
-            </Typography>
+            </Typography> */}
             <Typography
               sx={globalStyles.textLowSmallLight}
               dangerouslySetInnerHTML={{
@@ -106,7 +108,7 @@ export default function MentorItem({
               }}
             />
           </Stack>
-          <Stack
+          {/* <Stack
             sx={{
               height: '100px',
               overflow: 'hidden',
@@ -127,22 +129,28 @@ export default function MentorItem({
                 __html: workingExperience,
               }}
             />
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
 
       <Stack padding={2}>
-        <Stack sx={{ flexDirection: 'row', alignItems: 'center', marginY: 1 }}>
-          <Typography>{`(${item.submissionCount || 0})`}</Typography>
-          <Stack marginLeft={1}>
-            <Rating defaultValue={feedback} readOnly />
-          </Stack>
-        </Stack>
-        <Divider />
-        <Stack marginTop={2}>
-          <Button onClick={handleNavigateMentorDetail} customVariant="normal">
-            Xem chi tiết
-          </Button>
+        <Stack
+          direction="row-reverse"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={1}
+        >
+          <Chip label={`${item.submissionCount} lượt đánh giá`} size="small" />
+          {feedback > 0 && (
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
+              {feedback.toFixed(1) || 0}
+              <Icon name="starIcon" size="small_20" color="gold" />
+            </Stack>
+          )}
         </Stack>
       </Stack>
     </Stack>
