@@ -12,9 +12,10 @@ import {
 
 interface BasicInfoProps {
   idMentor: number;
+  scrollRef: any;
 }
 
-export default function MentorDegree({ idMentor }: BasicInfoProps) {
+export default function MentorDegree({ idMentor, scrollRef }: BasicInfoProps) {
   const enum Text {
     mainTitle = 'Giới thiệu',
   }
@@ -41,7 +42,7 @@ export default function MentorDegree({ idMentor }: BasicInfoProps) {
   };
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid container spacing={2} mb={4}>
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>

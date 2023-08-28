@@ -1,6 +1,8 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { useScrollIntoView } from '~/hooks';
 import RequestBasicInfo from './RequestBasicInfo';
 import RequestDate from './RequestDate';
+import RequestManagedMemberScroll from './RequestManagedMemberScroll';
 import RequestStudyingInfo from './RequestStudyingInfo';
 import { SX_BOX_STICKY, SX_REQUEST_TITLE } from './style';
 
@@ -17,6 +19,9 @@ export default function ManageTableDetailsManagedMember({
   refetchSearch,
   refetchGetNoOfRequest,
 }: ManageTableDetailsManagedMemberProps) {
+  const scrollRequestBasicInfo = useScrollIntoView();
+  const scrollRequestStudyingInfo = useScrollIntoView();
+
   return (
     <>
       <Box mx={2}>
@@ -38,8 +43,14 @@ export default function ManageTableDetailsManagedMember({
               alignItems="stretch"
               spacing={2}
             >
-              <RequestBasicInfo idMentor={rowId} />
-              <RequestStudyingInfo idMentor={rowId} />
+              <RequestBasicInfo
+                idMentor={rowId}
+                scrollRef={scrollRequestBasicInfo.ref}
+              />
+              <RequestStudyingInfo
+                idMentor={rowId}
+                scrollRef={scrollRequestStudyingInfo.ref}
+              />
             </Stack>
           </Grid>
           <Grid item sm={12} md={5} lg={4}>
@@ -50,7 +61,13 @@ export default function ManageTableDetailsManagedMember({
               spacing={2}
               sx={SX_BOX_STICKY}
             >
-              <RequestDate idMentor={rowId} />
+              {/* <RequestDate idMentor={rowId} /> */}
+              <RequestManagedMemberScroll
+                scrollRequestBasicInfo={scrollRequestBasicInfo.executeScroll}
+                scrollRequestStudyingInfo={
+                  scrollRequestStudyingInfo.executeScroll
+                }
+              />
             </Stack>
           </Grid>
         </Grid>

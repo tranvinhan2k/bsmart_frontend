@@ -1,6 +1,5 @@
 import { Box, Grid, Skeleton, Stack, Typography } from '@mui/material';
 import { useGetManagedMemberDetails } from '~/hooks/user/useGetManagedMemberDetails';
-import { formatMoney } from '~/utils/money';
 import {
   SX_BOX_ITEM_WRAPPER,
   SX_FORM_ITEM_LABEL2,
@@ -10,38 +9,42 @@ import {
 
 interface RequestStudyingInfoProps {
   idMentor: number;
+  scrollRef: any;
 }
 
 export default function RequestStudyingInfo({
   idMentor,
+  scrollRef,
 }: RequestStudyingInfoProps) {
   const enum Text {
-    mainTitle = 'Thống kê',
+    mainTitle = 'Học tập',
     labelNumberOfCourses = 'Khóa học tham gia',
     labelNumberOfClass = 'Lớp học tham gia',
   }
   const { managedMemberDetails, isLoading } =
     useGetManagedMemberDetails(idMentor);
 
-  const title0 = managedMemberDetails
-    ? [
-        {
-          id: 1,
-          label: Text.labelNumberOfCourses,
-          value: managedMemberDetails?.teachInformation?.numberOfCourse ?? 0,
-        },
-        {
-          id: 2,
-          label: Text.labelNumberOfClass,
-          value: managedMemberDetails?.teachInformation?.numberOfClass ?? 0,
-        },
-      ]
-    : [];
+  const title0 = [
+    {
+      id: 1,
+      label: Text.labelNumberOfCourses,
+      value: managedMemberDetails
+        ? managedMemberDetails?.studyInformation?.numberOfCourse
+        : 0,
+    },
+    {
+      id: 2,
+      label: Text.labelNumberOfClass,
+      value: managedMemberDetails
+        ? managedMemberDetails?.studyInformation?.numberOfClass
+        : 0,
+    },
+  ];
 
   return (
-    <Box sx={SX_BOX_ITEM_WRAPPER}>
+    <Box sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
-      <Grid container mt={2} rowSpacing={2}>
+      <Grid container mt={1} rowSpacing={2}>
         {title0.map((item) => (
           <Grid item xs={12} sm={6} md={6} lg={3} key={item.id}>
             <Stack

@@ -3,19 +3,21 @@ import { useState } from 'react';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
 import { SX_FORM_LABEL, SX_WRAPPER } from './style';
 
-interface RequestCourseScrollProps {
-  scrollCourseDetails: () => void;
-  scrollCourseContent: () => void;
-  scrollCourseClassList: () => void;
-  scrollCourseMentorInfo: () => void;
+interface RequestManagedMentorScrollProps {
+  scrollRequestBasicInfo: () => void;
+  scrollRequestCI: () => void;
+  scrollRequestMentorDegree: () => void;
+  scrollRequestMentorInfo: () => void;
+  scrollRequestTeachingInfo: () => void;
 }
 
-export default function RequestCourseScroll({
-  scrollCourseDetails,
-  scrollCourseContent,
-  scrollCourseClassList,
-  scrollCourseMentorInfo,
-}: RequestCourseScrollProps) {
+export default function RequestManagedMentorScroll({
+  scrollRequestBasicInfo,
+  scrollRequestCI,
+  scrollRequestMentorDegree,
+  scrollRequestMentorInfo,
+  scrollRequestTeachingInfo,
+}: RequestManagedMentorScrollProps) {
   const [navigationPartId, setNavigatePartId] = useState(0);
 
   const navigationButton: {
@@ -26,22 +28,27 @@ export default function RequestCourseScroll({
     {
       id: 0,
       name: 'Thông tin cơ bản',
-      onClick: scrollCourseDetails,
+      onClick: scrollRequestBasicInfo,
     },
     {
       id: 1,
-      name: 'Nội dung',
-      onClick: scrollCourseContent,
+      name: 'Ảnh CMND / CCCD',
+      onClick: scrollRequestCI,
     },
     {
       id: 2,
-      name: 'Danh sách lớp',
-      onClick: scrollCourseClassList,
+      name: 'Bằng cấp / CV',
+      onClick: scrollRequestMentorDegree,
     },
     {
       id: 3,
-      name: 'Giảng viên',
-      onClick: scrollCourseMentorInfo,
+      name: 'Giới thiệu / kinh nghiệm / chuyên môn',
+      onClick: scrollRequestMentorInfo,
+    },
+    {
+      id: 4,
+      name: 'Giảng dạy và đánh giá',
+      onClick: scrollRequestTeachingInfo,
     },
   ];
 

@@ -21,8 +21,9 @@ import {
 
 interface BasicInfoProps {
   idMentor: number;
+  scrollRef: any;
 }
-export default function BasicInfo({ idMentor }: BasicInfoProps) {
+export default function BasicInfo({ idMentor, scrollRef }: BasicInfoProps) {
   const enum Text {
     mainTitle = 'Học sinh',
     labelMail = 'Mail',
@@ -115,7 +116,7 @@ export default function BasicInfo({ idMentor }: BasicInfoProps) {
     : [];
 
   return (
-    <Box sx={SX_WRAPPER}>
+    <Box sx={SX_WRAPPER} ref={scrollRef}>
       <Box p={2}>
         <Grid
           container

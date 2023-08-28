@@ -4,9 +4,13 @@ import { SX_BOX_ITEM_WRAPPER, SX_FORM_LABEL } from './style';
 
 interface BasicInfoProps {
   idMentor: number;
+  scrollRef: any;
 }
 
-export default function RequestMentorDegree({ idMentor }: BasicInfoProps) {
+export default function RequestMentorDegree({
+  idMentor,
+  scrollRef,
+}: BasicInfoProps) {
   const enum Text {
     mainTitle = 'Bằng cấp / CV',
   }
@@ -20,7 +24,7 @@ export default function RequestMentorDegree({ idMentor }: BasicInfoProps) {
     );
 
   return (
-    <Stack sx={SX_BOX_ITEM_WRAPPER}>
+    <Stack sx={SX_BOX_ITEM_WRAPPER} ref={scrollRef}>
       <Grid container>
         <Grid item xs={12}>
           <Typography sx={SX_FORM_LABEL}>{Text.mainTitle}</Typography>
