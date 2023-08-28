@@ -51,7 +51,6 @@ export default function Module({ index, sectionId, module }: Props) {
                 fontSize: FontSize.small_14,
                 fontFamily: FontFamily.medium,
                 marginLeft: 1,
-                textAlign: 'center',
               }}
             >
               {module.name}

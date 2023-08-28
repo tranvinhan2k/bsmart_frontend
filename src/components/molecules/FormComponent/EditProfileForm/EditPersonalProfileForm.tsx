@@ -133,7 +133,7 @@ export default function EditPersonalProfileForm() {
   ];
 
   return (
-    <Box sx={SX_FORM}>
+    <Box id="basic" sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>
         Thông tin cá nhân
       </Typography>

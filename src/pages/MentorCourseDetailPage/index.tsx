@@ -4,7 +4,7 @@ import { Grid, Stack, Typography } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
-import { useEffectScrollToTop } from '~/hooks';
+import { useEffectScrollToTop, useGetIdFromUrl, useTryCatch } from '~/hooks';
 import globalStyles from '~/styles';
 import { Color, MetricSize } from '~/assets/variables';
 import { OptionPayload } from '~/models';
@@ -20,8 +20,10 @@ import {
 } from '~/constants/routeLink';
 import Sidebar from './Sidebar';
 import CourseContextProvider from '~/HOCs/context/CourseContext';
-import SidebarApproval from './SidebarApproval';
 import CourseRoutes from './CourseRoutes';
+import Button from '~/components/atoms/Button';
+import { useChangeStatusCourse } from '~/hooks/useChangeStatusCourse';
+import SidebarApproval from './SidebarApproval';
 
 export interface MentorDetailCoursePayload {
   code: string;
@@ -57,6 +59,7 @@ export interface DetailCourseClassPayload {
 }
 
 export default function MentorCourseDetailPage() {
+  const id = useGetIdFromUrl('id');
   const navigate = useNavigate();
 
   useEffectScrollToTop();
@@ -102,6 +105,7 @@ export default function MentorCourseDetailPage() {
               <Stack marginRight={2}>
                 <Sidebar />
               </Stack>
+
               <SidebarApproval />
             </Grid>
             <Grid item xs={12} md={8} lg={9} paddingX={4}>

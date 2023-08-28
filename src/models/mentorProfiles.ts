@@ -32,7 +32,15 @@ export interface OptionalInfo {
 }
 
 export interface Field {
-  field: string;
+  field:
+    | 'address'
+    | 'AVATAR'
+    | 'BACKCI'
+    | 'FRONTCI'
+    | 'DEGREE'
+    | 'introduce'
+    | 'workingExperience'
+    | 'skills';
   name: string;
 }
 

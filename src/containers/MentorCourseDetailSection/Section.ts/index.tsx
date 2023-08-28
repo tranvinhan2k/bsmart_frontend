@@ -48,15 +48,17 @@ export default function Section({
             <Icon name="right" color="black" size="small_20" />
           </IconButton>
         </Tooltip>
-        <Typography>
-          <span
-            style={{
-              fontFamily: FontFamily.bold,
-              fontSize: FontSize.small_16,
-            }}
-          >{`Học phần ${index + 1}: `}</span>
-          {section.name}
-        </Typography>
+        <Stack>
+          <Typography>
+            <span
+              style={{
+                fontFamily: FontFamily.bold,
+                fontSize: FontSize.small_16,
+              }}
+            >{`Học phần ${index + 1}: `}</span>
+            {section.name}
+          </Typography>
+        </Stack>
 
         <Stack
           sx={{

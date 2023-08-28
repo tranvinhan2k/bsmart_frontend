@@ -207,6 +207,10 @@ const coursesApi = {
     return generateMockApi(response);
   },
 
+  async changeCourseStatus(id: number) {
+    return axiosClient.put(`${url}/${id}/change-status-waiting`);
+  },
+
   async getAllCourse(
     data: PagingFilterRequest
   ): Promise<PagingFilterPayload<CourseMenuItemPayload> | null> {

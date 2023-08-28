@@ -12,6 +12,8 @@ import { selectProfile } from '~/redux/user/selector';
 import { mentorRoutes } from '~/routes';
 import { scrollToTop } from '~/utils/common';
 import toast from '~/utils/toast';
+import MentorProfileTutorialPage from './MentorProfileTutorialPage';
+import globalStyles from '~/styles';
 
 export default function MentorProfilePage() {
   const profile = useSelector(selectProfile);
@@ -50,10 +52,9 @@ export default function MentorProfilePage() {
       <Stack>
         {profile.mentorProfile.status ===
           MentorProfileStatusType.REQUESTING && (
-          <Alert severity="info">
-            Có vẻ như bạn là người mới ? Vui lòng hoàn thiện hồ sơ giáo viên để
-            có thể bắt đầu vào dạy học
-          </Alert>
+          <Stack sx={globalStyles.viewRoundedWhiteBody}>
+            <MentorProfileTutorialPage />
+          </Stack>
         )}
         <Stack marginTop={1}>
           {profile.isVerified ? (
