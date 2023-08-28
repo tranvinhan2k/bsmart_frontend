@@ -105,8 +105,8 @@ export default function DialogEditIdCardFront({
   const handleSubmitIdentityFront = async (
     data: EditIdentityFrontFormDataPayload
   ) => {
-    // const isValidIdentity = false;
-    const isValidIdentity = await handleVerifyIdentity(data.identityFront);
+    const isValidIdentity = true;
+    // const isValidIdentity = await handleVerifyIdentity(data.identityFront);
 
     if (isValidIdentity) {
       const params: EditImageProfilePayload = {
