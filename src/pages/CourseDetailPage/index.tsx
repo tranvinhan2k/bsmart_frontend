@@ -7,6 +7,7 @@ import { useGetIdFromUrl, useScrollIntoView } from '~/hooks';
 import { useQueryGetDetailUserCourse } from '~/hooks/course/useQueryGetDetailUserCourse';
 import CourseDetail from '~/components/molecules/CourseDetail';
 import { image } from '~/constants/image';
+import globalStyles from '~/styles';
 
 export default function CourseDetailPage() {
   const id = useGetIdFromUrl('id');
@@ -41,7 +42,7 @@ export default function CourseDetailPage() {
     <Stack
       sx={{
         minHeight: '100vh',
-        background: Color.white,
+        background: Color.white4,
       }}
     >
       <LoadingWrapper error={error} isLoading={isLoading}>
@@ -53,21 +54,28 @@ export default function CourseDetailPage() {
             }}
           >
             <Grid item xs={12} md={8} sx={{ paddingX: MetricSize.medium_15 }}>
-              <CourseDetail
-                introduceRef={introducePart.ref}
-                classesRef={classesPart.ref}
-                contentRef={contentPart.ref}
-                mentorRef={mentorPart.ref}
-                classes={classes || []}
-                courseDescription={course?.courseDescription || ''}
-                courseName={course?.courseName || ''}
-                images={course?.images || []}
-                mentorDescription={mentor.description}
-                mentorId={mentor.id}
-                mentorImageUrl={mentor.imageUrl}
-                mentorName={mentor.name}
-                sections={sections || []}
-              />
+              <Stack
+                sx={{
+                  ...globalStyles.viewRoundedWhiteBody,
+                  paddingY: 3,
+                }}
+              >
+                <CourseDetail
+                  introduceRef={introducePart.ref}
+                  classesRef={classesPart.ref}
+                  contentRef={contentPart.ref}
+                  mentorRef={mentorPart.ref}
+                  classes={classes || []}
+                  courseDescription={course?.courseDescription || ''}
+                  courseName={course?.courseName || ''}
+                  images={course?.images || []}
+                  mentorDescription={mentor.description}
+                  mentorId={mentor.id}
+                  mentorImageUrl={mentor.imageUrl}
+                  mentorName={mentor.name}
+                  sections={sections || []}
+                />
+              </Stack>
             </Grid>
             <Grid
               item

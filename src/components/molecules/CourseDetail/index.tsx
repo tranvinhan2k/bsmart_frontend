@@ -101,7 +101,7 @@ export default function CourseDetail({
             sx={{
               lineHeight: 0.98,
               fontSize: FontSize.large_45,
-              fontFamily: FontFamily.dosis,
+              fontFamily: FontFamily.bold,
             }}
           >
             {courseName}
@@ -114,7 +114,6 @@ export default function CourseDetail({
               <Classes classes={classes} />
             </Stack>
           </Stack>
-          <Divider sx={{ marginY: 3 }} />
 
           <Stack ref={introduceRef}>
             <Typography sx={globalStyles.textCourseSmallLabel}>
@@ -164,7 +163,6 @@ export default function CourseDetail({
             </Stack>
           </Stack>
         </Stack>
-        <Divider sx={{ marginY: 0 }} />
       </Stack>
       <Stack
         paddingX={5}
@@ -212,7 +210,6 @@ export default function CourseDetail({
             <Content readOnly sections={sections || []} />
           </Stack>
         </Stack>
-        <Divider sx={{ marginY: 3 }} />
 
         <Stack ref={mentorRef}>
           <Typography sx={globalStyles.textCourseSmallLabel}>
@@ -259,14 +256,12 @@ export default function CourseDetail({
             </Stack>
           </Stack>
         </Stack>
-        <Divider sx={{ marginY: 2 }} />
         <Stack>
           <Typography sx={globalStyles.textCourseSmallLabel}>
             Đánh giá từ học sinh
           </Typography>
           <UserCourseFeedback />
         </Stack>
-        <Divider sx={{ marginY: 4 }} />
 
         <Stack>
           <CarouselCourse label="Khóa học tiêu biểu" />
