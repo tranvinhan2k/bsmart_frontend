@@ -31,11 +31,6 @@ export default function AddQuizQuestions({
   onChange,
   onClose,
 }: Props) {
-  const {
-    data: bankQuestions,
-    error: errorBankQuestions,
-    isLoading: isBankQuestionsLoading,
-  } = useGetBanksQuizQuestions();
   const { mutateAsync } = useReadFile();
 
   const { handleTryCatch } = useTryCatch('thêm câu hỏi từ tệp');
@@ -52,9 +47,7 @@ export default function AddQuizQuestions({
   const questionTypeWatch = addQuestionHookForm.watch('questionType');
 
   // functions
-  const handleAddQuestionFromBank = (paramRow: any) => {
-    onChange([...questionList, paramRow]);
-  };
+
   const handleAddQuestionFromFile = async (data: any) => {
     const quizQuestions = await handleTryCatch(async () =>
       mutateAsync(data.file[0])
