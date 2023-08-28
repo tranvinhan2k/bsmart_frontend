@@ -1,4 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { MentorProfileStatusType } from '~/constants/profile';
 import RequestBasicInfo from './RequestBasicInfo';
 import RequestCI from './RequestCI';
 import RequestDate from './RequestDate';
@@ -59,12 +60,14 @@ export default function ManageTableDetailsRegisterRequest({
             sx={SX_BOX_STICKY}
           >
             <RequestDate row={row} />
-            <RequestRegisterProcess
-              idMentorProfile={row.mentorProfile.id}
-              onClose={onClose}
-              refetchSearch={refetchSearch}
-              refetchGetNoOfRequest={refetchGetNoOfRequest}
-            />
+            {row.mentorProfile.status === MentorProfileStatusType.WAITING && (
+              <RequestRegisterProcess
+                idMentorProfile={row.mentorProfile.id}
+                onClose={onClose}
+                refetchSearch={refetchSearch}
+                refetchGetNoOfRequest={refetchGetNoOfRequest}
+              />
+            )}
           </Stack>
         </Grid>
       </Grid>

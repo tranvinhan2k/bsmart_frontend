@@ -51,7 +51,7 @@ export default function SubActivityCourseDetails({
         title={renderTitle}
         onClose={handleTriggerDialog}
         open={open}
-        maxWidth="xl"
+        maxWidth={subActivity.type === SubActivityType.QUIZ ? 'xl' : undefined}
       >
         <SubActivityContent id={subActivity.id} />
       </CustomDialog>

@@ -60,13 +60,15 @@ export default function ManageTableDetailsCourseCreateRequest({
             sx={SX_BOX_STICKY}
           >
             <RequestCourseDate idCourse={row.id} status={fixedStatus} />
-            <RequestCourseProcess
-              idCourse={row.id}
-              status={fixedStatus}
-              onClose={onClose}
-              refetchSearch={refetchSearch}
-              refetchGetNoOfRequest={refetchGetNoOfRequest}
-            />
+            {fixedStatus === CourseStatusType.WAITING && (
+              <RequestCourseProcess
+                idCourse={row.id}
+                status={fixedStatus}
+                onClose={onClose}
+                refetchSearch={refetchSearch}
+                refetchGetNoOfRequest={refetchGetNoOfRequest}
+              />
+            )}
           </Stack>
         </Grid>
       </Grid>
