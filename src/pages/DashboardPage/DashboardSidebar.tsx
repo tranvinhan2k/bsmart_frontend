@@ -52,7 +52,7 @@ export default function DashboardSidebar({
         }}
       >
         <Stack
-          onClick={() => navigate(NavigationLink.homepage)}
+          onClick={() => navigate(`/${NavigationLink.homepage}`)}
           sx={{
             paddingTop: 3,
             paddingLeft: MetricSize.small_10,
