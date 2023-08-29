@@ -89,8 +89,6 @@ export interface ResponseGetCoursePayload {
 function handleResponseGetActivities(
   data: GetAllActivitiesResponse
 ): ActivityPayload[] {
-  console.log('data', data);
-
   return data.map((item) => ({
     created: item?.created || '',
     createdBy: item?.createdBy || '',

@@ -23,8 +23,6 @@ export default function Module({ index, sectionId, module }: Props) {
     navigate(`${sectionId}/${module.id}`);
   };
 
-  console.log('module', module.isFixed, module);
-
   return (
     <Stack
       sx={{
