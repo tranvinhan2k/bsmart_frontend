@@ -1,6 +1,4 @@
 import axiosClient from '~/api/axiosClient';
-import { mockImages } from '~/constants';
-import { image } from '~/constants/image';
 import {
   CreateFeedbackPayload,
   OptionPayload,
@@ -12,6 +10,7 @@ import {
   GetAllMentorFeedback,
   GetCourseFeedbackPayload,
   GetFeedbackCommentPayload,
+  StudentFeedbackResponse,
 } from '~/models/response';
 import {
   ApiParamsProps,
@@ -30,6 +29,27 @@ const url = `/feedback`;
 
 const feedbacksApi = {
   // get
+
+  async getFeedback(classId: number) {
+    const response: StudentFeedbackResponse = await axiosClient.get(
+      `${url}/submission/class/${classId}/student`
+    );
+
+    const result: any = {
+      description: response.comment || '',
+      courseRate: response.courseRate || 0,
+      ratingPoint: response.mentorRate || 0,
+    };
+
+    response.questions?.map((item) => {
+      result[`feedback_${item.id}`] = `${
+        item.answers.find((subItem) => subItem.isChosen)?.id
+      }`;
+      return null;
+    });
+
+    return result;
+  },
 
   async getMentorFeedback({
     id,
@@ -52,80 +72,6 @@ const feedbacksApi = {
       point: item.mentorRate || 0,
       report: item.comment || '',
     }));
-    // const result: MentorFeedbackListPayload[] = [
-    //   {
-    //     id: 0,
-    //     name: 'Tran Vi Nhan',
-    //     point: 3,
-    //     report: 'Chắc có mình t thấy ông này code hay',
-    //     feedbackAnswers: [
-    //       {
-    //         id: 0,
-    //         question: 'Giáo viên dạy có dễ hiểu không ?',
-    //         answer: 'yes',
-    //       },
-    //       {
-    //         id: 1,
-    //         question: 'Giáo viên có nhiệt tình hỗ trợ bạn không ?',
-    //         answer: 'no',
-    //       },
-    //       {
-    //         id: 2,
-    //         question: 'Bạn có cảm thấy hứng thú khi học giáo viên không ?',
-    //         answer: 'yes',
-    //       },
-    //       {
-    //         id: 3,
-    //         question:
-    //           'Kiến thức được giảng dạy đã đủ với những gì bạn muốn học chưa ?',
-    //         answer: 'yes',
-    //       },
-    //       {
-    //         id: 4,
-    //         question:
-    //           'Bạn có cảm thấy giáo viên có hiểu rõ về bài giảng không ?',
-    //         answer: 'yes',
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     id: 1,
-    //     name: 'Tran Van A',
-    //     point: 5,
-    //     report:
-    //       'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem   ',
-    //     feedbackAnswers: [
-    //       {
-    //         id: 0,
-    //         question: 'Giáo viên dạy có dễ hiểu không ?',
-    //         answer: 'yes',
-    //       },
-    //       {
-    //         id: 1,
-    //         question: 'Giáo viên có nhiệt tình hỗ trợ bạn không ?',
-    //         answer: 'no',
-    //       },
-    //       {
-    //         id: 2,
-    //         question: 'Bạn có cảm thấy hứng thú khi học giáo viên không ?',
-    //         answer: 'yes',
-    //       },
-    //       {
-    //         id: 3,
-    //         question:
-    //           'Kiến thức được giảng dạy đã đủ với những gì bạn muốn học chưa ?',
-    //         answer: 'yes',
-    //       },
-    //       {
-    //         id: 4,
-    //         question:
-    //           'Bạn có cảm thấy giáo viên có hiểu rõ về bài giảng không ?',
-    //         answer: 'yes',
-    //       },
-    //     ],
-    //   },
-    // ];
-
     return result;
   },
   assignTemplateForClasses({ id, ids }: { id: number; ids: number[] }) {

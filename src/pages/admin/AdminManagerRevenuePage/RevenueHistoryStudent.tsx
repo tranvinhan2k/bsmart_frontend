@@ -6,10 +6,14 @@ import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 
-export default function RevenueHistory({ data }: { data: RevenuePayload[] }) {
+export default function RevenueHistoryStudent({
+  data,
+}: {
+  data: RevenuePayload[];
+}) {
   return (
     <Stack>
-      <Typography sx={globalStyles.textSubTitle}>Lịch sử giao dịch</Typography>
+      {/* <Typography sx={globalStyles.textSubTitle}>Lịch sử giao dịch</Typography> */}
 
       <Stack marginTop={1}>
         <CRUDTable
@@ -27,14 +31,7 @@ export default function RevenueHistory({ data }: { data: RevenuePayload[] }) {
               },
             },
             {
-              field: 'revenue',
-              flex: 1,
-              renderCell: (params) => {
-                return formatMoney(params.row.revenue);
-              },
-            },
-            {
-              field: 'total',
+              field: 'amount',
               flex: 1,
               renderCell: (params) => {
                 return formatMoney(params.row.total);

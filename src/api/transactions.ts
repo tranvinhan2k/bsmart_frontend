@@ -60,7 +60,7 @@ const transactionsApi = {
         buyer: item.createdBy || '',
         date: item.created || '',
         revenue: item.afterBalance || 0,
-        total: item.beforeBalance || 0,
+        total: item.amount || 0,
       })) || [];
     return { ...response, items: result };
   },
