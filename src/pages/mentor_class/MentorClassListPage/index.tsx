@@ -67,14 +67,14 @@ export default function MentorClassListPage() {
   };
 
   const onSubmit = (data: {
-    startDate: Date;
-    endDate: Date;
-    subjectId: string[];
+    startDate: string;
+    endDate: string;
+    subjectId: number[];
   }) => {
     const params = {
-      startDate: data.startDate.toISOString(),
-      endDate: data.endDate.toISOString(),
-      subjectId: data.subjectId.map((item) => formatStringToNumber(item)),
+      startDate: data.startDate,
+      endDate: data.endDate,
+      subjectId: data.subjectId,
     };
 
     handleFilter(params);
