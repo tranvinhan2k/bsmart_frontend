@@ -134,6 +134,7 @@ export default function MentorClassStudentListPage() {
         <CustomModal open={value} onClose={toggle} title="Thông tin học sinh">
           <Stack minWidth="50vw">
             <UserDetailInformation
+              id={row?.id || 0}
               email={row?.email || ''}
               imageAlt={row?.avatar || ''}
               imageUrl={row?.avatar || ''}

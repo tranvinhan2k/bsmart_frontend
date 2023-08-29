@@ -56,6 +56,7 @@ export default function MentorClassStudentDetailPage() {
       <Typography sx={globalStyles.textSubTitle}>Chi tiết học sinh</Typography>
       <Divider />
       <UserDetailInformation
+        id={student.id}
         email={student.email}
         imageAlt={student.imageAlt}
         imageUrl={student.imageUrl}

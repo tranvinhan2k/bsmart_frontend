@@ -1,18 +1,16 @@
 import { Stack, Typography, Box } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { useSelector } from 'react-redux';
-import { MetricSize, FontFamily, FontSize, Color } from '~/assets/variables';
+import { MetricSize } from '~/assets/variables';
 import { IconName } from '~/components/atoms/Icon';
 import TextPropLine from '~/components/atoms/texts/TextPropLine';
 import { image } from '~/constants/image';
-import { MarkOfStudentPayload } from '~/pages/mentor_class/MentorClassMarkReportPage';
 import globalStyles from '~/styles';
 import CRUDTable from '../CRUDTable';
-import { formatISODateStringToDisplayDateTime } from '~/utils/date';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { useGetIdFromUrl, useGetMemberMarkReport } from '~/hooks';
-import { selectProfile } from '~/redux/user/selector';
 
 interface Props {
+  id: number;
   name: string;
   email: string;
   phone: string;
@@ -22,6 +20,7 @@ interface Props {
 }
 
 export default function UserDetailInformation({
+  id,
   email,
   imageAlt,
   imageUrl,
@@ -29,32 +28,32 @@ export default function UserDetailInformation({
   phone,
   isHidePoint = false,
 }: Props) {
-  const profile = useSelector(selectProfile);
-  const id = useGetIdFromUrl('id');
-  const {
-    data: mark,
-    error,
-    isLoading,
-  } = useGetMemberMarkReport(id, profile.id);
+  const classId = useGetIdFromUrl('id');
+  const { data: mark, error, isLoading } = useGetMemberMarkReport(classId, id);
 
   const columns: GridColDef[] = [
+    {
+      field: 'type',
+      headerName: 'Loại điểm số',
+      width: 90,
+    },
     {
       field: 'name',
       headerName: 'Tên bài kiểm tra',
       flex: 1,
-      minWidth: 200,
     },
     {
-      field: 'time',
-      headerName: 'Thời điểm',
-      width: 200,
+      field: 'created',
+      headerName: 'Thời điểm đã làm',
+      minWidth: 200,
       renderCell: (params) => {
-        return formatISODateStringToDisplayDateTime(params.row.time);
+        return formatISODateDateToDisplayDateTime(params.row.created);
       },
     },
     {
       field: 'grade',
       headerName: 'Điểm',
+      width: 90,
     },
   ];
 
