@@ -49,6 +49,7 @@ export const enum MentorNavigationLink {
 }
 export const enum MentorDashboardNavigationActionLink {
   mentor_menu_dashboard = 'mentor-menu',
+  review = 'do_review',
   // Quản lí học tập
   mentor_course_list = 'courses',
   mentor_course_detail = 'courses/detail',

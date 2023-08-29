@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { MentorDashboardNavigationActionLink } from '~/constants/routeLink';
 import { RoutePayload } from '~/models/routes';
+import ReviewPage from '~/pages/ReviewPage';
 import {
   MentorCourseListPage,
   MentorCourseDetailPage,
@@ -65,6 +66,11 @@ export const mentorLMSRoutes: RoutePayload[] = [
     path: MentorDashboardNavigationActionLink.mentor_create_quiz,
     main: () => <MentorCreateQuizPage />,
     role: ['ROLE_TEACHER'],
+  },
+  {
+    path: `${MentorDashboardNavigationActionLink.review}/:quizId`,
+    main: () => <ReviewPage />,
+    role: ['ROLE_STUDENT'],
   },
   {
     path: MentorDashboardNavigationActionLink.mentor_assignment_settings_1,
