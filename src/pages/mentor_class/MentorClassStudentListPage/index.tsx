@@ -69,7 +69,7 @@ export default function MentorClassStudentListPage() {
             <Box
               alt="hinh anh hoc sinh"
               component="img"
-              src={params.row.avatar || image.noCourse}
+              src={params.row.avatar || image.noAvatar}
               sx={{
                 width: '100%',
                 height: undefined,
