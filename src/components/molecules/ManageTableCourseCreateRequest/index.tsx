@@ -56,7 +56,7 @@ export default function ManageTableCourseCreateRequest({
     {
       icon: 'question',
       title: Text.popoverOptionNotSupport,
-      onCLick: () => console.log(Text.popoverOptionNotSupport),
+      onCLick: () => {},
     },
   ];
   const popoverOptionsDetails: MenuItemPayload[] = [

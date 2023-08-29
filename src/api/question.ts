@@ -84,8 +84,6 @@ const questionApi = {
         })) || [],
     }));
 
-    console.log(response, result);
-
     return result;
   },
 

@@ -43,9 +43,7 @@ export default function MentorTakeAttendance() {
   const handleNewSize = (params: number) => setSize(params);
   const isLoading = false;
 
-  const handleOnSelectionModelChange = (datas: any) => {
-    console.log(datas);
-  };
+  const handleOnSelectionModelChange = (datas: any) => {};
 
   return (
     <>

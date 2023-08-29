@@ -64,13 +64,9 @@ export default function FeedbackManagerTemplate() {
     await refetch();
   };
 
-  const handleSearchValue = (searchData: string) => {
-    console.log('search data', searchData);
-  };
+  const handleSearchValue = (searchData: string) => {};
 
   const handleAddTemplate = async (data: any) => {
-    console.log('data', data);
-
     const tmpData: CreateFeedbackPayload = {
       name: data.name,
       type: data.type.value,

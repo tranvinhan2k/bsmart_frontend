@@ -78,8 +78,6 @@ export function formatUndefinedValue(
 export const handleConsoleError: SubmitErrorHandler<any> = (
   errors: FieldErrors<any>
 ) => {
-  // eslint-disable-next-line no-console
-  console.error('console error', errors);
   return null;
 };
 

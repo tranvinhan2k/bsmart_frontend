@@ -37,8 +37,6 @@ export const useUpdateCourseForm = (
       level: data?.level,
     };
 
-    console.log(params);
-
     await onChangeCourse(params);
   }
 

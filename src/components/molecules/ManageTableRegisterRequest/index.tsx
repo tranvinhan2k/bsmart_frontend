@@ -56,7 +56,7 @@ export default function ManageTableRegisterRequest({
     {
       icon: 'question',
       title: Text.popoverOptionNotSupport,
-      onCLick: () => console.log(Text.popoverOptionNotSupport),
+      onCLick: () => {},
     },
   ];
 

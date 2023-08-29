@@ -109,15 +109,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
       </Stack>
-      {!quiz.isAttemptedQuiz && (
-        <Button
-          disabled={!quiz.isQuizOpen}
-          onClick={onClose}
-          variant="contained"
-        >
-          Vào làm bài
-        </Button>
-      )}
+
       {quiz.isAttemptedQuiz && (
         <Stack>
           <LoadingWrapper isLoading={isResultLoading} error={errorResult}>
@@ -159,21 +151,18 @@ export default function ModuleQuizPage({ name, item }: Props) {
                   },
                   {
                     field: 'reviewFeatures',
-                    headerName: 'Xem lại kết quả',
+                    headerName: 'Xem lại bài làm',
                     flex: 1,
                     renderCell: (params) => {
                       return (
-                        quiz.isAllowAfterMin && (
-                          <Button
-                            sx={{ marginTop: 1 }}
-                            disabled={!item.isAllowReview}
-                            onClick={() => onReview(params.row.id)}
-                            color="success"
-                            variant="contained"
-                          >
-                            Xem lại kết quả
-                          </Button>
-                        )
+                        <Button
+                          disabled={!item.isAllowReview}
+                          onClick={() => onReview(params.row.id)}
+                          color="success"
+                          variant="contained"
+                        >
+                          Xem lại bài làm
+                        </Button>
                       );
                     },
                   },
@@ -185,6 +174,14 @@ export default function ModuleQuizPage({ name, item }: Props) {
         </Stack>
       )}
 
+      <Button
+        sx={{ marginTop: 1 }}
+        disabled={!quiz.isQuizOpen}
+        onClick={onClose}
+        variant="contained"
+      >
+        Vào làm bài
+      </Button>
       <CustomModal
         open={open}
         onClose={onClose}

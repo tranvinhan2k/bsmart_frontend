@@ -58,7 +58,7 @@ export default function ManageTableMentorProfileUpdateRequest({
     {
       icon: 'question',
       title: Text.popoverOptionNotSupport,
-      onCLick: () => console.log(Text.popoverOptionNotSupport),
+      onCLick: () => {},
     },
   ];
 

@@ -119,8 +119,6 @@ export default function ImageInput({
       u8arr[n] = bstr.charCodeAt(n);
     }
 
-    console.log('selectedFile', new File([u8arr], filename, { type: mime }));
-
     return new File([u8arr], filename, { type: mime });
   }
 
@@ -213,7 +211,6 @@ export default function ImageInput({
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget;
     const paramCenterCrop = centerAspectCrop(width, height, aspect);
-    console.log('center crop', paramCenterCrop, aspect);
 
     setCrop(paramCenterCrop);
   }

@@ -25,9 +25,7 @@ export default function GeneralSettings() {
     resolver: resolverEditPersonalProfile,
   });
 
-  const handleSubmitSuccess = async (data: any) => {
-    console.log('handleSubmitSuccess');
-  };
+  const handleSubmitSuccess = async (data: any) => {};
 
   const gradingMethods = [
     { id: 0, value: 'Điểm cao nhất', label: 'Điểm cao nhất' },

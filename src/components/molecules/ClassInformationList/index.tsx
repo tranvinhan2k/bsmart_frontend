@@ -1,10 +1,11 @@
-import { Stack } from '@mui/material';
+import { Divider, Stack, Typography } from '@mui/material';
 import { ClassStatusList } from '~/constants';
 import { formatDate } from '~/utils/date';
 import { formatMoney } from '~/utils/money';
 import { TimetablePayload } from '../Timetable';
 import { ClassStatusKeys } from '~/models/variables';
 import TextList, { TextListPayload } from '~/components/atoms/texts/TextList';
+import globalStyles from '~/styles';
 
 interface Props {
   code: string;
@@ -50,19 +51,6 @@ export default function ClassInformationList({
     },
     {
       id: 0,
-      name: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
-      timetable,
-      type: 'timetable',
-    },
-    {
-      id: 0,
-      name: 'Hình ảnh',
-      value: imageUrl,
-      alt: imageAlt,
-      type: 'image',
-    },
-    {
-      id: 0,
       name: 'Ngày bắt đầu',
       value: formatDate(startDate),
       type: 'text',
@@ -103,11 +91,28 @@ export default function ClassInformationList({
       value: `${ClassStatusList.find((item) => item.value === status)?.label}`,
       type: 'text',
     },
+    {
+      id: 0,
+      name: 'Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7',
+      timetable,
+      type: 'timetable',
+    },
+    {
+      id: 0,
+      name: 'Hình ảnh',
+      value: imageUrl,
+      alt: imageAlt,
+      type: 'image',
+    },
   ];
 
   return (
     <Stack>
-      <TextList items={displayLineData} />
+      <Typography sx={globalStyles.textSubTitle}>Thông tin lớp học</Typography>
+      <Divider />
+      <Stack marginTop={3}>
+        <TextList items={displayLineData} />
+      </Stack>
     </Stack>
   );
 }

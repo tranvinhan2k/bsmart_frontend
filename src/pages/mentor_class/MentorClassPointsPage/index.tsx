@@ -1,21 +1,24 @@
 import { Stack, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import TextTitle from '~/components/atoms/texts/TextTitle';
+import { useState } from 'react';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import { comparisonData, quizStatusData } from '~/constants';
 import { useGetIdFromUrl } from '~/hooks';
 import { useMentorListQuiz } from '~/hooks/quiz/useMentorListQuiz';
-import {
-  QuizReportStudentPayload,
-  QuizReportTeacherPayload,
-} from '~/models/type';
+import { QuizReportTeacherPayload } from '~/models/type';
 import globalStyles from '~/styles';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
 export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
   const classId = useGetIdFromUrl('id');
 
+  const [searchValue, setSearchValue] = useState('');
+
   const { data, error, isLoading } = useMentorListQuiz(quizId, classId);
+
+  const filterData = data?.items.filter((item) =>
+    item.name.toLowerCase().includes(searchValue?.toLowerCase())
+  );
 
   const columns: GridColDef<QuizReportTeacherPayload>[] = [
     {
@@ -34,25 +37,19 @@ export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
         return formatCell;
       },
     },
-    {
-      field: 'point',
-      headerName: 'Điểm tối đa',
-      flex: 1,
-    },
+
     {
       field: 'correctPoint',
       headerName: 'Điểm',
       flex: 1,
       renderCell: (params) => {
-        return `${params.row.correctNumber.map(
-          (item) => `${(item / params.row.totalQuestion) * params.row.point}`
-        )}`;
+        return `${params.row.correctNumber}`;
       },
     },
   ];
 
   const handleSearch = (params: any) => {
-    console.log(params);
+    setSearchValue(params?.searchValue || '');
   };
 
   return (
@@ -63,7 +60,7 @@ export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
           isLoading={isLoading}
           error={error}
           columns={columns}
-          rows={data?.items || []}
+          rows={filterData || []}
           searchPlaceholder="Nhập tên học sinh bạn muốn tìm kiếm"
           onSearch={handleSearch}
           searchFilterFormInputList={[

@@ -35,7 +35,7 @@ export default function MentorProfileTutorialPage() {
   const steps: StepPayload[] = [
     {
       id: 0,
-      isCompleted: !isRequiredAddress,
+      isCompleted: false,
       label: 'Thêm địa chỉ',
       onClick: () =>
         navigate(
@@ -45,18 +45,12 @@ export default function MentorProfileTutorialPage() {
     },
     {
       id: 1,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'AVATAR'
-        ),
+      isCompleted: false,
       label: 'Thêm ảnh đại diện',
     },
     {
       id: 2,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'FRONTCI'
-        ),
+      isCompleted: false,
       label: 'Thêm ảnh căn cước công dân mặt trước',
       onClick: () =>
         navigate(
@@ -65,10 +59,7 @@ export default function MentorProfileTutorialPage() {
     },
     {
       id: 3,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'BACKCI'
-        ),
+      isCompleted: false,
       label: 'Thêm ảnh căn cước công dân mặt sau',
       onClick: () =>
         navigate(
@@ -78,10 +69,7 @@ export default function MentorProfileTutorialPage() {
 
     {
       id: 4,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'DEGREE'
-        ),
+      isCompleted: false,
       label: 'Thêm bằng cấp',
       onClick: () =>
         navigate(
@@ -90,10 +78,7 @@ export default function MentorProfileTutorialPage() {
     },
     {
       id: 5,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'introduce'
-        ),
+      isCompleted: false,
       label: 'Thêm thông tin giới thiệu',
       onClick: () =>
         navigate(
@@ -102,10 +87,7 @@ export default function MentorProfileTutorialPage() {
     },
     {
       id: 6,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'workingExperience'
-        ),
+      isCompleted: false,
       label: 'Thêm số năm kinh nghiệm',
       onClick: () =>
         navigate(
@@ -114,10 +96,7 @@ export default function MentorProfileTutorialPage() {
     },
     {
       id: 7,
-      isCompleted:
-        !mentorProfilesCompleteness?.missingInformation[0].requiredInfo.fields.find(
-          (item) => item.field === 'skills'
-        ),
+      isCompleted: false,
       label: 'Thêm kĩ năng lập trình',
       onClick: () =>
         navigate(
@@ -130,24 +109,6 @@ export default function MentorProfileTutorialPage() {
       label: 'Phê duyệt hồ sơ giảng dạy',
     },
   ];
-
-  useEffect(() => {
-    if (
-      mentorProfilesCompleteness?.missingInformation?.[0]?.requiredInfo?.fields
-        .length !== 0
-    ) {
-      let paramActiveIndex = activeStep;
-      for (let index = paramActiveIndex; index < steps.length; index += 1) {
-        const element = steps[index];
-
-        if (element.isCompleted) {
-          paramActiveIndex = index !== steps.length - 1 ? index + 1 : index;
-        }
-      }
-      setActiveStep(paramActiveIndex);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mentorProfilesCompleteness]);
 
   return (
     <Stack>

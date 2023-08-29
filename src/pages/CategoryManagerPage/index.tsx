@@ -42,8 +42,6 @@ export default function CategoryManagerPage() {
     setOpen(!open);
   };
   const handleSearchCategory = (data: any) => {
-    console.log(data);
-
     setSearchValue(data.searchValue);
   };
   const handleOpenDetailCategory = () => {

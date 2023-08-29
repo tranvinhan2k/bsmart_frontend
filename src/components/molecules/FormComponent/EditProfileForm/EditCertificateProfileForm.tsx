@@ -159,7 +159,6 @@ export default function EditCertificateProfileForm() {
     size: 12,
   };
 
-  console.log('certificateFields', certificateFields);
   return (
     <Box sx={SX_FORM}>
       <Typography component="h3" sx={SX_FORM_TITLE}>

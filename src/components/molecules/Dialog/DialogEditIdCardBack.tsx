@@ -62,7 +62,7 @@ export default function DialogEditIdCardBack({
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
-      // await mutateAsync(data.identityBack);
+      await mutateAsync(data.identityBack);
       await mutateEditIdentityBack(params);
       handleOnClose();
       handleDispatchProfile();

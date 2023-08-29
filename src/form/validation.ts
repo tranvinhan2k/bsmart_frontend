@@ -356,11 +356,6 @@ export const validationSchemaEditAvatar = object({
     .test('fileSize', IMAGE_SIZE_TOO_BIG, (value: any) => {
       return value && value.size <= FILE_SIZE_2;
     }),
-  // .test('fileFormat', IMAGE_FORMAT_NOT_SUPPORT, (value: any) => {
-  //   console.log('value', value, value.type);
-
-  //   return value && SUPPORTED_FORMATS.includes(value.type);
-  // }),
 });
 export const validationSchemaEditIdentityFront = object({
   identityFront: mixed()
