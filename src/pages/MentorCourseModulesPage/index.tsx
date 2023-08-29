@@ -235,6 +235,7 @@ export default function MentorCourseModulesPage() {
           visible: data.visible,
           parentActivityId: sectionId,
           courseId,
+          password: data.password,
           authorizeClasses: data.authorizeClasses,
           description: data.description,
           editBeForSubmitMin: data.editBeForSubmitMin,

@@ -37,7 +37,6 @@ export default function QuizPage() {
           id={quizData.id || 0}
           initData={{
             name: quizData.name || '',
-            time: quizData.time || 0,
             questions: data?.questions || [],
           }}
         />

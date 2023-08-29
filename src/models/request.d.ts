@@ -52,6 +52,9 @@ export interface PagingFilterRequest {
   endDate?: string;
   status?: ClassStatusKeys;
 
+  // mentorProfile
+  accountStatus?: ClassStatusKeys;
+
   // STUDENT 1 |TEACHER 2
   asRole?: 1 | 2;
 
@@ -98,6 +101,7 @@ export interface PostAssignmentRequest extends PostActivityRequest {
 
 export interface PostSubmitActivityRequest {
   submittedFiles: string[];
+  password: string;
   note: string;
 }
 

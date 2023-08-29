@@ -167,6 +167,7 @@ export default function MentorCourseAddModulePage() {
         parentActivityId: sectionId,
         courseId,
         authorizeClasses: data.authorizeClasses,
+        password: data.password,
         description: data.description,
         editBeForSubmitMin: data.editBeForSubmitMin,
         maxFileSubmit: data.maxFileSubmit,

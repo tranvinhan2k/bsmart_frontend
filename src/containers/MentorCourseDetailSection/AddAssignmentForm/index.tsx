@@ -96,6 +96,12 @@ export default function AddAssignmentForm({
       variant: 'number',
     },
     {
+      label: 'Mật khẩu',
+      name: 'password',
+      placeholder: 'Thêm mật khẩu cho bài tập',
+      variant: 'password',
+    },
+    {
       label: 'Dung Lượng tệp cho phép (MB)',
       name: 'maxFileSize',
       placeholder: 'Thêm dung lượng tệp cho phép',

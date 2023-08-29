@@ -108,6 +108,8 @@ export default function MentorCourseFeedback() {
               email={item.email}
               rating={item.rating}
               review={item.reviewContent}
+              avatarUrl={item.avatarUrl}
+              avatarAlt={item.avatarAlt}
             />
           ))}
           <Stack

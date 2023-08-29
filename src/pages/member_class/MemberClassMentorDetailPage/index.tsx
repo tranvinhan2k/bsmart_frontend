@@ -44,6 +44,7 @@ export default function MemberClassMentorDetailPage() {
           imageUrl={mentor.imageUrl}
           name={mentor.name}
           phone={mentor.phone}
+          isHidePoint
         />
       </Stack>
     </Stack>

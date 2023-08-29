@@ -1,5 +1,5 @@
 import { FormHelperText, Stack, Typography } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ClassContext } from '~/HOCs/context/ClassContext';
 import Button from '~/components/atoms/Button';
@@ -19,6 +19,7 @@ import {
   useTryCatch,
   useYupValidationResolver,
 } from '~/hooks';
+import { useUpdateLink } from '~/hooks/useUpdateLink';
 import { PostTimeTableResponse } from '~/models/response';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
@@ -42,7 +43,7 @@ export interface MentorClassInformationPayload {
 
 export default function MentorClassInformationPage() {
   const resolver = useYupValidationResolver(validationCheckUrl);
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset, formState } = useForm({
     resolver,
   });
   const [open, setOpen] = useState<boolean>(false);
@@ -111,7 +112,25 @@ export default function MentorClassInformationPage() {
     });
   };
 
-  const onSubmit = (data: any) => {};
+  const { mutateAsync } = useUpdateLink();
+  const { handleTryCatch: handleTryCatchUrl } = useTryCatch('đổi đường dẫn');
+
+  const onSubmit = async (data: any) => {
+    await handleTryCatchUrl(async () => {
+      await mutateAsync({
+        id: detailClass.id,
+        url: data.link,
+      });
+      await refetch();
+    });
+  };
+
+  useEffect(() => {
+    reset({
+      link: contextDetailClass?.classURL || '',
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contextDetailClass?.classURL]);
 
   return (
     <Stack>
@@ -168,6 +187,7 @@ export default function MentorClassInformationPage() {
         >
           <FormInput control={control} name="link" />
           <Button
+            disabled={!formState.isDirty}
             onClick={handleSubmit(onSubmit, handleConsoleError)}
             sx={{
               marginLeft: 1,

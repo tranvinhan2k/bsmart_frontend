@@ -85,11 +85,5 @@ export const mentorClassRoutes = (courseId?: number): RoutePayload[] => {
       role: ['ROLE_TEACHER'],
       courseStatus: 'ALL',
     },
-    {
-      path: MentorClassActionLink.mark_report,
-      main: () => <MentorClassMarkReportPage />,
-      role: ['ROLE_TEACHER'],
-      courseStatus: 'ALL',
-    },
   ];
 };

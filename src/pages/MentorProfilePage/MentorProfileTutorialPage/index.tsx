@@ -132,7 +132,10 @@ export default function MentorProfileTutorialPage() {
   ];
 
   useEffect(() => {
-    if (mentorProfilesCompleteness) {
+    if (
+      mentorProfilesCompleteness?.missingInformation?.[0]?.requiredInfo?.fields
+        .length !== 0
+    ) {
       let paramActiveIndex = activeStep;
       for (let index = paramActiveIndex; index < steps.length; index += 1) {
         const element = steps[index];

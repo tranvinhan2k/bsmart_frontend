@@ -51,7 +51,7 @@ export default function ModuleQuizPage({ name, item }: Props) {
     questionCount: item.questionCount,
     status: item.status,
     isQuizOpen: true,
-    isAttemptedQuiz: Boolean(results),
+    isAttemptedQuiz: results?.length !== 0,
     code: item.code,
     time: formatTime(item.time),
     isAllowAfterMin: true,

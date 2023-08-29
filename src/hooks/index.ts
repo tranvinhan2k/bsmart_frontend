@@ -76,7 +76,6 @@ export * from './class/useMutationDeleteClass';
 export * from './class/useQueryStudentList';
 export * from './class/useMutationOpenNotStartClass';
 export * from './class/useGetClassSchedule';
-export * from './class/useGetMentorMarkReport';
 export * from './class/useGetMemberMarkReport';
 export * from './class/useGetManagerClasses';
 

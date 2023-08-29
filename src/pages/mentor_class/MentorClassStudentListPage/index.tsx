@@ -1,23 +1,13 @@
 import { Box, Stack, FormControlLabel, Switch } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { MetricSize } from '~/assets/variables';
 import CustomModal from '~/components/atoms/CustomModal';
 import TextTitle from '~/components/atoms/texts/TextTitle';
 import CRUDTable from '~/components/molecules/CRUDTable';
 import UserDetailInformation from '~/components/molecules/UserDetailInformation';
 import { image } from '~/constants/image';
-import {
-  MentorClassActionLink,
-  MentorDashboardNavigationActionLink,
-  NavigationLink,
-} from '~/constants/routeLink';
-import {
-  useGetIdFromUrl,
-  useGetMentorMarkReport,
-  useQueryStudentList,
-} from '~/hooks';
+import { useGetIdFromUrl, useQueryStudentList } from '~/hooks';
 import { useBoolean } from '~/hooks/useBoolean';
 import globalStyles from '~/styles';
 
@@ -32,18 +22,10 @@ export interface MentorClassMemberDetailPayload {
 
 export default function MentorClassStudentListPage() {
   const id = useGetIdFromUrl('id');
-  const navigate = useNavigate();
   const [isShowImage, setShowImage] = useState(true);
   const [row, setRow] = useState<MentorClassMemberDetailPayload | undefined>();
   const { value, toggle } = useBoolean(false);
   const [search, setSearchValue] = useState('');
-  const handleOpenDetailModal = () => {
-    if (row) {
-      navigate(
-        `/${NavigationLink.dashboard}/${MentorDashboardNavigationActionLink.mentor_class_detail}/${id}/${MentorClassActionLink.student_detail}/${row.id}`
-      );
-    }
-  };
 
   const {
     currentPage,
@@ -56,8 +38,6 @@ export default function MentorClassStudentListPage() {
   } = useQueryStudentList(id);
 
   const rows = studentList;
-
-  const { data: marks } = useGetMentorMarkReport(id);
 
   const filterRows = rows?.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())

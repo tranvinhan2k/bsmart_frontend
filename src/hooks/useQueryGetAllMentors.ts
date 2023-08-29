@@ -6,6 +6,7 @@ import { PagingFilterRequest } from '~/models';
 export const useQueryGetAllMentors = () => {
   const [filterParams, setFilterParams] = useState<PagingFilterRequest>({
     page: 0,
+    accountStatus: 'STARTING',
   });
   const { error, data, isLoading, refetch } = useQuery({
     queryKey: ['mentors', filterParams.q, filterParams.subjectId],

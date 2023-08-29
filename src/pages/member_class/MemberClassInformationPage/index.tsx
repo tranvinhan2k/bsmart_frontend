@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Alert, Rating, Stack, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import TextTitle from '~/components/atoms/texts/TextTitle';
@@ -6,6 +6,7 @@ import ClassInformationList from '~/components/molecules/ClassInformationList';
 import { ClassContext } from '~/HOCs/context/ClassContext';
 import {
   useDispatchGetAllSubjects,
+  useGetIdFromUrl,
   useMutationSendFeedback,
   useQueryMemberFeedback,
   useTryCatch,
@@ -19,6 +20,7 @@ import { validationRating } from '~/form/validation';
 import { handleConsoleError } from '~/utils/common';
 import { useBoolean } from '~/hooks/useBoolean';
 import { formatStringToNumber } from '~/utils/number';
+import { useGetStudentFeedback } from '~/hooks/useGetStudentFeedback';
 
 export interface FeedbackMemberQuestionPayload {
   id: number;
@@ -36,11 +38,12 @@ export interface SendFeedbackPayload {
 }
 
 export default function MemberClassInformationPage() {
+  const id = useGetIdFromUrl('id');
   const { detailClass } = useContext(ClassContext);
 
   const { value, toggle } = useBoolean(false);
 
-  const isDidFeedback = value;
+  const { data: feedbackData } = useGetStudentFeedback(id);
 
   const isTimeToFeedback = true;
 
@@ -52,16 +55,23 @@ export default function MemberClassInformationPage() {
   const { handleTryCatch } = useTryCatch('gửi đánh giá');
 
   const { subjects } = useDispatchGetAllSubjects();
-  const subject = subjects.find((item) => item.id === detailClass?.id || 0);
+  const subject = subjects?.find((item) => item.id === detailClass?.id || 0);
 
   const resolver = useYupValidationResolver(validationRating);
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     resolver,
     defaultValues: {
       ratingPoint: 0,
       description: '',
     },
   });
+
+  console.log('feedbackData', feedbackData);
+
+  useEffect(() => {
+    reset(feedbackData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feedbackData]);
 
   const defaultRatingForm: InputData[] = [
     {

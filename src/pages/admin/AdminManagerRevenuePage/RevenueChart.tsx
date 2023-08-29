@@ -31,7 +31,7 @@ import {
   formatISODateDateToDisplayMonthYear,
 } from '~/utils/date';
 // eslint-disable-next-line import/no-cycle
-import RevenueHistory from './RevenueHistory';
+import RevenueHistory from './RevenueHistoryMentor';
 
 export interface RevenuePayload {
   id: number;
@@ -260,7 +260,7 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
 
   return (
     <Stack>
-      <Stack>
+      {/* <Stack>
         <Typography sx={globalStyles.textSubTitle}>
           Thống kê doanh thu
         </Typography>
@@ -373,7 +373,7 @@ export default function RevenueChart({ data }: { data: RevenuePayload[] }) {
             </Stack>
           </Stack>
         </Stack>
-      </Stack>
+      </Stack> */}
       <RevenueHistory data={historyData || []} />
     </Stack>
   );

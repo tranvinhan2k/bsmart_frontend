@@ -1,36 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import { transform } from '@babel/standalone';
 import { Button, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Preview } from './Preview';
-import { useAIConvert } from '~/hooks/useAIConvert';
 import FormInput from '~/components/atoms/FormInput';
-import { useTryCatch } from '~/hooks';
-
-const createPrompt = (description: string) => {
-  return `I want you to act like a code generator and only return JSX code, nothing else. Can you please provide me with a React function component? It is also very important that you don't import or export anything, otherwise the code will not work. This is because "React" is globally registered in the environment. The component should be named 'MyComponent'. What this component should do is: "${description}". Remember, I'm specifically interested in the actual code implementation (a React function component), no description. For styling you can use TailwindCSS as you can assume that the styles are present.\n\n\`\`\`jsx\n\n\`\`\`\n\n`;
-};
-
-const disallowed = ['```', '```jsx', '```js', 'import', 'export'];
-
-const removeDisallowedLines = (input: string) => {
-  return input
-    .split('\n')
-    .filter(
-      (line) =>
-        !disallowed.some((disallowedLine) =>
-          line.trim().startsWith(disallowedLine)
-        )
-    )
-    .join('\n');
-};
-
-const formatResponse = (input: string) => {
-  return removeDisallowedLines(input);
-};
 
 const initCode = `const MyComponent = () => {
   return <div>Hello World</div>
@@ -44,7 +20,6 @@ function App() {
   const handleEditorChange = (value: string | undefined) => {
     setCode(value ?? 'Something went wrong');
   };
-  const { handleTryCatch } = useTryCatch('xây hình ảnh');
 
   const handleRun = () => {
     try {
@@ -55,14 +30,7 @@ function App() {
     }
   };
 
-  const onSubmit = async (data: any) => {
-    const response = await handleTryCatch(async () =>
-      mutateAsync(createPrompt(data.text))
-    );
-    if (response) {
-      handleEditorChange(formatResponse(response?.choices?.[0]?.text));
-    }
-  };
+  const onSubmit = async (data: any) => {};
 
   return (
     <Stack sx={{ height: '90vh' }}>

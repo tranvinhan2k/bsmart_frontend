@@ -1,5 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { validateDate } from '@mui/x-date-pickers/internals';
+import { useEffect } from 'react';
 import { Color, FontFamily, FontSize, MetricSize } from '~/assets/variables';
 import Button from '~/components/atoms/Button';
 import FormInput from '~/components/atoms/FormInput';
@@ -13,6 +15,7 @@ import {
   useGetIdFromUrl,
   useMemberSubmitAssignment,
   useTryCatch,
+  useYupValidationResolver,
 } from '~/hooks';
 import { PostSubmitActivityRequest } from '~/models';
 import { useBoolean } from '~/hooks/useBoolean';
@@ -20,6 +23,8 @@ import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import Icon from '~/components/atoms/Icon';
 import { image } from '~/constants/image';
 import { openUrl } from '~/utils/window';
+import { validationAssignment } from '~/form/validation';
+import { useGetAssignmentResult } from '~/hooks/quiz/useGetAssignmentResult';
 
 interface Props {
   name: string;
@@ -29,12 +34,34 @@ interface Props {
 
 export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   const moduleId = useGetIdFromUrl('moduleId');
+  const classId = useGetIdFromUrl('id');
+
+  const { data: result } = useGetAssignmentResult({
+    assignmentId: item.assignmentId,
+    classId,
+  });
+
   const { value, toggle } = useBoolean(false);
-  const { control, handleSubmit } = useForm({
+
+  const resolver = useYupValidationResolver(validationAssignment);
+  const { control, handleSubmit, reset } = useForm({
+    resolver,
     defaultValues: {
       note: item.note,
     },
   });
+
+  useEffect(() => {
+    reset({
+      note: result?.note || '',
+      attachFiles: {
+        files: result?.assignmentFiles || [],
+        deleteIndexes: [],
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result]);
+
   const { mutateAsync: handleSubmitAssignment } = useMemberSubmitAssignment();
   const { mutateAsync: handleDeleteFiles } = useDeleteFile();
 
@@ -44,6 +71,7 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
   const onSubmit = async (data: any) => {
     const params: PostSubmitActivityRequest = {
       note: data.note || '',
+      password: data?.password || '',
       submittedFiles:
         data.attachFiles.files.filter(
           (subItem: any) => subItem?.fileType !== 'ATTACH'
@@ -146,11 +174,22 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
             control={control}
             name="note"
             variant="multiline"
+            label="Thêm ghi chú"
           />
           <Stack marginTop={1} />
-          <FormInput control={control} name="attachFiles" variant="files" />
+          <FormInput
+            control={control}
+            name="attachFiles"
+            variant="files"
+            label="Thêm bài nộp"
+          />
           <Stack marginTop={1} />
-          <FormInput control={control} name="password" variant="password" />
+          <FormInput
+            control={control}
+            name="password"
+            variant="password"
+            label="Thêm nhập mật khẩu"
+          />
           <Box marginTop={1}>
             <Button onClick={toggle} variant="contained">
               {item.attachFiles.length !== 0

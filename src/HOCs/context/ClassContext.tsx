@@ -14,16 +14,12 @@ interface Props {
 
 interface ClassContextProps {
   detailClass: ClassDetailPayload | undefined;
-  refetch:
-    | (<TPageData>(
-        options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
-      ) => Promise<QueryObserverResult<ClassDetailPayload, unknown>>)
-    | undefined;
+  refetch: any;
 }
 
 export const ClassContext = createContext<ClassContextProps>({
   detailClass: undefined,
-  refetch: undefined,
+  refetch: () => {},
 });
 
 export default function ClassContextProvider({ children }: Props) {

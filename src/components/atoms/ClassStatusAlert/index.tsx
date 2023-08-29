@@ -1,12 +1,4 @@
-import {
-  Stack,
-  Alert,
-  Box,
-  Button,
-  FormHelperText,
-  SxProps,
-  Theme,
-} from '@mui/material';
+import { Stack, Alert, Box, Button, SxProps, Theme } from '@mui/material';
 import { ClassStatusKeys } from '~/models/variables';
 import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
@@ -32,14 +24,14 @@ export default function ClassStatusAlert(props: Props) {
 
   const isTodayGreaterThanStartDate: boolean =
     new Date(startDate).getTime() <= new Date().getTime();
-  // console.log('date greater', isTodayGreaterThanStartDate);
 
   switch (status) {
     case 'REQUESTING':
       return (
         <Stack sx={wrapperSx}>
           <Alert severity="warning">
-            Lớp học chưa được phê duyệt. Vui lòng gửi phê duyệt để mở lớp học.
+            Lớp học chưa được phê duyệt. Vui lòng phê duyệt lớp để thao tác với
+            lớp học.
           </Alert>
         </Stack>
       );
@@ -61,8 +53,6 @@ export default function ClassStatusAlert(props: Props) {
         </Stack>
       );
     case 'NOTSTART': {
-      const { onGetClassSchedule } = props;
-
       switch (isTodayGreaterThanStartDate) {
         case false:
           return (
@@ -76,26 +66,7 @@ export default function ClassStatusAlert(props: Props) {
           );
 
         default:
-          return (
-            <Stack sx={wrapperSx}>
-              <Alert severity="warning">
-                Lớp học đã tới thời gian bắt đầu. Tuy nhiên, số lượng học sinh
-                chưa đủ để tự động mở lớp. Vui lòng tùy chọn thao tác với lớp
-                học nếu không lớp học sẽ tự động hủy trong 48h tiếp theo.
-              </Alert>
-              <Box marginTop={1}>
-                <Stack sx={globalStyles.viewFlexRowCenter}>
-                  <Button
-                    onClick={onGetClassSchedule}
-                    variant="contained"
-                    color="success"
-                  >
-                    Mở lớp
-                  </Button>
-                </Stack>
-              </Box>
-            </Stack>
-          );
+          return null;
       }
     }
     case 'CANCEL':
@@ -108,6 +79,5 @@ export default function ClassStatusAlert(props: Props) {
       );
     default:
       return null;
-      break;
   }
 }

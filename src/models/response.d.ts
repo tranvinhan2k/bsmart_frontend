@@ -354,6 +354,7 @@ export type ResponseDetailClass = Partial<{
   status: ClassStatusKeys;
   price: number;
   minStudent: number;
+  classURL: string;
   maxStudent: number;
   numberOfSlot: number;
   hasReferralCode: boolean;
@@ -832,6 +833,7 @@ export type GetFeedbackCommentPayload = Partial<{
   submitBy: string;
   rate: number;
   comment: string;
+  avatarUrl: string;
 }>;
 
 export type GetCourseFeedbackPayload = Partial<{
@@ -958,4 +960,125 @@ export type AiConvertResponse = Partial<{
   };
   type_new: string;
   type: string;
+}>;
+
+export type AssignmentResultResponse = Partial<{
+  created: string;
+  lastModified: string;
+  createdBy: string;
+  lastModifiedBy: string;
+  id: number;
+  point: number;
+  note: string;
+  studentClass: {
+    id: number;
+    images: {
+      id: number;
+      name: string;
+      url: string;
+      status: true;
+      type: 'DEFAULT';
+    };
+    email: string;
+    name: string;
+  };
+  assignmentFiles: {
+    id: number;
+    url: string;
+    uploadTime: string;
+    fileType: 'SUBMIT';
+    point: number;
+    note: string;
+    name: string;
+    metadata: {
+      url: string;
+      name: string;
+      extension: string;
+      size: number;
+    };
+  }[];
+}>;
+
+export type StudentFeedbackResponse = Partial<{
+  id: number;
+  submitBy: {
+    id: number;
+    fullName: string;
+    email: string;
+    birthday: string;
+    address: string;
+    phone: string;
+    status: true;
+    gender: 'MALE';
+    roles: [
+      {
+        id: number;
+        name: string;
+        code: 'ANONYMOUS';
+      }
+    ];
+    linkedinLink: string;
+    facebookLink: string;
+    website: string;
+    userImages: {
+      id: number;
+      name: string;
+      url: string;
+      status: true;
+      type: 'DEFAULT';
+    }[];
+    wallet: {
+      id: number;
+      balance: number;
+      previous_balance: number;
+      owner_id: number;
+    };
+    mentorProfile: {
+      id: number;
+      introduce: string;
+      workingExperience: string;
+      status: 'REQUESTING';
+      user: string;
+      mentorSkills: [
+        {
+          id: number;
+          skillId: number;
+          name: string;
+          yearOfExperiences: number;
+          status: true;
+        }
+      ];
+      averageRate: number;
+      submissionCount: number;
+    };
+    teachInformation: {
+      numberOfCourse: number;
+      numberOfClass: number;
+      numberOfMember: number;
+      scoreFeedback: number;
+      numberOfFeedBack: number;
+    };
+    isVerified: true;
+    timeSendRequest: string;
+    count: number;
+    provider: 'GOOGLE';
+    learningInformation: {
+      numberOfCourse: number;
+      numberOfClass: number;
+      numberOfFinishedClass: number;
+    };
+    verified: true;
+  };
+  mentorRate: number;
+  courseRate: number;
+  comment: string;
+  questions: {
+    id: number;
+    question: string;
+    answers: {
+      id: number;
+      answer: string;
+      isChosen: boolean;
+    }[];
+  }[];
 }>;

@@ -2,22 +2,17 @@ import { IconButton, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Color, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
-import TextPropLine from '~/components/atoms/texts/TextPropLine';
 
 interface Props {
   name: string;
   numberOfTotalQuestion: number;
   numberOfChosenQuestion: number;
-  timeLeft: number;
-  isReview: boolean;
 }
 
 export default function QuizHeader({
   name,
   numberOfTotalQuestion,
   numberOfChosenQuestion,
-  timeLeft,
-  isReview = false,
 }: Props) {
   const navigate = useNavigate();
   return (
@@ -66,38 +61,7 @@ export default function QuizHeader({
             </Stack>
           </Stack>
         </Stack>
-        {!isReview && (
-          <TextPropLine
-            icon="time"
-            label="Thời gian còn lại"
-            value={`${timeLeft} s`}
-          />
-        )}
       </Stack>
-      {!isReview && (
-        <Stack
-          sx={{
-            display: { xs: 'flex', md: 'none' },
-            paddingY: 2,
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: '10',
-            background: Color.white,
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '40px',
-          }}
-        >
-          <TextPropLine
-            icon="time"
-            label="Thời gian còn lại"
-            value={`${timeLeft}`}
-          />
-        </Stack>
-      )}
     </Stack>
   );
 }

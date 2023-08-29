@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import CustomTab from '~/components/atoms/CustomTab';
 import RevenueChart, { RevenuePayload } from './RevenueChart';
-import RevenueHistory from './RevenueHistory';
+import RevenueHistory from './RevenueHistoryMentor';
 
 // Call the function to generate random data and add it to the existing data array
 
