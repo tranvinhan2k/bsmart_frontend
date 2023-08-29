@@ -29,7 +29,7 @@ export default function Module({ index, sectionId, module }: Props) {
         padding: 1,
         marginBottom: 1,
         borderRadius: MetricSize.small_5,
-        background: module.isFixed ? `${Color.tertiary}55` : Color.white,
+        background: module.isFixed ? `${Color.tertiary}11` : Color.white,
       }}
       key={module.id}
     >

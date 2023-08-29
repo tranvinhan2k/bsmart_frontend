@@ -13,6 +13,25 @@ export default function ModuleHeader({
 }) {
   const activityData = ActivityData.find((item) => item.type === type);
 
+  let color = Color.tertiary;
+
+  switch (type) {
+    case 'ASSIGNMENT':
+      color = Color.orange;
+      break;
+    case 'LESSON':
+      color = Color.navy;
+      break;
+    case 'RESOURCE':
+      color = Color.green;
+      break;
+    case 'QUIZ':
+      color = Color.blue;
+      break;
+    default:
+      break;
+  }
+
   return (
     <Stack
       style={{
@@ -22,7 +41,7 @@ export default function ModuleHeader({
         justifyContent: 'center',
 
         fontFamily: FontFamily.bold,
-        background: Color.navy,
+        background: color,
         width: '120px',
         padding: MetricSize.small_10,
         borderRadius: MetricSize.small_5,
