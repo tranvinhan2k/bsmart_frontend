@@ -5,16 +5,16 @@ import { SX_FORM_LABEL, SX_WRAPPER } from './style';
 
 interface RequestCourseScrollProps {
   scrollCourseDetails: () => void;
+  scrollCourseMentorInfo: () => void;
   scrollCourseContent: () => void;
   scrollCourseClassList: () => void;
-  scrollCourseMentorInfo: () => void;
 }
 
 export default function RequestCourseScroll({
   scrollCourseDetails,
+  scrollCourseMentorInfo,
   scrollCourseContent,
   scrollCourseClassList,
-  scrollCourseMentorInfo,
 }: RequestCourseScrollProps) {
   const [navigationPartId, setNavigatePartId] = useState(0);
 
@@ -24,24 +24,24 @@ export default function RequestCourseScroll({
     onClick: () => void;
   }[] = [
     {
-      id: 0,
+      id: 1,
       name: 'Thông tin cơ bản',
       onClick: scrollCourseDetails,
     },
     {
-      id: 1,
+      id: 2,
+      name: 'Giảng viên',
+      onClick: scrollCourseMentorInfo,
+    },
+    {
+      id: 3,
       name: 'Nội dung',
       onClick: scrollCourseContent,
     },
     {
-      id: 2,
+      id: 4,
       name: 'Danh sách lớp',
       onClick: scrollCourseClassList,
-    },
-    {
-      id: 3,
-      name: 'Giảng viên',
-      onClick: scrollCourseMentorInfo,
     },
   ];
 

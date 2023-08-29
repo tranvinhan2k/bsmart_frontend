@@ -1,10 +1,10 @@
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
-import Icon, { IconName } from '~/components/atoms/Icon';
 import { ActivityQuizPayload } from '~/models/type';
-import { formatISODateDateToDisplayDateTime } from '~/utils/date';
+import Icon, { IconName } from '~/components/atoms/Icon';
+import QuestionDisplay from './QuestionDisplay';
 import sx from './style';
 
 interface SubActivityContentQuizProps {
@@ -115,74 +115,74 @@ export default function SubActivityContentQuiz({
   ];
 
   return (
-    <Stack
-      direction="column"
-      justifyContent="center"
-      alignItems="stretch"
-      spacing={4}
-    >
-      <Box>
-        <Grid container spacing={2}>
-          {displayList0.map((display) => (
-            <Grid item xs={display.size} key={display.id}>
-              <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={1.5}
-              >
-                <Box>
-                  <Icon name={display.iconName} size="small_20" />
-                </Box>
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Typography sx={sx.itemLabel}>{display.label}</Typography>
-                  <Typography sx={sx.itemValue}>{display.value}</Typography>
-                </Stack>
-              </Stack>
-            </Grid>
-          ))}
-          {displayList1.map((display) => (
-            <Grid item xs={display.size} key={display.id}>
-              <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={1.5}
-              >
-                <Box>
-                  <Icon name={display.iconName} size="small_20" />
-                </Box>
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Typography sx={sx.itemLabel}>{display.label}</Typography>
-                  {display.value ? (
-                    <CheckIcon
-                      titleAccess="Có"
-                      style={{
-                        color: green[500],
-                      }}
-                    />
-                  ) : (
-                    <CloseIcon
-                      titleAccess="Không"
-                      style={{
-                        color: red[500],
-                      }}
-                    />
-                  )}
-                </Stack>
-              </Stack>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Stack>
+    <Grid container>
+      <Grid item xs={12} sm={12} md={3}>
+        <Typography>Thông số bài kiểm tra</Typography>
+        {displayList0.map((display) => (
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={1.5}
+            key={display.id}
+            mt={2}
+            p={1}
+          >
+            <Icon name={display.iconName} size="small_20" />
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+            >
+              <Typography sx={sx.itemLabel}>{display.label}</Typography>
+              <Typography sx={sx.itemValue}>{display.value}</Typography>
+            </Stack>
+          </Stack>
+        ))}
+        {displayList1.map((display) => (
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={1.5}
+            key={display.id}
+            p={1}
+          >
+            <Icon name={display.iconName} size="small_20" />
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+            >
+              <Typography sx={sx.itemLabel}>{display.label}</Typography>
+              {display.value ? (
+                <CheckIcon
+                  titleAccess="Có"
+                  style={{
+                    color: green[500],
+                  }}
+                />
+              ) : (
+                <CloseIcon
+                  titleAccess="Không"
+                  style={{
+                    color: red[500],
+                  }}
+                />
+              )}
+            </Stack>
+          </Stack>
+        ))}
+      </Grid>
+      <Divider orientation="vertical" flexItem />
+      <Grid item xs={12} sm={12} md={7}>
+        <Box ml={2}>
+          <Typography>Danh sách câu hỏi</Typography>
+          <Box mt={2}>
+            <QuestionDisplay quizQuestions={item.quizQuestions} />
+          </Box>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

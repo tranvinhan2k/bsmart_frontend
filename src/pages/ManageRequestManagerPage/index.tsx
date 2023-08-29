@@ -124,24 +124,33 @@ export default function ManageRequestManagerPage() {
     },
   ];
 
+  const noOfRegisterRequest = registerRequestListWAITING
+    ? registerRequestListWAITING.totalItems
+    : 0;
+  const noOfMentorUpdaterRequest = mentorProfileUpdateRequestPENDING
+    ? mentorProfileUpdateRequestPENDING.totalItems
+    : 0;
+  const noOfCourseCreateRequest = courseCreateRequestWAITING
+    ? courseCreateRequestWAITING.totalItems
+    : 0;
+  const noOfCourseUpdateRequest = courseUpdateRequestListWAITING
+    ? courseUpdateRequestListWAITING.totalItems
+    : 0;
+
   const renderMenuItem = [
     { id: 0, label: Text.ListSubheader0, isListSubheader: true },
     {
       id: 1,
       label: Text.MenuItem00,
       isLoading: isLoadingRegisterRequestListWAITING,
-      indicator: registerRequestListWAITING
-        ? registerRequestListWAITING.totalItems
-        : 0,
+      indicator: noOfRegisterRequest,
       value: 0,
     },
     {
       id: 2,
       label: Text.MenuItem01,
       isLoading: isLoadingMentorProfileUpdateRequest,
-      indicator: mentorProfileUpdateRequestPENDING
-        ? mentorProfileUpdateRequestPENDING.totalItems
-        : 0,
+      indicator: noOfMentorUpdaterRequest,
       value: 1,
     },
     { id: 3, label: Text.ListSubheader1, isListSubheader: true },
@@ -149,21 +158,23 @@ export default function ManageRequestManagerPage() {
       id: 4,
       label: Text.MenuItem10,
       isLoading: isLoadingCourseCreateRequestWAITING,
-      indicator: courseCreateRequestWAITING
-        ? courseCreateRequestWAITING.totalItems
-        : 0,
+      indicator: noOfCourseCreateRequest,
       value: 2,
     },
     {
       id: 5,
       label: Text.MenuItem11,
       isLoading: isLoadingCourseUpdateRequestWAITING,
-      indicator: courseUpdateRequestListWAITING
-        ? courseUpdateRequestListWAITING.totalItems
-        : 0,
+      indicator: noOfCourseUpdateRequest,
       value: 3,
     },
   ];
+
+  const totalRequest =
+    noOfRegisterRequest +
+    noOfMentorUpdaterRequest +
+    noOfCourseCreateRequest +
+    noOfCourseUpdateRequest;
 
   return (
     <Box padding={3}>
@@ -171,6 +182,7 @@ export default function ManageRequestManagerPage() {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
+        spacing={1}
         pb={2}
       >
         <Stack
@@ -178,14 +190,22 @@ export default function ManageRequestManagerPage() {
             width: '20%',
           }}
         >
-          <Typography
-            sx={{
-              ...globalStyles.textTitle,
-              lineHeight: 1,
-            }}
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={1}
           >
-            Xử lý yêu cầu
-          </Typography>
+            <Typography
+              sx={{
+                ...globalStyles.textTitle,
+                lineHeight: 1,
+              }}
+            >
+              Xử lý yêu cầu
+            </Typography>
+            <Chip label={totalRequest} color="error" size="small" />
+          </Stack>
         </Stack>
         <Stack sx={{ flexGrow: 1 }}>
           <FormControl fullWidth size="small" sx={sx.dropdown}>

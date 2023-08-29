@@ -4,7 +4,7 @@ import { Avatar, Chip, Typography } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { GridColDef } from '@mui/x-data-grid';
 import { Color, FontFamily, FontSize } from '~/assets/variables';
-import { getGender, handleDefinedText } from '~/utils/common';
+import { getGender } from '~/utils/common';
 import { CopyableCell, CopyableCellEllipsis } from '~/utils/commonComp';
 import {
   formatISODateStringToDisplayDate,
@@ -13,6 +13,16 @@ import {
 import { formatMoney } from '~/utils/money';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import { mockLevelData } from './data';
+
+const serialNumberColumns: GridColDef[] = [
+  {
+    field: 'serialNumber',
+    headerName: '#',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+  },
+];
 
 const feedbackQuestionColumns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -118,7 +128,7 @@ const managedMentorProfileUpdateRequestColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Mail',
-    minWidth: 250,
+    minWidth: 290,
     flex: 1,
     renderCell: (params) => {
       const { email } = params.row.userDto;
@@ -204,9 +214,19 @@ const managedCourseBasedColumns: GridColDef[] = [
     },
   },
   {
-    field: 'mentor',
-    headerName: 'Giáo viên',
-    minWidth: 200,
+    field: 'email',
+    headerName: 'Mail giáo viên',
+    minWidth: 290,
+    flex: 1,
+    renderCell: (params) => {
+      const { email } = params.row.mentor;
+      return <CopyableCellEllipsis rawValue={email} formattedValue={email} />;
+    },
+  },
+  {
+    field: 'mentorName',
+    headerName: 'Họ tên giáo viên',
+    minWidth: 240,
     flex: 1,
     renderCell: (params) => {
       const { name } = params.row.mentor;
@@ -541,31 +561,31 @@ const managedUserMentorColumns = managedUserBasedColumns.concat(
     valueGetter: (params) => params.row.teachInformation.numberOfClass,
   },
   {
-    field: 'numberOfFeedBack',
+    field: 'scoreFeedback',
     headerAlign: 'left',
     type: 'number',
     headerName: 'Đánh giá',
     minWidth: 80,
     flex: 1,
     sortable: false,
-    valueGetter: (params) => params.row.teachInformation.numberOfFeedBack,
+    valueGetter: (params) => params.row.teachInformation.scoreFeedback,
   },
   {
-    field: 'scoreFeedback',
+    field: 'numberOfFeedBack',
     headerAlign: 'left',
     type: 'number',
     headerName: 'Lượt đanh giá',
     minWidth: 120,
     flex: 1,
     sortable: false,
-    valueGetter: (params) => params.row.teachInformation.scoreFeedback,
+    valueGetter: (params) => params.row.teachInformation.numberOfFeedBack,
   },
   {
     field: 'numberOfMember',
     headerAlign: 'left',
     type: 'number',
     headerName: 'Học sinh đã dạy',
-    minWidth: 100,
+    minWidth: 120,
     flex: 1,
     sortable: false,
     valueGetter: (params) => params.row.teachInformation.numberOfMember,
@@ -664,6 +684,16 @@ const managedClassNotStartColumns: GridColDef[] = [
       );
     },
   },
+  // {
+  //   field: 'email',
+  //   headerName: 'Giáo viên',
+  //   minWidth: 290,
+  //   flex: 1,
+  //   renderCell: (params) => {
+  //     const { email } = params.row.mentor;
+  //     return <CopyableCellEllipsis rawValue={email} formattedValue={email} />;
+  //   },
+  // },
   {
     field: 'startDate',
     headerName: 'Ngày bắt đầu',
@@ -893,6 +923,10 @@ const managedWithdrawRequestColumns: GridColDef[] = [
   },
 ];
 
+const managedClassStudentListColumns = serialNumberColumns.concat(
+  managedUserBasedColumns
+);
+
 const columns = {
   attendanceClassColumns,
   categoryColumns,
@@ -909,6 +943,7 @@ const columns = {
   managedUserMentorColumns,
   managedUserRegisterRequestColumns,
   managedWithdrawRequestColumns,
+  managedClassStudentListColumns,
 };
 
 export default columns;

@@ -118,6 +118,8 @@ export interface ManagedClassDetails {
   progress: ProgressManagedClassDetails;
   image: any;
   feedback: any;
+  level: string;
+  studentClass: ProfilePayload[];
 }
 
 interface MentorManagedClass {

@@ -46,9 +46,9 @@ export default function ManageTableDetailsCourseCreateRequest({
             spacing={2}
           >
             <RequestCourseDetails idCourse={row.id} status={fixedStatus} />
+            <RequestCourseMentorInfo idCourse={row.id} status={fixedStatus} />
             <RequestCourseContent idCourse={row.id} status={fixedStatus} />
             <RequestCourseClassList idCourse={row.id} status={fixedStatus} />
-            <RequestCourseMentorInfo idCourse={row.id} status={fixedStatus} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
@@ -60,13 +60,15 @@ export default function ManageTableDetailsCourseCreateRequest({
             sx={SX_BOX_STICKY}
           >
             <RequestCourseDate idCourse={row.id} status={fixedStatus} />
-            <RequestCourseProcess
-              idCourse={row.id}
-              status={fixedStatus}
-              onClose={onClose}
-              refetchSearch={refetchSearch}
-              refetchGetNoOfRequest={refetchGetNoOfRequest}
-            />
+            {fixedStatus === CourseStatusType.WAITING && (
+              <RequestCourseProcess
+                idCourse={row.id}
+                status={fixedStatus}
+                onClose={onClose}
+                refetchSearch={refetchSearch}
+                refetchGetNoOfRequest={refetchGetNoOfRequest}
+              />
+            )}
           </Stack>
         </Grid>
       </Grid>

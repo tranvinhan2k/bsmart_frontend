@@ -7,7 +7,7 @@ const titleBarChart: SxProps<Theme> = {
   fontSize: 20,
 };
 const wrapperBarChart: SxProps<Theme> = {
-  height: 300,
+  height: 400,
   width: '100%',
 };
 

@@ -71,21 +71,6 @@ export default function RequestCourseClassDetails({
         },
       ],
     },
-    // // {
-    //   id: 2,
-    //   subItem: [
-    //     {
-    //       id: 0,
-    //       label: 'Tổng số buổi học',
-    //       value: classDetails.numberOfSlot ?? '',
-    //     },
-    //     {
-    //       id: 1,
-    //       label: 'Giá tiền của lớp',
-    //       value: formatMoney(classDetails.price) ?? '',
-    //     },
-    //   ],
-    // },
   ];
 
   const timeInWeekRequests = classDetails.timeInWeeks.map((subItem) => ({

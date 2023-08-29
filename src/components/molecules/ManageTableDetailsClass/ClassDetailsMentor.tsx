@@ -77,7 +77,7 @@ export default function ClassDetailsMentor({
       id: 0,
       label: Text.labelCoursePossess,
       value: classDetails
-        ? classDetails.mentor?.teachInformation?.numberOfClass
+        ? classDetails.mentor?.teachInformation?.numberOfCourse
         : 0,
     },
     {
@@ -105,8 +105,14 @@ export default function ClassDetailsMentor({
     : 0;
   const ratingDisplay =
     scoreFeedback && scoreFeedback > 0
-      ? `${scoreFeedback}/5 (${numberOfFeedBack})`
+      ? `${scoreFeedback}/5 (${numberOfFeedBack} đánh giá)`
       : Text.labelNoRatingYet;
+
+  // console.log('numberOfClass', classDetails.mentor?.teachInformation?.numberOfClass)
+  // console.log('numberOfCourse', classDetails.mentor?.teachInformation?.numberOfCourse)
+  // console.log('numberOfFeedBack', classDetails.mentor?.teachInformation?.numberOfFeedBack)
+  // console.log('numberOfMember', classDetails.mentor?.teachInformation?.numberOfMember)
+  // console.log('scoreFeedback', classDetails.mentor?.teachInformation?.scoreFeedback)
 
   const mentorAvatar = classDetails
     ? classDetails.mentor.avatar.url
