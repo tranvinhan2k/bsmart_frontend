@@ -2,15 +2,18 @@ import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import {
   Bar,
   BarChart,
+  CartesianGrid,
+  Label,
+  LabelList,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
-import { formatMoney } from '~/utils/money';
 import { YearRevenue } from '~/models/transaction';
 import globalStyles from '~/styles';
+import { formatMoney } from '~/utils/money';
 import sx from './style';
 
 const dataMock: YearRevenue[] = [
@@ -109,6 +112,26 @@ interface Props {
   isLoading: boolean;
 }
 
+const formatChartMoneyValue = (value: number) => {
+  let shortValue: string = value.toString();
+  if (value > 1000000) {
+    shortValue = `${value / 1000000} Triệu`;
+  }
+  if (value > 1000000000) {
+    shortValue = `${value / 1000000000} Tỷ`;
+  }
+  return shortValue;
+};
+
+function CustomYAxisTick(props: any) {
+  const { x, y, payload } = props;
+  return (
+    <text x={x} y={y} dy={5} fontSize={18} textAnchor="end">
+      {formatChartMoneyValue(payload.value)}
+    </text>
+  );
+}
+
 export default function BarChartRevenue({
   chartLabel,
   chartRowLabel,
@@ -133,17 +156,33 @@ export default function BarChartRevenue({
       {data && (
         <Box sx={sx.wrapperBarChart}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart width={150} height={40} data={data} margin={{ top: 20 }}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Legend />
+            <BarChart
+              width={150}
+              height={40}
+              data={data}
+              margin={{ top: 50, left: 30, right: 50 }}
+            >
+              <CartesianGrid strokeDasharray="3" />
+              <XAxis dataKey="month" dy={10}>
+                <Label value="Tháng" position="right" dy={10} />
+              </XAxis>
+              <YAxis tick={CustomYAxisTick}>
+                <Label value="Tiền (vnđ)" position="top" dy={-30} dx={-2} />
+              </YAxis>
               <Tooltip formatter={(value: number) => formatMoney(value)} />
               <Bar
                 dataKey={type}
                 fill={color}
                 isAnimationActive={false}
                 name={chartRowLabel}
-              />
+              >
+                <LabelList
+                  dataKey={type}
+                  position="top"
+                  formatter={formatChartMoneyValue}
+                />
+              </Bar>
+              <Legend />
             </BarChart>
           </ResponsiveContainer>
         </Box>
