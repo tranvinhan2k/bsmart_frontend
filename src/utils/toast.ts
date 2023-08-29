@@ -34,7 +34,7 @@ const updateFailedToast = (id: Id, label: string) => {
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 2000,
+    autoClose: 5000,
   });
 };
 const notifyErrorToast = (message: string) => {
@@ -43,7 +43,7 @@ const notifyErrorToast = (message: string) => {
     isLoading: false,
     closeOnClick: true,
     closeButton: true,
-    autoClose: 2000,
+    autoClose: 5000,
   });
 };
 const notifyWarningToast = (message: string) => {
