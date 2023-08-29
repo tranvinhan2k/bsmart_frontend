@@ -29,6 +29,15 @@ export default function ClassDetailsBasicInfo({
 }: ClassDetailsBasicInfoProps) {
   const { classDetails, isLoading } = useGetManagedClassDetails(idClass);
 
+  const classStatusLabel = classDetails
+    ? ClassStatusList.find((item) => item.value === classDetails.status)
+        ?.label ?? ''
+    : '';
+  const classStatusDesc = classDetails
+    ? ClassStatusList.find((item) => item.value === classDetails.status)
+        ?.content ?? ''
+    : '';
+
   const title0: DisplayListProps[] = [
     {
       id: 0,
@@ -41,10 +50,7 @@ export default function ClassDetailsBasicInfo({
       id: 3,
       iconName: 'tagIcon',
       label: 'Trạng thái',
-      value: classDetails
-        ? ClassStatusList.find((item) => item.value === classDetails.status)
-            ?.label ?? ''
-        : '',
+      value: `${classStatusLabel} - ${classStatusDesc}`,
       size: 6,
     },
     {

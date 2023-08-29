@@ -119,6 +119,7 @@ export interface ManagedClassDetails {
   image: any;
   feedback: any;
   level: string;
+  studentClass: ProfilePayload[];
 }
 
 interface MentorManagedClass {

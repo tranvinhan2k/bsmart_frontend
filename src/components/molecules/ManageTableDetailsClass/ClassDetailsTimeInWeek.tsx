@@ -31,7 +31,9 @@ export default function ClassDetailsTimeInWeek({
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography sx={SX_FORM_LABEL}>Thời gian biểu</Typography>
+          <Typography sx={SX_FORM_LABEL}>
+            Thời khóa biểu mặc định hàng tuần từ thứ 2 đến thứ 7 hàng tuần
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Timetable data={timeInWeekRequests} />

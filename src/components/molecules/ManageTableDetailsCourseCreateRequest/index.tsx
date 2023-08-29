@@ -46,9 +46,9 @@ export default function ManageTableDetailsCourseCreateRequest({
             spacing={2}
           >
             <RequestCourseDetails idCourse={row.id} status={fixedStatus} />
+            <RequestCourseMentorInfo idCourse={row.id} status={fixedStatus} />
             <RequestCourseContent idCourse={row.id} status={fixedStatus} />
             <RequestCourseClassList idCourse={row.id} status={fixedStatus} />
-            <RequestCourseMentorInfo idCourse={row.id} status={fixedStatus} />
           </Stack>
         </Grid>
         <Grid item sm={12} md={5} lg={4}>
