@@ -207,6 +207,7 @@ export const validationCheckUrl = object({
 });
 export const validationAssignment = object({
   note: string().required('Ghi chú không được để trống.'),
+  files: object().required('Tệp đính kèm không được để trống.'),
 });
 export const validationPaymentPrice = object({
   price: number()

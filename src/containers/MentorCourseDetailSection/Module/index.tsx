@@ -23,13 +23,15 @@ export default function Module({ index, sectionId, module }: Props) {
     navigate(`${sectionId}/${module.id}`);
   };
 
+  console.log('module', module.isFixed, module);
+
   return (
     <Stack
       sx={{
         padding: 1,
         marginBottom: 1,
         borderRadius: MetricSize.small_5,
-        background: Color.white,
+        background: module.isFixed ? `${Color.tertiary}55` : Color.white,
       }}
       key={module.id}
     >
