@@ -32,8 +32,10 @@ export default function ModuleActivity({ name, description }: Props) {
             Mô tả
           </Typography>
           <Typography
-            textAlign="center"
-            sx={globalStyles.textLowSmallLight}
+            sx={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.regular,
+            }}
             dangerouslySetInnerHTML={{
               __html: description,
             }}
