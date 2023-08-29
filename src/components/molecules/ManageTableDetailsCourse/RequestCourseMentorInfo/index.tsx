@@ -15,6 +15,7 @@ import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatPhoneNumberVi } from '~/utils/phone';
 import {
   SX_FORM_ITEM_LABEL2,
+  SX_FORM_ITEM_VALUE2_WARNING,
   SX_FORM_ITEM_VALUE2,
   SX_FORM_LABEL,
   SX_WRAPPER,
@@ -38,12 +39,14 @@ export default function RequestCourseMentorInfo({
     labelMail = 'Mail',
     labelName = 'Họ tên',
     labelPhone = 'Số điện thoại',
-    //
     labelJoinDate = 'Ngày tham gia',
+    //
     labelCoursePossess = 'Khóa học',
     labelClassPossess = 'Lớp học',
     labelRating = 'Đánh giá',
     labelNoOfRating = 'Số đánh giá',
+    //
+    labelNoRatingYet = 'Chưa có đánh giá',
   }
 
   const title0 = [
@@ -81,10 +84,17 @@ export default function RequestCourseMentorInfo({
 
   const title2 = [
     {
-      id: 1,
+      id: 0,
       label: Text.labelCoursePossess,
       value: courseCreateRequestDetails
         ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfCourse
+        : 0,
+    },
+    {
+      id: 1,
+      label: Text.labelClassPossess,
+      value: courseCreateRequestDetails
+        ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfClass
         : 0,
     },
     {
@@ -94,21 +104,22 @@ export default function RequestCourseMentorInfo({
         ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfClass
         : 0,
     },
-    {
-      id: 3,
-      label: Text.labelRating,
-      value: `${
-        courseCreateRequestDetails?.mentor?.teachInformation?.scoreFeedback ?? 0
-      } / 5`,
-    },
-    {
-      id: 4,
-      label: Text.labelNoOfRating,
-      value: courseCreateRequestDetails
-        ? courseCreateRequestDetails?.mentor?.teachInformation?.numberOfFeedBack
-        : 0,
-    },
   ];
+
+  const numberOfFeedBack = courseCreateRequestDetails
+    ? courseCreateRequestDetails.mentor.teachInformation?.numberOfFeedBack
+    : 0;
+
+  const scoreFeedback = courseCreateRequestDetails
+    ? courseCreateRequestDetails.mentor.teachInformation?.scoreFeedback
+    : 0;
+
+  console.log('numberOfFeedBack', numberOfFeedBack);
+  console.log('scoreFeedback', scoreFeedback);
+  const ratingDisplay =
+    scoreFeedback && scoreFeedback > 0
+      ? `${scoreFeedback}/5 (${numberOfFeedBack} lượt đánh giá)`
+      : Text.labelNoRatingYet;
 
   return (
     <Box sx={SX_WRAPPER} ref={scrollRef}>
@@ -239,6 +250,30 @@ export default function RequestCourseMentorInfo({
                         </Stack>
                       </Grid>
                     ))}
+                    <Grid item xs={12} sm={6} md={3}>
+                      <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                      >
+                        <Typography sx={SX_FORM_ITEM_LABEL2}>
+                          {Text.labelRating}
+                        </Typography>
+                        {isLoading ? (
+                          <Skeleton />
+                        ) : (
+                          <Typography
+                            sx={
+                              scoreFeedback && scoreFeedback > 0
+                                ? SX_FORM_ITEM_VALUE2
+                                : SX_FORM_ITEM_VALUE2_WARNING
+                            }
+                          >
+                            {ratingDisplay}
+                          </Typography>
+                        )}
+                      </Stack>
+                    </Grid>
                   </Grid>
                 </Box>
               </Box>
