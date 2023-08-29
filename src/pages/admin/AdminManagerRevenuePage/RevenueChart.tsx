@@ -38,7 +38,8 @@ export interface RevenuePayload {
   date: string;
   revenue: number;
   total: number;
-  buyer: string;
+  typeOfTransactions: string;
+  status: string;
 }
 
 export interface RevenueChartPayload {

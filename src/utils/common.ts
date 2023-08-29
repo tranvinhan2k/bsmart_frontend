@@ -159,7 +159,14 @@ export function generateRandomData(numItems: number): RevenuePayload[] {
     const total = Math.floor(Math.random() * 500) + 1; // Random total between 1 and 500
     const buyer = buyers[Math.floor(Math.random() * buyers.length)];
 
-    newData.push({ id, date, revenue, total, buyer });
+    newData.push({
+      id,
+      date,
+      revenue,
+      total,
+      status: 'Rút tiền',
+      typeOfTransactions: '',
+    });
   }
 
   return newData;

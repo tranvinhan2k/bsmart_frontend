@@ -30,15 +30,28 @@ export default function RevenueHistoryStudent({
                 return formatISODateDateToDisplayDateTime(params.row.date);
               },
             },
+            // {
+            //   field: 'revenue',
+            //   flex: 1,
+            //   renderCell: (params) => {
+            //     return formatMoney(params.row.revenue);
+            //   },
+            // },
             {
-              field: 'amount',
+              field: 'total',
               flex: 1,
               renderCell: (params) => {
                 return formatMoney(params.row.total);
               },
             },
             {
-              field: 'buyer',
+              field: 'typeOfTransactions',
+              headerName: 'Loại giao dịch',
+              flex: 1,
+            },
+            {
+              field: 'status',
+              headerName: 'Trạng thái',
               flex: 1,
             },
           ]}

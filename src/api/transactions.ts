@@ -57,10 +57,11 @@ const transactionsApi = {
     const result: RevenuePayload[] =
       response.items.map((item) => ({
         id: item.id || 0,
-        buyer: item.createdBy || '',
         date: item.created || '',
         revenue: item.afterBalance || 0,
         total: item.amount || 0,
+        status: item.statusName || '',
+        typeOfTransactions: item.typeName || '',
       })) || [];
     return { ...response, items: result };
   },
