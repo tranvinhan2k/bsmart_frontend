@@ -5,6 +5,7 @@ import { UseQueryGetTransactionsPayload } from '~/hooks/useQueryGetTransactions'
 import { PagingFilterPayload, PagingFilterRequest } from '~/models';
 import { GetTransactionsPayload } from '~/models/response';
 import { ManagedWithdrawRequest, YearRevenue } from '~/models/transaction';
+import { ManagedUserRevenue } from '~/models/type';
 import { PaymentType } from '~/models/variables';
 import { RevenuePayload } from '~/pages/admin/AdminManagerRevenuePage/RevenueChart';
 import { generateMockApi, generateRandomData } from '~/utils/common';
@@ -103,6 +104,12 @@ const transactionsApi = {
     data: UseMutationProcessWithdrawRequestPayload[]
   ): Promise<boolean> {
     return axiosClient.put(`${url}/withdraw/requests`, data);
+  },
+
+  getManagedUserRevenue(
+    userId: number | undefined
+  ): Promise<ManagedUserRevenue> {
+    return axiosClient.get(`${url}/revenue/user?userId=${userId}`);
   },
 };
 

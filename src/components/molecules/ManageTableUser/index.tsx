@@ -9,6 +9,7 @@ import ManageTableDetailsManagedMember from '~/components/molecules/ManageTableD
 import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
 import { ManagedMentorPayload } from '~/models/type';
 import CustomModal from '~/components/atoms/CustomModal';
+import ManageTableDetailsManagedMentorRevenue from '../ManageTableDetailsManagedMentorRevenue';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
@@ -134,13 +135,11 @@ export default function ManageTableUser({
       break;
     case 'REVENUE':
       renderItem = (
-        <CustomModal
-          open={open}
-          onClose={handleTriggerDialog}
-          title="Doanh thu của người dùng"
-        >
-          Doanh Thu
-        </CustomModal>
+        <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="sm">
+          <ManageTableDetailsManagedMentorRevenue
+            rowId={selectedRow && selectedRow.id}
+          />
+        </CustomDialog>
       );
       break;
     default:

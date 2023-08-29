@@ -375,7 +375,7 @@ export interface MentorProfileUpdateResponse {
   userDto: ProfilePayload;
 }
 
-export interface ConfigPayload {
+export interface ConfigPayloadReferralCode {
   created: string;
   lastModified: string;
   createdBy: string;
@@ -385,4 +385,13 @@ export interface ConfigPayload {
   discountPercent: number;
   expiredLaterDay: number;
   active: boolean;
+}
+export interface ManagedUserRevenue {
+  userId: number;
+  numOfCourse: number;
+  systemIncome: number;
+  revenue: number;
+  promotion: number;
+  numOfClass: number;
+  numOfStudent: number;
 }
