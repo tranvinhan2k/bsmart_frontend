@@ -48,8 +48,6 @@ function FileListInput({ controller }: FileListInputProps) {
   };
 
   const handleFileChange = (e: any) => {
-    console.log('value params', e.target.files, value);
-
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type.includes('application')) {
       setCustomError(null);
@@ -70,8 +68,6 @@ function FileListInput({ controller }: FileListInputProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log('attachFiles', value);
 
   return (
     <Stack>

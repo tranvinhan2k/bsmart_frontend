@@ -76,7 +76,7 @@ export default function AddResourceForm({
       isHide: optionClasses.length === 0,
     },
     {
-      label: 'Tên bài học',
+      label: 'Tên tài nguyên',
       name: 'name',
       placeholder: 'Nhập tên học phần',
       variant: 'text',

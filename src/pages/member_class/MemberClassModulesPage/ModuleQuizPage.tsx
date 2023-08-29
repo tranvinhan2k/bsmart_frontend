@@ -108,16 +108,17 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Số câu hỏi: ${item.questionCount}`}</Typography>
+        <Typography sx={globalStyles.textLowSmallLight}>{`Cho phép xem lại : ${
+          item.isAllowReview ? 'Có' : 'Không'
+        }`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Thời gian được phép xem lại sau khi làm bài: ${item.allowReviewAfterMin} phút`}</Typography>
       </Stack>
-      {!quiz.isAttemptedQuiz && (
-        <Button
-          disabled={!quiz.isQuizOpen}
-          onClick={onClose}
-          variant="contained"
-        >
-          Vào làm bài
-        </Button>
-      )}
+
       {quiz.isAttemptedQuiz && (
         <Stack>
           <LoadingWrapper isLoading={isResultLoading} error={errorResult}>
@@ -159,21 +160,18 @@ export default function ModuleQuizPage({ name, item }: Props) {
                   },
                   {
                     field: 'reviewFeatures',
-                    headerName: 'Xem lại kết quả',
+                    headerName: 'Xem lại bài làm',
                     flex: 1,
                     renderCell: (params) => {
                       return (
-                        quiz.isAllowAfterMin && (
-                          <Button
-                            sx={{ marginTop: 1 }}
-                            disabled={!item.isAllowReview}
-                            onClick={() => onReview(params.row.id)}
-                            color="success"
-                            variant="contained"
-                          >
-                            Xem lại kết quả
-                          </Button>
-                        )
+                        <Button
+                          disabled={!item.isAllowReview}
+                          onClick={() => onReview(params.row.id)}
+                          color="success"
+                          variant="contained"
+                        >
+                          Xem lại bài làm
+                        </Button>
                       );
                     },
                   },
@@ -185,6 +183,14 @@ export default function ModuleQuizPage({ name, item }: Props) {
         </Stack>
       )}
 
+      <Button
+        sx={{ marginTop: 1 }}
+        disabled={!quiz.isQuizOpen}
+        onClick={onClose}
+        variant="contained"
+      >
+        Vào làm bài
+      </Button>
       <CustomModal
         open={open}
         onClose={onClose}

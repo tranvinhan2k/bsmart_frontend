@@ -45,7 +45,13 @@ export default function RevenueHistoryMentor({
               },
             },
             {
-              field: 'buyer',
+              field: 'typeOfTransactions',
+              headerName: 'Loại giao dịch',
+              flex: 1,
+            },
+            {
+              field: 'status',
+              headerName: 'Trạng thái',
               flex: 1,
             },
           ]}

@@ -59,7 +59,6 @@ export const useSocket = () => {
           const messageObject: WebSocketMessagePayload = JSON.parse(
             message?.body
           );
-          console.log('message object', messageObject);
 
           await handleDispatch();
           handleAddMessage(messageObject);

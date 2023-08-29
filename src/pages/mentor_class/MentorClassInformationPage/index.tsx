@@ -1,4 +1,4 @@
-import { FormHelperText, Stack, Typography } from '@mui/material';
+import { Divider, FormHelperText, Stack, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ClassContext } from '~/HOCs/context/ClassContext';
@@ -62,7 +62,7 @@ export default function MentorClassInformationPage() {
 
   const { subjects } = useDispatchGetAllSubjects();
   const subject = subjects.find(
-    (item) => item.id === contextDetailClass?.id || 0
+    (item) => item.id === contextDetailClass?.subjectId || 0
   );
   const detailClass: MentorClassInformationPayload = {
     code: `#${contextDetailClass?.code}`,
@@ -176,11 +176,13 @@ export default function MentorClassInformationPage() {
         </Stack>
       </CustomModal>
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>
-        <Typography sx={globalStyles.textSmallLabel}>
+        <Typography sx={globalStyles.textSubTitle}>
           Thay đổi đường dẫn Google Meet
         </Typography>
+        <Divider />
         <Stack
           sx={{
+            marginTop: 3,
             flexDirection: 'row',
             alignItems: 'flex-start',
           }}

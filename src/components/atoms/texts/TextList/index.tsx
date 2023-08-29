@@ -1,4 +1,4 @@
-import { Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography, Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import { FontSize, FontFamily, Color } from '~/assets/variables';
 import Timetable, { TimetablePayload } from '~/components/molecules/Timetable';
@@ -32,9 +32,9 @@ export default function TextList({ items }: Props) {
   const [error, setError] = useState(false);
 
   return (
-    <Stack>
+    <Grid container>
       {items.map((item, index) => (
-        <Stack key={index}>
+        <Grid item xs={item.type === 'text' ? 3 : 12} key={index}>
           <Typography
             sx={{
               fontSize: FontSize.small_14,
@@ -57,7 +57,7 @@ export default function TextList({ items }: Props) {
                 alt={item.alt}
                 onError={() => setError(true)}
                 sx={{
-                  width: '50%',
+                  width: '100%',
                   height: undefined,
                   aspectRatio: 16 / 9,
                   objectFit: 'cover',
@@ -70,8 +70,8 @@ export default function TextList({ items }: Props) {
             {item?.type === 'text' && `${item.value}`}
             {item?.type === 'custom' && item.value}
           </Typography>
-        </Stack>
+        </Grid>
       ))}
-    </Stack>
+    </Grid>
   );
 }

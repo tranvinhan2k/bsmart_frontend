@@ -24,7 +24,6 @@ function TimeInput({ controller, placeholder }: TimeInputProps) {
       const seconds = day.get('seconds');
       const totalSeconds = hours * 3600 + minutes * 60 + seconds;
       onChange(totalSeconds);
-      console.log(totalSeconds);
     }
   };
 
@@ -33,7 +32,6 @@ function TimeInput({ controller, placeholder }: TimeInputProps) {
       <TimePicker
         value={timeInput}
         onChange={(paramValue: Dayjs | null) => {
-          console.log('second', paramValue);
           setTimeInput(paramValue);
           convertToSeconds(paramValue);
         }}

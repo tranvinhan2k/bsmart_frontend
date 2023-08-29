@@ -86,8 +86,6 @@ export default function SubjectManagerPage() {
     setOpen(!open);
   };
   const handleSearchSubject = (data: any) => {
-    console.log(data);
-
     setSearchValue(data.searchValue);
   };
   const handleOpenDetailSubject = () => {
@@ -126,7 +124,6 @@ export default function SubjectManagerPage() {
   };
   const handleSubmitUpdateSubject = async (data: any) => {
     const id = toast.loadToast('Đang cập nhật ngôn ngữ lập trình');
-    console.log('data', data);
 
     try {
       await updateSubjectMutation.mutateAsync({

@@ -46,11 +46,6 @@ export default function AdminManagerQuestionBank() {
 
   useEffect(() => {
     async function handleRefetchSubject() {
-      console.log(
-        optionSubjects,
-        optionSubjects?.map((item) => item.id)
-      );
-
       if (optionSubjects) {
         setFilterParams({
           ...filterParams,

@@ -57,7 +57,7 @@ export default function ManageTableClass({
     {
       icon: 'question',
       title: Text.optionNotSupport,
-      onCLick: () => console.log(Text.optionNotSupport),
+      onCLick: () => {},
     },
   ];
   const optionListViewDetails: MenuItemPayload[] = [

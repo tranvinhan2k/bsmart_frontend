@@ -211,35 +211,16 @@ const activityApi = {
       await axiosClient.get(`${url}/quiz/${id}/result/teacher`, {
         params,
       });
-    const result: QuizReportTeacherPayload[] = [];
-    response.items.map((item) => {
-      const userIsExisted = result.findIndex((resultItem) => resultItem.userId);
-      if (userIsExisted === -1) {
-        result.push({
-          id: item?.id || 0,
-          correctNumber: [item?.correctNumber || 0],
-          name: item?.submitBy?.name || '',
-          point: item?.point || 0,
-          submitAt: item?.submitAt || '',
-          totalQuestion: item?.totalQuestion || 0,
-          userId: item.submitBy?.id || 0,
-        });
-      } else {
-        result[userIsExisted] = {
-          id: item?.id || 0,
-          correctNumber: [
-            ...result[userIsExisted].correctNumber,
-            item?.correctNumber || 0,
-          ],
-          name: item?.submitBy?.name || '',
-          point: item.point || 0,
-          submitAt: item?.submitAt || '',
-          totalQuestion: item?.totalQuestion || 0,
-          userId: item.submitBy?.id || 0,
-        };
-      }
-      return null;
-    });
+    const result: QuizReportTeacherPayload[] = response.items.map((item) => ({
+      id: item.id || 0,
+      correctNumber: item.correctNumber || 0,
+      name: item.submitBy?.name || '',
+      point: item.point || 0,
+      submitAt: item.submitAt || '',
+      totalQuestion: item.totalQuestion || 0,
+      userId: item.submitBy?.id || 0,
+    }));
+
     return { ...response, items: result };
   },
 

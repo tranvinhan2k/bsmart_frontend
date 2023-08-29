@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
@@ -6,7 +6,6 @@ import { validationSchemaCreateSubCourse } from '~/form/validation';
 import { useYupValidationResolver } from '../useYupValidationResolver';
 import { defaultValueCreateSubCourse } from '~/form/defaultValues';
 import { OptionPayload } from '~/models';
-import toast from '~/utils/toast';
 import { useMutationUploadClassImage } from '../image/useMutationUploadClassImage';
 import { PostClassRequest } from '~/models/request';
 import { useTryCatch } from '../useTryCatch';
@@ -113,9 +112,8 @@ export const useUpdateMentorClassesForm = (
     if (typeof data.imageId === 'object') {
       try {
         imageId = await uploadImage(data.imageId);
-      } catch (error: any) {
-        console.error(error.message);
-      }
+        // eslint-disable-next-line no-empty
+      } catch (error: any) {}
     } else {
       imageId = data.imageOldId;
     }

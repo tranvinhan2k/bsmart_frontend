@@ -21,6 +21,7 @@ import { handleConsoleError } from '~/utils/common';
 import { useBoolean } from '~/hooks/useBoolean';
 import { formatStringToNumber } from '~/utils/number';
 import { useGetStudentFeedback } from '~/hooks/useGetStudentFeedback';
+import CustomModal from '~/components/atoms/CustomModal';
 
 export interface FeedbackMemberQuestionPayload {
   id: number;
@@ -43,13 +44,14 @@ export default function MemberClassInformationPage() {
 
   const { value, toggle } = useBoolean(false);
 
-  const { data: feedbackData } = useGetStudentFeedback(id);
+  const { data: feedbackData, refetch } = useGetStudentFeedback(id);
 
-  const isTimeToFeedback = true;
+  const isDidFeedback = !!feedbackData;
 
-  // !!detailClass?.progressValue &&
-  // detailClass?.progressValue > 70 &&
-  // !isDidFeedback;
+  const isTimeToFeedback =
+    !!detailClass?.progressValue &&
+    detailClass?.progressValue > 70 &&
+    !isDidFeedback;
 
   const { mutateAsync } = useMutationSendFeedback();
   const { handleTryCatch } = useTryCatch('gửi đánh giá');
@@ -65,8 +67,6 @@ export default function MemberClassInformationPage() {
       description: '',
     },
   });
-
-  console.log('feedbackData', feedbackData);
 
   useEffect(() => {
     reset(feedbackData);
@@ -132,7 +132,7 @@ export default function MemberClassInformationPage() {
           params: paramsData,
         })
       );
-
+      await refetch();
       toggle();
     }
   };
@@ -142,17 +142,28 @@ export default function MemberClassInformationPage() {
       {isTimeToFeedback && (
         <Stack sx={globalStyles.viewRoundedWhiteBody}>
           <Alert severity="warning">Vui lòng đánh giá cho lớp học này.</Alert>
-          <Stack marginTop={1}>
-            <Typography sx={globalStyles.textSmallLabel}>Nhận xét</Typography>
-            <InputGroup inputList={inputList} control={control} />
-            <Button
-              onClick={handleSubmit(onSubmit, handleConsoleError)}
-              sx={{ marginTop: 1 }}
-              variant="contained"
-            >
-              Gửi đánh giá về hệ thống
-            </Button>
-          </Stack>
+          <Button
+            sx={{ marginTop: 1 }}
+            onClick={toggle}
+            variant="contained"
+            color="info"
+          >
+            {isDidFeedback ? 'Xem thông tin đã đánh giá' : 'Đánh giá giáo viên'}
+          </Button>
+          <CustomModal title="Đánh giá khóa học" open={value} onClose={toggle}>
+            <Stack marginTop={1}>
+              <Typography sx={globalStyles.textSmallLabel}>Nhận xét</Typography>
+              <InputGroup inputList={inputList} control={control} />
+              <Button
+                disabled={isDidFeedback}
+                onClick={handleSubmit(onSubmit, handleConsoleError)}
+                sx={{ marginTop: 1 }}
+                variant="contained"
+              >
+                Gửi đánh giá về hệ thống
+              </Button>
+            </Stack>
+          </CustomModal>
         </Stack>
       )}
       <Stack marginTop={1} sx={globalStyles.viewRoundedWhiteBody}>

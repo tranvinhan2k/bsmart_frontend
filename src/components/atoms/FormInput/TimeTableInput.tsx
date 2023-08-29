@@ -57,8 +57,6 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
   };
 
   const handleDeleteItem = (item: any) => {
-    console.log('item', item);
-
     const deletedItem = value.filter(
       (scheduleItem: any) =>
         !(
@@ -66,8 +64,6 @@ function TimeTableInput({ controller, placeholder }: TimeTableInputProps) {
           scheduleItem.dayOfWeek?.id === item.dayOfWeek?.id
         )
     );
-
-    console.log('deleteItem', deletedItem);
 
     controllerOnChange(
       deletedItem.map((scheduleItem: any) => ({

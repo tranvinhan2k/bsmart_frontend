@@ -94,6 +94,15 @@ export default function ModuleQuizPage({ name, item }: Props) {
         <Typography
           sx={globalStyles.textLowSmallLight}
         >{`Mã bài kiểm tra: ${quiz.code}`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Số câu hỏi: ${item.questionCount}`}</Typography>
+        <Typography sx={globalStyles.textLowSmallLight}>{`Cho phép xem lại : ${
+          item.isAllowReview ? 'Có' : 'Không'
+        }`}</Typography>
+        <Typography
+          sx={globalStyles.textLowSmallLight}
+        >{`Thời gian được phép xem lại sau khi làm bài: ${item.allowReviewAfterMin} phút`}</Typography>
       </Stack>
       <Stack style={{ width: '100%' }}>
         <MentorClassPointsPage quizId={item.id} />

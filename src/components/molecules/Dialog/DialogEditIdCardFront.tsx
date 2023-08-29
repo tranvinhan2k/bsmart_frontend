@@ -67,8 +67,6 @@ export default function DialogEditIdCardFront({
     const value = await handleTryCatch(async () => {
       const response = await mutateAsync(image);
 
-      console.log('response', response);
-
       const isValidName =
         response?.name?.toLowerCase() === profile.fullName.toLowerCase();
       const isValidGender =
@@ -105,8 +103,8 @@ export default function DialogEditIdCardFront({
   const handleSubmitIdentityFront = async (
     data: EditIdentityFrontFormDataPayload
   ) => {
-    const isValidIdentity = true;
-    // const isValidIdentity = await handleVerifyIdentity(data.identityFront);
+    // const isValidIdentity = true;
+    const isValidIdentity = await handleVerifyIdentity(data.identityFront);
 
     if (isValidIdentity) {
       const params: EditImageProfilePayload = {

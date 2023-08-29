@@ -17,18 +17,14 @@ export default function QuizSecuritySettings() {
       title: 'Thay đổi hiển thị',
       desc: 'Bài quiz hiện đang ở chế độ riêng tư',
       buttonText: 'Đổi thành công khai',
-      buttonOnClick: () => {
-        console.log('Đổi thành công khai');
-      },
+      buttonOnClick: () => {},
     },
     {
       id: 2,
       title: 'Xóa bài quiz',
       desc: 'Sau khi chọn, bài quiz sẽ không quay trở lại. Hãy chắc chắn',
       buttonText: 'Xóa',
-      buttonOnClick: () => {
-        console.log('Xóa');
-      },
+      buttonOnClick: () => {},
     },
   ];
 

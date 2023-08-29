@@ -24,7 +24,6 @@ export default function MentorClassDetailPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { detailClass, refetch } = useContext(ClassContext);
-  console.log('detail class', detailClass);
 
   const memberClass: DetailMemberClassPayload = {
     code: detailClass?.code || '',

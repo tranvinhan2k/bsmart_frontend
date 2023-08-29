@@ -74,8 +74,6 @@ function FeedbackQuestionInput({
   });
 
   const handleSubmit = (data: any) => {
-    console.log(data);
-
     const tmpValue: FeedbackQuestionPayload[] = [
       ...value,
       {

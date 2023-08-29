@@ -64,14 +64,6 @@ const questionBankInners = {
   ],
 };
 
-const popoverOptions = [
-  {
-    id: 0,
-    label: 'Xem chi tiết',
-    optionFunc: () => console.log('Xem chi tiết'),
-  },
-];
-
 export default function CreatedQuestionList() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);

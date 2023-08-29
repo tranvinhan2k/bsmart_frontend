@@ -311,7 +311,7 @@ export interface QuizReportTeacherPayload {
   id: number;
   name: string;
   point: number;
-  correctNumber: number[];
+  correctNumber: number;
   totalQuestion: number;
   submitAt: string;
   userId: number;

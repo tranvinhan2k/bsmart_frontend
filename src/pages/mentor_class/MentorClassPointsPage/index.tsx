@@ -1,21 +1,34 @@
 import { Stack, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import TextTitle from '~/components/atoms/texts/TextTitle';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import CustomModal from '~/components/atoms/CustomModal';
 import CRUDTable from '~/components/molecules/CRUDTable';
+import DoQuizReviewList from '~/components/molecules/DoQuizReviewList';
 import { comparisonData, quizStatusData } from '~/constants';
+import {
+  MemberDashboardNavigationActionLink,
+  NavigationLink,
+} from '~/constants/routeLink';
 import { useGetIdFromUrl } from '~/hooks';
 import { useMentorListQuiz } from '~/hooks/quiz/useMentorListQuiz';
-import {
-  QuizReportStudentPayload,
-  QuizReportTeacherPayload,
-} from '~/models/type';
+import { useBoolean } from '~/hooks/useBoolean';
+import { QuizReportTeacherPayload } from '~/models/type';
+import { reviewQuiz } from '~/redux/user/slice';
 import globalStyles from '~/styles';
 import { formatISODateStringToDisplayDateTime } from '~/utils/date';
 
 export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
   const classId = useGetIdFromUrl('id');
+  const [row, setRow] = useState<QuizReportTeacherPayload>();
+  const [searchValue, setSearchValue] = useState('');
 
   const { data, error, isLoading } = useMentorListQuiz(quizId, classId);
+
+  const filterData = data?.items.filter((item) =>
+    item.name.toLowerCase().includes(searchValue?.toLowerCase())
+  );
 
   const columns: GridColDef<QuizReportTeacherPayload>[] = [
     {
@@ -34,25 +47,36 @@ export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
         return formatCell;
       },
     },
-    {
-      field: 'point',
-      headerName: 'Điểm tối đa',
-      flex: 1,
-    },
+
     {
       field: 'correctPoint',
       headerName: 'Điểm',
       flex: 1,
       renderCell: (params) => {
-        return `${params.row.correctNumber.map(
-          (item) => `${(item / params.row.totalQuestion) * params.row.point}`
-        )}`;
+        return `${params.row.correctNumber}`;
       },
     },
   ];
 
   const handleSearch = (params: any) => {
-    console.log(params);
+    setSearchValue(params?.searchValue || '');
+  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onReview = () => {
+    dispatch(
+      reviewQuiz({
+        quizId: row?.id || 0,
+        quizTime: 0,
+        quizName: row?.name || '',
+      })
+    );
+    navigate(
+      `/${NavigationLink.dashboard}/${
+        MemberDashboardNavigationActionLink.review
+      }/${row?.id || 0}`
+    );
   };
 
   return (
@@ -60,12 +84,20 @@ export default function MentorClassPointsPage({ quizId }: { quizId: number }) {
       <Typography sx={globalStyles.textSmallLabel}>Thông kê điểm số</Typography>
       <Stack>
         <CRUDTable
+          setSelectedRow={setRow}
           isLoading={isLoading}
           error={error}
           columns={columns}
-          rows={data?.items || []}
+          rows={filterData || []}
           searchPlaceholder="Nhập tên học sinh bạn muốn tìm kiếm"
           onSearch={handleSearch}
+          menuItemList={[
+            {
+              icon: 'viewDetail',
+              onCLick: onReview,
+              title: 'Xem bài làm',
+            },
+          ]}
           searchFilterFormInputList={[
             {
               name: 'status',

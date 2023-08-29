@@ -105,14 +105,8 @@ export default function FeedbackMentorForm() {
     resolver: resolverFeedback,
   });
 
-  function handleSubmitSuccess(data: any) {
-    console.log('data', data);
-    // TODO: add api for feedback teacher.
-  }
-  function handleSubmitError(e: any) {
-    console.log('e', e);
-    // TODO: add api for feedback teacher.
-  }
+  function handleSubmitSuccess(data: any) {}
+  function handleSubmitError(e: any) {}
 
   return (
     <Stack>

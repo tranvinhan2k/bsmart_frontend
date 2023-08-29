@@ -100,8 +100,6 @@ function AnswerInput({ answerType, controller }: AnswerInputProps) {
     controllerOnChange(tmpValue);
   };
 
-  console.log('answertype', answerType);
-
   return (
     <Stack>
       <Stack
