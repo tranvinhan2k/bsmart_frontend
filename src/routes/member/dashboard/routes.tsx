@@ -51,11 +51,11 @@ export const studentLMSRoutes: RoutePayload[] = [
     main: () => <ReviewPage />,
     role: ['ROLE_STUDENT'],
   },
-  {
-    path: MemberDashboardNavigationActionLink.promo,
-    main: () => <MemberPromoCode />,
-    role: ['ROLE_STUDENT'],
-  },
+  // {
+  //   path: MemberDashboardNavigationActionLink.promo,
+  //   main: () => <MemberPromoCode />,
+  //   role: ['ROLE_STUDENT'],
+  // },
   {
     path: MemberDashboardNavigationActionLink.ask_ai,
     main: () => <BuildComponentPage />,

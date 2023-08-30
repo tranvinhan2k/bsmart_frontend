@@ -14,10 +14,10 @@ export const StudentDashboardNavigationActionData: ActionPayload[] = [
     name: 'Lịch học',
     icon: 'date',
   },
-  {
-    id: 2,
-    link: MemberDashboardNavigationActionLink.promo,
-    name: 'Mã giới thiệu',
-    icon: 'promo',
-  },
+  // {
+  //   id: 2,
+  //   link: MemberDashboardNavigationActionLink.promo,
+  //   name: 'Mã giới thiệu',
+  //   icon: 'promo',
+  // },
 ];
