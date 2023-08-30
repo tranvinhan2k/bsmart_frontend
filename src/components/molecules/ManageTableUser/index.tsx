@@ -1,15 +1,15 @@
 import { useState } from 'react';
+import { ManagedMentorPayload } from '~/models/type';
 import { MenuItemPayload } from '~/components/molecules/CRUDTable';
 import { rowsPerPageOptionsDefault } from '~/constants/dataGrid';
 import { useSearchManagedUser } from '~/hooks/user/useSearchManagedUser';
 import columns from '~/constants/columns';
 import CustomDialog from '~/components/atoms/CustomDialog';
+import CustomModal from '~/components/atoms/CustomModal';
 import ManageTable from '~/components/molecules/ManageTable';
 import ManageTableDetailsManagedMember from '~/components/molecules/ManageTableDetailsManagedMember';
 import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
-import { ManagedMentorPayload } from '~/models/type';
-import CustomModal from '~/components/atoms/CustomModal';
-import ManageTableDetailsManagedMentorRevenue from '../ManageTableDetailsManagedMentorRevenue';
+import ManageTableDetailsManagedUserRevenue from '../ManageTableDetailsManagedUserRevenue';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
@@ -136,8 +136,9 @@ export default function ManageTableUser({
     case 'REVENUE':
       renderItem = (
         <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="sm">
-          <ManageTableDetailsManagedMentorRevenue
+          <ManageTableDetailsManagedUserRevenue
             rowId={selectedRow && selectedRow.id}
+            userRole={userRole}
           />
         </CustomDialog>
       );

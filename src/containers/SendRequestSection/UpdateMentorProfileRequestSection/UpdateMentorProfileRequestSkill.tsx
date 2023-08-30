@@ -9,10 +9,8 @@ import {
 import { Fragment, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { EditMentorProfilePayload } from '~/api/users';
-import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
-import { MentorProfileStatusType } from '~/constants/profile';
 import { defaultValuesEditMentorProfile } from '~/form/defaultValues';
 import { validationSchemaEditMentorProfile } from '~/form/validation';
 import {
@@ -21,7 +19,7 @@ import {
   useYupValidationResolver,
 } from '~/hooks';
 import { useMutationEditMentorProfile } from '~/hooks/useMutationEditMentorProfile';
-import { useGetProfile } from '~/hooks/user/useGetProfile';
+import { useGetMentorEditProfile } from '~/hooks/user/useGetEditProfile';
 import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import {
@@ -31,9 +29,17 @@ import {
   SX_FORM_TITLE,
 } from './style';
 
-export default function EditMentorProfileForm() {
-  const { profile, refetch } = useGetProfile();
+export default function UpdateMentorProfileRequestSkill() {
+  const enum CertificateNoteText {
+    label0 = 'Kích thước tệp tối đa là 10 MB.',
+    label1 = 'Có thể tải lên tổng cộng 20 tệp. Vui lòng xem xét việc kết hợp nhiều trang thành một tệp nếu chúng có liên quan với nhau.',
+    label2 = 'Không đặt mật khẩu bảo vệ file của bạn.',
+    label3 = 'Chỉ tải lên các tài liệu chính xác, rõ ràng, dễ đọc.',
+    label41 = 'Định dạng hỗ trợ',
+    label42 = '.pdf, .doc, .docx',
+  }
 
+  const { profile, refetch } = useGetMentorEditProfile();
   const { optionSubjects: subjects } = useDispatchGetAllSubjects();
   const { mutateAsync: mutateEditMentorProfile } =
     useMutationEditMentorProfile();
@@ -57,12 +63,15 @@ export default function EditMentorProfileForm() {
 
   useEffect(() => {
     if (profile && subjects) {
-      if (profile.mentorProfile?.workingExperience)
+      if (profile.userDto.mentorProfile.introduce)
+        defaultValuesEditMentorProfile.introduce =
+          profile.userDto.mentorProfile.introduce;
+      if (profile.userDto.mentorProfile.workingExperience)
         defaultValuesEditMentorProfile.workingExperience =
-          profile.mentorProfile.workingExperience;
-      if (profile.mentorProfile.mentorSkills) {
+          profile.userDto.mentorProfile.workingExperience;
+      if (profile.userDto.mentorProfile.mentorSkills) {
         defaultValuesEditMentorProfile.mentorSkills =
-          profile.mentorProfile.mentorSkills.map((item) => {
+          profile.userDto.mentorProfile.mentorSkills.map((item) => {
             const subjectTmp = subjects.find(
               (subject) => subject.id === item.skillId
             );
@@ -76,36 +85,83 @@ export default function EditMentorProfileForm() {
             };
           });
       }
-      if (profile.mentorProfile?.introduce)
-        defaultValuesEditMentorProfile.introduce =
-          profile.mentorProfile.introduce;
       reset(defaultValuesEditMentorProfile);
     }
   }, [profile, reset, subjects]);
 
+  // console.log('subjects', subjects);
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công...';
   const handleSubmitSuccess = async (data: any) => {
-    const params: EditMentorProfilePayload = {
-      introduce: data.introduce,
-      mentorSkills: [],
-      workingExperience: data.workingExperience,
-    };
-    data.mentorSkills.forEach((item: any) => {
-      params.mentorSkills.push({
-        skillId: item.skillId.id,
-        yearOfExperiences: item.yearOfExperiences,
-        status: true,
+    if (profile) {
+      const s1 = data.mentorSkills.map((item: any) => ({
+        skillId: item.skillId?.id,
+        yearOfExperiences: Number(item.yearOfExperiences),
+      }));
+      const s2 = profile.userDto.mentorProfile.mentorSkills.map((item) => ({
+        skillId: item.skillId,
+        yearOfExperiences: Number(item.yearOfExperiences),
+      }));
+
+      const submitSkills = s1.map((item: any, index: number) => {
+        let tmp: any;
+        if (s2[index]) {
+          if (s2[index].yearOfExperiences === item.yearOfExperiences) {
+            tmp = {
+              skillId: item.skillId,
+              yearOfExperiences: item.yearOfExperiences,
+              status: true,
+            };
+          } else {
+            tmp = {
+              skillId: item.skillId,
+              yearOfExperiences: s2[index].yearOfExperiences,
+              status: false,
+            };
+          }
+        } else {
+          tmp = {
+            skillId: item.skillId,
+            yearOfExperiences: item.yearOfExperiences,
+            status: false,
+          };
+        }
+        return tmp;
       });
-    });
-    const id = toast.loadToast(toastMsgLoading);
-    try {
-      await mutateEditMentorProfile(params);
-      handleDispatchProfile();
-      refetch();
-      toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: unknown) {
-      toast.updateFailedToast(id, toastMsgError(error));
+
+      // const submitSkills = s2.map((item, index) => {
+      //   let tmp: any;
+      //   if (s1[index].yearOfExperiences === item.yearOfExperiences) {
+      //     tmp = {
+      //       skillId: item.skillId,
+      //       yearOfExperiences: item.yearOfExperiences,
+      //       status: true,
+      //     };
+      //   } else {
+      //     tmp = {
+      //       skillId: item.skillId,
+      //       yearOfExperiences: s1[index].yearOfExperiences,
+      //       status: false,
+      //     };
+      //   }
+      //   return tmp;
+      // });
+      console.log('submitSkills', submitSkills);
+      const params: EditMentorProfilePayload = {
+        introduce: data.introduce,
+        mentorSkills: submitSkills,
+        workingExperience: data.workingExperience,
+      };
+      console.log('params', params);
+      const id = toast.loadToast(toastMsgLoading);
+      try {
+        await mutateEditMentorProfile(params);
+        handleDispatchProfile();
+        refetch();
+        toast.updateSuccessToast(id, toastMsgSuccess);
+      } catch (error: unknown) {
+        toast.updateFailedToast(id, toastMsgError(error));
+      }
     }
   };
 
@@ -225,14 +281,14 @@ export default function EditMentorProfileForm() {
                               color="error"
                               size="small"
                               variant="outlined"
-                              disabled={
-                                !(
-                                  profile.mentorProfile.status ===
-                                    MentorProfileStatusType.REQUESTING ||
-                                  profile.mentorProfile.status ===
-                                    MentorProfileStatusType.EDITREQUEST
-                                )
-                              }
+                              // disabled={
+                              //   !(
+                              //     profile.mentorProfile.status ===
+                              //       MentorProfileStatusType.REQUESTING ||
+                              //     profile.mentorProfile.status ===
+                              //       MentorProfileStatusType.EDITREQUEST
+                              //   )
+                              // }
                               onClick={() => removeSkill(index)}
                             >
                               <Icon name="delete" size="medium" />
@@ -260,14 +316,14 @@ export default function EditMentorProfileForm() {
                 color="success"
                 size="large"
                 variant="outlined"
-                disabled={
-                  !(
-                    profile.mentorProfile.status ===
-                      MentorProfileStatusType.REQUESTING ||
-                    profile.mentorProfile.status ===
-                      MentorProfileStatusType.EDITREQUEST
-                  )
-                }
+                // disabled={
+                //   !(
+                //     profile.mentorProfile.status ===
+                //       MentorProfileStatusType.REQUESTING ||
+                //     profile.mentorProfile.status ===
+                //       MentorProfileStatusType.EDITREQUEST
+                //   )
+                // }
                 onClick={() => appendSkill()}
               >
                 <Icon name="add" size="medium" />
@@ -275,11 +331,15 @@ export default function EditMentorProfileForm() {
             </Grid>
           </Grid>
           <Box mt={4}>
-            <UpdateProfileButton
-              role={profile.roles?.[0]?.code}
-              isFormDisabled={!formState.isDirty}
-              mentorProfileStatus={profile?.mentorProfile?.status}
-            />
+            <MuiButton
+              variant="contained"
+              color="miSmartOrange"
+              type="submit"
+              fullWidth
+              // disabled={!formState.isDirty || Boolean(profile?.id)}
+            >
+              Cập nhật
+            </MuiButton>
           </Box>
         </form>
       )}

@@ -28,15 +28,15 @@ import toast from '~/utils/toast';
 import { useAIConvert } from '~/hooks/useAIConvert';
 import { compareDate, formatDate, isValidDate } from '~/utils/date';
 
-interface DialogEditIdCardFrontProps {
+interface DialogEditIdCardFrontEditProfileProps {
   open: boolean;
   handleOnClose: () => void;
 }
 
-export default function DialogEditIdCardFront({
+export default function DialogEditIdCardFrontEditProfile({
   open,
   handleOnClose,
-}: DialogEditIdCardFrontProps) {
+}: DialogEditIdCardFrontEditProfileProps) {
   const profile = useSelector(selectProfile);
   const resolverEditIdentityFront = useYupValidationResolver(
     validationSchemaEditIdentityFront
@@ -165,11 +165,22 @@ export default function DialogEditIdCardFront({
             >
               Hủy
             </MuiButton>
-            <UpdateProfileButton
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+              disabled={!formState.isDirty}
+            >
+              Cập nhật
+            </MuiButton>
+            {/* <UpdateProfileButton
               role={profile.roles?.[0]?.code}
               isFormDisabled={!formState.isDirty}
               mentorProfileStatus={profile?.mentorProfile?.status}
-            />
+            /> */}
           </Stack>
         </form>
       </DialogContent>

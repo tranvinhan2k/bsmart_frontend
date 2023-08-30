@@ -43,6 +43,7 @@ export interface RequestRegisterPayload {
 export interface EditCertificateProfilePayload {
   userImages: (string | Blob)[];
   degreeIdsToDelete?: number[];
+  status: boolean;
 }
 export interface EditImageProfilePayload {
   file: string | Blob;
@@ -50,6 +51,7 @@ export interface EditImageProfilePayload {
     | ProfileImgType.AVATAR
     | ProfileImgType.FRONTCI
     | ProfileImgType.BACKCI;
+  status: boolean;
 }
 
 export interface EditMentorProfilePayload {
@@ -294,11 +296,11 @@ const accountApi = {
   },
   async editImageProfile(data: EditImageProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const { file, imageType } = data;
+    const { file, imageType, status } = data;
 
     bodyFormData.append('file', file);
     bodyFormData.append('imageType', imageType);
-    bodyFormData.append('status', true as any);
+    bodyFormData.append('status', status as any);
 
     return axiosClient.post(`${url}/upload-image`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -306,24 +308,25 @@ const accountApi = {
   },
   editCertificateProfile(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const { userImages, degreeIdsToDelete } = data;
+    const { userImages, degreeIdsToDelete, status } = data;
     userImages.forEach((item) => {
       bodyFormData.append('files', item);
     });
     if (degreeIdsToDelete) {
       bodyFormData.append('degreeIdsToDelete', degreeIdsToDelete as any); // CORRECT WAY
     }
-    bodyFormData.append('status', true as any);
+    bodyFormData.append('status', status as any);
     return axiosClient.post(`${url}/upload-degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
   updateDegreeRequest(data: EditCertificateProfilePayload): Promise<any> {
     const bodyFormData = new FormData();
-    const { userImages } = data;
+    const { userImages, status } = data;
     userImages.forEach((item) => {
       bodyFormData.append('files', item);
     });
+    bodyFormData.append('status', status as any);
     return axiosClient.post(`image/upload/degree`, bodyFormData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

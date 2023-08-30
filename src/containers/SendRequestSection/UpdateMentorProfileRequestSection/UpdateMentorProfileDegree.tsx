@@ -9,15 +9,17 @@ import {
 import { Fragment, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { EditCertificateProfilePayload } from '~/api/users';
+import { FontFamily } from '~/assets/variables';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import FormInput from '~/components/atoms/FormInput';
 import Icon from '~/components/atoms/Icon';
-import { MentorProfileStatusType } from '~/constants/profile';
+import { MentorProfileStatusType, ProfileImgType } from '~/constants/profile';
 import { defaultValueEditCertificateProfile } from '~/form/defaultValues';
 import { EDIT_CERTIFICATE_PROFILE_FIELDS } from '~/form/schema';
 import { validationSchemaEditCertificateProfile } from '~/form/validation';
 import { useDispatchProfile, useYupValidationResolver } from '~/hooks';
 import { useMutationEditCertificateProfile } from '~/hooks/useMutationEditCertificateProfile';
+import { useGetMentorEditProfile } from '~/hooks/user/useGetEditProfile';
 import { useGetProfile } from '~/hooks/user/useGetProfile';
 import {
   EditCertificateProfileFormDataPayload,
@@ -27,7 +29,7 @@ import { toastMsgError } from '~/utils/common';
 import toast from '~/utils/toast';
 import { SX_FORM, SX_FORM_LABEL, SX_FORM_TITLE } from './style';
 
-export default function EditCertificateProfileForm() {
+export default function UpdateMentorProfileDegree() {
   const toastMsgLoading = 'Đang cập nhật...';
   const toastMsgSuccess = 'Cập nhật thành công';
 
@@ -48,7 +50,7 @@ export default function EditCertificateProfileForm() {
   //   }
   // );
   // const dataGetProfile = useSelector(selectProfile);
-  const { profile: dataGetProfile, refetch } = useGetProfile();
+  const { profile, refetch } = useGetMentorEditProfile();
 
   const { handleDispatch: handleDispatchProfile } = useDispatchProfile();
   const { mutateAsync: mutateEditCertificateProfile } =
@@ -76,16 +78,14 @@ export default function EditCertificateProfileForm() {
 
   const [degreeIdsToDelete, setDegreeIdsToDelete] = useState<number[]>([]);
   useEffect(() => {
-    if (dataGetProfile) {
-      const defaults = defaultValueEditCertificateProfile;
-      if (dataGetProfile.userImages) {
-        defaults.userImages = dataGetProfile.userImages.filter(
-          (item: any) => item.type === 'DEGREE'
+    if (profile) {
+      defaultValueEditCertificateProfile.userImages =
+        profile.userDto.userImages.filter(
+          (item: any) => item.type === ProfileImgType.DEGREE
         );
-      }
-      reset(defaults);
+      reset(defaultValueEditCertificateProfile);
     }
-  }, [dataGetProfile, reset]);
+  }, [profile, reset]);
 
   const appendCertificate = () => {
     append(null);
@@ -102,17 +102,21 @@ export default function EditCertificateProfileForm() {
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
-    const params: EditCertificateProfilePayload =
-      degreeIdsToDelete.length > 0
-        ? {
-            userImages: data.userImages,
-            degreeIdsToDelete,
-            status: true,
-          }
-        : {
-            userImages: data.userImages,
-            status: true,
-          };
+    // const params: EditCertificateProfilePayload =
+    //   degreeIdsToDelete.length > 0
+    //     ? {
+    //         userImages: data.userImages,
+    //         degreeIdsToDelete,
+    //         status: true,
+    //       }
+    //     : {
+    //         userImages: data.userImages,
+    //         status: false,
+    //       };
+    const params: EditCertificateProfilePayload = {
+      userImages: data.userImages,
+      status: false,
+    };
     const id = toast.loadToast(toastMsgLoading);
     try {
       await mutateEditCertificateProfile(params);
@@ -186,7 +190,6 @@ export default function EditCertificateProfileForm() {
                 <Typography sx={SX_FORM_LABEL}>
                   {`${formFieldsCertificate.label} ${1 + index}`}
                 </Typography>
-                /
               </Grid>
               <Grid item xs={12}>
                 <Stack
@@ -205,14 +208,6 @@ export default function EditCertificateProfileForm() {
                     color="error"
                     size="small"
                     variant="outlined"
-                    disabled={
-                      !(
-                        dataGetProfile?.mentorProfile?.status ===
-                          MentorProfileStatusType.REQUESTING ||
-                        dataGetProfile?.mentorProfile?.status ===
-                          MentorProfileStatusType.EDITREQUEST
-                      )
-                    }
                     onClick={() =>
                       removeCertificate(
                         index,
@@ -239,14 +234,6 @@ export default function EditCertificateProfileForm() {
               color="success"
               size="large"
               variant="outlined"
-              disabled={
-                !(
-                  dataGetProfile?.mentorProfile?.status ===
-                    MentorProfileStatusType.REQUESTING ||
-                  dataGetProfile?.mentorProfile?.status ===
-                    MentorProfileStatusType.EDITREQUEST
-                )
-              }
               onClick={() => appendCertificate()}
             >
               <Icon name="add" size="medium" />
@@ -254,13 +241,17 @@ export default function EditCertificateProfileForm() {
           </Grid>
         </Grid>
         <Box mt={4}>
-          {dataGetProfile && (
-            <UpdateProfileButton
-              role={dataGetProfile.roles[0].code}
-              isFormDisabled={!formState.isDirty}
-              mentorProfileStatus={dataGetProfile.mentorProfile?.status}
-            />
-          )}
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            // size="large"
+            type="submit"
+            variant="contained"
+            sx={{ fontFamily: FontFamily.bold }}
+            disabled={!formState.isDirty}
+          >
+            Cập nhật
+          </MuiButton>
         </Box>
       </form>
     </Box>

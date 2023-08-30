@@ -23,15 +23,15 @@ import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 import { useAIConvert } from '~/hooks/useAIConvert';
 
-interface DialogEditIdCardBackProps {
+interface DialogEditIdCardBackEditProfileProps {
   open: boolean;
   handleOnClose: () => void;
 }
 
-export default function DialogEditIdCardBack({
+export default function DialogEditIdCardBackEditProfile({
   open,
   handleOnClose,
-}: DialogEditIdCardBackProps) {
+}: DialogEditIdCardBackEditProfileProps) {
   const profile = useSelector(selectProfile);
   const resolverEditIdentityBack = useYupValidationResolver(
     validationSchemaEditIdentityBack
@@ -112,11 +112,22 @@ export default function DialogEditIdCardBack({
             >
               Hủy
             </MuiButton>
-            <UpdateProfileButton
+            <MuiButton
+              color="miSmartOrange"
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              sx={{ fontFamily: FontFamily.bold }}
+              disabled={!formState.isDirty}
+            >
+              Cập nhật
+            </MuiButton>
+            {/* <UpdateProfileButton
               role={profile.roles?.[0]?.code}
               isFormDisabled={!formState.isDirty}
               mentorProfileStatus={profile?.mentorProfile?.status}
-            />
+            /> */}
           </Stack>
         </form>
       </DialogContent>
