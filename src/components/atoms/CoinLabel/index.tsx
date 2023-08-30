@@ -9,7 +9,7 @@ interface Props {
 
 export default function CoinLabel({ value }: Props) {
   return (
-    <Tooltip title="1 BS = 1,000 vnđ" arrow>
+    <Tooltip title="1 BS = 1 VND" arrow>
       <Stack sx={{ flexDirection: 'row', alignItems: 'center' }} mt={1}>
         <Box
           component="img"

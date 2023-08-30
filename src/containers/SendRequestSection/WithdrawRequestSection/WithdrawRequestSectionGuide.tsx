@@ -21,7 +21,7 @@ export default function WithdrawRequestSectionGuide() {
         </Typography>
       </Box>
       <Box ml={0}>
-        <Typography>1. 1 BS = 1,000 vnđ</Typography>
+        <Typography>1. 1 BS = 1 VND</Typography>
         <Typography>
           2. Yêu cầu rút tiền đã xử lý không thể hoàn tác. Xin hãy kiểm tra
           thông tin cẩn thận

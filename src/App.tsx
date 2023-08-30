@@ -160,13 +160,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (token && websocketMessage.data.entity === 'MENTOR_PROFILE') {
+    if (token) {
       handleDispatchProfile();
     }
 
-    if (token && websocketMessage.status === '') {
-      handleDispatchProfile();
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectIsLoaded, websocketMessage]);
 
