@@ -111,7 +111,9 @@ export default function WeekSchedule({ data }: Props) {
                 : '',
               className: `${subItemTimeSlot?.className}`,
               classId: subItemTimeSlot?.classId || 0,
-              googleLink: `${detailClass?.classURL}`,
+              googleLink: `${
+                detailClass?.classURL || 'https://meet.google.com/wdg-rycq-hzk'
+              }`,
               isPresent: subItemTimeSlot?.isPresent || false,
               isTookAttendance: subItemTimeSlot?.isTookAttendance || false,
             };
@@ -275,7 +277,7 @@ export default function WeekSchedule({ data }: Props) {
                                   }}
                                   onClick={() =>
                                     openUrl(
-                                      subItem.googleLink ||
+                                      subItem?.googleLink ||
                                         'https://meet.google.com/tuq-vpju-sud'
                                     )
                                   }
