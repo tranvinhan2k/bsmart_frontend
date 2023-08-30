@@ -48,20 +48,20 @@ export default function ManageTableDetailsManagedUserRevenue({
       id: 3,
       iconName: 'promo',
       label: 'Tiền mã giới thiệu',
-      value: managedUserRevenue ? managedUserRevenue.promotion : 0,
+      value: managedUserRevenue ? formatMoney(managedUserRevenue.promotion) : 0,
       size: 6,
     },
     {
       id: 4,
       iconName: 'biMoney',
-      label: 'Doanh thu',
+      label: 'Lợi nhuận',
       value: managedUserRevenue ? formatMoney(managedUserRevenue.revenue) : 0,
       size: 6,
     },
     {
       id: 5,
       iconName: 'biMoney',
-      label: 'Tiền nhận được từ người dùng',
+      label: 'Doanh thu',
       value: managedUserRevenue
         ? formatMoney(managedUserRevenue.systemIncome)
         : 0,
@@ -72,35 +72,35 @@ export default function ManageTableDetailsManagedUserRevenue({
     {
       id: 0,
       iconName: 'coPresent',
-      label: 'Khóa họ đang có',
+      label: 'Khóa học tham gia',
       value: managedUserRevenue ? managedUserRevenue.numOfCourse : 0,
       size: 6,
     },
+    // {
+    //   id: 1,
+    //   iconName: 'coPresent',
+    //   label: 'Lớp học đã mua',
+    //   value: managedUserRevenue ? managedUserRevenue.numOfClass : 0,
+    //   size: 6,
+    // },
     {
-      id: 1,
-      iconName: 'coPresent',
-      label: 'Lớp học đang có',
-      value: managedUserRevenue ? managedUserRevenue.numOfClass : 0,
-      size: 6,
-    },
-    {
-      id: 3,
+      id: 2,
       iconName: 'promo',
       label: 'Tiền mã giới thiệu',
       value: managedUserRevenue ? managedUserRevenue.promotion : 0,
       size: 6,
     },
     {
-      id: 4,
+      id: 3,
       iconName: 'biMoney',
-      label: 'Doanh thu',
+      label: 'Lợi nhuận',
       value: managedUserRevenue ? formatMoney(managedUserRevenue.revenue) : 0,
       size: 6,
     },
     {
-      id: 5,
+      id: 4,
       iconName: 'biMoney',
-      label: 'Tiền nhận được từ người dùng',
+      label: 'Doanh thu',
       value: managedUserRevenue
         ? formatMoney(managedUserRevenue.systemIncome)
         : 0,

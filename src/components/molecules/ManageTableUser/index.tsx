@@ -12,6 +12,7 @@ import CustomModal from '~/components/atoms/CustomModal';
 import { useMutationProcessManagerRequestEditMentor } from '~/hooks/user/useMutationProcessManagerRequestEditMentor';
 import toast from '~/utils/toast';
 import { toastMsgError } from '~/utils/common';
+import ManageTableDetailsManagedUserRevenue from '../ManageTableDetailsManagedUserRevenue';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
@@ -177,13 +178,12 @@ export default function ManageTableUser({
       break;
     case 'REVENUE':
       renderItem = (
-        <CustomModal
-          open={open}
-          onClose={handleTriggerDialog}
-          title="Doanh thu của người dùng"
-        >
-          Doanh Thu
-        </CustomModal>
+        <CustomDialog open={open} onClose={handleTriggerDialog} maxWidth="sm">
+          <ManageTableDetailsManagedUserRevenue
+            rowId={selectedRow && selectedRow.id}
+            userRole={userRole}
+          />
+        </CustomDialog>
       );
       break;
     default:

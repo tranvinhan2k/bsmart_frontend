@@ -21,7 +21,7 @@ import {
   MentorProfileUpdateStatusType,
 } from '~/constants/profile';
 import { useSearchCourseCreateRequest } from '~/hooks/course/useSearchCourseCreateRequest';
-import { useSearchCourseUpdateRequest } from '~/hooks/course/useSearchCourseUpdateRequest';
+// import { useSearchCourseUpdateRequest } from '~/hooks/course/useSearchCourseUpdateRequest';
 import { useSearchMentorProfileUpdateRequest } from '~/hooks/user/useSearchMentorProfileUpdateRequest';
 import { useSearchRegisterRequest } from '~/hooks/user/useSearchRegisterRequest';
 import { scrollToTop } from '~/utils/common';
@@ -73,13 +73,13 @@ export default function ManageRequestManagerPage() {
   } = useSearchCourseCreateRequest({
     status: CourseStatusType.WAITING,
   });
-  const {
-    courseUpdateRequestList: courseUpdateRequestListWAITING,
-    isLoading: isLoadingCourseUpdateRequestWAITING,
-    refetch: refetchCourseUpdateRequestListWAITING,
-  } = useSearchCourseUpdateRequest({
-    status: CourseStatusType.WAITING,
-  });
+  // const {
+  //   courseUpdateRequestList: courseUpdateRequestListWAITING,
+  //   isLoading: isLoadingCourseUpdateRequestWAITING,
+  //   refetch: refetchCourseUpdateRequestListWAITING,
+  // } = useSearchCourseUpdateRequest({
+  //   status: CourseStatusType.WAITING,
+  // });
 
   const tabEl = [
     {
@@ -112,16 +112,16 @@ export default function ManageRequestManagerPage() {
         />
       ),
     },
-    {
-      id: 3,
-      component: (
-        <ManageCourseUpdateRequestSection
-          firstList={courseUpdateRequestListWAITING}
-          firstListStatus={CourseStatusType.WAITING}
-          firstListRefetch={refetchCourseUpdateRequestListWAITING}
-        />
-      ),
-    },
+    // {
+    //   id: 3,
+    //   component: (
+    //     <ManageCourseUpdateRequestSection
+    //       firstList={courseUpdateRequestListWAITING}
+    //       firstListStatus={CourseStatusType.WAITING}
+    //       firstListRefetch={refetchCourseUpdateRequestListWAITING}
+    //     />
+    //   ),
+    // },
   ];
 
   const noOfRegisterRequest = registerRequestListWAITING
@@ -133,9 +133,9 @@ export default function ManageRequestManagerPage() {
   const noOfCourseCreateRequest = courseCreateRequestWAITING
     ? courseCreateRequestWAITING.totalItems
     : 0;
-  const noOfCourseUpdateRequest = courseUpdateRequestListWAITING
-    ? courseUpdateRequestListWAITING.totalItems
-    : 0;
+  // const noOfCourseUpdateRequest = courseUpdateRequestListWAITING
+  //   ? courseUpdateRequestListWAITING.totalItems
+  //   : 0;
 
   const renderMenuItem = [
     { id: 0, label: Text.ListSubheader0, isListSubheader: true },
@@ -161,20 +161,17 @@ export default function ManageRequestManagerPage() {
       indicator: noOfCourseCreateRequest,
       value: 2,
     },
-    {
-      id: 5,
-      label: Text.MenuItem11,
-      isLoading: isLoadingCourseUpdateRequestWAITING,
-      indicator: noOfCourseUpdateRequest,
-      value: 3,
-    },
+    // {
+    //   id: 5,
+    //   label: Text.MenuItem11,
+    //   isLoading: isLoadingCourseUpdateRequestWAITING,
+    //   indicator: noOfCourseUpdateRequest,
+    //   value: 3,
+    // },
   ];
 
   const totalRequest =
-    noOfRegisterRequest +
-    noOfMentorUpdaterRequest +
-    noOfCourseCreateRequest +
-    noOfCourseUpdateRequest;
+    noOfRegisterRequest + noOfMentorUpdaterRequest + noOfCourseCreateRequest;
 
   return (
     <Box padding={3}>
