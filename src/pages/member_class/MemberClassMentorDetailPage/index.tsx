@@ -39,6 +39,7 @@ export default function MemberClassMentorDetailPage() {
       <TextTitle title="Thông tin giáo viên" />
       <Stack sx={globalStyles.viewRoundedWhiteBody}>
         <UserDetailInformation
+          id={mentor.id}
           email={mentor.email}
           imageAlt={mentor.imageAlt}
           imageUrl={mentor.imageUrl}
