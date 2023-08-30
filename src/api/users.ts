@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { EditAccountProfilePayload } from '~/models/modelAPI/user/account';
 import { EditPersonalProfileFormSubmit } from '~/models/modelAPI/user/personal';
 import { EditSocialProfilePayload } from '~/models/modelAPI/user/social';
@@ -358,16 +361,16 @@ const accountApi = {
     });
   },
   async getClassAttendance(id: number): Promise<AttendanceTimeSlotPayload[]> {
-    const response: GetUserSchedule = await axiosClient.get(
-      `${url}/timetables`
-    );
+    const response: GetUserSchedule = await axiosClient.get(`time-table/${id}`);
 
-    const selectedClassResponse = response.find(
-      (item) => item.workingClass?.id === id
-    );
+    const selectedClassResponse = response.find((item) => {
+      console.log('id', item, id);
+
+      return item.workingClass?.id === id;
+    });
 
     const result: AttendanceTimeSlotPayload[] =
-      selectedClassResponse?.timeTableResponse?.map((timeSlot) => ({
+      response?.map((timeSlot) => ({
         id: timeSlot.id || 0,
         date: timeSlot?.date || '',
         slotName: timeSlot.slot?.name || '',

@@ -37,6 +37,9 @@ export default function MentorClassAttendanceListPage() {
     error,
     isLoading,
   } = useQueryGetDetailSchedule(classId);
+
+  console.log('schedule', rows);
+
   // const rows: AttendanceTimeSlotPayload[] = [
   //   {
   //     id: 0,
