@@ -34,6 +34,7 @@ function FileListInput({ controller }: FileListInputProps) {
   };
 
   const handleDelete = (paramIndex: number) => {
+    const deleteId = value?.files?.[paramIndex]?.id || 0;
     const tmpValue = value.files.filter(
       (_: any, index: number) => index !== paramIndex
     );
@@ -41,8 +42,8 @@ function FileListInput({ controller }: FileListInputProps) {
     controllerOnChange({
       files: tmpValue,
       deleteIndexes:
-        value.files[paramIndex].fileType === 'ATTACH'
-          ? [...(value?.deleteIndexes || []), paramIndex]
+        value.files[paramIndex].fileType === 'SUBMIT'
+          ? [...(value?.deleteIndexes || []), deleteId]
           : [...(value?.deleteIndexes || [])],
     });
   };

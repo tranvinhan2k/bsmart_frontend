@@ -80,14 +80,14 @@ export default function MemberViewAttendance() {
   } = useQueryGetDetailSchedule(classId);
 
   const absentReducer = rows?.reduce((total, item) => {
-    if (!item.isPresent) {
+    if (!item.isPresent && item.isTookAttendance) {
       return total + 1;
     }
     return total;
   }, 0);
 
   const presentReducer = rows?.reduce((total, item) => {
-    if (item.isPresent) {
+    if (item.isPresent && item.isTookAttendance) {
       return total + 1;
     }
     return total;

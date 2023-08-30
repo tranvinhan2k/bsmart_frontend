@@ -114,8 +114,6 @@ export default function RequestCourseMentorInfo({
     ? courseCreateRequestDetails.mentor.teachInformation?.scoreFeedback
     : 0;
 
-  console.log('numberOfFeedBack', numberOfFeedBack);
-  console.log('scoreFeedback', scoreFeedback);
   const ratingDisplay =
     scoreFeedback && scoreFeedback > 0
       ? `${scoreFeedback}/5 (${numberOfFeedBack} lượt đánh giá)`

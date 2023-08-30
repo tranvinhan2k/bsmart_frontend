@@ -231,7 +231,7 @@ const activityApi = {
     id: number;
     params: AssignmentSubmitItemPayload[];
   }) {
-    return axiosClient.put(`${url}/assignments/${id}/grading`);
+    return axiosClient.put(`${url}/assignments/${id}/grading`, params);
   },
 
   // post

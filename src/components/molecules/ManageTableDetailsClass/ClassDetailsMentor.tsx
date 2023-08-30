@@ -108,12 +108,6 @@ export default function ClassDetailsMentor({
       ? `${scoreFeedback}/5 (${numberOfFeedBack} đánh giá)`
       : Text.labelNoRatingYet;
 
-  // console.log('numberOfClass', classDetails.mentor?.teachInformation?.numberOfClass)
-  // console.log('numberOfCourse', classDetails.mentor?.teachInformation?.numberOfCourse)
-  // console.log('numberOfFeedBack', classDetails.mentor?.teachInformation?.numberOfFeedBack)
-  // console.log('numberOfMember', classDetails.mentor?.teachInformation?.numberOfMember)
-  // console.log('scoreFeedback', classDetails.mentor?.teachInformation?.scoreFeedback)
-
   const mentorAvatar = classDetails
     ? classDetails.mentor.avatar.url
     : undefined;

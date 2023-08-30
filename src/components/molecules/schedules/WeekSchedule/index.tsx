@@ -1,7 +1,7 @@
 import { Stack, Typography, Box, TextField } from '@mui/material';
 import { DatePicker, PickersDay } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ import {
 } from '~/constants/routeLink';
 import { openUrl } from '~/utils/window';
 import { selectProfile } from '~/redux/user/selector';
+import { ClassContext } from '~/HOCs/context/ClassContext';
 
 dayjs.extend(weekOfYear);
 
@@ -70,6 +71,8 @@ export default function WeekSchedule({ data }: Props) {
   const role = profile.roles?.[0]?.code;
   const navigate = useNavigate();
 
+  const { detailClass } = useContext(ClassContext);
+
   const { dayOfWeeks, error: dayOfWeekError } = useDispatchGetAllDayOfWeeks();
   const { slots, error: slotError } = useDispatchGetAllSlots();
 
@@ -108,7 +111,7 @@ export default function WeekSchedule({ data }: Props) {
                 : '',
               className: `${subItemTimeSlot?.className}`,
               classId: subItemTimeSlot?.classId || 0,
-              googleLink: `${subItemTimeSlot?.link}`,
+              googleLink: `${detailClass?.classURL}`,
               isPresent: subItemTimeSlot?.isPresent || false,
               isTookAttendance: subItemTimeSlot?.isTookAttendance || false,
             };
@@ -116,7 +119,7 @@ export default function WeekSchedule({ data }: Props) {
         }))
       );
     }
-  }, [slots, dayOfWeeks, data, chooseDay, weekDay]);
+  }, [slots, dayOfWeeks, data, chooseDay, weekDay, detailClass?.classURL]);
 
   return (
     <Stack>

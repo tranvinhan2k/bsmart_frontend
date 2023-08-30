@@ -12,6 +12,7 @@ export default function MentorEditPersonalInfo() {
   return (
     <>
       <EditPersonalProfileForm />
+      <EditIdCardSection />
       <EditSocialProfileForm />
     </>
   );

@@ -353,7 +353,6 @@ export default function MentorTakeAttendancePage() {
                         index={rowIndex}
                         isShowImage={showImage}
                         onSetPresent={handleSetPresent}
-                        onViewDetail={() => handleNavigateViewDetail(item.id)}
                         onZoomImage={handleOpenImage}
                         onAddNote={handleAddNote}
                       />

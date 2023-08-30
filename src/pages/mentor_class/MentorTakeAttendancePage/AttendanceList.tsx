@@ -10,7 +10,6 @@ import {
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
-import { headerCell } from './style';
 import { Color, MetricSize, FontSize, FontFamily } from '~/assets/variables';
 import Icon from '~/components/atoms/Icon';
 import { PresentStatusKeys } from '~/models/variables';
@@ -22,7 +21,6 @@ interface AttendanceListProps {
   isShowImage: boolean;
   onZoomImage: (index: number) => void;
   onSetPresent: (id: number, type: PresentStatusKeys) => void;
-  onViewDetail: () => void;
   onAddNote: (note: string, id: number) => void;
 }
 
@@ -31,7 +29,6 @@ export default function AttendanceList({
   index,
   isShowImage,
   onSetPresent,
-  onViewDetail,
   onZoomImage,
   onAddNote,
 }: AttendanceListProps) {
@@ -167,11 +164,6 @@ export default function AttendanceList({
                 color="red"
                 size="small_20"
               />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Xem chi tiết">
-            <IconButton onClick={onViewDetail}>
-              <Icon name="viewDetail" color="black" size="small_20" />
             </IconButton>
           </Tooltip>
         </Stack>

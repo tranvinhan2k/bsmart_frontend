@@ -74,7 +74,7 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
       password: data?.password || '',
       submittedFiles:
         data.attachFiles.files.filter(
-          (subItem: any) => subItem?.fileType !== 'ATTACH'
+          (subItem: any) => subItem?.fileType !== 'SUBMIT'
         ) || [],
     };
 
@@ -83,7 +83,7 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
         await handleDeleteFiles(data.attachFiles.deleteIndexes);
       }
       await handleSubmitAssignment({
-        id: moduleId,
+        id: item.moduleId,
         params,
       });
       await refetch();

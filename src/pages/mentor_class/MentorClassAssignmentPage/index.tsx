@@ -1,6 +1,5 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ConfirmDialog from '~/components/atoms/ConfirmDialog';
 import FormInput from '~/components/atoms/FormInput';
@@ -16,7 +15,9 @@ import { useBoolean } from '~/hooks/useBoolean';
 import globalStyles from '~/styles';
 import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 import { formatStringToNumber } from '~/utils/number';
+import toast from '~/utils/toast';
 import { openUrl } from '~/utils/window';
+import { DownloadButtonAssignment } from './DownloadButtonAssigment';
 
 export interface AssignmentItemPayload {
   id: number;
@@ -57,11 +58,11 @@ export default function MentorClassAssignmentPage({
   const { handleTryCatch } = useTryCatch('nộp bài tập');
 
   const onSubmit = async (data: any) => {
-    if (assignments) {
+    if (assignments?.length !== 0) {
       const points: string[] = data.point;
       const notes: string[] = data.note;
-      const params: AssignmentSubmitItemPayload[] = assignments.map(
-        (item, index) => ({
+      const params: AssignmentSubmitItemPayload[] =
+        assignments?.map((item, index) => ({
           created: new Date().toISOString(),
           lastModified: new Date().toISOString(),
           id: item.id,
@@ -69,15 +70,15 @@ export default function MentorClassAssignmentPage({
           lastModifiedBy: item.studentName,
           point: formatStringToNumber(points[index]),
           note: notes[index],
-        })
-      );
+        })) || [];
 
       await handleTryCatch(async () =>
         mutateAsync({
-          id: moduleId,
+          id: assignmentId,
           params,
         })
       );
+      toggle();
     }
   };
 
@@ -103,32 +104,21 @@ export default function MentorClassAssignmentPage({
     {
       field: 'file',
       headerName: 'Bài làm',
-      width: 120,
+      flex: 2,
       renderCell: (data) => {
-        return (
-          <Button
-            sx={{
-              alignSelf: 'center',
-            }}
-            variant="contained"
-            color="success"
-            startIcon={<Icon name="download" size="small_20" color="white" />}
-            onClick={() => openUrl(data.row?.file?.url)}
-          >
-            Tải về
-          </Button>
-        );
+        return <DownloadButtonAssignment data={data} />;
       },
     },
     {
       field: 'point',
       headerName: 'Chấm điểm',
-      flex: 1,
+      flex: 2,
       renderCell: (data) => {
         return (
           <FormInput
             control={control}
             variant="number"
+            placeholder="Nhập số điểm"
             name={`point.${data.api.getRowIndex(data.row.id)}`}
           />
         );
@@ -142,7 +132,8 @@ export default function MentorClassAssignmentPage({
         return (
           <FormInput
             control={control}
-            variant="multiline"
+            variant="text"
+            placeholder="Nhập ghi chú"
             name={`note.${data.api.getRowIndex(data.row.id)}`}
           />
         );
@@ -162,7 +153,12 @@ export default function MentorClassAssignmentPage({
           rows={assignments || []}
         />
         <Box marginTop={1}>
-          <Button variant="contained" onClick={toggle}>
+          <Button
+            disabled={assignments?.length === 0}
+            color="success"
+            variant="contained"
+            onClick={toggle}
+          >
             Chấm điểm
           </Button>
         </Box>

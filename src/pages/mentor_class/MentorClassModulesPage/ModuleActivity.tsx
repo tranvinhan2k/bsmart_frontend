@@ -28,12 +28,12 @@ export default function ModuleActivity({ name, description }: Props) {
 
       {description && (
         <Stack marginTop={1}>
-          <Typography textAlign="center" sx={globalStyles.textSmallLabel}>
-            Mô tả
-          </Typography>
+          <Typography sx={globalStyles.textSmallLabel}>Mô tả</Typography>
           <Typography
-            textAlign="center"
-            sx={globalStyles.textLowSmallLight}
+            sx={{
+              fontSize: FontSize.small_14,
+              fontFamily: FontFamily.regular,
+            }}
             dangerouslySetInnerHTML={{
               __html: description,
             }}

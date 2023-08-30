@@ -12,7 +12,6 @@ export default function MentorEditProfileImgPage() {
   return (
     <>
       <EditMentorProfileForm />
-      <EditIdCardSection />
       <EditCertificateProfileForm />
     </>
   );

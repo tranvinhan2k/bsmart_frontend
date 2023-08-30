@@ -63,12 +63,16 @@ export default function DialogEditIdCardBack({
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
-      await mutateAsync(data.identityBack);
-      await mutateEditIdentityBack(params);
-      handleOnClose();
-      handleDispatchProfile();
-      toast.updateSuccessToast(id, toastMsgSuccess);
-      resetEditIdentityBack();
+      const response = await mutateAsync(data.identityBack);
+      if (response?.type === 'chip_back') {
+        await mutateEditIdentityBack(params);
+        handleOnClose();
+        handleDispatchProfile();
+        toast.updateSuccessToast(id, toastMsgSuccess);
+        resetEditIdentityBack();
+      } else {
+        toast.updateFailedToast(id, 'Ảnh không hợp lệ');
+      }
     } catch (error: unknown) {
       toast.updateFailedToast(
         id,

@@ -77,18 +77,23 @@ const classApi = {
 
   async getStudentMarkReport(params: { classId: number; studentId: number }) {
     const response: Partial<{
-      point: number;
-      activityId: number;
-      type: 'QUIZ' | 'ASSIGNMENT';
+      point: 2;
+      activityName: 'Kiểm tra kiến thức mục 1';
+      type: 'QUIZ';
+      created: '2023-08-27T02:47:04.566Z';
+      lastUpdated: '2023-08-27T02:47:04.566Z';
     }>[] = await axiosClient.get(`${url}/student-point`, {
       params,
     });
 
     const result: MarkPayload[] =
-      response.map((item) => ({
-        id: item.activityId || 0,
+      response.map((item, index) => ({
+        id: index,
         grade: item.point || 0,
-        name: item.type || '',
+        name: item.activityName || '',
+        created: item.created || '',
+        lastModified: item.lastUpdated || '',
+        type: item.type || '',
       })) || [];
 
     return result;

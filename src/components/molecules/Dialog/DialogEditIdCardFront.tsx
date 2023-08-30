@@ -14,7 +14,6 @@ import { EditImageProfilePayload } from '~/api/users';
 import { FontFamily } from '~/assets/variables';
 import { ProfileImgType } from '~/constants/profile';
 import { selectProfile } from '~/redux/user/selector';
-import { toastMsgError } from '~/utils/common';
 import {
   useDispatchProfile,
   useTryCatch,
@@ -26,7 +25,7 @@ import FormInput from '~/components/atoms/FormInput';
 import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 import { useAIConvert } from '~/hooks/useAIConvert';
-import { compareDate, formatDate, isValidDate } from '~/utils/date';
+import { formatDate } from '~/utils/date';
 
 interface DialogEditIdCardFrontProps {
   open: boolean;
@@ -65,6 +64,8 @@ export default function DialogEditIdCardFront({
 
   const handleVerifyIdentity = async (image: any) => {
     const value = await handleTryCatch(async () => {
+      const identities: string[] = [];
+
       const response = await mutateAsync(image);
 
       const isValidName =
@@ -75,27 +76,33 @@ export default function DialogEditIdCardFront({
       const isValidDOB =
         formatDate(new Date(profile.birthday).toISOString()) === response?.dob;
 
-      switch (true) {
-        case !isValidDOB:
-          toast.notifyErrorToast(
-            `Ngày sinh không trùng với dữ liệu nhập vào: ${formatDate(
-              new Date(profile.birthday).toISOString()
-            )} và ${response?.dob}`
-          );
-          return false;
-        case !isValidGender:
-          toast.notifyErrorToast(
-            `Giới tính không trùng với dữ liệu nhập vào: ${response?.sex} và ${profile.gender} }`
-          );
-          return false;
-        case !isValidName:
-          toast.notifyErrorToast(
-            `Tên không trùng với dữ liệu nhập vào: ${response?.name} và ${profile.fullName} }`
-          );
-          return false;
-        default:
-          return true;
+      if (!isValidDOB) {
+        identities.push(
+          `Ngày sinh không trùng với dữ liệu nhập vào: ${formatDate(
+            new Date(profile.birthday).toISOString()
+          )} và ${response?.dob}`
+        );
       }
+
+      if (!isValidGender) {
+        identities.push(
+          `Giới tính không trùng với dữ liệu nhập vào: ${response?.sex} và ${profile.gender} }`
+        );
+      }
+
+      if (!isValidName) {
+        identities.push(
+          `Tên không trùng với dữ liệu nhập vào: ${response?.name} và ${profile.fullName} }`
+        );
+      }
+
+      if (identities.length !== 0) {
+        for (let index = 0; index < identities.length; index += 1) {
+          toast.notifyErrorToast(identities[index]);
+        }
+        return false;
+      }
+      return true;
     });
     return value;
   };

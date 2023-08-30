@@ -6,11 +6,15 @@ import CRUDTable from '~/components/molecules/CRUDTable';
 import { useGetIdFromUrl, useGetMemberMarkReport } from '~/hooks';
 import { selectProfile } from '~/redux/user/selector';
 import globalStyles from '~/styles';
+import { formatISODateDateToDisplayDateTime } from '~/utils/date';
 
 export interface MarkPayload {
   id: number;
   name: string;
   grade: number;
+  type: string;
+  created: string;
+  lastModified: string;
 }
 
 export default function MemberClassMarkReportPage() {
@@ -24,14 +28,27 @@ export default function MemberClassMarkReportPage() {
 
   const columns: GridColDef[] = [
     {
+      field: 'type',
+      headerName: 'Loại điểm số',
+      width: 90,
+    },
+    {
       field: 'name',
       headerName: 'Tên bài kiểm tra',
       flex: 1,
+    },
+    {
+      field: 'created',
+      headerName: 'Thời điểm đã làm',
       minWidth: 200,
+      renderCell: (params) => {
+        return formatISODateDateToDisplayDateTime(params.row.created);
+      },
     },
     {
       field: 'grade',
       headerName: 'Điểm',
+      width: 90,
     },
   ];
 

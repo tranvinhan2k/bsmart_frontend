@@ -15,9 +15,9 @@ interface Props {
   subjectId: number[];
   onSearchValue: (searchValue: string) => void;
   onFilter: (data: {
-    startDate: Date;
-    endDate: Date;
-    subjectId: string[];
+    startDate: string;
+    endDate: string;
+    subjectId: number[];
   }) => void;
 }
 
@@ -29,10 +29,7 @@ export default function SearchFilterClasses({
   onSearchValue,
   onFilter,
 }: Props) {
-  const resolver = useYupValidationResolver(validationClassListFilter);
-
   const { control, handleSubmit } = useForm({
-    resolver,
     defaultValues: {
       startDate,
       endDate,

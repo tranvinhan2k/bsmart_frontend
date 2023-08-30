@@ -61,7 +61,7 @@ export default function MentorClassInformationPage() {
   const { handleTryCatch } = useTryCatch('mở lớp');
 
   const { subjects } = useDispatchGetAllSubjects();
-  const subject = subjects.find(
+  const subject = subjects?.find(
     (item) => item.id === contextDetailClass?.subjectId || 0
   );
   const detailClass: MentorClassInformationPayload = {
