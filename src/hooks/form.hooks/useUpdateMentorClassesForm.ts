@@ -64,6 +64,7 @@ export const useUpdateMentorClassesForm = (
 
     updateClassHookForm.reset({
       ...tmpClass,
+      id: tmpClass?.id || 0,
       numberOfSlot: tmpClass?.numberOfSlot,
       startDateExpected: tmpClass?.startDate,
       endDateExpected: tmpClass?.endDate,
