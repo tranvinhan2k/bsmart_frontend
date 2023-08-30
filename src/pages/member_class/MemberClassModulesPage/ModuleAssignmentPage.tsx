@@ -83,7 +83,7 @@ export default function ModuleAssignmentPage({ name, item, refetch }: Props) {
         await handleDeleteFiles(data.attachFiles.deleteIndexes);
       }
       await handleSubmitAssignment({
-        id: item.moduleId,
+        id: moduleId,
         params,
       });
       await refetch();

@@ -118,7 +118,7 @@ export default function SidebarApproval() {
       <Stack marginY={1}>
         <Button
           disabled={
-            !!isHaveStartingAndNotStartClass && course.status !== 'REQUESTING'
+            !!isHaveStartingAndNotStartClass || course.status === 'REQUESTING'
           }
           sx={{
             marginX: 2,

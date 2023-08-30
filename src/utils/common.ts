@@ -79,7 +79,6 @@ export const handleConsoleError: SubmitErrorHandler<any> = (
   errors: FieldErrors<any>
 ) => {
   console.error(errors);
-
   return null;
 };
 
