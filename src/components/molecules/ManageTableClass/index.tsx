@@ -119,10 +119,10 @@ export default function ManageTableClass({
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         setSelectedRow={setSelectedRow}
         totalItems={managedClassList?.totalItems ?? 0}
-        searchHandler={{
-          searchPlaceholder: Text.searchPlaceholder,
-          onSearch: handleSearch,
-        }}
+        // searchHandler={{
+        //   searchPlaceholder: Text.searchPlaceholder,
+        //   onSearch: handleSearch,
+        // }}
         hideFooterSelectedRowCount
       />
       {renderItem}

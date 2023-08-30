@@ -103,6 +103,7 @@ export default function ManageTableWithdrawRequest({
           </CustomDialog>
         </>
       )}
+      <Box mt={2} />
       <ManageTable
         columns={columns.managedWithdrawRequestColumns}
         rows={rows}
@@ -116,10 +117,10 @@ export default function ManageTableWithdrawRequest({
         rowsPerPageOptions={rowsPerPageOptionsDefault}
         // setSelectedRow={setSelectedRow}
         totalItems={managedWithdrawRequestList?.totalItems ?? 0}
-        searchHandler={{
-          searchPlaceholder: Text.searchPlaceholder,
-          onSearch: handleSearch,
-        }}
+        // searchHandler={{
+        //   searchPlaceholder: Text.searchPlaceholder,
+        //   onSearch: handleSearch,
+        // }}
         hideFooterSelectedRowCount
       />
     </>

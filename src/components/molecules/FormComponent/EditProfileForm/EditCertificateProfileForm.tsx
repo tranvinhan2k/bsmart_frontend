@@ -186,7 +186,6 @@ export default function EditCertificateProfileForm() {
                 <Typography sx={SX_FORM_LABEL}>
                   {`${formFieldsCertificate.label} ${1 + index}`}
                 </Typography>
-                /
               </Grid>
               <Grid item xs={12}>
                 <Stack

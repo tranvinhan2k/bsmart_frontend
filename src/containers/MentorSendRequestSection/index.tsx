@@ -19,7 +19,7 @@ export default function MentorSendRequestSection() {
   const enum Text {
     sectionLabel = 'Gửi yêu cầu',
     selectLabel = 'Phân loại',
-    selectUpdateMentorProfile = 'Cập nhật hồ sơ giáo viên',
+    // selectUpdateMentorProfile = 'Cập nhật hồ sơ giáo viên',
     selectWithdraw = 'Rút tiền',
   }
 
@@ -36,11 +36,11 @@ export default function MentorSendRequestSection() {
       component: <WithdrawSection />,
       guide: <WithdrawRequestSectionGuide />,
     },
-    {
-      id: 1,
-      component: <UpdateMentorProfileRequestSection />,
-      guide: <UpdateMentorProfileRequestSectionGuide />,
-    },
+    // {
+    //   id: 1,
+    //   component: <UpdateMentorProfileRequestSection />,
+    //   guide: <UpdateMentorProfileRequestSectionGuide />,
+    // },
   ];
 
   return (
@@ -64,7 +64,7 @@ export default function MentorSendRequestSection() {
                 size="small"
               >
                 <MenuItem value={0}>{Text.selectWithdraw}</MenuItem>
-                <MenuItem value={1}>{Text.selectUpdateMentorProfile}</MenuItem>
+                {/* <MenuItem value={1}>{Text.selectUpdateMentorProfile}</MenuItem> */}
               </TextField>
             </FormControl>
           </Grid>

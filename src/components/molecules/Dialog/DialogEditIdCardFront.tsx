@@ -86,13 +86,13 @@ export default function DialogEditIdCardFront({
 
       if (!isValidGender) {
         identities.push(
-          `Giới tính không trùng với dữ liệu nhập vào: ${response?.sex} và ${profile.gender} }`
+          `Giới tính không trùng với dữ liệu nhập vào: ${response?.sex} và ${profile.gender}`
         );
       }
 
       if (!isValidName) {
         identities.push(
-          `Tên không trùng với dữ liệu nhập vào: ${response?.name} và ${profile.fullName} }`
+          `Tên không trùng với dữ liệu nhập vào: ${response?.name} và ${profile.fullName}`
         );
       }
 

@@ -14,8 +14,8 @@ export default function AnalyticYearRevenue({ year }: Props) {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <BarChartRevenue
-          chartLabel={`Doanh thu ròng của năm ${year}`}
-          chartRowLabel="Doanh thu ròng theo tháng (vnđ)"
+          chartLabel={`Tổng doanh thu của năm ${year}`}
+          chartRowLabel="Tổng doanh thu theo tháng (vnđ)"
           color="#8884d8"
           type="totalIncome"
           data={yearRevenue}
@@ -24,8 +24,8 @@ export default function AnalyticYearRevenue({ year }: Props) {
       </Grid>
       <Grid item xs={12}>
         <BarChartRevenue
-          chartLabel={`Doanh thu thuần của năm ${year}`}
-          chartRowLabel="Doanh thu thuần theo tháng (vnđ)"
+          chartLabel={`Lợi nhuận thực của năm ${year}`}
+          chartRowLabel="Lợi nhuận thự theo tháng (vnđ)"
           color={Color.green}
           type="revenue"
           data={yearRevenue}

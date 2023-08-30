@@ -59,13 +59,13 @@ export default function ManageRequestManagerPage() {
   } = useSearchRegisterRequest({
     status: MentorProfileStatusType.WAITING,
   });
-  const {
-    mentorProfileUpdateRequestList: mentorProfileUpdateRequestPENDING,
-    isLoading: isLoadingMentorProfileUpdateRequest,
-    refetch: refetchMentorProfileUpdateRequestPENDING,
-  } = useSearchMentorProfileUpdateRequest({
-    status: MentorProfileUpdateStatusType.PENDING,
-  });
+  // const {
+  //   mentorProfileUpdateRequestList: mentorProfileUpdateRequestPENDING,
+  //   isLoading: isLoadingMentorProfileUpdateRequest,
+  //   refetch: refetchMentorProfileUpdateRequestPENDING,
+  // } = useSearchMentorProfileUpdateRequest({
+  //   status: MentorProfileUpdateStatusType.PENDING,
+  // });
   const {
     courseCreateRequestList: courseCreateRequestWAITING,
     isLoading: isLoadingCourseCreateRequestWAITING,
@@ -92,16 +92,16 @@ export default function ManageRequestManagerPage() {
         />
       ),
     },
-    {
-      id: 1,
-      component: (
-        <ManageMentorProfileUpdateRequestSection
-          firstList={mentorProfileUpdateRequestPENDING}
-          firstListStatus={MentorProfileUpdateStatusType.PENDING}
-          firstListRefetch={refetchMentorProfileUpdateRequestPENDING}
-        />
-      ),
-    },
+    // {
+    //   id: 1,
+    //   component: (
+    //     <ManageMentorProfileUpdateRequestSection
+    //       firstList={mentorProfileUpdateRequestPENDING}
+    //       firstListStatus={MentorProfileUpdateStatusType.PENDING}
+    //       firstListRefetch={refetchMentorProfileUpdateRequestPENDING}
+    //     />
+    //   ),
+    // },
     {
       id: 2,
       component: (
@@ -127,9 +127,9 @@ export default function ManageRequestManagerPage() {
   const noOfRegisterRequest = registerRequestListWAITING
     ? registerRequestListWAITING.totalItems
     : 0;
-  const noOfMentorUpdaterRequest = mentorProfileUpdateRequestPENDING
-    ? mentorProfileUpdateRequestPENDING.totalItems
-    : 0;
+  // const noOfMentorUpdaterRequest = mentorProfileUpdateRequestPENDING
+  //   ? mentorProfileUpdateRequestPENDING.totalItems
+  //   : 0;
   const noOfCourseCreateRequest = courseCreateRequestWAITING
     ? courseCreateRequestWAITING.totalItems
     : 0;
@@ -146,13 +146,13 @@ export default function ManageRequestManagerPage() {
       indicator: noOfRegisterRequest,
       value: 0,
     },
-    {
-      id: 2,
-      label: Text.MenuItem01,
-      isLoading: isLoadingMentorProfileUpdateRequest,
-      indicator: noOfMentorUpdaterRequest,
-      value: 1,
-    },
+    // {
+    //   id: 2,
+    //   label: Text.MenuItem01,
+    //   isLoading: isLoadingMentorProfileUpdateRequest,
+    //   indicator: noOfMentorUpdaterRequest,
+    //   value: 1,
+    // },
     { id: 3, label: Text.ListSubheader1, isListSubheader: true },
     {
       id: 4,
@@ -170,8 +170,7 @@ export default function ManageRequestManagerPage() {
     // },
   ];
 
-  const totalRequest =
-    noOfRegisterRequest + noOfMentorUpdaterRequest + noOfCourseCreateRequest;
+  const totalRequest = noOfRegisterRequest + noOfCourseCreateRequest;
 
   return (
     <Box padding={3}>
