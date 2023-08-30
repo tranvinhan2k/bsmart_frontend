@@ -9,6 +9,9 @@ import ManageTableDetailsManagedMember from '~/components/molecules/ManageTableD
 import ManageTableDetailsManagedMentor from '~/components/molecules/ManageTableDetailsManagedMentor';
 import { ManagedMentorPayload } from '~/models/type';
 import CustomModal from '~/components/atoms/CustomModal';
+import { useMutationProcessManagerRequestEditMentor } from '~/hooks/user/useMutationProcessManagerRequestEditMentor';
+import toast from '~/utils/toast';
+import { toastMsgError } from '~/utils/common';
 
 interface ManageTableUserProps {
   userRole: 'TEACHER' | 'STUDENT';
@@ -25,6 +28,7 @@ export default function ManageTableUser({
     optionNotSupport = 'Chưa hỗ trợ',
     optionViewDetails = 'Xem chi tiết',
     optionViewRevenue = 'Xem doanh thu',
+    optionRequestEdit = 'Yêu cầu chỉnh sửa',
   }
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<'READ' | 'REVENUE' | ''>('');
@@ -64,6 +68,28 @@ export default function ManageTableUser({
     setMode(() => 'REVENUE');
   };
 
+  const { processManagerRequestEditMentor } =
+    useMutationProcessManagerRequestEditMentor();
+
+  const toastMsgLoading = 'Đang xử lý...';
+  const toastMsgSuccess = 'Xử lý thành công';
+  const handleRequestEdit = async () => {
+    // console.log('selectedRow.mentorProfile.id', selectedRow.mentorProfile.id);
+    if (selectedRow) {
+      const id = toast.loadToast(toastMsgLoading);
+      try {
+        await processManagerRequestEditMentor.mutateAsync(
+          selectedRow.mentorProfile.id
+        );
+        refetchGetNoOfRequest();
+
+        toast.updateSuccessToast(id, toastMsgSuccess);
+      } catch (e: unknown) {
+        toast.updateFailedToast(id, toastMsgError(e));
+      }
+    }
+  };
+
   const optionListDefault: MenuItemPayload[] = [
     {
       icon: 'question',
@@ -71,7 +97,24 @@ export default function ManageTableUser({
       onCLick: () => {},
     },
   ];
-  const optionListViewDetails: MenuItemPayload[] = [
+  const optionListViewDetailsMentor: MenuItemPayload[] = [
+    {
+      icon: 'category',
+      title: Text.optionViewDetails,
+      onCLick: handleOpenManagedUserDetails,
+    },
+    {
+      icon: 'biMoney',
+      title: Text.optionViewRevenue,
+      onCLick: handleOpenManageRevenue,
+    },
+    {
+      icon: 'edit',
+      title: Text.optionRequestEdit,
+      onCLick: handleRequestEdit,
+    },
+  ];
+  const optionListViewDetailsStudent: MenuItemPayload[] = [
     {
       icon: 'category',
       title: Text.optionViewDetails,
@@ -89,12 +132,12 @@ export default function ManageTableUser({
   let renderSearchPlaceholder;
   switch (userRole) {
     case 'TEACHER':
-      renderOptions = optionListViewDetails;
+      renderOptions = optionListViewDetailsMentor;
       renderColumns = columns.managedUserMentorColumns;
       renderSearchPlaceholder = Text.searchPlaceholderMentor;
       break;
     case 'STUDENT':
-      renderOptions = optionListViewDetails;
+      renderOptions = optionListViewDetailsStudent;
       renderColumns = columns.managedUserMemberColumns;
       renderSearchPlaceholder = Text.searchPlaceholderMember;
       break;

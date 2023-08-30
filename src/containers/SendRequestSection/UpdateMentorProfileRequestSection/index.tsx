@@ -1,13 +1,32 @@
-import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { Fragment, useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Stack,
+  Tooltip,
+  TooltipProps,
+  Typography,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { defaultValueUpdateMentorProfileRequest } from '~/form/defaultValues';
+import FormInput from '~/components/atoms/FormInput';
+import DialogEditAvatarEditProfile from '~/components/molecules/Dialog/DialogEditAvatarEditProfile';
+import DialogEditIdCardBackEditProfile from '~/components/molecules/Dialog/DialogEditIdCardBackEditProfile';
+import DialogEditIdCardFrontEditProfile from '~/components/molecules/Dialog/DialogEditIdCardFrontEditProfile';
 import { genderData } from '~/constants';
+import { image } from '~/constants/image';
+import { ProfileImgType } from '~/constants/profile';
+import { defaultValueUpdateMentorProfileRequest } from '~/form/defaultValues';
 import { TRY_CATCH_AXIOS_DEFAULT_ERROR } from '~/form/message';
+import { validationSchemaUpdateMentorProfileRequest2 } from '~/form/validation';
 import { useDispatchGetAllSubjects, useYupValidationResolver } from '~/hooks';
 import { useGetMentorEditProfile } from '~/hooks/user/useGetEditProfile';
 import { useMutationSendUpdateMentorProfileRequest } from '~/hooks/user/useMutationSendUpdateMentorProfileRequest';
-import { validationSchemaUpdateMentorProfileRequest2 } from '~/form/validation';
+import {
+  useMutationUpdateMentorProfileRequest,
+  UseMutationUpdateMentorProfileRequestPayload,
+} from '~/hooks/user/useMutationUpdateMentorProfileRequest';
 import {
   DropdownDynamicValueInputBooleanDataPayload,
   DropdownDynamicValueInputNumberDataPayload,
@@ -17,19 +36,11 @@ import {
   FormInputVariant,
   UpdateMentorProfileRequestProfileFormDefault,
 } from '~/models/form';
-import {
-  IdentityImgHeight,
-  IdentityImgWidth,
-  ProfileImgType,
-} from '~/constants/profile';
-import {
-  useMutationUpdateMentorProfileRequest,
-  UseMutationUpdateMentorProfileRequestPayload,
-} from '~/hooks/user/useMutationUpdateMentorProfileRequest';
-import FormInput from '~/components/atoms/FormInput';
-import Icon from '~/components/atoms/Icon';
 import toast from '~/utils/toast';
+import DialogDegreeEditProfile from './DialogDegreeEditProfile';
 import sx from './style';
+import UpdateMentorProfileDegree from './UpdateMentorProfileDegree';
+import UpdateMentorProfileRequestSkill from './UpdateMentorProfileRequestSkill';
 
 interface FormFieldsPersonalProps {
   name: string;
@@ -42,6 +53,14 @@ interface FormFieldsPersonalProps {
     | DropdownDynamicValueInputStringDataPayload
   )[];
   size: number;
+}
+
+interface CIItemType {
+  id: number;
+  img: string;
+  onClickAction: () => void;
+  text: string;
+  toolTipArrowPlacement: TooltipProps['placement'];
 }
 
 const enum IntroduceExperienceNoteText {
@@ -243,46 +262,38 @@ export default function UpdateMentorProfileRequestSection() {
   const handleSubmitSuccess = async (
     data: UpdateMentorProfileRequestProfileFormDefault
   ) => {
-    // if (profile) {
-    //   const params: UseMutationUpdateMentorProfileRequestPayload = {
-    //     // avatar: data.avatar,
-    //     fullName: data.fullName,
-    //     birthday: data.birthday,
-    //     address: data.address,
-    //     phone: data.phone,
-    //     gender: data.gender ? data.gender.value : genderData[0].value,
-    //     mentorProfile: {
-    //       id: profile.userDto.mentorProfile.id,
-    //       introduce: data.introduce,
-    //       workingExperience: data.workingExperience,
-    //       status: profile.userDto.mentorProfile.status,
-    //       mentorSkills: [],
-    //     },
-    //     email: profile.userDto.email,
-    //     status: profile.userDto.status,
-    //     linkedinLink: profile.userDto.linkedinLink,
-    //     facebookLink: profile.userDto.facebookLink,
-    //     website: profile.userDto.website,
-    //     verified: profile.userDto.verified,
-    //   };
-    //   data?.mentorSkills.forEach((item: any) => {
-    //     params.mentorProfile.mentorSkills.push({
-    //       skillId: item.skillId.id,
-    //       yearOfExperiences: item.yearOfExperiences,
-    //       name:
-    //         subjects.find((subject) => subject.id === item.skillId.id)?.label ??
-    //         '',
-    //     });
-    //   });
-    //   const id = toast.loadToast(toastMsgLoading);
-    //   try {
-    //     await mutateUpdate(params);
-    //     refetch();
-    //     toast.updateSuccessToast(id, toastMsgSuccess);
-    //   } catch (error: any) {
-    //     toast.updateFailedToast(id, toastMsgError(error));
-    //   }
-    // }
+    if (profile) {
+      const params: UseMutationUpdateMentorProfileRequestPayload = {
+        // avatar: data.avatar,
+        fullName: data.fullName,
+        birthday: data.birthday,
+        address: data.address,
+        phone: data.phone,
+        gender: data.gender ? data.gender.value : genderData[0].value,
+        userImages: profile.userDto.userImages,
+        mentorProfile: {
+          id: profile.userDto.mentorProfile.id,
+          introduce: data.introduce,
+          workingExperience: data.workingExperience,
+          mentorSkills: profile.userDto.mentorProfile.mentorSkills,
+        },
+        email: profile.userDto.email,
+        status: profile.userDto.status,
+        linkedinLink: profile.userDto.linkedinLink,
+        facebookLink: profile.userDto.facebookLink,
+        website: profile.userDto.website,
+        verified: profile.userDto.verified,
+      };
+      console.log('params', params);
+      // const id = toast.loadToast(toastMsgLoading);
+      // try {
+      //   await mutateUpdate(params);
+      //   refetch();
+      //   toast.updateSuccessToast(id, toastMsgSuccess);
+      // } catch (error: any) {
+      //   toast.updateFailedToast(id, toastMsgError(error));
+      // }
+    }
   };
 
   const toastMsgLoading1 = 'Đang Gửi...';
@@ -312,6 +323,46 @@ export default function UpdateMentorProfileRequestSection() {
     }
   };
 
+  const [openAvatar, setOpenAvatar] = useState<boolean>(false);
+  const [openIdentityFront, setOpenIdentityFront] = useState<boolean>(false);
+  const [openIdentityBack, setOpenIdentityBack] = useState<boolean>(false);
+  const [openDegree, setOpenDegree] = useState<boolean>(false);
+
+  const handleToggleAvatar = () => setOpenAvatar(!openAvatar);
+  const handleToggleIdentityFront = () =>
+    setOpenIdentityFront(!openIdentityFront);
+  const handleToggleIdentityBack = () => setOpenIdentityBack(!openIdentityBack);
+  const handleToggleOpenDegree = () => setOpenDegree(!openDegree);
+
+  // const avatarLink = handleGetImageLink(profile ? profile?.userDto.userImages, 'AVATAR' );
+  const avatarLink =
+    profile?.userDto.userImages.find(
+      (img: any) => img?.type === ProfileImgType.AVATAR
+    )?.url || image.noAvatar;
+
+  const CI: CIItemType[] = [
+    {
+      id: 0,
+      img:
+        profile?.userDto.userImages.find(
+          (img: any) => img?.type === ProfileImgType.FRONTCI
+        )?.url || image.noAvatar,
+      onClickAction: handleToggleIdentityFront,
+      text: 'CMND/CCCD Mặt trước',
+      toolTipArrowPlacement: 'bottom',
+    },
+    {
+      id: 2,
+      img:
+        profile?.userDto.userImages.find(
+          (img: any) => img?.type === ProfileImgType.BACKCI
+        )?.url || image.noAvatar,
+      onClickAction: handleToggleIdentityBack,
+      text: 'CMND/CCCD Mặt sau',
+      toolTipArrowPlacement: 'bottom',
+    },
+  ];
+
   return (
     <Box sx={sx.boxWrapper}>
       <Typography component="h3" sx={sx.formTitle}>
@@ -333,234 +384,147 @@ export default function UpdateMentorProfileRequestSection() {
               />
             </Grid>
           ))}
+        </Grid>
+
+        <Grid container>
           <Grid item xs={12}>
             <Stack
               direction="column"
               justifyContent="flex-start"
-              alignItems="stretch"
-              mt={2}
+              alignItems="center"
+              spacing={2}
             >
               <Typography sx={sx.formLabel} textAlign="center">
                 Ảnh đại diện
               </Typography>
-              <FormInput
-                control={control}
-                name="avatar"
-                variant="image"
-                previewImgHeight={250}
-                previewImgWidth={250}
-              />
+              <Button sx={{ borderRadius: 5 }} onClick={handleToggleAvatar}>
+                <Tooltip title="Cập nhật" arrow placement="bottom">
+                  <Box
+                    alt="mentor avatar"
+                    component="img"
+                    src={avatarLink}
+                    sx={{
+                      width: 300,
+                      height: 300,
+                      borderRadius: 5,
+                    }}
+                  />
+                </Tooltip>
+              </Button>
+              {/* <Typography sx={SX_FORM_LABEL}>{item.text}</Typography> */}
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={6}>
+          <Grid item xs={12}>
             <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              mt={2}
-              sx={{ width: '100%' }}
+              direction={{ md: 'column', lg: 'row' }}
+              justifyContent={{ md: 'flex-start', lg: 'center' }}
+              alignItems={{ md: 'center', lg: 'flex-start' }}
+              spacing={2}
             >
-              <Typography sx={sx.formLabel} textAlign="center">
-                CMND/CCCD (Mặt trước)
-              </Typography>
-              <FormInput
-                control={control}
-                name="identityFront"
-                variant="image"
-                previewImgHeight={IdentityImgHeight * imgSizeReduction}
-                previewImgWidth={IdentityImgWidth * imgSizeReduction}
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={6}>
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              mt={2}
-              sx={{ width: '100%' }}
-            >
-              <Typography sx={sx.formLabel} textAlign="center">
-                CMND/CCCD (Mặt sau)
-              </Typography>
-              <FormInput
-                control={control}
-                name="identityBack"
-                variant="image"
-                previewImgHeight={IdentityImgHeight * imgSizeReduction}
-                previewImgWidth={IdentityImgWidth * imgSizeReduction}
-              />
+              {CI.map((item) => (
+                <Stack
+                  direction="column"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={2}
+                  key={item.id}
+                >
+                  <Typography sx={sx.formLabel} textAlign="center">
+                    {item.text}
+                  </Typography>
+                  <Button onClick={item.onClickAction} sx={{ borderRadius: 5 }}>
+                    <Tooltip
+                      title="Cập nhật"
+                      arrow
+                      placement={item.toolTipArrowPlacement}
+                    >
+                      <Box
+                        alt="mentor avatar"
+                        component="img"
+                        src={item.img}
+                        sx={{
+                          width: '100%',
+                          maxWidth: 370,
+                          height: 200,
+                          borderRadius: 5,
+                        }}
+                        onClick={item.onClickAction}
+                      />
+                    </Tooltip>
+                  </Button>
+                </Stack>
+              ))}
             </Stack>
           </Grid>
         </Grid>
 
-        {/* MENTOR-PROFILE */}
-        <Box mt={8}>
-          <Box mb={2}>
-            <Typography component="h3" sx={sx.formTitle}>
-              Thông tin giảng dạy
-            </Typography>
-            <Divider sx={{ marginY: 1 }} />
-          </Box>
-          <Box my={2}>
-            {introduceExperienceNoteList.map((item) => (
-              <Typography component="h3" key={item.id}>
-                <b>{item.id + 1}.</b> {item.label}
-              </Typography>
-            ))}
-          </Box>
-          <Grid container>
-            <Grid item xs={12}>
-              <Typography sx={sx.formLabel}>Giới thiệu</Typography>
-              <Box mt={2} />
-              <FormInput
-                control={control}
-                name="introduce"
-                variant="editor"
-                placeholder="Nhập giới thiệu"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography sx={sx.formLabel}>Kinh nghiệm</Typography>
-              <Box mt={2} />
-              <FormInput
-                control={control}
-                name="workingExperience"
-                variant="editor"
-                placeholder="Nhập giới thiệu"
-              />
-            </Grid>
-
-            {/* SKILL */}
-            <Grid item xs={12}>
-              <Typography sx={sx.formLabel}>Chuyên môn</Typography>
-              <Grid container spacing={2} mt={2} mb={2}>
-                <Grid item xs={6}>
-                  <Typography sx={sx.formItemLabel}>Kĩ năng</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography sx={sx.formItemLabel}>
-                    Số năm kinh nghiệm
-                  </Typography>
-                </Grid>
-                {mentorSkillsFields.map((field, index) => (
-                  <Fragment key={field.id}>
-                    <Grid item xs={6}>
+        {/* DEGREE */}
+        {/* <Grid item xs={12}>
+          <Typography sx={sx.formLabel}>
+            Danh sách bằng cấp / CV thêm
+          </Typography>
+          <Button
+            variant="contained"
+            color="miSmartOrange"
+            sx={{ width: '50%' }}
+            fullWidth
+            onClick={handleToggleOpenDegree}
+          >
+            Thêm bằng cấp
+          </Button>
+          <Grid container spacing={2} mb={1}>
+            {degreeFields.map((field, index) => {
+              return (
+                <Fragment key={field.id}>
+                  <Grid item xs={12}>
+                    <Typography sx={sx.formLabel}>
+                      {`Tài liệu bằng cấp / CV ${1 + index}`}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Stack
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="stretch"
+                      spacing={2}
+                    >
                       <FormInput
                         control={control}
-                        dataDropdownDynamicValue={subjects}
-                        name={`mentorSkills[${index}].skillId`}
-                        variant="dropdownDynamicValue"
-                        placeholder="Nhập kĩ năng"
+                        name={`degreeList[${index}]`}
+                        variant="fileRequireYup"
+                        placeholder=""
                       />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Stack
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                        spacing={2}
+                      <Button
+                        color="error"
+                        size="small"
+                        variant="outlined"
+                        onClick={() =>
+                          removeDegree(index, getValues(`degreeList[${index}]`))
+                        }
                       >
-                        <FormInput
-                          control={control}
-                          name={`mentorSkills[${index}].yearOfExperiences`}
-                          variant="number"
-                          placeholder="Nhập số năm kinh nghiệm"
-                        />
-                        <Button
-                          color="error"
-                          size="small"
-                          variant="outlined"
-                          onClick={() => removeSkill(index)}
-                        >
-                          <Icon name="delete" size="medium" />
-                        </Button>
-                      </Stack>
-                    </Grid>
-                  </Fragment>
-                ))}
-              </Grid>
-              <Button
-                color="success"
-                size="large"
-                variant="outlined"
-                onClick={() => appendSkill()}
-              >
-                <Icon name="add" size="medium" />
-              </Button>
-            </Grid>
-
-            {/* DEGREE */}
-            <Grid item xs={12}>
-              <Typography sx={sx.formLabel}>Bằng cấp / CV</Typography>
-              <Box my={2}>
-                {certificateNoteList.map((item) => (
-                  <Typography component="h3" key={item.id}>
-                    {item.id + 1}. {item.label}
-                  </Typography>
-                ))}
-                <Typography component="h3">
-                  {certificateNoteList.length + 1}.{' '}
-                  {CertificateNoteText.label41} :{' '}
-                  <b>{CertificateNoteText.label42}</b>
-                </Typography>
-              </Box>
-              <Grid container spacing={2} mb={1}>
-                {degreeFields.map((field, index) => {
-                  return (
-                    <Fragment key={field.id}>
-                      <Grid item xs={12}>
-                        <Typography sx={sx.formLabel}>
-                          {`Tài liệu bằng cấp / CV ${1 + index}`}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Stack
-                          direction="row"
-                          justifyContent="center"
-                          alignItems="stretch"
-                          spacing={2}
-                        >
-                          <FormInput
-                            control={control}
-                            name={`degreeList[${index}]`}
-                            variant="fileRequireYup"
-                            placeholder=""
-                          />
-                          <Button
-                            color="error"
-                            size="small"
-                            variant="outlined"
-                            onClick={() =>
-                              removeDegree(
-                                index,
-                                getValues(`degreeList[${index}]`)
-                              )
-                            }
-                          >
-                            <Icon name="delete" size="medium" />
-                          </Button>
-                        </Stack>
-                      </Grid>
-                    </Fragment>
-                  );
-                })}
-              </Grid>
-
-              <Box mt={4}>
-                <Button
-                  color="success"
-                  size="large"
-                  variant="outlined"
-                  onClick={() => appendDegree()}
-                >
-                  <Icon name="add" size="medium" />
-                </Button>
-              </Box>
-            </Grid>
+                        <Icon name="delete" size="medium" />
+                      </Button>
+                    </Stack>
+                  </Grid>
+                </Fragment>
+              );
+            })}
           </Grid>
-        </Box>
+
+          <Box mt={4}>
+            <Button
+              color="success"
+              size="large"
+              variant="outlined"
+              onClick={() => appendDegree()}
+            >
+              <Icon name="add" size="medium" />
+            </Button>
+          </Box>
+        </Grid> */}
+
         {/* BUTTON */}
+
         <Stack
           direction="row"
           justifyContent="center"
@@ -573,7 +537,7 @@ export default function UpdateMentorProfileRequestSection() {
             color="miSmartOrange"
             type="submit"
             fullWidth
-            disabled={!formState.isDirty || Boolean(profile?.id)}
+            // disabled={!formState.isDirty || Boolean(profile?.id)}
           >
             Lưu lại
           </Button>
@@ -588,6 +552,25 @@ export default function UpdateMentorProfileRequestSection() {
           </Button>
         </Stack>
       </form>
+      <UpdateMentorProfileRequestSkill />
+      <UpdateMentorProfileDegree />
+
+      <DialogEditAvatarEditProfile
+        open={openAvatar}
+        handleOnClose={handleToggleAvatar}
+      />
+      <DialogEditIdCardFrontEditProfile
+        open={openIdentityFront}
+        handleOnClose={handleToggleIdentityFront}
+      />
+      <DialogEditIdCardBackEditProfile
+        open={openIdentityBack}
+        handleOnClose={handleToggleIdentityBack}
+      />
+      <DialogDegreeEditProfile
+        open={openDegree}
+        handleOnClose={handleToggleOpenDegree}
+      />
     </Box>
   );
 }

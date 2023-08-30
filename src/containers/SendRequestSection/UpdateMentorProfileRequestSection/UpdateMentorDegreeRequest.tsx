@@ -88,23 +88,23 @@ export default function UpdateMentorDegree() {
   const handleSubmitSuccess = async (
     data: EditCertificateProfileFormDataPayload
   ) => {
-    const params: EditCertificateProfilePayload = {
-      userImages: data.userImages,
-    };
-    data.userImages.forEach((e, index) => {
-      remove(index);
-    });
-    const id = toast.loadToast(toastMsgLoading);
-    try {
-      await mutateUpdateDegreeRequest(params);
-      resetForm();
-      refetchProfile();
-      refetchRequestInfo();
-      handleDispatchProfile();
-      toast.updateSuccessToast(id, toastMsgSuccess);
-    } catch (error: unknown) {
-      toast.updateFailedToast(id, toastMsgError(error));
-    }
+    // const params: EditCertificateProfilePayload = {
+    //   userImages: data.userImages,
+    // };
+    // data.userImages.forEach((e, index) => {
+    //   remove(index);
+    // });
+    // const id = toast.loadToast(toastMsgLoading);
+    // try {
+    //   await mutateUpdateDegreeRequest(params);
+    //   resetForm();
+    //   refetchProfile();
+    //   refetchRequestInfo();
+    //   handleDispatchProfile();
+    //   toast.updateSuccessToast(id, toastMsgSuccess);
+    // } catch (error: unknown) {
+    //   toast.updateFailedToast(id, toastMsgError(error));
+    // }
   };
 
   interface FormFieldsCertificateProps {

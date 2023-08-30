@@ -46,6 +46,9 @@ const registerRequestsApi = {
       message: data.message,
     });
   },
+  processManagerRequestEditMentor(id: number): Promise<boolean> {
+    return axiosClient.put(`${url}/${id}/change-edit-request`);
+  },
   processChangeContentRequest(
     data: UseMutationRequestChangeContentPayload
   ): Promise<boolean> {

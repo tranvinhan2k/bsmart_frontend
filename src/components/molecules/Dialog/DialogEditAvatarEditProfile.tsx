@@ -17,15 +17,15 @@ import UpdateProfileButton from '~/components/atoms/Button/UpdateProfileButton';
 import toast from '~/utils/toast';
 import { toastMsgError } from '~/utils/common';
 
-interface DialogEditAvatarProps {
+interface DialogEditAvatarEditProfileProps {
   open: boolean;
   handleOnClose: () => void;
 }
 
-export default function DialogUpdateAvatar({
+export default function DialogEditAvatarEditProfile({
   open,
   handleOnClose,
-}: DialogEditAvatarProps) {
+}: DialogEditAvatarEditProfileProps) {
   const profile = useSelector(selectProfile);
 
   const resolverEditAvatar = useYupValidationResolver(
@@ -45,7 +45,7 @@ export default function DialogUpdateAvatar({
     const params: EditImageProfilePayload = {
       imageType: ProfileImgType.AVATAR,
       file: data.avatar,
-      status: true,
+      status: false,
     };
     const id = toast.loadToast(toastMsgLoading);
     try {
@@ -53,7 +53,7 @@ export default function DialogUpdateAvatar({
       handleOnClose();
       handleDispatchProfile();
       toast.updateSuccessToast(id, toastMsgSuccess);
-      reset();
+      // reset();
     } catch (error: unknown) {
       toast.updateFailedToast(id, toastMsgError(error));
     }
@@ -96,11 +96,17 @@ export default function DialogUpdateAvatar({
           >
             Hủy
           </MuiButton>
-          <UpdateProfileButton
-            role={profile.roles?.[0]?.code}
-            isFormDisabled={!formState.isDirty}
-            mentorProfileStatus={profile?.mentorProfile?.status}
-          />
+          <MuiButton
+            color="miSmartOrange"
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            sx={{ fontFamily: FontFamily.bold }}
+            disabled={!formState.isDirty}
+          >
+            Cập nhật
+          </MuiButton>
         </Stack>
       </form>
     </CustomDialog>
