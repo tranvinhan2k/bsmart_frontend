@@ -37,7 +37,7 @@ export default function ManageTableCourse({
   const [q, setQ] = useState<string>('');
   const [page, setPage] = useState<number>(0);
   const [size, setSize] = useState<number>(rowsPerPageOptionsDefault[0]);
-  const [sort, setSort] = useState<string[]>([]);
+  const [sort, setSort] = useState<string[]>(['created,desc']);
   const handleNewPage = (params: number) => setPage(params);
   const handleNewSize = (params: number) => setSize(params);
   const handleTriggerDialog = () => setOpen(!open);

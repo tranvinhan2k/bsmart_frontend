@@ -115,10 +115,10 @@ interface Props {
 const formatChartMoneyValue = (value: number) => {
   let shortValue: string = value.toString();
   if (value > 1000000) {
-    shortValue = `${value / 1000000} Triệu`;
+    shortValue = `${(value / 1000000).toFixed(2)} Triệu`;
   }
   if (value > 1000000000) {
-    shortValue = `${value / 1000000000} Tỷ`;
+    shortValue = `${(value / 1000000000).toFixed(2)} Tỷ`;
   }
   return shortValue;
 };
